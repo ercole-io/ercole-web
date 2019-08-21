@@ -12,8 +12,7 @@ before_install:
 script:
   - npm install
   - npm run build
-  - cd dist
-  - tar -zcvf ../ercole-web-${VERSION}.tar.gz .
+  - tar -C dist -cvzf ercole-web-${VERSION}.tar.gz .
 deploy:
   provider: releases
   file_glob: true
