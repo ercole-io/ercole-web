@@ -1,5 +1,6 @@
 # ercole-web
- 
+[![Build Status](https://travis-ci.org/ercole-io/ercole-web.svg?branch=master)](https://travis-ci.org/ercole-io/ercole-web)
+
 This is the frontend for the Ercole project. Documentation available [here](https://ercole.io).
 
 ## Requirements
