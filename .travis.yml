@@ -1,0 +1,25 @@
+os: linux
+dist: xenial
+language: node_js
+node_js:
+- 9.5.0
+
+before_install:
+  - if [ -z ${TRAVIS_TAG} ] || [ ${TRAVIS_TAG} == *-* ]; then export VERSION=latest; else export VERSION=${TRAVIS_TAG}; fi
+  - echo ${TRAVIS_TAG}
+  - echo ${VERSION}
+
+script:
+  - npm install
+  - npm run build
+  - tar -zcvf ercole-web-${VERSION}.tar.gz dist
+deploy:
+  provider: releases
+  file_glob: true
+  file: ercole-web-*.tar.gz
+  skip_cleanup: true
+  api_key:
+    secure: Uoq+lYI6TFikykosVxK1YcGsO23Rfhf778yrMYwclo0b5+/lHj8zbwyTCvhitF78WeMj4Qyj4zWlcJmnv8ncQ16z5of8gJWBa5snCTIjV+FaA313iLyIBYDeo2S9hPLnbDCSrSS3YpFyvdluoTkJcIj3h2Pc/TV8uTNOILpwqY4cXNde6R+swuw3H7yvLYIYI1dGjSc3tTk3D7ux6KAV5zme1OuD1ESS9AB3wRPS7H/gqKVhCUjcIh+wSvLRxzEka2PZMNodaw856AgN5IUfcdhQGY52JMVNQ+hFbJj4SzQyxy3e4fRyFrPH/4lp7bMUM3nMD9WJKFtMkY1IZtHWNtswD7jR7nm5XElcvfr7HQEpJZNWcXPiDIFzol1Q9blIYBTH0E//NJWOXHWGXglocyX6aLeHN1N3iLbmoU+8sBJe1x3tSvKTpM6mQJrGcZ9OQDKBuM1YpuuB7KNd4ggLv8/UDOy5+bcILQ2JLOAyM1Rv9VJzcpqJ00GMvrupeoRfg15JaAaULK30vypz5ePcPC9wiyXFlTrgOSeLaFZK/nPvP/FVFMhJC6jT1e+QjvSZfo0tOdn3EYJ43blDwOI0G9NccUZAXp9Zk139JvNlgEOn+DTz2FLiIb4OfviYh4U68jCaF4dBIor3z+bAKIxAOW+WucIWFnNxdU6ZYxjV5Os=
+  on:
+    repo: ercole-io/ercole-web
+    tags: true
