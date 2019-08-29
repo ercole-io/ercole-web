@@ -31,13 +31,13 @@ export default {
 	data () {
 		return {
 			fields: [ 
+				{ key: "Name", label: "Name" },
 				{ key: "Status", label: "Status" },
 				{ key: "UsedPerc", label: "Used Perc" },
 				{ key: "Used", label: "Used GB" },
 				{ key: "Total", label: "Total"},
 				{ key: "Database", label: "Database"  },
-				{ key: "MaxSize", label: "Max Size" },
-				{ key: "Name", label: "Name" },
+				{ key: "MaxSize", label: "Max Size" }
 			]
 		}
 	},
