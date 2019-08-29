@@ -19,7 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <b-table bordered hover 
 			show-empty
 			empty-text="No filesystem."
-			:items="filesystem">
+			:items="filesystem"
+			:fields="fields"
+			responsive>
 		</b-table>
 </template>
 
@@ -31,8 +33,21 @@ export default {
 			default: function() {
 				return [];
 			}
+		},
+	},
+	data() {
+		return {
+			fields: [
+				{ "key": "UsedPerc", "label": "Used Perc" },
+				{ "key": "Used", "label": "Used" },
+				{ "key": "Size", "label": "Size" },
+				{ "key": "FsType", "label": "FS Type" },
+				{ "key": "Available", "label": "Available" },
+				{ "key": "Filesystem", "label": "Filesystem" },
+				{ "key": "MountedOn", "label": "Mounted On" }
+			]
 		}
-	}
+	},
 };
 </script>
 
