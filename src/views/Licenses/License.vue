@@ -17,10 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <template>
 	<div class="container">
-		<b-table v-if="this.hosts != null" bordered hover 
+		<b-table v-if="this.items != null" bordered hover 
 			show-empty
 			empty-text="No Hosts using the license."
-			:items="hosts"
+			:items="items"
 			:fields="fields"
 		>
 			<template slot="hostname" slot-scope="data">
@@ -41,15 +41,15 @@ export default {
 	},
 	data() {
 		return {
-			hosts: null,
-			fields: ['hostname']
+			items: null,
+			fields: ['hostname', 'dbs']
 		};
 	},
 	methods: {
 		loadData() {
 			LicenseService.getHostUsingLicense(this.id)
 				.then(items => {
-					this.hosts = items;
+					this.items = items;
 				})
 				.catch(() => {
 					this.$noty.error(`Unable to the hosts using the license ${this.id}`);
