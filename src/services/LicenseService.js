@@ -111,9 +111,7 @@ function getHostUsingLicense(lc) {
 	return axios
 		.request(config)
 		.then(res => {
-			return res.data.map(item => {
-				return { hostname: item };
-			});
+			return res.data;
 		})
 		.catch(err => {
 			return Promise.reject(err);
