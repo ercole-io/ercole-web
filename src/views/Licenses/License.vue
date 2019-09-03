@@ -23,6 +23,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			:items="hosts"
 			:fields="fields"
 		>
+			<template slot="hostname" slot-scope="data">
+				<a href="#" @click="showDetail(data.item)">
+					{{data.value}}
+				</a>
+			</template>
 		</b-table>
 	</div>
 </template>
@@ -49,7 +54,10 @@ export default {
 				.catch(() => {
 					this.$noty.error(`Unable to the hosts using the license ${this.id}`);
 				});
-		}
+		},
+		showDetail(item /*, index, event*/) {
+			this.$router.push({ name: 'host_detail', params: { id: item.hostname } });
+		},
 	},
 	computed: {
 		id() {
