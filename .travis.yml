@@ -16,7 +16,7 @@ before_install:
 script:
   - if [[ ${VERSION} == "latest" ]]; then sed -r 's/(ercole-agent((-virtualization)|(-setup))?)-(.*)((-1(.el[567])?.x86_64.rpm)|.exe)/\1-latest\6/' src/views/Agent.vue > /tmp/Agent.vue; fi
   - if [[ ${VERSION} == "latest" ]]; then cp /tmp/Agent.vue src/views/Agent.vue; fi
-  - if [[ ${VERSION} == "latest" ]]; then sed -r "s/(Ercole )(.*)( &copy; 2018-19 Sorint.lab S.p.A.)/\1latest\3/" src/App.vue' src/App.vue > /tmp/App.vue; fi
+  - if [[ ${VERSION} == "latest" ]]; then sed -r 's/(Ercole )(.*)( &copy; 2018-19 Sorint.lab S.p.A.)/\1latest\3/' src/App.vue src/App.vue > /tmp/App.vue; fi
   - if [[ ${VERSION} == "latest" ]]; then cp /tmp/App.vue src/views/App.vue; fi
   - npm install
   - npm run build
