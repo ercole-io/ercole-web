@@ -53,6 +53,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					</div>
 					<b-card no-body>
 						<b-tabs card>
+							<b-tab :disabled="db.Licenses == null">
+								<template slot="title">
+									<i class="fas fa-certificate"></i> Licenses
+								</template>
+								<Licenses :licenses="db.Licenses" v-if="db.Licenses"></Licenses>
+							</b-tab>
+							<b-tab :disabled="db.Features == null">
+								<template slot="title">
+									<i class="fas fa-cubes"></i> Features
+								</template>
+								<Features :features="db.Features" v-if="db.Features"></Features>
+							</b-tab>
 							<b-tab :disabled="db.Tablespaces == null">
 								<template slot="title">
 									<i class="fas fa-th-large"></i> Tablespaces
@@ -65,23 +77,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								</template>
 								<Schema :schemas="db.Schemas" v-if="db.Schemas"></Schema>
 							</b-tab>
-							<b-tab  :disabled="db.Licenses == null">
-								<template slot="title">
-									<i class="fas fa-certificate"></i> Licenses
-								</template>
-								<Licenses :licenses="db.Licenses" v-if="db.Licenses"></Licenses>
-							</b-tab>
-							<b-tab  :disabled="db.Features == null">
-								<template slot="title">
-									<i class="fas fa-cubes"></i> Features
-								</template>
-								<Features :features="db.Features" v-if="db.Features"></Features>
-							</b-tab>
 							<b-tab  :disabled="db.Patches == null">
 								<template slot="title">
 									<i class="fab fa-product-hunt"></i> Patches
 								</template>
 								<Patches :patches="db.Patches" v-if="db.Patches"></Patches>
+							</b-tab>
+							<b-tab  :disabled="db.LastPSUs == null">
+								<template slot="title">
+									<i class="fab fa-product-hunt"></i> PSUs
+								</template>
+								<PSUs :psus="db.LastPSUs" v-if="db.LastPSUs"></PSUs>
 							</b-tab>
 							<b-tab  :disabled="db.ADDMs == null">
 								<template slot="title">
@@ -95,23 +101,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								</template>
 								<SegmentAdvisors :segmentAdvisors="db.SegmentAdvisors" v-if="db.SegmentAdvisors"></SegmentAdvisors>
 							</b-tab>
-							<b-tab  :disabled="db.LastPSUs == null">
+							<b-tab>
 								<template slot="title">
-									<i class="fab fa-product-hunt"></i> PSUs
+									<i class="fas fa-chart-area"></i> DBGrowth
 								</template>
-								<PSUs :psus="db.LastPSUs" v-if="db.LastPSUs"></PSUs>
+								<TimeLineChart :height="300" v-if="grow" :chartData="databasesGrowChartData[db.Name]"></TimeLineChart>
 							</b-tab>
 							<b-tab  :disabled="db.Backups == null">
 								<template slot="title">
 									<i class="fab fa-product-hunt"></i> Backups
 								</template>
 								<Backups :backups="db.Backups" v-if="db.Backups"></Backups>
-							</b-tab>
-							<b-tab>
-								<template slot="title">
-									<i class="fas fa-chart-area"></i> DBGrowth
-								</template>
-								<TimeLineChart :height="300" v-if="grow" :chartData="databasesGrowChartData[db.Name]"></TimeLineChart>
 							</b-tab>
 						</b-tabs>
 					</b-card>
