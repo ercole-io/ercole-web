@@ -64,7 +64,8 @@ export default {
 			fields: [
 				'name',
 				{ key: 'cpu', label: 'Core'},
-				'sockets'
+				'sockets',
+				{ key: 'physicalhosts', label: 'Physical Hosts'}
 			],
 		};
 	},
@@ -76,7 +77,15 @@ export default {
 			this.isBusy = true;
 			return ClusterService.getClusters(this.filter)
 				.then(clusters => {
-					this.items = clusters || [];
+					this.items = (clusters || []).map(item => {
+						item.physicalhosts = item.vms
+							.map(item => item.physicalHost)
+							.filter(item => item != null)
+							.filter((value, index, self) => {
+								return self.indexOf(value) === index}
+							).join(' ');
+						return item;
+					});
 					this.isBusy = false;
 				})
 				.catch(() => {
