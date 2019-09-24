@@ -115,6 +115,14 @@ export default {
 					label: 'Host type'
 				},
 				{
+					key: 'associatedClusterName',
+					label: 'Cluster'
+				},
+				{
+					key: 'associatedHypervisorHostname',
+					label: 'Physical Host'
+				},
+				{
 					label: 'Last Update',
 					key: 'updated',
 					formatter: value => {
