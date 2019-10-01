@@ -57,6 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						<span><strong>Hostname</strong>: {{host.hostInfo.Hostname}}</span>
 						<span><strong>Environment</strong>: {{host.hostInfo.Environment}}</span>
 						<span><strong>Location</strong>: {{host.hostInfo.Location}}</span>
+						<span><strong>Agent version</strong>: {{host.version}}</span>
 						<span><strong>OS</strong>: {{host.hostInfo.OS}}</span>
 						<span><strong>Kernel</strong>: {{host.hostInfo.Kernel}}</span>
 						<span><strong>Virtual</strong>: {{host.hostInfo.Virtual}}</span>
