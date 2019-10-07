@@ -37,6 +37,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col">
+				<h3>Plugins</h3>
+				<div class="two-column-grid mt-4">
+					<ul class="list-unstyled" v-for="item in plugins" :key="item.os">
+						<b-media tag="li">
+							<div slot="aside">
+								<img v-if="item.platform === 'CHECKMK'" src="@/assets/images/checkmk.png" width="64" alt="rh5">
+							</div>
+							<h5 class="mt-0 mb-1">{{ item.description }}</h5>
+							<a :href="item.url">{{item.filename}}</a>
+						</b-media>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -83,6 +99,14 @@ export default {
 					description: 'Red Hat Enterprise Linux 7 (Virtualization)',
 					filename: 'ercole-agent-virtualization-1.5.6-1.el7.x86_64.rpm',
 					url: '/packages/ercole-agent-virtualization-1.5.6-1.el7.x86_64.rpm'
+				},
+			],
+			plugins: [
+				{
+					platform: 'CHECKMK',
+					description: 'Checkmk',
+					filename: 'ercole-checkmk-1.0.0.tar.gz',
+					url: '/packages/ercole-checkmk-1.0.0.tar.gz'
 				},
 			]
 		};
