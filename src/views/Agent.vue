@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								<img v-else-if="item.os === 'RH6'" src="@/assets/images/os_redhat_6.png" width="64" alt="rh6">
 								<img v-else-if="item.os === 'RH7'" src="@/assets/images/os_redhat_7.png" width="64" alt="rh7">
 								<img v-else-if="item.os === 'WIN'" src="@/assets/images/os_win.png" width="64" alt="win">
+								<img v-else-if="item.os === 'HPUX'" src="@/assets/images/hpux.png" width="64" alt="win">
 							</div>
 							<h5 class="mt-0 mb-1">{{ item.description }}</h5>
 							<a :href="item.url">{{item.filename}}</a>
@@ -70,6 +71,12 @@ export default {
 					description: 'Windows Server (64bit)',
 					filename: 'ercole-agent-setup-1.5.12.exe',
 					url: '/packages/ercole-agent-setup-1.5.12.exe' 
+				},
+				{
+					os: 'HPUX',
+					description: 'HP-UX 11.3',
+					filename: 'ercole-agent-hpux-1.5.8.tar.gz',
+					url: '/packages/ercole-agent-hpux-1.5.8.tar.gz'
 				},
 				{
 					os: 'RH7',
