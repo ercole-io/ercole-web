@@ -67,14 +67,14 @@ export default {
 				{
 					os: 'RH7',
 					description: 'Red Hat Enterprise Linux 7',
-					filename: 'ercole-agent-1.6.0-1.el7.x86_64.rpm',
-					url: '/packages/ercole-agent-1.6.0-1.el7.x86_64.rpm'
+					filename: 'ercole-agent-1.6.1-1.el7.x86_64.rpm',
+					url: '/packages/ercole-agent-1.6.1-1.el7.x86_64.rpm'
 				},
 				{
 					os: 'RH6',
 					description: 'Red Hat Enterprise Linux 6',
-					filename: 'ercole-agent-1.6.0-1.el6.x86_64.rpm',
-					url: '/packages/ercole-agent-1.6.0-1.el6.x86_64.rpm'
+					filename: 'ercole-agent-1.6.1-1.el6.x86_64.rpm',
+					url: '/packages/ercole-agent-1.6.1-1.el6.x86_64.rpm'
 				},
 				{
 					os: 'RH5',
@@ -85,8 +85,8 @@ export default {
 				{
 					os: 'WIN',
 					description: 'Windows Server (64bit)',
-					filename: 'ercole-agent-setup-1.6.0.exe',
-					url: '/packages/ercole-agent-setup-1.6.0.exe' 
+					filename: 'ercole-agent-setup-1.6.1.exe',
+					url: '/packages/ercole-agent-setup-1.6.1.exe' 
 				},
 				{
 					os: 'HPUX',
