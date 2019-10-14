@@ -61,6 +61,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					:items="itemsProvider"
 					:fields="fields"
 					:current-page="currentPage"
+					:sort-by="'hostname'"
+					:sort-desc="true"
 					show-empty
 					empty-text="No host."
 					empty-filtered-text="No host, try to remove filter."
@@ -105,7 +107,10 @@ export default {
 			olderThan: null,
 			loading: false,
 			fields: [
-				'hostname',
+				{
+					key: 'hostname',
+					sortable: true
+				},
 				{
 					key: 'environment',
 					label: 'Env'
@@ -127,7 +132,8 @@ export default {
 					key: 'updated',
 					formatter: value => {
 						return moment(value).format('DD/MM/YYYY');
-					}
+					},
+					sortable: true,
 				},
 				{
 					key: 'databases',
@@ -188,7 +194,7 @@ export default {
 			this.$router.push({ name: 'host_detail', params: { id: item.hostname } });
 		},
 		itemsProvider(ctx) {
-			return HostService.getHosts(ctx.currentPage, ctx.filter, this.olderThan)
+			return HostService.getHosts(ctx.currentPage, ctx.filter, this.olderThan, ctx.sortBy + ',' + (ctx.sortDesc? 'desc' : 'asc'))
 				.then(hosts => {
 					const items = hosts.content;
 					this.totalRows = hosts.numberOfElements;
