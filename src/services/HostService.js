@@ -15,7 +15,7 @@
 
 import axios from 'axios';
 
-function getHosts(pageNumber, filter, olderThan) {
+function getHosts(pageNumber, filter, olderThan, sort) {
 	const config = {
 		//url: '/admin/api/currentHosts',
 		url: '/hosts',
@@ -23,7 +23,7 @@ function getHosts(pageNumber, filter, olderThan) {
 		params: {
 			page: pageNumber - 1,
 			size: 20,
-			sort: '',
+			sort: sort,
 			ricerca: filter,
 			days: olderThan
 		}
