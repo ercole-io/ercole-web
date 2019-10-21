@@ -44,6 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					:busy.sync="isBusy"
 					:items="items"
                     :fields="fields"
+					:sort-by="'hostname'"
+					:sort-desc="false"
 					show-empty
 					empty-text="No patch advisors."
 					empty-filtered-text="No patch advisors, try to remove filter.">
@@ -76,7 +78,10 @@ export default {
 			loading: false,
 			items: null,
 			fields: [
-				'hostname',
+				{
+					key: 'hostname',
+					sortable: true
+				},
 				{
 					key: 'dbname',
 					label: 'Database'
