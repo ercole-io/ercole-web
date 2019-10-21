@@ -28,7 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								<img v-else-if="item.os === 'RH6'" src="@/assets/images/os_redhat_6.png" width="64" alt="rh6">
 								<img v-else-if="item.os === 'RH7'" src="@/assets/images/os_redhat_7.png" width="64" alt="rh7">
 								<img v-else-if="item.os === 'WIN'" src="@/assets/images/os_win.png" width="64" alt="win">
-								<img v-else-if="item.os === 'HPUX'" src="@/assets/images/hpux.png" width="64" alt="win">
+								<img v-else-if="item.os === 'HPUX'" src="@/assets/images/hpux.png" width="64" alt="hpux">
+								<img v-else-if="item.os === 'AIX'" src="@/assets/images/os_aix.png" width="64" alt="aix">
 							</div>
 							<h5 class="mt-0 mb-1">{{ item.description }}</h5>
 							<a :href="item.url">{{item.filename}}</a>
@@ -99,6 +100,12 @@ export default {
 					description: 'Red Hat Enterprise Linux 7 (Virtualization)',
 					filename: 'ercole-agent-virtualization-1.6.0-1.el7.x86_64.rpm',
 					url: '/packages/ercole-agent-virtualization-1.6.0-1.el7.x86_64.rpm'
+				},
+				{
+					os: 'AIX',
+					description: 'AIX Advanced Interactive eXecutive 6.1',
+					filename: 'ercole-agent-aix-1.6.0-1.aix6.1.noarch.rpm',
+					url: '/packages/ercole-agent-aix-1.6.0-1.aix6.1.noarch.rpm'
 				},
 			],
 			plugins: [
