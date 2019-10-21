@@ -55,6 +55,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					:items="items"
 					:filter="filter"
 					:fields="fields"
+					:sort-by="'reclaimable'"
+					:sort-desc="true"
 					show-empty
 					empty-text="No segment advisors."
 					empty-filtered-text="No segment advisors, try to remove filter.">
