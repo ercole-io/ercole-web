@@ -55,6 +55,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					:items="items"
 					:filter="filter"
 					:fields="fields"
+					:sort-by="'benefit'"
+					:sort-desc="true"
 					show-empty
 					empty-text="No Addms."
 					empty-filtered-text="No addm, try to remove filter.">
