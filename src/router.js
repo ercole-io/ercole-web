@@ -18,6 +18,7 @@ import Alerts from '@/views/Alerts.vue';
 import Dashboard from '@/views/Dashboard.vue';
 import Host from '@/views/Hosts/Host.vue';
 import Hosts from '@/views/Hosts/Hosts.vue';
+import Databases from '@/views/Databases/Databases.vue';
 import Addms from '@/views/Addms.vue';
 import SegmentAdvisors from '@/views/SegmentAdvisors.vue';
 import PatchAdvisors from '@/views/PatchAdvisors.vue';
@@ -45,6 +46,11 @@ export default new Router({
 			path: '/hosts',
 			name: 'hosts',
 			component: Hosts
+		},
+		{
+			path: '/databases',
+			name: 'databases',
+			component: Databases
 		},
 		{
 			path: '/hosts/:id',
