@@ -42,6 +42,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			</li>
 
 			<li>
+				<router-link to="/databases">
+					<i class="fas fa-database"></i>
+					Databases
+				</router-link>
+			</li>
+
+			<li>
 				<router-link to="/clusters">
 					<i class="fas fa-object-group"></i>
 					Clusters
