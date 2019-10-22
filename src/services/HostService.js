@@ -273,6 +273,34 @@ function getSegmentsSizeGrowDbStats(hostname) {
 		});
 }
 
+function getDatabases(pageNumber, sort) {
+	const config = {
+		url: '/databases',
+		method: 'GET',
+		params: {
+			page: pageNumber - 1,
+			size: 20,
+			sort: sort
+		}
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			const page = res.data;
+			return {
+				number: page.number,
+				numberOfElements: page.totalElements,
+				size: page.size,
+				totalPages: page.totalPages,
+				content: res.data.content
+			};
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
 export default {
 	getHost,
 	getHosts,
@@ -287,5 +315,6 @@ export default {
 	generateAddmExcel,
 	getGrowDbStats,
 	getSegmentsSizeGrowDbStats,
-	dismiss
+	dismiss,
+	getDatabases
 };
