@@ -19,6 +19,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col">
+				<div class="row">
+					<div class="col-4">
+						<div class="card mb-3">
+							<div class="card-body">
+								<DataguardStatusChart></DataguardStatusChart>
+							</div>
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="card mb-3">
+							<div class="card-body">
+								<RACStatusChart></RACStatusChart>
+							</div>
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="card mb-3">
+							<div class="card-body">
+								<ArchiveLogStatusChart></ArchiveLogStatusChart>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<b-card :title="id" class="mb-3">
+					<div class="card-text two-column-grid">
+						<span><strong>Segment size total</strong>: {{ segmentsSizeTotal }} GB</span>
+						<span><strong>Datafile size total</strong>: {{ datafileSizeTotal }} GB</span>
+						<span><strong>Memory size total</strong>: {{ memorySizeTotal }} GB</span>
+						<span><strong>Thread total used</strong>: {{ workTotal }}</span>
+					</div>
+				</b-card>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
 				<h3>Databases</h3>
 				<b-row align-v="center" class="mb-2">
 					<b-col>
@@ -35,7 +74,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					ref="databasesTable"
 					striped hover responsive small
 					:busy.sync="isBusy"
-					:filter="filter"
 					:items="itemsProvider"
 					:fields="fields"
 					:current-page="currentPage"
@@ -48,6 +86,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							{{data.value}}
 						</a>
 					</template>
+					<template slot="archive_log_status" slot-scope="data">
+						<CheckMark2 :value="data.value"></CheckMark2>
+					</template>
+					<template slot="dataguard" slot-scope="data">
+						<CheckMark2 :value="data.value"></CheckMark2>
+					</template>
+					<template slot="rac" slot-scope="data">
+						<CheckMark2 :value="data.value"></CheckMark2>
+					</template>
+					<template slot="ha" slot-scope="data">
+						<CheckMark2 :value="data.value"></CheckMark2>
+					</template>
 				</b-table>
 			</div>
 		</div>
@@ -56,11 +106,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 import HostService from '@/services/HostService.js';
+import DataguardStatusChart from '@/components/databases/DataguardStatusChart.vue';
+import RACStatusChart from '@/components/databases/RACStatusChart.vue';
+import ArchiveLogStatusChart from '@/components/databases/ArchiveLogStatusChart.vue';
+import DashboardService from '@/services/DashboardService';
 
 export default {
 	name: 'Databases',
+	components: {
+		DataguardStatusChart,
+		RACStatusChart,
+		ArchiveLogStatusChart
+	},
 	data() {
 		return {
+			segmentsSizeTotal: 0,
+			memorySizeTotal: 0,
+			datafileSizeTotal: 0,
+			workTotal: 0,
 			currentPage: 1,
 			totalRows: 0,
 			perPage: 5,
@@ -68,15 +131,74 @@ export default {
 			isBusy: false,
 			fields: [
 				{
+					key: 'dbname',
+					label: 'DB Name'
+				},
+				{
+					key: 'unique_name',
+					label: 'Unique name'
+				},
+				{
+					key: 'dbver',
+					label: 'Version'
+				},
+				{
 					key: 'hostname',
+					label: 'Hostname',
 					sortable: true
 				},
 				{
-					key: 'dbname'
+					key: 'status',
+					label: 'Status'
 				},
-				'environment',
-				'location',
-				'dbver'
+				{
+					key: 'environment',
+					label: 'Environment'
+				},
+				{
+					key: 'location',
+					label: 'Location'	
+				},
+				{
+					key: 'charset',
+					label: 'Charset'	
+				},
+				{
+					key: 'block_size',
+					label: 'Blocksize'	
+				},
+				{
+					key: 'cpu_count',
+					label: 'CPU Count'	
+				},
+				{
+					key: 'memory',
+					label: 'Memory used'	
+				},
+				{
+					key: 'datafile_size',
+					label: 'Datafile GB'	
+				},
+				{
+					key: 'segments_size',
+					label: 'Segment GB'	
+				},
+				{
+					key: 'archive_log_status',
+					label: 'Archivelog'	
+				},
+				{
+					key: 'dataguard',
+					label: 'DR'	
+				},
+				{
+					key: 'rac',
+					label: 'RAC'	
+				},
+				{
+					key: 'ha',
+					label: 'HA'	
+				},
 			]
 		};
 	},
@@ -97,6 +219,36 @@ export default {
 					this.$noty.error('Unable to retrieve databases list.');
 				});
 		}
+	},
+	created() {
+		DashboardService.getTotalSegmentsSize()
+			.then(data => {
+				this.segmentsSizeTotal = data;
+			})
+			.catch(() => {
+				this.$noty.error(`Unable to retrieve segmentsSizeTotal ${this.id}`);
+			});
+		DashboardService.getTotalDatafileSize()
+			.then(data => {
+				this.datafileSizeTotal = data;
+			})
+			.catch(() => {
+				this.$noty.error(`Unable to retrieve datafileSizeTotal ${this.id}`);
+			});
+		DashboardService.getTotalMemorySize()
+			.then(data => {
+				this.memorySizeTotal = data;
+			})
+			.catch(() => {
+				this.$noty.error(`Unable to retrieve memorySizeTotal ${this.id}`);
+			});	
+		DashboardService.getTotalWork()
+			.then(data => {
+				this.workTotal = data;
+			})
+			.catch(() => {
+				this.$noty.error(`Unable to retrieve workTotal ${this.id}`);
+			});	
 	},
 	watch: {
 		olderThan() {
