@@ -134,6 +134,7 @@ import Backups from '@/components/Backups.vue';
 import TimeLineChart from '@/components/TimeLineChart.vue';
 import { mapArrayToLineTimeChartData } from '@/utils/PieChartMapper';
 import Colors from '@/utils/Colors';
+import DataguardStatusChart from '@/components/databases/DataguardStatusChart.vue';
 
 
 export default {
@@ -147,7 +148,8 @@ export default {
 		SegmentAdvisors,
 		PSUs,
 		Backups,
-		TimeLineChart
+		TimeLineChart,
+		DataguardStatusChart
 	},
 	props: {
 		databases: {
