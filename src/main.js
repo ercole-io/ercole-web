@@ -20,6 +20,7 @@ import router from './router';
 import store from './store';
 import VueNoty from 'vuejs-noty';
 import CheckMark from '@/components/CheckMark';
+import CheckMark2 from '@/components/CheckMark2';
 import fullscreen from 'vue-fullscreen';
 import PieChart from '@/components/PieChart.vue';
 import Spinner from 'vue-simple-spinner';
@@ -30,6 +31,7 @@ Vue.use(VueNoty);
 Vue.use(BootstrapVue);
 Vue.use(fullscreen);
 Vue.component('CheckMark', CheckMark);
+Vue.component('CheckMark2', CheckMark2);
 Vue.component('PieChart', PieChart);
 Vue.component('VueSimpleSpinner', Spinner);
 

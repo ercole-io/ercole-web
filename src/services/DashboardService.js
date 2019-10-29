@@ -270,6 +270,118 @@ function getPatchStatusStats(location, windowTime) {
 		});
 }
 
+function getDataguardStatusStats() {
+	const config = {
+		url: '/stats/databases/dataguard-status',
+		method: 'GET'
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
+function getRACStatusStats() {
+	const config = {
+		url: '/stats/databases/real-application-cluster-status',
+		method: 'GET'
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
+function getArchiveLogStatusStats() {
+	const config = {
+		url: '/stats/databases/archive-log-status',
+		method: 'GET'
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
+function getTotalSegmentsSize() {
+	const config = {
+		url: '/stats/databases/segments-size-sum',
+		method: 'GET'
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
+function getTotalDatafileSize() {
+	const config = {
+		url: '/stats/databases/datafile-size-sum',
+		method: 'GET'
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
+function getTotalMemorySize() {
+	const config = {
+		url: '/stats/databases/memory-size-sum',
+		method: 'GET'
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
+function getTotalWork() {
+	const config = {
+		url: '/stats/databases/work-sum',
+		method: 'GET'
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
 
 export default {
 	getServerEnv,
@@ -284,5 +396,12 @@ export default {
 	getLicensesTypeSummary,
 	getLicensesCompliance,
 	getTopFifteenReclaimableDatabase,
-	getPatchStatusStats
+	getPatchStatusStats,
+	getDataguardStatusStats,
+	getRACStatusStats,
+	getArchiveLogStatusStats,
+	getTotalSegmentsSize,
+	getTotalDatafileSize,
+	getTotalMemorySize,
+	getTotalWork
 };
