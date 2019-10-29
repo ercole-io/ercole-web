@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <template>
 	<div>
-		<h4>Archive Log mode</h4>
+		<h4>Archivelog mode</h4>
 		<PieChart :height="300" :chart-data="data" v-if="widget"></PieChart>
 		<vue-simple-spinner v-if="spinner" size="big" message="Loading..."></vue-simple-spinner>
 		<b-alert :show="alert" variant="danger">
