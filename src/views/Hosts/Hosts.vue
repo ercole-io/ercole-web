@@ -34,7 +34,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						</b-form-group>
 					</b-col>
 					<b-button @click="generate()" :disabled="loading" class="lg">
-						Generate xls
+						Generate LMS audit file
+					</b-button>
+					<b-button @click="generateSimple()" :disabled="loading" class="lg">
+						Generate host list file
 					</b-button>
 					<b-col>
 						<div class="float-right d-inline-flex align-items-center">
@@ -186,6 +189,13 @@ export default {
 		generate() {
 			this.loading = true;
 			return HostService.generateEx().then(() => { 
+					this.loading = false
+				}
+			);
+		},
+		generateSimple() {
+			this.loading = true;
+			return HostService.generateExSimple().then(() => { 
 					this.loading = false
 				}
 			);
