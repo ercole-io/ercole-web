@@ -46,16 +46,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		</div>
 		<div class="row">
 			<div class="col">
-				<b-card :title="id" class="mb-3">
+				<b-card class="mb-3">
+					<h6 slot="header" class="mb-0">
+						<i class="fas fa-microchip"></i>
+						CPU
+					</h6>
 					<div class="card-text two-column-grid">
-						<span><strong>Segment size total</strong>: {{ segmentsSizeTotal }} GB</span>
-						<span><strong>Datafile size total</strong>: {{ datafileSizeTotal }} GB</span>
-						<span><strong>Memory size total</strong>: {{ memorySizeTotal }} GB</span>
-						<span><strong>Thread total used</strong>: {{ workTotal }}</span>
+						<span><strong>Total thread used</strong>: {{ workTotal }}</span>
+					</div>
+				</b-card>
+				<b-card class="mb-3">
+					<h6 slot="header" class="mb-0">
+						<i class="fas fa-memory"></i>
+						Memory
+					</h6>
+					<div class="card-text two-column-grid">
+						<span><strong>Total memory size</strong>: {{ memorySizeTotal }} GB</span>
+					</div>
+				</b-card>
+				<b-card class="mb-3">
+					<h6 slot="header" class="mb-0">
+						<i class="fas fa-hdd"></i>
+						Storage
+					</h6>
+					<div class="card-text two-column-grid">
+						<span><strong>Total segment size</strong>: {{ segmentsSizeTotal }} GB</span>
+						<span><strong>Total Datafile size</strong>: {{ datafileSizeTotal }} GB</span>
 					</div>
 				</b-card>
 			</div>
 		</div>
+		
 		<div class="row">
 			<div class="col">
 				<h3>Databases</h3>
