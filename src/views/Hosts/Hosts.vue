@@ -36,6 +36,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					<b-button @click="generate()" :disabled="loading" class="lg">
 						Generate xls
 					</b-button>
+					<b-button @click="generateSimple()" :disabled="loading" class="lg">
+						Generate xls (simple)
+					</b-button>
 					<b-col>
 						<div class="float-right d-inline-flex align-items-center">
 							<div class="mr-3">
@@ -186,6 +189,13 @@ export default {
 		generate() {
 			this.loading = true;
 			return HostService.generateEx().then(() => { 
+					this.loading = false
+				}
+			);
+		},
+		generateSimple() {
+			this.loading = true;
+			return HostService.generateExSimple().then(() => { 
 					this.loading = false
 				}
 			);
