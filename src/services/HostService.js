@@ -296,7 +296,7 @@ function getDatabases(pageNumber, sort) {
 		params: {
 			page: pageNumber - 1,
 			size: 20,
-			sort: (sort ? sort : 'hostname')
+			sort: sort
 		}
 	};
 
@@ -305,7 +305,7 @@ function getDatabases(pageNumber, sort) {
 		.then(res => {
 			const page = res.data;
 			return {
-				number: page.number,
+				number: page.number,``
 				numberOfElements: page.totalElements,
 				size: page.size,
 				totalPages: page.totalPages,
