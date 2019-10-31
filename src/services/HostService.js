@@ -305,7 +305,7 @@ function getDatabases(pageNumber, sort) {
 		.then(res => {
 			const page = res.data;
 			return {
-				number: page.number,``
+				number: page.number,
 				numberOfElements: page.totalElements,
 				size: page.size,
 				totalPages: page.totalPages,
