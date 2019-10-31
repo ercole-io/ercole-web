@@ -228,6 +228,9 @@ export default {
 			this.$router.push({ name: 'host_detail', params: { id: item.hostname } });
 		},
 		itemsProvider(ctx) {
+			if (ctx.sortBy == null) {
+				ctx.sortBy  = 'hostname'
+			}
 			return HostService.getDatabases(ctx.currentPage, ctx.sortBy + ',' + (ctx.sortDesc? 'desc' : 'asc'))
 				.then(dbs => {
 					const items = dbs.content;
