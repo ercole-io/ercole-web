@@ -296,7 +296,7 @@ function getDatabases(pageNumber, sort) {
 		params: {
 			page: pageNumber - 1,
 			size: 20,
-			sort: sort
+			sort: (sort ? sort : 'hostname')
 		}
 	};
 
