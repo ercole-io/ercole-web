@@ -59,6 +59,8 @@ export default new Vuex.Store({
 					notifications: res._embedded.alerts,
 					total: res.page.totalElements
 				});
+			}).catch(() => {
+				this.$noty.error('Unable retrieve alerts');
 			});
 		}
 	}
