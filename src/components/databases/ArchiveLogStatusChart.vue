@@ -50,7 +50,7 @@ export default {
 					if (item == false) {
 						self.data.datasets[0].backgroundColor[index] = '#ff0000';
 					} else if  (item == true) {
-						self.data.datasets[0].backgroundColor[index] = '#00ff00';
+						self.data.datasets[0].backgroundColor[index] = '#8BC34A';
 					}
 				})
 			})
