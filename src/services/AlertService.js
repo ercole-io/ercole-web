@@ -41,7 +41,6 @@ function getNewAlerts(page, severity, filter, startdate, enddate) {
 			return res.data;
 		})
 		.catch(err => {
-			this.$noty.error('Unable retrieve alerts');
 			Promise.reject(err);
 		});
 }

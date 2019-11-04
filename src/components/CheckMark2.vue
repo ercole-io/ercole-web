@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <template>
   <div>
     <i class="fas fa-check text-success" v-if="value"></i>
-    <span v-else><i class="fas fa-check text-danger"></i></span>
+    <span v-else><i class="fas fa-times-circle text-danger"></i></span>
   </div>
 </template>
 
