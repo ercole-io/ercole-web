@@ -50,7 +50,7 @@ Vue.filter('truncate', value => {
 
 // Axios setup
 axios.interceptors.response.use(function (response) {
-	if (response.status === 200 && response.data.includes("type=\"password\" id=\"password\" name=\"password\" ")) {
+	if (response.status === 200 && typeof (response.data) === "string" && response.data.includes("type=\"password\" id=\"password\" name=\"password\" ")) {
 		window.location.href = "/login";
 	}
 	return response;
