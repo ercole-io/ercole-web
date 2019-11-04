@@ -51,36 +51,52 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						<i class="fas fa-microchip"></i>
 						CPU
 					</h6>
-					<div class="card-text two-column-grid">
+					<div class="card-text">
 						<span><strong>Total thread used</strong>: {{ workTotal }}</span>
 					</div>
 				</b-card>
+			</div>
+			<div class="col">
 				<b-card class="mb-3">
 					<h6 slot="header" class="mb-0">
 						<i class="fas fa-memory"></i>
 						Memory
 					</h6>
-					<div class="card-text two-column-grid">
+					<div class="card-text">
 						<span><strong>Total memory size</strong>: {{ memorySizeTotal }} GB</span>
 					</div>
 				</b-card>
+			</div>
+			<div class="col">
 				<b-card class="mb-3">
 					<h6 slot="header" class="mb-0">
 						<i class="fas fa-hdd"></i>
 						Storage
 					</h6>
-					<div class="card-text two-column-grid">
+					<div class="card-text row">
 						<span><strong>Total segment size</strong>: {{ segmentsSizeTotal }} GB</span>
 						<span><strong>Total Datafile size</strong>: {{ datafileSizeTotal }} GB</span>
 					</div>
 				</b-card>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col">
 				<h3>Databases</h3>
 				<b-row align-v="center" class="mb-2">
+					<b-col md="6" class="my-1">
+						<b-form-group horizontal label="Filter" class="mb-0">
+							<b-input-group >
+								<b-form-input
+									v-model.trim="filter"
+									placeholder="Insert database name" />
+								<b-input-group-append>
+									<b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+								</b-input-group-append>
+							</b-input-group>
+						</b-form-group>
+					</b-col>
 					<b-col>
 						<div class="float-right d-inline-flex align-items-center">
 							<div class="mr-3">
@@ -98,6 +114,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					:items="itemsProvider"
 					:fields="fields"
 					:current-page="currentPage"
+					:filter="filter"
 					show-empty
 					empty-text="No databases."
 					empty-filtered-text="No databases, try to remove filter."
@@ -150,6 +167,7 @@ export default {
 			perPage: 5,
 			displayed: 0,
 			isBusy: false,
+			filter: "",
 			fields: [
 				{
 					key: 'dbname',
@@ -231,7 +249,7 @@ export default {
 			if (ctx.sortBy == null) {
 				ctx.sortBy  = 'hostname'
 			}
-			return HostService.getDatabases(ctx.currentPage, ctx.sortBy + ',' + (ctx.sortDesc? 'desc' : 'asc'))
+			return HostService.getDatabases(ctx.currentPage, ctx.sortBy + ',' + (ctx.sortDesc? 'desc' : 'asc'), ctx.filter)
 				.then(dbs => {
 					const items = dbs.content;
 					this.totalRows = dbs.numberOfElements;
@@ -261,7 +279,7 @@ export default {
 			});
 		DashboardService.getTotalMemorySize()
 			.then(data => {
-				this.memorySizeTotal = data;
+				this.memorySizeTotal = Math.round(data);
 			})
 			.catch(() => {
 				this.$noty.error(`Unable to retrieve memorySizeTotal ${this.id}`);
