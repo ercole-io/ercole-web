@@ -289,14 +289,15 @@ function getSegmentsSizeGrowDbStats(hostname) {
 		});
 }
 
-function getDatabases(pageNumber, sort) {
+function getDatabases(pageNumber, sort, filter) {
 	const config = {
 		url: '/databases',
 		method: 'GET',
 		params: {
 			page: pageNumber - 1,
-			size: 20,
-			sort: sort
+			size: 50,
+			sort: sort,
+			search: filter
 		}
 	};
 
@@ -313,6 +314,7 @@ function getDatabases(pageNumber, sort) {
 			};
 		})
 		.catch(err => {
+			console.log(err);
 			return Promise.reject(err);
 		});
 }
