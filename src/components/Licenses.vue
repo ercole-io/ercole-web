@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <template>
 	<div class="three-column-grid">
 		<div v-for="license in items" :key="license.name">
-			<LicenseRow :name="license.Name" :count="license.Count"></LicenseRow>
+			<LicenseRow :name="license.Name" :count="license.Count" @clear_license="$emit('clear_license', $event)" ></LicenseRow>
 		</div>
 	</div>
 </template>
