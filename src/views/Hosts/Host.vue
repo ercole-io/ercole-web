@@ -81,7 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							Databases
 						</h6>
 						<p class="card-text">
-							<Databases :databases="host.extraInfo.Databases" :grow="usedDataHistory" :segmentsSizeGrow="segmentsSizeDataHistory"></Databases>
+							<Databases :available_tags="tags_options" :tags="tags" @tag_deleted="tagDeleted" @add_tag="addTag" :databases="host.extraInfo.Databases" :grow="usedDataHistory" :segmentsSizeGrow="segmentsSizeDataHistory"></Databases>
 						</p>
 					</b-card>
 					<b-card class="mb-3" v-if="host.extraInfo.Clusters != null && host.hostType == 'virtualization'">
@@ -126,6 +126,7 @@ import Databases from '@/components/Databases.vue';
 import Clusters from '@/components/Clusters.vue';
 import Filesystem from '@/components/Filesystem.vue';
 import HostService from '@/services/HostService.js';
+import DashService from '@/services/DashboardService.js';
 import History from '@/components/History.vue';
 import HostAlerts from '@/components/HostAlerts.vue';
 import Noty from 'noty';
@@ -144,6 +145,8 @@ export default {
 			showAllSchemas: false,
 			usedDataHistory: {},
 			segmentsSizeDataHistory: {},
+			tags_options: [ "" ],
+			tags: {}
 		};
 	},
 	methods: {
@@ -190,6 +193,33 @@ export default {
 				]
 			});
 			n.show();
+		}, 
+		reloadTags() {
+			HostService.getTagsGroupedByDbname(this.id)
+				.then(tags => {
+					this.tags = tags;
+				}).catch(err => {
+					this.$noty.error(err);
+				});
+		},
+		tagDeleted(tag) {
+			HostService.deleteTag(tag)
+				.then(tag => {
+					this.reloadTags();
+				}).catch(err => {
+					this.$noty.error(err);
+				})
+		},
+		addTag(dbname, tagname) {
+			console.log(dbname, tagname);
+			if (tagname !== '') {
+				HostService.addTag(this.id, dbname, tagname)
+				.then(tag => {
+					this.reloadTags();
+				}).catch(err => {
+					this.$noty.error(err);
+				})
+			}
 		}
 	},
 	created() {
@@ -212,7 +242,13 @@ export default {
 			}).catch(err => {
 				this.$noty.error(err);
 			});
-
+		this.reloadTags();
+		DashService.getAvailableTags()
+			.then(tags => {
+				this.tags_options = [""].concat(tags);
+			}).catch(err => {
+				this.$noty.error(err);
+			});
 	},
 	computed: {
 		id() {
