@@ -382,6 +382,21 @@ function getTotalWork() {
 		});
 }
 
+function getAvailableTags() {
+	const config = {
+		url: '/database-tags',
+		method: 'GET'
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
 
 export default {
 	getServerEnv,
@@ -403,5 +418,6 @@ export default {
 	getTotalSegmentsSize,
 	getTotalDatafileSize,
 	getTotalMemorySize,
-	getTotalWork
+	getTotalWork,
+	getAvailableTags
 };
