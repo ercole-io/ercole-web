@@ -18,10 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <template>
     <div class="license">
         <strong>{{name}}</strong>
-        <span class="count">
+		<span v-if="count === 0" class="count">
+			-
+		</span>
+        <a v-if="count > 0" href="javascript:;" @click="$emit('clear_license', name)" class="count">
             {{ count  | dashIfEmpty }}
-        </span>
-
+        </a>
     </div>
 </template>
 
