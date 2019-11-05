@@ -352,7 +352,16 @@ function deleteTag(tag) {
 	})
 }
 
-
+function clearLicense(hostname, dbname, licenseName) {
+	return axios({
+		url: '/hosts/' + hostname + '/databases/' + dbname + '/license-modifiers/' + licenseName,
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		method: 'POST',
+		data: 0
+	})
+}
 export default {
 	getHost,
 	getHosts,
@@ -372,5 +381,6 @@ export default {
 	getDatabases,
 	getTagsGroupedByDbname,
 	addTag,
-	deleteTag
+	deleteTag,
+	clearLicense
 };
