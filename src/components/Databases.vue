@@ -51,6 +51,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						<span><strong>Version</strong>: {{db.Version}}</span>
 						<span><strong>Work</strong>: {{db.Work}}</span>
 					</div>
+					<div v-if="tags" class="card-text mb-3">
+						<b-select v-model="choosen_tags[db.Name]" @change="changeTagEventEmitter(db.Name, $event)" :options="available_tags" class="vw-5 mx-1 mb-3" />
+						<span v-for="t in tags[db.Name]" :key="t.id" class="mx-1 badge badge-secondary mb-3">
+							{{t.tag}}
+							<b-button @click="$emit('tag_deleted', t)" class="btn-secondary btn btn-sm">
+								<i class="fas fa-backspace "></i> 
+							</b-button>
+						</span>
+					</div>
 					<b-card no-body>
 						<b-tabs card>
 							<b-tab :disabled="db.Licenses == null">
@@ -137,7 +146,7 @@ import Colors from '@/utils/Colors';
 import DataguardStatusChart from '@/components/databases/DataguardStatusChart.vue';
 
 
-export default {
+export default {	
 	components: {
 		Schema,
 		Tablespace,
@@ -157,13 +166,20 @@ export default {
 			default: () => []
 		},
 		grow: {},
-		segmentsSizeGrow: {}
-
+		segmentsSizeGrow: {},
+		available_tags: {
+			type: Array,
+			default: () => []
+		},
+		tags: {}
 	},
 	data() {
 		return {
-			tabVisible: 0
+			tabVisible: 0,
+			choosen_tags: {}
 		};
+	},
+	mounted() {
 	},
 	methods: {
 		setTabVisible(index) {
@@ -172,6 +188,9 @@ export default {
 			} else {
 				this.tabVisible = index;
 			}
+		},
+		changeTagEventEmitter(dbname, value) {
+			this.$emit("add_tag", dbname, value);
 		}
 	},
 	computed: {
@@ -207,7 +226,9 @@ export default {
 				}
 			});
 			return stats;
-		}
+		},
+	},
+	watch: {
 	}
 };
 </script>

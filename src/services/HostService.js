@@ -314,10 +314,44 @@ function getDatabases(pageNumber, sort, filter) {
 			};
 		})
 		.catch(err => {
-			console.log(err);
 			return Promise.reject(err);
 		});
 }
+
+function getTagsGroupedByDbname(hostname) {
+	const config = {
+		url: '/hosts/' + hostname + '/tags',
+		method: 'GET'
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
+function addTag(hostname, dbname, tag) {
+	return axios({
+		url: '/hosts/' + hostname + '/databases/' + dbname + '/tags',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		method: 'POST',
+		data: tag
+	})
+}
+
+function deleteTag(tag) {
+	return axios({
+		url: '/hosts/' + tag.hostname + '/databases/' + tag.dbname + '/tags/' + tag.id,
+		method: 'DELETE'
+	})
+}
+
 
 export default {
 	getHost,
@@ -335,5 +369,8 @@ export default {
 	getGrowDbStats,
 	getSegmentsSizeGrowDbStats,
 	dismiss,
-	getDatabases
+	getDatabases,
+	getTagsGroupedByDbname,
+	addTag,
+	deleteTag
 };
