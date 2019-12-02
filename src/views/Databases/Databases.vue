@@ -211,6 +211,10 @@ export default {
 					label: 'CPU Count'	
 				},
 				{
+					key: 'work',
+					label: 'WORK'	
+				},
+				{
 					key: 'memory',
 					label: 'Memory used'	
 				},
