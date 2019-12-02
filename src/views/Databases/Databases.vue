@@ -212,7 +212,7 @@ export default {
 				},
 				{
 					key: 'work',
-					label: 'WORK'	
+					label: 'Work'	
 				},
 				{
 					key: 'memory',
