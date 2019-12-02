@@ -93,6 +93,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							<Clusters :clusters="host.extraInfo.Clusters"></Clusters>
 						</p>
 					</b-card>
+					<b-card class="mb-3" v-if="host.extraInfo.Exadata != null && host.hostType == 'exadata'">
+						<h6 slot="header" class="mb-0">
+							<i class="fas fa-server"></i>
+							Exadata
+						</h6>
+						<p class="card-text">
+							<Exadata :exadata="host.extraInfo.Exadata"></Exadata>
+						</p>
+					</b-card>
 					<b-card class="mb-3" v-if="host.extraInfo.Filesystems != null">
 						<h6 slot="header" class="mb-0">
 							<i class="fas fa-folder"></i>
@@ -124,6 +133,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <script>
 import Databases from '@/components/Databases.vue';
 import Clusters from '@/components/Clusters.vue';
+import Exadata from '@/components/Exadata.vue';
 import Filesystem from '@/components/Filesystem.vue';
 import HostService from '@/services/HostService.js';
 import DashService from '@/services/DashboardService.js';
@@ -136,6 +146,7 @@ export default {
 		HostAlerts,
 		Databases,
 		Clusters,
+		Exadata,
 		Filesystem,
 		History
 	},
