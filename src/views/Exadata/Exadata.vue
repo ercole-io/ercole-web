@@ -92,7 +92,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						Storage
 					</h6>
 					<div class="card-text">
-						<span><strong>Used perc</strong>: {{ data.used_cpu }} GB</span>
+						<span><strong>Used perc</strong>: {{ data.disks_used_perc }}%</span>
 					</div>
 				</b-card>
 			</div>
