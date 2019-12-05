@@ -398,6 +398,39 @@ function getAvailableTags() {
 		});
 }
 
+function getExadataStats() {
+	const config = {
+		url: '/stats/exadata',
+		method: 'GET'
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
+function getExadataDevices() {
+	const config = {
+		url: '/exadata',
+		method: 'GET'
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
+
 export default {
 	getServerEnv,
 	getServerLocations,
@@ -419,5 +452,7 @@ export default {
 	getTotalDatafileSize,
 	getTotalMemorySize,
 	getTotalWork,
-	getAvailableTags
+	getAvailableTags,
+	getExadataStats,
+	getExadataDevices
 };

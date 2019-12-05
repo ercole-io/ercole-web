@@ -101,6 +101,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			</b-collapse>
 
 			<li>
+				<router-link to="/Exadata">
+					<i class="fas fa-server"></i>
+					Exadata
+				</router-link>
+			</li>
+
+			<li>
 				<router-link to="/agent">
 					<i class="fas fa-arrow-down"></i>
 					Agent
