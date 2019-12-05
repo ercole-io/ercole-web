@@ -27,6 +27,7 @@ import Router from 'vue-router';
 import Licenses from '@/views/Licenses/Licenses.vue';
 import License from '@/views/Licenses/License.vue';
 import Clusters from '@/views/Clusters/Clusters.vue';
+import Exadata from '@/views/Exadata/Exadata.vue';
 
 Vue.use(Router);
 
@@ -96,6 +97,11 @@ export default new Router({
 			path: '/clusters',
 			name: 'clusters',
 			component: Clusters
+		},
+		{
+			path: '/exadata',
+			name: 'exadata',
+			component: Exadata
 		}
 	]
 });
