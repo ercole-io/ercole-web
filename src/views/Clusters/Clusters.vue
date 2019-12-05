@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col">
-				<h3>Clusters</h3>
+				<h3>Hypervisor</h3>
 				<b-row align-v="center" class="mb-2">
 					<b-col md="6" class="my-1">
 						<b-form-group horizontal label="Filter" class="mb-0">
@@ -63,9 +63,10 @@ export default {
 			items: [],
 			fields: [
 				'name',
+				{ key: 'type', label: 'Type'},
 				{ key: 'cpu', label: 'Core'},
 				'sockets',
-				{ key: 'physicalhosts', label: 'Physical Hosts'}
+				{ key: 'physicalhosts', label: 'Physical Hosts'},
 			],
 		};
 	},
@@ -84,6 +85,24 @@ export default {
 							.filter((value, index, self) => {
 								return self.indexOf(value) === index}
 							).join(' ');
+						return item;
+					}).map(item => {
+						switch (item.type) {
+							case null:
+								item.type = "";
+								break;
+							case 'unknown':
+								item.type = "";
+								break;
+							case 'ovm':
+								item.type = "Ovm";
+								break;
+							case 'vmware':
+								item.type = "Vmware";
+								break;
+							default:
+								break;
+						}
 						return item;
 					});
 					this.isBusy = false;
