@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						<div class="card mb-3">
 							<div class="card-body">
 								<PatchStatusChart12 
-									:patchedCount="data.count_patched_after_six_month" 
-									:nonPatchedCount="data.count-data.count_patched_after_six_month"
+									:patchedCount="data.count_patched_after_twelve_month" 
+									:nonPatchedCount="data.count-data.count_patched_after_twelve_month"
 									:widget="loaded"
 									:spinner="loading"
 									:error="errored">
@@ -37,8 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						<div class="card mb-3">
 							<div class="card-body">
 								<PatchStatusChart6 
-									:patchedCount="data.count_patched_after_twelve_month" 
-									:nonPatchedCount="data.count-data.count_patched_after_twelve_month"
+									:patchedCount="data.count_patched_after_six_month" 
+									:nonPatchedCount="data.count-data.count_patched_after_six_month"
 									:widget="loaded"
 									:spinner="loading"
 									:error="errored">
