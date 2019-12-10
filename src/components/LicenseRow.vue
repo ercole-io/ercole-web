@@ -18,10 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <template>
     <div class="license">
         <strong>{{name}}</strong>
-		<span v-if="count === 0" class="count">
+		<span v-if="count === 0 && (old_count == null || old_count == 0)" class="count">
 			-
 		</span>
-        <a v-if="count > 0" href="javascript:;" @click="$emit('clear_license', name)" class="count">
+        <del v-if="old_count != null && old_count != 0" href="javascript:;" @click="$emit('recover_license', name)" class="count">
+            {{ old_count  | dashIfEmpty }}
+        </del>
+		<a v-if="count > 0 && (old_count == null || old_count == 0)" href="javascript:;" @click="$emit('clear_license', name)" class="count">
             {{ count  | dashIfEmpty }}
         </a>
     </div>
@@ -42,6 +45,10 @@ export default {
 		count: {
 			type: Number,
 			default: 0
+		},
+		old_count: {
+			type: Number,
+			default: null
 		}
 	}
 };

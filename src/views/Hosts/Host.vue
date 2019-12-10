@@ -81,7 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							Databases
 						</h6>
 						<p class="card-text">
-							<Databases :available_tags="tags_options" :tags="tags" @tag_deleted="tagDeleted" @add_tag="addTag" :databases="host.extraInfo.Databases" @clear_license="clearLicense" :grow="usedDataHistory" :segmentsSizeGrow="segmentsSizeDataHistory"></Databases>
+							<Databases :available_tags="tags_options" :tags="tags" @tag_deleted="tagDeleted" @add_tag="addTag" :databases="host.extraInfo.Databases" @clear_license="clearLicense" @recover_license="recoverLicense" :grow="usedDataHistory" :segmentsSizeGrow="segmentsSizeDataHistory"></Databases>
 						</p>
 					</b-card>
 					<b-card class="mb-3" v-if="host.extraInfo.Clusters != null && host.hostType == 'virtualization'">
@@ -238,7 +238,26 @@ export default {
 						if (item["Name"] === dbname) {
 							item["Licenses"].forEach(item2 => {
 								if (item2["Name"] === licenseName) {
+									item2["OldCount"] = item2["Count"];
 									item2["Count"] = 0;
+								}
+							});
+						}
+					});		
+				})
+				.catch(err => {
+					this.$noty.error(err);
+				})
+		},
+		recoverLicense(dbname, licenseName) {
+			HostService.recoverLicense(this.id, dbname, licenseName)
+				.then(() => {
+					this.host["extraInfo"]["Databases"].forEach(item => {
+						if (item["Name"] === dbname) {
+							item["Licenses"].forEach(item2 => {
+								if (item2["Name"] === licenseName) {
+									item2["Count"] = item2["OldCount"];
+									delete item2["OldCount"]; 
 								}
 							});
 						}
