@@ -66,7 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								<template slot="title">
 									<i class="fas fa-certificate"></i> Licenses
 								</template>
-								<Licenses @clear_license="$emit('clear_license', db.Name, $event)" :licenses="db.Licenses" v-if="db.Licenses"></Licenses>
+								<Licenses @clear_license="$emit('clear_license', db.Name, $event)" @recover_license="$emit('recover_license', db.Name, $event)" :licenses="db.Licenses" v-if="db.Licenses"></Licenses>
 							</b-tab>
 							<b-tab :disabled="db.Features == null">
 								<template slot="title">
