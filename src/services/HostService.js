@@ -362,6 +362,14 @@ function clearLicense(hostname, dbname, licenseName) {
 		data: 0
 	})
 }
+
+function recoverLicense(hostname, dbname, licenseName) {
+	return axios({
+		url: '/hosts/' + hostname + '/databases/' + dbname + '/license-modifiers/' + licenseName,
+		method: 'DELETE',
+	})
+}
+
 export default {
 	getHost,
 	getHosts,
@@ -382,5 +390,6 @@ export default {
 	getTagsGroupedByDbname,
 	addTag,
 	deleteTag,
-	clearLicense
+	clearLicense,
+	recoverLicense
 };
