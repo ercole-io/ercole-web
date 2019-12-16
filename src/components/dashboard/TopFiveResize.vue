@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <template>
 	<div>
-		<h4>Top 10 instance resource unused</h4>
+		<h4>Top 10 unused instance resource</h4>
 		<b-table bordered :items="data" :fields="fields" v-if="widget" show-empty empty-text="No data.">
 			<template slot="position" slot-scope="data">
       	{{data.index + 1}}
