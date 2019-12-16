@@ -87,6 +87,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					<template slot="hostInfo.VeritasCluster" slot-scope="data">
 						<CheckMark :value="data.value"></CheckMark>
 					</template>
+					<template slot="hostInfo.Type" slot-scope="data">
+						{{(data.value == 'PH') ? 'BARE METAL' : data.value}}
+					</template>
 				</b-table>
 			</div>
 		</div>
@@ -162,7 +165,7 @@ export default {
 					label: 'Virtual',
 					class: 'text-center'
 				},
-				{ key: 'hostInfo.Type', label: 'Host type' },
+				{ key: 'hostInfo.Type', label: 'Platform type' },
 				{ key: 'hostInfo.CPUThreads', label: 'CPU Threads' },
 				{ key: 'hostInfo.CPUCores', label: 'CPU Cores' },
 				{ key: 'hostInfo.Socket', label: 'Socket' },

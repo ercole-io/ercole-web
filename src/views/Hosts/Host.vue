@@ -61,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						<span><strong>OS</strong>: {{host.hostInfo.OS}}</span>
 						<span><strong>Kernel</strong>: {{host.hostInfo.Kernel}}</span>
 						<span><strong>Virtual</strong>: {{host.hostInfo.Virtual}}</span>
-						<span><strong>Host Type</strong>: {{host.hostInfo.Type}}</span>
+						<span><strong>Platform Type</strong>: {{(host.hostInfo.Type == 'PH')? 'BARE METAL' : host.hostInfo.Type}}</span>
 						<span><strong>OracleCluster</strong>: {{host.hostInfo.OracleCluster}}</span>
 						<span><strong>SunCluster</strong>: {{host.hostInfo.SunCluster}}</span>
 						<span><strong>VeritasCluster</strong>: {{host.hostInfo.VeritasCluster}}</span>
