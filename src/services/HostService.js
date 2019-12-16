@@ -289,7 +289,7 @@ function getSegmentsSizeGrowDbStats(hostname) {
 		});
 }
 
-function getDatabases(pageNumber, sort, filter) {
+function getDatabases(pageNumber, sort, filter, env) {
 	const config = {
 		url: '/databases',
 		method: 'GET',
@@ -297,7 +297,8 @@ function getDatabases(pageNumber, sort, filter) {
 			page: pageNumber - 1,
 			size: 50,
 			sort: sort,
-			search: filter
+			search: filter,
+			env: env
 		}
 	};
 

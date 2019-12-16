@@ -23,21 +23,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					<div class="col-4">
 						<div class="card mb-3">
 							<div class="card-body">
-								<DataguardStatusChart></DataguardStatusChart>
+								<DataguardStatusChart :env="env"></DataguardStatusChart>
 							</div>
 						</div>
 					</div>
 					<div class="col-4">
 						<div class="card mb-3">
 							<div class="card-body">
-								<RACStatusChart></RACStatusChart>
+								<RACStatusChart :env="env"></RACStatusChart>
 							</div>
 						</div>
 					</div>
 					<div class="col-4">
 						<div class="card mb-3">
 							<div class="card-body">
-								<ArchiveLogStatusChart></ArchiveLogStatusChart>
+								<ArchiveLogStatusChart :env="env"></ArchiveLogStatusChart>
 							</div>
 						</div>
 					</div>
@@ -80,7 +80,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				</b-card>
 			</div>
 		</div>
-
 		<div class="row">
 			<div class="col">
 				<h3>Databases</h3>
@@ -105,6 +104,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							<b-pagination size="md" class="mb-0" :total-rows="totalRows" v-model="currentPage" :per-page="perPage">
 							</b-pagination>
 						</div>
+					</b-col>
+				</b-row>
+				<b-row>
+					<b-col md="4" class="my-2">
+						<b-form-group :label-cols="8"  horizontal label="Enviroments" class="mb-0">
+							<b-form-select v-model="env" :options="envList" class="mb-3" />
+						</b-form-group>
 					</b-col>
 				</b-row>
 				<b-table
@@ -168,6 +174,8 @@ export default {
 			displayed: 0,
 			isBusy: false,
 			filter: "",
+			env: "",
+			envList: [],
 			fields: [
 				{
 					key: 'dbname',
@@ -253,7 +261,7 @@ export default {
 			if (ctx.sortBy == null) {
 				ctx.sortBy  = 'hostname'
 			}
-			return HostService.getDatabases(ctx.currentPage, ctx.sortBy + ',' + (ctx.sortDesc? 'desc' : 'asc'), ctx.filter)
+			return HostService.getDatabases(ctx.currentPage, ctx.sortBy + ',' + (ctx.sortDesc? 'desc' : 'asc'), ctx.filter, this.env)
 				.then(dbs => {
 					const items = dbs.content;
 					this.totalRows = dbs.numberOfElements;
@@ -264,31 +272,41 @@ export default {
 				.catch(() => {
 					this.$noty.error('Unable to retrieve databases list.');
 				});
+		},
+		updateEnvs() {
+			HostService.getEnviroments()
+				.then(items => {
+					items.unshift('');
+					this.envList = items || [];
+				})
+				.catch(() => {
+					this.$noty.error('Unable to enviroments.');
+				});
 		}
 	},
 	created() {
-		DashboardService.getTotalSegmentsSize()
+		DashboardService.getTotalSegmentsSize(this.env)
 			.then(data => {
 				this.segmentsSizeTotal = data;
 			})
 			.catch(() => {
 				this.$noty.error(`Unable to retrieve segmentsSizeTotal ${this.id}`);
 			});
-		DashboardService.getTotalDatafileSize()
+		DashboardService.getTotalDatafileSize(this.env)
 			.then(data => {
 				this.datafileSizeTotal = data;
 			})
 			.catch(() => {
 				this.$noty.error(`Unable to retrieve datafileSizeTotal ${this.id}`);
 			});
-		DashboardService.getTotalMemorySize()
+		DashboardService.getTotalMemorySize(this.env)
 			.then(data => {
 				this.memorySizeTotal = Math.round(data);
 			})
 			.catch(() => {
 				this.$noty.error(`Unable to retrieve memorySizeTotal ${this.id}`);
 			});	
-		DashboardService.getTotalWork()
+		DashboardService.getTotalWork(this.env)
 			.then(data => {
 				this.workTotal = data;
 			})
@@ -297,9 +315,12 @@ export default {
 			});	
 	},
 	watch: {
-		olderThan() {
+		env() {
 			this.$refs.databasesTable.refresh();
 		}
+	},
+	mounted() {
+		this.updateEnvs();
 	}
 };
 </script>
