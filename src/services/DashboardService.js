@@ -270,10 +270,13 @@ function getPatchStatusStats(location, windowTime) {
 		});
 }
 
-function getDataguardStatusStats() {
+function getDataguardStatusStats(env) {
 	const config = {
 		url: '/stats/databases/dataguard-status',
-		method: 'GET'
+		method: 'GET',
+		params: {
+			env: env,
+		}
 	};
 
 	return axios
@@ -286,10 +289,13 @@ function getDataguardStatusStats() {
 		});
 }
 
-function getRACStatusStats() {
+function getRACStatusStats(env) {
 	const config = {
 		url: '/stats/databases/real-application-cluster-status',
-		method: 'GET'
+		method: 'GET',
+		params: {
+			env: env,
+		}
 	};
 
 	return axios
@@ -302,10 +308,13 @@ function getRACStatusStats() {
 		});
 }
 
-function getArchiveLogStatusStats() {
+function getArchiveLogStatusStats(env) {
 	const config = {
 		url: '/stats/databases/archive-log-status',
-		method: 'GET'
+		method: 'GET',
+		params: {
+			env: env,
+		}
 	};
 
 	return axios
@@ -318,10 +327,13 @@ function getArchiveLogStatusStats() {
 		});
 }
 
-function getTotalSegmentsSize() {
+function getTotalSegmentsSize(env) {
 	const config = {
 		url: '/stats/databases/segments-size-sum',
-		method: 'GET'
+		method: 'GET',
+		params: {
+			env: env,
+		}
 	};
 
 	return axios
@@ -334,10 +346,13 @@ function getTotalSegmentsSize() {
 		});
 }
 
-function getTotalDatafileSize() {
+function getTotalDatafileSize(env) {
 	const config = {
 		url: '/stats/databases/datafile-size-sum',
-		method: 'GET'
+		method: 'GET',
+		params: {
+			env: env,
+		}
 	};
 
 	return axios
@@ -350,10 +365,13 @@ function getTotalDatafileSize() {
 		});
 }
 
-function getTotalMemorySize() {
+function getTotalMemorySize(env) {
 	const config = {
 		url: '/stats/databases/memory-size-sum',
-		method: 'GET'
+		method: 'GET',
+		params: {
+			env: env,
+		}
 	};
 
 	return axios
@@ -366,10 +384,13 @@ function getTotalMemorySize() {
 		});
 }
 
-function getTotalWork() {
+function getTotalWork(env) {
 	const config = {
 		url: '/stats/databases/work-sum',
-		method: 'GET'
+		method: 'GET',
+		params: {
+			env: env,
+		}
 	};
 
 	return axios

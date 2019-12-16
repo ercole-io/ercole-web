@@ -31,6 +31,9 @@ import DashboardService from '@/services/DashboardService';
 import { mapArrayToPieChartData } from '@/utils/PieChartMapper';
 
 export default {
+	props: {
+		env: String
+	},
 	data() {
 		return {
 			widget: false,
@@ -40,7 +43,7 @@ export default {
 		};
 	},
 	created() {
-		DashboardService.getArchiveLogStatusStats()
+		DashboardService.getArchiveLogStatusStats(this.env)
 			.then(data => {
 				this.data = mapArrayToPieChartData(data, ['status', 'count']);
 				this.spinner = false;
@@ -59,6 +62,29 @@ export default {
 				this.spinner = false;
 				this.alert = true;
 			});
+	},
+	watch: {
+		env() {
+			DashboardService.getArchiveLogStatusStats(this.env)
+				.then(data => {
+					this.data = mapArrayToPieChartData(data, ['status', 'count']);
+					this.spinner = false;
+					this.widget = true;
+					let self = this;
+					this.data.labels.forEach(function (item, index) {
+						if (item == false) {
+							self.data.datasets[0].backgroundColor[index] = '#ff0000';
+						} else if  (item == true) {
+							self.data.datasets[0].backgroundColor[index] = '#8BC34A';
+						}
+					})
+				})
+				.catch((err) => {
+					this.$noty.error(`Unable to retrieve host ${this.id}`);
+					this.spinner = false;
+					this.alert = true;
+				});
+		}
 	}
 };
 </script>
