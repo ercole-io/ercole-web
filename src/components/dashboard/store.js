@@ -88,7 +88,12 @@ const dashboard = {
 			commit('load');
 			return DashboardService.getServerType(location)
 				.then(res => {
-					const data = mapArrayToPieChartData(res, ['tipo', 'count']);
+					const data = mapArrayToPieChartData(res.map(item => {
+						if (item.tipo == "PH") {
+							item.tipo = "BARE METAL";
+						}
+						return item;
+					}), ['tipo', 'count']);
 					commit('success', data);
 				})
 				.catch(() => {
