@@ -179,7 +179,7 @@ export default {
 				},
 				{
 					key: 'dbver',
-					label: 'Version'
+					label: 'Database version'
 				},
 				{
 					key: 'hostname',
