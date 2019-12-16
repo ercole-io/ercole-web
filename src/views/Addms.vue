@@ -82,6 +82,7 @@ export default {
 			fields: [
 				{
 					key: 'benefit',
+					label: '% performance impact',
 					sortable: true
 				},
 				'hostname',

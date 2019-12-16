@@ -82,6 +82,7 @@ export default {
 			fields: [
 				{
 					key: 'reclaimable',
+					label: 'Reclaimable GB',
 					sortable: true
 				},
 				'hostname',

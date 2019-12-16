@@ -61,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		<!-- end of row -->
 		<div class="row">
 			<div class="col">
-				<h3>INSTANCES</h3>
+				<h3>Oracle Database Instances</h3>
 				<div class="row">
 					<div class="col-6">
 						<div class="card mb-3">
