@@ -21,7 +21,7 @@ const { reactiveProp } = mixins;
 
 export default {
 	extends: Line,
-	props: ['chartData', 'height'],
+	props: ['chartData', 'height', 'suggestedMax'],
 	mixins: [reactiveProp],
 	mounted() {	
 		this.render();
@@ -60,7 +60,8 @@ export default {
 							labelString: 'Size'
 						},
 						ticks: {
-							beginAtZero: true
+							beginAtZero: true,
+							suggestedMax: this.suggestedMax,
 						}
 					}]
 				}
