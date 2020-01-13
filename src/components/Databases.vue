@@ -74,6 +74,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								</template>
 								<Features :features="db.Features" v-if="db.Features"></Features>
 							</b-tab>
+							<b-tab :disabled="db.Features2 == null">
+								<template slot="title">
+									<i class="fas fa-cubes"></i> Options
+								</template>
+								<Features2 :features="db.Features2" v-if="db.Features2"></Features2>
+							</b-tab>
 							<b-tab :disabled="db.Tablespaces == null">
 								<template slot="title">
 									<i class="fas fa-th-large"></i> Tablespaces
@@ -141,6 +147,7 @@ import Schema from '@/components/Schema.vue';
 import Tablespace from '@/components/Tablespace.vue';
 import Licenses from '@/components/Licenses.vue';
 import Features from '@/components/Features.vue';
+import Features2 from '@/components/Features2.vue';
 import Patches from '@/components/Patches.vue';
 import ADDMs from '@/components/ADDMs.vue';
 import SegmentAdvisors from '@/components/SegmentAdvisors.vue';
@@ -158,6 +165,7 @@ export default {
 		Tablespace,
 		Licenses,
 		Features,
+		Features2,
 		Patches,
 		ADDMs,
 		SegmentAdvisors,
