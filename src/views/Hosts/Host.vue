@@ -156,6 +156,7 @@ export default {
 			showAllSchemas: false,
 			usedDataHistory: {},
 			segmentsSizeDataHistory: {},
+			dailyCPUGrowDataHistory: {},
 			tags_options: [ "" ],
 			tags: {}
 		};
