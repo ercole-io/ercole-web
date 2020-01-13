@@ -289,6 +289,23 @@ function getSegmentsSizeGrowDbStats(hostname) {
 		});
 }
 
+
+function getDailyCPUUsageGrowDbStats(hostname) {
+	const config = {
+		url: '/hosts/' + hostname + '/dailycpuusagedatahistory',
+		method: 'GET'
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
 function getDatabases(pageNumber, sort, filter, env) {
 	const config = {
 		url: '/databases',
@@ -386,6 +403,7 @@ export default {
 	generateAddmExcel,
 	getGrowDbStats,
 	getSegmentsSizeGrowDbStats,
+	getDailyCPUUsageGrowDbStats,
 	dismiss,
 	getDatabases,
 	getTagsGroupedByDbname,

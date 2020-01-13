@@ -114,7 +114,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								<template slot="title">
 									<i class="fas fa-chart-area"></i> DBGrowth
 								</template>
-								<TimeLineChart :height="300" v-if="grow" :chartData="databasesGrowChartData[db.Name]"></TimeLineChart>
+								<TimeLineChart :suggestedMax="null" :height="300" v-if="grow" :chartData="databasesGrowChartData[db.Name]"></TimeLineChart>
+							</b-tab>
+							<b-tab>
+								<template slot="title">
+									<i class="fas fa-chart-area"></i> CPUGrowth
+								</template>
+								<TimeLineChart :suggestedMax="db.CPUCount" :height="300" v-if="cpugrow" :chartData="databasesCPUGrowChartData[db.Name]"></TimeLineChart>
 							</b-tab>
 							<b-tab  :disabled="db.Backups == null">
 								<template slot="title">
@@ -167,6 +173,7 @@ export default {
 		},
 		grow: {},
 		segmentsSizeGrow: {},
+		cpugrow: {},
 		available_tags: {
 			type: Array,
 			default: () => []
@@ -222,6 +229,30 @@ export default {
 							fill: false,
 							type: 'line',
 						}
+					]
+				}
+			});
+			return stats;
+		},
+		databasesCPUGrowChartData() {
+			var stats = {};
+			let self = this;
+			this.databases.forEach(function(db) {
+				if (self.cpugrow[db.Name] === undefined)
+				{
+					return;
+				}
+				let dailyCPUUsageData = mapArrayToLineTimeChartData(self.cpugrow[db.Name], ['updated', 'usage']);
+				stats[db.Name] = {
+					"datasets": [
+						{
+							label: "DailyCpuUsage",
+							data: dailyCPUUsageData["datasets"][0]["data"],		
+							backgroundColor: Colors.pieChart["blue"],
+							borderColor: Colors.pieChart["blue"],
+							fill: false,
+							type: 'line',
+						},
 					]
 				}
 			});
