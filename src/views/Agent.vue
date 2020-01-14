@@ -68,32 +68,32 @@ export default {
 				{
 					os: 'RH7',
 					description: 'Red Hat Enterprise Linux 7',
-					filename: 'ercole-agent-1.6.5-1.el7.x86_64.rpm',
-					url: '/packages/ercole-agent-1.6.5-1.el7.x86_64.rpm'
+					filename: 'ercole-agent-1.6.6-1.el7.x86_64.rpm',
+					url: '/packages/ercole-agent-1.6.6-1.el7.x86_64.rpm'
 				},
 				{
 					os: 'RH6',
 					description: 'Red Hat Enterprise Linux 6',
-					filename: 'ercole-agent-1.6.5-1.el6.x86_64.rpm',
-					url: '/packages/ercole-agent-1.6.5-1.el6.x86_64.rpm'
+					filename: 'ercole-agent-1.6.6-1.el6.x86_64.rpm',
+					url: '/packages/ercole-agent-1.6.6-1.el6.x86_64.rpm'
 				},
 				{
 					os: 'RH5',
 					description: 'Red Hat Enterprise Linux 5',
-					filename: 'ercole-agent-1.6.3-1.x86_64.rpm',
-					url: '/packages/ercole-agent-1.6.3-1.x86_64.rpm'
+					filename: 'ercole-agent-1.6.4-1.x86_64.rpm',
+					url: '/packages/ercole-agent-1.6.4-1.x86_64.rpm'
 				},
 				{
 					os: 'WIN',
 					description: 'Windows Server (64bit)',
-					filename: 'ercole-agent-setup-1.6.5.exe',
-					url: '/packages/ercole-agent-setup-1.6.5.exe' 
+					filename: 'ercole-agent-setup-1.6.6.exe',
+					url: '/packages/ercole-agent-setup-1.6.6.exe' 
 				},
 				{
 					os: 'HPUX',
 					description: 'HP-UX 11.3',
-					filename: 'ercole-agent-hpux-1.6.4.tar.gz',
-					url: '/packages/ercole-agent-hpux-1.6.4.tar.gz'
+					filename: 'ercole-agent-hpux-1.6.5.tar.gz',
+					url: '/packages/ercole-agent-hpux-1.6.5.tar.gz'
 				},
 				{
 					os: 'RH7',
@@ -116,8 +116,8 @@ export default {
 				{
 					os: 'AIX',
 					description: 'AIX Advanced Interactive eXecutive 6.1',
-					filename: 'ercole-agent-aix-1.6.5-1.aix6.1.noarch.rpm',
-					url: '/packages/ercole-agent-aix-1.6.5-1.aix6.1.noarch.rpm'
+					filename: 'ercole-agent-aix-1.6.6-1.aix6.1.noarch.rpm',
+					url: '/packages/ercole-agent-aix-1.6.6-1.aix6.1.noarch.rpm'
 				},
 			],
 			plugins: [
