@@ -134,6 +134,10 @@ export default {
 					label: 'Physical Host'
 				},
 				{
+					key: 'version',
+					label: 'Version'
+				},
+				{
 					label: 'Last Update',
 					key: 'updated',
 					formatter: value => {
