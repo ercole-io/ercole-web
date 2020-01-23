@@ -206,7 +206,7 @@ function generatePatchAdvisorExcel(status, windowTime) {
 		const url = window.URL.createObjectURL(new Blob([response.data]));
 		const link = document.createElement('a');
 		link.href = url;
-		link.setAttribute('download', 'Patches.xlsm'); //or any other extension
+		link.setAttribute('download', 'Patches.xlsx'); //or any other extension
 		document.body.appendChild(link);
 		link.click();
 	});
@@ -225,7 +225,7 @@ function generateSegmentsExcel(filter, env) {
 		const url = window.URL.createObjectURL(new Blob([response.data]));
 		const link = document.createElement('a');
 		link.href = url;
-		link.setAttribute('download', 'Segments.xlsm'); //or any other extension
+		link.setAttribute('download', 'Segments.xlsx'); //or any other extension
 		document.body.appendChild(link);
 		link.click();
 	});
@@ -244,7 +244,7 @@ function generateAddmExcel(filter, env) {
 		const url = window.URL.createObjectURL(new Blob([response.data]));
 		const link = document.createElement('a');
 		link.href = url;
-		link.setAttribute('download', 'Addms.xlsm'); //or any other extension
+		link.setAttribute('download', 'Addms.xlsx'); //or any other extension
 		document.body.appendChild(link);
 		link.click();
 	});
