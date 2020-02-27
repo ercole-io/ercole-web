@@ -250,6 +250,24 @@ function generateAddmExcel(filter, env) {
 	});
 }
 
+function generateHypervisorsExcel(filter) {
+	return axios({
+		url: '/generate-hypervisors',
+		method: 'GET',
+		responseType: 'blob',
+		params: {
+			search: filter,
+		}
+	}).then(response => {
+		const url = window.URL.createObjectURL(new Blob([response.data]));
+		const link = document.createElement('a');
+		link.href = url;
+		link.setAttribute('download', 'Hypervisors.xlsx'); //or any other extension
+		document.body.appendChild(link);
+		link.click();
+	});
+}
+
 function dismiss(hostname) {
 	return axios({
 		url: '/hosts/' + hostname,
@@ -401,6 +419,7 @@ export default {
 	generatePatchAdvisorExcel,
 	generateSegmentsExcel,
 	generateAddmExcel,
+	generateHypervisorsExcel,
 	getGrowDbStats,
 	getSegmentsSizeGrowDbStats,
 	getDailyCPUUsageGrowDbStats,
