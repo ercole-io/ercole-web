@@ -33,6 +33,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							</b-input-group>
 						</b-form-group>
 					</b-col>
+					<b-col md="2" class="my-1">
+						<b-form-group :label-cols="4"  class="mb-0">
+							<b-button @click="generate()" :disabled="loading">
+								Generate xls
+							</b-button>
+						</b-form-group>
+					</b-col>
 				</b-row>
 				<b-table
 					ref="clustersTable"
@@ -52,6 +59,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 import ClusterService from '@/services/ClusterService.js';
+import HostService from '@/services/HostService.js';
+
 import moment from 'moment';
 
 export default {
@@ -111,7 +120,14 @@ export default {
 					this.$noty.error('Unable to retrieve clusters list.');
 					this.isBusy = false;
 				});
-		}
+		},
+		generate() {
+			this.loading = true;
+			return HostService.generateHypervisorsExcel(this.filter).then(() => { 
+					this.loading = false
+				}
+			);
+		},
 	},
 	watch: {
 		filter() {
