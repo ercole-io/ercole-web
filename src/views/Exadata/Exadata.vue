@@ -98,11 +98,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			</div>
 		</div>
 		<div class="row">
-			<div v-for="exa in exadata" :key="exa.hostname" class="col col-4">
+			<div v-for="exa in exadata" :key="exa.Hostname" class="col col-4">
 				<b-card class="mb-1">
 					<h6 slot="header" class="mb-0">
 						<i class="fas fa-server"></i>
-							{{ exa.hostname }}
+							{{ exa.Hostname }}
 					</h6>
 					<div>
 						<b-card class="mb-1">
@@ -111,14 +111,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								DB Node
 							</h6>
 							<div class="col">
-								<b-card v-for="dev in exa.DBServer" :key="dev.dev_hostname" class="card-text row">
-									<span><strong>Hostname</strong>: {{ dev.dev_hostname }}</span><br />
-									<span><strong>Model</strong>: {{ dev.dev_model }}</span><br />
-									<span><strong>CPU</strong>: {{ dev.dev_cpu }}</span><br />
-									<span><strong>Memory</strong>: {{ dev.dev_memory }}</span><br />
-									<span><strong>Version</strong>: {{ dev.dev_version }}</span><br />
-									<span><strong>Power Count</strong>: {{ dev.dev_power_count }}</span><br />
-									<span><strong>Temp</strong>: {{ dev.dev_temp_actual }}</span><br />
+								<b-card v-for="dev in exa.DBServers" :key="dev.Hostname" class="card-text row">
+									<span><strong>Hostname</strong>: {{ dev.Hostname }}</span><br />
+									<span><strong>Model</strong>: {{ dev.Model }}</span><br />
+									<span><strong>CPU</strong>: {{ dev.CPUEnabled }}</span><br />
+									<span><strong>Memory</strong>: {{ dev.Memory }}</span><br />
+									<span><strong>Version</strong>: {{ dev.ExaSwVersion }}</span><br />
+									<span><strong>Power Count</strong>: {{ dev.PowerCount }}</span><br />
+									<span><strong>Temp</strong>: {{ dev.TempActual }}</span><br />
 								</b-card>
 							</div>
 						</b-card>
@@ -130,10 +130,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								IBSwitch
 							</h6>
 							<div class="col">
-								<b-card v-for="dev in exa.IBSwitch" :key="dev.dev_hostname" class="card-text row">
-									<span><strong>Hostname</strong>: {{ dev.dev_hostname }}</span><br />
-									<span><strong>Model</strong>: {{ dev.dev_model }}</span><br />
-									<span><strong>Version</strong>: {{ dev.dev_version }}</span><br />
+								<b-card v-for="dev in exa.IBSwitches" :key="dev.Hostname" class="card-text row">
+									<span><strong>Hostname</strong>: {{ dev.Hostname }}</span><br />
+									<span><strong>Model</strong>: {{ dev.Model }}</span><br />
+									<span><strong>Version</strong>: {{ dev.ExaSwVersion }}</span><br />
 								</b-card>
 							</div>
 						</b-card>
@@ -145,14 +145,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								Storage
 							</h6>
 							<div class="col">
-								<b-card v-for="dev in exa.StorageServer" :key="dev.dev_hostname" class="card-text row">
-									<span><strong>Hostname</strong>: {{ dev.dev_hostname }}</span><br />
-									<span><strong>Model</strong>: {{ dev.dev_model }}</span><br />
-									<span><strong>CPU</strong>: {{ dev.dev_cpu }}</span><br />
-									<span><strong>Memory</strong>: {{ dev.dev_memory }}</span><br />
-									<span><strong>Version</strong>: {{ dev.dev_version }}</span><br />
-									<span><strong>Power Count</strong>: {{ dev.dev_power_count }}</span><br />
-									<span><strong>Temp</strong>: {{ dev.dev_temp_actual }}</span><br />
+								<b-card v-for="dev in exa.StorageServers" :key="dev.Hostname" class="card-text row">
+									<span><strong>Hostname</strong>: {{ dev.Hostname }}</span><br />
+									<span><strong>Model</strong>: {{ dev.Model }}</span><br />
+									<span><strong>CPU</strong>: {{ dev.CPUEnabled }}</span><br />
+									<span><strong>Memory</strong>: {{ dev.Memory }}</span><br />
+									<span><strong>Version</strong>: {{ dev.ExaSwVersion }}</span><br />
+									<span><strong>Power Count</strong>: {{ dev.PowerCount }}</span><br />
+									<span><strong>Temp</strong>: {{ dev.TempActual }}</span><br />
 								</b-card>
 							</div>
 						</b-card>
