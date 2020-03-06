@@ -89,10 +89,10 @@ function getHostHistory(host, date) {
 function getAddms(filter, env) {
 	const config = {
 		method: 'GET',
-		url: '/getalladdms',
+		url: '/addms',
 		params: {
 			search: filter,
-			env: env
+			environment: env
 		}
 	};
 	return axios
@@ -233,12 +233,15 @@ function generateSegmentsExcel(filter, env) {
 
 function generateAddmExcel(filter, env) {
 	return axios({
-		url: '/generate-addm-excel',
+		url: '/addms',
 		method: 'GET',
 		responseType: 'blob',
 		params: {
 			search: filter,
-			env: env
+			environment: env
+		},	
+		headers: {
+			'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 		}
 	}).then(response => {
 		const url = window.URL.createObjectURL(new Blob([response.data]));
