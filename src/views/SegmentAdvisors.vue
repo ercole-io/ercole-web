@@ -81,32 +81,32 @@ export default {
 			items: null,
 			fields: [
 				{
-					key: 'reclaimable',
+					key: 'Reclaimable',
 					label: 'Reclaimable GB',
 					sortable: true
 				},
-				'hostname',
+				'Hostname',
 				{
-					key: 'dbname',
+					key: 'Dbname',
 					label: 'Database'
 				},
 				{
-					key: 'segmentowner',
+					key: 'SegmentOwner',
 					label: 'Segment owner'
 				},
 				{
-					key: 'segmentname',
+					key: 'SegmentName',
 					label: 'Segment name'
 				},
 				{
-					key: 'segmenttype',
+					key: 'SegmentType',
 					label: 'Segment type'
 				},
 				{
-					key: 'partitionname',
+					key: 'PartitionName',
 					label: 'Partition name'
 				},
-				'recommendation'
+				'Recommendation'
 			],
 			options: ['']
 		};
