@@ -129,10 +129,10 @@ function getSegmentAdvisors(filter, env) {
 function getPatchAdvisors(status, windowTime) {
 	const config = {
 		method: 'GET',
-		url: '/getallpatchadvisors',
+		url: '/patch-advisors',
 		params: {
 			status: status,
-			windowTime: windowTime
+			'window-time': windowTime
 		}
 	};
 	return axios
@@ -195,12 +195,15 @@ function generateExSimple() {
 
 function generatePatchAdvisorExcel(status, windowTime) {
 	return axios({
-		url: '/generate-patch-excel',
+		url: '/patch-advisors',
 		method: 'GET',
 		responseType: 'blob',
 		params: {
 			status: status,
-			windowTime: windowTime
+			'window-time': windowTime
+		},
+		headers: {
+			'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 		}
 	}).then(response => {
 		const url = window.URL.createObjectURL(new Blob([response.data]));
