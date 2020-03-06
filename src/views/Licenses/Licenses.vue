@@ -35,18 +35,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 				<div class="row justify-content-md-center">
 					<div class="col-8">
-						<b-table :items="licenseStore"  sort-by="id" :fields="fields" show-empty empty-text="No Results">
-							<template slot="id" slot-scope="row">
+						<b-table :items="licenseStore"  sort-by="_id" :fields="fields" show-empty empty-text="No Results">
+							<template slot="_id" slot-scope="row">
 								<a href="#" @click="showDetail(row.item)">
-									{{row.item.id}}
+									{{row.item._id}}
 								</a>
 							</template>
-							<template slot="licenseCount" slot-scope="row">
-								<b-input type="number" min=0 v-model.number="row.item.licenseCount" @input="_addDangerFlag();" size="sm">
+							<template slot="Count" slot-scope="row">
+								<b-input type="number" min=0 v-model.number="row.item.Count" @input="_addDangerFlag();" size="sm">
 								</b-input>
 							</template>
-							<template slot="sum" slot-scope="row">
-								{{ row.item.sum }}
+							<template slot="Used" slot-scope="row">
+								hghhfhhg
+								{{ row.item.Used }}
 							</template>
 							<template slot="alarm" slot-scope="row">
 								<i v-if="row.item._rowVariant" class="fas fa-exclamation text-danger"></i>
@@ -75,11 +76,12 @@ export default {
 				this.licenseStore = data;
 				this._addDangerFlag();
 				this.oldLicenseStore = JSON.parse(JSON.stringify(this.licenseStore));
+				console.log(this.licenseStore);
 			});
 		},
 		_addDangerFlag() {
 			this.licenseStore.forEach(el => {
-				if (el.sum > el.licenseCount) {
+				if (el.Used > el.Count) {
 					el._rowVariant = 'danger';
 				} else {
 					el._rowVariant = '';
@@ -106,9 +108,9 @@ export default {
 	data() {
 		return {
 			fields: [
-				{ key: 'id', label: 'Feature', sortable: true },
-				{ key: 'licenseCount', label: 'License' },
-				{ key: 'sum', label: 'Used' },
+				{ key: '_id', label: 'Feature', sortable: true },
+				{ key: 'Count', label: 'License' },
+				{ key: 'Used', label: 'Used' },
 				{ key: 'alarm', label: 'Status', class: 'text-center' }
 			],
 			licenseStore: [],
