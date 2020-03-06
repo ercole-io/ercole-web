@@ -18,18 +18,14 @@ import axios from 'axios';
 // returns all declared licenses from network
 function getLicenses() {
 	const config = {
-		url: '/admin/api/licenses',
+		url: '/licenses',
 		method: 'GET'
 	};
 
 	return axios
 		.request(config)
 		.then(res => {
-			const licenses = res.data._embedded.licenses.map(el => {
-				delete el._links;
-				return el;
-			});
-			return licenses;
+			return res.data;
 		})
 		.catch(err => {
 			return Promise.reject(err);
@@ -56,29 +52,7 @@ function getComputedLicenses() {
 
 // merge the two flows
 function mergeLicenses() {
-	return Promise.all([getComputedLicenses(), getLicenses()])
-		.then(res => {
-			const computed = res[0];
-			const declared = res[1];
-
-			/**
-			 * Merge function
-			 */
-			const merge = declared.map(el => {
-				const found = computed.find(s => {
-					return s.name === el.id;
-				});
-				if (found != null) {
-					delete found.name;
-				}
-				return Object.assign(el, found);
-			});
-
-			return merge;
-		})
-		.catch(err => {
-			return Promise.reject(err);
-		});
+	return getLicenses();
 }
 
 function saveLicenses(licenses) {

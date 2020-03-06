@@ -81,18 +81,18 @@ export default {
 			items: null,
 			fields: [
 				{
-					key: 'benefit',
+					key: 'Benefit',
 					label: '% performance impact',
 					sortable: true
 				},
-				'hostname',
+				'Hostname',
 				{
-					key: 'dbname',
+					key: 'Dbname',
 					label: 'Database'
 				},
-				'finding',
-				'recommendation',
-				'action'
+				'Finding',
+				'Recommendation',
+				'Action'
 			],
 			options: ['']
 		};

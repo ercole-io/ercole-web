@@ -70,41 +70,41 @@ export default {
 				{ value: 6, text: '6' },
 				{ value: 12, text: '12' },
             ],
-            status: 'all',
+            status: '',
             statusOptions: [
-                { value: 'all', text: 'All'},
-                { value: 'ko', text: 'KO'}
+                { value: '', text: 'All'},
+                { value: 'KO', text: 'KO'}
             ],
 			loading: false,
 			items: null,
 			fields: [
 				{
-					key: 'hostname',
+					key: 'Hostname',
 					sortable: true
 				},
 				{
-					key: 'dbname',
+					key: 'Dbname',
 					label: 'Database'
 				},
 				{
-                    key: 'dbver',
+                    key: 'Dbver',
                     label: 'Version'
                 },
                 {
-                    key: 'psudescription',
+                    key: 'Description',
                     label: 'PSU'
                 },
                 {
-                    key: 'psudate',
+                    key: 'Date',
                     label: 'Date'
                 },
                 {
-                    key: 'remainingDays',
+                    key: 'RemainingDays',
 					label: 'Remaining days',
 					sortable: true
                 },
                 {
-                    key: 'status',
+                    key: 'Status',
                     label: 'Status'
                 }
 			],
@@ -116,11 +116,13 @@ export default {
             HostService.getPatchAdvisors(this.status, this.windowTime)
 				.then(items => {
 					this.items = (items || []).map(item => { 
-						if (item.psudate == '0001-01-01') {
-							item.psudate = null;
-							item.remainingDays = '∞';
+						console.log(item.Date)
+						if (moment(item.Date).format('YYYY-MM-DD') === '1970-01-01') {
+							item.Date = null;
+							item.RemainingDays = '∞';
 						} else {
-							item.remainingDays = -moment().diff(moment(item.psudate, 'YYYY-MM-DD'), 'days');
+							item.RemainingDays = -moment().diff(moment(item.Date, 'YYYY-MM-DD'), 'days');
+							item.Date = moment(item.Date).format('YYYY-MM-DD');
 						}
 						return item;
 					});
