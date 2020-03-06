@@ -109,10 +109,10 @@ function getAddms(filter, env) {
 function getSegmentAdvisors(filter, env) {
 	const config = {
 		method: 'GET',
-		url: '/getallsegmentadvisors',
+		url: '/segment-advisors',
 		params: {
 			search: filter,
-			env: env
+			environment: env
 		}
 	};
 	return axios
@@ -214,12 +214,15 @@ function generatePatchAdvisorExcel(status, windowTime) {
 
 function generateSegmentsExcel(filter, env) {
 	return axios({
-		url: '/generate-segment-excel',
+		url: '/segment-advisors',
 		method: 'GET',
 		responseType: 'blob',
 		params: {
 			search: filter,
-			env: env
+			environment: env
+		},
+		headers: {
+			'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 		}
 	}).then(response => {
 		const url = window.URL.createObjectURL(new Blob([response.data]));
