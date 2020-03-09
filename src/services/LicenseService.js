@@ -19,7 +19,10 @@ import axios from 'axios';
 function getLicenses() {
 	const config = {
 		url: '/licenses',
-		method: 'GET'
+		method: 'GET',
+		params: {
+			full: false
+		}
 	};
 
 	return axios
