@@ -71,11 +71,11 @@ export default {
 			filter: '',
 			items: [],
 			fields: [
-				'name',
-				{ key: 'type', label: 'Type'},
-				{ key: 'cpu', label: 'Core'},
-				'sockets',
-				{ key: 'physicalhosts', label: 'Physical Hosts'},
+				'Name',
+				{ key: 'Type', label: 'Type'},
+				{ key: 'CPU', label: 'Core'},
+				'Sockets',
+				{ key: 'PhysicalHosts', label: 'Physical Hosts'},
 			],
 		};
 	},
@@ -87,27 +87,19 @@ export default {
 			this.isBusy = true;
 			return ClusterService.getClusters(this.filter)
 				.then(clusters => {
-					this.items = (clusters || []).map(item => {
-						item.physicalhosts = item.vms
-							.map(item => item.physicalHost)
-							.filter(item => item != null)
-							.filter((value, index, self) => {
-								return self.indexOf(value) === index}
-							).join(' ');
-						return item;
-					}).map(item => {
-						switch (item.type) {
+					this.items = clusters.map(item => {
+						switch (item.Type) {
 							case null:
-								item.type = "";
+								item.Type = "";
 								break;
 							case 'unknown':
-								item.type = "";
+								item.Type = "";
 								break;
 							case 'ovm':
-								item.type = "Ovm";
+								item.Type = "Ovm";
 								break;
 							case 'vmware':
-								item.type = "Vmware";
+								item.Type = "Vmware";
 								break;
 							default:
 								break;

@@ -261,11 +261,14 @@ function generateAddmExcel(filter, env) {
 
 function generateHypervisorsExcel(filter) {
 	return axios({
-		url: '/generate-hypervisors',
+		url: '/clusters',
 		method: 'GET',
 		responseType: 'blob',
 		params: {
 			search: filter,
+		},
+		headers: {
+			'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 		}
 	}).then(response => {
 		const url = window.URL.createObjectURL(new Blob([response.data]));
