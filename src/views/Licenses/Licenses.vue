@@ -101,7 +101,7 @@ export default {
 				});
 		},
 		showDetail(item /*, index, event*/) {
-			this.$router.push({ name: 'license_detail', params: { id: item.id } });
+			this.$router.push({ name: 'license_detail', params: { id: item._id } });
 		}
 	},
 	data() {
