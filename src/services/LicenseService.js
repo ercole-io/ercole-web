@@ -60,7 +60,7 @@ function mergeLicenses() {
 
 function saveLicenses(licenses) {
 	const config = {
-		url: '/updatelicenses',
+		url: '/licenses',
 		method: 'PUT',
 		data: licenses
 	};
