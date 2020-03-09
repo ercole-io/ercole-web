@@ -185,7 +185,6 @@ export default {
 	},
 	methods: {
 		handleResponse(data) {
-			console.log(data);
 			const items = data.Content;
 			this.totalRows = data.Metadata.TotalElements;
 			this.perPage = data.Metadata.Size;

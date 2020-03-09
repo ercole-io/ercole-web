@@ -17,10 +17,11 @@ import axios from 'axios';
 
 function getClusters(filter) {
 	const config = {
-		url: '/getclusters',
+		url: '/clusters',
 		method: 'GET',
 		params: {
-			filter
+			search: filter,
+			full: false
 		}
 	};
 
