@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "build-dev": "vue-cli-service build --mode development",
     "test": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "serve-dist": "serve ./dist"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -15,8 +16,9 @@
     "bootstrap-vue": "^2.0.0-rc.11",
     "chart.js": "^2.7.2",
     "fast-deep-equal": "^2.0.1",
-    "moment": "^2.22.2",
     "file-saver": "^2.0.2",
+    "moment": "^2.22.2",
+    "serve": "^11.3.0",
     "vue": "^2.5.16",
     "vue-bootstrap-datetimepicker": "^5.0.1",
     "vue-chartjs": "^3.3.2",
