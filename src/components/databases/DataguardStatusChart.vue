@@ -45,7 +45,7 @@ export default {
 	created() {
 		DashboardService.getDataguardStatusStats(this.env)
 			.then(data => {
-				this.data = mapArrayToPieChartData(data, ['status', 'count']);
+				this.data = mapArrayToPieChartData(data, ['Dataguard', 'Count']);
 				this.spinner = false;
 				this.widget = true;
 				let self = this;
@@ -67,7 +67,7 @@ export default {
 		env() {
 			DashboardService.getDataguardStatusStats(this.env)
 				.then(data => {
-					this.data = mapArrayToPieChartData(data, ['status', 'count']);
+					this.data = mapArrayToPieChartData(data, ['Dataguard', 'Count']);
 					this.spinner = false;
 					this.widget = true;
 					let self = this;
