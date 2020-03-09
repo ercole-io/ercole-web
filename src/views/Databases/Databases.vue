@@ -125,21 +125,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					empty-text="No databases."
 					empty-filtered-text="No databases, try to remove filter."
 					:per-page="perPage" >
-					<template slot="hostname" slot-scope="data">
+					<template slot="Hostname" slot-scope="data">
 						<a href="#" @click="showDetail(data.item)">
 							{{data.value}}
 						</a>
 					</template>
-					<template slot="archive_log_status" slot-scope="data">
+					<template slot="ArchiveLogStatus" slot-scope="data">
 						<CheckMark2 :value="data.value"></CheckMark2>
 					</template>
-					<template slot="dataguard" slot-scope="data">
+					<template slot="Dataguard" slot-scope="data">
 						<CheckMark2 :value="data.value"></CheckMark2>
 					</template>
-					<template slot="rac" slot-scope="data">
+					<template slot="RAC" slot-scope="data">
 						<CheckMark2 :value="data.value"></CheckMark2>
 					</template>
-					<template slot="ha" slot-scope="data">
+					<template slot="HA" slot-scope="data">
 						<CheckMark2 :value="data.value"></CheckMark2>
 					</template>
 				</b-table>
@@ -178,76 +178,76 @@ export default {
 			envList: [],
 			fields: [
 				{
-					key: 'dbname',
+					key: 'Name',
 					label: 'DB Name'
 				},
 				{
-					key: 'unique_name',
+					key: 'UniqueName',
 					label: 'Unique name'
 				},
 				{
-					key: 'dbver',
+					key: 'Version',
 					label: 'Database version'
 				},
 				{
-					key: 'hostname',
+					key: 'Hostname',
 					label: 'Hostname',
 					sortable: true
 				},
 				{
-					key: 'status',
+					key: 'Status',
 					label: 'Status'
 				},
 				{
-					key: 'environment',
+					key: 'Environment',
 					label: 'Environment'
 				},
 				{
-					key: 'location',
+					key: 'Location',
 					label: 'Location'	
 				},
 				{
-					key: 'charset',
+					key: 'Charset',
 					label: 'Charset'	
 				},
 				{
-					key: 'block_size',
+					key: 'BlockSize',
 					label: 'Blocksize'	
 				},
 				{
-					key: 'cpu_count',
+					key: 'CPUCount',
 					label: 'CPU Count'	
 				},
 				{
-					key: 'work',
+					key: 'Work',
 					label: 'Work'	
 				},
 				{
-					key: 'memory',
+					key: 'Memory',
 					label: 'Memory used'	
 				},
 				{
-					key: 'datafile_size',
+					key: 'DatafileSize',
 					label: 'Datafile GB'	
 				},
 				{
-					key: 'segments_size',
+					key: 'SegmentsSize',
 					label: 'Segment GB'	
 				},
 				{
-					key: 'archive_log_status',
+					key: 'ArchiveLogStatus',
 					label: 'Archivelog'	
 				},
 				{
-					key: 'dataguard',
+					key: 'Dataguard',
 					label: 'DR'	
 				},
 				{
-					key: 'rac',
+					key: 'RAC',
 					label: 'RAC'	
 				},
 				{
-					key: 'ha',
+					key: 'HA',
 					label: 'HA'	
 				},
 			]
@@ -262,10 +262,10 @@ export default {
 				ctx.sortBy  = 'hostname'
 			}
 			return HostService.getDatabases(ctx.currentPage, ctx.sortBy + ',' + (ctx.sortDesc? 'desc' : 'asc'), ctx.filter, this.env)
-				.then(dbs => {
-					const items = dbs.content;
-					this.totalRows = dbs.numberOfElements;
-					this.perPage = dbs.size;
+				.then(data => {
+					const items = data.Content;
+					this.totalRows = data.Metadata.TotalElements;
+					this.perPage = data.Size;
 					this.displayed = items.length;
 					return items || [];
 				})

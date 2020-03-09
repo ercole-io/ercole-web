@@ -291,10 +291,10 @@ function getDataguardStatusStats(env) {
 
 function getRACStatusStats(env) {
 	const config = {
-		url: '/stats/databases/real-application-cluster-status',
+		url: '/stats/databases/rac-status',
 		method: 'GET',
 		params: {
-			env: env,
+			environment: env,
 		}
 	};
 
@@ -310,10 +310,10 @@ function getRACStatusStats(env) {
 
 function getArchiveLogStatusStats(env) {
 	const config = {
-		url: '/stats/databases/archive-log-status',
+		url: '/stats/databases/archivelog-status',
 		method: 'GET',
 		params: {
-			env: env,
+			environment: env,
 		}
 	};
 
@@ -329,10 +329,10 @@ function getArchiveLogStatusStats(env) {
 
 function getTotalSegmentsSize(env) {
 	const config = {
-		url: '/stats/databases/segments-size-sum',
+		url: '/stats/databases/total-segment-size',
 		method: 'GET',
 		params: {
-			env: env,
+			environment: env,
 		}
 	};
 
@@ -348,10 +348,10 @@ function getTotalSegmentsSize(env) {
 
 function getTotalDatafileSize(env) {
 	const config = {
-		url: '/stats/databases/datafile-size-sum',
+		url: '/stats/databases/total-datafile-size',
 		method: 'GET',
 		params: {
-			env: env,
+			environment: env,
 		}
 	};
 
@@ -367,10 +367,10 @@ function getTotalDatafileSize(env) {
 
 function getTotalMemorySize(env) {
 	const config = {
-		url: '/stats/databases/memory-size-sum',
+		url: '/stats/databases/total-memory-size',
 		method: 'GET',
 		params: {
-			env: env,
+			environment: env,
 		}
 	};
 
@@ -386,10 +386,10 @@ function getTotalMemorySize(env) {
 
 function getTotalWork(env) {
 	const config = {
-		url: '/stats/databases/work-sum',
+		url: '/stats/databases/total-work',
 		method: 'GET',
 		params: {
-			env: env,
+			environment: env,
 		}
 	};
 

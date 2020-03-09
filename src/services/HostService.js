@@ -343,23 +343,16 @@ function getDatabases(pageNumber, sort, filter, env) {
 		params: {
 			page: pageNumber - 1,
 			size: 50,
-			sort: sort,
+			// sort: sort,
 			search: filter,
-			env: env
+			environment: env
 		}
 	};
 
 	return axios
 		.request(config)
 		.then(res => {
-			const page = res.data;
-			return {
-				number: page.number,
-				numberOfElements: page.totalElements,
-				size: page.size,
-				totalPages: page.totalPages,
-				content: res.data.content
-			};
+			return res.data;
 		})
 		.catch(err => {
 			return Promise.reject(err);
