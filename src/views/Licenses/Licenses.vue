@@ -46,7 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								</b-input>
 							</template>
 							<template slot="Used" slot-scope="row">
-								hghhfhhg
 								{{ row.item.Used }}
 							</template>
 							<template slot="alarm" slot-scope="row">
