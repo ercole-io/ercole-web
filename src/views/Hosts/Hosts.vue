@@ -208,12 +208,11 @@ export default {
 			);
 		},
 		showDetail(item /*, index, event*/) {
-			this.$router.push({ name: 'host_detail', params: { id: item.hostname } });
+			this.$router.push({ name: 'host_detail', params: { id: item.Hostname } });
 		},
 		itemsProvider(ctx) {
 			return HostService.getHosts(ctx.currentPage, ctx.filter, this.olderThan, ctx.sortBy + ',' + (ctx.sortDesc? 'desc' : 'asc'))
 				.then(data => {
-					console.log(data);
 					const items = data.Content;
 					this.totalRows = data.Metadata.TotalElements;
 					this.perPage = data.Size;

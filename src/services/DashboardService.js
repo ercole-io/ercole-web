@@ -405,7 +405,7 @@ function getTotalWork(env) {
 
 function getAvailableTags() {
 	const config = {
-		url: '/database-tags',
+		url: '/settings/default-database-tag-choiches',
 		method: 'GET'
 	};
 

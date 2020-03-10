@@ -51,11 +51,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						<span><strong>Version</strong>: {{db.Version}}</span>
 						<span><strong>Work</strong>: {{db.Work}}</span>
 					</div>
-					<div v-if="tags" class="card-text mb-3">
+					<div class="card-text mb-3">
 						<b-select v-model="choosen_tags[db.Name]" @change="changeTagEventEmitter(db.Name, $event)" :options="available_tags" class="vw-5 mx-1 mb-3" />
-						<span v-for="t in tags[db.Name]" :key="t.id" class="mx-1 badge badge-secondary mb-3">
-							{{t.tag}}
-							<b-button @click="$emit('tag_deleted', t)" class="btn-secondary btn btn-sm">
+						<span v-for="t in db.Tags" :key="t" class="mx-1 badge badge-secondary mb-3">
+							{{t}}
+							<b-button @click="$emit('tag_deleted', db.Name, t)" class="btn-secondary btn btn-sm">
 								<i class="fas fa-backspace "></i> 
 							</b-button>
 						</span>
@@ -120,13 +120,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 								<template slot="title">
 									<i class="fas fa-chart-area"></i> DBGrowth
 								</template>
-								<TimeLineChart :suggestedMax="null" :height="300" v-if="grow" :chartData="databasesGrowChartData[db.Name]"></TimeLineChart>
+								<TimeLineChart :suggestedMax="null" :height="300" :chartData="databasesGrowChartData[db.Name]"></TimeLineChart>
 							</b-tab>
 							<b-tab>
 								<template slot="title">
 									<i class="fas fa-chart-area"></i> CPUGrowth
 								</template>
-								<TimeLineChart :suggestedMax="db.CPUCount" :height="300" v-if="cpugrow" :chartData="databasesCPUGrowChartData[db.Name]"></TimeLineChart>
+								<TimeLineChart :suggestedMax="db.CPUCount" :height="300" :chartData="databasesCPUGrowChartData[db.Name]"></TimeLineChart>
 							</b-tab>
 							<b-tab  :disabled="db.Backups == null">
 								<template slot="title">
@@ -179,9 +179,6 @@ export default {
 			type: Array,
 			default: () => []
 		},
-		grow: {},
-		segmentsSizeGrow: {},
-		cpugrow: {},
 		available_tags: {
 			type: Array,
 			default: () => []
@@ -211,14 +208,9 @@ export default {
 	computed: {
 		databasesGrowChartData() {
 			var stats = {};
-			let self = this;
-			this.databases.forEach(function(db) {
-				if (self.grow[db.Name] === undefined || self.segmentsSizeGrow[db.Name] === undefined)
-				{
-					return;
-				}
-				let usedData = mapArrayToLineTimeChartData(self.grow[db.Name], ['updated', 'used']);
-				let segmentsGrowData = mapArrayToLineTimeChartData(self.segmentsSizeGrow[db.Name], ['updated', 'segmentssize']);
+			this.databases.forEach(function(db) {				
+				let usedData = mapArrayToLineTimeChartData(db.Changes, ['Updated', 'Used']);
+				let segmentsGrowData = mapArrayToLineTimeChartData(db.Changes, ['Updated', 'SegmentsSize']);
 				stats[db.Name] = {
 					"datasets": [
 						{
@@ -244,13 +236,8 @@ export default {
 		},
 		databasesCPUGrowChartData() {
 			var stats = {};
-			let self = this;
 			this.databases.forEach(function(db) {
-				if (self.cpugrow[db.Name] === undefined)
-				{
-					return;
-				}
-				let dailyCPUUsageData = mapArrayToLineTimeChartData(self.cpugrow[db.Name], ['updated', 'usage']);
+				let dailyCPUUsageData = mapArrayToLineTimeChartData(db.Changes, ['Updated', 'DailyCPUUsage']);
 				stats[db.Name] = {
 					"datasets": [
 						{
