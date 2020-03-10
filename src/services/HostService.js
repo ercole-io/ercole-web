@@ -14,32 +14,26 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import axios from 'axios';
+import now from 'moment';
+
 
 function getHosts(pageNumber, filter, olderThan, sort) {
 	const config = {
-		//url: '/admin/api/currentHosts',
 		url: '/hosts',
 		method: 'GET',
 		params: {
 			page: pageNumber - 1,
 			size: 20,
-			sort: sort,
-			ricerca: filter,
-			days: olderThan
+			search: filter,
+			mode: 'summary',
+			'older-than': olderThan == null ? '' : now().subtract({days: olderThan}).endOf('day').format()
 		}
 	};
 
 	return axios
 		.request(config)
 		.then(res => {
-			const page = res.data;
-			return {
-				number: page.number,
-				numberOfElements: page.totalElements,
-				size: page.size,
-				totalPages: page.totalPages,
-				content: res.data.content
-			};
+			return res.data;
 		})
 		.catch(err => {
 			return Promise.reject(err);
@@ -164,9 +158,12 @@ function getEnviroments() {
 
 function generateEx() {
 	return axios({
-		url: '/generateexcel',
+		url: '/hosts',
 		method: 'GET',
-		responseType: 'blob'
+		responseType: 'blob',
+		headers: {
+			'Accept': 'application/vnd.oracle.lms+vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+		}
 	}).then(response => {
 		const url = window.URL.createObjectURL(new Blob([response.data]));
 		const link = document.createElement('a');
@@ -179,9 +176,12 @@ function generateEx() {
 
 function generateExSimple() {
 	return axios({
-		url: '/generateexcelraw',
+		url: '/hosts',
 		method: 'GET',
-		responseType: 'blob'
+		responseType: 'blob',
+		headers: {
+			'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+		}
 	}).then(response => {
 		const url = window.URL.createObjectURL(new Blob([response.data]));
 		const link = document.createElement('a');
