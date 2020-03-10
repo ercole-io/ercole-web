@@ -79,11 +79,10 @@ function getAlerts(page, severity, filter, startdate, enddate) {
 		});
 }
 
-function updateAlerts(ids) {
+function updateAlert(id) {
 	const config = {
-		url: '/acknowledge',
-		method: 'PUT',
-		data: ids
+		url: '/alerts/' + id,
+		method: 'DELETE',
 	};
 	return axios
 		.request(config)
@@ -121,7 +120,7 @@ function getAlertByHost(hostname, page, severity) {
 
 export default {
 	getAlerts,
-	updateAlerts,
+	updateAlert,
 	getNewAlerts,
 	getAlertByHost
 };

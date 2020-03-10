@@ -93,7 +93,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 							plain 
 							v-model="selected" 
 							:disabled="data.item.AlertStatus === 'ACK'"
-							:value="data.item.id">&nbsp;
+							:value="data.item._id">&nbsp;
 						</b-form-checkbox>
 					</template>
 					<template slot="Date" slot-scope="data">
@@ -216,15 +216,15 @@ export default {
 			}
 		},
 		markRead(selected) {
-			AlertService.updateAlerts(selected)
-				.then(() => {
-					this.selected = [];
-					this.$store.dispatch('loadNotifications');
-					this.$refs.table.refresh();
-				})
-				.catch(err => {
-					this.$noty.error(err);
-				});
+			Promise.all(selected.map(sel =>
+				AlertService.updateAlert(sel)
+			)).then(() => {
+				this.$store.dispatch('loadNotifications');
+				this.$refs.table.refresh();
+			})
+			.catch(err => {
+				this.$noty.error(err);
+			});
 		}
 	},
 	computed: {
