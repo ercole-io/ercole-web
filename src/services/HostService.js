@@ -15,6 +15,7 @@
 
 import axios from 'axios';
 import now from 'moment';
+import moment from 'moment';
 
 
 function getHosts(pageNumber, filter, olderThan, sort) {
@@ -42,7 +43,7 @@ function getHosts(pageNumber, filter, olderThan, sort) {
 
 function getHost(id) {
 	const config = {
-		url: '/admin/api/currentHosts/search/findByHostname?hostname=' + id,
+		url: '/hosts/' + id,
 		method: 'GET'
 	};
 
@@ -59,11 +60,10 @@ function getHost(id) {
 
 function getHostHistory(host, date) {
 	const config = {
+		url: '/hosts/' + host,
 		method: 'GET',
-		url: '/historical',
 		params: {
-			hostname: host,
-			data: date
+			'older-than': moment(date).format()
 		}
 	};
 	return axios
@@ -287,55 +287,6 @@ function dismiss(hostname) {
 	})
 }
 
-function getGrowDbStats(hostname) {
-	const config = {
-		url: '/hosts/' + hostname + '/useddatahistory',
-		method: 'GET'
-	};
-
-	return axios
-		.request(config)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			return Promise.reject(err);
-		});
-}
-
-function getSegmentsSizeGrowDbStats(hostname) {
-	const config = {
-		url: '/hosts/' + hostname + '/segmentssizedatahistory',
-		method: 'GET'
-	};
-
-	return axios
-		.request(config)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			return Promise.reject(err);
-		});
-}
-
-
-function getDailyCPUUsageGrowDbStats(hostname) {
-	const config = {
-		url: '/hosts/' + hostname + '/dailycpuusagedatahistory',
-		method: 'GET'
-	};
-
-	return axios
-		.request(config)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			return Promise.reject(err);
-		});
-}
-
 function getDatabases(pageNumber, sort, filter, env) {
 	const config = {
 		url: '/databases',
@@ -359,22 +310,6 @@ function getDatabases(pageNumber, sort, filter, env) {
 		});
 }
 
-function getTagsGroupedByDbname(hostname) {
-	const config = {
-		url: '/hosts/' + hostname + '/tags',
-		method: 'GET'
-	};
-
-	return axios
-		.request(config)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			return Promise.reject(err);
-		});
-}
-
 function addTag(hostname, dbname, tag) {
 	return axios({
 		url: '/hosts/' + hostname + '/databases/' + dbname + '/tags',
@@ -386,20 +321,20 @@ function addTag(hostname, dbname, tag) {
 	})
 }
 
-function deleteTag(tag) {
+function deleteTag(hostname, dbname, tag) {
 	return axios({
-		url: '/hosts/' + tag.hostname + '/databases/' + tag.dbname + '/tags/' + tag.id,
+		url: '/hosts/' + hostname + '/databases/' + dbname + '/tags/' + tag,
 		method: 'DELETE'
 	})
 }
 
 function clearLicense(hostname, dbname, licenseName) {
 	return axios({
-		url: '/hosts/' + hostname + '/databases/' + dbname + '/license-modifiers/' + licenseName,
+		url: '/hosts/' + hostname + '/databases/' + dbname + '/licenses/' + licenseName,
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		method: 'POST',
+		method: 'PUT',
 		data: 0
 	})
 }
@@ -425,12 +360,8 @@ export default {
 	generateSegmentsExcel,
 	generateAddmExcel,
 	generateHypervisorsExcel,
-	getGrowDbStats,
-	getSegmentsSizeGrowDbStats,
-	getDailyCPUUsageGrowDbStats,
 	dismiss,
 	getDatabases,
-	getTagsGroupedByDbname,
 	addTag,
 	deleteTag,
 	clearLicense,

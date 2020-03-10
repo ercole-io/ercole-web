@@ -95,32 +95,8 @@ function updateAlert(id) {
 		});
 }
 
-function getAlertByHost(hostname, page, severity) {
-	const config = {
-		url: '/admin/api/alerts/search/findByHostname',
-		method: 'GET',
-		params: {
-			sort: 'date,desc',
-			hostname,
-			size: 5,
-			page: page - 1,
-			severity: severity
-		}
-	};
-
-	return axios
-		.request(config)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			return Promise.reject(err);
-		});
-}
-
 export default {
 	getAlerts,
 	updateAlert,
-	getNewAlerts,
-	getAlertByHost
+	getNewAlerts
 };
