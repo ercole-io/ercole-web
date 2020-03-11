@@ -18,21 +18,24 @@ import moment from 'moment';
 
 function getNewAlerts(page, severity, filter, startdate, enddate) {
 	if (startdate != null) {
-		startdate=moment(startdate).format("YYYY-MM-DD")
+		startdate=moment(startdate).startOf('day').format()
 	}
 	if (enddate != null) {
-		enddate=moment(enddate).format("YYYY-MM-DD")
+		enddate=moment(enddate).endOf('day').format()
 	}
 	const config = {
-		url: '/admin/api/alerts/search/findNEW',
+		url: '/alerts',
 		method: 'GET',
 		params: {
-			sort: 'date,desc',
 			page: page - 1,
+			size: 20,
 			severity: severity,
+			'sort-by': 'Date',
+			'sort-desc': true,
 			search: filter,
-			startdate: startdate,
-			enddate: enddate
+			from: startdate,
+			to: enddate,
+			status: 'NEW'
 		}
 	};
 	return axios
@@ -47,40 +50,39 @@ function getNewAlerts(page, severity, filter, startdate, enddate) {
 
 function getAlerts(page, severity, filter, startdate, enddate) {
 	if (startdate != null) {
-		startdate=moment(startdate).format("YYYY-MM-DD")
+		startdate=moment(startdate).startOf('day').format()
 	}
 	if (enddate != null) {
-		enddate=moment(enddate).format("YYYY-MM-DD")
+		enddate=moment(enddate).endOf('day').format()
 	}
 	const config = {
-		url: '/admin/api/alerts/search/findAll',
+		url: '/alerts',
 		method: 'GET',
 		params: {
-			sort: 'date,desc',
 			page: page - 1,
+			size: 20,
 			severity: severity,
+			'sort-by': 'Date',
+			'sort-desc': true,
 			search: filter,
-			startdate: startdate,
-			enddate: enddate
+			from: startdate,
+			to: enddate
 		}
 	};
-
 	return axios
 		.request(config)
 		.then(res => {
 			return res.data;
 		})
 		.catch(err => {
-			this.$noty.error('Unable retrieve alerts');
 			Promise.reject(err);
 		});
 }
 
-function updateAlerts(ids) {
+function updateAlert(id) {
 	const config = {
-		url: '/acknowledge',
-		method: 'PUT',
-		data: ids
+		url: '/alerts/' + id,
+		method: 'DELETE',
 	};
 	return axios
 		.request(config)
@@ -93,32 +95,8 @@ function updateAlerts(ids) {
 		});
 }
 
-function getAlertByHost(hostname, page, severity) {
-	const config = {
-		url: '/admin/api/alerts/search/findByHostname',
-		method: 'GET',
-		params: {
-			sort: 'date,desc',
-			hostname,
-			size: 5,
-			page: page - 1,
-			severity: severity
-		}
-	};
-
-	return axios
-		.request(config)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			return Promise.reject(err);
-		});
-}
-
 export default {
 	getAlerts,
-	updateAlerts,
-	getNewAlerts,
-	getAlertByHost
+	updateAlert,
+	getNewAlerts
 };

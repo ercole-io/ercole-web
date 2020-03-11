@@ -25,14 +25,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					empty-text="No Alerts."
 					empty-filtered-text="No Alerts. (filter enabled)"
 					:current-page="currentPage"
-					:items="myProvider" 
+					:items="page" 
 					:fields="fields">
-                    <template slot="date" slot-scope="data">
+                    <template slot="Date" slot-scope="data">
                         <span v-b-tooltip.hover :title="data.value | tooltip">
                             {{ data.value | date }}
                         </span>
                     </template>
-                    <template slot="severity" slot-scope="data">
+                    <template slot="AlertSeverity" slot-scope="data">
                         <Severity
                             v-b-tooltip.hover :title="data.value"
                             :value="data.value"></Severity>
@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </b-row>
         <b-row class="justify-content-center ">
 					<b-pagination 
-						:total-rows="totalRows" 
+						:total-rows="alerts.length" 
 						:per-page="perPage" 
 						v-model="currentPage" class="my-0" />
 				</b-row>
@@ -60,8 +60,8 @@ export default {
 		Severity
 	},
 	props: {
-		hostname: {
-			type: String,
+		alerts: {
+			type: Array,
 			required: true
 		}
 	},
@@ -78,31 +78,23 @@ export default {
 		return {
 			fields: [
 				{
-					key: 'date',
+					key: 'Date',
 					class: 'text-nowrap'
 				},
 				{
-					key: 'severity',
+					key: 'AlertSeverity',
 					class: 'text-center'
 				},
-				'code',
-				'description'
+				'AlertCode',
+				'Description'
 			],
-			totalRows: 0,
 			perPage: 5,
 			currentPage: 0
 		};
 	},
-	methods: {
-		myProvider(ctx) {
-			return AlertService.getAlertByHost(this.hostname, ctx.currentPage).then(
-				data => {
-					this.totalRows = data.page.totalElements;
-					this.perPage = data.page.size;
-					this.currentPage = data.page.number + 1;
-					return data._embedded.alerts;
-				}
-			);
+	computed: {
+		page() {
+			return this.alerts.slice(this.perPage*(this.currentPage-1), this.perPage*(this.currentPage));
 		}
 	}
 };

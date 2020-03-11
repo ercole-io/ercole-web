@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		<h3>Site Locator</h3>
 		<form class="form-inline">
 			<select class="custom-select" name="" id="" v-model="selectedLocation" :disabled="disabled">
-				<option :value="'*'">All</option>
+				<option :value="''">All</option>
 				<option v-for="locationStr in locations" :key="locationStr">{{locationStr}}</option>
 			</select>
 		</form>

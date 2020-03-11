@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         </div>
         <div class="form-inline justify-content-end" v-if="showHistoryView">
-            viewing host informations at: {{ archived | date }} (
+            viewing host informations at: {{ updated | date }} (
             <!-- <button class="btn btn-link p-0">cambia data</button>,&nbsp; -->
             <button class="btn btn-link p-0" @click="clear()">show current</button>)
         </div>
@@ -59,7 +59,7 @@ export default {
 			required: true
 		},
 		archived: {
-			type: String,
+			type: Boolean,
 			required: false
 		}
 	},

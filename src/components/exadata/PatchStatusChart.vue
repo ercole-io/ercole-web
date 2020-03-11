@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <template>
 	<div>
-		<h4>Patch 12M</h4>
+		<h4>Patch {{ windowTime }}M</h4>
 		<PieChart :height="300" :chart-data="data" v-if="widget"></PieChart>
 		<vue-simple-spinner v-if="spinner" size="big" message="Loading..."></vue-simple-spinner>
 		<b-alert :show="alert" variant="danger">
@@ -32,32 +32,38 @@ import { mapArrayToPieChartData } from '@/utils/PieChartMapper';
 
 export default {
 	props: {
-		widget: Boolean,
-		spinner: Boolean,
-		alert: Boolean,
-		patchedCount: {
-			type: Number
-		},
-		nonPatchedCount: {
-			type: Number
+		windowTime: {
+			type: Number,
 		},
 	},
-	computed: {
-		data() {
-			let data = mapArrayToPieChartData([
-					{ "patched": false, "count": this.nonPatchedCount},
-					{ "patched": true, "count": this.patchedCount},
-				], ['patched', 'count']);
-			data.labels.forEach(function (item, index) {
-				if (item == false) {
-					data.datasets[0].backgroundColor[index] = '#ff0000';
-				} else if  (item == true) {
-					data.datasets[0].backgroundColor[index] = '#8BC34A';
-				}
+	data() {
+		return {
+			widget: false,
+			spinner: true,
+			alert: false,
+			data: []
+		};
+	},
+	created() {
+		DashboardService.getExadataPatchStatusStats(this.windowTime)
+			.then(data => {
+				this.data = mapArrayToPieChartData(data, ['Status', 'Count']);
+				this.spinner = false;
+				this.widget = true;
+				let self = this;
+				this.data.labels.forEach(function (item, index) {
+					if (item == false) {
+						self.data.datasets[0].backgroundColor[index] = '#ff0000';
+					} else if  (item == true) {
+						self.data.datasets[0].backgroundColor[index] = '#8BC34A';
+					}
+				})
 			})
-
-			return data
-		}
+			.catch((err) => {
+				this.$noty.error(`Unable to retrieve patch status stats`);
+				this.spinner = false;
+				this.alert = true;
+			});
 	}
 };
 </script>

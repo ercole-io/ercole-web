@@ -78,12 +78,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					:items="myProvider"
 					:current-page="currentPage"
 					:fields="fields">
-					<template slot="severity" slot-scope="data">
+					<template slot="AlertSeverity" slot-scope="data">
 						<Severity
 							v-b-tooltip.hover :title="data.value"
 							:value="data.value"></Severity>
 					</template>
-					<template slot="hostname" slot-scope="data">
+					<template slot="Hostname" slot-scope="data">
 						<router-link :to="{ name: 'host_detail', params: { id: data.value }}">
 							<span>{{data.value}}</span>
 						</router-link>
@@ -92,11 +92,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						<b-form-checkbox 
 							plain 
 							v-model="selected" 
-							:disabled="data.item.status === 'ACK'"
-							:value="data.item.id">&nbsp;
+							:disabled="data.item.AlertStatus === 'ACK'"
+							:value="data.item._id">&nbsp;
 						</b-form-checkbox>
 					</template>
-					<template slot="date" slot-scope="data">
+					<template slot="Date" slot-scope="data">
 						<span v-b-tooltip.hover :title="data.value | tooltip">
 							{{ data.value | date }}
 						</span>
@@ -141,16 +141,22 @@ export default {
 			fields: [
 				{ key: 'selection', label: '&nbsp;' },
 				{
-					key: 'date',
+					key: 'Date',
 					class: 'text-nowrap'
 				},
 				{
-					key: 'severity',
+					key: 'AlertSeverity',
 					class: 'text-center'
 				},
-				'hostname',
-				'code',
-				'description'
+				'Hostname',
+				{
+					key: 'AlertCode',
+					label: 'Code'
+				},
+				{
+					key: 'Description',
+					label: 'Description'
+				}
 			],
 			totalRows: 0,
 			perPage: 20,
@@ -179,10 +185,10 @@ export default {
 	},
 	methods: {
 		handleResponse(data) {
-			const items = JSON.parse(JSON.stringify(data._embedded.alerts));
-			this.totalRows = data.page.totalElements;
-			this.perPage = data.page.size;
-			this.currentPage = data.page.number + 1;
+			const items = data.Content;
+			this.totalRows = data.Metadata.TotalElements;
+			this.perPage = data.Metadata.Size;
+			this.currentPage = data.Metadata.Number + 1;
 			items.forEach(el => {
 				if (el.status === 'NEW') {
 					el._rowVariant = 'bold';
@@ -210,15 +216,15 @@ export default {
 			}
 		},
 		markRead(selected) {
-			AlertService.updateAlerts(selected)
-				.then(() => {
-					this.selected = [];
-					this.$store.dispatch('loadNotifications');
-					this.$refs.table.refresh();
-				})
-				.catch(err => {
-					this.$noty.error(err);
-				});
+			Promise.all(selected.map(sel =>
+				AlertService.updateAlert(sel)
+			)).then(() => {
+				this.$store.dispatch('loadNotifications');
+				this.$refs.table.refresh();
+			})
+			.catch(err => {
+				this.$noty.error(err);
+			});
 		}
 	},
 	computed: {

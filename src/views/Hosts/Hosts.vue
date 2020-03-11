@@ -70,24 +70,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					empty-text="No host."
 					empty-filtered-text="No host, try to remove filter."
 					:per-page="perPage" >
-					<template slot="hostname" slot-scope="data">
+					<template slot="Hostname" slot-scope="data">
 						<a href="#" @click="showDetail(data.item)">
 							{{data.value}}
 						</a>
 					</template>
-					<template slot="hostInfo.SunCluster" slot-scope="data">
+					<template slot="SunCluster" slot-scope="data">
 						<CheckMark :value="data.value"></CheckMark>
 					</template>
-					<template slot="hostInfo.Virtual" slot-scope="data">
+					<template slot="Virtual" slot-scope="data">
 						<CheckMark :value="data.value"></CheckMark>
 					</template>
-					<template slot="hostInfo.OracleCluster" slot-scope="data">
+					<template slot="OracleCluster" slot-scope="data">
 						<CheckMark :value="data.value"></CheckMark>
 					</template>
-					<template slot="hostInfo.VeritasCluster" slot-scope="data">
+					<template slot="VeritasCluster" slot-scope="data">
 						<CheckMark :value="data.value"></CheckMark>
 					</template>
-					<template slot="hostInfo.Type" slot-scope="data">
+					<template slot="Type" slot-scope="data">
 						{{(data.value == 'PH') ? 'BARE METAL' : data.value}}
 					</template>
 				</b-table>
@@ -114,68 +114,68 @@ export default {
 			loading: false,
 			fields: [
 				{
-					key: 'hostname',
+					key: 'Hostname',
 					sortable: true
 				},
 				{
-					key: 'environment',
+					key: 'Environment',
 					label: 'Env'
 				},
 				{
-					key: 'hostType',
+					key: 'HostType',
 					label: 'Host type'
 				},
 				{
-					key: 'associatedClusterName',
+					key: 'Cluster',
 					label: 'Cluster'
 				},
 				{
-					key: 'associatedHypervisorHostname',
+					key: 'PhysicalHost',
 					label: 'Physical Host'
 				},
 				{
-					key: 'version',
+					key: 'Version',
 					label: 'Version'
 				},
 				{
 					label: 'Last Update',
-					key: 'updated',
+					key: 'CreatedAt',
 					formatter: value => {
 						return moment(value).format('DD/MM/YYYY');
 					},
 					sortable: true,
 				},
 				{
-					key: 'databases',
+					key: 'Databases',
 					formatter: value => {
 						return value == '' ? '-' : value;
 					}
 				},
-				{ key: 'hostInfo.OS', label: 'OS' },
-				{ key: 'hostInfo.Kernel', label: 'Kernel' },
+				{ key: 'OS', label: 'OS' },
+				{ key: 'Kernel', label: 'Kernel' },
 				{
-					key: 'hostInfo.OracleCluster',
+					key: 'OracleCluster',
 					label: 'Oracle Cluster',
 					class: 'text-center'
 				},
 				{
-					key: 'hostInfo.SunCluster',
+					key: 'SunCluster',
 					label: 'Sun Cluster',
 					class: 'text-center'
 				},
-				{ key: 'hostInfo.VeritasCluster', label: 'Veritas Cluster' },
+				{ key: 'VeritasCluster', label: 'Veritas Cluster' },
 				{
-					key: 'hostInfo.Virtual',
+					key: 'Virtual',
 					label: 'Virtual',
 					class: 'text-center'
 				},
-				{ key: 'hostInfo.Type', label: 'Platform type' },
-				{ key: 'hostInfo.CPUThreads', label: 'CPU Threads' },
-				{ key: 'hostInfo.CPUCores', label: 'CPU Cores' },
-				{ key: 'hostInfo.Socket', label: 'Socket' },
-				{ key: 'hostInfo.MemoryTotal', label: 'Mem Total' },
-				{ key: 'hostInfo.SwapTotal', label: 'Swap Total' },
-				{ key: 'hostInfo.CPUModel', label: 'CPU Model' }
+				{ key: 'Type', label: 'Platform type' },
+				{ key: 'CPUThreads', label: 'CPU Threads' },
+				{ key: 'CPUCores', label: 'CPU Cores' },
+				{ key: 'Socket', label: 'Socket' },
+				{ key: 'MemTotal', label: 'Mem Total' },
+				{ key: 'SwapTotal', label: 'Swap Total' },
+				{ key: 'CPUModel', label: 'CPU Model' }
 			],
 			options: [
 				{ value: null, text: '' },
@@ -208,14 +208,14 @@ export default {
 			);
 		},
 		showDetail(item /*, index, event*/) {
-			this.$router.push({ name: 'host_detail', params: { id: item.hostname } });
+			this.$router.push({ name: 'host_detail', params: { id: item.Hostname } });
 		},
 		itemsProvider(ctx) {
 			return HostService.getHosts(ctx.currentPage, ctx.filter, this.olderThan, ctx.sortBy + ',' + (ctx.sortDesc? 'desc' : 'asc'))
-				.then(hosts => {
-					const items = hosts.content;
-					this.totalRows = hosts.numberOfElements;
-					this.perPage = hosts.size;
+				.then(data => {
+					const items = data.Content;
+					this.totalRows = data.Metadata.TotalElements;
+					this.perPage = data.Size;
 					this.displayed = items.length;
 					return items || [];
 				})

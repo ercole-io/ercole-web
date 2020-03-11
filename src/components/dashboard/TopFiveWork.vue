@@ -51,9 +51,9 @@ export default {
 		return {
 			fields: [
 				{ key: 'position', label: '#' },
-				{ key: 'hostname', label: 'Host Name' },
-				{ key: 'database', label: 'DB Name' },
-				{ key: 'work', label: 'Thread utilization' }
+				{ key: 'Hostname', label: 'Host Name' },
+				{ key: 'Dbname', label: 'DB Name' },
+				{ key: 'Workload', label: 'Thread utilization' }
 			]
 		};
 	}

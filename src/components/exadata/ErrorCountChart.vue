@@ -31,33 +31,34 @@ import DashboardService from '@/services/DashboardService';
 import { mapArrayToPieChartData } from '@/utils/PieChartMapper';
 
 export default {
-	props: {
-		widget: Boolean,
-		spinner: Boolean,
-		alert: Boolean,
-		erroredCount: {
-			type: Number
-		},
-		nonErroredCount: {
-			type: Number
-		},
+	data() {
+		return {
+			widget: false,
+			spinner: true,
+			alert: false,
+			data: []
+		};
 	},
-	computed: {
-		data() {
-			let data = mapArrayToPieChartData([
-					{ "errored": false, "count": this.nonErroredCount},
-					{ "errored": true, "count": this.erroredCount},
-				], ['errored', 'count']);
-			data.labels.forEach(function (item, index) {
-				if (item == false) {
-					data.datasets[0].backgroundColor[index] = '#8BC34A';
-				} else if  (item == true) {
-					data.datasets[0].backgroundColor[index] = '#ff0000';
-				}
+	created() {
+		DashboardService.getExadataStorageErrorCountStatusStats(this.env)
+			.then(data => {
+				this.data = mapArrayToPieChartData(data, ['Failing', 'Count']);
+				this.spinner = false;
+				this.widget = true;
+				let self = this;
+				this.data.labels.forEach(function (item, index) {
+					if (item == false) {
+						self.data.datasets[0].backgroundColor[index] = '#ff0000';
+					} else if  (item == true) {
+						self.data.datasets[0].backgroundColor[index] = '#8BC34A';
+					}
+				})
 			})
-
-			return data
-		}
+			.catch((err) => {
+				this.$noty.error(`Unable to retrieve error count status stats`);
+				this.spinner = false;
+				this.alert = true;
+			});
 	}
 };
 </script>

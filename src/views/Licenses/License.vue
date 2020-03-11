@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			:items="items"
 			:fields="fields"
 		>
-			<template slot="hostname" slot-scope="data">
+			<template slot="Hostname" slot-scope="data">
 				<a href="#" @click="showDetail(data.item)">
 					{{data.value}}
 				</a>
@@ -42,21 +42,24 @@ export default {
 	data() {
 		return {
 			items: null,
-			fields: ['hostname', 'dbs']
+			fields: ['Hostname', 'Databases']
 		};
 	},
 	methods: {
 		loadData() {
 			LicenseService.getHostUsingLicense(this.id)
 				.then(items => {
-					this.items = items;
+					this.items = items.map(host => {
+						host.Databases = host.Databases.join(" ");
+						return host
+					});
 				})
 				.catch(() => {
 					this.$noty.error(`Unable to the hosts using the license ${this.id}`);
-				});
+				});			
 		},
 		showDetail(item /*, index, event*/) {
-			this.$router.push({ name: 'host_detail', params: { id: item.hostname } });
+			this.$router.push({ name: 'host_detail', params: { id: item.Hostname } });
 		},
 	},
 	computed: {
