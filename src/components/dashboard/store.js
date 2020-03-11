@@ -66,7 +66,7 @@ const dashboard = {
 			commit('load');
 			return DashboardService.getServerEnv(location)
 				.then(res => {
-					const data = mapArrayToPieChartData(res, ['label', 'data']);
+					const data = mapArrayToPieChartData(res, ['Environment', 'Count']);
 					commit('success', data);
 				})
 				.catch(() => {
@@ -77,7 +77,7 @@ const dashboard = {
 			commit('load');
 			return DashboardService.getServerOS(location)
 				.then(res => {
-					const data = mapArrayToPieChartData(res, ['sistemi', 'count']);
+					const data = mapArrayToPieChartData(res, ['OperatingSystem', 'Count']);
 					commit('success', data);
 				})
 				.catch(() => {
@@ -93,7 +93,7 @@ const dashboard = {
 							item.tipo = "BARE METAL";
 						}
 						return item;
-					}), ['tipo', 'count']);
+					}), ['Type', 'Count']);
 					commit('success', data);
 				})
 				.catch(() => {
@@ -104,7 +104,7 @@ const dashboard = {
 			commit('load');
 			return DashboardService.getDBEnv(location)
 				.then(res => {
-					const data = mapArrayToPieChartData(res, ['environment', 'count']);
+					const data = mapArrayToPieChartData(res, ['Environment', 'Count']);
 					commit('success', data);
 				})
 				.catch(() => {
@@ -115,7 +115,7 @@ const dashboard = {
 			commit('load');
 			return DashboardService.getDBVersions(location)
 				.then(res => {
-					const data = mapArrayToPieChartData(res, ['version', 'count']);
+					const data = mapArrayToPieChartData(res, ['Version', 'Count']);
 					commit('success', data);
 				})
 				.catch(() => {
@@ -146,7 +146,7 @@ const dashboard = {
 			commit('load');
 			return DashboardService.getTopFifteenReclaimableDatabase(location)
 				.then(res => {
-					const data = mapArrayToPieChartData(res, ['dbname', 'sum']);
+					const data = mapArrayToPieChartData(res, ['Dbname', 'ReclaimableSegmentAdvisors']);
 					commit('success', data);
 				})
 				.catch(() => {
@@ -157,7 +157,7 @@ const dashboard = {
 			commit('load');
 			return DashboardService.getPatchStatusStats(location, 6)
 				.then(res => {
-					const data = mapArrayToPieChartData(res, ['status', 'count']);
+					const data = mapArrayToPieChartData(res, ['Status', 'Count']);
 					data.labels.forEach(function (item, index) {
 						if (item === 'KO') {
 							data.datasets[0].backgroundColor[index] = '#ff0000';
@@ -175,7 +175,7 @@ const dashboard = {
 			commit('load');
 			return DashboardService.getPatchStatusStats(location, 12)
 				.then(res => {
-					const data = mapArrayToPieChartData(res, ['status', 'count']);
+					const data = mapArrayToPieChartData(res, ['Status', 'Count']);
 					data.labels.forEach(function (item, index) {
 						if (item === 'KO') {
 							data.datasets[0].backgroundColor[index] = '#ff0000';

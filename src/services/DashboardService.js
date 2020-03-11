@@ -21,7 +21,7 @@ import axios from 'axios';
  */
 function getServerEnv(location) {
 	const config = {
-		url: '/getserverenv',
+		url: '/stats/environments',
 		method: 'GET',
 		params: {
 			location
@@ -44,7 +44,7 @@ function getServerEnv(location) {
  */
 function getServerLocations() {
 	const config = {
-		url: '/getserverslocations',
+		url: '/locations',
 		method: 'GET'
 	};
 
@@ -60,7 +60,7 @@ function getServerLocations() {
 
 function getDBEnv(location) {
 	const config = {
-		url: '/getdbenv',
+		url: '/stats/databases/environments',
 		method: 'GET',
 		params: {
 			location
@@ -79,7 +79,7 @@ function getDBEnv(location) {
 
 function getServerOS(location) {
 	const config = {
-		url: '/getostypes',
+		url: '/stats/operating-systems',
 		method: 'GET',
 		params: {
 			location
@@ -98,7 +98,7 @@ function getServerOS(location) {
 
 function getServerType(location) {
 	const config = {
-		url: '/gethosttypes',
+		url: '/stats/types',
 		method: 'GET',
 		params: {
 			location
@@ -136,7 +136,7 @@ function getDBFeatures(location) {
 
 function getDBVersions(location) {
 	const config = {
-		url: '/getdbversions',
+		url: '/stats/databases/versions',
 		method: 'GET',
 		params: {
 			location
@@ -158,7 +158,7 @@ function getDBVersions(location) {
  */
 function getWorkTopFive(location) {
 	const config = {
-		url: '/getwork',
+		url: '/stats/databases/top-workload',
 		method: 'GET',
 		params: {
 			location
@@ -180,7 +180,7 @@ function getWorkTopFive(location) {
  */
 function getResizeTopFive(location) {
 	const config = {
-		url: '/getresize',
+		url: '/stats/top-unused-instance-resource',
 		method: 'GET',
 		params: {
 			location
@@ -233,7 +233,7 @@ function getLicensesTypeSummary(location) {
 
 function getTopFifteenReclaimableDatabase(location) {
 	const config = {
-		url: '/gettopreclaimabledatabase',
+		url: '/stats/databases/top-reclaimable',
 		method: 'GET',
 		params: {
 			location
@@ -252,7 +252,7 @@ function getTopFifteenReclaimableDatabase(location) {
 
 function getPatchStatusStats(location, windowTime) {
 	const config = {
-		url: '/getpatchstatusstats',
+		url: '/stats/databases/patch-status',
 		method: 'GET',
 		params: {
 			location,
