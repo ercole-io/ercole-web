@@ -14,32 +14,27 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import axios from 'axios';
+import now from 'moment';
+import moment from 'moment';
+
 
 function getHosts(pageNumber, filter, olderThan, sort) {
 	const config = {
-		//url: '/admin/api/currentHosts',
 		url: '/hosts',
 		method: 'GET',
 		params: {
 			page: pageNumber - 1,
 			size: 20,
-			sort: sort,
-			ricerca: filter,
-			days: olderThan
+			search: filter,
+			mode: 'summary',
+			'older-than': olderThan == null ? '' : now().subtract({days: olderThan}).endOf('day').format()
 		}
 	};
 
 	return axios
 		.request(config)
 		.then(res => {
-			const page = res.data;
-			return {
-				number: page.number,
-				numberOfElements: page.totalElements,
-				size: page.size,
-				totalPages: page.totalPages,
-				content: res.data.content
-			};
+			return res.data;
 		})
 		.catch(err => {
 			return Promise.reject(err);
@@ -48,7 +43,7 @@ function getHosts(pageNumber, filter, olderThan, sort) {
 
 function getHost(id) {
 	const config = {
-		url: '/admin/api/currentHosts/search/findByHostname?hostname=' + id,
+		url: '/hosts/' + id,
 		method: 'GET'
 	};
 
@@ -65,11 +60,10 @@ function getHost(id) {
 
 function getHostHistory(host, date) {
 	const config = {
+		url: '/hosts/' + host,
 		method: 'GET',
-		url: '/historical',
 		params: {
-			hostname: host,
-			data: date
+			'older-than': moment(date).format()
 		}
 	};
 	return axios
@@ -164,9 +158,12 @@ function getEnviroments() {
 
 function generateEx() {
 	return axios({
-		url: '/generateexcel',
+		url: '/hosts',
 		method: 'GET',
-		responseType: 'blob'
+		responseType: 'blob',
+		headers: {
+			'Accept': 'application/vnd.oracle.lms+vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+		}
 	}).then(response => {
 		const url = window.URL.createObjectURL(new Blob([response.data]));
 		const link = document.createElement('a');
@@ -179,9 +176,12 @@ function generateEx() {
 
 function generateExSimple() {
 	return axios({
-		url: '/generateexcelraw',
+		url: '/hosts',
 		method: 'GET',
-		responseType: 'blob'
+		responseType: 'blob',
+		headers: {
+			'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+		}
 	}).then(response => {
 		const url = window.URL.createObjectURL(new Blob([response.data]));
 		const link = document.createElement('a');
@@ -261,11 +261,14 @@ function generateAddmExcel(filter, env) {
 
 function generateHypervisorsExcel(filter) {
 	return axios({
-		url: '/generate-hypervisors',
+		url: '/clusters',
 		method: 'GET',
 		responseType: 'blob',
 		params: {
 			search: filter,
+		},
+		headers: {
+			'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 		}
 	}).then(response => {
 		const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -284,55 +287,6 @@ function dismiss(hostname) {
 	})
 }
 
-function getGrowDbStats(hostname) {
-	const config = {
-		url: '/hosts/' + hostname + '/useddatahistory',
-		method: 'GET'
-	};
-
-	return axios
-		.request(config)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			return Promise.reject(err);
-		});
-}
-
-function getSegmentsSizeGrowDbStats(hostname) {
-	const config = {
-		url: '/hosts/' + hostname + '/segmentssizedatahistory',
-		method: 'GET'
-	};
-
-	return axios
-		.request(config)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			return Promise.reject(err);
-		});
-}
-
-
-function getDailyCPUUsageGrowDbStats(hostname) {
-	const config = {
-		url: '/hosts/' + hostname + '/dailycpuusagedatahistory',
-		method: 'GET'
-	};
-
-	return axios
-		.request(config)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			return Promise.reject(err);
-		});
-}
-
 function getDatabases(pageNumber, sort, filter, env) {
 	const config = {
 		url: '/databases',
@@ -340,33 +294,10 @@ function getDatabases(pageNumber, sort, filter, env) {
 		params: {
 			page: pageNumber - 1,
 			size: 50,
-			sort: sort,
+			// sort: sort,
 			search: filter,
-			env: env
+			environment: env
 		}
-	};
-
-	return axios
-		.request(config)
-		.then(res => {
-			const page = res.data;
-			return {
-				number: page.number,
-				numberOfElements: page.totalElements,
-				size: page.size,
-				totalPages: page.totalPages,
-				content: res.data.content
-			};
-		})
-		.catch(err => {
-			return Promise.reject(err);
-		});
-}
-
-function getTagsGroupedByDbname(hostname) {
-	const config = {
-		url: '/hosts/' + hostname + '/tags',
-		method: 'GET'
 	};
 
 	return axios
@@ -390,20 +321,20 @@ function addTag(hostname, dbname, tag) {
 	})
 }
 
-function deleteTag(tag) {
+function deleteTag(hostname, dbname, tag) {
 	return axios({
-		url: '/hosts/' + tag.hostname + '/databases/' + tag.dbname + '/tags/' + tag.id,
+		url: '/hosts/' + hostname + '/databases/' + dbname + '/tags/' + tag,
 		method: 'DELETE'
 	})
 }
 
 function clearLicense(hostname, dbname, licenseName) {
 	return axios({
-		url: '/hosts/' + hostname + '/databases/' + dbname + '/license-modifiers/' + licenseName,
+		url: '/hosts/' + hostname + '/databases/' + dbname + '/licenses/' + licenseName,
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		method: 'POST',
+		method: 'PUT',
 		data: 0
 	})
 }
@@ -429,12 +360,8 @@ export default {
 	generateSegmentsExcel,
 	generateAddmExcel,
 	generateHypervisorsExcel,
-	getGrowDbStats,
-	getSegmentsSizeGrowDbStats,
-	getDailyCPUUsageGrowDbStats,
 	dismiss,
 	getDatabases,
-	getTagsGroupedByDbname,
 	addTag,
 	deleteTag,
 	clearLicense,

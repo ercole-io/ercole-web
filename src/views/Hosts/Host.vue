@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					<div class="col-10">
 						<History
 							class="mb-2"
-							:updated="host.updated"
-							:archived="host.archived"
+							:updated="host.CreatedAt"
+							:archived="host.Archived"
 							@update-date="handleDateUpdate($event)">
 						</History>
 					</div>
@@ -35,80 +35,80 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				</div>
 				<b-card :title="id" class="mb-3">
 					<div class="card-text two-column-grid">
-						<span><strong>Host type</strong>: {{host.hostType}}</span>
-						<span v-if="host.hostType=='oracledb' || host.hostType==null"><strong>Databases</strong>: {{host.databases}}</span>
-						<span><strong>Environment</strong>: {{host.environment}}</span>
-						<span><strong>Location</strong>: {{host.location}}</span>
+						<span><strong>Host type</strong>: {{host.HostType}}</span>
+						<span v-if="host.HostType=='oracledb' || host.HostType==null"><strong>Databases</strong>: {{host.Databases}}</span>
+						<span><strong>Environment</strong>: {{host.Environment}}</span>
+						<span><strong>Location</strong>: {{host.Location}}</span>
 					</div>
 					<div class="card-text one-column-grid">
-						<span v-if="host.hostType=='oracledb' || host.hostType==null"><strong>Schemas</strong>: {{showAllSchemas? host.schemas : partialSchemas}}</span>
+						<span v-if="host.HostType=='oracledb' || host.HostType==null"><strong>Schemas</strong>: {{showAllSchemas? host.Schemas : partialSchemas}}</span>
 						<a v-if="splittedSchemas.length >= 50" href="#" @click="showAllSchemas = !showAllSchemas">
 							{{ showAllSchemas? '&lt;--' : '...'}}
 						</a>
 					</div>
 				</b-card>
 
-				<b-card class="mb-3" v-if="host.hostInfo != null">
+				<b-card class="mb-3" v-if="host.Info != null">
 					<h6 slot="header" class="mb-0">
 						<i class="fas fa-server"></i>
 						Host Infos
 					</h6>
 					<div class="card-text two-column-grid">
-						<span><strong>Hostname</strong>: {{host.hostInfo.Hostname}}</span>
-						<span><strong>Environment</strong>: {{host.hostInfo.Environment}}</span>
-						<span><strong>Location</strong>: {{host.hostInfo.Location}}</span>
-						<span><strong>Agent version</strong>: {{host.version}}</span>
-						<span><strong>OS</strong>: {{host.hostInfo.OS}}</span>
-						<span><strong>Kernel</strong>: {{host.hostInfo.Kernel}}</span>
-						<span><strong>Virtual</strong>: {{host.hostInfo.Virtual}}</span>
-						<span><strong>Platform Type</strong>: {{(host.hostInfo.Type == 'PH')? 'BARE METAL' : host.hostInfo.Type}}</span>
-						<span><strong>OracleCluster</strong>: {{host.hostInfo.OracleCluster}}</span>
-						<span><strong>SunCluster</strong>: {{host.hostInfo.SunCluster}}</span>
-						<span><strong>VeritasCluster</strong>: {{host.hostInfo.VeritasCluster}}</span>
-						<span><strong>CPUModel</strong>: {{host.hostInfo.CPUModel}}</span>
-						<span><strong>CPUThreads</strong>: {{host.hostInfo.CPUThreads}}</span>
-						<span><strong>CPUCores</strong>: {{host.hostInfo.CPUCores}}</span>
-						<span><strong>CPU Socket</strong>: {{host.hostInfo.Socket}}</span>
-						<span><strong>MemoryTotal</strong>: {{host.hostInfo.MemoryTotal}}</span>
-						<span><strong>SwapTotal</strong>: {{host.hostInfo.SwapTotal}}</span>
+						<span><strong>Hostname</strong>: {{host.Info.Hostname}}</span>
+						<span><strong>Environment</strong>: {{host.Info.Environment}}</span>
+						<span><strong>Location</strong>: {{host.Info.Location}}</span>
+						<span><strong>Agent version</strong>: {{host.Version}}</span>
+						<span><strong>OS</strong>: {{host.Info.OS}}</span>
+						<span><strong>Kernel</strong>: {{host.Info.Kernel}}</span>
+						<span><strong>Virtual</strong>: {{host.Info.Virtual}}</span>
+						<span><strong>Platform Type</strong>: {{(host.Info.Type == 'PH')? 'BARE METAL' : host.Info.Type}}</span>
+						<span><strong>OracleCluster</strong>: {{host.Info.OracleCluster}}</span>
+						<span><strong>SunCluster</strong>: {{host.Info.SunCluster}}</span>
+						<span><strong>VeritasCluster</strong>: {{host.Info.VeritasCluster}}</span>
+						<span><strong>CPUModel</strong>: {{host.Info.CPUModel}}</span>
+						<span><strong>CPUThreads</strong>: {{host.Info.CPUThreads}}</span>
+						<span><strong>CPUCores</strong>: {{host.Info.CPUCores}}</span>
+						<span><strong>CPU Socket</strong>: {{host.Info.Socket}}</span>
+						<span><strong>MemoryTotal</strong>: {{host.Info.MemoryTotal}}</span>
+						<span><strong>SwapTotal</strong>: {{host.Info.SwapTotal}}</span>
 					</div>
 				</b-card>
 
-				<div v-if="host.extraInfo != null">
-					<b-card class="mb-3" v-if="host.extraInfo.Databases != null && host.hostType == 'oracledb' || host.hostType == null">
+				<div v-if="host.Extra != null">
+					<b-card class="mb-3" v-if="host.Extra.Databases != null && host.HostType == 'oracledb' || host.HostType == null">
 						<h6 slot="header" class="mb-0">
 							<i class="fas fa-database"></i>
 							Databases
 						</h6>
 						<p class="card-text">
-							<Databases :available_tags="tags_options" :tags="tags" @tag_deleted="tagDeleted" @add_tag="addTag" :databases="host.extraInfo.Databases" @clear_license="clearLicense" @recover_license="recoverLicense" :grow="usedDataHistory" :segmentsSizeGrow="segmentsSizeDataHistory" :cpugrow="dailyCPUGrowDataHistory"></Databases>
+							<Databases :available_tags="tags_options" @tag_deleted="tagDeleted" @add_tag="addTag" :databases="host.Extra.Databases" @clear_license="clearLicense" @recover_license="recoverLicense"></Databases>
 						</p>
 					</b-card>
-					<b-card class="mb-3" v-if="host.extraInfo.Clusters != null && host.hostType == 'virtualization'">
+					<b-card class="mb-3" v-if="host.Extra.Clusters != null && host.HostType == 'virtualization'">
 						<h6 slot="header" class="mb-0">
 							<i class="fas fa-cluster"></i>
 							Clusters
 						</h6>
 						<p class="card-text">
-							<Clusters :clusters="host.extraInfo.Clusters"></Clusters>
+							<Clusters :clusters="host.Extra.Clusters"></Clusters>
 						</p>
 					</b-card>
-					<b-card class="mb-3" v-if="host.extraInfo.Exadata != null && host.hostType == 'exadata'">
+					<b-card class="mb-3" v-if="host.Extra.Exadata != null && host.HostType == 'exadata'">
 						<h6 slot="header" class="mb-0">
 							<i class="fas fa-server"></i>
 							Exadata
 						</h6>
 						<p class="card-text">
-							<Exadata :exadata="host.extraInfo.Exadata"></Exadata>
+							<Exadata :exadata="host.Extra.Exadata"></Exadata>
 						</p>
 					</b-card>
-					<b-card class="mb-3" v-if="host.extraInfo.Filesystems != null">
+					<b-card class="mb-3" v-if="host.Extra.Filesystems != null">
 						<h6 slot="header" class="mb-0">
 							<i class="fas fa-folder"></i>
 							Filesystems
 						</h6>
 						<p class="card-text">
-							<Filesystem :filesystem="host.extraInfo.Filesystems"></Filesystem>
+							<Filesystem :filesystem="host.Extra.Filesystems"></Filesystem>
 						</p>
 					</b-card>
 				</div>
@@ -123,7 +123,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						<i class="fas fa-bell"></i>
 						Host's Alerts
 					</h6>
-					<HostAlerts :hostname="id"></HostAlerts>
+					<HostAlerts :alerts="host.Alerts"></HostAlerts>
 				</b-card>
 			</b-col>
 		</b-row>
@@ -154,9 +154,6 @@ export default {
 		return {
 			host: null,
 			showAllSchemas: false,
-			usedDataHistory: {},
-			segmentsSizeDataHistory: {},
-			dailyCPUGrowDataHistory: {},
 			tags_options: [ "" ],
 			tags: {}
 		};
@@ -180,12 +177,6 @@ export default {
 						this.$noty.error(err);
 					});
 			}
-			HostService.getGrowDbStats(this.id)
-				.then(grow => {
-					this.usedDataHistory = grow;
-				}).catch(err => {
-					this.$noty.error(err);
-				});
 		},
 		dismiss() {
 			let self = this;
@@ -206,18 +197,11 @@ export default {
 			});
 			n.show();
 		}, 
-		reloadTags() {
-			HostService.getTagsGroupedByDbname(this.id)
-				.then(tags => {
-					this.tags = tags;
-				}).catch(err => {
-					this.$noty.error(err);
-				});
-		},
-		tagDeleted(tag) {
-			HostService.deleteTag(tag)
+		tagDeleted(dbname, tag) {
+			HostService.deleteTag(this.id, dbname, tag)
 				.then(tag => {
-					this.reloadTags();
+					//Delete the tag
+					this.handleDateUpdate(null);
 				}).catch(err => {
 					this.$noty.error(err);
 				})
@@ -226,7 +210,8 @@ export default {
 			if (tagname !== '') {
 				HostService.addTag(this.id, dbname, tagname)
 				.then(tag => {
-					this.reloadTags();
+					//Add the tag
+					this.handleDateUpdate(null);
 				}).catch(err => {
 					this.$noty.error(err);
 				})
@@ -235,7 +220,7 @@ export default {
 		clearLicense(dbname, licenseName) {
 			HostService.clearLicense(this.id, dbname, licenseName)
 				.then(() => {
-					this.host["extraInfo"]["Databases"].forEach(item => {
+					this.host["Extra"]["Databases"].forEach(item => {
 						if (item["Name"] === dbname) {
 							item["Licenses"].forEach(item2 => {
 								if (item2["Name"] === licenseName) {
@@ -253,7 +238,7 @@ export default {
 		recoverLicense(dbname, licenseName) {
 			HostService.recoverLicense(this.id, dbname, licenseName)
 				.then(() => {
-					this.host["extraInfo"]["Databases"].forEach(item => {
+					this.host["Extra"]["Databases"].forEach(item => {
 						if (item["Name"] === dbname) {
 							item["Licenses"].forEach(item2 => {
 								if (item2["Name"] === licenseName) {
@@ -277,25 +262,6 @@ export default {
 			.catch(() => {
 				this.$noty.error(`Unable to retrieve host ${this.id}`);
 			});
-		HostService.getGrowDbStats(this.id)
-			.then(grow => {
-				this.usedDataHistory = grow;
-			}).catch(err => {
-				this.$noty.error(err);
-			});
-		HostService.getSegmentsSizeGrowDbStats(this.id)
-			.then(grow => {
-				this.segmentsSizeDataHistory = grow;
-			}).catch(err => {
-				this.$noty.error(err);
-			});
-		HostService.getDailyCPUUsageGrowDbStats(this.id)
-			.then(grow => {
-				this.dailyCPUGrowDataHistory = grow;
-			}).catch(err => {
-				this.$noty.error(err);
-			});
-		this.reloadTags();
 		DashService.getAvailableTags()
 			.then(tags => {
 				this.tags_options = [""].concat(tags);
@@ -308,7 +274,7 @@ export default {
 			return this.$route.params.id;
 		},
 		splittedSchemas() {
-			return this.host.schemas.split(' ')
+			return this.host.Schemas.split(' ')
 		},
 		partialSchemas() {
 			return this.splittedSchemas.slice(0, 50).join(' ')

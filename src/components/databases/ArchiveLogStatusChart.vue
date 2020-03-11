@@ -45,7 +45,7 @@ export default {
 	created() {
 		DashboardService.getArchiveLogStatusStats(this.env)
 			.then(data => {
-				this.data = mapArrayToPieChartData(data, ['status', 'count']);
+				this.data = mapArrayToPieChartData(data, ['ArchiveLog', 'Count']);
 				this.spinner = false;
 				this.widget = true;
 				let self = this;
@@ -67,7 +67,7 @@ export default {
 		env() {
 			DashboardService.getArchiveLogStatusStats(this.env)
 				.then(data => {
-					this.data = mapArrayToPieChartData(data, ['status', 'count']);
+					this.data = mapArrayToPieChartData(data, ['ArchiveLog', 'Status']);
 					this.spinner = false;
 					this.widget = true;
 					let self = this;

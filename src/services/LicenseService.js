@@ -60,7 +60,7 @@ function mergeLicenses() {
 
 function saveLicenses(licenses) {
 	const config = {
-		url: '/updatelicenses',
+		url: '/licenses',
 		method: 'PUT',
 		data: licenses
 	};
@@ -78,7 +78,7 @@ function saveLicenses(licenses) {
 // returns all hosts using a license
 function getHostUsingLicense(lc) {
 	const config = {
-		url: '/getallhostusinglicense',
+		url: '/licenses/' + lc,
 		method: 'GET',
 		params: {
 			license: lc
@@ -88,7 +88,7 @@ function getHostUsingLicense(lc) {
 	return axios
 		.request(config)
 		.then(res => {
-			return res.data;
+			return res.data.Hosts;
 		})
 		.catch(err => {
 			return Promise.reject(err);
