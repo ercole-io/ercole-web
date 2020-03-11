@@ -199,7 +199,7 @@ function getResizeTopFive(location) {
 
 function getLicensesCompliance() {
 	const config = {
-		url: '/getcompliance',
+		url: '/stats/databases/license-compliance',
 		method: 'GET'
 	};
 	return axios
