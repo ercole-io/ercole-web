@@ -451,6 +451,88 @@ function getExadataDevices() {
 		});
 }
 
+function getExadataTotalCPUStats() {
+	const config = {
+		url: '/stats/exadata/total-cpu',
+		method: 'GET',
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
+function getExadataTotalMemorySizeStats() {
+	const config = {
+		url: '/stats/exadata/total-memory-size',
+		method: 'GET',
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
+function getExadataAverageStorageUsageStats() {
+	const config = {
+		url: '/stats/exadata/average-storage-usage',
+		method: 'GET',
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
+function getExadataStorageErrorCountStatusStats() {
+	const config = {
+		url: '/stats/exadata/storage-error-count-status',
+		method: 'GET',
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
+
+function getExadataPatchStatusStats(windowTime) {
+	const config = {
+		url: '/stats/exadata/patch-status',
+		method: 'GET',
+		params: {
+			'window-time': windowTime,
+		}
+	};
+
+	return axios
+		.request(config)
+		.then(res => {
+			return res.data;
+		})
+		.catch(err => {
+			return Promise.reject(err);
+		});
+}
 
 export default {
 	getServerEnv,
@@ -475,5 +557,10 @@ export default {
 	getTotalWork,
 	getAvailableTags,
 	getExadataStats,
-	getExadataDevices
+	getExadataDevices,
+	getExadataTotalCPUStats,
+	getExadataTotalMemorySizeStats,
+	getExadataAverageStorageUsageStats,
+	getExadataStorageErrorCountStatusStats,
+	getExadataPatchStatusStats
 };
