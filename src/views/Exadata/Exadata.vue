@@ -23,38 +23,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					<div class="col-4">
 						<div class="card mb-3">
 							<div class="card-body">
-								<PatchStatusChart12 
-									:patchedCount="data.count_patched_after_twelve_month" 
-									:nonPatchedCount="data.count-data.count_patched_after_twelve_month"
-									:widget="loaded"
-									:spinner="loading"
-									:error="errored">
-								</PatchStatusChart12>
+								<PatchStatusChart :windowTime=12>
+								</PatchStatusChart>
 							</div>
 						</div>
 					</div>
 					<div class="col-4">
 						<div class="card mb-3">
 							<div class="card-body">
-								<PatchStatusChart6 
-									:patchedCount="data.count_patched_after_six_month" 
-									:nonPatchedCount="data.count-data.count_patched_after_six_month"
-									:widget="loaded"
-									:spinner="loading"
-									:error="errored">
-								</PatchStatusChart6>
+								<PatchStatusChart :windowTime=6>
+								</PatchStatusChart>
 							</div>
 						</div>
 					</div>
 					<div class="col-4">
 						<div class="card mb-3">
 							<div class="card-body">
-								<ErrorCountChart 
-									:nonErroredCount="data.disks_count-data.failed_disks" 
-									:erroredCount="data.failed_disks"
-									:widget="loaded"
-									:spinner="loading"
-									:error="errored">
+								<ErrorCountChart>
 								</ErrorCountChart>
 							</div>
 						</div>
@@ -70,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						CPU
 					</h6>
 					<div class="card-text">
-						<span><strong>CPU</strong>: {{ data.used_cpu }}/{{ data.total_cpu }}</span>
+						<span><strong>CPU</strong>: {{ totalCpu.Enabled }}/{{ totalCpu.Total }}</span>
 					</div>
 				</b-card>
 			</div>
@@ -81,7 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						Memory
 					</h6>
 					<div class="card-text">
-						<span><strong>Memory</strong>: {{ data.memory }} GB</span>
+						<span><strong>Memory</strong>: {{ totalMemory }} GB</span>
 					</div>
 				</b-card>
 			</div>
@@ -92,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						Storage
 					</h6>
 					<div class="card-text">
-						<span><strong>Used perc</strong>: {{ data.disks_used_perc }}%</span>
+						<span><strong>Used perc</strong>: {{ avgStorageUsage }}%</span>
 					</div>
 				</b-card>
 			</div>
@@ -165,8 +150,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 import HostService from '@/services/HostService.js';
-import PatchStatusChart12 from '@/components/exadata/PatchStatusChart12.vue';
-import PatchStatusChart6 from '@/components/exadata/PatchStatusChart6.vue';
+import PatchStatusChart from '@/components/exadata/PatchStatusChart.vue';
 import ErrorCountChart from '@/components/exadata/ErrorCountChart.vue';
 
 import DashboardService from '@/services/DashboardService';
@@ -174,36 +158,43 @@ import DashboardService from '@/services/DashboardService';
 export default {
 	name: 'Exadata',
 	components: {
-		PatchStatusChart6,
-		PatchStatusChart12,
+		PatchStatusChart,
 		ErrorCountChart
 	},
 	data() {
 		return {
-			data: {},
-			loaded: false,
-			loading: true,
-			errored: false,
 			exadata: {},
+			totalCpu: {},
+			totalMemory: 0,
+			avgStorageUsage: 0
 		};
 	},
 	methods: {
 
 	},
 	created() {
-		DashboardService.getExadataStats()
+		DashboardService.getExadataTotalCPUStats()
 			.then(data => {
-				this.data = data;
-				this.loaded = true;
-				this.loading = false;
-				this.errored = false;
+				this.totalCpu = data;
 			})
 			.catch(() => {
-				this.$noty.error(`Unable to retrieve exadata stats`);
-				this.loaded = true;
-				this.loading = false;
-				this.errored = true;
+				this.$noty.error(`Unable to retrieve exadata total cpu stats`);
 			});	
+		DashboardService.getExadataTotalMemorySizeStats()
+			.then(data => {
+				this.totalMemory = data;
+			})
+			.catch(() => {
+				this.$noty.error(`Unable to retrieve exadata total memory stats`);
+			});	
+		DashboardService.getExadataAverageStorageUsageStats()
+			.then(data => {
+				this.avgStorageUsage = data;
+			})
+			.catch(() => {
+				this.$noty.error(`Unable to retrieve exadata average storage usage stats`);
+			});	
+		
 		DashboardService.getExadataDevices()
 			.then(data => {
 				this.exadata = data;
