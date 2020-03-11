@@ -51,8 +51,8 @@ export default {
 		return {
 			fields: [
 				{ key: 'position', label: '#' },
-				{ key: 'hostname', label: 'Hostname' },
-				{ key: 'resize', label: 'Unused thread' }
+				{ key: 'Hostname', label: 'Hostname' },
+				{ key: 'Unused', label: 'Unused thread' }
 			]
 		};
 	}
