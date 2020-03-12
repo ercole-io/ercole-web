@@ -52,7 +52,7 @@ export default {
     },
     selectedLocation: {
       set: function(value) {
-        this.$store.dispatch("dashboard/updateWidgets", value);
+        this.$store.dispatch("dashboard/updateWidgets", value, "ciao");
       },
       get: function() {
         return this.$store.getters["dashboard/location"];

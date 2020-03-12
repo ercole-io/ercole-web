@@ -71,12 +71,13 @@ export default {
   },
   methods: {
     loadData() {
-      LicenseService.mergeLicenses(this.$store.getters.backendConfig).then(data => {
-        this.licenseStore = data;
-        this._addDangerFlag();
-        this.oldLicenseStore = JSON.parse(JSON.stringify(this.licenseStore));
-        console.log(this.licenseStore);
-      });
+      LicenseService.mergeLicenses(this.$store.getters.backendConfig).then(
+        data => {
+          this.licenseStore = data;
+          this._addDangerFlag();
+          this.oldLicenseStore = JSON.parse(JSON.stringify(this.licenseStore));
+        }
+      );
     },
     _addDangerFlag() {
       this.licenseStore.forEach(el => {
@@ -91,7 +92,10 @@ export default {
       this.licenseStore = JSON.parse(JSON.stringify(this.oldLicenseStore));
     },
     save() {
-      LicenseService.saveLicenses(this.$store.getters.backendConfig, this.licenseStore)
+      LicenseService.saveLicenses(
+        this.$store.getters.backendConfig,
+        this.licenseStore
+      )
         .then(() => {
           this.$noty.success("Update successful");
           this.loadData();

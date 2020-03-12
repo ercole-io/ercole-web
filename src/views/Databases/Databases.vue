@@ -280,7 +280,10 @@ export default {
         });
     },
     updateEnvs() {
-      HostService.getEnviroments(this.$store.getters.backendConfig, this.$store.getters.backendConfig)
+      HostService.getEnviroments(
+        this.$store.getters.backendConfig,
+        this.$store.getters.backendConfig
+      )
         .then(items => {
           items.unshift("");
           this.envList = items || [];
@@ -291,21 +294,30 @@ export default {
     }
   },
   created() {
-    DashboardService.getTotalSegmentsSize(this.$store.getters.backendConfig, this.env)
+    DashboardService.getTotalSegmentsSize(
+      this.$store.getters.backendConfig,
+      this.env
+    )
       .then(data => {
         this.segmentsSizeTotal = data;
       })
       .catch(() => {
         this.$noty.error(`Unable to retrieve segmentsSizeTotal ${this.id}`);
       });
-    DashboardService.getTotalDatafileSize(this.$store.getters.backendConfig, this.env)
+    DashboardService.getTotalDatafileSize(
+      this.$store.getters.backendConfig,
+      this.env
+    )
       .then(data => {
         this.datafileSizeTotal = data;
       })
       .catch(() => {
         this.$noty.error(`Unable to retrieve datafileSizeTotal ${this.id}`);
       });
-    DashboardService.getTotalMemorySize(this.$store.getters.backendConfig, this.env)
+    DashboardService.getTotalMemorySize(
+      this.$store.getters.backendConfig,
+      this.env
+    )
       .then(data => {
         this.memorySizeTotal = Math.round(data);
       })

@@ -99,7 +99,11 @@ export default {
   },
   methods: {
     updateItems() {
-      HostService.getAddms(this.$store.getters.backendConfig, this.filter, this.env)
+      HostService.getAddms(
+        this.$store.getters.backendConfig,
+        this.filter,
+        this.env
+      )
         .then(items => {
           this.items = items || [];
         })
@@ -119,7 +123,11 @@ export default {
     },
     generate() {
       this.loading = true;
-      return HostService.generateAddmExcel(this.$store.getters.backendConfig, this.filter, this.env).then(() => {
+      return HostService.generateAddmExcel(
+        this.$store.getters.backendConfig,
+        this.filter,
+        this.env
+      ).then(() => {
         this.loading = false;
       });
     }

@@ -52,7 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <script>
 import moment from "moment";
 import Severity from "@/components/Severity.vue";
-import AlertService from "@/services/AlertService";
 
 export default {
   name: "HostAlerts",

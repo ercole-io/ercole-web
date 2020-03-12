@@ -45,7 +45,10 @@ export default {
     };
   },
   created() {
-    DashboardService.getExadataPatchStatusStats(this.$store.getters.backendConfig, this.windowTime)
+    DashboardService.getExadataPatchStatusStats(
+      this.$store.getters.backendConfig,
+      this.windowTime
+    )
       .then(data => {
         this.data = mapArrayToPieChartData(data, ["Status", "Count"]);
         this.spinner = false;
@@ -59,7 +62,7 @@ export default {
           }
         });
       })
-      .catch(err => {
+      .catch(() => {
         this.$noty.error(`Unable to retrieve patch status stats`);
         this.spinner = false;
         this.alert = true;

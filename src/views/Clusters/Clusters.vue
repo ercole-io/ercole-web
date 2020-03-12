@@ -61,8 +61,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import ClusterService from "@/services/ClusterService.js";
 import HostService from "@/services/HostService.js";
 
-import moment from "moment";
-
 export default {
   name: "Clusters",
   data() {
@@ -85,7 +83,10 @@ export default {
   methods: {
     itemsProvider() {
       this.isBusy = true;
-      return ClusterService.getClusters(this.$store.getters.backendConfig, this.filter)
+      return ClusterService.getClusters(
+        this.$store.getters.backendConfig,
+        this.filter
+      )
         .then(clusters => {
           this.items = clusters.map(item => {
             switch (item.Type) {
@@ -115,7 +116,10 @@ export default {
     },
     generate() {
       this.loading = true;
-      return HostService.generateHypervisorsExcel(this.$store.getters.backendConfig, this.filter).then(() => {
+      return HostService.generateHypervisorsExcel(
+        this.$store.getters.backendConfig,
+        this.filter
+      ).then(() => {
         this.loading = false;
       });
     }

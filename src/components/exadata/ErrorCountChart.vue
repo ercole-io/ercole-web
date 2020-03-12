@@ -40,7 +40,10 @@ export default {
     };
   },
   created() {
-    DashboardService.getExadataStorageErrorCountStatusStats(this.$store.getters.backendConfig, this.env)
+    DashboardService.getExadataStorageErrorCountStatusStats(
+      this.$store.getters.backendConfig,
+      this.env
+    )
       .then(data => {
         this.data = mapArrayToPieChartData(data, ["Failing", "Count"]);
         this.spinner = false;
@@ -54,7 +57,7 @@ export default {
           }
         });
       })
-      .catch(err => {
+      .catch(() => {
         this.$noty.error(`Unable to retrieve error count status stats`);
         this.spinner = false;
         this.alert = true;

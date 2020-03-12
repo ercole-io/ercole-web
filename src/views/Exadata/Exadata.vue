@@ -149,7 +149,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import HostService from "@/services/HostService.js";
 import PatchStatusChart from "@/components/exadata/PatchStatusChart.vue";
 import ErrorCountChart from "@/components/exadata/ErrorCountChart.vue";
 
@@ -178,14 +177,18 @@ export default {
       .catch(() => {
         this.$noty.error(`Unable to retrieve exadata total cpu stats`);
       });
-    DashboardService.getExadataTotalMemorySizeStats(this.$store.getters.backendConfig)
+    DashboardService.getExadataTotalMemorySizeStats(
+      this.$store.getters.backendConfig
+    )
       .then(data => {
         this.totalMemory = data;
       })
       .catch(() => {
         this.$noty.error(`Unable to retrieve exadata total memory stats`);
       });
-    DashboardService.getExadataAverageStorageUsageStats(this.$store.getters.backendConfig)
+    DashboardService.getExadataAverageStorageUsageStats(
+      this.$store.getters.backendConfig
+    )
       .then(data => {
         this.avgStorageUsage = data;
       })

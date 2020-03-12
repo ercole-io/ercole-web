@@ -169,7 +169,11 @@ export default {
             this.$noty.error(`Unable to retrieve host ${this.id}`);
           });
       } else {
-        HostService.getHostHistory(this.$store.getters.backendConfig, this.id, event)
+        HostService.getHostHistory(
+          this.$store.getters.backendConfig,
+          this.id,
+          event
+        )
           .then(host => {
             this.host = host;
           })
@@ -198,8 +202,13 @@ export default {
       n.show();
     },
     tagDeleted(dbname, tag) {
-      HostService.deleteTag(this.$store.getters.backendConfig, this.id, dbname, tag)
-        .then(tag => {
+      HostService.deleteTag(
+        this.$store.getters.backendConfig,
+        this.id,
+        dbname,
+        tag
+      )
+        .then(() => {
           //Delete the tag
           this.handleDateUpdate(null);
         })
@@ -209,8 +218,13 @@ export default {
     },
     addTag(dbname, tagname) {
       if (tagname !== "") {
-        HostService.addTag(this.$store.getters.backendConfig, this.id, dbname, tagname)
-          .then(tag => {
+        HostService.addTag(
+          this.$store.getters.backendConfig,
+          this.id,
+          dbname,
+          tagname
+        )
+          .then(() => {
             //Add the tag
             this.handleDateUpdate(null);
           })
@@ -220,7 +234,12 @@ export default {
       }
     },
     clearLicense(dbname, licenseName) {
-      HostService.clearLicense(this.$store.getters.backendConfig, this.id, dbname, licenseName)
+      HostService.clearLicense(
+        this.$store.getters.backendConfig,
+        this.id,
+        dbname,
+        licenseName
+      )
         .then(() => {
           this.host["Extra"]["Databases"].forEach(item => {
             if (item["Name"] === dbname) {
@@ -238,7 +257,12 @@ export default {
         });
     },
     recoverLicense(dbname, licenseName) {
-      HostService.recoverLicense(this.$store.getters.backendConfig, this.id, dbname, licenseName)
+      HostService.recoverLicense(
+        this.$store.getters.backendConfig,
+        this.id,
+        dbname,
+        licenseName
+      )
         .then(() => {
           this.host["Extra"]["Databases"].forEach(item => {
             if (item["Name"] === dbname) {

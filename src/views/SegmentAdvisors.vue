@@ -113,7 +113,11 @@ export default {
   },
   methods: {
     updateItems() {
-      HostService.getSegmentAdvisors(this.$store.getters.backendConfig, this.filter, this.env)
+      HostService.getSegmentAdvisors(
+        this.$store.getters.backendConfig,
+        this.filter,
+        this.env
+      )
         .then(items => {
           this.items = items || [];
         })
@@ -133,11 +137,13 @@ export default {
     },
     generate() {
       this.loading = true;
-      return HostService.generateSegmentsExcel(this.$store.getters.backendConfig, this.filter, this.env).then(
-        () => {
-          this.loading = false;
-        }
-      );
+      return HostService.generateSegmentsExcel(
+        this.$store.getters.backendConfig,
+        this.filter,
+        this.env
+      ).then(() => {
+        this.loading = false;
+      });
     }
   },
   watch: {
