@@ -29,13 +29,14 @@ import License from "@/views/Licenses/License.vue";
 import Clusters from "@/views/Clusters/Clusters.vue";
 import Exadata from "@/views/Exadata/Exadata.vue";
 import Login from "@/views/Login.vue";
+import store from "./store";
 
 Vue.use(Router);
 
 function guard(to, from, next) {
-  let tk = localStorage.getItem("token");
+  console.log(store.getters.token);
 
-  if (true) {
+  if (store.getters.token) {
     next();
   } else {
     next("/login");

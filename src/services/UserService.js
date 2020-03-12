@@ -17,13 +17,35 @@ import axios from "axios";
 
 // returns user informations (works only if logged)
 export default {
-  getUserInformations
+  getUserInformations,
+  login
 };
 
 function getUserInformations(cfg) {
   const config = {
     url: "/whoami",
     method: "GET"
+  };
+
+  return axios
+    .create(cfg)
+    .request(config)
+    .then(res => {
+      return res.data;
+    })
+    .catch(err => {
+      return Promise.reject(err);
+    });
+}
+
+function login(cfg, user, password) {
+  const config = {
+    url: "/user/login",
+    method: "POST",
+    data: {
+      Username: user,
+      Password: password
+    }
   };
 
   return axios

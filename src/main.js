@@ -24,7 +24,6 @@ import CheckMark2 from "@/components/CheckMark2";
 import fullscreen from "vue-fullscreen";
 import PieChart from "@/components/PieChart.vue";
 import Spinner from "vue-simple-spinner";
-import axios from "axios";
 
 import "@/assets/css/fontawesome-all.min.css";
 
@@ -46,25 +45,6 @@ Vue.filter("truncate", value => {
     return filtered;
   }
 });
-
-axios.defaults.baseURL = "http://user:password@127.0.0.1:11113";
-
-// Axios setup
-axios.interceptors.response.use(
-  function(response) {
-    if (
-      response.status === 200 &&
-      typeof response.data === "string" &&
-      response.data.includes('type="password" id="password" name="password" ')
-    ) {
-      window.location.href = "/login";
-    }
-    return response;
-  },
-  function(error) {
-    return Promise.reject(error);
-  }
-);
 
 Vue.config.productionTip = false;
 

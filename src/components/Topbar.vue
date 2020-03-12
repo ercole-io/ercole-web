@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 						<i class="fas fa-user"></i>
 						{{ username }}
 					</template>
-					<b-dropdown-item :href="logoutUrl">Signout</b-dropdown-item>
+					<b-dropdown-item @click="logout()">Signout</b-dropdown-item>
 				</b-nav-item-dropdown>
 			</ul>
 
@@ -45,7 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 import AlertNavbar from "@/components/AlertNavbar";
-import UserService from "@/services/UserService";
 
 export default {
   name: "Topbar",
@@ -54,19 +53,8 @@ export default {
   },
   data() {
     return {
-      showUserInfos: false,
-      username: "Anonymous User"
+      showUserInfos: false
     };
-  },
-  created() {
-    this.username = "-";
-    UserService.getUserInformations()
-      .then(userInfo => {
-        this.username = userInfo.fullName || userInfo.username;
-      })
-      .catch(() => {
-        this.username = "Error fetching username";
-      });
   },
   methods: {
     toggleSidebar() {
@@ -74,15 +62,15 @@ export default {
     },
     toggleFullscreen() {
       this.$fullscreen.toggle();
+    },
+    logout() {
+      this.$store.commit("removeToken");
+      this.$router.push('/login');
     }
   },
   computed: {
-    logoutUrl() {
-      // WARN!!! this piece of code works only on assumption
-      // that the app is located at the base root of a
-      // website eg. http://www.example.com/index.html.
-      // The behaviour in subfolders is unknow.
-      return document.location.origin + "/logout";
+    username() {
+      return this.$store.getters.username;
     }
   }
 };

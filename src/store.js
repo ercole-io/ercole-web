@@ -21,7 +21,18 @@ import dashboard from "@/components/dashboard/store";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+function parseJwt (token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+};
+
+
+const store = new Vuex.Store({
   // eslint-disable-next-line
 	strict: process.env.NODE_ENV !== 'production',
   modules: {
@@ -33,11 +44,10 @@ export default new Vuex.Store({
     totalNotifications: 0,
     backendConfig: {
       baseURL: "http://user:password@127.0.0.1:11113",
-      auth: {
-        username: "user",
-        password: "password"
-      }
-    }
+      headers: {}
+    },
+    token: "",
+    username: "",
   },
   getters: {
     sidebarVisible: state => {
@@ -51,7 +61,13 @@ export default new Vuex.Store({
     },
     backendConfig: state => {
       return state.backendConfig;
-    }
+    },
+    token: state => {
+      return state.token;
+    },
+    username: state => {
+      return state.username;
+    },
   },
   mutations: {
     toggleSidebar: state => {
@@ -62,7 +78,14 @@ export default new Vuex.Store({
       state.totalNotifications = payload.total;
     },
     setToken: (state, token) => {
-      state.backendAxios.headers["Authorization"] = "Bearer " + token;
+      state.backendConfig.headers["Authorization"] = "Bearer " + token;
+      state.token = token;
+      state.username = parseJwt(token)["sub"];
+    },
+    removeToken: state => {
+      delete state.backendConfig.headers["Authorization"];
+      state.token = "";
+      state.username = "";
     }
   },
   actions: {
@@ -80,3 +103,5 @@ export default new Vuex.Store({
     }
   }
 });
+
+export default store;
