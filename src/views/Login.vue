@@ -17,15 +17,78 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <template>
 	<div class="container-fluid">
-        login
+    <div class="row justify-content-center align-items-center">
+			<div class="col-6">
+				<div layout:fragment="content" class="custom-panel">
+					<b-form-group> 
+						<h2 class="form-signin-heading">Login</h2>
+						<div v-if="invalidCredentials" class="alert alert-danger">
+							The username and the password aren't valid.
+						</div>
+						<div class="form-group">
+							<label for="username">Username</label>
+              				<b-form-input
+								v-model.trim="username"
+								placeholder="username" />
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label>
+              				<b-form-input
+								type="password"
+								v-model="password"
+								placeholder="password"
+								@keydown.enter.native="login()" />
+						</div>
+						<!-- <div class="form-group form-check">
+							<input id="remember-me" class="form-check-input" name="remember-me" type="checkbox" />
+							<label class="form-check-label" for="remember-me">Remember Me</label>
+						</div> -->
+            			<b-btn class="btn btn-primary" @click="login()">Sign in</b-btn>
+					</b-form-group>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
+import UserService from "@/services/UserService.js";
+
 export default {
   data() {
-    return {};
+    return {
+      invalidCredentials: false,
+      username: "",
+      password: ""
+    };
+  },
+  methods: {
+    login() {
+		UserService
+			.login(this.$store.getters.backendConfig, this.username, this.password)
+			.then(data => {
+				this.$store.commit("setToken", data);
+				this.$router.push('/');
+			})
+			.catch(() => {
+				this.invalidCredentials = true
+				this.$noty.error("Failed to login.");
+			});
+	}
   }
+
+  //   mounted() {
+
+  // UserService
+  //   .login(this.$store.getters.backendConfig, 'user', 'password')
+  //    .then(data => {
+  //       this.$store.commit("setToken", data);
+  //       this.$router.push('/');
+  //     })
+  //     .catch(() => {
+  //       this.$noty.error("Failed to login.");
+  //     });
+  //   }
 };
 </script>
 
