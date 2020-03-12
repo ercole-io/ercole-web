@@ -14,51 +14,51 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 export default class PageBuilder {
-	constructor(size) {
-		this.pageSize = size;
-	}
+  constructor(size) {
+    this.pageSize = size;
+  }
 
-	getTotalPages() {
-		return Math.ceil(this.size / this.pageSize);
-	}
+  getTotalPages() {
+    return Math.ceil(this.size / this.pageSize);
+  }
 
-	setSize(size) {
-		this.size = size;
-	}
+  setSize(size) {
+    this.size = size;
+  }
 
-	getPage(page, elements) {
-		this.size = elements.length;
+  getPage(page, elements) {
+    this.size = elements.length;
 
-		return {
-			first: page === 0,
-			last: page === this.getTotalPages(),
-			number: page,
-			numberOfElements: this.getPageSize(),
-			size: this.getPageSize(),
-			sort: '',
-			totalElements: this.getSize(),
-			totalPages: this.getTotalPages(),
-			content: elements.slice(this._startIndex(page), this._endIndex(page) + 1)
-		};
-	}
+    return {
+      first: page === 0,
+      last: page === this.getTotalPages(),
+      number: page,
+      numberOfElements: this.getPageSize(),
+      size: this.getPageSize(),
+      sort: "",
+      totalElements: this.getSize(),
+      totalPages: this.getTotalPages(),
+      content: elements.slice(this._startIndex(page), this._endIndex(page) + 1)
+    };
+  }
 
-	_startIndex(page) {
-		if (page === 0) {
-			return 0;
-		} else {
-			return this.getPageSize() * page;
-		}
-	}
+  _startIndex(page) {
+    if (page === 0) {
+      return 0;
+    } else {
+      return this.getPageSize() * page;
+    }
+  }
 
-	_endIndex(page) {
-		return this._startIndex(page) + this.getPageSize() - 1;
-	}
+  _endIndex(page) {
+    return this._startIndex(page) + this.getPageSize() - 1;
+  }
 
-	getSize() {
-		return this.size;
-	}
+  getSize() {
+    return this.size;
+  }
 
-	getPageSize() {
-		return this.pageSize;
-	}
+  getPageSize() {
+    return this.pageSize;
+  }
 }

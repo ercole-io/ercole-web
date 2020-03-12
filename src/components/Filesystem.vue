@@ -27,27 +27,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	props: {
-		filesystem: {
-			type: Array,
-			default: function() {
-				return [];
-			}
-		},
-	},
-	data() {
-		return {
-			fields: [
-				{ "key": "UsedPerc", "label": "Used Perc" },
-				{ "key": "Used", "label": "Used" },
-				{ "key": "Size", "label": "Size" },
-				{ "key": "FsType", "label": "FS Type" },
-				{ "key": "Available", "label": "Available" },
-				{ "key": "Filesystem", "label": "Filesystem" },
-				{ "key": "MountedOn", "label": "Mounted On" }
-			]
-		}
-	},
+  props: {
+    filesystem: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    }
+  },
+  data() {
+    return {
+      fields: [
+        { key: "UsedPerc", label: "Used Perc" },
+        { key: "Used", label: "Used" },
+        { key: "Size", label: "Size" },
+        { key: "FsType", label: "FS Type" },
+        { key: "Available", label: "Available" },
+        { key: "Filesystem", label: "Filesystem" },
+        { key: "MountedOn", label: "Mounted On" }
+      ]
+    };
+  }
 };
 </script>
 

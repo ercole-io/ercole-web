@@ -149,179 +149,197 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import HostService from '@/services/HostService.js';
-import DataguardStatusChart from '@/components/databases/DataguardStatusChart.vue';
-import RACStatusChart from '@/components/databases/RACStatusChart.vue';
-import ArchiveLogStatusChart from '@/components/databases/ArchiveLogStatusChart.vue';
-import DashboardService from '@/services/DashboardService';
+import HostService from "@/services/HostService.js";
+import DataguardStatusChart from "@/components/databases/DataguardStatusChart.vue";
+import RACStatusChart from "@/components/databases/RACStatusChart.vue";
+import ArchiveLogStatusChart from "@/components/databases/ArchiveLogStatusChart.vue";
+import DashboardService from "@/services/DashboardService";
 
 export default {
-	name: 'Databases',
-	components: {
-		DataguardStatusChart,
-		RACStatusChart,
-		ArchiveLogStatusChart
-	},
-	data() {
-		return {
-			segmentsSizeTotal: 0,
-			memorySizeTotal: 0,
-			datafileSizeTotal: 0,
-			workTotal: 0,
-			currentPage: 1,
-			totalRows: 0,
-			perPage: 5,
-			displayed: 0,
-			isBusy: false,
-			filter: "",
-			env: "",
-			envList: [],
-			fields: [
-				{
-					key: 'Name',
-					label: 'DB Name'
-				},
-				{
-					key: 'UniqueName',
-					label: 'Unique name'
-				},
-				{
-					key: 'Version',
-					label: 'Database version'
-				},
-				{
-					key: 'Hostname',
-					label: 'Hostname',
-					sortable: true
-				},
-				{
-					key: 'Status',
-					label: 'Status'
-				},
-				{
-					key: 'Environment',
-					label: 'Environment'
-				},
-				{
-					key: 'Location',
-					label: 'Location'	
-				},
-				{
-					key: 'Charset',
-					label: 'Charset'	
-				},
-				{
-					key: 'BlockSize',
-					label: 'Blocksize'	
-				},
-				{
-					key: 'CPUCount',
-					label: 'CPU Count'	
-				},
-				{
-					key: 'Work',
-					label: 'Work'	
-				},
-				{
-					key: 'Memory',
-					label: 'Memory used'	
-				},
-				{
-					key: 'DatafileSize',
-					label: 'Datafile GB'	
-				},
-				{
-					key: 'SegmentsSize',
-					label: 'Segment GB'	
-				},
-				{
-					key: 'ArchiveLogStatus',
-					label: 'Archivelog'	
-				},
-				{
-					key: 'Dataguard',
-					label: 'DR'	
-				},
-				{
-					key: 'RAC',
-					label: 'RAC'	
-				},
-				{
-					key: 'HA',
-					label: 'HA'	
-				},
-			]
-		};
-	},
-	methods: {
-		showDetail(item /*, index, event*/) {
-			this.$router.push({ name: 'host_detail', params: { id: item.hostname } });
-		},
-		itemsProvider(ctx) {
-			if (ctx.sortBy == null) {
-				ctx.sortBy  = 'hostname'
-			}
-			return HostService.getDatabases(ctx.currentPage, ctx.sortBy + ',' + (ctx.sortDesc? 'desc' : 'asc'), ctx.filter, this.env)
-				.then(data => {
-					const items = data.Content;
-					this.totalRows = data.Metadata.TotalElements;
-					this.perPage = data.Size;
-					this.displayed = items.length;
-					return items || [];
-				})
-				.catch(() => {
-					this.$noty.error('Unable to retrieve databases list.');
-				});
-		},
-		updateEnvs() {
-			HostService.getEnviroments()
-				.then(items => {
-					items.unshift('');
-					this.envList = items || [];
-				})
-				.catch(() => {
-					this.$noty.error('Unable to enviroments.');
-				});
-		}
-	},
-	created() {
-		DashboardService.getTotalSegmentsSize(this.env)
-			.then(data => {
-				this.segmentsSizeTotal = data;
-			})
-			.catch(() => {
-				this.$noty.error(`Unable to retrieve segmentsSizeTotal ${this.id}`);
-			});
-		DashboardService.getTotalDatafileSize(this.env)
-			.then(data => {
-				this.datafileSizeTotal = data;
-			})
-			.catch(() => {
-				this.$noty.error(`Unable to retrieve datafileSizeTotal ${this.id}`);
-			});
-		DashboardService.getTotalMemorySize(this.env)
-			.then(data => {
-				this.memorySizeTotal = Math.round(data);
-			})
-			.catch(() => {
-				this.$noty.error(`Unable to retrieve memorySizeTotal ${this.id}`);
-			});	
-		DashboardService.getTotalWork(this.env)
-			.then(data => {
-				this.workTotal = data;
-			})
-			.catch(() => {
-				this.$noty.error(`Unable to retrieve workTotal ${this.id}`);
-			});	
-	},
-	watch: {
-		env() {
-			this.$refs.databasesTable.refresh();
-		}
-	},
-	mounted() {
-		this.updateEnvs();
-	}
+  name: "Databases",
+  components: {
+    DataguardStatusChart,
+    RACStatusChart,
+    ArchiveLogStatusChart
+  },
+  data() {
+    return {
+      segmentsSizeTotal: 0,
+      memorySizeTotal: 0,
+      datafileSizeTotal: 0,
+      workTotal: 0,
+      currentPage: 1,
+      totalRows: 0,
+      perPage: 5,
+      displayed: 0,
+      isBusy: false,
+      filter: "",
+      env: "",
+      envList: [],
+      fields: [
+        {
+          key: "Name",
+          label: "DB Name"
+        },
+        {
+          key: "UniqueName",
+          label: "Unique name"
+        },
+        {
+          key: "Version",
+          label: "Database version"
+        },
+        {
+          key: "Hostname",
+          label: "Hostname",
+          sortable: true
+        },
+        {
+          key: "Status",
+          label: "Status"
+        },
+        {
+          key: "Environment",
+          label: "Environment"
+        },
+        {
+          key: "Location",
+          label: "Location"
+        },
+        {
+          key: "Charset",
+          label: "Charset"
+        },
+        {
+          key: "BlockSize",
+          label: "Blocksize"
+        },
+        {
+          key: "CPUCount",
+          label: "CPU Count"
+        },
+        {
+          key: "Work",
+          label: "Work"
+        },
+        {
+          key: "Memory",
+          label: "Memory used"
+        },
+        {
+          key: "DatafileSize",
+          label: "Datafile GB"
+        },
+        {
+          key: "SegmentsSize",
+          label: "Segment GB"
+        },
+        {
+          key: "ArchiveLogStatus",
+          label: "Archivelog"
+        },
+        {
+          key: "Dataguard",
+          label: "DR"
+        },
+        {
+          key: "RAC",
+          label: "RAC"
+        },
+        {
+          key: "HA",
+          label: "HA"
+        }
+      ]
+    };
+  },
+  methods: {
+    showDetail(item /*, index, event*/) {
+      this.$router.push({ name: "host_detail", params: { id: item.hostname } });
+    },
+    itemsProvider(ctx) {
+      if (ctx.sortBy == null) {
+        ctx.sortBy = "hostname";
+      }
+      return HostService.getDatabases(
+        this.$store.getters.backendConfig,
+        ctx.currentPage,
+        ctx.sortBy + "," + (ctx.sortDesc ? "desc" : "asc"),
+        ctx.filter,
+        this.env
+      )
+        .then(data => {
+          const items = data.Content;
+          this.totalRows = data.Metadata.TotalElements;
+          this.perPage = data.Size;
+          this.displayed = items.length;
+          return items || [];
+        })
+        .catch(() => {
+          this.$noty.error("Unable to retrieve databases list.");
+        });
+    },
+    updateEnvs() {
+      HostService.getEnviroments(
+        this.$store.getters.backendConfig,
+        this.$store.getters.backendConfig
+      )
+        .then(items => {
+          items.unshift("");
+          this.envList = items || [];
+        })
+        .catch(() => {
+          this.$noty.error("Unable to enviroments.");
+        });
+    }
+  },
+  created() {
+    DashboardService.getTotalSegmentsSize(
+      this.$store.getters.backendConfig,
+      this.env
+    )
+      .then(data => {
+        this.segmentsSizeTotal = data;
+      })
+      .catch(() => {
+        this.$noty.error(`Unable to retrieve segmentsSizeTotal ${this.id}`);
+      });
+    DashboardService.getTotalDatafileSize(
+      this.$store.getters.backendConfig,
+      this.env
+    )
+      .then(data => {
+        this.datafileSizeTotal = data;
+      })
+      .catch(() => {
+        this.$noty.error(`Unable to retrieve datafileSizeTotal ${this.id}`);
+      });
+    DashboardService.getTotalMemorySize(
+      this.$store.getters.backendConfig,
+      this.env
+    )
+      .then(data => {
+        this.memorySizeTotal = Math.round(data);
+      })
+      .catch(() => {
+        this.$noty.error(`Unable to retrieve memorySizeTotal ${this.id}`);
+      });
+    DashboardService.getTotalWork(this.$store.getters.backendConfig, this.env)
+      .then(data => {
+        this.workTotal = data;
+      })
+      .catch(() => {
+        this.$noty.error(`Unable to retrieve workTotal ${this.id}`);
+      });
+  },
+  watch: {
+    env() {
+      this.$refs.databasesTable.refresh();
+    }
+  },
+  mounted() {
+    this.updateEnvs();
+  }
 };
 </script>
 

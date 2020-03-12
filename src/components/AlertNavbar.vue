@@ -43,65 +43,65 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import Severity from '@/components/Severity';
+import Severity from "@/components/Severity";
 
 export default {
-	components: {
-		Severity
-	},
-	created() {
-		this.$store.dispatch('loadNotifications');
-	},
-	computed: {
-		badgeVisible() {
-			return this.$store.getters.notifications.length > 0;
-		},
-		badgeNumber() {
-			let value = this.$store.getters.totalNotifications;
-			if (value > 99) {
-				return '99+';
-			}
-			return value;
-		},
-		notifications() {
-			return this.$store.getters.notifications.slice(0, 5);
-		},
-		otherNotificationsText() {
-			const length = this.$store.getters.totalNotifications;
-			if (length === 0) {
-				return 'No notifications.';
-			}
-			const displayLength = Math.max(length - 5, 0);
-			let text = '';
-			if (displayLength > 0) {
-				text = `View all notifications (more ${displayLength})`;
-			} else {
-				text = `View notifications`;
-			}
-			return text;
-		}
-	}
+  components: {
+    Severity
+  },
+  created() {
+    this.$store.dispatch("loadNotifications");
+  },
+  computed: {
+    badgeVisible() {
+      return this.$store.getters.notifications.length > 0;
+    },
+    badgeNumber() {
+      let value = this.$store.getters.totalNotifications;
+      if (value > 99) {
+        return "99+";
+      }
+      return value;
+    },
+    notifications() {
+      return this.$store.getters.notifications.slice(0, 5);
+    },
+    otherNotificationsText() {
+      const length = this.$store.getters.totalNotifications;
+      if (length === 0) {
+        return "No notifications.";
+      }
+      const displayLength = Math.max(length - 5, 0);
+      let text = "";
+      if (displayLength > 0) {
+        text = `View all notifications (more ${displayLength})`;
+      } else {
+        text = `View notifications`;
+      }
+      return text;
+    }
+  }
 };
 </script>
 
 <style scoped>
 #alert-badge {
-	position: absolute;
-	top: 0;
-	right: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .media > div {
-	padding: 0 1.5rem 0 0px;
+  padding: 0 1.5rem 0 0px;
 }
 
 .media .media-body {
-	padding-right: 10px;
+  padding-right: 10px;
 }
 
 .dropdown-item.active,
 .dropdown-item:active {
-	background-color: unset;
-	color: unset;
+  background-color: unset;
+  color: unset;
 }
 </style>

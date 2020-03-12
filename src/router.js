@@ -13,95 +13,126 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import Agent from '@/views/Agent.vue';
-import Alerts from '@/views/Alerts.vue';
-import Dashboard from '@/views/Dashboard.vue';
-import Host from '@/views/Hosts/Host.vue';
-import Hosts from '@/views/Hosts/Hosts.vue';
-import Databases from '@/views/Databases/Databases.vue';
-import Addms from '@/views/Addms.vue';
-import SegmentAdvisors from '@/views/SegmentAdvisors.vue';
-import PatchAdvisors from '@/views/PatchAdvisors.vue';
-import Vue from 'vue';
-import Router from 'vue-router';
-import Licenses from '@/views/Licenses/Licenses.vue';
-import License from '@/views/Licenses/License.vue';
-import Clusters from '@/views/Clusters/Clusters.vue';
-import Exadata from '@/views/Exadata/Exadata.vue';
+import Agent from "@/views/Agent.vue";
+import Alerts from "@/views/Alerts.vue";
+import Dashboard from "@/views/Dashboard.vue";
+import Host from "@/views/Hosts/Host.vue";
+import Hosts from "@/views/Hosts/Hosts.vue";
+import Databases from "@/views/Databases/Databases.vue";
+import Addms from "@/views/Addms.vue";
+import SegmentAdvisors from "@/views/SegmentAdvisors.vue";
+import PatchAdvisors from "@/views/PatchAdvisors.vue";
+import Vue from "vue";
+import Router from "vue-router";
+import Licenses from "@/views/Licenses/Licenses.vue";
+import License from "@/views/Licenses/License.vue";
+import Clusters from "@/views/Clusters/Clusters.vue";
+import Exadata from "@/views/Exadata/Exadata.vue";
+import Login from "@/views/Login.vue";
+import store from "./store";
 
 Vue.use(Router);
 
+function guard(to, from, next) {
+  console.log(store.getters.token);
+
+  if (store.getters.token) {
+    next();
+  } else {
+    next("/login");
+  }
+}
+
 export default new Router({
-	routes: [
-		{
-			path: '/',
-			name: '',
-			component: Dashboard
-		},
-		{
-			path: '/dashboard',
-			name: 'dashboard',
-			component: Dashboard
-		},
-		{
-			path: '/hosts',
-			name: 'hosts',
-			component: Hosts
-		},
-		{
-			path: '/databases',
-			name: 'databases',
-			component: Databases
-		},
-		{
-			path: '/hosts/:id',
-			name: 'host_detail',
-			component: Host
-		},
-		{
-			path: '/alerts',
-			name: 'alerts',
-			component: Alerts
-		},
-		{
-			path: '/agent',
-			name: 'agent',
-			component: Agent
-		},
-		{
-			path: '/licenses',
-			name: 'licenses',
-			component: Licenses
-		},
-		{
-			path: '/licenses/:id',
-			name: 'license_detail',
-			component: License
-		},
-		{
-			path: '/addms',
-			name: 'addms',
-			component: Addms
-		},
-		{
-			path: '/segmentadvisors',
-			name: 'segmentadvisors',
-			component: SegmentAdvisors
-		},
-		{
-			path: '/patchadvisors',
-			name: 'patchadvisors',
-			component: PatchAdvisors
-		},
-		{
-			path: '/clusters',
-			name: 'clusters',
-			component: Clusters
-		},
-		{
-			path: '/exadata',
-			name: 'exadata',
-			component: Exadata
-		}
-	]
+  routes: [
+    {
+      path: "/",
+      name: "",
+      component: Dashboard,
+      beforeEnter: guard
+    },
+    {
+      path: "/login",
+      name: "",
+      component: Login
+    },
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      component: Dashboard,
+      beforeEnter: guard
+    },
+    {
+      path: "/hosts",
+      name: "hosts",
+      component: Hosts,
+      beforeEnter: guard
+    },
+    {
+      path: "/databases",
+      name: "databases",
+      component: Databases,
+      beforeEnter: guard
+    },
+    {
+      path: "/hosts/:id",
+      name: "host_detail",
+      component: Host,
+      beforeEnter: guard
+    },
+    {
+      path: "/alerts",
+      name: "alerts",
+      component: Alerts,
+      beforeEnter: guard
+    },
+    {
+      path: "/agent",
+      name: "agent",
+      component: Agent,
+      beforeEnter: guard
+    },
+    {
+      path: "/licenses",
+      name: "licenses",
+      component: Licenses,
+      beforeEnter: guard
+    },
+    {
+      path: "/licenses/:id",
+      name: "license_detail",
+      component: License,
+      beforeEnter: guard
+    },
+    {
+      path: "/addms",
+      name: "addms",
+      component: Addms,
+      beforeEnter: guard
+    },
+    {
+      path: "/segmentadvisors",
+      name: "segmentadvisors",
+      component: SegmentAdvisors,
+      beforeEnter: guard
+    },
+    {
+      path: "/patchadvisors",
+      name: "patchadvisors",
+      component: PatchAdvisors,
+      beforeEnter: guard
+    },
+    {
+      path: "/clusters",
+      name: "clusters",
+      component: Clusters,
+      beforeEnter: guard
+    },
+    {
+      path: "/exadata",
+      name: "exadata",
+      component: Exadata,
+      beforeEnter: guard
+    }
+  ]
 });

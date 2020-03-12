@@ -49,32 +49,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import VMs from '@/components/VMs.vue';
+import VMs from "@/components/VMs.vue";
 
 export default {
-	components: {
-		VMs
-	},
-	props: {
-		clusters: {
-			type: Array,
-			default: () => []
-		}
-	},
-	data() {
-		return {
-			tabVisible: 0
-		};
-	},
-	methods: {
-		setTabVisible(index) {
-			if (this.tabVisible === index) {
-				this.tabVisible = -1;
-			} else {
-				this.tabVisible = index;
-			}
-		}
-	}
+  components: {
+    VMs
+  },
+  props: {
+    clusters: {
+      type: Array,
+      default: () => []
+    }
+  },
+  data() {
+    return {
+      tabVisible: 0
+    };
+  },
+  methods: {
+    setTabVisible(index) {
+      if (this.tabVisible === index) {
+        this.tabVisible = -1;
+      } else {
+        this.tabVisible = index;
+      }
+    }
+  }
 };
 </script>
 

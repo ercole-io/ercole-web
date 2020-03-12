@@ -13,84 +13,84 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import { expect } from 'chai';
-import { mapArrayToPieChartData } from '@/utils/PieChartMapper';
+import { expect } from "chai";
+import { mapArrayToPieChartData } from "@/utils/PieChartMapper";
 
-describe('no params', () => {
-	const data = [
-		{
-			label: 'a',
-			data: 1
-		},
-		{
-			label: 'b',
-			data: 2
-		}
-	];
-	it('should return correct data', () => {
-		const result = mapArrayToPieChartData(data);
-		expect(result.labels).to.include('a');
-		expect(result.labels).to.include('b');
+describe("no params", () => {
+  const data = [
+    {
+      label: "a",
+      data: 1
+    },
+    {
+      label: "b",
+      data: 2
+    }
+  ];
+  it("should return correct data", () => {
+    const result = mapArrayToPieChartData(data);
+    expect(result.labels).to.include("a");
+    expect(result.labels).to.include("b");
 
-		expect(result.datasets[0].data).to.include(1);
-		expect(result.datasets[0].data).to.include(2);
-	});
+    expect(result.datasets[0].data).to.include(1);
+    expect(result.datasets[0].data).to.include(2);
+  });
 });
 
-describe('with label/value params', () => {
-	const data = [
-		{
-			pippo: 'a',
-			pappo: 1
-		},
-		{
-			pippo: 'b',
-			pappo: 2
-		}
-	];
-	it('should return correct data', () => {
-		const result = mapArrayToPieChartData(data, ['pippo', 'pappo']);
-		expect(result.labels).to.include('a');
-		expect(result.labels).to.include('b');
+describe("with label/value params", () => {
+  const data = [
+    {
+      pippo: "a",
+      pappo: 1
+    },
+    {
+      pippo: "b",
+      pappo: 2
+    }
+  ];
+  it("should return correct data", () => {
+    const result = mapArrayToPieChartData(data, ["pippo", "pappo"]);
+    expect(result.labels).to.include("a");
+    expect(result.labels).to.include("b");
 
-		expect(result.datasets[0].data).to.include(1);
-		expect(result.datasets[0].data).to.include(2);
-	});
+    expect(result.datasets[0].data).to.include(1);
+    expect(result.datasets[0].data).to.include(2);
+  });
 });
 
-describe('with invalid label in options', () => {
-	const data = [
-		{
-			pippo: 'a',
-			pappo: 1
-		},
-		{
-			wrong: 'b',
-			pappo: 2
-		}
-	];
-	it('should skip wrong value', () => {
-		const result = mapArrayToPieChartData(data, ['pippo', 'pappo']);
-		expect(result.labels.length).to.equal(1);
-		expect(result.datasets[0].data.length).to.equal(1);
-	});
+describe("with invalid label in options", () => {
+  const data = [
+    {
+      pippo: "a",
+      pappo: 1
+    },
+    {
+      wrong: "b",
+      pappo: 2
+    }
+  ];
+  it("should skip wrong value", () => {
+    const result = mapArrayToPieChartData(data, ["pippo", "pappo"]);
+    expect(result.labels.length).to.equal(1);
+    expect(result.datasets[0].data.length).to.equal(1);
+  });
 });
-describe('with invalid data in options', () => {
-	const data = [
-		{
-			pippo: 'a',
-			pappo: 1
-		},
-		{
-			pippo: 'b',
-			wrong: 2
-		}
-	];
-	it('should skip wrong value', () => {
-		const result = mapArrayToPieChartData(data, ['pippo', 'pappo']);
-		expect(result.labels.length).to.equal(1);
-		expect(result.datasets[0].data.length).to.equal(1);
-	});
+describe("with invalid data in options", () => {
+  const data = [
+    {
+      pippo: "a",
+      pappo: 1
+    },
+    {
+      pippo: "b",
+      wrong: 2
+    }
+  ];
+  it("should skip wrong value", () => {
+    const result = mapArrayToPieChartData(data, ["pippo", "pappo"]);
+    expect(result.labels.length).to.equal(1);
+    expect(result.datasets[0].data.length).to.equal(1);
+  });
 });
 
 /**

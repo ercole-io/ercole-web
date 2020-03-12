@@ -28,20 +28,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	props: {
-		psus: {
-			type: Array,
-			default: () => []
-		}
-	},
-	data() {
-		return {
-			fields: [
-				{ key: 'Date' },
-				{ key: 'Description' }
-			]
-		};
-	}
+  props: {
+    psus: {
+      type: Array,
+      default: () => []
+    }
+  },
+  data() {
+    return {
+      fields: [{ key: "Date" }, { key: "Description" }]
+    };
+  }
 };
 </script>
 

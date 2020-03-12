@@ -14,25 +14,25 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 function getLicenses() {
-	return Promise.resolve([
-		{
-			id: 'Oracle ENT',
-			licenseCount: 11,
-			used: 10
-		},
-		{
-			id: 'Oracle STD',
-			licenseCount: 2,
-			used: 10
-		},
-		{
-			id: 'Oracle EXE',
-			licenseCount: 20,
-			used: 20
-		}
-	]);
+  return Promise.resolve([
+    {
+      id: "Oracle ENT",
+      licenseCount: 11,
+      used: 10
+    },
+    {
+      id: "Oracle STD",
+      licenseCount: 2,
+      used: 10
+    },
+    {
+      id: "Oracle EXE",
+      licenseCount: 20,
+      used: 20
+    }
+  ]);
 }
 
 export default {
-	getLicenses
+  getLicenses
 };

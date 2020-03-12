@@ -62,78 +62,82 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import LicenseService from '@/services/LicenseService';
-import * as equal from 'fast-deep-equal';
+import LicenseService from "@/services/LicenseService";
+import * as equal from "fast-deep-equal";
 
 export default {
-	created() {
-		this.loadData();
-	},
-	methods: {
-		loadData() {
-			LicenseService.mergeLicenses().then(data => {
-				this.licenseStore = data;
-				this._addDangerFlag();
-				this.oldLicenseStore = JSON.parse(JSON.stringify(this.licenseStore));
-				console.log(this.licenseStore);
-			});
-		},
-		_addDangerFlag() {
-			this.licenseStore.forEach(el => {
-				if (el.Used > el.Count) {
-					el._rowVariant = 'danger';
-				} else {
-					el._rowVariant = '';
-				}
-			});
-		},
-		clear() {
-			this.licenseStore = JSON.parse(JSON.stringify(this.oldLicenseStore));
-		},
-		save() {
-			LicenseService.saveLicenses(this.licenseStore)
-				.then(() => {
-					this.$noty.success('Update successful');
-					this.loadData();
-				})
-				.catch(() => {
-					this.$noty.error('Unable to save licenses informations.');
-				});
-		},
-		showDetail(item /*, index, event*/) {
-			this.$router.push({ name: 'license_detail', params: { id: item._id } });
-		}
-	},
-	data() {
-		return {
-			fields: [
-				{ key: '_id', label: 'Feature', sortable: true },
-				{ key: 'Count', label: 'License' },
-				{ key: 'Used', label: 'Used' },
-				{ key: 'alarm', label: 'Status', class: 'text-center' }
-			],
-			licenseStore: [],
-			oldLicenseStore: []
-		};
-	},
-	computed: {
-		saveDisabled() {
-			return equal(this.licenseStore, this.oldLicenseStore);
-		},
-		cancelDisabled() {
-			return equal(this.licenseStore, this.oldLicenseStore);
-		}
-	}
+  created() {
+    this.loadData();
+  },
+  methods: {
+    loadData() {
+      LicenseService.mergeLicenses(this.$store.getters.backendConfig).then(
+        data => {
+          this.licenseStore = data;
+          this._addDangerFlag();
+          this.oldLicenseStore = JSON.parse(JSON.stringify(this.licenseStore));
+        }
+      );
+    },
+    _addDangerFlag() {
+      this.licenseStore.forEach(el => {
+        if (el.Used > el.Count) {
+          el._rowVariant = "danger";
+        } else {
+          el._rowVariant = "";
+        }
+      });
+    },
+    clear() {
+      this.licenseStore = JSON.parse(JSON.stringify(this.oldLicenseStore));
+    },
+    save() {
+      LicenseService.saveLicenses(
+        this.$store.getters.backendConfig,
+        this.licenseStore
+      )
+        .then(() => {
+          this.$noty.success("Update successful");
+          this.loadData();
+        })
+        .catch(() => {
+          this.$noty.error("Unable to save licenses informations.");
+        });
+    },
+    showDetail(item /*, index, event*/) {
+      this.$router.push({ name: "license_detail", params: { id: item._id } });
+    }
+  },
+  data() {
+    return {
+      fields: [
+        { key: "_id", label: "Feature", sortable: true },
+        { key: "Count", label: "License" },
+        { key: "Used", label: "Used" },
+        { key: "alarm", label: "Status", class: "text-center" }
+      ],
+      licenseStore: [],
+      oldLicenseStore: []
+    };
+  },
+  computed: {
+    saveDisabled() {
+      return equal(this.licenseStore, this.oldLicenseStore);
+    },
+    cancelDisabled() {
+      return equal(this.licenseStore, this.oldLicenseStore);
+    }
+  }
 };
 </script>
 
 <style scoped>
 .table td {
-	vertical-align: unset;
+  vertical-align: unset;
 }
 
-input[type='number'] {
-	width: 60px;
-	float: right;
+input[type="number"] {
+  width: 60px;
+  float: right;
 }
 </style>

@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		<div v-if="widget">
 			<i class="fas fa-globe fa-3x" style="position: absolute; right: 40px; top:60px"></i>
 			<router-link to="licenses" class="mt-3">
-				<h3 v-if="status.Compliance" class="text-success">
+				<h3 v-if="status.Compliant" class="text-success">
 					<i class="fas fa-thumbs-up"></i> OK
 				</h3>
 				<h3 v-else class="text-danger">
@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				</h3>
 			</router-link>
 			<div class="mt-1">
-				<strong>{{ status.Licenses.free }}</strong>/{{ status.Licenses.used }}
+				<strong>{{ status.Count }}</strong>/{{ status.Used }}
 			</div>
 		</div>
 
@@ -41,44 +41,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import DashboardService from '@/services/DashboardService';
+import DashboardService from "@/services/DashboardService";
 
 export default {
-	created() {
-		this.spinner = true;
-		this.widget = false;
-		DashboardService.getLicensesCompliance()
-			.then(data => {
-				this.status = data;
-				this.spinner = false;
-				this.widget = true;
-			})
-			.catch(() => {
-				this.spinner = false;
-				this.alert = true;
-			});
-	},
-	methods: {
-		openDetailPage() {
-			this.$router.push({
-				name: 'licenses'
-			});
-		}
-	},
-	data() {
-		return {
-			alert: false,
-			spinner: false,
-			widget: false,
-			status: {
-				Compliance: false,
-				Licenses: {
-					used: 0,
-					free: 0
-				}
-			}
-		};
-	}
+  created() {
+    this.spinner = true;
+    this.widget = false;
+    DashboardService.getLicensesCompliance(this.$store.getters.backendConfig)
+      .then(data => {
+        this.status = data;
+        this.spinner = false;
+        this.widget = true;
+      })
+      .catch(() => {
+        this.spinner = false;
+        this.alert = true;
+      });
+  },
+  methods: {
+    openDetailPage() {
+      this.$router.push({
+        name: "licenses"
+      });
+    }
+  },
+  data() {
+    return {
+      alert: false,
+      spinner: false,
+      widget: false,
+      status: {
+        Compliance: false,
+        Licenses: {
+          used: 0,
+          free: 0
+        }
+      }
+    };
+  }
 };
 </script>
 
