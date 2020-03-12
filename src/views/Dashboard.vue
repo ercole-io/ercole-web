@@ -125,35 +125,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import ServerEnvironmentChart from '@/components/dashboard/ServerEnvironmentChart.vue';
-import OperatingSystemChart from '@/components/dashboard/OperatingSystemChart.vue';
-import ServerTypeChart from '@/components/dashboard/ServerTypeChart.vue';
-import DatabaseVersionChart from '@/components/dashboard/DatabaseVersionChart.vue';
-import DatabaseTypeChart from '@/components/dashboard/DatabaseTypeChart.vue';
-import LicenseCompliance from '@/components/dashboard/LicenseCompliance.vue';
-import TopReclaimableDatabaseChart from '@/components/dashboard/TopReclaimableDatabaseChart.vue';
-import PatchStatusChart from '@/components/dashboard/PatchStatusChart.vue';
-import PatchStatusChart12 from '@/components/dashboard/PatchStatusChart12.vue';
-import TopFiveResize from '@/components/dashboard/TopFiveResize';
-import TopFiveWork from '@/components/dashboard/TopFiveWork';
-import SiteLocator from '@/components/dashboard/SiteLocator';
-
+import ServerEnvironmentChart from "@/components/dashboard/ServerEnvironmentChart.vue";
+import OperatingSystemChart from "@/components/dashboard/OperatingSystemChart.vue";
+import ServerTypeChart from "@/components/dashboard/ServerTypeChart.vue";
+import DatabaseVersionChart from "@/components/dashboard/DatabaseVersionChart.vue";
+import DatabaseTypeChart from "@/components/dashboard/DatabaseTypeChart.vue";
+import LicenseCompliance from "@/components/dashboard/LicenseCompliance.vue";
+import TopReclaimableDatabaseChart from "@/components/dashboard/TopReclaimableDatabaseChart.vue";
+import PatchStatusChart from "@/components/dashboard/PatchStatusChart.vue";
+import PatchStatusChart12 from "@/components/dashboard/PatchStatusChart12.vue";
+import TopFiveResize from "@/components/dashboard/TopFiveResize";
+import TopFiveWork from "@/components/dashboard/TopFiveWork";
+import SiteLocator from "@/components/dashboard/SiteLocator";
 
 export default {
-	components: {
-		ServerEnvironmentChart,
-		OperatingSystemChart,
-		ServerTypeChart,
-		DatabaseVersionChart,
-		DatabaseTypeChart,
-		TopFiveResize,
-		TopFiveWork,
-		TopReclaimableDatabaseChart,
-		PatchStatusChart,
-		PatchStatusChart12,
-		SiteLocator,
-		LicenseCompliance
-	}
+  components: {
+    ServerEnvironmentChart,
+    OperatingSystemChart,
+    ServerTypeChart,
+    DatabaseVersionChart,
+    DatabaseTypeChart,
+    TopFiveResize,
+    TopFiveWork,
+    TopReclaimableDatabaseChart,
+    PatchStatusChart,
+    PatchStatusChart12,
+    SiteLocator,
+    LicenseCompliance
+  }
 };
 </script>
 

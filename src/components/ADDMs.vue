@@ -28,25 +28,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	props: {
-		addms: {
-			type: Array,
-			default: () => []
-		}
-	},
-	data() {
-		return {
-			fields: [
-				{ key: 'Action' },
-				{
-					key: 'Benefit',
-					sortable: true
-				},
-				{ key: 'Finding' },
-				{ key: 'Recommendation' }			
-			]
-		};
-	}
+  props: {
+    addms: {
+      type: Array,
+      default: () => []
+    }
+  },
+  data() {
+    return {
+      fields: [
+        { key: "Action" },
+        {
+          key: "Benefit",
+          sortable: true
+        },
+        { key: "Finding" },
+        { key: "Recommendation" }
+      ]
+    };
+  }
 };
 </script>
 

@@ -44,47 +44,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import AlertNavbar from '@/components/AlertNavbar';
-import UserService from '@/services/UserService';
+import AlertNavbar from "@/components/AlertNavbar";
+import UserService from "@/services/UserService";
 
 export default {
-	name: 'Topbar',
-	components: {
-		AlertNavbar
-	},
-	data() {
-		return {
-			showUserInfos: false,
-			username: 'Anonymous User'
-		};
-	},
-	created() {
-		this.username = '-';
-		UserService.getUserInformations()
-			.then(userInfo => {
-				this.username = userInfo.fullName || userInfo.username;
-			})
-			.catch(() => {
-				this.username = 'Error fetching username';
-			});
-	},
-	methods: {
-		toggleSidebar() {
-			this.$store.commit('toggleSidebar', {});
-		},
-		toggleFullscreen() {
-			this.$fullscreen.toggle();
-		}
-	},
-	computed: {
-		logoutUrl() {
-			// WARN!!! this piece of code works only on assumption
-			// that the app is located at the base root of a
-			// website eg. http://www.example.com/index.html. 
-			// The behaviour in subfolders is unknow.
-			return document.location.origin + '/logout';
-		}
-	}
+  name: "Topbar",
+  components: {
+    AlertNavbar
+  },
+  data() {
+    return {
+      showUserInfos: false,
+      username: "Anonymous User"
+    };
+  },
+  created() {
+    this.username = "-";
+    UserService.getUserInformations()
+      .then(userInfo => {
+        this.username = userInfo.fullName || userInfo.username;
+      })
+      .catch(() => {
+        this.username = "Error fetching username";
+      });
+  },
+  methods: {
+    toggleSidebar() {
+      this.$store.commit("toggleSidebar", {});
+    },
+    toggleFullscreen() {
+      this.$fullscreen.toggle();
+    }
+  },
+  computed: {
+    logoutUrl() {
+      // WARN!!! this piece of code works only on assumption
+      // that the app is located at the base root of a
+      // website eg. http://www.example.com/index.html.
+      // The behaviour in subfolders is unknow.
+      return document.location.origin + "/logout";
+    }
+  }
 };
 </script>
 

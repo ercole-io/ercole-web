@@ -28,21 +28,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	computed: {
-		data() {
-			const data = this.$store.getters['dashboard/serverEnvironmentChart/data'];
-			return JSON.parse(JSON.stringify(data));
-		},
-		spinner() {
-			return this.$store.getters['dashboard/serverEnvironmentChart/spinner'];
-		},
-		widget() {
-			return this.$store.getters['dashboard/serverEnvironmentChart/widget'];
-		},
-		alert() {
-			return this.$store.getters['dashboard/serverEnvironmentChart/alert'];
-		}
-	}
+  computed: {
+    data() {
+      const data = this.$store.getters["dashboard/serverEnvironmentChart/data"];
+      return JSON.parse(JSON.stringify(data));
+    },
+    spinner() {
+      return this.$store.getters["dashboard/serverEnvironmentChart/spinner"];
+    },
+    widget() {
+      return this.$store.getters["dashboard/serverEnvironmentChart/widget"];
+    },
+    alert() {
+      return this.$store.getters["dashboard/serverEnvironmentChart/alert"];
+    }
+  }
 };
 </script>
 

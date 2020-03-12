@@ -26,14 +26,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	props: {
-		schemas: {
-			type: Array,
-			default: function() {
-				return [];
-			}
-		}
-	}
+  props: {
+    schemas: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    }
+  }
 };
 </script>
 

@@ -41,44 +41,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import DashboardService from '@/services/DashboardService';
+import DashboardService from "@/services/DashboardService";
 
 export default {
-	created() {
-		this.spinner = true;
-		this.widget = false;
-		DashboardService.getLicensesCompliance()
-			.then(data => {
-				this.status = data;
-				this.spinner = false;
-				this.widget = true;
-			})
-			.catch(() => {
-				this.spinner = false;
-				this.alert = true;
-			});
-	},
-	methods: {
-		openDetailPage() {
-			this.$router.push({
-				name: 'licenses'
-			});
-		}
-	},
-	data() {
-		return {
-			alert: false,
-			spinner: false,
-			widget: false,
-			status: {
-				Compliance: false,
-				Licenses: {
-					used: 0,
-					free: 0
-				}
-			}
-		};
-	}
+  created() {
+    this.spinner = true;
+    this.widget = false;
+    DashboardService.getLicensesCompliance(this.$store.getters.backendConfig)
+      .then(data => {
+        this.status = data;
+        this.spinner = false;
+        this.widget = true;
+      })
+      .catch(() => {
+        this.spinner = false;
+        this.alert = true;
+      });
+  },
+  methods: {
+    openDetailPage() {
+      this.$router.push({
+        name: "licenses"
+      });
+    }
+  },
+  data() {
+    return {
+      alert: false,
+      spinner: false,
+      widget: false,
+      status: {
+        Compliance: false,
+        Licenses: {
+          used: 0,
+          free: 0
+        }
+      }
+    };
+  }
 };
 </script>
 

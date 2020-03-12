@@ -63,31 +63,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import CellDisks from '@/components/CellDisks.vue';
+import CellDisks from "@/components/CellDisks.vue";
 
 export default {
-	components: {
-		CellDisks
-	},
-	props: {
-		exadata: {
-			type: Object
-		}
-	},
-	data() {
-		return {
-			tabVisible: 0
-		};
-	},
-	methods: {
-		setTabVisible(index) {
-			if (this.tabVisible === index) {
-				this.tabVisible = -1;
-			} else {
-				this.tabVisible = index;
-			}
-		}
-	}
+  components: {
+    CellDisks
+  },
+  props: {
+    exadata: {
+      type: Object
+    }
+  },
+  data() {
+    return {
+      tabVisible: 0
+    };
+  },
+  methods: {
+    setTabVisible(index) {
+      if (this.tabVisible === index) {
+        this.tabVisible = -1;
+      } else {
+        this.tabVisible = index;
+      }
+    }
+  }
 };
 </script>
 

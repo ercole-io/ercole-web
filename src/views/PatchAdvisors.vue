@@ -56,101 +56,102 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import HostService from '@/services/HostService.js';
-import moment from 'moment';
+import HostService from "@/services/HostService.js";
+import moment from "moment";
 
 export default {
-	name: 'PatchAdvisors',
-	data() {
-		return {
-			displayed: 0,
-			isBusy: false,
-			windowTime: 6,
-            windowTimeOptions: [
-				{ value: 6, text: '6' },
-				{ value: 12, text: '12' },
-            ],
-            status: '',
-            statusOptions: [
-                { value: '', text: 'All'},
-                { value: 'KO', text: 'KO'}
-            ],
-			loading: false,
-			items: null,
-			fields: [
-				{
-					key: 'Hostname',
-					sortable: true
-				},
-				{
-					key: 'Dbname',
-					label: 'Database'
-				},
-				{
-                    key: 'Dbver',
-                    label: 'Version'
-                },
-                {
-                    key: 'Description',
-                    label: 'PSU'
-                },
-                {
-                    key: 'Date',
-                    label: 'Date'
-                },
-                {
-                    key: 'RemainingDays',
-					label: 'Remaining days',
-					sortable: true
-                },
-                {
-                    key: 'Status',
-                    label: 'Status'
-                }
-			],
-			options: ['']
-		};
-	},
-	methods: {
-		updateItems() {
-            HostService.getPatchAdvisors(this.status, this.windowTime)
-				.then(items => {
-					this.items = (items || []).map(item => { 
-						console.log(item.Date)
-						if (moment(item.Date).format('YYYY-MM-DD') === '1970-01-01') {
-							item.Date = null;
-							item.RemainingDays = '∞';
-						} else {
-							item.RemainingDays = -moment().diff(moment(item.Date, 'YYYY-MM-DD'), 'days');
-							item.Date = moment(item.Date).format('YYYY-MM-DD');
-						}
-						return item;
-					});
-				})
-				.catch(() => {
-					this.$noty.error('Unable to retrieve patch advisors.');
-				});
-		},
-		generate() {
-			this.loading = true;
-			return HostService.generatePatchAdvisorExcel(this.status, this.windowTime).then(() => { 
-					this.loading = false
-				}
-			);
-		},
-	},
-	watch: {
-		windowTime() {
-			this.updateItems();
-		},
-		status() {
-			this.updateItems();
-		}
-	},
-	mounted() {
-		this.updateItems();
-	}
+  name: "PatchAdvisors",
+  data() {
+    return {
+      displayed: 0,
+      isBusy: false,
+      windowTime: 6,
+      windowTimeOptions: [{ value: 6, text: "6" }, { value: 12, text: "12" }],
+      status: "",
+      statusOptions: [{ value: "", text: "All" }, { value: "KO", text: "KO" }],
+      loading: false,
+      items: null,
+      fields: [
+        {
+          key: "Hostname",
+          sortable: true
+        },
+        {
+          key: "Dbname",
+          label: "Database"
+        },
+        {
+          key: "Dbver",
+          label: "Version"
+        },
+        {
+          key: "Description",
+          label: "PSU"
+        },
+        {
+          key: "Date",
+          label: "Date"
+        },
+        {
+          key: "RemainingDays",
+          label: "Remaining days",
+          sortable: true
+        },
+        {
+          key: "Status",
+          label: "Status"
+        }
+      ],
+      options: [""]
+    };
+  },
+  methods: {
+    updateItems() {
+      HostService.getPatchAdvisors(this.$store.getters.backendConfig, this.status, this.windowTime)
+        .then(items => {
+          this.items = (items || []).map(item => {
+            console.log(item.Date);
+            if (moment(item.Date).format("YYYY-MM-DD") === "1970-01-01") {
+              item.Date = null;
+              item.RemainingDays = "∞";
+            } else {
+              item.RemainingDays = -moment().diff(
+                moment(item.Date, "YYYY-MM-DD"),
+                "days"
+              );
+              item.Date = moment(item.Date).format("YYYY-MM-DD");
+            }
+            return item;
+          });
+        })
+        .catch(() => {
+          this.$noty.error("Unable to retrieve patch advisors.");
+        });
+    },
+    generate() {
+      this.loading = true;
+      return HostService.generatePatchAdvisorExcel(
+        this.$store.getters.backendConfig,
+        this.status,
+        this.windowTime
+      ).then(() => {
+        this.loading = false;
+      });
+    }
+  },
+  watch: {
+    windowTime() {
+      this.updateItems();
+    },
+    status() {
+      this.updateItems();
+    }
+  },
+  mounted() {
+    this.updateItems();
+  }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

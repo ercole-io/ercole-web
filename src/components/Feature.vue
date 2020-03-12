@@ -26,30 +26,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	props: {
-		name: {
-			type: String
-		},
-		status: {
-			type: Boolean,
-			default: false
-		}
-	}
+  props: {
+    name: {
+      type: String
+    },
+    status: {
+      type: Boolean,
+      default: false
+    }
+  }
 };
 </script>
 
 <style scoped>
 .feature {
-	display: grid;
-	grid-template-columns: 80% 20%;
-	align-items: center;
+  display: grid;
+  grid-template-columns: 80% 20%;
+  align-items: center;
 }
 
 .status {
-	justify-self: center;
+  justify-self: center;
 }
 
 .text-muted {
-	color: #d9d9d9 !important;
+  color: #d9d9d9 !important;
 }
 </style>

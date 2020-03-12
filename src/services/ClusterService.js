@@ -13,28 +13,29 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import axios from 'axios';
+import axios from "axios";
 
-function getClusters(filter) {
-	const config = {
-		url: '/clusters',
-		method: 'GET',
-		params: {
-			search: filter,
-			full: false
-		}
-	};
+function getClusters(cfg, filter) {
+  const config = {
+    url: "/clusters",
+    method: "GET",
+    params: {
+      search: filter,
+      full: false
+    }
+  };
 
-	return axios
-		.request(config)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			return Promise.reject(err);
-		});
+  return axios
+    .create(cfg)
+    .request(config)
+    .then(res => {
+      return res.data;
+    })
+    .catch(err => {
+      return Promise.reject(err);
+    });
 }
 
 export default {
-	getClusters,
+  getClusters
 };
