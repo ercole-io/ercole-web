@@ -16,62 +16,66 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <script>
-import { mixins, Line } from 'vue-chartjs';
+import { mixins, Line } from "vue-chartjs";
 const { reactiveProp } = mixins;
 
 export default {
-	extends: Line,
-	props: ['chartData', 'height', 'suggestedMax'],
-	mixins: [reactiveProp],
-	mounted() {	
-		this.render();
-	},
-	methods: {
-		render() {
-			// this._chart.destroy();
-			this.renderChart(this.chartData, {
-				responsive: true,
-				title: {
-					display: false,
-				},
-				scales: {
-					xAxes: [{
-						type: 'time',
-						display: true,
-						scaleLabel: {
-							display: true,
-							labelString: 'Date'
-						},
-						ticks: {
-							major: {
-								fontStyle: 'bold',
-								fontColor: '#FF0000'
-							}
-						},
-						time: {
-							stepSize: 1,
-							minUnit: 'day'
-						}
-					}],
-					yAxes: [{
-						display: true,
-						scaleLabel: {
-							display: true,
-							labelString: 'Size'
-						},
-						ticks: {
-							beginAtZero: true,
-							suggestedMax: this.suggestedMax,
-						}
-					}]
-				}
-			});
-		}
-	}, 
-	watch: {
-		chartData() {
-			this.render();
-		}
-	}
-}
+  extends: Line,
+  props: ["chartData", "height", "suggestedMax"],
+  mixins: [reactiveProp],
+  mounted() {
+    this.render();
+  },
+  methods: {
+    render() {
+      // this._chart.destroy();
+      this.renderChart(this.chartData, {
+        responsive: true,
+        title: {
+          display: false
+        },
+        scales: {
+          xAxes: [
+            {
+              type: "time",
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: "Date"
+              },
+              ticks: {
+                major: {
+                  fontStyle: "bold",
+                  fontColor: "#FF0000"
+                }
+              },
+              time: {
+                stepSize: 1,
+                minUnit: "day"
+              }
+            }
+          ],
+          yAxes: [
+            {
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: "Size"
+              },
+              ticks: {
+                beginAtZero: true,
+                suggestedMax: this.suggestedMax
+              }
+            }
+          ]
+        }
+      });
+    }
+  },
+  watch: {
+    chartData() {
+      this.render();
+    }
+  }
+};
 </script>

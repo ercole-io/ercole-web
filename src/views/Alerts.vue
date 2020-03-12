@@ -114,138 +114,145 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import moment from 'moment';
-import datePicker from 'vue-bootstrap-datetimepicker';
-import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+import moment from "moment";
+import datePicker from "vue-bootstrap-datetimepicker";
+import "pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css";
 
-import AlertService from '@/services/AlertService.js';
-import Severity from '@/components/Severity';
+import AlertService from "@/services/AlertService.js";
+import Severity from "@/components/Severity";
 
 export default {
-	components: {
-		Severity,
-		datePicker
-	},
-	filters: {
-		date: function(value) {
-			return moment(value).fromNow();
-		},
-		tooltip: function(value) {
-			return moment(value).format('DD-MM-YYYY HH:mm');
-		}
-	},
-	data() {
-		return {
-			selected: [],
-			onlyNewAlerts: 'yes',
-			fields: [
-				{ key: 'selection', label: '&nbsp;' },
-				{
-					key: 'Date',
-					class: 'text-nowrap'
-				},
-				{
-					key: 'AlertSeverity',
-					class: 'text-center'
-				},
-				'Hostname',
-				{
-					key: 'AlertCode',
-					label: 'Code'
-				},
-				{
-					key: 'Description',
-					label: 'Description'
-				}
-			],
-			totalRows: 0,
-			perPage: 20,
-			currentPage: 1,
-			severityLevel: null,
-			filter: '',
-			severityLevels: [
-				{ value: null, text: '' },
-				{ value: 'MINOR', text: 'Minor' },
-				{ value: 'WARNING', text: 'Warning' },
-				{ value: 'MAJOR', text: 'Major' },
-				{ value: 'CRITICAL', text: 'Critical' },
-				{ value: 'NOTICE', text: 'Notice' }
-			],
-			startdate: null,
-			enddate: null,
-			options: {
-				useCurrent: true,
-				showClear: true,
-				format: 'YYYY-MM-DD'
-			}       
-		};
-	},
-	created() {
-		this.$store.dispatch('loadNotifications');
-	},
-	methods: {
-		handleResponse(data) {
-			const items = data.Content;
-			this.totalRows = data.Metadata.TotalElements;
-			this.perPage = data.Metadata.Size;
-			this.currentPage = data.Metadata.Number + 1;
-			items.forEach(el => {
-				if (el.status === 'NEW') {
-					el._rowVariant = 'bold';
-				}
-			});
-			return items;
-		},
-		myProvider(ctx) {
-			if (ctx.filter === 'yes') {
-				return AlertService.getNewAlerts(ctx.currentPage, this.severityLevel, this.filter, 
-					this.startdate, this.enddate).then(
-					this.handleResponse
-				);
-			} else {
-				return AlertService.getAlerts(ctx.currentPage, this.severityLevel, this.filter, 
-					this.startdate, this.enddate).then(
-					this.handleResponse
-				);
-			}
-		},
-		compareAlerts(a, b, field) {
-			if (field === 'date') {
-				let diff = -moment(a.date).diff(moment(b.date));
-				return diff;
-			}
-		},
-		markRead(selected) {
-			Promise.all(selected.map(sel =>
-				AlertService.updateAlert(sel)
-			)).then(() => {
-				this.$store.dispatch('loadNotifications');
-				this.$refs.table.refresh();
-			})
-			.catch(err => {
-				this.$noty.error(err);
-			});
-		}
-	},
-	computed: {
-		markReadDisabled() {
-			return this.selected.length === 0;
-		}
-	},
-	watch: {
-		severityLevel() {
-			this.$refs.table.refresh();
-		},
-		filter() {
-			this.$refs.table.refresh();
-		},
-		startdate() {
-			this.$refs.table.refresh();
-		},
-		enddate() {
-			this.$refs.table.refresh();
-		}
-	}
+  components: {
+    Severity,
+    datePicker
+  },
+  filters: {
+    date: function(value) {
+      return moment(value).fromNow();
+    },
+    tooltip: function(value) {
+      return moment(value).format("DD-MM-YYYY HH:mm");
+    }
+  },
+  data() {
+    return {
+      selected: [],
+      onlyNewAlerts: "yes",
+      fields: [
+        { key: "selection", label: "&nbsp;" },
+        {
+          key: "Date",
+          class: "text-nowrap"
+        },
+        {
+          key: "AlertSeverity",
+          class: "text-center"
+        },
+        "Hostname",
+        {
+          key: "AlertCode",
+          label: "Code"
+        },
+        {
+          key: "Description",
+          label: "Description"
+        }
+      ],
+      totalRows: 0,
+      perPage: 20,
+      currentPage: 1,
+      severityLevel: null,
+      filter: "",
+      severityLevels: [
+        { value: null, text: "" },
+        { value: "MINOR", text: "Minor" },
+        { value: "WARNING", text: "Warning" },
+        { value: "MAJOR", text: "Major" },
+        { value: "CRITICAL", text: "Critical" },
+        { value: "NOTICE", text: "Notice" }
+      ],
+      startdate: null,
+      enddate: null,
+      options: {
+        useCurrent: true,
+        showClear: true,
+        format: "YYYY-MM-DD"
+      }
+    };
+  },
+  created() {
+    this.$store.dispatch("loadNotifications");
+  },
+  methods: {
+    handleResponse(data) {
+      const items = data.Content;
+      this.totalRows = data.Metadata.TotalElements;
+      this.perPage = data.Metadata.Size;
+      this.currentPage = data.Metadata.Number + 1;
+      items.forEach(el => {
+        if (el.status === "NEW") {
+          el._rowVariant = "bold";
+        }
+      });
+      return items;
+    },
+    myProvider(ctx) {
+      if (ctx.filter === "yes") {
+        return AlertService.getNewAlerts(
+          this.$store.getters.backendConfig,
+          ctx.currentPage,
+          this.severityLevel,
+          this.filter,
+          this.startdate,
+          this.enddate
+        ).then(this.handleResponse);
+      } else {
+        return AlertService.getAlerts(
+          this.$store.getters.backendConfig,
+          ctx.currentPage,
+          this.severityLevel,
+          this.filter,
+          this.startdate,
+          this.enddate
+        ).then(this.handleResponse);
+      }
+    },
+    compareAlerts(a, b, field) {
+      if (field === "date") {
+        let diff = -moment(a.date).diff(moment(b.date));
+        return diff;
+      }
+    },
+    markRead(selected) {
+      Promise.all(selected.map(sel => AlertService.updateAlert(this.$store.getters.backendConfig, sel)))
+        .then(() => {
+          this.$store.dispatch("loadNotifications");
+          this.$refs.table.refresh();
+        })
+        .catch(err => {
+          this.$noty.error(err);
+        });
+    }
+  },
+  computed: {
+    markReadDisabled() {
+      return this.selected.length === 0;
+    }
+  },
+  watch: {
+    severityLevel() {
+      this.$refs.table.refresh();
+    },
+    filter() {
+      this.$refs.table.refresh();
+    },
+    startdate() {
+      this.$refs.table.refresh();
+    },
+    enddate() {
+      this.$refs.table.refresh();
+    }
+  }
 };
 </script>
 

@@ -28,24 +28,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	data () {
-		return {
-			fields: [ 
-				{ key: "Action" },
-				{ key: "Version" },
-				{ key: "Description" },
-				{ key: "Database" },
-				{ key: "PatchID" },
-				{ key: "Date" },
-			]
-		}
-	},
-	props: {
-		patches: {
-			type: Array,
-			default: () => []
-		}
-	}
+  data() {
+    return {
+      fields: [
+        { key: "Action" },
+        { key: "Version" },
+        { key: "Description" },
+        { key: "Database" },
+        { key: "PatchID" },
+        { key: "Date" }
+      ]
+    };
+  },
+  props: {
+    patches: {
+      type: Array,
+      default: () => []
+    }
+  }
 };
 </script>
 

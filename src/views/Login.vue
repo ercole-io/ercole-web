@@ -16,33 +16,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <template>
-   <div>
-		<b-table bordered hover 
-			show-empty
-			empty-text="No cell disks."
-			:items="cellDisks"
-			:fields="fields">
-		</b-table>
-	 </div>
+	<div class="container-fluid">
+        login
+	</div>
 </template>
 
 <script>
 export default {
   data() {
-    return {
-      fields: [
-        { key: "Name" },
-        { key: "Status" },
-        { key: "ErrCount" },
-        { key: "UsedPerc" }
-      ]
-    };
-  },
-  props: {
-    cellDisks: {
-      type: Array,
-      default: () => []
-    }
+    return {};
   }
 };
 </script>

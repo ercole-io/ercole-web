@@ -13,227 +13,237 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import DashboardService from '@/services/DashboardService';
-import { mapArrayToPieChartData } from '@/utils/PieChartMapper';
+import DashboardService from "@/services/DashboardService";
+import { mapArrayToPieChartData } from "@/utils/PieChartMapper";
 
 function factory(loadData) {
-	const proto = {
-		namespaced: true,
-		state: {
-			data: [],
-			view: ''
-		},
-		mutations: {
-			load: state => {
-				state.data = [];
-				state.view = 'spinner';
-			},
-			success: (state, data) => {
-				state.data = data;
-				state.view = 'widget';
-			},
-			error: state => {
-				state.data = [];
-				state.view = 'alert';
-			}
-		},
-		getters: {
-			data: state => {
-				return state.data;
-			},
-			spinner: state => {
-				return state.view === 'spinner';
-			},
-			alert: state => {
-				return state.view === 'alert';
-			},
-			widget: state => {
-				return state.view === 'widget';
-			}
-		},
-		actions: {
-			loadData
-		}
-	};
+  const proto = {
+    namespaced: true,
+    state: {
+      data: [],
+      view: ""
+    },
+    mutations: {
+      load: state => {
+        state.data = [];
+        state.view = "spinner";
+      },
+      success: (state, data) => {
+        state.data = data;
+        state.view = "widget";
+      },
+      error: state => {
+        state.data = [];
+        state.view = "alert";
+      }
+    },
+    getters: {
+      data: state => {
+        return state.data;
+      },
+      spinner: state => {
+        return state.view === "spinner";
+      },
+      alert: state => {
+        return state.view === "alert";
+      },
+      widget: state => {
+        return state.view === "widget";
+      }
+    },
+    actions: {
+      loadData
+    }
+  };
 
-	return Object.create(proto);
+  return Object.create(proto);
 }
 
 const dashboard = {
-	namespaced: 'true',
-	modules: {
-		serverEnvironmentChart: factory(function({ commit }, location) {
-			commit('load');
-			return DashboardService.getServerEnv(location)
-				.then(res => {
-					const data = mapArrayToPieChartData(res, ['Environment', 'Count']);
-					commit('success', data);
-				})
-				.catch(() => {
-					commit('error');
-				});
-		}),
-		operatingSystemChart: factory(function({ commit }, location) {
-			commit('load');
-			return DashboardService.getServerOS(location)
-				.then(res => {
-					const data = mapArrayToPieChartData(res, ['OperatingSystem', 'Count']);
-					commit('success', data);
-				})
-				.catch(() => {
-					commit('error');
-				});
-		}),
-		serverTypeChart: factory(function({ commit }, location) {
-			commit('load');
-			return DashboardService.getServerType(location)
-				.then(res => {
-					const data = mapArrayToPieChartData(res.map(item => {
-						if (item.tipo == "PH") {
-							item.tipo = "BARE METAL";
-						}
-						return item;
-					}), ['Type', 'Count']);
-					commit('success', data);
-				})
-				.catch(() => {
-					commit('error');
-				});
-		}),
-		databaseTypeChart: factory(function({ commit }, location) {
-			commit('load');
-			return DashboardService.getDBEnv(location)
-				.then(res => {
-					const data = mapArrayToPieChartData(res, ['Environment', 'Count']);
-					commit('success', data);
-				})
-				.catch(() => {
-					commit('error');
-				});
-		}),
-		databaseVersionChart: factory(function({ commit }, location) {
-			commit('load');
-			return DashboardService.getDBVersions(location)
-				.then(res => {
-					const data = mapArrayToPieChartData(res, ['Version', 'Count']);
-					commit('success', data);
-				})
-				.catch(() => {
-					commit('error');
-				});
-		}),
-		topFiveWork: factory(function({ commit }, location) {
-			commit('load');
-			return DashboardService.getWorkTopFive(location)
-				.then(res => {
-					commit('success', res);
-				})
-				.catch(() => {
-					commit('error');
-				});
-		}),
-		topFiveResize: factory(function({ commit }, location) {
-			commit('load');
-			return DashboardService.getResizeTopFive(location)
-				.then(res => {
-					commit('success', res);
-				})
-				.catch(() => {
-					commit('error');
-				});
-		}),
-		topReclaimableDatabaseChart: factory(function({ commit }, location) {
-			commit('load');
-			return DashboardService.getTopFifteenReclaimableDatabase(location)
-				.then(res => {
-					const data = mapArrayToPieChartData(res, ['Dbname', 'ReclaimableSegmentAdvisors']);
-					commit('success', data);
-				})
-				.catch(() => {
-					commit('error');
-				});
-		}),
-		patchStatusChart: factory(function({ commit }, location) {
-			commit('load');
-			return DashboardService.getPatchStatusStats(location, 6)
-				.then(res => {
-					const data = mapArrayToPieChartData(res, ['Status', 'Count']);
-					data.labels.forEach(function (item, index) {
-						if (item === 'KO') {
-							data.datasets[0].backgroundColor[index] = '#ff0000';
-						} else if  (item === 'OK') {
-							data.datasets[0].backgroundColor[index] = '#0000ff';
-						}
-					})
-					commit('success', data);
-				})
-				.catch(() => {
-					commit('error');
-				});
-		}),
-		patchStatusChart12: factory(function({ commit }, location) {
-			commit('load');
-			return DashboardService.getPatchStatusStats(location, 12)
-				.then(res => {
-					const data = mapArrayToPieChartData(res, ['Status', 'Count']);
-					data.labels.forEach(function (item, index) {
-						if (item === 'KO') {
-							data.datasets[0].backgroundColor[index] = '#ff0000';
-						} else if  (item === 'OK') {
-							data.datasets[0].backgroundColor[index] = '#0000ff';
-						}
-					})
-					commit('success', data);
-				})
-				.catch(() => {
-					commit('error');
-				});
-		}),
-	},
-	state: {
-		isUpdating: false,
-		location: null
-	},
-	mutations: {
-		updateComplete(state) {
-			state.isUpdating = false;
-		},
-		startUpdate(state, location) {
-			state.isUpdating = true;
-			state.location = location;
-		}
-	},
-	getters: {
-		isUpdating: state => {
-			return state.isUpdating;
-		},
-		location: state => {
-			return state.location;
-		}
-	},
-	actions: {
-		updateWidgets({ commit, dispatch }, location) {
-			commit('startUpdate', location);
-			Promise.all([
-				dispatch('serverEnvironmentChart/loadData', location),
-				dispatch('operatingSystemChart/loadData', location),
-				dispatch('serverTypeChart/loadData', location),
-				dispatch('databaseTypeChart/loadData', location),
-				dispatch('databaseVersionChart/loadData', location),
-				dispatch('topFiveWork/loadData', location),
-				dispatch('topFiveResize/loadData', location),
-				dispatch('topReclaimableDatabaseChart/loadData', location),
-				dispatch('patchStatusChart/loadData', location),
-				dispatch('patchStatusChart12/loadData', location)
-			])
-				.then(() => {
-					commit('updateComplete');
-				})
-				.catch(() => {
-					commit('updateComplete');
-				});
-		}
-	}
+  namespaced: "true",
+  modules: {
+    serverEnvironmentChart: factory(function({ commit, getters }, location) {
+      commit("load");
+      console.log(getters);
+      return DashboardService.getServerEnv(getters.backendConfig, location)
+        .then(res => {
+          const data = mapArrayToPieChartData(res, ["Environment", "Count"]);
+          commit("success", data);
+        })
+        .catch(() => {
+          commit("error");
+        });
+    }),
+    operatingSystemChart: factory(function({ commit }, location) {
+      commit("load");
+      return DashboardService.getServerOS(location)
+        .then(res => {
+          const data = mapArrayToPieChartData(res, [
+            "OperatingSystem",
+            "Count"
+          ]);
+          commit("success", data);
+        })
+        .catch(() => {
+          commit("error");
+        });
+    }),
+    serverTypeChart: factory(function({ commit }, location) {
+      commit("load");
+      return DashboardService.getServerType(location)
+        .then(res => {
+          const data = mapArrayToPieChartData(
+            res.map(item => {
+              if (item.tipo == "PH") {
+                item.tipo = "BARE METAL";
+              }
+              return item;
+            }),
+            ["Type", "Count"]
+          );
+          commit("success", data);
+        })
+        .catch(() => {
+          commit("error");
+        });
+    }),
+    databaseTypeChart: factory(function({ commit }, location) {
+      commit("load");
+      return DashboardService.getDBEnv(location)
+        .then(res => {
+          const data = mapArrayToPieChartData(res, ["Environment", "Count"]);
+          commit("success", data);
+        })
+        .catch(() => {
+          commit("error");
+        });
+    }),
+    databaseVersionChart: factory(function({ commit }, location) {
+      commit("load");
+      return DashboardService.getDBVersions(location)
+        .then(res => {
+          const data = mapArrayToPieChartData(res, ["Version", "Count"]);
+          commit("success", data);
+        })
+        .catch(() => {
+          commit("error");
+        });
+    }),
+    topFiveWork: factory(function({ commit }, location) {
+      commit("load");
+      return DashboardService.getWorkTopFive(location)
+        .then(res => {
+          commit("success", res);
+        })
+        .catch(() => {
+          commit("error");
+        });
+    }),
+    topFiveResize: factory(function({ commit }, location) {
+      commit("load");
+      return DashboardService.getResizeTopFive(location)
+        .then(res => {
+          commit("success", res);
+        })
+        .catch(() => {
+          commit("error");
+        });
+    }),
+    topReclaimableDatabaseChart: factory(function({ commit }, location) {
+      commit("load");
+      return DashboardService.getTopFifteenReclaimableDatabase(location)
+        .then(res => {
+          const data = mapArrayToPieChartData(res, [
+            "Dbname",
+            "ReclaimableSegmentAdvisors"
+          ]);
+          commit("success", data);
+        })
+        .catch(() => {
+          commit("error");
+        });
+    }),
+    patchStatusChart: factory(function({ commit }, location) {
+      commit("load");
+      return DashboardService.getPatchStatusStats(location, 6)
+        .then(res => {
+          const data = mapArrayToPieChartData(res, ["Status", "Count"]);
+          data.labels.forEach(function(item, index) {
+            if (item === "KO") {
+              data.datasets[0].backgroundColor[index] = "#ff0000";
+            } else if (item === "OK") {
+              data.datasets[0].backgroundColor[index] = "#0000ff";
+            }
+          });
+          commit("success", data);
+        })
+        .catch(() => {
+          commit("error");
+        });
+    }),
+    patchStatusChart12: factory(function({ commit }, location) {
+      commit("load");
+      return DashboardService.getPatchStatusStats(location, 12)
+        .then(res => {
+          const data = mapArrayToPieChartData(res, ["Status", "Count"]);
+          data.labels.forEach(function(item, index) {
+            if (item === "KO") {
+              data.datasets[0].backgroundColor[index] = "#ff0000";
+            } else if (item === "OK") {
+              data.datasets[0].backgroundColor[index] = "#0000ff";
+            }
+          });
+          commit("success", data);
+        })
+        .catch(() => {
+          commit("error");
+        });
+    })
+  },
+  state: {
+    isUpdating: false,
+    location: null
+  },
+  mutations: {
+    updateComplete(state) {
+      state.isUpdating = false;
+    },
+    startUpdate(state, location) {
+      state.isUpdating = true;
+      state.location = location;
+    }
+  },
+  getters: {
+    isUpdating: state => {
+      return state.isUpdating;
+    },
+    location: state => {
+      return state.location;
+    }
+  },
+  actions: {
+    updateWidgets({ commit, dispatch }, location) {
+      commit("startUpdate", location);
+      Promise.all([
+        dispatch("serverEnvironmentChart/loadData", location),
+        dispatch("operatingSystemChart/loadData", location),
+        dispatch("serverTypeChart/loadData", location),
+        dispatch("databaseTypeChart/loadData", location),
+        dispatch("databaseVersionChart/loadData", location),
+        dispatch("topFiveWork/loadData", location),
+        dispatch("topFiveResize/loadData", location),
+        dispatch("topReclaimableDatabaseChart/loadData", location),
+        dispatch("patchStatusChart/loadData", location),
+        dispatch("patchStatusChart12/loadData", location)
+      ])
+        .then(() => {
+          commit("updateComplete");
+        })
+        .catch(() => {
+          commit("updateComplete");
+        });
+    }
+  }
 };
 
 export default dashboard;

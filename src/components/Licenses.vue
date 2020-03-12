@@ -24,46 +24,46 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import LicenseRow from './LicenseRow';
+import LicenseRow from "./LicenseRow";
 
 export default {
-	components: {
-		LicenseRow
-	},
-	props: {
-		licenses: {
-			type: Array,
-			default: () => []
-		}
-	},
-	computed: {
-		items() {
-			const items = JSON.parse(JSON.stringify(this.licenses));
-			return items.sort(compareLicenses);
-		}
-	}
+  components: {
+    LicenseRow
+  },
+  props: {
+    licenses: {
+      type: Array,
+      default: () => []
+    }
+  },
+  computed: {
+    items() {
+      const items = JSON.parse(JSON.stringify(this.licenses));
+      return items.sort(compareLicenses);
+    }
+  }
 };
 
-const oracleRegexp = new RegExp('^Oracle', 'i');
+const oracleRegexp = new RegExp("^Oracle", "i");
 
 // sort the licenses by their name
 function compareLicenses(a, b) {
-	var nameA = a.Name.toUpperCase();
-	var nameB = b.Name.toUpperCase();
+  var nameA = a.Name.toUpperCase();
+  var nameB = b.Name.toUpperCase();
 
-	// if string starts with Oracle should be placed first
-	if (oracleRegexp.test(a.Name)) return -1;
-	if (oracleRegexp.test(b.Name)) return 1;
+  // if string starts with Oracle should be placed first
+  if (oracleRegexp.test(a.Name)) return -1;
+  if (oracleRegexp.test(b.Name)) return 1;
 
-	if (nameA < nameB) {
-		return -1;
-	}
-	if (nameA > nameB) {
-		return 1;
-	}
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
 
-	// name are equals
-	return 0;
+  // name are equals
+  return 0;
 }
 </script>
 

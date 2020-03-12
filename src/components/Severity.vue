@@ -25,21 +25,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	props: {
-		value: {
-			type: String,
-			required: true
-		},
-		size: {
-			type: String,
-			default: ''
-		}
-	},
-	computed: {
-		faSize() {
-			return this.size ? 'fa-' + this.size : '';
-		}
-	}
+  props: {
+    value: {
+      type: String,
+      required: true
+    },
+    size: {
+      type: String,
+      default: ""
+    }
+  },
+  computed: {
+    faSize() {
+      return this.size ? "fa-" + this.size : "";
+    }
+  }
 };
 </script>
 

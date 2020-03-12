@@ -28,37 +28,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import DashboardService from '@/services/DashboardService';
+import DashboardService from "@/services/DashboardService";
 
 export default {
-	data() {
-		return {
-			locations: []
-		};
-	},
-	created() {
-		DashboardService.getServerLocations()
-			.then(locationsArray => {
-				this.locations = locationsArray;
-				this.selectedLocation = '*'; //  srota2@sorint.it's bad idea
-			})
-			.catch(() => {
-				this.$noty.error('Unable to load location data.');
-			});
-	},
-	computed: {
-		disabled() {
-			return this.$store.getters['dashboard/isUpdating'];
-		},
-		selectedLocation: {
-			set: function(value) {
-				this.$store.dispatch('dashboard/updateWidgets', value);
-			},
-			get: function() {
-				return this.$store.getters['dashboard/location'];
-			}
-		}
-	}
+  data() {
+    return {
+      locations: []
+    };
+  },
+  created() {
+    DashboardService.getServerLocations(this.$store.getters.backendConfig)
+      .then(locationsArray => {
+        this.locations = locationsArray;
+        this.selectedLocation = "*"; //  srota2@sorint.it's bad idea
+      })
+      .catch(() => {
+        this.$noty.error("Unable to load location data.");
+      });
+  },
+  computed: {
+    disabled() {
+      return this.$store.getters["dashboard/isUpdating"];
+    },
+    selectedLocation: {
+      set: function(value) {
+        this.$store.dispatch("dashboard/updateWidgets", value);
+      },
+      get: function() {
+        return this.$store.getters["dashboard/location"];
+      }
+    }
+  }
 };
 </script>
 

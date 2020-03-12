@@ -58,74 +58,73 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import ClusterService from '@/services/ClusterService.js';
-import HostService from '@/services/HostService.js';
+import ClusterService from "@/services/ClusterService.js";
+import HostService from "@/services/HostService.js";
 
-import moment from 'moment';
+import moment from "moment";
 
 export default {
-	name: 'Clusters',
-	data() {
-		return {
-			isBusy: false,
-			filter: '',
-			items: [],
-			fields: [
-				'Name',
-				{ key: 'Type', label: 'Type'},
-				{ key: 'CPU', label: 'Core'},
-				'Sockets',
-				{ key: 'PhysicalHosts', label: 'Physical Hosts'},
-			],
-		};
-	},
-	mounted() {
-		this.itemsProvider();
-	},
-	methods: {
-		itemsProvider() {
-			this.isBusy = true;
-			return ClusterService.getClusters(this.filter)
-				.then(clusters => {
-					this.items = clusters.map(item => {
-						switch (item.Type) {
-							case null:
-								item.Type = "";
-								break;
-							case 'unknown':
-								item.Type = "";
-								break;
-							case 'ovm':
-								item.Type = "Ovm";
-								break;
-							case 'vmware':
-								item.Type = "Vmware";
-								break;
-							default:
-								break;
-						}
-						return item;
-					});
-					this.isBusy = false;
-				})
-				.catch(() => {
-					this.$noty.error('Unable to retrieve clusters list.');
-					this.isBusy = false;
-				});
-		},
-		generate() {
-			this.loading = true;
-			return HostService.generateHypervisorsExcel(this.filter).then(() => { 
-					this.loading = false
-				}
-			);
-		},
-	},
-	watch: {
-		filter() {
-			this.itemsProvider();
-		}
-	}
+  name: "Clusters",
+  data() {
+    return {
+      isBusy: false,
+      filter: "",
+      items: [],
+      fields: [
+        "Name",
+        { key: "Type", label: "Type" },
+        { key: "CPU", label: "Core" },
+        "Sockets",
+        { key: "PhysicalHosts", label: "Physical Hosts" }
+      ]
+    };
+  },
+  mounted() {
+    this.itemsProvider();
+  },
+  methods: {
+    itemsProvider() {
+      this.isBusy = true;
+      return ClusterService.getClusters(this.$store.getters.backendConfig, this.filter)
+        .then(clusters => {
+          this.items = clusters.map(item => {
+            switch (item.Type) {
+              case null:
+                item.Type = "";
+                break;
+              case "unknown":
+                item.Type = "";
+                break;
+              case "ovm":
+                item.Type = "Ovm";
+                break;
+              case "vmware":
+                item.Type = "Vmware";
+                break;
+              default:
+                break;
+            }
+            return item;
+          });
+          this.isBusy = false;
+        })
+        .catch(() => {
+          this.$noty.error("Unable to retrieve clusters list.");
+          this.isBusy = false;
+        });
+    },
+    generate() {
+      this.loading = true;
+      return HostService.generateHypervisorsExcel(this.$store.getters.backendConfig, this.filter).then(() => {
+        this.loading = false;
+      });
+    }
+  },
+  watch: {
+    filter() {
+      this.itemsProvider();
+    }
+  }
 };
 </script>
 

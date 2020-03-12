@@ -24,39 +24,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import Feature from './Feature';
+import Feature from "./Feature";
 
 export default {
-	components: {
-		Feature
-	},
-	props: {
-		features: {
-			type: Array,
-			default: () => []
-		}
-	},
-	computed: {
-		items() {
-			const features = JSON.parse(JSON.stringify(this.features));
-			return features.sort(compareFeatures);
-		}
-	}
+  components: {
+    Feature
+  },
+  props: {
+    features: {
+      type: Array,
+      default: () => []
+    }
+  },
+  computed: {
+    items() {
+      const features = JSON.parse(JSON.stringify(this.features));
+      return features.sort(compareFeatures);
+    }
+  }
 };
 
 // compare features
 function compareFeatures(a, b) {
-	var nameA = a.Name.toUpperCase();
-	var nameB = b.Name.toUpperCase();
-	if (nameA < nameB) {
-		return -1;
-	}
-	if (nameA > nameB) {
-		return 1;
-	}
+  var nameA = a.Name.toUpperCase();
+  var nameB = b.Name.toUpperCase();
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
 
-	// name should be equals
-	return 0;
+  // name should be equals
+  return 0;
 }
 </script>
 

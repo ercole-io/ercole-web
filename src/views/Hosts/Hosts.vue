@@ -97,138 +97,142 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import HostService from '@/services/HostService.js';
-import moment from 'moment';
+import HostService from "@/services/HostService.js";
+import moment from "moment";
 
 export default {
-	name: 'Hosts',
-	data() {
-		return {
-			currentPage: 1,
-			totalRows: 0,
-			perPage: 5,
-			displayed: 0,
-			isBusy: false,
-			filter: '',
-			olderThan: null,
-			loading: false,
-			fields: [
-				{
-					key: 'Hostname',
-					sortable: true
-				},
-				{
-					key: 'Environment',
-					label: 'Env'
-				},
-				{
-					key: 'HostType',
-					label: 'Host type'
-				},
-				{
-					key: 'Cluster',
-					label: 'Cluster'
-				},
-				{
-					key: 'PhysicalHost',
-					label: 'Physical Host'
-				},
-				{
-					key: 'Version',
-					label: 'Version'
-				},
-				{
-					label: 'Last Update',
-					key: 'CreatedAt',
-					formatter: value => {
-						return moment(value).format('DD/MM/YYYY');
-					},
-					sortable: true,
-				},
-				{
-					key: 'Databases',
-					formatter: value => {
-						return value == '' ? '-' : value;
-					}
-				},
-				{ key: 'OS', label: 'OS' },
-				{ key: 'Kernel', label: 'Kernel' },
-				{
-					key: 'OracleCluster',
-					label: 'Oracle Cluster',
-					class: 'text-center'
-				},
-				{
-					key: 'SunCluster',
-					label: 'Sun Cluster',
-					class: 'text-center'
-				},
-				{ key: 'VeritasCluster', label: 'Veritas Cluster' },
-				{
-					key: 'Virtual',
-					label: 'Virtual',
-					class: 'text-center'
-				},
-				{ key: 'Type', label: 'Platform type' },
-				{ key: 'CPUThreads', label: 'CPU Threads' },
-				{ key: 'CPUCores', label: 'CPU Cores' },
-				{ key: 'Socket', label: 'Socket' },
-				{ key: 'MemTotal', label: 'Mem Total' },
-				{ key: 'SwapTotal', label: 'Swap Total' },
-				{ key: 'CPUModel', label: 'CPU Model' }
-			],
-			options: [
-				{ value: null, text: '' },
-				{ value: '1', text: '1' },
-				{ value: '2', text: '2' },
-				{ value: '3', text: '3' },
-				{ value: '4', text: '4' },
-				{ value: '5', text: '5' },
-				{ value: '6', text: '6' },
-				{ value: '7', text: '7' },
-				{ value: '8', text: '8' },
-				{ value: '9', text: '9' },
-				{ value: '10', text: '10' }
-			]
-		};
-	},
-	methods: {
-		generate() {
-			this.loading = true;
-			return HostService.generateEx().then(() => { 
-					this.loading = false
-				}
-			);
-		},
-		generateSimple() {
-			this.loading = true;
-			return HostService.generateExSimple().then(() => { 
-					this.loading = false
-				}
-			);
-		},
-		showDetail(item /*, index, event*/) {
-			this.$router.push({ name: 'host_detail', params: { id: item.Hostname } });
-		},
-		itemsProvider(ctx) {
-			return HostService.getHosts(ctx.currentPage, ctx.filter, this.olderThan, ctx.sortBy + ',' + (ctx.sortDesc? 'desc' : 'asc'))
-				.then(data => {
-					const items = data.Content;
-					this.totalRows = data.Metadata.TotalElements;
-					this.perPage = data.Size;
-					this.displayed = items.length;
-					return items || [];
-				})
-				.catch(() => {
-					this.$noty.error('Unable to retrieve hosts list.');
-				});
-		}
-	},
-	watch: {
-		olderThan() {
-			this.$refs.hostsTable.refresh();
-		}
-	}
+  name: "Hosts",
+  data() {
+    return {
+      currentPage: 1,
+      totalRows: 0,
+      perPage: 5,
+      displayed: 0,
+      isBusy: false,
+      filter: "",
+      olderThan: null,
+      loading: false,
+      fields: [
+        {
+          key: "Hostname",
+          sortable: true
+        },
+        {
+          key: "Environment",
+          label: "Env"
+        },
+        {
+          key: "HostType",
+          label: "Host type"
+        },
+        {
+          key: "Cluster",
+          label: "Cluster"
+        },
+        {
+          key: "PhysicalHost",
+          label: "Physical Host"
+        },
+        {
+          key: "Version",
+          label: "Version"
+        },
+        {
+          label: "Last Update",
+          key: "CreatedAt",
+          formatter: value => {
+            return moment(value).format("DD/MM/YYYY");
+          },
+          sortable: true
+        },
+        {
+          key: "Databases",
+          formatter: value => {
+            return value == "" ? "-" : value;
+          }
+        },
+        { key: "OS", label: "OS" },
+        { key: "Kernel", label: "Kernel" },
+        {
+          key: "OracleCluster",
+          label: "Oracle Cluster",
+          class: "text-center"
+        },
+        {
+          key: "SunCluster",
+          label: "Sun Cluster",
+          class: "text-center"
+        },
+        { key: "VeritasCluster", label: "Veritas Cluster" },
+        {
+          key: "Virtual",
+          label: "Virtual",
+          class: "text-center"
+        },
+        { key: "Type", label: "Platform type" },
+        { key: "CPUThreads", label: "CPU Threads" },
+        { key: "CPUCores", label: "CPU Cores" },
+        { key: "Socket", label: "Socket" },
+        { key: "MemTotal", label: "Mem Total" },
+        { key: "SwapTotal", label: "Swap Total" },
+        { key: "CPUModel", label: "CPU Model" }
+      ],
+      options: [
+        { value: null, text: "" },
+        { value: "1", text: "1" },
+        { value: "2", text: "2" },
+        { value: "3", text: "3" },
+        { value: "4", text: "4" },
+        { value: "5", text: "5" },
+        { value: "6", text: "6" },
+        { value: "7", text: "7" },
+        { value: "8", text: "8" },
+        { value: "9", text: "9" },
+        { value: "10", text: "10" }
+      ]
+    };
+  },
+  methods: {
+    generate() {
+      this.loading = true;
+      return HostService.generateEx(this.$store.getters.backendConfig).then(() => {
+        this.loading = false;
+      });
+    },
+    generateSimple() {
+      this.loading = true;
+      return HostService.generateExSimple(this.$store.getters.backendConfig).then(() => {
+        this.loading = false;
+      });
+    },
+    showDetail(item /*, index, event*/) {
+      this.$router.push({ name: "host_detail", params: { id: item.Hostname } });
+    },
+    itemsProvider(ctx) {
+      return HostService.getHosts(
+        this.$store.getters.backendConfig,
+        ctx.currentPage,
+        ctx.filter,
+        this.olderThan,
+        ctx.sortBy + "," + (ctx.sortDesc ? "desc" : "asc")
+      )
+        .then(data => {
+          const items = data.Content;
+          this.totalRows = data.Metadata.TotalElements;
+          this.perPage = data.Size;
+          this.displayed = items.length;
+          return items || [];
+        })
+        .catch(() => {
+          this.$noty.error("Unable to retrieve hosts list.");
+        });
+    }
+  },
+  watch: {
+    olderThan() {
+      this.$refs.hostsTable.refresh();
+    }
+  }
 };
 </script>
 

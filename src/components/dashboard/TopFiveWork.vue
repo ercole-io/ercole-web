@@ -32,31 +32,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	computed: {
-		data() {
-			const data = this.$store.getters['dashboard/topFiveWork/data'];
-			return JSON.parse(JSON.stringify(data));
-		},
-		spinner() {
-			return this.$store.getters['dashboard/topFiveWork/spinner'];
-		},
-		widget() {
-			return this.$store.getters['dashboard/topFiveWork/widget'];
-		},
-		alert() {
-			return this.$store.getters['dashboard/topFiveWork/alert'];
-		}
-	},
-	data() {
-		return {
-			fields: [
-				{ key: 'position', label: '#' },
-				{ key: 'Hostname', label: 'Host Name' },
-				{ key: 'Dbname', label: 'DB Name' },
-				{ key: 'Workload', label: 'Thread utilization' }
-			]
-		};
-	}
+  computed: {
+    data() {
+      const data = this.$store.getters["dashboard/topFiveWork/data"];
+      return JSON.parse(JSON.stringify(data));
+    },
+    spinner() {
+      return this.$store.getters["dashboard/topFiveWork/spinner"];
+    },
+    widget() {
+      return this.$store.getters["dashboard/topFiveWork/widget"];
+    },
+    alert() {
+      return this.$store.getters["dashboard/topFiveWork/alert"];
+    }
+  },
+  data() {
+    return {
+      fields: [
+        { key: "position", label: "#" },
+        { key: "Hostname", label: "Host Name" },
+        { key: "Dbname", label: "DB Name" },
+        { key: "Workload", label: "Thread utilization" }
+      ]
+    };
+  }
 };
 </script>
 

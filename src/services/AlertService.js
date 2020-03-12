@@ -13,90 +13,101 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import axios from 'axios';
-import moment from 'moment';
+import axios from "axios";
+import moment from "moment";
 
-function getNewAlerts(page, severity, filter, startdate, enddate) {
-	if (startdate != null) {
-		startdate=moment(startdate).startOf('day').format()
-	}
-	if (enddate != null) {
-		enddate=moment(enddate).endOf('day').format()
-	}
-	const config = {
-		url: '/alerts',
-		method: 'GET',
-		params: {
-			page: page - 1,
-			size: 20,
-			severity: severity,
-			'sort-by': 'Date',
-			'sort-desc': true,
-			search: filter,
-			from: startdate,
-			to: enddate,
-			status: 'NEW'
-		}
-	};
-	return axios
-		.request(config)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			Promise.reject(err);
-		});
+function getNewAlerts(cfg, page, severity, filter, startdate, enddate) {
+  if (startdate != null) {
+    startdate = moment(startdate)
+      .startOf("day")
+      .format();
+  }
+  if (enddate != null) {
+    enddate = moment(enddate)
+      .endOf("day")
+      .format();
+  }
+  const config = {
+    url: "/alerts",
+    method: "GET",
+    params: {
+      page: page - 1,
+      size: 20,
+      severity: severity,
+      "sort-by": "Date",
+      "sort-desc": true,
+      search: filter,
+      from: startdate,
+      to: enddate,
+      status: "NEW"
+    }
+  };
+  return axios
+    .create(cfg)
+    .request(config)
+    .then(res => {
+      return res.data;
+    })
+    .catch(err => {
+      Promise.reject(err);
+    });
 }
 
-function getAlerts(page, severity, filter, startdate, enddate) {
-	if (startdate != null) {
-		startdate=moment(startdate).startOf('day').format()
-	}
-	if (enddate != null) {
-		enddate=moment(enddate).endOf('day').format()
-	}
-	const config = {
-		url: '/alerts',
-		method: 'GET',
-		params: {
-			page: page - 1,
-			size: 20,
-			severity: severity,
-			'sort-by': 'Date',
-			'sort-desc': true,
-			search: filter,
-			from: startdate,
-			to: enddate
-		}
-	};
-	return axios
-		.request(config)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			Promise.reject(err);
-		});
+function getAlerts(cfg, page, severity, filter, startdate, enddate) {
+  if (startdate != null) {
+    startdate = moment(startdate)
+      .startOf("day")
+      .format();
+  }
+  if (enddate != null) {
+    enddate = moment(enddate)
+      .endOf("day")
+      .format();
+  }
+  const config = {
+    url: "/alerts",
+    method: "GET",
+    params: {
+      page: page - 1,
+      size: 20,
+      severity: severity,
+      "sort-by": "Date",
+      "sort-desc": true,
+      search: filter,
+      from: startdate,
+      to: enddate
+    }
+  };
+  return axios
+    .create(cfg)
+    .request(config)
+    .then(res => {
+      return res.data;
+    })
+    .catch(err => {
+      Promise.reject(err);
+    });
 }
 
-function updateAlert(id) {
-	const config = {
-		url: '/alerts/' + id,
-		method: 'DELETE',
-	};
-	return axios
-		.request(config)
-		.then(res => {
-			return res.data;
-		})
-		.catch(err => {
-			this.$noty.error('Unable to update alerts status');
-			Promise.reject(err);
-		});
+function updateAlert(cfg, id) {
+  const config = {
+    url: "/alerts/" + id,
+    method: "DELETE"
+  };
+  return axios
+    .create(cfg)
+    .request(config)
+    .then(res => {
+      return res.data;
+    })
+    .catch(err => {
+      this.$noty.error("Unable to update alerts status");
+      Promise.reject(err);
+    });
 }
 
 export default {
-	getAlerts,
-	updateAlert,
-	getNewAlerts
+  getAlerts,
+  updateAlert,
+  getNewAlerts
 };
