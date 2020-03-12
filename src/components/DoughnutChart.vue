@@ -16,20 +16,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <script>
-import { Doughnut, mixins } from 'vue-chartjs';
+import { Doughnut, mixins } from "vue-chartjs";
 const { reactiveProp } = mixins;
 
 // docs : http://vue-chartjs.org/#/home
 
 export default {
-	extends: Doughnut,
-	props: ['chart-data', 'height'],
-	mixins: [reactiveProp],
-	mounted() {
-		this.renderChart(this.chartData, {
-			responsive: true,
-			maintainAspectRatio: true
-		});
-	}
+  extends: Doughnut,
+  props: ["chart-data", "height"],
+  mixins: [reactiveProp],
+  mounted() {
+    this.renderChart(this.chartData, {
+      responsive: true,
+      maintainAspectRatio: true
+    });
+  }
 };
 </script>

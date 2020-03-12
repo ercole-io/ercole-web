@@ -34,52 +34,52 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import Sidebar from '@/components/Sidebar.vue';
-import Topbar from '@/components/Topbar.vue';
+import Sidebar from "@/components/Sidebar.vue";
+import Topbar from "@/components/Topbar.vue";
 
 export default {
-	name: 'App',
-	components: {
-		Sidebar,
-		Topbar
-	},
-	computed: {
-		sidebarVisible() {
-			return this.$store.getters.sidebarVisible;
-		}
-	}
+  name: "App",
+  components: {
+    Sidebar,
+    Topbar
+  },
+  computed: {
+    sidebarVisible() {
+      return this.$store.getters.sidebarVisible;
+    }
+  }
 };
 </script>
 
 
 <style lang="scss">
-@import './styles/custom-bootstrap.scss';
-@import './styles/style.scss';
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import "./styles/custom-bootstrap.scss";
+@import "./styles/style.scss";
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
 
 .wrapper {
-	display: flex;
-	align-items: stretch;
-	min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  min-height: 100vh;
 }
 
 #content {
-	background-color: rgb(241, 241, 242);
-	position: relative;
-	flex: 1 1 auto;
-	padding-bottom: 70px;
-	min-width: 0px;
-	transition: all 0.3s;
+  background-color: rgb(241, 241, 242);
+  position: relative;
+  flex: 1 1 auto;
+  padding-bottom: 70px;
+  min-width: 0px;
+  transition: all 0.3s;
 }
 
 .footer {
-	width: 100%;
-	height: 60px;
-	line-height: 60px;
-	background-color: white;
-	margin-top: 25px;
-	text-align: center;
-	position: absolute;
-	bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background-color: white;
+  margin-top: 25px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
 }
 </style>

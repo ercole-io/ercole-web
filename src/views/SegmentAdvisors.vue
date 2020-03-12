@@ -67,88 +67,96 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import HostService from '@/services/HostService.js';
+import HostService from "@/services/HostService.js";
 
 export default {
-	name: 'SegmentAdvisors',
-	data() {
-		return {
-			displayed: 0,
-			isBusy: false,
-			filter: '',
-			env: '',
-			loading: false,
-			items: null,
-			fields: [
-				{
-					key: 'Reclaimable',
-					label: 'Reclaimable GB',
-					sortable: true
-				},
-				'Hostname',
-				{
-					key: 'Dbname',
-					label: 'Database'
-				},
-				{
-					key: 'SegmentOwner',
-					label: 'Segment owner'
-				},
-				{
-					key: 'SegmentName',
-					label: 'Segment name'
-				},
-				{
-					key: 'SegmentType',
-					label: 'Segment type'
-				},
-				{
-					key: 'PartitionName',
-					label: 'Partition name'
-				},
-				'Recommendation'
-			],
-			options: ['']
-		};
-	},
-	methods: {
-		updateItems() {
-			HostService.getSegmentAdvisors(this.filter, this.env)
-				.then(items => {
-					this.items = items || [];
-				})
-				.catch(() => {
-					this.$noty.error('Unable to retrieve segment advisors.');
-				});
-		},
-		updateEnvs() {
-			HostService.getEnviroments()
-				.then(items => {
-					items.unshift('');
-					this.options = items || [];
-				})
-				.catch(() => {
-					this.$noty.error('Unable to enviroments.');
-				});
-		},
-		generate() {
-			this.loading = true;
-			return HostService.generateSegmentsExcel(this.filter, this.env).then(() => { 
-					this.loading = false
-				}
-			);
-		},
-	},
-	watch: {
-		env() {
-			this.updateItems();
-		}
-	},
-	mounted() {
-		this.updateItems();
-		this.updateEnvs();
-	}
+  name: "SegmentAdvisors",
+  data() {
+    return {
+      displayed: 0,
+      isBusy: false,
+      filter: "",
+      env: "",
+      loading: false,
+      items: null,
+      fields: [
+        {
+          key: "Reclaimable",
+          label: "Reclaimable GB",
+          sortable: true
+        },
+        "Hostname",
+        {
+          key: "Dbname",
+          label: "Database"
+        },
+        {
+          key: "SegmentOwner",
+          label: "Segment owner"
+        },
+        {
+          key: "SegmentName",
+          label: "Segment name"
+        },
+        {
+          key: "SegmentType",
+          label: "Segment type"
+        },
+        {
+          key: "PartitionName",
+          label: "Partition name"
+        },
+        "Recommendation"
+      ],
+      options: [""]
+    };
+  },
+  methods: {
+    updateItems() {
+      HostService.getSegmentAdvisors(
+        this.$store.getters.backendConfig,
+        this.filter,
+        this.env
+      )
+        .then(items => {
+          this.items = items || [];
+        })
+        .catch(() => {
+          this.$noty.error("Unable to retrieve segment advisors.");
+        });
+    },
+    updateEnvs() {
+      HostService.getEnviroments(this.$store.getters.backendConfig)
+        .then(items => {
+          items.unshift("");
+          this.options = items || [];
+        })
+        .catch(() => {
+          this.$noty.error("Unable to enviroments.");
+        });
+    },
+    generate() {
+      this.loading = true;
+      return HostService.generateSegmentsExcel(
+        this.$store.getters.backendConfig,
+        this.filter,
+        this.env
+      ).then(() => {
+        this.loading = false;
+      });
+    }
+  },
+  watch: {
+    env() {
+      this.updateItems();
+    }
+  },
+  mounted() {
+    this.updateItems();
+    this.updateEnvs();
+  }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

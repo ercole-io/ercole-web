@@ -28,22 +28,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	data () {
-		return {
-			fields: [ 
-				{ key: "Name" },
-				{ key: "Status" },
-				{ key: "ErrCount" },
-				{ key: "UsedPerc" },
-			]
-		}
-	},
-	props: {
-		cellDisks: {
-			type: Array,
-			default: () => []
-		}
-	}
+  data() {
+    return {
+      fields: [
+        { key: "Name" },
+        { key: "Status" },
+        { key: "ErrCount" },
+        { key: "UsedPerc" }
+      ]
+    };
+  },
+  props: {
+    cellDisks: {
+      type: Array,
+      default: () => []
+    }
+  }
 };
 </script>
 

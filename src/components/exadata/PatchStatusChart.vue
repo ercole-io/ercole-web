@@ -27,44 +27,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import DashboardService from '@/services/DashboardService';
-import { mapArrayToPieChartData } from '@/utils/PieChartMapper';
+import DashboardService from "@/services/DashboardService";
+import { mapArrayToPieChartData } from "@/utils/PieChartMapper";
 
 export default {
-	props: {
-		windowTime: {
-			type: Number,
-		},
-	},
-	data() {
-		return {
-			widget: false,
-			spinner: true,
-			alert: false,
-			data: []
-		};
-	},
-	created() {
-		DashboardService.getExadataPatchStatusStats(this.windowTime)
-			.then(data => {
-				this.data = mapArrayToPieChartData(data, ['Status', 'Count']);
-				this.spinner = false;
-				this.widget = true;
-				let self = this;
-				this.data.labels.forEach(function (item, index) {
-					if (item == false) {
-						self.data.datasets[0].backgroundColor[index] = '#ff0000';
-					} else if  (item == true) {
-						self.data.datasets[0].backgroundColor[index] = '#8BC34A';
-					}
-				})
-			})
-			.catch((err) => {
-				this.$noty.error(`Unable to retrieve patch status stats`);
-				this.spinner = false;
-				this.alert = true;
-			});
-	}
+  props: {
+    windowTime: {
+      type: Number
+    }
+  },
+  data() {
+    return {
+      widget: false,
+      spinner: true,
+      alert: false,
+      data: []
+    };
+  },
+  created() {
+    DashboardService.getExadataPatchStatusStats(
+      this.$store.getters.backendConfig,
+      this.windowTime
+    )
+      .then(data => {
+        this.data = mapArrayToPieChartData(data, ["Status", "Count"]);
+        this.spinner = false;
+        this.widget = true;
+        let self = this;
+        this.data.labels.forEach(function(item, index) {
+          if (item == false) {
+            self.data.datasets[0].backgroundColor[index] = "#ff0000";
+          } else if (item == true) {
+            self.data.datasets[0].backgroundColor[index] = "#8BC34A";
+          }
+        });
+      })
+      .catch(() => {
+        this.$noty.error(`Unable to retrieve patch status stats`);
+        this.spinner = false;
+        this.alert = true;
+      });
+  }
 };
 </script>
 

@@ -67,75 +67,82 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import HostService from '@/services/HostService.js';
+import HostService from "@/services/HostService.js";
 
 export default {
-	name: 'Addms',
-	data() {
-		return {
-			displayed: 0,
-			isBusy: false,
-			filter: '',
-			env: '',
-			loading: false,
-			items: null,
-			fields: [
-				{
-					key: 'Benefit',
-					label: '% performance impact',
-					sortable: true
-				},
-				'Hostname',
-				{
-					key: 'Dbname',
-					label: 'Database'
-				},
-				'Finding',
-				'Recommendation',
-				'Action'
-			],
-			options: ['']
-		};
-	},
-	methods: {
-		updateItems() {
-			HostService.getAddms(this.filter, this.env)
-				.then(items => {
-					this.items = items || [];
-				})
-				.catch(() => {
-					this.$noty.error('Unable to retrieve addms.');
-				});
-		},
-		updateEnvs() {
-			HostService.getEnviroments()
-				.then(items => {
-					items.unshift('');
-					this.options = items || [];
-				})
-				.catch(() => {
-					this.$noty.error('Unable to enviroments.');
-				});
-		},
-		generate() {
-			this.loading = true;
-			return HostService.generateAddmExcel(this.filter, this.env).then(() => { 
-					this.loading = false
-				}
-			);
-		},
-
-	},
-	watch: {
-		env() {
-			this.updateItems();
-		}
-	},
-	mounted() {
-		this.updateItems();
-		this.updateEnvs();
-	}
+  name: "Addms",
+  data() {
+    return {
+      displayed: 0,
+      isBusy: false,
+      filter: "",
+      env: "",
+      loading: false,
+      items: null,
+      fields: [
+        {
+          key: "Benefit",
+          label: "% performance impact",
+          sortable: true
+        },
+        "Hostname",
+        {
+          key: "Dbname",
+          label: "Database"
+        },
+        "Finding",
+        "Recommendation",
+        "Action"
+      ],
+      options: [""]
+    };
+  },
+  methods: {
+    updateItems() {
+      HostService.getAddms(
+        this.$store.getters.backendConfig,
+        this.filter,
+        this.env
+      )
+        .then(items => {
+          this.items = items || [];
+        })
+        .catch(() => {
+          this.$noty.error("Unable to retrieve addms.");
+        });
+    },
+    updateEnvs() {
+      HostService.getEnviroments(this.$store.getters.backendConfig)
+        .then(items => {
+          items.unshift("");
+          this.options = items || [];
+        })
+        .catch(() => {
+          this.$noty.error("Unable to enviroments.");
+        });
+    },
+    generate() {
+      this.loading = true;
+      return HostService.generateAddmExcel(
+        this.$store.getters.backendConfig,
+        this.filter,
+        this.env
+      ).then(() => {
+        this.loading = false;
+      });
+    }
+  },
+  watch: {
+    env() {
+      this.updateItems();
+    }
+  },
+  mounted() {
+    this.updateItems();
+    this.updateEnvs();
+  }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

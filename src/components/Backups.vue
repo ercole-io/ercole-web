@@ -28,23 +28,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	props: {
-		backups: {
-			type: Array,
-			default: () => []
-		}
-	},
-	data() {
-		return {
-			fields: [
-				{ key: 'WeekDays', label: 'Day of the week' },
-				{ key: 'Hour', label: 'Hour'},
-				{ key: 'BackupType', label: 'Type'},
-				{ key: 'AvgBckSize', label: 'Average backup size' },
-				{ key: 'Retention', label: 'RMAN Retention' },
-			]
-		};
-	}
+  props: {
+    backups: {
+      type: Array,
+      default: () => []
+    }
+  },
+  data() {
+    return {
+      fields: [
+        { key: "WeekDays", label: "Day of the week" },
+        { key: "Hour", label: "Hour" },
+        { key: "BackupType", label: "Type" },
+        { key: "AvgBckSize", label: "Average backup size" },
+        { key: "Retention", label: "RMAN Retention" }
+      ]
+    };
+  }
 };
 </script>
 

@@ -14,19 +14,19 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 const mockUser = {
-	fullName: 'Mario Rossi (OP)',
-	authorities: ['operatori'],
-	username: 'op'
+  fullName: "Mario Rossi (OP)",
+  authorities: ["operatori"],
+  username: "op"
 };
 
 export default {
-	getUserInformations
+  getUserInformations
 };
 
 function getUserInformations() {
-	return new Promise(resolve => {
-		setTimeout(() => {
-			resolve(mockUser);
-		}, 500);
-	});
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(mockUser);
+    }, 500);
+  });
 }

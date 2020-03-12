@@ -32,30 +32,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	computed: {
-		data() {
-			const data = this.$store.getters['dashboard/topFiveResize/data'];
-			return JSON.parse(JSON.stringify(data));
-		},
-		spinner() {
-			return this.$store.getters['dashboard/topFiveResize/spinner'];
-		},
-		widget() {
-			return this.$store.getters['dashboard/topFiveResize/widget'];
-		},
-		alert() {
-			return this.$store.getters['dashboard/topFiveResize/alert'];
-		}
-	},
-	data() {
-		return {
-			fields: [
-				{ key: 'position', label: '#' },
-				{ key: 'Hostname', label: 'Hostname' },
-				{ key: 'Unused', label: 'Unused thread' }
-			]
-		};
-	}
+  computed: {
+    data() {
+      const data = this.$store.getters["dashboard/topFiveResize/data"];
+      return JSON.parse(JSON.stringify(data));
+    },
+    spinner() {
+      return this.$store.getters["dashboard/topFiveResize/spinner"];
+    },
+    widget() {
+      return this.$store.getters["dashboard/topFiveResize/widget"];
+    },
+    alert() {
+      return this.$store.getters["dashboard/topFiveResize/alert"];
+    }
+  },
+  data() {
+    return {
+      fields: [
+        { key: "position", label: "#" },
+        { key: "Hostname", label: "Hostname" },
+        { key: "Unused", label: "Unused thread" }
+      ]
+    };
+  }
 };
 </script>
 

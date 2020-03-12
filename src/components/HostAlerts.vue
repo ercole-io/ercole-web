@@ -50,52 +50,54 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import moment from 'moment';
-import Severity from '@/components/Severity.vue';
-import AlertService from '@/services/AlertService';
+import moment from "moment";
+import Severity from "@/components/Severity.vue";
 
 export default {
-	name: 'HostAlerts',
-	components: {
-		Severity
-	},
-	props: {
-		alerts: {
-			type: Array,
-			required: true
-		}
-	},
-	filters: {
-		date: function(value) {
-			return moment(value).fromNow();
-		},
-		tooltip: function(value) {
-			return moment(value).format('DD-MM-YYYY HH:mm');
-		}
-	},
-	created() {},
-	data() {
-		return {
-			fields: [
-				{
-					key: 'Date',
-					class: 'text-nowrap'
-				},
-				{
-					key: 'AlertSeverity',
-					class: 'text-center'
-				},
-				'AlertCode',
-				'Description'
-			],
-			perPage: 5,
-			currentPage: 0
-		};
-	},
-	computed: {
-		page() {
-			return this.alerts.slice(this.perPage*(this.currentPage-1), this.perPage*(this.currentPage));
-		}
-	}
+  name: "HostAlerts",
+  components: {
+    Severity
+  },
+  props: {
+    alerts: {
+      type: Array,
+      required: true
+    }
+  },
+  filters: {
+    date: function(value) {
+      return moment(value).fromNow();
+    },
+    tooltip: function(value) {
+      return moment(value).format("DD-MM-YYYY HH:mm");
+    }
+  },
+  created() {},
+  data() {
+    return {
+      fields: [
+        {
+          key: "Date",
+          class: "text-nowrap"
+        },
+        {
+          key: "AlertSeverity",
+          class: "text-center"
+        },
+        "AlertCode",
+        "Description"
+      ],
+      perPage: 5,
+      currentPage: 0
+    };
+  },
+  computed: {
+    page() {
+      return this.alerts.slice(
+        this.perPage * (this.currentPage - 1),
+        this.perPage * this.currentPage
+      );
+    }
+  }
 };
 </script>

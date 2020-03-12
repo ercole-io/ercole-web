@@ -13,55 +13,95 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import Vue from 'vue';
-import Vuex from 'vuex';
-import AlertService from '@/services/AlertService.js';
+import Vue from "vue";
+import Vuex from "vuex";
+import AlertService from "@/services/AlertService.js";
 
-import dashboard from '@/components/dashboard/store';
+import dashboard from "@/components/dashboard/store";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-	// eslint-disable-next-line
+function parseJwt (token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+};
+
+
+const store = new Vuex.Store({
+  // eslint-disable-next-line
 	strict: process.env.NODE_ENV !== 'production',
-	modules: {
-		dashboard
-	},
-	state: {
-		sidebarVisible: true,
-		notifications: [],
-		totalNotifications: 0
-	},
-	getters: {
-		sidebarVisible: state => {
-			return state.sidebarVisible;
-		},
-		notifications: state => {
-			return state.notifications;
-		},
-		totalNotifications: state => {
-			return state.totalNotifications;
-		}
-	},
-	mutations: {
-		toggleSidebar: state => {
-			state.sidebarVisible = !state.sidebarVisible;
-		},
-		setNotifications: (state, payload) => {
-			state.notifications = payload.notifications;
-			state.totalNotifications = payload.total;
-		}
-	},
-	actions: {
-		loadNotifications({ commit }) {
-			AlertService.getNewAlerts().then(res => {
-				commit('setNotifications', {
-					notifications: res._embedded.alerts,
-					total: res.page.totalElements
-				});
-			}).catch(() => {
-				this.$noty.error('Unable retrieve alerts');
-			});
-		}
-	}
+  modules: {
+    dashboard
+  },
+  state: {
+    sidebarVisible: true,
+    notifications: [],
+    totalNotifications: 0,
+    backendConfig: {
+      baseURL: "http://user:password@127.0.0.1:11113",
+      headers: {}
+    },
+    token: "",
+    username: "",
+  },
+  getters: {
+    sidebarVisible: state => {
+      return state.sidebarVisible;
+    },
+    notifications: state => {
+      return state.notifications;
+    },
+    totalNotifications: state => {
+      return state.totalNotifications;
+    },
+    backendConfig: state => {
+      return state.backendConfig;
+    },
+    token: state => {
+      return state.token;
+    },
+    username: state => {
+      return state.username;
+    },
+  },
+  mutations: {
+    toggleSidebar: state => {
+      state.sidebarVisible = !state.sidebarVisible;
+    },
+    setNotifications: (state, payload) => {
+      state.notifications = payload.notifications;
+      state.totalNotifications = payload.total;
+    },
+    setToken: (state, token) => {
+      state.backendConfig.headers["Authorization"] = "Bearer " + token;
+      state.token = token;
+      state.username = parseJwt(token)["sub"];
+    },
+    removeToken: state => {
+      delete state.backendConfig.headers["Authorization"];
+      state.token = "";
+      state.username = "";
+    }
+  },
+  actions: {
+    loadNotifications({ commit, getters }) {
+      AlertService.getNewAlerts(getters.backendConfig, 1)
+        .then(res => {
+          commit("setNotifications", {
+            notifications: res.Content,
+            total: res.Metadata.TotalElements
+          });
+        })
+        .catch(() => {
+          this.$noty.error("Unable retrieve alerts");
+        });
+    }
+  }
 });
+
+export default store;

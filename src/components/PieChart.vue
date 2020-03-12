@@ -16,23 +16,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <script>
-import { Pie, mixins } from 'vue-chartjs';
+import { Pie, mixins } from "vue-chartjs";
 const { reactiveProp } = mixins;
 
 // docs : http://vue-chartjs.org/#/home
 
 export default {
-	extends: Pie,
-	props: ['chart-data', 'height', 'display-legend'],
-	mixins: [reactiveProp],
-	mounted() {
-		this.renderChart(this.chartData, {
-			responsive: true,
-			maintainAspectRatio: true,
-			legend: {
-				display: this.displayLegend === undefined ? true : this.displayLegend 
-			}
- 		});
-	}
+  extends: Pie,
+  props: ["chart-data", "height", "display-legend"],
+  mixins: [reactiveProp],
+  mounted() {
+    this.renderChart(this.chartData, {
+      responsive: true,
+      maintainAspectRatio: true,
+      legend: {
+        display: this.displayLegend === undefined ? true : this.displayLegend
+      }
+    });
+  }
 };
 </script>

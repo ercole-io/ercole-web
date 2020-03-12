@@ -149,60 +149,63 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import HostService from '@/services/HostService.js';
-import PatchStatusChart from '@/components/exadata/PatchStatusChart.vue';
-import ErrorCountChart from '@/components/exadata/ErrorCountChart.vue';
+import PatchStatusChart from "@/components/exadata/PatchStatusChart.vue";
+import ErrorCountChart from "@/components/exadata/ErrorCountChart.vue";
 
-import DashboardService from '@/services/DashboardService';
+import DashboardService from "@/services/DashboardService";
 
 export default {
-	name: 'Exadata',
-	components: {
-		PatchStatusChart,
-		ErrorCountChart
-	},
-	data() {
-		return {
-			exadata: {},
-			totalCpu: {},
-			totalMemory: 0,
-			avgStorageUsage: 0
-		};
-	},
-	methods: {
+  name: "Exadata",
+  components: {
+    PatchStatusChart,
+    ErrorCountChart
+  },
+  data() {
+    return {
+      exadata: {},
+      totalCpu: {},
+      totalMemory: 0,
+      avgStorageUsage: 0
+    };
+  },
+  methods: {},
+  created() {
+    DashboardService.getExadataTotalCPUStats(this.$store.getters.backendConfig)
+      .then(data => {
+        this.totalCpu = data;
+      })
+      .catch(() => {
+        this.$noty.error(`Unable to retrieve exadata total cpu stats`);
+      });
+    DashboardService.getExadataTotalMemorySizeStats(
+      this.$store.getters.backendConfig
+    )
+      .then(data => {
+        this.totalMemory = data;
+      })
+      .catch(() => {
+        this.$noty.error(`Unable to retrieve exadata total memory stats`);
+      });
+    DashboardService.getExadataAverageStorageUsageStats(
+      this.$store.getters.backendConfig
+    )
+      .then(data => {
+        this.avgStorageUsage = data;
+      })
+      .catch(() => {
+        this.$noty.error(
+          `Unable to retrieve exadata average storage usage stats`
+        );
+      });
 
-	},
-	created() {
-		DashboardService.getExadataTotalCPUStats()
-			.then(data => {
-				this.totalCpu = data;
-			})
-			.catch(() => {
-				this.$noty.error(`Unable to retrieve exadata total cpu stats`);
-			});	
-		DashboardService.getExadataTotalMemorySizeStats()
-			.then(data => {
-				this.totalMemory = data;
-			})
-			.catch(() => {
-				this.$noty.error(`Unable to retrieve exadata total memory stats`);
-			});	
-		DashboardService.getExadataAverageStorageUsageStats()
-			.then(data => {
-				this.avgStorageUsage = data;
-			})
-			.catch(() => {
-				this.$noty.error(`Unable to retrieve exadata average storage usage stats`);
-			});	
-		
-		DashboardService.getExadataDevices()
-			.then(data => {
-				this.exadata = data;
-			})
-			.catch(() => {
-				this.$noty.error(`Unable to retrieve exadata devices`);
-			});	
-	}
+    DashboardService.getExadataDevices(this.$store.getters.backendConfig)
+      .then(data => {
+        this.exadata = data;
+      })
+      .catch(() => {
+        this.$noty.error(`Unable to retrieve exadata devices`);
+      });
+  }
 };
 </script>
 

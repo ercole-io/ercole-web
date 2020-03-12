@@ -143,119 +143,125 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import Schema from '@/components/Schema.vue';
-import Tablespace from '@/components/Tablespace.vue';
-import Licenses from '@/components/Licenses.vue';
-import Features from '@/components/Features.vue';
-import Features2 from '@/components/Features2.vue';
-import Patches from '@/components/Patches.vue';
-import ADDMs from '@/components/ADDMs.vue';
-import SegmentAdvisors from '@/components/SegmentAdvisors.vue';
-import PSUs from '@/components/PSUs.vue';
-import Backups from '@/components/Backups.vue';
-import TimeLineChart from '@/components/TimeLineChart.vue';
-import { mapArrayToLineTimeChartData } from '@/utils/PieChartMapper';
-import Colors from '@/utils/Colors';
-import DataguardStatusChart from '@/components/databases/DataguardStatusChart.vue';
+import Schema from "@/components/Schema.vue";
+import Tablespace from "@/components/Tablespace.vue";
+import Licenses from "@/components/Licenses.vue";
+import Features from "@/components/Features.vue";
+import Features2 from "@/components/Features2.vue";
+import Patches from "@/components/Patches.vue";
+import ADDMs from "@/components/ADDMs.vue";
+import SegmentAdvisors from "@/components/SegmentAdvisors.vue";
+import PSUs from "@/components/PSUs.vue";
+import Backups from "@/components/Backups.vue";
+import TimeLineChart from "@/components/TimeLineChart.vue";
+import { mapArrayToLineTimeChartData } from "@/utils/PieChartMapper";
+import Colors from "@/utils/Colors";
+import DataguardStatusChart from "@/components/databases/DataguardStatusChart.vue";
 
-
-export default {	
-	components: {
-		Schema,
-		Tablespace,
-		Licenses,
-		Features,
-		Features2,
-		Patches,
-		ADDMs,
-		SegmentAdvisors,
-		PSUs,
-		Backups,
-		TimeLineChart,
-		DataguardStatusChart
-	},
-	props: {
-		databases: {
-			type: Array,
-			default: () => []
-		},
-		available_tags: {
-			type: Array,
-			default: () => []
-		},
-		tags: {}
-	},
-	data() {
-		return {
-			tabVisible: 0,
-			choosen_tags: {}
-		};
-	},
-	mounted() {
-	},
-	methods: {
-		setTabVisible(index) {
-			if (this.tabVisible === index) {
-				this.tabVisible = -1;
-			} else {
-				this.tabVisible = index;
-			}
-		},
-		changeTagEventEmitter(dbname, value) {
-			this.$emit("add_tag", dbname, value);
-		}
-	},
-	computed: {
-		databasesGrowChartData() {
-			var stats = {};
-			this.databases.forEach(function(db) {				
-				let usedData = mapArrayToLineTimeChartData(db.Changes, ['Updated', 'Used']);
-				let segmentsGrowData = mapArrayToLineTimeChartData(db.Changes, ['Updated', 'SegmentsSize']);
-				stats[db.Name] = {
-					"datasets": [
-						{
-							label: "DataFileSize (GB)",
-							data: usedData["datasets"][0]["data"],		
-							backgroundColor: Colors.pieChart["blue"],
-							borderColor: Colors.pieChart["blue"],
-							fill: false,
-							type: 'line',
-						},
-						{
-							label: "SegmentsSize (GB)",
-							data: segmentsGrowData["datasets"][0]["data"],
-							backgroundColor: Colors.pieChart["green"],
-							borderColor: Colors.pieChart["green"],
-							fill: false,
-							type: 'line',
-						}
-					]
-				}
-			});
-			return stats;
-		},
-		databasesCPUGrowChartData() {
-			var stats = {};
-			this.databases.forEach(function(db) {
-				let dailyCPUUsageData = mapArrayToLineTimeChartData(db.Changes, ['Updated', 'DailyCPUUsage']);
-				stats[db.Name] = {
-					"datasets": [
-						{
-							label: "DailyCpuUsage",
-							data: dailyCPUUsageData["datasets"][0]["data"],		
-							backgroundColor: Colors.pieChart["blue"],
-							borderColor: Colors.pieChart["blue"],
-							fill: false,
-							type: 'line',
-						},
-					]
-				}
-			});
-			return stats;
-		},
-	},
-	watch: {
-	}
+export default {
+  components: {
+    Schema,
+    Tablespace,
+    Licenses,
+    Features,
+    Features2,
+    Patches,
+    ADDMs,
+    SegmentAdvisors,
+    PSUs,
+    Backups,
+    TimeLineChart,
+    DataguardStatusChart
+  },
+  props: {
+    databases: {
+      type: Array,
+      default: () => []
+    },
+    available_tags: {
+      type: Array,
+      default: () => []
+    },
+    tags: {}
+  },
+  data() {
+    return {
+      tabVisible: 0,
+      choosen_tags: {}
+    };
+  },
+  mounted() {},
+  methods: {
+    setTabVisible(index) {
+      if (this.tabVisible === index) {
+        this.tabVisible = -1;
+      } else {
+        this.tabVisible = index;
+      }
+    },
+    changeTagEventEmitter(dbname, value) {
+      this.$emit("add_tag", dbname, value);
+    }
+  },
+  computed: {
+    databasesGrowChartData() {
+      var stats = {};
+      this.databases.forEach(function(db) {
+        let usedData = mapArrayToLineTimeChartData(db.Changes, [
+          "Updated",
+          "Used"
+        ]);
+        let segmentsGrowData = mapArrayToLineTimeChartData(db.Changes, [
+          "Updated",
+          "SegmentsSize"
+        ]);
+        stats[db.Name] = {
+          datasets: [
+            {
+              label: "DataFileSize (GB)",
+              data: usedData["datasets"][0]["data"],
+              backgroundColor: Colors.pieChart["blue"],
+              borderColor: Colors.pieChart["blue"],
+              fill: false,
+              type: "line"
+            },
+            {
+              label: "SegmentsSize (GB)",
+              data: segmentsGrowData["datasets"][0]["data"],
+              backgroundColor: Colors.pieChart["green"],
+              borderColor: Colors.pieChart["green"],
+              fill: false,
+              type: "line"
+            }
+          ]
+        };
+      });
+      return stats;
+    },
+    databasesCPUGrowChartData() {
+      var stats = {};
+      this.databases.forEach(function(db) {
+        let dailyCPUUsageData = mapArrayToLineTimeChartData(db.Changes, [
+          "Updated",
+          "DailyCPUUsage"
+        ]);
+        stats[db.Name] = {
+          datasets: [
+            {
+              label: "DailyCpuUsage",
+              data: dailyCPUUsageData["datasets"][0]["data"],
+              backgroundColor: Colors.pieChart["blue"],
+              borderColor: Colors.pieChart["blue"],
+              fill: false,
+              type: "line"
+            }
+          ]
+        };
+      });
+      return stats;
+    }
+  },
+  watch: {}
 };
 </script>
 

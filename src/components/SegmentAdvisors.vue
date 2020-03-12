@@ -30,27 +30,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	props: {
-		segmentAdvisors: {
-			type: Array,
-			default: () => []
-		}
-	},
-	data() {
-		return {
-			fields: [
-				{
-					key: 'Reclaimable',
-					sortable: true
-				},
-				{ key: 'SegmentOwner' },
-				{ key: 'SegmentName' },
-				{ key: 'SegmentType' },
-				{ key: 'PartitionName' },
-				{ key: 'Recommendation' },
-			]
-		};
-	}
+  props: {
+    segmentAdvisors: {
+      type: Array,
+      default: () => []
+    }
+  },
+  data() {
+    return {
+      fields: [
+        {
+          key: "Reclaimable",
+          sortable: true
+        },
+        { key: "SegmentOwner" },
+        { key: "SegmentName" },
+        { key: "SegmentType" },
+        { key: "PartitionName" },
+        { key: "Recommendation" }
+      ]
+    };
+  }
 };
 </script>
 

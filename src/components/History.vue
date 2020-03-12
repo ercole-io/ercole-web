@@ -45,69 +45,69 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import moment from 'moment';
+import moment from "moment";
 
 export default {
-	filters: {
-		date: function(value) {
-			return moment(value).format('DD-MM-YYYY HH:mm');
-		}
-	},
-	props: {
-		updated: {
-			type: String,
-			required: true
-		},
-		archived: {
-			type: Boolean,
-			required: false
-		}
-	},
-	data() {
-		return {
-			formData: '',
-			showForm: false
-		};
-	},
-	methods: {
-		cancel() {
-			this.formData = '';
-			this.showForm = false;
-		},
-		submit(formData) {
-			this.showForm = false;
-			this.$emit('update-date', formData);
-		},
-		clear() {
-			this.formData = '';
-			this.$emit('update-date', null);
-		}
-	},
-	computed: {
-		showCurrentView() {
-			return !this.archived && !this.showForm;
-		},
-		showHistoryView() {
-			return this.archived && !this.showForm;
-		},
-		showHistorySelect() {
-			return this.showForm;
-		}
-	}
+  filters: {
+    date: function(value) {
+      return moment(value).format("DD-MM-YYYY HH:mm");
+    }
+  },
+  props: {
+    updated: {
+      type: String,
+      required: true
+    },
+    archived: {
+      type: Boolean,
+      required: false
+    }
+  },
+  data() {
+    return {
+      formData: "",
+      showForm: false
+    };
+  },
+  methods: {
+    cancel() {
+      this.formData = "";
+      this.showForm = false;
+    },
+    submit(formData) {
+      this.showForm = false;
+      this.$emit("update-date", formData);
+    },
+    clear() {
+      this.formData = "";
+      this.$emit("update-date", null);
+    }
+  },
+  computed: {
+    showCurrentView() {
+      return !this.archived && !this.showForm;
+    },
+    showHistoryView() {
+      return this.archived && !this.showForm;
+    },
+    showHistorySelect() {
+      return this.showForm;
+    }
+  }
 };
 </script>
 
 <style scoped>
 .form-inline {
-	min-height: 29px;
-	padding: 5px;
+  min-height: 29px;
+  padding: 5px;
 }
 
 .form-inline > * {
-	margin: 0px 5px;
+  margin: 0px 5px;
 }
 
 .form-inline > button {
-	margin: 0px 0px;
+  margin: 0px 0px;
 }
 </style>

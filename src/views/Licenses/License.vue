@@ -33,39 +33,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import LicenseService from '@/services/LicenseService';
+import LicenseService from "@/services/LicenseService";
 
 export default {
-	created() {
-		this.loadData();
-	},
-	data() {
-		return {
-			items: null,
-			fields: ['Hostname', 'Databases']
-		};
-	},
-	methods: {
-		loadData() {
-			LicenseService.getHostUsingLicense(this.id)
-				.then(items => {
-					this.items = items.map(host => {
-						host.Databases = host.Databases.join(" ");
-						return host
-					});
-				})
-				.catch(() => {
-					this.$noty.error(`Unable to the hosts using the license ${this.id}`);
-				});			
-		},
-		showDetail(item /*, index, event*/) {
-			this.$router.push({ name: 'host_detail', params: { id: item.Hostname } });
-		},
-	},
-	computed: {
-		id() {
-			return this.$route.params.id;
-		}
-	}
+  created() {
+    this.loadData();
+  },
+  data() {
+    return {
+      items: null,
+      fields: ["Hostname", "Databases"]
+    };
+  },
+  methods: {
+    loadData() {
+      LicenseService.getHostUsingLicense(
+        this.$store.getters.backendConfig,
+        this.id
+      )
+        .then(items => {
+          this.items = items.map(host => {
+            host.Databases = host.Databases.join(" ");
+            return host;
+          });
+        })
+        .catch(() => {
+          this.$noty.error(`Unable to the hosts using the license ${this.id}`);
+        });
+    },
+    showDetail(item /*, index, event*/) {
+      this.$router.push({ name: "host_detail", params: { id: item.Hostname } });
+    }
+  },
+  computed: {
+    id() {
+      return this.$route.params.id;
+    }
+  }
 };
 </script>

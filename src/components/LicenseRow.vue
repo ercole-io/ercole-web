@@ -32,36 +32,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	filters: {
-		dashIfEmpty: function(value) {
-			if (value === 0) return '-';
-			return value;
-		}
-	},
-	props: {
-		name: {
-			type: String
-		},
-		count: {
-			type: Number,
-			default: 0
-		},
-		old_count: {
-			type: Number,
-			default: null
-		}
-	}
+  filters: {
+    dashIfEmpty: function(value) {
+      if (value === 0) return "-";
+      return value;
+    }
+  },
+  props: {
+    name: {
+      type: String
+    },
+    count: {
+      type: Number,
+      default: 0
+    },
+    old_count: {
+      type: Number,
+      default: null
+    }
+  }
 };
 </script>
 
 <style scoped>
 .license {
-	display: grid;
-	grid-template-columns: 80% 20%;
-	align-items: center;
+  display: grid;
+  grid-template-columns: 80% 20%;
+  align-items: center;
 }
 
 .count {
-	justify-self: center;
+  justify-self: center;
 }
 </style>

@@ -24,12 +24,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	props: {
-		value: {
-			type: Boolean,
-			default: false
-		}
-	}
+  props: {
+    value: {
+      type: Boolean,
+      default: false
+    }
+  }
 };
 </script>
 

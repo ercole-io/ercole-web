@@ -29,25 +29,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	data () {
-		return {
-			// fields: [ 
-			// 	{ key: "Name", label: "Name" },
-			// 	{ key: "Status", label: "Status" },
-			// 	{ key: "UsedPerc", label: "Used Perc" },
-			// 	{ key: "Used", label: "Used GB" },
-			// 	{ key: "Total", label: "Total"},
-			// 	{ key: "Database", label: "Database"  },
-			// 	{ key: "MaxSize", label: "Max Size" }
-			// ]
-		}
-	},
-	props: {
-		features: {
-			type: Array,
-			default: () => []
-		}
-	}
+  data() {
+    return {
+      // fields: [
+      // 	{ key: "Name", label: "Name" },
+      // 	{ key: "Status", label: "Status" },
+      // 	{ key: "UsedPerc", label: "Used Perc" },
+      // 	{ key: "Used", label: "Used GB" },
+      // 	{ key: "Total", label: "Total"},
+      // 	{ key: "Database", label: "Database"  },
+      // 	{ key: "MaxSize", label: "Max Size" }
+      // ]
+    };
+  },
+  props: {
+    features: {
+      type: Array,
+      default: () => []
+    }
+  }
 };
 </script>
 

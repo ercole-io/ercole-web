@@ -14,48 +14,48 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* eslint-disable no-console */
-import Colors from '@/utils/Colors';
-import moment from 'moment';
+import Colors from "@/utils/Colors";
+import moment from "moment";
 
 /**
  * Maps array from backend to chart data.
  * @param {*} arr the array to map in form { label: '', data: '' }
  */
 export function mapArrayToPieChartData(arr, mapVals) {
-	let labelField = 'label';
-	let dataField = 'data';
+  let labelField = "label";
+  let dataField = "data";
 
-	if (Array.isArray(mapVals)) {
-		labelField = mapVals[0];
-		dataField = mapVals[1];
-	}
+  if (Array.isArray(mapVals)) {
+    labelField = mapVals[0];
+    dataField = mapVals[1];
+  }
 
-	let labels = [];
-	let data = [];
+  let labels = [];
+  let data = [];
 
-	arr.forEach(el => {
-		if (el.hasOwnProperty(labelField) && el.hasOwnProperty(dataField)) {
-			labels.push(el[labelField]);
-			data.push(el[dataField]);
-		} else {
-			console.warn(
-				`Received wrong input, object should have '${labelField}' and '${dataField}' fields. Skipping.`
-			);
-		}
-	});
+  arr.forEach(el => {
+    if (el.hasOwnProperty(labelField) && el.hasOwnProperty(dataField)) {
+      labels.push(el[labelField]);
+      data.push(el[dataField]);
+    } else {
+      console.warn(
+        `Received wrong input, object should have '${labelField}' and '${dataField}' fields. Skipping.`
+      );
+    }
+  });
 
-	const res = {
-		labels: labels,
-		datasets: [
-			{
-				backgroundColor: Object.values(Colors.pieChart),
-				fill: true,
-				data: data
-			}
-		]
-	};
+  const res = {
+    labels: labels,
+    datasets: [
+      {
+        backgroundColor: Object.values(Colors.pieChart),
+        fill: true,
+        data: data
+      }
+    ]
+  };
 
-	return res;
+  return res;
 }
 
 /**
@@ -63,37 +63,37 @@ export function mapArrayToPieChartData(arr, mapVals) {
  * @param {*} arr the array to map in form { label: '', data: '' }
  */
 export function mapArrayToLineTimeChartData(arr, mapVals) {
-	let labelField = 'label';
-	let dataField = 'data';
+  let labelField = "label";
+  let dataField = "data";
 
-	if (Array.isArray(mapVals)) {
-		labelField = mapVals[0];
-		dataField = mapVals[1];
-	}
+  if (Array.isArray(mapVals)) {
+    labelField = mapVals[0];
+    dataField = mapVals[1];
+  }
 
-	let data = [];
+  let data = [];
 
-	arr.forEach(el => {
-		if (el.hasOwnProperty(labelField) && el.hasOwnProperty(dataField)) {
-			data.push({
-				x: moment(el[labelField]).format(), 
-				y: el[dataField]
-			})
-		} else {
-			console.warn(
-				`Received wrong input, object should have '${labelField}' and '${dataField}' fields. Skipping.`
-			);
-		}
-	});
+  arr.forEach(el => {
+    if (el.hasOwnProperty(labelField) && el.hasOwnProperty(dataField)) {
+      data.push({
+        x: moment(el[labelField]).format(),
+        y: el[dataField]
+      });
+    } else {
+      console.warn(
+        `Received wrong input, object should have '${labelField}' and '${dataField}' fields. Skipping.`
+      );
+    }
+  });
 
-	const res = {
-		datasets: [
-			{
-				data: data,
-				fill: false
-			}
-		]
-	};
+  const res = {
+    datasets: [
+      {
+        data: data,
+        fill: false
+      }
+    ]
+  };
 
-	return res;
+  return res;
 }

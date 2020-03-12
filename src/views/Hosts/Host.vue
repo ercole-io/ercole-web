@@ -131,154 +131,181 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 </template>
 
 <script>
-import Databases from '@/components/Databases.vue';
-import Clusters from '@/components/Clusters.vue';
-import Exadata from '@/components/Exadata.vue';
-import Filesystem from '@/components/Filesystem.vue';
-import HostService from '@/services/HostService.js';
-import DashService from '@/services/DashboardService.js';
-import History from '@/components/History.vue';
-import HostAlerts from '@/components/HostAlerts.vue';
-import Noty from 'noty';
+import Databases from "@/components/Databases.vue";
+import Clusters from "@/components/Clusters.vue";
+import Exadata from "@/components/Exadata.vue";
+import Filesystem from "@/components/Filesystem.vue";
+import HostService from "@/services/HostService.js";
+import DashService from "@/services/DashboardService.js";
+import History from "@/components/History.vue";
+import HostAlerts from "@/components/HostAlerts.vue";
+import Noty from "noty";
 
 export default {
-	components: {
-		HostAlerts,
-		Databases,
-		Clusters,
-		Exadata,
-		Filesystem,
-		History
-	},
-	data() {
-		return {
-			host: null,
-			showAllSchemas: false,
-			tags_options: [ "" ],
-			tags: {}
-		};
-	},
-	methods: {
-		handleDateUpdate(event) {
-			if (event == null) {
-				HostService.getHost(this.id)
-					.then(host => {
-						this.host = host;
-					})
-					.catch(() => {
-						this.$noty.error(`Unable to retrieve host ${this.id}`);
-					});
-			} else {
-				HostService.getHostHistory(this.id, event)
-					.then(host => {
-						this.host = host;
-					})
-					.catch(err => {
-						this.$noty.error(err);
-					});
-			}
-		},
-		dismiss() {
-			let self = this;
-			var n = new Noty({
-				text: 'Are you sure to dismiss the host?',
-				type: 'warning',
-				layout: 'center',
-				buttons: [
-					Noty.button('YES', 'btn btn-success', function () {
-						HostService.dismiss(self.id);
-						self.$router.push({ name: 'hosts' });
-						n.close();
-					}), 
-					Noty.button('NO', 'btn btn-error', function () {
-						n.close();
-					})
-				]
-			});
-			n.show();
-		}, 
-		tagDeleted(dbname, tag) {
-			HostService.deleteTag(this.id, dbname, tag)
-				.then(tag => {
-					//Delete the tag
-					this.handleDateUpdate(null);
-				}).catch(err => {
-					this.$noty.error(err);
-				})
-		},
-		addTag(dbname, tagname) {
-			if (tagname !== '') {
-				HostService.addTag(this.id, dbname, tagname)
-				.then(tag => {
-					//Add the tag
-					this.handleDateUpdate(null);
-				}).catch(err => {
-					this.$noty.error(err);
-				})
-			}
-		},
-		clearLicense(dbname, licenseName) {
-			HostService.clearLicense(this.id, dbname, licenseName)
-				.then(() => {
-					this.host["Extra"]["Databases"].forEach(item => {
-						if (item["Name"] === dbname) {
-							item["Licenses"].forEach(item2 => {
-								if (item2["Name"] === licenseName) {
-									item2["OldCount"] = item2["Count"];
-									item2["Count"] = 0;
-								}
-							});
-						}
-					});		
-				})
-				.catch(err => {
-					this.$noty.error(err);
-				})
-		},
-		recoverLicense(dbname, licenseName) {
-			HostService.recoverLicense(this.id, dbname, licenseName)
-				.then(() => {
-					this.host["Extra"]["Databases"].forEach(item => {
-						if (item["Name"] === dbname) {
-							item["Licenses"].forEach(item2 => {
-								if (item2["Name"] === licenseName) {
-									item2["Count"] = item2["OldCount"];
-									delete item2["OldCount"]; 
-								}
-							});
-						}
-					});		
-				})
-				.catch(err => {
-					this.$noty.error(err);
-				})
-		}
-	},
-	created() {
-		HostService.getHost(this.id)
-			.then(host => {
-				this.host = host;
-			})
-			.catch(() => {
-				this.$noty.error(`Unable to retrieve host ${this.id}`);
-			});
-		DashService.getAvailableTags()
-			.then(tags => {
-				this.tags_options = [""].concat(tags);
-			}).catch(err => {
-				this.$noty.error(err);
-			});
-	},
-	computed: {
-		id() {
-			return this.$route.params.id;
-		},
-		splittedSchemas() {
-			return this.host.Schemas.split(' ')
-		},
-		partialSchemas() {
-			return this.splittedSchemas.slice(0, 50).join(' ')
-		}
-	}
+  components: {
+    HostAlerts,
+    Databases,
+    Clusters,
+    Exadata,
+    Filesystem,
+    History
+  },
+  data() {
+    return {
+      host: null,
+      showAllSchemas: false,
+      tags_options: [""],
+      tags: {}
+    };
+  },
+  methods: {
+    handleDateUpdate(event) {
+      if (event == null) {
+        HostService.getHost(this.$store.getters.backendConfig, this.id)
+          .then(host => {
+            this.host = host;
+          })
+          .catch(() => {
+            this.$noty.error(`Unable to retrieve host ${this.id}`);
+          });
+      } else {
+        HostService.getHostHistory(
+          this.$store.getters.backendConfig,
+          this.id,
+          event
+        )
+          .then(host => {
+            this.host = host;
+          })
+          .catch(err => {
+            this.$noty.error(err);
+          });
+      }
+    },
+    dismiss() {
+      let self = this;
+      var n = new Noty({
+        text: "Are you sure to dismiss the host?",
+        type: "warning",
+        layout: "center",
+        buttons: [
+          Noty.button("YES", "btn btn-success", function() {
+            HostService.dismiss(this.$store.getters.backendConfig, self.id);
+            self.$router.push({ name: "hosts" });
+            n.close();
+          }),
+          Noty.button("NO", "btn btn-error", function() {
+            n.close();
+          })
+        ]
+      });
+      n.show();
+    },
+    tagDeleted(dbname, tag) {
+      HostService.deleteTag(
+        this.$store.getters.backendConfig,
+        this.id,
+        dbname,
+        tag
+      )
+        .then(() => {
+          //Delete the tag
+          this.handleDateUpdate(null);
+        })
+        .catch(err => {
+          this.$noty.error(err);
+        });
+    },
+    addTag(dbname, tagname) {
+      if (tagname !== "") {
+        HostService.addTag(
+          this.$store.getters.backendConfig,
+          this.id,
+          dbname,
+          tagname
+        )
+          .then(() => {
+            //Add the tag
+            this.handleDateUpdate(null);
+          })
+          .catch(err => {
+            this.$noty.error(err);
+          });
+      }
+    },
+    clearLicense(dbname, licenseName) {
+      HostService.clearLicense(
+        this.$store.getters.backendConfig,
+        this.id,
+        dbname,
+        licenseName
+      )
+        .then(() => {
+          this.host["Extra"]["Databases"].forEach(item => {
+            if (item["Name"] === dbname) {
+              item["Licenses"].forEach(item2 => {
+                if (item2["Name"] === licenseName) {
+                  item2["OldCount"] = item2["Count"];
+                  item2["Count"] = 0;
+                }
+              });
+            }
+          });
+        })
+        .catch(err => {
+          this.$noty.error(err);
+        });
+    },
+    recoverLicense(dbname, licenseName) {
+      HostService.recoverLicense(
+        this.$store.getters.backendConfig,
+        this.id,
+        dbname,
+        licenseName
+      )
+        .then(() => {
+          this.host["Extra"]["Databases"].forEach(item => {
+            if (item["Name"] === dbname) {
+              item["Licenses"].forEach(item2 => {
+                if (item2["Name"] === licenseName) {
+                  item2["Count"] = item2["OldCount"];
+                  delete item2["OldCount"];
+                }
+              });
+            }
+          });
+        })
+        .catch(err => {
+          this.$noty.error(err);
+        });
+    }
+  },
+  created() {
+    HostService.getHost(this.$store.getters.backendConfig, this.id)
+      .then(host => {
+        this.host = host;
+      })
+      .catch(() => {
+        this.$noty.error(`Unable to retrieve host ${this.id}`);
+      });
+    DashService.getAvailableTags(this.$store.getters.backendConfig)
+      .then(tags => {
+        this.tags_options = [""].concat(tags);
+      })
+      .catch(err => {
+        this.$noty.error(err);
+      });
+  },
+  computed: {
+    id() {
+      return this.$route.params.id;
+    },
+    splittedSchemas() {
+      return this.host.Schemas.split(" ");
+    },
+    partialSchemas() {
+      return this.splittedSchemas.slice(0, 50).join(" ");
+    }
+  }
 };
 </script>

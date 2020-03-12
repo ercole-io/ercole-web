@@ -27,12 +27,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <script>
 export default {
-	props: {
-		vms: {
-			type: Array,
-			default: () => []
-		}
-	}
+  props: {
+    vms: {
+      type: Array,
+      default: () => []
+    }
+  }
 };
 </script>
 
