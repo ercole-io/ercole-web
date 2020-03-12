@@ -18,7 +18,6 @@ import Vuex from "vuex";
 import AlertService from "@/services/AlertService.js";
 
 import dashboard from "@/components/dashboard/store";
-import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -34,10 +33,10 @@ export default new Vuex.Store({
     totalNotifications: 0,
     backendConfig: {
       baseURL: "http://user:password@127.0.0.1:11113",
-        auth: {
-          'username': 'user',
-          'password': 'password',
-        }
+      auth: {
+        username: "user",
+        password: "password"
+      }
     }
   },
   getters: {
@@ -68,7 +67,7 @@ export default new Vuex.Store({
   },
   actions: {
     loadNotifications({ commit, getters }) {
-      AlertService.getNewAlerts(getters.backendConfig, 0)
+      AlertService.getNewAlerts(getters.backendConfig, 1)
         .then(res => {
           commit("setNotifications", {
             notifications: res.Content,

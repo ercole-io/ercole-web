@@ -107,10 +107,13 @@ export default {
   },
   methods: {
     updateItems() {
-      HostService.getPatchAdvisors(this.$store.getters.backendConfig, this.status, this.windowTime)
+      HostService.getPatchAdvisors(
+        this.$store.getters.backendConfig,
+        this.status,
+        this.windowTime
+      )
         .then(items => {
           this.items = (items || []).map(item => {
-            console.log(item.Date);
             if (moment(item.Date).format("YYYY-MM-DD") === "1970-01-01") {
               item.Date = null;
               item.RemainingDays = "∞";

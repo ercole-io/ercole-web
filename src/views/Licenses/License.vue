@@ -47,7 +47,10 @@ export default {
   },
   methods: {
     loadData() {
-      LicenseService.getHostUsingLicense(this.$store.getters.backendConfig, this.id)
+      LicenseService.getHostUsingLicense(
+        this.$store.getters.backendConfig,
+        this.id
+      )
         .then(items => {
           this.items = items.map(host => {
             host.Databases = host.Databases.join(" ");

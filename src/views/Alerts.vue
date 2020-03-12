@@ -224,7 +224,11 @@ export default {
       }
     },
     markRead(selected) {
-      Promise.all(selected.map(sel => AlertService.updateAlert(this.$store.getters.backendConfig, sel)))
+      Promise.all(
+        selected.map(sel =>
+          AlertService.updateAlert(this.$store.getters.backendConfig, sel)
+        )
+      )
         .then(() => {
           this.$store.dispatch("loadNotifications");
           this.$refs.table.refresh();

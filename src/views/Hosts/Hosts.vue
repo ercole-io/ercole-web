@@ -195,13 +195,17 @@ export default {
   methods: {
     generate() {
       this.loading = true;
-      return HostService.generateEx(this.$store.getters.backendConfig).then(() => {
-        this.loading = false;
-      });
+      return HostService.generateEx(this.$store.getters.backendConfig).then(
+        () => {
+          this.loading = false;
+        }
+      );
     },
     generateSimple() {
       this.loading = true;
-      return HostService.generateExSimple(this.$store.getters.backendConfig).then(() => {
+      return HostService.generateExSimple(
+        this.$store.getters.backendConfig
+      ).then(() => {
         this.loading = false;
       });
     },

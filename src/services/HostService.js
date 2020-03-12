@@ -179,7 +179,8 @@ function generateEx(cfg) {
         Accept:
           "application/vnd.oracle.lms+vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       }
-    }).then(response => {
+    })
+    .then(response => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -200,7 +201,8 @@ function generateExSimple(cfg) {
         Accept:
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       }
-    }).then(response => {
+    })
+    .then(response => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -225,7 +227,8 @@ function generatePatchAdvisorExcel(cfg, status, windowTime) {
         Accept:
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       }
-    }).then(response => {
+    })
+    .then(response => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -250,7 +253,8 @@ function generateSegmentsExcel(cfg, filter, env) {
         Accept:
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       }
-    }).then(response => {
+    })
+    .then(response => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -275,7 +279,8 @@ function generateAddmExcel(cfg, filter, env) {
         Accept:
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       }
-    }).then(response => {
+    })
+    .then(response => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -299,7 +304,8 @@ function generateHypervisorsExcel(cfg, filter) {
         Accept:
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       }
-    }).then(response => {
+    })
+    .then(response => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -310,12 +316,10 @@ function generateHypervisorsExcel(cfg, filter) {
 }
 
 function dismiss(cfg, hostname) {
-  return axios
-    .create(cfg)
-    .request({
-      url: "/hosts/" + hostname,
-      method: "DELETE"
-    });
+  return axios.create(cfg).request({
+    url: "/hosts/" + hostname,
+    method: "DELETE"
+  });
 }
 
 function getDatabases(cfg, pageNumber, sort, filter, env) {
@@ -343,59 +347,51 @@ function getDatabases(cfg, pageNumber, sort, filter, env) {
 }
 
 function addTag(cfg, hostname, dbname, tag) {
-  return axios
-    .create(cfg)
-    .request({
-      url: "/hosts/" + hostname + "/databases/" + dbname + "/tags",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST",
-      data: tag
-    });
+  return axios.create(cfg).request({
+    url: "/hosts/" + hostname + "/databases/" + dbname + "/tags",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    method: "POST",
+    data: tag
+  });
 }
 
 function deleteTag(cfg, hostname, dbname, tag) {
-  return axios
-    .create(cfg)
-    .request({
-      url: "/hosts/" + hostname + "/databases/" + dbname + "/tags/" + tag,
-      method: "DELETE"
-    });
+  return axios.create(cfg).request({
+    url: "/hosts/" + hostname + "/databases/" + dbname + "/tags/" + tag,
+    method: "DELETE"
+  });
 }
 
 function clearLicense(cfg, hostname, dbname, licenseName) {
-  return axios
-    .create(cfg)
-    .request({
-      url:
-        "/hosts/" +
-        hostname +
-        "/databases/" +
-        dbname +
-        "/licenses/" +
-        licenseName,
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "PUT",
-      data: 0
-    });
+  return axios.create(cfg).request({
+    url:
+      "/hosts/" +
+      hostname +
+      "/databases/" +
+      dbname +
+      "/licenses/" +
+      licenseName,
+    headers: {
+      "Content-Type": "application/json"
+    },
+    method: "PUT",
+    data: 0
+  });
 }
 
 function recoverLicense(cfg, hostname, dbname, licenseName) {
-  return axios
-    .create(cfg)
-    .request({
-      url:
-        "/hosts/" +
-        hostname +
-        "/databases/" +
-        dbname +
-        "/license-modifiers/" +
-        licenseName,
-      method: "DELETE"
-    });
+  return axios.create(cfg).request({
+    url:
+      "/hosts/" +
+      hostname +
+      "/databases/" +
+      dbname +
+      "/license-modifiers/" +
+      licenseName,
+    method: "DELETE"
+  });
 }
 
 export default {

@@ -43,7 +43,10 @@ export default {
     };
   },
   created() {
-    DashboardService.getRACStatusStats(this.$store.getters.backendConfig, this.env)
+    DashboardService.getRACStatusStats(
+      this.$store.getters.backendConfig,
+      this.env
+    )
       .then(data => {
         this.data = mapArrayToPieChartData(data, ["RAC", "Count"]);
         this.spinner = false;
@@ -57,7 +60,7 @@ export default {
           }
         });
       })
-      .catch(err => {
+      .catch(() => {
         this.$noty.error(`Unable to retrieve host ${this.id}`);
         this.spinner = false;
         this.alert = true;
@@ -65,7 +68,10 @@ export default {
   },
   watch: {
     env() {
-      DashboardService.getRACStatusStats(this.$store.getters.backendConfig, this.env)
+      DashboardService.getRACStatusStats(
+        this.$store.getters.backendConfig,
+        this.env
+      )
         .then(data => {
           this.data = mapArrayToPieChartData(data, ["RAC", "Count"]);
           this.spinner = false;
@@ -79,7 +85,7 @@ export default {
             }
           });
         })
-        .catch(err => {
+        .catch(() => {
           this.$noty.error(`Unable to retrieve host ${this.id}`);
           this.spinner = false;
           this.alert = true;
