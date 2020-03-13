@@ -39,13 +39,13 @@ script:
   - npm run build
   - tar -C dist -czf /tmp/dist/ercole-web-${VERSION}.tar.gz .
   - fpm -n ercole-web -s dir -t rpm -a all --rpm-os rhel7 --version ${VERSION} --name ercole-web -s dir dist=/usr/share/ercole/web
+  - mv ercole-web-${VERSION}-1.noarch.rpm /tmp/dist
   # - docker exec -it package_builder /bin/sh -c "mkdir -p ~/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}"
   # - docker exec -it package_builder /bin/sh -c "ln -s ${WORKSPACE} ~/rpmbuild/SOURCES/ercole-web-${VERSION}"
   # - docker exec -it package_builder /bin/sh -c "cd ${WORKSPACE} && rpmbuild --define \"_version ${VERSION}\" -bb package/rhel7/ercole-web.spec"
   # - docker exec -it package_builder /bin/sh -c "ls ~/rpmbuild/RPMS/x86_64/ercole-web-*.rpm"
   # - docker exec -it package_builder /bin/sh -c "file ~/rpmbuild/RPMS/x86_64/ercole-web-*.rpm"
   # - docker exec -it package_builder /bin/sh -c "cp ~/rpmbuild/RPMS/x86_64/ercole-web-*.rpm ${WORKSPACE}/dist"
-  - cp dist/* /tmp/dist
 
 before_deploy:
   - if [[ ${VERSION} == "latest" ]]; then git tag -f latest; fi
