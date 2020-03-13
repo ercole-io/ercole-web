@@ -27,8 +27,8 @@ ls
 cd %{_builddir}/%{name}-%{version}
 mkdir -p %{buildroot}/usr/share/ercole/web
 cd dist
-find . -type d -exec 'install -m 755 -d "{}" %{buildroot}/usr/share/ercole/web'
-find . -type f -exec 'install -m 755 -d "{}" %{buildroot}/usr/share/ercole/web'
+find . -type d -exec install -m 755 -d "{}" %{buildroot}/usr/share/ercole/web \;
+find . -type f -exec install -m 755 -d "{}" %{buildroot}/usr/share/ercole/web \;
 
 %files
 %dir /usr/share/ercole/web
