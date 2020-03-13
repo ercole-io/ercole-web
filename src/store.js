@@ -43,7 +43,7 @@ const store = new Vuex.Store({
     notifications: [],
     totalNotifications: 0,
     backendConfig: {
-      baseURL: "http://user:password@127.0.0.1:11113",
+      baseURL: "http://127.0.0.1:11113",
       headers: {}
     },
     token: "",
