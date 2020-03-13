@@ -31,7 +31,6 @@ script:
   - npm install
   - npm run build
   - tar -C dist -czf /tmp/dist/ercole-web-${VERSION}.tar.gz .
-  - mkdir dist
   - docker exec -it package_builder /bin/sh -c "mkdir -p ~/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}"
   - docker exec -it package_builder /bin/sh -c "ln -s ${WORKSPACE} ~/rpmbuild/SOURCES/ercole-web-${VERSION}"
   - docker exec -it package_builder /bin/sh -c "cd ${WORKSPACE} && rpmbuild --define \"_version ${VERSION}\" -bb package/rhel7/ercole-web.spec"
