@@ -21,6 +21,7 @@ env:
 
 before_install:
   - if [ -z ${TRAVIS_TAG} ] || [ ${TRAVIS_TAG} == *-* ]; then export VERSION=latest; else export VERSION=${TRAVIS_TAG}; fi
+  - if [ ${VERSION} == "latest-ng" ]; then export VERSION=latest; fi;
   - echo ${TRAVIS_TAG}
   - echo ${VERSION}
 
@@ -37,7 +38,7 @@ script:
   - npm run build
   - tar -C dist -czf /tmp/dist/ercole-web-${VERSION}.tar.gz .
   - fpm -n ercole-web -s dir -t rpm -a all --rpm-os linux --version ${VERSION} --name ercole-web -s dir dist/=/usr/share/ercole/web
-  - mv ercole-web-latest_ng-1.noarch.rpm /tmp/dist
+  - mv ercole-web-${VERSION}-1.noarch.rpm /tmp/dist
 
 before_deploy:
   - if [[ ${VERSION} == "latest" ]]; then git tag -f latest-ng; fi
@@ -52,7 +53,7 @@ deploy:
   file_glob: true
   file: /tmp/dist/*
   skip_cleanup: true
-  name: $VERSION
+  name: $VERSION-ng
   overwrite: true
   on:
     all_branches: true
