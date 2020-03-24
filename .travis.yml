@@ -40,10 +40,10 @@ script:
   - mv ercole-web-${VERSION}-1.noarch.rpm /tmp/dist
 
 before_deploy:
-  - if [[ ${VERSION} == "latest" ]]; then git tag -f latest; fi
+  - if [[ ${VERSION} == "latest" ]]; then git tag -f latest-ng; fi
   - if [[ ${VERSION} == "latest" ]]; then git remote add gh https://simonerota:${GITHUB_RELEASE_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git; fi
-  - if [[ ${VERSION} == "latest" ]]; then git push gh latest || true; fi
-  - if [[ ${VERSION} == "latest" ]]; then git push -f gh latest; fi
+  - if [[ ${VERSION} == "latest" ]]; then git push gh latest-ng || true; fi
+  - if [[ ${VERSION} == "latest" ]]; then git push -f gh latest-ng; fi
   - if [[ ${VERSION} == "latest" ]]; then git remote remove gh; fi
 
 deploy:
