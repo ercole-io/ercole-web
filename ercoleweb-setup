@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Get the required value
+API_SERVICE_REMOTE_ENDPOINT=$(grep "APIService.RemoteEndpoint" /etc/ercole/conf.d/20-ercolesetup.toml | cut -d'=' -f2 | sed -e 's/[[:space:]]*"//' | sed -e 's/"[[:space:]]*//')
+
+# Fix the value in the *.js files	
+if [ ! -z $API_SERVICE_REMOTE_ENDPOINT ]; then
+	CAPTURE_KEY_VALUE_PAIR='(baseURL:\")http:\/\/127.0.0.1:11113(\")'
+	ESCAPED_ENDPOINT=$(echo $API_SERVICE_REMOTE_ENDPOINT | sed -e 's/[\/&]/\\&/g')
+	REPLACE="\1$ESCAPED_ENDPOINT\2"
+	find /usr/share/ercole/web -name '*.js' -exec sed -i -E "s/$CAPTURE_KEY_VALUE_PAIR/$REPLACE/" {} \;
+fi
