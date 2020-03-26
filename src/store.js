@@ -43,11 +43,11 @@ const store = new Vuex.Store({
     notifications: [],
     totalNotifications: 0,
     backendConfig: {
-      baseURL: "http://127.0.0.1:11113",
+      baseURL: "<<<URL>>>$API_URL<<<_URL>>>",
       headers: {}
     },
     token: "",
-    username: "",
+    username: ""
   },
   getters: {
     sidebarVisible: state => {
@@ -86,6 +86,13 @@ const store = new Vuex.Store({
       delete state.backendConfig.headers["Authorization"];
       state.token = "";
       state.username = "";
+    },
+    init: state => {
+      if (state.backendConfig.baseURL.includes("$API_URL")) {
+        state.backendConfig.baseURL = "http://127.0.0.1:11113";
+      } else {
+        state.backendConfig.baseURL = state.backendConfig.baseURL.substring(state.backendConfig.baseURL.indexOf("<<<URL>>>")+"<<<URL>>>".length, state.backendConfig.baseURL.indexOf("<<<_URL>>>"));
+      }
     }
   },
   actions: {

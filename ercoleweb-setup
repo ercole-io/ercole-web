@@ -8,7 +8,7 @@ fi
 
 # Fix the value in the *.js files	
 if [ ! -z $API_SERVICE_REMOTE_ENDPOINT ]; then
-	CAPTURE_KEY_VALUE_PAIR='(baseURL:\").*(\")'
+	CAPTURE_KEY_VALUE_PAIR='(<<<URL>>>).*(<<<_URL>>>)'
 	ESCAPED_ENDPOINT=$(echo $API_SERVICE_REMOTE_ENDPOINT | sed -e 's/[\/&]/\\&/g')
 	REPLACE="\1$ESCAPED_ENDPOINT\2"
 	find /usr/share/ercole/web -name '*.js' -exec sed -i -E "s/$CAPTURE_KEY_VALUE_PAIR/$REPLACE/" {} \;
