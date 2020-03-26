@@ -1,7 +1,10 @@
 #!/bin/sh
 
 # Get the required value
-API_SERVICE_REMOTE_ENDPOINT=$(grep "APIService.RemoteEndpoint" /etc/ercole/conf.d/20-ercolesetup.toml | cut -d'=' -f2 | sed -e 's/[[:space:]]*"//' | sed -e 's/"[[:space:]]*//')
+API_SERVICE_REMOTE_ENDPOINT=$(grep "# FE.APIService.RemoteEndpoint" /etc/ercole/conf.d/20-ercolesetup.toml | cut -d'=' -f2 | sed -e 's/[[:space:]]*"//' | sed -e 's/"[[:space:]]*//')
+if [ -z $API_SERVICE_REMOTE_ENDPOINT ]; then 
+	API_SERVICE_REMOTE_ENDPOINT=$(grep "APIService.RemoteEndpoint" /etc/ercole/conf.d/20-ercolesetup.toml | cut -d'=' -f2 | sed -e 's/[[:space:]]*"//' | sed -e 's/"[[:space:]]*//')
+fi
 
 # Fix the value in the *.js files	
 if [ ! -z $API_SERVICE_REMOTE_ENDPOINT ]; then
