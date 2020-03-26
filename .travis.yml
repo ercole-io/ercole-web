@@ -37,7 +37,7 @@ script:
   - if [[ ${VERSION} == "latest" ]]; then cp /tmp/App.vue src/views/App.vue; fi
   - npm run build
   - tar -C dist -czf /tmp/dist/ercole-web-${VERSION}.tar.gz .
-  - fpm -n ercole-web -s dir -t rpm -a all --rpm-os linux --version ${VERSION} --name ercole-web --after-install after-install -s dir dist/=/usr/share/ercole/web ercoleweb-setup=/usr/bin/ercoleweb-setup
+  - fpm -n ercole-web -s dir -t rpm -a all --rpm-os linux --version ${VERSION} --name ercole-web --after-install after-install -s dir dist/=/usr/share/ercole/web ercoleweb-setup=/usr/bin/ercoleweb-setup nginx-serve-ercoleweb-https.conf=/usr/share/ercole/examples/nginx-serve-ercoleweb-https.conf
   - mv ercole-web-${VERSION}-1.noarch.rpm /tmp/dist
 
 before_deploy:
