@@ -1,7 +1,11 @@
 <template>
-  <div>
-    Footer
-  </div>
+  <footer class="footer has-background-grey-lighter">
+    <div class="content has-text-centered">
+      <p>
+        Ercole 2.0 © 2020 Sorint.lab S.p.A.
+      </p>
+    </div>
+  </footer>
 </template>
 
 <script>
