@@ -1,25 +1,29 @@
 # ercole-web
-[![Build Status](https://travis-ci.org/ercole-io/ercole-web.svg?branch=master)](https://travis-ci.org/ercole-io/ercole-web)
 
-This is the frontend for the Ercole project. Documentation available [here](https://ercole.io).
+## Project setup
+```
+yarn install
+```
 
-## Requirements
+### Compiles and hot-reloads for development
+```
+yarn serve
+```
 
-- nodejs 10 or greater
-- npm
+### Compiles and minifies for production
+```
+yarn build
+```
 
-## Install dependencies
+### Run your unit tests
+```
+yarn test:unit
+```
 
-    npm install
+### Lints and fixes files
+```
+yarn lint
+```
 
-## How to build (production)
-
-    mvn run build
-
-The resulting jar is a dependency of the ercole-server project.
-
-## How to run (dev)
-
-Adjust the proxy url in vue.config.js to point to your ercole-server, then run
-
-    npm run serve
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
