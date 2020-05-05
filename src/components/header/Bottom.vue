@@ -8,9 +8,17 @@
 
     <template slot="end">
       <b-navbar-item tag="div">
-        <div class="buttons">
-          <b-button type="is-light">Logout</b-button>
-        </div>
+        <b-field position="is-centered" type="is-dark">
+          <b-input
+            size="is-small"
+            placeholder="Global Search"
+            type="search"
+            icon="magnify"
+          ></b-input>
+          <p class="control">
+            <b-button size="is-small is-primary">Search</b-button>
+          </p>
+        </b-field>
       </b-navbar-item>
     </template>
   </b-navbar>
