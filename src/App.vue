@@ -1,20 +1,22 @@
 <template>
   <div id="app">
     <appHeader />
-    <div class="columns">
-      <div class="column is-one-fifth">
-        <appMenu />
+    <main class="main">
+      <div class="columns">
+        <div class="column is-2">
+          <appMenu />
+        </div>
+        <div class="column">
+          <router-view class="content" />
+        </div>
       </div>
-      <div class="column">
-        <router-view />
-      </div>
-    </div>
+    </main>
     <appFooter />
   </div>
 </template>
 
 <script>
-import Header from '@/components/Header.vue'
+import Header from '@/components/header/Header.vue'
 import Menu from '@/components/Menu.vue'
 import Footer from '@/components/Footer.vue'
 
@@ -27,4 +29,11 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.main {
+  padding: 0.75rem;
+}
+.content {
+  padding: 0.75rem;
+}
+</style>
