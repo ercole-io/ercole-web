@@ -1,11 +1,21 @@
 <template>
   <div>
-    Filters component
+    <PageTitle pageTitle="Filters" />
+
+    <div>
+      content
+    </div>
   </div>
 </template>
 
 <script>
-export default {}
+import PageTitle from '../Common/PageTitle'
+
+export default {
+  components: {
+    PageTitle
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>
