@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="columns">
-      <div class="column is-full" style="background-color: lightsalmon">
+      <div class="column is-full">
         <Filters />
       </div>
     </div>
@@ -9,23 +9,23 @@
     <div class="columns">
       <div class="column">
         <div class="columns">
-          <div class="column is-4" style="background-color: lightblue">
+          <div class="column is-4">
             <TotalTargets />
           </div>
-          <div class="column" style="background-color: lightgreen">
-            Technologies component
+          <div class="column">
+            <Technologies />
           </div>
         </div>
         <div class="columns">
-          <div class="column" style="background-color: lightseagreen">
-            Tabs component
+          <div class="column">
+            <Tabs />
           </div>
         </div>
       </div>
-      <div class="column is-3" style="background-color: lightskyblue">
+      <div class="column is-3">
         <div class="columns">
           <div class="column">
-            Notifications component
+            <Notifications />
           </div>
         </div>
       </div>
@@ -36,11 +36,17 @@
 <script>
 import Filters from '@/components/dashboard/Filters.vue'
 import TotalTargets from '@/components/dashboard/TotalTargets.vue'
+import Technologies from '@/components/dashboard/Technologies.vue'
+import Tabs from '@/components/dashboard/Tabs.vue'
+import Notifications from '@/components/dashboard/Notifications.vue'
 
 export default {
   components: {
     Filters,
-    TotalTargets
+    TotalTargets,
+    Technologies,
+    Tabs,
+    Notifications
   }
 }
 </script>
