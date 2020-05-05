@@ -30,7 +30,13 @@ export default {
 </script>
 
 <style lang="scss">
+#app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
 .main {
+  flex: 1;
   padding: 0.75rem;
 }
 .content {
