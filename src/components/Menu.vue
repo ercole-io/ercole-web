@@ -1,7 +1,14 @@
 <template>
-  <b-menu>
+  <b-menu activable>
     <b-menu-list>
-      <b-menu-item icon="settings" :active="isActive">
+      <b-menu-item
+        icon="settings"
+        label="Dasboard"
+        tag="router-link"
+        to="/dashboard"
+        exact
+      ></b-menu-item>
+      <b-menu-item icon="settings">
         <template slot="label" slot-scope="props">
           Database
           <b-icon
@@ -12,7 +19,13 @@
         <b-menu-item icon="account" label="Sub Item 1"></b-menu-item>
         <b-menu-item icon="cellphone-link" label="Sub Item 1"></b-menu-item>
       </b-menu-item>
-      <b-menu-item icon="settings" label="Oracle"></b-menu-item>
+      <b-menu-item
+        icon="settings"
+        label="Oracle"
+        tag="router-link"
+        to="/oracle"
+        exact
+      ></b-menu-item>
       <b-menu-item icon="settings" label="SQLS"></b-menu-item>
       <b-menu-item icon="settings" label="MySQL"></b-menu-item>
       <b-menu-item icon="settings" label="MDB"></b-menu-item>
@@ -25,13 +38,7 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      isActive: true
-    }
-  }
-}
+export default {}
 </script>
 
 <style lang="scss" scoped></style>
