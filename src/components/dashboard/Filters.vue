@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageTitle pageTitle="Filters" />
+    <PageTitle :pageTitle="$t('dashboard.pageTitle.filters')" />
 
     <div>
       content

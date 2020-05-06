@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageTitle pageTitle="Notifications" />
+    <PageTitle :pageTitle="$t('dashboard.pageTitle.notificatons')" />
   </div>
 </template>
 

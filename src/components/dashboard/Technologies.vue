@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageTitle pageTitle="Technologies" />
+    <PageTitle :pageTitle="$t('dashboard.pageTitle.technologies')" />
   </div>
 </template>
 

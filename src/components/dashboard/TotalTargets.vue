@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageTitle pageTitle="Total Targets" />
+    <PageTitle :pageTitle="$t('dashboard.pageTitle.totalTargets')" />
   </div>
 </template>
 
