@@ -43,7 +43,6 @@
                 :key="index"
                 type="is-primary"
                 :tabstop="false"
-                ellipsis
                 closable
                 @close="$refs.taginput.removeTag(index, $event)"
               >
