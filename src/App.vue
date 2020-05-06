@@ -42,4 +42,9 @@ export default {
 .content {
   padding: 0.75rem;
 }
+
+// customize switch label
+.switch .control-label {
+  padding-top: 0.1rem;
+}
 </style>

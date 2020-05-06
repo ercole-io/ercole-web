@@ -1,10 +1,10 @@
 <template>
-  <section class="header-top is-clearfix has-background-light">
-    <p class="is-pulled-left">Roberto Benigni, Operator</p>
-    <div class="field refresh">
-      <b-switch size="is-small">Automatic Data Refresh</b-switch>
+  <section class="header-top has-background-light">
+    <div class="start">
+      <p>Roberto Benigni, Operator</p>
     </div>
-    <div class="is-pulled-right">
+    <div class="end">
+      <b-switch size="is-small">Automatic Data Refresh</b-switch>
       <a href="#">Logout</a>
     </div>
   </section>
@@ -21,35 +21,20 @@ export default {}
   font-size: 14px;
   padding: 0 0.75rem;
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  padding: 1rem;
 
-  .refresh {
-    position: absolute;
-    right: 100px;
-    top: 0;
+  .start,
+  .end {
+    display: flex;
+    align-items: center;
+  }
+
+  a {
+    margin-left: 20px;
   }
 }
-
-// .nav {
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   text-align: left;
-//   padding: 1rem;
-//   color: #fff;
-//   background-color: #3d536a;
-// }
-// .nav__start,
-// .nav__end {
-//   display: flex;
-//   align-items: center;
-// }
-// .nav img {
-//   margin-right: 1rem;
-// }
-// .nav a {
-//   margin-right: 1.5rem;
-//   font-weight: bold;
-//   color: #fff;
-//   text-decoration: none;
-// }
 </style>
