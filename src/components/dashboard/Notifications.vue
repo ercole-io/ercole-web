@@ -18,7 +18,9 @@
           </div>
         </div>
         <footer class="card-footer">
-          <a href="#" class="card-footer-item">Inspect</a>
+          <b-button href="#" class="is-small is-primary is-radiusless" expanded>
+            Inspect
+          </b-button>
         </footer>
       </div>
 
@@ -37,8 +39,12 @@
           </div>
         </div>
         <footer class="card-footer">
-          <a href="#" class="card-footer-item">View</a>
-          <a href="#" class="card-footer-item">Close</a>
+          <b-button href="#" class="is-small is-primary is-radiusless" expanded>
+            View
+          </b-button>
+          <b-button href="#" class="is-small is-primary is-radiusless" expanded>
+            Close
+          </b-button>
         </footer>
       </div>
 
@@ -57,8 +63,12 @@
           </div>
         </div>
         <footer class="card-footer">
-          <a href="#" class="card-footer-item">View</a>
-          <a href="#" class="card-footer-item">Close</a>
+          <b-button href="#" class="is-small is-primary is-radiusless" expanded>
+            View
+          </b-button>
+          <b-button href="#" class="is-small is-primary is-radiusless" expanded>
+            Close
+          </b-button>
         </footer>
       </div>
     </div>

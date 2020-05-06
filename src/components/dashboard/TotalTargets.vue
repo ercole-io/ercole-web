@@ -1,6 +1,10 @@
 <template>
   <div>
     <PageTitle :pageTitle="$t('dashboard.pageTitle.totalTargets')" />
+
+    <div style="padding: 1rem">
+      total targets content
+    </div>
   </div>
 </template>
 
