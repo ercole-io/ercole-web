@@ -1,0 +1,10 @@
+{
+  "dashboard": {
+    "pageTitle": {
+      "filters": "Filtri",
+      "totalTargets": "Obiettivi Totali",
+      "technologies": "Tecnologie",
+      "notificatons": "Notifiche"
+    }
+  }
+}

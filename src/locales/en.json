@@ -1,0 +1,10 @@
+{
+  "dashboard": {
+    "pageTitle": {
+      "filters": "Filters",
+      "totalTargets": "Total Targets",
+      "technologies": "Technologies",
+      "notificatons": "Notifications"
+    }
+  }
+}

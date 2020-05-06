@@ -20,12 +20,27 @@
           </p>
         </b-field>
       </b-navbar-item>
+      <div class="locale-switcher">
+        <LocaleSwitcher />
+      </div>
     </template>
   </b-navbar>
 </template>
 
 <script>
-export default {}
+import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
+
+export default {
+  components: {
+    LocaleSwitcher
+  }
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.locale-switcher {
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+}
+</style>
