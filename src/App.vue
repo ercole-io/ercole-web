@@ -47,4 +47,11 @@ export default {
 .switch .control-label {
   padding-top: 0.1rem;
 }
+
+// custom label transparent to align button
+.field-button {
+  .label {
+    color: transparent;
+  }
+}
 </style>
