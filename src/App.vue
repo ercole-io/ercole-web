@@ -54,4 +54,10 @@ export default {
     color: transparent;
   }
 }
+
+// custom ul tabs
+.tabs.is-toggle ul {
+  margin-left: 0;
+  margin-top: 0;
+}
 </style>
