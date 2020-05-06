@@ -20,5 +20,6 @@ export default {
   font-size: 17px;
   padding-bottom: 5px;
   border-bottom: 1px solid #ccc;
+  margin-bottom: 0;
 }
 </style>
