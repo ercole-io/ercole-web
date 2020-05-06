@@ -2,79 +2,81 @@
   <section id="filters">
     <PageTitle :pageTitle="$t('dashboard.pageTitle.filters')" />
 
-    <form>
-      <b-field class="columns" grouped>
-        <b-field class="column" label="Location">
-          <b-select v-model="location" size="is-small" expanded>
-            <option>Item 1</option>
-            <option>Item 2</option>
-          </b-select>
-        </b-field>
+    <div style="padding: 1rem">
+      <form>
+        <b-field class="columns" grouped>
+          <b-field class="column" label="Location">
+            <b-select v-model="location" size="is-small" expanded>
+              <option>Item 1</option>
+              <option>Item 2</option>
+            </b-select>
+          </b-field>
 
-        <b-field class="column" label="Environment">
-          <b-select v-model="environment" size="is-small" expanded>
-            <option>Item 1</option>
-            <option>Item 2</option>
-          </b-select>
-        </b-field>
+          <b-field class="column" label="Environment">
+            <b-select v-model="environment" size="is-small" expanded>
+              <option>Item 1</option>
+              <option>Item 2</option>
+            </b-select>
+          </b-field>
 
-        <b-field class="column is-4" label="Tag List">
-          <b-taginput
-            size="is-small"
-            expanded
-            v-model="tags"
-            :data="filteredTags"
-            autocomplete
-            ref="taginput"
-            icon="label"
-            placeholder="Add a tag"
-            @typing="getFilteredTags"
-          >
-            <template slot-scope="props">
-              <strong>{{ props.option.id }}</strong
-              >: {{ props.option.name }}
-            </template>
-            <template slot="empty">
-              There are no items
-            </template>
-            <template slot="selected" slot-scope="props">
-              <b-tag
-                v-for="(tag, index) in props.tags"
-                :key="index"
-                type="is-primary"
-                :tabstop="false"
-                closable
-                @close="$refs.taginput.removeTag(index, $event)"
-              >
-                {{ tag.name }}
-              </b-tag>
-            </template>
-          </b-taginput>
-        </b-field>
+          <b-field class="column is-4" label="Tag List">
+            <b-taginput
+              size="is-small"
+              expanded
+              v-model="tags"
+              :data="filteredTags"
+              autocomplete
+              ref="taginput"
+              icon="label"
+              placeholder="Add a tag"
+              @typing="getFilteredTags"
+            >
+              <template slot-scope="props">
+                <strong>{{ props.option.id }}</strong
+                >: {{ props.option.name }}
+              </template>
+              <template slot="empty">
+                There are no items
+              </template>
+              <template slot="selected" slot-scope="props">
+                <b-tag
+                  v-for="(tag, index) in props.tags"
+                  :key="index"
+                  type="is-primary"
+                  :tabstop="false"
+                  closable
+                  @close="$refs.taginput.removeTag(index, $event)"
+                >
+                  {{ tag.name }}
+                </b-tag>
+              </template>
+            </b-taginput>
+          </b-field>
 
-        <b-field class="column is-2" label="Date">
-          <b-datepicker
-            v-model="date"
-            size="is-small"
-            placeholder="Click to select..."
-            icon="calendar-today"
-            trap-focus
-            expanded
-          >
-          </b-datepicker>
-        </b-field>
+          <b-field class="column is-2" label="Date">
+            <b-datepicker
+              v-model="date"
+              size="is-small"
+              placeholder="Click to select..."
+              icon="calendar-today"
+              trap-focus
+              expanded
+            >
+            </b-datepicker>
+          </b-field>
 
-        <b-field class="column is-2 field-button" label="&nbsp;">
-          <b-button
-            @click="resetAllFilters"
-            size="is-small is-primary"
-            expanded
-          >
-            Reset All Filters
-          </b-button>
+          <b-field class="column is-2 field-button" label="&nbsp;">
+            <b-button
+              @click="resetAllFilters"
+              size="is-small is-primary"
+              expanded
+            >
+              Reset All Filters
+            </b-button>
+          </b-field>
         </b-field>
-      </b-field>
-    </form>
+      </form>
+    </div>
   </section>
 </template>
 
