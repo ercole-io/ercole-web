@@ -1,104 +1,26 @@
 <template>
   <BoxContent :title="$t('dashboard.pageTitle.notificatons')">
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">Agents</p>
-      </header>
-      <div class="card-content is-size-7">
-        <div class="is-flex">
-          <span>Total hosts:</span>
-          <span class="has-text-weight-bold">15.846</span>
-        </div>
-        <div class="is-flex">
-          <span>Agents that are stopped:</span>
-          <span class="has-text-weight-bold">22 (from 540,in.)</span>
-        </div>
-      </div>
-      <footer class="card-footer">
-        <b-button href="#" class="is-small is-primary is-radiusless" expanded>
-          Inspect
-        </b-button>
-      </footer>
-    </div>
+    <Notification type="agents" title="Agents" :buttons="['inspect']">
+    </Notification>
 
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">Licenses</p>
-      </header>
-      <div class="card-content is-size-7">
-        <div>
-          <span class="is-size-5 is-pulled-left">
-            <b-icon type="is-info" pack="fas" icon="exclamation"></b-icon>
-          </span>
-          <p style="margin-left: 20px">
-            Enterprise Data Quality Real-Time Processing for Data Integration
-          </p>
-        </div>
-      </div>
-      <footer class="card-footer">
-        <b-button href="#" class="is-small is-primary is-radiusless" expanded>
-          View
-        </b-button>
-        <b-button href="#" class="is-small is-primary is-radiusless" expanded>
-          Close
-        </b-button>
-      </footer>
-    </div>
+    <Notification type="licenses" title="Licenses" :buttons="['View', 'Close']">
+    </Notification>
 
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">System</p>
-      </header>
-      <div class="card-content is-size-7">
-        <div>
-          <span class="is-size-5 is-pulled-left">
-            <b-icon
-              type="is-warning"
-              pack="fas"
-              icon="exclamation-triangle"
-            ></b-icon>
-          </span>
-          <p style="margin-left: 35px">
-            Management Pack for Oracle Data Integrator
-          </p>
-        </div>
-      </div>
-      <footer class="card-footer">
-        <b-button href="#" class="is-small is-primary is-radiusless" expanded>
-          View
-        </b-button>
-        <b-button href="#" class="is-small is-primary is-radiusless" expanded>
-          Close
-        </b-button>
-      </footer>
-    </div>
+    <Notification type="system" title="System" :buttons="['View', 'Close']">
+    </Notification>
   </BoxContent>
 </template>
 
 <script>
-import BoxContent from '@/components/Common/BoxContent.vue'
+import BoxContent from '@/components/common/BoxContent.vue'
+import Notification from '@/components/dashboard/Notification.vue'
 
 export default {
   components: {
-    BoxContent
+    BoxContent,
+    Notification
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.notifications {
-  padding: 1rem;
-
-  .card-content {
-    padding-top: 0;
-
-    div {
-      justify-content: space-between;
-    }
-  }
-}
-
-.card {
-  margin-bottom: 20px;
-}
-</style>
+<style lang="scss" scoped></style>
