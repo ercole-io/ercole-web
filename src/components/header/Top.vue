@@ -20,12 +20,10 @@ export default {}
   line-height: 30px;
   font-size: 14px;
   padding: 0 0.75rem;
-  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   text-align: left;
-  padding: 1rem;
 
   .start,
   .end {
