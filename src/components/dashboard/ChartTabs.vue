@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <BoxContent>
     <b-tabs type="is-toggle" size="is-small" expanded>
       <b-tab-item label="All Infrastructures">
         <p>All Infrastructures content</p>
@@ -17,11 +17,17 @@
         <p>Type of Technologies content</p>
       </b-tab-item>
     </b-tabs>
-  </section>
+  </BoxContent>
 </template>
 
 <script>
-export default {}
+import BoxContent from '@/components/Common/BoxContent.vue'
+
+export default {
+  components: {
+    BoxContent
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>

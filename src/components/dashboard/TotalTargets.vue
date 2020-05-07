@@ -1,21 +1,34 @@
 <template>
-  <div>
-    <PageTitle :pageTitle="$t('dashboard.pageTitle.totalTargets')" />
-
-    <div style="padding: 1rem">
-      total targets content
-    </div>
-  </div>
+  <BoxContent :title="$t('dashboard.pageTitle.totalTargets')">
+    total targets
+  </BoxContent>
 </template>
 
 <script>
-import PageTitle from '../Common/PageTitle'
+import BoxContent from '@/components/Common/BoxContent.vue'
 
 export default {
   components: {
-    PageTitle
+    BoxContent
+  },
+  data() {
+    return {
+      data: [
+        { name: 'Agents Discovered', value: '100/150' },
+        { name: 'Percentage of Compliance', value: '80%' },
+        { name: 'Money Missing', value: '-87.000 $' }
+      ],
+      columns: [{ field: 'name' }, { field: 'value' }]
+    }
   }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.header {
+  display: none;
+}
+.row {
+  border: none;
+}
+</style>
