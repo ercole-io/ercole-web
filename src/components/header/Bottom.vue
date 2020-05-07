@@ -20,9 +20,8 @@
           </p>
         </b-field>
       </b-navbar-item>
-      <div class="locale-switcher">
-        <LocaleSwitcher />
-      </div>
+
+      <LocaleSwitcher />
     </template>
   </b-navbar>
 </template>
@@ -37,10 +36,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.locale-switcher {
-  display: flex;
-  align-items: center;
-  margin-right: 0.5rem;
-}
-</style>
+<style lang="scss" scoped></style>

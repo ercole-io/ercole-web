@@ -2,17 +2,17 @@
   <section>
     <PageTitle :pageTitle="$t('dashboard.pageTitle.notificatons')" />
 
-    <div style="padding: 1rem">
+    <div class="notifications">
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">Agents</p>
         </header>
-        <div class="card-content is-size-7" style="padding-top: 0;">
-          <div class="is-flex" style="justify-content: space-between;">
+        <div class="card-content is-size-7">
+          <div class="is-flex">
             <span>Total hosts:</span>
             <span class="has-text-weight-bold">15.846</span>
           </div>
-          <div class="is-flex" style="justify-content: space-between;">
+          <div class="is-flex">
             <span>Agents that are stopped:</span>
             <span class="has-text-weight-bold">22 (from 540,in.)</span>
           </div>
@@ -28,10 +28,10 @@
         <header class="card-header">
           <p class="card-header-title">Licenses</p>
         </header>
-        <div class="card-content is-size-7" style="padding-top: 0;">
+        <div class="card-content is-size-7">
           <div>
-            <span class="is-size-5 has-text-info is-pulled-left">
-              <i class="fas fa-exclamation"></i>
+            <span class="is-size-5 is-pulled-left">
+              <b-icon type="is-info" pack="fas" icon="exclamation"></b-icon>
             </span>
             <p style="margin-left: 20px">
               Enterprise Data Quality Real-Time Processing for Data Integration
@@ -52,10 +52,14 @@
         <header class="card-header">
           <p class="card-header-title">System</p>
         </header>
-        <div class="card-content is-size-7" style="padding-top: 0;">
+        <div class="card-content is-size-7">
           <div>
-            <span class="is-size-5 has-text-warning is-pulled-left">
-              <i class="fas fa-exclamation-triangle"></i>
+            <span class="is-size-5 is-pulled-left">
+              <b-icon
+                type="is-warning"
+                pack="fas"
+                icon="exclamation-triangle"
+              ></b-icon>
             </span>
             <p style="margin-left: 35px">
               Management Pack for Oracle Data Integrator
@@ -86,6 +90,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.notifications {
+  padding: 1rem;
+
+  .card-content {
+    padding-top: 0;
+
+    div {
+      justify-content: space-between;
+    }
+  }
+}
+
 .card {
   margin-bottom: 20px;
 }

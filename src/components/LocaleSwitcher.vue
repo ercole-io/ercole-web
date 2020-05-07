@@ -20,4 +20,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.locale-switcher {
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+}
+</style>

@@ -30,6 +30,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/styles/styles.scss';
+
 #app {
   display: flex;
   min-height: 100vh;

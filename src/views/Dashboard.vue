@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="columns">
-      <div class="column is-full">
+      <div class="column">
         <Filters />
       </div>
     </div>
