@@ -37,29 +37,13 @@ export default {
   min-height: 100vh;
   flex-direction: column;
 }
+
 .main {
   flex: 1;
   padding: 0.75rem;
 }
+
 .content {
   padding: 0.75rem;
-}
-
-// customize switch label
-.switch .control-label {
-  padding-top: 0.1rem;
-}
-
-// custom label transparent to align button
-.field-button {
-  .label {
-    color: transparent;
-  }
-}
-
-// custom ul tabs
-.tabs.is-toggle ul {
-  margin-left: 0;
-  margin-top: 0;
 }
 </style>

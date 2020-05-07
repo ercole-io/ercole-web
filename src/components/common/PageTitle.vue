@@ -17,7 +17,7 @@ export default {
 
 <style lang="scss" scoped>
 .page-title {
-  font-size: 17px;
+  font-size: 1.2em;
   padding-bottom: 5px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 0;

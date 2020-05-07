@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import PageTitle from '@/components/Common/PageTitle.vue'
+import PageTitle from '@/components/common/PageTitle.vue'
 
 export default {
   props: {

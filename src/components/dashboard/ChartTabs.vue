@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import BoxContent from '@/components/Common/BoxContent.vue'
+import BoxContent from '@/components/common/BoxContent.vue'
 
 export default {
   components: {
