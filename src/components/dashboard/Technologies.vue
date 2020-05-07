@@ -1,19 +1,15 @@
 <template>
-  <div>
-    <PageTitle :pageTitle="$t('dashboard.pageTitle.technologies')" />
-
-    <div style="padding: 1rem">
-      technologies content
-    </div>
-  </div>
+  <BoxContent :title="$t('dashboard.pageTitle.technologies')">
+    technologies content
+  </BoxContent>
 </template>
 
 <script>
-import PageTitle from '../Common/PageTitle'
+import BoxContent from '@/components/Common/BoxContent.vue'
 
 export default {
   components: {
-    PageTitle
+    BoxContent
   }
 }
 </script>

@@ -18,7 +18,7 @@
         </div>
         <div class="columns">
           <div class="column">
-            <Tabs />
+            <ChartTabs />
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
 import Filters from '@/components/dashboard/Filters.vue'
 import TotalTargets from '@/components/dashboard/TotalTargets.vue'
 import Technologies from '@/components/dashboard/Technologies.vue'
-import Tabs from '@/components/dashboard/Tabs.vue'
+import ChartTabs from '@/components/dashboard/ChartTabs.vue'
 import Notifications from '@/components/dashboard/Notifications.vue'
 
 export default {
@@ -45,7 +45,7 @@ export default {
     Filters,
     TotalTargets,
     Technologies,
-    Tabs,
+    ChartTabs,
     Notifications
   }
 }
