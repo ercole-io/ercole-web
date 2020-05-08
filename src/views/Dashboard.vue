@@ -38,7 +38,7 @@ import Filters from '@/components/dashboard/Filters.vue'
 import TotalTargets from '@/components/dashboard/TotalTargets.vue'
 import Technologies from '@/components/dashboard/Technologies.vue'
 import ChartTabs from '@/components/dashboard/ChartTabs.vue'
-import Notifications from '@/components/dashboard/Notifications.vue'
+import Notifications from '@/components/dashboard/notifications/Notifications.vue'
 
 export default {
   components: {
