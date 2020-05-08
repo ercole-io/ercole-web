@@ -2,19 +2,19 @@
   <BoxContent>
     <b-tabs type="is-toggle" size="is-small" expanded>
       <b-tab-item label="All Infrastructures">
-        <p>All Infrastructures content</p>
+        <BubbleChart />
       </b-tab-item>
 
       <b-tab-item label="Software Types">
-        <p>Software Types content</p>
+        <PieChart />
       </b-tab-item>
 
       <b-tab-item label="Changes">
-        <p>Changes content</p>
+        <PieChart />
       </b-tab-item>
 
       <b-tab-item label="Type of Technologies">
-        <p>Type of Technologies content</p>
+        <PieChart />
       </b-tab-item>
     </b-tabs>
   </BoxContent>
@@ -22,10 +22,14 @@
 
 <script>
 import BoxContent from '@/components/common/BoxContent.vue'
+import BubbleChart from '@/components/common/charts/BubbleChart.vue'
+import PieChart from '@/components/common/charts/PieChart.vue'
 
 export default {
   components: {
-    BoxContent
+    BoxContent,
+    BubbleChart,
+    PieChart
   }
 }
 </script>
