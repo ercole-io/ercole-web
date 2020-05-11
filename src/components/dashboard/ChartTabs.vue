@@ -10,11 +10,11 @@
       </b-tab-item>
 
       <b-tab-item label="Changes">
-        <PieChart />
+        <h1>Changes</h1>
       </b-tab-item>
 
       <b-tab-item label="Type of Technologies">
-        <PieChart />
+        <h1>Type of Technologies</h1>
       </b-tab-item>
     </b-tabs>
   </BoxContent>
