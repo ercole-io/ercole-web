@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from '@/views/Dashboard.vue'
+import Hosts from '@/views/Hosts.vue'
 import Oracle from '@/views/Oracle.vue'
 
 Vue.use(VueRouter)
@@ -17,6 +18,14 @@ const routes = [
   {
     path: '/',
     redirect: '/dashboard'
+  },
+  {
+    path: '/hosts',
+    name: 'hosts',
+    component: Hosts,
+    meta: {
+      title: 'Ercole - hosts'
+    }
   },
   {
     path: '/oracle',
