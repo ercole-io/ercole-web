@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import Filters from '@/components/dashboard/Filters.vue'
+import Filters from '@/components/common/Filters.vue'
 import TotalTargets from '@/components/dashboard/TotalTargets.vue'
 import Technologies from '@/components/dashboard/technologies/Technologies.vue'
 import ChartTabs from '@/components/dashboard/ChartTabs.vue'

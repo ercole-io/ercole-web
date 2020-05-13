@@ -6,7 +6,7 @@
         <div class="column is-2">
           <appMenu />
         </div>
-        <div class="column">
+        <div class="column is-10">
           <router-view class="content" />
         </div>
       </div>
