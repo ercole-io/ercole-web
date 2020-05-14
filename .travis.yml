@@ -19,6 +19,7 @@ script:
 deploy:
   provider: script
   script: bash docker_push
-  all_branches: true
-  #on:
-  #  branch: master
+  on:
+    all_branches: true
+    condition: $TRAVIS_BRANCH =~ ^(master|2.0)$
+    # branch: master
