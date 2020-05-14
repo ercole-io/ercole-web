@@ -14,7 +14,7 @@ before_install:
 - echo ${VERSION}
 
 script:
-- docker build -t sorintlab/ercole-web
+- docker build -t sorintlab/ercole-web .
 
 deploy:
   provider: script
