@@ -1,5 +1,6 @@
 [
   {
+    "id": 1, 
     "hostname": "sorsedash0.sorint.it",
     "env": "PROD",
     "dbs": "DB27",
@@ -20,6 +21,7 @@
     "last": "18/09/2019"
   },
   {
+    "id": 2, 
     "hostname": "sorsedash0.sorint.it",
     "env": "DEV",
     "dbs": "DB27",
@@ -31,7 +33,7 @@
     "kernel": "2.6.32-431",
     "memory": "33",
     "swap": "15",
-    "clust": "yes",
+    "clust": "no",
     "model": "Intel(R)",
     "threa": "2",
     "cores": "1",
@@ -40,6 +42,7 @@
     "last": "18/09/2019"
   },
   {
+    "id": 3, 
     "hostname": "sorsedash0.sorint.it",
     "env": "PROD",
     "dbs": "DB27",
@@ -51,7 +54,7 @@
     "kernel": "2.6.32-431",
     "memory": "33",
     "swap": "15",
-    "clust": "yes",
+    "clust": "no",
     "model": "Intel(R)",
     "threa": "2",
     "cores": "1",
@@ -60,6 +63,7 @@
     "last": "18/09/2019"
   },
   {
+    "id": 4, 
     "hostname": "sorsedash0.sorint.it",
     "env": "DEV",
     "dbs": "DB27",
@@ -71,7 +75,7 @@
     "kernel": "2.6.32-431",
     "memory": "33",
     "swap": "15",
-    "clust": "yes",
+    "clust": "no",
     "model": "Intel(R)",
     "threa": "2",
     "cores": "1",
@@ -80,6 +84,7 @@
     "last": "18/09/2019"
   },
   {
+    "id": 5, 
     "hostname": "sorsedash0.sorint.it",
     "env": "PROD",
     "dbs": "DB27",
@@ -100,6 +105,7 @@
     "last": "18/09/2019"
   },
   {
+    "id": 6, 
     "hostname": "sorsedash0.sorint.it",
     "env": "DEV",
     "dbs": "DB27",
@@ -111,7 +117,7 @@
     "kernel": "2.6.32-431",
     "memory": "33",
     "swap": "15",
-    "clust": "yes",
+    "clust": "no",
     "model": "Intel(R)",
     "threa": "2",
     "cores": "1",
@@ -120,6 +126,7 @@
     "last": "18/09/2019"
   },
   {
+    "id": 7, 
     "hostname": "sorsedash0.sorint.it",
     "env": "PROD",
     "dbs": "DB27",
@@ -140,6 +147,7 @@
     "last": "18/09/2019"
   },
   {
+    "id": 8, 
     "hostname": "sorsedash0.sorint.it",
     "env": "PROD",
     "dbs": "DB27",
@@ -160,6 +168,7 @@
     "last": "18/09/2019"
   },
   {
+    "id": 9, 
     "hostname": "sorsedash0.sorint.it",
     "env": "PROD",
     "dbs": "DB27",
@@ -180,6 +189,7 @@
     "last": "18/09/2019"
   },
   {
+    "id": 10, 
     "hostname": "sorsedash0.sorint.it",
     "env": "PROD",
     "dbs": "DB27",
@@ -200,6 +210,7 @@
     "last": "18/09/2019"
   },
   {
+    "id": 11, 
     "hostname": "sorsedash0.sorint.it",
     "env": "PROD",
     "dbs": "DB27",
@@ -220,6 +231,7 @@
     "last": "18/09/2019"
   },
   {
+    "id": 12, 
     "hostname": "sorsedash0.sorint.it",
     "env": "PROD",
     "dbs": "DB27",
@@ -240,6 +252,91 @@
     "last": "18/09/2019"
   },
   {
+    "id": 13, 
+    "hostname": "sorsedash0.sorint.it",
+    "env": "PROD",
+    "dbs": "DB27",
+    "technologie": "oracle",
+    "platform": "WMWARE",
+    "cluster": "cluster16",
+    "physical": "???",
+    "os": "Red Hat",
+    "kernel": "2.6.32-431",
+    "memory": "33",
+    "swap": "15",
+    "clust": "yes",
+    "model": "Intel(R)",
+    "threa": "2",
+    "cores": "1",
+    "socket": "1",
+    "version": "1.5.12",
+    "last": "18/09/2019"
+  },
+  {
+    "id": 14,
+    "hostname": "sorsedash0.sorint.it",
+    "env": "PROD",
+    "dbs": "DB27",
+    "technologie": "oracle",
+    "platform": "WMWARE",
+    "cluster": "cluster16",
+    "physical": "???",
+    "os": "Red Hat",
+    "kernel": "2.6.32-431",
+    "memory": "33",
+    "swap": "15",
+    "clust": "yes",
+    "model": "Intel(R)",
+    "threa": "2",
+    "cores": "1",
+    "socket": "1",
+    "version": "1.5.12",
+    "last": "18/09/2019"
+  },
+  {
+    "id": 15,
+    "hostname": "sorsedash0.sorint.it",
+    "env": "PROD",
+    "dbs": "DB27",
+    "technologie": "oracle",
+    "platform": "WMWARE",
+    "cluster": "cluster16",
+    "physical": "???",
+    "os": "Red Hat",
+    "kernel": "2.6.32-431",
+    "memory": "33",
+    "swap": "15",
+    "clust": "yes",
+    "model": "Intel(R)",
+    "threa": "2",
+    "cores": "1",
+    "socket": "1",
+    "version": "1.5.12",
+    "last": "18/09/2019"
+  },
+  {
+    "id": 16,
+    "hostname": "sorsedash0.sorint.it",
+    "env": "PROD",
+    "dbs": "DB27",
+    "technologie": "oracle",
+    "platform": "WMWARE",
+    "cluster": "cluster16",
+    "physical": "???",
+    "os": "Red Hat",
+    "kernel": "2.6.32-431",
+    "memory": "33",
+    "swap": "15",
+    "clust": "yes",
+    "model": "Intel(R)",
+    "threa": "2",
+    "cores": "1",
+    "socket": "1",
+    "version": "1.5.12",
+    "last": "18/09/2019"
+  },
+  {
+    "id": 17,
     "hostname": "sorsedash0.sorint.it",
     "env": "PROD",
     "dbs": "DB27",
