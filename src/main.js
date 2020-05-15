@@ -7,9 +7,11 @@ import Buefy from 'buefy'
 import i18n from './i18n'
 import Chartkick from 'vue-chartkick'
 import Chart from 'chart.js'
+import SmartTable from 'vuejs-smart-table'
 
 Vue.use(Buefy)
 Vue.use(Chartkick.use(Chart))
+Vue.use(SmartTable)
 
 Vue.config.productionTip = false
 
