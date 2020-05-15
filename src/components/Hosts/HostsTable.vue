@@ -1,122 +1,150 @@
 <template>
   <BoxContent>
     <div class="table-container">
-      <table class="table is-narrow is-stripe">
-        <thead>
-          <tr>
+      <v-table
+        :data="paginatedData"
+        :filters="filters"
+        :hideSortIcons="true"
+        class="hosts-table"
+      >
+        <thead slot="head">
+          <tr class="has-background-grey-light">
             <th colspan="4"></th>
-            <th
-              colspan="3"
-              class="has-text-centered has-background-grey-lighter"
-            >
+            <th colspan="3" class="has-text-centered border-left border-right">
               Virtual
             </th>
             <th colspan="5"></th>
-            <th
-              colspan="4"
-              class="has-text-centered has-background-grey-lighter"
-            >
+            <th colspan="4" class="has-text-centered border-left border-right">
               CPU
             </th>
-            <th
-              colspan="2"
-              class="has-text-centered has-background-grey-lighter"
-            >
+            <th colspan="2" class="has-text-centered border-left border-right">
               Agent
             </th>
           </tr>
           <tr class="has-background-grey-lighter">
-            <th @click="sortBy('hostname')" class="table-head">
-              Hostname
+            <v-th sortKey="hostname">Hostname</v-th>
+            <v-th sortKey="env">Env</v-th>
+            <v-th sortKey="dbs">DBs</v-th>
+            <v-th sortKey="technologie">Tech</v-th>
+            <v-th sortKey="platform" class="border-left">Platform</v-th>
+            <v-th sortKey="cluster">Cluster</v-th>
+            <v-th sortKey="physical" class="border-right">Physical</v-th>
+            <v-th sortKey="os">OS</v-th>
+            <v-th sortKey="kernel">kernel</v-th>
+            <v-th sortKey="memorie">Mem.</v-th>
+            <v-th sortKey="swap">Swap</v-th>
+            <v-th sortKey="clust">Clust</v-th>
+            <v-th sortKey="model" class="border-left">Model</v-th>
+            <v-th sortKey="threa">v-threa</v-th>
+            <v-th sortKey="cores">Cores</v-th>
+            <v-th sortKey="socket" class="border-right">Socket</v-th>
+            <v-th sortKey="version">Version</v-th>
+            <v-th sortKey="last">Last</v-th>
+          </tr>
+          <tr>
+            <th>
+              <b-input size="is-small" v-model="filters.hostname.value" />
             </th>
-            <th @click="sortBy('env')" class="table-head">
-              Env
+            <th>
+              <b-input size="is-small" v-model="filters.env.value" />
             </th>
-            <th @click="sortBy('dbs')" class="table-head">
-              DBs
+            <th>
+              <b-input size="is-small" v-model="filters.dbs.value" />
             </th>
-            <th @click="sortBy('technologie')" class="table-head">
-              Tech
+            <th>
+              <b-input size="is-small" v-model="filters.technologie.value" />
             </th>
-            <th @click="sortBy('platform')" class="table-head">
-              Platform
+            <th class="border-left">
+              <b-input size="is-small" v-model="filters.platform.value" />
             </th>
-            <th @click="sortBy('cluster')" class="table-head">
-              Cluster
+            <th>
+              <b-input size="is-small" v-model="filters.cluster.value" />
             </th>
-            <th @click="sortBy('physical')" class="table-head">
-              Physical
+            <th class="border-right">
+              <b-input size="is-small" v-model="filters.physical.value" />
             </th>
-            <th @click="sortBy('os')" class="table-head">
-              OS
+            <th>
+              <b-input size="is-small" v-model="filters.os.value" />
             </th>
-            <th @click="sortBy('kernel')" class="table-head">
-              kernel
+            <th>
+              <b-input size="is-small" v-model="filters.kernel.value" />
             </th>
-            <th @click="sortBy('memory')" class="table-head">
-              Mem.
+            <th>
+              <b-input size="is-small" v-model="filters.memory.value" />
             </th>
-            <th @click="sortBy('swap')" class="table-head">
-              Swap
+            <th>
+              <b-input size="is-small" v-model="filters.swap.value" />
             </th>
-            <th @click="sortBy('clust')" class="table-head">
-              Clust
+            <th>
+              <b-input size="is-small" v-model="filters.clust.value" />
             </th>
-            <th @click="sortBy('model')" class="table-head">
-              Model
+            <th class="border-left">
+              <b-input size="is-small" v-model="filters.model.value" />
             </th>
-            <th @click="sortBy('threa')" class="table-head">
-              Threa
+            <th>
+              <b-input size="is-small" v-model="filters.threa.value" />
             </th>
-            <th @click="sortBy('cores')" class="table-head">
-              Cores
+            <th>
+              <b-input size="is-small" v-model="filters.cores.value" />
             </th>
-            <th @click="sortBy('socket')" class="table-head">
-              Socket
+            <th class="border-right">
+              <b-input size="is-small" v-model="filters.socket.value" />
             </th>
-            <th @click="sortBy('version')" class="table-head">
-              Version
+            <th>
+              <b-input size="is-small" v-model="filters.version.value" />
             </th>
-            <th @click="sortBy('last')" class="table-head">
-              Last
+            <th>
+              <b-input size="is-small" v-model="filters.last.value" />
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr v-for="item in sortedData" :key="item.id">
-            <td class="table-body">{{ item.hostname }}</td>
-            <td class="table-body">{{ item.env }}</td>
-            <td class="table-body">{{ item.dbs }}</td>
-            <td class="table-body">{{ item.technologie }}</td>
-            <td class="table-body">{{ item.platform }}</td>
-            <td class="table-body">{{ item.cluster }}</td>
-            <td class="table-body">{{ item.physical }}</td>
-            <td class="table-body">{{ item.os }}</td>
-            <td class="table-body">{{ item.kernel }}</td>
-            <td class="table-body">{{ item.memory }}</td>
-            <td class="table-body">{{ item.swap }}</td>
-            <td class="table-body">{{ item.clust }}</td>
-            <td class="table-body">{{ item.model }}</td>
-            <td class="table-body">{{ item.threa }}</td>
-            <td class="table-body">{{ item.cores }}</td>
-            <td class="table-body">{{ item.socket }}</td>
-            <td class="table-body">{{ item.version }}</td>
-            <td class="table-body">{{ item.last }}</td>
+        <tbody slot="body" slot-scope="{ displayData }">
+          <tr v-for="row in displayData" :key="row.id">
+            <td>{{ row.hostname }}</td>
+            <td>{{ row.env }}</td>
+            <td>{{ row.dbs }}</td>
+            <td>{{ row.technologie }}</td>
+            <td class="border-left">{{ row.platform }}</td>
+            <td>{{ row.cluster }}</td>
+            <td class="border-right">{{ row.physical }}</td>
+            <td>{{ row.os }}</td>
+            <td>{{ row.kernel }}</td>
+            <td>{{ row.memory }}</td>
+            <td>{{ row.swap }}</td>
+            <td>{{ row.clust }}</td>
+            <td class="border-left">{{ row.model }}</td>
+            <td>{{ row.threa }}</td>
+            <td>{{ row.cores }}</td>
+            <td class="border-right">{{ row.socket }}</td>
+            <td>{{ row.version }}</td>
+            <td>{{ row.last }}</td>
           </tr>
         </tbody>
-      </table>
+      </v-table>
     </div>
-    <b-field grouped group-multiline>
-      <b-select v-model="perPage" size="is-small">
-        <option value="5">5 per page</option>
-        <option value="10">10 per page</option>
-        <option value="15">15 per page</option>
-        <option value="20">20 per page</option>
-        <option value="50">50 per page</option>
-      </b-select>
-    </b-field>
+
+    <div
+      class="is-flex"
+      style="justify-content: space-between; margin-bottom: 10px"
+    >
+      <b-field class="is-margin-bottom-less">
+        <b-select v-model="perPage" size="is-small" style="order: 1;">
+          <option value="5">5 per page</option>
+          <option value="10">10 per page</option>
+          <option value="15">15 per page</option>
+          <option value="20">20 per page</option>
+          <option value="50">50 per page</option>
+        </b-select>
+      </b-field>
+
+      <div class="buttons" style="order: 2;">
+        <b-button type="is-primary" size="is-small">Host List File</b-button>
+        <b-button type="is-primary" size="is-small">LMS Audit File</b-button>
+      </div>
+    </div>
+
     <b-pagination
-      :total="total"
+      :total="totalData"
       :current.sync="current"
       :range-before="rangeBefore"
       :range-after="rangeAfter"
@@ -134,7 +162,7 @@
 </template>
 
 <script>
-const data = require('@/components/Hosts/hosts.json')
+const hosts = require('@/components/Hosts/hosts.json')
 import BoxContent from '@/components/common/BoxContent.vue'
 
 export default {
@@ -143,72 +171,125 @@ export default {
   },
   data() {
     return {
-      data: data,
-      currentSort: 'hostname',
-      currentSortDir: 'asc',
+      hosts,
+      filters: {
+        hostname: { value: '', keys: ['hostname'] },
+        env: { value: '', keys: ['env'] },
+        dbs: { value: '', keys: ['dbs'] },
+        technologie: { value: '', keys: ['technologie'] },
+        platform: { value: '', keys: ['platform'] },
+        cluster: { value: '', keys: ['cluster'] },
+        physical: { value: '', keys: ['physical'] },
+        os: { value: '', keys: ['os'] },
+        kernel: { value: '', keys: ['kernel'] },
+        memory: { value: '', keys: ['memory'] },
+        swap: { value: '', keys: ['swap'] },
+        clust: { value: '', keys: ['clust'] },
+        model: { value: '', keys: ['model'] },
+        threa: { value: '', keys: ['threa'] },
+        cores: { value: '', keys: ['cores'] },
+        socket: { value: '', keys: ['socket'] },
+        version: { value: '', keys: ['version'] },
+        last: { value: '', keys: ['last'] }
+      },
       current: 1,
       perPage: 10,
       rangeBefore: 3,
-      rangeAfter: 1,
+      rangeAfter: 3,
       size: 'is-small',
       prevIcon: 'chevron-left',
       nextIcon: 'chevron-right'
     }
   },
-  methods: {
-    sortBy(s) {
-      if (s === this.currentSort) {
-        this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc'
-      }
-      this.currentSort = s
-    },
-    sorted() {
-      return this.paginated.sort((a, b) => {
-        let modifier = 1
-        if (this.currentSortDir === 'desc') modifier = -1
-        if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier
-        if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier
-        return 0
-      })
-    }
-  },
   computed: {
-    sortedData() {
-      return this.sorted()
-    },
-    paginated() {
-      return this.data.slice(
+    paginatedData() {
+      return this.hosts.slice(
         (this.current - 1) * this.perPage,
         this.current * this.perPage
       )
     },
-    total() {
-      return this.data.length
+    totalData() {
+      return this.hosts.length
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.table {
-  font-size: 14px;
+<style lang="scss">
+.hosts-table {
+  font-size: 13px;
 
-  .table-head {
-    cursor: pointer;
-    text-align: center;
+  thead {
+    tr {
+      th {
+        cursor: pointer;
+        text-align: center !important;
+        border-width: 0;
 
-    &:first-child {
-      text-align: left;
+        &:first-child {
+          text-align: left !important;
+        }
+      }
     }
   }
 
-  .table-body {
-    text-align: center;
-    min-width: 100px;
+  tbody {
+    tr {
+      td {
+        font-size: 12px;
+        text-align: center;
+        min-width: 100px;
+        padding: 0.3em 1em;
 
-    &:first-child {
-      text-align: left;
+        &:first-child {
+          text-align: left;
+        }
+      }
     }
   }
+
+  .border-left {
+    border-left: 1px solid hsl(0, 0%, 48%) !important;
+  }
+  .border-right {
+    border-right: 1px solid hsl(0, 0%, 48%) !important;
+  }
+}
+
+.vt-sort:before {
+  font-family: 'Font Awesome 5 Free';
+  padding-right: 0.5em;
+  width: 1.28571429em;
+  display: inline-block;
+  text-align: center;
+}
+
+.vt-sortable:before {
+  content: '\f0dc';
+}
+
+.vt-asc:before {
+  content: '\f106';
+}
+
+.vt-desc:before {
+  content: '\f107';
+}
+
+.pagination {
+  .pagination-previous {
+    order: 1;
+  }
+  .pagination-list {
+    order: 2;
+    justify-content: center;
+  }
+  .pagination-next {
+    order: 3;
+  }
+}
+
+.is-margin-bottom-less {
+  margin-bottom: 0 !important;
 }
 </style>
