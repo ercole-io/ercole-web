@@ -1,14 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Login from '@/views/auth/Login.vue'
 import Dashboard from '@/views/Dashboard.vue'
-import Hosts from '@/views/Hosts/Hosts.vue'
-import HostsHome from '@/views/Hosts/HostsHome.vue'
-import HostsDetails from '@/views/Hosts/HostsDetails.vue'
+import Hosts from '@/views/hosts/Hosts.vue'
+import HostsHome from '@/views/hosts/HostsHome.vue'
+import HostsDetails from '@/views/hosts/HostsDetails.vue'
 import Oracle from '@/views/Oracle.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+    meta: {
+      title: 'Ercole - Login',
+      layout: 'simple'
+    }
+  },
   {
     path: '/dashboard',
     name: 'dashboard',

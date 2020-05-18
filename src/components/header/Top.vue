@@ -5,7 +5,7 @@
     </div>
     <div class="end">
       <b-switch size="is-small">Automatic Data Refresh</b-switch>
-      <a href="#">Logout</a>
+      <a href="/login">Logout</a>
     </div>
   </section>
 </template>
