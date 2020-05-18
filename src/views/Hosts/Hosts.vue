@@ -1,18 +1,16 @@
 <template>
   <section>
     <Filters />
-    <HostsTable />
+    <router-view :key="$route.fullPath" />
   </section>
 </template>
 
 <script>
 import Filters from '@/components/common/Filters.vue'
-import HostsTable from '@/components/Hosts/HostsTable.vue'
 
 export default {
   components: {
-    Filters,
-    HostsTable
+    Filters
   }
 }
 </script>

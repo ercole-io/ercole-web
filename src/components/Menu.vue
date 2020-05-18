@@ -8,6 +8,13 @@
         to="/dashboard"
         exact
       ></b-menu-item>
+      <b-menu-item
+        icon="settings"
+        label="Hosts"
+        tag="router-link"
+        to="/hosts"
+        exact
+      ></b-menu-item>
       <b-menu-item icon="settings">
         <template slot="label" slot-scope="props">
           Database
@@ -33,13 +40,6 @@
       <b-menu-item icon="settings" label="Webdl"></b-menu-item>
       <b-menu-item icon="settings" label="OS"></b-menu-item>
       <b-menu-item icon="settings" label="Middleware"></b-menu-item>
-      <b-menu-item
-        icon="settings"
-        label="Hosts"
-        tag="router-link"
-        to="/hosts"
-        exact
-      ></b-menu-item>
     </b-menu-list>
   </b-menu>
 </template>

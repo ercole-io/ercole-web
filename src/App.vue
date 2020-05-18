@@ -7,7 +7,7 @@
           <appMenu />
         </div>
         <div class="column is-10">
-          <router-view class="content" />
+          <router-view :key="$route.fullPath" class="content" />
         </div>
       </div>
     </main>
