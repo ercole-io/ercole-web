@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from '@/views/Dashboard.vue'
-import Hosts from '@/views/Hosts.vue'
+import Hosts from '@/views/Hosts/Hosts.vue'
+import HostsHome from '@/views/Hosts/HostsHome.vue'
+import HostsDetails from '@/views/Hosts/HostsDetails.vue'
 import Oracle from '@/views/Oracle.vue'
 
 Vue.use(VueRouter)
@@ -21,11 +23,26 @@ const routes = [
   },
   {
     path: '/hosts',
-    name: 'hosts',
     component: Hosts,
-    meta: {
-      title: 'Ercole - hosts'
-    }
+    children: [
+      {
+        path: '',
+        name: 'hosts-home',
+        component: HostsHome,
+        meta: {
+          title: 'Ercole - Hosts'
+        }
+      },
+      {
+        path: 'details/:hostID',
+        name: 'hosts-details',
+        component: HostsDetails,
+        props: true,
+        meta: {
+          title: 'Ercole - Hosts Details'
+        }
+      }
+    ]
   },
   {
     path: '/oracle',
