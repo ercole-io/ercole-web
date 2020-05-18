@@ -25,7 +25,8 @@ const routes = [
     component: Dashboard,
     meta: {
       title: 'Ercole - Dashboard'
-    }
+    },
+    beforeEnter: verifyAuth
   },
   {
     path: '/',
@@ -41,7 +42,8 @@ const routes = [
         component: HostsHome,
         meta: {
           title: 'Ercole - Hosts'
-        }
+        },
+        beforeEnter: verifyAuth
       },
       {
         path: 'details/:hostID',
@@ -50,7 +52,8 @@ const routes = [
         props: true,
         meta: {
           title: 'Ercole - Hosts Details'
-        }
+        },
+        beforeEnter: verifyAuth
       }
     ]
   },
@@ -60,7 +63,8 @@ const routes = [
     component: Oracle,
     meta: {
       title: 'Ercole - Oracle'
-    }
+    },
+    beforeEnter: verifyAuth
   }
 ]
 
@@ -76,5 +80,14 @@ router.beforeEach((to, from, next) => {
   document.title = to.meta.title
   next()
 })
+
+function verifyAuth(to, from, next) {
+  const token = localStorage.getItem('token')
+  if (token) {
+    next()
+  } else {
+    next('/login')
+  }
+}
 
 export default router

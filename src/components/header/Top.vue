@@ -5,13 +5,19 @@
     </div>
     <div class="end">
       <b-switch size="is-small">Automatic Data Refresh</b-switch>
-      <a href="/login">Logout</a>
+      <b-button @click="logout" type="is-text" class="logout">Logout</b-button>
     </div>
   </section>
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -31,7 +37,9 @@ export default {}
     align-items: center;
   }
 
-  a {
+  .logout {
+    font-size: 14px;
+    text-decoration: none;
     margin-left: 20px;
   }
 }
