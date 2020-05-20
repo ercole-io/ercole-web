@@ -6,14 +6,12 @@
         label="Dasboard"
         tag="router-link"
         to="/dashboard"
-        exact
       ></b-menu-item>
       <b-menu-item
         icon="settings"
         label="Hosts"
         tag="router-link"
         to="/hosts"
-        exact
       ></b-menu-item>
       <b-menu-item icon="settings">
         <template slot="label" slot-scope="props">
@@ -31,7 +29,6 @@
         label="Oracle"
         tag="router-link"
         to="/oracle"
-        exact
       ></b-menu-item>
       <b-menu-item icon="settings" label="SQLS"></b-menu-item>
       <b-menu-item icon="settings" label="MySQL"></b-menu-item>
