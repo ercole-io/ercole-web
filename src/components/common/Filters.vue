@@ -1,21 +1,21 @@
 <template>
   <BoxContent :title="$t('dashboard.pageTitle.filters')">
     <form class="columns">
-      <b-field class="column" label="Location">
+      <b-field class="column" label="Location" custom-class="is-size-7">
         <b-select v-model="location" size="is-small" expanded>
           <option>Item 1</option>
           <option>Item 2</option>
         </b-select>
       </b-field>
 
-      <b-field class="column" label="Environment">
+      <b-field class="column" label="Environment" custom-class="is-size-7">
         <b-select v-model="environment" size="is-small" expanded>
           <option>Item 1</option>
           <option>Item 2</option>
         </b-select>
       </b-field>
 
-      <b-field class="column is-4" label="Tag List">
+      <b-field class="column is-4" label="Tag List" custom-class="is-size-7">
         <b-taginput
           size="is-small"
           expanded
@@ -49,7 +49,7 @@
         </b-taginput>
       </b-field>
 
-      <b-field class="column is-2" label="Date">
+      <b-field class="column is-2" label="Date" custom-class="is-size-7">
         <b-datepicker
           v-model="date"
           size="is-small"
@@ -61,7 +61,11 @@
         </b-datepicker>
       </b-field>
 
-      <b-field class="column is-2" custom-class="label-button" label="&nbsp;">
+      <b-field
+        class="column is-2"
+        custom-class="label-button is-size-7"
+        label="&nbsp;"
+      >
         <b-button @click="resetAllFilters" size="is-small is-primary" expanded>
           Reset All Filters
         </b-button>

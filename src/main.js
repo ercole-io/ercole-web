@@ -12,6 +12,7 @@ import i18n from './i18n'
 import Chartkick from 'vue-chartkick'
 import Chart from 'chart.js'
 import SmartTable from 'vuejs-smart-table'
+import Vuelidate from 'vuelidate'
 
 Vue.component('default-layout', Default)
 Vue.component('simple-layout', Simple)
@@ -19,6 +20,7 @@ Vue.component('simple-layout', Simple)
 Vue.use(Buefy)
 Vue.use(Chartkick.use(Chart))
 Vue.use(SmartTable)
+Vue.use(Vuelidate)
 
 Vue.config.productionTip = false
 
