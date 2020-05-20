@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '@/views/auth/Login.vue'
-import Dashboard from '@/views/Dashboard.vue'
-import Hosts from '@/views/hosts/Hosts.vue'
-import HostsHome from '@/views/hosts/HostsHome.vue'
-import HostsDetails from '@/views/hosts/HostsDetails.vue'
-import Oracle from '@/views/Oracle.vue'
+
+const Login = () => import('@/views/auth/Login.vue')
+const Dashboard = () => import('@/views/Dashboard.vue')
+const Hosts = () => import('@/views/hosts/Hosts.vue')
+const HostsHome = () => import('@/views/hosts/HostsHome.vue')
+const HostsDetails = () => import('@/views/hosts/HostsDetails.vue')
+const Oracle = () => import('@/views/Oracle.vue')
 
 Vue.use(VueRouter)
 
