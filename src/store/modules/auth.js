@@ -4,14 +4,12 @@ import * as helpers from '../../helpers/helpers.js'
 
 export const state = () => {
   return {
-    tokenId: null,
-    errMesg: null
+    tokenId: null
   }
 }
 
 export const getters = {
-  isAuth: state => state.tokenId !== null,
-  getErrMsg: state => state.errMesg
+  isAuth: state => state.tokenId !== null
 }
 
 export const mutations = {
@@ -20,14 +18,11 @@ export const mutations = {
   },
   CLEAR_AUTH: state => {
     state.tokenId = null
-  },
-  SET_ERR_MSG: (state, payload) => {
-    state.errMesg = payload
   }
 }
 
 export const actions = {
-  login({ commit }, auth) {
+  login({ commit, dispatch }, auth) {
     return axiosAuth
       .post('/login', {
         username: auth.username,
@@ -40,11 +35,15 @@ export const actions = {
         })
         helpers.setLocalStorageAuth(token)
         router.replace('/dashboard')
-        commit('SET_ERR_MSG', null)
+      })
+      .then(() => {
+        dispatch('setErrMsg', null)
+        dispatch('offLoading')
       })
       .catch(err => {
         const errorMessage = err.response.data.ErrorDescription
-        commit('SET_ERR_MSG', errorMessage)
+        dispatch('setErrMsg', errorMessage)
+        dispatch('offLoading')
       })
   },
   logout({ commit }) {
