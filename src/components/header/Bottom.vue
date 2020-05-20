@@ -2,7 +2,7 @@
   <b-navbar type="is-dark">
     <template slot="brand">
       <b-navbar-item tag="router-link" :to="'/'">
-        <img src="@/assets/ercole-logo.png" alt="Ercole" />
+        <img src="@/assets/images/ercole-logo.png" alt="Ercole" />
       </b-navbar-item>
     </template>
 

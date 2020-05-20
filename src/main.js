@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 
 import Buefy from 'buefy'
+import './assets/scss/app.scss'
 
 import Default from './layouts/Default.vue'
 import Simple from './layouts/Simple.vue'

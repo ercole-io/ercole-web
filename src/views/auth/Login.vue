@@ -3,7 +3,7 @@
     <div class="colunms">
       <div class="colunm">
         <div class="logo">
-          <img src="@/assets/ercole-logo.png" alt="Ercole" />
+          <img src="@/assets/images/ercole-logo.png" alt="Ercole" />
         </div>
       </div>
       <div class="colunm">
