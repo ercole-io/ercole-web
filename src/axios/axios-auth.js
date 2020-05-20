@@ -10,11 +10,4 @@ instance.interceptors.request.use(config => {
   return config
 })
 
-instance.interceptors.response.use(config => {
-  if (store.getters['loadingStatus']) {
-    store.dispatch('offLoading')
-  }
-  return config
-})
-
 export default instance
