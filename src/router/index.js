@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+const title = 'Ercole - '
+
 const Login = () => import('@/views/auth/Login.vue')
 const Dashboard = () => import('@/views/Dashboard.vue')
 const Hosts = () => import('@/views/hosts/Hosts.vue')
@@ -16,7 +18,7 @@ const routes = [
     name: 'login',
     component: Login,
     meta: {
-      title: 'Ercole - Login',
+      title: `${title}Login`,
       layout: 'simple'
     }
   },
@@ -25,7 +27,7 @@ const routes = [
     name: 'dashboard',
     component: Dashboard,
     meta: {
-      title: 'Ercole - Dashboard'
+      title: `${title}Dashboard`
     },
     beforeEnter: verifyAuth
   },
@@ -42,7 +44,7 @@ const routes = [
         name: 'hosts-home',
         component: HostsHome,
         meta: {
-          title: 'Ercole - Hosts'
+          title: `${title}Hosts`
         },
         beforeEnter: verifyAuth
       },
@@ -52,7 +54,7 @@ const routes = [
         component: HostsDetails,
         props: true,
         meta: {
-          title: 'Ercole - Hosts Details'
+          title: `${title}Hosts Details`
         },
         beforeEnter: verifyAuth
       }
@@ -63,7 +65,7 @@ const routes = [
     name: 'oracle',
     component: Oracle,
     meta: {
-      title: 'Ercole - Oracle'
+      title: `${title}Oracle`
     },
     beforeEnter: verifyAuth
   }

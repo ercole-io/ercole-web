@@ -1,7 +1,7 @@
 <template>
   <section>
     <Filters />
-    <router-view :key="$route.fullPath" />
+    <router-view />
   </section>
 </template>
 
