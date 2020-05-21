@@ -17,7 +17,6 @@ env:
 
 before_install:
   - if [ -z ${TRAVIS_TAG} ] || [ ${TRAVIS_TAG} == *-* ]; then export VERSION=latest; else export VERSION=${TRAVIS_TAG}; fi
-  - if [ ${VERSION} == "latest-ng" ]; then export VERSION=latest; fi;
   - echo ${TRAVIS_TAG}
   - echo ${VERSION}
 
@@ -47,7 +46,8 @@ deploy:
     file_glob: true
     file: /tmp/dist/*
     skip_cleanup: true
-    name: $VERSION-ng
+    name: $VERSION
     overwrite: true
     on:
       all_branches: true
+      tags: true
