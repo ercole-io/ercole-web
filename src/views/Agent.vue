@@ -65,20 +65,20 @@ export default {
 				{
 					os: 'RH7',
 					description: 'Red Hat Enterprise Linux 7',
-					filename: 'ercole-agent-1.6.8-1.el7.x86_64.rpm',
-					url: '/packages/ercole-agent-1.6.8-1.el7.x86_64.rpm'
+					filename: 'ercole-agent-1.6.11-1.el7.x86_64.rpm',
+					url: '/packages/ercole-agent-1.6.11-1.el7.x86_64.rpm'
 				},
 				{
 					os: 'RH6',
 					description: 'Red Hat Enterprise Linux 6',
-					filename: 'ercole-agent-1.6.8-1.el6.x86_64.rpm',
-					url: '/packages/ercole-agent-1.6.8-1.el6.x86_64.rpm'
+					filename: 'ercole-agent-1.6.11-1.el6.x86_64.rpm',
+					url: '/packages/ercole-agent-1.6.11-1.el6.x86_64.rpm'
 				},
 				{
 					os: 'RH5',
 					description: 'Red Hat Enterprise Linux 5',
-					filename: 'ercole-agent-1.6.6-1.x86_64.rpm',
-					url: '/packages/ercole-agent-1.6.6-1.x86_64.rpm'
+					filename: 'ercole-agent-1.6.7-1.x86_64.rpm',
+					url: '/packages/ercole-agent-1.6.7-1.x86_64.rpm'
 				},
 				{
 					os: 'WIN',
@@ -101,20 +101,20 @@ export default {
 				{
 					os: 'RH7',
 					description: 'Red Hat Enterprise Linux 7 (Exadata)',
-					filename: 'ercole-agent-exadata-1.6.2-1.el7.x86_64.rpm',
-					url: '/packages/ercole-agent-exadata-1.6.2-1.el7.x86_64.rpm'
+					filename: 'ercole-agent-exadata-1.6.3-1.el7.x86_64.rpm',
+					url: '/packages/ercole-agent-exadata-1.6.3-1.el7.x86_64.rpm'
 				},
 				{
 					os: 'RH6',
 					description: 'Red Hat Enterprise Linux 6 (Exadata)',
-					filename: 'ercole-agent-exadata-1.6.2-1.el6.x86_64.rpm',
-					url: '/packages/ercole-agent-exadata-1.6.2-1.el6.x86_64.rpm'
+					filename: 'ercole-agent-exadata-1.6.3-1.el6.x86_64.rpm',
+					url: '/packages/ercole-agent-exadata-1.6.3-1.el6.x86_64.rpm'
 				},
 				{
 					os: 'AIX',
 					description: 'AIX Advanced Interactive eXecutive 6.1',
-					filename: 'ercole-agent-aix-1.6.7-1.aix6.1.noarch.rpm',
-					url: '/packages/ercole-agent-aix-1.6.7-1.aix6.1.noarch.rpm'
+					filename: 'ercole-agent-aix-1.6.8-1.aix6.1.noarch.rpm',
+					url: '/packages/ercole-agent-aix-1.6.8-1.aix6.1.noarch.rpm'
 				},
 			],
 			plugins: [
