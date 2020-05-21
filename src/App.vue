@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <!-- footer -->
         <footer class="footer">
           <div class="container">
-            Ercole 1.6.12 &copy; 2018-19 Sorint.lab S.p.A.
+            Ercole 1.6.14 &copy; 2018-20 Sorint.lab S.p.A.
           </div>
         </footer>
       </div>
