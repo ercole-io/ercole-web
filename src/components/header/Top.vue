@@ -1,7 +1,7 @@
 <template>
   <section class="header-top has-background-light">
     <div class="start">
-      <p>Roberto Benigni, Operator</p>
+      <p>{{ username | capitalize }}, Operator</p>
     </div>
     <div class="end">
       <b-switch size="is-small" v-model="isAuto" type="is-primary">
@@ -24,6 +24,11 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('logout')
+    }
+  },
+  computed: {
+    username() {
+      return localStorage.getItem('username')
     }
   },
   watch: {
