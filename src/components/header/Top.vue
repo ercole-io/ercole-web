@@ -14,17 +14,17 @@
       </b-field>
     </div>
     <div class="end">
-      <b-switch
-        size="is-small"
-        v-model="isAuto"
-        type="is-primary"
-        class="auto-refresh"
-      >
-        Automatic Data Refresh
-      </b-switch>
-      <LocaleSwitcher />
-      <p class="username">{{ username | capitalize }}, Operator</p>
-      <b-button @click="logout" type="is-text" class="logout">Logout</b-button>
+      <b-navbar-dropdown :label="`${username}, Operator`">
+        <b-navbar-item>
+          <b-switch size="is-small" v-model="isAuto" type="is-primary">
+            Auto Refresh
+          </b-switch>
+        </b-navbar-item>
+        <b-navbar-item>
+          <LocaleSwitcher />
+        </b-navbar-item>
+        <b-navbar-item @click="logout">Logout</b-navbar-item>
+      </b-navbar-dropdown>
     </div>
   </section>
 </template>
@@ -88,21 +88,8 @@ export default {
     align-items: center;
   }
 
-  .logout {
-    font-size: 14px;
-    text-decoration: none;
-  }
-
-  .username {
-    margin: 0 10px 0 20px;
-  }
-
   .global-search {
     margin-top: 5px;
-  }
-
-  .auto-refresh {
-    margin: 0 20px;
   }
 }
 </style>
