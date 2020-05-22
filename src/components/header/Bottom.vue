@@ -8,30 +8,18 @@
 
     <template slot="end">
       <b-navbar-item tag="div">
-        <b-field position="is-centered" type="is-dark">
-          <b-input
-            size="is-small"
-            placeholder="Global Search"
-            type="search"
-            icon="magnify"
-          ></b-input>
-          <p class="control">
-            <b-button size="is-small is-primary">Search</b-button>
-          </p>
-        </b-field>
+        <Filters />
       </b-navbar-item>
-
-      <LocaleSwitcher />
     </template>
   </b-navbar>
 </template>
 
 <script>
-import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
+import Filters from '@/components/common/Filters.vue'
 
 export default {
   components: {
-    LocaleSwitcher
+    Filters
   }
 }
 </script>
