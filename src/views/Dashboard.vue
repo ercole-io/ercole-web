@@ -1,9 +1,7 @@
 <template>
   <section>
     <div class="columns">
-      <div class="column">
-        <Filters />
-      </div>
+      <div class="column"></div>
     </div>
 
     <div class="columns">
@@ -34,7 +32,6 @@
 </template>
 
 <script>
-import Filters from '@/components/common/Filters.vue'
 import TotalTargets from '@/components/dashboard/TotalTargets.vue'
 import Technologies from '@/components/dashboard/technologies/Technologies.vue'
 import ChartTabs from '@/components/dashboard/ChartTabs.vue'
@@ -42,7 +39,6 @@ import Notifications from '@/components/dashboard/notifications/Notifications.vu
 
 export default {
   components: {
-    Filters,
     TotalTargets,
     Technologies,
     ChartTabs,
