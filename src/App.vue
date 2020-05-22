@@ -11,6 +11,9 @@
 const default_layout = 'default'
 
 export default {
+  created() {
+    this.$store.dispatch('tryAutoLogin')
+  },
   computed: {
     layout() {
       return (this.$route.meta.layout || default_layout) + '-layout'
