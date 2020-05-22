@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { capitalize } from '@/helpers/helpers.js'
 import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 import { SnackbarProgrammatic as Snackbar } from 'buefy'
 
@@ -49,7 +50,7 @@ export default {
   },
   computed: {
     username() {
-      return localStorage.getItem('username')
+      return capitalize(localStorage.getItem('username'))
     }
   },
   watch: {
