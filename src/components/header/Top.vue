@@ -4,17 +4,42 @@
       <p>Roberto Benigni, Operator</p>
     </div>
     <div class="end">
-      <b-switch size="is-small">Automatic Data Refresh</b-switch>
+      <b-switch size="is-small" v-model="isAuto" type="is-primary">
+        Automatic Data Refresh
+      </b-switch>
       <b-button @click="logout" type="is-text" class="logout">Logout</b-button>
     </div>
   </section>
 </template>
 
 <script>
+import { SnackbarProgrammatic as Snackbar } from 'buefy'
+
 export default {
+  data() {
+    return {
+      isAuto: false
+    }
+  },
   methods: {
     logout() {
       this.$store.dispatch('logout')
+    }
+  },
+  watch: {
+    isAuto(value) {
+      if (value) {
+        Snackbar.open({
+          message: 'New data available, recharge within 5s',
+          type: 'is-warning',
+          position: 'is-top',
+          actionText: 'Not Refresh',
+          indefinite: true,
+          onAction: () => {
+            this.isAuto = false
+          }
+        })
+      }
     }
   }
 }
