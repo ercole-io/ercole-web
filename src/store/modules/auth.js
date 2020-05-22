@@ -4,20 +4,20 @@ import * as helpers from '../../helpers/helpers.js'
 
 export const state = () => {
   return {
-    tokenId: null
+    token: null
   }
 }
 
 export const getters = {
-  isAuth: state => state.tokenId !== null
+  isAuth: state => state.token !== null
 }
 
 export const mutations = {
-  AUTH_USER: (state, payload) => {
-    state.tokenId = payload.tokenId
+  AUTH_USER: (state, token) => {
+    state.token = token
   },
   CLEAR_AUTH: state => {
-    state.tokenId = null
+    state.token = null
   }
 }
 
@@ -30,10 +30,18 @@ export const actions = {
       })
       .then(res => {
         const token = res.data
-        commit('AUTH_USER', {
-          tokenId: token
-        })
-        helpers.setLocalStorageAuth(token)
+        const decodeToken = JSON.parse(atob(token.split('.')[1]))
+        const username = decodeToken.aud[0]
+        const expiration = decodeToken.exp
+
+        const payload = {
+          token: token,
+          username: username,
+          expiration: expiration
+        }
+
+        commit('AUTH_USER', payload.token)
+        helpers.setLocalStorageAuth(payload)
         router.replace('/dashboard')
       })
       .then(() => {
