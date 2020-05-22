@@ -1,10 +1,6 @@
 <template>
   <section>
     <div class="columns">
-      <div class="column"></div>
-    </div>
-
-    <div class="columns">
       <div class="column">
         <div class="columns">
           <div class="column is-4">
