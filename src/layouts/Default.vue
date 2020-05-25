@@ -3,15 +3,8 @@
     <appHeader />
     <appFilters />
     <main class="main">
-      <div class="columns">
-        <div class="column is-2">
-          <appMenu />
-        </div>
-        <div class="column is-10">
-          <div class="content">
-            <slot />
-          </div>
-        </div>
+      <div class="content">
+        <slot />
       </div>
     </main>
     <appFooter />
@@ -21,14 +14,12 @@
 <script>
 import Header from '@/components/Header.vue'
 import Filters from '@/components/Filters.vue'
-import Menu from '@/components/Menu.vue'
 import Footer from '@/components/Footer.vue'
 
 export default {
   components: {
     appHeader: Header,
     appFilters: Filters,
-    appMenu: Menu,
     appFooter: Footer
   }
 }
