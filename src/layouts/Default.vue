@@ -4,6 +4,9 @@
     <appFilters />
     <main class="main">
       <div class="content">
+        <appBreadcrumb
+          :class="{ 'is-hidden': this.$route.name === 'dashboard' }"
+        />
         <slot />
       </div>
     </main>
@@ -14,12 +17,14 @@
 <script>
 import Header from '@/components/Header.vue'
 import Filters from '@/components/Filters.vue'
+import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Footer from '@/components/Footer.vue'
 
 export default {
   components: {
     appHeader: Header,
     appFilters: Filters,
+    appBreadcrumb: Breadcrumb,
     appFooter: Footer
   }
 }

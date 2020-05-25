@@ -20,6 +20,6 @@ export default {
   font-size: 1.2em;
   padding-bottom: 5px;
   border-bottom: 1px solid #ccc;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
 }
 </style>

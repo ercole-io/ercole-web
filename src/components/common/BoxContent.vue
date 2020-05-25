@@ -1,6 +1,8 @@
 <template>
   <section>
-    <PageTitle :pageTitle="title" v-if="title" />
+    <h2 class="sub-title" v-if="title">
+      {{ title }}
+    </h2>
     <article :class="title ? 'box-content' : ''">
       <slot />
     </article>
@@ -8,17 +10,12 @@
 </template>
 
 <script>
-import PageTitle from '@/components/common/PageTitle.vue'
-
 export default {
   props: {
     title: {
       type: String,
       default: null
     }
-  },
-  components: {
-    PageTitle
   }
 }
 </script>
@@ -26,5 +23,12 @@ export default {
 <style lang="scss" scoped>
 .box-content {
   padding: 1rem;
+}
+
+.sub-title {
+  font-size: 1em;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 0;
 }
 </style>

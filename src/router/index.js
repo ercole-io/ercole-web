@@ -44,7 +44,8 @@ const routes = [
         name: 'hosts-home',
         component: HostsHome,
         meta: {
-          title: `${title}Hosts`
+          title: `${title}Hosts`,
+          breadcrumb: [{ name: 'Hosts' }]
         },
         beforeEnter: verifyAuth
       },
@@ -54,7 +55,11 @@ const routes = [
         component: HostsDetails,
         props: true,
         meta: {
-          title: `${title}Hosts Details`
+          title: `${title}Host Details`,
+          breadcrumb: [
+            { name: 'Hosts', link: '/hosts' },
+            { name: 'Host Details' }
+          ]
         },
         beforeEnter: verifyAuth
       }
