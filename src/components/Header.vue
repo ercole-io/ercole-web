@@ -1,6 +1,12 @@
 <template>
-  <section class="header-top has-background-light">
-    <div class="start">
+  <b-navbar type="is-dark">
+    <template slot="brand">
+      <b-navbar-item tag="router-link" :to="'/'">
+        <img src="@/assets/images/ercole-logo.png" alt="Ercole" />
+      </b-navbar-item>
+    </template>
+
+    <template slot="end">
       <b-field position="is-centered" type="is-primary" class="global-search">
         <b-input
           size="is-small"
@@ -12,8 +18,7 @@
           <b-button size="is-small is-primary">Search</b-button>
         </p>
       </b-field>
-    </div>
-    <div class="end">
+
       <b-navbar-dropdown :label="`${username}, Operator`">
         <b-navbar-item>
           <b-switch size="is-small" v-model="isAuto" type="is-primary">
@@ -25,13 +30,13 @@
         </b-navbar-item>
         <b-navbar-item @click="logout">Logout</b-navbar-item>
       </b-navbar-dropdown>
-    </div>
-  </section>
+    </template>
+  </b-navbar>
 </template>
 
 <script>
-import { capitalize } from '@/helpers/helpers.js'
 import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
+import { capitalize } from '@/helpers/helpers.js'
 import { SnackbarProgrammatic as Snackbar } from 'buefy'
 
 export default {
@@ -73,24 +78,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.header-top {
-  height: 33px;
-  line-height: 33px;
-  font-size: 14px;
-  padding: 0 0.75rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: left;
-
-  .start,
-  .end {
-    display: flex;
-    align-items: center;
-  }
-
-  .global-search {
-    margin-top: 5px;
-  }
+.global-search {
+  margin-right: 20px;
+  margin-bottom: 0;
+  align-self: center;
 }
 </style>

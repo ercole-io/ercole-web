@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <appHeader />
+    <appFilters />
     <main class="main">
       <div class="columns">
         <div class="column is-2">
@@ -18,13 +19,15 @@
 </template>
 
 <script>
-import Header from '@/components/header/Header.vue'
+import Header from '@/components/Header.vue'
+import Filters from '@/components/Filters.vue'
 import Menu from '@/components/Menu.vue'
 import Footer from '@/components/Footer.vue'
 
 export default {
   components: {
     appHeader: Header,
+    appFilters: Filters,
     appMenu: Menu,
     appFooter: Footer
   }
