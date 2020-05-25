@@ -14,6 +14,8 @@
         </span>
         <p style="margin-left: 35px">
           Management Pack for Oracle Data Integrator
+          <br />
+          <br />
         </p>
       </template>
     </div>

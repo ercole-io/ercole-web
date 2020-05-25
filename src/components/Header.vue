@@ -1,9 +1,18 @@
 <template>
   <b-navbar type="is-dark">
     <template slot="brand">
-      <b-navbar-item tag="router-link" :to="'/'">
+      <b-navbar-item tag="router-link" :to="'/'" class="ercole-logo">
         <img src="@/assets/images/ercole-logo.png" alt="Ercole" />
       </b-navbar-item>
+
+      <b-button
+        @click="open = !open"
+        icon-right="menu"
+        size="is-small"
+        type="is-light"
+        class="btn-sidebar"
+      ></b-button>
+      <Menu :openSidebar="open" />
     </template>
 
     <template slot="end">
@@ -38,19 +47,25 @@
 import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 import { capitalize } from '@/helpers/helpers.js'
 import { SnackbarProgrammatic as Snackbar } from 'buefy'
+import Menu from '@/components/Menu.vue'
 
 export default {
   components: {
-    LocaleSwitcher
+    LocaleSwitcher,
+    Menu
   },
   data() {
     return {
-      isAuto: false
+      isAuto: false,
+      open: false
     }
   },
   methods: {
     logout() {
       this.$store.dispatch('logout')
+    },
+    openSidebar() {
+      this.$parent.$emit('openSidebar', true)
     }
   },
   computed: {
@@ -82,5 +97,14 @@ export default {
   margin-right: 20px;
   margin-bottom: 0;
   align-self: center;
+}
+
+.ercole-logo {
+  background-color: #363636 !important;
+}
+
+.btn-sidebar {
+  align-self: center;
+  margin-left: 90px;
 }
 </style>
