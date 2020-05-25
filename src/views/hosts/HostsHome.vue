@@ -1,5 +1,6 @@
 <template>
   <article>
+    <PageTitle pageTitle="Hosts" />
     <BoxContent>
       <div class="table-container">
         <v-table
@@ -175,10 +176,12 @@
 
 <script>
 const hosts = require('@/data/hosts.json')
+import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 
 export default {
   components: {
+    PageTitle,
     BoxContent
   },
   data() {
