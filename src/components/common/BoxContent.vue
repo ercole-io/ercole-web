@@ -1,9 +1,9 @@
 <template>
   <section>
-    <h2 class="sub-title" v-if="title">
+    <h2 class="sub-title" v-if="title" :class="{ 'border-bottom': border }">
       {{ title }}
     </h2>
-    <article :class="title ? 'box-content' : ''">
+    <article :class="{ 'box-content': padding, 'margin-bottom': !padding }">
       <slot />
     </article>
   </section>
@@ -15,6 +15,14 @@ export default {
     title: {
       type: String,
       default: null
+    },
+    border: {
+      type: Boolean,
+      default: false
+    },
+    padding: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -25,10 +33,19 @@ export default {
   padding: 1rem;
 }
 
+.margin-bottom {
+  margin-bottom: 20px;
+}
+
 .sub-title {
   font-size: 1em;
-  padding-bottom: 5px;
+  margin-bottom: 10px;
+  padding-left: 5px;
+}
+
+.border-bottom {
   border-bottom: 1px solid #ccc;
-  margin-bottom: 0;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <BoxContent :title="$t('dashboard.pageTitle.notificatons')">
+  <BoxContent :title="$t('dashboard.pageTitle.notificatons')" border padding>
     <Notification>
       <Agents slot="notify" title="Agents" />
     </Notification>

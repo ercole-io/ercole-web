@@ -6,9 +6,8 @@ const title = 'Ercole - '
 const Login = () => import('@/views/auth/Login.vue')
 const Dashboard = () => import('@/views/Dashboard.vue')
 const Hosts = () => import('@/views/hosts/Hosts.vue')
-const HostsHome = () => import('@/views/hosts/HostsHome.vue')
 const HostsDetails = () => import('@/views/hosts/HostsDetails.vue')
-const Oracle = () => import('@/views/Oracle.vue')
+const NotFound = () => import('@/views/Errors/NotFound.vue')
 
 Vue.use(VueRouter)
 
@@ -32,47 +31,41 @@ const routes = [
     beforeEnter: verifyAuth
   },
   {
-    path: '/',
-    redirect: '/dashboard'
-  },
-  {
     path: '/hosts',
+    name: 'hosts-home',
     component: Hosts,
-    children: [
-      {
-        path: '',
-        name: 'hosts-home',
-        component: HostsHome,
-        meta: {
-          title: `${title}Hosts`,
-          breadcrumb: [{ name: 'Hosts' }]
-        },
-        beforeEnter: verifyAuth
-      },
-      {
-        path: 'details/:hostID',
-        name: 'hosts-details',
-        component: HostsDetails,
-        props: true,
-        meta: {
-          title: `${title}Host Details`,
-          breadcrumb: [
-            { name: 'Hosts', link: '/hosts' },
-            { name: 'Host Details' }
-          ]
-        },
-        beforeEnter: verifyAuth
-      }
-    ]
-  },
-  {
-    path: '/oracle',
-    name: 'oracle',
-    component: Oracle,
     meta: {
-      title: `${title}Oracle`
+      title: `${title}Hosts`,
+      breadcrumb: [{ name: 'Hosts' }]
     },
     beforeEnter: verifyAuth
+  },
+  {
+    path: '/hosts/details/:hostID',
+    name: 'hosts-details',
+    component: HostsDetails,
+    props: true,
+    meta: {
+      title: `${title}Host Details`,
+      breadcrumb: [{ name: 'Hosts', link: '/hosts' }, { name: 'Host Details' }]
+    },
+    beforeEnter: verifyAuth
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: NotFound,
+    props: true
+  },
+  {
+    path: '*',
+    redirect: {
+      name: '404'
+    }
+  },
+  {
+    path: '/',
+    redirect: '/dashboard'
   }
 ]
 

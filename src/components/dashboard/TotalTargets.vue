@@ -1,5 +1,5 @@
 <template>
-  <BoxContent :title="$t('dashboard.pageTitle.totalTargets')">
+  <BoxContent :title="$t('dashboard.pageTitle.totalTargets')" border>
     <div class="total-targets">
       <div class="total-targets-col">
         <div>

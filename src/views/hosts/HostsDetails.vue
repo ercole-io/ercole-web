@@ -1,7 +1,7 @@
 <template>
   <article>
-    <PageTitle :pageTitle="`Host Details - ${host.hostname}`" />
-    <BoxContent>
+    <PageTitle pageTitle="Host Details" />
+    <BoxContent :title="host.hostname">
       <div class="table-container">
         <table class="hosts-table">
           <thead>
@@ -75,8 +75,14 @@
     </BoxContent>
 
     <div class="columns">
-      <div class="column is-4">GPUGrowth of {{ host.hostname }}</div>
-      <div class="column is-8">Databases of {{ host.hostname }}</div>
+      <BoxContent
+        class="column is-4"
+        :title="`GPUGrowth of ${host.hostname}`"
+      ></BoxContent>
+      <BoxContent
+        class="column is-8"
+        :title="`Databases of ${host.hostname}`"
+      ></BoxContent>
     </div>
   </article>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    Oracle page to test routes
+    404 - Page not found
   </div>
 </template>
 

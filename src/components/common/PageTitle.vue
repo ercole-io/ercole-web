@@ -21,5 +21,6 @@ export default {
   padding-bottom: 5px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 1rem;
+  padding-left: 5px;
 }
 </style>
