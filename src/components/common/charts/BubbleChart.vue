@@ -1,5 +1,5 @@
 <template>
-  <div :id="chartId" class="has-text-centered"></div>
+  <div :id="chartId" class="bubble-chart has-text-centered"></div>
 </template>
 
 <script>
@@ -21,13 +21,13 @@ export default {
   },
   methods: {
     mountChart() {
-      const diameter = 300
+      const diameter = 350
       const color = d3.scaleOrdinal().range(d3.schemeCategory10)
 
       const bubble = d3
         .pack(this.dataset)
         .size([diameter, diameter])
-        .padding(1.5)
+        .padding(2)
 
       const svg = d3
         .select(`div#${this.chartId}`)
@@ -36,7 +36,7 @@ export default {
         .attr('height', diameter)
         .attr('class', 'bubble')
 
-      const nodes = d3.hierarchy(this.dataset).sum(function(d) {
+      const nodes = d3.hierarchy(this.dataset).sum(d => {
         return d.Count
       })
 
@@ -44,25 +44,25 @@ export default {
         .selectAll('.node')
         .data(bubble(nodes).descendants())
         .enter()
-        .filter(function(d) {
+        .filter(d => {
           return !d.children
         })
         .append('g')
         .attr('class', 'node')
-        .attr('transform', function(d) {
+        .attr('transform', d => {
           return 'translate(' + d.x + ',' + d.y + ')'
         })
 
-      node.append('title').text(function(d) {
+      node.append('title').text(d => {
         return d.data.Name + ': ' + d.data.Count
       })
 
       node
         .append('circle')
-        .attr('r', function(d) {
+        .attr('r', d => {
           return d.r
         })
-        .style('fill', function(d, i) {
+        .style('fill', (d, i) => {
           return color(i)
         })
 
@@ -70,12 +70,12 @@ export default {
         .append('text')
         .attr('dy', '.2em')
         .style('text-anchor', 'middle')
-        .text(function(d) {
+        .text(d => {
           return d.data.Name.substring(0, d.r / 3)
         })
         .attr('font-family', 'sans-serif')
-        .attr('font-size', function(d) {
-          return d.r / 5
+        .attr('font-size', d => {
+          return d.r / 4
         })
         .attr('fill', 'white')
 
@@ -83,12 +83,12 @@ export default {
         .append('text')
         .attr('dy', '1.3em')
         .style('text-anchor', 'middle')
-        .text(function(d) {
+        .text(d => {
           return d.data.Count
         })
         .attr('font-family', 'Gill Sans', 'Gill Sans MT')
-        .attr('font-size', function(d) {
-          return d.r / 5
+        .attr('font-size', d => {
+          return d.r / 4
         })
         .attr('fill', 'white')
 
@@ -98,4 +98,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.bubble-chart {
+  display: flex;
+  justify-content: center;
+}
+</style>

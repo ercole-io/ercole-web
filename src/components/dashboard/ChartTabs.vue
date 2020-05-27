@@ -2,7 +2,19 @@
   <BoxContent>
     <b-tabs type="is-toggle" size="is-small" expanded>
       <b-tab-item label="All Infrastructures">
-        <BubbleChart chartId="chartInfra" :dataset="dataset2" />
+        <div class="columns">
+          <div class="column is-3">
+            <p>How your infrastructures is made</p>
+            <p>
+              Here you can see all the different technologies in an aggregate
+              way
+            </p>
+          </div>
+          <div class="column is-6">
+            <BubbleChart chartId="chartInfra" :dataset="dataset2" />
+          </div>
+          <div class="column is-3">3</div>
+        </div>
       </b-tab-item>
 
       <b-tab-item label="Software Types">
