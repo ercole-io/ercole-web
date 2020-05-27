@@ -35,8 +35,13 @@
               tag="router-link"
               to="/hosts"
             ></b-menu-item>
-            <b-menu-item icon="settings">
-              <template slot="label" slot-scope="props">
+            <b-menu-item
+              icon="settings"
+              label="Database"
+              tag="router-link"
+              to="/databases"
+            >
+              <!-- <template slot="label" slot-scope="props">
                 Database
                 <b-icon
                   class="is-pulled-right"
@@ -47,15 +52,50 @@
               <b-menu-item
                 icon="cellphone-link"
                 label="Sub Item 1"
-              ></b-menu-item>
+              ></b-menu-item> -->
             </b-menu-item>
-            <b-menu-item icon="settings" label="Middleware"></b-menu-item>
-            <b-menu-item icon="settings" label="Licenses"></b-menu-item>
-            <b-menu-item icon="settings" label="Hypervisors"></b-menu-item>
-            <b-menu-item icon="settings" label="Engineered"></b-menu-item>
-            <b-menu-item icon="settings" label="Systems"></b-menu-item>
-            <b-menu-item icon="settings" label="Notifications"></b-menu-item>
-            <b-menu-item icon="settings" label="Settings"></b-menu-item>
+            <b-menu-item
+              icon="settings"
+              label="Middleware"
+              tag="router-link"
+              to="/middleware"
+            ></b-menu-item>
+            <b-menu-item
+              icon="settings"
+              label="Licenses"
+              tag="router-link"
+              to="/licenses"
+            ></b-menu-item>
+            <b-menu-item
+              icon="settings"
+              label="Hypervisors"
+              tag="router-link"
+              to="/hypervisors"
+            ></b-menu-item>
+            <b-menu-item
+              icon="settings"
+              label="Engineered"
+              tag="router-link"
+              to="/engineered"
+            ></b-menu-item>
+            <b-menu-item
+              icon="settings"
+              label="Systems"
+              tag="router-link"
+              to="/systems"
+            ></b-menu-item>
+            <b-menu-item
+              icon="settings"
+              label="Notifications"
+              tag="router-link"
+              to="/notifications"
+            ></b-menu-item>
+            <b-menu-item
+              icon="settings"
+              label="Settings"
+              tag="router-link"
+              to="/settings"
+            ></b-menu-item>
           </b-menu-list>
         </b-menu>
       </div>

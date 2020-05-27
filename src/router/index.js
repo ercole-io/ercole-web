@@ -7,6 +7,14 @@ const Login = () => import('@/views/auth/Login.vue')
 const Dashboard = () => import('@/views/Dashboard.vue')
 const Hosts = () => import('@/views/hosts/Hosts.vue')
 const HostsDetails = () => import('@/views/hosts/HostsDetails.vue')
+const Databases = () => import('@/views/databases/Databases.vue')
+const Middleware = () => import('@/views/middleware/Middleware.vue')
+const Licenses = () => import('@/views/licenses/Licenses.vue')
+const Hypervisors = () => import('@/views/hypervisors/Hypervisors.vue')
+const Engineered = () => import('@/views/engineered/Engineered.vue')
+const Systems = () => import('@/views/systems/Systems.vue')
+const Notifications = () => import('@/views/notifications/Notifications.vue')
+const Settings = () => import('@/views/settings/Settings.vue')
 const NotFound = () => import('@/views/Errors/NotFound.vue')
 
 Vue.use(VueRouter)
@@ -32,9 +40,10 @@ const routes = [
   },
   {
     path: '/hosts',
-    name: 'hosts-home',
+    name: 'hosts',
     component: Hosts,
     meta: {
+      label: 'Hosts',
       title: `${title}Hosts`,
       breadcrumb: [{ name: 'Hosts' }]
     },
@@ -46,8 +55,97 @@ const routes = [
     component: HostsDetails,
     props: true,
     meta: {
+      label: 'Host Details',
       title: `${title}Host Details`,
       breadcrumb: [{ name: 'Hosts', link: '/hosts' }, { name: 'Host Details' }]
+    },
+    beforeEnter: verifyAuth
+  },
+  {
+    path: '/databases',
+    name: 'databases',
+    component: Databases,
+    meta: {
+      label: 'Databases',
+      title: `${title}Databases`,
+      breadcrumb: [{ name: 'Databases' }]
+    },
+    beforeEnter: verifyAuth
+  },
+  {
+    path: '/middleware',
+    name: 'middleware',
+    component: Middleware,
+    meta: {
+      label: 'Middleware',
+      title: `${title}Middleware`,
+      breadcrumb: [{ name: 'Middleware' }]
+    },
+    beforeEnter: verifyAuth
+  },
+  {
+    path: '/licenses',
+    name: 'licenses',
+    component: Licenses,
+    meta: {
+      label: 'Licenses',
+      title: `${title}Licenses`,
+      breadcrumb: [{ name: 'Licenses' }]
+    },
+    beforeEnter: verifyAuth
+  },
+  {
+    path: '/hypervisors',
+    name: 'hypervisors',
+    component: Hypervisors,
+    meta: {
+      label: 'Hypervisors',
+      title: `${title}Hypervisors`,
+      breadcrumb: [{ name: 'Hypervisors' }]
+    },
+    beforeEnter: verifyAuth
+  },
+  {
+    path: '/engineered',
+    name: 'engineered',
+    component: Engineered,
+    meta: {
+      label: 'Engineered',
+      title: `${title}Engineered`,
+      breadcrumb: [{ name: 'Engineered' }]
+    },
+    beforeEnter: verifyAuth
+  },
+  {
+    path: '/systems',
+    name: 'systems',
+    component: Systems,
+    meta: {
+      label: 'Systems',
+      title: `${title}Systems`,
+      breadcrumb: [{ name: 'Systems' }]
+    },
+    beforeEnter: verifyAuth
+  },
+  {
+    path: '/notifications',
+    name: 'notifications',
+    component: Notifications,
+    meta: {
+      label: 'Notifications',
+      title: `${title}Notifications`,
+      breadcrumb: [{ name: 'Notifications' }]
+    },
+    beforeEnter: verifyAuth
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: Settings,
+    meta: {
+      label: 'Settings',
+      title: `${title}Settings`,
+      breadcrumb: [{ name: 'Settings' }]
     },
     beforeEnter: verifyAuth
   },

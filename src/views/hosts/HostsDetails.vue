@@ -1,6 +1,5 @@
 <template>
   <article>
-    <PageTitle pageTitle="Host Details" />
     <BoxContent :title="host.hostname">
       <div class="table-container">
         <table class="hosts-table">
@@ -89,7 +88,6 @@
 
 <script>
 const hosts = require('@/data/hosts.json')
-import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 
 export default {
@@ -99,7 +97,6 @@ export default {
     }
   },
   components: {
-    PageTitle,
     BoxContent
   },
   data() {
