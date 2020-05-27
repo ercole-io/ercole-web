@@ -217,6 +217,9 @@ export default {
       nextIcon: 'chevron-right'
     }
   },
+  created() {
+    this.$store.dispatch('getHosts')
+  },
   computed: {
     paginatedData() {
       return this.hosts.slice(
