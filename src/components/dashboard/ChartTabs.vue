@@ -3,17 +3,17 @@
     <b-tabs type="is-toggle" size="is-small" expanded>
       <b-tab-item label="All Infrastructures">
         <div class="columns">
-          <div class="column is-3">
+          <div class="column is-2">
             <p>How your infrastructures is made</p>
             <p>
               Here you can see all the different technologies in an aggregate
               way
             </p>
           </div>
-          <div class="column is-6">
+          <div class="column is-8">
             <BubbleChart chartId="chartInfra" :dataset="dataset2" />
           </div>
-          <div class="column is-3">3</div>
+          <div class="column is-2">3</div>
         </div>
       </b-tab-item>
 

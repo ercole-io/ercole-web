@@ -2,16 +2,16 @@
   <section>
     <div class="columns">
       <div class="column">
-        <div class="columns">
+        <div class="columns is-9">
           <div class="column is-4">
             <TotalTargets />
           </div>
-          <div class="column">
+          <div class="column is-8">
             <Technologies />
           </div>
         </div>
         <div class="columns">
-          <div class="column">
+          <div class="column is-12">
             <ChartTabs />
           </div>
         </div>
