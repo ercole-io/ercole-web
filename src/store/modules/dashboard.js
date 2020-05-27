@@ -15,7 +15,7 @@ export const mutations = {
 export const actions = {
   getDashboardData() {
     return axiosDefault.get('/frontend/dashboard').then(res => {
-      console.log(res)
+      console.log(res.data)
     })
   }
 }

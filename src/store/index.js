@@ -5,6 +5,7 @@ import * as loading from './modules/loading'
 import * as errors from './modules/errors'
 import * as auth from './modules/auth'
 import * as dashboard from './modules/dashboard.js'
+import * as hosts from './modules/hosts.js'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     loading,
     errors,
     auth,
-    dashboard
+    dashboard,
+    hosts
   }
 })

@@ -25,7 +25,7 @@ export const actions = {
   setLogoutTimer({ dispatch }, expirationTime) {
     setTimeout(() => {
       dispatch('logout')
-    }, expirationTime)
+    }, expirationTime * 1000)
   },
   login({ commit, dispatch }, auth) {
     return axiosAuth
