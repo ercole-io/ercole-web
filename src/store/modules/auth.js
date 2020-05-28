@@ -62,16 +62,16 @@ export const actions = {
         dispatch('offLoading')
       })
   },
-  tryAutoLogin({ commit }) {
+  tryAutoLogin({ commit, dispatch }) {
     const token = localStorage.getItem('token')
     if (!token) {
-      return
+      dispatch('logout')
     }
-    const expiration = localStorage.getItem('expiration')
-    const now = moment().format('X')
+    const expiration = moment(localStorage.getItem('expiration')).format()
+    const now = moment(new Date()).format()
 
     if (now >= expiration) {
-      return
+      dispatch('logout')
     }
     commit('AUTH_USER', token)
   },

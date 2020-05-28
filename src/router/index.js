@@ -196,7 +196,7 @@ function verifyAuth(to, from, next) {
   if (token) {
     next()
   } else {
-    next('/login')
+    store.dispatch('logout')
   }
 }
 
