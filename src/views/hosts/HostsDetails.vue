@@ -1,7 +1,6 @@
 <template>
   <article>
-    {{ hostname }}
-    <!-- <BoxContent :title="host.hostname">
+    <BoxContent :title="hostname">
       <div class="table-container">
         <table class="hosts-table">
           <thead>
@@ -50,7 +49,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{ host.hostname }}</td>
+              <!-- <td>{{ host.hostname }}</td>
               <td>{{ host.env }}</td>
               <td>{{ host.dbs }}</td>
               <td>{{ host.technologie }}</td>
@@ -67,7 +66,7 @@
               <td>{{ host.cores }}</td>
               <td class="border-right">{{ host.socket }}</td>
               <td>{{ host.version }}</td>
-              <td>{{ host.last }}</td>
+              <td>{{ host.last }}</td> -->
             </tr>
           </tbody>
         </table>
@@ -77,19 +76,20 @@
     <div class="columns">
       <BoxContent
         class="column is-4"
-        :title="`GPUGrowth of ${host.hostname}`"
+        :title="`GPUGrowth of ${hostname}`"
       ></BoxContent>
       <BoxContent
         class="column is-8"
-        :title="`Databases of ${host.hostname}`"
+        :title="`Databases of ${hostname}`"
       ></BoxContent>
-    </div> -->
+    </div>
   </article>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 // const hosts = require('@/data/hosts.json')
-// import BoxContent from '@/components/common/BoxContent.vue'
+import BoxContent from '@/components/common/BoxContent.vue'
 
 export default {
   props: {
@@ -98,18 +98,25 @@ export default {
     }
   },
   components: {
-    // BoxContent
+    BoxContent
   },
   data() {
     return {
       host: null
     }
   },
-  created() {
+  async beforeMount() {
+    await this.getHostByName()
     // this.host = hosts.filter(host => {
     //   return host.id == this.hostname
     // })
     // this.host = this.host[0]
+  },
+  methods: {
+    ...mapActions(['getHostByName'])
+  },
+  computed: {
+    ...mapGetters(['getHostName'])
   }
 }
 </script>
