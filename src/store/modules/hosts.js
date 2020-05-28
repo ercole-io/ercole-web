@@ -50,7 +50,6 @@ export const actions = {
       axiosDefault
         .get(`/hosts/${hostname}`)
         .then(res => {
-          console.log(res)
           commit('SET_HOST_ID', res.data)
           resolve(res)
         })
@@ -61,7 +60,7 @@ export const actions = {
           reject(err)
           dispatch('offLoading')
           if (err.response.status === 401) {
-            router.replace('/login')
+            dispatch('logout')
           }
         })
     })
