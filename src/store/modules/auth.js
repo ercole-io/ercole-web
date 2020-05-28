@@ -25,7 +25,7 @@ export const actions = {
   setLogoutTimer({ dispatch }, expirationTime) {
     setTimeout(() => {
       dispatch('logout')
-    }, expirationTime * 1000)
+    }, expirationTime)
   },
   login({ commit, dispatch }, auth) {
     return axiosAuth
@@ -52,7 +52,6 @@ export const actions = {
       })
       .then(() => {
         dispatch('setErrMsg', null)
-        dispatch('offLoading')
       })
       .catch(err => {
         const errorMessage = err.response.data.ErrorDescription
@@ -72,9 +71,10 @@ export const actions = {
     }
     commit('AUTH_USER', token)
   },
-  logout({ commit }) {
+  logout({ commit, dispatch }) {
     commit('CLEAR_AUTH')
     helpers.clearLocalStorageAuth()
     router.replace('/login')
+    dispatch('offLoading')
   }
 }

@@ -3,13 +3,13 @@ import store from '../store/index.js'
 
 const api = process.env.VUE_APP_API
 
-const instance = axios.create({
+const authInstance = axios.create({
   baseURL: `${api}/user`
 })
 
-instance.interceptors.request.use(config => {
+authInstance.interceptors.request.use(config => {
   store.dispatch('onLoading')
   return config
 })
 
-export default instance
+export default authInstance
