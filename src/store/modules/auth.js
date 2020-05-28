@@ -1,6 +1,7 @@
 import axiosAuth from '../../axios/axios-auth.js'
 import router from '../../router/index.js'
 import * as helpers from '../../helpers/helpers.js'
+import moment from 'moment'
 
 export const state = () => {
   return {
@@ -9,7 +10,8 @@ export const state = () => {
 }
 
 export const getters = {
-  isAuth: state => state.token !== null
+  isAuth: state => state.token !== null,
+  getToken: state => state.token
 }
 
 export const mutations = {
@@ -25,9 +27,9 @@ export const actions = {
   setLogoutTimer({ dispatch }, expirationTime) {
     setTimeout(() => {
       dispatch('logout')
-    }, expirationTime)
+    }, expirationTime * 1000)
   },
-  login({ commit, dispatch }, auth) {
+  login({ commit, dispatch, getters }, auth) {
     return axiosAuth
       .post('/login', {
         username: auth.username,
@@ -52,6 +54,7 @@ export const actions = {
       })
       .then(() => {
         dispatch('setErrMsg', null)
+        dispatch('getDashboardData', getters.getToken)
       })
       .catch(err => {
         const errorMessage = err.response.data.ErrorDescription
@@ -65,7 +68,8 @@ export const actions = {
       return
     }
     const expiration = localStorage.getItem('expiration')
-    const now = new Date()
+    const now = moment().format('X')
+
     if (now >= expiration) {
       return
     }

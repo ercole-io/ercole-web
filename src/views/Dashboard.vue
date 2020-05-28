@@ -39,9 +39,6 @@ export default {
     Technologies,
     ChartTabs,
     Notifications
-  },
-  created() {
-    this.$store.dispatch('getDashboardData')
   }
 }
 </script>

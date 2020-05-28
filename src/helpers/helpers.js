@@ -1,7 +1,10 @@
+import moment from 'moment'
+
 export const setLocalStorageAuth = payload => {
   localStorage.setItem('token', payload.token)
   localStorage.setItem('username', payload.username)
-  localStorage.setItem('expiration', payload.expiration)
+  const expirationTime = moment(payload.expiration * 1000)
+  localStorage.setItem('expiration', expirationTime)
 }
 
 export const clearLocalStorageAuth = () => {

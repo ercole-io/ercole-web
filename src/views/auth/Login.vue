@@ -81,8 +81,8 @@ import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      username: '',
-      password: ''
+      username: 'user',
+      password: 'password'
     }
   },
   validations: {

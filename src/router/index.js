@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store/index.js'
 
 const title = 'Ercole - '
 
@@ -177,6 +178,16 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title
+  if (to.name !== 'dashboard') {
+    store.dispatch('onLoading')
+  }
+  next()
+})
+
+router.beforeResolve((to, from, next) => {
+  if (to.name === 'dashboard' || to.name === 'login') {
+    store.dispatch('offLoading')
+  }
   next()
 })
 
