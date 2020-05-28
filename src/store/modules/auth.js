@@ -72,9 +72,9 @@ export const actions = {
     commit('AUTH_USER', token)
   },
   logout({ commit, dispatch }) {
+    dispatch('offLoading')
     commit('CLEAR_AUTH')
     helpers.clearLocalStorageAuth()
     router.replace('/login')
-    dispatch('offLoading')
   }
 }

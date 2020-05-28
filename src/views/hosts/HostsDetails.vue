@@ -1,6 +1,7 @@
 <template>
   <article>
-    <BoxContent :title="host.hostname">
+    {{ hostname }}
+    <!-- <BoxContent :title="host.hostname">
       <div class="table-container">
         <table class="hosts-table">
           <thead>
@@ -82,22 +83,22 @@
         class="column is-8"
         :title="`Databases of ${host.hostname}`"
       ></BoxContent>
-    </div>
+    </div> -->
   </article>
 </template>
 
 <script>
-const hosts = require('@/data/hosts.json')
-import BoxContent from '@/components/common/BoxContent.vue'
+// const hosts = require('@/data/hosts.json')
+// import BoxContent from '@/components/common/BoxContent.vue'
 
 export default {
   props: {
-    hostID: {
+    hostname: {
       required: true
     }
   },
   components: {
-    BoxContent
+    // BoxContent
   },
   data() {
     return {
@@ -105,10 +106,10 @@ export default {
     }
   },
   created() {
-    this.host = hosts.filter(host => {
-      return host.id == this.hostID
-    })
-    this.host = this.host[0]
+    // this.host = hosts.filter(host => {
+    //   return host.id == this.hostname
+    // })
+    // this.host = this.host[0]
   }
 }
 </script>

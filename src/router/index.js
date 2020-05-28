@@ -50,7 +50,7 @@ const routes = [
     beforeEnter: verifyAuth
   },
   {
-    path: '/hosts/details/:hostID',
+    path: '/hosts/details/:hostname',
     name: 'hosts-details',
     component: HostsDetails,
     props: true,
