@@ -231,10 +231,10 @@ export default {
   watch: {
     clickedRow(row) {
       if (row.length > 0) {
-        const hostID = row[0].id
+        const hostname = row[0].Hostname
         this.$router.push({
           name: 'hosts-details',
-          params: { hostID: hostID }
+          params: { hostname: hostname }
         })
       }
     }
