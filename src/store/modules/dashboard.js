@@ -1,4 +1,5 @@
 import axiosDefault from '../../axios/axios-default.js'
+import router from '../../router/index.js'
 
 export const state = () => ({
   totalTergets: null,
@@ -13,9 +14,19 @@ export const mutations = {
 }
 
 export const actions = {
-  getDashboardData() {
-    return axiosDefault.get('/frontend/dashboard').then(res => {
-      console.log(res.data)
-    })
+  getDashboardData({ dispatch }) {
+    return axiosDefault
+      .get('/frontend/dashboard')
+      .then(res => {
+        console.log(res.data)
+      })
+      .then(() => {
+        dispatch('offLoading')
+      })
+      .catch(err => {
+        if (err.response.status === 401) {
+          router.replace('/login')
+        }
+      })
   }
 }
