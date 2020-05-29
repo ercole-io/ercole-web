@@ -178,16 +178,6 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title
-  if (to.name !== 'dashboard') {
-    store.dispatch('onLoading')
-  }
-  next()
-})
-
-router.beforeResolve((to, from, next) => {
-  if (to.name === 'dashboard' || to.name === 'login') {
-    store.dispatch('offLoading')
-  }
   next()
 })
 

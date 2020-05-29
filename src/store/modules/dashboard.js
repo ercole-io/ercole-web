@@ -1,4 +1,5 @@
 import axiosDefault from '../../axios/axios-default.js'
+import * as errorHandler from '../../helpers/errorHandler.js'
 
 export const state = () => ({
   totalTergets: null,
@@ -13,25 +14,16 @@ export const mutations = {
 }
 
 export const actions = {
-  getDashboardData({ dispatch }, token) {
-    dispatch('onLoading')
+  getDashboardData() {
     return new Promise((resolve, reject) => {
       axiosDefault
-        .get('/frontend/dashboard', {
-          headers: { Authorization: `Bearer ${token}` }
-        })
+        .get('/frontend/dashboard')
         .then(res => {
           resolve(res)
         })
-        .then(() => {
-          dispatch('offLoading')
-        })
         .catch(err => {
           reject(err)
-          dispatch('offLoading')
-          if (err.response.status === 401) {
-            dispatch('logout')
-          }
+          errorHandler(err)
         })
     })
   }

@@ -1,17 +1,17 @@
 import axiosDefault from '../../axios/axios-default'
-import router from '../../router/index.js'
+import * as errorHandler from '../../helpers/errorHandler.js'
 
 export const state = () => ({
   hosts: null,
-  hostByName: null
+  currentHost: null
 })
 
 export const getters = {
   getAllHosts: state => {
     return state.hosts
   },
-  getHostName: state => {
-    return state.hostByName
+  getCurrentHost: state => {
+    return state.currentHost
   }
 }
 
@@ -19,13 +19,13 @@ export const mutations = {
   SET_HOSTS: (state, payload) => {
     state.hosts = payload
   },
-  SET_HOST_ID: (state, payload) => {
-    state.hostByName = payload
+  SET_CURRENT_HOST: (state, payload) => {
+    state.currentHost = payload
   }
 }
 
 export const actions = {
-  getHosts({ commit, dispatch }) {
+  getHosts({ commit }) {
     return new Promise((resolve, reject) => {
       axiosDefault
         .get('/hosts')
@@ -33,35 +33,23 @@ export const actions = {
           resolve(res)
           commit('SET_HOSTS', res.data)
         })
-        .then(() => {
-          dispatch('offLoading')
-        })
         .catch(err => {
           reject(err)
-          dispatch('offLoading')
-          if (err.response.status === 401) {
-            router.replace('/login')
-          }
+          errorHandler(err)
         })
     })
   },
-  getHostByName({ commit, dispatch }, hostname) {
+  getHostByName({ commit }, hostname) {
     return new Promise((resolve, reject) => {
       axiosDefault
         .get(`/hosts/${hostname}`)
         .then(res => {
-          commit('SET_HOST_ID', res.data)
+          commit('SET_CURRENT_HOST', res.data)
           resolve(res)
-        })
-        .then(() => {
-          dispatch('offLoading')
         })
         .catch(err => {
           reject(err)
-          dispatch('offLoading')
-          if (err.response.status === 401) {
-            dispatch('logout')
-          }
+          errorHandler(err.response.status)
         })
     })
   }

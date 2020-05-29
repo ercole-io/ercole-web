@@ -29,7 +29,7 @@ export const actions = {
       dispatch('logout')
     }, expirationTime * 1000)
   },
-  login({ commit, dispatch, getters }, auth) {
+  login({ commit, dispatch }, auth) {
     return axiosAuth
       .post('/login', {
         username: auth.username,
@@ -48,13 +48,13 @@ export const actions = {
         }
 
         commit('AUTH_USER', payload.token)
-        dispatch('setLogoutTimer', payload.expiration)
         helpers.setLocalStorageAuth(payload)
+        dispatch('setLogoutTimer', payload.expiration)
+        dispatch('setErrMsg', null)
         router.replace('/dashboard')
       })
       .then(() => {
-        dispatch('setErrMsg', null)
-        dispatch('getDashboardData', getters.getToken)
+        dispatch('getDashboardData')
       })
       .catch(err => {
         const errorMessage = err.response.data.ErrorDescription
@@ -67,7 +67,9 @@ export const actions = {
     if (!token) {
       dispatch('logout')
     }
-    const expiration = moment(localStorage.getItem('expiration')).format()
+
+    const tokenExp = localStorage.getItem('expiration')
+    const expiration = moment(tokenExp).format()
     const now = moment(new Date()).format()
 
     if (now >= expiration) {
