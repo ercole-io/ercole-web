@@ -1,5 +1,5 @@
 <template>
-  <BoxContent :title="hostTable.Hostname">
+  <BoxContent v-if="hostTable" :title="hostTable.Hostname">
     <div class="table-container">
       <table class="hosts-table">
         <thead>

@@ -2,29 +2,29 @@ import axiosDefault from '../../axios/axios-default.js'
 import * as errorHandler from '../../helpers/errorHandler.js'
 
 export const state = () => ({
-  totalTergets: null,
-  technologies: null,
-  notifications: null
+  dashData: null
 })
 
 export const getters = {}
 
 export const mutations = {
-  // SET_DASHBOARD_DATA: (state, payload) => {}
+  SET_DASHBOARD_DATA: (state, payload) => {
+    state.dashData = payload
+  }
 }
 
 export const actions = {
-  getDashboardData() {
-    return new Promise((resolve, reject) => {
-      axiosDefault
-        .get('/frontend/dashboard')
-        .then(res => {
-          resolve(res)
-        })
-        .catch(err => {
-          reject(err)
-          errorHandler(err)
-        })
-    })
+  getDashboardData({ commit }, token) {
+    return axiosDefault
+      .get('/frontend/dashboard', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(res => {
+        console.log(res.data)
+        commit('SET_DASHBOARD_DATA', res.data)
+      })
+      .catch(err => {
+        errorHandler(err)
+      })
   }
 }

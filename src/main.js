@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import VueAsyncManager from 'vue-async-manager'
 
 import Buefy from 'buefy'
 import './assets/scss/app.scss'
@@ -22,6 +23,7 @@ import CapitalizeFilter from './filters/capitalize.js'
 Vue.component('default-layout', Default)
 Vue.component('simple-layout', Simple)
 
+Vue.use(VueAsyncManager)
 Vue.use(Buefy)
 Vue.use(Chartkick.use(Chart))
 Vue.use(SmartTable)

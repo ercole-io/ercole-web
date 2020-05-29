@@ -1,12 +1,12 @@
 <template>
-  <article>
+  <section>
     <HostDetailsTable :hostTable="host" />
 
     <div class="columns">
       <HostDetailsGraph :hostname="host.Hostname" />
       <HostDetailsData :hostname="host.Hostname" />
     </div>
-  </article>
+  </section>
 </template>
 
 <script>

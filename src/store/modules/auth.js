@@ -54,7 +54,8 @@ export const actions = {
         router.replace('/dashboard')
       })
       .then(() => {
-        dispatch('getDashboardData')
+        const token = localStorage.getItem('token')
+        dispatch('getDashboardData', token)
       })
       .catch(err => {
         const errorMessage = err.response.data.ErrorDescription

@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <b-loading :active.sync="isLoading"></b-loading>
     <component :is="layout">
-      <router-view :key="$route.fullPath" />
+      <Suspense>
+        <b-loading :active.sync="isLoading"></b-loading>
+        <router-view :key="$route.fullPath" />
+      </Suspense>
     </component>
   </div>
 </template>
