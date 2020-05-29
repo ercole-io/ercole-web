@@ -1,14 +1,14 @@
 <template>
-  <HostsAll :hosts="hosts" />
+  <AllHostsTable :hosts="hosts" />
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import HostsAll from '@/components/hosts/HostsAll.vue'
+import AllHostsTable from '@/components/hosts/AllHostsTable.vue'
 
 export default {
   components: {
-    HostsAll
+    AllHostsTable
   },
   data() {
     return {

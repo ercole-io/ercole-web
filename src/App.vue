@@ -8,11 +8,15 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 const default_layout = 'default'
 
 export default {
   created() {
-    this.$store.dispatch('tryAutoLogin')
+    this.tryAutoLogin()
+  },
+  methods: {
+    ...mapActions(['tryAutoLogin'])
   },
   computed: {
     layout() {
