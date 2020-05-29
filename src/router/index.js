@@ -1,22 +1,25 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store/index.js'
+import { lazy } from 'vue-async-manager'
 
 const title = 'Ercole - '
 
 const Login = () => import('@/views/auth/Login.vue')
-const Dashboard = () => import('@/views/Dashboard.vue')
-const Hosts = () => import('@/views/hosts/Hosts.vue')
-const HostsDetails = () => import('@/views/hosts/HostsDetails.vue')
-const Databases = () => import('@/views/databases/Databases.vue')
-const Middleware = () => import('@/views/middleware/Middleware.vue')
-const Licenses = () => import('@/views/licenses/Licenses.vue')
-const Hypervisors = () => import('@/views/hypervisors/Hypervisors.vue')
-const Engineered = () => import('@/views/engineered/Engineered.vue')
-const Systems = () => import('@/views/systems/Systems.vue')
-const Notifications = () => import('@/views/notifications/Notifications.vue')
-const Settings = () => import('@/views/settings/Settings.vue')
-const NotFound = () => import('@/views/Errors/NotFound.vue')
+const Dashboard = lazy(() => import('@/views/Dashboard.vue'))
+const Hosts = lazy(() => import('@/views/hosts/Hosts.vue'))
+const HostsDetails = lazy(() => import('@/views/hosts/HostsDetails.vue'))
+const Databases = lazy(() => import('@/views/databases/Databases.vue'))
+const Middleware = lazy(() => import('@/views/middleware/Middleware.vue'))
+const Licenses = lazy(() => import('@/views/licenses/Licenses.vue'))
+const Hypervisors = lazy(() => import('@/views/hypervisors/Hypervisors.vue'))
+const Engineered = lazy(() => import('@/views/engineered/Engineered.vue'))
+const Systems = lazy(() => import('@/views/systems/Systems.vue'))
+const Notifications = lazy(() =>
+  import('@/views/notifications/Notifications.vue')
+)
+const Settings = lazy(() => import('@/views/settings/Settings.vue'))
+const NotFound = lazy(() => import('@/views/Errors/NotFound.vue'))
 
 Vue.use(VueRouter)
 
