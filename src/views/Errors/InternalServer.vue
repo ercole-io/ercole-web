@@ -1,8 +1,8 @@
 <template>
   <ErrorCode
-    code="404"
-    codeText="Page Not Found"
-    codeDesc="The page you are looking for does not seem to exist."
+    code="500"
+    codeText="Internal Server Error"
+    codeDesc="Somenthing went wrong. Please try again."
   >
     <b-button type="is-primary" tag="router-link" to="/dashboard" slot="actions"
       >back to Home</b-button

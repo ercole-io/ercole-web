@@ -1,4 +1,5 @@
 import store from '../store/index.js'
+import router from '../router/index.js'
 
 const errorResponseHandler = error => {
   if (error.config.errorHandle === false) {
@@ -8,14 +9,10 @@ const errorResponseHandler = error => {
   if (error.response) {
     store.dispatch('offLoading')
     if (error.response.status === 401) {
-      // show alert message and then logout
-      store.dispatch('logout')
-    }
-    if (error.response.status === 422) {
-      // resolver this error
+      router.push('/401')
     }
     if (error.response.status === 500) {
-      // resolver this error
+      router.push('/500')
     }
   }
 }

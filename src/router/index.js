@@ -19,6 +19,8 @@ const Notifications = lazy(() =>
   import('@/views/notifications/Notifications.vue')
 )
 const Settings = lazy(() => import('@/views/settings/Settings.vue'))
+const InternalServer = lazy(() => import('@/views/Errors/InternalServer.vue'))
+const Unauthorized = lazy(() => import('@/views/Errors/Unauthorized.vue'))
 const NotFound = lazy(() => import('@/views/Errors/NotFound.vue'))
 
 Vue.use(VueRouter)
@@ -154,11 +156,30 @@ const routes = [
     beforeEnter: verifyAuth
   },
   {
+    path: '/500',
+    name: '500',
+    component: InternalServer,
+    meta: {
+      title: `${title}500 Internal Server Error`,
+      layout: 'error'
+    }
+  },
+  {
+    path: '/401',
+    name: '401',
+    component: Unauthorized,
+    meta: {
+      title: `${title}401 Unauthorized`,
+      layout: 'error'
+    }
+  },
+  {
     path: '/404',
     name: '404',
     component: NotFound,
     meta: {
-      title: `${title}404 Page Not Found`
+      title: `${title}404 Page Not Found`,
+      layout: 'error'
     }
   },
   {
