@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
 import * as loading from './modules/loading'
 import * as errors from './modules/errors'
@@ -16,5 +17,11 @@ export default new Vuex.Store({
     auth,
     dashboard,
     hosts
-  }
+  },
+  plugins: [
+    createPersistedState({
+      key: 'persisted-data',
+      paths: ['dashboard', 'auth']
+    })
+  ]
 })

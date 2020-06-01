@@ -1,15 +1,17 @@
 import axios from 'axios'
+import errorResponseHandler from '../helpers/errorHandler.js'
 import store from '../store/index.js'
 
 const api = process.env.VUE_APP_API
-const token = localStorage.getItem('token')
 
 const defaultInstance = axios.create({
-  baseURL: api,
-  headers: { Authorization: `Bearer ${token}` }
+  baseURL: api
 })
 
 defaultInstance.interceptors.request.use(config => {
+  const token = localStorage.getItem('token')
+  config.headers.Authorization = `Bearer ${token}`
+
   if (store.dispatch('offLoading')) {
     store.dispatch('onLoading')
   }
@@ -22,5 +24,10 @@ defaultInstance.interceptors.response.use(config => {
   }
   return config
 })
+
+defaultInstance.interceptors.response.use(
+  response => response,
+  errorResponseHandler
+)
 
 export default defaultInstance

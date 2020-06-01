@@ -5,21 +5,20 @@ import moment from 'moment'
 
 export const state = () => {
   return {
-    token: null
+    isLoggedIn: !!localStorage.getItem('token')
   }
 }
 
 export const getters = {
-  isAuth: state => state.token !== null,
-  getToken: state => state.token
+  isLoggedIn: state => state.isLoggedIn
 }
 
 export const mutations = {
-  AUTH_USER: (state, token) => {
-    state.token = token
+  LOGIN_SUCCESS: state => {
+    state.isLoggedIn = true
   },
-  CLEAR_AUTH: state => {
-    state.token = null
+  LOGOUT: state => {
+    state.isLoggedIn = false
   }
 }
 
@@ -47,15 +46,14 @@ export const actions = {
           expiration: expiration
         }
 
-        commit('AUTH_USER', payload.token)
+        commit('LOGIN_SUCCESS')
         helpers.setLocalStorageAuth(payload)
         dispatch('setLogoutTimer', payload.expiration)
         dispatch('setErrMsg', null)
         router.replace('/dashboard')
       })
       .then(() => {
-        const token = localStorage.getItem('token')
-        dispatch('getDashboardData', token)
+        dispatch('getDashboardData')
       })
       .catch(err => {
         const errorMessage = err.response.data.ErrorDescription
@@ -76,11 +74,11 @@ export const actions = {
     if (now >= expiration) {
       dispatch('logout')
     }
-    commit('AUTH_USER', token)
+    commit('LOGIN_SUCCESS')
   },
   logout({ commit, dispatch }) {
     dispatch('offLoading')
-    commit('CLEAR_AUTH')
+    commit('LOGOUT')
     helpers.clearLocalStorageAuth()
     router.replace('/login')
   }

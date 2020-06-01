@@ -1,26 +1,9 @@
 <template>
-  <BoxContent
-    v-if="hostname"
-    class="column is-8"
-    :title="`Databases of ${hostname}`"
-  ></BoxContent>
+  <div></div>
 </template>
 
 <script>
-import BoxContent from '@/components/common/BoxContent.vue'
-
-export default {
-  props: {
-    hostname: {
-      type: String,
-      required: true,
-      default: ''
-    }
-  },
-  components: {
-    BoxContent
-  }
-}
+export default {}
 </script>
 
 <style lang="scss" scoped></style>

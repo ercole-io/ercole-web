@@ -1,5 +1,4 @@
 import axiosDefault from '../../axios/axios-default'
-import * as errorHandler from '../../helpers/errorHandler.js'
 
 export const state = () => ({
   hosts: null,
@@ -26,31 +25,13 @@ export const mutations = {
 
 export const actions = {
   getHosts({ commit }) {
-    return new Promise((resolve, reject) => {
-      axiosDefault
-        .get('/hosts')
-        .then(res => {
-          resolve(res)
-          commit('SET_HOSTS', res.data)
-        })
-        .catch(err => {
-          reject(err)
-          errorHandler(err)
-        })
+    return axiosDefault.get('/hosts').then(res => {
+      commit('SET_HOSTS', res.data)
     })
   },
   getHostByName({ commit }, hostname) {
-    return new Promise((resolve, reject) => {
-      axiosDefault
-        .get(`/hosts/${hostname}`)
-        .then(res => {
-          commit('SET_CURRENT_HOST', res.data)
-          resolve(res)
-        })
-        .catch(err => {
-          reject(err)
-          errorHandler(err.response.status)
-        })
+    return axiosDefault.get(`/hosts/${hostname}`).then(res => {
+      commit('SET_CURRENT_HOST', res.data)
     })
   }
 }

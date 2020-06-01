@@ -1,5 +1,7 @@
 <template>
-  <AllHostsTable :hosts="hosts" />
+  <section>
+    <AllHostsTable :hosts="hosts" />
+  </section>
 </template>
 
 <script>
@@ -15,7 +17,7 @@ export default {
       hosts: []
     }
   },
-  async beforeMount() {
+  async created() {
     await this.getHosts()
     this.hosts = this.getAllHosts
   },

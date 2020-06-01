@@ -1,5 +1,4 @@
 import axiosDefault from '../../axios/axios-default.js'
-import * as errorHandler from '../../helpers/errorHandler.js'
 
 export const state = () => ({
   dashData: null
@@ -14,17 +13,9 @@ export const mutations = {
 }
 
 export const actions = {
-  getDashboardData({ commit }, token) {
-    return axiosDefault
-      .get('/frontend/dashboard', {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      .then(res => {
-        console.log(res.data)
-        commit('SET_DASHBOARD_DATA', res.data)
-      })
-      .catch(err => {
-        errorHandler(err)
-      })
+  getDashboardData({ commit }) {
+    return axiosDefault.get('/frontend/dashboard').then(res => {
+      commit('SET_DASHBOARD_DATA', res.data)
+    })
   }
 }
