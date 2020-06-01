@@ -1,12 +1,23 @@
 import store from '../store/index.js'
-import router from '../router/index.js'
 
-export const errorHandler = err => {
-  store.dispatch('offLoading')
-  if (err === 401) {
-    store.dispatch('logout')
+const errorResponseHandler = error => {
+  if (error.config.errorHandle === false) {
+    return Promise.reject(error)
   }
-  if (err === 404) {
-    router.replace('/404')
+
+  if (error.response) {
+    store.dispatch('offLoading')
+    if (error.response.status === 401) {
+      // show alert message and then logout
+      store.dispatch('logout')
+    }
+    if (error.response.status === 422) {
+      // resolver this error
+    }
+    if (error.response.status === 500) {
+      // resolver this error
+    }
   }
 }
+
+export default errorResponseHandler

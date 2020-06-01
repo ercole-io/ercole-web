@@ -157,7 +157,9 @@ const routes = [
     path: '/404',
     name: '404',
     component: NotFound,
-    props: true
+    meta: {
+      title: `${title}404 Page Not Found`
+    }
   },
   {
     path: '*',

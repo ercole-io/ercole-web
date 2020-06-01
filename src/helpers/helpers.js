@@ -8,7 +8,9 @@ export const setLocalStorageAuth = payload => {
 }
 
 export const clearLocalStorageAuth = () => {
-  localStorage.clear()
+  localStorage.removeItem('token')
+  localStorage.removeItem('username')
+  localStorage.removeItem('expiration')
 }
 
 export const capitalize = value => {
