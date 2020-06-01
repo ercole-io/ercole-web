@@ -7,8 +7,9 @@ import VueAsyncManager from 'vue-async-manager'
 import Buefy from 'buefy'
 import './assets/scss/app.scss'
 
-import Default from './layouts/Default.vue'
-import Simple from './layouts/Simple.vue'
+import DefaultPage from './layouts/Default.vue'
+import SimplePage from './layouts/Simple.vue'
+import ErrorPage from './layouts/Error.vue'
 
 import i18n from './i18n'
 import Chartkick from 'vue-chartkick'
@@ -20,8 +21,9 @@ import lodash from 'lodash'
 
 import CapitalizeFilter from './filters/capitalize.js'
 
-Vue.component('default-layout', Default)
-Vue.component('simple-layout', Simple)
+Vue.component('default-layout', DefaultPage)
+Vue.component('simple-layout', SimplePage)
+Vue.component('error-layout', ErrorPage)
 
 Vue.use(VueAsyncManager)
 Vue.use(Buefy)
