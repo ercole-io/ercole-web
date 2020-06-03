@@ -6,8 +6,11 @@
       type="is-light"
       pack="fas"
       :icon-right="filterIcon"
+      class="bt-show-hide-filters"
       expanded
-    />
+    >
+      {{ isFilters ? 'Hide Filters' : 'Show Filters' }}
+    </b-button>
 
     <b-collapse animation="slide" :open.sync="isFilters">
       <div class="filters-form">
@@ -135,7 +138,7 @@ export default {
       environment: null,
       date: null,
       isFilters: true,
-      filterIcon: 'chevron-down'
+      filterIcon: 'chevron-up'
     }
   },
   methods: {
@@ -152,9 +155,9 @@ export default {
     expandFilters() {
       this.isFilters = !this.isFilters
       if (this.isFilters) {
-        this.filterIcon = 'chevron-down'
-      } else {
         this.filterIcon = 'chevron-up'
+      } else {
+        this.filterIcon = 'chevron-down'
       }
     },
     resetAllFilters() {
@@ -179,6 +182,11 @@ export default {
   .filters-field {
     width: 100%;
   }
+}
+
+.bt-show-hide-filters {
+  font-size: 11px;
+  font-weight: 500;
 }
 
 @media screen and (max-width: 960px) {
