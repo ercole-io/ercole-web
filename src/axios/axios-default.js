@@ -18,16 +18,11 @@ defaultInstance.interceptors.request.use(config => {
   return config
 })
 
-defaultInstance.interceptors.response.use(config => {
+defaultInstance.interceptors.response.use(response => {
   if (store.dispatch('onLoading')) {
     store.dispatch('offLoading')
   }
-  return config
-})
-
-defaultInstance.interceptors.response.use(
-  response => response,
-  errorResponseHandler
-)
+  return response
+}, errorResponseHandler)
 
 export default defaultInstance
