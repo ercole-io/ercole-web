@@ -1,12 +1,12 @@
 <template>
-  <pie-chart
+  <column-chart
     :id="chartId"
-    :data="pieChartData"
+    :data="columnChartData"
+    :dataset="{ borderWidth: 0 }"
     :download="{ background: '#fff' }"
-    width="250px"
-    height="250px"
+    :stacked="stacked"
     legend="bottom"
-  ></pie-chart>
+  />
 </template>
 
 <script>
@@ -16,9 +16,13 @@ export default {
       type: String,
       required: true
     },
-    pieChartData: {
+    columnChartData: {
       type: Array || Object,
       required: true
+    },
+    stacked: {
+      type: Boolean,
+      default: false
     }
   }
 }

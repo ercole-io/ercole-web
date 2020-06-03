@@ -18,7 +18,7 @@
       </b-tab-item>
 
       <b-tab-item label="Software Types">
-        <PieChart />
+        <PieChart chartId="pieChart" :pieChartData="pieChartData" />
       </b-tab-item>
 
       <b-tab-item label="Changes">
@@ -45,6 +45,12 @@ export default {
   },
   data() {
     return {
+      pieChartData: [
+        ['Item 1', 50],
+        ['Item 2', 30],
+        ['Item 3', 10],
+        ['Item 4', 20]
+      ],
       dataset1: {
         children: [
           { Name: 'Apple Pie', Count: 1487 },
