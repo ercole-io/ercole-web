@@ -38,9 +38,10 @@ export default {
 }
 
 .sub-title {
-  font-size: 1em;
+  font-size: 0.9em;
   margin-bottom: 10px;
   padding-left: 5px;
+  font-weight: 500;
 }
 
 .border-bottom {
