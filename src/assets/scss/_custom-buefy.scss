@@ -9,9 +9,11 @@
 }
 
 // custom ul tabs
-.tabs.is-toggle ul {
-  margin-left: 0;
-  margin-top: 0;
+.tabs {
+  ul {
+    margin-left: 0;
+    margin-top: 0;
+  }
 }
 
 // pagination

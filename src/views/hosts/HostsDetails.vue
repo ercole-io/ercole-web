@@ -16,7 +16,7 @@
         :title="`Databases of ${currentHostName}`"
         class="column is-8"
       >
-        <HostDetailsData />
+        <HostDetailsData :hostData="hostDatabase" />
       </BoxContent>
     </div>
   </section>
@@ -45,13 +45,15 @@ export default {
   data() {
     return {
       currentHostName: '',
-      hostTable: {}
+      hostTable: {},
+      hostDatabase: []
     }
   },
   async created() {
     await this.getHostByName(this.hostname)
     this.currentHostName = this.getCurrentHost.Hostname
     this.hostTableInfo(this.getCurrentHost)
+    this.hostDatabaseInfo(this.getCurrentHost)
   },
   methods: {
     ...mapActions(['getHostByName']),
@@ -77,6 +79,10 @@ export default {
         createdAt: host.CreatedAt
       }
       return this.hostTable
+    },
+    hostDatabaseInfo(host) {
+      this.hostDatabase = host.Extra.Databases
+      return this.hostDatabase
     }
   },
   computed: {
