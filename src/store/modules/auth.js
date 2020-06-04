@@ -61,10 +61,10 @@ export const actions = {
         dispatch('offLoading')
       })
   },
-  tryAutoLogin({ commit, dispatch }) {
+  tryAutoLogin({ commit }) {
     const token = localStorage.getItem('token')
     if (!token) {
-      dispatch('logout')
+      return
     }
 
     const tokenExp = localStorage.getItem('expiration')
@@ -72,14 +72,14 @@ export const actions = {
     const now = moment(new Date()).format()
 
     if (now >= expiration) {
-      dispatch('logout')
+      return
     }
     commit('LOGIN_SUCCESS')
   },
   logout({ commit, dispatch }) {
-    dispatch('offLoading')
     commit('LOGOUT')
+    dispatch('offLoading')
     helpers.clearLocalStorageAuth()
-    router.replace('/login')
+    router.push('/login')
   }
 }
