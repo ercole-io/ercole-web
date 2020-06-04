@@ -23,11 +23,6 @@ export const mutations = {
 }
 
 export const actions = {
-  setLogoutTimer({ dispatch }, expirationTime) {
-    setTimeout(() => {
-      dispatch('logout')
-    }, expirationTime * 1000)
-  },
   login({ commit, dispatch }, auth) {
     return axiosAuth
       .post('/login', {
@@ -48,7 +43,6 @@ export const actions = {
 
         commit('LOGIN_SUCCESS')
         helpers.setLocalStorageAuth(payload)
-        dispatch('setLogoutTimer', payload.expiration)
         dispatch('setErrMsg', null)
         router.replace('/dashboard')
       })
@@ -77,8 +71,8 @@ export const actions = {
     commit('LOGIN_SUCCESS')
   },
   logout({ commit, dispatch }) {
-    commit('LOGOUT')
     dispatch('offLoading')
+    commit('LOGOUT')
     helpers.clearLocalStorageAuth()
     router.push('/login')
   }
