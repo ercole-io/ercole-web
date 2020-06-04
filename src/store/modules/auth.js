@@ -58,7 +58,7 @@ export const actions = {
   tryAutoLogin({ commit }) {
     const token = localStorage.getItem('token')
     if (!token) {
-      return
+      commit('LOGOUT')
     }
 
     const tokenExp = localStorage.getItem('expiration')
@@ -66,8 +66,9 @@ export const actions = {
     const now = moment(new Date()).format()
 
     if (now >= expiration) {
-      return
+      commit('LOGOUT')
     }
+
     commit('LOGIN_SUCCESS')
   },
   logout({ commit, dispatch }) {
