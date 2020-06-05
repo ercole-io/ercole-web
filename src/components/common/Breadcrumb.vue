@@ -8,35 +8,46 @@
         @click="routeTo(i)"
         :class="{ 'is-active': !b.link }"
       >
-        <a :href="b.link">{{ b.name }}</a>
+        <a :href="b.link">
+          {{ b.name }}
+          <span v-if="dynamicTitle && !b.link" class="dynamicTitle">
+            - {{ dynamicTitle }}
+          </span>
+        </a>
       </li>
     </ul>
   </nav>
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
+
 export default {
   data() {
     return {
-      breadcrumbList: []
+      dynamicTitle: ''
     }
   },
-  mounted() {
-    this.updateBreadcrumb()
+  created() {
+    bus.$on('dynamicTitle', value => {
+      this.dynamicTitle = value
+    })
   },
   methods: {
     routeTo(route) {
       if (this.breadcrumbList[route].link) {
         this.$router.push(this.breadcrumbList[route].link)
       }
-    },
-    updateBreadcrumb() {
-      this.breadcrumbList = this.$route.meta.breadcrumb
+    }
+  },
+  computed: {
+    breadcrumbList() {
+      return this.$route.meta.breadcrumb
     }
   },
   watch: {
     $route() {
-      this.updateBreadcrumb()
+      this.dynamicTitle = ''
     }
   }
 }
@@ -52,6 +63,10 @@ export default {
 
   li + li {
     margin-top: 0;
+  }
+
+  .dynamicTitle {
+    margin-left: 4px;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <BoxContent :title="currentHostName">
+    <BoxContent>
       <HostDetailsTable :hostTable="hostTable" />
     </BoxContent>
 
@@ -16,18 +16,19 @@
         :title="`Databases of ${currentHostName}`"
         class="column is-8"
       >
-        <HostDetailsData :hostData="hostDatabase" />
+        <HostDetailsDbs :hostDbs="hostDbs" />
       </BoxContent>
     </div>
   </section>
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import HostDetailsTable from '@/components/hosts/HostDetailsTable.vue'
 import HostDetailsGraph from '@/components/hosts/HostDetailsGraph.vue'
-import HostDetailsData from '@/components/hosts/HostDetailsData.vue'
+import HostDetailsDbs from '@/components/hosts/HostDetailsDbs.vue'
 
 export default {
   props: {
@@ -40,20 +41,21 @@ export default {
     BoxContent,
     HostDetailsTable,
     HostDetailsGraph,
-    HostDetailsData
+    HostDetailsDbs
   },
   data() {
     return {
       currentHostName: '',
       hostTable: {},
-      hostDatabase: []
+      hostDbs: []
     }
   },
   async created() {
     await this.getHostByName(this.hostname)
     this.currentHostName = this.getCurrentHost.Hostname
     this.hostTableInfo(this.getCurrentHost)
-    this.hostDatabaseInfo(this.getCurrentHost)
+    this.hostDbsInfo(this.getCurrentHost)
+    bus.$emit('dynamicTitle', this.currentHostName)
   },
   methods: {
     ...mapActions(['getHostByName']),
@@ -61,7 +63,7 @@ export default {
       this.hostTable = {
         hostname: host.Hostname,
         environment: host.Environment,
-        databases: host.Databases,
+        filesys: host.Extra.Filesystems,
         hostType: host.HostType,
         platform: host.platform,
         cluster: host.Cluster,
@@ -80,9 +82,9 @@ export default {
       }
       return this.hostTable
     },
-    hostDatabaseInfo(host) {
-      this.hostDatabase = host.Extra.Databases
-      return this.hostDatabase
+    hostDbsInfo(host) {
+      this.hostDbs = host.Extra.Databases
+      return this.hostDbs
     }
   },
   computed: {

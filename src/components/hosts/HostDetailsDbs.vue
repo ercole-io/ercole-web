@@ -5,9 +5,9 @@
     size="is-small"
     type="is-primary"
   >
-    <template v-for="tab in hostData">
-      <b-tab-item :key="tab.UniqueName" :label="tab.Name">
-        {{ tab.Name }}
+    <template v-for="dbs in hostDbs">
+      <b-tab-item :key="dbs.UniqueName" :label="dbs.Name">
+        {{ dbs.Name }}
       </b-tab-item>
     </template>
   </b-tabs>
@@ -16,7 +16,7 @@
 <script>
 export default {
   props: {
-    hostData: {
+    hostDbs: {
       type: Array,
       required: true
     }
