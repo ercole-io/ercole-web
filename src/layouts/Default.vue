@@ -5,7 +5,6 @@
     <main class="main">
       <div class="content">
         <appBreadcrumb v-if="this.$route.name !== 'dashboard'" />
-        <appPagetitle v-if="this.$route.name !== 'dashboard'" />
         <slot />
       </div>
     </main>
@@ -17,7 +16,7 @@
 import Header from '@/components/Header.vue'
 import Filters from '@/components/Filters.vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
-import PageTitle from '@/components/common/PageTitle.vue'
+
 import Footer from '@/components/Footer.vue'
 
 export default {
@@ -25,7 +24,6 @@ export default {
     appHeader: Header,
     appFilters: Filters,
     appBreadcrumb: Breadcrumb,
-    appPagetitle: PageTitle,
     appFooter: Footer
   }
 }
