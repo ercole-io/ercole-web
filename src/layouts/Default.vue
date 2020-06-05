@@ -5,10 +5,7 @@
     <main class="main">
       <div class="content">
         <appBreadcrumb v-if="this.$route.name !== 'dashboard'" />
-        <appPagetitle
-          :pageTitle="this.$route.meta.label"
-          v-if="this.$route.name !== 'dashboard'"
-        />
+        <appPagetitle v-if="this.$route.name !== 'dashboard'" />
         <slot />
       </div>
     </main>
