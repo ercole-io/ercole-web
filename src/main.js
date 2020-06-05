@@ -20,7 +20,7 @@ import VueLodash from 'vue-lodash'
 import lodash from 'lodash'
 
 import CapitalizeFilter from './filters/capitalize.js'
-import FormatDate from './filters/format-date.js'
+import FormatDate from './filters/formatDate.js'
 
 Vue.component('default-layout', DefaultPage)
 Vue.component('simple-layout', SimplePage)
