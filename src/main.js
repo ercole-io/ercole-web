@@ -20,6 +20,7 @@ import VueLodash from 'vue-lodash'
 import lodash from 'lodash'
 
 import CapitalizeFilter from './filters/capitalize.js'
+import FormatDate from './filters/format-date.js'
 
 Vue.component('default-layout', DefaultPage)
 Vue.component('simple-layout', SimplePage)
@@ -46,6 +47,7 @@ Vue.use(Vuelidate)
 Vue.use(VueLodash, { name: 'custom', lodash: lodash })
 
 Vue.filter('capitalize', CapitalizeFilter)
+Vue.filter('formatDate', FormatDate)
 
 Vue.config.productionTip = false
 
