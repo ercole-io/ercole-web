@@ -1,6 +1,11 @@
 <template>
   <h1 class="page-title">
-    {{ pageTitle }} <span v-if="dynamicTitle">- {{ dynamicTitle }}</span>
+    <div>
+      {{ pageTitle }} <span v-if="dynamicTitle">- {{ dynamicTitle }}</span>
+    </div>
+    <div>
+      <slot />
+    </div>
   </h1>
 </template>
 
@@ -33,11 +38,14 @@ export default {
 
 <style lang="scss" scoped>
 .page-title {
+  width: 100%;
   font-size: 1.2em;
   padding-bottom: 5px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 1rem;
   padding-left: 5px;
+  display: flex;
+  justify-content: space-between;
 
   span {
     font-size: 0.8em;

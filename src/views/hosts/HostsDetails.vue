@@ -1,5 +1,9 @@
 <template>
   <section>
+    <PageTitle>
+      <HostDetailsNotificationsInfo :info="notificationInfo" />
+    </PageTitle>
+
     <boxContent>
       <HostDetailsTags />
     </boxContent>
@@ -29,7 +33,9 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
+import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
+import HostDetailsNotificationsInfo from '@/components/hosts/HostDetailsNotificationsInfo.vue'
 import HostDetailsTags from '@/components/hosts/HostDetailsTags.vue'
 import HostDetailsTable from '@/components/hosts/HostDetailsTable.vue'
 import HostDetailsGraph from '@/components/hosts/HostDetailsGraph.vue'
@@ -43,7 +49,9 @@ export default {
     }
   },
   components: {
+    PageTitle,
     BoxContent,
+    HostDetailsNotificationsInfo,
     HostDetailsTags,
     HostDetailsTable,
     HostDetailsGraph,
@@ -53,20 +61,24 @@ export default {
     return {
       currentHostName: '',
       hostTable: {},
-      hostDbs: []
+      hostDbs: [],
+      notificationInfo: {}
     }
   },
   async created() {
     await this.getHostByName(this.hostname)
+
     this.currentHostName = this.getCurrentHost.Hostname
-    this.hostTableInfo(this.getCurrentHost)
-    this.hostDbsInfo(this.getCurrentHost)
     bus.$emit('dynamicTitle', this.currentHostName)
+
+    this.hostTableInfo(this.getCurrentHost)
+    this.hostDbsInfo(this.getCurrentHost.Extra.Databases)
+    this.hostNotificationInfo(this.getCurrentHost.Alerts)
   },
   methods: {
     ...mapActions(['getHostByName']),
     hostTableInfo(host) {
-      this.hostTable = {
+      return (this.hostTable = {
         hostname: host.Hostname,
         environment: host.Environment,
         filesys: host.Extra.Filesystems,
@@ -85,12 +97,21 @@ export default {
         socket: host.Info.Socket,
         version: host.Version,
         createdAt: host.CreatedAt
-      }
-      return this.hostTable
+      })
     },
     hostDbsInfo(host) {
-      this.hostDbs = host.Extra.Databases
-      return this.hostDbs
+      return (this.hostDbs = host)
+    },
+    hostNotificationInfo(host) {
+      return (this.notificationInfo = {
+        total: host.length,
+        agents: host.filter(val => val.AlertCode === 'NEW_DATABASE').length,
+        licenses: host.filter(val => val.AlertCode === 'NEW_LICENSE').length,
+        systems: host.filter(
+          val =>
+            val.AlertCode !== 'NEW_LICENSE' && val.AlertCode !== 'NEW_DATABASE'
+        ).length
+      })
     }
   },
   computed: {
