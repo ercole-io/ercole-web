@@ -1,9 +1,17 @@
 <template>
-  <section></section>
+  <section>
+    <PageTitle />
+  </section>
 </template>
 
 <script>
-export default {}
+import PageTitle from '@/components/common/PageTitle.vue'
+
+export default {
+  components: {
+    PageTitle
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>
