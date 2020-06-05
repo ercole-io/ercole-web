@@ -1,5 +1,9 @@
 <template>
   <section>
+    <boxContent>
+      <HostDetailsTags />
+    </boxContent>
+
     <BoxContent>
       <HostDetailsTable :hostTable="hostTable" />
     </BoxContent>
@@ -26,6 +30,7 @@
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
+import HostDetailsTags from '@/components/hosts/HostDetailsTags.vue'
 import HostDetailsTable from '@/components/hosts/HostDetailsTable.vue'
 import HostDetailsGraph from '@/components/hosts/HostDetailsGraph.vue'
 import HostDetailsDbs from '@/components/hosts/HostDetailsDbs.vue'
@@ -39,6 +44,7 @@ export default {
   },
   components: {
     BoxContent,
+    HostDetailsTags,
     HostDetailsTable,
     HostDetailsGraph,
     HostDetailsDbs
