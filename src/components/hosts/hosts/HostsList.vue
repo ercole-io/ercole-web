@@ -120,7 +120,7 @@
             <td>{{ row.Info.CPUCores }}</td>
             <td class="border-right">{{ row.Info.Socket }}</td>
             <td>{{ row.Version }}</td>
-            <td>{{ row.CreatedAt }}</td>
+            <td>{{ row.CreatedAt | formatDate }}</td>
           </v-tr>
         </tbody>
       </v-table>
@@ -201,7 +201,7 @@ export default {
       },
       clickedRow: [],
       current: 1,
-      perPage: 10,
+      perPage: 5,
       rangeBefore: 3,
       rangeAfter: 3,
       size: 'is-small',
