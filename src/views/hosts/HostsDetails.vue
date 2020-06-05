@@ -1,15 +1,15 @@
 <template>
   <section>
     <PageTitle>
-      <HostDetailsNotificationsInfo :info="notificationInfo" />
+      <NotificationsInfo :info="notificationInfo" />
     </PageTitle>
 
     <boxContent>
-      <HostDetailsTags />
+      <HostTags />
     </boxContent>
 
     <BoxContent>
-      <HostDetailsTable :hostTable="hostTable" />
+      <HostTable :hostTable="hostTable" />
     </BoxContent>
 
     <div class="columns">
@@ -17,14 +17,14 @@
         :title="`GPUGrowth of ${currentHostName}`"
         class="column is-4"
       >
-        <HostDetailsGraph />
+        <HostGraph />
       </BoxContent>
 
       <BoxContent
         :title="`Databases of ${currentHostName}`"
         class="column is-8"
       >
-        <HostDetailsDbs :hostDbs="hostDbs" />
+        <HostDatabases :hostDbs="hostDbs" />
       </BoxContent>
     </div>
   </section>
@@ -35,11 +35,11 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
 import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
-import HostDetailsNotificationsInfo from '@/components/hosts/HostDetailsNotificationsInfo.vue'
-import HostDetailsTags from '@/components/hosts/HostDetailsTags.vue'
-import HostDetailsTable from '@/components/hosts/HostDetailsTable.vue'
-import HostDetailsGraph from '@/components/hosts/HostDetailsGraph.vue'
-import HostDetailsDbs from '@/components/hosts/HostDetailsDbs.vue'
+import NotificationsInfo from '@/components/hosts/hostDetails/NotificationsInfo.vue'
+import HostTags from '@/components/hosts/hostDetails/Tags.vue'
+import HostTable from '@/components/hosts/hostDetails/Table.vue'
+import HostGraph from '@/components/hosts/hostDetails/Graph.vue'
+import HostDatabases from '@/components/hosts/hostDetails/Databases.vue'
 
 export default {
   props: {
@@ -51,11 +51,11 @@ export default {
   components: {
     PageTitle,
     BoxContent,
-    HostDetailsNotificationsInfo,
-    HostDetailsTags,
-    HostDetailsTable,
-    HostDetailsGraph,
-    HostDetailsDbs
+    NotificationsInfo,
+    HostTags,
+    HostTable,
+    HostGraph,
+    HostDatabases
   },
   data() {
     return {
