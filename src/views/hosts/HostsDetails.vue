@@ -39,7 +39,7 @@ import NotificationsInfo from '@/components/hosts/hostDetails/NotificationsInfo.
 import HostTags from '@/components/hosts/hostDetails/Tags.vue'
 import HostTable from '@/components/hosts/hostDetails/Table.vue'
 import HostGraph from '@/components/hosts/hostDetails/Graph.vue'
-import HostDatabases from '@/components/hosts/hostDetails/Databases.vue'
+import HostDatabases from '@/components/hosts/hostDetails/databases/Databases.vue'
 
 export default {
   props: {
