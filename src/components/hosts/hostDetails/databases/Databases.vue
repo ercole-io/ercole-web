@@ -59,11 +59,15 @@
           <b-tab-item label="Patches">
             <DbPatches :patches="dbs.Patches" />
           </b-tab-item>
-          <b-tab-item label="PSUs">PSUs {{ dbs.Name }}</b-tab-item>
-          <b-tab-item label="ADDMs">ADDMs {{ dbs.Name }}</b-tab-item>
-          <b-tab-item label="Segment Advisors"
-            >Segment Advisors {{ dbs.Name }}</b-tab-item
-          >
+          <b-tab-item label="PSUs">
+            <DbPSUs :psus="dbs.LastPSUs" />
+          </b-tab-item>
+          <b-tab-item label="ADDMs">
+            <DbADDMs :addms="dbs.ADDMs" />
+          </b-tab-item>
+          <b-tab-item label="Segment Advisors">
+            <DbSegmentAdvisors :segmentAdvisors="dbs.SegmentAdvisors" />
+          </b-tab-item>
           <b-tab-item label="DBGrowth">DBGrowth {{ dbs.Name }}</b-tab-item>
           <b-tab-item label="Backups">Backups {{ dbs.Name }}</b-tab-item>
           <b-tab-item label="Services">Services {{ dbs.Name }}</b-tab-item>
@@ -78,6 +82,9 @@ import DbInfo from '@/components/hosts/hostDetails/databases/DbInfo.vue'
 import DbTablespaces from '@/components/hosts/hostDetails/databases/DbTablespaces.vue'
 import DbSchemas from '@/components/hosts/hostDetails/databases/DbSchemas.vue'
 import DbPatches from '@/components/hosts/hostDetails/databases/DbPatches.vue'
+import DbPSUs from '@/components/hosts/hostDetails/databases/DbPSUs.vue'
+import DbADDMs from '@/components/hosts/hostDetails/databases/DbADDMs.vue'
+import DbSegmentAdvisors from '@/components/hosts/hostDetails/databases/DbSegmentAdvisors.vue'
 
 export default {
   props: {
@@ -90,7 +97,10 @@ export default {
     DbInfo,
     DbTablespaces,
     DbSchemas,
-    DbPatches
+    DbPatches,
+    DbPSUs,
+    DbADDMs,
+    DbSegmentAdvisors
   },
   data() {
     return {
