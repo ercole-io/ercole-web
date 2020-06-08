@@ -1,10 +1,3 @@
-// Global
-ul {
-  list-style: none !important;
-  margin-left: 0 !important;
-  margin-top: 0 !important;
-}
-
 // customize switch label
 .switch .control-label {
   padding-top: 0.1rem;
@@ -16,11 +9,8 @@ ul {
 }
 
 // custom ul tabs
-.tabs {
-  ul {
-    margin-left: 0;
-    margin-top: 0;
-  }
+.b-tabs.is-vertical > .tabs ul li a {
+  padding: 0.3em 1em 0.25em 1em;
 }
 
 // pagination
