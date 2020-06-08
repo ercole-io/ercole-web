@@ -68,7 +68,9 @@
           <b-tab-item label="Segment Advisors">
             <DbSegmentAdvisors :segmentAdvisors="dbs.SegmentAdvisors" />
           </b-tab-item>
-          <b-tab-item label="DBGrowth">DBGrowth {{ dbs.Name }}</b-tab-item>
+          <b-tab-item label="DBGrowth">
+            <DbGrowth />
+          </b-tab-item>
           <b-tab-item label="Backups">
             <DbBackups :backups="dbs.Backups" />
           </b-tab-item>
@@ -91,6 +93,7 @@ import DbADDMs from '@/components/hosts/hostDetails/databases/DbADDMs.vue'
 import DbSegmentAdvisors from '@/components/hosts/hostDetails/databases/DbSegmentAdvisors.vue'
 import DbBackups from '@/components/hosts/hostDetails/databases/DbBackups.vue'
 import DbServices from '@/components/hosts/hostDetails/databases/DbServices.vue'
+import DbGrowth from '@/components/hosts/hostDetails/databases/DbGrowth.vue'
 
 export default {
   props: {
@@ -108,7 +111,8 @@ export default {
     DbADDMs,
     DbSegmentAdvisors,
     DbBackups,
-    DbServices
+    DbServices,
+    DbGrowth
   },
   data() {
     return {
