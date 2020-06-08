@@ -6,7 +6,7 @@
         :filters="filters"
         :hideSortIcons="true"
         @selectionChanged="clickedRow = $event"
-        class="hosts-table"
+        class="vTable-custom"
       >
         <thead slot="head">
           <tr class="has-background-grey-light">
@@ -18,29 +18,29 @@
             <th colspan="4" class="has-text-centered border-left border-right">
               CPU
             </th>
-            <th colspan="2" class="has-text-centered border-left border-right">
+            <th colspan="2" class="has-text-centered border-left">
               Agent
             </th>
           </tr>
           <tr class="has-background-grey-lighter">
-            <v-th sortKey="hostname">Hostname</v-th>
-            <v-th sortKey="env">Env</v-th>
-            <v-th sortKey="dbs">DBs</v-th>
-            <v-th sortKey="technologie">Tech</v-th>
-            <v-th sortKey="platform" class="border-left">Platform</v-th>
-            <v-th sortKey="cluster">Cluster</v-th>
-            <v-th sortKey="physical" class="border-right">Physical</v-th>
-            <v-th sortKey="os">OS</v-th>
-            <v-th sortKey="kernel">kernel</v-th>
-            <v-th sortKey="memorie">Mem.</v-th>
-            <v-th sortKey="swap">Swap</v-th>
-            <v-th sortKey="clust">Clust</v-th>
-            <v-th sortKey="model" class="border-left">Model</v-th>
-            <v-th sortKey="threa">Threa</v-th>
-            <v-th sortKey="cores">Cores</v-th>
-            <v-th sortKey="socket" class="border-right">Socket</v-th>
-            <v-th sortKey="version">Version</v-th>
-            <v-th sortKey="last">Updated</v-th>
+            <v-th sortKey="Hostname">Hostname</v-th>
+            <v-th sortKey="Environment">Env</v-th>
+            <v-th sortKey="Databases">DBs</v-th>
+            <v-th sortKey="HostType">Tech</v-th>
+            <v-th sortKey="Platform" class="border-left">Platform</v-th>
+            <v-th sortKey="Cluster">Cluster</v-th>
+            <v-th sortKey="PhysicalHost" class="border-right">Physical</v-th>
+            <v-th sortKey="Info.OS">OS</v-th>
+            <v-th sortKey="Info.Kernel">kernel</v-th>
+            <v-th sortKey="Info.MemoryTotal">Mem.</v-th>
+            <v-th sortKey="Info.SwapTotal">Swap</v-th>
+            <v-th sortKey="Info.AixCluster">Clust</v-th>
+            <v-th sortKey="Info.CPUModel" class="border-left">Model</v-th>
+            <v-th sortKey="Info.CPUThreads">Threa</v-th>
+            <v-th sortKey="Info.CPUCores">Cores</v-th>
+            <v-th sortKey="Info.Socket" class="border-right">Socket</v-th>
+            <v-th sortKey="Version">Version</v-th>
+            <v-th sortKey="CreatedAt">Updated</v-th>
           </tr>
           <tr>
             <th>
@@ -159,8 +159,7 @@
       aria-previous-label="Previous page"
       aria-page-label="Page"
       aria-current-label="Current page"
-    >
-    </b-pagination>
+    />
   </BoxContent>
 </template>
 
@@ -184,7 +183,7 @@ export default {
         env: { value: '', keys: ['Environment'] },
         dbs: { value: '', keys: ['Databases'] },
         technologie: { value: '', keys: ['HostType'] },
-        platform: { value: '', keys: ['platform'] },
+        platform: { value: '', keys: ['Platform'] },
         cluster: { value: '', keys: ['Cluster'] },
         physical: { value: '', keys: ['PhysicalHost'] },
         os: { value: '', keys: ['Info.OS'] },
@@ -232,67 +231,6 @@ export default {
 </script>
 
 <style lang="scss">
-.hosts-table {
-  font-size: 13px;
-
-  thead {
-    tr {
-      th {
-        cursor: pointer;
-        text-align: center !important;
-        border-width: 0;
-
-        &:first-child {
-          text-align: left !important;
-        }
-      }
-    }
-  }
-
-  tbody {
-    tr {
-      td {
-        font-size: 12px;
-        text-align: center;
-        min-width: 100px;
-        padding: 0.3em 1em;
-        vertical-align: middle;
-
-        &:first-child {
-          text-align: left;
-        }
-      }
-    }
-  }
-
-  .border-left {
-    border-left: 1px solid hsl(0, 0%, 48%) !important;
-  }
-  .border-right {
-    border-right: 1px solid hsl(0, 0%, 48%) !important;
-  }
-}
-
-.vt-sort:before {
-  font-family: 'Font Awesome 5 Free';
-  padding-right: 0.5em;
-  width: 1.28571429em;
-  display: inline-block;
-  text-align: center;
-}
-
-.vt-sortable:before {
-  content: '\f0dc';
-}
-
-.vt-asc:before {
-  content: '\f106';
-}
-
-.vt-desc:before {
-  content: '\f107';
-}
-
 .pagination {
   .pagination-previous {
     order: 1;
