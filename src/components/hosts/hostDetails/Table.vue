@@ -1,6 +1,6 @@
 <template>
   <div class="table-container" v-if="hostTable">
-    <table class="hosts-table">
+    <table class="vTable-custom">
       <thead>
         <tr class="has-background-grey-light">
           <th colspan="4"></th>
@@ -11,7 +11,7 @@
           <th colspan="4" class="has-text-centered border-left border-right">
             CPU
           </th>
-          <th colspan="2" class="has-text-centered border-left border-right">
+          <th colspan="2" class="has-text-centered border-left">
             Agent
           </th>
         </tr>
@@ -88,45 +88,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.hosts-table {
-  font-size: 13px;
-
-  thead {
-    tr {
-      th {
-        cursor: pointer;
-        text-align: center !important;
-        border-width: 0;
-
-        &:first-child {
-          text-align: left !important;
-        }
-      }
-    }
-  }
-
-  tbody {
-    tr {
-      td {
-        font-size: 12px;
-        text-align: center;
-        min-width: 100px;
-        padding: 0.3em 1em;
-        vertical-align: middle;
-
-        &:first-child {
-          text-align: left;
-        }
-      }
-    }
-  }
-
-  .border-left {
-    border-left: 1px solid hsl(0, 0%, 48%) !important;
-  }
-  .border-right {
-    border-right: 1px solid hsl(0, 0%, 48%) !important;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

@@ -50,9 +50,9 @@
           </b-tab-item>
           <b-tab-item label="Licenses">Licenses {{ dbs.Name }}</b-tab-item>
           <b-tab-item label="Options">Options {{ dbs.Name }}</b-tab-item>
-          <b-tab-item label="Tablespaces"
-            >Tablespaces {{ dbs.Name }}</b-tab-item
-          >
+          <b-tab-item label="Tablespaces">
+            <DbTablespaces :tablespaces="dbs.Tablespaces" />
+          </b-tab-item>
           <b-tab-item label="Schemas">Schemas {{ dbs.Name }}</b-tab-item>
           <b-tab-item label="Patches">Patches {{ dbs.Name }}</b-tab-item>
           <b-tab-item label="PSUs">PSUs {{ dbs.Name }}</b-tab-item>
@@ -71,6 +71,7 @@
 
 <script>
 import DbInfo from '@/components/hosts/hostDetails/databases/DbInfo.vue'
+import DbTablespaces from '@/components/hosts/hostDetails/databases/DbTablespaces.vue'
 
 export default {
   props: {
@@ -80,7 +81,8 @@ export default {
     }
   },
   components: {
-    DbInfo
+    DbInfo,
+    DbTablespaces
   },
   data() {
     return {
