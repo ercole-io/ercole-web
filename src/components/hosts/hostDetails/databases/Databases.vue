@@ -56,7 +56,9 @@
           <b-tab-item label="Schemas">
             <DbSchemas :schemas="dbs.Schemas" />
           </b-tab-item>
-          <b-tab-item label="Patches">Patches {{ dbs.Name }}</b-tab-item>
+          <b-tab-item label="Patches">
+            <DbPatches :patches="dbs.Patches" />
+          </b-tab-item>
           <b-tab-item label="PSUs">PSUs {{ dbs.Name }}</b-tab-item>
           <b-tab-item label="ADDMs">ADDMs {{ dbs.Name }}</b-tab-item>
           <b-tab-item label="Segment Advisors"
@@ -75,6 +77,7 @@
 import DbInfo from '@/components/hosts/hostDetails/databases/DbInfo.vue'
 import DbTablespaces from '@/components/hosts/hostDetails/databases/DbTablespaces.vue'
 import DbSchemas from '@/components/hosts/hostDetails/databases/DbSchemas.vue'
+import DbPatches from '@/components/hosts/hostDetails/databases/DbPatches.vue'
 
 export default {
   props: {
@@ -86,7 +89,8 @@ export default {
   components: {
     DbInfo,
     DbTablespaces,
-    DbSchemas
+    DbSchemas,
+    DbPatches
   },
   data() {
     return {
@@ -98,15 +102,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.menu {
-  font-size: 0.8em;
-
-  .menu-list {
-    list-style: none;
-    margin-left: 0;
-    margin-top: 0;
-    line-height: 1;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
