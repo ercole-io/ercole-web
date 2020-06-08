@@ -1,0 +1,59 @@
+.vTable-custom {
+  thead {
+    tr {
+      th {
+        font-size: 0.75em;
+        cursor: pointer;
+        text-align: center !important;
+        border-width: 0;
+
+        &:first-child {
+          text-align: left !important;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        font-size: 0.7em;
+        text-align: center;
+        min-width: 100px;
+        padding: 0.3em 1em;
+        vertical-align: middle;
+
+        &:first-child {
+          text-align: left;
+        }
+      }
+    }
+  }
+
+  .border-left {
+    border-left: 1px solid hsl(0, 0%, 48%) !important;
+  }
+  .border-right {
+    border-right: 1px solid hsl(0, 0%, 48%) !important;
+  }
+}
+
+.vt-sort:before {
+  font-family: 'Font Awesome 5 Free';
+  padding-right: 0.5em;
+  width: 1.28571429em;
+  display: inline-block;
+  text-align: center;
+}
+
+.vt-sortable:before {
+  content: '\f0dc';
+}
+
+.vt-asc:before {
+  content: '\f106';
+}
+
+.vt-desc:before {
+  content: '\f107';
+}
