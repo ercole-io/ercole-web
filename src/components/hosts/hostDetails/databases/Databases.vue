@@ -69,13 +69,13 @@
             <DbSegmentAdvisors :segmentAdvisors="dbs.SegmentAdvisors" />
           </b-tab-item>
           <b-tab-item label="DBGrowth">
-            <DbGrowth />
+            <DbGrowth :growth="DbGrowthData" :growthId="dbs.Name" />
           </b-tab-item>
           <b-tab-item label="Backups">
             <DbBackups :backups="dbs.Backups" />
           </b-tab-item>
           <b-tab-item label="Services">
-            <DbServices />
+            <DbServices :services="dbs.Services" />
           </b-tab-item>
         </b-tabs>
       </b-tab-item>
@@ -118,7 +118,35 @@ export default {
     return {
       activeTab: 0,
       multiline: true,
-      isActive: true
+      isActive: true,
+      DbGrowthData: [
+        {
+          name: 'Value 1',
+          data: {
+            '2013-02-10': 30,
+            '2013-02-17': 30,
+            '2013-02-24': 30,
+            '2013-03-03': 10,
+            '2013-03-10': 40,
+            '2013-03-17': 30,
+            '2013-03-24': 20,
+            '2013-03-31': 30
+          }
+        },
+        {
+          name: 'Value 2',
+          data: {
+            '2013-02-10': 0,
+            '2013-02-17': 10,
+            '2013-02-24': 0,
+            '2013-03-03': 50,
+            '2013-03-10': 20,
+            '2013-03-17': 10,
+            '2013-03-24': 0,
+            '2013-03-31': 70
+          }
+        }
+      ]
     }
   }
 }
