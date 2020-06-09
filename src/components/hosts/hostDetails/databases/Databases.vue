@@ -48,7 +48,9 @@
           <b-tab-item label="Pluggable DBs">
             Pluggable DBs {{ dbs.Name }}
           </b-tab-item>
-          <b-tab-item label="Licenses">Licenses {{ dbs.Name }}</b-tab-item>
+          <b-tab-item label="Licenses">
+            <DbLicenses :licenses="dbs.Licenses" />
+          </b-tab-item>
           <b-tab-item label="Options">
             <DbOptions :options="dbs.Options" />
           </b-tab-item>
@@ -97,6 +99,7 @@ import DbBackups from '@/components/hosts/hostDetails/databases/DbBackups.vue'
 import DbServices from '@/components/hosts/hostDetails/databases/DbServices.vue'
 import DbGrowth from '@/components/hosts/hostDetails/databases/DbGrowth.vue'
 import DbOptions from '@/components/hosts/hostDetails/databases/DbOptions.vue'
+import DbLicenses from '@/components/hosts/hostDetails/databases/DbLicenses.vue'
 
 export default {
   props: {
@@ -116,7 +119,8 @@ export default {
     DbBackups,
     DbServices,
     DbGrowth,
-    DbOptions
+    DbOptions,
+    DbLicenses
   },
   data() {
     return {
