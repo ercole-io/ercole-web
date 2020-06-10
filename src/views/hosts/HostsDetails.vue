@@ -5,7 +5,14 @@
     </PageTitle>
 
     <boxContent>
-      <HostTags />
+      <HostTags
+        title="Host Tags:"
+        inputWidth="150"
+        :tagsList="['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4']"
+        @addTag="handleAddTag"
+        @removeTag="handleRemoveTag"
+        @editTag="handleEditTag"
+      />
     </boxContent>
 
     <BoxContent>
@@ -36,7 +43,7 @@ import { mapGetters, mapActions } from 'vuex'
 import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import NotificationsInfo from '@/components/hosts/hostDetails/NotificationsInfo.vue'
-import HostTags from '@/components/hosts/hostDetails/Tags.vue'
+import HostTags from '@/components/common/Tags.vue'
 import HostTable from '@/components/hosts/hostDetails/Table.vue'
 import HostGraph from '@/components/hosts/hostDetails/Graph.vue'
 import HostDatabases from '@/components/hosts/hostDetails/databases/Databases.vue'
@@ -112,6 +119,15 @@ export default {
             val.AlertCode !== 'NEW_LICENSE' && val.AlertCode !== 'NEW_DATABASE'
         ).length
       })
+    },
+    handleAddTag(value) {
+      console.log('make api call to add tag', value)
+    },
+    handleRemoveTag(value) {
+      console.log('make api call to remove tag', value)
+    },
+    handleEditTag(value) {
+      console.log('make api call to edit tag', value)
     }
   },
   computed: {

@@ -1,8 +1,13 @@
 <template>
-  <div class="is-inline-flex">
-    <span class="add-tag-title">Host Tags:</span>
+  <div class="is-flex" :class="direction">
+    <span class="add-tag-title">{{ title }}</span>
     <b-field class="add-tag-input">
-      <b-input placeholder="Add tag" size="is-small" v-model="newTag"></b-input>
+      <b-input
+        placeholder="Add tag"
+        size="is-small"
+        v-model="newTag"
+        :style="`width: ${inputWidth}px;`"
+      ></b-input>
       <p class="control">
         <b-button @click="addTag" class="button is-primary" size="is-small">
           Add
@@ -35,9 +40,26 @@
 
 <script>
 export default {
+  props: {
+    title: {
+      type: String,
+      default: null
+    },
+    tagsList: {
+      type: Array,
+      required: true
+    },
+    direction: {
+      type: String,
+      default: 'horizontal'
+    },
+    inputWidth: {
+      type: String,
+      default: null
+    }
+  },
   data() {
     return {
-      tags: ['Albino', 'Milano', 'Torino', 'Como'],
       newTag: ''
     }
   },
@@ -45,6 +67,8 @@ export default {
     addTag() {
       if (this.newTag) {
         this.tags.push(this.newTag)
+        this.$emit('addTag', this.newTag)
+        this.$forceUpdate()
         this.newTag = ''
       }
     },
@@ -60,32 +84,53 @@ export default {
         trapFocus: true,
         onConfirm: value => {
           this.tags[index] = value
+          this.$emit('editTag', value)
           this.$forceUpdate()
         }
       })
     },
     removeTag(index) {
       this.tags.splice(index, 1)
+      this.$emit('removeTag', index)
+      this.$forceUpdate()
+    }
+  },
+  computed: {
+    tags() {
+      return this.tagsList
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.horizontal {
+  flex-direction: row;
+}
+
 .add-tag-title {
   font-size: 0.8em;
-  height: 27px;
   line-height: 27px;
 }
 
 .add-tag-input {
-  margin-bottom: 0;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 0 10px;
 }
 
 .edit-tag-icon {
   margin: 0 1px 0 5px !important;
   cursor: pointer;
+}
+
+.vertical {
+  flex-direction: column;
+
+  .add-tag-title {
+    font-weight: 500;
+  }
+
+  .add-tag-input {
+    margin: 5px 0 10px;
+  }
 }
 </style>
