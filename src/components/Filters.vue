@@ -137,8 +137,8 @@ export default {
       location: null,
       environment: null,
       date: null,
-      isFilters: true,
-      filterIcon: 'chevron-up'
+      isFilters: false,
+      filterIcon: 'chevron-down'
     }
   },
   methods: {
@@ -178,6 +178,7 @@ export default {
   padding: 10px 20px;
   background-color: #dbdbdb;
   min-height: 48px;
+  margin-left: 40px;
 
   .filters-field {
     width: 100%;

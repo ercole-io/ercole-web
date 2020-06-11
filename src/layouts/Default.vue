@@ -2,6 +2,7 @@
   <div class="app">
     <appHeader />
     <appFilters />
+    <appSidebar />
     <main class="main">
       <div class="content">
         <appBreadcrumb v-if="this.$route.name !== 'dashboard'" />
@@ -15,14 +16,15 @@
 <script>
 import Header from '@/components/Header.vue'
 import Filters from '@/components/Filters.vue'
+import SidebarMenu from '@/components/Sidebar.vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
-
 import Footer from '@/components/Footer.vue'
 
 export default {
   components: {
     appHeader: Header,
     appFilters: Filters,
+    appSidebar: SidebarMenu,
     appBreadcrumb: Breadcrumb,
     appFooter: Footer
   }
@@ -39,6 +41,7 @@ export default {
 .main {
   flex: 1;
   padding: 0.75rem;
+  margin-left: 60px;
 }
 
 .content {

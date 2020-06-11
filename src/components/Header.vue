@@ -4,15 +4,6 @@
       <b-navbar-item tag="router-link" :to="'/'" class="ercole-logo">
         <img src="@/assets/images/ercole-logo.png" alt="Ercole" />
       </b-navbar-item>
-
-      <b-button
-        @click="open = !open"
-        icon-right="menu"
-        size="is-small"
-        type="is-light"
-        class="btn-sidebar"
-      ></b-button>
-      <Menu :openSidebar="open" />
     </template>
 
     <template slot="end">
@@ -47,12 +38,10 @@
 import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 import { capitalize } from '@/helpers/helpers.js'
 import { SnackbarProgrammatic as Snackbar } from 'buefy'
-import Menu from '@/components/Menu.vue'
 
 export default {
   components: {
-    LocaleSwitcher,
-    Menu
+    LocaleSwitcher
   },
   data() {
     return {
