@@ -1,26 +1,34 @@
 <template>
-  <v-table :data="segmentAdvisors" :hideSortIcons="true" class="vTable-custom">
-    <thead slot="head">
-      <tr class="has-background-grey-lighter">
-        <v-th sortKey="Recla">Recla</v-th>
-        <v-th sortKey="Segment">Segment</v-th>
-        <v-th sortKey="Segme1">Segme</v-th>
-        <v-th sortKey="Segme2">Segme</v-th>
-        <v-th sortKey="Partition">Partition</v-th>
-        <v-th sortKey="Recommendation">Recommendation</v-th>
-      </tr>
-    </thead>
-    <tbody slot="body" slot-scope="{ displayData }">
-      <v-tr v-for="(row, index) in displayData" :key="index" :row="row">
-        <td>{{ row.Recla }}</td>
-        <td>{{ row.Segment }}</td>
-        <td>{{ row.Segme1 }}</td>
-        <td>{{ row.Segme2 }}</td>
-        <td>{{ row.Partition }}</td>
-        <td>{{ row.Recommendation }}</td>
-      </v-tr>
-    </tbody>
-  </v-table>
+  <section class="table-container">
+    <div class="wrap-table-segment">
+      <v-table
+        :data="segmentAdvisors"
+        :hideSortIcons="true"
+        class="vTable-custom"
+      >
+        <thead slot="head">
+          <tr class="has-background-grey-lighter">
+            <v-th sortKey="Reclaimable">Reclaimable</v-th>
+            <v-th sortKey="SegmentName">Segment Name</v-th>
+            <v-th sortKey="SegmentOwner">Segment Owner</v-th>
+            <v-th sortKey="SegmentType">Segment Type</v-th>
+            <v-th sortKey="PartitionName">Partition</v-th>
+            <v-th sortKey="Recommendation">Recommendation</v-th>
+          </tr>
+        </thead>
+        <tbody slot="body" slot-scope="{ displayData }">
+          <v-tr v-for="(row, index) in displayData" :key="index" :row="row">
+            <td>{{ row.Reclaimable }}</td>
+            <td>{{ row.SegmentName }}</td>
+            <td>{{ row.SegmentOwner }}</td>
+            <td>{{ row.SegmentType }}</td>
+            <td>{{ row.PartitionName }}</td>
+            <td>{{ row.Recommendation }}</td>
+          </v-tr>
+        </tbody>
+      </v-table>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -34,4 +42,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.wrap-table-segment {
+  max-height: 340px;
+  overflow: auto;
+}
+</style>

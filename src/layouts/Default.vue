@@ -36,13 +36,14 @@ export default {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  margin-top: 5px;
 }
 
 .main {
   flex: 1;
   padding: 0.75rem;
-  margin-left: 60px;
-  margin-bottom: -15px;
+  padding-left: 75px;
+  padding-top: 25px;
 }
 
 .content {

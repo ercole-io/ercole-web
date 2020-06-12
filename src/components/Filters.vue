@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="filters">
     <b-button
       @click="expandFilters"
       size="is-small"
@@ -171,43 +171,48 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.filters-form {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-  padding: 10px 20px;
-  background-color: #dbdbdb;
-  min-height: 48px;
-  margin-left: 40px;
+.filters {
+  position: fixed;
+  width: 100%;
 
-  .filters-field {
-    width: 100%;
-  }
-}
-
-.bt-show-hide-filters {
-  font-size: 11px;
-  font-weight: 500;
-}
-
-@media screen and (max-width: 960px) {
   .filters-form {
-    flex-direction: column;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    padding: 10px 20px;
+    background-color: #dbdbdb;
+    min-height: 48px;
+    margin-left: 40px;
 
     .filters-field {
-      margin-bottom: 1rem;
+      width: 100%;
     }
   }
-}
 
-@media screen and (min-width: 960px) {
-  .filters-field {
-    margin-bottom: 0;
-    margin-left: 1rem;
+  .bt-show-hide-filters {
+    font-size: 11px;
+    font-weight: 500;
   }
 
-  .filters-button {
-    margin-left: 20px;
+  @media screen and (max-width: 960px) {
+    .filters-form {
+      flex-direction: column;
+
+      .filters-field {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  @media screen and (min-width: 960px) {
+    .filters-field {
+      margin-bottom: 0;
+      margin-left: 1rem;
+    }
+
+    .filters-button {
+      margin-left: 20px;
+    }
   }
 }
 </style>
