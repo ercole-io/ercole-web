@@ -2,6 +2,7 @@
   <div class="sidebar-page">
     <section class="sidebar-layout">
       <b-sidebar
+        position="absolute"
         mobile="reduce"
         :expand-on-hover="true"
         :reduce="true"
@@ -182,7 +183,6 @@ export default {
   .sidebar-content {
     &.is-fullheight {
       margin-top: 56px;
-      max-height: calc(100vh - 132px);
       width: 60px;
       box-shadow: 1px 0px 10px 0px rgba(0, 0, 0, 0.2);
       background-color: #eee;
