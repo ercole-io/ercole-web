@@ -42,6 +42,7 @@ export default {
   flex: 1;
   padding: 0.75rem;
   margin-left: 60px;
+  margin-bottom: -15px;
 }
 
 .content {
