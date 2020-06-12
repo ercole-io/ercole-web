@@ -181,7 +181,7 @@ export default {
 .b-sidebar {
   .sidebar-content {
     &.is-fullheight {
-      margin-top: 52px;
+      margin-top: 56px;
       max-height: calc(100vh - 132px);
       width: 60px;
       box-shadow: 1px 0px 10px 0px rgba(0, 0, 0, 0.2);

@@ -90,6 +90,10 @@ export default {
 
 .ercole-logo {
   background-color: #363636 !important;
+
+  img {
+    max-height: 2.5em !important;
+  }
 }
 
 .btn-sidebar {
