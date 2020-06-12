@@ -2,7 +2,7 @@
   <div class="sidebar-page">
     <section class="sidebar-layout">
       <b-sidebar
-        position="absolute"
+        position="fixed"
         mobile="reduce"
         :expand-on-hover="true"
         :reduce="true"
@@ -10,7 +10,7 @@
         type="is-white"
         open
       >
-        <div class="p-1">
+        <div class="sidebar-menu">
           <b-menu class="is-custom-mobile">
             <b-menu-list>
               <b-menu-item
@@ -181,8 +181,11 @@ export default {
 
 .b-sidebar {
   .sidebar-content {
-    &.is-fullheight {
+    .sidebar-menu {
       margin-top: 56px;
+    }
+
+    &.is-fullheight {
       width: 60px;
       box-shadow: 1px 0px 10px 0px rgba(0, 0, 0, 0.2);
       background-color: #eee;

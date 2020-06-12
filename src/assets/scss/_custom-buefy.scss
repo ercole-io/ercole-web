@@ -30,6 +30,11 @@ ul.pagination-list {
   font-size: 14px;
 }
 
+// navbar
+.navbar.is-dark {
+  z-index: 50;
+}
+
 // navbar dropdown
 .navbar-dropdown {
   z-index: 100;

@@ -1,5 +1,5 @@
 <template>
-  <b-navbar type="is-dark">
+  <b-navbar type="is-dark" fixed-top>
     <template slot="brand">
       <b-navbar-item tag="router-link" :to="'/'" class="ercole-logo">
         <img src="@/assets/images/ercole-logo.png" alt="Ercole" />
