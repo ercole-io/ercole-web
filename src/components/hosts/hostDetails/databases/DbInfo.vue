@@ -46,15 +46,15 @@
                 <span>{{ memory.memoryTarget }}</span>
               </li>
               <li>
-                <span>PGATarget (GB)</span>
+                <span>PGATarget (gb)</span>
                 <span>{{ memory.pgaTarget }}</span>
               </li>
               <li>
-                <span>SGAMaxSize (BG)</span>
+                <span>SGAMaxSize (gb)</span>
                 <span>{{ memory.sgaMaxSize }}</span>
               </li>
               <li>
-                <span>SGATarget (BG)</span>
+                <span>SGATarget (gb)</span>
                 <span>{{ memory.sgaTarget }}</span>
               </li>
             </ul>
@@ -94,15 +94,15 @@
             <ul class="db-info">
               <li>Space Utilization</li>
               <li>
-                <span>Allocable (GB)</span>
+                <span>Allocable (gb)</span>
                 <span>{{ space.allocable }}</span>
               </li>
               <li>
-                <span>DataFileSize (GB)</span>
+                <span>DataFileSize (gb)</span>
                 <span>{{ space.dataFileSize }}</span>
               </li>
               <li>
-                <span>SegmentsSize (GB)</span>
+                <span>SegmentsSize (gb)</span>
                 <span>{{ space.segmentSize }}</span>
               </li>
             </ul>

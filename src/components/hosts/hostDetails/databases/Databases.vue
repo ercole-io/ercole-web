@@ -1,95 +1,116 @@
 <template>
-  <b-tabs
-    v-model="activeTab"
-    :multiline="multiline"
-    size="is-small"
-    type="is-boxed"
-  >
-    <template v-for="dbs in hostDbs">
-      <b-tab-item :key="dbs.UniqueName" :label="dbs.Name">
-        <b-tabs size="is-small" type="is-toggle" vertical :animated="true">
-          <b-tab-item label="Info">
-            <DbInfo
-              :details="{
-                status: dbs.Status,
-                dbName: dbs.Name,
-                uniqueName: dbs.UniqueName,
-                archiveLog: dbs.Archivelog,
-                blockSize: dbs.BlockSize,
-                charset: dbs.Charset,
-                nCharset: dbs.NCharset
-              }"
-              :memory="{
-                memoryTarget: dbs.MemoryTarget,
-                pgaTarget: dbs.PGATarget,
-                sgaMaxSize: dbs.SGAMaxSize,
-                sgaTarget: dbs.SGATarget
-              }"
-              :resource="{
-                dbTime: dbs.DBTime,
-                elapsed: dbs.Elapsed,
-                threadUsed: dbs.Used,
-                cpuCount: dbs.CPUCount
-              }"
-              :space="{
-                allocable: dbs.Allocated,
-                dataFileSize: dbs.DataFileSize,
-                segmentSize: dbs.SegmentsSize
-              }"
-              :infos="{
-                asm: dbs.ASM,
-                dataGuard: dbs.Dataguard,
-                plattform: dbs.Platform,
-                version: dbs.Version
-              }"
-            />
-          </b-tab-item>
-          <b-tab-item label="Tags">
-            <DbTags
-              :dbName="dbs.Name"
-              :tags="['Albino', 'Milano', 'Como', 'Torino']"
-            />
-          </b-tab-item>
-          <b-tab-item label="Pluggable DBs">
-            Pluggable DBs {{ dbs.Name }}
-          </b-tab-item>
-          <b-tab-item label="Licenses">
-            <DbLicenses :licenses="dbs.Licenses" />
-          </b-tab-item>
-          <b-tab-item label="Options">
-            <DbOptions :options="dbs.Options" />
-          </b-tab-item>
-          <b-tab-item label="Tablespaces">
-            <DbTablespaces :tablespaces="dbs.Tablespaces" />
-          </b-tab-item>
-          <b-tab-item label="Schemas">
-            <DbSchemas :schemas="dbs.Schemas" />
-          </b-tab-item>
-          <b-tab-item label="Patches">
-            <DbPatches :patches="dbs.Patches" />
-          </b-tab-item>
-          <b-tab-item label="PSUs">
-            <DbPSUs :psus="dbs.LastPSUs" />
-          </b-tab-item>
-          <b-tab-item label="ADDMs">
-            <DbADDMs :addms="dbs.ADDMs" />
-          </b-tab-item>
-          <b-tab-item label="Segment Advisors">
-            <DbSegmentAdvisors :segmentAdvisors="dbs.SegmentAdvisors" />
-          </b-tab-item>
-          <b-tab-item label="DBGrowth">
-            <DbGrowth :growth="DbGrowthData" :growthId="dbs.Name" />
-          </b-tab-item>
-          <b-tab-item label="Backups">
-            <DbBackups :backups="dbs.Backups" />
-          </b-tab-item>
-          <b-tab-item label="Services">
-            <DbServices :services="dbs.Services" />
-          </b-tab-item>
-        </b-tabs>
+  <div>
+    <b-tabs
+      v-model="activeTab"
+      :multiline="multiline"
+      size="is-small"
+      type="is-boxed"
+    >
+      <template v-for="dbs in hostDbs">
+        <b-tab-item :key="dbs.UniqueName" :label="dbs.Name">
+          <b-tabs size="is-small" type="is-toggle" vertical :animated="true">
+            <b-tab-item label="Info">
+              <DbInfo
+                :details="{
+                  status: dbs.Status,
+                  dbName: dbs.Name,
+                  uniqueName: dbs.UniqueName,
+                  archiveLog: dbs.Archivelog,
+                  blockSize: dbs.BlockSize,
+                  charset: dbs.Charset,
+                  nCharset: dbs.NCharset
+                }"
+                :memory="{
+                  memoryTarget: dbs.MemoryTarget,
+                  pgaTarget: dbs.PGATarget,
+                  sgaMaxSize: dbs.SGAMaxSize,
+                  sgaTarget: dbs.SGATarget
+                }"
+                :resource="{
+                  dbTime: dbs.DBTime,
+                  elapsed: dbs.Elapsed,
+                  threadUsed: dbs.Used,
+                  cpuCount: dbs.CPUCount
+                }"
+                :space="{
+                  allocable: dbs.Allocated,
+                  dataFileSize: dbs.DataFileSize,
+                  segmentSize: dbs.SegmentsSize
+                }"
+                :infos="{
+                  asm: dbs.ASM,
+                  dataGuard: dbs.Dataguard,
+                  plattform: dbs.Platform,
+                  version: dbs.Version
+                }"
+              />
+            </b-tab-item>
+            <b-tab-item label="Tags">
+              <DbTags
+                :dbName="dbs.Name"
+                :tags="['Albino', 'Milano', 'Como', 'Torino']"
+              />
+            </b-tab-item>
+            <b-tab-item label="Pluggable DBs">
+              Pluggable DBs {{ dbs.Name }}
+            </b-tab-item>
+            <b-tab-item label="Licenses">
+              <DbLicenses :licenses="dbs.Licenses" />
+            </b-tab-item>
+            <b-tab-item label="Options">
+              <DbOptions :options="dbs.Options" />
+            </b-tab-item>
+            <b-tab-item label="Tablespaces">
+              <DbTablespaces :tablespaces="dbs.Tablespaces" />
+            </b-tab-item>
+            <b-tab-item label="Schemas">
+              <DbSchemas :schemas="dbs.Schemas" />
+            </b-tab-item>
+            <b-tab-item label="Patches">
+              <DbPatches :patches="dbs.Patches" />
+            </b-tab-item>
+            <b-tab-item label="PSUs">
+              <DbPSUs :psus="dbs.LastPSUs" />
+            </b-tab-item>
+            <b-tab-item label="ADDMs">
+              <DbADDMs :addms="dbs.ADDMs" />
+            </b-tab-item>
+            <b-tab-item label="Segment Advisors">
+              <DbSegmentAdvisors :segmentAdvisors="dbs.SegmentAdvisors" />
+            </b-tab-item>
+            <b-tab-item label="DBGrowth">
+              <DbGrowth :growth="DbGrowthData" :growthId="dbs.Name" />
+            </b-tab-item>
+            <b-tab-item label="Backups">
+              <DbBackups :backups="dbs.Backups" />
+            </b-tab-item>
+            <b-tab-item label="Services">
+              <DbServices :services="dbs.Services" />
+            </b-tab-item>
+          </b-tabs>
+        </b-tab-item>
+      </template>
+    </b-tabs>
+
+    <!-- <b-tabs
+      size="is-small"
+      type="is-boxed"
+      position="is-right"
+      class="column is-2 block"
+    >
+      <b-tab-item label="DBs Filters">
+        <div class="field">
+          <b-checkbox size="is-small">Basic 1</b-checkbox>
+        </div>
+        <div class="field">
+          <b-checkbox size="is-small">Basic 2</b-checkbox>
+        </div>
+        <div class="field">
+          <b-checkbox size="is-small">Basic 3</b-checkbox>
+        </div>
       </b-tab-item>
-    </template>
-  </b-tabs>
+    </b-tabs> -->
+  </div>
 </template>
 
 <script>
