@@ -1,5 +1,9 @@
 <template>
   <BoxContent>
+    <b-field label="Search on Hosts" label-position="on-border">
+      <b-input size="is-small" v-model="search" @input="handleSearch" />
+    </b-field>
+
     <div class="table-container">
       <v-table
         :data="paginatedHosts"
@@ -42,7 +46,7 @@
             <v-th sortKey="Version">Version</v-th>
             <v-th sortKey="CreatedAt">Updated</v-th>
           </tr>
-          <tr>
+          <!-- <tr>
             <th>
               <b-input size="is-small" v-model="filters.hostname.value" />
             </th>
@@ -97,30 +101,30 @@
             <th>
               <b-input size="is-small" v-model="filters.last.value" />
             </th>
-          </tr>
+          </tr> -->
         </thead>
         <tbody slot="body" slot-scope="{ displayData }">
           <v-tr v-for="row in displayData" :key="row._id" :row="row">
-            <td>{{ row.Hostname }}</td>
-            <td>{{ row.Environment }}</td>
-            <td>{{ row.Databases }}</td>
-            <td>{{ row.HostType }}</td>
+            <td>{{ row.hostname }}</td>
+            <td>{{ row.environment }}</td>
+            <td>{{ row.databases }}</td>
+            <td>{{ row.hosttype }}</td>
             <td class="border-left">{{ row.platform }}</td>
-            <td>{{ row.Cluster === null ? 'no' : row.Cluster }}</td>
+            <td>{{ row.cluster === null ? 'no' : row.cluster }}</td>
             <td class="border-right">
-              {{ row.PhysicalHost === null ? 'no' : row.PhysicalHost }}
+              {{ row.physicalhost === null ? 'no' : row.physicalhost }}
             </td>
-            <td>{{ row.Info.OS }}</td>
-            <td>{{ row.Info.Kernel }}</td>
-            <td>{{ row.Info.MemoryTotal }}</td>
-            <td>{{ row.Info.SwapTotal }}</td>
-            <td>{{ row.Info.AixCluster }}</td>
-            <td class="border-left">{{ row.Info.CPUModel }}</td>
-            <td>{{ row.Info.CPUThreads }}</td>
-            <td>{{ row.Info.CPUCores }}</td>
-            <td class="border-right">{{ row.Info.Socket }}</td>
-            <td>{{ row.Version }}</td>
-            <td>{{ row.CreatedAt | formatDate }}</td>
+            <td>{{ row.os }}</td>
+            <td>{{ row.kernel }}</td>
+            <td>{{ row.memorytotal }}</td>
+            <td>{{ row.swaptotal }}</td>
+            <td>{{ row.aixcluster }}</td>
+            <td class="border-left">{{ row.model }}</td>
+            <td>{{ row.threads }}</td>
+            <td>{{ row.cores }}</td>
+            <td class="border-right">{{ row.socket }}</td>
+            <td>{{ row.version }}</td>
+            <td>{{ row.updated }}</td>
           </v-tr>
         </tbody>
       </v-table>
@@ -147,7 +151,7 @@
     </div>
 
     <b-pagination
-      :total="hosts.length"
+      :total="results.length"
       :current.sync="current"
       :range-before="rangeBefore"
       :range-after="rangeAfter"
@@ -167,14 +171,14 @@
 import BoxContent from '@/components/common/BoxContent.vue'
 
 export default {
+  components: {
+    BoxContent
+  },
   props: {
     hosts: {
       type: Array,
       required: true
     }
-  },
-  components: {
-    BoxContent
   },
   data() {
     return {
@@ -205,12 +209,57 @@ export default {
       rangeAfter: 3,
       size: 'is-small',
       prevIcon: 'chevron-left',
-      nextIcon: 'chevron-right'
+      nextIcon: 'chevron-right',
+      search: '',
+      results: []
+    }
+  },
+  created() {
+    this.results = this.hosts
+  },
+  methods: {
+    handleSearch() {
+      if (this.search) {
+        this.$search(this.search, this.results, {
+          include: ['score', 'matches'],
+          shouldSort: true,
+          threshold: 0.5,
+          location: 0,
+          distance: 100,
+          maxPatternLength: 32,
+          minMatchCharLength: 3,
+          matchAllTokens: true,
+          keys: [
+            'hostname',
+            'hostname',
+            'environment',
+            'databases',
+            'hosttype',
+            'platform',
+            'cluster',
+            'physicalhost',
+            'os',
+            'kernel',
+            'memorytotal',
+            'swaptotal',
+            'aixcluster',
+            'model',
+            'threads',
+            'cores',
+            'socket',
+            'version',
+            'updated'
+          ]
+        }).then(result => {
+          this.results = result
+        })
+      }
+      this.results = this.hosts
     }
   },
   computed: {
     paginatedHosts() {
-      return this.hosts.slice(
+      return this.results.slice(
         (this.current - 1) * this.perPage,
         this.current * this.perPage
       )
@@ -219,7 +268,7 @@ export default {
   watch: {
     clickedRow(row) {
       if (row.length > 0) {
-        const hostname = row[0].Hostname
+        const hostname = row[0].hostname
         this.$router.replace({
           name: 'hosts-details',
           params: { hostname: hostname }
