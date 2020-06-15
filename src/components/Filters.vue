@@ -156,8 +156,10 @@ export default {
       this.isFilters = !this.isFilters
       if (this.isFilters) {
         this.filterIcon = 'chevron-up'
+        this.$emit('filters', this.isFilters)
       } else {
         this.filterIcon = 'chevron-down'
+        this.$emit('filters', this.isFilters)
       }
     },
     resetAllFilters() {
