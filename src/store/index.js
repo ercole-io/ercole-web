@@ -21,7 +21,7 @@ export default new Vuex.Store({
   plugins: [
     createPersistedState({
       key: 'persisted-data',
-      paths: ['dashboard', 'auth']
+      paths: ['dashboard', 'auth', 'hosts']
     })
   ]
 })
