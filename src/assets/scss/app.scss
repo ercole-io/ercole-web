@@ -29,3 +29,4 @@ $colors: map-merge($colors, $addColors);
 @import '@/assets/scss/_base.scss';
 @import '@/assets/scss/_custom-buefy.scss';
 @import '@/assets/scss/_v-table-custom.scss';
+@import '@/assets/scss/_v-tooltip.scss';

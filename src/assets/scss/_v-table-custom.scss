@@ -22,6 +22,10 @@
         min-width: 100px;
         padding: 0.3em 1em;
         vertical-align: middle;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 150px;
 
         &:first-child {
           text-align: left;

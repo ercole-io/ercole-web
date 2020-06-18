@@ -27,7 +27,7 @@ export default {
         _id: host._id,
         hostname: host.Hostname,
         environment: host.Environment,
-        databases: host.Databases,
+        databases: this.mapDbs(host.Extra.Databases),
         hosttype: host.HostType,
         platform: host.Platform,
         cluster: host.Cluster,
@@ -47,7 +47,10 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['getHosts'])
+    ...mapActions(['getHosts']),
+    mapDbs(dbs) {
+      return dbs ? dbs.map(val => val.Name) : []
+    }
   },
   computed: {
     ...mapGetters(['getAllHosts'])
