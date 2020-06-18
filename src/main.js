@@ -18,7 +18,7 @@ import SmartTable from 'vuejs-smart-table'
 import Vuelidate from 'vuelidate'
 import VueLodash from 'vue-lodash'
 import lodash from 'lodash'
-import VueFuse from 'vue-fuse'
+import VTooltip from 'v-tooltip'
 
 import CapitalizeFilter from './filters/capitalize.js'
 import FormatDate from './filters/formatDate.js'
@@ -46,7 +46,7 @@ Chartkick.options = {
 Vue.use(SmartTable)
 Vue.use(Vuelidate)
 Vue.use(VueLodash, { name: 'custom', lodash: lodash })
-Vue.use(VueFuse)
+Vue.use(VTooltip)
 
 Vue.filter('capitalize', CapitalizeFilter)
 Vue.filter('formatDate', FormatDate)

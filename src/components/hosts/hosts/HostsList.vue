@@ -1,8 +1,55 @@
 <template>
   <BoxContent>
-    <b-field label="Search on Hosts" label-position="on-border">
-      <b-input size="is-small" v-model="search" @input="handleSearch" />
-    </b-field>
+    <div class="top-table">
+      <b-field
+        class="search"
+        custom-class="is-small"
+        label="Search on Hosts"
+        horizontal
+      >
+        <b-input size="is-small" v-model="filters.search.value" />
+      </b-field>
+
+      <div class="table-buttons">
+        <span class="is-size-7 has-text-weight-medium">Show more info:</span>
+        <b-button
+          size="is-small"
+          :type="hideVirtual ? 'is-light' : 'is-primary'"
+          @click="hideVirtual = !hideVirtual"
+          rounded
+        >
+          Virtual
+        </b-button>
+        <b-button
+          size="is-small"
+          :type="hideCPU ? 'is-light' : 'is-primary'"
+          @click="hideCPU = !hideCPU"
+          rounded
+        >
+          CPU
+        </b-button>
+        <b-button
+          size="is-small"
+          :type="hideAgent ? 'is-light' : 'is-primary'"
+          @click="hideAgent = !hideAgent"
+          rounded
+        >
+          Agent
+        </b-button>
+      </div>
+
+      <b-field>
+        <b-select v-model="perPage" size="is-small">
+          <option value="5" v-if="totalHosts > '5'">5 per page</option>
+          <option value="10" v-if="totalHosts > '10'">10 per page</option>
+          <option value="15" v-if="totalHosts > '15'">15 per page</option>
+          <option value="20" v-if="totalHosts > '20'">20 per page</option>
+          <option value="25" v-if="totalHosts > '25'">25 per page</option>
+          <option value="50" v-if="totalHosts > '50'">50 per page</option>
+          <option :value="totalHosts">All Hosts</option>
+        </b-select>
+      </b-field>
+    </div>
 
     <div class="table-container">
       <v-table
@@ -13,16 +60,33 @@
         class="vTable-custom"
       >
         <thead slot="head">
-          <tr class="has-background-grey-light">
+          <tr
+            :class="{
+              'has-background-grey-light':
+                !hideVirtual || !hideCPU || !hideAgent
+            }"
+          >
             <th colspan="4"></th>
-            <th colspan="3" class="has-text-centered border-left border-right">
+            <th
+              colspan="3"
+              class="has-text-centered border-left border-right"
+              :class="{ hide: hideVirtual }"
+            >
               Virtual
             </th>
             <th colspan="5"></th>
-            <th colspan="4" class="has-text-centered border-left border-right">
+            <th
+              colspan="4"
+              class="has-text-centered border-left"
+              :class="{ hide: hideCPU }"
+            >
               CPU
             </th>
-            <th colspan="2" class="has-text-centered border-left">
+            <th
+              colspan="2"
+              class="has-text-centered border-left"
+              :class="{ hide: hideAgent }"
+            >
               Agent
             </th>
           </tr>
@@ -31,87 +95,66 @@
             <v-th sortKey="environment">Env</v-th>
             <v-th sortKey="databases">DBs</v-th>
             <v-th sortKey="hosttype">Tech</v-th>
-            <v-th sortKey="platform" class="border-left">Platform</v-th>
-            <v-th sortKey="cluster">Cluster</v-th>
-            <v-th sortKey="physicalhost" class="border-right">Physical</v-th>
+            <v-th
+              sortKey="platform"
+              class="border-left"
+              :class="{ hide: hideVirtual }"
+              >Platform</v-th
+            >
+            <v-th sortKey="cluster" :class="{ hide: hideVirtual }"
+              >Cluster</v-th
+            >
+            <v-th
+              sortKey="physicalhost"
+              class="border-right"
+              :class="{ hide: hideVirtual }"
+              >Physical</v-th
+            >
             <v-th sortKey="os">OS</v-th>
             <v-th sortKey="kernel">kernel</v-th>
             <v-th sortKey="memorytotal">Mem.</v-th>
             <v-th sortKey="swaptotal">Swap</v-th>
             <v-th sortKey="aixcluster">Clust</v-th>
-            <v-th sortKey="model" class="border-left">Model</v-th>
-            <v-th sortKey="threads">Threa</v-th>
-            <v-th sortKey="cores">Cores</v-th>
-            <v-th sortKey="socket" class="border-right">Socket</v-th>
-            <v-th sortKey="version">Version</v-th>
-            <v-th sortKey="updated">Updated</v-th>
+            <v-th sortKey="model" class="border-left" :class="{ hide: hideCPU }"
+              >Model</v-th
+            >
+            <v-th sortKey="threads" :class="{ hide: hideCPU }">Threa</v-th>
+            <v-th sortKey="cores" :class="{ hide: hideCPU }">Cores</v-th>
+            <v-th sortKey="socket" :class="{ hide: hideCPU }">Socket</v-th>
+            <v-th
+              sortKey="version"
+              class="border-left"
+              :class="{ hide: hideAgent }"
+              >Version</v-th
+            >
+            <v-th sortKey="updated" :class="{ hide: hideAgent }">Updated</v-th>
           </tr>
-          <!-- <tr>
-            <th>
-              <b-input size="is-small" v-model="filters.hostname.value" />
-            </th>
-            <th>
-              <b-input size="is-small" v-model="filters.env.value" />
-            </th>
-            <th>
-              <b-input size="is-small" v-model="filters.dbs.value" />
-            </th>
-            <th>
-              <b-input size="is-small" v-model="filters.technologie.value" />
-            </th>
-            <th class="border-left">
-              <b-input size="is-small" v-model="filters.platform.value" />
-            </th>
-            <th>
-              <b-input size="is-small" v-model="filters.cluster.value" />
-            </th>
-            <th class="border-right">
-              <b-input size="is-small" v-model="filters.physical.value" />
-            </th>
-            <th>
-              <b-input size="is-small" v-model="filters.os.value" />
-            </th>
-            <th>
-              <b-input size="is-small" v-model="filters.kernel.value" />
-            </th>
-            <th>
-              <b-input size="is-small" v-model="filters.memory.value" />
-            </th>
-            <th>
-              <b-input size="is-small" v-model="filters.swap.value" />
-            </th>
-            <th>
-              <b-input size="is-small" v-model="filters.clust.value" />
-            </th>
-            <th class="border-left">
-              <b-input size="is-small" v-model="filters.model.value" />
-            </th>
-            <th>
-              <b-input size="is-small" v-model="filters.threa.value" />
-            </th>
-            <th>
-              <b-input size="is-small" v-model="filters.cores.value" />
-            </th>
-            <th class="border-right">
-              <b-input size="is-small" v-model="filters.socket.value" />
-            </th>
-            <th>
-              <b-input size="is-small" v-model="filters.version.value" />
-            </th>
-            <th>
-              <b-input size="is-small" v-model="filters.last.value" />
-            </th>
-          </tr> -->
         </thead>
         <tbody slot="body" slot-scope="{ displayData }">
           <v-tr v-for="row in displayData" :key="row._id" :row="row">
-            <td>{{ row.hostname }}</td>
+            <td
+              v-tooltip="{
+                content: row.hostname,
+                placement: 'top-right',
+                classes: ['info']
+              }"
+            >
+              {{ row.hostname }}
+            </td>
             <td>{{ row.environment }}</td>
-            <td>{{ row.databases }}</td>
+            <td>
+              <span v-for="(db, i) in row.databases" :key="i">
+                {{ db }} <br />
+              </span>
+            </td>
             <td>{{ row.hosttype }}</td>
-            <td class="border-left">{{ row.platform }}</td>
-            <td>{{ row.cluster === null ? 'no' : row.cluster }}</td>
-            <td class="border-right">
+            <td class="border-left" :class="{ hide: hideVirtual }">
+              {{ row.platform }}
+            </td>
+            <td :class="{ hide: hideVirtual }">
+              {{ row.cluster === null ? 'no' : row.cluster }}
+            </td>
+            <td class="border-right" :class="{ hide: hideVirtual }">
               {{ row.physicalhost === null ? 'no' : row.physicalhost }}
             </td>
             <td>{{ row.os }}</td>
@@ -119,51 +162,51 @@
             <td>{{ row.memorytotal }}</td>
             <td>{{ row.swaptotal }}</td>
             <td>{{ row.aixcluster }}</td>
-            <td class="border-left">{{ row.model }}</td>
-            <td>{{ row.threads }}</td>
-            <td>{{ row.cores }}</td>
-            <td class="border-right">{{ row.socket }}</td>
-            <td>{{ row.version }}</td>
-            <td>{{ row.updated }}</td>
+            <td class="border-left" :class="{ hide: hideCPU }">
+              {{ row.model }}
+            </td>
+            <td :class="{ hide: hideCPU }">{{ row.threads }}</td>
+            <td :class="{ hide: hideCPU }">{{ row.cores }}</td>
+            <td :class="{ hide: hideCPU }">
+              {{ row.socket }}
+            </td>
+            <td class="border-left" :class="{ hide: hideAgent }">
+              {{ row.version }}
+            </td>
+            <td :class="{ hide: hideAgent }">{{ row.updated | formatDate }}</td>
           </v-tr>
         </tbody>
       </v-table>
     </div>
 
+    <BoxContent class="is-size-7 has-text-weight-medium has-text-centered">
+      Showing {{ perPage }} hosts from {{ totalHosts }}
+    </BoxContent>
+
     <div
       class="is-flex"
       style="justify-content: space-between; margin-bottom: 10px"
     >
-      <b-field class="is-margin-bottom-less">
-        <b-select v-model="perPage" size="is-small" style="order: 1;">
-          <option value="5">5 per page</option>
-          <option value="10">10 per page</option>
-          <option value="15">15 per page</option>
-          <option value="20">20 per page</option>
-          <option value="50">50 per page</option>
-        </b-select>
-      </b-field>
+      <b-pagination
+        :total="totalHosts"
+        :current.sync="current"
+        :range-before="rangeBefore"
+        :range-after="rangeAfter"
+        :size="size"
+        :per-page="perPage"
+        :icon-prev="prevIcon"
+        :icon-next="nextIcon"
+        aria-next-label="Next page"
+        aria-previous-label="Previous page"
+        aria-page-label="Page"
+        aria-current-label="Current page"
+      />
 
       <div class="buttons" style="order: 2;">
         <b-button type="is-primary" size="is-small">Host List File</b-button>
         <b-button type="is-primary" size="is-small">LMS Audit File</b-button>
       </div>
     </div>
-
-    <b-pagination
-      :total="results.length"
-      :current.sync="current"
-      :range-before="rangeBefore"
-      :range-after="rangeAfter"
-      :size="size"
-      :per-page="perPage"
-      :icon-prev="prevIcon"
-      :icon-next="nextIcon"
-      aria-next-label="Next page"
-      aria-previous-label="Previous page"
-      aria-page-label="Page"
-      aria-current-label="Current page"
-    />
   </BoxContent>
 </template>
 
@@ -183,54 +226,9 @@ export default {
   data() {
     return {
       filters: {
-        hostname: { value: '', keys: ['Hostname'] },
-        env: { value: '', keys: ['Environment'] },
-        dbs: { value: '', keys: ['Databases'] },
-        technologie: { value: '', keys: ['HostType'] },
-        platform: { value: '', keys: ['Platform'] },
-        cluster: { value: '', keys: ['Cluster'] },
-        physical: { value: '', keys: ['PhysicalHost'] },
-        os: { value: '', keys: ['Info.OS'] },
-        kernel: { value: '', keys: ['Info.Kernel'] },
-        memory: { value: '', keys: ['Info.MemoryTotal'] },
-        swap: { value: '', keys: ['Info.SwapTotal'] },
-        clust: { value: '', keys: ['Info.AixCluster'] },
-        model: { value: '', keys: ['Info.CPUModel'] },
-        threa: { value: '', keys: ['Info.CPUThreads'] },
-        cores: { value: '', keys: ['Info.CPUCores'] },
-        socket: { value: '', keys: ['Info.Socket'] },
-        version: { value: '', keys: ['Version'] },
-        last: { value: '', keys: ['CreatedAt'] }
-      },
-      clickedRow: [],
-      current: 1,
-      perPage: 5,
-      rangeBefore: 3,
-      rangeAfter: 3,
-      size: 'is-small',
-      prevIcon: 'chevron-left',
-      nextIcon: 'chevron-right',
-      search: '',
-      results: []
-    }
-  },
-  created() {
-    this.results = this.hosts
-  },
-  methods: {
-    handleSearch() {
-      if (this.search) {
-        this.$search(this.search, this.results, {
-          include: ['score', 'matches'],
-          shouldSort: true,
-          threshold: 0.5,
-          location: 0,
-          distance: 100,
-          maxPatternLength: 32,
-          minMatchCharLength: 3,
-          matchAllTokens: true,
+        search: {
+          value: '',
           keys: [
-            'hostname',
             'hostname',
             'environment',
             'databases',
@@ -250,19 +248,30 @@ export default {
             'version',
             'updated'
           ]
-        }).then(result => {
-          this.results = result
-        })
-      }
-      this.results = this.hosts
+        }
+      },
+      clickedRow: [],
+      current: 1,
+      perPage: 15,
+      rangeBefore: 3,
+      rangeAfter: 3,
+      size: 'is-small',
+      prevIcon: 'chevron-left',
+      nextIcon: 'chevron-right',
+      hideVirtual: true,
+      hideCPU: true,
+      hideAgent: true
     }
   },
   computed: {
     paginatedHosts() {
-      return this.results.slice(
+      return this.hosts.slice(
         (this.current - 1) * this.perPage,
         this.current * this.perPage
       )
+    },
+    totalHosts() {
+      return this.hosts.length
     }
   },
   watch: {
@@ -280,20 +289,48 @@ export default {
 </script>
 
 <style lang="scss">
+.top-table {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  .search {
+    margin-bottom: 0;
+  }
+
+  .table-buttons {
+    button {
+      margin: 0 5px;
+    }
+  }
+
+  .field-label {
+    .label {
+      min-width: 100px;
+    }
+  }
+}
+
 .pagination {
   .pagination-previous {
     order: 1;
   }
   .pagination-list {
     order: 2;
-    justify-content: center;
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 0;
   }
   .pagination-next {
     order: 3;
   }
 }
 
-.is-margin-bottom-less {
+.no-margin-bottom {
   margin-bottom: 0 !important;
+}
+
+.hide {
+  display: none;
 }
 </style>
