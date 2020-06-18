@@ -27,24 +27,24 @@
             </th>
           </tr>
           <tr class="has-background-grey-lighter">
-            <v-th sortKey="Hostname">Hostname</v-th>
-            <v-th sortKey="Environment">Env</v-th>
-            <v-th sortKey="Databases">DBs</v-th>
-            <v-th sortKey="HostType">Tech</v-th>
-            <v-th sortKey="Platform" class="border-left">Platform</v-th>
-            <v-th sortKey="Cluster">Cluster</v-th>
-            <v-th sortKey="PhysicalHost" class="border-right">Physical</v-th>
-            <v-th sortKey="Info.OS">OS</v-th>
-            <v-th sortKey="Info.Kernel">kernel</v-th>
-            <v-th sortKey="Info.MemoryTotal">Mem.</v-th>
-            <v-th sortKey="Info.SwapTotal">Swap</v-th>
-            <v-th sortKey="Info.AixCluster">Clust</v-th>
-            <v-th sortKey="Info.CPUModel" class="border-left">Model</v-th>
-            <v-th sortKey="Info.CPUThreads">Threa</v-th>
-            <v-th sortKey="Info.CPUCores">Cores</v-th>
-            <v-th sortKey="Info.Socket" class="border-right">Socket</v-th>
-            <v-th sortKey="Version">Version</v-th>
-            <v-th sortKey="CreatedAt">Updated</v-th>
+            <v-th sortKey="hostname">Hostname</v-th>
+            <v-th sortKey="environment">Env</v-th>
+            <v-th sortKey="databases">DBs</v-th>
+            <v-th sortKey="hosttype">Tech</v-th>
+            <v-th sortKey="platform" class="border-left">Platform</v-th>
+            <v-th sortKey="cluster">Cluster</v-th>
+            <v-th sortKey="physicalhost" class="border-right">Physical</v-th>
+            <v-th sortKey="os">OS</v-th>
+            <v-th sortKey="kernel">kernel</v-th>
+            <v-th sortKey="memorytotal">Mem.</v-th>
+            <v-th sortKey="swaptotal">Swap</v-th>
+            <v-th sortKey="aixcluster">Clust</v-th>
+            <v-th sortKey="model" class="border-left">Model</v-th>
+            <v-th sortKey="threads">Threa</v-th>
+            <v-th sortKey="cores">Cores</v-th>
+            <v-th sortKey="socket" class="border-right">Socket</v-th>
+            <v-th sortKey="version">Version</v-th>
+            <v-th sortKey="updated">Updated</v-th>
           </tr>
           <!-- <tr>
             <th>
