@@ -38,16 +38,12 @@
         </b-button>
       </div>
 
-      <PerPageSelect
-        :pageQty="perPage"
-        :totalItem="totalHosts"
-        @changePerPage="handlePerPage"
-      />
+      <SelectPerPage :totalItem="totalHosts" />
     </div>
 
     <div class="table-container">
       <v-table
-        :data="paginatedHosts"
+        :data="paginatedItems"
         :filters="filters"
         :hideSortIcons="true"
         @selectionChanged="clickedRow = $event"
@@ -173,20 +169,7 @@
       class="is-flex"
       style="justify-content: space-between; margin-bottom: 10px"
     >
-      <b-pagination
-        :total="totalHosts"
-        :current.sync="current"
-        :range-before="rangeBefore"
-        :range-after="rangeAfter"
-        :size="size"
-        :per-page="perPage"
-        :icon-prev="prevIcon"
-        :icon-next="nextIcon"
-        aria-next-label="Next page"
-        aria-previous-label="Previous page"
-        aria-page-label="Page"
-        aria-current-label="Current page"
-      />
+      <Pagination :listItems="hosts" @pagitatedItems="handlePagination" />
 
       <div class="buttons" style="order: 2;">
         <b-button type="is-primary" size="is-small">Host List File</b-button>
@@ -197,15 +180,18 @@
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import TdContent from '@/components/common/TdContent.vue'
-import PerPageSelect from '@/components/common/PerPageSelect.vue'
+import SelectPerPage from '@/components/common/SelectPerPage.vue'
+import Pagination from '@/components/common/Pagination.vue'
 
 export default {
   components: {
     BoxContent,
     TdContent,
-    PerPageSelect
+    SelectPerPage,
+    Pagination
   },
   props: {
     hosts: {
@@ -241,30 +227,24 @@ export default {
         }
       },
       clickedRow: [],
-      current: 1,
       perPage: 10,
-      rangeBefore: 3,
-      rangeAfter: 3,
-      size: 'is-small',
-      prevIcon: 'chevron-left',
-      nextIcon: 'chevron-right',
+      paginatedItems: [],
       hideVirtual: true,
       hideCPU: true,
       hideAgent: true
     }
   },
+  created() {
+    bus.$on('changePerPage', value => {
+      this.perPage = value
+    })
+  },
   methods: {
-    handlePerPage(val) {
-      this.perPage = val
+    handlePagination(val) {
+      this.paginatedItems = val
     }
   },
   computed: {
-    paginatedHosts() {
-      return this.hosts.slice(
-        (this.current - 1) * this.perPage,
-        this.current * this.perPage
-      )
-    },
     totalHosts() {
       return this.hosts.length
     }
