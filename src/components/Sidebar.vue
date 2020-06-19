@@ -189,6 +189,7 @@ export default {
       width: 60px;
       box-shadow: 1px 0px 10px 0px rgba(0, 0, 0, 0.2);
       background-color: #eee;
+      z-index: 51;
     }
 
     .menu-list {
