@@ -26,31 +26,38 @@ export default {
     this.getAllHosts.forEach(host => {
       this.hosts.push({
         _id: host._id,
-        hostname: host.Hostname,
-        environment: host.Environment,
+        hostname: host.Hostname || '-',
+        environment: host.Environment || '-',
         databases: this.mapDbs(host.Extra.Databases),
-        hosttype: host.HostType,
-        platform: host.Platform,
-        cluster: host.Cluster,
-        physicalhost: host.PhysicalHost,
-        os: host.Info.OS,
-        kernel: host.Info.Kernel,
-        memorytotal: host.Info.MemoryTotal,
-        swaptotal: host.Info.SwapTotal,
-        aixcluster: host.Info.AixCluster,
-        model: host.Info.CPUModel,
-        threads: host.Info.CPUThreads,
-        cores: host.Info.CPUCores,
-        socket: host.Info.Socket,
-        version: host.Version,
-        updated: formatDate(host.CreatedAt)
+        hosttype: host.HostType || '-',
+        platform: host.Platform || '-',
+        cluster: host.Cluster || '-',
+        physicalhost: host.PhysicalHost || '-',
+        os: host.Info.OS || '-',
+        kernel: host.Info.Kernel || '-',
+        memorytotal: host.Info.MemoryTotal || '-',
+        swaptotal: host.Info.SwapTotal || '-',
+        aixcluster: this.mapAixcluster(host.Info.AixCluster),
+        model: host.Info.CPUModel || '-',
+        threads: host.Info.CPUThreads || '-',
+        cores: host.Info.CPUCores || '-',
+        socket: host.Info.Socket || '-',
+        version: host.Version || '-',
+        updated: formatDate(host.CreatedAt) || '-'
       })
     })
   },
   methods: {
     ...mapActions(['getHosts']),
     mapDbs(dbs) {
-      return dbs ? dbs.map(val => val.Name) : []
+      return (dbs && dbs.length === 0) || dbs === null
+        ? '-'
+        : dbs.map(val => val.Name || 'empty name')
+    },
+    mapAixcluster(aixCluster) {
+      return aixCluster
+        ? ['check-circle', 'fas', 'is-success']
+        : ['circle', 'fas', 'is-danger']
     }
   },
   computed: {
