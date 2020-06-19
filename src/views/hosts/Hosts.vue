@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import formatDate from '@/filters/formatDate.js'
 import { mapGetters, mapActions } from 'vuex'
 import PageTitle from '@/components/common/PageTitle.vue'
 import HostList from '@/components/hosts/hosts/HostsList.vue'
@@ -42,7 +43,7 @@ export default {
         cores: host.Info.CPUCores,
         socket: host.Info.Socket,
         version: host.Version,
-        updated: host.CreatedAt
+        updated: formatDate(host.CreatedAt)
       })
     })
   },

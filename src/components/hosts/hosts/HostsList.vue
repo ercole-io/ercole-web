@@ -135,45 +135,164 @@
             <td
               v-tooltip="{
                 content: row.hostname,
-                placement: 'top-right',
                 classes: ['info']
               }"
             >
               {{ row.hostname }}
             </td>
-            <td>{{ row.environment }}</td>
+            <td
+              v-tooltip="{
+                content: row.environment,
+                classes: ['info']
+              }"
+            >
+              {{ row.environment }}
+            </td>
             <td>
-              <span v-for="(db, i) in row.databases" :key="i">
+              <span
+                v-for="(db, i) in row.databases"
+                :key="i"
+                v-tooltip="{
+                  content: db,
+                  classes: ['info']
+                }"
+              >
                 {{ db }} <br />
               </span>
             </td>
-            <td>{{ row.hosttype }}</td>
-            <td class="border-left" :class="{ hide: hideVirtual }">
+            <td
+              v-tooltip="{
+                content: row.hosttype,
+                classes: ['info']
+              }"
+            >
+              {{ row.hosttype }}
+            </td>
+            <td
+              class="border-left"
+              :class="{ hide: hideVirtual }"
+              v-tooltip="{
+                content: row.platform,
+                classes: ['info']
+              }"
+            >
               {{ row.platform }}
             </td>
-            <td :class="{ hide: hideVirtual }">
-              {{ row.cluster === null ? 'no' : row.cluster }}
+            <td
+              :class="{ hide: hideVirtual }"
+              v-tooltip="{
+                content: row.cluster,
+                classes: ['info']
+              }"
+            >
+              {{ row.cluster }}
             </td>
-            <td class="border-right" :class="{ hide: hideVirtual }">
-              {{ row.physicalhost === null ? 'no' : row.physicalhost }}
+            <td
+              class="border-right"
+              :class="{ hide: hideVirtual }"
+              v-tooltip="{
+                content: row.physicalhost,
+                classes: ['info']
+              }"
+            >
+              {{ row.physicalhost }}
             </td>
-            <td>{{ row.os }}</td>
-            <td>{{ row.kernel }}</td>
-            <td>{{ row.memorytotal }}</td>
-            <td>{{ row.swaptotal }}</td>
-            <td>{{ row.aixcluster }}</td>
-            <td class="border-left" :class="{ hide: hideCPU }">
+            <td
+              v-tooltip="{
+                content: row.os,
+                classes: ['info']
+              }"
+            >
+              {{ row.os }}
+            </td>
+            <td
+              v-tooltip="{
+                content: row.kernel,
+                classes: ['info']
+              }"
+            >
+              {{ row.kernel }}
+            </td>
+            <td
+              v-tooltip="{
+                content: row.memorytotal,
+                classes: ['info']
+              }"
+            >
+              {{ row.memorytotal }}
+            </td>
+            <td
+              v-tooltip="{
+                content: row.swaptotal,
+                classes: ['info']
+              }"
+            >
+              {{ row.swaptotal }}
+            </td>
+            <td
+              v-tooltip="{
+                content: row.aixcluster,
+                classes: ['info']
+              }"
+            >
+              {{ row.aixcluster }}
+            </td>
+            <td
+              class="border-left"
+              :class="{ hide: hideCPU }"
+              v-tooltip="{
+                content: row.model,
+                classes: ['info']
+              }"
+            >
               {{ row.model }}
             </td>
-            <td :class="{ hide: hideCPU }">{{ row.threads }}</td>
-            <td :class="{ hide: hideCPU }">{{ row.cores }}</td>
-            <td :class="{ hide: hideCPU }">
+            <td
+              :class="{ hide: hideCPU }"
+              v-tooltip="{
+                content: row.threads,
+                classes: ['info']
+              }"
+            >
+              {{ row.threads }}
+            </td>
+            <td
+              :class="{ hide: hideCPU }"
+              v-tooltip="{
+                content: row.cores,
+                classes: ['info']
+              }"
+            >
+              {{ row.cores }}
+            </td>
+            <td
+              :class="{ hide: hideCPU }"
+              v-tooltip="{
+                content: row.socket,
+                classes: ['info']
+              }"
+            >
               {{ row.socket }}
             </td>
-            <td class="border-left" :class="{ hide: hideAgent }">
+            <td
+              class="border-left"
+              :class="{ hide: hideAgent }"
+              v-tooltip="{
+                content: row.version,
+                classes: ['info']
+              }"
+            >
               {{ row.version }}
             </td>
-            <td :class="{ hide: hideAgent }">{{ row.updated | formatDate }}</td>
+            <td
+              :class="{ hide: hideAgent }"
+              v-tooltip="{
+                content: row.updated,
+                classes: ['info']
+              }"
+            >
+              {{ row.updated }}
+            </td>
           </v-tr>
         </tbody>
       </v-table>
@@ -252,7 +371,7 @@ export default {
       },
       clickedRow: [],
       current: 1,
-      perPage: 15,
+      perPage: 10,
       rangeBefore: 3,
       rangeAfter: 3,
       size: 'is-small',
