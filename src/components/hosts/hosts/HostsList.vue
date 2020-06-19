@@ -38,17 +38,11 @@
         </b-button>
       </div>
 
-      <b-field>
-        <b-select v-model="perPage" size="is-small">
-          <option value="5" v-if="totalHosts > '5'">5 per page</option>
-          <option value="10" v-if="totalHosts > '10'">10 per page</option>
-          <option value="15" v-if="totalHosts > '15'">15 per page</option>
-          <option value="20" v-if="totalHosts > '20'">20 per page</option>
-          <option value="25" v-if="totalHosts > '25'">25 per page</option>
-          <option value="50" v-if="totalHosts > '50'">50 per page</option>
-          <option :value="totalHosts">All Hosts</option>
-        </b-select>
-      </b-field>
+      <PerPageSelect
+        :pageQty="perPage"
+        :totalItem="totalHosts"
+        @changePerPage="handlePerPage"
+      />
     </div>
 
     <div class="table-container">
@@ -205,11 +199,13 @@
 <script>
 import BoxContent from '@/components/common/BoxContent.vue'
 import TdContent from '@/components/common/TdContent.vue'
+import PerPageSelect from '@/components/common/PerPageSelect.vue'
 
 export default {
   components: {
     BoxContent,
-    TdContent
+    TdContent,
+    PerPageSelect
   },
   props: {
     hosts: {
@@ -255,6 +251,11 @@ export default {
       hideVirtual: true,
       hideCPU: true,
       hideAgent: true
+    }
+  },
+  methods: {
+    handlePerPage(val) {
+      this.perPage = val
     }
   },
   computed: {
