@@ -1,10 +1,6 @@
 <template>
   <b-field>
-    <b-select
-      v-model="perPage"
-      size="is-small"
-      @change.native="$emit('changePerPage', perPage)"
-    >
+    <b-select v-model="perPage" size="is-small" @change.native="changePerPage">
       <option value="5" v-if="totalItem > 5">5 per page</option>
       <option value="10" v-if="totalItem > 10">10 per page</option>
       <option value="15" v-if="totalItem > 15">15 per page</option>
@@ -17,11 +13,23 @@
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
+
 export default {
-  props: ['pageQty', 'totalItem'],
+  props: {
+    totalItem: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
-      perPage: this.pageQty
+      perPage: 10
+    }
+  },
+  methods: {
+    changePerPage() {
+      bus.$emit('changePerPage', this.perPage)
     }
   }
 }
