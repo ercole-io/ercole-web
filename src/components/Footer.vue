@@ -15,6 +15,6 @@ export default {}
 <style lang="scss" scoped>
 .footer {
   padding: 1rem 1.5rem 1rem;
-  z-index: 50;
+  z-index: 52;
 }
 </style>

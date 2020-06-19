@@ -176,6 +176,8 @@ export default {
 .filters {
   position: fixed;
   width: 100%;
+  z-index: 50;
+  margin-top: -1px;
 
   .filters-form {
     display: flex;
