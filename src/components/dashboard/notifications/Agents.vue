@@ -7,11 +7,11 @@
       <template>
         <div class="agents">
           <span>Total hosts:</span>
-          <span class="has-text-weight-bold">15.846</span>
+          <span class="has-text-weight-bold">{{ agents.totalHosts }}</span>
         </div>
         <div class="agents">
           <span>Agents that are stopped:</span>
-          <span class="has-text-weight-bold">22 (from 540,in.)</span>
+          <span class="has-text-weight-bold">{{ agents.agentsStopped }}</span>
         </div>
       </template>
     </div>
@@ -29,6 +29,10 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    agents: {
+      type: Object,
+      required: true
     }
   }
 }

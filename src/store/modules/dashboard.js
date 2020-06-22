@@ -26,6 +26,11 @@ export const getters = {
       })
     })
     return techArray
+  },
+  getAgentsTotalHosts: state => {
+    const alerts = state.dashData.Alerts
+    let agentsTotalHosts = _.sumBy(alerts, 'Count')
+    return agentsTotalHosts
   }
 }
 
@@ -36,9 +41,10 @@ export const mutations = {
 }
 
 export const actions = {
-  getDashboardData({ commit }) {
+  getDashboardData({ commit, dispatch }) {
     return axiosDefault.get('/frontend/dashboard').then(res => {
       commit('SET_DASHBOARD_DATA', res.data)
+      dispatch('getAlertsData')
     })
   }
 }

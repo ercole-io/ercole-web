@@ -19,7 +19,12 @@
       <div class="column is-3">
         <div class="columns">
           <div class="column">
-            <Notifications />
+            <Notifications
+              :agents="{
+                totalHosts: agentsTotalHosts,
+                agentsStopped: agentsStopped
+              }"
+            />
           </div>
         </div>
       </div>
@@ -46,6 +51,12 @@ export default {
     },
     technologies() {
       return this.$store.getters['getTechnologies']
+    },
+    agentsTotalHosts() {
+      return this.$store.getters['getAgentsTotalHosts']
+    },
+    agentsStopped() {
+      return this.$store.getters['getStoppedAgents']
     }
   }
 }
