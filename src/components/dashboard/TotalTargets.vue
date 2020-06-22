@@ -2,26 +2,24 @@
   <BoxContent :title="$t('dashboard.pageTitle.totalTargets')" border>
     <div class="total-targets">
       <div class="total-targets-col">
-        <div>
-          Agents discovered
-        </div>
-        <div>
-          Percentage of compliance
-        </div>
-        <div>
-          Money missing
-        </div>
+        <div>Agents discovered</div>
+        <div>Percentage of compliance</div>
+        <div>Money missing</div>
       </div>
       <div class="total-targets-col">
         <div>
-          <span class="has-text-weight-semibold is-size-5">100</span>/150
+          <span class="has-text-weight-semibold is-size-5">
+            {{ totalTarget.agentsDiscovered }}
+          </span>
         </div>
         <div
           class="has-text-weight-semibold is-size-5 has-background-grey-lighter"
         >
-          80%
+          {{ totalTarget.percCompliance }}%
         </div>
-        <div class="has-text-weight-semibold is-size-5">-87.000 €</div>
+        <div class="has-text-weight-semibold is-size-5">
+          {{ totalTarget.moneyMissing }}€
+        </div>
       </div>
     </div>
   </BoxContent>
@@ -34,14 +32,10 @@ export default {
   components: {
     BoxContent
   },
-  data() {
-    return {
-      data: [
-        { name: 'Agents Discovered', value: '100/150' },
-        { name: 'Percentage of Compliance', value: '80%' },
-        { name: 'Money Missing', value: '-87.000 $' }
-      ],
-      columns: [{ field: 'name' }, { field: 'value' }]
+  props: {
+    totalTarget: {
+      type: Object,
+      required: true
     }
   }
 }

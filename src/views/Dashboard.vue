@@ -4,10 +4,10 @@
       <div class="column">
         <div class="columns is-9">
           <div class="column is-4">
-            <TotalTargets />
+            <TotalTargets :totalTarget="totalTarget" />
           </div>
           <div class="column is-8">
-            <Technologies />
+            <Technologies :technologies="technologies" />
           </div>
         </div>
         <div class="columns">
@@ -39,6 +39,14 @@ export default {
     Technologies,
     ChartTabs,
     Notifications
+  },
+  computed: {
+    totalTarget() {
+      return this.$store.getters['getTotalTarget']
+    },
+    technologies() {
+      return this.$store.getters['getTechnologies']
+    }
   }
 }
 </script>

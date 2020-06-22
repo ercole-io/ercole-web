@@ -1,6 +1,6 @@
 <template>
   <BoxContent :title="$t('dashboard.pageTitle.technologies')" border>
-    <Technologie :technologies="techData" />
+    <Technologie :technologies="technologies" />
   </BoxContent>
 </template>
 
@@ -13,22 +13,10 @@ export default {
     BoxContent,
     Technologie
   },
-  data() {
-    return {
-      techData: [
-        { name: 'Oracle', number: 50, perc: 40, value: '-40k' },
-        { name: 'MySQL', number: 20, perc: 60, value: '-5k' },
-        { name: 'MongoDB', number: 3, perc: 75, value: '-2k' },
-        { name: 'PSQL', number: 10, perc: 80, value: '-3k' },
-        { name: 'Oracle', number: 50, perc: 40, value: '-40k' },
-        { name: 'MySQL', number: 20, perc: 60, value: '-5k' },
-        { name: 'MongoDB', number: 3, perc: 75, value: '-2k' },
-        { name: 'PSQL', number: 10, perc: 80, value: '-3k' },
-        { name: 'Oracle', number: 50, perc: 40, value: '-40k' },
-        { name: 'MySQL', number: 20, perc: 60, value: '-5k' },
-        { name: 'MongoDB', number: 3, perc: 75, value: '-2k' },
-        { name: 'PSQL', number: 10, perc: 80, value: '-3k' }
-      ]
+  props: {
+    technologies: {
+      type: Array,
+      required: true
     }
   }
 }
