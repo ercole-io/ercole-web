@@ -52,7 +52,7 @@ export default {
     mapDbs(dbs) {
       return (dbs && dbs.length === 0) || dbs === null
         ? '-'
-        : dbs.map(val => val.Name || 'empty name')
+        : dbs.map(val => val.Name || '-')
     },
     mapAixcluster(aixCluster) {
       return aixCluster
