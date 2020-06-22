@@ -7,6 +7,7 @@ import * as errors from './modules/errors'
 import * as auth from './modules/auth'
 import * as dashboard from './modules/dashboard.js'
 import * as hosts from './modules/hosts.js'
+import * as alerts from './modules/alerts.js'
 
 Vue.use(Vuex)
 
@@ -16,12 +17,13 @@ export default new Vuex.Store({
     errors,
     auth,
     dashboard,
-    hosts
+    hosts,
+    alerts
   },
   plugins: [
     createPersistedState({
       key: 'persisted-data',
-      paths: ['dashboard', 'auth', 'hosts']
+      paths: ['dashboard', 'auth', 'hosts', 'alerts']
     })
   ]
 })

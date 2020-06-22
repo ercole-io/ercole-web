@@ -1,7 +1,7 @@
 <template>
   <BoxContent :title="$t('dashboard.pageTitle.notificatons')" border padding>
     <Notification>
-      <Agents slot="notify" title="Agents" />
+      <Agents slot="notify" title="Agents" :agents="agents" />
     </Notification>
 
     <Notification>
@@ -28,6 +28,12 @@ export default {
     Agents,
     Licenses,
     System
+  },
+  props: {
+    agents: {
+      type: Object,
+      required: true
+    }
   }
 }
 </script>
