@@ -3,7 +3,7 @@
     <component :is="layout">
       <Suspense>
         <b-loading :active.sync="isLoading"></b-loading>
-        <router-view :key="$route.fullPath" />
+        <router-view v-show="!isLoading" :key="$route.fullPath" />
       </Suspense>
     </component>
   </div>

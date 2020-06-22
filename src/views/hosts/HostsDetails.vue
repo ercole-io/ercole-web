@@ -31,7 +31,11 @@
         :title="`Databases of ${currentHostName}`"
         class="column is-8"
       >
-        <HostDatabases :hostDbs="hostDbs" />
+        <HostDatabases :hostDbs="hostDbs" v-if="hostDbs.length > 0" />
+        <noContent
+          v-else
+          noContentText="There are no Databases for this Host"
+        />
       </BoxContent>
     </div>
   </section>
@@ -47,6 +51,7 @@ import HostTags from '@/components/common/Tags.vue'
 import HostTable from '@/components/hosts/hostDetails/Table.vue'
 import HostGraph from '@/components/hosts/hostDetails/Graph.vue'
 import HostDatabases from '@/components/hosts/hostDetails/databases/Databases.vue'
+import noContent from '@/components/common/NoContent.vue'
 
 export default {
   props: {
@@ -62,7 +67,8 @@ export default {
     HostTags,
     HostTable,
     HostGraph,
-    HostDatabases
+    HostDatabases,
+    noContent
   },
   data() {
     return {
@@ -107,7 +113,14 @@ export default {
       })
     },
     hostDbsInfo(host) {
-      return (this.hostDbs = host)
+      if (host.length > 0) {
+        this._.forEach(host, val => {
+          if (val.Name) {
+            this.hostDbs.push(val)
+          }
+        })
+        return this.hostDbs
+      }
     },
     hostNotificationInfo(host) {
       return (this.notificationInfo = {

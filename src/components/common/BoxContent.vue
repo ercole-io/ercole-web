@@ -31,10 +31,12 @@ export default {
 <style lang="scss" scoped>
 .box-content {
   padding: 1rem;
+  height: 100%;
 }
 
 .margin-bottom {
   margin-bottom: 20px;
+  height: 100%;
 }
 
 .sub-title {

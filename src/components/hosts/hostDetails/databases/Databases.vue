@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
     <b-tabs
       v-model="activeTab"
       :multiline="multiline"
@@ -91,26 +91,7 @@
         </b-tab-item>
       </template>
     </b-tabs>
-
-    <!-- <b-tabs
-      size="is-small"
-      type="is-boxed"
-      position="is-right"
-      class="column is-2 block"
-    >
-      <b-tab-item label="DBs Filters">
-        <div class="field">
-          <b-checkbox size="is-small">Basic 1</b-checkbox>
-        </div>
-        <div class="field">
-          <b-checkbox size="is-small">Basic 2</b-checkbox>
-        </div>
-        <div class="field">
-          <b-checkbox size="is-small">Basic 3</b-checkbox>
-        </div>
-      </b-tab-item>
-    </b-tabs> -->
-  </div>
+  </section>
 </template>
 
 <script>
