@@ -70,7 +70,7 @@
           <td>{{ hostTable.cores }}</td>
           <td class="border-right">{{ hostTable.socket }}</td>
           <td>{{ hostTable.version }}</td>
-          <td>{{ hostTable.createdAt | formatDate }}</td>
+          <td>{{ hostTable.createdAt }}</td>
         </tr>
       </tbody>
     </table>
