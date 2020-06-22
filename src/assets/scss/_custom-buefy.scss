@@ -9,8 +9,31 @@
 }
 
 // custom ul tabs
+.b-tabs .tab-content {
+  overflow: hidden;
+}
+
 .b-tabs.is-vertical > .tabs ul li a {
   padding: 0.3em 1em 0.25em 1em;
+}
+
+.tabs.is-boxed {
+  li {
+    max-width: 100px;
+
+    a {
+      span {
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+.tab-item {
+  .tab-content {
+    padding: 0 0 0 20px;
+  }
 }
 
 // pagination

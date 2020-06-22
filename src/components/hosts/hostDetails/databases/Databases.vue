@@ -169,23 +169,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.tabs {
-  li {
-    max-width: 100px;
-
-    a {
-      span {
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
-    }
-  }
-}
-
-.tab-item {
-  .tab-content {
-    padding: 0 0 0 20px;
-  }
-}
-</style>
+<style lang="scss"></style>

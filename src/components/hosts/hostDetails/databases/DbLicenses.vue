@@ -1,6 +1,6 @@
 <template>
   <section class="licenses-section">
-    <div class="wrap-table-licenses">
+    <div class="wrap-table licenses">
       <v-table
         class="vTable-custom table-hover"
         :hideSortIcons="true"
@@ -63,10 +63,11 @@ export default {
   flex-direction: column;
 }
 
-.wrap-table-licenses {
-  max-height: 280px;
-  overflow: auto;
-  margin-bottom: 20px;
+.wrap-table {
+  &.licenses {
+    max-height: 280px;
+    margin-bottom: 20px;
+  }
 }
 
 .selected-licenses {
