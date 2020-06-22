@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import formatDate from '@/filters/formatDate.js'
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
 import PageTitle from '@/components/common/PageTitle.vue'
@@ -92,24 +93,24 @@ export default {
     ...mapActions(['getHostByName']),
     hostTableInfo(host) {
       return (this.hostTable = {
-        hostname: host.Hostname,
-        environment: host.Environment,
-        filesys: host.Extra.Filesystems,
-        hostType: host.HostType,
-        platform: host.platform,
-        cluster: host.Cluster,
-        physicalHost: host.PhysicalHost,
-        os: host.Info.OS,
-        kernel: host.Info.Kernel,
-        memoryTotal: host.Info.MemoryTotal,
-        swapTotal: host.Info.SwapTotal,
-        aixCluster: host.Info.AixCluster,
-        model: host.Info.CPUModel,
-        threads: host.Info.CPUThreads,
-        cores: host.Info.CPUCores,
-        socket: host.Info.Socket,
-        version: host.Version,
-        createdAt: host.CreatedAt
+        hostname: host.Hostname || '-',
+        environment: host.Environment || '-',
+        filesys: host.Extra.Filesystems || '-',
+        hostType: host.HostType || '-',
+        platform: host.platform || '-',
+        cluster: host.Cluster || '-',
+        physicalHost: host.PhysicalHost || '-',
+        os: host.Info.OS || '-',
+        kernel: host.Info.Kernel || '-',
+        memoryTotal: host.Info.MemoryTotal || '-',
+        swapTotal: host.Info.SwapTotal || '-',
+        aixCluster: host.Info.AixCluster || '-',
+        model: host.Info.CPUModel || '-',
+        threads: host.Info.CPUThreads || '-',
+        cores: host.Info.CPUCores || '-',
+        socket: host.Info.Socket || '-',
+        version: host.Version || '-',
+        createdAt: formatDate(host.CreatedAt) || '-'
       })
     },
     hostDbsInfo(host) {
