@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import formatDate from '@/filters/formatDate.js'
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
@@ -115,7 +116,7 @@ export default {
     },
     hostDbsInfo(host) {
       if (host.length > 0) {
-        this._.forEach(host, val => {
+        _.forEach(host, val => {
           if (val.Name) {
             this.hostDbs.push(val)
           }

@@ -3,9 +3,9 @@
     <div class="technologies">
       <div class="technologies-list" v-for="(tech, i) in technologies" :key="i">
         <div class="has-text-weight-semibold">{{ tech.name }}</div>
-        <div>{{ tech.number }}</div>
+        <div>{{ tech.agents }}</div>
         <div class="has-background-grey-lighter">{{ tech.perc }}%</div>
-        <div>{{ tech.value }} €</div>
+        <div>{{ tech.money }} €</div>
       </div>
     </div>
   </div>
