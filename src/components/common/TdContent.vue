@@ -1,18 +1,23 @@
 <template>
-  <td v-tooltip="options">
-    <template v-if="!isArray && !hasIcon">{{ value }}</template>
+  <td>
+    <template v-if="!isArray && !hasIcon">
+      <span v-tooltip="options(value)">{{ value }}</span>
+    </template>
+
     <template v-if="isArray">
-      <span v-for="(val, i) in value" :key="i" v-tooltip="options">
+      <span v-for="(val, i) in value" :key="i" v-tooltip="options(val)">
         {{ val }} <br />
       </span>
     </template>
+
     <template v-if="hasIcon">
       <b-icon
+        size="is-small"
         :pack="value[1]"
         :icon="value[0]"
-        size="is-small"
         :type="value[2]"
-        style="vertical-align: middle"
+        v-tooltip="options(value[3])"
+        style="vertical-align: middle;"
       >
       </b-icon>
     </template>
@@ -35,10 +40,10 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      options: {
-        content: this.value,
+  methods: {
+    options(val) {
+      return {
+        content: val !== '-' ? val : null,
         classes: ['info']
       }
     }

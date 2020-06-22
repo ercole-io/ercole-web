@@ -56,8 +56,8 @@ export default {
     },
     mapAixcluster(aixCluster) {
       return aixCluster
-        ? ['check-circle', 'fas', 'is-success']
-        : ['circle', 'fas', 'is-danger']
+        ? ['check-circle', 'fas', 'is-success', 'yes']
+        : ['circle', 'fas', 'is-danger', 'no']
     }
   },
   computed: {
