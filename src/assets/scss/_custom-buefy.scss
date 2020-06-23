@@ -1,3 +1,9 @@
+.content ul {
+  list-style: none;
+  margin-left: 0;
+  margin-top: 0;
+}
+
 // customize switch label
 .switch .control-label {
   padding-top: 0.1rem;
@@ -69,8 +75,7 @@ ul.pagination-list {
   border-radius: 2px;
 }
 
-.content ul {
-  list-style: none;
-  margin-left: 0;
-  margin-top: 0;
+// modal
+.modal {
+  z-index: 100;
 }
