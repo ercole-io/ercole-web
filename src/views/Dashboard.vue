@@ -19,12 +19,7 @@
       <div class="column is-3">
         <div class="columns">
           <div class="column">
-            <Notifications
-              :agents="{
-                totalHosts: agentsTotalHosts,
-                agentsStopped: agentsStopped
-              }"
-            />
+            <Notifications :agents="agents" />
           </div>
         </div>
       </div>
@@ -33,6 +28,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import TotalTargets from '@/components/dashboard/TotalTargets.vue'
 import Technologies from '@/components/dashboard/technologies/Technologies.vue'
 import ChartTabs from '@/components/dashboard/ChartTabs.vue'
@@ -45,19 +41,33 @@ export default {
     ChartTabs,
     Notifications
   },
-  computed: {
-    totalTarget() {
-      return this.$store.getters['getTotalTarget']
-    },
-    technologies() {
-      return this.$store.getters['getTechnologies']
-    },
-    agentsTotalHosts() {
-      return this.$store.getters['getAgentsTotalHosts']
-    },
-    agentsStopped() {
-      return this.$store.getters['getStoppedAgents']
+  data() {
+    return {
+      totalTarget: {},
+      technologies: [],
+      agents: {}
     }
+  },
+  async created() {
+    await this.getDashboardData()
+    await this.getAlertsData()
+    this.totalTarget = this.getTotalTarget
+    this.technologies = this.getTechnologies
+    this.agents = {
+      totalHosts: this.getAgentsTotalHosts,
+      agentsStopped: this.getStoppedAgents
+    }
+  },
+  methods: {
+    ...mapActions(['getDashboardData', 'getAlertsData'])
+  },
+  computed: {
+    ...mapGetters([
+      'getTotalTarget',
+      'getTechnologies',
+      'getAgentsTotalHosts',
+      'getStoppedAgents'
+    ])
   }
 }
 </script>
