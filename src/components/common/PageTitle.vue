@@ -1,12 +1,12 @@
 <template>
-  <h1 class="page-title">
+  <div class="page-title title is-6">
     <div>
       {{ pageTitle }} <span v-if="dynamicTitle">- {{ dynamicTitle }}</span>
     </div>
     <div>
       <slot />
     </div>
-  </h1>
+  </div>
 </template>
 
 <script>
@@ -39,7 +39,6 @@ export default {
 <style lang="scss" scoped>
 .page-title {
   width: 100%;
-  font-size: 1.2em;
   padding-bottom: 5px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 1rem;
