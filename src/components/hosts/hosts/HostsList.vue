@@ -58,13 +58,13 @@
           >
             <th colspan="4"></th>
             <th
-              colspan="3"
+              colspan="4"
               class="has-text-centered border-left border-right"
               :class="{ hide: hideVirtual }"
             >
               Virtual
             </th>
-            <th colspan="5"></th>
+            <th colspan="4"></th>
             <th
               colspan="4"
               class="has-text-centered border-left"
@@ -94,17 +94,20 @@
             <v-th sortKey="cluster" :class="{ hide: hideVirtual }"
               >Cluster</v-th
             >
+            <v-th sortKey="physicalhost" :class="{ hide: hideVirtual }"
+              >Physical</v-th
+            >
             <v-th
-              sortKey="physicalhost"
+              sortKey="aixcluster"
               class="border-right"
               :class="{ hide: hideVirtual }"
-              >Physical</v-th
+              >Clust</v-th
             >
             <v-th sortKey="os">OS</v-th>
             <v-th sortKey="kernel">kernel</v-th>
             <v-th sortKey="memorytotal">Mem.</v-th>
             <v-th sortKey="swaptotal">Swap</v-th>
-            <v-th sortKey="aixcluster">Clust</v-th>
+
             <v-th sortKey="model" class="border-left" :class="{ hide: hideCPU }"
               >Model</v-th
             >
@@ -134,14 +137,18 @@
             <TdContent :value="row.cluster" :class="{ hide: hideVirtual }" />
             <TdContent
               :value="row.physicalhost"
+              :class="{ hide: hideVirtual }"
+            />
+            <TdContent
+              :value="row.aixcluster"
               class="border-right"
               :class="{ hide: hideVirtual }"
+              hasIcon
             />
             <TdContent :value="row.os" />
             <TdContent :value="row.kernel" />
             <TdContent :value="row.memorytotal" />
             <TdContent :value="row.swaptotal" />
-            <TdContent :value="row.aixcluster" hasIcon />
             <TdContent
               :value="row.model"
               class="border-left"
