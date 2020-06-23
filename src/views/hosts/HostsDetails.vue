@@ -5,14 +5,21 @@
     </PageTitle>
 
     <boxContent>
-      <HostTags
-        title="Host Tags:"
-        inputWidth="150"
-        :tagsList="['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4']"
-        @addTag="handleAddTag"
-        @removeTag="handleRemoveTag"
-        @editTag="handleEditTag"
-      />
+      <div class="columns">
+        <div class="column is-10">
+          <HostTags
+            title="Host Tags:"
+            inputWidth="150"
+            :tagsList="['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4']"
+            @addTag="handleAddTag"
+            @removeTag="handleRemoveTag"
+            @editTag="handleEditTag"
+          />
+        </div>
+        <div class="column is-2 has-text-right">
+          <Filesys :filesys="filesys" />
+        </div>
+      </div>
     </boxContent>
 
     <BoxContent>
@@ -54,6 +61,7 @@ import HostInfo from '@/components/hosts/hostDetails/HostInfo.vue'
 import HostGraph from '@/components/hosts/hostDetails/Graph.vue'
 import HostDatabases from '@/components/hosts/hostDetails/databases/Databases.vue'
 import noContent from '@/components/common/NoContent.vue'
+import Filesys from '@/components/hosts/hostDetails/Filesys.vue'
 
 export default {
   props: {
@@ -70,14 +78,16 @@ export default {
     HostInfo,
     HostGraph,
     HostDatabases,
-    noContent
+    noContent,
+    Filesys
   },
   data() {
     return {
       currentHostName: '',
       hostInfo: {},
       hostDbs: [],
-      notificationInfo: {}
+      notificationInfo: {},
+      filesys: []
     }
   },
   async created() {
@@ -89,6 +99,7 @@ export default {
     this.hostInfoInfo(this.getCurrentHost)
     this.hostDbsInfo(this.getCurrentHost.Extra.Databases)
     this.hostNotificationInfo(this.getCurrentHost.Alerts)
+    this.filesys = this.getCurrentHost.Extra.Filesystems
   },
   methods: {
     ...mapActions(['getHostByName']),
@@ -96,7 +107,6 @@ export default {
       this.hostInfo = {
         hostname: host.Hostname || '-',
         environment: host.Environment || '-',
-        filesys: host.Extra.Filesystems || '-',
         hostType: host.HostType || '-',
         platform: host.platform || '-',
         cluster: host.Cluster || '-',
