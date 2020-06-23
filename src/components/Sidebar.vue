@@ -7,6 +7,7 @@
         :expand-on-hover="true"
         :reduce="true"
         :fullheight="true"
+        :can-cancel="false"
         type="is-white"
         open
       >
