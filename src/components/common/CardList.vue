@@ -2,7 +2,17 @@
   <ul class="card-list">
     <li v-for="item in list" :key="item.name">
       <span>{{ item.name }}</span>
-      <span>{{ item.value }}</span>
+      <span v-if="!item.hasIcon">{{ item.value }}</span>
+      <span v-if="item.hasIcon">
+        <b-icon
+          size="is-small"
+          :pack="item.value[1]"
+          :icon="item.value[0]"
+          :type="item.value[2]"
+          style="vertical-align: middle;"
+        >
+        </b-icon>
+      </span>
     </li>
   </ul>
 </template>
@@ -32,6 +42,10 @@ export default {
 
     span:first-child {
       font-weight: 500;
+    }
+
+    span:last-child {
+      min-width: 10px;
     }
   }
 }

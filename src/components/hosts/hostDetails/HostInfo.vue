@@ -53,6 +53,13 @@ export default {
     Card,
     CardList
   },
+  methods: {
+    mapAixcluster(aixCluster) {
+      return aixCluster
+        ? ['check-circle', 'fas', 'is-success']
+        : ['circle', 'fas', 'is-danger']
+    }
+  },
   computed: {
     general() {
       return [
@@ -98,7 +105,8 @@ export default {
         },
         {
           name: 'Clust',
-          value: this.hostInfo.aixCluster
+          value: this.mapAixcluster(this.hostInfo.aixCluster),
+          hasIcon: true
         }
       ]
     },

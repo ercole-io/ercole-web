@@ -105,7 +105,7 @@ export default {
         kernel: host.Info.Kernel || '-',
         memoryTotal: host.Info.MemoryTotal || '-',
         swapTotal: host.Info.SwapTotal || '-',
-        aixCluster: host.Info.AixCluster || '-',
+        aixCluster: host.Info.AixCluster,
         model: host.Info.CPUModel || '-',
         threads: host.Info.CPUThreads || '-',
         cores: host.Info.CPUCores || '-',
