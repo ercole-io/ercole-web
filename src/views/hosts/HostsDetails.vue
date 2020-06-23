@@ -16,7 +16,7 @@
     </boxContent>
 
     <BoxContent>
-      <HostTable :hostTable="hostTable" />
+      <HostInfo :hostInfo="hostInfo" />
     </BoxContent>
 
     <div class="columns">
@@ -50,7 +50,7 @@ import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import NotificationsInfo from '@/components/hosts/hostDetails/NotificationsInfo.vue'
 import HostTags from '@/components/common/Tags.vue'
-import HostTable from '@/components/hosts/hostDetails/Table.vue'
+import HostInfo from '@/components/hosts/hostDetails/HostInfo.vue'
 import HostGraph from '@/components/hosts/hostDetails/Graph.vue'
 import HostDatabases from '@/components/hosts/hostDetails/databases/Databases.vue'
 import noContent from '@/components/common/NoContent.vue'
@@ -67,7 +67,7 @@ export default {
     BoxContent,
     NotificationsInfo,
     HostTags,
-    HostTable,
+    HostInfo,
     HostGraph,
     HostDatabases,
     noContent
@@ -75,7 +75,7 @@ export default {
   data() {
     return {
       currentHostName: '',
-      hostTable: {},
+      hostInfo: {},
       hostDbs: [],
       notificationInfo: {}
     }
@@ -86,14 +86,14 @@ export default {
     this.currentHostName = this.getCurrentHost.Hostname
     bus.$emit('dynamicTitle', this.currentHostName)
 
-    this.hostTableInfo(this.getCurrentHost)
+    this.hostInfoInfo(this.getCurrentHost)
     this.hostDbsInfo(this.getCurrentHost.Extra.Databases)
     this.hostNotificationInfo(this.getCurrentHost.Alerts)
   },
   methods: {
     ...mapActions(['getHostByName']),
-    hostTableInfo(host) {
-      return (this.hostTable = {
+    hostInfoInfo(host) {
+      this.hostInfo = {
         hostname: host.Hostname || '-',
         environment: host.Environment || '-',
         filesys: host.Extra.Filesystems || '-',
@@ -112,7 +112,8 @@ export default {
         socket: host.Info.Socket || '-',
         version: host.Version || '-',
         createdAt: formatDate(host.CreatedAt) || '-'
-      })
+      }
+      return this.hostInfo
     },
     hostDbsInfo(host) {
       if (host.length > 0) {
