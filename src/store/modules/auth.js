@@ -44,10 +44,9 @@ export const actions = {
         commit('LOGIN_SUCCESS')
         helpers.setLocalStorageAuth(payload)
         dispatch('setErrMsg', null)
-        router.replace('/dashboard')
       })
       .then(() => {
-        dispatch('getDashboardData')
+        router.replace('/dashboard')
       })
       .catch(err => {
         const errorMessage = err.response.data.ErrorDescription
