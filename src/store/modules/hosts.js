@@ -24,14 +24,14 @@ export const mutations = {
 }
 
 export const actions = {
-  getHosts({ commit }) {
-    return axiosDefault.get('/hosts').then(res => {
-      commit('SET_HOSTS', res.data)
-    })
+  async getHosts({ commit }) {
+    const hostsData = await axiosDefault.get('/hosts')
+    const response = await hostsData.data
+    commit('SET_HOSTS', response)
   },
-  getHostByName({ commit }, hostname) {
-    return axiosDefault.get(`/hosts/${hostname}`).then(res => {
-      commit('SET_CURRENT_HOST', res.data)
-    })
+  async getHostByName({ commit }, hostname) {
+    const hostByName = await axiosDefault.get(`/hosts/${hostname}`)
+    const response = await hostByName.data
+    commit('SET_CURRENT_HOST', response)
   }
 }

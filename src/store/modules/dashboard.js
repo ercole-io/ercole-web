@@ -41,9 +41,9 @@ export const mutations = {
 }
 
 export const actions = {
-  getDashboardData({ commit }) {
-    return axiosDefault.get('/frontend/dashboard').then(res => {
-      commit('SET_DASHBOARD_DATA', res.data)
-    })
+  async getDashboardData({ commit }) {
+    const dashData = await axiosDefault.get('/frontend/dashboard')
+    const response = await dashData.data
+    commit('SET_DASHBOARD_DATA', response)
   }
 }

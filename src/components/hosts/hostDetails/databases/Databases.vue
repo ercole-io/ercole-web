@@ -70,7 +70,7 @@
               <DbPatches :patches="dbs.Patches" />
             </b-tab-item>
             <b-tab-item label="PSUs">
-              <DbPSUs :psus="dbs.LastPSUs" />
+              <DbPSUs :psus="dbs.PSUs" />
             </b-tab-item>
             <b-tab-item label="ADDMs">
               <DbADDMs :addms="dbs.ADDMs" />

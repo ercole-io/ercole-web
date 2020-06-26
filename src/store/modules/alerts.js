@@ -19,9 +19,9 @@ export const mutations = {
 }
 
 export const actions = {
-  getAlertsData({ commit }) {
-    return axiosDefault.get('/alerts').then(res => {
-      commit('SET_ALERTS', res.data)
-    })
+  async getAlertsData({ commit }) {
+    const alertsData = await axiosDefault.get('/alerts')
+    const response = await alertsData.data
+    commit('SET_ALERTS', response)
   }
 }
