@@ -9,7 +9,7 @@
     </Notification>
 
     <Notification>
-      <System slot="notify" title="System" />
+      <System slot="notify" title="Ercole Engine" />
     </Notification>
   </BoxContent>
 </template>
