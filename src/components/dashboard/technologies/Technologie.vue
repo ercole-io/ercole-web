@@ -4,7 +4,15 @@
       <div class="technologies-list" v-for="(tech, i) in technologies" :key="i">
         <div class="has-text-weight-semibold">{{ tech.name }}</div>
         <div>{{ tech.agents }}</div>
-        <div class="has-background-grey-lighter">{{ tech.perc }}%</div>
+        <div>
+          <Progress
+            :radius="20"
+            :value="tech.perc"
+            :strokeColor="tech.color"
+            :strokeWidth="5"
+            :transitionDuration="2000"
+          />
+        </div>
         <div>{{ tech.money }} €</div>
       </div>
     </div>
@@ -12,12 +20,17 @@
 </template>
 
 <script>
+import Progress from 'easy-circular-progress'
+
 export default {
   props: {
     technologies: {
       type: Array,
       required: true
     }
+  },
+  components: {
+    Progress
   }
 }
 </script>

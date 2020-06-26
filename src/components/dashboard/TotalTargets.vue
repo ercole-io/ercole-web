@@ -4,7 +4,7 @@
       <div class="total-targets-col">
         <div>Agents discovered</div>
         <div>Percentage of compliance</div>
-        <div>Money missing</div>
+        <div>Unpaid Dues</div>
       </div>
       <div class="total-targets-col">
         <div>
@@ -12,10 +12,14 @@
             {{ totalTarget.agentsDiscovered }}
           </span>
         </div>
-        <div
-          class="has-text-weight-semibold is-size-5 has-background-grey-lighter"
-        >
-          {{ totalTarget.percCompliance }}%
+        <div>
+          <Progress
+            :radius="20"
+            :value="totalTarget.percCompliance"
+            strokeColor="#363636"
+            :strokeWidth="5"
+            :transitionDuration="2000"
+          />
         </div>
         <div class="has-text-weight-semibold is-size-5">
           {{ totalTarget.moneyMissing }}€
@@ -27,10 +31,12 @@
 
 <script>
 import BoxContent from '@/components/common/BoxContent.vue'
+import Progress from 'easy-circular-progress'
 
 export default {
   components: {
-    BoxContent
+    BoxContent,
+    Progress
   },
   props: {
     totalTarget: {
@@ -45,12 +51,13 @@ export default {
 .total-targets {
   display: flex;
   font-size: 13px;
+  margin-top: 23px;
 
   .total-targets-col {
     width: 50%;
 
     div {
-      height: 25px;
+      height: 30px;
       display: flex;
       align-items: center;
       margin: 12px 0;

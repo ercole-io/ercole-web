@@ -1,0 +1,16 @@
+.vue-circular-progress .percent {
+  top: 48% !important;
+}
+
+.vue-circular-progress .percent__int {
+  font-size: 14px !important;
+}
+
+.vue-circular-progress .dot,
+.vue-circular-progress .percent__dec {
+  display: none !important;
+}
+
+.vue-circular-progress .percent__dec, .vue-circular-progress .percent_sign {
+  font-size: 10px !important;
+}

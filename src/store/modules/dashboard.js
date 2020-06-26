@@ -1,6 +1,15 @@
 import axiosDefault from '../../axios/axios-default.js'
 import _ from 'lodash'
 
+function getRandomColor() {
+  var letters = '0123456789ABCDEF'
+  var color = '#'
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)]
+  }
+  return color
+}
+
 export const state = () => ({
   dashData: null
 })
@@ -9,9 +18,9 @@ export const getters = {
   getTotalTarget: state => {
     const total = state.dashData.Technologies.Total
     return {
-      agentsDiscovered: total.Used,
-      percCompliance: (total.HostsCount / total.Used) * 100,
-      moneyMissing: total.PaidCost - total.TotalCost
+      agentsDiscovered: total.HostsCount,
+      percCompliance: Math.round(total.Compliance * 100),
+      moneyMissing: total.UnpaidDues
     }
   },
   getTechnologies: state => {
@@ -19,18 +28,14 @@ export const getters = {
     const techArray = []
     _.forEach(tech, val => {
       techArray.push({
-        name: val.Name,
-        agents: val.Used,
-        perc: Math.round((val.HostsCount / val.Used) * 100),
-        money: val.PaidCost - val.TotalCost
+        name: val.Product,
+        agents: val.HostsCount,
+        perc: Math.round(val.Compliance * 100),
+        money: val.UnpaidDues,
+        color: getRandomColor()
       })
     })
     return techArray
-  },
-  getAgentsTotalHosts: state => {
-    const alerts = state.dashData.Alerts
-    let agentsTotalHosts = _.sumBy(alerts, 'Count')
-    return agentsTotalHosts
   }
 }
 
