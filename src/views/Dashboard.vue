@@ -48,7 +48,7 @@ export default {
       agents: {}
     }
   },
-  async created() {
+  async mounted() {
     await this.getDashboardData()
     await this.getAlertsData()
     this.totalTarget = this.getTotalTarget

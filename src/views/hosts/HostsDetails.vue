@@ -97,9 +97,9 @@ export default {
     bus.$emit('dynamicTitle', this.currentHostName)
 
     this.hostInfoInfo(this.getCurrentHost)
-    this.hostDbsInfo(this.getCurrentHost.Extra.Databases)
+    this.hostDbsInfo(this.getCurrentHost.Features.Oracle.Database.Databases)
     this.hostNotificationInfo(this.getCurrentHost.Alerts)
-    this.filesys = this.getCurrentHost.Extra.Filesystems
+    this.filesys = this.getCurrentHost.Filesystems
   },
   methods: {
     ...mapActions(['getHostByName']),
@@ -126,7 +126,7 @@ export default {
       return this.hostInfo
     },
     hostDbsInfo(host) {
-      if (host.length > 0) {
+      if (host && host.length > 0) {
         _.forEach(host, val => {
           if (val.Name) {
             this.hostDbs.push(val)

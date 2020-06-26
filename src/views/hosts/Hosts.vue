@@ -28,7 +28,7 @@ export default {
         _id: host._id,
         hostname: host.Hostname || '-',
         environment: host.Environment || '-',
-        databases: this.mapDbs(host.Extra.Databases),
+        databases: this.mapDbs(host.Features.Oracle),
         hosttype: host.HostType || '-',
         platform: host.Platform || '-',
         cluster: host.Cluster || '-',
@@ -37,12 +37,12 @@ export default {
         kernel: host.Info.Kernel || '-',
         memorytotal: host.Info.MemoryTotal || '-',
         swaptotal: host.Info.SwapTotal || '-',
-        aixcluster: this.mapAixcluster(host.Info.AixCluster),
+        aixcluster: this.mapAixcluster(host.Clusters),
         model: host.Info.CPUModel || '-',
         threads: host.Info.CPUThreads || '-',
         cores: host.Info.CPUCores || '-',
-        socket: host.Info.Socket || '-',
-        version: host.Version || '-',
+        socket: host.Info.CPUSockets || '-',
+        version: host.AgentVersion || '-',
         updated: formatDate(host.CreatedAt) || '-'
       })
     })
@@ -50,9 +50,19 @@ export default {
   methods: {
     ...mapActions(['getHosts']),
     mapDbs(dbs) {
-      return (dbs && dbs.length === 0) || dbs === null
-        ? '-'
-        : dbs.map(val => val.Name || '-')
+      if (dbs) {
+        if (dbs.Database) {
+          if (dbs.Database.Databases.length > 0) {
+            return dbs.Database.Databases.map(dbName => dbName.Name)
+          } else {
+            return '-'
+          }
+        } else {
+          return '-'
+        }
+      } else {
+        return '-'
+      }
     },
     mapAixcluster(aixCluster) {
       return aixCluster

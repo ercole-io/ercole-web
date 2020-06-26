@@ -22,18 +22,18 @@
               <th>Size</th>
               <th>Available</th>
               <th>Used</th>
-              <th>Used%</th>
+              <!-- <th>Used%</th> -->
             </tr>
           </thead>
           <tbody>
             <tr v-for="(file, i) in filesys" :key="i">
               <td>{{ file.Filesystem }}</td>
-              <td>{{ file.FsType }}</td>
+              <td>{{ file.Type }}</td>
               <td>{{ file.MountedOn }}</td>
               <td>{{ file.Size }}</td>
-              <td>{{ file.Available }}</td>
-              <td>{{ file.Used }}</td>
-              <td>{{ file.UsedPerc }}</td>
+              <td>{{ file.AvailableSpace }}</td>
+              <td>{{ file.UsedSpace }}</td>
+              <!-- <td>{{ file.UsedPerc }}</td> -->
             </tr>
           </tbody>
         </table>
@@ -70,12 +70,13 @@ export default {
 }
 
 .filesys-modal {
+  th:not(:first-child),
   td:not(:first-child) {
     text-align: center;
   }
 
   td:first-child {
-    min-width: 300px;
+    max-width: 300px;
   }
 }
 </style>
