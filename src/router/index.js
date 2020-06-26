@@ -134,13 +134,13 @@ const routes = [
     beforeEnter: verifyAuth
   },
   {
-    path: '/notifications',
-    name: 'notifications',
+    path: '/alerts',
+    name: 'alerts',
     component: Notifications,
     meta: {
-      label: 'Notifications',
-      title: `${title}Notifications`,
-      breadcrumb: [{ name: 'Notifications' }]
+      label: 'Alerts',
+      title: `${title}Alerts`,
+      breadcrumb: [{ name: 'Alerts' }]
     },
     beforeEnter: verifyAuth
   },

@@ -74,9 +74,9 @@
               <b-menu-item
                 icon-pack="fas"
                 icon="envelope"
-                label="Notifications"
+                :label="$t('dashboard.pageTitle.notificatons')"
                 tag="router-link"
-                to="/notifications"
+                to="/alerts"
               ></b-menu-item>
               <b-menu-item
                 icon-pack="fas"
