@@ -6,6 +6,10 @@ export const state = () => ({
 })
 
 export const getters = {
+  getAgentsTotalHosts: state => {
+    const alerts = state.alerts
+    return alerts.length
+  },
   getStoppedAgents: state => {
     const alerts = state.alerts
     return _.filter(alerts, ['AlertCode', 'NO_DATA']).length
