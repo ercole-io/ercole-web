@@ -45,16 +45,12 @@ export default {
   },
   data() {
     return {
-      isAuto: false,
-      open: false
+      isAuto: false
     }
   },
   methods: {
     logout() {
       this.$store.dispatch('logout')
-    },
-    openSidebar() {
-      this.$parent.$emit('openSidebar', true)
     }
   },
   computed: {

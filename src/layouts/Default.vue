@@ -1,12 +1,20 @@
 <template>
   <div class="app">
     <appHeader />
-    <appFilters @filters="handleIsFilters" />
-    <appSidebar />
-    <main class="main" :class="{ withFilters: isFiltersOpened }">
-      <div class="content">
+    <appSidebar @collapsedSidebar="handleCollapsedSidebar" />
+    <main
+      class="main"
+      :class="[
+        { withFilters: isFiltersOpened },
+        { collapsed: isCollapsedSidebar }
+      ]"
+    >
+      <div class="layout">
+        <appFilters @filters="handleIsFilters" />
         <appBreadcrumb v-if="this.$route.name !== 'dashboard'" />
-        <slot />
+        <div class="content">
+          <slot />
+        </div>
       </div>
     </main>
     <appFooter />
@@ -30,12 +38,16 @@ export default {
   },
   data() {
     return {
-      isFiltersOpened: false
+      isFiltersOpened: false,
+      isCollapsedSidebar: true
     }
   },
   methods: {
     handleIsFilters(value) {
       this.isFiltersOpened = value
+    },
+    handleCollapsedSidebar(value) {
+      this.isCollapsedSidebar = value
     }
   }
 }
@@ -51,9 +63,15 @@ export default {
 
 .main {
   flex: 1;
-  padding: 0.75rem;
-  padding-left: 75px;
-  padding-top: 25px;
+  padding: 0 0 0 250px;
+
+  &.collapsed {
+    padding-left: 50px;
+  }
+}
+
+.layout {
+  padding: 0;
 
   &.withFilters {
     padding-top: 72px;
@@ -61,6 +79,6 @@ export default {
 }
 
 .content {
-  padding: 0.75rem;
+  padding: 20px;
 }
 </style>

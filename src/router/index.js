@@ -11,10 +11,14 @@ const Hosts = lazy(() => import('@/views/hosts/Hosts.vue'))
 const HostsDetails = lazy(() => import('@/views/hosts/HostsDetails.vue'))
 const Databases = lazy(() => import('@/views/databases/Databases.vue'))
 const Middleware = lazy(() => import('@/views/middleware/Middleware.vue'))
-const Licenses = lazy(() => import('@/views/licenses/Licenses.vue'))
+const LicensesCompliance = lazy(() =>
+  import('@/views/licenses/compliance/LicensesCompliance.vue')
+)
+const LicensesList = lazy(() =>
+  import('@/views/licenses/list/LicensesList.vue')
+)
 const Hypervisors = lazy(() => import('@/views/hypervisors/Hypervisors.vue'))
 const Engineered = lazy(() => import('@/views/engineered/Engineered.vue'))
-const Systems = lazy(() => import('@/views/systems/Systems.vue'))
 const Notifications = lazy(() =>
   import('@/views/notifications/Notifications.vue')
 )
@@ -90,13 +94,24 @@ const routes = [
     beforeEnter: verifyAuth
   },
   {
-    path: '/licenses',
-    name: 'licenses',
-    component: Licenses,
+    path: '/licenses/compliance',
+    name: 'licenses-compliance',
+    component: LicensesCompliance,
     meta: {
-      label: 'Licenses',
-      title: `${title}Licenses`,
-      breadcrumb: [{ name: 'Licenses' }]
+      label: 'Licenses Compliance',
+      title: `${title}Licenses Compliance`,
+      breadcrumb: [{ name: 'Licenses Compliance' }]
+    },
+    beforeEnter: verifyAuth
+  },
+  {
+    path: '/licenses/list',
+    name: 'licenses-list',
+    component: LicensesList,
+    meta: {
+      label: 'Licenses List',
+      title: `${title}Licenses List`,
+      breadcrumb: [{ name: 'Licenses List' }]
     },
     beforeEnter: verifyAuth
   },
@@ -112,24 +127,13 @@ const routes = [
     beforeEnter: verifyAuth
   },
   {
-    path: '/engineered',
-    name: 'engineered',
+    path: '/engineered-systems',
+    name: 'engineered-systems',
     component: Engineered,
     meta: {
-      label: 'Engineered',
-      title: `${title}Engineered`,
-      breadcrumb: [{ name: 'Engineered' }]
-    },
-    beforeEnter: verifyAuth
-  },
-  {
-    path: '/systems',
-    name: 'systems',
-    component: Systems,
-    meta: {
-      label: 'Systems',
-      title: `${title}Systems`,
-      breadcrumb: [{ name: 'Systems' }]
+      label: 'Engineered Systems',
+      title: `${title}Engineered Systems`,
+      breadcrumb: [{ name: 'Engineered Systems' }]
     },
     beforeEnter: verifyAuth
   },

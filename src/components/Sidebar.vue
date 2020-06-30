@@ -1,222 +1,296 @@
 <template>
-  <div class="sidebar-page">
-    <section class="sidebar-layout">
-      <b-sidebar
-        position="fixed"
-        mobile="reduce"
-        :expand-on-hover="true"
-        :reduce="true"
-        :fullheight="true"
-        :can-cancel="false"
-        type="is-white"
-        open
-      >
-        <div class="sidebar-menu">
-          <b-menu class="is-custom-mobile">
-            <b-menu-list>
-              <b-menu-item
-                icon-pack="fas"
-                icon="home"
-                label="Dasboard"
-                tag="router-link"
-                to="/dashboard"
-              ></b-menu-item>
-              <b-menu-item
-                icon-pack="fas"
-                icon="h-square"
-                label="Hosts"
-                tag="router-link"
-                to="/hosts"
-              ></b-menu-item>
-              <b-menu-item
-                icon-pack="fas"
-                icon="database"
-                label="Database"
-                tag="router-link"
-                to="/databases"
-              >
-              </b-menu-item>
-              <b-menu-item
-                icon-pack="fas"
-                icon="cog"
-                label="Middleware"
-                tag="router-link"
-                to="/middleware"
-              ></b-menu-item>
-              <b-menu-item
-                icon-pack="fas"
-                icon="cog"
-                label="Licenses"
-                tag="router-link"
-                to="/licenses"
-              ></b-menu-item>
-              <b-menu-item
-                icon-pack="fas"
-                icon="cog"
-                label="Hypervisors"
-                tag="router-link"
-                to="/hypervisors"
-              ></b-menu-item>
-              <b-menu-item
-                icon-pack="fas"
-                icon="cog"
-                label="Engineered"
-                tag="router-link"
-                to="/engineered"
-              ></b-menu-item>
-              <b-menu-item
-                icon-pack="fas"
-                icon="cog"
-                label="Systems"
-                tag="router-link"
-                to="/systems"
-              ></b-menu-item>
-              <b-menu-item
-                icon-pack="fas"
-                icon="envelope"
-                :label="$t('dashboard.pageTitle.notificatons')"
-                tag="router-link"
-                to="/alerts"
-              ></b-menu-item>
-              <b-menu-item
-                icon-pack="fas"
-                icon="cog"
-                label="Settings"
-                tag="router-link"
-                to="/settings"
-              ></b-menu-item>
-            </b-menu-list>
-          </b-menu>
-        </div>
-      </b-sidebar>
-    </section>
-  </div>
+  <sidebar-menu
+    :menu="menu"
+    :collapsed="true"
+    width="250px"
+    :hiddenOnCollapse="true"
+    :showOneChild="true"
+    @toggle-collapse="onToggleCollapse"
+  >
+    <span slot="toggle-icon">
+      <b-icon pack="fas" icon="bars" size="is-small" />
+    </span>
+  </sidebar-menu>
 </template>
 
 <script>
+import { SidebarMenu } from 'vue-sidebar-menu'
+
 export default {
+  components: {
+    SidebarMenu
+  },
   data() {
     return {
-      mobile: 'reduce'
+      menu: [
+        {
+          href: { path: '/' },
+          title: 'Dashboard',
+          icon: 'fas fa-home'
+        },
+        {
+          href: { path: '/hosts' },
+          title: 'Hosts',
+          icon: 'fas fa-server'
+        },
+        {
+          href: { path: '/databases' },
+          title: 'Databases',
+          icon: 'fas fa-database',
+          child: [
+            {
+              title: 'Oracle',
+              icon: 'fas fa-cog',
+              child: [
+                {
+                  title: 'Proactive',
+                  icon: 'fas fa-microscope',
+                  child: [
+                    {
+                      href: { path: '/proactive/addm' },
+                      title: 'ADDM',
+                      icon: 'fas fa-heartbeat'
+                    },
+                    {
+                      href: { path: '/proactive/segment-advisor' },
+                      title: 'Segment Advisor',
+                      icon: 'fas fa-columns'
+                    },
+                    {
+                      href: { path: '/proactive/patch-advisor' },
+                      title: 'Patch Advisor',
+                      icon: 'fas fa-band-aid'
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              title: 'SQLs',
+              icon: 'fas fa-cog',
+              child: [
+                {
+                  title: 'Proactive',
+                  icon: 'fas fa-microscope',
+                  child: [
+                    {
+                      href: { path: '/proactive/addm' },
+                      title: 'ADDM',
+                      icon: 'fas fa-heartbeat'
+                    },
+                    {
+                      href: { path: '/proactive/segment-advisor' },
+                      title: 'Segment Advisor',
+                      icon: 'fas fa-columns'
+                    },
+                    {
+                      href: { path: '/proactive/patch-advisor' },
+                      title: 'Patch Advisor',
+                      icon: 'fas fa-band-aid'
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              title: 'MySQL',
+              icon: 'fas fa-cog',
+              child: [
+                {
+                  title: 'Proactive',
+                  icon: 'fas fa-microscope',
+                  child: [
+                    {
+                      href: { path: '/proactive/addm' },
+                      title: 'ADDM',
+                      icon: 'fas fa-heartbeat'
+                    },
+                    {
+                      href: { path: '/proactive/segment-advisor' },
+                      title: 'Segment Advisor',
+                      icon: 'fas fa-columns'
+                    },
+                    {
+                      href: { path: '/proactive/patch-advisor' },
+                      title: 'Patch Advisor',
+                      icon: 'fas fa-band-aid'
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              title: 'MDB',
+              icon: 'fas fa-cog',
+              child: [
+                {
+                  title: 'Proactive',
+                  icon: 'fas fa-microscope',
+                  child: [
+                    {
+                      href: { path: '/proactive/addm' },
+                      title: 'ADDM',
+                      icon: 'fas fa-heartbeat'
+                    },
+                    {
+                      href: { path: '/proactive/segment-advisor' },
+                      title: 'Segment Advisor',
+                      icon: 'fas fa-columns'
+                    },
+                    {
+                      href: { path: '/proactive/patch-advisor' },
+                      title: 'Patch Advisor',
+                      icon: 'fas fa-band-aid'
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              title: 'PSQL',
+              icon: 'fas fa-cog',
+              child: [
+                {
+                  title: 'Proactive',
+                  icon: 'fas fa-microscope',
+                  child: [
+                    {
+                      href: { path: '/proactive/addm' },
+                      title: 'ADDM',
+                      icon: 'fas fa-heartbeat'
+                    },
+                    {
+                      href: { path: '/proactive/segment-advisor' },
+                      title: 'Segment Advisor',
+                      icon: 'fas fa-columns'
+                    },
+                    {
+                      href: { path: '/proactive/patch-advisor' },
+                      title: 'Patch Advisor',
+                      icon: 'fas fa-band-aid'
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              title: 'WEDL',
+              icon: 'fas fa-cog',
+              child: [
+                {
+                  title: 'Proactive',
+                  icon: 'fas fa-microscope',
+                  child: [
+                    {
+                      href: { path: '/proactive/addm' },
+                      title: 'ADDM',
+                      icon: 'fas fa-heartbeat'
+                    },
+                    {
+                      href: { path: '/proactive/segment-advisor' },
+                      title: 'Segment Advisor',
+                      icon: 'fas fa-columns'
+                    },
+                    {
+                      href: { path: '/proactive/patch-advisor' },
+                      title: 'Patch Advisor',
+                      icon: 'fas fa-band-aid'
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          href: { path: '/middleware' },
+          title: 'Middlewares',
+          icon: 'fas fa-globe'
+        },
+        {
+          title: 'Licenses',
+          icon: 'fas fa-certificate',
+          child: [
+            {
+              href: { path: '/licenses/compliance' },
+              title: 'Licenses Compliance',
+              icon: 'fas fa-cog'
+            },
+            {
+              href: { path: '/licenses/list' },
+              title: 'Licenses List',
+              icon: 'fas fa-cog'
+            }
+          ]
+        },
+        {
+          href: { path: '/hypervisors' },
+          title: 'Hypervisors',
+          icon: 'fas fa-object-group'
+        },
+        {
+          href: { path: '/engineered-systems' },
+          title: 'Engineered Systems',
+          icon: 'fas fa-times'
+        },
+        {
+          href: { path: '/alerts' },
+          title: 'Alerts',
+          icon: 'fas fa-bell'
+        },
+        {
+          href: { path: '/settings' },
+          title: 'Settings',
+          icon: 'fas fa-cogs',
+          child: [
+            {
+              title: 'Agents',
+              icon: 'fas fa-cog'
+            }
+          ]
+        }
+      ]
+    }
+  },
+  methods: {
+    onToggleCollapse(collapsed) {
+      this.$emit('collapsedSidebar', collapsed)
     }
   }
 }
 </script>
 
 <style lang="scss">
-.sidebar-page {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: 100%;
-  // min-height: 100vh;
-  .sidebar-layout {
-    display: flex;
-    flex-direction: row;
-    min-height: 100%;
-    // min-height: 100vh;
-  }
-}
-@media screen and (max-width: 1023px) {
-  .b-sidebar {
-    .sidebar-content {
-      &.is-mini-mobile {
-        &:not(.is-mini-expand),
-        &.is-mini-expand:not(:hover) {
-          .menu-list {
-            li {
-              a {
-                text-align: center;
-                border-radius: 0;
+$primary-color: #679189 !default;
+$base-bg: #363636 !default;
+$icon-bg: #363636 !default;
+$item-font-size: 14px !default;
+$item-line-height: 20px !default;
+$item-padding: 15px !default;
+$icon-height: 20px !default;
+$icon-width: 20px !default;
+@import 'vue-sidebar-menu/src/scss/vue-sidebar-menu.scss';
 
-                span:nth-child(2) {
-                  display: none;
-                }
-              }
-              ul {
-                padding-left: 0;
-                li {
-                  a {
-                    display: inline-block;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-@media screen and (min-width: 1024px) {
-  .b-sidebar {
-    .sidebar-content {
-      &.is-mini {
-        &:not(.is-mini-expand),
-        &.is-mini-expand:not(:hover) {
-          .menu-list {
-            li {
-              a {
-                text-align: center;
-                border-radius: 0;
+.v-sidebar-menu {
+  z-index: 53;
 
-                span:nth-child(2) {
-                  display: none;
-                }
-              }
-              ul {
-                padding-left: 0;
-                li {
-                  a {
-                    display: inline-block;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-.b-sidebar {
-  .sidebar-content {
-    .sidebar-menu {
+  .vsm--scroll-wrapper {
+    > .vsm--list {
       margin-top: 56px;
     }
+  }
 
-    &.is-fullheight {
-      width: 60px;
-      box-shadow: 1px 0px 10px 0px rgba(0, 0, 0, 0.2);
-      background-color: #eee;
-      z-index: 51;
-    }
+  .vsm--toggle-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 56px;
+    width: 50px;
 
-    .menu-list {
-      line-height: 1.5;
-
-      li {
-        a {
-          margin: 5px;
-        }
-      }
-
-      a:hover {
-        background-color: lightgray;
-        color: #444444;
-      }
-    }
-
-    span {
-      font-size: 0.9em;
-      padding-left: 3px;
-
-      &.icon.is-small {
-        vertical-align: middle;
-        padding-bottom: 2px;
-        font-size: 1em;
-        padding-left: 0;
+    > span {
+      > span {
+        margin: 8px 10px;
+        float: left;
       }
     }
   }
