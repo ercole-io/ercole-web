@@ -2,7 +2,7 @@
   <div id="app">
     <component :is="layout">
       <Suspense>
-        <b-loading :active.sync="isLoading"></b-loading>
+        <b-loading :active.sync="isLoading" />
         <router-view v-show="!isLoading" :key="$route.fullPath" />
       </Suspense>
     </component>

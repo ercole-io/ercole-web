@@ -1,7 +1,7 @@
 <template>
   <nav class="breadcrumb is-small" aria-label="breadcrumbs">
     <ul>
-      <li><a href="/">Dashboard</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
       <li
         v-for="(b, i) in breadcrumbList"
         :key="i"
@@ -55,7 +55,8 @@ export default {
 
 <style lang="scss" scoped>
 .breadcrumb {
-  margin-bottom: 1rem;
+  margin: 0;
+  padding: 10px 20px 0 20px;
 
   ul {
     margin: 0;

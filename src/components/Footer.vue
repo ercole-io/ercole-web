@@ -16,5 +16,6 @@ export default {}
 .footer {
   padding: 1rem 1.5rem 1rem;
   z-index: 52;
+  margin-left: 50px;
 }
 </style>

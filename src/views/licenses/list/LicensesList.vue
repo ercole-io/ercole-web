@@ -1,7 +1,7 @@
 <template>
-  <section>
+  <div>
     <PageTitle />
-  </section>
+  </div>
 </template>
 
 <script>

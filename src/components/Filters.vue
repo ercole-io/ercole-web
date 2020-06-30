@@ -174,10 +174,9 @@ export default {
 
 <style lang="scss" scoped>
 .filters {
-  position: fixed;
+  position: relative;
   width: 100%;
   z-index: 50;
-  margin-top: -1px;
 
   .filters-form {
     display: flex;
@@ -186,7 +185,6 @@ export default {
     padding: 10px 20px;
     background-color: #dbdbdb;
     min-height: 48px;
-    margin-left: 40px;
 
     .filters-field {
       width: 100%;
