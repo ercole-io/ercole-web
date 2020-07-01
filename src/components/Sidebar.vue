@@ -20,6 +20,7 @@ export default {
   components: {
     SidebarMenu
   },
+
   data() {
     return {
       menu: [
@@ -66,29 +67,12 @@ export default {
               ]
             },
             {
-              title: 'SQLs',
+              title: 'SQL Server',
               icon: 'fas fa-cog',
               child: [
                 {
                   title: 'Proactive',
-                  icon: 'fas fa-microscope',
-                  child: [
-                    {
-                      href: { path: '/proactive/addm' },
-                      title: 'ADDM',
-                      icon: 'fas fa-heartbeat'
-                    },
-                    {
-                      href: { path: '/proactive/segment-advisor' },
-                      title: 'Segment Advisor',
-                      icon: 'fas fa-columns'
-                    },
-                    {
-                      href: { path: '/proactive/patch-advisor' },
-                      title: 'Patch Advisor',
-                      icon: 'fas fa-band-aid'
-                    }
-                  ]
+                  icon: 'fas fa-microscope'
                 }
               ]
             },
@@ -98,24 +82,7 @@ export default {
               child: [
                 {
                   title: 'Proactive',
-                  icon: 'fas fa-microscope',
-                  child: [
-                    {
-                      href: { path: '/proactive/addm' },
-                      title: 'ADDM',
-                      icon: 'fas fa-heartbeat'
-                    },
-                    {
-                      href: { path: '/proactive/segment-advisor' },
-                      title: 'Segment Advisor',
-                      icon: 'fas fa-columns'
-                    },
-                    {
-                      href: { path: '/proactive/patch-advisor' },
-                      title: 'Patch Advisor',
-                      icon: 'fas fa-band-aid'
-                    }
-                  ]
+                  icon: 'fas fa-microscope'
                 }
               ]
             },
@@ -125,24 +92,7 @@ export default {
               child: [
                 {
                   title: 'Proactive',
-                  icon: 'fas fa-microscope',
-                  child: [
-                    {
-                      href: { path: '/proactive/addm' },
-                      title: 'ADDM',
-                      icon: 'fas fa-heartbeat'
-                    },
-                    {
-                      href: { path: '/proactive/segment-advisor' },
-                      title: 'Segment Advisor',
-                      icon: 'fas fa-columns'
-                    },
-                    {
-                      href: { path: '/proactive/patch-advisor' },
-                      title: 'Patch Advisor',
-                      icon: 'fas fa-band-aid'
-                    }
-                  ]
+                  icon: 'fas fa-microscope'
                 }
               ]
             },
@@ -152,24 +102,7 @@ export default {
               child: [
                 {
                   title: 'Proactive',
-                  icon: 'fas fa-microscope',
-                  child: [
-                    {
-                      href: { path: '/proactive/addm' },
-                      title: 'ADDM',
-                      icon: 'fas fa-heartbeat'
-                    },
-                    {
-                      href: { path: '/proactive/segment-advisor' },
-                      title: 'Segment Advisor',
-                      icon: 'fas fa-columns'
-                    },
-                    {
-                      href: { path: '/proactive/patch-advisor' },
-                      title: 'Patch Advisor',
-                      icon: 'fas fa-band-aid'
-                    }
-                  ]
+                  icon: 'fas fa-microscope'
                 }
               ]
             },
@@ -179,28 +112,16 @@ export default {
               child: [
                 {
                   title: 'Proactive',
-                  icon: 'fas fa-microscope',
-                  child: [
-                    {
-                      href: { path: '/proactive/addm' },
-                      title: 'ADDM',
-                      icon: 'fas fa-heartbeat'
-                    },
-                    {
-                      href: { path: '/proactive/segment-advisor' },
-                      title: 'Segment Advisor',
-                      icon: 'fas fa-columns'
-                    },
-                    {
-                      href: { path: '/proactive/patch-advisor' },
-                      title: 'Patch Advisor',
-                      icon: 'fas fa-band-aid'
-                    }
-                  ]
+                  icon: 'fas fa-microscope'
                 }
               ]
             }
           ]
+        },
+        {
+          href: { path: '/hypervisors' },
+          title: 'Hypervisors',
+          icon: 'fas fa-object-group'
         },
         {
           href: { path: '/middleware' },
@@ -208,8 +129,18 @@ export default {
           icon: 'fas fa-globe'
         },
         {
+          href: { path: '/engineered-systems' },
+          title: 'Engineered Systems',
+          icon: 'fas fa-times'
+        },
+        {
+          href: { path: '/alerts' },
+          title: 'Alerts',
+          icon: 'fas fa-bell'
+        },
+        {
           title: 'Licenses',
-          icon: 'fas fa-certificate',
+          icon: 'fas fa-dollar-sign',
           child: [
             {
               href: { path: '/licenses/compliance' },
@@ -222,21 +153,6 @@ export default {
               icon: 'fas fa-cog'
             }
           ]
-        },
-        {
-          href: { path: '/hypervisors' },
-          title: 'Hypervisors',
-          icon: 'fas fa-object-group'
-        },
-        {
-          href: { path: '/engineered-systems' },
-          title: 'Engineered Systems',
-          icon: 'fas fa-times'
-        },
-        {
-          href: { path: '/alerts' },
-          title: 'Alerts',
-          icon: 'fas fa-bell'
         },
         {
           href: { path: '/settings' },
