@@ -23,7 +23,7 @@ export default new Vuex.Store({
   plugins: [
     createPersistedState({
       key: 'persisted-data',
-      paths: ['auth']
+      paths: ['auth', 'alerts']
     })
   ]
 })
