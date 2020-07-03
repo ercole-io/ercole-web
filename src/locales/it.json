@@ -1,4 +1,15 @@
 {
+  "menu": {
+    "dashboard": "Dashboard",
+    "hosts": "Hosts",
+    "databases": "Databases",
+    "middlewares": "Middlewares",
+    "licenses": "Licenze",
+    "hypervisors": "Hypervisors",
+    "engeenered": "Engeenered Systems",
+    "alerts": "Avvisi",
+    "settings": "Impostazioni"
+  },
   "dashboard": {
     "pageTitle": {
       "filters": "Filtri",

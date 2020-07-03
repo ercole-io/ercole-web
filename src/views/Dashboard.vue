@@ -18,8 +18,14 @@
       </div>
       <div class="column is-3">
         <div class="columns">
-          <div class="column">
-            <Notifications :agents="agents" />
+          <div class="column is-12">
+            <BoxContent
+              :title="$t('dashboard.pageTitle.notificatons')"
+              border
+              padding
+            >
+              <Alerts :licenses="licensesAlerts" :engines="enginesAlerts" />
+            </BoxContent>
           </div>
         </div>
       </div>
@@ -29,45 +35,39 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import BoxContent from '@/components/common/BoxContent.vue'
 import TotalTargets from '@/components/dashboard/TotalTargets.vue'
 import Technologies from '@/components/dashboard/technologies/Technologies.vue'
 import ChartTabs from '@/components/dashboard/ChartTabs.vue'
-import Notifications from '@/components/dashboard/notifications/Notifications.vue'
+import Alerts from '@/components/dashboard/alerts/Alerts.vue'
 
 export default {
   components: {
+    BoxContent,
     TotalTargets,
     Technologies,
     ChartTabs,
-    Notifications
+    Alerts
   },
   data() {
     return {
       totalTarget: {},
       technologies: [],
-      agents: {}
+      licensesAlerts: {},
+      enginesAlerts: {}
     }
   },
-  async mounted() {
+  async beforeMount() {
     await this.getDashboardData()
-    await this.getAlertsData()
+
     this.totalTarget = this.getTotalTarget
     this.technologies = this.getTechnologies
-    this.agents = {
-      totalHosts: this.getAgentsTotalHosts,
-      agentsStopped: this.getStoppedAgents
-    }
   },
   methods: {
-    ...mapActions(['getDashboardData', 'getAlertsData'])
+    ...mapActions(['getDashboardData'])
   },
   computed: {
-    ...mapGetters([
-      'getTotalTarget',
-      'getTechnologies',
-      'getAgentsTotalHosts',
-      'getStoppedAgents'
-    ])
+    ...mapGetters(['getTotalTarget', 'getTechnologies'])
   }
 }
 </script>
