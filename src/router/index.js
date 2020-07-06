@@ -19,9 +19,7 @@ const LicensesList = lazy(() =>
 )
 const Hypervisors = lazy(() => import('@/views/hypervisors/Hypervisors.vue'))
 const Engineered = lazy(() => import('@/views/engineered/Engineered.vue'))
-const Notifications = lazy(() =>
-  import('@/views/notifications/Notifications.vue')
-)
+const Alerts = lazy(() => import('@/views/alerts/Alerts.vue'))
 const Settings = lazy(() => import('@/views/settings/Settings.vue'))
 const InternalServer = lazy(() => import('@/views/Errors/InternalServer.vue'))
 const Unauthorized = lazy(() => import('@/views/Errors/Unauthorized.vue'))
@@ -138,9 +136,10 @@ const routes = [
     beforeEnter: verifyAuth
   },
   {
-    path: '/alerts',
+    path: '/alerts/:type?/:flag?',
     name: 'alerts',
-    component: Notifications,
+    component: Alerts,
+    props: true,
     meta: {
       label: 'Alerts',
       title: `${title}Alerts`,
