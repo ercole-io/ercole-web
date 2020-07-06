@@ -50,8 +50,6 @@ export const getters = {
         date: license.Date,
         msg: license.Description
       }
-    } else {
-      return {}
     }
   },
   getTotalLicensesAlerts: state => {
@@ -78,8 +76,6 @@ export const getters = {
         date: engine.Date,
         msg: engine.Description
       }
-    } else {
-      return {}
     }
   },
   getTotalEnginesAlerts: state => {
@@ -99,13 +95,21 @@ export const getters = {
 export const mutations = {
   SET_ALERTS: (state, payload) => {
     const agents = _.filter(payload, { AlertCategory: 'AGENT' })
-    state.alerts.agents = _.orderBy(agents, ['Date'], ['asc'])
+    state.alerts.agents = agents
 
     const licenses = _.filter(payload, { AlertCategory: 'LICENSE' })
-    state.alerts.licenses = _.orderBy(licenses, ['Date'], ['asc'])
+    state.alerts.licenses = _.orderBy(
+      licenses,
+      ['AlertSeverity', 'AlertSeverity', 'Date'],
+      ['CRITICAL', 'WARN', 'asc']
+    )
 
-    const engines = _.filter(payload, { AlertCategory: 'ENGINE' })
-    state.alerts.engines = _.orderBy(engines, ['Date'], ['asc'])
+    let engines = _.filter(payload, { AlertCategory: 'ENGINE' })
+    state.alerts.engines = _.orderBy(
+      engines,
+      ['AlertSeverity', 'AlertSeverity', 'Date'],
+      ['CRITICAL', 'WARN', 'asc']
+    )
   },
   MARK_AS_READ: (state, payload) => {
     if (payload.flag === 'licenses') {

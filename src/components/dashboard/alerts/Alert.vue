@@ -40,12 +40,15 @@
           </div>
         </div>
 
-        <NoContent noContentText="There are no alerts" v-else />
+        <NoContent
+          :noContentText="`There are no alerts for ${title[0]}`"
+          v-else
+        />
       </transition>
     </main>
     <footer class="card-footer card-buttons has-background-grey">
       <b-button
-        @click="infoClick(alertTotals.info, alertInfo.flag)"
+        @click="handleAlertClick(alertInfo.flag, 'INFO')"
         type="is-info"
         size="is-small"
         icon-pack="fas"
@@ -56,7 +59,7 @@
         {{ alertTotals.info }}
       </b-button>
       <b-button
-        @click="warningClick(alertTotals.warn, alertInfo.flag)"
+        @click="handleAlertClick(alertInfo.flag, 'WARN')"
         type="is-warning"
         size="is-small"
         icon-pack="fas"
@@ -67,7 +70,7 @@
         {{ alertTotals.warn }}
       </b-button>
       <b-button
-        @click="criticalClick(alertTotals.crit, alertInfo.flag)"
+        @click="handleAlertClick(alertInfo.flag, 'CRITICAL')"
         type="is-danger"
         size="is-small"
         icon-pack="fas"
@@ -112,14 +115,8 @@ export default {
       this.isAnimated = !this.isAnimated
       this.$store.dispatch('markAsRead', { id, flag })
     },
-    infoClick(qtd, flag) {
-      console.log(qtd, `${flag} info alerts`)
-    },
-    warningClick(qtd, flag) {
-      console.log(qtd, `${flag} warning alerts`)
-    },
-    criticalClick(qtd, flag) {
-      console.log(qtd, `${flag} critical alerts`)
+    handleAlertClick(flag, type) {
+      this.$router.push(`/alerts/${type}/${flag}`)
     }
   },
   watch: {
@@ -172,19 +169,19 @@ export default {
   }
 }
 
-.flip-enter-active {
-  transition: all 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53); //ease-in-quad
-}
+// .flip-enter-active {
+//   transition: all 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53); //ease-in-quad
+// }
 
-.flip-leave-active {
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); //ease-out-quad
-}
+// .flip-leave-active {
+//   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); //ease-out-quad
+// }
 
-.flip-enter,
-.flip-leave-to {
-  transform: scaleY(0) translateZ(0);
-  opacity: 0;
-}
+// .flip-enter,
+// .flip-leave-to {
+//   transform: scaleY(0) translateZ(0);
+//   opacity: 0;
+// }
 
 .fade-enter-active,
 .fade-leave-active {
