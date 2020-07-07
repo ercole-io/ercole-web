@@ -4,14 +4,14 @@
 
     <Alert
       :title="['Licenses', 'dollar-sign']"
-      :alertInfo="getFirstLicenseAlert"
-      :alertTotals="getTotalLicensesAlerts"
+      :alertInfo="getFirstAlertByFlag('LICENSE')"
+      :alertTotals="getTotalAlertsByFlag('LICENSE')"
     />
 
     <Alert
       :title="['Ercole Engine', 'tools']"
-      :alertInfo="getFirstEngineAlert"
-      :alertTotals="getTotalEnginesAlerts"
+      :alertInfo="getFirstAlertByFlag('ENGINE')"
+      :alertTotals="getTotalAlertsByFlag('ENGINE')"
     />
   </div>
 </template>
@@ -33,12 +33,7 @@ export default {
     ...mapActions(['getAlertsData'])
   },
   computed: {
-    ...mapGetters([
-      'getFirstLicenseAlert',
-      'getTotalLicensesAlerts',
-      'getFirstEngineAlert',
-      'getTotalEnginesAlerts'
-    ])
+    ...mapGetters(['getFirstAlertByFlag', 'getTotalAlertsByFlag'])
   }
 }
 </script>
