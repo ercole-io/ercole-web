@@ -15,7 +15,7 @@
       <template>
         <div class="agents">
           <span>Agents that are stopped:</span>
-          <span class="has-text-weight-bold">{{ getStoppedAgents }}</span>
+          <span class="has-text-weight-bold">{{ stoppedAgents }}</span>
         </div>
       </template>
     </div>
@@ -38,11 +38,14 @@ import { mapGetters } from 'vuex'
 export default {
   methods: {
     inspectAgents() {
-      console.log('inspect agents stopped')
+      this.$router.push(`/alerts/NO_DATA/AGENT`)
     }
   },
   computed: {
-    ...mapGetters(['getStoppedAgents'])
+    ...mapGetters(['getFilteredAgents']),
+    stoppedAgents() {
+      return this.getFilteredAgents('NO_DATA', 'AGENT').length
+    }
   }
 }
 </script>

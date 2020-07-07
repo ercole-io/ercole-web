@@ -10,9 +10,9 @@
       <transition name="fade" mode="out-in">
         <div class="alert-main" v-if="alertTotals.total > 0 && !isAnimated">
           <b-icon
-            :type="alertInfo.type"
+            :type="setIcon.iconType"
             pack="fas"
-            :icon="alertInfo.icon"
+            :icon="setIcon.icon"
             size="is-medium"
           />
           <div class="alert-content">
@@ -27,7 +27,9 @@
 
             <p>{{ alertInfo.msg }}</p>
             <b-button
-              @click="markAsRead(alertInfo.alertId, alertInfo.flag)"
+              @click="
+                handleMarkAsRead(alertInfo.alertId, hasFlag, alertInfo.severity)
+              "
               type="is-primary"
               size="is-small"
               icon-pack="fas"
@@ -48,7 +50,8 @@
     </main>
     <footer class="card-footer card-buttons has-background-grey">
       <b-button
-        @click="handleAlertClick(alertInfo.flag, 'INFO')"
+        @click="handleAlertClick(hasFlag, 'INFO')"
+        :disabled="!hasFlag"
         type="is-info"
         size="is-small"
         icon-pack="fas"
@@ -59,7 +62,8 @@
         {{ alertTotals.info }}
       </b-button>
       <b-button
-        @click="handleAlertClick(alertInfo.flag, 'WARN')"
+        @click="handleAlertClick(hasFlag, 'WARNING')"
+        :disabled="!hasFlag"
         type="is-warning"
         size="is-small"
         icon-pack="fas"
@@ -70,7 +74,8 @@
         {{ alertTotals.warn }}
       </b-button>
       <b-button
-        @click="handleAlertClick(alertInfo.flag, 'CRITICAL')"
+        @click="handleAlertClick(hasFlag, 'CRITICAL')"
+        :disabled="!hasFlag"
         type="is-danger"
         size="is-small"
         icon-pack="fas"
@@ -85,6 +90,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import NoContent from '@/components/common/NoContent.vue'
 
 export default {
@@ -111,12 +117,31 @@ export default {
     }
   },
   methods: {
-    markAsRead(id, flag) {
+    ...mapActions(['markAsRead']),
+    handleMarkAsRead(id, flag, type) {
       this.isAnimated = !this.isAnimated
-      this.$store.dispatch('markAsRead', { id, flag })
+      this.markAsRead({ id, flag, type })
     },
     handleAlertClick(flag, type) {
       this.$router.push(`/alerts/${type}/${flag}`)
+    },
+    checkIcon() {
+      const severity = this.alertInfo.severity
+      if (severity === 'INFO') {
+        return { iconType: 'is-info', icon: 'info-circle' }
+      } else if (severity === 'WARNING') {
+        return { iconType: 'is-warning', icon: 'exclamation-triangle' }
+      } else if (severity === 'CRITICAL') {
+        return { iconType: 'is-danger', icon: 'exclamation-circle' }
+      }
+    }
+  },
+  computed: {
+    hasFlag() {
+      return this.alertInfo && this.alertInfo.flag ? this.alertInfo.flag : null
+    },
+    setIcon() {
+      return this.checkIcon()
     }
   },
   watch: {
