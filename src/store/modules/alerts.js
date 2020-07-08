@@ -31,7 +31,7 @@ export const getters = {
       return {
         flag: flag,
         alertId: alerts._id,
-        host: alerts.Hostname,
+        host: alerts.OtherInfo.Hostname,
         date: alerts.Date,
         msg: alerts.Description,
         severity: alerts.AlertSeverity
