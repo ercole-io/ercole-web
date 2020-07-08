@@ -16,7 +16,7 @@
             size="is-medium"
           />
           <div class="alert-content">
-            <p>
+            <p v-if="hasFlag === 'LICENSE'">
               <span class="has-text-weight-semibold">From:</span>
               {{ alertInfo.host }}
             </p>
