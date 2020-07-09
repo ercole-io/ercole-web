@@ -91,6 +91,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { checkAlertIcon } from '@/helpers/helpers.js'
 import NoContent from '@/components/common/NoContent.vue'
 
 export default {
@@ -124,16 +125,6 @@ export default {
     },
     handleAlertClick(flag, type) {
       this.$router.push(`/alerts/${type}/${flag}`)
-    },
-    checkIcon() {
-      const severity = this.alertInfo.severity
-      if (severity === 'INFO') {
-        return { iconType: 'is-info', icon: 'info-circle' }
-      } else if (severity === 'WARNING') {
-        return { iconType: 'is-warning', icon: 'exclamation-triangle' }
-      } else if (severity === 'CRITICAL') {
-        return { iconType: 'is-danger', icon: 'exclamation-circle' }
-      }
     }
   },
   computed: {
@@ -141,7 +132,7 @@ export default {
       return this.alertInfo && this.alertInfo.flag ? this.alertInfo.flag : null
     },
     setIcon() {
-      return this.checkIcon()
+      return checkAlertIcon(this.alertInfo.severity)
     }
   },
   watch: {
@@ -212,7 +203,8 @@ export default {
 .fade-leave-active {
   transition: opacity 0.5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active em versões anteriores a 2.1.8 */ {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 </style>
