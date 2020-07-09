@@ -13,8 +13,18 @@ export const getters = {
   getAllAlerts: state => {
     const agents = state.alerts.AGENT
     const licenses = state.alerts.LICENSE
+    const licensesFull = _.concat(
+      licenses.INFO,
+      licenses.WARNING,
+      licenses.CRITICAL
+    )
     const engines = state.alerts.ENGINE
-    const all = _.concat(agents, licenses, engines)
+    const enginesFull = _.concat(
+      engines.INFO,
+      engines.WARNING,
+      engines.CRITICAL
+    )
+    const all = _.concat(agents, licensesFull, enginesFull)
     return _.orderBy(all, ['Date'], ['asc'])
   },
   getFilteredAlerts: state => (type, flag) => {
@@ -67,10 +77,17 @@ export const mutations = {
     })
   },
   MARK_AS_READ: (state, payload) => {
+    let id = payload.id
     let flag = payload.flag
     let type = payload.type
+
+    if (flag === 'AGENT') {
+      state.alerts[flag] = _.filter(state.alerts[flag], item => {
+        return item._id !== id
+      })
+    }
     state.alerts[flag][type] = _.filter(state.alerts[flag][type], item => {
-      return item._id !== payload.id
+      return item._id !== id
     })
   }
 }

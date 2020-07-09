@@ -18,3 +18,13 @@ export const capitalize = value => {
   value = value.toString()
   return value.charAt(0).toUpperCase() + value.slice(1)
 }
+
+export const checkAlertIcon = severity => {
+  if (severity === 'INFO') {
+    return { iconType: 'is-info', icon: 'info-circle' }
+  } else if (severity === 'WARNING') {
+    return { iconType: 'is-warning', icon: 'exclamation-triangle' }
+  } else if (severity === 'CRITICAL') {
+    return { iconType: 'is-danger', icon: 'exclamation-circle' }
+  }
+}
