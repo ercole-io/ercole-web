@@ -3,7 +3,7 @@
     <PageTitle />
 
     <BoxContent>
-      <div class="top-table">
+      <TopTable>
         <b-field
           class="search"
           custom-class="is-small"
@@ -14,7 +14,7 @@
         </b-field>
 
         <SelectPerPage :totalItem="totalItems" />
-      </div>
+      </TopTable>
 
       <div class="table-container">
         <v-table
@@ -73,25 +73,23 @@
         </v-table>
       </div>
 
-      <BoxContent class="is-size-7 has-text-weight-medium has-text-centered">
-        Showing {{ perPage }} hosts from {{ totalItems }}
-      </BoxContent>
+      <BottomTable>
+        <template slot="info">
+          Showing {{ perPage }} hosts from {{ totalItems }}
+        </template>
+        <template>
+          <smart-pagination
+            :currentPage.sync="currentPage"
+            :totalPages="totalPages"
+          />
 
-      <div
-        class="is-flex"
-        style="justify-content: space-between; margin-bottom: 10px"
-      >
-        <smart-pagination
-          :currentPage.sync="currentPage"
-          :totalPages="totalPages"
-        />
-
-        <div class="buttons" style="order: 2;">
-          <b-button type="is-primary" size="is-small"
-            >Alerts List File</b-button
-          >
-        </div>
-      </div>
+          <div class="buttons">
+            <b-button type="is-primary" size="is-small">
+              Alerts List File
+            </b-button>
+          </div>
+        </template>
+      </BottomTable>
     </BoxContent>
   </section>
 </template>
@@ -103,6 +101,8 @@ import { checkAlertIcon } from '@/helpers/helpers.js'
 import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import SelectPerPage from '@/components/common/SelectPerPage.vue'
+import TopTable from '@/components/common/TopTable.vue'
+import BottomTable from '@/components/common/BottomTable.vue'
 
 export default {
   props: {
@@ -118,7 +118,9 @@ export default {
   components: {
     PageTitle,
     BoxContent,
-    SelectPerPage
+    SelectPerPage,
+    TopTable,
+    BottomTable
   },
   data() {
     return {
@@ -179,19 +181,12 @@ export default {
 </script>
 
 <style lang="scss">
-.top-table {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-
-  .search {
-    margin-bottom: 0;
-  }
+.search {
+  margin-bottom: 0;
 
   .field-label {
     .label {
       min-width: 100px;
-      max-width: 200px;
     }
   }
 }
@@ -223,14 +218,5 @@ export default {
       }
     }
   }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>

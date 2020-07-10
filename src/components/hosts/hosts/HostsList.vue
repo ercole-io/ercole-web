@@ -1,6 +1,6 @@
 <template>
   <BoxContent>
-    <div class="top-table">
+    <TopTable>
       <b-field
         class="search"
         custom-class="is-small"
@@ -39,7 +39,7 @@
       </div>
 
       <SelectPerPage :totalItem="totalHosts" />
-    </div>
+    </TopTable>
 
     <div class="table-container">
       <v-table
@@ -171,24 +171,22 @@
       </v-table>
     </div>
 
-    <BoxContent class="is-size-7 has-text-weight-medium has-text-centered">
-      Showing {{ perPage }} hosts from {{ totalHosts }}
-    </BoxContent>
+    <BottomTable>
+      <template slot="info">
+        Showing {{ perPage }} hosts from {{ totalHosts }}
+      </template>
+      <template>
+        <smart-pagination
+          :currentPage.sync="currentPage"
+          :totalPages="totalPages"
+        />
 
-    <div
-      class="is-flex"
-      style="justify-content: space-between; margin-bottom: 10px"
-    >
-      <smart-pagination
-        :currentPage.sync="currentPage"
-        :totalPages="totalPages"
-      />
-
-      <div class="buttons" style="order: 2;">
-        <b-button type="is-primary" size="is-small">Host List File</b-button>
-        <b-button type="is-primary" size="is-small">LMS Audit File</b-button>
-      </div>
-    </div>
+        <div class="buttons">
+          <b-button type="is-primary" size="is-small">Host List File</b-button>
+          <b-button type="is-primary" size="is-small">LMS Audit File</b-button>
+        </div>
+      </template>
+    </BottomTable>
   </BoxContent>
 </template>
 
@@ -197,12 +195,16 @@ import { bus } from '@/helpers/eventBus.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import TdContent from '@/components/common/TdContent.vue'
 import SelectPerPage from '@/components/common/SelectPerPage.vue'
+import TopTable from '@/components/common/TopTable.vue'
+import BottomTable from '@/components/common/BottomTable.vue'
 
 export default {
   components: {
     BoxContent,
     TdContent,
-    SelectPerPage
+    SelectPerPage,
+    TopTable,
+    BottomTable
   },
   props: {
     hosts: {
@@ -272,20 +274,8 @@ export default {
 </script>
 
 <style lang="scss">
-.top-table {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-
-  .search {
-    margin-bottom: 0;
-  }
-
-  .table-buttons {
-    button {
-      margin: 0 5px;
-    }
-  }
+.search {
+  margin-bottom: 0;
 
   .field-label {
     .label {
@@ -294,18 +284,9 @@ export default {
   }
 }
 
-.pagination {
-  .pagination-previous {
-    order: 1;
-  }
-  .pagination-list {
-    order: 2;
-    display: flex;
-    justify-content: flex-end;
-    flex-grow: 0;
-  }
-  .pagination-next {
-    order: 3;
+.table-buttons {
+  button {
+    margin: 0 5px;
   }
 }
 
