@@ -1,5 +1,6 @@
 import axiosDefault from '../../axios/axios-default.js'
 import _ from 'lodash'
+import formatDate from '../../filters/formatDate.js'
 
 export const state = () => ({
   alerts: []
@@ -64,6 +65,10 @@ export const getters = {
 
 export const mutations = {
   SET_ALERTS: (state, payload) => {
+    _.forEach(payload, item => {
+      item.Date = formatDate(item.Date)
+    })
+
     state.alerts = _.groupBy(payload, 'AlertCategory')
     state.alerts.ENGINE = _.groupBy(state.alerts.ENGINE, 'AlertSeverity')
     state.alerts.LICENSE = _.groupBy(state.alerts.LICENSE, 'AlertSeverity')
