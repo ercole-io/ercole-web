@@ -22,7 +22,7 @@
             </p>
             <p>
               <span class="has-text-weight-semibold">Date:</span>
-              {{ alertInfo.date | formatDate }}
+              {{ alertInfo.date }}
             </p>
 
             <p>{{ alertInfo.msg }}</p>

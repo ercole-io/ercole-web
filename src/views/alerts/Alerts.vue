@@ -12,13 +12,6 @@
         >
           <b-input size="is-small" v-model="filters.search.value" />
         </b-field>
-        <!-- <b-button
-          size="is-small"
-          @click="showAllAlerts"
-          v-if="this.type && this.flag"
-        >
-          Show All Alerts
-        </b-button> -->
 
         <SelectPerPage :totalItem="totalItems" />
       </div>
@@ -64,7 +57,7 @@
                 />
               </td>
               <td>{{ row.AlertCategory }}</td>
-              <td>{{ row.Date | formatDate }}</td>
+              <td>{{ row.Date }}</td>
               <td>
                 <b-icon
                   pack="fas"
@@ -198,6 +191,7 @@ export default {
   .field-label {
     .label {
       min-width: 100px;
+      max-width: 200px;
     }
   }
 }
