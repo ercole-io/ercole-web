@@ -61,3 +61,74 @@
 .vt-desc:before {
   content: '\f107';
 }
+
+.smart-pagination {
+  .pagination {
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem
+  }
+ 
+  .page-link {
+    position: relative;
+    display: block;
+    padding: .5em .75em;
+    margin: 0 .25em;
+    line-height: 1.25;
+    color: #363636;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: .7em;
+  }
+ 
+  .page-link:hover {
+    z-index: 2;
+    color: #363636;
+    text-decoration: none;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+  }
+ 
+  .page-link:focus {
+    z-index: 2;
+    outline: 0;
+  }
+ 
+  .page-link:not(:disabled):not(.disabled) {
+    cursor: pointer
+  }
+
+  .page-item {
+    margin-top: 0;
+  }
+ 
+  .page-item {
+    &:first-child, &:last-child {
+      .page-link {
+        svg {
+          width: 12px;
+          height: 12px;
+          vertical-align: text-top;
+        }
+      }
+    }
+  }
+ 
+  .page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #679189;
+    border-color: #679189
+  }
+ 
+  .page-item.disabled .page-link {
+    color: #7a7a7a;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #dbdbdb;
+    border-color: #dbdbdb;
+  }
+}
