@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     changePerPage() {
-      bus.$emit('changePerPage', this.perPage)
+      bus.$emit('changePerPage', Number(this.perPage))
     }
   }
 }

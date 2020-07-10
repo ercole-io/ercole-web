@@ -25,20 +25,14 @@
 
       <div class="table-container">
         <v-table
-          :data="paginatedItems"
-          :filters="filters"
-          :hideSortIcons="true"
-          class="vTable-custom table-alerts"
-        >
-          <!-- <v-table
           :data="allAlerts"
           :filters="filters"
           :hideSortIcons="true"
           :currentPage.sync="currentPage"
-          :pageSize="10"
+          :pageSize="perPage"
           @totalPagesChanged="totalPages = $event"
           class="vTable-custom table-alerts"
-        > -->
+        >
           <thead slot="head">
             <tr class="has-background-grey-light">
               <th style="width: 5%"></th>
@@ -86,15 +80,18 @@
         </v-table>
       </div>
 
+      <BoxContent class="is-size-7 has-text-weight-medium has-text-centered">
+        Showing {{ perPage }} hosts from {{ totalItems }}
+      </BoxContent>
+
       <div
         class="is-flex"
         style="justify-content: space-between; margin-bottom: 10px"
       >
-        <Pagination :listItems="allAlerts" @pagitatedItems="handlePagination" />
-        <!-- <smart-pagination
+        <smart-pagination
           :currentPage.sync="currentPage"
           :totalPages="totalPages"
-        /> -->
+        />
 
         <div class="buttons" style="order: 2;">
           <b-button type="is-primary" size="is-small"
@@ -113,7 +110,6 @@ import { checkAlertIcon } from '@/helpers/helpers.js'
 import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import SelectPerPage from '@/components/common/SelectPerPage.vue'
-import Pagination from '@/components/common/Pagination.vue'
 
 export default {
   props: {
@@ -129,16 +125,15 @@ export default {
   components: {
     PageTitle,
     BoxContent,
-    SelectPerPage,
-    Pagination
+    SelectPerPage
   },
   data() {
     return {
       currentPage: 1,
       totalPages: 0,
+      perPage: 10,
       allAlerts: null,
       paginatedItems: [],
-      perPage: 10,
       filters: {
         search: {
           value: '',
@@ -179,9 +174,6 @@ export default {
     handleMarkAsRead(id, flag, type) {
       this.markAsRead({ id, flag, type })
       this.allAlerts = this.getAllAlerts
-    },
-    handlePagination(val) {
-      this.paginatedItems = val
     }
   },
   computed: {

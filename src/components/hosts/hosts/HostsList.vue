@@ -43,9 +43,12 @@
 
     <div class="table-container">
       <v-table
-        :data="paginatedItems"
+        :data="hosts"
         :filters="filters"
         :hideSortIcons="true"
+        :currentPage.sync="currentPage"
+        :pageSize="perPage"
+        @totalPagesChanged="totalPages = $event"
         @selectionChanged="clickedRow = $event"
         class="vTable-custom"
       >
@@ -176,7 +179,10 @@
       class="is-flex"
       style="justify-content: space-between; margin-bottom: 10px"
     >
-      <Pagination :listItems="hosts" @pagitatedItems="handlePagination" />
+      <smart-pagination
+        :currentPage.sync="currentPage"
+        :totalPages="totalPages"
+      />
 
       <div class="buttons" style="order: 2;">
         <b-button type="is-primary" size="is-small">Host List File</b-button>
@@ -191,14 +197,12 @@ import { bus } from '@/helpers/eventBus.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import TdContent from '@/components/common/TdContent.vue'
 import SelectPerPage from '@/components/common/SelectPerPage.vue'
-import Pagination from '@/components/common/Pagination.vue'
 
 export default {
   components: {
     BoxContent,
     TdContent,
-    SelectPerPage,
-    Pagination
+    SelectPerPage
   },
   props: {
     hosts: {
@@ -234,6 +238,8 @@ export default {
         }
       },
       clickedRow: [],
+      currentPage: 1,
+      totalPages: 0,
       perPage: 10,
       paginatedItems: [],
       hideVirtual: true,
@@ -245,11 +251,6 @@ export default {
     bus.$on('changePerPage', value => {
       this.perPage = value
     })
-  },
-  methods: {
-    handlePagination(val) {
-      this.paginatedItems = val
-    }
   },
   computed: {
     totalHosts() {
