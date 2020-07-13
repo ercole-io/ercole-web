@@ -13,7 +13,7 @@
           <b-input size="is-small" v-model="filters.search.value" />
         </b-field>
 
-        <SelectPerPage :totalItem="totalItems" />
+        <SelectPerPage :totalItem="totalItems" v-if="totalItems > perPage" />
       </TopTable>
 
       <div class="table-container">
