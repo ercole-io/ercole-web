@@ -3,7 +3,19 @@ import _ from 'lodash'
 import formatDate from '../../filters/formatDate.js'
 
 export const state = () => ({
-  alerts: []
+  alerts: {
+    AGENT: [],
+    LICENSE: {
+      INFO: [],
+      WARNING: [],
+      CRITICAL: []
+    },
+    ENGINE: {
+      INFO: [],
+      WARNING: [],
+      CRITICAL: []
+    }
+  }
 })
 
 export const getters = {

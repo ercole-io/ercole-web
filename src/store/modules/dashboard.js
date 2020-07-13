@@ -11,27 +11,27 @@ function getRandomColor() {
 }
 
 export const state = () => ({
-  dashData: null
+  dashData: {}
 })
 
 export const getters = {
   getTotalTarget: state => {
-    const total = state.dashData.Technologies.Total
+    const total = state.dashData.technologies.total
     return {
-      agentsDiscovered: total.HostsCount,
-      percCompliance: Math.round(total.Compliance * 100),
-      moneyMissing: total.UnpaidDues
+      agentsDiscovered: total.hostsCount,
+      percCompliance: Math.round(total.compliance * 100),
+      moneyMissing: total.unpaidDues
     }
   },
   getTechnologies: state => {
-    const tech = state.dashData.Technologies.Technologies
+    const tech = state.dashData.technologies.technologies
     const techArray = []
     _.forEach(tech, val => {
       techArray.push({
-        name: val.Product,
-        agents: val.HostsCount,
-        perc: Math.round(val.Compliance * 100),
-        money: val.UnpaidDues,
+        name: val.product,
+        agents: val.hostsCount,
+        perc: Math.round(val.compliance * 100),
+        money: val.unpaidDues,
         color: getRandomColor()
       })
     })
