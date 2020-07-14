@@ -3,20 +3,20 @@
     <v-table :data="backups" :hideSortIcons="true" class="vTable-custom">
       <thead slot="head">
         <tr class="has-background-grey-lighter">
-          <v-th sortKey="Daysweek">Days of the Week</v-th>
-          <v-th sortKey="Hour">Hour</v-th>
-          <v-th sortKey="Type">Type</v-th>
-          <v-th sortKey="Average">Average</v-th>
-          <v-th sortKey="RMAN">RMAN</v-th>
+          <v-th sortKey="daysweek">Days of the Week</v-th>
+          <v-th sortKey="hour">Hour</v-th>
+          <v-th sortKey="type">Type</v-th>
+          <v-th sortKey="average">Average</v-th>
+          <v-th sortKey="rman">RMAN</v-th>
         </tr>
       </thead>
       <tbody slot="body" slot-scope="{ displayData }">
         <v-tr v-for="(row, index) in displayData" :key="index" :row="row">
-          <td>{{ row.Daysweek }}</td>
-          <td>{{ row.Hour }}</td>
-          <td>{{ row.Type }}</td>
-          <td>{{ row.Average }}</td>
-          <td>{{ row.RMAN }}</td>
+          <td>{{ row.daysweek }}</td>
+          <td>{{ row.hour }}</td>
+          <td>{{ row.type }}</td>
+          <td>{{ row.average }}</td>
+          <td>{{ row.rman }}</td>
         </v-tr>
       </tbody>
     </v-table>

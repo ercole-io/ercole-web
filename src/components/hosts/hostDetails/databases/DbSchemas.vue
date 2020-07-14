@@ -3,20 +3,20 @@
     <v-table :data="schemas" :hideSortIcons="true" class="vTable-custom">
       <thead slot="head">
         <tr class="has-background-grey-lighter">
-          <v-th sortKey="User">User</v-th>
-          <v-th sortKey="Total">Total</v-th>
-          <v-th sortKey="Tables">Tables</v-th>
-          <v-th sortKey="Indexes">Indexes</v-th>
-          <v-th sortKey="LOB">LOB</v-th>
+          <v-th sortKey="user">User</v-th>
+          <v-th sortKey="total">Total</v-th>
+          <v-th sortKey="tables">Tables</v-th>
+          <v-th sortKey="indexes">Indexes</v-th>
+          <v-th sortKey="lob">LOB</v-th>
         </tr>
       </thead>
       <tbody slot="body" slot-scope="{ displayData }">
         <v-tr v-for="(row, index) in displayData" :key="index" :row="row">
-          <td>{{ row.User }}</td>
-          <td>{{ row.Total }}</td>
-          <td>{{ row.Tables }}</td>
-          <td>{{ row.Indexes }}</td>
-          <td>{{ row.LOB }}</td>
+          <td>{{ row.user }}</td>
+          <td>{{ row.total }}</td>
+          <td>{{ row.tables }}</td>
+          <td>{{ row.indexes }}</td>
+          <td>{{ row.lob }}</td>
         </v-tr>
       </tbody>
     </v-table>

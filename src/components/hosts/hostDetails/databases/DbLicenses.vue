@@ -11,16 +11,16 @@
       >
         <thead slot="head">
           <tr class="has-background-grey-lighter">
-            <v-th sortKey="Name">Name</v-th>
-            <v-th sortKey="Count">Number</v-th>
-            <v-th sortKey="Tags">Tags</v-th>
+            <v-th sortKey="name">Name</v-th>
+            <v-th sortKey="count">Number</v-th>
+            <v-th sortKey="tags">Tags</v-th>
           </tr>
         </thead>
         <tbody slot="body" slot-scope="{ displayData }">
           <v-tr v-for="row in displayData" :key="row.Name" :row="row">
-            <td>{{ row.Name }}</td>
-            <td>{{ row.Count }}</td>
-            <td>{{ row.Tags }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.count }}</td>
+            <td>{{ row.tags }}</td>
           </v-tr>
         </tbody>
       </v-table>
@@ -30,8 +30,8 @@
       <li>
         Selected Licenses:
       </li>
-      <li v-for="selected in selectedRows" :key="selected.Name">
-        {{ selected.Name }}
+      <li v-for="selected in selectedRows" :key="selected.name">
+        {{ selected.name }}
       </li>
     </ul>
 

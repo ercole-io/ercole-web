@@ -3,22 +3,22 @@
     <v-table :data="tablespaces" :hideSortIcons="true" class="vTable-custom">
       <thead slot="head">
         <tr class="has-background-grey-lighter">
-          <v-th sortKey="Name">Name</v-th>
-          <v-th sortKey="Status">Status</v-th>
-          <v-th sortKey="Used">Used</v-th>
-          <v-th sortKey="UsedPerc">Used GB</v-th>
-          <v-th sortKey="Total">Total</v-th>
-          <v-th sortKey="MaxSize">Max Size</v-th>
+          <v-th sortKey="name">Name</v-th>
+          <v-th sortKey="status">Status</v-th>
+          <v-th sortKey="used">Used</v-th>
+          <v-th sortKey="usedPerc">Used GB</v-th>
+          <v-th sortKey="total">Total</v-th>
+          <v-th sortKey="maxSize">Max Size</v-th>
         </tr>
       </thead>
       <tbody slot="body" slot-scope="{ displayData }">
         <v-tr v-for="(row, index) in displayData" :key="index" :row="row">
-          <td>{{ row.Name }}</td>
-          <td>{{ row.Status }}</td>
-          <td>{{ row.Used }}</td>
-          <td>{{ row.UsedPerc }}</td>
-          <td>{{ row.Total }}</td>
-          <td>{{ row.MaxSize }}</td>
+          <td>{{ row.name }}</td>
+          <td>{{ row.status }}</td>
+          <td>{{ row.used }}</td>
+          <td>{{ row.usedPerc }}</td>
+          <td>{{ row.total }}</td>
+          <td>{{ row.maxSize }}</td>
         </v-tr>
       </tbody>
     </v-table>

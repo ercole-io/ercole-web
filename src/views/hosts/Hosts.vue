@@ -26,24 +26,24 @@ export default {
     this.getAllHosts.forEach(host => {
       this.hosts.push({
         _id: host._id,
-        hostname: host.Hostname || '-',
-        environment: host.Environment || '-',
-        databases: this.mapDbs(host.Features.Oracle),
-        hosttype: host.HostType || '-',
-        platform: host.Platform || '-',
-        cluster: host.Cluster || '-',
-        physicalhost: host.PhysicalHost || '-',
-        os: host.Info.OS || '-',
-        kernel: host.Info.Kernel || '-',
-        memorytotal: host.Info.MemoryTotal || '-',
-        swaptotal: host.Info.SwapTotal || '-',
-        aixcluster: this.mapAixcluster(host.Clusters),
-        model: host.Info.CPUModel || '-',
-        threads: host.Info.CPUThreads || '-',
-        cores: host.Info.CPUCores || '-',
-        socket: host.Info.CPUSockets || '-',
-        version: host.AgentVersion || '-',
-        updated: formatDate(host.CreatedAt) || '-'
+        hostname: host.hostname || '-',
+        environment: host.environment || '-',
+        databases: this.mapDbs(host.features.oracle),
+        hosttype: host.hostType || '-',
+        platform: host.platform || '-',
+        cluster: host.cluster || '-',
+        physicalhost: host.physicalHost || '-',
+        os: host.info.os || '-',
+        kernel: host.info.kernel || '-',
+        memorytotal: host.info.memoryTotal || '-',
+        swaptotal: host.info.SwapTotal || '-',
+        aixcluster: this.mapAixcluster(host.clusters),
+        model: host.info.cpuModel || '-',
+        threads: host.info.cpuThreads || '-',
+        cores: host.info.cpuCores || '-',
+        socket: host.info.cpuSockets || '-',
+        version: host.agentVersion || '-',
+        updated: formatDate(host.createdAt) || '-'
       })
     })
   },
@@ -51,9 +51,9 @@ export default {
     ...mapActions(['getHosts']),
     mapDbs(dbs) {
       if (dbs) {
-        if (dbs.Database) {
-          if (dbs.Database.Databases.length > 0) {
-            return dbs.Database.Databases.map(dbName => dbName.Name)
+        if (dbs.database) {
+          if (dbs.database.databases.length > 0) {
+            return dbs.database.databases.map(dbName => dbName.name)
           } else {
             return '-'
           }
