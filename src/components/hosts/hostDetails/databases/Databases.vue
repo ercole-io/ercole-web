@@ -7,85 +7,85 @@
       type="is-boxed"
     >
       <template v-for="dbs in hostDbs">
-        <b-tab-item :key="dbs.UniqueName" :label="dbs.Name">
+        <b-tab-item :key="dbs.UniqueName" :label="dbs.name">
           <b-tabs size="is-small" type="is-toggle" vertical :animated="true">
             <b-tab-item label="Info">
               <DbInfo
                 :details="{
-                  status: dbs.Status,
-                  dbName: dbs.Name,
-                  uniqueName: dbs.UniqueName,
-                  archiveLog: dbs.Archivelog,
-                  blockSize: dbs.BlockSize,
-                  charset: dbs.Charset,
-                  nCharset: dbs.NCharset
+                  status: dbs.status,
+                  dbName: dbs.name,
+                  uniqueName: dbs.uniqueName,
+                  archiveLog: dbs.archivelog,
+                  blockSize: dbs.blockSize,
+                  charset: dbs.charset,
+                  nCharset: dbs.nCharset
                 }"
                 :memory="{
-                  memoryTarget: dbs.MemoryTarget,
-                  pgaTarget: dbs.PGATarget,
-                  sgaMaxSize: dbs.SGAMaxSize,
-                  sgaTarget: dbs.SGATarget
+                  memoryTarget: dbs.memoryTarget,
+                  pgaTarget: dbs.pgaTarget,
+                  sgaMaxSize: dbs.sgaMaxSize,
+                  sgaTarget: dbs.sgaTarget
                 }"
                 :resource="{
-                  dbTime: dbs.DBTime,
-                  elapsed: dbs.Elapsed,
-                  threadUsed: dbs.Used,
-                  cpuCount: dbs.CPUCount
+                  dbTime: dbs.dbTime,
+                  elapsed: dbs.elapsed,
+                  threadUsed: dbs.used,
+                  cpuCount: dbs.cpuCount
                 }"
                 :space="{
-                  allocable: dbs.Allocated,
-                  dataFileSize: dbs.DataFileSize,
-                  segmentSize: dbs.SegmentsSize
+                  allocable: dbs.allocated,
+                  dataFileSize: dbs.dataFileSize,
+                  segmentSize: dbs.segmentsSize
                 }"
                 :infos="{
-                  asm: dbs.ASM,
-                  dataGuard: dbs.Dataguard,
-                  plattform: dbs.Platform,
-                  version: dbs.Version
+                  asm: dbs.asm,
+                  dataGuard: dbs.dataguard,
+                  plattform: dbs.platform,
+                  version: dbs.version
                 }"
               />
             </b-tab-item>
             <b-tab-item label="Tags">
               <DbTags
-                :dbName="dbs.Name"
+                :dbName="dbs.name"
                 :tags="['Albino', 'Milano', 'Como', 'Torino']"
               />
             </b-tab-item>
             <b-tab-item label="Pluggable DBs">
-              Pluggable DBs {{ dbs.Name }}
+              Pluggable DBs {{ dbs.name }}
             </b-tab-item>
             <b-tab-item label="Licenses">
-              <DbLicenses :licenses="dbs.Licenses" />
+              <DbLicenses :licenses="dbs.licenses" />
             </b-tab-item>
             <b-tab-item label="Options">
-              <DbOptions :options="dbs.Options" />
+              <DbOptions :options="dbs.options" />
             </b-tab-item>
             <b-tab-item label="Tablespaces">
-              <DbTablespaces :tablespaces="dbs.Tablespaces" />
+              <DbTablespaces :tablespaces="dbs.tablespaces" />
             </b-tab-item>
             <b-tab-item label="Schemas">
-              <DbSchemas :schemas="dbs.Schemas" />
+              <DbSchemas :schemas="dbs.schemas" />
             </b-tab-item>
             <b-tab-item label="Patches">
-              <DbPatches :patches="dbs.Patches" />
+              <DbPatches :patches="dbs.patches" />
             </b-tab-item>
             <b-tab-item label="PSUs">
-              <DbPSUs :psus="dbs.PSUs" />
+              <DbPSUs :psus="dbs.psus" />
             </b-tab-item>
             <b-tab-item label="ADDMs">
-              <DbADDMs :addms="dbs.ADDMs" />
+              <DbADDMs :addms="dbs.addms" />
             </b-tab-item>
             <b-tab-item label="Segment Advisors">
-              <DbSegmentAdvisors :segmentAdvisors="dbs.SegmentAdvisors" />
+              <DbSegmentAdvisors :segmentAdvisors="dbs.segmentAdvisors" />
             </b-tab-item>
             <b-tab-item label="DBGrowth">
-              <DbGrowth :growth="DbGrowthData" :growthId="dbs.Name" />
+              <DbGrowth :growth="DbGrowthData" :growthId="dbs.name" />
             </b-tab-item>
             <b-tab-item label="Backups">
-              <DbBackups :backups="dbs.Backups" />
+              <DbBackups :backups="dbs.backups" />
             </b-tab-item>
             <b-tab-item label="Services">
-              <DbServices :services="dbs.Services" />
+              <DbServices :services="dbs.services" />
             </b-tab-item>
           </b-tabs>
         </b-tab-item>

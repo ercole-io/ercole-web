@@ -27,12 +27,12 @@
           </thead>
           <tbody>
             <tr v-for="(file, i) in filesys" :key="i">
-              <td>{{ file.Filesystem }}</td>
-              <td>{{ file.Type }}</td>
-              <td>{{ file.MountedOn }}</td>
-              <td>{{ file.Size }}</td>
-              <td>{{ file.AvailableSpace }}</td>
-              <td>{{ file.UsedSpace }}</td>
+              <td>{{ file.filesystem }}</td>
+              <td>{{ file.type }}</td>
+              <td>{{ file.mountedOn }}</td>
+              <td>{{ file.size }}</td>
+              <td>{{ file.availableSpace }}</td>
+              <td>{{ file.usedSpace }}</td>
               <!-- <td>{{ file.UsedPerc }}</td> -->
             </tr>
           </tbody>

@@ -93,42 +93,42 @@ export default {
   async created() {
     await this.getHostByName(this.hostname)
 
-    this.currentHostName = this.getCurrentHost.Hostname
+    this.currentHostName = this.getCurrentHost.hostname
     bus.$emit('dynamicTitle', this.currentHostName)
 
     this.hostInfoInfo(this.getCurrentHost)
-    this.hostDbsInfo(this.getCurrentHost.Features.Oracle.Database.Databases)
-    this.hostNotificationInfo(this.getCurrentHost.Alerts)
-    this.filesys = this.getCurrentHost.Filesystems
+    this.hostDbsInfo(this.getCurrentHost.features.oracle.database.databases)
+    this.hostNotificationInfo(this.getCurrentHost.alerts)
+    this.filesys = this.getCurrentHost.filesystems
   },
   methods: {
     ...mapActions(['getHostByName']),
     hostInfoInfo(host) {
       this.hostInfo = {
-        hostname: host.Hostname || '-',
-        environment: host.Environment || '-',
-        hostType: host.HostType || '-',
+        hostname: host.hostname || '-',
+        environment: host.environment || '-',
+        hostType: host.hostType || '-',
         platform: host.platform || '-',
-        cluster: host.Cluster || '-',
-        physicalHost: host.PhysicalHost || '-',
-        os: host.Info.OS || '-',
-        kernel: host.Info.Kernel || '-',
-        memoryTotal: host.Info.MemoryTotal || '-',
-        swapTotal: host.Info.SwapTotal || '-',
-        aixCluster: host.Info.AixCluster,
-        model: host.Info.CPUModel || '-',
-        threads: host.Info.CPUThreads || '-',
-        cores: host.Info.CPUCores || '-',
-        socket: host.Info.Socket || '-',
-        version: host.Version || '-',
-        createdAt: formatDate(host.CreatedAt) || '-'
+        cluster: host.cluster || '-',
+        physicalHost: host.physicalHost || '-',
+        os: host.info.os || '-',
+        kernel: host.info.kernel || '-',
+        memoryTotal: host.info.memoryTotal || '-',
+        swapTotal: host.info.swapTotal || '-',
+        aixCluster: host.info.aixCluster,
+        model: host.info.cpuModel || '-',
+        threads: host.info.cpuThreads || '-',
+        cores: host.info.cpuCores || '-',
+        socket: host.info.socket || '-',
+        version: host.version || '-',
+        createdAt: formatDate(host.createdAt) || '-'
       }
       return this.hostInfo
     },
     hostDbsInfo(host) {
       if (host && host.length > 0) {
         _.forEach(host, val => {
-          if (val.Name) {
+          if (val.name) {
             this.hostDbs.push(val)
           }
         })
@@ -138,11 +138,11 @@ export default {
     hostNotificationInfo(host) {
       return (this.notificationInfo = {
         total: host.length,
-        agents: host.filter(val => val.AlertCode === 'NEW_DATABASE').length,
-        licenses: host.filter(val => val.AlertCode === 'NEW_LICENSE').length,
+        agents: host.filter(val => val.alertCode === 'NEW_DATABASE').length,
+        licenses: host.filter(val => val.alertCode === 'NEW_LICENSE').length,
         systems: host.filter(
           val =>
-            val.AlertCode !== 'NEW_LICENSE' && val.AlertCode !== 'NEW_DATABASE'
+            val.alertCode !== 'NEW_LICENSE' && val.alertCode !== 'NEW_DATABASE'
         ).length
       })
     },
