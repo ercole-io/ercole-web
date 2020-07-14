@@ -3,25 +3,13 @@ import _ from 'lodash'
 import formatDate from '../../filters/formatDate.js'
 
 export const state = () => ({
-  alerts: {
-    AGENT: [],
-    LICENSE: {
-      INFO: [],
-      WARNING: [],
-      CRITICAL: []
-    },
-    ENGINE: {
-      INFO: [],
-      WARNING: [],
-      CRITICAL: []
-    }
-  }
+  alerts: {}
 })
 
 export const getters = {
   getFilteredAgents: state => (type, flag) => {
     const agents = state.alerts[flag]
-    return _.filter(agents, ['AlertCode', type])
+    return _.filter(agents, ['alertCode', type])
   },
   getAllAlerts: state => {
     const agents = state.alerts.AGENT
@@ -38,34 +26,38 @@ export const getters = {
       engines.CRITICAL
     )
     const all = _.concat(agents, licensesFull, enginesFull)
-    return _.orderBy(all, ['Date'], ['asc'])
+    return _.orderBy(all, ['date'], ['asc'])
   },
   getFilteredAlerts: state => (type, flag) => {
     const alerts = state.alerts[flag][type]
-    return _.filter(alerts, ['AlertSeverity', type])
+    return _.filter(alerts, ['alertSeverity', type])
   },
   getFirstAlertByFlag: state => flag => {
-    const alerts =
-      state.alerts[flag].CRITICAL[0] ||
-      state.alerts[flag].WARNING[0] ||
-      state.alerts[flag].INFO[0]
+    const alert = state.alerts[flag]
+    const alerts = alert.CRITICAL
+      ? alert.CRITICAL[0]
+      : null || alert.WARNING
+      ? alert.WARNING[0]
+      : null || alert.INFO
+      ? alert.INFO[0]
+      : null
 
     if (alerts) {
       return {
         flag: flag,
         alertId: alerts._id,
-        host: alerts.OtherInfo.Hostname,
-        date: alerts.Date,
-        msg: alerts.Description,
-        severity: alerts.AlertSeverity
+        host: alerts.otherInfo.hostname,
+        date: alerts.date,
+        msg: alerts.description,
+        severity: alerts.alertSeverity
       }
     }
   },
   getTotalAlertsByFlag: state => flag => {
     const alerts = state.alerts[flag]
-    let info = alerts.INFO.length
-    let warn = alerts.WARNING.length
-    let crit = alerts.CRITICAL.length
+    let info = alerts.INFO ? alerts.INFO.length : 0
+    let warn = alerts.WARNING ? alerts.WARNING.length : 0
+    let crit = alerts.CRITICAL ? alerts.CRITICAL.length : 0
     return {
       info: info,
       warn: warn,
@@ -78,19 +70,19 @@ export const getters = {
 export const mutations = {
   SET_ALERTS: (state, payload) => {
     _.forEach(payload, item => {
-      item.Date = formatDate(item.Date)
+      item.date = formatDate(item.date)
     })
 
-    state.alerts = _.groupBy(payload, 'AlertCategory')
-    state.alerts.ENGINE = _.groupBy(state.alerts.ENGINE, 'AlertSeverity')
-    state.alerts.LICENSE = _.groupBy(state.alerts.LICENSE, 'AlertSeverity')
+    state.alerts = _.groupBy(payload, 'alertCategory')
+    state.alerts.ENGINE = _.groupBy(state.alerts.ENGINE, 'alertSeverity')
+    state.alerts.LICENSE = _.groupBy(state.alerts.LICENSE, 'alertSeverity')
 
     _.forEach(state.alerts.ENGINE, (value, key) => {
-      state.alerts.ENGINE[key] = _.orderBy(value, ['Date'], ['asc'])
+      state.alerts.ENGINE[key] = _.orderBy(value, ['date'], ['asc'])
     })
 
     _.forEach(state.alerts.LICENSE, (value, key) => {
-      state.alerts.LICENSE[key] = _.orderBy(value, ['Date'], ['asc'])
+      state.alerts.LICENSE[key] = _.orderBy(value, ['date'], ['asc'])
     })
   },
   MARK_AS_READ: (state, payload) => {

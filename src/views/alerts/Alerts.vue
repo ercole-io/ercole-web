@@ -46,8 +46,8 @@
                   @click.native="
                     handleMarkAsRead(
                       row._id,
-                      row.AlertCategory,
-                      row.AlertSeverity
+                      row.alertCategory,
+                      row.alertSeverity
                     )
                   "
                   pack="fas"
@@ -56,18 +56,18 @@
                   style="cursor: pointer"
                 />
               </td>
-              <td>{{ row.AlertCategory }}</td>
-              <td>{{ row.Date }}</td>
+              <td>{{ row.alertCategory }}</td>
+              <td>{{ row.date }}</td>
               <td>
                 <b-icon
                   pack="fas"
-                  :type="setIcon(row.AlertSeverity).iconType"
-                  :icon="setIcon(row.AlertSeverity).icon"
+                  :type="setIcon(row.alertSeverity).iconType"
+                  :icon="setIcon(row.alertSeverity).icon"
                 />
               </td>
-              <td>{{ row.OtherInfo.Hostname }}</td>
-              <td>{{ row.AlertCode }}</td>
-              <td>{{ row.Description }}</td>
+              <td>{{ row.otherInfo.hostname }}</td>
+              <td>{{ row.alertCode }}</td>
+              <td>{{ row.description }}</td>
             </v-tr>
           </tbody>
         </v-table>
