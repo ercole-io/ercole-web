@@ -4,10 +4,7 @@
       <slot name="info" />
     </div>
 
-    <div
-      class="is-flex"
-      style="justify-content: space-between; margin-bottom: 10px"
-    >
+    <div class="is-flex" style="justify-content: space-between; margin: 10px 0">
       <slot />
     </div>
   </div>
