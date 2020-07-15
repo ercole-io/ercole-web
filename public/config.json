@@ -1,0 +1,4 @@
+{
+    "APIServiceBaseUrl": "http://127.0.0.1:11113",
+    "ChartServiceBaseUrl": "http://127.0.0.1:11116"
+}
