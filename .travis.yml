@@ -1,5 +1,10 @@
 version: "~> 1.0"
 
+addons:
+  apt:
+    packages:
+      - rpm
+
 env:
   global:
     - VERSION=latest
