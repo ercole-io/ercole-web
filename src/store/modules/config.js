@@ -7,7 +7,7 @@ export const state = () => {
 }
 
 export const getters = {
-  isConfigLoaded: state => state.config != null,
+  isConfigLoaded: state => state.config !== null,
   getAPIServiceBaseURL: state => state.config.APIServiceBaseUrl
 }
 
