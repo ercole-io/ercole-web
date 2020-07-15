@@ -1,13 +1,10 @@
 import axios from 'axios'
 import store from '../store/index.js'
 
-const api = process.env.VUE_APP_API
-
-const authInstance = axios.create({
-  baseURL: `${api}/user`
-})
+const authInstance = axios.create()
 
 authInstance.interceptors.request.use(config => {
+  config.baseURL = `${store.getters.getAPIServiceBaseURL}/user`
   store.dispatch('onLoading')
   return config
 })

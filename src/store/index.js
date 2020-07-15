@@ -8,6 +8,7 @@ import * as auth from './modules/auth'
 import * as dashboard from './modules/dashboard.js'
 import * as hosts from './modules/hosts.js'
 import * as alerts from './modules/alerts.js'
+import * as config from './modules/config.js'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,8 @@ export default new Vuex.Store({
     auth,
     dashboard,
     hosts,
-    alerts
+    alerts,
+    config
   },
   plugins: [
     createPersistedState({
