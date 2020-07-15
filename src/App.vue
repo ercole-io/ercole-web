@@ -2,11 +2,10 @@
   <div id="app">
     <component :is="layout">
       <Suspense>
-        <p>{{ isConfigLoaded }} {{ isLoading }}</p>
-        <b-loading :active.sync="isLoading" />
+        <b-loading :active.sync="loadingStatus" />
         <router-view
           v-if="isConfigLoaded"
-          v-show="!isLoading"
+          v-show="!loadingStatus"
           :key="$route.fullPath"
         />
       </Suspense>
@@ -15,7 +14,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 const default_layout = 'default'
 
 export default {
@@ -28,14 +27,9 @@ export default {
     ...mapActions(['tryAutoLogin', 'fetchConfig', 'offLoading'])
   },
   computed: {
+    ...mapGetters(['loadingStatus', 'isConfigLoaded']),
     layout() {
       return (this.$route.meta.layout || default_layout) + '-layout'
-    },
-    isLoading() {
-      return this.$store.getters['loadingStatus']
-    },
-    isConfigLoaded() {
-      return this.$store.getters['isConfigLoaded']
     }
   }
 }
