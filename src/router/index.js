@@ -12,11 +12,9 @@ const HostsDetails = lazy(() => import('@/views/hosts/HostsDetails.vue'))
 const Databases = lazy(() => import('@/views/databases/Databases.vue'))
 const Middleware = lazy(() => import('@/views/middleware/Middleware.vue'))
 const LicensesCompliance = lazy(() =>
-  import('@/views/licenses/compliance/LicensesCompliance.vue')
+  import('@/views/licenses/LicensesCompliance.vue')
 )
-const LicensesList = lazy(() =>
-  import('@/views/licenses/list/LicensesList.vue')
-)
+const LicensesList = lazy(() => import('@/views/licenses/LicensesList.vue'))
 const Hypervisors = lazy(() => import('@/views/hypervisors/Hypervisors.vue'))
 const Engineered = lazy(() => import('@/views/engineered/Engineered.vue'))
 const Alerts = lazy(() => import('@/views/alerts/Alerts.vue'))
