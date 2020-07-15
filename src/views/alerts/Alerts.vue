@@ -13,12 +13,12 @@
           <b-input size="is-small" v-model="filters.search.value" />
         </b-field>
 
-        <SelectPerPage :totalItem="totalItems" v-if="totalItems > perPage" />
+        <SelectPerPage :totalItem="totalItems" />
       </TopTable>
 
       <div class="table-container">
         <v-table
-          :data="allAlerts"
+          :data="total"
           :filters="filters"
           :hideSortIcons="true"
           :currentPage.sync="currentPage"
@@ -81,7 +81,7 @@
           <smart-pagination
             :currentPage.sync="currentPage"
             :totalPages="totalPages"
-            :maxPageLinks="5"
+            :maxPageLinks="maxPageLinks"
           />
 
           <div class="buttons">
@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
+import paginationMixin from '@/mixins/paginationMixin.js'
 import { mapGetters, mapActions } from 'vuex'
 import { checkAlertIcon } from '@/helpers/helpers.js'
 import PageTitle from '@/components/common/PageTitle.vue'
@@ -106,6 +106,7 @@ import TopTable from '@/components/common/TopTable.vue'
 import BottomTable from '@/components/common/BottomTable.vue'
 
 export default {
+  mixins: [paginationMixin],
   props: {
     type: {
       type: String,
@@ -125,11 +126,6 @@ export default {
   },
   data() {
     return {
-      currentPage: 1,
-      totalPages: 0,
-      perPage: 10,
-      allAlerts: null,
-      paginatedItems: [],
       filters: {
         search: {
           value: '',
@@ -149,34 +145,27 @@ export default {
     if (!this.type && !this.flag) {
       await this.showAllAlerts()
     } else if (this.flag === 'AGENT') {
-      this.allAlerts = this.getFilteredAgents(this.type, this.flag)
+      this.total = this.getFilteredAgents(this.type, this.flag)
     } else {
-      this.allAlerts = this.getFilteredAlerts(this.type, this.flag)
+      this.total = this.getFilteredAlerts(this.type, this.flag)
     }
-
-    bus.$on('changePerPage', value => {
-      this.perPage = value
-    })
   },
   methods: {
     ...mapActions(['getAlertsData', 'markAsRead']),
     showAllAlerts() {
       this.getAlertsData()
-      this.allAlerts = this.getAllAlerts
+      this.total = this.getAllAlerts
     },
     setIcon(severity) {
       return checkAlertIcon(severity)
     },
     handleMarkAsRead(id, flag, type) {
       this.markAsRead({ id, flag, type })
-      this.allAlerts = this.getAllAlerts
+      this.total = this.getAllAlerts
     }
   },
   computed: {
-    ...mapGetters(['getAllAlerts', 'getFilteredAlerts', 'getFilteredAgents']),
-    totalItems() {
-      return this.allAlerts.length
-    }
+    ...mapGetters(['getAllAlerts', 'getFilteredAlerts', 'getFilteredAgents'])
   }
 }
 </script>
