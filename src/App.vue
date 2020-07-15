@@ -2,8 +2,13 @@
   <div id="app">
     <component :is="layout">
       <Suspense>
+        <p>{{ isConfigLoaded }} {{ isLoading }}</p>
         <b-loading :active.sync="isLoading" />
-        <router-view v-show="!isLoading" :key="$route.fullPath" />
+        <router-view
+          v-if="isConfigLoaded"
+          v-show="!isLoading"
+          :key="$route.fullPath"
+        />
       </Suspense>
     </component>
   </div>
@@ -15,10 +20,12 @@ const default_layout = 'default'
 
 export default {
   created() {
-    this.tryAutoLogin()
+    this.fetchConfig()
+      .then(this.tryAutoLogin)
+      .then(this.offLoading)
   },
   methods: {
-    ...mapActions(['tryAutoLogin'])
+    ...mapActions(['tryAutoLogin', 'fetchConfig', 'offLoading'])
   },
   computed: {
     layout() {
@@ -26,6 +33,9 @@ export default {
     },
     isLoading() {
       return this.$store.getters['loadingStatus']
+    },
+    isConfigLoaded() {
+      return this.$store.getters['isConfigLoaded']
     }
   }
 }
