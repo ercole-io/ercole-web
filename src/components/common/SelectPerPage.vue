@@ -1,5 +1,5 @@
 <template>
-  <b-field>
+  <b-field v-if="totalItem > perPage">
     <b-select v-model="perPage" size="is-small" @change.native="changePerPage">
       <option value="5" v-if="totalItem > 5">5 per page</option>
       <option value="10" v-if="totalItem > 10">10 per page</option>

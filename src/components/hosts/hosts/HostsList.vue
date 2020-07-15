@@ -38,12 +38,12 @@
         </b-button>
       </div>
 
-      <SelectPerPage :totalItem="totalHosts" />
+      <SelectPerPage :totalItem="totalItems" />
     </TopTable>
 
     <div class="table-container">
       <v-table
-        :data="hosts"
+        :data="total"
         :filters="filters"
         :hideSortIcons="true"
         :currentPage.sync="currentPage"
@@ -173,13 +173,13 @@
 
     <BottomTable>
       <template slot="info">
-        Showing {{ perPage }} hosts from {{ totalHosts }}
+        Showing {{ perPage }} hosts from {{ totalItems }}
       </template>
       <template>
         <smart-pagination
           :currentPage.sync="currentPage"
           :totalPages="totalPages"
-          :maxPageLinks="5"
+          :maxPageLinks="maxPageLinks"
         />
 
         <div class="buttons">
@@ -192,7 +192,7 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
+import paginationMixin from '@/mixins/paginationMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import TdContent from '@/components/common/TdContent.vue'
 import SelectPerPage from '@/components/common/SelectPerPage.vue'
@@ -200,6 +200,7 @@ import TopTable from '@/components/common/TopTable.vue'
 import BottomTable from '@/components/common/BottomTable.vue'
 
 export default {
+  mixins: [paginationMixin],
   components: {
     BoxContent,
     TdContent,
@@ -241,24 +242,13 @@ export default {
         }
       },
       clickedRow: [],
-      currentPage: 1,
-      totalPages: 0,
-      perPage: 10,
-      paginatedItems: [],
       hideVirtual: true,
       hideCPU: true,
       hideAgent: true
     }
   },
-  created() {
-    bus.$on('changePerPage', value => {
-      this.perPage = value
-    })
-  },
-  computed: {
-    totalHosts() {
-      return this.hosts.length
-    }
+  beforeMount() {
+    this.total = this.hosts
   },
   watch: {
     clickedRow(row) {
