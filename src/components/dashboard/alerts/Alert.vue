@@ -51,7 +51,7 @@
     <footer class="card-footer card-buttons has-background-grey">
       <b-button
         @click="handleAlertClick(hasFlag, 'INFO')"
-        :disabled="!hasFlag"
+        :disabled="alertTotals.info === 0"
         type="is-info"
         size="is-small"
         icon-pack="fas"
@@ -63,7 +63,7 @@
       </b-button>
       <b-button
         @click="handleAlertClick(hasFlag, 'WARNING')"
-        :disabled="!hasFlag"
+        :disabled="alertTotals.warn === 0"
         type="is-warning"
         size="is-small"
         icon-pack="fas"
@@ -75,7 +75,7 @@
       </b-button>
       <b-button
         @click="handleAlertClick(hasFlag, 'CRITICAL')"
-        :disabled="!hasFlag"
+        :disabled="alertTotals.crit === 0"
         type="is-danger"
         size="is-small"
         icon-pack="fas"
