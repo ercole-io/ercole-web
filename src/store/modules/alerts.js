@@ -1,4 +1,5 @@
 import axiosDefault from '../../axios/axios-default.js'
+import axiosNoLoading from '../../axios/axios-no-loading.js'
 import _ from 'lodash'
 import formatDate from '../../filters/formatDate.js'
 
@@ -103,15 +104,15 @@ export const mutations = {
 
 export const actions = {
   async getAlertsData({ commit }) {
-    const alertsData = await axiosDefault.get('/alerts')
+    const alertsData = await axiosDefault.get('/alerts?status=NEW')
     const response = await alertsData.data
     commit('SET_ALERTS', response)
   },
-  markAsRead({ commit }, payload) {
-    // const deleteAlert = await axiosDefault.get(`/alerts/${payload.id}`)
-    // const response = await deleteAlert
-    // if (response) {
-    commit('MARK_AS_READ', payload)
-    // }
+  async markAsRead({ commit }, payload) {
+    const deleteAlert = await axiosNoLoading.post(`/alerts/${payload.id}`)
+    const response = await deleteAlert
+    if (response) {
+      commit('MARK_AS_READ', payload)
+    }
   }
 }
