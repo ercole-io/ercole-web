@@ -24,6 +24,7 @@
           :currentPage.sync="currentPage"
           :pageSize="perPage"
           @totalPagesChanged="totalPages = $event"
+          @selectionChanged="selectedRows = $event"
           class="vTable-custom table-alerts"
         >
           <thead slot="head">
@@ -42,18 +43,19 @@
           <tbody slot="body" slot-scope="{ displayData }">
             <v-tr v-for="row in displayData" :key="row._id" :row="row">
               <td>
-                <b-icon
-                  @click.native="
+                <b-button
+                  @click="
                     handleMarkAsRead(
                       row._id,
                       row.alertCategory,
                       row.alertSeverity
                     )
                   "
-                  pack="fas"
+                  size="is-small"
                   type="is-danger"
-                  icon="trash-alt"
-                  style="cursor: pointer"
+                  icon-pack="fas"
+                  icon-right="trash-alt"
+                  outlined
                 />
               </td>
               <td>{{ row.alertCategory }}</td>
@@ -138,30 +140,47 @@ export default {
             'Description'
           ]
         }
-      }
+      },
+      selectedRows: []
     }
   },
   async beforeMount() {
     if (!this.type && !this.flag) {
-      await this.showAllAlerts()
+      await this.fetchAlerts()
     } else if (this.flag === 'AGENT') {
-      this.total = this.getFilteredAgents(this.type, this.flag)
+      this.showFilteredAgents()
     } else {
-      this.total = this.getFilteredAlerts(this.type, this.flag)
+      this.showFilteredAlerts()
     }
   },
   methods: {
     ...mapActions(['getAlertsData', 'markAsRead']),
-    showAllAlerts() {
+    fetchAlerts() {
       this.getAlertsData()
       this.total = this.getAllAlerts
+    },
+    showAllAlerts() {
+      this.total = this.getAllAlerts
+    },
+    showFilteredAgents() {
+      this.total = this.getFilteredAgents(this.type, this.flag)
+    },
+    showFilteredAlerts() {
+      this.total = this.getFilteredAlerts(this.type, this.flag)
     },
     setIcon(severity) {
       return checkAlertIcon(severity)
     },
     handleMarkAsRead(id, flag, type) {
-      this.markAsRead({ id, flag, type })
-      this.total = this.getAllAlerts
+      this.markAsRead({ id, flag, type }).then(() => {
+        if (!this.type && !this.flag) {
+          this.showAllAlerts()
+        } else if (this.flag === 'AGENT') {
+          this.showFilteredAgents()
+        } else {
+          this.showFilteredAlerts()
+        }
+      })
     }
   },
   computed: {
@@ -182,6 +201,10 @@ export default {
 }
 
 .table-alerts {
+  .table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+
   thead {
     tr {
       th {
