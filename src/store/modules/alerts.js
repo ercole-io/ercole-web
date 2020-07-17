@@ -14,19 +14,12 @@ export const getters = {
   },
   getAllAlerts: state => {
     const agents = state.alerts.AGENT
+
     const licenses = state.alerts.LICENSE
-    const licensesFull = _.concat(
-      licenses.INFO ?? [],
-      licenses.WARNING ?? [],
-      licenses.CRITICAL ?? []
-    )
+    const licensesFull = organizeAlertsByFlag(licenses)
 
     const engines = state.alerts.ENGINE
-    const enginesFull = _.concat(
-      engines.INFO ?? [],
-      engines.WARNING ?? [],
-      engines.CRITICAL ?? []
-    )
+    const enginesFull = organizeAlertsByFlag(engines)
 
     let all = _.concat(agents, licensesFull, enginesFull)
     return _.orderBy(all, ['date'], ['asc'])
@@ -37,10 +30,7 @@ export const getters = {
   },
   getFirstAlertByFlag: state => flag => {
     const alert = state.alerts[flag]
-    const alerts =
-      ((alert.CRITICAL && alert.CRITICAL[0]) ?? null) ||
-      ((alert.WARNING && alert.WARNING[0]) ?? null) ||
-      ((alert.INFO && alert.INFO[0]) ?? null)
+    const alerts = organizeAlertByFirst(alert)
 
     if (alerts) {
       return {
@@ -114,4 +104,20 @@ export const actions = {
       commit('MARK_AS_READ', payload)
     }
   }
+}
+
+const organizeAlertsByFlag = flag => {
+  return _.concat(
+    [flag].INFO ?? [],
+    [flag].WARNING ?? [],
+    [flag].CRITICAL ?? []
+  )
+}
+
+const organizeAlertByFirst = alert => {
+  return (
+    ((alert.CRITICAL && alert.CRITICAL[0]) ?? null) ||
+    ((alert.WARNING && alert.WARNING[0]) ?? null) ||
+    ((alert.INFO && alert.INFO[0]) ?? null)
+  )
 }
