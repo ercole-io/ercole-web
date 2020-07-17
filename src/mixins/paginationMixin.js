@@ -7,7 +7,7 @@ export default {
       totalPages: 0,
       perPage: 10,
       maxPageLinks: 5,
-      total: null
+      total: 0
     }
   },
   created() {

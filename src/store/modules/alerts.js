@@ -26,7 +26,12 @@ export const getters = {
       engines.WARNING,
       engines.CRITICAL
     )
-    const all = _.concat(agents, licensesFull, enginesFull)
+    let all = _.concat(agents, licensesFull, enginesFull)
+
+    all = _.filter(all, item => {
+      return item !== undefined
+    })
+
     return _.orderBy(all, ['date'], ['asc'])
   },
   getFilteredAlerts: state => (type, flag) => {
