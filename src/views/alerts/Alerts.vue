@@ -24,24 +24,21 @@
           :currentPage.sync="currentPage"
           :pageSize="perPage"
           @totalPagesChanged="totalPages = $event"
-          @selectionChanged="selectedRows = $event"
           class="vTable-custom table-alerts"
         >
           <thead slot="head">
             <tr class="has-background-grey-light">
               <th style="width: 5%"></th>
-              <v-th style="width: 10%" sortKey="AlertCategory">Type</v-th>
-              <v-th style="width: 10%" sortKey="Date">Date</v-th>
-              <v-th style="width: 5%" sortKey="AlertSeverity">Severity</v-th>
-              <v-th style="width: 20%" sortKey="OtherInfo.Hostname"
-                >Hostname</v-th
-              >
-              <v-th style="width: 10%" sortKey="AlertCode">Code</v-th>
-              <v-th style="width: 40%" sortKey="Description">Description</v-th>
+              <v-th style="width: 10%" sortKey="alertCategory">Type</v-th>
+              <v-th style="width: 10%" sortKey="date">Date</v-th>
+              <v-th style="width: 5%" sortKey="alertSeverity">Severity</v-th>
+              <v-th style="width: 20%" sortKey="hostname">Hostname</v-th>
+              <v-th style="width: 10%" sortKey="alertCode">Code</v-th>
+              <v-th style="width: 40%" sortKey="description">Description</v-th>
             </tr>
           </thead>
           <tbody slot="body" slot-scope="{ displayData }">
-            <v-tr v-for="row in displayData" :key="row._id" :row="row">
+            <tr v-for="row in displayData" :key="row._id">
               <td>
                 <b-button
                   @click="
@@ -67,10 +64,10 @@
                   :icon="setIcon(row.alertSeverity).icon"
                 />
               </td>
-              <td>{{ row.otherInfo.hostname }}</td>
+              <td>{{ row.hostname }}</td>
               <td>{{ row.alertCode }}</td>
               <td>{{ row.description }}</td>
-            </v-tr>
+            </tr>
           </tbody>
         </v-table>
       </div>
@@ -132,16 +129,15 @@ export default {
         search: {
           value: '',
           keys: [
-            'AlertCategory',
-            'AlertSeverity',
-            'Date',
-            'OtherInfo.Hostname',
-            'AlertCode',
-            'Description'
+            'alertCategory',
+            'alertSeverity',
+            'date',
+            'hostname',
+            'alertCode',
+            'description'
           ]
         }
-      },
-      selectedRows: []
+      }
     }
   },
   async beforeMount() {

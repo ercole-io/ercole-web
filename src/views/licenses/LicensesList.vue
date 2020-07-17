@@ -9,7 +9,7 @@
         <b-field
           class="search"
           custom-class="is-small"
-          label="Search on Alerts"
+          label="Search on Licenses"
           horizontal
         >
           <b-input size="is-small" v-model="filters.search.value" />
@@ -26,7 +26,7 @@
           :currentPage.sync="currentPage"
           :pageSize="perPage"
           @totalPagesChanged="totalPages = $event"
-          class="vTable-custom table-alerts"
+          class="vTable-custom"
         >
           <thead slot="head">
             <tr class="has-background-grey-light">
@@ -37,12 +37,12 @@
             </tr>
           </thead>
           <tbody slot="body" slot-scope="{ displayData }">
-            <v-tr v-for="row in displayData" :key="row._id" :row="row">
+            <tr v-for="row in displayData" :key="row._id">
               <td>{{ row.hostname }}</td>
               <td>{{ row.dbName }}</td>
               <td>{{ row.licenseName }}</td>
               <td>{{ row.number }}</td>
-            </v-tr>
+            </tr>
           </tbody>
         </v-table>
       </div>
@@ -160,7 +160,7 @@ export default {
 
   .field-label {
     .label {
-      min-width: 100px;
+      min-width: 110px;
     }
   }
 }
