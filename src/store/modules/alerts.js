@@ -16,22 +16,19 @@ export const getters = {
     const agents = state.alerts.AGENT
     const licenses = state.alerts.LICENSE
     const licensesFull = _.concat(
-      licenses.INFO,
-      licenses.WARNING,
-      licenses.CRITICAL
+      licenses.INFO ?? [],
+      licenses.WARNING ?? [],
+      licenses.CRITICAL ?? []
     )
+
     const engines = state.alerts.ENGINE
     const enginesFull = _.concat(
-      engines.INFO,
-      engines.WARNING,
-      engines.CRITICAL
+      engines.INFO ?? [],
+      engines.WARNING ?? [],
+      engines.CRITICAL ?? []
     )
+
     let all = _.concat(agents, licensesFull, enginesFull)
-
-    all = _.filter(all, item => {
-      return item !== undefined
-    })
-
     return _.orderBy(all, ['date'], ['asc'])
   },
   getFilteredAlerts: state => (type, flag) => {
@@ -40,13 +37,10 @@ export const getters = {
   },
   getFirstAlertByFlag: state => flag => {
     const alert = state.alerts[flag]
-    const alerts = alert.CRITICAL
-      ? alert.CRITICAL[0]
-      : null || alert.WARNING
-      ? alert.WARNING[0]
-      : null || alert.INFO
-      ? alert.INFO[0]
-      : null
+    const alerts =
+      ((alert.CRITICAL && alert.CRITICAL[0]) ?? null) ||
+      ((alert.WARNING && alert.WARNING[0]) ?? null) ||
+      ((alert.INFO && alert.INFO[0]) ?? null)
 
     if (alerts) {
       return {
