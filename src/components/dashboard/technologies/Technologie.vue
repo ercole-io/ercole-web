@@ -1,19 +1,24 @@
 <template>
   <div class="scroll">
     <div class="technologies">
-      <div class="technologies-list" v-for="(tech, i) in technologies" :key="i">
-        <div class="has-text-weight-semibold">{{ tech.name }}</div>
-        <div>{{ tech.agents }}</div>
+      <div
+        class="technologies-list"
+        v-for="tech in technologies"
+        :key="tech.id"
+      >
+        <img v-bind:src="`data:image/jpeg;base64,${tech.logo}`" />
+        <span>{{ tech.name }}</span>
+        <div>{{ tech.values.agents }}</div>
         <div>
           <Progress
             :radius="20"
-            :value="tech.perc"
+            :value="tech.values.perc"
             :strokeColor="tech.color"
             :strokeWidth="5"
             :transitionDuration="2000"
           />
         </div>
-        <div>{{ tech.money }} €</div>
+        <div>{{ tech.values.money }} €</div>
       </div>
     </div>
   </div>
@@ -48,6 +53,22 @@ export default {
 .technologies-list {
   margin: 0;
   padding: 0 3px;
+
+  img {
+    width: 25px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 0.75em;
+    font-weight: 500;
+    min-height: 35px;
+  }
 
   div {
     text-align: center;
