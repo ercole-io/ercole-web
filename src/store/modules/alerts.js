@@ -22,6 +22,7 @@ export const getters = {
     const enginesFull = organizeAlertsByFlag(engines)
 
     let all = _.concat(agents, licensesFull, enginesFull)
+
     return _.orderBy(all, ['date'], ['asc'])
   },
   getFilteredAlerts: state => (type, flag) => {
@@ -107,17 +108,16 @@ export const actions = {
 }
 
 const organizeAlertsByFlag = flag => {
-  return _.concat(
-    [flag].INFO ?? [],
-    [flag].WARNING ?? [],
-    [flag].CRITICAL ?? []
-  )
+  return _.concat(flag.INFO || [], flag.WARNING || [], flag.CRITICAL || [])
 }
 
 const organizeAlertByFirst = alert => {
   return (
-    ((alert.CRITICAL && alert.CRITICAL[0]) ?? null) ||
-    ((alert.WARNING && alert.WARNING[0]) ?? null) ||
-    ((alert.INFO && alert.INFO[0]) ?? null)
+    (alert.CRITICAL && alert.CRITICAL[0]) ||
+    null ||
+    (alert.WARNING && alert.WARNING[0]) ||
+    null ||
+    (alert.INFO && alert.INFO[0]) ||
+    null
   )
 }
