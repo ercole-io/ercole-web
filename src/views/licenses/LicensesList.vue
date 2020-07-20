@@ -150,6 +150,7 @@ export default {
   },
   beforeMount() {
     this.total = this.licenses
+    this.$store.dispatch('getLicensesData')
   }
 }
 </script>
