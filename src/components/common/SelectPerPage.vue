@@ -24,12 +24,16 @@ export default {
   },
   data() {
     return {
-      perPage: 10
+      perPage: Number(localStorage.getItem('perPage')) || 20
     }
+  },
+  created() {
+    this.changePerPage()
   },
   methods: {
     changePerPage() {
       bus.$emit('changePerPage', Number(this.perPage))
+      localStorage.setItem('perPage', this.perPage)
     }
   }
 }

@@ -5,7 +5,7 @@ export default {
     return {
       currentPage: 1,
       totalPages: 0,
-      perPage: 10,
+      perPage: Number(localStorage.getItem('perPage')),
       maxPageLinks: 5,
       total: 0
     }
