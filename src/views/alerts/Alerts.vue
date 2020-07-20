@@ -49,12 +49,14 @@
                       row.alertSeverity
                     )
                   "
+                  type="is-primary"
                   size="is-small"
-                  type="is-danger"
                   icon-pack="fas"
-                  icon-right="trash-alt"
-                  outlined
-                />
+                  icon-left="check-circle"
+                  class="has-text-weight-semibold"
+                >
+                  Mark as Read
+                </b-button>
               </td>
               <td>{{ row.alertCategory }}</td>
               <td>{{ row.date }}</td>
