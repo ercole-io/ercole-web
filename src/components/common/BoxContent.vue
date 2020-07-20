@@ -3,7 +3,7 @@
     <h2 class="sub-title" v-if="title" :class="{ 'border-bottom': border }">
       {{ title }}
     </h2>
-    <article :class="{ 'box-content': padding, 'margin-bottom': !padding }">
+    <article class="box-content">
       <slot />
     </article>
   </section>
@@ -19,10 +19,6 @@ export default {
     border: {
       type: Boolean,
       default: false
-    },
-    padding: {
-      type: Boolean,
-      default: false
     }
   }
 }
@@ -30,25 +26,21 @@ export default {
 
 <style lang="scss" scoped>
 .box-content {
-  padding: 1rem;
+  padding: 0 0.5rem;
   height: 100%;
-}
-
-.margin-bottom {
   margin-bottom: 20px;
-  height: 100%;
 }
 
 .sub-title {
   font-size: 0.9em;
   margin-bottom: 10px;
-  padding-left: 5px;
+  padding: 5px;
   font-weight: 500;
 }
 
 .border-bottom {
   border-bottom: 1px solid #ccc;
   padding-bottom: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 </style>
