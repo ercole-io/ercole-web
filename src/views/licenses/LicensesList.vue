@@ -1,8 +1,6 @@
 <template>
   <div>
-    <PageTitle>
-      <LicensesInfo :info="{ licenses: totalItems }" />
-    </PageTitle>
+    <PageTitle />
 
     <BoxContent>
       <TopTable>
@@ -76,7 +74,6 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import SelectPerPage from '@/components/common/SelectPerPage.vue'
 import TopTable from '@/components/common/TopTable.vue'
 import BottomTable from '@/components/common/BottomTable.vue'
-import LicensesInfo from '@/components/licenses/LicensesInfo.vue'
 
 export default {
   mixins: [paginationMixin],
@@ -85,8 +82,7 @@ export default {
     BoxContent,
     SelectPerPage,
     TopTable,
-    BottomTable,
-    LicensesInfo
+    BottomTable
   },
   data() {
     return {
