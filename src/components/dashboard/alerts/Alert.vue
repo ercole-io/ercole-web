@@ -6,26 +6,18 @@
         <span>{{ title[0] }}</span>
       </p>
     </header>
-    <main class="card-content alert-body">
-      <transition name="fade" mode="out-in">
-        <div class="alert-main" v-if="alertTotals.total > 0 && !isAnimated">
-          <b-icon
-            :type="setIcon.iconType"
-            pack="fas"
-            :icon="setIcon.icon"
-            size="is-medium"
-          />
-          <div class="alert-content">
-            <p v-if="hasFlag === 'LICENSE'">
-              <span class="has-text-weight-semibold">From:</span>
-              {{ alertInfo.host }}
-            </p>
-            <p>
-              <span class="has-text-weight-semibold">Date:</span>
-              {{ alertInfo.date }}
-            </p>
-
-            <p>{{ alertInfo.msg }}</p>
+    <transition name="fade" mode="out-in">
+      <main class="alert-body" v-if="alertTotals.total > 0 && !isAnimated">
+        <div class="columns is-vcentered is-gapless bottom-space">
+          <div class="column">
+            <b-icon
+              :type="setIcon.iconType"
+              pack="fas"
+              :icon="setIcon.icon"
+              size="is-medium"
+            />
+          </div>
+          <div class="column">
             <b-button
               @click="
                 handleMarkAsRead(alertInfo.alertId, hasFlag, alertInfo.severity)
@@ -41,13 +33,32 @@
             </b-button>
           </div>
         </div>
-
-        <NoContent
-          :noContentText="`There are no alerts for ${title[0]}`"
-          v-else
-        />
-      </transition>
-    </main>
+        <div class="columns is-vcentered is-gapless bottom-space">
+          <div class="column">
+            <p v-if="hasFlag === 'LICENSE'">
+              <span class="has-text-weight-semibold">From:</span>
+              {{ alertInfo.host }}
+            </p>
+          </div>
+        </div>
+        <div class="columns is-vcentered is-gapless bottom-space">
+          <div class="column">
+            <p>
+              <span class="has-text-weight-semibold">Date:</span>
+              {{ alertInfo.date }}
+            </p>
+          </div>
+        </div>
+        <div class="columns is-vcentered is-gapless bottom-space">
+          <div class="column">
+            <p>{{ alertInfo.msg }}</p>
+          </div>
+        </div>
+      </main>
+      <main class="alert-body" v-else>
+        <NoContent :noContentText="`There are no alerts for ${title[0]}`" />
+      </main>
+    </transition>
     <footer class="card-footer card-buttons has-background-grey">
       <b-button
         @click="handleAlertClick(hasFlag, 'INFO')"
@@ -163,19 +174,13 @@ export default {
 
   .alert-body {
     font-size: 0.75rem;
-    padding: 1em;
+    padding: 1rem;
     width: 100%;
 
-    .alert-main {
-      display: flex;
-      flex-direction: row;
-      width: 100%;
-      overflow-wrap: anywhere;
-    }
-
-    .alert-content {
-      width: 100%;
-      padding-left: 10px;
+    .bottom-space {
+      &:not(:last-child) {
+        margin-bottom: 0.5rem;
+      }
     }
   }
 

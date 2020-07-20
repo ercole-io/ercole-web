@@ -71,5 +71,6 @@ export default {
 
 .notification {
   padding: 0;
+  border-radius: 0;
 }
 </style>

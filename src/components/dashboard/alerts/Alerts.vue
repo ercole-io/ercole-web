@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <BoxContent :title="$t('dashboard.pageTitle.notificatons')" border>
     <Agents />
 
     <Alert
@@ -13,16 +13,18 @@
       :alertInfo="getFirstAlertByFlag('ENGINE')"
       :alertTotals="getTotalAlertsByFlag('ENGINE')"
     />
-  </div>
+  </BoxContent>
 </template>
 
 <script>
+import BoxContent from '@/components/common/BoxContent.vue'
 import { mapGetters, mapActions } from 'vuex'
 import Agents from '@/components/dashboard/alerts/Agents.vue'
 import Alert from '@/components/dashboard/alerts/Alert.vue'
 
 export default {
   components: {
+    BoxContent,
     Agents,
     Alert
   },
