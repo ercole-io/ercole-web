@@ -88,7 +88,7 @@
 
           <div class="buttons">
             <b-button type="is-primary" size="is-small">
-              Alerts List File
+              Export Data
             </b-button>
           </div>
         </template>

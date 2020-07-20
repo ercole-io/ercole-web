@@ -183,7 +183,7 @@
         />
 
         <div class="buttons">
-          <b-button type="is-primary" size="is-small">Host List File</b-button>
+          <b-button type="is-primary" size="is-small">Export Data</b-button>
           <b-button type="is-primary" size="is-small">LMS Audit File</b-button>
         </div>
       </template>

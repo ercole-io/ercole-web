@@ -60,7 +60,7 @@
 
           <div class="buttons">
             <b-button type="is-primary" size="is-small">
-              Export All Data
+              Export Data
             </b-button>
           </div>
         </template>
