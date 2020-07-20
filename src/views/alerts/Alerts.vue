@@ -28,7 +28,7 @@
         >
           <thead slot="head">
             <tr class="has-background-grey-light">
-              <th style="width: 5%"></th>
+              <th style="width: 5%">Actions</th>
               <v-th style="width: 10%" sortKey="alertCategory">Type</v-th>
               <v-th style="width: 10%" sortKey="date">Date</v-th>
               <v-th style="width: 5%" sortKey="alertSeverity">Severity</v-th>
@@ -41,6 +41,7 @@
             <tr v-for="row in displayData" :key="row._id">
               <td>
                 <b-button
+                  v-if="row.alertCategory !== 'AGENT'"
                   @click="
                     handleMarkAsRead(
                       row._id,
