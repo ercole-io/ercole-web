@@ -1,4 +1,4 @@
 {
     "APIServiceBaseUrl": "http://dev.ercole.io/api",
-    "ChartServiceBaseUrl": "http://127.0.0.1:11116"
+    "ChartServiceBaseUrl": "http://dev.ercole.io/chart"
 }
