@@ -14,7 +14,7 @@
     <div class="card-content body">
       <template>
         <div class="agents">
-          <span>Agents that are stopped:</span>
+          <span>Agents which do not send data:</span>
           <span class="has-text-weight-bold">{{ stoppedAgents }}</span>
         </div>
       </template>
