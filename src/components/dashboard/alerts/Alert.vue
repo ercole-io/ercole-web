@@ -67,7 +67,7 @@
         size="is-small"
         icon-pack="fas"
         icon-left="info-circle"
-        class="has-text-weight-semibold"
+        class="has-text-weight-semibold alert-button"
         expanded
       >
         {{ alertTotals.info }}
@@ -79,7 +79,7 @@
         size="is-small"
         icon-pack="fas"
         icon-left="exclamation-triangle"
-        class="has-text-weight-semibold"
+        class="has-text-weight-semibold alert-button"
         expanded
       >
         {{ alertTotals.warn }}
@@ -91,7 +91,7 @@
         size="is-small"
         icon-pack="fas"
         icon-left="exclamation-circle"
-        class="has-text-weight-semibold"
+        class="has-text-weight-semibold alert-button"
         expanded
       >
         {{ alertTotals.crit }}
@@ -187,6 +187,12 @@ export default {
   .card-buttons {
     border: 2px solid hsl(0, 0%, 48%);
     display: flex;
+
+    .alert-button {
+      &:disabled {
+        opacity: 1;
+      }
+    }
   }
 }
 
