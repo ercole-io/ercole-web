@@ -87,9 +87,7 @@
           />
 
           <div class="buttons">
-            <b-button type="is-primary" size="is-small">
-              Export Data
-            </b-button>
+            <exportButton url="alerts" expName="alerts-data" />
           </div>
         </template>
       </BottomTable>
@@ -98,14 +96,15 @@
 </template>
 
 <script>
-import paginationMixin from '@/mixins/paginationMixin.js'
 import { mapGetters, mapActions } from 'vuex'
 import { checkAlertIcon } from '@/helpers/helpers.js'
+import paginationMixin from '@/mixins/paginationMixin.js'
 import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import SelectPerPage from '@/components/common/SelectPerPage.vue'
 import TopTable from '@/components/common/TopTable.vue'
 import BottomTable from '@/components/common/BottomTable.vue'
+import exportButton from '@/components/common/exportButton.vue'
 
 export default {
   mixins: [paginationMixin],
@@ -124,7 +123,8 @@ export default {
     BoxContent,
     SelectPerPage,
     TopTable,
-    BottomTable
+    BottomTable,
+    exportButton
   },
   data() {
     return {
