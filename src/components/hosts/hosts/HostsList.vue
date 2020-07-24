@@ -183,20 +183,13 @@
         />
 
         <div class="buttons">
-          <b-button
-            type="is-primary"
-            size="is-small"
-            @click="exportData('hosts')"
-          >
-            Export Data
-          </b-button>
-          <b-button
-            type="is-primary"
-            size="is-small"
-            @click="exportData('LMS')"
-          >
-            LMS Audit File
-          </b-button>
+          <exportButton url="hosts" expName="hosts-data" />
+          <exportButton
+            url="hosts"
+            expName="hosts-lms-data"
+            text="LMS Audit File"
+            type="LMS"
+          />
         </div>
       </template>
     </BottomTable>
@@ -204,23 +197,13 @@
 </template>
 
 <script>
-import axiosNoLoading from '@/axios/axios-no-loading.js'
-import { saveAs } from 'file-saver'
-import moment from 'moment'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import TdContent from '@/components/common/TdContent.vue'
 import SelectPerPage from '@/components/common/SelectPerPage.vue'
 import TopTable from '@/components/common/TopTable.vue'
 import BottomTable from '@/components/common/BottomTable.vue'
-
-const exportHostHeader = {
-  Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-}
-const exportLmsHeader = {
-  Accept:
-    'application/vnd.oracle.lms+vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-}
+import exportButton from '@/components/common/exportButton.vue'
 
 export default {
   mixins: [paginationMixin],
@@ -229,7 +212,8 @@ export default {
     TdContent,
     SelectPerPage,
     TopTable,
-    BottomTable
+    BottomTable,
+    exportButton
   },
   props: {
     hosts: {
@@ -272,21 +256,6 @@ export default {
   },
   beforeMount() {
     this.total = this.hosts
-  },
-  methods: {
-    exportData(type) {
-      let headers = type === 'hosts' ? exportHostHeader : exportLmsHeader
-      const date = moment().format('YYYYMMDD')
-
-      axiosNoLoading
-        .get('/hosts', {
-          headers: headers,
-          responseType: 'blob'
-        })
-        .then(res => {
-          saveAs(res.data, `${type}-${date}.xlsx`)
-        })
-    }
   },
   watch: {
     clickedRow(row) {
