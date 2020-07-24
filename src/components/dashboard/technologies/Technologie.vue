@@ -6,19 +6,19 @@
         v-for="tech in technologies"
         :key="tech.id"
       >
-        <img v-bind:src="`data:image/jpeg;base64,${tech.logo}`" />
-        <span>{{ tech.name }}</span>
-        <div>{{ tech.values.agents }}</div>
+        <img v-bind:src="`data:image/jpeg;base64,${tech.extra.logo}`" />
+        <span>{{ tech.extra.name }}</span>
+        <div>{{ tech.agents }}</div>
         <div>
           <Progress
             :radius="20"
-            :value="tech.values.perc"
-            :strokeColor="tech.color"
+            :value="tech.perc"
+            :strokeColor="tech.extra.color"
             :strokeWidth="5"
             :transitionDuration="2000"
           />
         </div>
-        <div>{{ tech.values.money }} €</div>
+        <div>{{ tech.money }} €</div>
       </div>
     </div>
   </div>
@@ -55,7 +55,7 @@ export default {
   padding: 0 3px;
 
   img {
-    width: 25px;
+    width: 30%;
     margin: 0 auto;
     display: block;
   }
