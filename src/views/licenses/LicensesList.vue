@@ -13,7 +13,7 @@
           <b-input size="is-small" v-model="filters.search.value" />
         </b-field>
 
-        <SelectPerPage :totalItem="totalItems" />
+        <SelectPerPage :totalItems="total.length" />
       </TopTable>
 
       <div class="table-container">
@@ -46,9 +46,11 @@
       </div>
 
       <BottomTable>
-        <template slot="info">
-          Showing {{ perPage }} hosts from {{ totalItems }}
-        </template>
+        <ShowPerPage
+          slot="info"
+          :totalItems="total.length"
+          :perPage="perPage"
+        />
         <template>
           <smart-pagination
             :currentPage.sync="currentPage"
@@ -74,6 +76,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import SelectPerPage from '@/components/common/SelectPerPage.vue'
 import TopTable from '@/components/common/TopTable.vue'
 import BottomTable from '@/components/common/BottomTable.vue'
+import ShowPerPage from '@/components/common/ShowPerPage.vue'
 
 export default {
   mixins: [paginationMixin],
@@ -82,7 +85,8 @@ export default {
     BoxContent,
     SelectPerPage,
     TopTable,
-    BottomTable
+    BottomTable,
+    ShowPerPage
   },
   data() {
     return {

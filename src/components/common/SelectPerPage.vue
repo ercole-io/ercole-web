@@ -1,13 +1,13 @@
 <template>
-  <b-field v-if="totalItem > perPage">
+  <b-field>
     <b-select v-model="perPage" size="is-small" @change.native="changePerPage">
-      <option value="5" v-if="totalItem > 5">5 per page</option>
-      <option value="10" v-if="totalItem > 10">10 per page</option>
-      <option value="15" v-if="totalItem > 15">15 per page</option>
-      <option value="20" v-if="totalItem > 20">20 per page</option>
-      <option value="25" v-if="totalItem > 25">25 per page</option>
-      <option value="50" v-if="totalItem > 50">50 per page</option>
-      <option :value="totalItem">All Items</option>
+      <option value="5" v-if="totalItems > 5">5 per page</option>
+      <option value="10" v-if="totalItems > 10">10 per page</option>
+      <option value="15" v-if="totalItems > 15">15 per page</option>
+      <option value="20" v-if="totalItems > 20">20 per page</option>
+      <option value="25" v-if="totalItems > 25">25 per page</option>
+      <option value="50" v-if="totalItems > 50">50 per page</option>
+      <option :value="totalItems">All Data - {{ totalItems }}</option>
     </b-select>
   </b-field>
 </template>
@@ -17,7 +17,7 @@ import { bus } from '@/helpers/eventBus.js'
 
 export default {
   props: {
-    totalItem: {
+    totalItems: {
       type: Number,
       required: true
     }
@@ -27,13 +27,18 @@ export default {
       perPage: Number(localStorage.getItem('perPage')) || 20
     }
   },
-  created() {
+  beforeUpdate() {
     this.changePerPage()
   },
   methods: {
     changePerPage() {
+      if (this.totalItems < this.perPage) {
+        this.perPage = this.totalItems
+      }
+      if (this.totalItems > this.perPage) {
+        localStorage.setItem('perPage', this.perPage)
+      }
       bus.$emit('changePerPage', Number(this.perPage))
-      localStorage.setItem('perPage', this.perPage)
     }
   }
 }
