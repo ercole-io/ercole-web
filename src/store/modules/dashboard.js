@@ -1,21 +1,15 @@
 import axiosDefault from '../../axios/axios-default.js'
 import _ from 'lodash'
 
-const getTechValues = (techName, techs) => {
-  const tech = _.find(techs, function(t) {
+const getExtraTechInfo = (techName, techs) => {
+  const tech = _.find(techs, t => {
     return t.product === techName
   })
   if (tech) {
     return {
-      agents: tech.hostsCount,
-      perc: tech.compliance * 100,
-      money: tech.unpaidDues
-    }
-  } else {
-    return {
-      agents: 0,
-      perc: 0,
-      money: 0
+      color: tech.color,
+      logo: tech.logo,
+      name: tech.prettyName
     }
   }
 }
@@ -23,7 +17,7 @@ const getTechValues = (techName, techs) => {
 export const state = () => ({
   totalTarget: {},
   technologies: {},
-  techData: {}
+  techDash: {}
 })
 
 export const getters = {
@@ -35,15 +29,15 @@ export const getters = {
     }
   },
   getTechnologies: state => {
-    const tech = state.technologies
+    const tech = state.techDash
     const techArray = []
-    _.forEach(tech, val => {
+    _.map(tech, value => {
       techArray.push({
-        id: val.product,
-        name: val.prettyName,
-        color: val.color,
-        logo: val.logo,
-        values: getTechValues(val.product, state.techData)
+        id: value.product,
+        agents: value.hostsCount,
+        perc: value.compliance * 100,
+        money: value.unpaidDues,
+        extra: getExtraTechInfo(value.product, state.technologies)
       })
     })
     return techArray
@@ -54,7 +48,7 @@ export const mutations = {
   SET_DASHBOARD_DATA: (state, payload) => {
     state.totalTarget = payload.dashResponse.technologies.total
     state.technologies = payload.techResponse
-    state.techData = payload.dashResponse.technologies.technologies
+    state.techDash = payload.dashResponse.technologies.technologies
   }
 }
 
@@ -63,8 +57,8 @@ export const actions = {
     const dashData = await axiosDefault.get('/frontend/dashboard')
     const dashResponse = await dashData.data
 
-    const techData = await axiosDefault.get('/settings/technologies')
-    const techResponse = await techData.data
+    const techDash = await axiosDefault.get('/settings/technologies')
+    const techResponse = await techDash.data
 
     commit('SET_DASHBOARD_DATA', { dashResponse, techResponse })
   }
