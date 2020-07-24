@@ -7,17 +7,12 @@ export default {
       totalPages: 0,
       perPage: Number(localStorage.getItem('perPage')),
       maxPageLinks: 5,
-      total: 0
+      total: []
     }
   },
-  created() {
+  mounted() {
     bus.$on('changePerPage', value => {
       this.perPage = value
     })
-  },
-  computed: {
-    totalItems() {
-      return this.total.length
-    }
   }
 }
