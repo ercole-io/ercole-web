@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LineChart chartId="lineChart" :lineChartData="lineData" />
+    <LineChart chartId="lineChart" :lineChartData="chartData" />
     <!-- <BarChart chartId="barChart" :barChartData="barData" stacked />
     <ColumnChart chartId="columnChart" :columnChartData="columnData" stacked /> -->
   </div>
@@ -12,6 +12,7 @@ import LineChart from '@/components/common/charts/LineChart.vue'
 // import ColumnChart from '@/components/common/charts/ColumnChart.vue'
 
 export default {
+  props: ['chartData'],
   components: {
     LineChart
     // BarChart,
@@ -23,7 +24,6 @@ export default {
         {
           name: 'Workout',
           data: {
-            '2013-02-10': 3,
             '2013-02-17': 3,
             '2013-02-24': 3,
             '2013-03-03': 1,
@@ -42,47 +42,7 @@ export default {
             '2013-03-03': 0,
             '2013-03-10': 2,
             '2013-03-17': 1,
-            '2013-03-24': 0,
-            '2013-03-31': 0
-          }
-        },
-        {
-          name: 'Wash face',
-          data: {
-            '2013-02-10': 0,
-            '2013-02-17': 1,
-            '2013-02-24': 0,
-            '2013-03-03': 0,
-            '2013-03-10': 0,
-            '2013-03-17': 1,
-            '2013-03-24': 0,
-            '2013-03-31': 1
-          }
-        },
-        {
-          name: 'Call parents',
-          data: {
-            '2013-02-10': 5,
-            '2013-02-17': 3,
-            '2013-02-24': 2,
-            '2013-03-03': 0,
-            '2013-03-10': 0,
-            '2013-03-17': 1,
-            '2013-03-24': 1,
-            '2013-03-31': 0
-          }
-        },
-        {
-          name: 'Eat breakfast',
-          data: {
-            '2013-02-10': 3,
-            '2013-02-17': 2,
-            '2013-02-24': 1,
-            '2013-03-03': 0,
-            '2013-03-10': 2,
-            '2013-03-17': 2,
-            '2013-03-24': 3,
-            '2013-03-31': 0
+            '2013-03-24': 0
           }
         }
       ],
