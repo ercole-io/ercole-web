@@ -1,4 +1,6 @@
 import axiosDefault from '../../axios/axios-default'
+import _ from 'lodash'
+import moment from 'moment'
 
 export const state = () => ({
   hosts: null,
@@ -11,6 +13,57 @@ export const getters = {
   },
   getCurrentHost: state => {
     return state.currentHost
+  },
+  getGpuGrowthChart: state => {
+    // calc total daily
+    const totalDailyState = state.currentHost.history
+    const totalDailyData = []
+    let resultTotalDaily = {}
+
+    _.map(totalDailyState, item => {
+      totalDailyData.push({
+        date: moment(item.createdAt).format(),
+        value: item.totalDailyCPUUsage
+      })
+    })
+
+    for (const prop in totalDailyData) {
+      resultTotalDaily[totalDailyData[prop].date] = totalDailyData[prop].value
+    }
+
+    // calc daily per db
+    const dailyDbState = state.currentHost.features.oracle.database.databases
+    const dailyDbData = []
+
+    _.map(dailyDbState, item => {
+      const { name, changes } = item
+      let changed = _.map(changes, data => {
+        return {
+          date: moment(data.updated).format(),
+          value: data.dailyCPUUsage
+        }
+      })
+
+      const changedResult = {}
+      for (const prop in changed) {
+        changedResult[changed[prop].date] = changed[prop].value
+      }
+
+      dailyDbData.push({
+        name: name,
+        data: changedResult
+      })
+    })
+
+    const finalResult = [
+      { name: 'Total Daily CPU Usage', data: resultTotalDaily }
+    ]
+
+    _.forEach(dailyDbData, item => {
+      finalResult.push(item)
+    })
+
+    return finalResult
   }
 }
 

@@ -31,7 +31,7 @@
         :title="`GPUGrowth of ${currentHostName}`"
         class="column is-4"
       >
-        <HostGraph />
+        <HostGraph :chartData="chartData" />
       </BoxContent>
 
       <BoxContent
@@ -87,7 +87,8 @@ export default {
       hostInfo: {},
       hostDbs: [],
       notificationInfo: {},
-      filesys: []
+      filesys: [],
+      chartData: []
     }
   },
   async created() {
@@ -100,6 +101,8 @@ export default {
     this.hostDbsInfo(this.getCurrentHost.features.oracle.database.databases)
     this.hostNotificationInfo(this.getCurrentHost.alerts)
     this.filesys = this.getCurrentHost.filesystems
+    this.chartData = this.getGpuGrowthChart
+    // console.log(this.chartData)
   },
   methods: {
     ...mapActions(['getHostByName']),
@@ -157,7 +160,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getCurrentHost'])
+    ...mapGetters(['getCurrentHost', 'getGpuGrowthChart'])
   }
 }
 </script>
