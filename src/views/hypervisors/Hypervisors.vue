@@ -178,6 +178,14 @@ export default {
         {
           name: 'Type F',
           data: [['', 42]]
+        },
+        {
+          name: 'Type G',
+          data: [['', 100]]
+        },
+        {
+          name: 'Type H',
+          data: [['', 70]]
         }
       ]
     }
