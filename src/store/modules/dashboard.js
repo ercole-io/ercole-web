@@ -16,7 +16,6 @@ const getExtraTechInfo = (techName, techs) => {
 
 export const state = () => ({
   totalTarget: {},
-  technologies: {},
   techDash: {}
 })
 
@@ -28,7 +27,7 @@ export const getters = {
       moneyMissing: state.totalTarget.unpaidDues
     }
   },
-  getTechnologies: state => {
+  getTechnologies: (state, getters) => {
     const tech = state.techDash
     const techArray = []
     _.map(tech, value => {
@@ -37,7 +36,7 @@ export const getters = {
         agents: value.hostsCount,
         perc: value.compliance * 100,
         money: value.unpaidDues,
-        extra: getExtraTechInfo(value.product, state.technologies)
+        extra: getExtraTechInfo(value.product, getters.getAllTechnologies)
       })
     })
     return techArray
@@ -46,9 +45,8 @@ export const getters = {
 
 export const mutations = {
   SET_DASHBOARD_DATA: (state, payload) => {
-    state.totalTarget = payload.dashResponse.technologies.total
-    state.technologies = payload.techResponse
-    state.techDash = payload.dashResponse.technologies.technologies
+    state.totalTarget = payload.technologies.total
+    state.techDash = payload.technologies.technologies
   }
 }
 
@@ -57,9 +55,6 @@ export const actions = {
     const dashData = await axiosDefault.get('/frontend/dashboard')
     const dashResponse = await dashData.data
 
-    const techDash = await axiosDefault.get('/settings/technologies')
-    const techResponse = await techDash.data
-
-    commit('SET_DASHBOARD_DATA', { dashResponse, techResponse })
+    commit('SET_DASHBOARD_DATA', dashResponse)
   }
 }
