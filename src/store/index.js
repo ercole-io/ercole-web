@@ -11,6 +11,7 @@ import * as hosts from './modules/hosts.js'
 import * as alerts from './modules/alerts.js'
 import * as licenses from './modules/licenses.js'
 import * as charts from './modules/charts.js'
+import * as clusters from './modules/clusters.js'
 
 Vue.use(Vuex)
 
@@ -24,7 +25,8 @@ export default new Vuex.Store({
     hosts,
     alerts,
     licenses,
-    charts
+    charts,
+    clusters
   },
   plugins: [
     createPersistedState({
