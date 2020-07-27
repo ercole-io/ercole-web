@@ -12,6 +12,7 @@ import * as alerts from './modules/alerts.js'
 import * as licenses from './modules/licenses.js'
 import * as charts from './modules/charts.js'
 import * as clusters from './modules/clusters.js'
+import * as technologies from './modules/technologies.js'
 
 Vue.use(Vuex)
 
@@ -26,12 +27,13 @@ export default new Vuex.Store({
     alerts,
     licenses,
     charts,
-    clusters
+    clusters,
+    technologies
   },
   plugins: [
     createPersistedState({
       key: 'persisted-data',
-      paths: ['auth', 'alerts']
+      paths: ['auth', 'alerts', 'technologies']
     })
   ]
 })
