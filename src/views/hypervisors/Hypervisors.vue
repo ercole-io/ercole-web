@@ -5,22 +5,37 @@
     <BoxContent>
       <div class="columns">
         <div class="column is-3">
-          <BoxContent title="Cluster" border>
-            <div class="is-flex" style="justify-content: space-around;">
-              <p class="is-size-7 has-text-centered">
-                With Ercole <br />
-                <span class="is-size-5 has-text-weight-medium">
-                  {{ getErcoleClusterCount.withErcole }}
-                </span>
-              </p>
-              <p class="is-size-7 has-text-centered">
-                Without Ercole <br />
-                <span class="is-size-5 has-text-weight-medium">
-                  {{ getErcoleClusterCount.withoutErcole }}
-                </span>
-              </p>
+          <div class="columns">
+            <div class="column is-12">
+              <BoxContent title="Cluster" border>
+                <div class="is-flex" style="justify-content: space-around;">
+                  <p class="is-size-7 has-text-centered">
+                    With Ercole <br />
+                    <span class="is-size-5 has-text-weight-medium">
+                      {{ getErcoleClusterCount.withErcole }}
+                    </span>
+                  </p>
+                  <p class="is-size-7 has-text-centered">
+                    Without Ercole <br />
+                    <span class="is-size-5 has-text-weight-medium">
+                      {{ getErcoleClusterCount.withoutErcole }}
+                    </span>
+                  </p>
+                </div>
+              </BoxContent>
             </div>
-          </BoxContent>
+          </div>
+          <div class="columns">
+            <div class="column is-12">
+              <BoxContent title="Type Of Virtualization" border>
+                <ColumnChart
+                  chartId="columnChart"
+                  :columnChartData="columnData"
+                  stacked
+                />
+              </BoxContent>
+            </div>
+          </div>
         </div>
 
         <div class="column is-9">
@@ -109,6 +124,7 @@ import BottomTable from '@/components/common/BottomTable.vue'
 import SelectPerPage from '@/components/common/SelectPerPage.vue'
 import ShowPerPage from '@/components/common/ShowPerPage.vue'
 import exportButton from '@/components/common/exportButton.vue'
+import ColumnChart from '@/components/common/charts/ColumnChart.vue'
 
 export default {
   mixins: [paginationMixin],
@@ -119,7 +135,8 @@ export default {
     BottomTable,
     SelectPerPage,
     ShowPerPage,
-    exportButton
+    exportButton,
+    ColumnChart
   },
   data() {
     return {
@@ -136,7 +153,33 @@ export default {
             'vmsErcoleAgentCount'
           ]
         }
-      }
+      },
+      columnData: [
+        {
+          name: 'Type A',
+          data: [['', 50]]
+        },
+        {
+          name: 'Type B',
+          data: [['', 20]]
+        },
+        {
+          name: 'Type C',
+          data: [['', 10]]
+        },
+        {
+          name: 'Type D',
+          data: [['', 60]]
+        },
+        {
+          name: 'Type E',
+          data: [['', 33]]
+        },
+        {
+          name: 'Type F',
+          data: [['', 42]]
+        }
+      ]
     }
   },
   async beforeMount() {
