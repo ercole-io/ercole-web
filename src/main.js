@@ -38,7 +38,7 @@ Chartkick.options = {
     'rgb(67, 170, 139)',
     'rgb(87, 117, 144)',
     'rgb(0, 63, 92)'
-  ]
+  ].reverse()
 }
 
 Vue.use(SmartTable)
