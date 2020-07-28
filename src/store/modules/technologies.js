@@ -1,7 +1,7 @@
 import axiosDefault from '../../axios/axios-default.js'
 
 export const state = () => ({
-  allTechs: null
+  allTechs: {}
 })
 
 export const getters = {
