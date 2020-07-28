@@ -2,23 +2,23 @@
   <section>
     <PageTitle />
 
-    <BoxContent>
+    <boxContent>
       <div class="columns">
         <div class="column is-3">
           <div class="columns">
             <div class="column is-12">
-              <BoxContent title="Cluster" border>
+              <BoxContent :title="`Cluster: ${clustername}`" border>
                 <div class="is-flex" style="justify-content: space-around;">
                   <p class="is-size-7 has-text-centered">
-                    With Ercole <br />
+                    Type <br />
                     <span class="is-size-5 has-text-weight-medium">
-                      {{ getErcoleClusterCount.withErcole }}
+                      {{ clusters.currentCluster.type }}
                     </span>
                   </p>
                   <p class="is-size-7 has-text-centered">
-                    Without Ercole <br />
+                    Physical Host <br />
                     <span class="is-size-5 has-text-weight-medium">
-                      {{ getErcoleClusterCount.withoutErcole }}
+                      {{ clusters.currentCluster.virtualizationNodesCount }}
                     </span>
                   </p>
                 </div>
@@ -27,13 +27,31 @@
           </div>
           <div class="columns">
             <div class="column is-12">
-              <BoxContent title="Type Of Virtualization" border>
-                <ColumnChart
-                  chartId="columnChart"
-                  :columnChartData="columnData"
-                  stacked
-                />
+              <BoxContent>
+                <div class="is-flex" style="justify-content: space-around;">
+                  <p class="is-size-7 has-text-centered">
+                    CPU <br />
+                    <span class="is-size-5 has-text-weight-medium">
+                      {{ clusters.currentCluster.cpu }}
+                    </span>
+                  </p>
+                  <p class="is-size-7 has-text-centered">
+                    Sockets <br />
+                    <span class="is-size-5 has-text-weight-medium">
+                      {{ clusters.currentCluster.sockets }}
+                    </span>
+                  </p>
+                </div>
               </BoxContent>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column is-12">
+              <BarChart
+                chartId="barChart"
+                :barChartData="getClusterChartData"
+                stacked
+              />
             </div>
           </div>
         </div>
@@ -41,7 +59,7 @@
         <div class="column is-9">
           <TopTable>
             <b-input
-              placeholder="Search on Hypervisors"
+              placeholder="Search on Cluster"
               size="is-small"
               v-model="filters.search.value"
             />
@@ -62,19 +80,12 @@
             >
               <thead slot="head">
                 <tr class="has-background-grey-light">
-                  <v-th sortKey="name">
-                    Cluster Name
+                  <v-th sortKey="virtualizationNode">
+                    Physical Host
                   </v-th>
-                  <v-th sortKey="type">Type</v-th>
-                  <v-th sortKey="cpu">Core</v-th>
-                  <v-th sortKey="sockets">Socket</v-th>
-                  <v-th sortKey="hostname">
-                    Phisical Host
-                  </v-th>
-                  <v-th sortKey="vmsCount">Total VM</v-th>
-                  <v-th sortKey="vmsErcoleAgentCount">
-                    Total VM Ercole
-                  </v-th>
+                  <v-th sortKey="hostname">Hostname</v-th>
+                  <v-th sortKey="name">VM Name</v-th>
+                  <v-th sortKey="cappedCPU">Capped CPU</v-th>
                 </tr>
               </thead>
               <tbody slot="body" slot-scope="{ displayData }">
@@ -83,13 +94,10 @@
                   :key="index"
                   :row="row"
                 >
-                  <td>{{ row.name }}</td>
-                  <td>{{ row.type }}</td>
-                  <td>{{ row.cpu }}</td>
-                  <td>{{ row.sockets }}</td>
+                  <td>{{ row.virtualizationNode }}</td>
                   <td>{{ row.hostname }}</td>
-                  <td>{{ row.vmsCount }}</td>
-                  <td>{{ row.vmsErcoleAgentCount }}</td>
+                  <td>{{ row.name }}</td>
+                  <td>{{ row.cappedCPU }}</td>
                 </v-tr>
               </tbody>
             </v-table>
@@ -115,12 +123,13 @@
           </BottomTable>
         </div>
       </div>
-    </BoxContent>
+    </boxContent>
   </section>
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from 'vuex'
+import { bus } from '@/helpers/eventBus.js'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -129,10 +138,11 @@ import BottomTable from '@/components/common/BottomTable.vue'
 import SelectPerPage from '@/components/common/SelectPerPage.vue'
 import ShowPerPage from '@/components/common/ShowPerPage.vue'
 import exportButton from '@/components/common/exportButton.vue'
-import ColumnChart from '@/components/common/charts/ColumnChart.vue'
+import BarChart from '@/components/common/charts/BarChart.vue'
 
 export default {
   mixins: [paginationMixin],
+  props: ['clustername'],
   components: {
     PageTitle,
     BoxContent,
@@ -141,82 +151,47 @@ export default {
     SelectPerPage,
     ShowPerPage,
     exportButton,
-    ColumnChart
+    BarChart
   },
   data() {
     return {
       filters: {
         search: {
           value: '',
-          keys: [
-            'name',
-            'cpu',
-            'type',
-            'sockets',
-            'hostname',
-            'vmsCount',
-            'vmsErcoleAgentCount'
-          ]
+          keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU']
         }
       },
-      columnData: [
+      barData: [
         {
-          name: 'Type A',
-          data: [['', 50]]
+          name: 'With Ercole',
+          data: [
+            ['s157-uiopuiop', 0],
+            ['s157-yzxcxcyz', 0]
+          ]
         },
         {
-          name: 'Type B',
-          data: [['', 20]]
-        },
-        {
-          name: 'Type C',
-          data: [['', 10]]
-        },
-        {
-          name: 'Type D',
-          data: [['', 60]]
-        },
-        {
-          name: 'Type E',
-          data: [['', 33]]
-        },
-        {
-          name: 'Type F',
-          data: [['', 42]]
-        },
-        {
-          name: 'Type G',
-          data: [['', 100]]
-        },
-        {
-          name: 'Type H',
-          data: [['', 70]]
+          name: 'Without Ercole',
+          data: [
+            ['s157-uiopuiop', 1],
+            ['s157-yzxcxcyz', 1]
+          ]
         }
-      ],
-      clickedRow: []
+      ]
     }
   },
   async beforeMount() {
-    await this.getClusters()
-    this.total = this.clusters.clusters
+    bus.$emit('dynamicTitle', this.clustername)
+    await this.getClusterByName(this.clustername)
+
+    this.total = this.clusters.currentCluster.vms
+    console.log(this.getClusterChartData)
   },
   methods: {
-    ...mapActions(['getClusters'])
+    ...mapActions(['getClusterByName'])
   },
   computed: {
     ...mapState(['clusters']),
-    ...mapGetters(['getErcoleClusterCount'])
-  },
-  watch: {
-    clickedRow(row) {
-      if (row.length > 0) {
-        const selectedRow = row[0].name
-        this.$router.replace({
-          name: 'cluster-details',
-          params: { clustername: selectedRow }
-        })
-      }
-    }
+    ...mapGetters(['getClusterChartData'])
   }
 }
 </script>

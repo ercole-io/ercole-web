@@ -16,6 +16,7 @@ const LicensesCompliance = lazy(() =>
 )
 const LicensesList = lazy(() => import('@/views/licenses/LicensesList.vue'))
 const Hypervisors = lazy(() => import('@/views/hypervisors/Hypervisors.vue'))
+const Cluster = lazy(() => import('@/views/hypervisors/Cluster.vue'))
 const Engineered = lazy(() => import('@/views/engineered/Engineered.vue'))
 const Alerts = lazy(() => import('@/views/alerts/Alerts.vue'))
 const Settings = lazy(() => import('@/views/settings/Settings.vue'))
@@ -119,6 +120,21 @@ const routes = [
       label: 'Hypervisors',
       title: `${title}Hypervisors`,
       breadcrumb: [{ name: 'Hypervisors' }]
+    },
+    beforeEnter: verifyAuth
+  },
+  {
+    path: '/hypervisors/cluster/:clustername',
+    name: 'cluster-details',
+    component: Cluster,
+    props: true,
+    meta: {
+      label: 'Cluster Details',
+      title: `${title}Cluster Details`,
+      breadcrumb: [
+        { name: 'Hypervisors', link: '/hypervisors' },
+        { name: 'Cluster Details' }
+      ]
     },
     beforeEnter: verifyAuth
   },
