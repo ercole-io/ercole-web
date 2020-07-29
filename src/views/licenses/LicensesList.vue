@@ -4,14 +4,11 @@
 
     <BoxContent>
       <TopTable>
-        <b-field
-          class="search"
-          custom-class="is-small"
-          label="Search on Licenses"
-          horizontal
-        >
-          <b-input size="is-small" v-model="filters.search.value" />
-        </b-field>
+        <b-input
+          size="is-small"
+          placeholder="Search on Licenses"
+          v-model="filters.search.value"
+        />
 
         <SelectPerPage :totalItems="total.length" />
       </TopTable>
@@ -31,7 +28,7 @@
               <v-th sortKey="hostname">Hostname</v-th>
               <v-th sortKey="dbName">DB Name</v-th>
               <v-th sortKey="licenseName">License Name</v-th>
-              <v-th sortKey="number">Number</v-th>
+              <v-th sortKey="usedLicenses">Purchased Licenses</v-th>
             </tr>
           </thead>
           <tbody slot="body" slot-scope="{ displayData }">
@@ -39,7 +36,7 @@
               <td>{{ row.hostname }}</td>
               <td>{{ row.dbName }}</td>
               <td>{{ row.licenseName }}</td>
-              <td>{{ row.number }}</td>
+              <td>{{ row.usedLicenses }}</td>
             </tr>
           </tbody>
         </v-table>
@@ -59,9 +56,10 @@
           />
 
           <div class="buttons">
-            <b-button type="is-primary" size="is-small">
-              Export Data
-            </b-button>
+            <exportButton
+              url="licenses?mode=list"
+              expName="licenses-list-data"
+            />
           </div>
         </template>
       </BottomTable>
@@ -70,6 +68,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -77,6 +76,7 @@ import SelectPerPage from '@/components/common/SelectPerPage.vue'
 import TopTable from '@/components/common/TopTable.vue'
 import BottomTable from '@/components/common/BottomTable.vue'
 import ShowPerPage from '@/components/common/ShowPerPage.vue'
+import exportButton from '@/components/common/exportButton.vue'
 
 export default {
   mixins: [paginationMixin],
@@ -86,71 +86,28 @@ export default {
     SelectPerPage,
     TopTable,
     BottomTable,
-    ShowPerPage
+    ShowPerPage,
+    exportButton
   },
   data() {
     return {
-      licenses: [
-        {
-          hostname: 'sorsedash0.sorint.it',
-          dbName: 'DB27',
-          licenseName: 'Oracle STD',
-          number: 12
-        },
-        {
-          hostname: 'sorsedash1.sorint.it',
-          dbName: 'DB28',
-          licenseName: 'Oracle EXE',
-          number: 10
-        },
-        {
-          hostname: 'sorsedash2.sorint.it',
-          dbName: 'DB30',
-          licenseName: 'Oracle ENT',
-          number: 8
-        },
-        {
-          hostname: 'sorsedash3.sorint.it',
-          dbName: 'DB35',
-          licenseName: 'Oracle ENT',
-          number: 6
-        },
-        {
-          hostname: 'sorsedash4.sorint.it',
-          dbName: 'DB15',
-          licenseName: 'Oracle EXE',
-          number: 19
-        },
-        {
-          hostname: 'sorsedash8.sorint.it',
-          dbName: 'DB18',
-          licenseName: 'Advanced Security',
-          number: 7
-        },
-        {
-          hostname: 'sorsedash5.sorint.it',
-          dbName: 'DB10',
-          licenseName: 'Active Data Guard',
-          number: 2
-        },
-        {
-          hostname: 'sorsedash6.sorint.it',
-          dbName: 'DB17',
-          licenseName: 'Active Data Guard',
-          number: 10
-        }
-      ],
       filters: {
         search: {
           value: '',
-          keys: ['hostname', 'dbName', 'licenseName', 'number']
+          keys: ['hostname', 'dbName', 'licenseName', 'usedLicenses']
         }
       }
     }
   },
-  beforeMount() {
-    this.total = this.licenses
-    this.$store.dispatch('getLicensesData')
+  async beforeMount() {
+    await this.getLicensesList()
+    this.total = this.licenses.licenseList
+  },
+  methods: {
+    ...mapActions(['getLicensesList'])
+  },
+  computed: {
+    ...mapState(['licenses'])
   }
 }
 </script>
