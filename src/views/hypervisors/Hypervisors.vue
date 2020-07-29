@@ -39,80 +39,38 @@
         </div>
 
         <div class="column is-9">
-          <TopTable>
-            <b-input
-              placeholder="Search on Hypervisors"
-              size="is-small"
-              v-model="filters.search.value"
-            />
-
-            <SelectPerPage :totalItems="total.length" />
-          </TopTable>
-
-          <div class="table-container">
-            <v-table
-              :data="total"
-              :filters="filters"
-              :hideSortIcons="true"
-              :currentPage.sync="currentPage"
-              :pageSize="perPage"
-              @totalPagesChanged="totalPages = $event"
-              @selectionChanged="clickedRow = $event"
-              class="vTable-custom"
-            >
-              <thead slot="head">
-                <tr class="has-background-grey-light">
-                  <v-th sortKey="name">
-                    Cluster Name
-                  </v-th>
-                  <v-th sortKey="type">Type</v-th>
-                  <v-th sortKey="cpu">Core</v-th>
-                  <v-th sortKey="sockets">Socket</v-th>
-                  <v-th sortKey="hostname">
-                    Phisical Host
-                  </v-th>
-                  <v-th sortKey="vmsCount">Total VM</v-th>
-                  <v-th sortKey="vmsErcoleAgentCount">
-                    Total VM Ercole
-                  </v-th>
-                </tr>
-              </thead>
-              <tbody slot="body" slot-scope="{ displayData }">
-                <v-tr
-                  v-for="(row, index) in displayData"
-                  :key="index"
-                  :row="row"
-                >
-                  <td>{{ row.name }}</td>
-                  <td>{{ row.type }}</td>
-                  <td>{{ row.cpu }}</td>
-                  <td>{{ row.sockets }}</td>
-                  <td>{{ row.hostname }}</td>
-                  <td>{{ row.vmsCount }}</td>
-                  <td>{{ row.vmsErcoleAgentCount }}</td>
-                </v-tr>
-              </tbody>
-            </v-table>
-          </div>
-
-          <BottomTable>
-            <ShowPerPage
-              slot="info"
-              :totalItems="total.length"
-              :perPage="perPage"
-            />
-            <template>
-              <smart-pagination
-                :currentPage.sync="currentPage"
-                :totalPages="totalPages"
-                :maxPageLinks="maxPageLinks"
-              />
-
-              <div class="buttons">
-                <exportButton url="hosts/clusters" expName="clusters-data" />
-              </div>
+          <FullTable
+            placeholder="Search on Hypervisors"
+            :filters="filters"
+            :tableData="data"
+            :clickedRow="handleClickedRow"
+          >
+            <template slot="headData">
+              <v-th sortKey="name">Cluster Name</v-th>
+              <v-th sortKey="type">Type</v-th>
+              <v-th sortKey="cpu">Core</v-th>
+              <v-th sortKey="sockets">Socket</v-th>
+              <v-th sortKey="hostname">Phisical Host</v-th>
+              <v-th sortKey="vmsCount">Total VM</v-th>
+              <v-th sortKey="vmsErcoleAgentCount">Total VM Ercole</v-th>
             </template>
-          </BottomTable>
+
+            <template slot="bodyData" slot-scope="rowData">
+              <td>{{ rowData.scope.name }}</td>
+              <td>{{ rowData.scope.type }}</td>
+              <td>{{ rowData.scope.cpu }}</td>
+              <td>{{ rowData.scope.sockets }}</td>
+              <td>{{ rowData.scope.hostname }}</td>
+              <td>{{ rowData.scope.vmsCount }}</td>
+              <td>{{ rowData.scope.vmsErcoleAgentCount }}</td>
+            </template>
+
+            <exportButton
+              slot="export"
+              url="hosts/clusters"
+              expName="clusters-data"
+            />
+          </FullTable>
         </div>
       </div>
     </BoxContent>
@@ -121,25 +79,17 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
-import paginationMixin from '@/mixins/paginationMixin.js'
 import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
-import TopTable from '@/components/common/TopTable.vue'
-import BottomTable from '@/components/common/BottomTable.vue'
-import SelectPerPage from '@/components/common/SelectPerPage.vue'
-import ShowPerPage from '@/components/common/ShowPerPage.vue'
+import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import ColumnChart from '@/components/common/charts/ColumnChart.vue'
 
 export default {
-  mixins: [paginationMixin],
   components: {
     PageTitle,
     BoxContent,
-    TopTable,
-    BottomTable,
-    SelectPerPage,
-    ShowPerPage,
+    FullTable,
     exportButton,
     ColumnChart
   },
@@ -159,64 +109,28 @@ export default {
           ]
         }
       },
-      columnData: [
-        {
-          name: 'Type A',
-          data: [['', 50]]
-        },
-        {
-          name: 'Type B',
-          data: [['', 20]]
-        },
-        {
-          name: 'Type C',
-          data: [['', 10]]
-        },
-        {
-          name: 'Type D',
-          data: [['', 60]]
-        },
-        {
-          name: 'Type E',
-          data: [['', 33]]
-        },
-        {
-          name: 'Type F',
-          data: [['', 42]]
-        },
-        {
-          name: 'Type G',
-          data: [['', 100]]
-        },
-        {
-          name: 'Type H',
-          data: [['', 70]]
-        }
-      ],
-      clickedRow: []
+      data: []
     }
   },
   async beforeMount() {
     await this.getClusters()
-    this.total = this.clusters.clusters
+    this.data = this.clusters.clusters
   },
   methods: {
-    ...mapActions(['getClusters'])
-  },
-  computed: {
-    ...mapState(['clusters']),
-    ...mapGetters(['getErcoleClusterCount', 'getVirtualizationChartData'])
-  },
-  watch: {
-    clickedRow(row) {
-      if (row.length > 0) {
-        const selectedRow = row[0].name
+    ...mapActions(['getClusters']),
+    handleClickedRow($event) {
+      if ($event.length > 0) {
+        const selectedRow = $event[0].name
         this.$router.replace({
           name: 'cluster-details',
           params: { clustername: selectedRow }
         })
       }
     }
+  },
+  computed: {
+    ...mapState(['clusters']),
+    ...mapGetters(['getErcoleClusterCount', 'getVirtualizationChartData'])
   }
 }
 </script>

@@ -57,73 +57,32 @@
         </div>
 
         <div class="column is-9">
-          <TopTable>
-            <b-input
-              placeholder="Search on Cluster"
-              size="is-small"
-              v-model="filters.search.value"
-            />
-
-            <SelectPerPage :totalItems="total.length" />
-          </TopTable>
-
-          <div class="table-container">
-            <v-table
-              :data="total"
-              :filters="filters"
-              :hideSortIcons="true"
-              :currentPage.sync="currentPage"
-              :pageSize="perPage"
-              @totalPagesChanged="totalPages = $event"
-              @selectionChanged="clickedRow = $event"
-              class="vTable-custom"
-            >
-              <thead slot="head">
-                <tr class="has-background-grey-light">
-                  <v-th sortKey="virtualizationNode">
-                    Physical Host
-                  </v-th>
-                  <v-th sortKey="hostname">Hostname</v-th>
-                  <v-th sortKey="name">VM Name</v-th>
-                  <v-th sortKey="cappedCPU">Capped CPU</v-th>
-                </tr>
-              </thead>
-              <tbody slot="body" slot-scope="{ displayData }">
-                <v-tr
-                  v-for="(row, index) in displayData"
-                  :key="index"
-                  :row="row"
-                >
-                  <td>{{ row.virtualizationNode }}</td>
-                  <td>{{ row.hostname }}</td>
-                  <td>{{ row.name }}</td>
-                  <td>{{ row.cappedCPU }}</td>
-                </v-tr>
-              </tbody>
-            </v-table>
-          </div>
-
-          <BottomTable>
-            <ShowPerPage
-              slot="info"
-              :totalItems="total.length"
-              :perPage="perPage"
-            />
-            <template>
-              <smart-pagination
-                :currentPage.sync="currentPage"
-                :totalPages="totalPages"
-                :maxPageLinks="maxPageLinks"
-              />
-
-              <div class="buttons">
-                <exportButton
-                  :url="`hosts/clusters/${clustername}`"
-                  :expName="`cluster-${clustername}`"
-                />
-              </div>
+          <FullTable
+            placeholder="Search on Cluster"
+            :filters="filters"
+            :tableData="data"
+            :clickedRow="() => []"
+          >
+            <template slot="headData">
+              <v-th sortKey="virtualizationNode">Physical Host</v-th>
+              <v-th sortKey="hostname">Hostname</v-th>
+              <v-th sortKey="name">VM Name</v-th>
+              <v-th sortKey="cappedCPU">Capped CPU</v-th>
             </template>
-          </BottomTable>
+
+            <template slot="bodyData" slot-scope="rowData">
+              <td>{{ rowData.scope.virtualizationNode }}</td>
+              <td>{{ rowData.scope.hostname }}</td>
+              <td>{{ rowData.scope.name }}</td>
+              <td>{{ rowData.scope.cappedCPU }}</td>
+            </template>
+
+            <exportButton
+              slot="export"
+              :url="`hosts/clusters/${clustername}`"
+              :expName="`cluster-${clustername}`"
+            />
+          </FullTable>
         </div>
       </div>
     </boxContent>
@@ -136,10 +95,7 @@ import { mapActions, mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
-import TopTable from '@/components/common/TopTable.vue'
-import BottomTable from '@/components/common/BottomTable.vue'
-import SelectPerPage from '@/components/common/SelectPerPage.vue'
-import ShowPerPage from '@/components/common/ShowPerPage.vue'
+import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import BarChart from '@/components/common/charts/BarChart.vue'
 
@@ -149,10 +105,7 @@ export default {
   components: {
     PageTitle,
     BoxContent,
-    TopTable,
-    BottomTable,
-    SelectPerPage,
-    ShowPerPage,
+    FullTable,
     exportButton,
     BarChart
   },
@@ -163,14 +116,15 @@ export default {
           value: '',
           keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU']
         }
-      }
+      },
+      data: []
     }
   },
   async beforeMount() {
     bus.$emit('dynamicTitle', this.clustername)
     await this.getClusterByName(this.clustername)
 
-    this.total = this.clusters.currentCluster.vms
+    this.data = this.clusters.currentCluster.vms
   },
   methods: {
     ...mapActions(['getClusterByName'])
