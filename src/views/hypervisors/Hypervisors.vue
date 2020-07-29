@@ -30,7 +30,7 @@
               <BoxContent title="Type Of Virtualization" border>
                 <ColumnChart
                   chartId="columnChart"
-                  :columnChartData="columnData"
+                  :columnChartData="getVirtualizationChartData"
                   stacked
                 />
               </BoxContent>
@@ -205,7 +205,7 @@ export default {
   },
   computed: {
     ...mapState(['clusters']),
-    ...mapGetters(['getErcoleClusterCount'])
+    ...mapGetters(['getErcoleClusterCount', 'getVirtualizationChartData'])
   },
   watch: {
     clickedRow(row) {
