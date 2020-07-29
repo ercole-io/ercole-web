@@ -1,27 +1,22 @@
 import axiosDefault from '../../axios/axios-default.js'
 
 export const state = () => ({
-  value: 'myvalue'
+  licenseList: {}
 })
 
-export const getters = {
-  getterValue: state => {
-    return state.value
-  }
-}
+export const getters = {}
 
 export const mutations = {
-  updateValue: (state, payload) => {
-    state.value = payload
+  SET_LICENSE_LIST: (state, payload) => {
+    state.licenseList = payload
   }
 }
 
 export const actions = {
-  async getLicensesData({ commit }) {
-    const licensesData = await axiosDefault.get('/licenses?full=true')
-    const response = await licensesData.data
-    console.log(response)
+  async getLicensesList({ commit }) {
+    const licensesList = await axiosDefault.get('/licenses?mode=list')
+    const response = await licensesList.data
 
-    commit('updateValue')
+    commit('SET_LICENSE_LIST', response)
   }
 }
