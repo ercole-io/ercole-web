@@ -6,8 +6,7 @@ export default {
       currentPage: 1,
       totalPages: 0,
       perPage: Number(localStorage.getItem('perPage')),
-      maxPageLinks: 5,
-      total: []
+      maxPageLinks: 5
     }
   },
   mounted() {

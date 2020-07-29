@@ -3,96 +3,59 @@
     <PageTitle />
 
     <BoxContent>
-      <TopTable>
-        <b-field
-          class="search"
-          custom-class="is-small"
-          label="Search on Alerts"
-          horizontal
-        >
-          <b-input size="is-small" v-model="filters.search.value" />
-        </b-field>
-
-        <SelectPerPage :totalItems="total.length" />
-      </TopTable>
-
-      <div class="table-container">
-        <v-table
-          :data="total"
-          :filters="filters"
-          :hideSortIcons="true"
-          :currentPage.sync="currentPage"
-          :pageSize="perPage"
-          @totalPagesChanged="totalPages = $event"
-          class="vTable-custom table-alerts"
-        >
-          <thead slot="head">
-            <tr class="has-background-grey-light">
-              <th style="width: 5%">Actions</th>
-              <v-th style="width: 10%" sortKey="alertCategory">Type</v-th>
-              <v-th style="width: 10%" sortKey="date">Date</v-th>
-              <v-th style="width: 5%" sortKey="alertSeverity">Severity</v-th>
-              <v-th style="width: 20%" sortKey="hostname">Hostname</v-th>
-              <v-th style="width: 10%" sortKey="alertCode">Code</v-th>
-              <v-th style="width: 40%" sortKey="description">Description</v-th>
-            </tr>
-          </thead>
-          <tbody slot="body" slot-scope="{ displayData }">
-            <tr v-for="row in displayData" :key="row._id">
-              <td>
-                <b-button
-                  v-if="row.alertCategory !== 'AGENT'"
-                  @click="
-                    handleMarkAsRead(
-                      row._id,
-                      row.alertCategory,
-                      row.alertSeverity
-                    )
-                  "
-                  type="is-primary"
-                  size="is-small"
-                  icon-pack="fas"
-                  icon-left="check-circle"
-                  class="has-text-weight-semibold"
-                >
-                  Mark as Read
-                </b-button>
-              </td>
-              <td>{{ row.alertCategory }}</td>
-              <td>{{ row.date }}</td>
-              <td>
-                <b-icon
-                  pack="fas"
-                  :type="setIcon(row.alertSeverity).iconType"
-                  :icon="setIcon(row.alertSeverity).icon"
-                />
-              </td>
-              <td>{{ row.hostname }}</td>
-              <td>{{ row.alertCode }}</td>
-              <td>{{ row.description }}</td>
-            </tr>
-          </tbody>
-        </v-table>
-      </div>
-
-      <BottomTable>
-        <ShowPerPage
-          slot="info"
-          :totalItems="total.length"
-          :perPage="perPage"
-        />
-        <template>
-          <smart-pagination
-            :currentPage.sync="currentPage"
-            :totalPages="totalPages"
-            :maxPageLinks="maxPageLinks"
-          />
-
-          <div class="buttons">
-            <exportButton url="alerts" expName="alerts-data" />
-          </div>
+      <FullTable
+        placeholder="Search on Alerts"
+        :filters="filters"
+        :tableData="data"
+        :clickedRow="() => []"
+        class="table-alerts"
+      >
+        <template slot="headData">
+          <th style="width: 5%">Actions</th>
+          <v-th style="width: 10%" sortKey="alertCategory">Type</v-th>
+          <v-th style="width: 10%" sortKey="date">Date</v-th>
+          <v-th style="width: 5%" sortKey="alertSeverity">Severity</v-th>
+          <v-th style="width: 20%" sortKey="hostname">Hostname</v-th>
+          <v-th style="width: 10%" sortKey="alertCode">Code</v-th>
+          <v-th style="width: 40%" sortKey="description">Description</v-th>
         </template>
-      </BottomTable>
+
+        <template slot="bodyData" slot-scope="rowData">
+          <td>
+            <b-button
+              v-if="rowData.scope.alertCategory !== 'AGENT'"
+              @click="
+                handleMarkAsRead(
+                  rowData.scope._id,
+                  rowData.scope.alertCategory,
+                  rowData.scope.alertSeverity
+                )
+              "
+              type="is-primary"
+              size="is-small"
+              icon-pack="fas"
+              icon-left="check-circle"
+              class="has-text-weight-semibold"
+            >
+              Mark as Read
+            </b-button>
+          </td>
+          <td>{{ rowData.scope.alertCategory }}</td>
+          <td>{{ rowData.scope.date }}</td>
+          <td>
+            <b-icon
+              pack="fas"
+              :type="setIcon(rowData.scope.alertSeverity).iconType"
+              :icon="setIcon(rowData.scope.alertSeverity).icon"
+            />
+          </td>
+          <td>{{ rowData.scope.hostname }}</td>
+          <td>{{ rowData.scope.alertCode }}</td>
+          <td>{{ rowData.scope.description }}</td>
+        </template>
+
+        <exportButton slot="export" url="alerts" expName="alerts-data" />
+      </FullTable>
     </BoxContent>
   </section>
 </template>
@@ -103,10 +66,7 @@ import { checkAlertIcon } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
-import SelectPerPage from '@/components/common/SelectPerPage.vue'
-import TopTable from '@/components/common/TopTable.vue'
-import BottomTable from '@/components/common/BottomTable.vue'
-import ShowPerPage from '@/components/common/ShowPerPage.vue'
+import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 
 export default {
@@ -124,10 +84,7 @@ export default {
   components: {
     PageTitle,
     BoxContent,
-    SelectPerPage,
-    TopTable,
-    BottomTable,
-    ShowPerPage,
+    FullTable,
     exportButton
   },
   data() {
@@ -144,7 +101,8 @@ export default {
             'description'
           ]
         }
-      }
+      },
+      data: []
     }
   },
   async beforeMount() {
@@ -160,16 +118,16 @@ export default {
     ...mapActions(['getAlertsData', 'markAsRead']),
     fetchAlerts() {
       this.getAlertsData()
-      this.total = this.getAllAlerts
+      this.data = this.getAllAlerts
     },
     showAllAlerts() {
-      this.total = this.getAllAlerts
+      this.data = this.getAllAlerts
     },
     showFilteredAgents() {
-      this.total = this.getFilteredAgents(this.type, this.flag)
+      this.data = this.getFilteredAgents(this.type, this.flag)
     },
     showFilteredAlerts() {
-      this.total = this.getFilteredAlerts(this.type, this.flag)
+      this.data = this.getFilteredAlerts(this.type, this.flag)
     },
     setIcon(severity) {
       return checkAlertIcon(severity)
@@ -193,21 +151,7 @@ export default {
 </script>
 
 <style lang="scss">
-.search {
-  margin-bottom: 0;
-
-  .field-label {
-    .label {
-      min-width: 100px;
-    }
-  }
-}
-
 .table-alerts {
-  .table-hover tbody tr:hover {
-    background-color: rgba(0, 0, 0, 0.075);
-  }
-
   thead {
     tr {
       th {
@@ -222,8 +166,6 @@ export default {
   }
   tbody {
     tr {
-      cursor: default !important;
-
       td {
         &:first-child {
           text-align: center;
