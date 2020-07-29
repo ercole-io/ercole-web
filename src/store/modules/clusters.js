@@ -51,6 +51,19 @@ export const getters = {
     )
 
     return finalData
+  },
+  getVirtualizationChartData: state => {
+    const data = _.groupBy(state.clusters, 'type')
+    const finalData = []
+
+    _.map(data, (value, key) => {
+      finalData.push({
+        name: key,
+        data: [['', value.length]]
+      })
+    })
+
+    return finalData
   }
 }
 
