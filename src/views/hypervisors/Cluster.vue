@@ -117,7 +117,10 @@
               />
 
               <div class="buttons">
-                <exportButton url="hosts/clusters" expName="clusters-data" />
+                <exportButton
+                  :url="`hosts/clusters/${clustername}`"
+                  :expName="`cluster-${clustername}`"
+                />
               </div>
             </template>
           </BottomTable>
@@ -160,23 +163,7 @@ export default {
           value: '',
           keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU']
         }
-      },
-      barData: [
-        {
-          name: 'With Ercole',
-          data: [
-            ['s157-uiopuiop', 0],
-            ['s157-yzxcxcyz', 0]
-          ]
-        },
-        {
-          name: 'Without Ercole',
-          data: [
-            ['s157-uiopuiop', 1],
-            ['s157-yzxcxcyz', 1]
-          ]
-        }
-      ]
+      }
     }
   },
   async beforeMount() {
@@ -184,7 +171,6 @@ export default {
     await this.getClusterByName(this.clustername)
 
     this.total = this.clusters.currentCluster.vms
-    console.log(this.getClusterChartData)
   },
   methods: {
     ...mapActions(['getClusterByName'])
