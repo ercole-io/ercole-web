@@ -2,37 +2,24 @@
   <section>
     <div class="columns">
       <div class="column">
-        <div class="columns">
-          <div class="column">
-            <Card cardTitle="General info">
-              <CardList :list="general" />
-            </Card>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column">
-            <Card cardTitle="Agent">
-              <CardList :list="agent" />
-            </Card>
-          </div>
-        </div>
+        <Card cardTitle="General info">
+          <CardList :list="general" />
+        </Card>
       </div>
-
       <div class="column">
-        <div class="columns">
-          <div class="column">
-            <Card cardTitle="Virtual">
-              <CardList :list="virtual" />
-            </Card>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column">
-            <Card cardTitle="CPU">
-              <CardList :list="cpu" />
-            </Card>
-          </div>
-        </div>
+        <Card cardTitle="Agent">
+          <CardList :list="agent" />
+        </Card>
+      </div>
+      <div class="column">
+        <Card cardTitle="Virtual">
+          <CardList :list="virtual" />
+        </Card>
+      </div>
+      <div class="column">
+        <Card cardTitle="CPU">
+          <CardList :list="cpu" />
+        </Card>
       </div>
     </div>
   </section>

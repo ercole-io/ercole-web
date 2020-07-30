@@ -28,13 +28,6 @@
 
     <div class="columns">
       <BoxContent
-        :title="`GPUGrowth of ${currentHostName}`"
-        class="column is-4"
-      >
-        <HostGraph :chartData="chartData" />
-      </BoxContent>
-
-      <BoxContent
         :title="`Databases of ${currentHostName}`"
         class="column is-8"
       >
@@ -43,6 +36,13 @@
           v-else
           noContentText="There are no Databases for this Host"
         />
+      </BoxContent>
+
+      <BoxContent
+        :title="`GPUGrowth of ${currentHostName}`"
+        class="column is-4"
+      >
+        <HostGraph :chartData="chartData" />
       </BoxContent>
     </div>
   </section>
