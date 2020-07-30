@@ -171,11 +171,16 @@ export default {
     box-shadow: 0 0.05em 0 lightslategrey;
     padding: 0 5px;
     font-size: 0.7em;
+
+    span:first-child {
+      font-weight: 500;
+    }
   }
 
   li:not(:first-child) {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
 
   li:first-child {

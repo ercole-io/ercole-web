@@ -17,7 +17,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.card {
+  min-height: 100%;
+}
+
 .card-title {
   font-weight: 500;
   padding: 0.5rem 1rem;
@@ -27,5 +31,9 @@ export default {
 .card-content {
   padding: 1rem;
   font-size: 0.8em;
+}
+
+.card-list li {
+  flex-wrap: wrap;
 }
 </style>
