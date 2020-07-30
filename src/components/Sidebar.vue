@@ -148,8 +148,8 @@ export default {
               icon: 'fas fa-cog'
             },
             {
-              href: { path: '/licenses/list' },
-              title: 'Licenses List',
+              href: { path: '/licenses/used' },
+              title: 'Licenses Used',
               icon: 'fas fa-cog'
             }
           ]

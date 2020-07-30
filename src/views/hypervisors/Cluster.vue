@@ -121,8 +121,8 @@ export default {
     }
   },
   async beforeMount() {
-    bus.$emit('dynamicTitle', this.clustername)
     await this.getClusterByName(this.clustername)
+    bus.$emit('dynamicTitle', this.clustername)
 
     this.data = this.clusters.currentCluster.vms
   },
