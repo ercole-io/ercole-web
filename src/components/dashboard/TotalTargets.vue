@@ -51,7 +51,7 @@ export default {
 .total-targets {
   display: flex;
   font-size: 13px;
-  margin-top: 23px;
+  margin-top: 66px;
 
   .total-targets-col {
     width: 50%;

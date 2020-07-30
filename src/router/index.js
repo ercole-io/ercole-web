@@ -14,7 +14,7 @@ const Middleware = lazy(() => import('@/views/middleware/Middleware.vue'))
 const LicensesCompliance = lazy(() =>
   import('@/views/licenses/LicensesCompliance.vue')
 )
-const LicensesList = lazy(() => import('@/views/licenses/LicensesList.vue'))
+const LicensesUsed = lazy(() => import('@/views/licenses/LicensesUsed.vue'))
 const Hypervisors = lazy(() => import('@/views/hypervisors/Hypervisors.vue'))
 const Cluster = lazy(() => import('@/views/hypervisors/Cluster.vue'))
 const Engineered = lazy(() => import('@/views/engineered/Engineered.vue'))
@@ -102,13 +102,13 @@ const routes = [
     beforeEnter: verifyAuth
   },
   {
-    path: '/licenses/list',
-    name: 'licenses-list',
-    component: LicensesList,
+    path: '/licenses/used',
+    name: 'licenses-used',
+    component: LicensesUsed,
     meta: {
-      label: 'Licenses List',
-      title: `${title}Licenses List`,
-      breadcrumb: [{ name: 'Licenses List' }]
+      label: 'Licenses Used',
+      title: `${title}Licenses Used`,
+      breadcrumb: [{ name: 'Licenses Used' }]
     },
     beforeEnter: verifyAuth
   },

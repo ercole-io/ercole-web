@@ -3,38 +3,8 @@
     <PageTitle />
 
     <BoxContent>
-      <!--
-      <div class="table-container">
-        <v-table
-          :data="total"
-          :filters="filters"
-          :hideSortIcons="true"
-          :currentPage.sync="currentPage"
-          :pageSize="perPage"
-          @totalPagesChanged="totalPages = $event"
-          class="vTable-custom"
-        >
-          <thead slot="head">
-            <tr class="has-background-grey-light">
-              <v-th sortKey="hostname">Hostname</v-th>
-              <v-th sortKey="dbName">DB Name</v-th>
-              <v-th sortKey="licenseName">License Name</v-th>
-              <v-th sortKey="usedLicenses">Purchased Licenses</v-th>
-            </tr>
-          </thead>
-          <tbody slot="body" slot-scope="{ displayData }">
-            <tr v-for="row in displayData" :key="row._id">
-              <td>{{ row.hostname }}</td>
-              <td>{{ row.dbName }}</td>
-              <td>{{ row.licenseName }}</td>
-              <td>{{ row.usedLicenses }}</td>
-            </tr>
-          </tbody>
-        </v-table>
-      </div> -->
-
       <FullTable
-        placeholder="Search on Hypervisors"
+        placeholder="Search on Licenses"
         :filters="filters"
         :tableData="data"
         :clickedRow="() => []"
@@ -43,7 +13,7 @@
           <v-th sortKey="hostname">Hostname</v-th>
           <v-th sortKey="dbName">DB Name</v-th>
           <v-th sortKey="licenseName">License Name</v-th>
-          <v-th sortKey="usedLicenses">Purchased Licenses</v-th>
+          <v-th sortKey="usedLicenses">Used Licenses</v-th>
         </template>
 
         <template slot="bodyData" slot-scope="rowData">

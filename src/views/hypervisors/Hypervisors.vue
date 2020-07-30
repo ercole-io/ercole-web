@@ -50,7 +50,7 @@
               <v-th sortKey="type">Type</v-th>
               <v-th sortKey="cpu">Core</v-th>
               <v-th sortKey="sockets">Socket</v-th>
-              <v-th sortKey="hostname">Phisical Host</v-th>
+              <v-th sortKey="virtualizationNodes">Physical Host</v-th>
               <v-th sortKey="vmsCount">Total VM</v-th>
               <v-th sortKey="vmsErcoleAgentCount">Total VM Ercole</v-th>
             </template>
@@ -60,7 +60,7 @@
               <td>{{ rowData.scope.type }}</td>
               <td>{{ rowData.scope.cpu }}</td>
               <td>{{ rowData.scope.sockets }}</td>
-              <td>{{ rowData.scope.hostname }}</td>
+              <td>{{ rowData.scope.virtualizationNodes }}</td>
               <td>{{ rowData.scope.vmsCount }}</td>
               <td>{{ rowData.scope.vmsErcoleAgentCount }}</td>
             </template>
@@ -103,7 +103,7 @@ export default {
             'cpu',
             'type',
             'sockets',
-            'hostname',
+            'virtualizationNodes',
             'vmsCount',
             'vmsErcoleAgentCount'
           ]
