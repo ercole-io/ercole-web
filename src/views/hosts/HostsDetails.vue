@@ -50,7 +50,7 @@
 
 <script>
 import _ from 'lodash'
-import formatDate from '@/filters/formatDate.js'
+import moment from 'moment'
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
 import PageTitle from '@/components/common/PageTitle.vue'
@@ -102,7 +102,6 @@ export default {
     this.hostNotificationInfo(this.getCurrentHost.alerts)
     this.filesys = this.getCurrentHost.filesystems
     this.chartData = this.getGpuGrowthChart
-    // console.log(this.chartData)
   },
   methods: {
     ...mapActions(['getHostByName']),
@@ -124,7 +123,7 @@ export default {
         cores: host.info.cpuCores || '-',
         socket: host.info.socket || '-',
         version: host.version || '-',
-        createdAt: formatDate(host.createdAt) || '-'
+        createdAt: moment(host.createdAt).format('DD/MM/YYYY hh:mm') || '-'
       }
       return this.hostInfo
     },
