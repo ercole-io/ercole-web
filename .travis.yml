@@ -39,7 +39,7 @@ deploy:
     file: dist/*
     on:
       all_branches: true
-      condition: $TRAVIS_BRANCH =~ ^(master|2.0)$
+      condition: $TRAVIS_BRANCH =~ ^(master|2.0)$ || $TRAVIS_TAG
   - provider: releases
     api_key: $GITHUB_RELEASE_TOKEN
     file_glob: true
@@ -49,11 +49,11 @@ deploy:
     overwrite: true
     on:
       all_branches: true
-      condition: $TRAVIS_BRANCH =~ ^(master|2.0)$
+      condition: $TRAVIS_BRANCH =~ ^(master|2.0)$ || $TRAVIS_TAG
       tags: true
   - provider: script
     script: bash deploy.sh
     on:
       all_branches: true
-      condition: $TRAVIS_BRANCH =~ ^(master|2.0)$
+      condition: $TRAVIS_BRANCH =~ ^(master|2.0)$ || $TRAVIS_TAG
       # branch: master
