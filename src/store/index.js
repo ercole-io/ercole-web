@@ -13,6 +13,7 @@ import * as licenses from './modules/licenses.js'
 import * as charts from './modules/charts.js'
 import * as clusters from './modules/clusters.js'
 import * as technologies from './modules/technologies.js'
+import * as databases from './modules/databases.js'
 
 Vue.use(Vuex)
 
@@ -28,7 +29,8 @@ export default new Vuex.Store({
     licenses,
     charts,
     clusters,
-    technologies
+    technologies,
+    databases
   },
   plugins: [
     createPersistedState({
