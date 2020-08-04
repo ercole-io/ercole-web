@@ -1,7 +1,5 @@
 <template>
   <section>
-    <PageTitle />
-
     <BoxContent>
       <div class="columns">
         <div class="column is-3">
@@ -79,7 +77,6 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
-import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -87,7 +84,6 @@ import ColumnChart from '@/components/common/charts/ColumnChart.vue'
 
 export default {
   components: {
-    PageTitle,
     BoxContent,
     FullTable,
     exportButton,
@@ -121,7 +117,7 @@ export default {
     handleClickedRow($event) {
       if ($event.length > 0) {
         const selectedRow = $event[0].name
-        this.$router.replace({
+        this.$router.push({
           name: 'cluster-details',
           params: { clustername: selectedRow }
         })

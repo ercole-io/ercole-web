@@ -1,7 +1,5 @@
 <template>
   <section>
-    <PageTitle />
-
     <boxContent>
       <div class="columns">
         <div class="column is-3">
@@ -93,7 +91,6 @@
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
-import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -103,7 +100,6 @@ export default {
   mixins: [paginationMixin],
   props: ['clustername'],
   components: {
-    PageTitle,
     BoxContent,
     FullTable,
     exportButton,

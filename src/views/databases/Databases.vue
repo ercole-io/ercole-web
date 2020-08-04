@@ -1,17 +1,12 @@
 <template>
   <section>
-    <PageTitle />
+    Databases
+    <router-view />
   </section>
 </template>
 
 <script>
-import PageTitle from '@/components/common/PageTitle.vue'
-
-export default {
-  components: {
-    PageTitle
-  }
-}
+export default {}
 </script>
 
 <style lang="scss" scoped></style>
