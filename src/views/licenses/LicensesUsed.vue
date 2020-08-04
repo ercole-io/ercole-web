@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <PageTitle />
-
+  <section>
     <BoxContent>
       <FullTable
         placeholder="Search on Licenses"
@@ -30,13 +28,12 @@
         />
       </FullTable>
     </BoxContent>
-  </div>
+  </section>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
-import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -44,7 +41,6 @@ import exportButton from '@/components/common/exportButton.vue'
 export default {
   mixins: [paginationMixin],
   components: {
-    PageTitle,
     BoxContent,
     FullTable,
     exportButton

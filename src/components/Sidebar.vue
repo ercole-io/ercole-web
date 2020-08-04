@@ -25,12 +25,12 @@ export default {
     return {
       menu: [
         {
-          href: { path: '/' },
+          href: { name: 'dashboard' },
           title: 'Dashboard',
           icon: 'fas fa-home'
         },
         {
-          href: { path: '/hosts' },
+          href: { name: 'hosts' },
           title: 'Hosts',
           icon: 'fas fa-server'
         },
@@ -41,6 +41,7 @@ export default {
           child: [
             {
               title: 'Oracle',
+              href: { name: 'oracle' },
               icon: 'fas fa-cog',
               child: [
                 {
@@ -48,17 +49,17 @@ export default {
                   icon: 'fas fa-microscope',
                   child: [
                     {
-                      href: { path: '/proactive/addm' },
+                      href: { name: 'addm' },
                       title: 'ADDM',
                       icon: 'fas fa-heartbeat'
                     },
                     {
-                      href: { path: '/proactive/segment-advisor' },
+                      href: { name: 'segment-advisor' },
                       title: 'Segment Advisor',
                       icon: 'fas fa-columns'
                     },
                     {
-                      href: { path: '/proactive/patch-advisor' },
+                      href: { name: 'patch-advisor' },
                       title: 'Patch Advisor',
                       icon: 'fas fa-band-aid'
                     }
@@ -119,22 +120,22 @@ export default {
           ]
         },
         {
-          href: { path: '/hypervisors' },
+          href: { name: 'hypervisors' },
           title: 'Hypervisors',
           icon: 'fas fa-object-group'
         },
         {
-          href: { path: '/middleware' },
+          href: { name: 'middleware' },
           title: 'Middlewares',
           icon: 'fas fa-globe'
         },
         {
-          href: { path: '/engineered-systems' },
+          href: { name: 'engineered-systems' },
           title: 'Engineered Systems',
           icon: 'fas fa-times'
         },
         {
-          href: { path: '/alerts' },
+          href: { name: 'alerts' },
           title: 'Alerts',
           icon: 'fas fa-bell'
         },
@@ -143,19 +144,19 @@ export default {
           icon: 'fas fa-dollar-sign',
           child: [
             {
-              href: { path: '/licenses/compliance' },
+              href: { name: 'licenses-compliance' },
               title: 'Licenses Compliance',
               icon: 'fas fa-cog'
             },
             {
-              href: { path: '/licenses/used' },
+              href: { name: 'licenses-used' },
               title: 'Licenses Used',
               icon: 'fas fa-cog'
             }
           ]
         },
         {
-          href: { path: '/settings' },
+          href: { name: 'settings' },
           title: 'Settings',
           icon: 'fas fa-cogs',
           child: [

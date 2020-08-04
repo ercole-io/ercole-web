@@ -1,7 +1,5 @@
 <template>
   <section>
-    <PageTitle />
-
     <BoxContent>
       <FullTable
         placeholder="Search on Hosts"
@@ -180,7 +178,6 @@ import _ from 'lodash'
 import formatDate from '@/filters/formatDate.js'
 import { mapGetters, mapActions } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
-import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -189,7 +186,6 @@ import exportButton from '@/components/common/exportButton.vue'
 export default {
   mixins: [paginationMixin],
   components: {
-    PageTitle,
     BoxContent,
     FullTable,
     TdContent,
@@ -281,10 +277,10 @@ export default {
     },
     handleClickedRow($event) {
       if ($event.length > 0) {
-        const hostname = $event[0].hostname
-        this.$router.replace({
+        const selectedRow = $event[0].hostname
+        this.$router.push({
           name: 'hosts-details',
-          params: { hostname: hostname }
+          params: { hostname: selectedRow }
         })
       }
     }

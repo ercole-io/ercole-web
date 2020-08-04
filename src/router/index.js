@@ -5,11 +5,20 @@ import { lazy } from 'vue-async-manager'
 
 const title = 'Ercole - '
 
+const EmptyRouterView = () => import('@/views/Empty-Router-View.vue')
 const Login = () => import('@/views/auth/Login.vue')
 const Dashboard = lazy(() => import('@/views/Dashboard.vue'))
 const Hosts = lazy(() => import('@/views/hosts/Hosts.vue'))
 const HostsDetails = lazy(() => import('@/views/hosts/HostsDetails.vue'))
 const Databases = lazy(() => import('@/views/databases/Databases.vue'))
+const Oracle = lazy(() => import('@/views/databases/oracle/Oracle.vue'))
+const ADDM = lazy(() => import('@/views/databases/oracle/ADDM.vue'))
+const SegmentAdvisor = lazy(() =>
+  import('@/views/databases/oracle/Segment-Advisor.vue')
+)
+const PatchAdvidor = lazy(() =>
+  import('@/views/databases/oracle/Patch-Advidor.vue')
+)
 const Middleware = lazy(() => import('@/views/middleware/Middleware.vue'))
 const LicensesCompliance = lazy(() =>
   import('@/views/licenses/LicensesCompliance.vue')
@@ -47,37 +56,123 @@ const routes = [
   },
   {
     path: '/hosts',
-    name: 'hosts',
-    component: Hosts,
-    meta: {
-      label: 'Hosts',
-      title: `${title}Hosts`,
-      breadcrumb: [{ name: 'Hosts' }]
-    },
-    beforeEnter: verifyAuth
-  },
-  {
-    path: '/hosts/details/:hostname',
-    name: 'hosts-details',
-    component: HostsDetails,
-    props: true,
-    meta: {
-      label: 'Host Details',
-      title: `${title}Host Details`,
-      breadcrumb: [{ name: 'Hosts', link: '/hosts' }, { name: 'Host Details' }]
-    },
-    beforeEnter: verifyAuth
+    component: EmptyRouterView,
+    children: [
+      {
+        path: '',
+        name: 'hosts',
+        component: Hosts,
+        meta: {
+          label: 'Hosts',
+          title: `${title}Hosts`,
+          breadcrumb: [{ name: 'Hosts' }]
+        },
+        beforeEnter: verifyAuth
+      },
+      {
+        path: 'details/:hostname',
+        name: 'hosts-details',
+        component: HostsDetails,
+        props: true,
+        meta: {
+          label: 'Host Details',
+          title: `${title}Host Details`,
+          breadcrumb: [
+            { name: 'Hosts', link: '/hosts' },
+            { name: 'Host Details' }
+          ]
+        },
+        beforeEnter: verifyAuth
+      }
+    ]
   },
   {
     path: '/databases',
-    name: 'databases',
-    component: Databases,
-    meta: {
-      label: 'Databases',
-      title: `${title}Databases`,
-      breadcrumb: [{ name: 'Databases' }]
-    },
-    beforeEnter: verifyAuth
+    component: EmptyRouterView,
+    children: [
+      {
+        path: '',
+        name: 'databases',
+        component: Databases,
+        meta: {
+          label: 'Databases',
+          title: `${title}Databases`,
+          breadcrumb: [{ name: 'Databases' }]
+        },
+        beforeEnter: verifyAuth
+      },
+      {
+        path: 'oracle',
+        component: EmptyRouterView,
+        children: [
+          {
+            path: '',
+            name: 'oracle',
+            component: Oracle,
+            meta: {
+              label: 'Oracle',
+              title: `${title}Oracle`,
+              breadcrumb: [
+                { name: 'Databases', link: '/databases' },
+                { name: 'Oracle' }
+              ]
+            },
+            beforeEnter: verifyAuth
+          },
+          {
+            path: '',
+            component: EmptyRouterView,
+            children: [
+              {
+                path: 'addm',
+                name: 'addm',
+                component: ADDM,
+                meta: {
+                  label: 'ADDM',
+                  title: `${title}ADDM`,
+                  breadcrumb: [
+                    { name: 'Databases', link: '/databases' },
+                    { name: 'Oracle', link: '/oracle' },
+                    { name: 'ADDM' }
+                  ]
+                },
+                beforeEnter: verifyAuth
+              },
+              {
+                path: 'segment-advisor',
+                name: 'segment-advisor',
+                component: SegmentAdvisor,
+                meta: {
+                  label: 'Segment Advisor',
+                  title: `${title}Segment Advisor`,
+                  breadcrumb: [
+                    { name: 'Databases', link: '/databases' },
+                    { name: 'Oracle', link: '/oracle' },
+                    { name: 'Segment Advisor' }
+                  ]
+                },
+                beforeEnter: verifyAuth
+              },
+              {
+                path: 'patch-advisor',
+                name: 'patch-advisor',
+                component: PatchAdvidor,
+                meta: {
+                  label: 'Patch Advisor',
+                  title: `${title}Patch Advisor`,
+                  breadcrumb: [
+                    { name: 'Databases', link: '/databases' },
+                    { name: 'Oracle', link: '/oracle' },
+                    { name: 'Patch Advisor' }
+                  ]
+                },
+                beforeEnter: verifyAuth
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     path: '/middleware',
@@ -114,29 +209,35 @@ const routes = [
   },
   {
     path: '/hypervisors',
-    name: 'hypervisors',
-    component: Hypervisors,
-    meta: {
-      label: 'Hypervisors',
-      title: `${title}Hypervisors`,
-      breadcrumb: [{ name: 'Hypervisors' }]
-    },
-    beforeEnter: verifyAuth
-  },
-  {
-    path: '/hypervisors/cluster/:clustername',
-    name: 'cluster-details',
-    component: Cluster,
-    props: true,
-    meta: {
-      label: 'Cluster Details',
-      title: `${title}Cluster Details`,
-      breadcrumb: [
-        { name: 'Hypervisors', link: '/hypervisors' },
-        { name: 'Cluster Details' }
-      ]
-    },
-    beforeEnter: verifyAuth
+    component: EmptyRouterView,
+    children: [
+      {
+        path: '',
+        name: 'hypervisors',
+        component: Hypervisors,
+        meta: {
+          label: 'Hypervisors',
+          title: `${title}Hypervisors`,
+          breadcrumb: [{ name: 'Hypervisors' }]
+        },
+        beforeEnter: verifyAuth
+      },
+      {
+        path: 'cluster/:clustername',
+        name: 'cluster-details',
+        component: Cluster,
+        props: true,
+        meta: {
+          label: 'Cluster Details',
+          title: `${title}Cluster Details`,
+          breadcrumb: [
+            { name: 'Hypervisors', link: '/hypervisors' },
+            { name: 'Cluster Details' }
+          ]
+        },
+        beforeEnter: verifyAuth
+      }
+    ]
   },
   {
     path: '/engineered-systems',

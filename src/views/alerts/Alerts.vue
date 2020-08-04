@@ -1,7 +1,5 @@
 <template>
   <section>
-    <PageTitle />
-
     <BoxContent>
       <FullTable
         placeholder="Search on Alerts"
@@ -64,7 +62,6 @@
 import { mapGetters, mapActions } from 'vuex'
 import { checkAlertIcon } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
-import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -82,7 +79,6 @@ export default {
     }
   },
   components: {
-    PageTitle,
     BoxContent,
     FullTable,
     exportButton
