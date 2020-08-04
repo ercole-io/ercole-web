@@ -90,14 +90,12 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters, mapState } from 'vuex'
-import paginationMixin from '@/mixins/paginationMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import BarChart from '@/components/common/charts/BarChart.vue'
 
 export default {
-  mixins: [paginationMixin],
   props: ['clustername'],
   components: {
     BoxContent,
