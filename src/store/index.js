@@ -14,6 +14,7 @@ import * as charts from './modules/charts.js'
 import * as clusters from './modules/clusters.js'
 import * as technologies from './modules/technologies.js'
 import * as databases from './modules/databases.js'
+import * as oracle from './modules/oracle.js'
 
 Vue.use(Vuex)
 
@@ -30,7 +31,8 @@ export default new Vuex.Store({
     charts,
     clusters,
     technologies,
-    databases
+    databases,
+    oracle
   },
   plugins: [
     createPersistedState({

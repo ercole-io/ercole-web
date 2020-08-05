@@ -2,6 +2,7 @@
   <section>
     <h2 class="sub-title" v-if="title" :class="{ 'border-bottom': border }">
       {{ title }}
+      <slot name="customTitle" />
     </h2>
     <article class="box-content">
       <slot />
@@ -36,6 +37,9 @@ export default {
   margin-bottom: 10px;
   padding: 5px;
   font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .border-bottom {

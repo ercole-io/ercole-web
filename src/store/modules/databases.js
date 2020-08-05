@@ -3,7 +3,7 @@ import axiosNoLoading from '../../axios/axios-no-loading.js'
 import _ from 'lodash'
 
 export const state = () => ({
-  databases: {},
+  databases: [],
   totalMemory: 0,
   totalSegment: 0,
   totalDatafile: 0
