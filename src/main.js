@@ -20,6 +20,7 @@ import VTooltip from 'v-tooltip'
 
 import CapitalizeFilter from './filters/capitalize.js'
 import FormatDate from './filters/formatDate.js'
+import FormatNumber from './filters/formatNumber.js'
 
 Vue.component('default-layout', DefaultPage)
 Vue.component('simple-layout', SimplePage)
@@ -47,6 +48,7 @@ Vue.use(VTooltip)
 
 Vue.filter('capitalize', CapitalizeFilter)
 Vue.filter('formatDate', FormatDate)
+Vue.filter('formatNumber', FormatNumber)
 
 Vue.config.productionTip = false
 
