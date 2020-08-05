@@ -49,7 +49,7 @@ export const actions = {
         router.replace('/dashboard')
       })
       .catch(err => {
-        const errorMessage = err.response.data.ErrorDescription
+        const errorMessage = err.response.data.errorDescription
         dispatch('setErrMsg', errorMessage)
         dispatch('offLoading')
       })
