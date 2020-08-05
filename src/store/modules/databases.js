@@ -1,4 +1,5 @@
 import axiosDefault from '../../axios/axios-default'
+import axiosNoLoading from '../../axios/axios-no-loading.js'
 import _ from 'lodash'
 
 export const state = () => ({
@@ -30,29 +31,32 @@ export const mutations = {
 }
 
 export const actions = {
-  async getDatabases({ commit }) {
+  async getDatabases({ commit, dispatch }) {
     const databases = await axiosDefault.get(
       '/hosts/technologies/oracle/databases'
     )
     const response = await databases.data
     commit('SET_DATABASES', response)
+    dispatch('getTotalMemory')
+    dispatch('getTotalSegment')
+    dispatch('getTotalDatafile')
   },
   async getTotalMemory({ commit }) {
-    const totalMemory = await axiosDefault.get(
+    const totalMemory = await axiosNoLoading.get(
       '/hosts/technologies/oracle/databases/total-memory-size'
     )
     const response = await totalMemory.data
     commit('SET_TOTAL_MEMORY', response)
   },
   async getTotalSegment({ commit }) {
-    const totalSegment = await axiosDefault.get(
+    const totalSegment = await axiosNoLoading.get(
       '/hosts/technologies/oracle/databases/total-segment-size'
     )
     const response = await totalSegment.data
     commit('SET_TOTAL_SEGMENT', response)
   },
   async getTotalDatafile({ commit }) {
-    const totalDatafile = await axiosDefault.get(
+    const totalDatafile = await axiosNoLoading.get(
       '/hosts/technologies/oracle/databases/total-datafile-size'
     )
     const response = await totalDatafile.data

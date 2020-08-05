@@ -207,18 +207,10 @@ export default {
   },
   async beforeMount() {
     await this.getDatabases()
-    await this.getTotalMemory()
-    await this.getTotalSegment()
-    await this.getTotalDatafile()
     this.data = this.databases.databases
   },
   methods: {
-    ...mapActions([
-      'getDatabases',
-      'getTotalMemory',
-      'getTotalSegment',
-      'getTotalDatafile'
-    ])
+    ...mapActions(['getDatabases'])
   },
   computed: {
     ...mapState(['databases']),
