@@ -65,14 +65,6 @@
             <p class="help is-danger has-text-centered" v-if="getErrMsg">
               {{ getErrMsg }}
             </p>
-
-            <b-notification
-              class="notification"
-              type="is-dark"
-              :closable="false"
-            >
-              The username is "user", the password is "password"
-            </b-notification>
           </form>
         </div>
       </div>
@@ -87,8 +79,8 @@ import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      username: 'user',
-      password: 'password'
+      username: '',
+      password: ''
     }
   },
   validations: {
