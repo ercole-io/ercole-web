@@ -125,8 +125,8 @@ const routes = [
                 name: 'addm',
                 component: ADDM,
                 meta: {
-                  label: 'ADDM',
-                  title: `${title}ADDM`,
+                  label: 'Oracle: ADDM',
+                  title: `${title}Oracle: ADDM`,
                   breadcrumb: [
                     { name: 'Databases', link: '/databases' },
                     { name: 'Oracle', link: '/oracle' },
@@ -140,8 +140,8 @@ const routes = [
                 name: 'segment-advisor',
                 component: SegmentAdvisor,
                 meta: {
-                  label: 'Segment Advisor',
-                  title: `${title}Segment Advisor`,
+                  label: 'Oracle: Segment Advisor',
+                  title: `${title}Oracle: Segment Advisor`,
                   breadcrumb: [
                     { name: 'Databases', link: '/databases' },
                     { name: 'Oracle', link: '/oracle' },
@@ -155,8 +155,8 @@ const routes = [
                 name: 'patch-advisor',
                 component: PatchAdvidor,
                 meta: {
-                  label: 'Patch Advisor',
-                  title: `${title}Patch Advisor`,
+                  label: 'Oracle: Patch Advisor',
+                  title: `${title}Oracle: Patch Advisor`,
                   breadcrumb: [
                     { name: 'Databases', link: '/databases' },
                     { name: 'Oracle', link: '/oracle' },
