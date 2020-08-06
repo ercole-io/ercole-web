@@ -1,7 +1,7 @@
 <template>
   <nav class="breadcrumb is-small" aria-label="breadcrumbs">
     <ul>
-      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/">Dashboard</a></li>
       <li
         v-for="(b, i) in breadcrumbList"
         :key="i"
@@ -11,7 +11,7 @@
         <a :href="b.link">
           {{ b.name }}
           <span v-if="dynamicTitle && !b.link" class="dynamicTitle">
-            - {{ dynamicTitle }}
+            {{ dynamicTitle }}
           </span>
         </a>
       </li>
@@ -20,19 +20,10 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
+import dynamicTitle from '@/mixins/dynamicTitle.js'
 
 export default {
-  data() {
-    return {
-      dynamicTitle: ''
-    }
-  },
-  created() {
-    bus.$on('dynamicTitle', value => {
-      this.dynamicTitle = value
-    })
-  },
+  mixins: [dynamicTitle],
   methods: {
     routeTo(route) {
       if (this.breadcrumbList[route].link) {
@@ -43,11 +34,6 @@ export default {
   computed: {
     breadcrumbList() {
       return this.$route.meta.breadcrumb
-    }
-  },
-  watch: {
-    $route() {
-      this.dynamicTitle = ''
     }
   }
 }
