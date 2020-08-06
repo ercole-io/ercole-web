@@ -35,7 +35,7 @@
         />
       </BoxContent>
 
-      <BoxContent :title="`GPUGrowth of ${hostname}`" class="column is-4">
+      <BoxContent :title="`CPU Usage of ${hostname}`" class="column is-4">
         <HostGraph :chartData="chartData" />
       </BoxContent>
     </div>
