@@ -17,6 +17,7 @@ import * as databases from './modules/databases.js'
 import * as oracle from './modules/oracle.js'
 import * as oracleSegmentAdvisor from './modules/oracle-segment-advisor.js'
 import * as oraclePatchAdvisor from './modules/oracle-patch-advisor.js'
+import * as oracleAddm from './modules/oracle-addm.js'
 
 Vue.use(Vuex)
 
@@ -36,7 +37,8 @@ export default new Vuex.Store({
     databases,
     oracle,
     oracleSegmentAdvisor,
-    oraclePatchAdvisor
+    oraclePatchAdvisor,
+    oracleAddm
   },
   plugins: [
     createPersistedState({
