@@ -75,12 +75,9 @@ const routes = [
         component: HostsDetails,
         props: true,
         meta: {
-          label: 'Host Details',
+          // label: 'Host Details',
           title: `${title}Host Details`,
-          breadcrumb: [
-            { name: 'Hosts', link: '/hosts' },
-            { name: 'Host Details' }
-          ]
+          breadcrumb: [{ name: 'Hosts', link: '/hosts' }, { name: '' }]
         },
         beforeEnter: verifyAuth
       }
@@ -228,11 +225,11 @@ const routes = [
         component: Cluster,
         props: true,
         meta: {
-          label: 'Cluster Details',
+          // label: 'Cluster Details',
           title: `${title}Cluster Details`,
           breadcrumb: [
             { name: 'Hypervisors', link: '/hypervisors' },
-            { name: 'Cluster Details' }
+            { name: '' }
           ]
         },
         beforeEnter: verifyAuth

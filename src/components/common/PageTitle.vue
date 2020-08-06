@@ -1,7 +1,7 @@
 <template>
   <div class="page-title title is-6">
     <div>
-      {{ pageTitle }} <span v-if="dynamicTitle">- {{ dynamicTitle }}</span>
+      {{ pageTitle }}
     </div>
     <div>
       <slot />
@@ -10,27 +10,13 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
+import dynamicTitle from '@/mixins/dynamicTitle.js'
 
 export default {
-  data() {
-    return {
-      dynamicTitle: ''
-    }
-  },
-  created() {
-    bus.$on('dynamicTitle', value => {
-      this.dynamicTitle = value
-    })
-  },
+  mixins: [dynamicTitle],
   computed: {
     pageTitle() {
-      return this.$route.meta.label
-    }
-  },
-  watch: {
-    $route() {
-      this.dynamicTitle = ''
+      return this.dynamicTitle ? this.dynamicTitle : this.$route.meta.label
     }
   }
 }
@@ -45,10 +31,5 @@ export default {
   padding-left: 5px;
   display: flex;
   justify-content: space-between;
-
-  span {
-    font-size: 0.8em;
-    font-weight: 500;
-  }
 }
 </style>

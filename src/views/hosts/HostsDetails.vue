@@ -27,10 +27,7 @@
     </BoxContent>
 
     <div class="columns">
-      <BoxContent
-        :title="`Databases of ${currentHostName}`"
-        class="column is-8"
-      >
+      <BoxContent :title="`Databases of ${hostname}`" class="column is-8">
         <HostDatabases :hostDbs="hostDbs" v-if="hostDbs.length > 0" />
         <noContent
           v-else
@@ -38,10 +35,7 @@
         />
       </BoxContent>
 
-      <BoxContent
-        :title="`GPUGrowth of ${currentHostName}`"
-        class="column is-4"
-      >
+      <BoxContent :title="`GPUGrowth of ${hostname}`" class="column is-4">
         <HostGraph :chartData="chartData" />
       </BoxContent>
     </div>
@@ -83,7 +77,6 @@ export default {
   },
   data() {
     return {
-      currentHostName: '',
       hostInfo: {},
       hostDbs: [],
       notificationInfo: {},
@@ -93,9 +86,7 @@ export default {
   },
   async created() {
     await this.getHostByName(this.hostname)
-
-    this.currentHostName = this.getCurrentHost.hostname
-    bus.$emit('dynamicTitle', this.currentHostName)
+    bus.$emit('dynamicTitle', this.hostname)
 
     this.hostInfoInfo(this.getCurrentHost)
     this.hostDbsInfo(this.getCurrentHost.features.oracle.database.databases)
