@@ -15,6 +15,8 @@ import * as clusters from './modules/clusters.js'
 import * as technologies from './modules/technologies.js'
 import * as databases from './modules/databases.js'
 import * as oracle from './modules/oracle.js'
+import * as oracleSegmentAdvisor from './modules/oracle-segment-advisor.js'
+import * as oraclePatchAdvisor from './modules/oracle-patch-advisor.js'
 
 Vue.use(Vuex)
 
@@ -32,7 +34,9 @@ export default new Vuex.Store({
     clusters,
     technologies,
     databases,
-    oracle
+    oracle,
+    oracleSegmentAdvisor,
+    oraclePatchAdvisor
   },
   plugins: [
     createPersistedState({

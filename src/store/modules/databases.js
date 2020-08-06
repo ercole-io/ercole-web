@@ -12,11 +12,45 @@ export const state = () => ({
 export const getters = {
   getTotalCpu: state => {
     return _.sumBy(state.databases, 'cpuCount')
+  },
+  getChartData: state => {
+    const finalChartData = []
+
+    const dbType = _.groupBy(state.databases, 'type')
+    const dbTypeData = []
+    _.map(dbType, (value, key) => {
+      dbTypeData.push({ name: key, value: value.length })
+    })
+    _.map(dbTypeData, item => {
+      finalChartData.push({
+        name: item.name,
+        data: [['Type Of Databases', item.value]]
+      })
+    })
+
+    const envType = _.groupBy(state.databases, 'environment')
+    const envTypeData = []
+    _.map(envType, (value, key) => {
+      envTypeData.push({ name: key, value: value.length })
+    })
+    _.map(envTypeData, item => {
+      finalChartData.push({
+        name: item.name,
+        data: [['Type Of Environment', item.value]]
+      })
+    })
+
+    console.log(finalChartData)
+
+    return finalChartData
   }
 }
 
 export const mutations = {
   SET_DATABASES: (state, payload) => {
+    _.map(payload, item => {
+      item.type = 'Oracle'
+    })
     state.databases = payload
   },
   SET_TOTAL_MEMORY: (state, payload) => {

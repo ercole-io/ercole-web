@@ -57,7 +57,7 @@
         </div>
         <div class="columns">
           <div class="column is-12">
-            <BarChart chartId="barChart" :barChartData="barData" stacked />
+            <BarChart chartId="barChart" :barChartData="getChartData" stacked />
           </div>
         </div>
       </div>
@@ -142,65 +142,66 @@ export default {
           ]
         }
       },
-      data: [],
-      barData: [
-        {
-          name: 'Series A',
-          data: [
-            ['Type 1', 32],
-            ['Type 2', 46],
-            ['Type 3', 28],
-            ['Type 4', 21],
-            ['Type 5', 20],
-            ['Type 6', 13]
-          ]
-        },
-        {
-          name: 'Series B',
-          data: [
-            ['Type 1', 32],
-            ['Type 2', 46],
-            ['Type 3', 28],
-            ['Type 4', 21],
-            ['Type 5', 20],
-            ['Type 6', 13]
-          ]
-        },
-        {
-          name: 'Series C',
-          data: [
-            ['Type 1', 32],
-            ['Type 2', 46],
-            ['Type 3', 28],
-            ['Type 4', 21],
-            ['Type 5', 20],
-            ['Type 6', 13]
-          ]
-        },
-        {
-          name: 'Series D',
-          data: [
-            ['Type 1', 32],
-            ['Type 2', 46],
-            ['Type 3', 28],
-            ['Type 4', 21],
-            ['Type 5', 20],
-            ['Type 6', 13]
-          ]
-        }
-      ]
+      data: []
+      // barData: [
+      //   {
+      //     // name: 'Series A',
+      //     data: [
+      //       ['Type 1', 32],
+      //       ['Type 2', 46],
+      //       ['Type 3', 28],
+      //       ['Type 4', 21],
+      //       ['Type 5', 20],
+      //       ['Type 6', 13]
+      //     ]
+      //   },
+      //   {
+      //     // name: 'Series B',
+      //     data: [
+      //       ['Type 1', 32],
+      //       ['Type 2', 46],
+      //       ['Type 3', 28],
+      //       ['Type 4', 21],
+      //       ['Type 5', 20],
+      //       ['Type 6', 13]
+      //     ]
+      //   },
+      //   {
+      //     // name: 'Series C',
+      //     data: [
+      //       ['Type 1', 32],
+      //       ['Type 2', 46],
+      //       ['Type 3', 28],
+      //       ['Type 4', 21],
+      //       ['Type 5', 20],
+      //       ['Type 6', 13]
+      //     ]
+      //   },
+      //   {
+      //     // name: 'Series D',
+      //     data: [
+      //       ['Type 1', 32],
+      //       ['Type 2', 46],
+      //       ['Type 3', 28],
+      //       ['Type 4', 21],
+      //       ['Type 5', 20],
+      //       ['Type 6', 13]
+      //     ]
+      //   }
+      // ]
     }
   },
   async beforeMount() {
     await this.getDatabases()
     this.data = this.databases.databases
+    this.getChartData
   },
   methods: {
     ...mapActions(['getDatabases'])
   },
   computed: {
     ...mapState(['databases']),
-    ...mapGetters(['getTotalCpu'])
+    ...mapGetters(['getTotalCpu', 'getChartData'])
   }
 }
 </script>
