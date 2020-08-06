@@ -21,7 +21,7 @@
         <td>{{ rowData.scope.hostname }}</td>
         <td>{{ rowData.scope.dbname }}</td>
         <td>{{ rowData.scope.dbver }}</td>
-        <td>{{ rowData.scope.date }}</td>
+        <td>{{ rowData.scope.createdAt | formatDate }}</td>
         <td>{{ rowData.scope.psu }}</td>
         <td>{{ rowData.scope.fourMonth }}</td>
         <td>{{ rowData.scope.sixMonth }}</td>
