@@ -245,7 +245,7 @@ export default {
           kernel: host.info.kernel || '-',
           memorytotal: host.info.memoryTotal || '-',
           swaptotal: host.info.SwapTotal || '-',
-          aixcluster: this.mapAixcluster(host.clusters),
+          aixcluster: this.mapBooleanIcon(host.clusters),
           model: host.info.cpuModel || '-',
           threads: host.info.cpuThreads || '-',
           cores: host.info.cpuCores || '-',
@@ -270,8 +270,8 @@ export default {
         return '-'
       }
     },
-    mapAixcluster(aixCluster) {
-      return aixCluster
+    mapBooleanIcon(value) {
+      return value
         ? ['check-circle', 'fas', 'is-success', 'yes']
         : ['circle', 'fas', 'is-danger', 'no']
     },

@@ -90,12 +90,18 @@
             <td>{{ rowData.scope.hostname }}</td>
             <td>{{ rowData.scope.environment }}</td>
             <td>{{ rowData.scope.charset }}</td>
-            <td>{{ rowData.scope.memory | formatNumber('0.00') }}</td>
+            <td>{{ rowData.scope.memory | formatNumber('0.00') }} GB</td>
             <td>{{ rowData.scope.datafileSize }}</td>
             <td>{{ rowData.scope.segmentsSize }}</td>
-            <td>{{ rowData.scope.archivelog }}</td>
-            <td>{{ rowData.scope.dataguard }}</td>
-            <td>{{ rowData.scope.ha }}</td>
+            <TdContent
+              :value="mapBooleanIcon(rowData.scope.archivelog)"
+              hasIcon
+            />
+            <TdContent
+              :value="mapBooleanIcon(rowData.scope.dataguard)"
+              hasIcon
+            />
+            <TdContent :value="mapBooleanIcon(rowData.scope.ha)" hasIcon />
           </template>
 
           <exportButton
@@ -114,12 +120,14 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import BarChart from '@/components/common/charts/BarChart.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
   components: {
     FullTable,
     exportButton,
-    BarChart
+    BarChart,
+    TdContent
   },
   data() {
     return {
@@ -194,10 +202,14 @@ export default {
   async beforeMount() {
     await this.getDatabases()
     this.data = this.databases.databases
-    this.getChartData
   },
   methods: {
-    ...mapActions(['getDatabases'])
+    ...mapActions(['getDatabases']),
+    mapBooleanIcon(value) {
+      return value
+        ? ['check-circle', 'fas', 'is-success', 'yes']
+        : ['circle', 'fas', 'is-danger', 'no']
+    }
   },
   computed: {
     ...mapState(['databases']),
