@@ -18,7 +18,6 @@ export const actions = {
       '/hosts/technologies/oracle/databases/addms'
     )
     const response = await addms.data
-    console.log(response)
     commit('SET_ADDMS', response)
   }
 }

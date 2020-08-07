@@ -1,5 +1,5 @@
 import moment from 'moment'
 
 export default date => {
-  return moment(date).format('DD/MM/YYYY')
+  return moment.utc(date).format('DD/MM/YYYY')
 }
