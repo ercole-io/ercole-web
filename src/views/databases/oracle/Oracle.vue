@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="columns">
-      <div class="column">
+      <div class="column is-6">
         <BoxContent title="Top 3 Instance Workload" border>
           <a
             class="is-size-7 is-italic has-text-weight-normal has-text-dark"
@@ -27,7 +27,7 @@
           </div>
         </BoxContent>
       </div>
-      <div class="column">
+      <div class="column is-6">
         <BoxContent title="Top 3 Unused Instance Resource" border>
           <a
             class="is-size-7 is-italic has-text-weight-normal has-text-dark"
@@ -68,7 +68,6 @@
         >
           <template slot="headData">
             <v-th sortKey="name">DB Name</v-th>
-            <v-th sortKey="type">DB Type</v-th>
             <v-th sortKey="version">DB Version</v-th>
             <v-th sortKey="hostname">Hostname</v-th>
             <v-th sortKey="environment">Env.</v-th>
@@ -83,17 +82,22 @@
 
           <template slot="bodyData" slot-scope="rowData">
             <td>{{ rowData.scope.name }}</td>
-            <td>{{ rowData.scope.type }}</td>
             <td>{{ rowData.scope.version }}</td>
             <td>{{ rowData.scope.hostname }}</td>
             <td>{{ rowData.scope.environment }}</td>
             <td>{{ rowData.scope.charset }}</td>
-            <td>{{ rowData.scope.memory | formatNumber('0.00') }}</td>
+            <td>{{ rowData.scope.memory | formatNumber('0.00') }} GB</td>
             <td>{{ rowData.scope.datafileSize }}</td>
             <td>{{ rowData.scope.segmentsSize }}</td>
-            <td>{{ rowData.scope.archivelog }}</td>
-            <td>{{ rowData.scope.dataguard }}</td>
-            <td>{{ rowData.scope.ha }}</td>
+            <TdContent
+              :value="mapBooleanIcon(rowData.scope.archivelog)"
+              hasIcon
+            />
+            <TdContent
+              :value="mapBooleanIcon(rowData.scope.dataguard)"
+              hasIcon
+            />
+            <TdContent :value="mapBooleanIcon(rowData.scope.ha)" hasIcon />
           </template>
 
           <exportButton
@@ -113,13 +117,15 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import BarChart from '@/components/common/charts/BarChart.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
   components: {
     BoxContent,
     FullTable,
     exportButton,
-    BarChart
+    BarChart,
+    TdContent
   },
   data() {
     return {
@@ -128,7 +134,6 @@ export default {
           value: '',
           keys: [
             'name',
-            'type',
             'version',
             'hostname',
             'environment',
@@ -196,7 +201,12 @@ export default {
     this.data = this.oracle.oracleDbs
   },
   methods: {
-    ...mapActions(['getOracleDbs'])
+    ...mapActions(['getOracleDbs']),
+    mapBooleanIcon(value) {
+      return value
+        ? ['check-circle', 'fas', 'is-success', 'yes']
+        : ['circle', 'fas', 'is-danger', 'no']
+    }
   },
   computed: {
     ...mapState(['oracle'])
@@ -209,6 +219,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 33.3%;
 
   span:not(.number-marker) {
     font-size: 0.65em;
@@ -218,6 +229,10 @@ export default {
     margin-bottom: 0.5em;
     font-size: 0.9em;
     font-weight: 500;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
   }
 }
 
