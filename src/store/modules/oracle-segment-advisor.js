@@ -18,7 +18,6 @@ export const actions = {
       '/hosts/technologies/oracle/databases/segment-advisors'
     )
     const response = await segmentAdvisor.data
-    console.log(response)
     commit('SET_SEGMENT_ADVISOR', response)
   }
 }

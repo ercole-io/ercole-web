@@ -7,28 +7,28 @@
       :clickedRow="() => []"
     >
       <template slot="headData">
-        <v-th sortKey="reclaimableGb">Reclaimable GB</v-th>
+        <v-th sortKey="reclaimable">Reclaimable GB</v-th>
         <v-th sortKey="gbTotal">GB Total</v-th>
         <v-th sortKey="retrieve">Retrieve</v-th>
         <v-th sortKey="hostname">Hostname</v-th>
-        <v-th sortKey="dbName">DB Name</v-th>
-        <v-th sortKey="segOwner">Segment Owner</v-th>
-        <v-th sortKey="segName">Segment Name</v-th>
-        <v-th sortKey="segType">Segment Type</v-th>
-        <v-th sortKey="partName">Partition Name</v-th>
+        <v-th sortKey="dbname">DB Name</v-th>
+        <v-th sortKey="segmentOwner">Segment Owner</v-th>
+        <v-th sortKey="segmentName">Segment Name</v-th>
+        <v-th sortKey="segmentType">Segment Type</v-th>
+        <v-th sortKey="partitionName">Partition Name</v-th>
         <v-th sortKey="recommendation">Recommendation</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <td>{{ rowData.scope.reclaimableGb }}</td>
+        <td>{{ rowData.scope.reclaimable | formatNumber('0.00') }} GB</td>
         <td>{{ rowData.scope.gbTotal }}</td>
         <td>{{ rowData.scope.retrieve }}</td>
         <td>{{ rowData.scope.hostname }}</td>
-        <td>{{ rowData.scope.dbName }}</td>
-        <td>{{ rowData.scope.segOwner }}</td>
-        <td>{{ rowData.scope.segName }}</td>
-        <td>{{ rowData.scope.segType }}</td>
-        <td>{{ rowData.scope.partName }}</td>
+        <td>{{ rowData.scope.dbname }}</td>
+        <td>{{ rowData.scope.segmentOwner }}</td>
+        <td>{{ rowData.scope.segmentName }}</td>
+        <td>{{ rowData.scope.segmentType }}</td>
+        <td>{{ rowData.scope.partitionName }}</td>
         <td>{{ rowData.scope.recommendation }}</td>
       </template>
 
@@ -57,15 +57,15 @@ export default {
         search: {
           value: '',
           keys: [
-            'reclaimableGb',
+            'reclaimable',
             'gbTotal',
             'retrieve',
             'hostname',
-            'dbName',
-            'segOwner',
-            'segName',
-            'segType',
-            'partName',
+            'dbname',
+            'segmentOwner',
+            'segmentName',
+            'segmentType',
+            'partitionName',
             'recommendation'
           ]
         }

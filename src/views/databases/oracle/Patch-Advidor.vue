@@ -11,7 +11,7 @@
         <v-th sortKey="dbname">Database</v-th>
         <v-th sortKey="dbver">Version</v-th>
         <v-th sortKey="date">Release Date</v-th>
-        <v-th sortKey="psu">PSU</v-th>
+        <v-th sortKey="description">PSU</v-th>
         <v-th sortKey="fourMonth">4 Month</v-th>
         <v-th sortKey="sixMonth">6 Month</v-th>
         <v-th sortKey="twelveMonth">12 Month</v-th>
@@ -21,11 +21,11 @@
         <td>{{ rowData.scope.hostname }}</td>
         <td>{{ rowData.scope.dbname }}</td>
         <td>{{ rowData.scope.dbver }}</td>
-        <td>{{ rowData.scope.createdAt | formatDate }}</td>
-        <td>{{ rowData.scope.psu }}</td>
-        <td>{{ rowData.scope.fourMonth }}</td>
-        <td>{{ rowData.scope.sixMonth }}</td>
-        <td>{{ rowData.scope.twelveMonth }}</td>
+        <td>{{ rowData.scope.date | formatDate }}</td>
+        <td>{{ rowData.scope.description }}</td>
+        <td>{{ compareDates(rowData.scope.date) }}</td>
+        <td>{{ compareDates(rowData.scope.date) }}</td>
+        <td>{{ compareDates(rowData.scope.date) }}</td>
       </template>
 
       <exportButton
@@ -39,6 +39,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import moment from 'moment'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 
@@ -57,7 +58,7 @@ export default {
             'dbname',
             'dbver',
             'date',
-            'psu',
+            'description',
             'fourMonth',
             'sixMonth',
             'twelveMonth'
@@ -72,7 +73,12 @@ export default {
     this.data = this.oraclePatchAdvisor.patchAdvisor
   },
   methods: {
-    ...mapActions(['getPatchAdvisor'])
+    ...mapActions(['getPatchAdvisor']),
+    compareDates(date) {
+      const actualDate = moment.utc().format()
+      const formatDate = moment.utc(date).format()
+      return formatDate < actualDate ? 'KO' : 'OK'
+    }
   },
   computed: {
     ...mapState(['oraclePatchAdvisor'])
