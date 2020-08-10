@@ -5,6 +5,7 @@
     :dataset="{ borderWidth: 0 }"
     :download="{ background: '#fff' }"
     :stacked="stacked"
+    :colors="colors"
     legend="bottom"
   />
 </template>
@@ -23,6 +24,9 @@ export default {
     stacked: {
       type: Boolean,
       default: false
+    },
+    colors: {
+      type: Array
     }
   }
 }
