@@ -28,7 +28,8 @@
               <BoxContent title="Type Of Virtualization" border>
                 <ColumnChart
                   chartId="columnChart"
-                  :columnChartData="getVirtualizationChartData"
+                  :columnChartData="getVirtualizationChartData.finalData"
+                  :colors="getVirtualizationChartData.colors"
                   stacked
                 />
               </BoxContent>

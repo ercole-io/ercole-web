@@ -52,9 +52,10 @@ export const getters = {
 
     return finalData
   },
-  getVirtualizationChartData: state => {
+  getVirtualizationChartData: (state, rootState) => {
     const data = _.groupBy(state.clusters, 'type')
     const finalData = []
+    const colors = []
 
     _.map(data, (value, key) => {
       finalData.push({
@@ -63,7 +64,15 @@ export const getters = {
       })
     })
 
-    return finalData
+    _.map(finalData, item => {
+      _.find(rootState.getAllTechnologies, prod => {
+        if (prod.product === item.name) {
+          colors.push(prod.color)
+        }
+      })
+    })
+
+    return { finalData, colors }
   }
 }
 
