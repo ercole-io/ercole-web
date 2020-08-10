@@ -40,7 +40,41 @@ export const getters = {
       })
     })
 
-    console.log(finalChartData)
+    const archiveLog = _.groupBy(state.databases, 'archivelog')
+    const archiveLogData = []
+    _.map(archiveLog, (value, key) => {
+      archiveLogData.push({ name: key, value: value.length })
+    })
+    _.map(archiveLogData, item => {
+      finalChartData.push({
+        name: item.name,
+        data: [['Archivelog Mode', item.value]]
+      })
+    })
+
+    const dataguard = _.groupBy(state.databases, 'dataguard')
+    const dataguardData = []
+    _.map(dataguard, (value, key) => {
+      dataguardData.push({ name: key, value: value.length })
+    })
+    _.map(dataguardData, item => {
+      finalChartData.push({
+        name: item.name,
+        data: [['Disaster Recovery', item.value]]
+      })
+    })
+
+    const ha = _.groupBy(state.databases, 'ha')
+    const haData = []
+    _.map(ha, (value, key) => {
+      haData.push({ name: key, value: value.length })
+    })
+    _.map(haData, item => {
+      finalChartData.push({
+        name: item.name,
+        data: [['High Reliability', item.value]]
+      })
+    })
 
     return finalChartData
   }

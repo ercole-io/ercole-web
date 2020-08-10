@@ -5,7 +5,8 @@
     :dataset="{ borderWidth: 0 }"
     :download="{ background: '#fff' }"
     :stacked="stacked"
-    legend="bottom"
+    :legend="legend"
+    :messages="{ empty: 'No data' }"
   ></bar-chart>
 </template>
 
@@ -23,6 +24,10 @@ export default {
     stacked: {
       type: Boolean,
       default: false
+    },
+    legend: {
+      type: [Boolean, String],
+      default: 'bottom'
     }
   }
 }

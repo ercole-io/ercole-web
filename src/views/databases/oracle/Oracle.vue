@@ -57,7 +57,12 @@
 
     <div class="columns">
       <div class="column is-3">
-        <BarChart chartId="barChart" :barChartData="barData" stacked />
+        <BarChart
+          chartId="barChart"
+          :barChartData="getChartData"
+          :legend="false"
+          stacked
+        />
       </div>
       <div class="column is-9">
         <FullTable
@@ -112,7 +117,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -147,53 +152,7 @@ export default {
           ]
         }
       },
-      data: [],
-      barData: [
-        {
-          name: 'Series A',
-          data: [
-            ['Type 1', 32],
-            ['Type 2', 46],
-            ['Type 3', 28],
-            ['Type 4', 21],
-            ['Type 5', 20],
-            ['Type 6', 13]
-          ]
-        },
-        {
-          name: 'Series B',
-          data: [
-            ['Type 1', 32],
-            ['Type 2', 46],
-            ['Type 3', 28],
-            ['Type 4', 21],
-            ['Type 5', 20],
-            ['Type 6', 13]
-          ]
-        },
-        {
-          name: 'Series C',
-          data: [
-            ['Type 1', 32],
-            ['Type 2', 46],
-            ['Type 3', 28],
-            ['Type 4', 21],
-            ['Type 5', 20],
-            ['Type 6', 13]
-          ]
-        },
-        {
-          name: 'Series D',
-          data: [
-            ['Type 1', 32],
-            ['Type 2', 46],
-            ['Type 3', 28],
-            ['Type 4', 21],
-            ['Type 5', 20],
-            ['Type 6', 13]
-          ]
-        }
-      ]
+      data: []
     }
   },
   async beforeMount() {
@@ -209,7 +168,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['oracle'])
+    ...mapState(['oracle']),
+    ...mapGetters(['getChartData'])
   }
 }
 </script>
