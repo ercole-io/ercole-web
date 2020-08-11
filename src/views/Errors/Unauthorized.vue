@@ -4,21 +4,18 @@
     codeText="Unauthorized"
     codeDesc="Your token has expired. Please login again."
   >
-    <b-button
-      type="is-primary"
-      @click="$store.dispatch('logout')"
-      slot="actions"
-      >go to Login</b-button
-    >
+    <LoginForm slot="actions" />
   </ErrorCode>
 </template>
 
 <script>
 import ErrorCode from '@/components/common/ErrorCode.vue'
+import LoginForm from '@/components/login/form.vue'
 
 export default {
   components: {
-    ErrorCode
+    ErrorCode,
+    LoginForm
   }
 }
 </script>
