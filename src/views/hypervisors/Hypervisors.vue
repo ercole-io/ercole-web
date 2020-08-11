@@ -56,7 +56,7 @@
 
             <template slot="bodyData" slot-scope="rowData">
               <td>{{ rowData.scope.name }}</td>
-              <td>{{ getTechType(rowData.scope.type) }}</td>
+              <td>{{ getTechTypePrettyName(rowData.scope.type) }}</td>
               <td>{{ rowData.scope.cpu }}</td>
               <td>{{ rowData.scope.sockets }}</td>
               <td>{{ rowData.scope.virtualizationNodes }}</td>
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import techTypePrettyName from '@/mixins/techTypePrettyName.js'
 import { mapActions, mapState, mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
@@ -85,6 +85,7 @@ import exportButton from '@/components/common/exportButton.vue'
 import ColumnChart from '@/components/common/charts/ColumnChart.vue'
 
 export default {
+  mixins: [techTypePrettyName],
   components: {
     BoxContent,
     FullTable,
@@ -116,17 +117,6 @@ export default {
   },
   methods: {
     ...mapActions(['getClusters']),
-    getTechType(value) {
-      let prettyTypeName = ''
-      _.find(this.getAllTechnologies, item => {
-        if (item.product === value) {
-          prettyTypeName = item.prettyName
-        } else {
-          prettyTypeName = value
-        }
-      })
-      return prettyTypeName
-    },
     handleClickedRow($event) {
       if ($event.length > 0) {
         const selectedRow = $event[0].name
@@ -139,11 +129,7 @@ export default {
   },
   computed: {
     ...mapState(['clusters']),
-    ...mapGetters([
-      'getErcoleClusterCount',
-      'getVirtualizationChartData',
-      'getAllTechnologies'
-    ])
+    ...mapGetters(['getErcoleClusterCount', 'getVirtualizationChartData'])
   }
 }
 </script>

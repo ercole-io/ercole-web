@@ -10,7 +10,7 @@
                   <p class="is-size-7 has-text-centered">
                     Type <br />
                     <span class="is-size-5 has-text-weight-medium">
-                      {{ clusters.currentCluster.type }}
+                      {{ getTechTypePrettyName(clusters.currentCluster.type) }}
                     </span>
                   </p>
                   <p class="is-size-7 has-text-centered">
@@ -88,6 +88,7 @@
 </template>
 
 <script>
+import techTypePrettyName from '@/mixins/techTypePrettyName.js'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters, mapState } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -96,6 +97,7 @@ import exportButton from '@/components/common/exportButton.vue'
 import BarChart from '@/components/common/charts/BarChart.vue'
 
 export default {
+  mixins: [techTypePrettyName],
   props: ['clustername'],
   components: {
     BoxContent,
