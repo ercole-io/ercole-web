@@ -55,13 +55,13 @@
             </template>
 
             <template slot="bodyData" slot-scope="rowData">
-              <td>{{ rowData.scope.name }}</td>
-              <td>{{ getTechTypePrettyName(rowData.scope.type) }}</td>
-              <td>{{ rowData.scope.cpu }}</td>
-              <td>{{ rowData.scope.sockets }}</td>
-              <td>{{ rowData.scope.virtualizationNodes }}</td>
-              <td>{{ rowData.scope.vmsCount }}</td>
-              <td>{{ rowData.scope.vmsErcoleAgentCount }}</td>
+              <TdContent :value="rowData.scope.name" />
+              <TdContent :value="getTechTypePrettyName(rowData.scope.type)" />
+              <TdContent :value="rowData.scope.cpu" />
+              <TdContent :value="rowData.scope.sockets" />
+              <TdContent :value="rowData.scope.virtualizationNodes" />
+              <TdContent :value="rowData.scope.vmsCount" />
+              <TdContent :value="rowData.scope.vmsErcoleAgentCount" />
             </template>
 
             <exportButton
@@ -83,6 +83,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import ColumnChart from '@/components/common/charts/ColumnChart.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
   mixins: [techTypePrettyName],
@@ -90,7 +91,8 @@ export default {
     BoxContent,
     FullTable,
     exportButton,
-    ColumnChart
+    ColumnChart,
+    TdContent
   },
   data() {
     return {

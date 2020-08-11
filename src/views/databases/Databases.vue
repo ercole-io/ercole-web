@@ -22,7 +22,7 @@
                 </span>
                 <br />
                 <span class="is-size-5 has-text-weight-medium">
-                  {{ databases.totalMemory | formatNumber('0.00') }} TB
+                  {{ databases.totalMemory | formatNumber('0.00', 'TB') }}
                 </span>
               </p>
             </div>
@@ -40,7 +40,7 @@
                 </span>
                 <br />
                 <span class="is-size-5 has-text-weight-medium">
-                  {{ databases.totalSegment | formatNumber('0.00') }} TB
+                  {{ databases.totalSegment | formatNumber('0.00', 'TB') }}
                 </span>
               </p>
               <p class="has-text-centered">
@@ -49,7 +49,7 @@
                 </span>
                 <br />
                 <span class="is-size-5 has-text-weight-medium">
-                  {{ databases.totalDatafile | formatNumber('0.00') }} TB
+                  {{ databases.totalDatafile | formatNumber('0.00', 'TB') }}
                 </span>
               </p>
             </div>
@@ -89,24 +89,20 @@
           </template>
 
           <template slot="bodyData" slot-scope="rowData">
-            <td>{{ rowData.scope.name }}</td>
-            <td>{{ rowData.scope.type }}</td>
-            <td>{{ rowData.scope.version }}</td>
-            <td>{{ rowData.scope.hostname }}</td>
-            <td>{{ rowData.scope.environment }}</td>
-            <td>{{ rowData.scope.charset }}</td>
-            <td>{{ rowData.scope.memory | formatNumber('0.00') }} GB</td>
-            <td>{{ rowData.scope.datafileSize }}</td>
-            <td>{{ rowData.scope.segmentsSize }}</td>
+            <TdContent :value="rowData.scope.name" />
+            <TdContent :value="rowData.scope.type" />
+            <TdContent :value="rowData.scope.version" />
+            <TdContent :value="rowData.scope.hostname" />
+            <TdContent :value="rowData.scope.environment" />
+            <TdContent :value="rowData.scope.charset" />
             <TdContent
-              :value="mapBooleanIcon(rowData.scope.archivelog)"
-              hasIcon
+              :value="rowData.scope.memory | formatNumber('0.00', 'GB')"
             />
-            <TdContent
-              :value="mapBooleanIcon(rowData.scope.dataguard)"
-              hasIcon
-            />
-            <TdContent :value="mapBooleanIcon(rowData.scope.ha)" hasIcon />
+            <TdContent :value="rowData.scope.datafileSize" />
+            <TdContent :value="rowData.scope.segmentsSize" />
+            <TdIcon :value="mapBooleanIcon(rowData.scope.archivelog)" />
+            <TdIcon :value="mapBooleanIcon(rowData.scope.dataguard)" />
+            <TdIcon :value="mapBooleanIcon(rowData.scope.ha)" />
           </template>
 
           <exportButton
@@ -126,13 +122,15 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import BarChart from '@/components/common/charts/BarChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import TdIcon from '@/components/common/Table/TDIcon.vue'
 
 export default {
   components: {
     FullTable,
     exportButton,
     BarChart,
-    TdContent
+    TdContent,
+    TdIcon
   },
   data() {
     return {

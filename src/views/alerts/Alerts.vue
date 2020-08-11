@@ -38,18 +38,12 @@
               Mark as Read
             </b-button>
           </td>
-          <td>{{ rowData.scope.alertCategory }}</td>
-          <td>{{ rowData.scope.date }}</td>
-          <td>
-            <b-icon
-              pack="fas"
-              :type="setIcon(rowData.scope.alertSeverity).iconType"
-              :icon="setIcon(rowData.scope.alertSeverity).icon"
-            />
-          </td>
-          <td>{{ rowData.scope.hostname }}</td>
-          <td>{{ rowData.scope.alertCode }}</td>
-          <td>{{ rowData.scope.description }}</td>
+          <TdContent :value="rowData.scope.alertCategory" />
+          <TdContent :value="rowData.scope.date" />
+          <TdIcon :value="resolveIcon(rowData.scope.alertSeverity)" />
+          <TdContent :value="rowData.scope.hostname" />
+          <TdContent :value="rowData.scope.alertCode" />
+          <TdContent :value="rowData.scope.description" />
         </template>
 
         <exportButton slot="export" url="alerts" expName="alerts-data" />
@@ -65,6 +59,8 @@ import paginationMixin from '@/mixins/paginationMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
+import TdIcon from '@/components/common/Table/TDIcon.vue'
 
 export default {
   mixins: [paginationMixin],
@@ -81,7 +77,9 @@ export default {
   components: {
     BoxContent,
     FullTable,
-    exportButton
+    exportButton,
+    TdContent,
+    TdIcon
   },
   data() {
     return {
@@ -127,6 +125,14 @@ export default {
     },
     setIcon(severity) {
       return checkAlertIcon(severity)
+    },
+    resolveIcon(value) {
+      return [
+        this.setIcon(value).icon,
+        'fas',
+        this.setIcon(value).iconType,
+        value
+      ]
     },
     handleMarkAsRead(id, flag, type) {
       this.markAsRead({ id, flag, type }).then(() => {

@@ -112,7 +112,7 @@
         <template slot="bodyData" slot-scope="rowData">
           <TdContent :value="rowData.scope.hostname" />
           <TdContent :value="rowData.scope.environment" />
-          <TdContent :value="rowData.scope.databases" isArray />
+          <TdArray :value="rowData.scope.databases" />
           <TdContent :value="rowData.scope.hosttype" />
           <TdContent
             :value="rowData.scope.platform"
@@ -127,11 +127,10 @@
             :value="rowData.scope.physicalhost"
             :class="{ hide: hideVirtual }"
           />
-          <TdContent
+          <TdIcon
             :value="rowData.scope.aixcluster"
             class="border-right"
             :class="{ hide: hideVirtual }"
-            hasIcon
           />
           <TdContent :value="rowData.scope.os" />
           <TdContent :value="rowData.scope.kernel" />
@@ -181,6 +180,8 @@ import paginationMixin from '@/mixins/paginationMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import TdIcon from '@/components/common/Table/TDIcon.vue'
+import TdArray from '@/components/common/Table/TdArray.vue'
 import exportButton from '@/components/common/exportButton.vue'
 
 export default {
@@ -189,6 +190,8 @@ export default {
     BoxContent,
     FullTable,
     TdContent,
+    TdIcon,
+    TdArray,
     exportButton
   },
   data() {

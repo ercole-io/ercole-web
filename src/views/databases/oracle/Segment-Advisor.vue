@@ -20,16 +20,18 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <td>{{ rowData.scope.reclaimable | formatNumber('0.00') }} GB</td>
-        <td>{{ rowData.scope.gbTotal }}</td>
-        <td>{{ rowData.scope.retrieve }}</td>
-        <td>{{ rowData.scope.hostname }}</td>
-        <td>{{ rowData.scope.dbname }}</td>
-        <td>{{ rowData.scope.segmentOwner }}</td>
-        <td>{{ rowData.scope.segmentName }}</td>
-        <td>{{ rowData.scope.segmentType }}</td>
-        <td>{{ rowData.scope.partitionName }}</td>
-        <td>{{ rowData.scope.recommendation }}</td>
+        <TdContent
+          :value="rowData.scope.reclaimable | formatNumber('0.00', 'GB')"
+        />
+        <TdContent :value="rowData.scope.gbTotal" />
+        <TdContent :value="rowData.scope.retrieve" />
+        <TdContent :value="rowData.scope.hostname" />
+        <TdContent :value="rowData.scope.dbname" />
+        <TdContent :value="rowData.scope.segmentOwner" />
+        <TdContent :value="rowData.scope.segmentName" />
+        <TdContent :value="rowData.scope.segmentType" />
+        <TdContent :value="rowData.scope.partitionName" />
+        <TdContent :value="rowData.scope.recommendation" />
       </template>
 
       <exportButton
@@ -45,11 +47,13 @@
 import { mapActions, mapState } from 'vuex'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
   components: {
     FullTable,
-    exportButton
+    exportButton,
+    TdContent
   },
   data() {
     return {

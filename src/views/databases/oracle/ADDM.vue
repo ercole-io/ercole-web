@@ -16,12 +16,12 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <td>{{ rowData.scope.benefit }}</td>
-        <td>{{ rowData.scope.hostname }}</td>
-        <td>{{ rowData.scope.dbname }}</td>
-        <td>{{ rowData.scope.finding }}</td>
-        <td>{{ rowData.scope.recommendation }}</td>
-        <td>{{ rowData.scope.action }}</td>
+        <TdContent :value="rowData.scope.benefit" />
+        <TdContent :value="rowData.scope.hostname" />
+        <TdContent :value="rowData.scope.dbname" />
+        <TdContent :value="rowData.scope.finding" />
+        <TdContent :value="rowData.scope.recommendation" />
+        <TdContent :value="rowData.scope.action" />
       </template>
 
       <exportButton
@@ -37,11 +37,13 @@
 import { mapActions, mapState } from 'vuex'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
   components: {
     FullTable,
-    exportButton
+    exportButton,
+    TdContent
   },
   data() {
     return {
