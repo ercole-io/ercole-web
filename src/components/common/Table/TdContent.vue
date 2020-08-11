@@ -18,8 +18,7 @@
         :type="value[2]"
         v-tooltip="options(value[3])"
         style="vertical-align: middle;"
-      >
-      </b-icon>
+      />
     </template>
   </td>
 </template>
@@ -44,7 +43,8 @@ export default {
     options(val) {
       return {
         content: val !== '-' ? val : null,
-        classes: ['info']
+        classes: ['info'],
+        hideOnTargetClick: true
       }
     }
   }

@@ -56,7 +56,7 @@
 
             <template slot="bodyData" slot-scope="rowData">
               <td>{{ rowData.scope.name }}</td>
-              <td>{{ rowData.scope.type }}</td>
+              <td>{{ getTechType(rowData.scope.type) }}</td>
               <td>{{ rowData.scope.cpu }}</td>
               <td>{{ rowData.scope.sockets }}</td>
               <td>{{ rowData.scope.virtualizationNodes }}</td>
@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapActions, mapState, mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
@@ -115,6 +116,17 @@ export default {
   },
   methods: {
     ...mapActions(['getClusters']),
+    getTechType(value) {
+      let prettyTypeName = ''
+      _.find(this.getAllTechnologies, item => {
+        if (item.product === value) {
+          prettyTypeName = item.prettyName
+        } else {
+          prettyTypeName = value
+        }
+      })
+      return prettyTypeName
+    },
     handleClickedRow($event) {
       if ($event.length > 0) {
         const selectedRow = $event[0].name
@@ -127,7 +139,11 @@ export default {
   },
   computed: {
     ...mapState(['clusters']),
-    ...mapGetters(['getErcoleClusterCount', 'getVirtualizationChartData'])
+    ...mapGetters([
+      'getErcoleClusterCount',
+      'getVirtualizationChartData',
+      'getAllTechnologies'
+    ])
   }
 }
 </script>
