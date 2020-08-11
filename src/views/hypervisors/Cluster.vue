@@ -69,10 +69,10 @@
             </template>
 
             <template slot="bodyData" slot-scope="rowData">
-              <td>{{ rowData.scope.virtualizationNode }}</td>
-              <td>{{ rowData.scope.hostname }}</td>
-              <td>{{ rowData.scope.name }}</td>
-              <td>{{ rowData.scope.cappedCPU }}</td>
+              <TdContent :value="rowData.scope.virtualizationNode" />
+              <TdContent :value="rowData.scope.hostname" />
+              <TdContent :value="rowData.scope.name" />
+              <TdContent :value="rowData.scope.cappedCPU" />
             </template>
 
             <exportButton
@@ -95,6 +95,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import BarChart from '@/components/common/charts/BarChart.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
   mixins: [techTypePrettyName],
@@ -103,7 +104,8 @@ export default {
     BoxContent,
     FullTable,
     exportButton,
-    BarChart
+    BarChart,
+    TdContent
   },
   data() {
     return {

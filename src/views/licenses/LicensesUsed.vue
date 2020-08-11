@@ -15,10 +15,10 @@
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
-          <td>{{ rowData.scope.hostname }}</td>
-          <td>{{ rowData.scope.dbName }}</td>
-          <td>{{ rowData.scope.licenseName }}</td>
-          <td>{{ rowData.scope.usedLicenses }}</td>
+          <TdContent :value="rowData.scope.hostname" />
+          <TdContent :value="rowData.scope.dbName" />
+          <TdContent :value="rowData.scope.licenseName" />
+          <TdContent :value="rowData.scope.usedLicenses" />
         </template>
 
         <exportButton
@@ -37,13 +37,15 @@ import paginationMixin from '@/mixins/paginationMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
   mixins: [paginationMixin],
   components: {
     BoxContent,
     FullTable,
-    exportButton
+    exportButton,
+    TdContent
   },
   data() {
     return {

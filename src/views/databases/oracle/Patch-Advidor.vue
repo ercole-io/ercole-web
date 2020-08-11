@@ -18,14 +18,14 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <td>{{ rowData.scope.hostname }}</td>
-        <td>{{ rowData.scope.dbname }}</td>
-        <td>{{ rowData.scope.dbver }}</td>
-        <td>{{ rowData.scope.date | formatDate }}</td>
-        <td>{{ rowData.scope.description }}</td>
-        <td>{{ compareDates(rowData.scope.date) }}</td>
-        <td>{{ compareDates(rowData.scope.date) }}</td>
-        <td>{{ compareDates(rowData.scope.date) }}</td>
+        <TdContent :value="rowData.scope.hostname" />
+        <TdContent :value="rowData.scope.dbname" />
+        <TdContent :value="rowData.scope.dbver" />
+        <TdContent :value="rowData.scope.date | formatDate" />
+        <TdContent :value="rowData.scope.description" />
+        <TdContent :value="compareDates(rowData.scope.date)" />
+        <TdContent :value="compareDates(rowData.scope.date)" />
+        <TdContent :value="compareDates(rowData.scope.date)" />
       </template>
 
       <exportButton
@@ -42,11 +42,13 @@ import { mapActions, mapState } from 'vuex'
 import moment from 'moment'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
   components: {
     FullTable,
-    exportButton
+    exportButton,
+    TdContent
   },
   data() {
     return {

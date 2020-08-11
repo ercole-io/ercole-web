@@ -1,6 +1,12 @@
 <template>
-  <td v-tooltip="options(value)">
-    {{ value }}
+  <td v-tooltip="options(value[3])">
+    <b-icon
+      size="is-small"
+      :pack="value[1]"
+      :icon="value[0]"
+      :type="value[2]"
+      style="vertical-align: middle;"
+    />
   </td>
 </template>
 
