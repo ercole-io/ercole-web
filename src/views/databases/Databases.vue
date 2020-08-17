@@ -96,7 +96,7 @@
             <TdContent :value="rowData.scope.environment" />
             <TdContent :value="rowData.scope.charset" />
             <TdContent
-              :value="rowData.scope.memory | formatNumber('0.00', 'GB')"
+              :value="rowData.scope.memory | formatNumber('0.00', 'TB')"
             />
             <TdContent :value="rowData.scope.datafileSize" />
             <TdContent :value="rowData.scope.segmentsSize" />
