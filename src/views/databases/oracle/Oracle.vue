@@ -59,7 +59,7 @@
       <div class="column is-3">
         <BarChart
           chartId="barChart"
-          :barChartData="getChartData"
+          :barChartData="getOracleChartData"
           :legend="false"
           stacked
         />
@@ -167,7 +167,7 @@ export default {
   },
   computed: {
     ...mapState(['oracle']),
-    ...mapGetters(['getChartData'])
+    ...mapGetters(['getOracleChartData'])
   }
 }
 </script>
