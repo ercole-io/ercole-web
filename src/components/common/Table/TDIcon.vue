@@ -1,10 +1,10 @@
 <template>
-  <td v-tooltip="options(value[3])">
+  <td v-tooltip="tooltip">
     <b-icon
       size="is-small"
-      :pack="value[1]"
-      :icon="value[0]"
-      :type="value[2]"
+      :pack="pack"
+      :icon="icon"
+      :type="type"
       style="vertical-align: middle;"
     />
   </td>
@@ -14,7 +14,21 @@
 import TableTdTooltip from '@/mixins/tableTdTooltip.js'
 
 export default {
-  mixins: [TableTdTooltip]
+  mixins: [TableTdTooltip],
+  computed: {
+    tooltip() {
+      return this.options(this.value[3])
+    },
+    pack() {
+      return this.value[1]
+    },
+    icon() {
+      return this.value[0]
+    },
+    type() {
+      return this.value[2]
+    }
+  }
 }
 </script>
 
