@@ -1,7 +1,7 @@
 <template>
   <div>
-    Showing {{ totalItems > perPage ? perPage : totalItems }} hosts from
-    {{ totalItems }}
+    Showing {{ totalItems > perPage ? perPage : totalItems }} of
+    {{ totalItems }} items
   </div>
 </template>
 
