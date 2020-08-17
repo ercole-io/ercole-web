@@ -164,7 +164,7 @@ export default {
     ...mapActions(['getDatabases']),
     mapBooleanIcon(value) {
       return value
-        ? ['check-circle', 'fas', 'is-success', 'yes']
+        ? ['circle', 'fas', 'is-success', 'yes']
         : ['circle', 'fas', 'is-danger', 'no']
     }
   },
