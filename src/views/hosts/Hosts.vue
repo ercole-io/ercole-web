@@ -84,7 +84,7 @@
             >Physical</v-th
           >
           <v-th
-            sortKey="aixcluster"
+            sortKey="iconCluster"
             class="border-right"
             :class="{ hide: hideVirtual }"
             >Clust</v-th
@@ -128,7 +128,7 @@
             :class="{ hide: hideVirtual }"
           />
           <TdIcon
-            :value="rowData.scope.aixcluster"
+            :value="rowData.scope.iconCluster"
             class="border-right"
             :class="{ hide: hideVirtual }"
           />
@@ -211,7 +211,7 @@ export default {
             'kernel',
             'memorytotal',
             'swaptotal',
-            'aixcluster',
+            'iconCluster',
             'model',
             'threads',
             'cores',
@@ -221,7 +221,7 @@ export default {
           ]
         }
       },
-      hideVirtual: true,
+      hideVirtual: false,
       hideCPU: true,
       hideAgent: true,
       data: []
@@ -247,8 +247,8 @@ export default {
           os: host.info.os || '-',
           kernel: host.info.kernel || '-',
           memorytotal: host.info.memoryTotal || '-',
-          swaptotal: host.info.SwapTotal || '-',
-          aixcluster: this.mapBooleanIcon(host.clusters),
+          swaptotal: host.info.swapTotal || '-',
+          iconCluster: this.mapBooleanIcon(host.cluster),
           model: host.info.cpuModel || '-',
           threads: host.info.cpuThreads || '-',
           cores: host.info.cpuCores || '-',
@@ -274,9 +274,9 @@ export default {
       }
     },
     mapBooleanIcon(value) {
-      return value
-        ? ['check-circle', 'fas', 'is-success', 'yes']
-        : ['circle', 'fas', 'is-danger', 'no']
+      const yesValue = ['circle', 'fas', 'is-success', 'yes']
+      const noValue = ['circle', 'fas', 'is-danger', 'no']
+      return value ? yesValue : noValue
     },
     handleClickedRow($event) {
       if ($event.length > 0) {
