@@ -34,7 +34,7 @@
                 }"
                 :space="{
                   allocable: dbs.allocated,
-                  dataFileSize: dbs.dataFileSize,
+                  dataFileSize: dbs.datafileSize,
                   segmentSize: dbs.segmentsSize
                 }"
                 :infos="{
