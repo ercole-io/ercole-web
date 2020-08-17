@@ -42,9 +42,9 @@
                 !hideVirtual || !hideCPU || !hideAgent
             }"
           >
-            <th colspan="4"></th>
+            <th colspan="5"></th>
             <th
-              colspan="4"
+              colspan="3"
               class="has-text-centered border-left border-right"
               :class="{ hide: hideVirtual }"
             >
@@ -73,6 +73,7 @@
           <v-th sortKey="environment">Env</v-th>
           <v-th sortKey="databases">DBs</v-th>
           <v-th sortKey="hosttype">Tech</v-th>
+          <v-th sortKey="iconCluster">Clust</v-th>
           <v-th
             sortKey="platform"
             class="border-left"
@@ -80,14 +81,11 @@
             >Platform</v-th
           >
           <v-th sortKey="cluster" :class="{ hide: hideVirtual }">Cluster</v-th>
-          <v-th sortKey="physicalhost" :class="{ hide: hideVirtual }"
-            >Physical</v-th
-          >
           <v-th
-            sortKey="iconCluster"
-            class="border-right"
+            sortKey="physicalhost"
             :class="{ hide: hideVirtual }"
-            >Clust</v-th
+            class="border-right"
+            >Physical</v-th
           >
           <v-th sortKey="os">OS</v-th>
           <v-th sortKey="kernel">kernel</v-th>
@@ -114,6 +112,7 @@
           <TdContent :value="rowData.scope.environment" />
           <TdArray :value="rowData.scope.databases" />
           <TdContent :value="rowData.scope.hosttype" />
+          <TdIcon :value="rowData.scope.iconCluster" />
           <TdContent
             :value="rowData.scope.platform"
             class="border-left"
@@ -125,10 +124,6 @@
           />
           <TdContent
             :value="rowData.scope.physicalhost"
-            :class="{ hide: hideVirtual }"
-          />
-          <TdIcon
-            :value="rowData.scope.iconCluster"
             class="border-right"
             :class="{ hide: hideVirtual }"
           />
@@ -221,7 +216,7 @@ export default {
           ]
         }
       },
-      hideVirtual: false,
+      hideVirtual: true,
       hideCPU: true,
       hideAgent: true,
       data: []
