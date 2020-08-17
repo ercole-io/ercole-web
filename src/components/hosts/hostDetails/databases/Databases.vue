@@ -29,7 +29,7 @@
                 :resource="{
                   dbTime: dbs.dbTime,
                   elapsed: dbs.elapsed,
-                  threadUsed: dbs.used,
+                  threadUsed: dbs.work,
                   cpuCount: dbs.cpuCount
                 }"
                 :space="{
