@@ -18,14 +18,14 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.hostname" />
-        <TdContent :value="rowData.scope.dbname" />
-        <TdContent :value="rowData.scope.dbver" />
+        <TdContent :value="rowData.scope.hostname || '-'" />
+        <TdContent :value="rowData.scope.dbname || '-'" />
+        <TdContent :value="rowData.scope.dbver || '-'" />
         <TdContent :value="rowData.scope.date | formatDate" />
-        <TdContent :value="rowData.scope.description" />
-        <TdContent :value="compareDates(rowData.scope.date)" />
-        <TdContent :value="compareDates(rowData.scope.date)" />
-        <TdContent :value="compareDates(rowData.scope.date)" />
+        <TdContent :value="rowData.scope.description || '-'" />
+        <TdIcon :value="compareDates(rowData.scope.createdAt)" />
+        <TdIcon :value="compareDates(rowData.scope.createdAt)" />
+        <TdIcon :value="compareDates(rowData.scope.createdAt)" />
       </template>
 
       <exportButton
@@ -43,12 +43,14 @@ import moment from 'moment'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import TdIcon from '@/components/common/Table/TDIcon.vue'
 
 export default {
   components: {
     FullTable,
     exportButton,
-    TdContent
+    TdContent,
+    TdIcon
   },
   data() {
     return {
@@ -77,9 +79,11 @@ export default {
   methods: {
     ...mapActions(['getPatchAdvisor']),
     compareDates(date) {
-      const actualDate = moment.utc().format()
-      const formatDate = moment.utc(date).format()
-      return formatDate < actualDate ? 'KO' : 'OK'
+      const actualDate = moment().format()
+      const dateFormated = moment(date).format()
+      return actualDate > dateFormated
+        ? ['circle', 'fas', 'is-danger', 'KO']
+        : ['circle', 'fas', 'is-success', 'OK']
     }
   },
   computed: {
