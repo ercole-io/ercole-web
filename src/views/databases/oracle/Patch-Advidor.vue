@@ -18,11 +18,11 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.hostname || '-'" />
-        <TdContent :value="rowData.scope.dbname || '-'" />
-        <TdContent :value="rowData.scope.dbver || '-'" />
+        <TdContent :value="rowData.scope.hostname" />
+        <TdContent :value="rowData.scope.dbname" />
+        <TdContent :value="rowData.scope.dbver" />
         <TdContent :value="rowData.scope.date | formatDate" />
-        <TdContent :value="rowData.scope.description || '-'" />
+        <TdContent :value="rowData.scope.description" />
         <TdIcon :value="compareDates(rowData.scope.createdAt)" />
         <TdIcon :value="compareDates(rowData.scope.createdAt)" />
         <TdIcon :value="compareDates(rowData.scope.createdAt)" />
