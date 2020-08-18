@@ -1,7 +1,7 @@
 <template>
-  <p class="no-content is-size-7 has-text-weight-medium">
+  <span class="no-content is-size-7 has-text-weight-medium">
     {{ noContentText }}
-  </p>
+  </span>
 </template>
 
 <script>
