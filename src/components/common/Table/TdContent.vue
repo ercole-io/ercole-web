@@ -1,6 +1,6 @@
 <template>
   <td v-tooltip="options(value)">
-    {{ value }}
+    {{ value ? value : '-' }}
   </td>
 </template>
 
