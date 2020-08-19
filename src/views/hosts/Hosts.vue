@@ -112,7 +112,7 @@
           <TdContent :value="rowData.scope.environment" />
           <TdArray :value="rowData.scope.databases" />
           <TdContent :value="rowData.scope.hosttype" />
-          <TdIcon :value="rowData.scope.iconCluster" />
+          <TdIcon :value="mapBooleanIcon(rowData.scope.iconCluster)" />
           <TdContent
             :value="rowData.scope.platform"
             class="border-left"
@@ -243,7 +243,7 @@ export default {
           kernel: host.info.kernel || '-',
           memorytotal: host.info.memoryTotal || '-',
           swaptotal: host.info.swapTotal || '-',
-          iconCluster: this.mapBooleanIcon(host.cluster),
+          iconCluster: host.cluster,
           model: host.info.cpuModel || '-',
           threads: host.info.cpuThreads || '-',
           cores: host.info.cpuCores || '-',
@@ -269,7 +269,7 @@ export default {
       }
     },
     mapBooleanIcon(value) {
-      const yesValue = ['circle', 'fas', 'is-success', 'yes']
+      const yesValue = ['check-circle', 'fas', 'is-success', 'yes']
       const noValue = ['circle', 'fas', 'is-danger', 'no']
       return value ? yesValue : noValue
     },
