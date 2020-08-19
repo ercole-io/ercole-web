@@ -21,11 +21,11 @@
         <TdContent :value="rowData.scope.hostname" />
         <TdContent :value="rowData.scope.dbname" />
         <TdContent :value="rowData.scope.dbver" />
-        <TdContent :value="rowData.scope.date | formatDate" />
+        <TdContent :value="rowData.scope.createdAt | formatDate" />
         <TdContent :value="rowData.scope.description" />
-        <TdIcon :value="compareDates(rowData.scope.createdAt)" />
-        <TdIcon :value="compareDates(rowData.scope.createdAt)" />
-        <TdIcon :value="compareDates(rowData.scope.createdAt)" />
+        <TdIcon :value="dateBetweenMonthRange(rowData.scope.createdAt, 4)" />
+        <TdIcon :value="dateBetweenMonthRange(rowData.scope.createdAt, 6)" />
+        <TdIcon :value="dateBetweenMonthRange(rowData.scope.createdAt, 12)" />
       </template>
 
       <exportButton
@@ -78,12 +78,16 @@ export default {
   },
   methods: {
     ...mapActions(['getPatchAdvisor']),
-    compareDates(date) {
-      const actualDate = moment().format()
-      const dateFormated = moment(date).format()
-      return actualDate > dateFormated
-        ? ['circle', 'fas', 'is-danger', 'KO']
-        : ['circle', 'fas', 'is-success', 'OK']
+    dateBetweenMonthRange(date, month) {
+      const startDate = moment()
+        .subtract(month, 'month')
+        .format('YYYY-MM-DD')
+      const endDate = moment().format('YYYY-MM-DD')
+      const dateToCheck = moment(date).format('YYYY-MM-DD')
+
+      return moment(dateToCheck).isBetween(startDate, endDate)
+        ? ['circle', 'fas', 'is-success', 'yes']
+        : ['circle', 'fas', 'is-danger', 'no']
     }
   },
   computed: {
