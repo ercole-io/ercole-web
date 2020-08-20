@@ -2,6 +2,26 @@ import axiosDefault from '../../axios/axios-default'
 import axiosNoLoading from '../../axios/axios-no-loading.js'
 import _ from 'lodash'
 
+const mountChart = (prop, chartName, data) => {
+  const finalChartData = []
+
+  const groupByProp = _.groupBy(data, prop)
+  const propData = []
+
+  _.map(groupByProp, (value, key) => {
+    propData.push({ name: key, value: value.length })
+  })
+
+  _.map(propData, item => {
+    finalChartData.push({
+      name: item.name,
+      data: [[chartName, item.value]]
+    })
+  })
+
+  return finalChartData
+}
+
 export const state = () => ({
   databases: [],
   totalMemory: 0,
@@ -13,70 +33,20 @@ export const getters = {
   getTotalCpu: state => {
     return _.sumBy(state.databases, 'cpuCount')
   },
-  getChartData: state => {
-    const finalChartData = []
-
-    const dbType = _.groupBy(state.databases, 'type')
-    const dbTypeData = []
-    _.map(dbType, (value, key) => {
-      dbTypeData.push({ name: key, value: value.length })
-    })
-    _.map(dbTypeData, item => {
-      finalChartData.push({
-        name: item.name,
-        data: [['Type Of Databases', item.value]]
-      })
-    })
-
-    const envType = _.groupBy(state.databases, 'environment')
-    const envTypeData = []
-    _.map(envType, (value, key) => {
-      envTypeData.push({ name: key, value: value.length })
-    })
-    _.map(envTypeData, item => {
-      finalChartData.push({
-        name: item.name,
-        data: [['Type Of Environment', item.value]]
-      })
-    })
-
-    const archiveLog = _.groupBy(state.databases, 'archivelog')
-    const archiveLogData = []
-    _.map(archiveLog, (value, key) => {
-      archiveLogData.push({ name: key, value: value.length })
-    })
-    _.map(archiveLogData, item => {
-      finalChartData.push({
-        name: item.name,
-        data: [['Archivelog Mode', item.value]]
-      })
-    })
-
-    const dataguard = _.groupBy(state.databases, 'dataguard')
-    const dataguardData = []
-    _.map(dataguard, (value, key) => {
-      dataguardData.push({ name: key, value: value.length })
-    })
-    _.map(dataguardData, item => {
-      finalChartData.push({
-        name: item.name,
-        data: [['Disaster Recovery', item.value]]
-      })
-    })
-
-    const ha = _.groupBy(state.databases, 'ha')
-    const haData = []
-    _.map(ha, (value, key) => {
-      haData.push({ name: key, value: value.length })
-    })
-    _.map(haData, item => {
-      finalChartData.push({
-        name: item.name,
-        data: [['High Reliability', item.value]]
-      })
-    })
-
-    return finalChartData
+  getDatabasesTypeChartData: state => {
+    return mountChart('type', 'Type Of Databases', state.databases)
+  },
+  getEnvironmentTypeChartData: state => {
+    return mountChart('environment', 'Type Of Environment', state.databases)
+  },
+  getArchivelogChartData: state => {
+    return mountChart('archivelog', 'Archivelog Mode', state.databases)
+  },
+  getDataguardChartData: state => {
+    return mountChart('dataguard', 'Disaster Recovery', state.databases)
+  },
+  getHighReliabilityChartData: state => {
+    return mountChart('ha', 'High Reliability', state.databases)
   }
 }
 

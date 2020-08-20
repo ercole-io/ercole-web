@@ -57,12 +57,62 @@
         </div>
         <div class="columns">
           <div class="column is-12">
-            <BarChart
-              chartId="barChart"
-              :barChartData="getChartData"
-              :legend="false"
-              stacked
-            />
+            <Collapse title="Type Of Databases" id="TypeOfDatabases">
+              <BarChart
+                chartId="databasesType"
+                :barChartData="getDatabasesTypeChartData"
+                :legend="false"
+                stacked
+              />
+            </Collapse>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-12">
+            <Collapse title="Type Of Environment" id="TypeOfEnvironment">
+              <BarChart
+                chartId="environmentType"
+                :barChartData="getEnvironmentTypeChartData"
+                :legend="false"
+                stacked
+              />
+            </Collapse>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-12">
+            <Collapse title="Archivelog Mode" id="ArchivelogMode">
+              <BarChart
+                chartId="archivelog"
+                :barChartData="getArchivelogChartData"
+                :legend="false"
+                stacked
+              />
+            </Collapse>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-12">
+            <Collapse title="Disaster Recovery" id="DisasterRecovery">
+              <BarChart
+                chartId="dataguard"
+                :barChartData="getDataguardChartData"
+                :legend="false"
+                stacked
+              />
+            </Collapse>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-12">
+            <Collapse title="High Reliability" id="HighReliability">
+              <BarChart
+                chartId="highReliability"
+                :barChartData="getHighReliabilityChartData"
+                :legend="false"
+                stacked
+              />
+            </Collapse>
           </div>
         </div>
       </div>
@@ -123,6 +173,7 @@ import exportButton from '@/components/common/exportButton.vue'
 import BarChart from '@/components/common/charts/BarChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
+import Collapse from '@/components/common/Collapse.vue'
 
 export default {
   components: {
@@ -130,7 +181,8 @@ export default {
     exportButton,
     BarChart,
     TdContent,
-    TdIcon
+    TdIcon,
+    Collapse
   },
   data() {
     return {
@@ -170,7 +222,14 @@ export default {
   },
   computed: {
     ...mapState(['databases']),
-    ...mapGetters(['getTotalCpu', 'getChartData'])
+    ...mapGetters([
+      'getTotalCpu',
+      'getDatabasesTypeChartData',
+      'getEnvironmentTypeChartData',
+      'getArchivelogChartData',
+      'getDataguardChartData',
+      'getHighReliabilityChartData'
+    ])
   }
 }
 </script>
