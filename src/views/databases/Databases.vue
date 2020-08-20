@@ -57,7 +57,7 @@
         </div>
         <div class="columns">
           <div class="column is-12">
-            <Collapse title="Type Of Databases" id="TypeOfDatabases">
+            <Collapse title="Type Of Databases" id="TypeOfDatabases" isOpen>
               <BarChart
                 chartId="databasesType"
                 :barChartData="getDatabasesTypeChartData"

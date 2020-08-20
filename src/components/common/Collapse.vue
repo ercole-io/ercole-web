@@ -1,9 +1,14 @@
 <template>
-  <b-collapse class="card" animation="slide" :aria-id="id">
+  <b-collapse
+    class="card collapse-card"
+    animation="slide"
+    :aria-id="id"
+    :open="isOpen"
+  >
     <div
       slot="trigger"
       slot-scope="props"
-      class="card-header"
+      class="card-header collapse-header"
       role="button"
       :aria-controls="id"
     >
@@ -30,12 +35,24 @@ export default {
     },
     id: {
       type: String
+    },
+    isOpen: {
+      type: Boolean,
+      default: false
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.collapse-card {
+  box-shadow: none;
+}
+
+.collapse-header {
+  background-color: #ededed;
+}
+
 .collapse-title {
   margin-bottom: 0 !important;
   font-size: 0.8em;
