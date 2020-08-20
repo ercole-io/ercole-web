@@ -82,7 +82,9 @@ export default {
       const startDate = moment()
         .subtract(month, 'month')
         .format('YYYY-MM-DD')
-      const endDate = moment().format('YYYY-MM-DD')
+      const endDate = moment()
+        .add(1, 'days')
+        .format('YYYY-MM-DD')
       const dateToCheck = moment(date).format('YYYY-MM-DD')
 
       return moment(dateToCheck).isBetween(startDate, endDate)
