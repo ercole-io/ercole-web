@@ -57,12 +57,54 @@
 
     <div class="columns">
       <div class="column is-3">
-        <BarChart
-          chartId="barChart"
-          :barChartData="getOracleChartData"
-          :legend="false"
-          stacked
-        />
+        <div class="columns">
+          <div class="column is-12">
+            <Collapse title="Type Of Environment" id="TypeOfEnvironment" isOpen>
+              <ColumnChart
+                chartId="environmentType"
+                :columnChartData="getEnvironmentTypeChartDataOracle"
+                :legend="false"
+                stacked
+              />
+            </Collapse>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-12">
+            <Collapse title="Archivelog Mode" id="ArchivelogMode">
+              <ColumnChart
+                chartId="archivelog"
+                :columnChartData="getArchivelogChartDataOracle"
+                :legend="false"
+                stacked
+              />
+            </Collapse>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-12">
+            <Collapse title="Disaster Recovery" id="DisasterRecovery">
+              <ColumnChart
+                chartId="dataguard"
+                :columnChartData="getDataguardChartDataOracle"
+                :legend="false"
+                stacked
+              />
+            </Collapse>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-12">
+            <Collapse title="High Reliability" id="HighReliability">
+              <ColumnChart
+                chartId="highReliability"
+                :columnChartData="getHighReliabilityChartDataOracle"
+                :legend="false"
+                stacked
+              />
+            </Collapse>
+          </div>
+        </div>
       </div>
       <div class="column is-9">
         <FullTable
@@ -117,18 +159,20 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
-import BarChart from '@/components/common/charts/BarChart.vue'
+import ColumnChart from '@/components/common/charts/ColumnChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
+import Collapse from '@/components/common/Collapse.vue'
 
 export default {
   components: {
     BoxContent,
     FullTable,
     exportButton,
-    BarChart,
+    ColumnChart,
     TdContent,
-    TdIcon
+    TdIcon,
+    Collapse
   },
   data() {
     return {
@@ -167,7 +211,12 @@ export default {
   },
   computed: {
     ...mapState(['oracle']),
-    ...mapGetters(['getOracleChartData'])
+    ...mapGetters([
+      'getEnvironmentTypeChartDataOracle',
+      'getArchivelogChartDataOracle',
+      'getDataguardChartDataOracle',
+      'getHighReliabilityChartDataOracle'
+    ])
   }
 }
 </script>
