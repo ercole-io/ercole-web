@@ -5,8 +5,10 @@
     :dataset="{ borderWidth: 0 }"
     :download="{ background: '#fff' }"
     :stacked="stacked"
+    :colors="colors"
     :legend="legend"
     :messages="{ empty: 'No data' }"
+    :style="{ height: chartHeight }"
   ></bar-chart>
 </template>
 
@@ -28,6 +30,13 @@ export default {
     legend: {
       type: [Boolean, String],
       default: 'bottom'
+    },
+    colors: {
+      type: Array
+    },
+    chartHeight: {
+      type: String,
+      default: '150px'
     }
   }
 }
