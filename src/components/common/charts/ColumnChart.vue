@@ -6,7 +6,9 @@
     :download="{ background: '#fff' }"
     :stacked="stacked"
     :colors="colors"
-    legend="bottom"
+    :legend="legend"
+    :messages="{ empty: 'No data' }"
+    :style="{ height: chartHeight }"
   />
 </template>
 
@@ -25,8 +27,16 @@ export default {
       type: Boolean,
       default: false
     },
+    legend: {
+      type: [Boolean, String],
+      default: 'bottom'
+    },
     colors: {
       type: Array
+    },
+    chartHeight: {
+      type: String,
+      default: '150px'
     }
   }
 }
