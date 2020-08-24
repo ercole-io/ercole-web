@@ -169,6 +169,7 @@
 
 <script>
 import _ from 'lodash'
+import { bus } from '@/helpers/eventBus.js'
 import formatDate from '@/filters/formatDate.js'
 import { mapGetters, mapActions } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
@@ -225,6 +226,14 @@ export default {
   async beforeMount() {
     await this.getHosts()
     await this.handleHosts()
+
+    bus.$on('hostDismissedMsg', value => {
+      this.$buefy.toast.open({
+        message: `The host ${value} was successfully dismissed!`,
+        type: 'is-success',
+        duration: 5000
+      })
+    })
   },
   methods: {
     ...mapActions(['getHosts']),
