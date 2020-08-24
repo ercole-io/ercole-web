@@ -6,7 +6,7 @@
 
     <boxContent>
       <div class="columns">
-        <div class="column is-10">
+        <div class="column is-9">
           <HostTags
             title="Host Tags:"
             inputWidth="150"
@@ -18,6 +18,11 @@
         </div>
         <div class="column is-2 has-text-right">
           <Filesys :filesys="filesys" />
+        </div>
+        <div class="column is-1 has-text-right">
+          <b-button type="is-danger is-small" @click="deleteHost(hostname)">
+            Dismiss
+          </b-button>
         </div>
       </div>
     </boxContent>
@@ -56,6 +61,7 @@ import HostGraph from '@/components/hosts/hostDetails/Graph.vue'
 import HostDatabases from '@/components/hosts/hostDetails/databases/Databases.vue'
 import noContent from '@/components/common/NoContent.vue'
 import Filesys from '@/components/hosts/hostDetails/Filesys.vue'
+import axiosDefault from '@/axios/axios-default.js'
 
 export default {
   props: {
@@ -137,6 +143,21 @@ export default {
           val =>
             val.alertCode !== 'NEW_LICENSE' && val.alertCode !== 'NEW_DATABASE'
         ).length
+      })
+    },
+    deleteHost(hostname) {
+      this.$buefy.dialog.confirm({
+        title: 'Dismissing Host',
+        message: `Are you sure you want to <b>dismiss</b> the host <b>${hostname}</b>? This action cannot be undone.`,
+        confirmText: 'Dismiss Host',
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: () => {
+          axiosDefault.delete(`/hosts/${hostname}`).then(() => {
+            this.$router.push({ name: 'hosts' })
+            bus.$emit('hostDismissedMsg', hostname)
+          })
+        }
       })
     },
     handleAddTag(value) {
