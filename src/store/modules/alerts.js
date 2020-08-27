@@ -8,10 +8,6 @@ export const state = () => ({
 })
 
 export const getters = {
-  getFilteredAgents: state => (type, flag) => {
-    const agents = state.alerts[flag]
-    return _.filter(agents, ['alertCode', type])
-  },
   getAllAlerts: state => {
     const agents = state.alerts.AGENT
 
@@ -25,9 +21,25 @@ export const getters = {
 
     return _.orderBy(all, ['date'], ['asc'])
   },
+  getFilteredAgents: state => (type, flag) => {
+    const agents = state.alerts[flag]
+    return _.filter(agents, ['alertCode', type])
+  },
+  getFilteredAgentsByHost: state => (host, flag) => {
+    const agentsByHost = state.alerts[flag]
+    return _.filter(agentsByHost, ['hostname', host])
+  },
   getFilteredAlerts: state => (type, flag) => {
     const alerts = state.alerts[flag][type]
     return _.filter(alerts, ['alertSeverity', type])
+  },
+  getFilteredAlertsByHost: state => (host, flag) => {
+    const alertsByHost = _.concat(
+      state.alerts[flag].WARNING || [],
+      state.alerts[flag].CRITICAL || [],
+      state.alerts[flag].INFO || []
+    )
+    return _.filter(alertsByHost, ['hostname', host])
   },
   getFirstAlertByFlag: state => flag => {
     const alert = state.alerts[flag]

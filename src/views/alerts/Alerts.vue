@@ -102,10 +102,18 @@ export default {
   async beforeMount() {
     if (!this.type && !this.flag) {
       await this.fetchAlerts()
-    } else if (this.flag === 'AGENT') {
+    } else if (this.type === 'NO_DATA') {
       this.showFilteredAgents()
-    } else {
+    } else if (
+      this.type === 'INFO' ||
+      this.type === 'WARNING' ||
+      this.type === 'CRITICAL'
+    ) {
       this.showFilteredAlerts()
+    } else if (this.type !== 'NO_DATA' && this.flag === 'AGENT') {
+      this.data = this.getFilteredAgentsByHost(this.type, this.flag)
+    } else if (this.type !== 'NO_DATA' && this.flag !== 'AGENT') {
+      this.data = this.getFilteredAlertsByHost(this.type, this.flag)
     }
   },
   methods: {
@@ -147,7 +155,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getAllAlerts', 'getFilteredAlerts', 'getFilteredAgents'])
+    ...mapGetters([
+      'getAllAlerts',
+      'getFilteredAlerts',
+      'getFilteredAgents',
+      'getFilteredAlertsByHost',
+      'getFilteredAgentsByHost'
+    ])
   }
 }
 </script>

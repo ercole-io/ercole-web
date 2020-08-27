@@ -63,6 +63,18 @@ import noContent from '@/components/common/NoContent.vue'
 import Filesys from '@/components/hosts/hostDetails/Filesys.vue'
 import axiosDefault from '@/axios/axios-default.js'
 
+const startDate = moment()
+  .subtract(1, 'week')
+  .format('YYYY-MM-DD')
+const endDate = moment()
+  .add(1, 'days')
+  .format('YYYY-MM-DD')
+
+const checkHostDate = date => {
+  const dateToCheck = moment(date).format('YYYY-MM-DD')
+  return moment(dateToCheck).isBetween(startDate, endDate)
+}
+
 export default {
   props: {
     hostname: {
@@ -136,13 +148,27 @@ export default {
     },
     hostNotificationInfo(host) {
       return (this.notificationInfo = {
-        total: host.length,
-        agents: host.filter(val => val.alertCode === 'NEW_DATABASE').length,
-        licenses: host.filter(val => val.alertCode === 'NEW_LICENSE').length,
-        systems: host.filter(
-          val =>
-            val.alertCode !== 'NEW_LICENSE' && val.alertCode !== 'NEW_DATABASE'
-        ).length
+        total: host.filter(val => {
+          if (checkHostDate(val.date)) {
+            return val
+          }
+        }).length,
+        agents: host.filter(val => {
+          if (checkHostDate(val.date)) {
+            return val.alertCategory === 'AGENT'
+          }
+        }).length,
+        licenses: host.filter(val => {
+          if (checkHostDate(val.date)) {
+            return val.alertCategory === 'LICENSE'
+          }
+        }).length,
+        engine: host.filter(val => {
+          if (checkHostDate(val.date)) {
+            return val.alertCategory === 'ENGINE'
+          }
+        }).length,
+        hostname: this.hostname
       })
     },
     deleteHost(hostname) {
