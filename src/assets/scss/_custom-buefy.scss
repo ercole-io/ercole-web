@@ -19,6 +19,10 @@
   overflow: hidden;
 }
 
+.b-tabs.is-vertical {
+  flex-wrap: inherit;
+}
+
 .b-tabs.is-vertical > .tabs ul li a {
   padding: 0.3em 1em 0.25em 1em;
 }
