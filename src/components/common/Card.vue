@@ -29,7 +29,7 @@ export default {
 }
 
 .card-content {
-  padding: 1rem;
+  padding: 0.5rem 0;
   font-size: 0.8em;
 }
 
