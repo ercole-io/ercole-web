@@ -21,10 +21,16 @@ export const capitalize = value => {
 
 export const checkAlertIcon = severity => {
   if (severity === 'INFO') {
-    return { iconType: 'is-info', icon: 'info-circle' }
+    return { iconType: 'is-info', icon: 'information' }
   } else if (severity === 'WARNING') {
-    return { iconType: 'is-warning', icon: 'exclamation-triangle' }
+    return { iconType: 'is-warning', icon: 'alert' }
   } else if (severity === 'CRITICAL') {
-    return { iconType: 'is-danger', icon: 'exclamation-circle' }
+    return { iconType: 'is-danger', icon: 'information' }
   }
+}
+
+export const mapBooleanIcon = value => {
+  const yesValue = ['check-circle', 'is-success', 'yes']
+  const noValue = ['minus-circle', 'is-danger', 'no']
+  return value ? yesValue : noValue
 }

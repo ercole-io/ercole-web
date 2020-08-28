@@ -88,8 +88,8 @@ export default {
       const dateToCheck = moment(date).format('YYYY-MM-DD')
 
       return moment(dateToCheck).isBetween(startDate, endDate)
-        ? ['circle', 'fas', 'is-success', 'yes']
-        : ['circle', 'fas', 'is-danger', 'no']
+        ? ['check-circle', 'is-success', 'yes']
+        : ['minus-circle', 'is-danger', 'no']
     }
   },
   computed: {
