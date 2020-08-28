@@ -1,6 +1,8 @@
 import axiosDefault from '../../axios/axios-default'
 import _ from 'lodash'
 import moment from 'moment'
+import formatDate from '@/filters/formatDate.js'
+import { mapBooleanIcon } from '@/helpers/helpers.js'
 
 export const state = () => ({
   hosts: {},
@@ -9,7 +11,31 @@ export const state = () => ({
 
 export const getters = {
   getAllHosts: state => {
-    return state.hosts
+    const allHosts = []
+    _.map(state.hosts, host => {
+      allHosts.push({
+        _id: host._id,
+        hostname: host.hostname || '-',
+        environment: host.environment || '-',
+        databases: mapDbs(host.features.oracle),
+        hosttype: host.hostType || '-',
+        platform: host.platform || '-',
+        cluster: host.cluster || '-',
+        physicalhost: host.physicalHost || '-',
+        os: host.info.os || '-',
+        kernel: host.info.kernel || '-',
+        memorytotal: host.info.memoryTotal || '-',
+        swaptotal: host.info.swapTotal || '-',
+        iconCluster: mapBooleanIcon(host.cluster),
+        model: host.info.cpuModel || '-',
+        threads: host.info.cpuThreads || '-',
+        cores: host.info.cpuCores || '-',
+        socket: host.info.cpuSockets || '-',
+        version: host.agentVersion || '-',
+        updated: formatDate(host.createdAt) || '-'
+      })
+    })
+    return allHosts
   },
   getCurrentHost: state => {
     return state.currentHost
@@ -86,5 +112,21 @@ export const actions = {
     const hostByName = await axiosDefault.get(`/hosts/${hostname}`)
     const response = await hostByName.data
     commit('SET_CURRENT_HOST', response)
+  }
+}
+
+const mapDbs = dbs => {
+  if (dbs) {
+    if (dbs.database) {
+      if (dbs.database.databases.length > 0) {
+        return dbs.database.databases.map(dbName => dbName.name)
+      } else {
+        return '-'
+      }
+    } else {
+      return '-'
+    }
+  } else {
+    return '-'
   }
 }

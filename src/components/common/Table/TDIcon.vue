@@ -1,8 +1,7 @@
 <template>
   <td v-tooltip="tooltip">
     <b-icon
-      size="is-small"
-      :pack="pack"
+      :custom-size="size"
       :icon="icon"
       :type="type"
       style="vertical-align: middle;"
@@ -17,16 +16,16 @@ export default {
   mixins: [TableTdTooltip],
   computed: {
     tooltip() {
-      return this.options(this.value[3])
-    },
-    pack() {
-      return this.value[1]
+      return this.options(this.value[2])
     },
     icon() {
       return this.value[0]
     },
     type() {
-      return this.value[2]
+      return this.value[1]
+    },
+    size() {
+      return this.value[3] ? this.value[3] : 'fa-lg'
     }
   }
 }

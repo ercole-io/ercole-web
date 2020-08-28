@@ -4,7 +4,7 @@
       <FullTable
         placeholder="Search on Hosts"
         :filters="filters"
-        :tableData="data"
+        :tableData="getAllHosts"
         :clickedRow="handleClickedRow"
       >
         <div class="top-table-buttons" slot="customTopHeader">
@@ -112,7 +112,7 @@
           <TdContent :value="rowData.scope.environment" />
           <TdArray :value="rowData.scope.databases" />
           <TdContent :value="rowData.scope.hosttype" />
-          <TdIcon :value="mapBooleanIcon(rowData.scope.iconCluster)" />
+          <TdIcon :value="rowData.scope.iconCluster" />
           <TdContent
             :value="rowData.scope.platform"
             class="border-left"
@@ -168,9 +168,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
-import formatDate from '@/filters/formatDate.js'
 import { mapGetters, mapActions } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -219,13 +217,11 @@ export default {
       },
       hideVirtual: true,
       hideCPU: true,
-      hideAgent: true,
-      data: []
+      hideAgent: true
     }
   },
   async beforeMount() {
     await this.getHosts()
-    await this.handleHosts()
 
     bus.$on('hostDismissedMsg', value => {
       this.$buefy.toast.open({
@@ -237,51 +233,6 @@ export default {
   },
   methods: {
     ...mapActions(['getHosts']),
-    handleHosts() {
-      _.map(this.getAllHosts, host => {
-        this.data.push({
-          _id: host._id,
-          hostname: host.hostname || '-',
-          environment: host.environment || '-',
-          databases: this.mapDbs(host.features.oracle),
-          hosttype: host.hostType || '-',
-          platform: host.platform || '-',
-          cluster: host.cluster || '-',
-          physicalhost: host.physicalHost || '-',
-          os: host.info.os || '-',
-          kernel: host.info.kernel || '-',
-          memorytotal: host.info.memoryTotal || '-',
-          swaptotal: host.info.swapTotal || '-',
-          iconCluster: host.cluster,
-          model: host.info.cpuModel || '-',
-          threads: host.info.cpuThreads || '-',
-          cores: host.info.cpuCores || '-',
-          socket: host.info.cpuSockets || '-',
-          version: host.agentVersion || '-',
-          updated: formatDate(host.createdAt) || '-'
-        })
-      })
-    },
-    mapDbs(dbs) {
-      if (dbs) {
-        if (dbs.database) {
-          if (dbs.database.databases.length > 0) {
-            return dbs.database.databases.map(dbName => dbName.name)
-          } else {
-            return '-'
-          }
-        } else {
-          return '-'
-        }
-      } else {
-        return '-'
-      }
-    },
-    mapBooleanIcon(value) {
-      const yesValue = ['check-circle', 'fas', 'is-success', 'yes']
-      const noValue = ['circle', 'fas', 'is-danger', 'no']
-      return value ? yesValue : noValue
-    },
     handleClickedRow($event) {
       if ($event.length > 0) {
         const selectedRow = $event[0].hostname

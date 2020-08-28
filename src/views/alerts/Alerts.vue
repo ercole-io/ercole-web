@@ -137,9 +137,9 @@ export default {
     resolveIcon(value) {
       return [
         this.setIcon(value).icon,
-        'fas',
         this.setIcon(value).iconType,
-        value
+        value,
+        'mdi-24px'
       ]
     },
     handleMarkAsRead(id, flag, type) {

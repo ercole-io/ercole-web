@@ -145,9 +145,9 @@
             />
             <TdContent :value="rowData.scope.datafileSize" />
             <TdContent :value="rowData.scope.segmentsSize" />
-            <TdIcon :value="mapBooleanIcon(rowData.scope.archivelog)" />
-            <TdIcon :value="mapBooleanIcon(rowData.scope.dataguard)" />
-            <TdIcon :value="mapBooleanIcon(rowData.scope.ha)" />
+            <TdIcon :value="bindIcon(rowData.scope.archivelog)" />
+            <TdIcon :value="bindIcon(rowData.scope.dataguard)" />
+            <TdIcon :value="bindIcon(rowData.scope.ha)" />
           </template>
 
           <exportButton
@@ -169,6 +169,7 @@ import BarChart from '@/components/common/charts/BarChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import Collapse from '@/components/common/Collapse.vue'
+import { mapBooleanIcon } from '@/helpers/helpers.js'
 
 export default {
   components: {
@@ -209,10 +210,8 @@ export default {
   },
   methods: {
     ...mapActions(['getDatabases']),
-    mapBooleanIcon(value) {
-      return value
-        ? ['circle', 'fas', 'is-success', 'yes']
-        : ['circle', 'fas', 'is-danger', 'no']
+    bindIcon(value) {
+      return mapBooleanIcon(value)
     }
   },
   computed: {
