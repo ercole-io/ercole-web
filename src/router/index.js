@@ -70,7 +70,7 @@ const routes = [
         beforeEnter: verifyAuth
       },
       {
-        path: 'details/:hostname',
+        path: '/details/:hostname',
         name: 'hosts-details',
         component: HostsDetails,
         props: true,
@@ -99,7 +99,7 @@ const routes = [
         beforeEnter: verifyAuth
       },
       {
-        path: 'oracle',
+        path: '/oracle',
         component: EmptyRouterView,
         children: [
           {
@@ -121,7 +121,7 @@ const routes = [
             component: EmptyRouterView,
             children: [
               {
-                path: 'addm',
+                path: '/addm',
                 name: 'addm',
                 component: ADDM,
                 meta: {
@@ -136,7 +136,7 @@ const routes = [
                 beforeEnter: verifyAuth
               },
               {
-                path: 'segment-advisor',
+                path: '/segment-advisor',
                 name: 'segment-advisor',
                 component: SegmentAdvisor,
                 meta: {
@@ -151,7 +151,7 @@ const routes = [
                 beforeEnter: verifyAuth
               },
               {
-                path: 'patch-advisor',
+                path: '/patch-advisor',
                 name: 'patch-advisor',
                 component: PatchAdvidor,
                 meta: {
@@ -220,7 +220,7 @@ const routes = [
         beforeEnter: verifyAuth
       },
       {
-        path: 'cluster/:clustername',
+        path: '/cluster/:clustername',
         name: 'cluster-details',
         component: Cluster,
         props: true,
