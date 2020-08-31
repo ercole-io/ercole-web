@@ -40,7 +40,7 @@
         <div class="column is-9">
           <FullTable
             placeholder="Search on Hypervisors"
-            :filters="filters"
+            :keys="keys"
             :tableData="data"
             :clickedRow="handleClickedRow"
           >
@@ -96,20 +96,15 @@ export default {
   },
   data() {
     return {
-      filters: {
-        search: {
-          value: '',
-          keys: [
-            'name',
-            'cpu',
-            'type',
-            'sockets',
-            'virtualizationNodes',
-            'vmsCount',
-            'vmsErcoleAgentCount'
-          ]
-        }
-      },
+      keys: [
+        'name',
+        'cpu',
+        'type',
+        'sockets',
+        'virtualizationNodes',
+        'vmsCount',
+        'vmsErcoleAgentCount'
+      ],
       data: []
     }
   },

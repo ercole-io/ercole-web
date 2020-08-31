@@ -96,8 +96,8 @@ export default {
       type: String,
       default: 'Search'
     },
-    filters: {
-      type: Object,
+    keys: {
+      type: Array,
       required: true
     },
     tableData: {
@@ -118,7 +118,13 @@ export default {
   },
   data() {
     return {
-      filteredData: 0
+      filteredData: 0,
+      filters: {
+        search: {
+          value: '',
+          keys: this.keys
+        }
+      }
     }
   },
   methods: {

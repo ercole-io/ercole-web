@@ -119,7 +119,7 @@
       <div class="column is-9">
         <FullTable
           placeholder="Search on Databases"
-          :filters="filters"
+          :keys="keys"
           :tableData="data"
           :clickedRow="() => []"
         >
@@ -187,25 +187,20 @@ export default {
   },
   data() {
     return {
-      filters: {
-        search: {
-          value: '',
-          keys: [
-            'name',
-            'type',
-            'version',
-            'hostname',
-            'environment',
-            'charset',
-            'memory',
-            'datafileSize',
-            'segmentsSize',
-            'archivelog',
-            'dataguard',
-            'ha'
-          ]
-        }
-      },
+      keys: [
+        'name',
+        'type',
+        'version',
+        'hostname',
+        'environment',
+        'charset',
+        'memory',
+        'datafileSize',
+        'segmentsSize',
+        'archivelog',
+        'dataguard',
+        'ha'
+      ],
       data: []
     }
   },
