@@ -106,9 +106,9 @@ export default {
     ) {
       this.showFilteredAlerts()
     } else if (this.type !== 'NO_DATA' && this.flag === 'AGENT') {
-      this.data = this.getFilteredAgentsByHost(this.type, this.flag)
+      this.showFilteredAgentsByHost()
     } else if (this.type !== 'NO_DATA' && this.flag !== 'AGENT') {
-      this.data = this.getFilteredAlertsByHost(this.type, this.flag)
+      this.showFilteredAlertsByHost()
     }
   },
   methods: {
@@ -125,6 +125,12 @@ export default {
     },
     showFilteredAlerts() {
       this.data = this.getFilteredAlerts(this.type, this.flag)
+    },
+    showFilteredAgentsByHost() {
+      this.data = this.getFilteredAgentsByHost(this.type, this.flag)
+    },
+    showFilteredAlertsByHost() {
+      this.data = this.getFilteredAlertsByHost(this.type, this.flag)
     },
     setIcon(severity) {
       return checkAlertIcon(severity)
