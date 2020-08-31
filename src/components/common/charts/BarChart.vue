@@ -36,7 +36,7 @@ export default {
     },
     chartHeight: {
       type: String,
-      default: '150px'
+      default: '300px'
     }
   }
 }

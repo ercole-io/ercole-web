@@ -15,7 +15,7 @@ const mountChart = (prop, chartName, data) => {
   _.map(propData, item => {
     finalChartData.push({
       name: item.name,
-      data: [[chartName, item.value]]
+      data: [['', item.value]]
     })
   })
 

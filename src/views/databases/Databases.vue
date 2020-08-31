@@ -61,6 +61,7 @@
               <BarChart
                 chartId="databasesType"
                 :barChartData="getDatabasesTypeChartData"
+                chartHeight="150px"
                 stacked
               />
             </Collapse>
@@ -72,6 +73,7 @@
               <BarChart
                 chartId="environmentType"
                 :barChartData="getEnvironmentTypeChartData"
+                chartHeight="150px"
                 stacked
               />
             </Collapse>
@@ -83,6 +85,7 @@
               <BarChart
                 chartId="archivelog"
                 :barChartData="getArchivelogChartData"
+                chartHeight="150px"
                 stacked
               />
             </Collapse>
@@ -94,6 +97,7 @@
               <BarChart
                 chartId="dataguard"
                 :barChartData="getDataguardChartData"
+                chartHeight="150px"
                 stacked
               />
             </Collapse>
@@ -105,6 +109,7 @@
               <BarChart
                 chartId="highReliability"
                 :barChartData="getHighReliabilityChartData"
+                chartHeight="150px"
                 stacked
               />
             </Collapse>

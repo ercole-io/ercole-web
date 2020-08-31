@@ -63,7 +63,7 @@
               <ColumnChart
                 chartId="environmentType"
                 :columnChartData="getEnvironmentTypeChartDataOracle"
-                :legend="false"
+                chartHeight="150px"
                 stacked
               />
             </Collapse>
@@ -75,7 +75,7 @@
               <ColumnChart
                 chartId="archivelog"
                 :columnChartData="getArchivelogChartDataOracle"
-                :legend="false"
+                chartHeight="150px"
                 stacked
               />
             </Collapse>
@@ -87,7 +87,7 @@
               <ColumnChart
                 chartId="dataguard"
                 :columnChartData="getDataguardChartDataOracle"
-                :legend="false"
+                chartHeight="150px"
                 stacked
               />
             </Collapse>
@@ -99,7 +99,7 @@
               <ColumnChart
                 chartId="highReliability"
                 :columnChartData="getHighReliabilityChartDataOracle"
-                :legend="false"
+                chartHeight="150px"
                 stacked
               />
             </Collapse>
