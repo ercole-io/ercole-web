@@ -6,15 +6,14 @@
         <span>{{ title[0] }}</span>
       </p>
     </header>
-    <transition name="fade" mode="out-in">
+    <transition name="flip" mode="out-in">
       <main class="alert-body" v-if="alertTotals.total > 0 && !isAnimated">
         <div class="columns is-vcentered is-gapless bottom-space">
           <div class="column">
             <b-icon
               :type="setIcon.iconType"
-              pack="fas"
               :icon="setIcon.icon"
-              size="is-medium"
+              custom-size="mdi-24px"
             />
           </div>
           <div class="column">
@@ -65,8 +64,8 @@
         :disabled="alertTotals.info === 0"
         type="is-info"
         size="is-small"
-        icon-pack="fas"
-        icon-left="info-circle"
+        icon-pack="mdi"
+        icon-left="information"
         class="has-text-weight-semibold alert-button"
         expanded
       >
@@ -77,8 +76,8 @@
         :disabled="alertTotals.warn === 0"
         type="is-warning"
         size="is-small"
-        icon-pack="fas"
-        icon-left="exclamation-triangle"
+        icon-pack="mdi"
+        icon-left="alert"
         class="has-text-weight-semibold alert-button"
         expanded
       >
@@ -89,8 +88,8 @@
         :disabled="alertTotals.crit === 0"
         type="is-danger"
         size="is-small"
-        icon-pack="fas"
-        icon-left="exclamation-circle"
+        icon-pack="mdi"
+        icon-left="information"
         class="has-text-weight-semibold alert-button"
         expanded
       >
@@ -189,6 +188,9 @@ export default {
     display: flex;
 
     .alert-button {
+      font-size: 14px;
+      border-radius: 0;
+
       &:disabled {
         opacity: 1;
       }
@@ -212,10 +214,11 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: all 0.5s ease;
 }
 .fade-enter,
 .fade-leave-to {
+  transform: translateX(10px);
   opacity: 0;
 }
 </style>
