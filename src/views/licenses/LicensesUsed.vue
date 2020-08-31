@@ -3,7 +3,7 @@
     <BoxContent>
       <FullTable
         placeholder="Search on Licenses"
-        :filters="filters"
+        :keys="keys"
         :tableData="data"
         :clickedRow="() => []"
       >
@@ -49,12 +49,7 @@ export default {
   },
   data() {
     return {
-      filters: {
-        search: {
-          value: '',
-          keys: ['hostname', 'dbName', 'licenseName', 'usedLicenses']
-        }
-      },
+      keys: ['hostname', 'dbName', 'licenseName', 'usedLicenses'],
       data: []
     }
   },

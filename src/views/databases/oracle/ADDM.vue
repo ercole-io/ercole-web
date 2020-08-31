@@ -2,7 +2,7 @@
   <section>
     <FullTable
       placeholder="Search on Oracle ADDM"
-      :filters="filters"
+      :keys="keys"
       :tableData="data"
       :clickedRow="() => []"
     >
@@ -47,19 +47,14 @@ export default {
   },
   data() {
     return {
-      filters: {
-        search: {
-          value: '',
-          keys: [
-            'benefit',
-            'hostname',
-            'dbname',
-            'finding',
-            'recommendation',
-            'action'
-          ]
-        }
-      },
+      keys: [
+        'benefit',
+        'hostname',
+        'dbname',
+        'finding',
+        'recommendation',
+        'action'
+      ],
       data: []
     }
   },

@@ -3,7 +3,7 @@
     <BoxContent>
       <FullTable
         placeholder="Search on Hosts"
-        :filters="filters"
+        :keys="keys"
         :tableData="getAllHosts"
         :clickedRow="handleClickedRow"
       >
@@ -190,31 +190,26 @@ export default {
   },
   data() {
     return {
-      filters: {
-        search: {
-          value: '',
-          keys: [
-            'hostname',
-            'environment',
-            'databases',
-            'hosttype',
-            'platform',
-            'cluster',
-            'physicalhost',
-            'os',
-            'kernel',
-            'memorytotal',
-            'swaptotal',
-            'iconCluster',
-            'model',
-            'threads',
-            'cores',
-            'socket',
-            'version',
-            'updated'
-          ]
-        }
-      },
+      keys: [
+        'hostname',
+        'environment',
+        'databases',
+        'hosttype',
+        'platform',
+        'cluster',
+        'physicalhost',
+        'os',
+        'kernel',
+        'memorytotal',
+        'swaptotal',
+        'iconCluster',
+        'model',
+        'threads',
+        'cores',
+        'socket',
+        'version',
+        'updated'
+      ],
       hideVirtual: true,
       hideCPU: true,
       hideAgent: true

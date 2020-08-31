@@ -2,7 +2,7 @@
   <section>
     <FullTable
       placeholder="Search on Oracle Segment Advisor"
-      :filters="filters"
+      :keys="keys"
       :tableData="data"
       :clickedRow="() => []"
     >
@@ -57,23 +57,18 @@ export default {
   },
   data() {
     return {
-      filters: {
-        search: {
-          value: '',
-          keys: [
-            'reclaimable',
-            'gbTotal',
-            'retrieve',
-            'hostname',
-            'dbname',
-            'segmentOwner',
-            'segmentName',
-            'segmentType',
-            'partitionName',
-            'recommendation'
-          ]
-        }
-      },
+      keys: [
+        'reclaimable',
+        'gbTotal',
+        'retrieve',
+        'hostname',
+        'dbname',
+        'segmentOwner',
+        'segmentName',
+        'segmentType',
+        'partitionName',
+        'recommendation'
+      ],
       data: []
     }
   },

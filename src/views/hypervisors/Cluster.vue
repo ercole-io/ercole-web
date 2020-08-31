@@ -57,7 +57,7 @@
         <div class="column is-9">
           <FullTable
             placeholder="Search on Cluster"
-            :filters="filters"
+            :keys="keys"
             :tableData="data"
             :clickedRow="() => []"
           >
@@ -109,12 +109,7 @@ export default {
   },
   data() {
     return {
-      filters: {
-        search: {
-          value: '',
-          keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU']
-        }
-      },
+      keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU'],
       data: []
     }
   },

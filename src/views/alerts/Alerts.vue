@@ -3,7 +3,7 @@
     <BoxContent>
       <FullTable
         placeholder="Search on Alerts"
-        :filters="filters"
+        :keys="keys"
         :tableData="data"
         :clickedRow="() => []"
         class="table-alerts"
@@ -83,19 +83,14 @@ export default {
   },
   data() {
     return {
-      filters: {
-        search: {
-          value: '',
-          keys: [
-            'alertCategory',
-            'alertSeverity',
-            'date',
-            'hostname',
-            'alertCode',
-            'description'
-          ]
-        }
-      },
+      keys: [
+        'alertCategory',
+        'alertSeverity',
+        'date',
+        'hostname',
+        'alertCode',
+        'description'
+      ],
       data: []
     }
   },

@@ -2,7 +2,7 @@
   <section>
     <FullTable
       placeholder="Search on Oracle Patch Advisor"
-      :filters="filters"
+      :keys="keys"
       :tableData="data"
       :clickedRow="() => []"
     >
@@ -54,21 +54,16 @@ export default {
   },
   data() {
     return {
-      filters: {
-        search: {
-          value: '',
-          keys: [
-            'hostname',
-            'dbname',
-            'dbver',
-            'date',
-            'description',
-            'fourMonth',
-            'sixMonth',
-            'twelveMonth'
-          ]
-        }
-      },
+      keys: [
+        'hostname',
+        'dbname',
+        'dbver',
+        'date',
+        'description',
+        'fourMonth',
+        'sixMonth',
+        'twelveMonth'
+      ],
       data: []
     }
   },
