@@ -20,6 +20,9 @@ const PatchAdvidor = lazy(() =>
   import('@/views/databases/oracle/Patch-Advidor.vue')
 )
 const Middleware = lazy(() => import('@/views/middleware/Middleware.vue'))
+const LicensesAgreement = lazy(() =>
+  import('@/views/licenses/LicensesAgreement.vue')
+)
 const LicensesCompliance = lazy(() =>
   import('@/views/licenses/LicensesCompliance.vue')
 )
@@ -179,6 +182,17 @@ const routes = [
       label: 'Middleware',
       title: `${title}Middleware`,
       breadcrumb: [{ name: 'Middleware' }]
+    },
+    beforeEnter: verifyAuth
+  },
+  {
+    path: '/licenses/agreement',
+    name: 'licenses-agreement',
+    component: LicensesAgreement,
+    meta: {
+      label: 'Licenses Agreement',
+      title: `${title}Licenses Agreement`,
+      breadcrumb: [{ name: 'Licenses Agreement' }]
     },
     beforeEnter: verifyAuth
   },
