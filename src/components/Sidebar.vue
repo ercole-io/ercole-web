@@ -41,9 +41,13 @@ export default {
           child: [
             {
               title: 'Oracle',
-              href: { name: 'oracle' },
               icon: 'fas fa-cog',
               child: [
+                {
+                  title: 'Databases',
+                  href: { name: 'oracle' },
+                  icon: 'fas fa-database'
+                },
                 {
                   title: 'Proactive',
                   icon: 'fas fa-microscope',
@@ -72,6 +76,10 @@ export default {
               icon: 'fas fa-cog',
               child: [
                 {
+                  title: 'Databases',
+                  icon: 'fas fa-database'
+                },
+                {
                   title: 'Proactive',
                   icon: 'fas fa-microscope'
                 }
@@ -81,6 +89,10 @@ export default {
               title: 'MySQL',
               icon: 'fas fa-cog',
               child: [
+                {
+                  title: 'Databases',
+                  icon: 'fas fa-database'
+                },
                 {
                   title: 'Proactive',
                   icon: 'fas fa-microscope'
@@ -92,6 +104,10 @@ export default {
               icon: 'fas fa-cog',
               child: [
                 {
+                  title: 'Databases',
+                  icon: 'fas fa-database'
+                },
+                {
                   title: 'Proactive',
                   icon: 'fas fa-microscope'
                 }
@@ -102,6 +118,10 @@ export default {
               icon: 'fas fa-cog',
               child: [
                 {
+                  title: 'Databases',
+                  icon: 'fas fa-database'
+                },
+                {
                   title: 'Proactive',
                   icon: 'fas fa-microscope'
                 }
@@ -111,6 +131,10 @@ export default {
               title: 'WEDL',
               icon: 'fas fa-cog',
               child: [
+                {
+                  title: 'Databases',
+                  icon: 'fas fa-database'
+                },
                 {
                   title: 'Proactive',
                   icon: 'fas fa-microscope'
