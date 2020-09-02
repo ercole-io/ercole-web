@@ -168,6 +168,11 @@ export default {
           icon: 'fas fa-dollar-sign',
           child: [
             {
+              href: { name: 'licenses-agreement' },
+              title: 'Licenses Agreement',
+              icon: 'fas fa-cog'
+            },
+            {
               href: { name: 'licenses-compliance' },
               title: 'Licenses Compliance',
               icon: 'fas fa-cog'
