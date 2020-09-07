@@ -52,8 +52,8 @@
               />
             </b-tab-item>
             <b-tab-item label="Pluggable DBs" v-if="dbs.pdbs.length > 0">
-              Pluggable DBs {{ dbs.name }}
-              {{ dbs.pdbs }}
+              Pluggable DBs for {{ dbs.name }}
+              <DbPDBs :pdbs="dbs.pdbs" />
             </b-tab-item>
             <b-tab-item label="Licenses" v-if="dbs.licenses.length > 0">
               <DbLicenses :licenses="dbs.licenses" />
@@ -112,6 +112,7 @@ import DbGrowth from '@/components/hosts/hostDetails/databases/DbGrowth.vue'
 import DbOptions from '@/components/hosts/hostDetails/databases/DbOptions.vue'
 import DbLicenses from '@/components/hosts/hostDetails/databases/DbLicenses.vue'
 import DbTags from '@/components/hosts/hostDetails/databases/DbTags.vue'
+import DbPDBs from '@/components/hosts/hostDetails/databases/DbPDBs.vue'
 
 export default {
   props: {
@@ -133,7 +134,8 @@ export default {
     DbGrowth,
     DbOptions,
     DbLicenses,
-    DbTags
+    DbTags,
+    DbPDBs
   },
   data() {
     return {
