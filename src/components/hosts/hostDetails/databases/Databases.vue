@@ -51,40 +51,44 @@
                 :tags="['Albino', 'Milano', 'Como', 'Torino']"
               />
             </b-tab-item>
-            <b-tab-item label="Pluggable DBs">
+            <b-tab-item label="Pluggable DBs" v-if="dbs.pdbs.length > 0">
               Pluggable DBs {{ dbs.name }}
+              {{ dbs.pdbs }}
             </b-tab-item>
-            <b-tab-item label="Licenses">
+            <b-tab-item label="Licenses" v-if="dbs.licenses.length > 0">
               <DbLicenses :licenses="dbs.licenses" />
             </b-tab-item>
-            <b-tab-item label="Options">
-              <DbOptions :options="dbs.options" />
+            <b-tab-item label="Options" v-if="dbs.featureUsageStats.length > 0">
+              <DbOptions :options="dbs.featureUsageStats" />
             </b-tab-item>
-            <b-tab-item label="Tablespaces">
+            <b-tab-item label="Tablespaces" v-if="dbs.tablespaces.length > 0">
               <DbTablespaces :tablespaces="dbs.tablespaces" />
             </b-tab-item>
-            <b-tab-item label="Schemas">
+            <b-tab-item label="Schemas" v-if="dbs.schemas.length > 0">
               <DbSchemas :schemas="dbs.schemas" />
             </b-tab-item>
-            <b-tab-item label="Patches">
+            <b-tab-item label="Patches" v-if="dbs.patches.length > 0">
               <DbPatches :patches="dbs.patches" />
             </b-tab-item>
-            <b-tab-item label="PSUs">
+            <b-tab-item label="PSUs" v-if="dbs.psus.length > 0">
               <DbPSUs :psus="dbs.psus" />
             </b-tab-item>
-            <b-tab-item label="ADDMs">
+            <b-tab-item label="ADDMs" v-if="dbs.addms.length > 0">
               <DbADDMs :addms="dbs.addms" />
             </b-tab-item>
-            <b-tab-item label="Segment Advisors">
+            <b-tab-item
+              label="Segment Advisors"
+              v-if="dbs.segmentAdvisors.length > 0"
+            >
               <DbSegmentAdvisors :segmentAdvisors="dbs.segmentAdvisors" />
             </b-tab-item>
             <b-tab-item label="DBGrowth">
               <DbGrowth :growth="DbGrowthData" :growthId="dbs.name" />
             </b-tab-item>
-            <b-tab-item label="Backups">
+            <b-tab-item label="Backups" v-if="dbs.backups.length > 0">
               <DbBackups :backups="dbs.backups" />
             </b-tab-item>
-            <b-tab-item label="Services">
+            <b-tab-item label="Services" v-if="dbs.services.length > 0">
               <DbServices :services="dbs.services" />
             </b-tab-item>
           </b-tabs>
