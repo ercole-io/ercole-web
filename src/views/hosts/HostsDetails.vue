@@ -16,11 +16,17 @@
             @editTag="handleEditTag"
           />
         </div>
-        <div class="column is-2 has-text-right">
+        <div
+          class="column is-3 has-text-right is-flex"
+          style="justify-content: flex-end;"
+        >
           <Filesys :filesys="filesys" />
-        </div>
-        <div class="column is-1 has-text-right">
-          <b-button type="is-danger is-small" @click="deleteHost(hostname)">
+
+          <b-button
+            class="ml-2"
+            type="is-danger is-small"
+            @click="deleteHost(hostname)"
+          >
             Dismiss
           </b-button>
         </div>
