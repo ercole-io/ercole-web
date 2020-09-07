@@ -6,9 +6,8 @@
       <span v-if="item.hasIcon">
         <b-icon
           size="is-small"
-          :pack="item.value[1]"
           :icon="item.value[0]"
-          :type="item.value[2]"
+          :type="item.value[1]"
           style="vertical-align: middle;"
         >
         </b-icon>

@@ -34,3 +34,32 @@ export const mapBooleanIcon = value => {
   const noValue = ['minus-circle', 'is-danger', 'no']
   return value ? yesValue : noValue
 }
+
+export const mapTechType = dbs => {
+  if (dbs.oracle) {
+    if (dbs.oracle.database) {
+      if (dbs.oracle.database.databases.length > 0) {
+        return 'Oracle Database'
+      } else {
+        return '-'
+      }
+    } else {
+      return '-'
+    }
+  } else {
+    return '-'
+  }
+}
+
+export const mapClustStatus = clust => {
+  if (
+    clust.hacmp ||
+    clust.oracleClusterware ||
+    clust.sunCluster ||
+    clust.veritasClusterServer
+  ) {
+    return mapBooleanIcon(true)
+  } else {
+    return mapBooleanIcon(false)
+  }
+}

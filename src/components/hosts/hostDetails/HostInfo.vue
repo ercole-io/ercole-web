@@ -40,13 +40,6 @@ export default {
     Card,
     CardList
   },
-  methods: {
-    mapAixcluster(aixCluster) {
-      return aixCluster
-        ? ['check-circle', 'fas', 'is-success']
-        : ['circle', 'fas', 'is-danger']
-    }
-  },
   computed: {
     general() {
       return [
@@ -57,6 +50,11 @@ export default {
         {
           name: 'Technologie',
           value: this.hostInfo.hostType
+        },
+        {
+          name: 'Clust',
+          value: this.hostInfo.aixCluster,
+          hasIcon: true
         },
         {
           name: 'OS',
@@ -89,11 +87,6 @@ export default {
         {
           name: 'Physical',
           value: this.hostInfo.physicalHost
-        },
-        {
-          name: 'Clust',
-          value: this.mapAixcluster(this.hostInfo.aixCluster),
-          hasIcon: true
         }
       ]
     },

@@ -2,7 +2,7 @@ import axiosDefault from '../../axios/axios-default'
 import _ from 'lodash'
 import moment from 'moment'
 import formatDate from '@/filters/formatDate.js'
-import { mapBooleanIcon } from '@/helpers/helpers.js'
+import { mapTechType, mapClustStatus } from '@/helpers/helpers.js'
 
 export const state = () => ({
   hosts: {},
@@ -18,7 +18,7 @@ export const getters = {
         hostname: host.hostname || '-',
         environment: host.environment || '-',
         databases: mapDbs(host.features.oracle),
-        techType: mapTechType(host.features.oracle),
+        techType: mapTechType(host.features),
         platform: host.info.hardwareAbstractionTechnology || '-',
         cluster: host.cluster || '-',
         virtNode: host.virtualizationNode || '-',
@@ -128,34 +128,5 @@ const mapDbs = dbs => {
     }
   } else {
     return '-'
-  }
-}
-
-const mapTechType = dbs => {
-  if (dbs) {
-    if (dbs.database) {
-      if (dbs.database.databases.length > 0) {
-        return 'Oracle Database'
-      } else {
-        return '-'
-      }
-    } else {
-      return '-'
-    }
-  } else {
-    return '-'
-  }
-}
-
-const mapClustStatus = clust => {
-  if (
-    clust.hacmp ||
-    clust.oracleClusterware ||
-    clust.sunCluster ||
-    clust.veritasClusterServer
-  ) {
-    return mapBooleanIcon(true)
-  } else {
-    return mapBooleanIcon(false)
   }
 }

@@ -62,6 +62,7 @@ import HostDatabases from '@/components/hosts/hostDetails/databases/Databases.vu
 import noContent from '@/components/common/NoContent.vue'
 import Filesys from '@/components/hosts/hostDetails/Filesys.vue'
 import axiosDefault from '@/axios/axios-default.js'
+import { mapTechType, mapClustStatus } from '@/helpers/helpers.js'
 
 const startDate = moment()
   .subtract(1, 'week')
@@ -102,7 +103,7 @@ export default {
       chartData: []
     }
   },
-  async created() {
+  async beforeMount() {
     await this.getHostByName(this.hostname)
     bus.$emit('dynamicTitle', this.hostname)
 
@@ -118,20 +119,20 @@ export default {
       this.hostInfo = {
         hostname: host.hostname || '-',
         environment: host.environment || '-',
-        hostType: host.hostType || '-',
-        platform: host.platform || '-',
+        hostType: mapTechType(host.features.oracle),
+        platform: host.info.hardwareAbstractionTechnology || '-',
         cluster: host.cluster || '-',
-        physicalHost: host.physicalHost || '-',
+        physicalHost: host.virtualizationNode || '-',
         os: host.info.os || '-',
         kernel: host.info.kernel || '-',
         memoryTotal: host.info.memoryTotal || '-',
         swapTotal: host.info.swapTotal || '-',
-        aixCluster: host.info.aixCluster,
+        aixCluster: mapClustStatus(host.clusterMembershipStatus),
         model: host.info.cpuModel || '-',
         threads: host.info.cpuThreads || '-',
         cores: host.info.cpuCores || '-',
-        socket: host.info.socket || '-',
-        version: host.version || '-',
+        socket: host.info.cpuSockets || '-',
+        version: host.agentVersion || '-',
         createdAt: moment(host.createdAt).format('DD/MM/YYYY hh:mm') || '-'
       }
       return this.hostInfo
