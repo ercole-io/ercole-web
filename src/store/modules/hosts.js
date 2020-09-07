@@ -18,15 +18,15 @@ export const getters = {
         hostname: host.hostname || '-',
         environment: host.environment || '-',
         databases: mapDbs(host.features.oracle),
-        hosttype: host.hostType || '-',
-        platform: host.platform || '-',
+        techType: mapTechType(host.features.oracle),
+        platform: host.info.hardwareAbstractionTechnology || '-',
         cluster: host.cluster || '-',
-        physicalhost: host.physicalHost || '-',
+        virtNode: host.virtualizationNode || '-',
         os: host.info.os || '-',
         kernel: host.info.kernel || '-',
         memorytotal: host.info.memoryTotal || '-',
         swaptotal: host.info.swapTotal || '-',
-        iconCluster: mapBooleanIcon(host.cluster),
+        iconCluster: mapClustStatus(host.clusterMembershipStatus),
         model: host.info.cpuModel || '-',
         threads: host.info.cpuThreads || '-',
         cores: host.info.cpuCores || '-',
@@ -128,5 +128,34 @@ const mapDbs = dbs => {
     }
   } else {
     return '-'
+  }
+}
+
+const mapTechType = dbs => {
+  if (dbs) {
+    if (dbs.database) {
+      if (dbs.database.databases.length > 0) {
+        return 'Oracle Database'
+      } else {
+        return '-'
+      }
+    } else {
+      return '-'
+    }
+  } else {
+    return '-'
+  }
+}
+
+const mapClustStatus = clust => {
+  if (
+    clust.hacmp ||
+    clust.oracleClusterware ||
+    clust.sunCluster ||
+    clust.veritasClusterServer
+  ) {
+    return mapBooleanIcon(true)
+  } else {
+    return mapBooleanIcon(false)
   }
 }

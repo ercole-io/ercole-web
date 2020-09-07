@@ -72,29 +72,31 @@
           <v-th sortKey="hostname">Hostname</v-th>
           <v-th sortKey="environment">Env</v-th>
           <v-th sortKey="databases">DBs</v-th>
-          <v-th sortKey="hosttype">Tech</v-th>
+          <v-th sortKey="techType">Tech</v-th>
           <v-th sortKey="iconCluster">Clust</v-th>
           <v-th
             sortKey="platform"
             class="border-left"
             :class="{ hide: hideVirtual }"
-            >Platform</v-th
           >
+            Platform
+          </v-th>
           <v-th sortKey="cluster" :class="{ hide: hideVirtual }">Cluster</v-th>
           <v-th
-            sortKey="physicalhost"
+            sortKey="virtNode"
             :class="{ hide: hideVirtual }"
             class="border-right"
-            >Physical</v-th
           >
+            Node
+          </v-th>
           <v-th sortKey="os">OS</v-th>
           <v-th sortKey="kernel">kernel</v-th>
           <v-th sortKey="memorytotal">Mem.</v-th>
           <v-th sortKey="swaptotal">Swap</v-th>
 
-          <v-th sortKey="model" class="border-left" :class="{ hide: hideCPU }"
-            >Model</v-th
-          >
+          <v-th sortKey="model" class="border-left" :class="{ hide: hideCPU }">
+            Model
+          </v-th>
           <v-th sortKey="threads" :class="{ hide: hideCPU }">Threa</v-th>
           <v-th sortKey="cores" :class="{ hide: hideCPU }">Cores</v-th>
           <v-th sortKey="socket" :class="{ hide: hideCPU }">Socket</v-th>
@@ -102,8 +104,9 @@
             sortKey="version"
             class="border-left"
             :class="{ hide: hideAgent }"
-            >Version</v-th
           >
+            Version
+          </v-th>
           <v-th sortKey="updated" :class="{ hide: hideAgent }">Updated</v-th>
         </template>
 
@@ -111,7 +114,7 @@
           <TdContent :value="rowData.scope.hostname" />
           <TdContent :value="rowData.scope.environment" />
           <TdArray :value="rowData.scope.databases" />
-          <TdContent :value="rowData.scope.hosttype" />
+          <TdContent :value="rowData.scope.techType" />
           <TdIcon :value="rowData.scope.iconCluster" />
           <TdContent
             :value="rowData.scope.platform"
@@ -123,7 +126,7 @@
             :class="{ hide: hideVirtual }"
           />
           <TdContent
-            :value="rowData.scope.physicalhost"
+            :value="rowData.scope.virtNode"
             class="border-right"
             :class="{ hide: hideVirtual }"
           />
@@ -194,10 +197,10 @@ export default {
         'hostname',
         'environment',
         'databases',
-        'hosttype',
+        'techType',
         'platform',
         'cluster',
-        'physicalhost',
+        'virtNode',
         'os',
         'kernel',
         'memorytotal',
