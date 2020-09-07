@@ -1,7 +1,7 @@
 <template>
   <b-collapse
     class="card collapse-card"
-    animation="slide"
+    animation="fade"
     :aria-id="id"
     :open="isOpen"
   >

@@ -51,6 +51,12 @@
 .tab-item {
   .tab-content {
     padding: 0 0 0 20px;
+
+    .tab-item {
+      .wrap-table {
+        margin-left: -20px !important;
+      }
+    }
   }
 }
 
