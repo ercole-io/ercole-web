@@ -40,7 +40,7 @@ export default {
     Card,
     CardList
   },
-  computed: {
+  methods: {
     general() {
       return [
         {
