@@ -1,9 +1,289 @@
 <template>
-  <div></div>
+  <section>
+    <div class="columns">
+      <b-button
+        class="toggleCol"
+        size="is-small"
+        type="is-text"
+        slot="customTitle"
+        pack="fas"
+        :icon-right="toggleIcon"
+        @click="isExpanded = !isExpanded"
+        >{{ toggleText }}</b-button
+      >
+      <div class="column" :class="tabsCol">
+        <b-tabs size="is-small" type="is-boxed" class="block">
+          <b-tab-item label="Oracle">
+            <FullTable
+              placeholder="Search on Licenses"
+              :keys="keys"
+              :tableData="data"
+              :clickedRow="() => []"
+            >
+              <template slot="headData">
+                <v-th sortKey="agreeNumber">Agreement NUmber</v-th>
+                <v-th sortKey="partNumber">Part Number</v-th>
+                <v-th sortKey="description">Item Description</v-th>
+                <v-th sortKey="metrics">Metrics</v-th>
+                <v-th sortKey="csi">csi</v-th>
+                <v-th sortKey="referenceNumber">Reference Number</v-th>
+                <v-th sortKey="ula">ULA</v-th>
+                <v-th sortKey="licenseNumber">Number Licenses</v-th>
+                <v-th sortKey="userNumber">Number User</v-th>
+                <v-th sortKey="availableNumber">Number Available</v-th>
+                <th>Actions</th>
+              </template>
+
+              <template slot="bodyData" slot-scope="rowData">
+                <td>{{ rowData.scope.agreeNumber }}</td>
+                <td>{{ rowData.scope.partNumber }}</td>
+                <td>{{ rowData.scope.description }}</td>
+                <td>{{ rowData.scope.metrics }}</td>
+                <td>{{ rowData.scope.csi }}</td>
+                <td>{{ rowData.scope.referenceNumber }}</td>
+                <td>{{ rowData.scope.ula }}</td>
+                <td>{{ rowData.scope.licenseNumber }}</td>
+                <td>{{ rowData.scope.userNumber }}</td>
+                <td>{{ rowData.scope.availableNumber }}</td>
+                <td></td>
+
+                <span slot="detail">teste</span>
+              </template>
+
+              <!-- <exportButton
+                slot="export"
+                url="/hosts/technologies/oracle/databases"
+                expName="databases"
+              /> -->
+            </FullTable>
+          </b-tab-item>
+          <b-tab-item label="MySQL">
+            mysql
+          </b-tab-item>
+        </b-tabs>
+      </div>
+      <div class="column" :class="addCol">
+        <BoxContent title="Add or Modify a License">
+          <b-field label="Type of Technologie *" custom-class="is-small">
+            <b-select
+              size="is-small"
+              placeholder="Select"
+              v-model="licenseAddData.techType"
+              expanded
+            >
+              <option value="flint">Flint</option>
+              <option value="silver">Silver</option>
+            </b-select>
+          </b-field>
+
+          <b-field label="Agreement Number *" custom-class="is-small">
+            <b-select
+              size="is-small"
+              placeholder="Select"
+              v-model="licenseAddData.agreeNumber"
+              expanded
+            >
+              <option value="flint">Flint</option>
+              <option value="silver">Silver</option>
+            </b-select>
+          </b-field>
+
+          <b-field
+            label="Part Number, Item Description and Metrics *"
+            custom-class="is-small"
+          >
+            <b-select
+              size="is-small"
+              placeholder="Select"
+              v-model="licenseAddData.partNumber"
+              expanded
+            >
+              <option value="flint">Flint</option>
+              <option value="silver">Silver</option>
+            </b-select>
+          </b-field>
+
+          <b-field label="CSI *" custom-class="is-small">
+            <b-select
+              size="is-small"
+              placeholder="Select"
+              v-model="licenseAddData.csi"
+              expanded
+            >
+              <option value="flint">Flint</option>
+              <option value="silver">Silver</option>
+            </b-select>
+          </b-field>
+
+          <b-field label="Reference Number" custom-class="is-small">
+            <b-input
+              size="is-small"
+              type="number"
+              v-model="licenseAddData.referenceNumber"
+            ></b-input>
+          </b-field>
+
+          <b-field label="Licenses *" custom-class="is-small" grouped>
+            <b-field label="ULA" custom-class="is-small" expanded>
+              <b-checkbox size="is-small" v-model="licenseAddData.ula" />
+            </b-field>
+            <span class="pr-4 pt-3">or</span>
+            <b-field label="Number" custom-class="is-small" expanded>
+              <b-input
+                size="is-small"
+                type="number"
+                v-model="licenseAddData.licenseNumber"
+                :disabled="licenseAddData.ula"
+              ></b-input>
+            </b-field>
+          </b-field>
+
+          <b-field label="Host Associated" custom-class="is-small">
+            <b-select
+              size="is-small"
+              placeholder="Select"
+              v-model="licenseAddData.hostAssociated"
+              multiple
+              expanded
+            >
+              <option value="test-1">test-1</option>
+              <option value="test-2">test-2</option>
+              <option value="test-3">test-3</option>
+              <option value="test-4">test-4</option>
+              <option value="test-5">test-5</option>
+              <option value="test-6">test-6</option>
+              <option value="test-7">test-7</option>
+              <option value="test-8">test-8</option>
+            </b-select>
+          </b-field>
+
+          <div class="buttons is-flex" style="justify-content: space-between;">
+            <b-button type="is-danger" size="is-small" @click="cancelAddLicense"
+              >Cancel</b-button
+            >
+            <b-button type="is-primary" size="is-small" @click="addLicense"
+              >Add</b-button
+            >
+          </div>
+        </BoxContent>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
-export default {}
+import BoxContent from '@/components/common/BoxContent.vue'
+import FullTable from '@/components/common/Table/FullTable.vue'
+
+export default {
+  components: {
+    BoxContent,
+    FullTable
+  },
+  data() {
+    return {
+      isExpanded: true,
+      tabsCol: 'is-9',
+      addCol: 'is-3',
+      toggleText: 'Hide',
+      toggleIcon: 'chevron-left',
+      data: [
+        {
+          id: 0,
+          agreeNumber: 5051863,
+          partNumber: 'L75978',
+          description: 'Oracle GoldenGate',
+          metrics: 'Processor Perpetual',
+          csi: 19765174,
+          referenceNumber: 103246681,
+          ula: 'no',
+          licenseNumber: 72,
+          userNumber: null,
+          availableNumber: 60,
+          hostAssociated: [
+            {
+              id: 0,
+              hostname: 'erclin6db18',
+              usedLicenses: 4
+            },
+            {
+              id: 0,
+              hostname: 'erclin7dbx',
+              usedLicenses: 8
+            }
+          ]
+        }
+      ],
+      keys: [
+        'agreeNumber',
+        'partNumber',
+        'description',
+        'metrics',
+        'csi',
+        'referenceNumber',
+        'ula',
+        'licenseNumber',
+        'userNumber',
+        'availableNumber'
+      ],
+      licenseAddData: {
+        ula: false,
+        licenseNumber: null,
+        hostAssociated: []
+      }
+    }
+  },
+  methods: {
+    addLicense() {
+      this.$store.commit('SET_LICENSE_AGREEMENT', this.licenseAddData)
+    },
+    cancelAddLicense() {
+      this.licenseAddData = {
+        agreeNumber: null,
+        csi: null,
+        hostAssociated: [],
+        partNumber: null,
+        referenceNumber: null,
+        techType: null,
+        ula: false,
+        licenseNumber: null
+      }
+    }
+  },
+  watch: {
+    isExpanded(value) {
+      if (!value) {
+        this.tabsCol = 'is-12'
+        this.addCol = 'is-hidden'
+        this.toggleText = 'Show Add License'
+        this.toggleIcon = 'chevron-right'
+      } else {
+        this.tabsCol = 'is-9'
+        this.addCol = 'is-3'
+        this.toggleText = 'Hide'
+        this.toggleIcon = 'chevron-left'
+      }
+    }
+  }
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.toggleCol {
+  position: absolute;
+  right: 20px;
+  top: 172px;
+  padding: 0;
+
+  &:hover {
+    background-color: transparent;
+    color: #679189;
+  }
+
+  &:focus {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+}
+</style>
