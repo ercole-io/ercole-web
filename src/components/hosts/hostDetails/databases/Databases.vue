@@ -52,7 +52,6 @@
               />
             </b-tab-item>
             <b-tab-item label="Pluggable DBs" v-if="dbs.pdbs.length > 0">
-              Pluggable DBs for {{ dbs.name }}
               <DbPDBs :pdbs="dbs.pdbs" />
             </b-tab-item>
             <b-tab-item label="Licenses" v-if="dbs.licenses.length > 0">

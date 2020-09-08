@@ -50,12 +50,14 @@
 
 .tab-item {
   .tab-content {
-    padding: 0 0 0 20px;
+    padding: 0;
+  }
+}
 
-    .tab-item {
-      .wrap-table {
-        margin-left: -20px !important;
-      }
+.b-tabs {
+  .is-vertical {
+    .tabs {
+      margin-right: 20px;
     }
   }
 }
