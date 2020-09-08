@@ -125,7 +125,7 @@ export default {
       this.hostInfo = {
         hostname: host.hostname || '-',
         environment: host.environment || '-',
-        hostType: mapTechType(host.features.oracle),
+        hostType: mapTechType(host.features),
         platform: host.info.hardwareAbstractionTechnology || '-',
         cluster: host.cluster || '-',
         physicalHost: host.virtualizationNode || '-',
