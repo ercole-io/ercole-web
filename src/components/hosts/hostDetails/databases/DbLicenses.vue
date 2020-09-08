@@ -4,7 +4,7 @@
       <v-table
         class="vTable-custom table-hover"
         :hideSortIcons="true"
-        :data="licenses"
+        :data="filteredLicenses"
         selectionMode="multiple"
         selectedClass="has-background-primary has-text-grey-lighter"
         @selectionChanged="selectedRows = $event"
@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   props: {
     licenses: {
@@ -51,8 +53,16 @@ export default {
   },
   data() {
     return {
-      selectedRows: []
+      selectedRows: [],
+      filteredLicenses: []
     }
+  },
+  beforeMount() {
+    _.filter(this.licenses, val => {
+      if (val.count !== 0) {
+        this.filteredLicenses.push(val)
+      }
+    })
   }
 }
 </script>
