@@ -1,6 +1,6 @@
 <template>
   <div class="is-flex" :class="direction">
-    <span class="add-tag-title">{{ title }}</span>
+    <span class="add-tag-title is-size-7">{{ title }}</span>
     <b-field class="add-tag-input">
       <b-input
         placeholder="Add tag"
@@ -109,7 +109,6 @@ export default {
 }
 
 .add-tag-title {
-  font-size: 0.8em;
   line-height: 27px;
 }
 
