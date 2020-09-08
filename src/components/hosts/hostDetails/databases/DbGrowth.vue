@@ -34,7 +34,7 @@ export default {
       let datafile = _.map(this.growth, val => {
         const { datafileSize, updated } = val
         return {
-          date: moment(updated).format(),
+          date: moment(updated).format('YYYY-MM-DD'),
           value: datafileSize
         }
       })
@@ -47,7 +47,7 @@ export default {
       let segments = _.map(this.growth, val => {
         const { segmentsSize, updated } = val
         return {
-          date: moment(updated).format(),
+          date: moment(updated).format('YYYY-MM-DD'),
           value: segmentsSize
         }
       })

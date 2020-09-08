@@ -48,7 +48,7 @@ export const getters = {
 
     _.map(totalDailyState, item => {
       totalDailyData.push({
-        date: moment(item.createdAt).format(),
+        date: moment(item.createdAt).format('YYYY-MM-DD'),
         value: item.totalDailyCPUUsage
       })
     })
@@ -65,7 +65,7 @@ export const getters = {
       const { name, changes } = item
       let changed = _.map(changes, data => {
         return {
-          date: moment(data.updated).format(),
+          date: moment(data.updated).format('YYYY-MM-DD'),
           value: data.dailyCPUUsage
         }
       })
