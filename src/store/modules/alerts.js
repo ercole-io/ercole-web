@@ -18,8 +18,9 @@ export const getters = {
     const enginesFull = organizeAlertsByFlag(engines)
 
     let all = _.concat(agents, licensesFull, enginesFull)
+    all = _.orderBy(all, ['date'], ['asc'])
 
-    return _.orderBy(all, ['date'], ['asc'])
+    return _.compact(all)
   },
   getFilteredAgents: state => (type, flag) => {
     const agents = state.alerts[flag]
