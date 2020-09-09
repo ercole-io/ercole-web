@@ -5,10 +5,10 @@
         class="vTable-custom table-hover"
         :hideSortIcons="true"
         :data="filteredLicenses"
-        selectionMode="multiple"
-        selectedClass="has-background-primary has-text-grey-lighter"
-        @selectionChanged="selectedRows = $event"
       >
+        <!-- selectionMode="multiple"
+        selectedClass="has-background-primary has-text-grey-lighter"
+        @selectionChanged="selectedRows = $event" -->
         <thead slot="head">
           <tr class="has-background-grey-lighter">
             <v-th sortKey="name">Name</v-th>
@@ -26,7 +26,7 @@
       </v-table>
     </div>
 
-    <ul class="selected-licenses" v-if="selectedRows.length > 0">
+    <!-- <ul class="selected-licenses" v-if="selectedRows.length > 0">
       <li>
         Selected Licenses:
       </li>
@@ -37,7 +37,7 @@
 
     <b-button type="is-primary" size="is-small">
       Add ASFU Entreprise Edition License
-    </b-button>
+    </b-button> -->
   </section>
 </template>
 
