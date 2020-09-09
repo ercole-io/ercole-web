@@ -34,7 +34,7 @@
     </boxContent>
 
     <BoxContent>
-      <HostInfo :hostInfo="hostInfo" />
+      <HostInfo :hostInfo="hostInfoInfo(getCurrentHost)" />
     </BoxContent>
 
     <div class="columns">
@@ -113,7 +113,6 @@ export default {
     await this.getHostByName(this.hostname)
     bus.$emit('dynamicTitle', this.hostname)
 
-    this.hostInfoInfo(this.getCurrentHost)
     this.hostDbsInfo(this.getCurrentHost.features.oracle.database.databases)
     this.hostNotificationInfo(this.getCurrentHost.alerts)
     this.filesys = this.getCurrentHost.filesystems
@@ -122,25 +121,81 @@ export default {
   methods: {
     ...mapActions(['getHostByName']),
     hostInfoInfo(host) {
-      this.hostInfo = {
-        hostname: host.hostname || '-',
-        environment: host.environment || '-',
-        hostType: mapTechType(host.features),
-        platform: host.info.hardwareAbstractionTechnology || '-',
-        cluster: host.cluster || '-',
-        physicalHost: host.virtualizationNode || '-',
-        os: host.info.os || '-',
-        kernel: host.info.kernel || '-',
-        memoryTotal: host.info.memoryTotal || '-',
-        swapTotal: host.info.swapTotal || '-',
-        aixCluster: mapClustStatus(host.clusterMembershipStatus),
-        model: host.info.cpuModel || '-',
-        threads: host.info.cpuThreads || '-',
-        cores: host.info.cpuCores || '-',
-        socket: host.info.cpuSockets || '-',
-        version: host.agentVersion || '-',
-        createdAt: moment(host.createdAt).format('DD/MM/YYYY hh:mm') || '-'
-      }
+      const info = host.info
+      this.hostInfo.general = [
+        {
+          name: 'Environment',
+          value: host.environment || '-'
+        },
+        {
+          name: 'Technologie',
+          value: mapTechType(host.features)
+        },
+        {
+          name: 'Clust',
+          value: mapClustStatus(host.clusterMembershipStatus),
+          hasIcon: true
+        },
+        {
+          name: 'OS',
+          value: info.os || '-'
+        },
+        {
+          name: 'Kernel',
+          value: info.kernel || '-'
+        },
+        {
+          name: 'Memorie',
+          value: info.memoryTotal || '-'
+        },
+        {
+          name: 'Swap',
+          value: info.swapTotal || '-'
+        }
+      ]
+      this.hostInfo.virtual = [
+        {
+          name: 'Platform',
+          value: info.hardwareAbstractionTechnology || '-'
+        },
+        {
+          name: 'Cluster',
+          value: host.cluster || '-'
+        },
+        {
+          name: 'Node',
+          value: host.virtualizationNode || '-'
+        }
+      ]
+      this.hostInfo.cpu = [
+        {
+          name: 'Model',
+          value: info.cpuModel || '-'
+        },
+        {
+          name: 'Threads',
+          value: info.cpuThreads || '-'
+        },
+        {
+          name: 'Cores',
+          value: info.cpuCores || '-'
+        },
+        {
+          name: 'Socket',
+          value: info.cpuSockets || '-'
+        }
+      ]
+      this.hostInfo.agent = [
+        {
+          name: 'Version',
+          value: host.agentVersion || '-'
+        },
+        {
+          name: 'Last Update',
+          value: moment(host.createdAt).format('DD/MM/YYYY hh:mm') || '-'
+        }
+      ]
+
       return this.hostInfo
     },
     hostDbsInfo(host) {
