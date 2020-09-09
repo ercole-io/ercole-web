@@ -1,6 +1,6 @@
 <template>
   <ul class="card-list">
-    <li v-for="item in list()" :key="item.name">
+    <li v-for="item in list" :key="item.name">
       <span>{{ item.name }}</span>
       <span v-if="!item.hasIcon">{{ item.value }}</span>
       <span v-if="item.hasIcon">
@@ -20,7 +20,7 @@
 export default {
   props: {
     list: {
-      type: [Function, Array],
+      type: Array,
       required: true
     }
   }

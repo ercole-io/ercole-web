@@ -36,7 +36,7 @@ export const mapBooleanIcon = value => {
 }
 
 export const mapTechType = dbs => {
-  if (dbs.oracle) {
+  if (dbs && dbs.oracle) {
     if (dbs.oracle.database) {
       if (dbs.oracle.database.databases.length > 0) {
         return 'Oracle Database'
@@ -53,10 +53,11 @@ export const mapTechType = dbs => {
 
 export const mapClustStatus = clust => {
   if (
-    clust.hacmp ||
-    clust.oracleClusterware ||
-    clust.sunCluster ||
-    clust.veritasClusterServer
+    clust &&
+    (clust.hacmp ||
+      clust.oracleClusterware ||
+      clust.sunCluster ||
+      clust.veritasClusterServer)
   ) {
     return mapBooleanIcon(true)
   } else {

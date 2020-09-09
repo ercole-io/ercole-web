@@ -3,22 +3,22 @@
     <div class="columns">
       <div class="column">
         <Card cardTitle="General info">
-          <CardList :list="general" />
+          <CardList :list="hostInfo.general" />
         </Card>
       </div>
       <div class="column">
         <Card cardTitle="Agent">
-          <CardList :list="agent" />
+          <CardList :list="hostInfo.agent" />
         </Card>
       </div>
       <div class="column">
         <Card cardTitle="Virtual">
-          <CardList :list="virtual" />
+          <CardList :list="hostInfo.virtual" />
         </Card>
       </div>
       <div class="column">
         <Card cardTitle="CPU">
-          <CardList :list="cpu" />
+          <CardList :list="hostInfo.cpu" />
         </Card>
       </div>
     </div>
@@ -39,89 +39,6 @@ export default {
   components: {
     Card,
     CardList
-  },
-  methods: {
-    general() {
-      return [
-        {
-          name: 'Environment',
-          value: this.hostInfo.environment
-        },
-        {
-          name: 'Technologie',
-          value: this.hostInfo.hostType
-        },
-        {
-          name: 'Clust',
-          value: this.hostInfo.aixCluster,
-          hasIcon: true
-        },
-        {
-          name: 'OS',
-          value: this.hostInfo.os
-        },
-        {
-          name: 'Kernel',
-          value: this.hostInfo.kernel
-        },
-        {
-          name: 'Memorie',
-          value: this.hostInfo.memoryTotal
-        },
-        {
-          name: 'Swap',
-          value: this.hostInfo.swapTotal
-        }
-      ]
-    },
-    virtual() {
-      return [
-        {
-          name: 'Platform',
-          value: this.hostInfo.platform
-        },
-        {
-          name: 'Cluster',
-          value: this.hostInfo.cluster
-        },
-        {
-          name: 'Physical',
-          value: this.hostInfo.physicalHost
-        }
-      ]
-    },
-    cpu() {
-      return [
-        {
-          name: 'Model',
-          value: this.hostInfo.model
-        },
-        {
-          name: 'Threads',
-          value: this.hostInfo.threads
-        },
-        {
-          name: 'Cores',
-          value: this.hostInfo.cores
-        },
-        {
-          name: 'Socket',
-          value: this.hostInfo.socket
-        }
-      ]
-    },
-    agent() {
-      return [
-        {
-          name: 'Version',
-          value: this.hostInfo.version
-        },
-        {
-          name: 'Last Update',
-          value: this.hostInfo.createdAt
-        }
-      ]
-    }
   }
 }
 </script>
