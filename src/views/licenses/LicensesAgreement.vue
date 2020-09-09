@@ -35,26 +35,45 @@
               </template>
 
               <template slot="bodyData" slot-scope="rowData">
-                <td>{{ rowData.scope.agreeNumber }}</td>
-                <td>{{ rowData.scope.partNumber }}</td>
-                <td>{{ rowData.scope.description }}</td>
-                <td>{{ rowData.scope.metrics }}</td>
-                <td>{{ rowData.scope.csi }}</td>
-                <td>{{ rowData.scope.referenceNumber }}</td>
-                <td>{{ rowData.scope.ula }}</td>
-                <td>{{ rowData.scope.licenseNumber }}</td>
-                <td>{{ rowData.scope.userNumber }}</td>
-                <td>{{ rowData.scope.availableNumber }}</td>
-                <td></td>
+                <TdContent :value="rowData.scope.agreeNumber" />
+                <TdContent :value="rowData.scope.partNumber" />
+                <TdContent :value="rowData.scope.description" />
+                <TdContent :value="rowData.scope.metrics" />
+                <TdContent :value="rowData.scope.csi" />
+                <TdContent :value="rowData.scope.referenceNumber" />
+                <TdContent :value="rowData.scope.ula" />
+                <TdContent :value="rowData.scope.licenseNumber" />
+                <TdContent :value="rowData.scope.userNumber" />
+                <TdContent :value="rowData.scope.availableNumber" />
+                <td class="is-flex action-buttons">
+                  <b-icon
+                    type="is-link"
+                    class="hosts-icon"
+                    pack="fas"
+                    icon="database"
+                    @click.native="
+                      showLicencedHosts(rowData.scope.hostAssociated)
+                    "
+                  />
 
-                <span slot="detail">teste</span>
+                  <b-icon
+                    type="is-info"
+                    class="edit-icon"
+                    pack="fas"
+                    icon="edit"
+                    @click.native="editLicense(rowData.scope)"
+                  />
+                  <b-icon
+                    type="is-danger"
+                    class="delete-icon"
+                    pack="fas"
+                    icon="trash-alt"
+                    @click.native="deleteLicense(rowData.scope.id)"
+                  />
+                </td>
               </template>
 
-              <!-- <exportButton
-                slot="export"
-                url="/hosts/technologies/oracle/databases"
-                expName="databases"
-              /> -->
+              <exportButton slot="export" url="" expName="databases" />
             </FullTable>
           </b-tab-item>
           <b-tab-item label="MySQL">
@@ -174,11 +193,15 @@
 <script>
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
+import exportButton from '@/components/common/exportButton.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
   components: {
     BoxContent,
-    FullTable
+    FullTable,
+    exportButton,
+    TdContent
   },
   data() {
     return {
@@ -248,6 +271,15 @@ export default {
         ula: false,
         licenseNumber: null
       }
+    },
+    editLicense(data) {
+      console.log(data)
+    },
+    deleteLicense(id) {
+      console.log(id)
+    },
+    showLicencedHosts(hosts) {
+      console.log(hosts)
     }
   },
   watch: {
@@ -284,6 +316,18 @@ export default {
     background-color: transparent;
     border: none;
     box-shadow: none;
+  }
+}
+
+.action-buttons {
+  justify-content: space-around;
+  min-width: 150px;
+
+  .edit-icon,
+  .delete-icon,
+  .hosts-icon {
+    font-size: 1rem;
+    cursor: pointer;
   }
 }
 </style>
