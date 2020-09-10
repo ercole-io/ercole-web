@@ -22,7 +22,7 @@
                 </span>
                 <br />
                 <span class="is-size-5 has-text-weight-medium">
-                  {{ databases.totalMemory | formatNumber('0.00', 'TB') }}
+                  {{ databases.totalMemory | formatNumber('0.00', 'GB') }}
                 </span>
               </p>
             </div>
@@ -40,7 +40,7 @@
                 </span>
                 <br />
                 <span class="is-size-5 has-text-weight-medium">
-                  {{ databases.totalSegment | formatNumber('0.00', 'TB') }}
+                  {{ databases.totalSegment | formatNumber('0.00', 'GB') }}
                 </span>
               </p>
               <p class="has-text-centered">
@@ -49,7 +49,7 @@
                 </span>
                 <br />
                 <span class="is-size-5 has-text-weight-medium">
-                  {{ databases.totalDatafile | formatNumber('0.00', 'TB') }}
+                  {{ databases.totalDatafile | formatNumber('0.00', 'GB') }}
                 </span>
               </p>
             </div>
@@ -145,9 +145,7 @@
             <TdContent :value="rowData.scope.hostname" />
             <TdContent :value="rowData.scope.environment" />
             <TdContent :value="rowData.scope.charset" />
-            <TdContent
-              :value="rowData.scope.memory | formatNumber('0.00', 'GB')"
-            />
+            <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
             <TdContent :value="rowData.scope.datafileSize" />
             <TdContent :value="rowData.scope.segmentsSize" />
             <TdIcon :value="bindIcon(rowData.scope.archivelog)" />
