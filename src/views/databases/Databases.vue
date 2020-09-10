@@ -105,9 +105,9 @@
         </div>
         <div class="columns">
           <div class="column is-12">
-            <Collapse title="High Reliability" id="HighReliability">
+            <Collapse title="High Availability" id="High Availability">
               <BarChart
-                chartId="highReliability"
+                chartId="High Availability"
                 :barChartData="getHighReliabilityChartData"
                 chartHeight="150px"
                 stacked
