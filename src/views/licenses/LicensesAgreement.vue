@@ -47,16 +47,18 @@
                 <TdContent :value="rowData.scope.availableNumber" />
                 <td class="is-flex action-buttons">
                   <b-icon
+                    v-tooltip="options('Show Hosts')"
                     type="is-link"
                     class="hosts-icon"
                     pack="fas"
-                    icon="database"
+                    icon="server"
                     @click.native="
                       showLicencedHosts(rowData.scope.hostAssociated)
                     "
                   />
 
                   <b-icon
+                    v-tooltip="options('Edit License')"
                     type="is-info"
                     class="edit-icon"
                     pack="fas"
@@ -64,6 +66,7 @@
                     @click.native="editLicense(rowData.scope)"
                   />
                   <b-icon
+                    v-tooltip="options('Delete License')"
                     type="is-danger"
                     class="delete-icon"
                     pack="fas"
@@ -195,8 +198,10 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import TooltipMixin from '@/mixins/tooltipMixin.js'
 
 export default {
+  mixins: [TooltipMixin],
   components: {
     BoxContent,
     FullTable,

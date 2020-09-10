@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import TableTdTooltip from '@/mixins/tableTdTooltip.js'
+import TooltipMixin from '@/mixins/tooltipMixin.js'
 
 export default {
-  mixins: [TableTdTooltip],
+  mixins: [TooltipMixin],
   methods: {
     formatArrayToShow(val) {
       return val.toString().replace(/,\s*/g, '\n')

@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import TableTdTooltip from '@/mixins/tableTdTooltip.js'
+import TooltipMixin from '@/mixins/tooltipMixin.js'
 
 export default {
-  mixins: [TableTdTooltip],
+  mixins: [TooltipMixin],
   computed: {
     tooltip() {
       return this.options(this.value[2])
