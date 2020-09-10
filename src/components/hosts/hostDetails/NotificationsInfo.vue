@@ -1,52 +1,62 @@
 <template>
   <span class="has-text-weight-medium	is-size-7">
-    {{ info.total }} notifications from the last week:
+    {{ getNotificationInfo.total }} notifications from the last week:
     <router-link
-      v-if="info.agents > 0"
-      :to="{ name: 'alerts', params: { type: info.hostname, flag: 'AGENT' } }"
+      v-if="getNotificationInfo.agents > 0"
+      :to="{
+        name: 'alerts',
+        params: { type: getNotificationInfo.hostname, flag: 'AGENT' }
+      }"
       tag="a"
     >
-      <span class="has-text-weight-light">Agents:</span> {{ info.agents }}
-    </router-link>
-    <span v-if="info.agents === 0">
       <span class="has-text-weight-light">Agents:</span>
-      {{ info.agents }}
+      {{ getNotificationInfo.agents }}
+    </router-link>
+    <span v-if="getNotificationInfo.agents === 0">
+      <span class="has-text-weight-light">Agents:</span>
+      {{ getNotificationInfo.agents }}
     </span>
     |
     <router-link
-      v-if="info.licenses > 0"
-      :to="{ name: 'alerts', params: { type: info.hostname, flag: 'LICENSE' } }"
+      v-if="getNotificationInfo.licenses > 0"
+      :to="{
+        name: 'alerts',
+        params: { type: getNotificationInfo.hostname, flag: 'LICENSE' }
+      }"
       tag="a"
     >
       <span class="has-text-weight-light">Licenses:</span>
-      {{ info.licenses }}
+      {{ getNotificationInfo.licenses }}
     </router-link>
-    <span v-if="info.licenses === 0">
+    <span v-if="getNotificationInfo.licenses === 0">
       <span class="has-text-weight-light">Licenses:</span>
-      {{ info.licenses }}
+      {{ getNotificationInfo.licenses }}
     </span>
     |
     <router-link
-      v-if="info.engine > 0"
-      :to="{ name: 'alerts', params: { type: info.hostname, flag: 'ENGINE' } }"
+      v-if="getNotificationInfo.engine > 0"
+      :to="{
+        name: 'alerts',
+        params: { type: getNotificationInfo.hostname, flag: 'ENGINE' }
+      }"
       tag="a"
     >
-      <span class="has-text-weight-light">Engine:</span> {{ info.engine }}
-    </router-link>
-    <span v-if="info.engine === 0">
       <span class="has-text-weight-light">Engine:</span>
-      {{ info.engine }}
+      {{ getNotificationInfo.engine }}
+    </router-link>
+    <span v-if="getNotificationInfo.engine === 0">
+      <span class="has-text-weight-light">Engine:</span>
+      {{ getNotificationInfo.engine }}
     </span>
   </span>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  props: {
-    info: {
-      type: Object,
-      default: null
-    }
+  computed: {
+    ...mapGetters(['getNotificationInfo'])
   }
 }
 </script>

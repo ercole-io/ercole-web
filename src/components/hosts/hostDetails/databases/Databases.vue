@@ -6,7 +6,7 @@
       size="is-small"
       type="is-boxed"
     >
-      <template v-for="dbs in hostDbs">
+      <template v-for="dbs in hostDetails.hostDBs">
         <b-tab-item :key="dbs.UniqueName" :label="dbs.name">
           <b-tabs size="is-small" type="is-toggle" vertical :animated="true">
             <b-tab-item label="Info">
@@ -98,6 +98,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import DbInfo from '@/components/hosts/hostDetails/databases/DbInfo.vue'
 import DbTablespaces from '@/components/hosts/hostDetails/databases/DbTablespaces.vue'
 import DbSchemas from '@/components/hosts/hostDetails/databases/DbSchemas.vue'
@@ -114,12 +115,6 @@ import DbTags from '@/components/hosts/hostDetails/databases/DbTags.vue'
 import DbPDBs from '@/components/hosts/hostDetails/databases/DbPDBs.vue'
 
 export default {
-  props: {
-    hostDbs: {
-      type: Array,
-      required: true
-    }
-  },
   components: {
     DbInfo,
     DbTablespaces,
@@ -142,6 +137,9 @@ export default {
       multiline: true,
       isActive: true
     }
+  },
+  computed: {
+    ...mapState(['hostDetails'])
   }
 }
 </script>
