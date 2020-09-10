@@ -38,8 +38,8 @@ export const getters = {
   getDataguardChartDataOracle: state => {
     return mountChart('dataguard', 'Disaster Recovery', state.oracleDbs)
   },
-  getHighReliabilityChartDataOracle: state => {
-    return mountChart('ha', 'High Reliability', state.oracleDbs)
+  getHaChartDataOracle: state => {
+    return mountChart('ha', 'High Availability', state.oracleDbs)
   }
 }
 

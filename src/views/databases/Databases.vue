@@ -59,7 +59,7 @@
           <div class="column is-12">
             <Collapse title="Type Of Databases" id="TypeOfDatabases" isOpen>
               <BarChart
-                chartId="databasesType"
+                chartId="dt"
                 :barChartData="getDatabasesTypeChartData"
                 chartHeight="150px"
                 stacked
@@ -71,7 +71,7 @@
           <div class="column is-12">
             <Collapse title="Type Of Environment" id="TypeOfEnvironment">
               <BarChart
-                chartId="environmentType"
+                chartId="et"
                 :barChartData="getEnvironmentTypeChartData"
                 chartHeight="150px"
                 stacked
@@ -83,7 +83,7 @@
           <div class="column is-12">
             <Collapse title="Archivelog Mode" id="ArchivelogMode">
               <BarChart
-                chartId="archivelog"
+                chartId="al"
                 :barChartData="getArchivelogChartData"
                 chartHeight="150px"
                 stacked
@@ -95,7 +95,7 @@
           <div class="column is-12">
             <Collapse title="Disaster Recovery" id="DisasterRecovery">
               <BarChart
-                chartId="dataguard"
+                chartId="dr"
                 :barChartData="getDataguardChartData"
                 chartHeight="150px"
                 stacked
@@ -105,10 +105,10 @@
         </div>
         <div class="columns">
           <div class="column is-12">
-            <Collapse title="High Availability" id="High Availability">
+            <Collapse title="High Availability" id="HighAvailability">
               <BarChart
-                chartId="High Availability"
-                :barChartData="getHighReliabilityChartData"
+                chartId="ha"
+                :barChartData="getHaChartData"
                 chartHeight="150px"
                 stacked
               />
@@ -220,7 +220,7 @@ export default {
       'getEnvironmentTypeChartData',
       'getArchivelogChartData',
       'getDataguardChartData',
-      'getHighReliabilityChartData'
+      'getHaChartData'
     ])
   }
 }
