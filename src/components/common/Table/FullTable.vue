@@ -142,4 +142,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.content table td,
+.content table th {
+  vertical-align: middle;
+}
+</style>
