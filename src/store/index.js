@@ -8,6 +8,7 @@ import * as errors from './modules/errors'
 import * as auth from './modules/auth'
 import * as dashboard from './modules/dashboard.js'
 import * as hosts from './modules/hosts.js'
+import * as hostDetails from './modules/hostDetails.js'
 import * as alerts from './modules/alerts.js'
 import * as licenses from './modules/licenses.js'
 import * as licensesAgreement from './modules/licensesAgreement.js'
@@ -30,6 +31,7 @@ export default new Vuex.Store({
     auth,
     dashboard,
     hosts,
+    hostDetails,
     alerts,
     licenses,
     licensesAgreement,

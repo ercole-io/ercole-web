@@ -26,7 +26,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(file, i) in filesys" :key="i">
+            <tr v-for="(file, i) in hostDetails.filesys" :key="i">
               <td>{{ file.filesystem }}</td>
               <td>{{ file.type }}</td>
               <td>{{ file.mountedOn }}</td>
@@ -43,15 +43,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Card from '@/components/common/Card.vue'
 
 export default {
-  props: {
-    filesys: {
-      type: Array,
-      default: () => []
-    }
-  },
+  // props: {
+  //   filesys: {
+  //     type: Array,
+  //     default: () => []
+  //   }
+  // },
   components: {
     Card
   },
@@ -59,6 +60,9 @@ export default {
     return {
       isFilesysModalActive: false
     }
+  },
+  computed: {
+    ...mapState(['hostDetails'])
   }
 }
 </script>
