@@ -37,9 +37,16 @@ export const mapBooleanIcon = value => {
 
 export const mapTechType = dbs => {
   if (dbs && dbs.oracle) {
-    if (dbs.oracle.database) {
-      if (dbs.oracle.database.databases.length > 0) {
-        return 'Oracle Database'
+    if (dbs.oracle && dbs.oracle.database) {
+      if (dbs.oracle.database && dbs.oracle.database.databases) {
+        if (
+          dbs.oracle.database.databases &&
+          dbs.oracle.database.databases.length > 0
+        ) {
+          return 'Oracle Database'
+        } else {
+          return '-'
+        }
       } else {
         return '-'
       }
