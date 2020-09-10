@@ -130,11 +130,11 @@
             <v-th sortKey="hostname">Hostname</v-th>
             <v-th sortKey="environment">Env.</v-th>
             <v-th sortKey="charset">Charset</v-th>
-            <v-th sortKey="memory">Mem.</v-th>
-            <v-th sortKey="datafileSize">DataFile</v-th>
-            <v-th sortKey="segmentsSize">Seg.</v-th>
-            <v-th sortKey="archivelog">A</v-th>
-            <v-th sortKey="dataguard">D</v-th>
+            <v-th sortKey="memory">Memory (GB)</v-th>
+            <v-th sortKey="datafileSize">Datafile Size (GB)</v-th>
+            <v-th sortKey="segmentsSize">Segment Size (GB)</v-th>
+            <v-th sortKey="archivelog">Archivelog Mode</v-th>
+            <v-th sortKey="dataguard">DR</v-th>
             <v-th sortKey="ha">HA</v-th>
           </template>
 
@@ -146,7 +146,7 @@
             <TdContent :value="rowData.scope.environment" />
             <TdContent :value="rowData.scope.charset" />
             <TdContent
-              :value="rowData.scope.memory | formatNumber('0.00', 'TB')"
+              :value="rowData.scope.memory | formatNumber('0.00', 'GB')"
             />
             <TdContent :value="rowData.scope.datafileSize" />
             <TdContent :value="rowData.scope.segmentsSize" />
