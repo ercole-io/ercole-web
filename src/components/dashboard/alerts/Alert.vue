@@ -62,7 +62,10 @@
       <b-button
         @click="handleAlertClick(hasFlag, 'INFO')"
         :disabled="alertTotals.info === 0"
-        type="is-info"
+        :type="{
+          'is-info': alertTotals.info !== 0,
+          'inverted-alert info': alertTotals.info === 0
+        }"
         size="is-small"
         icon-pack="mdi"
         icon-left="information"
@@ -74,7 +77,10 @@
       <b-button
         @click="handleAlertClick(hasFlag, 'WARNING')"
         :disabled="alertTotals.warn === 0"
-        type="is-warning"
+        :type="{
+          'is-warning': alertTotals.warn !== 0,
+          'inverted-alert warning': alertTotals.warn === 0
+        }"
         size="is-small"
         icon-pack="mdi"
         icon-left="alert"
@@ -86,7 +92,10 @@
       <b-button
         @click="handleAlertClick(hasFlag, 'CRITICAL')"
         :disabled="alertTotals.crit === 0"
-        type="is-danger"
+        :type="{
+          'is-danger': alertTotals.crit !== 0,
+          'inverted-alert danger': alertTotals.crit === 0
+        }"
         size="is-small"
         icon-pack="mdi"
         icon-left="information"
@@ -130,8 +139,9 @@ export default {
   methods: {
     ...mapActions(['markAsRead']),
     handleMarkAsRead(id, flag, type) {
-      this.isAnimated = !this.isAnimated
-      this.markAsRead({ id, flag, type })
+      this.markAsRead({ id, flag, type }).then(() => {
+        this.isAnimated = !this.isAnimated
+      })
     },
     handleAlertClick(flag, type) {
       this.$router.push(`/alerts/${type}/${flag}`)
@@ -150,7 +160,7 @@ export default {
       if (newValue) {
         setTimeout(() => {
           this.isAnimated = oldValue
-        }, 0)
+        }, 5000)
       }
     }
   }
@@ -195,6 +205,23 @@ export default {
         opacity: 1;
       }
     }
+
+    .inverted-alert {
+      background-color: #7a7a7a;
+      border: none;
+
+      &.warning {
+        color: #ffdd57;
+      }
+
+      &.danger {
+        color: #f14668;
+      }
+
+      &.info {
+        color: #3298dc;
+      }
+    }
   }
 }
 
@@ -214,7 +241,7 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.5s ease;
+  transition: all 5s ease;
 }
 .fade-enter,
 .fade-leave-to {
