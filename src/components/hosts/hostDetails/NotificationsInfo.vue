@@ -1,6 +1,6 @@
 <template>
   <span class="has-text-weight-medium	is-size-7">
-    {{ getNotificationInfo.total }} notifications from the last week:
+    {{ getNotificationInfo.total }} new alerts from the last week:
     <router-link
       v-if="getNotificationInfo.agents > 0"
       :to="{
