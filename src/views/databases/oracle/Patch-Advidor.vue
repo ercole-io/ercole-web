@@ -21,11 +21,11 @@
         <TdContent :value="rowData.scope.hostname" />
         <TdContent :value="rowData.scope.dbname" />
         <TdContent :value="rowData.scope.dbver" />
-        <TdContent :value="rowData.scope.createdAt | formatDate" />
+        <TdContent :value="rowData.scope.date | formatDate" />
         <TdContent :value="rowData.scope.description" />
-        <TdIcon :value="dateBetweenMonthRange(rowData.scope.createdAt, 4)" />
-        <TdIcon :value="dateBetweenMonthRange(rowData.scope.createdAt, 6)" />
-        <TdIcon :value="dateBetweenMonthRange(rowData.scope.createdAt, 12)" />
+        <TdIcon :value="dateBetweenMonthRange(rowData.scope.date, 4)" />
+        <TdIcon :value="dateBetweenMonthRange(rowData.scope.date, 6)" />
+        <TdIcon :value="dateBetweenMonthRange(rowData.scope.date, 12)" />
       </template>
 
       <exportButton
