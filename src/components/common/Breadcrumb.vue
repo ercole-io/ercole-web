@@ -42,18 +42,16 @@ export default {
 <style lang="scss" scoped>
 .breadcrumb {
   margin: 0;
-  padding: 10px 20px 0 20px;
+  padding: 10px 20px 8px 20px;
+  border-bottom: 1px solid #ccc;
 
   ul {
-    margin: 0;
+    align-items: center;
   }
 
-  li + li {
-    margin-top: 0;
-  }
-
-  .dynamicTitle {
-    margin-left: 4px;
+  .is-active {
+    font-size: 1rem;
+    font-weight: 500;
   }
 }
 </style>
