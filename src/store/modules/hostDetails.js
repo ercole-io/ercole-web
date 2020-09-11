@@ -148,29 +148,25 @@ export const getters = {
   getNotificationInfo: state => {
     const hostAlerts = state.hostAlerts
 
-    let total = _.filter(hostAlerts, val => {
-      if (checkHostDate(val.date)) {
-        return val
-      }
-    }).length
-
     let agents = _.filter(hostAlerts, val => {
-      if (checkHostDate(val.date)) {
+      if (checkHostDate(val.date) && val.alertStatus !== 'ACK') {
         return val.alertCategory === 'AGENT'
       }
     }).length
 
     let licenses = _.filter(hostAlerts, val => {
-      if (checkHostDate(val.date)) {
+      if (checkHostDate(val.date) && val.alertStatus !== 'ACK') {
         return val.alertCategory === 'LICENSE'
       }
     }).length
 
     let engine = _.filter(hostAlerts, val => {
-      if (checkHostDate(val.date)) {
+      if (checkHostDate(val.date) && val.alertStatus !== 'ACK') {
         return val.alertCategory === 'ENGINE'
       }
     }).length
+
+    let total = agents + licenses + engine
 
     let hostname = state.currentHost.hostname
 
