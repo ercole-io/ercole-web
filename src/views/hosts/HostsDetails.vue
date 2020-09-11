@@ -1,20 +1,9 @@
 <template>
   <section>
-    <PageTitle>
-      <NotificationsInfo />
-    </PageTitle>
-
     <boxContent>
       <div class="columns">
         <div class="column is-9">
-          <HostTags
-            title="Host Tags:"
-            inputWidth="150"
-            :tagsList="['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4']"
-            @addTag="handleAddTag"
-            @removeTag="handleRemoveTag"
-            @editTag="handleEditTag"
-          />
+          <NotificationsInfo />
         </div>
         <div
           class="column is-3 has-text-right is-flex"
@@ -32,6 +21,17 @@
         </div>
       </div>
     </boxContent>
+
+    <!-- <boxContent>
+      <HostTags
+        title="Host Tags:"
+        inputWidth="150"
+        :tagsList="['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4']"
+        @addTag="handleAddTag"
+        @removeTag="handleRemoveTag"
+        @editTag="handleEditTag"
+      />
+    </boxContent> -->
 
     <BoxContent>
       <HostInfo />
@@ -56,10 +56,9 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions, mapState } from 'vuex'
-import PageTitle from '@/components/common/PageTitle.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import NotificationsInfo from '@/components/hosts/hostDetails/NotificationsInfo.vue'
-import HostTags from '@/components/common/Tags.vue'
+// import HostTags from '@/components/common/Tags.vue'
 import HostInfo from '@/components/hosts/hostDetails/HostInfo.vue'
 import HostGraph from '@/components/hosts/hostDetails/Graph.vue'
 import HostDatabases from '@/components/hosts/hostDetails/databases/Databases.vue'
@@ -75,10 +74,9 @@ export default {
     }
   },
   components: {
-    PageTitle,
     BoxContent,
     NotificationsInfo,
-    HostTags,
+    // HostTags,
     HostInfo,
     HostGraph,
     HostDatabases,
