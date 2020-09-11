@@ -148,26 +148,10 @@ export const getters = {
   getNotificationInfo: state => {
     const hostAlerts = state.hostAlerts
 
-    let agents = _.filter(hostAlerts, val => {
-      if (checkHostDate(val.date) && val.alertStatus !== 'ACK') {
-        return val.alertCategory === 'AGENT'
-      }
-    }).length
-
-    let licenses = _.filter(hostAlerts, val => {
-      if (checkHostDate(val.date) && val.alertStatus !== 'ACK') {
-        return val.alertCategory === 'LICENSE'
-      }
-    }).length
-
-    let engine = _.filter(hostAlerts, val => {
-      if (checkHostDate(val.date) && val.alertStatus !== 'ACK') {
-        return val.alertCategory === 'ENGINE'
-      }
-    }).length
-
+    let agents = countAlertsByType(hostAlerts, 'AGENT')
+    let licenses = countAlertsByType(hostAlerts, 'LICENSE')
+    let engine = countAlertsByType(hostAlerts, 'ENGINE')
     let total = agents + licenses + engine
-
     let hostname = state.currentHost.hostname
 
     return {
@@ -259,4 +243,12 @@ const endDate = moment()
 const checkHostDate = date => {
   const dateToCheck = moment(date).format('YYYY-MM-DD')
   return moment(dateToCheck).isBetween(startDate, endDate)
+}
+
+const countAlertsByType = (alerts, type) => {
+  return _.filter(alerts, val => {
+    if (checkHostDate(val.date) && val.alertStatus !== 'ACK') {
+      return val.alertCategory === type
+    }
+  }).length
 }
