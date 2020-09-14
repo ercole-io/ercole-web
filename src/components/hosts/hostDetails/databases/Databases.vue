@@ -45,12 +45,12 @@
                 }"
               />
             </b-tab-item>
-            <b-tab-item label="Tags">
+            <!-- <b-tab-item label="Tags">
               <DbTags
                 :dbName="dbs.name"
                 :tags="['Albino', 'Milano', 'Como', 'Torino']"
               />
-            </b-tab-item>
+            </b-tab-item> -->
             <b-tab-item label="Pluggable DBs" v-if="dbs.pdbs.length > 0">
               <DbPDBs :pdbs="dbs.pdbs" />
             </b-tab-item>
@@ -111,7 +111,7 @@ import DbServices from '@/components/hosts/hostDetails/databases/DbServices.vue'
 import DbGrowth from '@/components/hosts/hostDetails/databases/DbGrowth.vue'
 import DbOptions from '@/components/hosts/hostDetails/databases/DbOptions.vue'
 import DbLicenses from '@/components/hosts/hostDetails/databases/DbLicenses.vue'
-import DbTags from '@/components/hosts/hostDetails/databases/DbTags.vue'
+// import DbTags from '@/components/hosts/hostDetails/databases/DbTags.vue'
 import DbPDBs from '@/components/hosts/hostDetails/databases/DbPDBs.vue'
 
 export default {
@@ -128,7 +128,7 @@ export default {
     DbGrowth,
     DbOptions,
     DbLicenses,
-    DbTags,
+    // DbTags,
     DbPDBs
   },
   data() {
