@@ -14,7 +14,9 @@ export const mutations = {
 
 export const actions = {
   async getLicensesList({ commit }) {
-    const licensesList = await axiosDefault.get('/licenses?mode=list')
+    const licensesList = await axiosDefault.get(
+      '/hosts/technologies/oracle/databases/consumed-licenses'
+    )
     const response = await licensesList.data
 
     commit('SET_LICENSE_LIST', response)
