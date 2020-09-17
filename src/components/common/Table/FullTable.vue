@@ -20,7 +20,9 @@
         :currentPage.sync="currentPage"
         :pageSize="perPage"
         @totalPagesChanged="totalPages = $event"
-        @selectionChanged="clickedRow"
+        @selectionChanged="selectedRows = $event"
+        :selectionMode="modeSelection"
+        :selectedClass="classSelection"
         class="vTable-custom"
       >
         <thead slot="head">
@@ -37,7 +39,12 @@
           <span style="display: none">
             {{ getDataLength(displayData) }}
           </span>
-          <v-tr v-for="(row, index) in displayData" :key="index" :row="row">
+          <v-tr
+            v-for="(row, index) in displayData"
+            :key="index"
+            :row="row"
+            :class="{ 'table-info': row.isChecked }"
+          >
             <slot name="bodyData" :scope="row" />
           </v-tr>
         </tbody>
@@ -104,8 +111,17 @@ export default {
       type: Array,
       required: true
     },
-    clickedRow: {
-      type: Function
+    isClickable: {
+      type: Boolean,
+      default: false
+    },
+    modeSelection: {
+      type: String,
+      default: 'single'
+    },
+    classSelection: {
+      type: String,
+      default: ''
     }
   },
   components: {
@@ -118,6 +134,7 @@ export default {
   },
   data() {
     return {
+      selectedRows: [],
       filteredData: 0,
       filters: {
         search: {
@@ -129,6 +146,7 @@ export default {
   },
   methods: {
     getDataLength(value) {
+      this.$emit('pageRows', value)
       return value === 'noData'
         ? (this.filteredData = 0)
         : (this.filteredData = value.length)
@@ -138,11 +156,34 @@ export default {
     total() {
       return this.tableData
     }
+  },
+  watch: {
+    selectedRows() {
+      if (this.isClickable) {
+        this.$emit('clickedRow', this.selectedRows)
+      } else {
+        this.$emit('selectedRows', this.selectedRows)
+      }
+    },
+    currentPage(value) {
+      if (value) {
+        this.$emit('isPageChanged')
+      }
+    },
+    perPage(value) {
+      if (value) {
+        this.$emit('isPageChanged')
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss">
+.table-info {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
 .content table td,
 .content table th {
   vertical-align: middle;

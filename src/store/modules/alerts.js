@@ -89,7 +89,7 @@ export const mutations = {
       state.alerts.LICENSE[key] = _.orderBy(value, ['date'], ['asc'])
     })
   },
-  MARK_AS_READ: (state, payload) => {
+  MARK_AS_READ_DASH: (state, payload) => {
     let id = payload.id
     let flag = payload.flag
     let type = payload.type
@@ -99,8 +99,19 @@ export const mutations = {
         return item._id !== id
       })
     }
-    state.alerts[flag][type] = _.filter(state.alerts[flag][type], item => {
-      return item._id !== id
+
+    filterOnAlertsById(state.alerts, flag, type, id)
+  },
+  MARK_AS_READ_ALERTS_PAGE: (state, payload) => {
+    const alerts = state.alerts
+
+    _.forEach(payload.idList, id => {
+      filterOnAlertsById(alerts, 'ENGINE', 'INFO', id)
+      filterOnAlertsById(alerts, 'ENGINE', 'WARNING', id)
+      filterOnAlertsById(alerts, 'ENGINE', 'CRITICAL', id)
+      filterOnAlertsById(alerts, 'LICENSE', 'INFO', id)
+      filterOnAlertsById(alerts, 'LICENSE', 'WARNING', id)
+      filterOnAlertsById(alerts, 'LICENSE', 'CRITICAL', id)
     })
   }
 }
@@ -109,13 +120,25 @@ export const actions = {
   async getAlertsData({ commit }) {
     const alertsData = await axiosDefault.get('/alerts?status=NEW')
     const response = await alertsData.data
+    _.map(response, val => {
+      if (val.alertCategory !== 'AGENT') {
+        val.isChecked = false
+      }
+    })
     commit('SET_ALERTS', response)
   },
   async markAsRead({ commit }, payload) {
-    const deleteAlert = await axiosNoLoading.post(`/alerts/${payload.id}`)
+    const deleteAlert = await axiosNoLoading.post(`/alerts/ack`, [payload.id])
     const response = await deleteAlert
     if (response) {
-      commit('MARK_AS_READ', payload)
+      commit('MARK_AS_READ_DASH', payload)
+    }
+  },
+  async markAsReadAlertsPage({ commit }, payload) {
+    const deleteAlert = await axiosNoLoading.post(`/alerts/ack`, payload.idList)
+    const response = await deleteAlert
+    if (response) {
+      commit('MARK_AS_READ_ALERTS_PAGE', payload)
     }
   }
 }
@@ -133,4 +156,12 @@ const organizeAlertByFirst = alert => {
     (alert.INFO && alert.INFO[0]) ||
     null
   )
+}
+
+const filterOnAlertsById = (alerts, flag, type, id) => {
+  alerts[flag][type] = _.filter(alerts[flag][type], item => {
+    return item._id !== id
+  })
+
+  return alerts[flag][type]
 }

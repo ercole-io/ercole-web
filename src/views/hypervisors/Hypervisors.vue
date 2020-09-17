@@ -42,7 +42,8 @@
             placeholder="Search on Hypervisors"
             :keys="keys"
             :tableData="data"
-            :clickedRow="handleClickedRow"
+            @clickedRow="handleClickedRow"
+            isClickable
           >
             <template slot="headData">
               <v-th sortKey="name">Cluster Name</v-th>

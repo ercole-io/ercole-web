@@ -5,7 +5,8 @@
         placeholder="Search on Hosts"
         :keys="keys"
         :tableData="getAllHosts"
-        :clickedRow="handleClickedRow"
+        @clickedRow="handleClickedRow"
+        isClickable
       >
         <div class="top-table-buttons" slot="customTopHeader">
           <span class="is-size-7 has-text-weight-medium">Show more info:</span>
@@ -173,7 +174,6 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
-import paginationMixin from '@/mixins/paginationMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -182,7 +182,6 @@ import TdArray from '@/components/common/Table/TdArray.vue'
 import exportButton from '@/components/common/exportButton.vue'
 
 export default {
-  mixins: [paginationMixin],
   components: {
     BoxContent,
     FullTable,
@@ -231,9 +230,9 @@ export default {
   },
   methods: {
     ...mapActions(['getHosts']),
-    handleClickedRow($event) {
-      if ($event.length > 0) {
-        const selectedRow = $event[0].hostname
+    handleClickedRow(value) {
+      if (value.length > 0) {
+        const selectedRow = value[0].hostname
         this.$router.push({
           name: 'hosts-details',
           params: { hostname: selectedRow }

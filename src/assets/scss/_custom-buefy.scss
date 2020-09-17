@@ -105,3 +105,9 @@ ul.pagination-list {
 .notices .toast.is-success {
   color: #000000;
 }
+
+// checkbox
+.b-checkbox.checkbox:not(.button) {
+  vertical-align: middle;
+  margin-right: 0;
+}

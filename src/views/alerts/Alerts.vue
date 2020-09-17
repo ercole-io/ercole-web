@@ -5,11 +5,66 @@
         placeholder="Search on Alerts"
         :keys="keys"
         :tableData="data"
-        :clickedRow="() => []"
         class="table-alerts"
+        @pageRows="
+          vals => {
+            currentPageSelection = vals
+          }
+        "
+        @isPageChanged="handleClearAllSelections"
       >
+        <template>
+          <div
+            slot="customTopHeader"
+            v-if="isCurrentPageSelected || selectedRows.length > 0"
+          >
+            <b-button
+              type="is-primary"
+              size="is-small"
+              icon-pack="fas"
+              icon-left="check-circle"
+              class="has-text-weight-semibold mr-3"
+              @click="handleMarkAsRead"
+            >
+              Mark as Read
+            </b-button>
+
+            <span
+              class="is-size-7"
+              v-if="!isAllPagesSelected && isCurrentPageSelected"
+            >
+              <span class="px-2">
+                All {{ currentPageSelection.length }} alerts on this page are
+                selected.
+              </span>
+              <a @click="handleSelectAllPagesRows">
+                Select all {{ data.length }} alerts?
+              </a>
+            </span>
+
+            <span
+              class="is-size-7"
+              v-if="isAllPagesSelected && isCurrentPageSelected"
+            >
+              <span class="px-2">
+                All {{ data.length }} alerts are selected.
+              </span>
+              <a @click="handleClearAllSelections">
+                Clear selection?
+              </a>
+            </span>
+          </div>
+        </template>
+
         <template slot="headData">
-          <th style="width: 5%">Actions</th>
+          <th style="width: 5%">
+            <div>
+              <b-checkbox
+                v-model="isCurrentPageSelected"
+                @input="handleSelectPageRows"
+              />
+            </div>
+          </th>
           <v-th style="width: 10%" sortKey="alertCategory">Type</v-th>
           <v-th style="width: 10%" sortKey="date">Date</v-th>
           <v-th style="width: 5%" sortKey="alertSeverity">Severity</v-th>
@@ -19,25 +74,15 @@
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
-          <td>
-            <b-button
-              v-if="rowData.scope.alertCategory !== 'AGENT'"
-              @click="
-                handleMarkAsRead(
-                  rowData.scope._id,
-                  rowData.scope.alertCategory,
-                  rowData.scope.alertSeverity
-                )
+          <td v-if="rowData.scope.alertCategory !== 'AGENT'">
+            <b-checkbox
+              v-model="rowData.scope.isChecked"
+              @input="
+                handleSelectRows(rowData.scope.isChecked, rowData.scope._id)
               "
-              type="is-primary"
-              size="is-small"
-              icon-pack="fas"
-              icon-left="check-circle"
-              class="has-text-weight-semibold"
-            >
-              Mark as Read
-            </b-button>
+            />
           </td>
+          <td v-else></td>
           <TdContent :value="rowData.scope.alertCategory" />
           <TdContent :value="rowData.scope.date" />
           <TdIcon :value="resolveIcon(rowData.scope.alertSeverity)" />
@@ -53,6 +98,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapGetters, mapActions } from 'vuex'
 import { checkAlertIcon } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
@@ -61,6 +107,13 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
+
+const checkOrUncheck = (list, status, handleSelectRows) => {
+  _.map(list, val => {
+    val.isChecked = status
+    return handleSelectRows(val.isChecked, val._id)
+  })
+}
 
 export default {
   mixins: [paginationMixin],
@@ -91,7 +144,11 @@ export default {
         'alertCode',
         'description'
       ],
-      data: []
+      data: [],
+      selectedRows: [],
+      isCurrentPageSelected: false,
+      currentPageSelection: [],
+      isAllPagesSelected: false
     }
   },
   async beforeMount() {
@@ -112,7 +169,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getAlertsData', 'markAsRead']),
+    ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),
     fetchAlerts() {
       this.getAlertsData()
       this.data = this.getAllAlerts
@@ -143,8 +200,9 @@ export default {
         'mdi-24px'
       ]
     },
-    handleMarkAsRead(id, flag, type) {
-      this.markAsRead({ id, flag, type }).then(() => {
+    handleMarkAsRead() {
+      const idList = this.selectedRows
+      this.markAsReadAlertsPage({ idList }).then(() => {
         if (!this.type && !this.flag) {
           this.showAllAlerts()
         } else if (this.flag === 'AGENT') {
@@ -152,7 +210,32 @@ export default {
         } else {
           this.showFilteredAlerts()
         }
+        this.isCurrentPageSelected = false
       })
+    },
+    handleSelectRows(status, id) {
+      if (status) {
+        this.selectedRows.push(id)
+      } else {
+        this.selectedRows = _.filter(this.selectedRows, val => {
+          return val !== id
+        })
+      }
+    },
+    handleSelectPageRows(checked) {
+      if (checked) {
+        checkOrUncheck(this.currentPageSelection, true, this.handleSelectRows)
+      } else {
+        checkOrUncheck(this.currentPageSelection, false, this.handleSelectRows)
+      }
+    },
+    handleSelectAllPagesRows() {
+      this.isAllPagesSelected = true
+      checkOrUncheck(this.data, true, this.handleSelectRows)
+    },
+    handleClearAllSelections() {
+      this.isAllPagesSelected = false
+      checkOrUncheck(this.data, false, this.handleSelectRows)
     }
   },
   computed: {
@@ -163,6 +246,15 @@ export default {
       'getFilteredAlertsByHost',
       'getFilteredAgentsByHost'
     ])
+  },
+  watch: {
+    selectedRows(value) {
+      if (value.length < this.perPage) {
+        this.isCurrentPageSelected = false
+      } else {
+        this.isCurrentPageSelected = true
+      }
+    }
   }
 }
 </script>
