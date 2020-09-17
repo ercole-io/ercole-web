@@ -6,7 +6,7 @@
         <span>{{ title[0] }}</span>
       </p>
     </header>
-    <transition name="flip" mode="out-in">
+    <transition :duration="5000">
       <main class="alert-body" v-if="alertTotals.total > 0 && !isAnimated">
         <div class="columns is-vcentered is-gapless bottom-space">
           <div class="column">
@@ -139,9 +139,8 @@ export default {
   methods: {
     ...mapActions(['markAsRead']),
     handleMarkAsRead(id, flag, type) {
-      this.markAsRead({ id, flag, type }).then(() => {
-        this.isAnimated = !this.isAnimated
-      })
+      this.isAnimated = !this.isAnimated
+      this.markAsRead({ id, flag, type })
     },
     handleAlertClick(flag, type) {
       this.$router.push(`/alerts/${type}/${flag}`)
@@ -160,7 +159,7 @@ export default {
       if (newValue) {
         setTimeout(() => {
           this.isAnimated = oldValue
-        }, 5000)
+        }, 0)
       }
     }
   }
@@ -241,11 +240,10 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 5s ease;
+  transition: opacity 5s;
 }
 .fade-enter,
 .fade-leave-to {
-  transform: translateX(10px);
   opacity: 0;
 }
 </style>
