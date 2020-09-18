@@ -18,7 +18,7 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.hostname" />
+        <HostLink :hostname="rowData.scope.hostname" />
         <TdContent :value="rowData.scope.dbname" />
         <TdContent :value="rowData.scope.dbver" />
         <TdContent :value="rowData.scope.date | formatDate" />
@@ -44,13 +44,15 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
+import HostLink from '@/components/common/Table/HostLink.vue'
 
 export default {
   components: {
     FullTable,
     exportButton,
     TdContent,
-    TdIcon
+    TdIcon,
+    HostLink
   },
   data() {
     return {

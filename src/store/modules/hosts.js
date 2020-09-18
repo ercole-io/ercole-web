@@ -48,6 +48,7 @@ export const actions = {
     const hostsData = await axiosDefault.get('/hosts')
     const response = await hostsData.data
     commit('SET_HOSTS', response)
+    commit('SET_HOSTNAMES', response)
   }
 }
 

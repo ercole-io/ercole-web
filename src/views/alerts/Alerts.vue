@@ -86,7 +86,7 @@
           <TdContent :value="rowData.scope.alertCategory" />
           <TdContent :value="rowData.scope.date" />
           <TdIcon :value="resolveIcon(rowData.scope.alertSeverity)" />
-          <TdContent :value="rowData.scope.hostname" />
+          <HostLink :hostname="rowData.scope.hostname" />
           <TdContent :value="rowData.scope.alertCode" />
           <TdContent :value="rowData.scope.description" />
         </template>
@@ -107,6 +107,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
+import HostLink from '@/components/common/Table/HostLink.vue'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
   _.map(list, val => {
@@ -132,7 +133,8 @@ export default {
     FullTable,
     exportButton,
     TdContent,
-    TdIcon
+    TdIcon,
+    HostLink
   },
   data() {
     return {

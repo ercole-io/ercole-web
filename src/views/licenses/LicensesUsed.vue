@@ -15,7 +15,7 @@
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
-          <TdContent :value="rowData.scope.hostname" />
+          <HostLink :hostname="rowData.scope.hostname" />
           <TdContent :value="rowData.scope.dbName" />
           <TdContent :value="rowData.scope.licenseName" />
           <TdContent :value="rowData.scope.usedLicenses" />
@@ -38,6 +38,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import HostLink from '@/components/common/Table/HostLink.vue'
 
 export default {
   mixins: [paginationMixin],
@@ -45,7 +46,8 @@ export default {
     BoxContent,
     FullTable,
     exportButton,
-    TdContent
+    TdContent,
+    HostLink
   },
   data() {
     return {

@@ -142,7 +142,7 @@
             <TdContent :value="rowData.scope.name" />
             <TdContent :value="rowData.scope.type" />
             <TdContent :value="rowData.scope.version" />
-            <TdContent :value="rowData.scope.hostname" />
+            <HostLink :hostname="rowData.scope.hostname" />
             <TdContent :value="rowData.scope.environment" />
             <TdContent :value="rowData.scope.charset" />
             <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
@@ -173,6 +173,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import Collapse from '@/components/common/Collapse.vue'
 import { mapBooleanIcon } from '@/helpers/helpers.js'
+import HostLink from '@/components/common/Table/HostLink.vue'
 
 export default {
   components: {
@@ -181,7 +182,8 @@ export default {
     BarChart,
     TdContent,
     TdIcon,
-    Collapse
+    Collapse,
+    HostLink
   },
   data() {
     return {

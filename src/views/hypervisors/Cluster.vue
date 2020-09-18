@@ -70,9 +70,9 @@
 
             <template slot="bodyData" slot-scope="rowData">
               <TdContent :value="rowData.scope.virtualizationNode" />
-              <TdContent :value="rowData.scope.hostname" />
+              <HostLink :hostname="rowData.scope.hostname" />
               <TdContent :value="rowData.scope.name" />
-              <TdContent :value="rowData.scope.cappedCPU" />
+              <TdIcon :value="bindIcon(rowData.scope.cappedCPU)" />
             </template>
 
             <exportButton
@@ -91,11 +91,14 @@
 import techTypePrettyName from '@/mixins/techTypePrettyName.js'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapBooleanIcon } from '@/helpers/helpers.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import BarChart from '@/components/common/charts/BarChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import HostLink from '@/components/common/Table/HostLink.vue'
+import TdIcon from '@/components/common/Table/TDIcon.vue'
 
 export default {
   mixins: [techTypePrettyName],
@@ -105,7 +108,9 @@ export default {
     FullTable,
     exportButton,
     BarChart,
-    TdContent
+    TdContent,
+    HostLink,
+    TdIcon
   },
   data() {
     return {
@@ -120,7 +125,10 @@ export default {
     this.data = this.clusters.currentCluster.vms
   },
   methods: {
-    ...mapActions(['getClusterByName'])
+    ...mapActions(['getClusterByName']),
+    bindIcon(value) {
+      return mapBooleanIcon(value)
+    }
   },
   computed: {
     ...mapState(['clusters']),
