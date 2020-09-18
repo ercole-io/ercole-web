@@ -72,7 +72,7 @@
             <b-tab-item label="PSUs" v-if="dbs.psus.length > 0">
               <DbPSUs :psus="dbs.psus" />
             </b-tab-item>
-            <b-tab-item label="ADDMs" v-if="dbs.addms.length > 0">
+            <b-tab-item label="ADDM" v-if="dbs.addms.length > 0">
               <DbADDMs :addms="dbs.addms" />
             </b-tab-item>
             <b-tab-item
@@ -81,7 +81,7 @@
             >
               <DbSegmentAdvisors :segmentAdvisors="dbs.segmentAdvisors" />
             </b-tab-item>
-            <b-tab-item label="DBGrowth" v-if="dbs.changes.length > 0">
+            <b-tab-item label="DB Growth" v-if="dbs.changes.length > 0">
               <DbGrowth :growth="dbs.changes" :growthId="dbs.name" />
             </b-tab-item>
             <b-tab-item label="Backups" v-if="dbs.backups.length > 0">
