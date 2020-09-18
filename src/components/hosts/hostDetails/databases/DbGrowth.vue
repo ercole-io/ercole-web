@@ -29,6 +29,7 @@ export default {
   },
   beforeMount() {
     this.mountDbGrowthChart()
+    this.$forceUpdate()
   },
   methods: {
     calcDatafileSize() {
@@ -55,10 +56,10 @@ export default {
     },
     calcAllocatedSize() {
       let allocated = _.map(this.growth, val => {
-        const { allocated, updated } = val
+        const { allocable, updated } = val
         return {
           date: moment(updated).format('YYYY-MM-DD'),
-          value: allocated
+          value: allocable
         }
       })
 
@@ -76,7 +77,7 @@ export default {
       this.chartData.push(
         { name: 'Datafile Size', data: this.calcDatafileSize() },
         { name: 'Segments Size', data: this.calcSegmentsSize() },
-        { name: 'Allocated Size', data: this.calcAllocatedSize() }
+        { name: 'Allocable Size', data: this.calcAllocatedSize() }
       )
     }
   }

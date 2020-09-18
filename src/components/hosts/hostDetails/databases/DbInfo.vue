@@ -20,7 +20,11 @@
               </li>
               <li>
                 <span>Archivelog</span>
-                <span>{{ details.archiveLog }}</span>
+                <b-icon
+                  size="is-small"
+                  :icon="bindIcon(details.archiveLog)[0]"
+                  :type="bindIcon(details.archiveLog)[1]"
+                />
               </li>
               <li>
                 <span>BlockSize</span>
@@ -114,11 +118,19 @@
               <li>Additionally Infos</li>
               <li>
                 <span>ASM</span>
-                <span>{{ infos.asm }}</span>
+                <b-icon
+                  size="is-small"
+                  :icon="bindIcon(infos.asm)[0]"
+                  :type="bindIcon(infos.asm)[1]"
+                />
               </li>
               <li>
                 <span>DataGuard</span>
-                <span>{{ infos.dataGuard }}</span>
+                <b-icon
+                  size="is-small"
+                  :icon="bindIcon(infos.dataGuard)[0]"
+                  :type="bindIcon(infos.dataGuard)[1]"
+                />
               </li>
               <li>
                 <span>Plattform</span>
@@ -137,6 +149,8 @@
 </template>
 
 <script>
+import { mapBooleanIcon } from '@/helpers/helpers.js'
+
 export default {
   props: {
     details: {
@@ -159,6 +173,11 @@ export default {
       type: Object,
       default: null
     }
+  },
+  methods: {
+    bindIcon(value) {
+      return mapBooleanIcon(value)
+    }
   }
 }
 </script>
@@ -168,7 +187,6 @@ export default {
   padding-top: 0;
 
   li {
-    box-shadow: 0 0.05em 0 lightslategrey;
     padding: 0 5px;
     font-size: 0.7em;
 
@@ -181,6 +199,12 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    align-items: center;
+    padding: 3px 6px;
+
+    &:nth-child(odd) {
+      background: #f1f1f1;
+    }
   }
 
   li:first-child {

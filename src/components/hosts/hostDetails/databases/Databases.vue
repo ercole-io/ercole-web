@@ -33,7 +33,7 @@
                   cpuCount: dbs.cpuCount
                 }"
                 :space="{
-                  allocable: dbs.allocated,
+                  allocable: dbs.allocable,
                   dataFileSize: dbs.datafileSize,
                   segmentSize: dbs.segmentsSize
                 }"
