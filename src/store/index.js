@@ -8,6 +8,7 @@ import * as errors from './modules/errors'
 import * as auth from './modules/auth'
 import * as dashboard from './modules/dashboard.js'
 import * as hosts from './modules/hosts.js'
+import * as hostnames from './modules/hostnames.js'
 import * as hostDetails from './modules/hostDetails.js'
 import * as alerts from './modules/alerts.js'
 import * as licenses from './modules/licenses.js'
@@ -31,6 +32,7 @@ export default new Vuex.Store({
     auth,
     dashboard,
     hosts,
+    hostnames,
     hostDetails,
     alerts,
     licenses,
@@ -47,7 +49,7 @@ export default new Vuex.Store({
   plugins: [
     createPersistedState({
       key: 'persisted-data',
-      paths: ['auth', 'alerts', 'technologies']
+      paths: ['auth', 'alerts', 'technologies', 'hostnames']
     })
   ]
 })

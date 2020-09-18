@@ -17,7 +17,7 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <TdContent :value="rowData.scope.benefit" />
-        <TdContent :value="rowData.scope.hostname" />
+        <HostLink :hostname="rowData.scope.hostname" />
         <TdContent :value="rowData.scope.dbname" />
         <TdContent :value="rowData.scope.finding" />
         <TdContent :value="rowData.scope.recommendation" />
@@ -38,12 +38,14 @@ import { mapActions, mapState } from 'vuex'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import HostLink from '@/components/common/Table/HostLink.vue'
 
 export default {
   components: {
     FullTable,
     exportButton,
-    TdContent
+    TdContent,
+    HostLink
   },
   data() {
     return {
