@@ -18,11 +18,11 @@
             <FullTable
               placeholder="Search on Licenses"
               :keys="keys"
-              :tableData="data"
+              :tableData="licensesAgreement.licensesAgreement"
               :clickedRow="() => []"
             >
               <template slot="headData">
-                <v-th sortKey="agreeNumber">Agreement NUmber</v-th>
+                <v-th sortKey="agreeNumber">Agreement Number</v-th>
                 <v-th sortKey="partNumber">Part Number</v-th>
                 <v-th sortKey="description">Item Description</v-th>
                 <v-th sortKey="metrics">Metrics</v-th>
@@ -99,16 +99,11 @@
           </b-field>
 
           <b-field label="Agreement Number *" custom-class="is-small">
-            <b-select
-              class="select-editable"
+            <b-input
               size="is-small"
-              placeholder="Select"
+              type="number"
               v-model="licenseAddData.agreeNumber"
-              expanded
-            >
-              <option value="1514845214">1514845214</option>
-              <option value="1514845215">1514845215</option>
-            </b-select>
+            />
           </b-field>
 
           <b-field
@@ -132,15 +127,11 @@
           </b-field>
 
           <b-field label="CSI *" custom-class="is-small">
-            <b-select
+            <b-input
               size="is-small"
-              placeholder="Select"
+              type="number"
               v-model="licenseAddData.csi"
-              expanded
-            >
-              <option value="1578652">1578652</option>
-              <option value="1578653">1578653</option>
-            </b-select>
+            />
           </b-field>
 
           <b-field label="Reference Number" custom-class="is-small">
@@ -174,14 +165,13 @@
               multiple
               expanded
             >
-              <option value="test-1">test-1</option>
-              <option value="test-2">test-2</option>
-              <option value="test-3">test-3</option>
-              <option value="test-4">test-4</option>
-              <option value="test-5">test-5</option>
-              <option value="test-6">test-6</option>
-              <option value="test-7">test-7</option>
-              <option value="test-8">test-8</option>
+              <option
+                v-for="(hostname, index) in hostnames.hostnames"
+                :key="index"
+                :value="hostname"
+              >
+                {{ hostname }}
+              </option>
             </b-select>
           </b-field>
 
@@ -204,7 +194,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -226,33 +216,6 @@ export default {
       addCol: 'is-3',
       toggleText: 'Hide',
       toggleIcon: 'chevron-left',
-      data: [
-        {
-          id: 0,
-          agreeNumber: 5051863,
-          partNumber: 'L75978',
-          description: 'Oracle GoldenGate',
-          metrics: 'Processor Perpetual',
-          csi: 19765174,
-          referenceNumber: 103246681,
-          ula: 'no',
-          licenseNumber: 72,
-          userNumber: null,
-          availableNumber: 60,
-          hostAssociated: [
-            {
-              id: 0,
-              hostname: 'erclin6db18',
-              usedLicenses: 4
-            },
-            {
-              id: 0,
-              hostname: 'erclin7dbx',
-              usedLicenses: 8
-            }
-          ]
-        }
-      ],
       keys: [
         'agreeNumber',
         'partNumber',
@@ -280,31 +243,30 @@ export default {
     ...mapActions(['getLicensesAgreement', 'getAgreementParts']),
     addLicense() {
       const license = {
-        agreementID: 'string',
-        partID: 'string',
-        itemDescription: 'string',
-        metrics: 'string',
-        csi: 'string',
-        referenceNumber: 'string',
-        unlimited: this.licenseAddData.ula,
-        licensesCount: this.licenseAddData.licenseNumber,
-        usersCount: 0,
-        availableCount: 0.5,
-        catchAll: false,
-        hosts: this.licenseAddData.hostAssociated
+        id: Math.floor(Math.random() * 10),
+        agreeNumber: this.licenseAddData.agreeNumber,
+        partNumber: this.licenseAddData.partNumber.split(' - ')[0],
+        description: this.licenseAddData.partNumber.split(' - ')[1],
+        metrics: this.licenseAddData.partNumber.split(' - ')[2],
+        csi: this.licenseAddData.csi,
+        referenceNumber: this.licenseAddData.referenceNumber,
+        ula: this.licenseAddData.ula,
+        licenseNumber: this.licenseAddData.licenseNumber,
+        hostAssociated: this.licenseAddData.hostAssociated
       }
-      console.log(license)
+      this.$store.commit('SET_LICENSE_AGREEMENT', license)
+      this.cancelAddLicense()
     },
     cancelAddLicense() {
       this.licenseAddData = {
         agreeNumber: null,
         csi: null,
-        hostAssociated: [],
         partNumber: null,
         referenceNumber: null,
         techType: null,
         ula: false,
-        licenseNumber: null
+        licenseNumber: null,
+        hostAssociated: []
       }
     },
     editLicense(data) {
@@ -318,6 +280,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['hostnames', 'licensesAgreement']),
     ...mapGetters(['returnAgreementParts'])
   },
   watch: {
