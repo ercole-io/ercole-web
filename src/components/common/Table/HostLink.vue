@@ -1,5 +1,5 @@
 <template>
-  <TdContent :value="hostname" :link="handleHostnameClick" />
+  <TdContent :value="getHostname" :link="handleHostnameClick" />
 </template>
 
 <script>
@@ -13,7 +13,18 @@ export default {
   },
   props: {
     hostname: {
-      type: String
+      type: [String, Array],
+      required: true
+    }
+  },
+  computed: {
+    getHostname() {
+      return typeof this.hostname === 'string'
+        ? this.hostname
+        : this.hostname[0]
+    },
+    getDbname() {
+      return typeof this.hostname === 'string' ? '' : this.hostname[1]
     }
   }
 }

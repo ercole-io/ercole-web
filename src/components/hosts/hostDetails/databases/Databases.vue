@@ -99,6 +99,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import _ from 'lodash'
 import DbInfo from '@/components/hosts/hostDetails/databases/DbInfo.vue'
 import DbTablespaces from '@/components/hosts/hostDetails/databases/DbTablespaces.vue'
 import DbSchemas from '@/components/hosts/hostDetails/databases/DbSchemas.vue'
@@ -115,6 +116,12 @@ import DbLicenses from '@/components/hosts/hostDetails/databases/DbLicenses.vue'
 import DbPDBs from '@/components/hosts/hostDetails/databases/DbPDBs.vue'
 
 export default {
+  props: {
+    activeDB: {
+      type: String,
+      required: false
+    }
+  },
   components: {
     DbInfo,
     DbTablespaces,
@@ -136,6 +143,13 @@ export default {
       activeTab: 0,
       multiline: true,
       isActive: true
+    }
+  },
+  beforeMount() {
+    if (this.activeDB) {
+      this.activeTab = _.findIndex(this.hostDetails.hostDBs, {
+        name: this.activeDB
+      })
     }
   },
   computed: {

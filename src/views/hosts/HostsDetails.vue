@@ -39,7 +39,10 @@
 
     <div class="columns">
       <BoxContent :title="`Databases of ${hostname}`" class="column is-8">
-        <HostDatabases v-if="hostDetails.hostDBs.length > 0" />
+        <HostDatabases
+          :activeDB="dbname"
+          v-if="hostDetails.hostDBs.length > 0"
+        />
         <noContent
           v-else
           noContentText="There are no Databases for this Host"
@@ -71,6 +74,10 @@ export default {
     hostname: {
       type: String,
       required: true
+    },
+    dbname: {
+      type: String,
+      required: false
     }
   },
   components: {

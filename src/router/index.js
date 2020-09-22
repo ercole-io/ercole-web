@@ -73,7 +73,7 @@ const routes = [
         beforeEnter: verifyAuth
       },
       {
-        path: '/details/:hostname',
+        path: '/details/:hostname/:dbname?',
         name: 'hosts-details',
         component: HostsDetails,
         props: true,
