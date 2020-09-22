@@ -130,7 +130,9 @@
           <template slot="bodyData" slot-scope="rowData">
             <TdContent :value="rowData.scope.name" />
             <TdContent :value="rowData.scope.version" />
-            <HostLink :hostname="rowData.scope.hostname" />
+            <HostLink
+              :hostname="[rowData.scope.hostname, rowData.scope.name]"
+            />
             <TdContent :value="rowData.scope.environment" />
             <TdContent :value="rowData.scope.charset" />
             <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
