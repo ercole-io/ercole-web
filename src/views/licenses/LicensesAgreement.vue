@@ -158,21 +158,40 @@
           </b-field>
 
           <b-field label="Host Associated" custom-class="is-small">
-            <b-select
-              size="is-small"
-              placeholder="Select"
+            <b-taginput
               v-model="licenseAddData.hostAssociated"
-              multiple
-              expanded
+              :data="filteredHostTags"
+              ref="taginput"
+              autocomplete
+              icon="label"
+              placeholder="Add a hostname"
+              @typing="getFilteredHostTags"
+              custom-class="is-small"
+              :open-on-focus="true"
             >
-              <option
-                v-for="(hostname, index) in hostnames.hostnames"
-                :key="index"
-                :value="hostname"
-              >
-                {{ hostname }}
-              </option>
-            </b-select>
+              <template slot-scope="props">
+                {{ props.option }}
+              </template>
+
+              <template slot="selected" slot-scope="props">
+                <b-tag
+                  v-for="(host, index) in props.tags"
+                  :key="index"
+                  type="is-primary"
+                  :tabstop="false"
+                  closable
+                  attached
+                  close-type="is-light"
+                  @close="$refs.taginput.removeTag(index, $event)"
+                >
+                  {{ host }}
+                </b-tag>
+              </template>
+
+              <template slot="empty">
+                There are no hostnames
+              </template>
+            </b-taginput>
           </b-field>
 
           <div class="buttons is-flex" style="justify-content: space-between;">
@@ -184,7 +203,7 @@
               Cancel
             </b-button>
             <b-button type="is-primary" size="is-small" @click="addLicense">
-              Add
+              Add License
             </b-button>
           </div>
         </BoxContent>
@@ -232,12 +251,15 @@ export default {
         ula: false,
         licenseNumber: null,
         hostAssociated: []
-      }
+      },
+      filteredHostTags: []
     }
   },
   async beforeMount() {
     await this.getLicensesAgreement()
     await this.getAgreementParts()
+
+    this.filteredHostTags = this.hostnames.hostnames
   },
   methods: {
     ...mapActions(['getLicensesAgreement', 'getAgreementParts']),
@@ -277,6 +299,16 @@ export default {
     },
     showLicencedHosts(hosts) {
       console.log(hosts)
+    },
+    getFilteredHostTags(text) {
+      this.filteredHostTags = this.hostnames.hostnames.filter(option => {
+        return (
+          option
+            .toString()
+            .toLowerCase()
+            .indexOf(text.toLowerCase()) >= 0
+        )
+      })
     }
   },
   computed: {
