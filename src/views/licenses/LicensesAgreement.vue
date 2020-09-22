@@ -9,8 +9,9 @@
         pack="fas"
         :icon-right="toggleIcon"
         @click="isExpanded = !isExpanded"
-        >{{ toggleText }}</b-button
       >
+        {{ toggleText }}
+      </b-button>
       <div class="column" :class="tabsCol">
         <b-tabs size="is-small" type="is-boxed" class="block">
           <b-tab-item label="Oracle">
@@ -79,9 +80,9 @@
               <exportButton slot="export" url="" expName="databases" />
             </FullTable>
           </b-tab-item>
-          <b-tab-item label="MySQL">
+          <!-- <b-tab-item label="MySQL">
             mysql
-          </b-tab-item>
+          </b-tab-item> -->
         </b-tabs>
       </div>
       <div class="column" :class="addCol">
@@ -93,20 +94,20 @@
               v-model="licenseAddData.techType"
               expanded
             >
-              <option value="flint">Flint</option>
-              <option value="silver">Silver</option>
+              <option value="Oracle">Oracle</option>
             </b-select>
           </b-field>
 
           <b-field label="Agreement Number *" custom-class="is-small">
             <b-select
+              class="select-editable"
               size="is-small"
               placeholder="Select"
               v-model="licenseAddData.agreeNumber"
               expanded
             >
-              <option value="flint">Flint</option>
-              <option value="silver">Silver</option>
+              <option value="1514845214">1514845214</option>
+              <option value="1514845215">1514845215</option>
             </b-select>
           </b-field>
 
@@ -120,8 +121,13 @@
               v-model="licenseAddData.partNumber"
               expanded
             >
-              <option value="flint">Flint</option>
-              <option value="silver">Silver</option>
+              <option
+                v-for="(part, index) in returnAgreementParts"
+                :key="index"
+                :value="part.agreeParts"
+              >
+                {{ part.agreeParts }}
+              </option>
             </b-select>
           </b-field>
 
@@ -132,8 +138,8 @@
               v-model="licenseAddData.csi"
               expanded
             >
-              <option value="flint">Flint</option>
-              <option value="silver">Silver</option>
+              <option value="1578652">1578652</option>
+              <option value="1578653">1578653</option>
             </b-select>
           </b-field>
 
@@ -142,7 +148,7 @@
               size="is-small"
               type="number"
               v-model="licenseAddData.referenceNumber"
-            ></b-input>
+            />
           </b-field>
 
           <b-field label="Licenses *" custom-class="is-small" grouped>
@@ -156,7 +162,7 @@
                 type="number"
                 v-model="licenseAddData.licenseNumber"
                 :disabled="licenseAddData.ula"
-              ></b-input>
+              />
             </b-field>
           </b-field>
 
@@ -180,12 +186,16 @@
           </b-field>
 
           <div class="buttons is-flex" style="justify-content: space-between;">
-            <b-button type="is-danger" size="is-small" @click="cancelAddLicense"
-              >Cancel</b-button
+            <b-button
+              type="is-danger"
+              size="is-small"
+              @click="cancelAddLicense"
             >
-            <b-button type="is-primary" size="is-small" @click="addLicense"
-              >Add</b-button
-            >
+              Cancel
+            </b-button>
+            <b-button type="is-primary" size="is-small" @click="addLicense">
+              Add
+            </b-button>
           </div>
         </BoxContent>
       </div>
@@ -194,6 +204,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -261,9 +272,28 @@ export default {
       }
     }
   },
+  async beforeMount() {
+    await this.getLicensesAgreement()
+    await this.getAgreementParts()
+  },
   methods: {
+    ...mapActions(['getLicensesAgreement', 'getAgreementParts']),
     addLicense() {
-      this.$store.commit('SET_LICENSE_AGREEMENT', this.licenseAddData)
+      const license = {
+        agreementID: 'string',
+        partID: 'string',
+        itemDescription: 'string',
+        metrics: 'string',
+        csi: 'string',
+        referenceNumber: 'string',
+        unlimited: this.licenseAddData.ula,
+        licensesCount: this.licenseAddData.licenseNumber,
+        usersCount: 0,
+        availableCount: 0.5,
+        catchAll: false,
+        hosts: this.licenseAddData.hostAssociated
+      }
+      console.log(license)
     },
     cancelAddLicense() {
       this.licenseAddData = {
@@ -287,6 +317,9 @@ export default {
       console.log(hosts)
     }
   },
+  computed: {
+    ...mapGetters(['returnAgreementParts'])
+  },
   watch: {
     isExpanded(value) {
       if (!value) {
@@ -309,7 +342,7 @@ export default {
 .toggleCol {
   position: absolute;
   right: 20px;
-  top: 172px;
+  top: 145px;
   padding: 0;
 
   &:hover {
