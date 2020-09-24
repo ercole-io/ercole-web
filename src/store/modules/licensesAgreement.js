@@ -20,6 +20,30 @@ export const getters = {
     })
 
     return agreeParts
+  },
+  returnAgreeNumbers: state => {
+    const agreeNumbers = []
+
+    _.map(state.licensesAgreement, val => {
+      agreeNumbers.push(val.agreementID)
+    })
+    return agreeNumbers
+  },
+  returnCsiNumbers: state => {
+    const csiNumbers = []
+
+    _.map(state.licensesAgreement, val => {
+      csiNumbers.push(val.csi)
+    })
+    return csiNumbers
+  },
+  returnReferenceNumbers: state => {
+    const referenceNumbers = []
+
+    _.map(state.licensesAgreement, val => {
+      referenceNumbers.push(val.referenceNumber)
+    })
+    return referenceNumbers
   }
 }
 
