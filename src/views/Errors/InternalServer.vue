@@ -5,7 +5,7 @@
     codeDesc="Somenthing went wrong. Please try again."
   >
     <b-button type="is-primary" @click="$router.go(-1)" slot="actions">
-      back to Home
+      go back
     </b-button>
   </ErrorCode>
 </template>
