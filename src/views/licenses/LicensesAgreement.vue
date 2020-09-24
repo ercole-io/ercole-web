@@ -18,34 +18,34 @@
             <FullTable
               placeholder="Search on Licenses"
               :keys="keys"
-              :tableData="licensesAgreement.licensesAgreement"
+              :tableData="returnLicensesAgreement"
               :clickedRow="() => []"
             >
               <template slot="headData">
-                <v-th sortKey="agreeNumber">Agreement Number</v-th>
-                <v-th sortKey="partNumber">Part Number</v-th>
-                <v-th sortKey="description">Item Description</v-th>
+                <v-th sortKey="agreementID">Agreement Number</v-th>
+                <v-th sortKey="partID">Part Number</v-th>
+                <v-th sortKey="itemDescription">Item Description</v-th>
                 <v-th sortKey="metrics">Metrics</v-th>
                 <v-th sortKey="csi">csi</v-th>
                 <v-th sortKey="referenceNumber">Reference Number</v-th>
-                <v-th sortKey="ula">ULA</v-th>
-                <v-th sortKey="licenseNumber">Number Licenses</v-th>
-                <v-th sortKey="userNumber">Number User</v-th>
-                <v-th sortKey="availableNumber">Number Available</v-th>
+                <v-th sortKey="unlimited">ULA</v-th>
+                <v-th sortKey="licensesCount">Number Licenses</v-th>
+                <v-th sortKey="usersCount">Number User</v-th>
+                <v-th sortKey="availableCount">Number Available</v-th>
                 <th>Actions</th>
               </template>
 
               <template slot="bodyData" slot-scope="rowData">
-                <TdContent :value="rowData.scope.agreeNumber" />
-                <TdContent :value="rowData.scope.partNumber" />
-                <TdContent :value="rowData.scope.description" />
+                <TdContent :value="rowData.scope.agreementID" />
+                <TdContent :value="rowData.scope.partID" />
+                <TdContent :value="rowData.scope.itemDescription" />
                 <TdContent :value="rowData.scope.metrics" />
                 <TdContent :value="rowData.scope.csi" />
                 <TdContent :value="rowData.scope.referenceNumber" />
-                <TdContent :value="rowData.scope.ula" />
-                <TdContent :value="rowData.scope.licenseNumber" />
-                <TdContent :value="rowData.scope.userNumber" />
-                <TdContent :value="rowData.scope.availableNumber" />
+                <TdContent :value="rowData.scope.unlimited" />
+                <TdContent :value="rowData.scope.licensesCount" />
+                <TdContent :value="rowData.scope.usersCount" />
+                <TdContent :value="rowData.scope.availableCount" />
                 <td class="is-flex action-buttons">
                   <b-icon
                     v-tooltip="options('Show Hosts')"
@@ -53,9 +53,7 @@
                     class="hosts-icon"
                     pack="fas"
                     icon="server"
-                    @click.native="
-                      showLicencedHosts(rowData.scope.hostAssociated)
-                    "
+                    @click.native="showLicencedHosts(rowData.scope.hosts)"
                   />
 
                   <b-icon
@@ -213,6 +211,7 @@
 </template>
 
 <script>
+import axiosDefault from '@/axios/axios-default.js'
 import { mapActions, mapGetters, mapState } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
@@ -236,16 +235,16 @@ export default {
       toggleText: 'Hide',
       toggleIcon: 'chevron-left',
       keys: [
-        'agreeNumber',
-        'partNumber',
-        'description',
+        'agreementID',
+        'partID',
+        'itemDescription',
         'metrics',
         'csi',
         'referenceNumber',
-        'ula',
-        'licenseNumber',
-        'userNumber',
-        'availableNumber'
+        'unlimited',
+        'licensesCount',
+        'usersCount',
+        'availableCount'
       ],
       licenseAddData: {
         ula: false,
@@ -264,20 +263,22 @@ export default {
   methods: {
     ...mapActions(['getLicensesAgreement', 'getAgreementParts']),
     addLicense() {
-      const license = {
-        id: Math.floor(Math.random() * 10),
-        agreeNumber: this.licenseAddData.agreeNumber,
-        partNumber: this.licenseAddData.partNumber.split(' - ')[0],
-        description: this.licenseAddData.partNumber.split(' - ')[1],
-        metrics: this.licenseAddData.partNumber.split(' - ')[2],
+      const addLicense = {
+        agreementID: this.licenseAddData.agreeNumber,
         csi: this.licenseAddData.csi,
+        partsID: [this.licenseAddData.partNumber.split(' - ')[0]],
         referenceNumber: this.licenseAddData.referenceNumber,
-        ula: this.licenseAddData.ula,
-        licenseNumber: this.licenseAddData.licenseNumber,
-        hostAssociated: this.licenseAddData.hostAssociated
+        unlimited: this.licenseAddData.ula,
+        count: Number(this.licenseAddData.licenseNumber),
+        hosts: this.licenseAddData.hostAssociated,
+        catchAll: false
       }
-      this.$store.commit('SET_LICENSE_AGREEMENT', license)
-      this.cancelAddLicense()
+      axiosDefault.post('/agreements/oracle/database', addLicense).then(res => {
+        if (res.data[0].InsertedID) {
+          this.getLicensesAgreement()
+          this.cancelAddLicense()
+        }
+      })
     },
     cancelAddLicense() {
       this.licenseAddData = {
@@ -295,7 +296,9 @@ export default {
       console.log(data)
     },
     deleteLicense(id) {
-      console.log(id)
+      axiosDefault.delete(`/agreements/oracle/database/${id}`).then(() => {
+        this.getLicensesAgreement()
+      })
     },
     showLicencedHosts(hosts) {
       console.log(hosts)
@@ -312,8 +315,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['hostnames', 'licensesAgreement']),
-    ...mapGetters(['returnAgreementParts'])
+    ...mapState(['hostnames']),
+    ...mapGetters(['returnAgreementParts', 'returnLicensesAgreement'])
   },
   watch: {
     isExpanded(value) {
