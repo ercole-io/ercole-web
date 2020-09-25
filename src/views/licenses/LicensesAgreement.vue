@@ -117,13 +117,15 @@
               }"
               :message="{
                 'This field is required':
-                  !$v.agreeNumber.required && $v.agreeNumber.$error
+                  !$v.agreeNumber.required && $v.agreeNumber.$error,
+                'This field accepts only numbers':
+                  !$v.agreeNumber.numeric && $v.agreeNumber.$error
               }"
             >
               <b-autocomplete
                 v-model="agreeNumber"
                 size="is-small"
-                type="number"
+                type="text"
                 :data="filteredAgreeNumbers"
                 @typing="getFilteredAgreeNumbers"
                 clearable
@@ -171,13 +173,15 @@
                 'is-danger': $v.csi.$error
               }"
               :message="{
-                'This field is required': !$v.csi.required && $v.csi.$error
+                'This field is required': !$v.csi.required && $v.csi.$error,
+                'This field accepts only numbers':
+                  !$v.csi.numeric && $v.csi.$error
               }"
             >
               <b-autocomplete
                 v-model="csi"
                 size="is-small"
-                type="number"
+                type="text"
                 :data="filteredCsi"
                 @typing="getFilteredCsi"
                 clearable
@@ -197,13 +201,15 @@
               }"
               :message="{
                 'This field is required':
-                  !$v.referenceNumber.required && $v.referenceNumber.$error
+                  !$v.referenceNumber.required && $v.referenceNumber.$error,
+                'This field accepts only numbers':
+                  !$v.referenceNumber.numeric && $v.referenceNumber.$error
               }"
             >
               <b-autocomplete
                 v-model="referenceNumber"
                 size="is-small"
-                type="number"
+                type="text"
                 :data="filteredReferenceNumbers"
                 @typing="getFilteredReferenceNumbers"
                 clearable
@@ -231,14 +237,16 @@
                 }"
                 :message="{
                   'This field is required':
-                    !$v.licenseNumber.required && $v.licenseNumber.$error
+                    !$v.licenseNumber.required && $v.licenseNumber.$error,
+                  'This field accepts only numbers':
+                    !$v.licenseNumber.numeric && $v.licenseNumber.$error
                 }"
               >
                 <b-input
                   @blur="$v.licenseNumber.$touch()"
                   @input="$v.licenseNumber.$touch()"
                   size="is-small"
-                  type="number"
+                  type="text"
                   v-model="licenseNumber"
                   :disabled="ula"
                 />
@@ -318,7 +326,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
-import { required, requiredIf } from 'vuelidate/lib/validators'
+import { required, requiredIf, numeric } from 'vuelidate/lib/validators'
 
 export default {
   mixins: [TooltipMixin],
@@ -364,14 +372,15 @@ export default {
   },
   validations: {
     techType: { required },
-    agreeNumber: { required },
+    agreeNumber: { required, numeric },
     partNumber: { required },
-    csi: { required },
-    referenceNumber: { required },
+    csi: { required, numeric },
+    referenceNumber: { required, numeric },
     licenseNumber: {
       required: requiredIf(val => {
         return !val.ula
-      })
+      }),
+      numeric
     }
   },
   async beforeMount() {
