@@ -34,9 +34,15 @@
           </template>
 
           <template slot="bodyData" slot-scope="rowData">
-            <HostLink :hostname="rowData.scope.hostname" />
-            <TdContent :value="rowData.scope.coveredLicensesCount" />
-            <td>
+            <HostLink
+              :hostname="rowData.scope.hostname"
+              :class="{ 'has-background-danger-light': highlightHost }"
+            />
+            <TdContent
+              :value="rowData.scope.coveredLicensesCount"
+              :class="{ 'has-background-danger-light': highlightHost }"
+            />
+            <td :class="{ 'has-background-danger-light': highlightHost }">
               <b-icon
                 v-tooltip="options('Delete License')"
                 type="is-danger"
@@ -46,6 +52,12 @@
                 @click.native="deleteHostAssociated(rowData.scope.hostname)"
               />
             </td>
+            <span class="is-hidden">{{
+              checkHighlight(
+                rowData.scope.totalCoveredLicensesCount,
+                rowData.scope.consumedLicensesCount
+              )
+            }}</span>
           </template>
         </FullTable>
       </section>
@@ -88,7 +100,8 @@ export default {
     return {
       openModal: false,
       keys: ['hostname', 'coveredLicensesCount'],
-      associatedHosts: this.hosts
+      associatedHosts: this.hosts,
+      highlightHost: false
     }
   },
   methods: {
@@ -103,6 +116,11 @@ export default {
             return val.hostname !== hostname
           })
         })
+    },
+    checkHighlight(total, consumed) {
+      return total < consumed
+        ? (this.highlightHost = true)
+        : (this.highlightHost = false)
     }
   }
 }
