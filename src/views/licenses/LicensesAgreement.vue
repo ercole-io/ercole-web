@@ -32,7 +32,7 @@
                 <v-th sortKey="licensesCount">Number Licenses</v-th>
                 <v-th sortKey="usersCount">Number User</v-th>
                 <v-th sortKey="availableCount">Number Available</v-th>
-                <th>Actions</th>
+                <th colspan="3" style="max-width: 100px">Actions</th>
               </template>
 
               <template slot="bodyData" slot-scope="rowData">
@@ -46,16 +46,15 @@
                 <TdContent :value="rowData.scope.licensesCount" />
                 <TdContent :value="rowData.scope.usersCount" />
                 <TdContent :value="rowData.scope.availableCount" />
-                <td class="is-flex action-buttons">
-                  <b-icon
-                    v-tooltip="options('Show Hosts')"
-                    type="is-link"
-                    class="hosts-icon"
-                    pack="fas"
-                    icon="server"
-                    @click.native="showLicencedHosts(rowData.scope.hosts)"
-                  />
 
+                <td style="min-width: 50px;">
+                  <HostAssociated
+                    :hosts="rowData.scope.hosts"
+                    :agreeNumber="rowData.scope.agreementID"
+                    :licenseID="rowData.scope.id"
+                  />
+                </td>
+                <td style="min-width: 50px;">
                   <b-icon
                     v-tooltip="options('Edit License')"
                     type="is-info"
@@ -64,6 +63,8 @@
                     icon="edit"
                     @click.native="editLicense(rowData.scope)"
                   />
+                </td>
+                <td style="min-width: 50px;">
                   <b-icon
                     v-tooltip="options('Delete License')"
                     type="is-danger"
@@ -321,12 +322,13 @@
 import _ from 'lodash'
 import axiosDefault from '@/axios/axios-default.js'
 import { mapActions, mapGetters, mapState } from 'vuex'
+import { required, requiredIf, numeric } from 'vuelidate/lib/validators'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
-import { required, requiredIf, numeric } from 'vuelidate/lib/validators'
+import HostAssociated from '@/components/licenses/agreement/HostAssociated.vue'
 
 export default {
   mixins: [TooltipMixin],
@@ -334,7 +336,8 @@ export default {
     BoxContent,
     FullTable,
     exportButton,
-    TdContent
+    TdContent,
+    HostAssociated
   },
   data() {
     return {
@@ -444,9 +447,6 @@ export default {
         this.isEditing = false
       })
     },
-    showLicencedHosts(hosts) {
-      console.log(hosts)
-    },
     getFilteredHostTags(text) {
       this.filteredHostTags = this.hostnames.hostnames.filter(option => {
         return (
@@ -524,18 +524,6 @@ export default {
     background-color: transparent;
     border: none;
     box-shadow: none;
-  }
-}
-
-.action-buttons {
-  justify-content: space-around;
-  min-width: 150px;
-
-  .edit-icon,
-  .delete-icon,
-  .hosts-icon {
-    font-size: 1rem;
-    cursor: pointer;
   }
 }
 </style>
