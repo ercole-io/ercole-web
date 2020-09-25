@@ -5,6 +5,7 @@
         :placeholder="placeholder"
         size="is-small"
         v-model="filters.search.value"
+        style="height: 30px;"
       />
 
       <slot name="customTopHeader" />
@@ -187,5 +188,9 @@ export default {
 .content table td,
 .content table th {
   vertical-align: middle;
+}
+
+.content table tr:not(:last-child) {
+  border-bottom: 1px solid #dbdbdb;
 }
 </style>
