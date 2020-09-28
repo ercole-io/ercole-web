@@ -43,7 +43,7 @@
                 <TdContent :value="rowData.scope.metrics" />
                 <TdContent :value="rowData.scope.csi" />
                 <TdContent :value="rowData.scope.referenceNumber" />
-                <TdContent :value="rowData.scope.unlimited" />
+                <TdIcon :value="bindIcon(rowData.scope.unlimited)" />
                 <TdContent :value="rowData.scope.licensesCount" />
                 <TdContent :value="rowData.scope.usersCount" />
                 <TdContent :value="rowData.scope.availableCount" />
@@ -201,9 +201,7 @@
               }"
               :message="{
                 'This field is required':
-                  !$v.referenceNumber.required && $v.referenceNumber.$error,
-                'This field accepts only numbers':
-                  !$v.referenceNumber.numeric && $v.referenceNumber.$error
+                  !$v.referenceNumber.required && $v.referenceNumber.$error
               }"
             >
               <b-autocomplete
@@ -322,13 +320,20 @@
 import _ from 'lodash'
 import axiosDefault from '@/axios/axios-default.js'
 import { mapActions, mapGetters, mapState } from 'vuex'
-import { required, requiredIf, numeric } from 'vuelidate/lib/validators'
+import {
+  required,
+  requiredIf,
+  numeric,
+  decimal
+} from 'vuelidate/lib/validators'
+import { mapBooleanIcon } from '@/helpers/helpers.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import HostAssociated from '@/components/licenses/agreement/HostAssociated.vue'
+import TdIcon from '@/components/common/Table/TDIcon.vue'
 
 export default {
   mixins: [TooltipMixin],
@@ -337,7 +342,8 @@ export default {
     FullTable,
     exportButton,
     TdContent,
-    HostAssociated
+    HostAssociated,
+    TdIcon
   },
   data() {
     return {
@@ -384,7 +390,7 @@ export default {
       required: requiredIf(val => {
         return !val.ula
       }),
-      numeric
+      decimal
     }
   },
   async beforeMount() {
@@ -488,6 +494,9 @@ export default {
           return option.toString().indexOf(text) >= 0
         }
       )
+    },
+    bindIcon(value) {
+      return mapBooleanIcon(value)
     }
   },
   computed: {
