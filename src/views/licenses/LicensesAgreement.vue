@@ -62,7 +62,7 @@
                     class="edit-icon"
                     pack="fas"
                     icon="edit"
-                    @click.native="editLicense(rowData.scope)"
+                    @click.native="openLicenseEdition(rowData.scope)"
                   />
                 </td>
                 <td style="min-width: 50px;">
@@ -87,7 +87,7 @@
       </div>
       <div class="column" :class="addCol">
         <BoxContent title="Add or Modify a License">
-          <form @submit.prevent="addLicense">
+          <form @submit.prevent="addUpdateLicense">
             <b-field
               label="Type of Technologie *"
               custom-class="is-small"
@@ -127,7 +127,7 @@
               <b-autocomplete
                 v-model="agreeNumber"
                 size="is-small"
-                type="text"
+                type="number"
                 :data="filteredAgreeNumbers"
                 @typing="getFilteredAgreeNumbers"
                 clearable
@@ -175,9 +175,7 @@
                 'is-danger': $v.csi.$error
               }"
               :message="{
-                'This field is required': !$v.csi.required && $v.csi.$error,
-                'This field accepts only numbers':
-                  !$v.csi.numeric && $v.csi.$error
+                'This field is required': !$v.csi.required && $v.csi.$error
               }"
             >
               <b-autocomplete
@@ -211,7 +209,7 @@
               <b-autocomplete
                 v-model="referenceNumber"
                 size="is-small"
-                type="text"
+                type="number"
                 :data="filteredReferenceNumbers"
                 @typing="getFilteredReferenceNumbers"
                 clearable
@@ -248,7 +246,8 @@
                   @blur="$v.licenseNumber.$touch()"
                   @input="$v.licenseNumber.$touch()"
                   size="is-small"
-                  type="text"
+                  type="number"
+                  step="any"
                   v-model="licenseNumber"
                   :disabled="ula"
                 />
@@ -364,6 +363,7 @@ export default {
       filteredCsi: [],
       filteredReferenceNumbers: [],
       isEditing: false,
+      licenseId: null,
       techType: null,
       agreeNumber: null,
       partNumber: null,
@@ -378,7 +378,7 @@ export default {
     techType: { required },
     agreeNumber: { required, numeric },
     partNumber: { required },
-    csi: { required, numeric },
+    csi: { required },
     referenceNumber: { required, numeric },
     licenseNumber: {
       required: requiredIf(val => {
@@ -398,8 +398,8 @@ export default {
   },
   methods: {
     ...mapActions(['getLicensesAgreement', 'getAgreementParts']),
-    addLicense() {
-      const addLicense = {
+    addUpdateLicense() {
+      const license = {
         agreementID: this.agreeNumber,
         csi: this.csi,
         partsID: [this.partNumber.split(' - ')[0]],
@@ -409,13 +409,25 @@ export default {
         hosts: this.hostAssociated,
         catchAll: false
       }
-      axiosDefault.post('/agreements/oracle/database', addLicense).then(res => {
-        if (res.data[0].InsertedID) {
+
+      if (!this.isEditing) {
+        axiosDefault.post('/agreements/oracle/database', license).then(res => {
+          if (res.data[0].InsertedID) {
+            this.getLicensesAgreement()
+            this.cancelAddLicense()
+            this.isEditing = false
+          }
+        })
+      } else {
+        license.id = this.licenseId
+        license.partID = this.partNumber.split(' - ')[0]
+
+        axiosDefault.put('/agreements/oracle/database', license).then(() => {
           this.getLicensesAgreement()
           this.cancelAddLicense()
           this.isEditing = false
-        }
-      })
+        })
+      }
     },
     cancelAddLicense() {
       this.techType = null
@@ -428,14 +440,15 @@ export default {
       this.hostAssociated = []
       this.isEditing = false
     },
-    editLicense(data) {
+    openLicenseEdition(data) {
+      this.licenseId = data.id
       this.agreeNumber = data.agreementID
       this.csi = data.csi
       this.partNumber = `${data.partID} - ${data.itemDescription} - ${data.metrics}`
       this.referenceNumber = data.referenceNumber
       this.techType = 'Oracle'
       this.ula = data.unlimited
-      this.licenseNumber = data.count
+      this.licenseNumber = Number(data.count)
       this.hostAssociated = _.map(data.hosts, host => {
         return host.hostname
       })
