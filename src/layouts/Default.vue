@@ -2,15 +2,10 @@
   <div class="app">
     <appHeader />
     <appSidebar @collapsedSidebar="handleCollapsedSidebar" />
-    <main
-      class="main"
-      :class="[
-        { withFilters: isFiltersOpened },
-        { collapsed: isCollapsedSidebar }
-      ]"
-    >
+    <main class="main" :class="[{ collapsed: isCollapsedSidebar }]">
+      <!-- { withFilters: isFiltersOpened }, -->
       <div class="layout">
-        <appFilters @filters="handleIsFilters" />
+        <!-- <appFilters @filters="handleIsFilters" /> -->
         <appBreadcrumb v-if="this.$route.name !== 'dashboard'" />
         <div class="content">
           <!-- <appTitle
@@ -29,7 +24,7 @@
 
 <script>
 import Header from '@/components/Header.vue'
-import Filters from '@/components/Filters.vue'
+// import Filters from '@/components/Filters.vue'
 // import PageTitle from '@/components/common/PageTitle.vue'
 import SidebarMenu from '@/components/Sidebar.vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
@@ -38,7 +33,7 @@ import Footer from '@/components/Footer.vue'
 export default {
   components: {
     appHeader: Header,
-    appFilters: Filters,
+    // appFilters: Filters,
     // appTitle: PageTitle,
     appSidebar: SidebarMenu,
     appBreadcrumb: Breadcrumb,
