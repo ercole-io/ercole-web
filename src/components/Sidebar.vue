@@ -70,77 +70,77 @@ export default {
                   ]
                 }
               ]
-            },
-            {
-              title: 'SQL Server',
-              icon: 'fas fa-cog',
-              child: [
-                {
-                  title: 'Databases',
-                  icon: 'fas fa-database'
-                },
-                {
-                  title: 'Proactive',
-                  icon: 'fas fa-microscope'
-                }
-              ]
-            },
-            {
-              title: 'MySQL',
-              icon: 'fas fa-cog',
-              child: [
-                {
-                  title: 'Databases',
-                  icon: 'fas fa-database'
-                },
-                {
-                  title: 'Proactive',
-                  icon: 'fas fa-microscope'
-                }
-              ]
-            },
-            {
-              title: 'MDB',
-              icon: 'fas fa-cog',
-              child: [
-                {
-                  title: 'Databases',
-                  icon: 'fas fa-database'
-                },
-                {
-                  title: 'Proactive',
-                  icon: 'fas fa-microscope'
-                }
-              ]
-            },
-            {
-              title: 'PSQL',
-              icon: 'fas fa-cog',
-              child: [
-                {
-                  title: 'Databases',
-                  icon: 'fas fa-database'
-                },
-                {
-                  title: 'Proactive',
-                  icon: 'fas fa-microscope'
-                }
-              ]
-            },
-            {
-              title: 'WEDL',
-              icon: 'fas fa-cog',
-              child: [
-                {
-                  title: 'Databases',
-                  icon: 'fas fa-database'
-                },
-                {
-                  title: 'Proactive',
-                  icon: 'fas fa-microscope'
-                }
-              ]
             }
+            // {
+            //   title: 'SQL Server',
+            //   icon: 'fas fa-cog',
+            //   child: [
+            //     {
+            //       title: 'Databases',
+            //       icon: 'fas fa-database'
+            //     },
+            //     {
+            //       title: 'Proactive',
+            //       icon: 'fas fa-microscope'
+            //     }
+            //   ]
+            // },
+            // {
+            //   title: 'MySQL',
+            //   icon: 'fas fa-cog',
+            //   child: [
+            //     {
+            //       title: 'Databases',
+            //       icon: 'fas fa-database'
+            //     },
+            //     {
+            //       title: 'Proactive',
+            //       icon: 'fas fa-microscope'
+            //     }
+            //   ]
+            // },
+            // {
+            //   title: 'MDB',
+            //   icon: 'fas fa-cog',
+            //   child: [
+            //     {
+            //       title: 'Databases',
+            //       icon: 'fas fa-database'
+            //     },
+            //     {
+            //       title: 'Proactive',
+            //       icon: 'fas fa-microscope'
+            //     }
+            //   ]
+            // },
+            // {
+            //   title: 'PSQL',
+            //   icon: 'fas fa-cog',
+            //   child: [
+            //     {
+            //       title: 'Databases',
+            //       icon: 'fas fa-database'
+            //     },
+            //     {
+            //       title: 'Proactive',
+            //       icon: 'fas fa-microscope'
+            //     }
+            //   ]
+            // },
+            // {
+            //   title: 'WEDL',
+            //   icon: 'fas fa-cog',
+            //   child: [
+            //     {
+            //       title: 'Databases',
+            //       icon: 'fas fa-database'
+            //     },
+            //     {
+            //       title: 'Proactive',
+            //       icon: 'fas fa-microscope'
+            //     }
+            //   ]
+            // }
           ]
         },
         {
@@ -148,16 +148,16 @@ export default {
           title: 'Hypervisors',
           icon: 'fas fa-object-group'
         },
-        {
-          href: { name: 'middleware' },
-          title: 'Middlewares',
-          icon: 'fas fa-globe'
-        },
-        {
-          href: { name: 'engineered-systems' },
-          title: 'Engineered Systems',
-          icon: 'fas fa-times'
-        },
+        // {
+        //   href: { name: 'middleware' },
+        //   title: 'Middlewares',
+        //   icon: 'fas fa-globe'
+        // },
+        // {
+        //   href: { name: 'engineered-systems' },
+        //   title: 'Engineered Systems',
+        //   icon: 'fas fa-times'
+        // },
         {
           href: { name: 'alerts' },
           title: 'Alerts',
@@ -172,29 +172,29 @@ export default {
               title: 'Licenses Agreement',
               icon: 'fas fa-cog'
             },
-            {
-              href: { name: 'licenses-compliance' },
-              title: 'Licenses Compliance',
-              icon: 'fas fa-cog'
-            },
+            // {
+            //   href: { name: 'licenses-compliance' },
+            //   title: 'Licenses Compliance',
+            //   icon: 'fas fa-cog'
+            // },
             {
               href: { name: 'licenses-used' },
               title: 'Licenses Used',
               icon: 'fas fa-cog'
             }
           ]
-        },
-        {
-          href: { name: 'settings' },
-          title: 'Settings',
-          icon: 'fas fa-cogs',
-          child: [
-            {
-              title: 'Agents',
-              icon: 'fas fa-cog'
-            }
-          ]
         }
+        // {
+        //   href: { name: 'settings' },
+        //   title: 'Settings',
+        //   icon: 'fas fa-cogs',
+        //   child: [
+        //     {
+        //       title: 'Agents',
+        //       icon: 'fas fa-cog'
+        //     }
+        //   ]
+        // }
       ]
     }
   },

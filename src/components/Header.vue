@@ -7,7 +7,7 @@
     </template>
 
     <template slot="end">
-      <b-field position="is-centered" type="is-primary" class="global-search">
+      <!-- <b-field position="is-centered" type="is-primary" class="global-search">
         <b-input
           size="is-small"
           placeholder="Global Search"
@@ -17,17 +17,17 @@
         <p class="control">
           <b-button size="is-small is-primary">Search</b-button>
         </p>
-      </b-field>
+      </b-field> -->
 
       <b-navbar-dropdown :label="`${username}, Operator`">
-        <b-navbar-item>
+        <!-- <b-navbar-item>
           <b-switch size="is-small" v-model="isAuto" type="is-primary">
             Auto Refresh
           </b-switch>
         </b-navbar-item>
         <b-navbar-item>
           <LocaleSwitcher />
-        </b-navbar-item>
+        </b-navbar-item> -->
         <b-navbar-item @click="logout">Logout</b-navbar-item>
       </b-navbar-dropdown>
     </template>
@@ -35,13 +35,13 @@
 </template>
 
 <script>
-import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
+// import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 import { capitalize } from '@/helpers/helpers.js'
 import { SnackbarProgrammatic as Snackbar } from 'buefy'
 
 export default {
   components: {
-    LocaleSwitcher
+    // LocaleSwitcher
   },
   data() {
     return {
