@@ -20,6 +20,7 @@
               :keys="keys"
               :tableData="returnLicensesAgreement"
               :clickedRow="() => []"
+              :customSelection="isEditing"
             >
               <template slot="headData">
                 <v-th sortKey="agreementID">Agreement Number</v-th>
@@ -439,6 +440,7 @@ export default {
         return host.hostname
       })
       this.isEditing = true
+      this.isExpanded = true
     },
     deleteLicense(id) {
       axiosDefault.delete(`/agreements/oracle/database/${id}`).then(() => {
@@ -512,7 +514,7 @@ export default {
 .toggleCol {
   position: absolute;
   right: 20px;
-  top: 145px;
+  top: 120px;
   padding: 0;
 
   &:hover {
