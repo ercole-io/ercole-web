@@ -31,14 +31,14 @@ Vue.use(Buefy)
 Vue.use(Chartkick.use(Chart))
 Chartkick.options = {
   colors: [
-    'rgb(249, 65, 68)',
+    'rgb(0, 63, 92)',
     'rgb(243, 114, 44)',
+    'rgb(144, 190, 109)',
     'rgb(248, 150, 30)',
     'rgb(249, 199, 79)',
-    'rgb(144, 190, 109)',
+    'rgb(249, 65, 68)',
     'rgb(67, 170, 139)',
-    'rgb(87, 117, 144)',
-    'rgb(0, 63, 92)'
+    'rgb(87, 117, 144)'
   ].reverse()
 }
 

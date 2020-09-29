@@ -12,7 +12,7 @@
         </div>
         <div class="columns">
           <div class="column is-12">
-            <ChartTabs />
+            <LicensesChart />
           </div>
         </div>
       </div>
@@ -29,17 +29,18 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-
 import TotalTargets from '@/components/dashboard/TotalTargets.vue'
 import Technologies from '@/components/dashboard/technologies/Technologies.vue'
-import ChartTabs from '@/components/dashboard/ChartTabs.vue'
+// import ChartTabs from '@/components/dashboard/ChartTabs.vue'
+import LicensesChart from '@/components/dashboard/LicenseChart.vue'
 import Alerts from '@/components/dashboard/alerts/Alerts.vue'
 
 export default {
   components: {
     TotalTargets,
     Technologies,
-    ChartTabs,
+    // ChartTabs,
+    LicensesChart,
     Alerts
   },
   data() {
