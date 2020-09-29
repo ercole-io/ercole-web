@@ -1,0 +1,173 @@
+[
+	{
+		"partID": "L10001",
+		"itemDescription": "Oracle Database Enterprise Edition",
+		"metrics": "Named User Plus Perpetual",
+		"history": [
+			{
+				"date": "2020-09-19T15:44:48.418046973+02:00",
+				"usedLicenses": 76,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-20T15:44:48.418046973+02:00",
+				"usedLicenses": 70,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-21T15:44:48.418046973+02:00",
+				"usedLicenses": 66,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-22T15:44:48.418046973+02:00",
+				"usedLicenses": 69,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-23T15:44:48.418046973+02:00",
+				"usedLicenses": 67,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-24T15:44:48.418046973+02:00",
+				"usedLicenses": 61,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-25T15:44:48.418046973+02:00",
+				"usedLicenses": 54,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-26T15:44:48.418046973+02:00",
+				"usedLicenses": 61,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-27T15:44:48.418046973+02:00",
+				"usedLicenses": 55,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-28T15:44:48.418046973+02:00",
+				"usedLicenses": 60,
+				"purchasedLicenses": 125
+			}
+		]
+	},
+	{
+		"partID": "L103399",
+		"itemDescription": "Oracle Database Standard Edition 2",
+		"metrics": "Processor Perpetual",
+		"history": [
+			{
+				"date": "2020-09-19T15:44:48.418046973+02:00",
+				"usedLicenses": 96,
+				"purchasedLicenses": 25
+			},
+			{
+				"date": "2020-09-20T15:44:48.418046973+02:00",
+				"usedLicenses": 94,
+				"purchasedLicenses": 75
+			},
+			{
+				"date": "2020-09-21T15:44:48.418046973+02:00",
+				"usedLicenses": 98,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-22T15:44:48.418046973+02:00",
+				"usedLicenses": 97,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-23T15:44:48.418046973+02:00",
+				"usedLicenses": 98,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-24T15:44:48.418046973+02:00",
+				"usedLicenses": 104,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-25T15:44:48.418046973+02:00",
+				"usedLicenses": 109,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-26T15:44:48.418046973+02:00",
+				"usedLicenses": 109,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-27T15:44:48.418046973+02:00",
+				"usedLicenses": 109,
+				"purchasedLicenses": 125
+			},
+			{
+				"date": "2020-09-28T15:44:48.418046973+02:00",
+				"usedLicenses": 115,
+				"purchasedLicenses": 125
+			}
+		]
+	},
+	{
+		"partID": "A90611",
+		"itemDescription": "Oracle Database Enterprise Edition",
+		"metrics": "Processor Perpetual",
+		"history": [
+			{
+				"date": "2020-09-19T15:44:48.418046973+02:00",
+				"usedLicenses": 84,
+				"purchasedLicenses": 0
+			},
+			{
+				"date": "2020-09-20T15:44:48.418046973+02:00",
+				"usedLicenses": 79,
+				"purchasedLicenses": 50
+			},
+			{
+				"date": "2020-09-21T15:44:48.418046973+02:00",
+				"usedLicenses": 81,
+				"purchasedLicenses": 100
+			},
+			{
+				"date": "2020-09-22T15:44:48.418046973+02:00",
+				"usedLicenses": 86,
+				"purchasedLicenses": 100
+			},
+			{
+				"date": "2020-09-23T15:44:48.418046973+02:00",
+				"usedLicenses": 80,
+				"purchasedLicenses": 100
+			},
+			{
+				"date": "2020-09-24T15:44:48.418046973+02:00",
+				"usedLicenses": 73,
+				"purchasedLicenses": 100
+			},
+			{
+				"date": "2020-09-25T15:44:48.418046973+02:00",
+				"usedLicenses": 72,
+				"purchasedLicenses": 100
+			},
+			{
+				"date": "2020-09-26T15:44:48.418046973+02:00",
+				"usedLicenses": 78,
+				"purchasedLicenses": 100
+			},
+			{
+				"date": "2020-09-27T15:44:48.418046973+02:00",
+				"usedLicenses": 81,
+				"purchasedLicenses": 100
+			},
+			{
+				"date": "2020-09-28T15:44:48.418046973+02:00",
+				"usedLicenses": 78,
+				"purchasedLicenses": 100
+			}
+		]
+	}
+]
