@@ -84,7 +84,7 @@
           </td>
           <td v-else></td>
           <TdContent :value="rowData.scope.alertCategory" />
-          <TdContent :value="rowData.scope.date" />
+          <TdContent :value="formatDate(rowData.scope.date)" />
           <TdIcon :value="resolveIcon(rowData.scope.alertSeverity)" />
           <HostLink :hostname="rowData.scope.hostname" />
           <TdContent :value="rowData.scope.alertCode" />
@@ -108,6 +108,7 @@ import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
+import formatDate from '@/filters/formatDate.js'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
   _.map(list, val => {
@@ -238,6 +239,9 @@ export default {
     handleClearAllSelections() {
       this.isAllPagesSelected = false
       checkOrUncheck(this.data, false, this.handleSelectRows)
+    },
+    formatDate(date) {
+      return formatDate(date)
     }
   },
   computed: {
