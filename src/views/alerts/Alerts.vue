@@ -58,7 +58,7 @@
 
         <template slot="headData">
           <th style="width: 5%">
-            <div>
+            <div v-if="flag !== 'AGENT'">
               <b-checkbox
                 v-model="isCurrentPageSelected"
                 @input="handleSelectPageRows"
