@@ -51,7 +51,9 @@ export const mutations = {
 }
 
 export const actions = {
-  async getDashboardData({ commit }) {
+  async getDashboardData({ commit, dispatch }) {
+    dispatch('getTechnologiesData')
+    dispatch('getHosts')
     const dashData = await axiosDefault.get('/frontend/dashboard')
     const dashResponse = await dashData.data
 
