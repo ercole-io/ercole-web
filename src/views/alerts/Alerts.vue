@@ -13,10 +13,24 @@
         "
         @isPageChanged="handleClearAllSelections"
       >
-        <template>
+        <template slot="customTopHeader">
           <div
-            slot="customTopHeader"
+            v-if="type && flag"
+            style="margin-right: auto; padding-left: 20px;"
+          >
+            <b-button
+              type="is-primary"
+              size="is-small"
+              class="has-text-weight-semibold mr-3"
+              @click="removeUrlParams"
+            >
+              Show All
+            </b-button>
+          </div>
+
+          <div
             v-if="isCurrentPageSelected || selectedRows.length > 0"
+            style="margin-right: auto;"
           >
             <b-button
               type="is-primary"
@@ -232,6 +246,11 @@ export default {
     handleClearAllSelections() {
       this.isAllPagesSelected = false
       checkOrUncheck(this.data, false, this.handleSelectRows)
+    },
+    removeUrlParams() {
+      return this.$router.replace({
+        name: 'alerts'
+      })
     }
   },
   computed: {
