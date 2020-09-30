@@ -21,7 +21,7 @@
         <HostLink :hostname="rowData.scope.hostname" />
         <TdContent :value="rowData.scope.dbname" />
         <TdContent :value="rowData.scope.dbver" />
-        <TdContent :value="rowData.scope.date | formatDate" />
+        <TdContent :value="rowData.scope.date" dataType="date" />
         <TdContent :value="rowData.scope.description" />
         <TdIcon :value="dateBetweenMonthRange(rowData.scope.date, 4)" />
         <TdIcon :value="dateBetweenMonthRange(rowData.scope.date, 6)" />

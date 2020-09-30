@@ -248,6 +248,9 @@ const checkHostDate = date => {
 const countAlertsByType = (alerts, type) => {
   return _.filter(alerts, val => {
     if (checkHostDate(val.date) && val.alertStatus !== 'ACK') {
+      if (type === 'ENGINE') {
+        console.log(val.date, type, val._id, val.alertStatus)
+      }
       return val.alertCategory === type
     }
   }).length
