@@ -34,10 +34,20 @@ export const getters = {
     const agents = state.alerts[flag]
     return _.filter(agents, ['alertCode', type])
   },
-  getFilteredAgentsByHost: state => (host, flag) => {
-    const agentsByHost = state.alerts[flag]
+  getFilteredAlertsByHost: state => (host, flag) => {
+    let alertsByHost = {}
+
+    if (flag === 'AGENT') {
+      alertsByHost = state.alerts[flag]
+    } else {
+      alertsByHost = _.concat(
+        state.alerts[flag].WARNING || [],
+        state.alerts[flag].CRITICAL || [],
+        state.alerts[flag].INFO || []
+      )
+    }
     const findByDate = returnAlertsByTypeDate(
-      agentsByHost,
+      alertsByHost,
       flag,
       startDate,
       endDate
@@ -47,20 +57,6 @@ export const getters = {
   getFilteredAlerts: state => (type, flag) => {
     const alerts = state.alerts[flag][type]
     return _.filter(alerts, ['alertSeverity', type])
-  },
-  getFilteredAlertsByHost: state => (host, flag) => {
-    const alertsByHost = _.concat(
-      state.alerts[flag].WARNING || [],
-      state.alerts[flag].CRITICAL || [],
-      state.alerts[flag].INFO || []
-    )
-    const findByDate = returnAlertsByTypeDate(
-      alertsByHost,
-      flag,
-      startDate,
-      endDate
-    )
-    return _.filter(findByDate, ['hostname', host])
   },
   getFirstAlertByFlag: state => flag => {
     const alert = state.alerts[flag]
