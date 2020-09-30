@@ -14,13 +14,13 @@
       </thead>
       <tbody slot="body" slot-scope="{ displayData }">
         <v-tr v-for="(row, index) in displayData" :key="index" :row="row">
-          <td>{{ row.lastUsageDate || '-' }}</td>
+          <td>{{ row.lastUsageDate || '-' | formatDate }}</td>
           <td>{{ row.detectedUsages || '-' }}</td>
           <td>{{ row.product || '-' }}</td>
           <td>{{ row.currentlyUsed || '-' }}</td>
           <td>{{ row.extraFeatureInfo || '-' }}</td>
           <td>{{ row.feature || '-' }}</td>
-          <td>{{ row.firstUsageDate || '-' }}</td>
+          <td>{{ row.firstUsageDate || '-' | formatDate }}</td>
         </v-tr>
       </tbody>
     </v-table>
