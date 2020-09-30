@@ -153,6 +153,7 @@
           />
           <TdContent
             :value="rowData.scope.updated"
+            dataType="date"
             :class="{ hide: hideAgent }"
           />
         </template>

@@ -1,6 +1,5 @@
 import axiosDefault from '../../axios/axios-default'
 import _ from 'lodash'
-import formatDate from '@/filters/formatDate.js'
 import { mapTechType, mapClustStatus } from '@/helpers/helpers.js'
 
 export const state = () => ({
@@ -30,7 +29,7 @@ export const getters = {
         cores: host.info.cpuCores || '-',
         socket: host.info.cpuSockets || '-',
         version: host.agentVersion || '-',
-        updated: formatDate(host.createdAt) || '-'
+        updated: host.createdAt || '-'
       })
     })
     return allHosts
