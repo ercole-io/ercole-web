@@ -1,6 +1,15 @@
-import axiosDefault from '../../axios/axios-default.js'
-import axiosNoLoading from '../../axios/axios-no-loading.js'
+import axiosDefault from '@/axios/axios-default.js'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { returnAlertsByTypeDate } from '@/helpers/helpers.js'
+import moment from 'moment'
 import _ from 'lodash'
+
+const startDate = moment()
+  .subtract(1, 'week')
+  .format('YYYY-MM-DD')
+const endDate = moment()
+  .add(1, 'days')
+  .format('YYYY-MM-DD')
 
 export const state = () => ({
   alerts: {}
@@ -27,7 +36,13 @@ export const getters = {
   },
   getFilteredAgentsByHost: state => (host, flag) => {
     const agentsByHost = state.alerts[flag]
-    return _.filter(agentsByHost, ['hostname', host])
+    const findByDate = returnAlertsByTypeDate(
+      agentsByHost,
+      flag,
+      startDate,
+      endDate
+    )
+    return _.filter(findByDate, ['hostname', host])
   },
   getFilteredAlerts: state => (type, flag) => {
     const alerts = state.alerts[flag][type]
@@ -39,7 +54,13 @@ export const getters = {
       state.alerts[flag].CRITICAL || [],
       state.alerts[flag].INFO || []
     )
-    return _.filter(alertsByHost, ['hostname', host])
+    const findByDate = returnAlertsByTypeDate(
+      alertsByHost,
+      flag,
+      startDate,
+      endDate
+    )
+    return _.filter(findByDate, ['hostname', host])
   },
   getFirstAlertByFlag: state => flag => {
     const alert = state.alerts[flag]

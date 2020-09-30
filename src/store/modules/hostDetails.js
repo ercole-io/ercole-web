@@ -1,7 +1,18 @@
-import axiosDefault from '../../axios/axios-default'
-import _ from 'lodash'
+import axiosDefault from '@/axios/axios-default'
+import {
+  mapTechType,
+  mapClustStatus,
+  returnAlertsByTypeDate
+} from '@/helpers/helpers.js'
 import moment from 'moment'
-import { mapTechType, mapClustStatus } from '@/helpers/helpers.js'
+import _ from 'lodash'
+
+const startDate = moment()
+  .subtract(1, 'week')
+  .format('YYYY-MM-DD')
+const endDate = moment()
+  .add(1, 'days')
+  .format('YYYY-MM-DD')
 
 export const state = () => ({
   currentHost: {},
@@ -148,9 +159,23 @@ export const getters = {
   getNotificationInfo: state => {
     const hostAlerts = state.hostAlerts
 
-    let agents = countAlertsByType(hostAlerts, 'AGENT')
-    let licenses = countAlertsByType(hostAlerts, 'LICENSE')
-    let engine = countAlertsByType(hostAlerts, 'ENGINE')
+    let agents = returnAlertsByTypeDate(hostAlerts, 'AGENT', startDate, endDate)
+      .length
+
+    let licenses = returnAlertsByTypeDate(
+      hostAlerts,
+      'LICENSE',
+      startDate,
+      endDate
+    ).length
+
+    let engine = returnAlertsByTypeDate(
+      hostAlerts,
+      'ENGINE',
+      startDate,
+      endDate
+    ).length
+
     let total = agents + licenses + engine
     let hostname = state.currentHost.hostname
 
@@ -231,27 +256,4 @@ export const actions = {
     const response = await hostByName.data
     commit('SET_CURRENT_HOST', response)
   }
-}
-
-const startDate = moment()
-  .subtract(1, 'week')
-  .format('YYYY-MM-DD')
-const endDate = moment()
-  .add(1, 'days')
-  .format('YYYY-MM-DD')
-
-const checkHostDate = date => {
-  const dateToCheck = moment(date).format('YYYY-MM-DD')
-  return moment(dateToCheck).isBetween(startDate, endDate)
-}
-
-const countAlertsByType = (alerts, type) => {
-  return _.filter(alerts, val => {
-    if (checkHostDate(val.date) && val.alertStatus !== 'ACK') {
-      if (type === 'ENGINE') {
-        console.log(val.date, type, val._id, val.alertStatus)
-      }
-      return val.alertCategory === type
-    }
-  }).length
 }
