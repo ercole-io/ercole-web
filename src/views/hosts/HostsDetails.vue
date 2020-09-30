@@ -53,6 +53,11 @@
         <HostGraph :chartData="chartData" />
       </BoxContent>
     </div>
+    <BoxContent :title="`Unknown features of ${hostname}`" class="column is-12">
+      <pre>
+        {{ hostDetails.currentHost.features.unknown.unknownFeatures | json 4 }} 
+      </pre>
+    </BoxContent>
   </section>
 </template>
 
