@@ -1,4 +1,5 @@
 import moment from 'moment'
+import _ from 'lodash'
 
 export const setLocalStorageAuth = payload => {
   localStorage.setItem('token', payload.token)
@@ -70,4 +71,20 @@ export const mapClustStatus = clust => {
   } else {
     return mapBooleanIcon(false)
   }
+}
+
+export const verifyHostDateRange = (date, startDate, endDate) => {
+  const dateToCheck = moment(date).format('YYYY-MM-DD')
+  return moment(dateToCheck).isBetween(startDate, endDate)
+}
+
+export const returnAlertsByTypeDate = (alerts, type, startDate, endDate) => {
+  return _.filter(alerts, val => {
+    if (
+      verifyHostDateRange(val.date, startDate, endDate) &&
+      val.alertStatus !== 'ACK'
+    ) {
+      return val.alertCategory === type
+    }
+  })
 }
