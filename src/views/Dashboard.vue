@@ -53,14 +53,12 @@ export default {
   },
   async beforeMount() {
     await this.getDashboardData()
-    await this.getTechnologiesData()
-    await this.getHosts()
 
     this.totalTarget = this.getTotalTarget
     this.technologies = this.getTechnologies
   },
   methods: {
-    ...mapActions(['getDashboardData', 'getTechnologiesData', 'getHosts'])
+    ...mapActions(['getDashboardData'])
   },
   computed: {
     ...mapGetters(['getTotalTarget', 'getTechnologies'])
