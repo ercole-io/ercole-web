@@ -13,8 +13,7 @@ const exportAll = {
   Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 }
 const exportLms = {
-  Accept:
-    'application/vnd.oracle.lms+vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  Accept: 'application/vnd.oracle.lms+vnd.ms-excel.sheet.macroEnabled.12'
 }
 
 export default {
@@ -39,6 +38,7 @@ export default {
   methods: {
     exportData() {
       let headers = this.type && this.type === 'LMS' ? exportLms : exportAll
+      let extension = this.type && this.type === 'LMS' ? 'xlsm' : 'xlsx'
       const date = moment().format('YYYYMMDD')
 
       axiosNoLoading
@@ -47,7 +47,7 @@ export default {
           responseType: 'blob'
         })
         .then(res => {
-          saveAs(res.data, `${this.expName}-${date}.xlsx`)
+          saveAs(res.data, `${this.expName}-${date}.${extension}`)
         })
     }
   }
