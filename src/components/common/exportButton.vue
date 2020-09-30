@@ -37,8 +37,9 @@ export default {
   },
   methods: {
     exportData() {
-      let headers = this.type && this.type === 'LMS' ? exportLms : exportAll
-      let extension = this.type && this.type === 'LMS' ? 'xlsm' : 'xlsx'
+      const checkType = this.type && this.type === 'LMS' ? true : false
+      const headers = checkType ? exportLms : exportAll
+      const extension = checkType ? 'xlsm' : 'xlsx'
       const date = moment().format('YYYYMMDD')
 
       axiosNoLoading
