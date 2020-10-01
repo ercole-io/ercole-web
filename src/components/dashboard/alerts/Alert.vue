@@ -44,7 +44,7 @@
           <div class="column">
             <p>
               <span class="has-text-weight-semibold">Date:</span>
-              {{ alertInfo.date }}
+              {{ alertInfo.date | formatDate }}
             </p>
           </div>
         </div>
