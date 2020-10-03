@@ -53,9 +53,9 @@
         <HostGraph :chartData="chartData" />
       </BoxContent>
     </div>
-    <BoxContent :title="`Unknown features of ${hostname}`" class="column is-12">
+    <BoxContent v-if="hostDetails.currentHost.features.unknown.customData" :title="`Custom data of ${hostname}`" class="column is-12">
       <pre>
-        {{ hostDetails.currentHost.features.unknown.unknownFeatures | json 4 }} 
+        {{ hostDetails.currentHost.features.unknown.customData | json 4 }} 
       </pre>
     </BoxContent>
   </section>
