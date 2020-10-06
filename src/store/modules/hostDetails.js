@@ -252,7 +252,13 @@ export const mutations = {
 
 export const actions = {
   async getHostByName({ commit }, hostname) {
-    const hostByName = await axiosDefault.get(`/hosts/${hostname}`)
+    const date = JSON.parse(localStorage.getItem('globalFilters')).date
+
+    const hostByName = await axiosDefault.get(`/hosts/${hostname}`, {
+      params: {
+        'older-than': date
+      }
+    })
     const response = await hostByName.data
     commit('SET_CURRENT_HOST', response)
   }

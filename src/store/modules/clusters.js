@@ -2,11 +2,21 @@ import axiosDefault from '../../axios/axios-default.js'
 import _ from 'lodash'
 
 export const state = () => ({
-  clusters: {},
-  currentCluster: {}
+  clusters: [],
+  currentCluster: {},
+  currentClusterVms: []
 })
 
 export const getters = {
+  getHypervisors: state => {
+    return state.clusters
+  },
+  getCurrentCluster: state => {
+    return state.currentCluster
+  },
+  getCurrentClusterVms: state => {
+    return state.currentClusterVms
+  },
   getErcoleClusterCount: state => {
     const ercoleClusterCount = {
       withErcole: 0,
@@ -79,19 +89,38 @@ export const mutations = {
   },
   SET_CURRENT_CLUSTER: (state, payload) => {
     state.currentCluster = payload
+    state.currentClusterVms = payload.vms
   }
 }
 
 export const actions = {
   async getClusters({ commit }) {
-    const clustersData = await axiosDefault.get('/hosts/clusters')
+    const loc = JSON.parse(localStorage.getItem('globalFilters')).location
+    const env = JSON.parse(localStorage.getItem('globalFilters')).environment
+    const date = JSON.parse(localStorage.getItem('globalFilters')).date
+
+    const clustersData = await axiosDefault.get('/hosts/clusters', {
+      params: {
+        'older-than': date,
+        environment: env,
+        location: loc
+      }
+    })
     const response = await clustersData.data
     commit('SET_CLUSTERS', response)
   },
   async getClusterByName({ commit }, clustername) {
+    const date = JSON.parse(localStorage.getItem('globalFilters')).date
+
     const clusterByName = await axiosDefault.get(
-      `/hosts/clusters/${clustername}`
+      `/hosts/clusters/${clustername}`,
+      {
+        params: {
+          'older-than': date
+        }
+      }
     )
+
     const response = await clusterByName.data
     commit('SET_CURRENT_CLUSTER', response)
   }

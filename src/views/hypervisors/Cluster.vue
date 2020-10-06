@@ -10,13 +10,13 @@
                   <p class="is-size-7 has-text-centered">
                     Type <br />
                     <span class="is-size-5 has-text-weight-medium">
-                      {{ getTechTypePrettyName(clusters.currentCluster.type) }}
+                      {{ getTechTypePrettyName(getCurrentCluster.type) }}
                     </span>
                   </p>
                   <p class="is-size-7 has-text-centered">
                     Physical Host <br />
                     <span class="is-size-5 has-text-weight-medium">
-                      {{ clusters.currentCluster.virtualizationNodesCount }}
+                      {{ getCurrentCluster.virtualizationNodesCount }}
                     </span>
                   </p>
                 </div>
@@ -30,13 +30,13 @@
                   <p class="is-size-7 has-text-centered">
                     CPU <br />
                     <span class="is-size-5 has-text-weight-medium">
-                      {{ clusters.currentCluster.cpu }}
+                      {{ getCurrentCluster.cpu }}
                     </span>
                   </p>
                   <p class="is-size-7 has-text-centered">
                     Sockets <br />
                     <span class="is-size-5 has-text-weight-medium">
-                      {{ clusters.currentCluster.sockets }}
+                      {{ getCurrentCluster.sockets }}
                     </span>
                   </p>
                 </div>
@@ -58,7 +58,7 @@
           <FullTable
             placeholder="Search on Cluster"
             :keys="keys"
-            :tableData="data"
+            :tableData="getCurrentClusterVms"
             :clickedRow="() => []"
           >
             <template slot="headData">
@@ -90,7 +90,7 @@
 <script>
 import techTypePrettyName from '@/mixins/techTypePrettyName.js'
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { mapBooleanIcon } from '@/helpers/helpers.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
@@ -114,15 +114,12 @@ export default {
   },
   data() {
     return {
-      keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU'],
-      data: []
+      keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU']
     }
   },
   async beforeMount() {
     await this.getClusterByName(this.clustername)
     bus.$emit('dynamicTitle', this.clustername)
-
-    this.data = this.clusters.currentCluster.vms
   },
   methods: {
     ...mapActions(['getClusterByName']),
@@ -131,8 +128,11 @@ export default {
     }
   },
   computed: {
-    ...mapState(['clusters']),
-    ...mapGetters(['getClusterChartData'])
+    ...mapGetters([
+      'getClusterChartData',
+      'getCurrentCluster',
+      'getCurrentClusterVms'
+    ])
   }
 }
 </script>

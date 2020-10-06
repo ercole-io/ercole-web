@@ -120,7 +120,7 @@
         <FullTable
           placeholder="Search on Databases"
           :keys="keys"
-          :tableData="data"
+          :tableData="getAllDatabases"
           :clickedRow="() => []"
         >
           <template slot="headData">
@@ -202,13 +202,11 @@ export default {
         'archivelog',
         'dataguard',
         'ha'
-      ],
-      data: []
+      ]
     }
   },
   async beforeMount() {
     await this.getDatabases()
-    this.data = this.databases.databases
   },
   methods: {
     ...mapActions(['getDatabases']),
@@ -219,6 +217,7 @@ export default {
   computed: {
     ...mapState(['databases']),
     ...mapGetters([
+      'getAllDatabases',
       'getTotalCpu',
       'getDatabasesTypeChartData',
       'getEnvironmentTypeChartData',

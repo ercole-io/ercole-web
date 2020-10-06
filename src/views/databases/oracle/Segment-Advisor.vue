@@ -3,7 +3,7 @@
     <FullTable
       placeholder="Search on Oracle Segment Advisor"
       :keys="keys"
-      :tableData="data"
+      :tableData="getOracleSegmentAdvisor"
       :clickedRow="() => []"
     >
       <template slot="headData">
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -70,19 +70,17 @@ export default {
         'segmentType',
         'partitionName',
         'recommendation'
-      ],
-      data: []
+      ]
     }
   },
   async beforeMount() {
     await this.getSegmentAdvisor()
-    this.data = this.oracleSegmentAdvisor.segmentAdvisor
   },
   methods: {
     ...mapActions(['getSegmentAdvisor'])
   },
   computed: {
-    ...mapState(['oracleSegmentAdvisor'])
+    ...mapGetters(['getOracleSegmentAdvisor'])
   }
 }
 </script>

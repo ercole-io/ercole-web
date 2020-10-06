@@ -30,6 +30,9 @@ export const state = () => ({
 })
 
 export const getters = {
+  getAllDatabases: state => {
+    return state.databases
+  },
   getTotalCpu: state => {
     return _.sumBy(state.databases, 'cpuCount')
   },
@@ -70,32 +73,65 @@ export const mutations = {
 
 export const actions = {
   async getDatabases({ commit, dispatch }) {
+    const loc = JSON.parse(localStorage.getItem('globalFilters')).location
+    const env = JSON.parse(localStorage.getItem('globalFilters')).environment
+    const date = JSON.parse(localStorage.getItem('globalFilters')).date
+
+    dispatch('getTotalMemory', { loc, env, date })
+    dispatch('getTotalSegment', { loc, env, date })
+    dispatch('getTotalDatafile', { loc, env, date })
+
     const databases = await axiosDefault.get(
-      '/hosts/technologies/oracle/databases'
+      '/hosts/technologies/oracle/databases',
+      {
+        params: {
+          'older-than': date,
+          environment: env,
+          location: loc
+        }
+      }
     )
     const response = await databases.data
     commit('SET_DATABASES', response)
-    dispatch('getTotalMemory')
-    dispatch('getTotalSegment')
-    dispatch('getTotalDatafile')
   },
-  async getTotalMemory({ commit }) {
+  async getTotalMemory({ commit }, { loc, env, date }) {
     const totalMemory = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/total-memory-size'
+      '/hosts/technologies/oracle/databases/total-memory-size',
+      {
+        params: {
+          'older-than': date,
+          environment: env,
+          location: loc
+        }
+      }
     )
     const response = await totalMemory.data
     commit('SET_TOTAL_MEMORY', response)
   },
-  async getTotalSegment({ commit }) {
+  async getTotalSegment({ commit }, { loc, env, date }) {
     const totalSegment = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/total-segment-size'
+      '/hosts/technologies/oracle/databases/total-segment-size',
+      {
+        params: {
+          'older-than': date,
+          environment: env,
+          location: loc
+        }
+      }
     )
     const response = await totalSegment.data
     commit('SET_TOTAL_SEGMENT', response)
   },
-  async getTotalDatafile({ commit }) {
+  async getTotalDatafile({ commit }, { loc, env, date }) {
     const totalDatafile = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/total-datafile-size'
+      '/hosts/technologies/oracle/databases/total-datafile-size',
+      {
+        params: {
+          'older-than': date,
+          environment: env,
+          location: loc
+        }
+      }
     )
     const response = await totalDatafile.data
     commit('SET_TOTAL_DATAFILE', response)

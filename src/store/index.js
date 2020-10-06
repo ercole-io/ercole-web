@@ -21,6 +21,7 @@ import * as oracle from './modules/oracle.js'
 import * as oracleSegmentAdvisor from './modules/oracle-segment-advisor.js'
 import * as oraclePatchAdvisor from './modules/oracle-patch-advisor.js'
 import * as oracleAddm from './modules/oracle-addm.js'
+import * as globalFilters from './modules/globalFilters.js'
 
 Vue.use(Vuex)
 
@@ -44,12 +45,13 @@ export default new Vuex.Store({
     oracle,
     oracleSegmentAdvisor,
     oraclePatchAdvisor,
-    oracleAddm
+    oracleAddm,
+    globalFilters
   },
   plugins: [
     createPersistedState({
       key: 'persisted-data',
-      paths: ['auth', 'alerts', 'technologies', 'hostnames']
+      paths: ['auth', 'alerts', 'technologies', 'hostnames', 'globalFilters']
     })
   ]
 })

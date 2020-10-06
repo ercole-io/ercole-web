@@ -1,4 +1,4 @@
-import axiosDefault from '../../axios/axios-default.js'
+import axiosDefault from '@/axios/axios-default.js'
 import _ from 'lodash'
 
 const getExtraTechInfo = (techName, techs) => {
@@ -52,11 +52,12 @@ export const mutations = {
 
 export const actions = {
   async getDashboardData({ commit, dispatch }) {
+    dispatch('getGlobalFiltersData')
     dispatch('getTechnologiesData')
     dispatch('getHosts')
+
     const dashData = await axiosDefault.get('/frontend/dashboard')
     const dashResponse = await dashData.data
-
     commit('SET_DASHBOARD_DATA', dashResponse)
   }
 }
