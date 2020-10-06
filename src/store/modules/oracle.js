@@ -29,6 +29,9 @@ export const state = () => ({
 })
 
 export const getters = {
+  getAllOracleDBs: state => {
+    return state.oracleDbs
+  },
   getEnvironmentTypeChartDataOracle: state => {
     return mountChart('environment', 'Type Of Environment', state.oracleDbs)
   },
@@ -57,24 +60,50 @@ export const mutations = {
 
 export const actions = {
   async getOracleDbs({ commit, dispatch }) {
+    const loc = JSON.parse(localStorage.getItem('globalFilters')).location
+    const env = JSON.parse(localStorage.getItem('globalFilters')).environment
+    const date = JSON.parse(localStorage.getItem('globalFilters')).date
+
+    dispatch('getTopWorkload', { loc, env, date })
+    dispatch('getTopReclaimable', { loc, env, date })
+
     const oracleDbs = await axiosDefault.get(
-      '/hosts/technologies/oracle/databases'
+      '/hosts/technologies/oracle/databases',
+      {
+        params: {
+          'older-than': date,
+          environment: env,
+          location: loc
+        }
+      }
     )
     const response = await oracleDbs.data
     commit('SET_ORACLE_DBS', response)
-    dispatch('getTopWorkload')
-    dispatch('getTopReclaimable')
   },
-  async getTopWorkload({ commit }) {
+  async getTopWorkload({ commit }, { loc, env, date }) {
     const topWorkload = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/top-workload'
+      '/hosts/technologies/oracle/databases/top-workload',
+      {
+        params: {
+          'older-than': date,
+          environment: env,
+          location: loc
+        }
+      }
     )
     const response = await topWorkload.data
     commit('SET_TOP_WORLOAD', response)
   },
-  async getTopReclaimable({ commit }) {
+  async getTopReclaimable({ commit }, { loc, env, date }) {
     const topReclaimable = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/top-reclaimable'
+      '/hosts/technologies/oracle/databases/top-reclaimable',
+      {
+        params: {
+          'older-than': date,
+          environment: env,
+          location: loc
+        }
+      }
     )
     const response = await topReclaimable.data
     commit('SET_TOP_RECLAIMABLE', response)

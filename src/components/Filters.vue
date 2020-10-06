@@ -21,15 +21,24 @@
           horizontal
         >
           <b-select
-            v-model="location"
+            v-model="filters.location"
             size="is-small"
             placeholder="Select an location"
             expanded
+            :disabled="
+              $route.name === 'hosts-details' ||
+                $route.name === 'cluster-details'
+            "
           >
-            <option>Item 1</option>
-            <option>Item 2</option>
-            <option>Item 3</option>
-            <option>Item 4</option>
+            <option :value="null" v-if="filters.location"
+              >Reset location</option
+            >
+            <option
+              v-for="(loc, index) in globalFilters.locations"
+              :key="index"
+            >
+              {{ loc }}
+            </option>
           </b-select>
         </b-field>
 
@@ -40,19 +49,28 @@
           horizontal
         >
           <b-select
-            v-model="environment"
+            v-model="filters.environment"
             size="is-small"
             placeholder="Select an environment"
             expanded
+            :disabled="
+              $route.name === 'hosts-details' ||
+                $route.name === 'cluster-details'
+            "
           >
-            <option>Item 1</option>
-            <option>Item 2</option>
-            <option>Item 3</option>
-            <option>Item 4</option>
+            <option :value="null" v-if="filters.environment"
+              >Reset environment</option
+            >
+            <option
+              v-for="(env, index) in globalFilters.environments"
+              :key="index"
+            >
+              {{ env }}
+            </option>
           </b-select>
         </b-field>
 
-        <b-field
+        <!-- <b-field
           label="Taglist"
           class="filters-field"
           custom-class="is-size-7"
@@ -89,7 +107,7 @@
               </b-tag>
             </template>
           </b-taginput>
-        </b-field>
+        </b-field> -->
 
         <b-field
           label="Date"
@@ -98,22 +116,35 @@
           horizontal
         >
           <b-datepicker
-            v-model="date"
+            v-model="filters.date"
+            :date-formatter="formatDate"
             size="is-small"
             placeholder="Select a date"
             icon="calendar-today"
             trap-focus
             expanded
+            editable
+            :max-date="new Date()"
           >
           </b-datepicker>
         </b-field>
 
         <b-button
-          @click="resetAllFilters"
+          @click="applyFilters"
           class="filters-button"
-          size="is-small is-primary"
+          size="is-small"
+          type="is-primary"
         >
-          Reset All Filters
+          Apply
+        </b-button>
+
+        <b-button
+          @click="resetFilters"
+          class="filters-button"
+          size="is-small"
+          type="is-danger"
+        >
+          Reset
         </b-button>
       </div>
     </b-collapse>
@@ -121,37 +152,58 @@
 </template>
 
 <script>
+import moment from 'moment'
+import { mapState, mapActions } from 'vuex'
+import formatDate from '@/filters/formatDate.js'
+
 export default {
   data() {
     return {
-      tagList: [
-        { id: 'a', name: 'Tag 1' },
-        { id: 'b', name: 'Tag 2' },
-        { id: 'c', name: 'Tag 3' },
-        { id: 'd', name: 'Tag 4' },
-        { id: 'e', name: 'Tag 5' }
-      ],
-      filteredTags: this.tagList,
-      isSelectOnly: false,
-      tags: [],
-      location: null,
-      environment: null,
-      date: null,
+      // tagList: [
+      //   { id: 'a', name: 'Tag 1' },
+      //   { id: 'b', name: 'Tag 2' },
+      //   { id: 'c', name: 'Tag 3' },
+      //   { id: 'd', name: 'Tag 4' },
+      //   { id: 'e', name: 'Tag 5' }
+      // ],
+      // filteredTags: this.tagList,
+      // tags: [],
       isFilters: false,
-      filterIcon: 'chevron-down'
+      filterIcon: 'chevron-down',
+      filters: {
+        location:
+          JSON.parse(localStorage.getItem('globalFilters')).location || null,
+        environment:
+          JSON.parse(localStorage.getItem('globalFilters')).environment || null,
+        date:
+          this.formatDatepickerDate(
+            JSON.parse(localStorage.getItem('globalFilters')).date
+          ) || this.formatDatepickerDate()
+      }
     }
   },
   methods: {
-    getFilteredTags(text) {
-      this.filteredTags = this.tagList.filter(option => {
-        return (
-          option.name
-            .toString()
-            .toLowerCase()
-            .indexOf(text.toLowerCase()) >= 0
-        )
-      })
-    },
+    ...mapActions([
+      'getHosts',
+      'getHostByName',
+      'getDatabases',
+      'getOracleDbs',
+      'getAddms',
+      'getSegmentAdvisor',
+      'getPatchAdvisor',
+      'getClusters',
+      'getClusterByName'
+    ]),
+    // getFilteredTags(text) {
+    //   this.filteredTags = this.tagList.filter(option => {
+    //     return (
+    //       option.name
+    //         .toString()
+    //         .toLowerCase()
+    //         .indexOf(text.toLowerCase()) >= 0
+    //     )
+    //   })
+    // },
     expandFilters() {
       this.isFilters = !this.isFilters
       if (this.isFilters) {
@@ -162,12 +214,74 @@ export default {
         this.$emit('filters', this.isFilters)
       }
     },
-    resetAllFilters() {
-      this.location = null
-      this.environment = null
-      this.tags = []
-      this.date = null
+    applyFilters() {
+      this.filters.date = this.formatDatepickerDate(this.filters.date)
+      localStorage.setItem('globalFilters', JSON.stringify(this.filters))
+      this.reloadPage(this.$route.name)
+    },
+    resetFilters() {
+      this.filters.location = null
+      this.filters.environment = null
+      this.filters.date = this.formatDatepickerDate()
+      localStorage.setItem('globalFilters', JSON.stringify(this.filters))
+      this.reloadPage(this.$route.name)
+    },
+    reloadPage(name) {
+      switch (name) {
+        case 'hosts':
+          this.getHosts()
+          break
+        case 'hosts-details':
+          this.getHostByName(this.$route.params.hostname)
+          break
+        case 'databases':
+          this.getDatabases()
+          break
+        case 'oracle':
+          this.getOracleDbs()
+          break
+        case 'addm':
+          this.getAddms()
+          break
+        case 'segment-advisor':
+          this.getSegmentAdvisor()
+          break
+        case 'patch-advisor':
+          this.getPatchAdvisor()
+          break
+        case 'hypervisors':
+          this.getClusters()
+          break
+        case 'cluster-details':
+          this.getClusterByName(this.$route.params.clustername)
+          break
+        default:
+          return
+      }
+    },
+    formatDate(date) {
+      return formatDate(date)
+    },
+    formatDatepickerDate(date = null) {
+      if (date) {
+        return new Date(
+          moment(date)
+            .utc()
+            .set({ hour: 23, minute: 59, second: 59 })
+            .toISOString()
+        )
+      } else {
+        return new Date(
+          moment()
+            .utc()
+            .set({ hour: 23, minute: 59, second: 59 })
+            .toISOString()
+        )
+      }
     }
+  },
+  computed: {
+    ...mapState(['globalFilters'])
   }
 }
 </script>

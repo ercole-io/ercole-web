@@ -536,7 +536,7 @@ export default {
 .toggleCol {
   position: absolute;
   right: 20px;
-  top: 120px;
+  top: 93px;
   padding: 0;
 
   &:hover {

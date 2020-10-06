@@ -3,7 +3,7 @@
     <FullTable
       placeholder="Search on Oracle Patch Advisor"
       :keys="keys"
-      :tableData="data"
+      :tableData="getOraclePatchAdvisor"
       :clickedRow="() => []"
     >
       <template slot="headData">
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import moment from 'moment'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -65,13 +65,11 @@ export default {
         'fourMonth',
         'sixMonth',
         'twelveMonth'
-      ],
-      data: []
+      ]
     }
   },
   async beforeMount() {
     await this.getPatchAdvisor()
-    this.data = this.oraclePatchAdvisor.patchAdvisor
   },
   methods: {
     ...mapActions(['getPatchAdvisor']),
@@ -90,7 +88,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['oraclePatchAdvisor'])
+    ...mapGetters(['getOraclePatchAdvisor'])
   }
 }
 </script>

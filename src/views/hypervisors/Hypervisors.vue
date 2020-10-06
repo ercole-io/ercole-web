@@ -41,7 +41,7 @@
           <FullTable
             placeholder="Search on Hypervisors"
             :keys="keys"
-            :tableData="data"
+            :tableData="getHypervisors"
             @clickedRow="handleClickedRow"
             isClickable
           >
@@ -79,7 +79,7 @@
 
 <script>
 import techTypePrettyName from '@/mixins/techTypePrettyName.js'
-import { mapActions, mapState, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -105,13 +105,11 @@ export default {
         'virtualizationNodes',
         'vmsCount',
         'vmsErcoleAgentCount'
-      ],
-      data: []
+      ]
     }
   },
   async beforeMount() {
     await this.getClusters()
-    this.data = this.clusters.clusters
   },
   methods: {
     ...mapActions(['getClusters']),
@@ -126,8 +124,11 @@ export default {
     }
   },
   computed: {
-    ...mapState(['clusters']),
-    ...mapGetters(['getErcoleClusterCount', 'getVirtualizationChartData'])
+    ...mapGetters([
+      'getErcoleClusterCount',
+      'getVirtualizationChartData',
+      'getHypervisors'
+    ])
   }
 }
 </script>

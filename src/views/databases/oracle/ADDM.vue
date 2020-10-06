@@ -3,7 +3,7 @@
     <FullTable
       placeholder="Search on Oracle ADDM"
       :keys="keys"
-      :tableData="data"
+      :tableData="getOracleAddms"
       :clickedRow="() => []"
     >
       <template slot="headData">
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -56,19 +56,17 @@ export default {
         'finding',
         'recommendation',
         'action'
-      ],
-      data: []
+      ]
     }
   },
   async beforeMount() {
     await this.getAddms()
-    this.data = this.oracleAddm.addms
   },
   methods: {
     ...mapActions(['getAddms'])
   },
   computed: {
-    ...mapState(['oracleAddm'])
+    ...mapGetters(['getOracleAddms'])
   }
 }
 </script>

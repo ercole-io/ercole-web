@@ -110,7 +110,7 @@
         <FullTable
           placeholder="Search on Oracle DBs"
           :keys="keys"
-          :tableData="data"
+          :tableData="getAllOracleDBs"
           :clickedRow="() => []"
         >
           <template slot="headData">
@@ -191,13 +191,11 @@ export default {
         'archivelog',
         'dataguard',
         'ha'
-      ],
-      data: []
+      ]
     }
   },
   async beforeMount() {
     await this.getOracleDbs()
-    this.data = this.oracle.oracleDbs
   },
   methods: {
     ...mapActions(['getOracleDbs']),
@@ -208,6 +206,7 @@ export default {
   computed: {
     ...mapState(['oracle']),
     ...mapGetters([
+      'getAllOracleDBs',
       'getEnvironmentTypeChartDataOracle',
       'getArchivelogChartDataOracle',
       'getDataguardChartDataOracle',
