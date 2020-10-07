@@ -157,6 +157,7 @@
                 placeholder="Select"
                 v-model="partNumber"
                 expanded
+                :multiple="!isEditing"
               >
                 <option
                   v-for="(part, index) in returnAgreementParts"
@@ -296,16 +297,12 @@
               <b-button
                 type="is-danger"
                 size="is-small"
+                :disabled="$v.$invalid"
                 @click="cancelAddLicense"
               >
                 Cancel
               </b-button>
-              <b-button
-                type="is-primary"
-                size="is-small"
-                :disabled="$v.$invalid"
-                native-type="submit"
-              >
+              <b-button type="is-primary" size="is-small" native-type="submit">
                 {{ isEditing ? 'Edit License' : 'Add License' }}
               </b-button>
             </div>
@@ -372,7 +369,7 @@ export default {
       licenseId: null,
       techType: null,
       agreeNumber: null,
-      partNumber: null,
+      partNumber: [],
       csi: null,
       referenceNumber: null,
       ula: false,
@@ -405,18 +402,23 @@ export default {
   methods: {
     ...mapActions(['getLicensesAgreement', 'getAgreementParts']),
     addUpdateLicense() {
+      const separatePartID = []
+      _.filter(this.partNumber, val => {
+        separatePartID.push(val.split(' - ')[0])
+        return separatePartID
+      })
+
       const license = {
         agreementID: this.agreeNumber,
         csi: this.csi,
-        partsID: [this.partNumber.split(' - ')[0]],
         referenceNumber: this.referenceNumber,
         unlimited: this.ula,
         count: Number(this.licenseNumber),
         hosts: this.hostAssociated,
         catchAll: false
       }
-
       if (!this.isEditing) {
+        license.partsID = separatePartID
         axiosDefault.post('/agreements/oracle/database', license).then(res => {
           if (res.data[0].InsertedID) {
             this.getLicensesAgreement()
@@ -427,7 +429,6 @@ export default {
       } else {
         license.id = this.licenseId
         license.partID = this.partNumber.split(' - ')[0]
-
         axiosDefault.put('/agreements/oracle/database', license).then(() => {
           this.getLicensesAgreement()
           this.cancelAddLicense()
@@ -438,7 +439,7 @@ export default {
     cancelAddLicense() {
       this.techType = null
       this.agreeNumber = null
-      this.partNumber = null
+      this.partNumber = []
       this.csi = null
       this.referenceNumber = null
       this.ula = false
