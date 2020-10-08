@@ -192,7 +192,8 @@ export default {
       'getSegmentAdvisor',
       'getPatchAdvisor',
       'getClusters',
-      'getClusterByName'
+      'getClusterByName',
+      'getAlertsData'
     ]),
     // getFilteredTags(text) {
     //   this.filteredTags = this.tagList.filter(option => {
@@ -254,6 +255,9 @@ export default {
           break
         case 'cluster-details':
           this.getClusterByName(this.$route.params.clustername)
+          break
+        case 'alerts':
+          this.getAlertsData()
           break
         default:
           return
