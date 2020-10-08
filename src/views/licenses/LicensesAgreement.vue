@@ -50,7 +50,6 @@
 
                 <td style="min-width: 50px;">
                   <HostAssociated
-                    :hosts="rowData.scope.hosts"
                     :agreeNumber="rowData.scope.agreementID"
                     :licenseID="rowData.scope.id"
                   />

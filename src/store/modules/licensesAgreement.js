@@ -1,4 +1,5 @@
-import axiosDefault from '../../axios/axios-default.js'
+import axiosDefault from '@/axios/axios-default.js'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
 
 export const state = () => ({
@@ -7,6 +8,13 @@ export const state = () => ({
 })
 
 export const getters = {
+  getLicenseAgreementHostAssociated: state => id => {
+    const findHostAssociated = _.find(state.licensesAgreement, val => {
+      return val.id === id
+    })
+    const hostsAssociated = findHostAssociated.hosts
+    return hostsAssociated
+  },
   returnLicensesAgreement: state => {
     return state.licensesAgreement
   },
@@ -57,8 +65,15 @@ export const mutations = {
 }
 
 export const actions = {
-  async getLicensesAgreement({ commit }) {
-    const agreementList = await axiosDefault.get('/agreements/oracle/database')
+  async getLicensesAgreement({ commit }, noLoading = null) {
+    let agreementList = null
+
+    if (noLoading) {
+      agreementList = await axiosNoLoading.get('/agreements/oracle/database')
+    } else {
+      agreementList = await axiosDefault.get('/agreements/oracle/database')
+    }
+
     const response = await agreementList.data
 
     commit('SET_LICENSE_AGREEMENT', response)
