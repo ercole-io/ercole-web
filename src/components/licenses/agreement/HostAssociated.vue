@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
     <b-icon
       v-tooltip="options('Show Hosts')"
       type="is-link"
@@ -15,6 +15,11 @@
       scroll="keep"
       :on-cancel="getLicensesAgreement"
     >
+      <b-loading
+        :is-full-page="false"
+        v-model="isLoading"
+        :can-cancel="false"
+      ></b-loading>
       <header class="modal-card-head">
         <p class="modal-card-title">
           Hosts Associated From License Agreement Number {{ agreeNumber }}
@@ -24,7 +29,7 @@
         <FullTable
           placeholder="Search on Hosts Associated"
           :keys="keys"
-          :tableData="associatedHosts"
+          :tableData="getLicenseAgreementHostAssociated(this.licenseID)"
           :clickedRow="() => []"
         >
           <template slot="headData">
@@ -36,13 +41,27 @@
           <template slot="bodyData" slot-scope="rowData">
             <HostLink
               :hostname="rowData.scope.hostname"
-              :class="{ 'has-background-danger-light': highlightHost }"
+              :class="{
+                'has-background-danger-light':
+                  rowData.scope.totalCoveredLicensesCount <
+                  rowData.scope.consumedLicensesCount
+              }"
             />
             <TdContent
               :value="rowData.scope.coveredLicensesCount"
-              :class="{ 'has-background-danger-light': highlightHost }"
+              :class="{
+                'has-background-danger-light':
+                  rowData.scope.totalCoveredLicensesCount <
+                  rowData.scope.consumedLicensesCount
+              }"
             />
-            <td :class="{ 'has-background-danger-light': highlightHost }">
+            <td
+              :class="{
+                'has-background-danger-light':
+                  rowData.scope.totalCoveredLicensesCount <
+                  rowData.scope.consumedLicensesCount
+              }"
+            >
               <b-icon
                 v-tooltip="options('Delete License')"
                 type="is-danger"
@@ -52,24 +71,17 @@
                 @click.native="deleteHostAssociated(rowData.scope.hostname)"
               />
             </td>
-            <span class="is-hidden">{{
-              checkHighlight(
-                rowData.scope.totalCoveredLicensesCount,
-                rowData.scope.consumedLicensesCount
-              )
-            }}</span>
           </template>
         </FullTable>
       </section>
       <footer class="modal-card-foot"></footer>
     </b-modal>
-  </div>
+  </section>
 </template>
 
 <script>
-import _ from 'lodash'
-import { mapActions } from 'vuex'
-import axiosDefault from '@/axios/axios-default.js'
+import { mapActions, mapGetters } from 'vuex'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
@@ -83,10 +95,6 @@ export default {
     TdContent
   },
   props: {
-    hosts: {
-      type: Array,
-      default: () => []
-    },
     agreeNumber: {
       type: String,
       required: true
@@ -100,28 +108,26 @@ export default {
     return {
       openModal: false,
       keys: ['hostname', 'coveredLicensesCount'],
-      associatedHosts: this.hosts,
-      highlightHost: false
+      isLoading: false
     }
   },
   methods: {
     ...mapActions(['getLicensesAgreement']),
     deleteHostAssociated(hostname) {
-      axiosDefault
+      this.isLoading = true
+      axiosNoLoading
         .delete(
           `/agreements/oracle/database/${this.licenseID}/hosts/${hostname}`
         )
         .then(() => {
-          this.associatedHosts = _.filter(this.associatedHosts, val => {
-            return val.hostname !== hostname
+          this.getLicensesAgreement('noLoading').then(() => {
+            this.isLoading = false
           })
         })
-    },
-    checkHighlight(total, consumed) {
-      return total < consumed
-        ? (this.highlightHost = true)
-        : (this.highlightHost = false)
     }
+  },
+  computed: {
+    ...mapGetters(['getLicenseAgreementHostAssociated'])
   }
 }
 </script>
