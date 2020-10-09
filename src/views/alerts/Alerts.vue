@@ -1,5 +1,11 @@
 <template>
   <section>
+    <b-loading
+      slot="loading"
+      :is-full-page="false"
+      v-model="isLoading"
+      :can-cancel="false"
+    ></b-loading>
     <BoxContent>
       <FullTable
         placeholder="Search on Alerts"
@@ -37,7 +43,7 @@
               size="is-small"
               icon-pack="fas"
               icon-left="check-circle"
-              class="has-text-weight-semibold mr-3"
+              class="has-text-weight-semibold mr-3 ml-3"
               @click="handleMarkAsRead"
             >
               Mark as Read
@@ -165,7 +171,8 @@ export default {
       selectedRows: [],
       isCurrentPageSelected: false,
       currentPageSelection: [],
-      isAllPagesSelected: false
+      isAllPagesSelected: false,
+      isLoading: false
     }
   },
   async beforeMount() {
@@ -185,10 +192,12 @@ export default {
       ]
     },
     handleMarkAsRead() {
+      this.isLoading = true
       const idList = this.selectedRows
       this.markAsReadAlertsPage({ idList }).then(() => {
         this.getAlerts(this.type, this.flag)
         this.isCurrentPageSelected = false
+        this.isLoading = false
       })
     },
     handleSelectRows(status, id) {
