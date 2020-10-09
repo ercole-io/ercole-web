@@ -4,7 +4,7 @@
       <FullTable
         placeholder="Search on Alerts"
         :keys="keys"
-        :tableData="data"
+        :tableData="getAlerts(type, flag)"
         class="table-alerts"
         @pageRows="
           vals => {
@@ -52,7 +52,7 @@
                 selected.
               </span>
               <a @click="handleSelectAllPagesRows">
-                Select all {{ data.length }} alerts?
+                Select all {{ getAlerts(type, flag).length }} alerts?
               </a>
             </span>
 
@@ -61,10 +61,10 @@
               v-if="isAllPagesSelected && isCurrentPageSelected"
             >
               <span class="px-2">
-                All {{ data.length }} alerts are selected.
+                All {{ getAlerts(type, flag).length }} alerts are selected.
               </span>
               <a @click="handleClearAllSelections">
-                Clear selection?
+                Clear select all?
               </a>
             </span>
           </div>
@@ -162,7 +162,6 @@ export default {
         'alertCode',
         'description'
       ],
-      data: [],
       selectedRows: [],
       isCurrentPageSelected: false,
       currentPageSelection: [],
@@ -170,37 +169,10 @@ export default {
     }
   },
   async beforeMount() {
-    if (!this.type && !this.flag) {
-      await this.fetchAlerts()
-    } else if (this.type === 'NO_DATA') {
-      this.showFilteredAgents()
-    } else if (
-      this.type === 'INFO' ||
-      this.type === 'WARNING' ||
-      this.type === 'CRITICAL'
-    ) {
-      this.showFilteredAlerts()
-    } else if (this.type !== 'NO_DATA' && this.flag === 'AGENT') {
-      this.data = this.getFilteredAlertsByHost(this.type, this.flag)
-    } else if (this.type !== 'NO_DATA' && this.flag !== 'AGENT') {
-      this.data = this.getFilteredAlertsByHost(this.type, this.flag)
-    }
+    await this.getAlertsData()
   },
   methods: {
     ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),
-    fetchAlerts() {
-      this.getAlertsData()
-      this.data = this.getAllAlerts
-    },
-    showAllAlerts() {
-      this.data = this.getAllAlerts
-    },
-    showFilteredAgents() {
-      this.data = this.getFilteredAgents(this.type, this.flag)
-    },
-    showFilteredAlerts() {
-      this.data = this.getFilteredAlerts(this.type, this.flag)
-    },
     setIcon(severity) {
       return checkAlertIcon(severity)
     },
@@ -215,13 +187,7 @@ export default {
     handleMarkAsRead() {
       const idList = this.selectedRows
       this.markAsReadAlertsPage({ idList }).then(() => {
-        if (!this.type && !this.flag) {
-          this.showAllAlerts()
-        } else if (this.flag === 'AGENT') {
-          this.showFilteredAgents()
-        } else {
-          this.showFilteredAlerts()
-        }
+        this.getAlerts(this.type, this.flag)
         this.isCurrentPageSelected = false
       })
     },
@@ -243,11 +209,19 @@ export default {
     },
     handleSelectAllPagesRows() {
       this.isAllPagesSelected = true
-      checkOrUncheck(this.data, true, this.handleSelectRows)
+      checkOrUncheck(
+        this.getAlerts(this.type, this.flag),
+        this.isAllPagesSelected,
+        this.handleSelectRows
+      )
     },
     handleClearAllSelections() {
       this.isAllPagesSelected = false
-      checkOrUncheck(this.data, false, this.handleSelectRows)
+      checkOrUncheck(
+        this.getAlerts(this.type, this.flag),
+        this.isAllPagesSelected,
+        this.handleSelectRows
+      )
     },
     removeUrlParams() {
       return this.$router.replace({
@@ -256,13 +230,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'getAllAlerts',
-      'getFilteredAlerts',
-      'getFilteredAgents',
-      'getFilteredAlertsByHost',
-      'getFilteredAgentsByHost'
-    ])
+    ...mapGetters(['getAlerts'])
   },
   watch: {
     selectedRows(value) {

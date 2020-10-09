@@ -229,12 +229,14 @@ export default {
       this.reloadPage(this.$route.name)
     },
     reloadPage(name) {
+      const params = this.$route.params
+
       switch (name) {
         case 'hosts':
           this.getHosts()
           break
         case 'hosts-details':
-          this.getHostByName(this.$route.params.hostname)
+          this.getHostByName(params.hostname)
           break
         case 'databases':
           this.getDatabases()
@@ -255,7 +257,7 @@ export default {
           this.getClusters()
           break
         case 'cluster-details':
-          this.getClusterByName(this.$route.params.clustername)
+          this.getClusterByName(params.clustername)
           break
         case 'alerts':
           this.getAlertsData()
