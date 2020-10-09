@@ -12,10 +12,21 @@ const endDate = moment()
   .format('YYYY-MM-DD')
 
 export const state = () => ({
-  alerts: {}
+  alerts: []
 })
 
 export const getters = {
+  getAlerts: (state, getters) => (type, flag) => {
+    if (!type && !flag) {
+      return getters['getAllAlerts']
+    } else if (type === 'NO_DATA') {
+      return getters.getFilteredAgents(type, flag)
+    } else if (type === 'INFO' || type === 'WARNING' || type === 'CRITICAL') {
+      return getters.getFilteredAlerts(type, flag)
+    } else {
+      return getters.getFilteredAlertsByHost(type, flag)
+    }
+  },
   getAllAlerts: state => {
     const agents = state.alerts.AGENT
 
@@ -33,6 +44,10 @@ export const getters = {
   getFilteredAgents: state => (type, flag) => {
     const agents = state.alerts[flag]
     return _.filter(agents, ['alertCode', type])
+  },
+  getFilteredAlerts: state => (type, flag) => {
+    const alerts = state.alerts[flag][type]
+    return _.filter(alerts, ['alertSeverity', type])
   },
   getFilteredAlertsByHost: state => (host, flag) => {
     let alertsByHost = {}
@@ -53,10 +68,6 @@ export const getters = {
       endDate
     )
     return _.filter(findByDate, ['hostname', host])
-  },
-  getFilteredAlerts: state => (type, flag) => {
-    const alerts = state.alerts[flag][type]
-    return _.filter(alerts, ['alertSeverity', type])
   },
   getFirstAlertByFlag: state => flag => {
     const alert = state.alerts[flag]
