@@ -19,20 +19,19 @@
           class="filters-field"
           custom-class="is-size-7"
           horizontal
+          v-show="
+            $route.name !== 'hosts-details' && $route.name !== 'cluster-details'
+          "
         >
           <b-select
             v-model="filters.location"
             size="is-small"
             placeholder="Select an location"
             expanded
-            :disabled="
-              $route.name === 'hosts-details' ||
-                $route.name === 'cluster-details'
-            "
           >
-            <option :value="null" v-if="filters.location"
-              >Reset location</option
-            >
+            <option :value="null" v-if="filters.location">
+              Reset location
+            </option>
             <option
               v-for="(loc, index) in globalFilters.locations"
               :key="index"
@@ -47,20 +46,19 @@
           class="filters-field"
           custom-class="is-size-7"
           horizontal
+          v-show="
+            $route.name !== 'hosts-details' && $route.name !== 'cluster-details'
+          "
         >
           <b-select
             v-model="filters.environment"
             size="is-small"
             placeholder="Select an environment"
             expanded
-            :disabled="
-              $route.name === 'hosts-details' ||
-                $route.name === 'cluster-details'
-            "
           >
-            <option :value="null" v-if="filters.environment"
-              >Reset environment</option
-            >
+            <option :value="null" v-if="filters.environment">
+              Reset environment
+            </option>
             <option
               v-for="(env, index) in globalFilters.environments"
               :key="index"
@@ -114,6 +112,8 @@
           class="filters-field"
           custom-class="is-size-7"
           horizontal
+          v-show="$route.name !== 'alerts'"
+          style="max-width: 400px"
         >
           <b-datepicker
             v-model="filters.date"
@@ -298,7 +298,7 @@ export default {
 
   .filters-form {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
     flex-direction: row;
     padding: 10px 20px;
     background-color: #dbdbdb;
