@@ -4,7 +4,7 @@
       <FullTable
         placeholder="Search on Licenses"
         :keys="keys"
-        :tableData="data"
+        :tableData="getUsedLicenses"
         :clickedRow="() => []"
       >
         <template slot="headData">
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
@@ -51,19 +51,19 @@ export default {
   },
   data() {
     return {
-      keys: ['hostname', 'dbName', 'licenseName', 'usedLicenses'],
-      data: []
+      keys: ['hostname', 'dbName', 'licenseName', 'usedLicenses']
+      // data: []
     }
   },
   async beforeMount() {
     await this.getLicensesList()
-    this.data = this.licenses.licenseList
+    // this.data = this.licenses.licenseList
   },
   methods: {
     ...mapActions(['getLicensesList'])
   },
   computed: {
-    ...mapState(['licenses'])
+    ...mapGetters(['getUsedLicenses'])
   }
 }
 </script>
