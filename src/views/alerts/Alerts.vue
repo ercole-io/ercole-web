@@ -100,7 +100,9 @@
           <TdContent :value="rowData.scope.alertCategory" />
           <TdContent :value="rowData.scope.date" dataType="date" />
           <TdIcon :value="resolveIcon(rowData.scope.alertSeverity)" />
-          <HostLink :hostname="rowData.scope.hostname" />
+          <HostLink
+            :hostname="rowData.scope.hostname ? rowData.scope.hostname : '-'"
+          />
           <TdContent :value="rowData.scope.alertCode" />
           <TdContent :value="rowData.scope.description" />
         </template>
