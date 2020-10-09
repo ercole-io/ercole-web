@@ -193,7 +193,8 @@ export default {
       'getPatchAdvisor',
       'getClusters',
       'getClusterByName',
-      'getAlertsData'
+      'getAlertsData',
+      'getLicensesList'
     ]),
     // getFilteredTags(text) {
     //   this.filteredTags = this.tagList.filter(option => {
@@ -258,6 +259,9 @@ export default {
           break
         case 'alerts':
           this.getAlertsData()
+          break
+        case 'licenses-used':
+          this.getLicensesList()
           break
         default:
           return
