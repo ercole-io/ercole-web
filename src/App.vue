@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import moment from 'moment'
 import { mapActions, mapGetters } from 'vuex'
+import { formatDatepickerDate } from '@/helpers/helpers.js'
 const default_layout = 'default'
 
 export default {
@@ -24,12 +24,7 @@ export default {
     if (!localStorage.getItem('globalFilters')) {
       filters.location = null
       filters.environment = null
-      filters.date = new Date(
-        moment()
-          .utc()
-          .set({ hour: 23, minute: 59, second: 59 })
-          .toISOString()
-      )
+      filters.date = formatDatepickerDate()
       localStorage.setItem('globalFilters', JSON.stringify(filters))
     }
   },

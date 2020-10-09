@@ -88,3 +88,21 @@ export const returnAlertsByTypeDate = (alerts, type, startDate, endDate) => {
     }
   })
 }
+
+export const formatDatepickerDate = (date = null) => {
+  if (date) {
+    return new Date(
+      moment(date)
+        .utc()
+        .set({ hour: 23, minute: 59, second: 59 })
+        .toISOString()
+    )
+  } else {
+    return new Date(
+      moment()
+        .utc()
+        .set({ hour: 23, minute: 59, second: 59 })
+        .toISOString()
+    )
+  }
+}

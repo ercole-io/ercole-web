@@ -152,9 +152,9 @@
 </template>
 
 <script>
-import moment from 'moment'
 import { mapState, mapActions } from 'vuex'
 import formatDate from '@/filters/formatDate.js'
+import { formatDatepickerDate } from '@/helpers/helpers.js'
 
 export default {
   data() {
@@ -176,9 +176,9 @@ export default {
         environment:
           JSON.parse(localStorage.getItem('globalFilters')).environment || null,
         date:
-          this.formatDatepickerDate(
+          formatDatepickerDate(
             JSON.parse(localStorage.getItem('globalFilters')).date
-          ) || this.formatDatepickerDate()
+          ) || formatDatepickerDate()
       }
     }
   },
@@ -217,14 +217,14 @@ export default {
       }
     },
     applyFilters() {
-      this.filters.date = this.formatDatepickerDate(this.filters.date)
+      this.filters.date = formatDatepickerDate(this.filters.date)
       localStorage.setItem('globalFilters', JSON.stringify(this.filters))
       this.reloadPage(this.$route.name)
     },
     resetFilters() {
       this.filters.location = null
       this.filters.environment = null
-      this.filters.date = this.formatDatepickerDate()
+      this.filters.date = formatDatepickerDate()
       localStorage.setItem('globalFilters', JSON.stringify(this.filters))
       this.reloadPage(this.$route.name)
     },
@@ -271,23 +271,6 @@ export default {
     },
     formatDate(date) {
       return formatDate(date)
-    },
-    formatDatepickerDate(date = null) {
-      if (date) {
-        return new Date(
-          moment(date)
-            .utc()
-            .set({ hour: 23, minute: 59, second: 59 })
-            .toISOString()
-        )
-      } else {
-        return new Date(
-          moment()
-            .utc()
-            .set({ hour: 23, minute: 59, second: 59 })
-            .toISOString()
-        )
-      }
     }
   },
   computed: {
