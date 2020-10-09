@@ -14,10 +14,25 @@
 </template>
 
 <script>
+import moment from 'moment'
 import { mapActions, mapGetters } from 'vuex'
 const default_layout = 'default'
 
 export default {
+  beforeCreate() {
+    const filters = {}
+    if (!localStorage.getItem('globalFilters')) {
+      filters.location = null
+      filters.environment = null
+      filters.date = new Date(
+        moment()
+          .utc()
+          .set({ hour: 23, minute: 59, second: 59 })
+          .toISOString()
+      )
+      localStorage.setItem('globalFilters', JSON.stringify(filters))
+    }
+  },
   created() {
     this.fetchConfig()
       .then(this.tryAutoLogin)

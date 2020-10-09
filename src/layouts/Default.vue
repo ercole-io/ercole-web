@@ -7,8 +7,13 @@
       :class="[{ collapsed: isCollapsedSidebar, withFilters: isFiltersOpened }]"
     >
       <div class="layout">
-        <appFilters @filters="handleIsFilters" />
-        <appBreadcrumb v-if="this.$route.name !== 'dashboard'" />
+        <appFilters
+          @filters="handleIsFilters"
+          v-if="
+            $route.name !== 'licenses-agreement' && $route.name !== 'dashboard'
+          "
+        />
+        <appBreadcrumb v-if="$route.name !== 'dashboard'" />
         <div class="content">
           <slot />
         </div>
