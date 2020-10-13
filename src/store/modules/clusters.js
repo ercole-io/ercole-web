@@ -4,7 +4,9 @@ import _ from 'lodash'
 export const state = () => ({
   clusters: [],
   currentCluster: {},
-  currentClusterVms: []
+  currentClusterVms: [],
+  hasFilters: false,
+  filters: []
 })
 
 export const getters = {
@@ -15,7 +17,11 @@ export const getters = {
     return state.currentCluster
   },
   getCurrentClusterVms: state => {
-    return state.currentClusterVms
+    if (state.hasFilters) {
+      return state.currentClusterVms.filterByKeys(state.filters)
+    } else {
+      return state.currentClusterVms
+    }
   },
   getErcoleClusterCount: state => {
     const ercoleClusterCount = {
@@ -80,6 +86,18 @@ export const getters = {
     })
 
     return { finalData, colors }
+  },
+  clusterFiltersAutocomplete: state => toFilter => {
+    let filteredValues = []
+
+    _.map(state.currentClusterVms, val => {
+      filteredValues.push(val[toFilter])
+    })
+
+    filteredValues = _.uniqBy(filteredValues)
+    filteredValues = _.orderBy(filteredValues, [], ['asc'])
+
+    return filteredValues
   }
 }
 
@@ -90,6 +108,10 @@ export const mutations = {
   SET_CURRENT_CLUSTER: (state, payload) => {
     state.currentCluster = payload
     state.currentClusterVms = payload.vms
+  },
+  SET_CLUSTER_FILTERS: (state, payload) => {
+    state.hasFilters = payload.status
+    state.filters = payload.filters
   }
 }
 
