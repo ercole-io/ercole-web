@@ -106,3 +106,11 @@ export const formatDatepickerDate = (date = null) => {
     )
   }
 }
+
+Array.prototype.filterByKeys = function(info) {
+  return this.filter(item => {
+    return info.every(i => {
+      return i.Values.indexOf(item[i.Field]) > -1
+    })
+  })
+}
