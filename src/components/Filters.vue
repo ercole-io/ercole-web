@@ -9,7 +9,7 @@
       class="bt-show-hide-filters"
       expanded
     >
-      {{ isFilters ? 'Hide Filters' : 'Show Filters' }}
+      {{ isFilters ? 'Hide Global Filters' : 'Show Global Filters' }}
     </b-button>
 
     <b-collapse animation="slide" :open.sync="isFilters">
@@ -284,6 +284,7 @@ export default {
   position: relative;
   width: 100%;
   z-index: 50;
+  border-bottom: 1px solid #ccc;
 
   .filters-form {
     display: flex;
