@@ -25,21 +25,23 @@
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
+
 export default {
-  props: {
-    openFilters: {
-      type: Boolean,
-      default: false
+  data() {
+    return {
+      isOpenFilters: false
     }
+  },
+  created() {
+    bus.$on('openFilters', val => {
+      this.isOpenFilters = val
+    })
   },
   methods: {
     closeFilters() {
-      this.$emit('closeFilters', false)
-    }
-  },
-  computed: {
-    isOpenFilters() {
-      return this.openFilters
+      this.isOpenFilters = false
+      bus.$emit('closeFilters', this.isOpenFilters)
     }
   }
 }

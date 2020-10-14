@@ -1,9 +1,6 @@
 <template>
   <section>
-    <RightDrawer
-      :openFilters="isOpenFilters"
-      @closeFilters="val => (isOpenFilters = val)"
-    >
+    <DrawerRight>
       <BoxContent slot="drawer-content" title="Cluster Filters" class="mt-5">
         <form @submit.prevent="applyFilterCluster">
           <b-field label="Physical Host" custom-class="is-small">
@@ -81,7 +78,7 @@
             style="justify-content: space-between;"
           >
             <b-button type="is-danger" size="is-small" @click="cancelFilters">
-              Cancel
+              Reset
             </b-button>
             <b-button type="is-primary" size="is-small" native-type="submit">
               Apply
@@ -89,7 +86,7 @@
           </div>
         </form>
       </BoxContent>
-    </RightDrawer>
+    </DrawerRight>
 
     <boxContent>
       <div class="columns">
@@ -152,16 +149,7 @@
             :tableData="getCurrentClusterVms"
             :clickedRow="() => []"
           >
-            <b-button
-              v-tooltip="options('More Filters')"
-              slot="customTopHeader"
-              type="is-primary"
-              icon-pack="fas"
-              icon-right="filter"
-              size="is-small"
-              @click="isOpenFilters = !isOpenFilters"
-              style="margin-right: auto; margin-left: 10px;"
-            />
+            <DrawerButton slot="customTopHeader" tooltipText="More Filters" />
 
             <template slot="headData">
               <v-th sortKey="virtualizationNode">Physical Host</v-th>
@@ -192,7 +180,6 @@
 <script>
 import _ from 'lodash'
 import techTypePrettyName from '@/mixins/techTypePrettyName.js'
-import TooltipMixin from '@/mixins/tooltipMixin.js'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import { mapBooleanIcon } from '@/helpers/helpers.js'
@@ -203,10 +190,11 @@ import BarChart from '@/components/common/charts/BarChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
-import RightDrawer from '@/components/common/RightDrawer.vue'
+import DrawerButton from '@/components/common/DrawerButton.vue'
+import DrawerRight from '@/components/common/DrawerRight.vue'
 
 export default {
-  mixins: [techTypePrettyName, TooltipMixin],
+  mixins: [techTypePrettyName],
   props: ['clustername'],
   components: {
     BoxContent,
@@ -216,12 +204,12 @@ export default {
     TdContent,
     HostLink,
     TdIcon,
-    RightDrawer
+    DrawerButton,
+    DrawerRight
   },
   data() {
     return {
       keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU'],
-      isOpenFilters: false,
       clusterFilters: {
         cappedCPU: ''
       },
