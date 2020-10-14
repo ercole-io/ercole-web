@@ -4,9 +4,7 @@ import _ from 'lodash'
 export const state = () => ({
   clusters: [],
   currentCluster: {},
-  currentClusterVms: [],
-  hasFilters: false,
-  filters: []
+  currentClusterVms: []
 })
 
 export const getters = {
@@ -16,9 +14,11 @@ export const getters = {
   getCurrentCluster: state => {
     return state.currentCluster
   },
-  getCurrentClusterVms: state => {
-    if (state.hasFilters) {
-      return state.currentClusterVms.filterByKeys(state.filters)
+  getCurrentClusterVms: (state, getters, rootState) => {
+    if (rootState.localFilters.hasFilters) {
+      return state.currentClusterVms.filterByKeys(
+        rootState.localFilters.filters
+      )
     } else {
       return state.currentClusterVms
     }
@@ -96,10 +96,6 @@ export const mutations = {
   SET_CURRENT_CLUSTER: (state, payload) => {
     state.currentCluster = payload
     state.currentClusterVms = payload.vms
-  },
-  SET_CLUSTER_FILTERS: (state, payload) => {
-    state.hasFilters = payload.status
-    state.filters = payload.filters
   }
 }
 

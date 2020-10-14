@@ -240,7 +240,7 @@ export default {
   methods: {
     ...mapActions(['getClusterByName']),
     applyFilters() {
-      this.$store.commit('SET_CLUSTER_FILTERS', {
+      this.$store.commit('SET_FILTERS', {
         status: true,
         filters: organizeKeysBeforeFilter(this.clusterFilters)
       })
@@ -249,7 +249,7 @@ export default {
       this.clusterFilters = {
         cappedCPU: ''
       }
-      this.$store.commit('SET_CLUSTER_FILTERS', {
+      this.$store.commit('SET_FILTERS', {
         status: false,
         filters: []
       })
