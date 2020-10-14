@@ -255,7 +255,7 @@ export default {
       })
     },
     getAutocompleteData(text, toFilter) {
-      const filtered = returnAutocompleteData(
+      const autocomplete = returnAutocompleteData(
         text,
         this.getCurrentClusterVms,
         toFilter
@@ -263,13 +263,13 @@ export default {
 
       switch (toFilter) {
         case 'virtualizationNode':
-          this.filteredPhysicalHosts = filtered
+          this.filteredPhysicalHosts = autocomplete
           break
         case 'hostname':
-          this.filteredHostnames = filtered
+          this.filteredHostnames = autocomplete
           break
         case 'name':
-          this.filteredVMname = filtered
+          this.filteredVMname = autocomplete
           break
         default:
           break
@@ -285,6 +285,9 @@ export default {
       'getCurrentCluster',
       'getCurrentClusterVms'
     ])
+  },
+  beforeDestroy() {
+    this.resetFilters()
   }
 }
 </script>
