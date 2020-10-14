@@ -2,7 +2,7 @@
   <section>
     <DrawerRight>
       <BoxContent slot="drawer-content" title="Cluster Filters" class="mt-5">
-        <form @submit.prevent="applyFilterCluster">
+        <form @submit.prevent="applyFilters">
           <b-field label="Physical Host" custom-class="is-small">
             <b-autocomplete
               v-model="clusterFilters.virtualizationNode"
@@ -10,9 +10,7 @@
               type="number"
               clearable
               :data="filteredPhysicalHosts"
-              @typing="
-                getFilteredClusterAutocomplete($event, 'virtualizationNode')
-              "
+              @typing="getAutocompleteData($event, 'virtualizationNode')"
               :open-on-focus="true"
             >
               <template slot="empty">No results found</template>
@@ -26,7 +24,7 @@
               type="number"
               clearable
               :data="filteredHostnames"
-              @typing="getFilteredClusterAutocomplete($event, 'hostname')"
+              @typing="getAutocompleteData($event, 'hostname')"
               :open-on-focus="true"
             >
               <template slot="empty">No results found</template>
@@ -40,7 +38,7 @@
               type="number"
               clearable
               :data="filteredVMname"
-              @typing="getFilteredClusterAutocomplete($event, 'name')"
+              @typing="getAutocompleteData($event, 'name')"
               :open-on-focus="true"
             >
               <template slot="empty">No results found</template>
@@ -77,7 +75,7 @@
             class="buttons is-flex mt-5"
             style="justify-content: space-between;"
           >
-            <b-button type="is-danger" size="is-small" @click="cancelFilters">
+            <b-button type="is-danger" size="is-small" @click="resetFilters">
               Reset
             </b-button>
             <b-button type="is-primary" size="is-small" native-type="submit">
@@ -178,11 +176,15 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import techTypePrettyName from '@/mixins/techTypePrettyName.js'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
-import { mapBooleanIcon } from '@/helpers/helpers.js'
+import {
+  mapBooleanIcon,
+  organizeKeysBeforeFilter,
+  returnAutocompleteData,
+  prepareDataForAutocomplete
+} from '@/helpers/helpers.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -222,31 +224,28 @@ export default {
     await this.getClusterByName(this.clustername)
     bus.$emit('dynamicTitle', this.clustername)
 
-    this.filteredPhysicalHosts = this.clusterFiltersAutocomplete(
+    this.filteredPhysicalHosts = prepareDataForAutocomplete(
+      this.getCurrentClusterVms,
       'virtualizationNode'
     )
-    this.filteredHostnames = this.clusterFiltersAutocomplete('hostname')
-    this.filteredVMname = this.clusterFiltersAutocomplete('name')
+    this.filteredHostnames = prepareDataForAutocomplete(
+      this.getCurrentClusterVms,
+      'hostname'
+    )
+    this.filteredVMname = prepareDataForAutocomplete(
+      this.getCurrentClusterVms,
+      'name'
+    )
   },
   methods: {
     ...mapActions(['getClusterByName']),
-    applyFilterCluster() {
-      const organizeFilters = _.pickBy(this.clusterFilters, _.identity)
-
-      const filtersToApply = []
-      _.forEach(organizeFilters, (val, key) => {
-        filtersToApply.push({
-          Field: key,
-          Values: [val]
-        })
-      })
-
+    applyFilters() {
       this.$store.commit('SET_CLUSTER_FILTERS', {
         status: true,
-        filters: filtersToApply
+        filters: organizeKeysBeforeFilter(this.clusterFilters)
       })
     },
-    cancelFilters() {
+    resetFilters() {
       this.clusterFilters = {
         cappedCPU: ''
       }
@@ -255,11 +254,11 @@ export default {
         filters: []
       })
     },
-    getFilteredClusterAutocomplete(text, toFilter) {
-      const filtered = this.clusterFiltersAutocomplete(toFilter).filter(
-        option => {
-          return option.toString().indexOf(text) >= 0
-        }
+    getAutocompleteData(text, toFilter) {
+      const filtered = returnAutocompleteData(
+        text,
+        this.getCurrentClusterVms,
+        toFilter
       )
 
       switch (toFilter) {
@@ -284,8 +283,7 @@ export default {
     ...mapGetters([
       'getClusterChartData',
       'getCurrentCluster',
-      'getCurrentClusterVms',
-      'clusterFiltersAutocomplete'
+      'getCurrentClusterVms'
     ])
   }
 }
