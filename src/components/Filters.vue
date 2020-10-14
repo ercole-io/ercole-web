@@ -7,6 +7,7 @@
       pack="fas"
       :icon-right="filterIcon"
       class="bt-show-hide-filters"
+      :class="filtersTextClass"
       expanded
     >
       {{ isFilters ? 'Hide Global Filters' : 'Show Global Filters' }}
@@ -157,6 +158,8 @@ import { mapState, mapActions } from 'vuex'
 import formatDate from '@/filters/formatDate.js'
 import { formatDatepickerDate } from '@/helpers/helpers.js'
 
+const getLocalstorageFilters = JSON.parse(localStorage.getItem('globalFilters'))
+
 export default {
   data() {
     return {
@@ -172,15 +175,13 @@ export default {
       isFilters: false,
       filterIcon: 'chevron-down',
       filters: {
-        location:
-          JSON.parse(localStorage.getItem('globalFilters')).location || null,
-        environment:
-          JSON.parse(localStorage.getItem('globalFilters')).environment || null,
+        location: getLocalstorageFilters.location || null,
+        environment: getLocalstorageFilters.environment || null,
         date:
-          formatDatepickerDate(
-            JSON.parse(localStorage.getItem('globalFilters')).date
-          ) || formatDatepickerDate()
-      }
+          formatDatepickerDate(getLocalstorageFilters.date) ||
+          formatDatepickerDate()
+      },
+      filtersTextClass: ''
     }
   },
   beforeMount() {
@@ -286,10 +287,29 @@ export default {
           this.resetFilters()
         }
       }, 1000)
+    },
+    markIfIsFiltered(val) {
+      if (
+        val.location ||
+        val.environment ||
+        moment(val.date).format('YYYY-MM-DD') !== moment().format('YYYY-MM-DD')
+      ) {
+        this.filtersTextClass = 'has-text-success'
+      } else {
+        this.filtersTextClass = ''
+      }
     }
   },
   computed: {
     ...mapState(['globalFilters'])
+  },
+  watch: {
+    filters: {
+      handler(val) {
+        this.markIfIsFiltered(val)
+      },
+      deep: true
+    }
   }
 }
 </script>
