@@ -10,10 +10,10 @@
       :class="filtersTextClass"
       expanded
     >
-      {{ isFilters ? 'Hide Global Filters' : 'Show Global Filters' }}
+      {{ isFiltersOpened ? 'Hide Global Filters' : 'Show Global Filters' }}
     </b-button>
 
-    <b-collapse animation="slide" :open.sync="isFilters">
+    <b-collapse animation="slide" :open.sync="isFiltersOpened">
       <div class="filters-form">
         <b-field
           label="Location"
@@ -172,7 +172,9 @@ export default {
       // ],
       // filteredTags: this.tagList,
       // tags: [],
-      isFilters: false,
+      isFiltersOpened: false,
+      isFiltered: false,
+      filtersTextClass: '',
       filterIcon: 'chevron-down',
       filters: {
         location: getLocalstorageFilters.location || null,
@@ -180,8 +182,7 @@ export default {
         date:
           formatDatepickerDate(getLocalstorageFilters.date) ||
           formatDatepickerDate()
-      },
-      filtersTextClass: ''
+      }
     }
   },
   beforeMount() {
@@ -212,19 +213,20 @@ export default {
     //   })
     // },
     expandFilters() {
-      this.isFilters = !this.isFilters
-      if (this.isFilters) {
+      this.isFiltersOpened = !this.isFiltersOpened
+      if (this.isFiltersOpened) {
         this.filterIcon = 'chevron-up'
-        this.$emit('filters', this.isFilters)
+        this.$emit('filters', this.isFiltersOpened)
       } else {
         this.filterIcon = 'chevron-down'
-        this.$emit('filters', this.isFilters)
+        this.$emit('filters', this.isFiltersOpened)
       }
     },
     applyFilters() {
       this.filters.date = formatDatepickerDate(this.filters.date)
       localStorage.setItem('globalFilters', JSON.stringify(this.filters))
       this.reloadPage(this.$route.name)
+      this.isFiltered = true
     },
     resetFilters() {
       this.filters.location = null
@@ -232,6 +234,8 @@ export default {
       this.filters.date = formatDatepickerDate()
       localStorage.setItem('globalFilters', JSON.stringify(this.filters))
       this.reloadPage(this.$route.name)
+      this.isFiltered = false
+      this.filtersTextClass = ''
     },
     reloadPage(name) {
       const params = this.$route.params
@@ -294,9 +298,9 @@ export default {
         val.environment ||
         moment(val.date).format('YYYY-MM-DD') !== moment().format('YYYY-MM-DD')
       ) {
-        this.filtersTextClass = 'has-text-success'
-      } else {
-        this.filtersTextClass = ''
+        if (this.isFiltered) {
+          this.filtersTextClass = 'has-text-success'
+        }
       }
     }
   },
