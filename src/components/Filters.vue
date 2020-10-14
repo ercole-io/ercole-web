@@ -277,7 +277,7 @@ export default {
       return formatDate(date)
     },
     detectMidnight() {
-      const midnight = '0:00:00'
+      const midnight = '23:59:59'
       let now = null
 
       setInterval(() => {
