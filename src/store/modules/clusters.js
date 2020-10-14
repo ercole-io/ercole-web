@@ -86,18 +86,6 @@ export const getters = {
     })
 
     return { finalData, colors }
-  },
-  clusterFiltersAutocomplete: state => toFilter => {
-    let filteredValues = []
-
-    _.map(state.currentClusterVms, val => {
-      filteredValues.push(val[toFilter])
-    })
-
-    filteredValues = _.uniqBy(filteredValues)
-    filteredValues = _.orderBy(filteredValues, [], ['asc'])
-
-    return filteredValues
   }
 }
 

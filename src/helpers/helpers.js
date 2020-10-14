@@ -1,6 +1,7 @@
 import moment from 'moment'
 import _ from 'lodash'
 
+// INIT: Manage som localstorage data //
 export const setLocalStorageAuth = payload => {
   localStorage.setItem('token', payload.token)
   localStorage.setItem('username', payload.username)
@@ -13,6 +14,7 @@ export const clearLocalStorageAuth = () => {
   localStorage.removeItem('username')
   localStorage.removeItem('expiration')
 }
+// END: Manage som localstorage data //
 
 export const capitalize = value => {
   if (!value) return ''
@@ -107,6 +109,21 @@ export const formatDatepickerDate = (date = null) => {
   }
 }
 
+// INIT: Functions to use for filter data by keys and autocomplete inputs //
+export const organizeKeysBeforeFilter = keys => {
+  const organizeFilters = _.pickBy(keys, _.identity)
+
+  const filtersToApply = []
+  _.forEach(organizeFilters, (val, key) => {
+    filtersToApply.push({
+      Field: key,
+      Values: [val]
+    })
+  })
+
+  return filtersToApply
+}
+
 Array.prototype.filterByKeys = function(info) {
   return this.filter(item => {
     return info.every(i => {
@@ -114,3 +131,23 @@ Array.prototype.filterByKeys = function(info) {
     })
   })
 }
+
+export const prepareDataForAutocomplete = (data, toFilter) => {
+  let filteredValues = []
+
+  _.map(data, val => {
+    filteredValues.push(val[toFilter])
+  })
+
+  filteredValues = _.uniqBy(filteredValues)
+  filteredValues = _.orderBy(filteredValues, [], ['asc'])
+
+  return filteredValues
+}
+
+export const returnAutocompleteData = (text, data, toFilter) => {
+  return prepareDataForAutocomplete(data, toFilter).filter(value => {
+    return value.toString().indexOf(text) >= 0
+  })
+}
+// END: Functions to use for filter data by keys and autocomplete inputs //
