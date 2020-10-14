@@ -152,6 +152,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import { mapState, mapActions } from 'vuex'
 import formatDate from '@/filters/formatDate.js'
 import { formatDatepickerDate } from '@/helpers/helpers.js'
@@ -181,6 +182,9 @@ export default {
           ) || formatDatepickerDate()
       }
     }
+  },
+  beforeMount() {
+    this.detectMidnight()
   },
   methods: {
     ...mapActions([
@@ -271,6 +275,17 @@ export default {
     },
     formatDate(date) {
       return formatDate(date)
+    },
+    detectMidnight() {
+      const midnight = '0:00:00'
+      let now = null
+
+      setInterval(() => {
+        now = moment().format('H:mm:ss')
+        if (now === midnight) {
+          this.resetFilters()
+        }
+      }, 1000)
     }
   },
   computed: {
