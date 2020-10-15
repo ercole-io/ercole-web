@@ -99,14 +99,9 @@ export const formatDatepickerDate = (date = null) => {
         .set({ hour: 23, minute: 59, second: 59 })
         .toISOString()
     )
-  } else {
-    return new Date(
-      moment()
-        .utc()
-        .set({ hour: 23, minute: 59, second: 59 })
-        .toISOString()
-    )
   }
+
+  return null
 }
 
 // INIT: Functions to use for filter data by keys and autocomplete inputs //

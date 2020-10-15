@@ -179,9 +179,7 @@ export default {
       filters: {
         location: getLocalstorageFilters.location || null,
         environment: getLocalstorageFilters.environment || null,
-        date:
-          formatDatepickerDate(getLocalstorageFilters.date) ||
-          formatDatepickerDate()
+        date: formatDatepickerDate(getLocalstorageFilters.date) || null
       }
     }
   },
