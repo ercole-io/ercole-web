@@ -7,7 +7,7 @@
       pack="fas"
       :icon-right="filterIcon"
       class="bt-show-hide-filters"
-      :class="filtersTextClass"
+      :class="{ 'has-text-success': globalFilters.hasActiveFilters }"
       expanded
     >
       {{ isFiltersOpened ? 'Hide Global Filters' : 'Show Global Filters' }}
@@ -153,11 +153,9 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 import formatDate from '@/filters/formatDate.js'
 import { formatDatepickerDate } from '@/helpers/helpers.js'
-
-const getGlobalFilters = JSON.parse(localStorage.getItem('globalFilters'))
 
 export default {
   data() {
@@ -172,14 +170,16 @@ export default {
       // filteredTags: this.tagList,
       // tags: [],
       isFiltersOpened: false,
-      isFiltered: false,
       filtersTextClass: '',
       filterIcon: 'chevron-down',
-      filters: {
-        location: getGlobalFilters.location,
-        environment: getGlobalFilters.environment,
-        date: formatDatepickerDate(getGlobalFilters.date)
-      }
+      filters: {}
+    }
+  },
+  beforeMount() {
+    this.filters = {
+      location: this.getActiveFilters.location,
+      environment: this.getActiveFilters.environment,
+      date: formatDatepickerDate(this.getActiveFilters.date)
     }
   },
   methods: {
@@ -218,9 +218,11 @@ export default {
     },
     applyFilters() {
       this.filters.date = formatDatepickerDate(this.filters.date)
-      localStorage.setItem('globalFilters', JSON.stringify(this.filters))
+      this.$store.commit('SET_ACTIVE_FILTERS', {
+        active: this.filters,
+        status: true
+      })
       this.reloadPage(this.$route.name)
-      this.isFiltered = true
     },
     resetFilters() {
       this.filters = {
@@ -228,10 +230,11 @@ export default {
         environment: null,
         date: formatDatepickerDate()
       }
-      localStorage.setItem('globalFilters', JSON.stringify(this.filters))
+      this.$store.commit('SET_ACTIVE_FILTERS', {
+        active: this.filters,
+        status: false
+      })
       this.reloadPage(this.$route.name)
-      this.isFiltered = false
-      this.filtersTextClass = ''
     },
     reloadPage(name) {
       const params = this.$route.params
@@ -279,20 +282,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['globalFilters'])
-  },
-  watch: {
-    isFiltered(value) {
-      if (value) {
-        if (
-          this.filters.date ||
-          this.filters.environment ||
-          this.filters.location
-        ) {
-          this.filtersTextClass = 'has-text-success'
-        }
-      }
-    }
+    ...mapState(['globalFilters']),
+    ...mapGetters(['getActiveFilters'])
   }
 }
 </script>

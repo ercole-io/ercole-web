@@ -17,18 +17,14 @@ export const mutations = {
 }
 
 export const actions = {
-  async getPatchAdvisor({ commit }) {
-    const loc = JSON.parse(localStorage.getItem('globalFilters')).location
-    const env = JSON.parse(localStorage.getItem('globalFilters')).environment
-    const date = JSON.parse(localStorage.getItem('globalFilters')).date
-
+  async getPatchAdvisor({ commit, getters }) {
     const patchAdvisor = await axiosDefault.get(
       '/hosts/technologies/oracle/databases/patch-advisors',
       {
         params: {
-          'older-than': date,
-          environment: env,
-          location: loc
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location
         }
       }
     )

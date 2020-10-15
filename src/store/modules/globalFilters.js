@@ -4,13 +4,18 @@ export const state = () => ({
   locations: {},
   environments: {},
   activeFilters: {
-    location: JSON.parse(localStorage.getItem('globalFilters')).location,
-    environment: JSON.parse(localStorage.getItem('globalFilters')).environment,
-    date: JSON.parse(localStorage.getItem('globalFilters')).date
-  }
+    location: null,
+    environment: null,
+    date: null
+  },
+  hasActiveFilters: false
 })
 
-export const getters = {}
+export const getters = {
+  getActiveFilters: state => {
+    return state.activeFilters
+  }
+}
 
 export const mutations = {
   SET_LOCATIONS: (state, payload) => {
@@ -18,6 +23,10 @@ export const mutations = {
   },
   SET_ENVIRONMENTS: (state, payload) => {
     state.environments = payload
+  },
+  SET_ACTIVE_FILTERS: (state, payload) => {
+    state.activeFilters = payload.active
+    state.hasActiveFilters = payload.status
   }
 }
 

@@ -17,18 +17,14 @@ export const mutations = {
 }
 
 export const actions = {
-  async getSegmentAdvisor({ commit }) {
-    const loc = JSON.parse(localStorage.getItem('globalFilters')).location
-    const env = JSON.parse(localStorage.getItem('globalFilters')).environment
-    const date = JSON.parse(localStorage.getItem('globalFilters')).date
-
+  async getSegmentAdvisor({ commit, getters }) {
     const segmentAdvisor = await axiosDefault.get(
       '/hosts/technologies/oracle/databases/segment-advisors',
       {
         params: {
-          'older-than': date,
-          environment: env,
-          location: loc
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location
         }
       }
     )

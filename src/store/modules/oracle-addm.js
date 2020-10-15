@@ -17,18 +17,14 @@ export const mutations = {
 }
 
 export const actions = {
-  async getAddms({ commit }) {
-    const loc = JSON.parse(localStorage.getItem('globalFilters')).location
-    const env = JSON.parse(localStorage.getItem('globalFilters')).environment
-    const date = JSON.parse(localStorage.getItem('globalFilters')).date
-
+  async getAddms({ commit, getters }) {
     const addms = await axiosDefault.get(
       '/hosts/technologies/oracle/databases/addms',
       {
         params: {
-          'older-than': date,
-          environment: env,
-          location: loc
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location
         }
       }
     )

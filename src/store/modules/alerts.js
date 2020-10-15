@@ -140,15 +140,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async getAlertsData({ commit }) {
-    const loc = JSON.parse(localStorage.getItem('globalFilters')).location
-    const env = JSON.parse(localStorage.getItem('globalFilters')).environment
-
+  async getAlertsData({ commit, getters }) {
     const alertsData = await axiosDefault.get('/alerts', {
       params: {
         status: 'NEW',
-        environment: env,
-        location: loc
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location
       }
     })
     const response = await alertsData.data

@@ -72,64 +72,60 @@ export const mutations = {
 }
 
 export const actions = {
-  async getDatabases({ commit, dispatch }) {
-    const loc = JSON.parse(localStorage.getItem('globalFilters')).location
-    const env = JSON.parse(localStorage.getItem('globalFilters')).environment
-    const date = JSON.parse(localStorage.getItem('globalFilters')).date
-
-    dispatch('getTotalMemory', { loc, env, date })
-    dispatch('getTotalSegment', { loc, env, date })
-    dispatch('getTotalDatafile', { loc, env, date })
+  async getDatabases({ commit, dispatch, getters }) {
+    dispatch('getTotalMemory')
+    dispatch('getTotalSegment')
+    dispatch('getTotalDatafile')
 
     const databases = await axiosDefault.get(
       '/hosts/technologies/oracle/databases',
       {
         params: {
-          'older-than': date,
-          environment: env,
-          location: loc
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location
         }
       }
     )
     const response = await databases.data
     commit('SET_DATABASES', response)
   },
-  async getTotalMemory({ commit }, { loc, env, date }) {
+  async getTotalMemory({ commit, getters }) {
     const totalMemory = await axiosNoLoading.get(
       '/hosts/technologies/oracle/databases/total-memory-size',
       {
         params: {
-          'older-than': date,
-          environment: env,
-          location: loc
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location
         }
       }
     )
     const response = await totalMemory.data
     commit('SET_TOTAL_MEMORY', response)
   },
-  async getTotalSegment({ commit }, { loc, env, date }) {
+  async getTotalSegment({ commit, getters }) {
     const totalSegment = await axiosNoLoading.get(
       '/hosts/technologies/oracle/databases/total-segment-size',
       {
         params: {
-          'older-than': date,
-          environment: env,
-          location: loc
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location
         }
       }
     )
     const response = await totalSegment.data
     commit('SET_TOTAL_SEGMENT', response)
   },
-  async getTotalDatafile({ commit }, { loc, env, date }) {
+  async getTotalDatafile({ commit, getters }) {
     const totalDatafile = await axiosNoLoading.get(
       '/hosts/technologies/oracle/databases/total-datafile-size',
       {
         params: {
-          'older-than': date,
-          environment: env,
-          location: loc
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location
         }
       }
     )
