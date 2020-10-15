@@ -15,19 +15,9 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { formatDatepickerDate } from '@/helpers/helpers.js'
 const default_layout = 'default'
 
 export default {
-  beforeCreate() {
-    const filters = {}
-    if (!localStorage.getItem('globalFilters')) {
-      filters.location = null
-      filters.environment = null
-      filters.date = formatDatepickerDate()
-      localStorage.setItem('globalFilters', JSON.stringify(filters))
-    }
-  },
   created() {
     this.fetchConfig()
       .then(this.tryAutoLogin)
