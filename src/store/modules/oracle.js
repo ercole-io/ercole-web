@@ -59,49 +59,45 @@ export const mutations = {
 }
 
 export const actions = {
-  async getOracleDbs({ commit, dispatch }) {
-    const loc = JSON.parse(localStorage.getItem('globalFilters')).location
-    const env = JSON.parse(localStorage.getItem('globalFilters')).environment
-    const date = JSON.parse(localStorage.getItem('globalFilters')).date
-
-    dispatch('getTopWorkload', { loc, env, date })
-    dispatch('getTopReclaimable', { loc, env, date })
+  async getOracleDbs({ commit, dispatch, getters }) {
+    dispatch('getTopWorkload')
+    dispatch('getTopReclaimable')
 
     const oracleDbs = await axiosDefault.get(
       '/hosts/technologies/oracle/databases',
       {
         params: {
-          'older-than': date,
-          environment: env,
-          location: loc
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location
         }
       }
     )
     const response = await oracleDbs.data
     commit('SET_ORACLE_DBS', response)
   },
-  async getTopWorkload({ commit }, { loc, env, date }) {
+  async getTopWorkload({ commit, getters }) {
     const topWorkload = await axiosNoLoading.get(
       '/hosts/technologies/oracle/databases/top-workload',
       {
         params: {
-          'older-than': date,
-          environment: env,
-          location: loc
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location
         }
       }
     )
     const response = await topWorkload.data
     commit('SET_TOP_WORLOAD', response)
   },
-  async getTopReclaimable({ commit }, { loc, env, date }) {
+  async getTopReclaimable({ commit, getters }) {
     const topReclaimable = await axiosNoLoading.get(
       '/hosts/technologies/oracle/databases/top-reclaimable',
       {
         params: {
-          'older-than': date,
-          environment: env,
-          location: loc
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location
         }
       }
     )

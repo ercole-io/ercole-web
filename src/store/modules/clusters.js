@@ -100,30 +100,23 @@ export const mutations = {
 }
 
 export const actions = {
-  async getClusters({ commit }) {
-    const loc = JSON.parse(localStorage.getItem('globalFilters')).location
-    const env = JSON.parse(localStorage.getItem('globalFilters')).environment
-    const date = JSON.parse(localStorage.getItem('globalFilters')).date
-
+  async getClusters({ commit, getters }) {
     const clustersData = await axiosDefault.get('/hosts/clusters', {
       params: {
-        'older-than': date,
-        environment: env,
-        location: loc
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location
       }
     })
     const response = await clustersData.data
     commit('SET_CLUSTERS', response)
   },
-  async getClusterByName({ commit, rootState }, clustername) {
-    console.log(rootState)
-    const date = JSON.parse(localStorage.getItem('globalFilters')).date
-
+  async getClusterByName({ commit, getters }, clustername) {
     const clusterByName = await axiosDefault.get(
       `/hosts/clusters/${clustername}`,
       {
         params: {
-          'older-than': date
+          'older-than': getters.getActiveFilters.date
         }
       }
     )

@@ -251,12 +251,10 @@ export const mutations = {
 }
 
 export const actions = {
-  async getHostByName({ commit }, hostname) {
-    const date = JSON.parse(localStorage.getItem('globalFilters')).date
-
+  async getHostByName({ commit, getters }, hostname) {
     const hostByName = await axiosDefault.get(`/hosts/${hostname}`, {
       params: {
-        'older-than': date
+        'older-than': getters.getActiveFilters.date
       }
     })
     const response = await hostByName.data
