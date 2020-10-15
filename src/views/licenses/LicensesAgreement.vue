@@ -128,9 +128,10 @@
                 size="is-small"
                 type="number"
                 :data="filteredAgreeNumbers"
-                @typing="getFilteredAgreeNumbers"
+                @typing="
+                  getAutocompleteData($event, 'agreeNumber', returnAgreeNumbers)
+                "
                 clearable
-                :open-on-focus="true"
                 @blur="$v.agreeNumber.$touch()"
                 @input="$v.agreeNumber.$touch()"
               >
@@ -183,9 +184,8 @@
                 size="is-small"
                 type="text"
                 :data="filteredCsi"
-                @typing="getFilteredCsi"
+                @typing="getAutocompleteData($event, 'csi', returnCsiNumbers)"
                 clearable
-                :open-on-focus="true"
                 @blur="$v.csi.$touch()"
                 @input="$v.csi.$touch()"
               >
@@ -209,9 +209,14 @@
                 size="is-small"
                 type="number"
                 :data="filteredReferenceNumbers"
-                @typing="getFilteredReferenceNumbers"
+                @typing="
+                  getAutocompleteData(
+                    $event,
+                    'referenceNumber',
+                    returnReferenceNumbers
+                  )
+                "
                 clearable
-                :open-on-focus="true"
                 @blur="$v.referenceNumber.$touch()"
                 @input="$v.referenceNumber.$touch()"
               >
@@ -260,7 +265,13 @@
                 autocomplete
                 icon="label"
                 placeholder="Add a hostname"
-                @typing="getFilteredHostTags"
+                @typing="
+                  getAutocompleteData(
+                    $event,
+                    'hostAssociated',
+                    hostnames.hostnames
+                  )
+                "
                 custom-class="is-small"
                 :open-on-focus="true"
               >
@@ -322,7 +333,7 @@ import {
   numeric,
   decimal
 } from 'vuelidate/lib/validators'
-import { mapBooleanIcon } from '@/helpers/helpers.js'
+import { mapBooleanIcon, simpleAutocompleteData } from '@/helpers/helpers.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -468,32 +479,25 @@ export default {
         this.isEditing = false
       })
     },
-    getFilteredHostTags(text) {
-      this.filteredHostTags = this.hostnames.hostnames.filter(option => {
-        return (
-          option
-            .toString()
-            .toLowerCase()
-            .indexOf(text.toLowerCase()) >= 0
-        )
-      })
-    },
-    getFilteredAgreeNumbers(text) {
-      this.filteredAgreeNumbers = this.returnAgreeNumbers.filter(option => {
-        return option.toString().indexOf(text) >= 0
-      })
-    },
-    getFilteredCsi(text) {
-      this.filteredCsi = this.returnCsiNumbers.filter(option => {
-        return option.toString().indexOf(text) >= 0
-      })
-    },
-    getFilteredReferenceNumbers(text) {
-      this.filteredReferenceNumbers = this.returnReferenceNumbers.filter(
-        option => {
-          return option.toString().indexOf(text) >= 0
-        }
-      )
+    getAutocompleteData(text, toFilter, data) {
+      const autocomplete = simpleAutocompleteData(text, data)
+
+      switch (toFilter) {
+        case 'hostAssociated':
+          this.filteredHostTags = autocomplete
+          break
+        case 'agreeNumber':
+          this.filteredAgreeNumbers = autocomplete
+          break
+        case 'csi':
+          this.filteredCsi = autocomplete
+          break
+        case 'referenceNumber':
+          this.filteredReferenceNumbers = autocomplete
+          break
+        default:
+          break
+      }
     },
     bindIcon(value) {
       return mapBooleanIcon(value)

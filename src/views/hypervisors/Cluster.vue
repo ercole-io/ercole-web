@@ -11,7 +11,6 @@
               clearable
               :data="filteredPhysicalHosts"
               @typing="getAutocompleteData($event, 'virtualizationNode')"
-              :open-on-focus="true"
             >
               <template slot="empty">No results found</template>
             </b-autocomplete>
@@ -25,7 +24,6 @@
               clearable
               :data="filteredHostnames"
               @typing="getAutocompleteData($event, 'hostname')"
-              :open-on-focus="true"
             >
               <template slot="empty">No results found</template>
             </b-autocomplete>
@@ -39,7 +37,6 @@
               clearable
               :data="filteredVMname"
               @typing="getAutocompleteData($event, 'name')"
-              :open-on-focus="true"
             >
               <template slot="empty">No results found</template>
             </b-autocomplete>
