@@ -150,7 +150,10 @@ export const getters = {
       },
       {
         name: 'Last Update',
-        value: moment(info.createdAt).format('DD/MM/YYYY hh:mm') || '-'
+        value:
+          moment(info.createdAt)
+            .utc()
+            .format('DD/MM/YYYY hh:mm') || '-'
       }
     ]
 
