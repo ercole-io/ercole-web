@@ -2,7 +2,12 @@ import axiosNoLoading from '@/axios/axios-no-loading.js'
 
 export const state = () => ({
   locations: {},
-  environments: {}
+  environments: {},
+  activeFilters: {
+    location: JSON.parse(localStorage.getItem('globalFilters')).location,
+    environment: JSON.parse(localStorage.getItem('globalFilters')).environment,
+    date: JSON.parse(localStorage.getItem('globalFilters')).date
+  }
 })
 
 export const getters = {}
