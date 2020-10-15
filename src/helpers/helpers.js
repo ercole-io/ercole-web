@@ -104,7 +104,7 @@ export const formatDatepickerDate = (date = null) => {
   }
 }
 
-// INIT: Functions to use for filter data by keys and autocomplete inputs //
+// INIT: Functions to use for filter data by keys //
 export const organizeKeysBeforeFilter = keys => {
   const organizeFilters = _.pickBy(keys, _.identity)
 
@@ -126,7 +126,9 @@ Array.prototype.filterByKeys = function(info) {
     })
   })
 }
+// END: Functions to use for filter data by keys //
 
+// INIT: Prepare and filter data for autocomplete inputs //
 export const prepareDataForAutocomplete = (data, toFilter) => {
   let filteredValues = []
 
@@ -141,8 +143,21 @@ export const prepareDataForAutocomplete = (data, toFilter) => {
 }
 
 export const returnAutocompleteData = (text, data, toFilter) => {
-  return prepareDataForAutocomplete(data, toFilter).filter(value => {
-    return value.toString().indexOf(text) >= 0
-  })
+  return prepareDataForAutocomplete(data, toFilter).filter(value =>
+    searchByChar(value, text)
+  )
 }
-// END: Functions to use for filter data by keys and autocomplete inputs //
+
+export const simpleAutocompleteData = (text, data) => {
+  return _.filter(data, value => searchByChar(value, text))
+}
+
+const searchByChar = (value, text) => {
+  return (
+    value
+      .toString()
+      .toLowerCase()
+      .indexOf(text.toLowerCase()) >= 0
+  )
+}
+// END: Prepare and filter data for autocomplete inputs //
