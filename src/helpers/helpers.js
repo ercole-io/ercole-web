@@ -100,12 +100,7 @@ export const formatDatepickerDate = (date = null) => {
         .toISOString()
     )
   } else {
-    return new Date(
-      moment()
-        .utc()
-        .set({ hour: 23, minute: 59, second: 59 })
-        .toISOString()
-    )
+    return null
   }
 }
 

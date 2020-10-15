@@ -115,7 +115,8 @@ export const actions = {
     const response = await clustersData.data
     commit('SET_CLUSTERS', response)
   },
-  async getClusterByName({ commit }, clustername) {
+  async getClusterByName({ commit, rootState }, clustername) {
+    console.log(rootState)
     const date = JSON.parse(localStorage.getItem('globalFilters')).date
 
     const clusterByName = await axiosDefault.get(

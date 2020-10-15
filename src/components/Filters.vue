@@ -153,12 +153,11 @@
 </template>
 
 <script>
-import moment from 'moment'
 import { mapState, mapActions } from 'vuex'
 import formatDate from '@/filters/formatDate.js'
 import { formatDatepickerDate } from '@/helpers/helpers.js'
 
-const getLocalstorageFilters = JSON.parse(localStorage.getItem('globalFilters'))
+const getGlobalFilters = JSON.parse(localStorage.getItem('globalFilters'))
 
 export default {
   data() {
@@ -177,16 +176,11 @@ export default {
       filtersTextClass: '',
       filterIcon: 'chevron-down',
       filters: {
-        location: getLocalstorageFilters.location || null,
-        environment: getLocalstorageFilters.environment || null,
-        date:
-          formatDatepickerDate(getLocalstorageFilters.date) ||
-          formatDatepickerDate()
+        location: getGlobalFilters.location,
+        environment: getGlobalFilters.environment,
+        date: formatDatepickerDate(getGlobalFilters.date)
       }
     }
-  },
-  beforeMount() {
-    this.detectMidnight()
   },
   methods: {
     ...mapActions([
@@ -229,9 +223,11 @@ export default {
       this.isFiltered = true
     },
     resetFilters() {
-      this.filters.location = null
-      this.filters.environment = null
-      this.filters.date = formatDatepickerDate()
+      this.filters = {
+        location: null,
+        environment: null,
+        date: formatDatepickerDate()
+      }
       localStorage.setItem('globalFilters', JSON.stringify(this.filters))
       this.reloadPage(this.$route.name)
       this.isFiltered = false
@@ -280,39 +276,22 @@ export default {
     },
     formatDate(date) {
       return formatDate(date)
-    },
-    detectMidnight() {
-      const midnight = '23:59:59'
-      let now = null
-
-      setInterval(() => {
-        now = moment().format('H:mm:ss')
-        if (now === midnight) {
-          this.resetFilters()
-        }
-      }, 1000)
-    },
-    markIfIsFiltered(val) {
-      if (
-        val.location ||
-        val.environment ||
-        moment(val.date).format('YYYY-MM-DD') !== moment().format('YYYY-MM-DD')
-      ) {
-        if (this.isFiltered) {
-          this.filtersTextClass = 'has-text-success'
-        }
-      }
     }
   },
   computed: {
     ...mapState(['globalFilters'])
   },
   watch: {
-    filters: {
-      handler(val) {
-        this.markIfIsFiltered(val)
-      },
-      deep: true
+    isFiltered(value) {
+      if (value) {
+        if (
+          this.filters.date ||
+          this.filters.environment ||
+          this.filters.location
+        ) {
+          this.filtersTextClass = 'has-text-success'
+        }
+      }
     }
   }
 }
