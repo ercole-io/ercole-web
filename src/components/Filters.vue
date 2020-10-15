@@ -170,7 +170,6 @@ export default {
       // filteredTags: this.tagList,
       // tags: [],
       isFiltersOpened: false,
-      filtersTextClass: '',
       filterIcon: 'chevron-down',
       filters: {}
     }
@@ -181,6 +180,7 @@ export default {
       environment: this.getActiveFilters.environment,
       date: formatDatepickerDate(this.getActiveFilters.date)
     }
+    this.isFiltersOpened = this.globalFilters.isFilterOpened
   },
   methods: {
     ...mapActions([
@@ -210,10 +210,10 @@ export default {
       this.isFiltersOpened = !this.isFiltersOpened
       if (this.isFiltersOpened) {
         this.filterIcon = 'chevron-up'
-        this.$emit('filters', this.isFiltersOpened)
+        this.$store.commit('SET_OPEN_FILTERS', this.isFiltersOpened)
       } else {
         this.filterIcon = 'chevron-down'
-        this.$emit('filters', this.isFiltersOpened)
+        this.$store.commit('SET_OPEN_FILTERS', this.isFiltersOpened)
       }
     },
     applyFilters() {

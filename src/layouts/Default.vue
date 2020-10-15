@@ -4,11 +4,15 @@
     <appSidebar @collapsedSidebar="handleCollapsedSidebar" />
     <main
       class="main"
-      :class="[{ collapsed: isCollapsedSidebar, withFilters: isFiltersOpened }]"
+      :class="[
+        {
+          collapsed: isCollapsedSidebar,
+          withFilters: globalFilters.isFilterOpened
+        }
+      ]"
     >
       <div class="layout">
         <appFilters
-          @filters="handleIsFilters"
           v-if="
             $route.name !== 'licenses-agreement' && $route.name !== 'dashboard'
           "
@@ -24,6 +28,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Header from '@/components/Header.vue'
 import Filters from '@/components/Filters.vue'
 import SidebarMenu from '@/components/Sidebar.vue'
@@ -40,18 +45,16 @@ export default {
   },
   data() {
     return {
-      isFiltersOpened: false,
-      isCollapsedSidebar: true,
-      applyFilters: false
+      isCollapsedSidebar: true
     }
   },
   methods: {
-    handleIsFilters(value) {
-      this.isFiltersOpened = value
-    },
     handleCollapsedSidebar(value) {
       this.isCollapsedSidebar = value
     }
+  },
+  computed: {
+    ...mapState(['globalFilters'])
   }
 }
 </script>

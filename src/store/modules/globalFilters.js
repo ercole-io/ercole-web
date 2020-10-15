@@ -8,7 +8,8 @@ export const state = () => ({
     environment: null,
     date: null
   },
-  hasActiveFilters: false
+  hasActiveFilters: false,
+  isFilterOpened: false
 })
 
 export const getters = {
@@ -27,6 +28,9 @@ export const mutations = {
   SET_ACTIVE_FILTERS: (state, payload) => {
     state.activeFilters = payload.active
     state.hasActiveFilters = payload.status
+  },
+  SET_OPEN_FILTERS: (state, payload) => {
+    state.isFilterOpened = payload
   }
 }
 
