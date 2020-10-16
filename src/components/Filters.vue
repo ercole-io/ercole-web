@@ -123,7 +123,6 @@
           custom-class="is-size-7"
           horizontal
           v-show="$route.name !== 'alerts'"
-          style="max-width: 400px"
         >
           <b-datepicker
             v-model="filters.date"
@@ -139,23 +138,25 @@
           </b-datepicker>
         </b-field>
 
-        <b-button
-          @click="applyFilters"
-          class="filters-button"
-          size="is-small"
-          type="is-primary"
-        >
-          Apply
-        </b-button>
+        <div class="filter-buttons">
+          <b-button
+            @click="applyFilters"
+            class="filters-button"
+            size="is-small"
+            type="is-primary"
+          >
+            Apply
+          </b-button>
 
-        <b-button
-          @click="resetFilters"
-          class="filters-button"
-          size="is-small"
-          type="is-danger"
-        >
-          Reset
-        </b-button>
+          <b-button
+            @click="resetFilters"
+            class="filters-button"
+            size="is-small"
+            type="is-danger"
+          >
+            Reset
+          </b-button>
+        </div>
       </div>
     </b-collapse>
   </section>
@@ -326,6 +327,12 @@ export default {
 
     .filters-field {
       width: 100%;
+      max-width: 500px;
+    }
+
+    .filter-buttons {
+      display: flex;
+      flex-direction: row;
     }
   }
 
@@ -337,6 +344,7 @@ export default {
   @media screen and (max-width: 960px) {
     .filters-form {
       flex-direction: column;
+      align-items: center;
 
       .filters-field {
         margin-bottom: 1rem;
