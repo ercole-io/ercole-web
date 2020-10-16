@@ -6,7 +6,7 @@
     :overlay="false"
     :right="true"
     position="absolute"
-    v-model="isOpenFilters"
+    :open.sync="isOpenFilters"
   >
     <div
       class="has-background-light"
