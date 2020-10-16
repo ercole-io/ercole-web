@@ -166,6 +166,7 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 import formatDate from '@/filters/formatDate.js'
 import { formatDatepickerDate } from '@/helpers/helpers.js'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
+import { bus } from '@/helpers/eventBus.js'
 
 export default {
   mixins: [tooltipMixin],
@@ -295,6 +296,15 @@ export default {
   computed: {
     ...mapState(['globalFilters']),
     ...mapGetters(['getActiveFilters'])
+  },
+  watch: {
+    isFiltersOpened(value) {
+      if (value) {
+        bus.$emit('isGlobalFilterOpened', true)
+      } else {
+        bus.$emit('isGlobalFilterOpened', false)
+      }
+    }
   }
 }
 </script>
