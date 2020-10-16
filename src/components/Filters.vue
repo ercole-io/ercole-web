@@ -1,15 +1,24 @@
 <template>
   <section class="filters">
     <b-button
+      v-tooltip.bottom="
+        options(globalFilters.hasActiveFilters ? 'Active' : 'Inactive')
+      "
       @click="expandFilters"
       size="is-small"
       type="is-light"
       pack="fas"
       :icon-right="filterIcon"
       class="bt-show-hide-filters"
-      :class="{ 'has-text-success': globalFilters.hasActiveFilters }"
       expanded
     >
+      <b-icon
+        :type="{ 'is-primary': globalFilters.hasActiveFilters }"
+        icon="filter"
+        size="is-small"
+        pack="fas"
+        style="margin: -2px 0 0 0"
+      />
       {{ isFiltersOpened ? 'Hide Global Filters' : 'Show Global Filters' }}
     </b-button>
 
@@ -156,8 +165,10 @@
 import { mapState, mapActions, mapGetters } from 'vuex'
 import formatDate from '@/filters/formatDate.js'
 import { formatDatepickerDate } from '@/helpers/helpers.js'
+import tooltipMixin from '@/mixins/tooltipMixin.js'
 
 export default {
+  mixins: [tooltipMixin],
   data() {
     return {
       // tagList: [
