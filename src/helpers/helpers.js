@@ -122,7 +122,10 @@ export const organizeKeysBeforeFilter = keys => {
 Array.prototype.filterByKeys = function(info) {
   return this.filter(item => {
     return info.every(i => {
-      return i.Values.indexOf(item[i.Field]) > -1
+      return (
+        _.indexOf(i.Values, item[i.Field]) > -1 ||
+        _.inRange(item[i.Field], i.Values[0][0], i.Values[0][1] + 0.1)
+      )
     })
   })
 }

@@ -1,12 +1,16 @@
-import axiosDefault from '../../axios/axios-default.js'
+import axiosDefault from '@/axios/axios-default.js'
 
 export const state = () => ({
   licenseList: []
 })
 
 export const getters = {
-  getUsedLicenses: state => {
-    return state.licenseList
+  getUsedLicenses: (state, getters, rootState) => {
+    if (rootState.localFilters.hasFilters) {
+      return state.licenseList.filterByKeys(rootState.localFilters.filters)
+    } else {
+      return state.licenseList
+    }
   }
 }
 
