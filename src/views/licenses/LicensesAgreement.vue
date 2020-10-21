@@ -85,7 +85,7 @@
         </b-tabs>
       </div>
       <div class="column" :class="addCol">
-        <BoxContent title="Add or Modify a License">
+        <BoxContent title="Add or Modify an Agreement">
           <form @submit.prevent="addUpdateLicense">
             <b-field
               label="Type of Technologie *"
@@ -157,7 +157,6 @@
                 placeholder="Select"
                 v-model="partNumber"
                 expanded
-                :multiple="!isEditing"
               >
                 <option
                   v-for="(part, index) in returnAgreementParts"
@@ -194,14 +193,14 @@
             </b-field>
 
             <b-field
-              label="Reference Number *"
+              label="Reference Number"
               custom-class="is-small"
               :type="{
                 'is-danger': $v.referenceNumber.$error
               }"
               :message="{
-                'This field is required':
-                  !$v.referenceNumber.required && $v.referenceNumber.$error
+                'This field is accepts only numbers':
+                  !$v.referenceNumber.numeric && $v.referenceNumber.$error
               }"
             >
               <b-autocomplete
@@ -392,7 +391,7 @@ export default {
     agreeNumber: { required, numeric },
     partNumber: { required },
     csi: { required },
-    referenceNumber: { required, numeric },
+    referenceNumber: { numeric },
     licenseNumber: {
       required: requiredIf(val => {
         return !val.ula
@@ -412,11 +411,11 @@ export default {
   methods: {
     ...mapActions(['getLicensesAgreement', 'getAgreementParts']),
     addUpdateLicense() {
-      const separatePartID = []
-      _.filter(this.partNumber, val => {
-        separatePartID.push(val.split(' - ')[0])
-        return separatePartID
-      })
+      // const separatePartID = []
+      // _.filter(this.partNumber, val => {
+      //   separatePartID.push(val.split(' - ')[0])
+      //   return separatePartID
+      // })
 
       const license = {
         agreementID: this.agreeNumber,
@@ -428,7 +427,7 @@ export default {
         catchAll: false
       }
       if (!this.isEditing) {
-        license.partsID = separatePartID
+        license.partsID = [this.partNumber.split(' - ')[0]]
         axiosDefault.post('/agreements/oracle/database', license).then(res => {
           if (res.data[0].InsertedID) {
             this.getLicensesAgreement()
