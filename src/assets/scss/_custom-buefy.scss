@@ -112,7 +112,22 @@ ul.pagination-list {
   margin-right: 0;
 }
 
-// 
+// sidebar
 .v-sidebar-menu {
   height: 100% !important;
+}
+
+.b-sidebar .sidebar-content {
+  width: 300px;
+}
+
+// field
+.small-label {
+  font-size: 0.65em;
+  margin-bottom: 0.1em !important;
+}
+
+.small-label-next {
+  @extend .small-label;
+  padding-left: 5px;
 }
