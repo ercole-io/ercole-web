@@ -8,8 +8,12 @@ export const state = () => ({
 })
 
 export const getters = {
-  getHypervisors: state => {
-    return state.clusters
+  getHypervisors: (state, getters, rootState) => {
+    if (rootState.localFilters.hasFilters) {
+      return state.clusters.filterByKeys(rootState.localFilters.filters)
+    } else {
+      return state.clusters
+    }
   },
   getCurrentCluster: state => {
     return state.currentCluster
