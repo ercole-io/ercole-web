@@ -131,3 +131,14 @@ ul.pagination-list {
   @extend .small-label;
   padding-left: 5px;
 }
+
+// slider
+.b-slider {
+  width: 90%;
+    margin: 0 auto;
+    padding-bottom: 15px;
+
+    .b-slider-tick-label {
+      padding-top: 2px;
+    }
+}
