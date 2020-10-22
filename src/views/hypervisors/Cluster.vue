@@ -9,8 +9,8 @@
               size="is-small"
               type="number"
               clearable
-              :data="filteredPhysicalHosts"
-              @typing="getAutocompleteData($event, 'virtualizationNode')"
+              :data="filteredvirtualizationNode"
+              @typing="setFilteredAutocomplete($event, 'virtualizationNode')"
             >
               <template slot="empty">No results found</template>
             </b-autocomplete>
@@ -22,8 +22,8 @@
               size="is-small"
               type="number"
               clearable
-              :data="filteredHostnames"
-              @typing="getAutocompleteData($event, 'hostname')"
+              :data="filteredhostname"
+              @typing="setFilteredAutocomplete($event, 'hostname')"
             >
               <template slot="empty">No results found</template>
             </b-autocomplete>
@@ -35,8 +35,8 @@
               size="is-small"
               type="number"
               clearable
-              :data="filteredVMname"
-              @typing="getAutocompleteData($event, 'name')"
+              :data="filteredname"
+              @typing="setFilteredAutocomplete($event, 'name')"
             >
               <template slot="empty">No results found</template>
             </b-autocomplete>
@@ -212,27 +212,18 @@ export default {
       clusterFilters: {
         cappedCPU: ''
       },
-      filteredPhysicalHosts: [],
-      filteredHostnames: [],
-      filteredVMname: []
+      filteredvirtualizationNode: [],
+      filteredhostname: [],
+      filteredname: []
     }
   },
   async beforeMount() {
     await this.getClusterByName(this.clustername)
     bus.$emit('dynamicTitle', this.clustername)
 
-    this.filteredPhysicalHosts = prepareDataForAutocomplete(
-      this.getCurrentClusterVms,
-      'virtualizationNode'
-    )
-    this.filteredHostnames = prepareDataForAutocomplete(
-      this.getCurrentClusterVms,
-      'hostname'
-    )
-    this.filteredVMname = prepareDataForAutocomplete(
-      this.getCurrentClusterVms,
-      'name'
-    )
+    this.setAutocompleteData('virtualizationNode')
+    this.setAutocompleteData('hostname')
+    this.setAutocompleteData('name')
   },
   methods: {
     ...mapActions(['getClusterByName']),
@@ -251,7 +242,13 @@ export default {
         filters: []
       })
     },
-    getAutocompleteData(text, toFilter) {
+    setAutocompleteData(value) {
+      this['filtered' + value] = prepareDataForAutocomplete(
+        this.getCurrentClusterVms,
+        value
+      )
+    },
+    setFilteredAutocomplete(text, toFilter) {
       const autocomplete = returnAutocompleteData(
         text,
         this.getCurrentClusterVms,
@@ -260,13 +257,13 @@ export default {
 
       switch (toFilter) {
         case 'virtualizationNode':
-          this.filteredPhysicalHosts = autocomplete
+          this.filteredvirtualizationNode = autocomplete
           break
         case 'hostname':
-          this.filteredHostnames = autocomplete
+          this.filteredhostname = autocomplete
           break
         case 'name':
-          this.filteredVMname = autocomplete
+          this.filteredname = autocomplete
           break
         default:
           break
