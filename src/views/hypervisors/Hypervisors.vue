@@ -13,8 +13,8 @@
               size="is-small"
               type="number"
               clearable
-              :data="filteredClusterNames"
-              @typing="setAutocompleteData($event, 'name')"
+              :data="filteredname"
+              @typing="setFilteredAutocomplete($event, 'name')"
             >
               <template slot="empty">No results found</template>
             </b-autocomplete>
@@ -30,7 +30,7 @@
               <option :value="null" v-if="hypervisorsFilters.type">
                 Reset
               </option>
-              <option v-for="(type, index) in filteredType" :key="index">
+              <option v-for="(type, index) in filteredtype" :key="index">
                 {{ type }}
               </option>
             </b-select>
@@ -69,8 +69,8 @@
               size="is-small"
               type="number"
               clearable
-              :data="filteredPhysicalHost"
-              @typing="setAutocompleteData($event, 'virtualizationNodes')"
+              :data="filteredvirtualizationNodes"
+              @typing="setFilteredAutocomplete($event, 'virtualizationNodes')"
             >
               <template slot="empty">No results found</template>
             </b-autocomplete>
@@ -239,9 +239,9 @@ export default {
         'vmsErcoleAgentCount'
       ],
       hypervisorsFilters: {},
-      filteredClusterNames: [],
-      filteredType: [],
-      filteredPhysicalHost: [],
+      filteredname: [],
+      filteredtype: [],
+      filteredvirtualizationNodes: [],
       filteredcpu: [],
       mincpu: 0,
       maxcpu: 0,
@@ -259,17 +259,9 @@ export default {
   async beforeMount() {
     await this.getClusters()
 
-    this.filteredClusterNames = prepareDataForAutocomplete(
-      this.getHypervisors,
-      'name'
-    )
-
-    this.filteredType = prepareDataForAutocomplete(this.getHypervisors, 'type')
-
-    this.filteredPhysicalHost = prepareDataForAutocomplete(
-      this.getHypervisors,
-      'virtualizationNodes'
-    )
+    this.setAutocompleteData('name')
+    this.setAutocompleteData('type')
+    this.setAutocompleteData('virtualizationNodes')
 
     this.setSliderFilterConfig('cpu')
     this.setSliderFilterConfig('sockets')
@@ -296,7 +288,13 @@ export default {
       this.setSliderFilterConfig('vmsCount')
       this.setSliderFilterConfig('vmsErcoleAgentCount')
     },
-    setAutocompleteData(text, toFilter) {
+    setAutocompleteData(value) {
+      this['filtered' + value] = prepareDataForAutocomplete(
+        this.getHypervisors,
+        value
+      )
+    },
+    setFilteredAutocomplete(text, toFilter) {
       const autocomplete = returnAutocompleteData(
         text,
         this.getHypervisors,
@@ -305,10 +303,10 @@ export default {
 
       switch (toFilter) {
         case 'name':
-          this.filteredClusterNames = autocomplete
+          this.filteredname = autocomplete
           break
         case 'virtualizationNodes':
-          this.filteredPhysicalHost = autocomplete
+          this.filteredvirtualizationNodes = autocomplete
           break
         default:
           break
@@ -320,10 +318,12 @@ export default {
     },
     resolveSliderData(value, numbers) {
       this['filtered' + value] = numbers
+
       this.hypervisorsFilters[value] = [
         this['filtered' + value][0],
         _.last(this['filtered' + value])
       ]
+
       this['min' + value] = this['filtered' + value][0]
       this['max' + value] = _.last(this['filtered' + value])
     },
