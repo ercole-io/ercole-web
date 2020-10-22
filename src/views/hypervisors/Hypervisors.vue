@@ -37,24 +37,18 @@
           </b-field>
 
           <b-field label="Core" custom-class="is-small">
-            <b-field label="Min" custom-class="small-label">
-              <b-autocomplete
-                class="mr-1"
-                v-model="coreMin"
-                size="is-small"
-                :data="filteredCore"
-                @typing="getAutocompleteData($event, 'cpu')"
-              />
-            </b-field>
-            <b-field label="Max" custom-class="small-label-next">
-              <b-autocomplete
-                class="ml-1"
-                v-model="coreMax"
-                size="is-small"
-                :data="filteredCore"
-                @typing="getAutocompleteData($event, 'cpu')"
-              />
-            </b-field>
+            <b-slider
+              v-model="hypervisorsFilters.cpu"
+              :min="coreMin"
+              :max="coreMax"
+            >
+              <b-slider-tick :value="coreMin">
+                {{ coreMin }}
+              </b-slider-tick>
+              <b-slider-tick :value="coreMax">
+                {{ coreMax }}
+              </b-slider-tick>
+            </b-slider>
           </b-field>
 
           <b-field label="Socket" custom-class="is-small">
@@ -88,9 +82,12 @@
               :min="totalVmMin"
               :max="totalVmMax"
             >
-              <!-- <template v-for="val in filteredTotalVM">
-                <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
-              </template> -->
+              <b-slider-tick :value="totalVmMin">
+                {{ totalVmMin }}
+              </b-slider-tick>
+              <b-slider-tick :value="totalVmMax">
+                {{ totalVmMax }}
+              </b-slider-tick>
             </b-slider>
           </b-field>
 
@@ -100,9 +97,12 @@
               :min="ercoleVmMin"
               :max="ercoleVmMax"
             >
-              <template v-for="val in filteredErcoleVM">
-                <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
-              </template>
+              <b-slider-tick :value="ercoleVmMin">
+                {{ ercoleVmMin }}
+              </b-slider-tick>
+              <b-slider-tick :value="ercoleVmMax">
+                {{ ercoleVmMax }}
+              </b-slider-tick>
             </b-slider>
           </b-field>
 
@@ -238,18 +238,16 @@ export default {
         'vmsCount',
         'vmsErcoleAgentCount'
       ],
-      hypervisorsFilters: {
-        sockets: []
-      },
+      hypervisorsFilters: {},
       filteredClusterNames: [],
       filteredType: [],
+      filteredPhysicalHost: [],
       filteredCore: [],
-      coreMin: null,
-      coreMax: null,
+      coreMin: 0,
+      coreMax: 0,
       filteredSocket: [],
       socketMin: 0,
       socketMax: 0,
-      filteredPhysicalHost: [],
       filteredTotalVM: [],
       totalVmMin: 0,
       totalVmMax: 0,
@@ -268,31 +266,19 @@ export default {
 
     this.filteredType = prepareDataForAutocomplete(this.getHypervisors, 'type')
 
-    this.getFilteredCore()
-
-    this.getFilteredSocket()
-
     this.filteredPhysicalHost = prepareDataForAutocomplete(
       this.getHypervisors,
       'virtualizationNodes'
     )
 
+    this.getFilteredCore()
+    this.getFilteredSocket()
     this.getFilteredTotalVM()
-
     this.getFilteredErcoleVM()
   },
   methods: {
     ...mapActions(['getClusters']),
     applyFilters() {
-      if (this.coreMax) {
-        this.hypervisorsFilters.cpu = [
-          Number(this.coreMin),
-          Number(this.coreMax)
-        ]
-      } else {
-        this.hypervisorsFilters.cpu = Number(this.coreMin)
-      }
-
       this.$store.commit('SET_FILTERS', {
         status: true,
         filters: organizeKeysBeforeFilter(this.hypervisorsFilters)
@@ -321,9 +307,6 @@ export default {
         case 'name':
           this.filteredClusterNames = autocomplete
           break
-        case 'cpu':
-          this.filteredCore = autocomplete
-          break
         case 'virtualizationNodes':
           this.filteredPhysicalHost = autocomplete
           break
@@ -333,6 +316,12 @@ export default {
     },
     getFilteredCore() {
       this.filteredCore = prepareDataForAutocomplete(this.getHypervisors, 'cpu')
+
+      this.hypervisorsFilters.cpu = [
+        this.filteredCore[0],
+        _.last(this.filteredCore)
+      ]
+
       this.coreMin = this.filteredCore[0]
       this.coreMax = _.last(this.filteredCore)
     },
