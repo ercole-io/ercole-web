@@ -14,7 +14,7 @@
               type="number"
               clearable
               :data="filteredClusterNames"
-              @typing="getAutocompleteData($event, 'name')"
+              @typing="setAutocompleteData($event, 'name')"
             >
               <template slot="empty">No results found</template>
             </b-autocomplete>
@@ -39,14 +39,14 @@
           <b-field label="Core" custom-class="is-small">
             <b-slider
               v-model="hypervisorsFilters.cpu"
-              :min="coreMin"
-              :max="coreMax"
+              :min="mincpu"
+              :max="maxcpu"
             >
-              <b-slider-tick :value="coreMin">
-                {{ coreMin }}
+              <b-slider-tick :value="mincpu">
+                {{ mincpu }}
               </b-slider-tick>
-              <b-slider-tick :value="coreMax">
-                {{ coreMax }}
+              <b-slider-tick :value="maxcpu">
+                {{ maxcpu }}
               </b-slider-tick>
             </b-slider>
           </b-field>
@@ -54,10 +54,10 @@
           <b-field label="Socket" custom-class="is-small">
             <b-slider
               v-model="hypervisorsFilters.sockets"
-              :min="socketMin"
-              :max="socketMax"
+              :min="minsockets"
+              :max="maxsockets"
             >
-              <template v-for="val in filteredSocket">
+              <template v-for="val in filteredsockets">
                 <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
               </template>
             </b-slider>
@@ -70,7 +70,7 @@
               type="number"
               clearable
               :data="filteredPhysicalHost"
-              @typing="getAutocompleteData($event, 'virtualizationNodes')"
+              @typing="setAutocompleteData($event, 'virtualizationNodes')"
             >
               <template slot="empty">No results found</template>
             </b-autocomplete>
@@ -79,14 +79,14 @@
           <b-field label="Total VM" custom-class="is-small">
             <b-slider
               v-model="hypervisorsFilters.vmsCount"
-              :min="totalVmMin"
-              :max="totalVmMax"
+              :min="minvmsCount"
+              :max="maxvmsCount"
             >
-              <b-slider-tick :value="totalVmMin">
-                {{ totalVmMin }}
+              <b-slider-tick :value="minvmsCount">
+                {{ minvmsCount }}
               </b-slider-tick>
-              <b-slider-tick :value="totalVmMax">
-                {{ totalVmMax }}
+              <b-slider-tick :value="maxvmsCount">
+                {{ maxvmsCount }}
               </b-slider-tick>
             </b-slider>
           </b-field>
@@ -94,14 +94,14 @@
           <b-field label="Total VM Ercole" custom-class="is-small">
             <b-slider
               v-model="hypervisorsFilters.vmsErcoleAgentCount"
-              :min="ercoleVmMin"
-              :max="ercoleVmMax"
+              :min="minvmsErcoleAgentCount"
+              :max="maxvmsErcoleAgentCount"
             >
-              <b-slider-tick :value="ercoleVmMin">
-                {{ ercoleVmMin }}
+              <b-slider-tick :value="minvmsErcoleAgentCount">
+                {{ minvmsErcoleAgentCount }}
               </b-slider-tick>
-              <b-slider-tick :value="ercoleVmMax">
-                {{ ercoleVmMax }}
+              <b-slider-tick :value="maxvmsErcoleAgentCount">
+                {{ maxvmsErcoleAgentCount }}
               </b-slider-tick>
             </b-slider>
           </b-field>
@@ -242,18 +242,18 @@ export default {
       filteredClusterNames: [],
       filteredType: [],
       filteredPhysicalHost: [],
-      filteredCore: [],
-      coreMin: 0,
-      coreMax: 0,
-      filteredSocket: [],
-      socketMin: 0,
-      socketMax: 0,
-      filteredTotalVM: [],
-      totalVmMin: 0,
-      totalVmMax: 0,
-      filteredErcoleVM: [],
-      ercoleVmMin: 0,
-      ercoleVmMax: 0
+      filteredcpu: [],
+      mincpu: 0,
+      maxcpu: 0,
+      filteredsockets: [],
+      minsockets: 0,
+      maxsockets: 0,
+      filteredvmsCount: [],
+      minvmsCount: 0,
+      maxvmsCount: 0,
+      filteredvmsErcoleAgentCount: [],
+      minvmsErcoleAgentCount: 0,
+      maxvmsErcoleAgentCount: 0
     }
   },
   async beforeMount() {
@@ -271,10 +271,10 @@ export default {
       'virtualizationNodes'
     )
 
-    this.getFilteredCore()
-    this.getFilteredSocket()
-    this.getFilteredTotalVM()
-    this.getFilteredErcoleVM()
+    this.setSliderFilterConfig('cpu')
+    this.setSliderFilterConfig('sockets')
+    this.setSliderFilterConfig('vmsCount')
+    this.setSliderFilterConfig('vmsErcoleAgentCount')
   },
   methods: {
     ...mapActions(['getClusters']),
@@ -291,12 +291,12 @@ export default {
       })
 
       this.hypervisorsFilters = {}
-      this.getFilteredCore()
-      this.getFilteredSocket()
-      this.getFilteredTotalVM()
-      this.getFilteredErcoleVM()
+      this.setSliderFilterConfig('cpu')
+      this.setSliderFilterConfig('sockets')
+      this.setSliderFilterConfig('vmsCount')
+      this.setSliderFilterConfig('vmsErcoleAgentCount')
     },
-    getAutocompleteData(text, toFilter) {
+    setAutocompleteData(text, toFilter) {
       const autocomplete = returnAutocompleteData(
         text,
         this.getHypervisors,
@@ -314,52 +314,18 @@ export default {
           break
       }
     },
-    getFilteredCore() {
-      this.filteredCore = prepareDataForAutocomplete(this.getHypervisors, 'cpu')
-
-      this.hypervisorsFilters.cpu = [
-        this.filteredCore[0],
-        _.last(this.filteredCore)
-      ]
-
-      this.coreMin = this.filteredCore[0]
-      this.coreMax = _.last(this.filteredCore)
+    setSliderFilterConfig(value) {
+      const fillNumbers = prepareDataForAutocomplete(this.getHypervisors, value)
+      this.resolveSliderData(value, fillNumbers)
     },
-    getFilteredSocket() {
-      this.filteredSocket = prepareDataForAutocomplete(
-        this.getHypervisors,
-        'sockets'
-      )
-      this.hypervisorsFilters.sockets = [
-        this.filteredSocket[0],
-        _.last(this.filteredSocket)
+    resolveSliderData(value, numbers) {
+      this['filtered' + value] = numbers
+      this.hypervisorsFilters[value] = [
+        this['filtered' + value][0],
+        _.last(this['filtered' + value])
       ]
-      this.socketMin = this.filteredSocket[0]
-      this.socketMax = _.last(this.filteredSocket)
-    },
-    getFilteredTotalVM() {
-      this.filteredTotalVM = prepareDataForAutocomplete(
-        this.getHypervisors,
-        'vmsCount'
-      )
-      this.hypervisorsFilters.vmsCount = [
-        this.filteredTotalVM[0],
-        _.last(this.filteredTotalVM)
-      ]
-      this.totalVmMin = this.filteredTotalVM[0]
-      this.totalVmMax = _.last(this.filteredTotalVM)
-    },
-    getFilteredErcoleVM() {
-      this.filteredErcoleVM = prepareDataForAutocomplete(
-        this.getHypervisors,
-        'vmsErcoleAgentCount'
-      )
-      this.hypervisorsFilters.vmsErcoleAgentCount = [
-        this.filteredErcoleVM[0],
-        _.last(this.filteredErcoleVM)
-      ]
-      this.ercoleVmMin = this.filteredErcoleVM[0]
-      this.ercoleVmMax = _.last(this.filteredErcoleVM)
+      this['min' + value] = this['filtered' + value][0]
+      this['max' + value] = _.last(this['filtered' + value])
     },
     handleClickedRow($event) {
       if ($event.length > 0) {
