@@ -13,8 +13,8 @@
               size="is-small"
               type="number"
               clearable
-              :data="filteredHostnames"
-              @typing="getAutocompleteData($event, 'hostname')"
+              :data="filteredhostname"
+              @typing="setFilteredAutocomplete($event, 'hostname')"
             >
               <template slot="empty">No results found</template>
             </b-autocomplete>
@@ -26,8 +26,8 @@
               size="is-small"
               type="number"
               clearable
-              :data="filteredDbnames"
-              @typing="getAutocompleteData($event, 'dbName')"
+              :data="filtereddbName"
+              @typing="setFilteredAutocomplete($event, 'dbName')"
             >
               <template slot="empty">No results found</template>
             </b-autocomplete>
@@ -39,30 +39,24 @@
               size="is-small"
               type="number"
               clearable
-              :data="filteredLicenseName"
-              @typing="getAutocompleteData($event, 'licenseName')"
+              :data="filteredlicenseName"
+              @typing="setFilteredAutocomplete($event, 'licenseName')"
             >
               <template slot="empty">No results found</template>
             </b-autocomplete>
           </b-field>
 
           <b-field label="Used Licenses" custom-class="is-small">
-            <b-autocomplete
-              class="mr-1"
-              v-model="usedLicensesMin"
-              size="is-small"
-              :data="filteredUsedLicenses"
-              @typing="getAutocompleteData($event, 'usedLicenses')"
+            <b-slider
+              v-model="licensesUsedFilters.usedLicenses"
+              :min="minusedLicenses"
+              :max="maxusedLicenses"
+              :step="0.5"
             >
-            </b-autocomplete>
-            <b-autocomplete
-              class="ml-1"
-              v-model="usedLicensesMax"
-              size="is-small"
-              :data="filteredUsedLicenses"
-              @typing="getAutocompleteData($event, 'usedLicenses')"
-            >
-            </b-autocomplete>
+              <template v-for="val in filteredusedLicenses">
+                <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
+              </template>
+            </b-slider>
           </b-field>
 
           <div
@@ -113,6 +107,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapActions, mapGetters } from 'vuex'
 import {
   organizeKeysBeforeFilter,
@@ -142,65 +137,46 @@ export default {
   data() {
     return {
       keys: ['hostname', 'dbName', 'licenseName', 'usedLicenses'],
-      usedLicensesMin: null,
-      usedLicensesMax: null,
       licensesUsedFilters: {},
-      filteredHostnames: [],
-      filteredDbnames: [],
-      filteredLicenseName: [],
-      filteredUsedLicenses: []
+      filteredhostname: [],
+      filtereddbName: [],
+      filteredlicenseName: [],
+      filteredusedLicenses: [],
+      minusedLicenses: null,
+      maxusedLicenses: null
     }
   },
   async beforeMount() {
     await this.getLicensesList()
 
-    this.filteredHostnames = prepareDataForAutocomplete(
-      this.getUsedLicenses,
-      'hostname'
-    )
+    this.setAutocompleteData('hostname')
+    this.setAutocompleteData('dbName')
+    this.setAutocompleteData('licenseName')
 
-    this.filteredDbnames = prepareDataForAutocomplete(
-      this.getUsedLicenses,
-      'dbName'
-    )
-
-    this.filteredLicenseName = prepareDataForAutocomplete(
-      this.getUsedLicenses,
-      'licenseName'
-    )
-
-    this.filteredUsedLicenses = prepareDataForAutocomplete(
-      this.getUsedLicenses,
-      'usedLicenses'
-    )
+    this.setSliderFilterConfig('usedLicenses')
   },
   methods: {
     ...mapActions(['getLicensesList']),
     applyFilters() {
-      if (this.usedLicensesMax) {
-        this.licensesUsedFilters.usedLicenses = [
-          Number(this.usedLicensesMin),
-          Number(this.usedLicensesMax)
-        ]
-      } else {
-        this.licensesUsedFilters.usedLicenses = Number(this.usedLicensesMin)
-      }
-
       this.$store.commit('SET_FILTERS', {
         status: true,
         filters: organizeKeysBeforeFilter(this.licensesUsedFilters)
       })
     },
     resetFilters() {
-      this.usedLicensesMin = null
-      this.usedLicensesMax = null
-      this.licensesUsedFilters = {}
       this.$store.commit('SET_FILTERS', {
         status: false,
         filters: []
       })
+      this.setSliderFilterConfig('usedLicenses')
     },
-    getAutocompleteData(text, toFilter) {
+    setAutocompleteData(value) {
+      this['filtered' + value] = prepareDataForAutocomplete(
+        this.getUsedLicenses,
+        value
+      )
+    },
+    setFilteredAutocomplete(text, toFilter) {
       const autocomplete = returnAutocompleteData(
         text,
         this.getUsedLicenses,
@@ -209,20 +185,38 @@ export default {
 
       switch (toFilter) {
         case 'hostname':
-          this.filteredHostnames = autocomplete
+          this.filteredhostname = autocomplete
           break
         case 'dbName':
-          this.filteredDbnames = autocomplete
+          this.filtereddbName = autocomplete
           break
         case 'licenseName':
-          this.filteredLicenseName = autocomplete
+          this.filteredlicenseName = autocomplete
           break
         case 'usedLicenses':
-          this.filteredUsedLicenses = autocomplete
+          this.filteredusedLicenses = autocomplete
           break
         default:
           break
       }
+    },
+    setSliderFilterConfig(value) {
+      const fillNumbers = prepareDataForAutocomplete(
+        this.getUsedLicenses,
+        value
+      )
+      this.resolveSliderData(value, fillNumbers)
+    },
+    resolveSliderData(value, numbers) {
+      this['filtered' + value] = numbers
+
+      this.licensesUsedFilters[value] = [
+        this['filtered' + value][0],
+        _.last(this['filtered' + value])
+      ]
+
+      this['min' + value] = this['filtered' + value][0]
+      this['max' + value] = _.last(this['filtered' + value])
     }
   },
   computed: {
