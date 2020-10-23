@@ -200,14 +200,10 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import techTypePrettyName from '@/mixins/techTypePrettyName.js'
 import { mapActions, mapGetters } from 'vuex'
-import {
-  organizeKeysBeforeFilter,
-  returnAutocompleteData,
-  prepareDataForAutocomplete
-} from '@/helpers/helpers.js'
+import { returnAutocompleteData } from '@/helpers/helpers.js'
+import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -217,7 +213,7 @@ import DrawerButton from '@/components/common/DrawerButton.vue'
 import DrawerRight from '@/components/common/DrawerRight.vue'
 
 export default {
-  mixins: [techTypePrettyName],
+  mixins: [techTypePrettyName, localFiltersMixin],
   components: {
     BoxContent,
     FullTable,
@@ -259,40 +255,18 @@ export default {
   async beforeMount() {
     await this.getClusters()
 
-    this.setAutocompleteData('name')
-    this.setAutocompleteData('type')
-    this.setAutocompleteData('virtualizationNodes')
-
-    this.setSliderFilterConfig('cpu')
-    this.setSliderFilterConfig('sockets')
-    this.setSliderFilterConfig('vmsCount')
-    this.setSliderFilterConfig('vmsErcoleAgentCount')
+    this.setAutocomplete()
+    this.setSlider()
   },
   methods: {
     ...mapActions(['getClusters']),
     applyFilters() {
-      this.$store.commit('SET_FILTERS', {
-        status: true,
-        filters: organizeKeysBeforeFilter(this.hypervisorsFilters)
-      })
+      this.apply('hypervisorsFilters')
     },
     resetFilters() {
-      this.$store.commit('SET_FILTERS', {
-        status: false,
-        filters: []
-      })
-
+      this.reset()
       this.hypervisorsFilters = {}
-      this.setSliderFilterConfig('cpu')
-      this.setSliderFilterConfig('sockets')
-      this.setSliderFilterConfig('vmsCount')
-      this.setSliderFilterConfig('vmsErcoleAgentCount')
-    },
-    setAutocompleteData(value) {
-      this['filtered' + value] = prepareDataForAutocomplete(
-        this.getHypervisors,
-        value
-      )
+      this.setSlider()
     },
     setFilteredAutocomplete(text, toFilter) {
       const autocomplete = returnAutocompleteData(
@@ -312,20 +286,32 @@ export default {
           break
       }
     },
-    setSliderFilterConfig(value) {
-      const fillNumbers = prepareDataForAutocomplete(this.getHypervisors, value)
-      this.resolveSliderData(value, fillNumbers)
+    setAutocomplete() {
+      this.setAutocompleteData('name', this.getHypervisors)
+      this.setAutocompleteData('type', this.getHypervisors)
+      this.setAutocompleteData('virtualizationNodes', this.getHypervisors)
     },
-    resolveSliderData(value, numbers) {
-      this['filtered' + value] = numbers
-
-      this.hypervisorsFilters[value] = [
-        this['filtered' + value][0],
-        _.last(this['filtered' + value])
-      ]
-
-      this['min' + value] = this['filtered' + value][0]
-      this['max' + value] = _.last(this['filtered' + value])
+    setSlider() {
+      this.setSliderFilterConfig(
+        'cpu',
+        this.getHypervisors,
+        'hypervisorsFilters'
+      )
+      this.setSliderFilterConfig(
+        'sockets',
+        this.getHypervisors,
+        'hypervisorsFilters'
+      )
+      this.setSliderFilterConfig(
+        'vmsCount',
+        this.getHypervisors,
+        'hypervisorsFilters'
+      )
+      this.setSliderFilterConfig(
+        'vmsErcoleAgentCount',
+        this.getHypervisors,
+        'hypervisorsFilters'
+      )
     },
     handleClickedRow($event) {
       if ($event.length > 0) {
@@ -343,9 +329,6 @@ export default {
       'getVirtualizationChartData',
       'getHypervisors'
     ])
-  },
-  beforeDestroy() {
-    this.resetFilters()
   }
 }
 </script>

@@ -176,12 +176,8 @@
 import techTypePrettyName from '@/mixins/techTypePrettyName.js'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
-import {
-  mapBooleanIcon,
-  organizeKeysBeforeFilter,
-  returnAutocompleteData,
-  prepareDataForAutocomplete
-} from '@/helpers/helpers.js'
+import { mapBooleanIcon, returnAutocompleteData } from '@/helpers/helpers.js'
+import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -193,7 +189,7 @@ import DrawerButton from '@/components/common/DrawerButton.vue'
 import DrawerRight from '@/components/common/DrawerRight.vue'
 
 export default {
-  mixins: [techTypePrettyName],
+  mixins: [techTypePrettyName, localFiltersMixin],
   props: ['clustername'],
   components: {
     BoxContent,
@@ -221,32 +217,20 @@ export default {
     await this.getClusterByName(this.clustername)
     bus.$emit('dynamicTitle', this.clustername)
 
-    this.setAutocompleteData('virtualizationNode')
-    this.setAutocompleteData('hostname')
-    this.setAutocompleteData('name')
+    this.setAutocompleteData('virtualizationNode', this.getCurrentClusterVms)
+    this.setAutocompleteData('hostname', this.getCurrentClusterVms)
+    this.setAutocompleteData('name', this.getCurrentClusterVms)
   },
   methods: {
     ...mapActions(['getClusterByName']),
     applyFilters() {
-      this.$store.commit('SET_FILTERS', {
-        status: true,
-        filters: organizeKeysBeforeFilter(this.clusterFilters)
-      })
+      this.apply(this.clusterFilters)
     },
     resetFilters() {
+      this.reset()
       this.clusterFilters = {
         cappedCPU: ''
       }
-      this.$store.commit('SET_FILTERS', {
-        status: false,
-        filters: []
-      })
-    },
-    setAutocompleteData(value) {
-      this['filtered' + value] = prepareDataForAutocomplete(
-        this.getCurrentClusterVms,
-        value
-      )
     },
     setFilteredAutocomplete(text, toFilter) {
       const autocomplete = returnAutocompleteData(
@@ -279,9 +263,6 @@ export default {
       'getCurrentCluster',
       'getCurrentClusterVms'
     ])
-  },
-  beforeDestroy() {
-    this.resetFilters()
   }
 }
 </script>

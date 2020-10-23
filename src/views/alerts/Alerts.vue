@@ -6,6 +6,108 @@
       v-model="isLoading"
       :can-cancel="false"
     ></b-loading>
+    <DrawerRight>
+      <BoxContent slot="drawer-content" title="Alerts Filters" class="mt-5">
+        <form @submit.prevent="applyFilters">
+          <b-field label="Status" custom-class="is-small">
+            <b-select
+              v-model="alertStatus"
+              size="is-small"
+              placeholder="Select a Status"
+              expanded
+              @change.native="statusChange"
+            >
+              <option value="NEW">NEW</option>
+              <option value="ACK">ACK</option>
+              <option value="">All</option>
+            </b-select>
+          </b-field>
+
+          <b-field label="Type" custom-class="is-small">
+            <b-select
+              v-model="alertsFilters.alertCategory"
+              size="is-small"
+              placeholder="Select a Type"
+              expanded
+            >
+              <option :value="null" v-if="alertsFilters.alertCategory">
+                Reset
+              </option>
+              <option value="AGENT">AGENT</option>
+              <option value="ENGINE">ENGINE</option>
+              <option value="LICENSE">LICENSE</option>
+            </b-select>
+          </b-field>
+
+          <b-field label="Severity" custom-class="is-small">
+            <b-select
+              v-model="alertsFilters.alertSeverity"
+              size="is-small"
+              placeholder="Select a Type"
+              expanded
+            >
+              <option :value="null" v-if="alertsFilters.alertSeverity">
+                Reset
+              </option>
+              <option value="INFO">INFO</option>
+              <option value="WARNING">WARNING</option>
+              <option value="CRITICAL">CRITICAL</option>
+            </b-select>
+          </b-field>
+
+          <b-field label="Hostname" custom-class="is-small">
+            <b-autocomplete
+              v-model="alertsFilters.hostname"
+              size="is-small"
+              type="number"
+              clearable
+              :data="filteredhostname"
+              @typing="setFilteredAutocomplete($event, 'hostname')"
+            >
+              <template slot="empty">No results found</template>
+            </b-autocomplete>
+          </b-field>
+
+          <b-field label="Code" custom-class="is-small">
+            <b-autocomplete
+              v-model="alertsFilters.alertCode"
+              size="is-small"
+              type="number"
+              clearable
+              :data="filteredalertCode"
+              @typing="setFilteredAutocomplete($event, 'alertCode')"
+            >
+              <template slot="empty">No results found</template>
+            </b-autocomplete>
+          </b-field>
+
+          <b-field label="Description" custom-class="is-small">
+            <b-autocomplete
+              v-model="alertsFilters.description"
+              size="is-small"
+              type="number"
+              clearable
+              :data="filtereddescription"
+              @typing="setFilteredAutocomplete($event, 'description')"
+            >
+              <template slot="empty">No results found</template>
+            </b-autocomplete>
+          </b-field>
+
+          <div
+            class="buttons is-flex mt-5"
+            style="justify-content: space-between;"
+          >
+            <b-button type="is-danger" size="is-small" @click="resetFilters">
+              Reset
+            </b-button>
+            <b-button type="is-primary" size="is-small" native-type="submit">
+              Apply
+            </b-button>
+          </div>
+        </form>
+      </BoxContent>
+    </DrawerRight>
     <BoxContent>
       <FullTable
         placeholder="Search on Alerts"
@@ -20,19 +122,7 @@
         @isPageChanged="handleClearAllSelections"
       >
         <template slot="customTopHeader">
-          <div
-            v-if="type && flag"
-            style="margin-right: auto; padding-left: 20px;"
-          >
-            <b-button
-              type="is-primary"
-              size="is-small"
-              class="has-text-weight-semibold mr-3"
-              @click="removeUrlParams"
-            >
-              Show All
-            </b-button>
-          </div>
+          <DrawerButton tooltipText="More Filters" />
 
           <div
             v-if="isCurrentPageSelected || selectedRows.length > 0"
@@ -74,11 +164,22 @@
               </a>
             </span>
           </div>
+
+          <div v-if="type && flag" style="padding-left: 20px;">
+            <b-button
+              type="is-primary"
+              size="is-small"
+              class="has-text-weight-semibold mr-3"
+              @click="removeUrlParams"
+            >
+              Show All
+            </b-button>
+          </div>
         </template>
 
         <template slot="headData">
           <th style="width: 5%">
-            <div v-if="flag !== 'AGENT'">
+            <div v-if="flag !== 'AGENT' && alertStatus !== 'ACK'">
               <b-checkbox
                 v-model="isCurrentPageSelected"
                 @input="handleSelectPageRows"
@@ -94,7 +195,12 @@
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
-          <td v-if="rowData.scope.alertCategory !== 'AGENT'">
+          <td
+            v-if="
+              rowData.scope.alertCategory !== 'AGENT' &&
+                rowData.scope.alertStatus === 'NEW'
+            "
+          >
             <b-checkbox
               v-model="rowData.scope.isChecked"
               @input="
@@ -122,14 +228,17 @@
 <script>
 import _ from 'lodash'
 import { mapGetters, mapActions } from 'vuex'
-import { checkAlertIcon } from '@/helpers/helpers.js'
+import { checkAlertIcon, returnAutocompleteData } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
+import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
+import DrawerButton from '@/components/common/DrawerButton.vue'
+import DrawerRight from '@/components/common/DrawerRight.vue'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
   _.map(list, val => {
@@ -139,7 +248,7 @@ const checkOrUncheck = (list, status, handleSelectRows) => {
 }
 
 export default {
-  mixins: [paginationMixin],
+  mixins: [paginationMixin, localFiltersMixin],
   props: {
     type: {
       type: String,
@@ -156,7 +265,9 @@ export default {
     exportButton,
     TdContent,
     TdIcon,
-    HostLink
+    HostLink,
+    DrawerButton,
+    DrawerRight
   },
   data() {
     return {
@@ -172,14 +283,62 @@ export default {
       isCurrentPageSelected: false,
       currentPageSelection: [],
       isAllPagesSelected: false,
-      isLoading: false
+      isLoading: false,
+      alertsFilters: {},
+      filteredalertStatus: [],
+      filteredalertCategory: [],
+      filteredalertSeverity: [],
+      filteredhostname: [],
+      filteredalertCode: [],
+      filtereddescription: [],
+      alertStatus: 'NEW'
     }
   },
   async beforeMount() {
-    await this.getAlertsData()
+    await this.getAlertsData(this.alertStatus)
+
+    this.setAutocompleteData('hostname', this.getAlerts(this.type, this.flag))
+    this.setAutocompleteData('alertCode', this.getAlerts(this.type, this.flag))
+    this.setAutocompleteData(
+      'description',
+      this.getAlerts(this.type, this.flag)
+    )
   },
   methods: {
     ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),
+    statusChange() {
+      this.getAlertsData(this.alertStatus)
+    },
+    applyFilters() {
+      this.apply(this.alertsFilters)
+    },
+    resetFilters() {
+      this.reset()
+      this.alertsFilters = {}
+      this.alertStatus = 'NEW'
+      this.statusChange()
+    },
+    setFilteredAutocomplete(text, toFilter) {
+      const autocomplete = returnAutocompleteData(
+        text,
+        this.getAlerts(this.type, this.flag),
+        toFilter
+      )
+
+      switch (toFilter) {
+        case 'hostname':
+          this.filteredhostname = autocomplete
+          break
+        case 'alertCode':
+          this.filteredalertCode = autocomplete
+          break
+        case 'description':
+          this.filtereddescription = autocomplete
+          break
+        default:
+          break
+      }
+    },
     setIcon(severity) {
       return checkAlertIcon(severity)
     },
@@ -210,11 +369,13 @@ export default {
       }
     },
     handleSelectPageRows(checked) {
-      if (checked) {
-        checkOrUncheck(this.currentPageSelection, true, this.handleSelectRows)
-      } else {
-        checkOrUncheck(this.currentPageSelection, false, this.handleSelectRows)
-      }
+      checked
+        ? checkOrUncheck(this.currentPageSelection, true, this.handleSelectRows)
+        : checkOrUncheck(
+            this.currentPageSelection,
+            false,
+            this.handleSelectRows
+          )
     },
     handleSelectAllPagesRows() {
       this.isAllPagesSelected = true
