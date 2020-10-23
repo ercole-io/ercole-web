@@ -1,125 +1,119 @@
 <template>
   <section>
-    <DrawerRight>
-      <BoxContent
-        slot="drawer-content"
-        title="Hypervisors Filters"
-        class="mt-5"
-      >
-        <form @submit.prevent="applyFilters">
-          <b-field label="Cluster Name" custom-class="is-small">
-            <b-autocomplete
-              v-model="hypervisorsFilters.name"
-              size="is-small"
-              type="number"
-              clearable
-              :data="filteredname"
-              @typing="setFilteredAutocomplete($event, 'name')"
-            >
-              <template slot="empty">No results found</template>
-            </b-autocomplete>
-          </b-field>
-
-          <b-field label="Type" custom-class="is-small">
-            <b-select
-              v-model="hypervisorsFilters.type"
-              size="is-small"
-              placeholder="Select an Type"
-              expanded
-            >
-              <option :value="null" v-if="hypervisorsFilters.type">
-                Reset
-              </option>
-              <option v-for="(type, index) in filteredtype" :key="index">
-                {{ type }}
-              </option>
-            </b-select>
-          </b-field>
-
-          <b-field label="Core" custom-class="is-small">
-            <b-slider
-              v-model="hypervisorsFilters.cpu"
-              :min="mincpu"
-              :max="maxcpu"
-            >
-              <b-slider-tick :value="mincpu">
-                {{ mincpu }}
-              </b-slider-tick>
-              <b-slider-tick :value="maxcpu">
-                {{ maxcpu }}
-              </b-slider-tick>
-            </b-slider>
-          </b-field>
-
-          <b-field label="Socket" custom-class="is-small">
-            <b-slider
-              v-model="hypervisorsFilters.sockets"
-              :min="minsockets"
-              :max="maxsockets"
-            >
-              <template v-for="val in filteredsockets">
-                <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
-              </template>
-            </b-slider>
-          </b-field>
-
-          <b-field label="Physical Host" custom-class="is-small">
-            <b-autocomplete
-              v-model="hypervisorsFilters.virtualizationNodes"
-              size="is-small"
-              type="number"
-              clearable
-              :data="filteredvirtualizationNodes"
-              @typing="setFilteredAutocomplete($event, 'virtualizationNodes')"
-            >
-              <template slot="empty">No results found</template>
-            </b-autocomplete>
-          </b-field>
-
-          <b-field label="Total VM" custom-class="is-small">
-            <b-slider
-              v-model="hypervisorsFilters.vmsCount"
-              :min="minvmsCount"
-              :max="maxvmsCount"
-            >
-              <b-slider-tick :value="minvmsCount">
-                {{ minvmsCount }}
-              </b-slider-tick>
-              <b-slider-tick :value="maxvmsCount">
-                {{ maxvmsCount }}
-              </b-slider-tick>
-            </b-slider>
-          </b-field>
-
-          <b-field label="Total VM Ercole" custom-class="is-small">
-            <b-slider
-              v-model="hypervisorsFilters.vmsErcoleAgentCount"
-              :min="minvmsErcoleAgentCount"
-              :max="maxvmsErcoleAgentCount"
-            >
-              <b-slider-tick :value="minvmsErcoleAgentCount">
-                {{ minvmsErcoleAgentCount }}
-              </b-slider-tick>
-              <b-slider-tick :value="maxvmsErcoleAgentCount">
-                {{ maxvmsErcoleAgentCount }}
-              </b-slider-tick>
-            </b-slider>
-          </b-field>
-
-          <div
-            class="buttons is-flex mt-5"
-            style="justify-content: space-between;"
+    <DrawerFilters title="Hypervisors Filters">
+      <form @submit.prevent="applyFilters">
+        <b-field label="Cluster Name" custom-class="is-small">
+          <b-autocomplete
+            v-model="hypervisorsFilters.name"
+            size="is-small"
+            type="number"
+            clearable
+            :data="filteredname"
+            @typing="setFilteredAutocomplete($event, 'name')"
           >
-            <b-button type="is-danger" size="is-small" @click="resetFilters">
+            <template slot="empty">No results found</template>
+          </b-autocomplete>
+        </b-field>
+
+        <b-field label="Type" custom-class="is-small">
+          <b-select
+            v-model="hypervisorsFilters.type"
+            size="is-small"
+            placeholder="Select an Type"
+            expanded
+          >
+            <option :value="null" v-if="hypervisorsFilters.type">
               Reset
-            </b-button>
-            <b-button type="is-primary" size="is-small" native-type="submit">
-              Apply
-            </b-button>
-          </div>
-        </form>
-      </BoxContent>
-    </DrawerRight>
+            </option>
+            <option v-for="(type, index) in filteredtype" :key="index">
+              {{ type }}
+            </option>
+          </b-select>
+        </b-field>
+
+        <b-field label="Core" custom-class="is-small">
+          <b-slider
+            v-model="hypervisorsFilters.cpu"
+            :min="mincpu"
+            :max="maxcpu"
+          >
+            <b-slider-tick :value="mincpu">
+              {{ mincpu }}
+            </b-slider-tick>
+            <b-slider-tick :value="maxcpu">
+              {{ maxcpu }}
+            </b-slider-tick>
+          </b-slider>
+        </b-field>
+
+        <b-field label="Socket" custom-class="is-small">
+          <b-slider
+            v-model="hypervisorsFilters.sockets"
+            :min="minsockets"
+            :max="maxsockets"
+          >
+            <template v-for="val in filteredsockets">
+              <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
+            </template>
+          </b-slider>
+        </b-field>
+
+        <b-field label="Physical Host" custom-class="is-small">
+          <b-autocomplete
+            v-model="hypervisorsFilters.virtualizationNodes"
+            size="is-small"
+            type="number"
+            clearable
+            :data="filteredvirtualizationNodes"
+            @typing="setFilteredAutocomplete($event, 'virtualizationNodes')"
+          >
+            <template slot="empty">No results found</template>
+          </b-autocomplete>
+        </b-field>
+
+        <b-field label="Total VM" custom-class="is-small">
+          <b-slider
+            v-model="hypervisorsFilters.vmsCount"
+            :min="minvmsCount"
+            :max="maxvmsCount"
+          >
+            <b-slider-tick :value="minvmsCount">
+              {{ minvmsCount }}
+            </b-slider-tick>
+            <b-slider-tick :value="maxvmsCount">
+              {{ maxvmsCount }}
+            </b-slider-tick>
+          </b-slider>
+        </b-field>
+
+        <b-field label="Total VM Ercole" custom-class="is-small">
+          <b-slider
+            v-model="hypervisorsFilters.vmsErcoleAgentCount"
+            :min="minvmsErcoleAgentCount"
+            :max="maxvmsErcoleAgentCount"
+          >
+            <b-slider-tick :value="minvmsErcoleAgentCount">
+              {{ minvmsErcoleAgentCount }}
+            </b-slider-tick>
+            <b-slider-tick :value="maxvmsErcoleAgentCount">
+              {{ maxvmsErcoleAgentCount }}
+            </b-slider-tick>
+          </b-slider>
+        </b-field>
+
+        <div
+          class="buttons is-flex mt-5"
+          style="justify-content: space-between;"
+        >
+          <b-button type="is-danger" size="is-small" @click="resetFilters">
+            Reset
+          </b-button>
+          <b-button type="is-primary" size="is-small" native-type="submit">
+            Apply
+          </b-button>
+        </div>
+      </form>
+    </DrawerFilters>
     <BoxContent>
       <div class="columns">
         <div class="column is-3">
@@ -210,7 +204,7 @@ import exportButton from '@/components/common/exportButton.vue'
 import ColumnChart from '@/components/common/charts/ColumnChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import DrawerButton from '@/components/common/DrawerButton.vue'
-import DrawerRight from '@/components/common/DrawerRight.vue'
+import DrawerFilters from '@/components/common/DrawerFilters.vue'
 
 export default {
   mixins: [techTypePrettyName, localFiltersMixin],
@@ -221,7 +215,7 @@ export default {
     ColumnChart,
     TdContent,
     DrawerButton,
-    DrawerRight
+    DrawerFilters
   },
   data() {
     return {

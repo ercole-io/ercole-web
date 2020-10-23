@@ -6,108 +6,106 @@
       v-model="isLoading"
       :can-cancel="false"
     ></b-loading>
-    <DrawerRight>
-      <BoxContent slot="drawer-content" title="Alerts Filters" class="mt-5">
-        <form @submit.prevent="applyFilters">
-          <b-field label="Status" custom-class="is-small">
-            <b-select
-              v-model="alertStatus"
-              size="is-small"
-              placeholder="Select a Status"
-              expanded
-              @change.native="statusChange"
-            >
-              <option value="NEW">NEW</option>
-              <option value="ACK">ACK</option>
-              <option value="">All</option>
-            </b-select>
-          </b-field>
-
-          <b-field label="Type" custom-class="is-small">
-            <b-select
-              v-model="alertsFilters.alertCategory"
-              size="is-small"
-              placeholder="Select a Type"
-              expanded
-            >
-              <option :value="null" v-if="alertsFilters.alertCategory">
-                Reset
-              </option>
-              <option value="AGENT">AGENT</option>
-              <option value="ENGINE">ENGINE</option>
-              <option value="LICENSE">LICENSE</option>
-            </b-select>
-          </b-field>
-
-          <b-field label="Severity" custom-class="is-small">
-            <b-select
-              v-model="alertsFilters.alertSeverity"
-              size="is-small"
-              placeholder="Select a Type"
-              expanded
-            >
-              <option :value="null" v-if="alertsFilters.alertSeverity">
-                Reset
-              </option>
-              <option value="INFO">INFO</option>
-              <option value="WARNING">WARNING</option>
-              <option value="CRITICAL">CRITICAL</option>
-            </b-select>
-          </b-field>
-
-          <b-field label="Hostname" custom-class="is-small">
-            <b-autocomplete
-              v-model="alertsFilters.hostname"
-              size="is-small"
-              type="number"
-              clearable
-              :data="filteredhostname"
-              @typing="setFilteredAutocomplete($event, 'hostname')"
-            >
-              <template slot="empty">No results found</template>
-            </b-autocomplete>
-          </b-field>
-
-          <b-field label="Code" custom-class="is-small">
-            <b-autocomplete
-              v-model="alertsFilters.alertCode"
-              size="is-small"
-              type="number"
-              clearable
-              :data="filteredalertCode"
-              @typing="setFilteredAutocomplete($event, 'alertCode')"
-            >
-              <template slot="empty">No results found</template>
-            </b-autocomplete>
-          </b-field>
-
-          <b-field label="Description" custom-class="is-small">
-            <b-autocomplete
-              v-model="alertsFilters.description"
-              size="is-small"
-              type="number"
-              clearable
-              :data="filtereddescription"
-              @typing="setFilteredAutocomplete($event, 'description')"
-            >
-              <template slot="empty">No results found</template>
-            </b-autocomplete>
-          </b-field>
-
-          <div
-            class="buttons is-flex mt-5"
-            style="justify-content: space-between;"
+    <DrawerFilters title="Alerts Filters">
+      <form @submit.prevent="applyFilters">
+        <b-field label="Status" custom-class="is-small">
+          <b-select
+            v-model="alertStatus"
+            size="is-small"
+            placeholder="Select a Status"
+            expanded
+            @change.native="statusChange"
           >
-            <b-button type="is-danger" size="is-small" @click="resetFilters">
+            <option value="NEW">NEW</option>
+            <option value="ACK">ACK</option>
+            <option value="">All</option>
+          </b-select>
+        </b-field>
+
+        <b-field label="Type" custom-class="is-small">
+          <b-select
+            v-model="alertsFilters.alertCategory"
+            size="is-small"
+            placeholder="Select a Type"
+            expanded
+          >
+            <option :value="null" v-if="alertsFilters.alertCategory">
               Reset
-            </b-button>
-            <b-button type="is-primary" size="is-small" native-type="submit">
-              Apply
-            </b-button>
-          </div>
-        </form>
-      </BoxContent>
-    </DrawerRight>
+            </option>
+            <option value="AGENT">AGENT</option>
+            <option value="ENGINE">ENGINE</option>
+            <option value="LICENSE">LICENSE</option>
+          </b-select>
+        </b-field>
+
+        <b-field label="Severity" custom-class="is-small">
+          <b-select
+            v-model="alertsFilters.alertSeverity"
+            size="is-small"
+            placeholder="Select a Type"
+            expanded
+          >
+            <option :value="null" v-if="alertsFilters.alertSeverity">
+              Reset
+            </option>
+            <option value="INFO">INFO</option>
+            <option value="WARNING">WARNING</option>
+            <option value="CRITICAL">CRITICAL</option>
+          </b-select>
+        </b-field>
+
+        <b-field label="Hostname" custom-class="is-small">
+          <b-autocomplete
+            v-model="alertsFilters.hostname"
+            size="is-small"
+            type="number"
+            clearable
+            :data="filteredhostname"
+            @typing="setFilteredAutocomplete($event, 'hostname')"
+          >
+            <template slot="empty">No results found</template>
+          </b-autocomplete>
+        </b-field>
+
+        <b-field label="Code" custom-class="is-small">
+          <b-autocomplete
+            v-model="alertsFilters.alertCode"
+            size="is-small"
+            type="number"
+            clearable
+            :data="filteredalertCode"
+            @typing="setFilteredAutocomplete($event, 'alertCode')"
+          >
+            <template slot="empty">No results found</template>
+          </b-autocomplete>
+        </b-field>
+
+        <b-field label="Description" custom-class="is-small">
+          <b-autocomplete
+            v-model="alertsFilters.description"
+            size="is-small"
+            type="number"
+            clearable
+            :data="filtereddescription"
+            @typing="setFilteredAutocomplete($event, 'description')"
+          >
+            <template slot="empty">No results found</template>
+          </b-autocomplete>
+        </b-field>
+
+        <div
+          class="buttons is-flex mt-5"
+          style="justify-content: space-between;"
+        >
+          <b-button type="is-danger" size="is-small" @click="resetFilters">
+            Reset
+          </b-button>
+          <b-button type="is-primary" size="is-small" native-type="submit">
+            Apply
+          </b-button>
+        </div>
+      </form>
+    </DrawerFilters>
     <BoxContent>
       <FullTable
         placeholder="Search on Alerts"
@@ -238,7 +236,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import DrawerButton from '@/components/common/DrawerButton.vue'
-import DrawerRight from '@/components/common/DrawerRight.vue'
+import DrawerFilters from '@/components/common/DrawerFilters.vue'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
   _.map(list, val => {
@@ -267,7 +265,7 @@ export default {
     TdIcon,
     HostLink,
     DrawerButton,
-    DrawerRight
+    DrawerFilters
   },
   data() {
     return {

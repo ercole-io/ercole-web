@@ -1,78 +1,72 @@
 <template>
   <section>
-    <DrawerRight>
-      <BoxContent
-        slot="drawer-content"
-        title="Licenses Used Filters"
-        class="mt-5"
-      >
-        <form @submit.prevent="applyFilters">
-          <b-field label="Hostname" custom-class="is-small">
-            <b-autocomplete
-              v-model="licensesUsedFilters.hostname"
-              size="is-small"
-              type="number"
-              clearable
-              :data="filteredhostname"
-              @typing="setFilteredAutocomplete($event, 'hostname')"
-            >
-              <template slot="empty">No results found</template>
-            </b-autocomplete>
-          </b-field>
-
-          <b-field label="DB Name" custom-class="is-small">
-            <b-autocomplete
-              v-model="licensesUsedFilters.dbName"
-              size="is-small"
-              type="number"
-              clearable
-              :data="filtereddbName"
-              @typing="setFilteredAutocomplete($event, 'dbName')"
-            >
-              <template slot="empty">No results found</template>
-            </b-autocomplete>
-          </b-field>
-
-          <b-field label="License Name" custom-class="is-small">
-            <b-autocomplete
-              v-model="licensesUsedFilters.licenseName"
-              size="is-small"
-              type="number"
-              clearable
-              :data="filteredlicenseName"
-              @typing="setFilteredAutocomplete($event, 'licenseName')"
-            >
-              <template slot="empty">No results found</template>
-            </b-autocomplete>
-          </b-field>
-
-          <b-field label="Used Licenses" custom-class="is-small">
-            <b-slider
-              v-model="licensesUsedFilters.usedLicenses"
-              :min="minusedLicenses"
-              :max="maxusedLicenses"
-              :step="0.5"
-            >
-              <template v-for="val in filteredusedLicenses">
-                <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
-              </template>
-            </b-slider>
-          </b-field>
-
-          <div
-            class="buttons is-flex mt-5"
-            style="justify-content: space-between;"
+    <DrawerFilters title="Licenses Used Filters">
+      <form @submit.prevent="applyFilters">
+        <b-field label="Hostname" custom-class="is-small">
+          <b-autocomplete
+            v-model="licensesUsedFilters.hostname"
+            size="is-small"
+            type="number"
+            clearable
+            :data="filteredhostname"
+            @typing="setFilteredAutocomplete($event, 'hostname')"
           >
-            <b-button type="is-danger" size="is-small" @click="resetFilters">
-              Reset
-            </b-button>
-            <b-button type="is-primary" size="is-small" native-type="submit">
-              Apply
-            </b-button>
-          </div>
-        </form>
-      </BoxContent>
-    </DrawerRight>
+            <template slot="empty">No results found</template>
+          </b-autocomplete>
+        </b-field>
+
+        <b-field label="DB Name" custom-class="is-small">
+          <b-autocomplete
+            v-model="licensesUsedFilters.dbName"
+            size="is-small"
+            type="number"
+            clearable
+            :data="filtereddbName"
+            @typing="setFilteredAutocomplete($event, 'dbName')"
+          >
+            <template slot="empty">No results found</template>
+          </b-autocomplete>
+        </b-field>
+
+        <b-field label="License Name" custom-class="is-small">
+          <b-autocomplete
+            v-model="licensesUsedFilters.licenseName"
+            size="is-small"
+            type="number"
+            clearable
+            :data="filteredlicenseName"
+            @typing="setFilteredAutocomplete($event, 'licenseName')"
+          >
+            <template slot="empty">No results found</template>
+          </b-autocomplete>
+        </b-field>
+
+        <b-field label="Used Licenses" custom-class="is-small">
+          <b-slider
+            v-model="licensesUsedFilters.usedLicenses"
+            :min="minusedLicenses"
+            :max="maxusedLicenses"
+            :step="0.5"
+          >
+            <template v-for="val in filteredusedLicenses">
+              <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
+            </template>
+          </b-slider>
+        </b-field>
+
+        <div
+          class="buttons is-flex mt-5"
+          style="justify-content: space-between;"
+        >
+          <b-button type="is-danger" size="is-small" @click="resetFilters">
+            Reset
+          </b-button>
+          <b-button type="is-primary" size="is-small" native-type="submit">
+            Apply
+          </b-button>
+        </div>
+      </form>
+    </DrawerFilters>
     <BoxContent>
       <FullTable
         placeholder="Search on Licenses"
@@ -117,7 +111,7 @@ import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import DrawerButton from '@/components/common/DrawerButton.vue'
-import DrawerRight from '@/components/common/DrawerRight.vue'
+import DrawerFilters from '@/components/common/DrawerFilters.vue'
 
 export default {
   mixins: [paginationMixin, localFiltersMixin],
@@ -128,7 +122,7 @@ export default {
     TdContent,
     HostLink,
     DrawerButton,
-    DrawerRight
+    DrawerFilters
   },
   data() {
     return {
