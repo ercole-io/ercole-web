@@ -1,87 +1,85 @@
 <template>
   <section>
-    <DrawerRight>
-      <BoxContent slot="drawer-content" title="Cluster Filters" class="mt-5">
-        <form @submit.prevent="applyFilters">
-          <b-field label="Physical Host" custom-class="is-small">
-            <b-autocomplete
-              v-model="clusterFilters.virtualizationNode"
-              size="is-small"
-              type="number"
-              clearable
-              :data="filteredvirtualizationNode"
-              @typing="setFilteredAutocomplete($event, 'virtualizationNode')"
-            >
-              <template slot="empty">No results found</template>
-            </b-autocomplete>
-          </b-field>
-
-          <b-field label="Hostname" custom-class="is-small">
-            <b-autocomplete
-              v-model="clusterFilters.hostname"
-              size="is-small"
-              type="number"
-              clearable
-              :data="filteredhostname"
-              @typing="setFilteredAutocomplete($event, 'hostname')"
-            >
-              <template slot="empty">No results found</template>
-            </b-autocomplete>
-          </b-field>
-
-          <b-field label="VM Name" custom-class="is-small">
-            <b-autocomplete
-              v-model="clusterFilters.name"
-              size="is-small"
-              type="number"
-              clearable
-              :data="filteredname"
-              @typing="setFilteredAutocomplete($event, 'name')"
-            >
-              <template slot="empty">No results found</template>
-            </b-autocomplete>
-          </b-field>
-
-          <b-field label="Capped CPU" custom-class="is-small">
-            <div class="is-flex" style="justify-content: space-around;">
-              <b-radio
-                size="is-small"
-                v-model="clusterFilters.cappedCPU"
-                :native-value="true"
-              >
-                Yes
-              </b-radio>
-              <b-radio
-                size="is-small"
-                v-model="clusterFilters.cappedCPU"
-                :native-value="false"
-              >
-                No
-              </b-radio>
-              <b-radio
-                size="is-small"
-                v-model="clusterFilters.cappedCPU"
-                native-value=""
-              >
-                All
-              </b-radio>
-            </div>
-          </b-field>
-
-          <div
-            class="buttons is-flex mt-5"
-            style="justify-content: space-between;"
+    <DrawerFilters title="Cluster Filters">
+      <form @submit.prevent="applyFilters">
+        <b-field label="Physical Host" custom-class="is-small">
+          <b-autocomplete
+            v-model="clusterFilters.virtualizationNode"
+            size="is-small"
+            type="number"
+            clearable
+            :data="filteredvirtualizationNode"
+            @typing="setFilteredAutocomplete($event, 'virtualizationNode')"
           >
-            <b-button type="is-danger" size="is-small" @click="resetFilters">
-              Reset
-            </b-button>
-            <b-button type="is-primary" size="is-small" native-type="submit">
-              Apply
-            </b-button>
+            <template slot="empty">No results found</template>
+          </b-autocomplete>
+        </b-field>
+
+        <b-field label="Hostname" custom-class="is-small">
+          <b-autocomplete
+            v-model="clusterFilters.hostname"
+            size="is-small"
+            type="number"
+            clearable
+            :data="filteredhostname"
+            @typing="setFilteredAutocomplete($event, 'hostname')"
+          >
+            <template slot="empty">No results found</template>
+          </b-autocomplete>
+        </b-field>
+
+        <b-field label="VM Name" custom-class="is-small">
+          <b-autocomplete
+            v-model="clusterFilters.name"
+            size="is-small"
+            type="number"
+            clearable
+            :data="filteredname"
+            @typing="setFilteredAutocomplete($event, 'name')"
+          >
+            <template slot="empty">No results found</template>
+          </b-autocomplete>
+        </b-field>
+
+        <b-field label="Capped CPU" custom-class="is-small">
+          <div class="is-flex" style="justify-content: space-around;">
+            <b-radio
+              size="is-small"
+              v-model="clusterFilters.cappedCPU"
+              :native-value="true"
+            >
+              Yes
+            </b-radio>
+            <b-radio
+              size="is-small"
+              v-model="clusterFilters.cappedCPU"
+              :native-value="false"
+            >
+              No
+            </b-radio>
+            <b-radio
+              size="is-small"
+              v-model="clusterFilters.cappedCPU"
+              native-value=""
+            >
+              All
+            </b-radio>
           </div>
-        </form>
-      </BoxContent>
-    </DrawerRight>
+        </b-field>
+
+        <div
+          class="buttons is-flex mt-5"
+          style="justify-content: space-between;"
+        >
+          <b-button type="is-danger" size="is-small" @click="resetFilters">
+            Reset
+          </b-button>
+          <b-button type="is-primary" size="is-small" native-type="submit">
+            Apply
+          </b-button>
+        </div>
+      </form>
+    </DrawerFilters>
 
     <boxContent>
       <div class="columns">
@@ -186,7 +184,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import DrawerButton from '@/components/common/DrawerButton.vue'
-import DrawerRight from '@/components/common/DrawerRight.vue'
+import DrawerFilters from '@/components/common/DrawerFilters.vue'
 
 export default {
   mixins: [techTypePrettyName, localFiltersMixin],
@@ -200,7 +198,7 @@ export default {
     HostLink,
     TdIcon,
     DrawerButton,
-    DrawerRight
+    DrawerFilters
   },
   data() {
     return {
