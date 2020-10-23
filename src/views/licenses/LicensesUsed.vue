@@ -107,14 +107,10 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import { mapActions, mapGetters } from 'vuex'
-import {
-  organizeKeysBeforeFilter,
-  returnAutocompleteData,
-  prepareDataForAutocomplete
-} from '@/helpers/helpers.js'
+import { returnAutocompleteData } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
+import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -124,7 +120,7 @@ import DrawerButton from '@/components/common/DrawerButton.vue'
 import DrawerRight from '@/components/common/DrawerRight.vue'
 
 export default {
-  mixins: [paginationMixin],
+  mixins: [paginationMixin, localFiltersMixin],
   components: {
     BoxContent,
     FullTable,
@@ -149,32 +145,18 @@ export default {
   async beforeMount() {
     await this.getLicensesList()
 
-    this.setAutocompleteData('hostname')
-    this.setAutocompleteData('dbName')
-    this.setAutocompleteData('licenseName')
-
-    this.setSliderFilterConfig('usedLicenses')
+    this.setAutocomplete()
+    this.setSlider()
   },
   methods: {
     ...mapActions(['getLicensesList']),
     applyFilters() {
-      this.$store.commit('SET_FILTERS', {
-        status: true,
-        filters: organizeKeysBeforeFilter(this.licensesUsedFilters)
-      })
+      this.apply(this.licensesUsedFilters)
     },
     resetFilters() {
-      this.$store.commit('SET_FILTERS', {
-        status: false,
-        filters: []
-      })
-      this.setSliderFilterConfig('usedLicenses')
-    },
-    setAutocompleteData(value) {
-      this['filtered' + value] = prepareDataForAutocomplete(
-        this.getUsedLicenses,
-        value
-      )
+      this.reset()
+      this.licensesUsedFilters = {}
+      this.setSlider()
     },
     setFilteredAutocomplete(text, toFilter) {
       const autocomplete = returnAutocompleteData(
@@ -200,30 +182,21 @@ export default {
           break
       }
     },
-    setSliderFilterConfig(value) {
-      const fillNumbers = prepareDataForAutocomplete(
-        this.getUsedLicenses,
-        value
-      )
-      this.resolveSliderData(value, fillNumbers)
+    setAutocomplete() {
+      this.setAutocompleteData('hostname', this.getUsedLicenses)
+      this.setAutocompleteData('dbName', this.getUsedLicenses)
+      this.setAutocompleteData('licenseName', this.getUsedLicenses)
     },
-    resolveSliderData(value, numbers) {
-      this['filtered' + value] = numbers
-
-      this.licensesUsedFilters[value] = [
-        this['filtered' + value][0],
-        _.last(this['filtered' + value])
-      ]
-
-      this['min' + value] = this['filtered' + value][0]
-      this['max' + value] = _.last(this['filtered' + value])
+    setSlider() {
+      this.setSliderFilterConfig(
+        'usedLicenses',
+        this.getUsedLicenses,
+        'licensesUsedFilters'
+      )
     }
   },
   computed: {
     ...mapGetters(['getUsedLicenses'])
-  },
-  beforeDestroy() {
-    this.resetFilters()
   }
 }
 </script>

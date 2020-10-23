@@ -16,15 +16,35 @@ export const state = () => ({
 })
 
 export const getters = {
-  getAlerts: (state, getters) => (type, flag) => {
-    if (!type && !flag) {
-      return getters['getAllAlerts']
-    } else if (type === 'NO_DATA') {
-      return getters.getFilteredAgents(type, flag)
-    } else if (type === 'INFO' || type === 'WARNING' || type === 'CRITICAL') {
-      return getters.getFilteredAlerts(type, flag)
+  getAlerts: (state, getters, rootState) => (type, flag) => {
+    if (rootState.localFilters.hasFilters) {
+      if (!type && !flag) {
+        return getters['getAllAlerts'].filterByKeys(
+          rootState.localFilters.filters
+        )
+      } else if (type === 'NO_DATA') {
+        return getters
+          .getFilteredAgents(type, flag)
+          .filterByKeys(rootState.localFilters.filters)
+      } else if (type === 'INFO' || type === 'WARNING' || type === 'CRITICAL') {
+        return getters
+          .getFilteredAlerts(type, flag)
+          .filterByKeys(rootState.localFilters.filters)
+      } else {
+        return getters
+          .getFilteredAlertsByHost(type, flag)
+          .filterByKeys(rootState.localFilters.filters)
+      }
     } else {
-      return getters.getFilteredAlertsByHost(type, flag)
+      if (!type && !flag) {
+        return getters['getAllAlerts']
+      } else if (type === 'NO_DATA') {
+        return getters.getFilteredAgents(type, flag)
+      } else if (type === 'INFO' || type === 'WARNING' || type === 'CRITICAL') {
+        return getters.getFilteredAlerts(type, flag)
+      } else {
+        return getters.getFilteredAlertsByHost(type, flag)
+      }
     }
   },
   getAllAlerts: state => {
@@ -37,17 +57,21 @@ export const getters = {
     const enginesFull = organizeAlertsByFlag(engines)
 
     let all = _.concat(agents, licensesFull, enginesFull)
-    all = _.orderBy(all, ['date'], ['asc'])
+    all = _.orderBy(all, ['date'], ['desc'])
 
     return _.compact(all)
   },
   getFilteredAgents: state => (type, flag) => {
     const agents = state.alerts[flag]
-    return _.filter(agents, ['alertCode', type])
+    const filtered = _.filter(agents, ['alertCode', type])
+
+    return _.orderBy(filtered, ['date'], ['desc'])
   },
   getFilteredAlerts: state => (type, flag) => {
     const alerts = state.alerts[flag][type]
-    return _.filter(alerts, ['alertSeverity', type])
+    const filtered = _.filter(alerts, ['alertSeverity', type])
+
+    return _.orderBy(filtered, ['date'], ['desc'])
   },
   getFilteredAlertsByHost: state => (host, flag) => {
     let alertsByHost = {}
@@ -67,7 +91,9 @@ export const getters = {
       startDate,
       endDate
     )
-    return _.filter(findByDate, ['hostname', host])
+    const filtered = _.filter(findByDate, ['hostname', host])
+
+    return _.orderBy(filtered, ['date'], ['desc'])
   },
   getFirstAlertByFlag: state => flag => {
     const alert = state.alerts[flag]
@@ -85,7 +111,8 @@ export const getters = {
     }
   },
   getTotalAlertsByFlag: state => flag => {
-    const alerts = state.alerts[flag]
+    let alerts = state.alerts[flag]
+
     let info = alerts.INFO ? alerts.INFO.length : 0
     let warn = alerts.WARNING ? alerts.WARNING.length : 0
     let crit = alerts.CRITICAL ? alerts.CRITICAL.length : 0
@@ -140,10 +167,10 @@ export const mutations = {
 }
 
 export const actions = {
-  async getAlertsData({ commit, getters }) {
+  async getAlertsData({ commit, getters }, status = null) {
     const alertsData = await axiosDefault.get('/alerts', {
       params: {
-        status: 'NEW',
+        status: status,
         environment: getters.getActiveFilters.environment,
         location: getters.getActiveFilters.location
       }

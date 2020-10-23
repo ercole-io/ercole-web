@@ -29,7 +29,7 @@ export default {
     Alert
   },
   async beforeMount() {
-    await this.getAlertsData()
+    await this.getAlertsData('NEW')
   },
   methods: {
     ...mapActions(['getAlertsData'])
