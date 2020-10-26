@@ -47,6 +47,7 @@
             :max-date="new Date()"
             :date-formatter="formatDate"
             class="mr-1"
+            trap-focus
           />
           <b-datepicker
             :disabled="!startDate"
@@ -59,6 +60,7 @@
             :max-date="new Date()"
             :date-formatter="formatDate"
             class="ml-1"
+            trap-focus
           />
         </b-field>
 
