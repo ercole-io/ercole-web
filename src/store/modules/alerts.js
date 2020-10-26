@@ -167,10 +167,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async getAlertsData({ commit, getters }, status = null) {
+  async getAlertsData({ commit, getters }, data) {
     const alertsData = await axiosDefault.get('/alerts', {
       params: {
-        status: status,
+        status: data.status,
+        from: data.startDate,
+        to: data.endDate,
         environment: getters.getActiveFilters.environment,
         location: getters.getActiveFilters.location
       }

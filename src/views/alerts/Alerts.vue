@@ -14,7 +14,6 @@
             size="is-small"
             placeholder="Select a Status"
             expanded
-            @change.native="statusChange"
           >
             <option value="NEW">NEW</option>
             <option value="ACK">ACK</option>
@@ -36,6 +35,31 @@
             <option value="ENGINE">ENGINE</option>
             <option value="LICENSE">LICENSE</option>
           </b-select>
+        </b-field>
+
+        <b-field label="Date" custom-class="is-small">
+          <b-datepicker
+            v-model="startDate"
+            size="is-small"
+            placeholder="Start Date"
+            position="is-bottom-right"
+            icon="calendar-today"
+            :max-date="new Date()"
+            :date-formatter="formatDate"
+            class="mr-1"
+          />
+          <b-datepicker
+            :disabled="!startDate"
+            v-model="endDate"
+            size="is-small"
+            placeholder="End Date"
+            position="is-bottom-left"
+            icon="calendar-today"
+            :min-date="startDate"
+            :max-date="new Date()"
+            :date-formatter="formatDate"
+            class="ml-1"
+          />
         </b-field>
 
         <b-field label="Severity" custom-class="is-small">
@@ -225,6 +249,7 @@
 
 <script>
 import _ from 'lodash'
+import moment from 'moment'
 import { mapGetters, mapActions } from 'vuex'
 import { checkAlertIcon, returnAutocompleteData } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
@@ -237,6 +262,7 @@ import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import DrawerButton from '@/components/common/DrawerButton.vue'
 import DrawerFilters from '@/components/common/DrawerFilters.vue'
+import formatDate from '@/filters/formatDate.js'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
   _.map(list, val => {
@@ -289,11 +315,13 @@ export default {
       filteredhostname: [],
       filteredalertCode: [],
       filtereddescription: [],
+      startDate: null,
+      endDate: null,
       alertStatus: 'NEW'
     }
   },
   async beforeMount() {
-    await this.getAlertsData(this.alertStatus)
+    await this.statusChange()
 
     this.setAutocompleteData('hostname', this.getAlerts(this.type, this.flag))
     this.setAutocompleteData('alertCode', this.getAlerts(this.type, this.flag))
@@ -305,14 +333,36 @@ export default {
   methods: {
     ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),
     statusChange() {
-      this.getAlertsData(this.alertStatus)
+      return new Promise((resolve, reject) => {
+        this.getAlertsData({
+          status: this.alertStatus,
+          startDate: moment(this.startDate)
+            .subtract(1, 'days')
+            .utc()
+            .set({ hour: 23, minute: 59, second: 59 })
+            .toISOString(),
+          endDate: moment(this.endDate)
+            .utc()
+            .set({ hour: 23, minute: 59, second: 59 })
+            .toISOString()
+        }).then(
+          res => {
+            resolve(res)
+          },
+          err => reject(err)
+        )
+      })
     },
     applyFilters() {
-      this.apply(this.alertsFilters)
+      this.statusChange().then(() => {
+        this.apply(this.alertsFilters)
+      })
     },
     resetFilters() {
       this.reset()
       this.alertsFilters = {}
+      this.startDate = null
+      this.endDate = null
       this.alertStatus = 'NEW'
       this.statusChange()
     },
@@ -395,6 +445,9 @@ export default {
       return this.$router.replace({
         name: 'alerts'
       })
+    },
+    formatDate(date) {
+      return formatDate(date)
     }
   },
   computed: {
