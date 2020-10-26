@@ -169,9 +169,6 @@ export default {
         case 'licenseName':
           this.filteredlicenseName = autocomplete
           break
-        case 'usedLicenses':
-          this.filteredusedLicenses = autocomplete
-          break
         default:
           break
       }
