@@ -1,15 +1,22 @@
 import _ from 'lodash'
 import {
   prepareDataForAutocomplete,
-  organizeKeysBeforeFilter
+  organizeKeysBeforeFilter,
+  returnAutocompleteData
 } from '@/helpers/helpers.js'
 
 export default {
+  data() {
+    return {
+      filters: {},
+      filteredData: []
+    }
+  },
   methods: {
-    apply(filters) {
+    apply() {
       this.$store.commit('SET_FILTERS', {
         status: true,
-        filters: organizeKeysBeforeFilter(filters)
+        filters: organizeKeysBeforeFilter(this.filters)
       })
     },
     reset() {
@@ -17,18 +24,22 @@ export default {
         status: false,
         filters: []
       })
+      this.filters = {}
     },
     setAutocompleteData(value, data) {
-      this['filtered' + value] = prepareDataForAutocomplete(data, value)
+      this.filteredData = prepareDataForAutocomplete(data, value)
     },
-    setSliderFilterConfig(value, data, filters) {
+    setFilteredAutocomplete(text, toFilter, data) {
+      this.filteredData = returnAutocompleteData(text, data, toFilter)
+    },
+    setSliderFilterConfig(value, data) {
       const fillNumbers = prepareDataForAutocomplete(data, value)
-      this.resolveSliderData(value, fillNumbers, filters)
+      this.resolveSliderData(value, fillNumbers)
     },
-    resolveSliderData(value, numbers, filters) {
+    resolveSliderData(value, numbers) {
       this['filtered' + value] = numbers
 
-      this[filters][value] = [
+      this.filters[value] = [
         this['filtered' + value][0],
         _.last(this['filtered' + value])
       ]
@@ -38,6 +49,6 @@ export default {
     }
   },
   beforeDestroy() {
-    this.resetFilters()
+    this.reset()
   }
 }

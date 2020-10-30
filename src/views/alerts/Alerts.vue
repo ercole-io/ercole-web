@@ -23,17 +23,21 @@
 
         <b-field label="Type" custom-class="is-small">
           <b-select
-            v-model="alertsFilters.alertCategory"
+            v-model="filters.alertCategory"
             size="is-small"
             placeholder="Select a Type"
             expanded
           >
-            <option :value="null" v-if="alertsFilters.alertCategory">
+            <option :value="null" v-if="filters.alertCategory">
               Reset
             </option>
-            <option value="AGENT">AGENT</option>
-            <option value="ENGINE">ENGINE</option>
-            <option value="LICENSE">LICENSE</option>
+            <option
+              v-for="(cat, index) in categoryOptions"
+              :key="index"
+              :value="cat"
+            >
+              {{ cat }}
+            </option>
           </b-select>
         </b-field>
 
@@ -66,28 +70,34 @@
 
         <b-field label="Severity" custom-class="is-small">
           <b-select
-            v-model="alertsFilters.alertSeverity"
+            v-model="filters.alertSeverity"
             size="is-small"
             placeholder="Select a Type"
             expanded
           >
-            <option :value="null" v-if="alertsFilters.alertSeverity">
+            <option :value="null" v-if="filters.alertSeverity">
               Reset
             </option>
-            <option value="INFO">INFO</option>
-            <option value="WARNING">WARNING</option>
-            <option value="CRITICAL">CRITICAL</option>
+            <option
+              v-for="(sev, index) in severityOptions"
+              :key="index"
+              :value="sev"
+            >
+              {{ sev }}
+            </option>
           </b-select>
         </b-field>
 
         <b-field label="Hostname" custom-class="is-small">
           <b-autocomplete
-            v-model="alertsFilters.hostname"
+            v-model="filters.hostname"
             size="is-small"
             type="number"
             clearable
-            :data="filteredhostname"
-            @typing="setFilteredAutocomplete($event, 'hostname')"
+            :data="filteredData"
+            @typing="
+              setFilteredAutocomplete($event, 'hostname', getAlerts(type, flag))
+            "
           >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -95,12 +105,18 @@
 
         <b-field label="Code" custom-class="is-small">
           <b-autocomplete
-            v-model="alertsFilters.alertCode"
+            v-model="filters.alertCode"
             size="is-small"
             type="number"
             clearable
-            :data="filteredalertCode"
-            @typing="setFilteredAutocomplete($event, 'alertCode')"
+            :data="filteredData"
+            @typing="
+              setFilteredAutocomplete(
+                $event,
+                'alertCode',
+                getAlerts(type, flag)
+              )
+            "
           >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -108,12 +124,18 @@
 
         <b-field label="Description" custom-class="is-small">
           <b-autocomplete
-            v-model="alertsFilters.description"
+            v-model="filters.description"
             size="is-small"
             type="number"
             clearable
-            :data="filtereddescription"
-            @typing="setFilteredAutocomplete($event, 'description')"
+            :data="filteredData"
+            @typing="
+              setFilteredAutocomplete(
+                $event,
+                'description',
+                getAlerts(type, flag)
+              )
+            "
           >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -253,7 +275,10 @@
 import _ from 'lodash'
 import moment from 'moment'
 import { mapGetters, mapActions } from 'vuex'
-import { checkAlertIcon, returnAutocompleteData } from '@/helpers/helpers.js'
+import {
+  checkAlertIcon,
+  prepareDataForAutocomplete
+} from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -310,31 +335,21 @@ export default {
       currentPageSelection: [],
       isAllPagesSelected: false,
       isLoading: false,
-      alertsFilters: {},
-      filteredalertStatus: [],
-      filteredalertCategory: [],
-      filteredalertSeverity: [],
-      filteredhostname: [],
-      filteredalertCode: [],
-      filtereddescription: [],
       startDate: null,
       endDate: null,
-      alertStatus: 'NEW'
+      alertStatus: 'NEW',
+      categoryOptions: [],
+      severityOptions: []
     }
   },
   async beforeMount() {
-    await this.statusChange()
+    await this.applyApiParams()
 
-    this.setAutocompleteData('hostname', this.getAlerts(this.type, this.flag))
-    this.setAutocompleteData('alertCode', this.getAlerts(this.type, this.flag))
-    this.setAutocompleteData(
-      'description',
-      this.getAlerts(this.type, this.flag)
-    )
+    this.configAutocomplete()
   },
   methods: {
     ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),
-    statusChange() {
+    applyApiParams() {
       return new Promise((resolve, reject) => {
         this.getAlertsData({
           status: this.alertStatus,
@@ -356,38 +371,40 @@ export default {
       })
     },
     applyFilters() {
-      this.statusChange().then(() => {
-        this.apply(this.alertsFilters)
-      })
+      if (this.startDate || this.endDate) {
+        this.applyApiParams().then(() => {
+          this.apply()
+        })
+      } else {
+        this.apply()
+      }
     },
     resetFilters() {
       this.reset()
-      this.alertsFilters = {}
       this.startDate = null
       this.endDate = null
       this.alertStatus = 'NEW'
-      this.statusChange()
     },
-    setFilteredAutocomplete(text, toFilter) {
-      const autocomplete = returnAutocompleteData(
-        text,
-        this.getAlerts(this.type, this.flag),
-        toFilter
+    configAutocomplete() {
+      this.setAutocompleteData('hostname', this.getAlerts(this.type, this.flag))
+      this.setAutocompleteData(
+        'alertCode',
+        this.getAlerts(this.type, this.flag)
+      )
+      this.setAutocompleteData(
+        'description',
+        this.getAlerts(this.type, this.flag)
       )
 
-      switch (toFilter) {
-        case 'hostname':
-          this.filteredhostname = autocomplete
-          break
-        case 'alertCode':
-          this.filteredalertCode = autocomplete
-          break
-        case 'description':
-          this.filtereddescription = autocomplete
-          break
-        default:
-          break
-      }
+      this.categoryOptions = prepareDataForAutocomplete(
+        this.getAlerts(this.type, this.flag),
+        'alertCategory'
+      )
+
+      this.severityOptions = prepareDataForAutocomplete(
+        this.getAlerts(this.type, this.flag),
+        'alertSeverity'
+      )
     },
     setIcon(severity) {
       return checkAlertIcon(severity)
@@ -461,6 +478,13 @@ export default {
         this.isCurrentPageSelected = false
       } else {
         this.isCurrentPageSelected = true
+      }
+    },
+    alertStatus(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.applyApiParams().then(() => {
+          this.apply()
+        })
       }
     }
   }

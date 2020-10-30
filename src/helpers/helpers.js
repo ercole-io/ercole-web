@@ -38,6 +38,22 @@ export const mapBooleanIcon = value => {
   return value ? yesValue : noValue
 }
 
+export const mapDbs = dbs => {
+  if (dbs) {
+    if (dbs.database) {
+      if (dbs.database.databases.length > 0) {
+        return _.map(dbs.database.databases, dbName => dbName.name)
+      } else {
+        return '-'
+      }
+    } else {
+      return '-'
+    }
+  } else {
+    return '-'
+  }
+}
+
 export const mapTechType = dbs => {
   if (dbs && dbs.oracle) {
     if (dbs.oracle && dbs.oracle.database) {
@@ -119,12 +135,17 @@ export const organizeKeysBeforeFilter = keys => {
   return filtersToApply
 }
 
-Array.prototype.filterByKeys = function(info) {
-  return this.filter(item => {
-    return info.every(i => {
+export const filterByKeys = (data, keys) => {
+  return _.filter(data, item => {
+    return _.every(keys, i => {
+      let field = i.Field
+
       return (
-        _.indexOf(i.Values, item[i.Field]) > -1 ||
-        _.inRange(item[i.Field], i.Values[0][0], i.Values[0][1] + 0.1)
+        _.indexOf(i.Values, item[field]) > -1 ||
+        _.inRange(item[field], i.Values[0][0], i.Values[0][1] + 0.1) ||
+        _.find(item[field], val => {
+          return _.indexOf(i.Values, val) > -1
+        })
       )
     })
   })
@@ -136,7 +157,13 @@ export const prepareDataForAutocomplete = (data, toFilter) => {
   let filteredValues = []
 
   _.map(data, val => {
-    filteredValues.push(val[toFilter])
+    if (_.isArray(val[toFilter])) {
+      _.map(val[toFilter], value => {
+        filteredValues.push(value)
+      })
+    } else {
+      filteredValues.push(val[toFilter])
+    }
   })
 
   filteredValues = _.uniqBy(filteredValues)

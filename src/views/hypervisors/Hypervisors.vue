@@ -1,15 +1,15 @@
 <template>
   <section>
     <DrawerFilters title="Hypervisors Filters">
-      <form @submit.prevent="applyFilters">
+      <form @submit.prevent="apply">
         <b-field label="Cluster Name" custom-class="is-small">
           <b-autocomplete
-            v-model="hypervisorsFilters.name"
+            v-model="filters.name"
             size="is-small"
             type="number"
             clearable
-            :data="filteredname"
-            @typing="setFilteredAutocomplete($event, 'name')"
+            :data="filteredData"
+            @typing="setFilteredAutocomplete($event, 'name', getHypervisors)"
           >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -17,12 +17,12 @@
 
         <b-field label="Type" custom-class="is-small">
           <b-select
-            v-model="hypervisorsFilters.type"
+            v-model="filters.type"
             size="is-small"
             placeholder="Select an Type"
             expanded
           >
-            <option :value="null" v-if="hypervisorsFilters.type">
+            <option :value="null" v-if="filters.type">
               Reset
             </option>
             <option v-for="(type, index) in filteredtype" :key="index">
@@ -32,11 +32,7 @@
         </b-field>
 
         <b-field label="Core" custom-class="is-small">
-          <b-slider
-            v-model="hypervisorsFilters.cpu"
-            :min="mincpu"
-            :max="maxcpu"
-          >
+          <b-slider v-model="filters.cpu" :min="mincpu" :max="maxcpu">
             <b-slider-tick :value="mincpu">
               {{ mincpu }}
             </b-slider-tick>
@@ -48,7 +44,7 @@
 
         <b-field label="Socket" custom-class="is-small">
           <b-slider
-            v-model="hypervisorsFilters.sockets"
+            v-model="filters.sockets"
             :min="minsockets"
             :max="maxsockets"
           >
@@ -60,12 +56,18 @@
 
         <b-field label="Physical Host" custom-class="is-small">
           <b-autocomplete
-            v-model="hypervisorsFilters.virtualizationNodes"
+            v-model="filters.virtualizationNodes"
             size="is-small"
             type="number"
             clearable
-            :data="filteredvirtualizationNodes"
-            @typing="setFilteredAutocomplete($event, 'virtualizationNodes')"
+            :data="filteredData"
+            @typing="
+              setFilteredAutocomplete(
+                $event,
+                'virtualizationNodes',
+                getHypervisors
+              )
+            "
           >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -73,7 +75,7 @@
 
         <b-field label="Total VM" custom-class="is-small">
           <b-slider
-            v-model="hypervisorsFilters.vmsCount"
+            v-model="filters.vmsCount"
             :min="minvmsCount"
             :max="maxvmsCount"
           >
@@ -88,7 +90,7 @@
 
         <b-field label="Total VM Ercole" custom-class="is-small">
           <b-slider
-            v-model="hypervisorsFilters.vmsErcoleAgentCount"
+            v-model="filters.vmsErcoleAgentCount"
             :min="minvmsErcoleAgentCount"
             :max="maxvmsErcoleAgentCount"
           >
@@ -196,7 +198,7 @@
 <script>
 import techTypePrettyName from '@/mixins/techTypePrettyName.js'
 import { mapActions, mapGetters } from 'vuex'
-import { returnAutocompleteData } from '@/helpers/helpers.js'
+import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
@@ -228,22 +230,16 @@ export default {
         'vmsCount',
         'vmsErcoleAgentCount'
       ],
-      hypervisorsFilters: {},
-      filteredname: [],
       filteredtype: [],
-      filteredvirtualizationNodes: [],
-      filteredcpu: [],
-      mincpu: 0,
-      maxcpu: 0,
+      mincpu: null,
+      maxcpu: null,
       filteredsockets: [],
-      minsockets: 0,
-      maxsockets: 0,
-      filteredvmsCount: [],
-      minvmsCount: 0,
-      maxvmsCount: 0,
-      filteredvmsErcoleAgentCount: [],
-      minvmsErcoleAgentCount: 0,
-      maxvmsErcoleAgentCount: 0
+      minsockets: null,
+      maxsockets: null,
+      minvmsCount: null,
+      maxvmsCount: null,
+      minvmsErcoleAgentCount: null,
+      maxvmsErcoleAgentCount: null
     }
   },
   async beforeMount() {
@@ -254,58 +250,24 @@ export default {
   },
   methods: {
     ...mapActions(['getClusters']),
-    applyFilters() {
-      this.apply('hypervisorsFilters')
-    },
     resetFilters() {
       this.reset()
-      this.hypervisorsFilters = {}
       this.setSlider()
-    },
-    setFilteredAutocomplete(text, toFilter) {
-      const autocomplete = returnAutocompleteData(
-        text,
-        this.getHypervisors,
-        toFilter
-      )
-
-      switch (toFilter) {
-        case 'name':
-          this.filteredname = autocomplete
-          break
-        case 'virtualizationNodes':
-          this.filteredvirtualizationNodes = autocomplete
-          break
-        default:
-          break
-      }
     },
     setAutocomplete() {
       this.setAutocompleteData('name', this.getHypervisors)
       this.setAutocompleteData('type', this.getHypervisors)
+      this.filteredtype = prepareDataForAutocomplete(
+        this.getHypervisors,
+        'type'
+      )
       this.setAutocompleteData('virtualizationNodes', this.getHypervisors)
     },
     setSlider() {
-      this.setSliderFilterConfig(
-        'cpu',
-        this.getHypervisors,
-        'hypervisorsFilters'
-      )
-      this.setSliderFilterConfig(
-        'sockets',
-        this.getHypervisors,
-        'hypervisorsFilters'
-      )
-      this.setSliderFilterConfig(
-        'vmsCount',
-        this.getHypervisors,
-        'hypervisorsFilters'
-      )
-      this.setSliderFilterConfig(
-        'vmsErcoleAgentCount',
-        this.getHypervisors,
-        'hypervisorsFilters'
-      )
+      this.setSliderFilterConfig('cpu', this.getHypervisors)
+      this.setSliderFilterConfig('sockets', this.getHypervisors)
+      this.setSliderFilterConfig('vmsCount', this.getHypervisors)
+      this.setSliderFilterConfig('vmsErcoleAgentCount', this.getHypervisors)
     },
     handleClickedRow($event) {
       if ($event.length > 0) {

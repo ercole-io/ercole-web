@@ -1,4 +1,5 @@
 import axiosDefault from '@/axios/axios-default.js'
+import { filterByKeys } from '@/helpers/helpers.js'
 
 export const state = () => ({
   licenseList: []
@@ -7,7 +8,7 @@ export const state = () => ({
 export const getters = {
   getUsedLicenses: (state, getters, rootState) => {
     if (rootState.localFilters.hasFilters) {
-      return state.licenseList.filterByKeys(rootState.localFilters.filters)
+      return filterByKeys(state.licenseList, rootState.localFilters.filters)
     } else {
       return state.licenseList
     }

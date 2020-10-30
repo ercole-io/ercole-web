@@ -1,15 +1,21 @@
 <template>
   <section>
     <DrawerFilters title="Cluster Filters">
-      <form @submit.prevent="applyFilters">
+      <form @submit.prevent="apply">
         <b-field label="Physical Host" custom-class="is-small">
           <b-autocomplete
-            v-model="clusterFilters.virtualizationNode"
+            v-model="filters.virtualizationNode"
             size="is-small"
             type="number"
             clearable
-            :data="filteredvirtualizationNode"
-            @typing="setFilteredAutocomplete($event, 'virtualizationNode')"
+            :data="filteredData"
+            @typing="
+              setFilteredAutocomplete(
+                $event,
+                'virtualizationNode',
+                getCurrentClusterVms
+              )
+            "
           >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -17,12 +23,14 @@
 
         <b-field label="Hostname" custom-class="is-small">
           <b-autocomplete
-            v-model="clusterFilters.hostname"
+            v-model="filters.hostname"
             size="is-small"
             type="number"
             clearable
-            :data="filteredhostname"
-            @typing="setFilteredAutocomplete($event, 'hostname')"
+            :data="filteredData"
+            @typing="
+              setFilteredAutocomplete($event, 'hostname', getCurrentClusterVms)
+            "
           >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -30,12 +38,14 @@
 
         <b-field label="VM Name" custom-class="is-small">
           <b-autocomplete
-            v-model="clusterFilters.name"
+            v-model="filters.name"
             size="is-small"
             type="number"
             clearable
-            :data="filteredname"
-            @typing="setFilteredAutocomplete($event, 'name')"
+            :data="filteredData"
+            @typing="
+              setFilteredAutocomplete($event, 'name', getCurrentClusterVms)
+            "
           >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -45,21 +55,21 @@
           <div class="is-flex" style="justify-content: space-around;">
             <b-radio
               size="is-small"
-              v-model="clusterFilters.cappedCPU"
+              v-model="filters.cappedCPU"
               :native-value="true"
             >
               Yes
             </b-radio>
             <b-radio
               size="is-small"
-              v-model="clusterFilters.cappedCPU"
+              v-model="filters.cappedCPU"
               :native-value="false"
             >
               No
             </b-radio>
             <b-radio
               size="is-small"
-              v-model="clusterFilters.cappedCPU"
+              v-model="filters.cappedCPU"
               native-value=""
             >
               All
@@ -174,7 +184,7 @@
 import techTypePrettyName from '@/mixins/techTypePrettyName.js'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
-import { mapBooleanIcon, returnAutocompleteData } from '@/helpers/helpers.js'
+import { mapBooleanIcon } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
@@ -202,54 +212,29 @@ export default {
   },
   data() {
     return {
-      keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU'],
-      clusterFilters: {
-        cappedCPU: ''
-      },
-      filteredvirtualizationNode: [],
-      filteredhostname: [],
-      filteredname: []
+      keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU']
     }
   },
   async beforeMount() {
     await this.getClusterByName(this.clustername)
     bus.$emit('dynamicTitle', this.clustername)
 
-    this.setAutocompleteData('virtualizationNode', this.getCurrentClusterVms)
-    this.setAutocompleteData('hostname', this.getCurrentClusterVms)
-    this.setAutocompleteData('name', this.getCurrentClusterVms)
+    this.configAutocomplete()
+
+    this.filters.cappedCPU = ''
   },
   methods: {
     ...mapActions(['getClusterByName']),
-    applyFilters() {
-      this.apply(this.clusterFilters)
-    },
     resetFilters() {
       this.reset()
-      this.clusterFilters = {
+      this.filters = {
         cappedCPU: ''
       }
     },
-    setFilteredAutocomplete(text, toFilter) {
-      const autocomplete = returnAutocompleteData(
-        text,
-        this.getCurrentClusterVms,
-        toFilter
-      )
-
-      switch (toFilter) {
-        case 'virtualizationNode':
-          this.filteredvirtualizationNode = autocomplete
-          break
-        case 'hostname':
-          this.filteredhostname = autocomplete
-          break
-        case 'name':
-          this.filteredname = autocomplete
-          break
-        default:
-          break
-      }
+    configAutocomplete() {
+      this.setAutocompleteData('virtualizationNode', this.getCurrentClusterVms)
+      this.setAutocompleteData('hostname', this.getCurrentClusterVms)
+      this.setAutocompleteData('name', this.getCurrentClusterVms)
     },
     bindIcon(value) {
       return mapBooleanIcon(value)
