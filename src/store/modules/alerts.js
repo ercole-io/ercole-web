@@ -1,6 +1,6 @@
 import axiosDefault from '@/axios/axios-default.js'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
-import { returnAlertsByTypeDate } from '@/helpers/helpers.js'
+import { returnAlertsByTypeDate, filterByKeys } from '@/helpers/helpers.js'
 import moment from 'moment'
 import _ from 'lodash'
 
@@ -19,21 +19,25 @@ export const getters = {
   getAlerts: (state, getters, rootState) => (type, flag) => {
     if (rootState.localFilters.hasFilters) {
       if (!type && !flag) {
-        return getters['getAllAlerts'].filterByKeys(
+        return filterByKeys(
+          getters['getAllAlerts'],
           rootState.localFilters.filters
         )
       } else if (type === 'NO_DATA') {
-        return getters
-          .getFilteredAgents(type, flag)
-          .filterByKeys(rootState.localFilters.filters)
+        return filterByKeys(
+          getters.getFilteredAgents(type, flag),
+          rootState.localFilters.filters
+        )
       } else if (type === 'INFO' || type === 'WARNING' || type === 'CRITICAL') {
-        return getters
-          .getFilteredAlerts(type, flag)
-          .filterByKeys(rootState.localFilters.filters)
+        return filterByKeys(
+          getters.getFilteredAlerts(type, flag),
+          rootState.localFilters.filters
+        )
       } else {
-        return getters
-          .getFilteredAlertsByHost(type, flag)
-          .filterByKeys(rootState.localFilters.filters)
+        return filterByKeys(
+          getters.getFilteredAlertsByHost(type, flag),
+          rootState.localFilters.filters
+        )
       }
     } else {
       if (!type && !flag) {

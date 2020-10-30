@@ -1,15 +1,17 @@
 <template>
   <section>
     <DrawerFilters title="Licenses Used Filters">
-      <form @submit.prevent="applyFilters">
+      <form @submit.prevent="apply">
         <b-field label="Hostname" custom-class="is-small">
           <b-autocomplete
-            v-model="licensesUsedFilters.hostname"
+            v-model="filters.hostname"
             size="is-small"
             type="number"
             clearable
-            :data="filteredhostname"
-            @typing="setFilteredAutocomplete($event, 'hostname')"
+            :data="filteredData"
+            @typing="
+              setFilteredAutocomplete($event, 'hostname', getUsedLicenses)
+            "
           >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -17,12 +19,12 @@
 
         <b-field label="DB Name" custom-class="is-small">
           <b-autocomplete
-            v-model="licensesUsedFilters.dbName"
+            v-model="filters.dbName"
             size="is-small"
             type="number"
             clearable
-            :data="filtereddbName"
-            @typing="setFilteredAutocomplete($event, 'dbName')"
+            :data="filteredData"
+            @typing="setFilteredAutocomplete($event, 'dbName', getUsedLicenses)"
           >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -30,12 +32,14 @@
 
         <b-field label="License Name" custom-class="is-small">
           <b-autocomplete
-            v-model="licensesUsedFilters.licenseName"
+            v-model="filters.licenseName"
             size="is-small"
             type="number"
             clearable
-            :data="filteredlicenseName"
-            @typing="setFilteredAutocomplete($event, 'licenseName')"
+            :data="filteredData"
+            @typing="
+              setFilteredAutocomplete($event, 'licenseName', getUsedLicenses)
+            "
           >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -43,7 +47,7 @@
 
         <b-field label="Used Licenses" custom-class="is-small">
           <b-slider
-            v-model="licensesUsedFilters.usedLicenses"
+            v-model="filters.usedLicenses"
             :min="minusedLicenses"
             :max="maxusedLicenses"
             :step="0.5"
@@ -102,7 +106,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { returnAutocompleteData } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -127,10 +130,6 @@ export default {
   data() {
     return {
       keys: ['hostname', 'dbName', 'licenseName', 'usedLicenses'],
-      licensesUsedFilters: {},
-      filteredhostname: [],
-      filtereddbName: [],
-      filteredlicenseName: [],
       filteredusedLicenses: [],
       minusedLicenses: null,
       maxusedLicenses: null
@@ -144,34 +143,9 @@ export default {
   },
   methods: {
     ...mapActions(['getLicensesList']),
-    applyFilters() {
-      this.apply(this.licensesUsedFilters)
-    },
     resetFilters() {
       this.reset()
-      this.licensesUsedFilters = {}
       this.setSlider()
-    },
-    setFilteredAutocomplete(text, toFilter) {
-      const autocomplete = returnAutocompleteData(
-        text,
-        this.getUsedLicenses,
-        toFilter
-      )
-
-      switch (toFilter) {
-        case 'hostname':
-          this.filteredhostname = autocomplete
-          break
-        case 'dbName':
-          this.filtereddbName = autocomplete
-          break
-        case 'licenseName':
-          this.filteredlicenseName = autocomplete
-          break
-        default:
-          break
-      }
     },
     setAutocomplete() {
       this.setAutocompleteData('hostname', this.getUsedLicenses)
@@ -179,11 +153,7 @@ export default {
       this.setAutocompleteData('licenseName', this.getUsedLicenses)
     },
     setSlider() {
-      this.setSliderFilterConfig(
-        'usedLicenses',
-        this.getUsedLicenses,
-        'licensesUsedFilters'
-      )
+      this.setSliderFilterConfig('usedLicenses', this.getUsedLicenses)
     }
   },
   computed: {

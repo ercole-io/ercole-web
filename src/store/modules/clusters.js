@@ -1,5 +1,6 @@
-import axiosDefault from '../../axios/axios-default.js'
+import axiosDefault from '@/axios/axios-default.js'
 import _ from 'lodash'
+import { filterByKeys } from '@/helpers/helpers.js'
 
 export const state = () => ({
   clusters: [],
@@ -10,7 +11,7 @@ export const state = () => ({
 export const getters = {
   getHypervisors: (state, getters, rootState) => {
     if (rootState.localFilters.hasFilters) {
-      return state.clusters.filterByKeys(rootState.localFilters.filters)
+      return filterByKeys(state.clusters, rootState.localFilters.filters)
     } else {
       return state.clusters
     }
@@ -20,7 +21,8 @@ export const getters = {
   },
   getCurrentClusterVms: (state, getters, rootState) => {
     if (rootState.localFilters.hasFilters) {
-      return state.currentClusterVms.filterByKeys(
+      return filterByKeys(
+        state.currentClusterVms,
         rootState.localFilters.filters
       )
     } else {
