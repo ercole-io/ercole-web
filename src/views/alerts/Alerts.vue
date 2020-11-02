@@ -7,7 +7,7 @@
       :can-cancel="false"
     ></b-loading>
     <DrawerFilters title="Alerts Filters">
-      <form @submit.prevent="applyFilters">
+      <form @submit.prevent="apply">
         <b-field label="Status" custom-class="is-small">
           <b-select
             v-model="alertStatus"
@@ -48,13 +48,12 @@
             placeholder="Start Date"
             position="is-bottom-right"
             icon="calendar-today"
-            :max-date="new Date()"
+            :max-date="endDate ? endDate : new Date()"
             :date-formatter="formatDate"
             class="mr-1"
             trap-focus
           />
           <b-datepicker
-            :disabled="!startDate"
             v-model="endDate"
             size="is-small"
             placeholder="End Date"
@@ -370,15 +369,6 @@ export default {
         )
       })
     },
-    applyFilters() {
-      if (this.startDate || this.endDate) {
-        this.applyApiParams().then(() => {
-          this.apply()
-        })
-      } else {
-        this.apply()
-      }
-    },
     resetFilters() {
       this.reset()
       this.startDate = null
@@ -481,6 +471,20 @@ export default {
       }
     },
     alertStatus(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.applyApiParams().then(() => {
+          this.apply()
+        })
+      }
+    },
+    startDate(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.applyApiParams().then(() => {
+          this.apply()
+        })
+      }
+    },
+    endDate(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.applyApiParams().then(() => {
           this.apply()
