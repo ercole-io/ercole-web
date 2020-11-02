@@ -72,7 +72,7 @@
           <b-select
             v-model="filters.alertSeverity"
             size="is-small"
-            placeholder="Select a Type"
+            placeholder="Select a Severity"
             expanded
           >
             <option :value="null" v-if="filters.alertSeverity">
