@@ -55,10 +55,10 @@ export const mutations = {
 }
 
 export const actions = {
-  async getHosts({ commit, getters }) {
+  async getHosts({ commit, getters }, olderThan = null) {
     const hostsData = await axiosDefault.get('/hosts', {
       params: {
-        'older-than': getters.getActiveFilters.date,
+        'older-than': getters.getActiveFilters.date || olderThan,
         environment: getters.getActiveFilters.environment,
         location: getters.getActiveFilters.location
       }
