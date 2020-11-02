@@ -411,12 +411,6 @@ export default {
   methods: {
     ...mapActions(['getLicensesAgreement', 'getAgreementParts']),
     addUpdateLicense() {
-      // const separatePartID = []
-      // _.filter(this.partNumber, val => {
-      //   separatePartID.push(val.split(' - ')[0])
-      //   return separatePartID
-      // })
-
       const license = {
         agreementID: this.agreeNumber,
         csi: this.csi,
@@ -424,10 +418,10 @@ export default {
         unlimited: this.ula,
         count: Number(this.licenseNumber),
         hosts: this.hostAssociated,
-        catchAll: false
+        catchAll: false,
+        partID: this.partNumber.split(' - ')[0]
       }
       if (!this.isEditing) {
-        license.partsID = [this.partNumber.split(' - ')[0]]
         axiosDefault.post('/agreements/oracle/database', license).then(res => {
           if (res.data[0].InsertedID) {
             this.getLicensesAgreement()
@@ -437,7 +431,6 @@ export default {
         })
       } else {
         license.id = this.licenseId
-        license.partID = this.partNumber.split(' - ')[0]
         axiosDefault.put('/agreements/oracle/database', license).then(() => {
           this.getLicensesAgreement()
           this.cancelAddLicense()
