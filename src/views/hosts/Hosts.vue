@@ -147,6 +147,32 @@
           </b-slider>
         </b-field>
 
+        <b-field label="Updated" custom-class="is-small">
+          <b-datepicker
+            v-model="startDate"
+            size="is-small"
+            placeholder="Start Date"
+            position="is-bottom-right"
+            icon="calendar-today"
+            :max-date="new Date()"
+            :date-formatter="formatDate"
+            class="mr-1"
+            trap-focus
+          />
+          <!-- <b-datepicker
+            v-model="filters.endDate"
+            size="is-small"
+            placeholder="End Date"
+            position="is-bottom-left"
+            icon="calendar-today"
+            :min-date="filters.startDate"
+            :max-date="new Date()"
+            :date-formatter="formatDate"
+            class="ml-1"
+            trap-focus
+          /> -->
+        </b-field>
+
         <Collapse title="Virtual" id="virtual" padding margin>
           <b-field label="Platform" custom-class="is-small">
             <b-select
@@ -456,6 +482,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
 import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
@@ -469,6 +496,7 @@ import exportButton from '@/components/common/exportButton.vue'
 import DrawerButton from '@/components/common/DrawerButton.vue'
 import DrawerFilters from '@/components/common/DrawerFilters.vue'
 import Collapse from '@/components/common/Collapse.vue'
+import formatDate from '@/filters/formatDate.js'
 
 export default {
   mixins: [localFiltersMixin],
@@ -526,6 +554,7 @@ export default {
       maxmemorytotal: 0,
       minswaptotal: 0,
       maxswaptotal: 0,
+      startDate: null,
       filters: {
         iconCluster: ''
       }
@@ -550,6 +579,7 @@ export default {
     resetFilters() {
       this.reset()
       this.setSlider()
+      this.startDate = null
       this.filters.iconCluster = ''
     },
     configAutocomplete() {
@@ -592,10 +622,25 @@ export default {
           params: { hostname: selectedRow }
         })
       }
+    },
+    formatDate(date) {
+      return formatDate(date)
     }
   },
   computed: {
     ...mapGetters(['getAllHosts'])
+  },
+  watch: {
+    startDate(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.getHosts(
+          moment(this.startDate)
+            .utc()
+            .set({ hour: 23, minute: 59, second: 59 })
+            .toISOString()
+        )
+      }
+    }
   }
 }
 </script>
