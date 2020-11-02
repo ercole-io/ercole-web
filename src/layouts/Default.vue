@@ -62,7 +62,7 @@ export default {
 <style lang="scss">
 .app {
   display: flex;
-  min-height: 100vh;
+  min-height: calc(100vh - 56px);
   flex-direction: column;
   margin-top: 4px;
 }

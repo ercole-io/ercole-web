@@ -117,8 +117,15 @@ ul.pagination-list {
   height: 100% !important;
 }
 
-.b-sidebar .sidebar-content {
-  width: 350px;
+.b-sidebar {
+  .sidebar-content {
+    width: 350px;
+  
+    &.is-fullheight {
+      display: unset;
+      flex-direction: unset;
+    }
+  }
 }
 
 // field

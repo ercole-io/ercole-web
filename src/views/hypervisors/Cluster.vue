@@ -212,7 +212,10 @@ export default {
   },
   data() {
     return {
-      keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU']
+      keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU'],
+      filters: {
+        cappedCPU: ''
+      }
     }
   },
   async beforeMount() {
@@ -220,16 +223,12 @@ export default {
     bus.$emit('dynamicTitle', this.clustername)
 
     this.configAutocomplete()
-
-    this.filters.cappedCPU = ''
   },
   methods: {
     ...mapActions(['getClusterByName']),
     resetFilters() {
       this.reset()
-      this.filters = {
-        cappedCPU: ''
-      }
+      this.filters.cappedCPU = ''
     },
     configAutocomplete() {
       this.setAutocompleteData('virtualizationNode', this.getCurrentClusterVms)

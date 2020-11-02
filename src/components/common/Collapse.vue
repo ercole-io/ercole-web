@@ -9,6 +9,7 @@
       slot="trigger"
       slot-scope="props"
       class="card-header collapse-header"
+      :class="{ 'extra-margin': margin }"
       role="button"
       :aria-controls="id"
     >
@@ -19,7 +20,10 @@
         <b-icon :icon="props.open ? 'menu-up' : 'menu-down'"></b-icon>
       </a>
     </div>
-    <div class="card-content collapse-content">
+    <div
+      class="card-content collapse-content"
+      :class="{ 'extra-padding': padding }"
+    >
       <div class="content">
         <slot />
       </div>
@@ -37,6 +41,14 @@ export default {
       type: String
     },
     isOpen: {
+      type: Boolean,
+      default: false
+    },
+    padding: {
+      type: Boolean,
+      default: false
+    },
+    margin: {
       type: Boolean,
       default: false
     }
@@ -69,5 +81,12 @@ export default {
   .content {
     padding: 5px;
   }
+}
+
+.extra-padding {
+  padding: 5px 10px 10px 10px;
+}
+.extra-margin {
+  margin-bottom: 10px;
 }
 </style>

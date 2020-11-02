@@ -19,7 +19,7 @@
           <b-select
             v-model="filters.type"
             size="is-small"
-            placeholder="Select an Type"
+            placeholder="Select a Type"
             expanded
           >
             <option :value="null" v-if="filters.type">

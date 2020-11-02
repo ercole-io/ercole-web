@@ -57,9 +57,9 @@ export default {
 
 <style lang="scss" scoped>
 .drawer-position {
-  padding: 100px 20px 60px 20px;
+  padding: 100px 20px 90px 20px;
   border-left: 3px solid #679189;
-  height: 100%;
+  min-height: 100vh;
   position: relative;
 }
 
