@@ -26,7 +26,7 @@
                 <v-th sortKey="agreementID">Agreement Number</v-th>
                 <v-th sortKey="partID">Part Number</v-th>
                 <v-th sortKey="itemDescription">Item Description</v-th>
-                <v-th sortKey="metrics">Metrics</v-th>
+                <v-th sortKey="metric">Metric</v-th>
                 <v-th sortKey="csi">csi</v-th>
                 <v-th sortKey="referenceNumber">Reference Number</v-th>
                 <v-th sortKey="unlimited">ULA</v-th>
@@ -40,7 +40,7 @@
                 <TdContent :value="rowData.scope.agreementID" />
                 <TdContent :value="rowData.scope.partID" />
                 <TdContent :value="rowData.scope.itemDescription" />
-                <TdContent :value="rowData.scope.metrics" />
+                <TdContent :value="rowData.scope.metric" />
                 <TdContent :value="rowData.scope.csi" />
                 <TdContent :value="rowData.scope.referenceNumber" />
                 <TdIcon :value="bindIcon(rowData.scope.unlimited)" />
@@ -140,7 +140,7 @@
             </b-field>
 
             <b-field
-              label="Part Number, Item Description and Metrics *"
+              label="Part Number, Item Description and Metric *"
               custom-class="is-small"
               :type="{
                 'is-danger': $v.partNumber.$error
@@ -362,7 +362,7 @@ export default {
         'agreementID',
         'partID',
         'itemDescription',
-        'metrics',
+        'metric',
         'csi',
         'referenceNumber',
         'unlimited',
@@ -453,7 +453,7 @@ export default {
       this.licenseId = data.id
       this.agreeNumber = data.agreementID
       this.csi = data.csi
-      this.partNumber = `${data.partID} - ${data.itemDescription} - ${data.metrics}`
+      this.partNumber = `${data.partID} - ${data.itemDescription} - ${data.metric}`
       this.referenceNumber = data.referenceNumber
       this.techType = 'Oracle'
       this.ula = data.unlimited
