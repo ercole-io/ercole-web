@@ -1,95 +1,6 @@
 <template>
   <section>
-    <DrawerFilters title="Cluster Filters">
-      <form @submit.prevent="apply">
-        <b-field label="Physical Host" custom-class="is-small">
-          <b-autocomplete
-            v-model="filters.virtualizationNode"
-            size="is-small"
-            type="number"
-            clearable
-            :data="filteredData"
-            @typing="
-              setFilteredAutocomplete(
-                $event,
-                'virtualizationNode',
-                getCurrentClusterVms
-              )
-            "
-          >
-            <template slot="empty">No results found</template>
-          </b-autocomplete>
-        </b-field>
-
-        <b-field label="Hostname" custom-class="is-small">
-          <b-autocomplete
-            v-model="filters.hostname"
-            size="is-small"
-            type="number"
-            clearable
-            :data="filteredData"
-            @typing="
-              setFilteredAutocomplete($event, 'hostname', getCurrentClusterVms)
-            "
-          >
-            <template slot="empty">No results found</template>
-          </b-autocomplete>
-        </b-field>
-
-        <b-field label="VM Name" custom-class="is-small">
-          <b-autocomplete
-            v-model="filters.name"
-            size="is-small"
-            type="number"
-            clearable
-            :data="filteredData"
-            @typing="
-              setFilteredAutocomplete($event, 'name', getCurrentClusterVms)
-            "
-          >
-            <template slot="empty">No results found</template>
-          </b-autocomplete>
-        </b-field>
-
-        <b-field label="Capped CPU" custom-class="is-small">
-          <div class="is-flex" style="justify-content: space-around;">
-            <b-radio
-              size="is-small"
-              v-model="filters.cappedCPU"
-              :native-value="true"
-            >
-              Yes
-            </b-radio>
-            <b-radio
-              size="is-small"
-              v-model="filters.cappedCPU"
-              :native-value="false"
-            >
-              No
-            </b-radio>
-            <b-radio
-              size="is-small"
-              v-model="filters.cappedCPU"
-              native-value=""
-            >
-              All
-            </b-radio>
-          </div>
-        </b-field>
-
-        <div
-          class="buttons is-flex mt-5"
-          style="justify-content: space-between;"
-        >
-          <b-button type="is-danger" size="is-small" @click="resetFilters">
-            Reset
-          </b-button>
-          <b-button type="is-primary" size="is-small" native-type="submit">
-            Apply
-          </b-button>
-        </div>
-      </form>
-    </DrawerFilters>
+    <ClusterFilters v-if="isMounted" />
 
     <boxContent>
       <div class="columns">
@@ -194,7 +105,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import DrawerButton from '@/components/common/DrawerButton.vue'
-import DrawerFilters from '@/components/common/DrawerFilters.vue'
+import ClusterFilters from '@/components/hypervisors/ClusterFilters.vue'
 
 export default {
   mixins: [techTypePrettyName, localFiltersMixin],
@@ -208,33 +119,22 @@ export default {
     HostLink,
     TdIcon,
     DrawerButton,
-    DrawerFilters
+    ClusterFilters
   },
   data() {
     return {
       keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU'],
-      filters: {
-        cappedCPU: ''
-      }
+      isMounted: false
     }
   },
   async beforeMount() {
-    await this.getClusterByName(this.clustername)
+    await this.getClusterByName(this.clustername).then(
+      () => (this.isMounted = true)
+    )
     bus.$emit('dynamicTitle', this.clustername)
-
-    this.configAutocomplete()
   },
   methods: {
     ...mapActions(['getClusterByName']),
-    resetFilters() {
-      this.reset()
-      this.filters.cappedCPU = ''
-    },
-    configAutocomplete() {
-      this.setAutocompleteData('virtualizationNode', this.getCurrentClusterVms)
-      this.setAutocompleteData('hostname', this.getCurrentClusterVms)
-      this.setAutocompleteData('name', this.getCurrentClusterVms)
-    },
     bindIcon(value) {
       return mapBooleanIcon(value)
     }

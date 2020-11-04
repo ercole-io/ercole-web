@@ -183,11 +183,13 @@ export const simpleAutocompleteData = (text, data) => {
 }
 
 const searchByChar = (value, text) => {
-  return (
-    value
-      .toString()
-      .toLowerCase()
-      .indexOf(text.toLowerCase()) >= 0
-  )
+  if (value) {
+    return (
+      value
+        .toString()
+        .toLowerCase()
+        .indexOf(text.toLowerCase()) >= 0
+    )
+  }
 }
 // END: Prepare and filter data for autocomplete inputs //
