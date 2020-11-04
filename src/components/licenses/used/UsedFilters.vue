@@ -1,0 +1,98 @@
+<template>
+  <DrawerFilters title="Licenses Used Filters">
+    <form @submit.prevent="apply">
+      <CustomField label="Hostname">
+        <b-autocomplete
+          v-model="filters.hostname"
+          size="is-small"
+          type="number"
+          clearable
+          :data="filteredData"
+          @typing="setFilteredAutocomplete($event, 'hostname', getUsedLicenses)"
+        />
+      </CustomField>
+
+      <CustomField label="DB Name">
+        <b-autocomplete
+          v-model="filters.dbName"
+          size="is-small"
+          type="number"
+          clearable
+          :data="filteredData"
+          @typing="setFilteredAutocomplete($event, 'dbName', getUsedLicenses)"
+        />
+      </CustomField>
+
+      <CustomField label="License Name">
+        <b-autocomplete
+          v-model="filters.licenseName"
+          size="is-small"
+          type="number"
+          clearable
+          :data="filteredData"
+          @typing="
+            setFilteredAutocomplete($event, 'licenseName', getUsedLicenses)
+          "
+        />
+      </CustomField>
+
+      <CustomField label="Used Licenses">
+        <b-slider
+          v-model="filters.usedLicenses"
+          :min="minusedLicenses"
+          :max="maxusedLicenses"
+          :step="0.5"
+        >
+          <template v-for="val in filteredusedLicenses">
+            <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
+          </template>
+        </b-slider>
+      </CustomField>
+
+      <FiltersButtons />
+    </form>
+  </DrawerFilters>
+</template>
+
+<script>
+import { bus } from '@/helpers/eventBus.js'
+import { mapGetters } from 'vuex'
+import localFiltersMixin from '@/mixins/localFiltersMixin.js'
+import DrawerFilters from '@/components/common/DrawerFilters.vue'
+import FiltersButtons from '@/components/common/Filters/FiltersButtons.vue'
+import CustomField from '@/components/common/Filters/CustomField.vue'
+
+export default {
+  mixins: [localFiltersMixin],
+  components: {
+    DrawerFilters,
+    FiltersButtons,
+    CustomField
+  },
+  data() {
+    return {
+      filteredusedLicenses: [],
+      minusedLicenses: null,
+      maxusedLicenses: null
+    }
+  },
+  beforeMount() {
+    this.setSlider()
+
+    bus.$on('resetFilters', () => this.reset(this.resetFilters))
+  },
+  methods: {
+    resetFilters() {
+      this.setSlider()
+    },
+    setSlider() {
+      this.setSliderFilterConfig('usedLicenses', this.getUsedLicenses)
+    }
+  },
+  computed: {
+    ...mapGetters(['getUsedLicenses'])
+  }
+}
+</script>
+
+<style lang="scss" scoped></style>

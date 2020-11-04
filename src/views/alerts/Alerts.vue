@@ -5,154 +5,10 @@
       :is-full-page="false"
       v-model="isLoading"
       :can-cancel="false"
-    ></b-loading>
-    <DrawerFilters title="Alerts Filters">
-      <form @submit.prevent="apply">
-        <b-field label="Status" custom-class="is-small">
-          <b-select
-            v-model="alertStatus"
-            size="is-small"
-            placeholder="Select a Status"
-            expanded
-          >
-            <option value="NEW">NEW</option>
-            <option value="ACK">ACK</option>
-            <option value="">All</option>
-          </b-select>
-        </b-field>
+    />
 
-        <b-field label="Type" custom-class="is-small">
-          <b-select
-            v-model="filters.alertCategory"
-            size="is-small"
-            placeholder="Select a Type"
-            expanded
-          >
-            <option :value="null" v-if="filters.alertCategory">
-              Reset
-            </option>
-            <option
-              v-for="(cat, index) in categoryOptions"
-              :key="index"
-              :value="cat"
-            >
-              {{ cat }}
-            </option>
-          </b-select>
-        </b-field>
+    <AlertsFilters :type="type" :flag="flag" v-if="isMounted" />
 
-        <b-field label="Date" custom-class="is-small">
-          <b-datepicker
-            v-model="startDate"
-            size="is-small"
-            placeholder="Start Date"
-            position="is-bottom-right"
-            icon="calendar-today"
-            :max-date="endDate ? endDate : new Date()"
-            :date-formatter="formatDate"
-            class="mr-1"
-            trap-focus
-          />
-          <b-datepicker
-            v-model="endDate"
-            size="is-small"
-            placeholder="End Date"
-            position="is-bottom-left"
-            icon="calendar-today"
-            :min-date="startDate"
-            :max-date="new Date()"
-            :date-formatter="formatDate"
-            class="ml-1"
-            trap-focus
-          />
-        </b-field>
-
-        <b-field label="Severity" custom-class="is-small">
-          <b-select
-            v-model="filters.alertSeverity"
-            size="is-small"
-            placeholder="Select a Severity"
-            expanded
-          >
-            <option :value="null" v-if="filters.alertSeverity">
-              Reset
-            </option>
-            <option
-              v-for="(sev, index) in severityOptions"
-              :key="index"
-              :value="sev"
-            >
-              {{ sev }}
-            </option>
-          </b-select>
-        </b-field>
-
-        <b-field label="Hostname" custom-class="is-small">
-          <b-autocomplete
-            v-model="filters.hostname"
-            size="is-small"
-            type="number"
-            clearable
-            :data="filteredData"
-            @typing="
-              setFilteredAutocomplete($event, 'hostname', getAlerts(type, flag))
-            "
-          >
-            <template slot="empty">No results found</template>
-          </b-autocomplete>
-        </b-field>
-
-        <b-field label="Code" custom-class="is-small">
-          <b-autocomplete
-            v-model="filters.alertCode"
-            size="is-small"
-            type="number"
-            clearable
-            :data="filteredData"
-            @typing="
-              setFilteredAutocomplete(
-                $event,
-                'alertCode',
-                getAlerts(type, flag)
-              )
-            "
-          >
-            <template slot="empty">No results found</template>
-          </b-autocomplete>
-        </b-field>
-
-        <b-field label="Description" custom-class="is-small">
-          <b-autocomplete
-            v-model="filters.description"
-            size="is-small"
-            type="number"
-            clearable
-            :data="filteredData"
-            @typing="
-              setFilteredAutocomplete(
-                $event,
-                'description',
-                getAlerts(type, flag)
-              )
-            "
-          >
-            <template slot="empty">No results found</template>
-          </b-autocomplete>
-        </b-field>
-
-        <div
-          class="buttons is-flex mt-5"
-          style="justify-content: space-between;"
-        >
-          <b-button type="is-danger" size="is-small" @click="resetFilters">
-            Reset
-          </b-button>
-          <b-button type="is-primary" size="is-small" native-type="submit">
-            Apply
-          </b-button>
-        </div>
-      </form>
-    </DrawerFilters>
     <BoxContent>
       <FullTable
         placeholder="Search on Alerts"
@@ -272,12 +128,8 @@
 
 <script>
 import _ from 'lodash'
-import moment from 'moment'
 import { mapGetters, mapActions } from 'vuex'
-import {
-  checkAlertIcon,
-  prepareDataForAutocomplete
-} from '@/helpers/helpers.js'
+import { checkAlertIcon } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -287,7 +139,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import DrawerButton from '@/components/common/DrawerButton.vue'
-import DrawerFilters from '@/components/common/DrawerFilters.vue'
+import AlertsFilters from '@/components/alerts/AlertsFilters.vue'
 import formatDate from '@/filters/formatDate.js'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
@@ -317,7 +169,7 @@ export default {
     TdIcon,
     HostLink,
     DrawerButton,
-    DrawerFilters
+    AlertsFilters
   },
   data() {
     return {
@@ -334,68 +186,16 @@ export default {
       currentPageSelection: [],
       isAllPagesSelected: false,
       isLoading: false,
-      startDate: null,
-      endDate: null,
-      alertStatus: 'NEW',
-      categoryOptions: [],
-      severityOptions: []
+      isMounted: false
     }
   },
   async beforeMount() {
-    await this.applyApiParams()
-
-    this.configAutocomplete()
+    await this.getAlertsData({ status: this.alertStatus }).then(
+      () => (this.isMounted = true)
+    )
   },
   methods: {
     ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),
-    applyApiParams() {
-      return new Promise((resolve, reject) => {
-        this.getAlertsData({
-          status: this.alertStatus,
-          startDate: moment(this.startDate)
-            .subtract(1, 'days')
-            .utc()
-            .set({ hour: 23, minute: 59, second: 59 })
-            .toISOString(),
-          endDate: moment(this.endDate)
-            .utc()
-            .set({ hour: 23, minute: 59, second: 59 })
-            .toISOString()
-        }).then(
-          res => {
-            resolve(res)
-          },
-          err => reject(err)
-        )
-      })
-    },
-    resetFilters() {
-      this.reset()
-      this.startDate = null
-      this.endDate = null
-      this.alertStatus = 'NEW'
-    },
-    configAutocomplete() {
-      this.setAutocompleteData('hostname', this.getAlerts(this.type, this.flag))
-      this.setAutocompleteData(
-        'alertCode',
-        this.getAlerts(this.type, this.flag)
-      )
-      this.setAutocompleteData(
-        'description',
-        this.getAlerts(this.type, this.flag)
-      )
-
-      this.categoryOptions = prepareDataForAutocomplete(
-        this.getAlerts(this.type, this.flag),
-        'alertCategory'
-      )
-
-      this.severityOptions = prepareDataForAutocomplete(
-        this.getAlerts(this.type, this.flag),
-        'alertSeverity'
-      )
-    },
     setIcon(severity) {
       return checkAlertIcon(severity)
     },
@@ -468,27 +268,6 @@ export default {
         this.isCurrentPageSelected = false
       } else {
         this.isCurrentPageSelected = true
-      }
-    },
-    alertStatus(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.applyApiParams().then(() => {
-          this.apply()
-        })
-      }
-    },
-    startDate(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.applyApiParams().then(() => {
-          this.apply()
-        })
-      }
-    },
-    endDate(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.applyApiParams().then(() => {
-          this.apply()
-        })
       }
     }
   }

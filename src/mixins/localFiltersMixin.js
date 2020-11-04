@@ -8,8 +8,12 @@ import {
 export default {
   data() {
     return {
-      filters: {},
-      filteredData: []
+      filters: {
+        cappedCPU: '',
+        iconCluster: ''
+      },
+      filteredData: [],
+      alertStatus: 'NEW'
     }
   },
   methods: {
@@ -19,12 +23,17 @@ export default {
         filters: organizeKeysBeforeFilter(this.filters)
       })
     },
-    reset() {
+    reset(cb = () => {}) {
       this.$store.commit('SET_FILTERS', {
         status: false,
         filters: []
       })
-      this.filters = {}
+      this.filters = {
+        cappedCPU: '',
+        iconCluster: ''
+      }
+      this.alertStatus = 'NEW'
+      cb()
     },
     setAutocompleteData(value, data) {
       this.filteredData = prepareDataForAutocomplete(data, value)
