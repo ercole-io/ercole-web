@@ -23,7 +23,7 @@ export const getters = {
 
     _.map(state.agreementParts, val => {
       agreeParts.push({
-        agreeParts: `${val.partID} - ${val.itemDescription} - ${val.metrics}`
+        agreeParts: `${val.partID} - ${val.itemDescription} - ${val.metric}`
       })
     })
 
