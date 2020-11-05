@@ -24,13 +24,9 @@
           <option :value="null" v-if="filters.alertCategory">
             Reset
           </option>
-          <option
-            v-for="(cat, index) in categoryOptions"
-            :key="index"
-            :value="cat"
-          >
-            {{ cat }}
-          </option>
+          <option value="AGENT">AGENT</option>
+          <option value="ENGINE">ENGINE</option>
+          <option value="LICENSE">LICENSE</option>
         </b-select>
       </CustomField>
 
@@ -70,13 +66,9 @@
           <option :value="null" v-if="filters.alertSeverity">
             Reset
           </option>
-          <option
-            v-for="(sev, index) in severityOptions"
-            :key="index"
-            :value="sev"
-          >
-            {{ sev }}
-          </option>
+          <option value="INFO">INFO</option>
+          <option value="WARNING">WARNING</option>
+          <option value="CRITICAL">CRITICAL</option>
         </b-select>
       </CustomField>
 
@@ -86,9 +78,7 @@
           size="is-small"
           clearable
           :data="filteredData"
-          @typing="
-            setFilteredAutocomplete($event, 'hostname', getAlerts(type, flag))
-          "
+          @typing="setFilteredAutocomplete($event, 'hostname', getAlerts)"
         />
       </CustomField>
 
@@ -98,9 +88,7 @@
           size="is-small"
           clearable
           :data="filteredData"
-          @typing="
-            setFilteredAutocomplete($event, 'alertCode', getAlerts(type, flag))
-          "
+          @typing="setFilteredAutocomplete($event, 'alertCode', getAlerts)"
         />
       </CustomField>
 
@@ -110,13 +98,7 @@
           size="is-small"
           clearable
           :data="filteredData"
-          @typing="
-            setFilteredAutocomplete(
-              $event,
-              'description',
-              getAlerts(type, flag)
-            )
-          "
+          @typing="setFilteredAutocomplete($event, 'description', getAlerts)"
         />
       </CustomField>
 
@@ -128,8 +110,7 @@
 <script>
 import moment from 'moment'
 import { bus } from '@/helpers/eventBus.js'
-import { mapGetters, mapActions } from 'vuex'
-import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
+import { mapGetters, mapActions, mapState } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import DrawerFilters from '@/components/common/DrawerFilters.vue'
 import FiltersButtons from '@/components/common/Filters/FiltersButtons.vue'
@@ -138,16 +119,6 @@ import formatDate from '@/filters/formatDate.js'
 
 export default {
   mixins: [localFiltersMixin],
-  props: {
-    type: {
-      type: String,
-      default: null
-    },
-    flag: {
-      type: String,
-      default: null
-    }
-  },
   components: {
     DrawerFilters,
     FiltersButtons,
@@ -156,9 +127,7 @@ export default {
   data() {
     return {
       startDate: null,
-      endDate: null,
-      categoryOptions: [],
-      severityOptions: []
+      endDate: null
     }
   },
   beforeMount() {
@@ -192,33 +161,23 @@ export default {
     resetFilters() {
       this.startDate = null
       this.endDate = null
+      this.$store.commit('SET_ALERTS_PARAMS', {
+        category: null,
+        severity: null,
+        hostname: null
+      })
     },
     configAutocomplete() {
-      this.setAutocompleteData('hostname', this.getAlerts(this.type, this.flag))
-      this.setAutocompleteData(
-        'alertCode',
-        this.getAlerts(this.type, this.flag)
-      )
-      this.setAutocompleteData(
-        'description',
-        this.getAlerts(this.type, this.flag)
-      )
-
-      this.categoryOptions = prepareDataForAutocomplete(
-        this.getAlerts(this.type, this.flag),
-        'alertCategory'
-      )
-
-      this.severityOptions = prepareDataForAutocomplete(
-        this.getAlerts(this.type, this.flag),
-        'alertSeverity'
-      )
+      this.setAutocompleteData('hostname', this.getAlerts)
+      this.setAutocompleteData('alertCode', this.getAlerts)
+      this.setAutocompleteData('description', this.getAlerts)
     },
     formatDate(date) {
       return formatDate(date)
     }
   },
   computed: {
+    ...mapState(['alerts']),
     ...mapGetters(['getAlerts'])
   },
   watch: {

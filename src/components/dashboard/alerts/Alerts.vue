@@ -4,21 +4,21 @@
 
     <Alert
       :title="['Licenses', 'dollar-sign']"
-      :alertInfo="getFirstAlertByFlag('LICENSE')"
-      :alertTotals="getTotalAlertsByFlag('LICENSE')"
+      :alertInfo="getFirstAlertByCategory('LICENSE')"
+      :alertTotals="getTotalAlertsByCategory('LICENSE')"
     />
 
     <Alert
       :title="['Ercole Engine', 'tools']"
-      :alertInfo="getFirstAlertByFlag('ENGINE')"
-      :alertTotals="getTotalAlertsByFlag('ENGINE')"
+      :alertInfo="getFirstAlertByCategory('ENGINE')"
+      :alertTotals="getTotalAlertsByCategory('ENGINE')"
     />
   </BoxContent>
 </template>
 
 <script>
-import BoxContent from '@/components/common/BoxContent.vue'
 import { mapGetters, mapActions } from 'vuex'
+import BoxContent from '@/components/common/BoxContent.vue'
 import Agents from '@/components/dashboard/alerts/Agents.vue'
 import Alert from '@/components/dashboard/alerts/Alert.vue'
 
@@ -35,7 +35,7 @@ export default {
     ...mapActions(['getAlertsData'])
   },
   computed: {
-    ...mapGetters(['getFirstAlertByFlag', 'getTotalAlertsByFlag'])
+    ...mapGetters(['getFirstAlertByCategory', 'getTotalAlertsByCategory'])
   }
 }
 </script>

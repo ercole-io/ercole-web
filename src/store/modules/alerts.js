@@ -12,42 +12,58 @@ const endDate = moment()
   .format('YYYY-MM-DD')
 
 export const state = () => ({
-  alerts: []
+  alerts: [],
+  params: {
+    category: null,
+    severity: null,
+    hostname: null
+  }
 })
 
 export const getters = {
-  getAlerts: (state, getters, rootState) => (type, flag) => {
-    if (rootState.localFilters.hasFilters) {
-      if (!type && !flag) {
+  getAlerts: (state, getters, rootState) => {
+    const hasFilters = rootState.localFilters.hasFilters
+    const hasLocalFilters = rootState.localFilters.filters
+    const category = state.params.category
+    const severity = state.params.severity
+    const hostname = state.params.hostname
+
+    if (!severity && !category) {
+      if (hasFilters) {
+        return filterByKeys(getters['getAllAlerts'], hasLocalFilters)
+      } else {
+        return getters['getAllAlerts']
+      }
+    } else if (category === 'AGENT') {
+      if (hasFilters) {
         return filterByKeys(
-          getters['getAllAlerts'],
-          rootState.localFilters.filters
-        )
-      } else if (type === 'NO_DATA') {
-        return filterByKeys(
-          getters.getFilteredAgents(type, flag),
-          rootState.localFilters.filters
-        )
-      } else if (type === 'INFO' || type === 'WARNING' || type === 'CRITICAL') {
-        return filterByKeys(
-          getters.getFilteredAlerts(type, flag),
-          rootState.localFilters.filters
+          getters.getFilteredAgents('NO_DATA', category),
+          hasLocalFilters
         )
       } else {
+        return getters.getFilteredAgents('NO_DATA', category)
+      }
+    } else if (
+      severity === 'INFO' ||
+      severity === 'WARNING' ||
+      severity === 'CRITICAL'
+    ) {
+      if (hasFilters) {
         return filterByKeys(
-          getters.getFilteredAlertsByHost(type, flag),
-          rootState.localFilters.filters
+          getters.getFilteredAlerts(severity, category),
+          hasLocalFilters
         )
+      } else {
+        return getters.getFilteredAlerts(severity, category)
       }
     } else {
-      if (!type && !flag) {
-        return getters['getAllAlerts']
-      } else if (type === 'NO_DATA') {
-        return getters.getFilteredAgents(type, flag)
-      } else if (type === 'INFO' || type === 'WARNING' || type === 'CRITICAL') {
-        return getters.getFilteredAlerts(type, flag)
+      if (hasFilters) {
+        return filterByKeys(
+          getters.getFilteredAlertsByHost(hostname, category),
+          hasLocalFilters
+        )
       } else {
-        return getters.getFilteredAlertsByHost(type, flag)
+        return getters.getFilteredAlertsByHost(hostname, category)
       }
     }
   },
@@ -65,33 +81,33 @@ export const getters = {
 
     return _.compact(all)
   },
-  getFilteredAgents: state => (type, flag) => {
-    const agents = state.alerts[flag]
-    const filtered = _.filter(agents, ['alertCode', type])
+  getFilteredAgents: state => (code, category) => {
+    const agents = state.alerts[category]
+    const filtered = _.filter(agents, ['alertCode', code])
 
     return _.orderBy(filtered, ['date'], ['desc'])
   },
-  getFilteredAlerts: state => (type, flag) => {
-    const alerts = state.alerts[flag][type]
-    const filtered = _.filter(alerts, ['alertSeverity', type])
+  getFilteredAlerts: state => (severity, category) => {
+    const alerts = state.alerts[category][severity]
+    const filtered = _.filter(alerts, ['alertSeverity', severity])
 
     return _.orderBy(filtered, ['date'], ['desc'])
   },
-  getFilteredAlertsByHost: state => (host, flag) => {
+  getFilteredAlertsByHost: state => (host, category) => {
     let alertsByHost = {}
 
-    if (flag === 'AGENT') {
-      alertsByHost = state.alerts[flag]
+    if (category === 'AGENT') {
+      alertsByHost = state.alerts[category]
     } else {
       alertsByHost = _.concat(
-        state.alerts[flag].WARNING || [],
-        state.alerts[flag].CRITICAL || [],
-        state.alerts[flag].INFO || []
+        state.alerts[category].WARNING || [],
+        state.alerts[category].CRITICAL || [],
+        state.alerts[category].INFO || []
       )
     }
     const findByDate = returnAlertsByTypeDate(
       alertsByHost,
-      flag,
+      category,
       startDate,
       endDate
     )
@@ -99,13 +115,13 @@ export const getters = {
 
     return _.orderBy(filtered, ['date'], ['desc'])
   },
-  getFirstAlertByFlag: state => flag => {
-    const alert = state.alerts[flag]
+  getFirstAlertByCategory: state => category => {
+    const alert = state.alerts[category]
     const alerts = organizeAlertByFirst(alert)
 
     if (alerts) {
       return {
-        flag: flag,
+        category: category,
         alertId: alerts._id,
         host: alerts.otherInfo.hostname,
         date: alerts.date,
@@ -114,8 +130,8 @@ export const getters = {
       }
     }
   },
-  getTotalAlertsByFlag: state => flag => {
-    let alerts = state.alerts[flag]
+  getTotalAlertsByCategory: state => category => {
+    let alerts = state.alerts[category]
 
     let info = alerts.INFO ? alerts.INFO.length : 0
     let warn = alerts.WARNING ? alerts.WARNING.length : 0
@@ -167,6 +183,13 @@ export const mutations = {
       filterOnAlertsById(alerts, 'LICENSE', 'WARNING', id)
       filterOnAlertsById(alerts, 'LICENSE', 'CRITICAL', id)
     })
+  },
+  SET_ALERTS_PARAMS: (state, payload) => {
+    state.params = {
+      category: payload.category,
+      severity: payload.severity,
+      hostname: payload.hostname
+    }
   }
 }
 

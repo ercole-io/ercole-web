@@ -142,13 +142,20 @@ export default {
       this.isAnimated = !this.isAnimated
       this.markAsRead({ id, flag, type })
     },
-    handleAlertClick(flag, type) {
-      this.$router.push(`/alerts/${type}/${flag}`)
+    handleAlertClick(category, severity) {
+      this.$store.commit('SET_ALERTS_PARAMS', {
+        category: category,
+        severity: severity,
+        hostname: null
+      })
+      this.$router.push('/alerts')
     }
   },
   computed: {
     hasFlag() {
-      return this.alertInfo && this.alertInfo.flag ? this.alertInfo.flag : null
+      return this.alertInfo && this.alertInfo.category
+        ? this.alertInfo.category
+        : null
     },
     setIcon() {
       return checkAlertIcon(this.alertInfo.severity)

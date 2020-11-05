@@ -10,10 +10,18 @@ export default {
     return {
       filters: {
         cappedCPU: '',
-        iconCluster: ''
+        iconCluster: '',
+        alertCategory: null,
+        alertSeverity: null
       },
       filteredData: [],
       alertStatus: 'NEW'
+    }
+  },
+  beforeMount() {
+    this.filters = {
+      alertCategory: this.alerts.params.category,
+      alertSeverity: this.alerts.params.severity
     }
   },
   methods: {
@@ -30,7 +38,9 @@ export default {
       })
       this.filters = {
         cappedCPU: '',
-        iconCluster: ''
+        iconCluster: '',
+        alertCategory: null,
+        alertSeverity: null
       }
       this.alertStatus = 'NEW'
       cb()
