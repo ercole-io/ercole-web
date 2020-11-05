@@ -38,7 +38,12 @@ import { mapGetters } from 'vuex'
 export default {
   methods: {
     inspectAgents() {
-      this.$router.push(`/alerts/NO_DATA/AGENT`)
+      this.$store.commit('SET_ALERTS_PARAMS', {
+        category: 'AGENT',
+        severity: null,
+        hostname: null
+      })
+      this.$router.push('/alerts')
     }
   },
   computed: {

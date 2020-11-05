@@ -262,10 +262,9 @@ const routes = [
     beforeEnter: verifyAuth
   },
   {
-    path: '/alerts/:type?/:flag?',
+    path: '/alerts',
     name: 'alerts',
     component: Alerts,
-    props: true,
     meta: {
       label: 'Alerts',
       title: `${title}Alerts`,

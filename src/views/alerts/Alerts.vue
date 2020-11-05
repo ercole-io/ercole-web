@@ -7,13 +7,13 @@
       :can-cancel="false"
     />
 
-    <AlertsFilters :type="type" :flag="flag" v-if="isMounted" />
+    <AlertsFilters v-if="isMounted" />
 
     <BoxContent>
       <FullTable
         placeholder="Search on Alerts"
         :keys="keys"
-        :tableData="getAlerts(type, flag)"
+        :tableData="getAlerts"
         class="table-alerts"
         @pageRows="
           vals => {
@@ -49,7 +49,7 @@
                 selected.
               </span>
               <a @click="handleSelectAllPagesRows">
-                Select all {{ getAlerts(type, flag).length }} alerts?
+                Select all {{ getAlerts.length }} alerts?
               </a>
             </span>
 
@@ -58,7 +58,7 @@
               v-if="isAllPagesSelected && isCurrentPageSelected"
             >
               <span class="px-2">
-                All {{ getAlerts(type, flag).length }} alerts are selected.
+                All {{ getAlerts.length }} alerts are selected.
               </span>
               <a @click="handleClearAllSelections">
                 Clear select all?
@@ -66,12 +66,12 @@
             </span>
           </div>
 
-          <div v-if="type && flag" style="padding-left: 20px;">
+          <div v-if="alerts.params.category" style="padding-left: 20px;">
             <b-button
               type="is-primary"
               size="is-small"
               class="has-text-weight-semibold mr-3"
-              @click="removeUrlParams"
+              @click="removeParams"
             >
               Show All
             </b-button>
@@ -80,7 +80,9 @@
 
         <template slot="headData">
           <th style="width: 5%">
-            <div v-if="flag !== 'AGENT' && alertStatus !== 'ACK'">
+            <div
+              v-if="alertStatus === 'NEW' && alerts.params.category !== 'AGENT'"
+            >
               <b-checkbox
                 v-model="isCurrentPageSelected"
                 @input="handleSelectPageRows"
@@ -128,7 +130,7 @@
 
 <script>
 import _ from 'lodash'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex'
 import { checkAlertIcon } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
@@ -151,16 +153,6 @@ const checkOrUncheck = (list, status, handleSelectRows) => {
 
 export default {
   mixins: [paginationMixin, localFiltersMixin],
-  props: {
-    type: {
-      type: String,
-      default: null
-    },
-    flag: {
-      type: String,
-      default: null
-    }
-  },
   components: {
     BoxContent,
     FullTable,
@@ -211,7 +203,7 @@ export default {
       this.isLoading = true
       const idList = this.selectedRows
       this.markAsReadAlertsPage({ idList }).then(() => {
-        this.getAlerts(this.type, this.flag)
+        this.getAlerts
         this.isCurrentPageSelected = false
         this.isLoading = false
       })
@@ -237,7 +229,7 @@ export default {
     handleSelectAllPagesRows() {
       this.isAllPagesSelected = true
       checkOrUncheck(
-        this.getAlerts(this.type, this.flag),
+        this.getAlerts,
         this.isAllPagesSelected,
         this.handleSelectRows
       )
@@ -245,14 +237,16 @@ export default {
     handleClearAllSelections() {
       this.isAllPagesSelected = false
       checkOrUncheck(
-        this.getAlerts(this.type, this.flag),
+        this.getAlerts,
         this.isAllPagesSelected,
         this.handleSelectRows
       )
     },
-    removeUrlParams() {
-      return this.$router.replace({
-        name: 'alerts'
+    removeParams() {
+      return this.$store.commit('SET_ALERTS_PARAMS', {
+        category: null,
+        severity: null,
+        hostname: null
       })
     },
     formatDate(date) {
@@ -260,6 +254,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['alerts']),
     ...mapGetters(['getAlerts'])
   },
   watch: {
@@ -270,6 +265,9 @@ export default {
         this.isCurrentPageSelected = true
       }
     }
+  },
+  beforeDestroy() {
+    this.removeParams()
   }
 }
 </script>

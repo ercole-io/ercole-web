@@ -1,49 +1,37 @@
 <template>
   <span class="has-text-weight-medium	is-size-7">
     {{ getNotificationInfo.total }} new alerts from the last week:
-    <router-link
+    <a
       v-if="getNotificationInfo.agents > 0"
-      :to="{
-        name: 'alerts',
-        params: { type: getNotificationInfo.hostname, flag: 'AGENT' }
-      }"
-      tag="a"
+      @click="redirectToAlerts(getNotificationInfo.hostname, 'AGENT')"
     >
       <span class="has-text-weight-light">Agents:</span>
       {{ getNotificationInfo.agents }}
-    </router-link>
+    </a>
     <span v-if="getNotificationInfo.agents === 0">
       <span class="has-text-weight-light">Agents:</span>
       {{ getNotificationInfo.agents }}
     </span>
     |
-    <router-link
+    <a
       v-if="getNotificationInfo.licenses > 0"
-      :to="{
-        name: 'alerts',
-        params: { type: getNotificationInfo.hostname, flag: 'LICENSE' }
-      }"
-      tag="a"
+      @click="redirectToAlerts(getNotificationInfo.hostname, 'LICENSE')"
     >
       <span class="has-text-weight-light">Licenses:</span>
       {{ getNotificationInfo.licenses }}
-    </router-link>
+    </a>
     <span v-if="getNotificationInfo.licenses === 0">
       <span class="has-text-weight-light">Licenses:</span>
       {{ getNotificationInfo.licenses }}
     </span>
     |
-    <router-link
+    <a
       v-if="getNotificationInfo.engine > 0"
-      :to="{
-        name: 'alerts',
-        params: { type: getNotificationInfo.hostname, flag: 'ENGINE' }
-      }"
-      tag="a"
+      @click="redirectToAlerts(getNotificationInfo.hostname, 'ENGINE')"
     >
       <span class="has-text-weight-light">Engine:</span>
       {{ getNotificationInfo.engine }}
-    </router-link>
+    </a>
     <span v-if="getNotificationInfo.engine === 0">
       <span class="has-text-weight-light">Engine:</span>
       {{ getNotificationInfo.engine }}
@@ -55,6 +43,16 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  methods: {
+    redirectToAlerts(hostname, category) {
+      this.$store.commit('SET_ALERTS_PARAMS', {
+        category: category,
+        severity: null,
+        hostname: hostname
+      })
+      this.$router.push('/alerts')
+    }
+  },
   computed: {
     ...mapGetters(['getNotificationInfo'])
   }
