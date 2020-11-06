@@ -25,46 +25,20 @@ export const getters = {
     const hasFilters = rootState.localFilters.hasFilters
     const hasLocalFilters = rootState.localFilters.filters
     const category = state.params.category
-    const severity = state.params.severity
+    // const severity = state.params.severity
     const hostname = state.params.hostname
 
-    if (!severity && !category) {
-      if (hasFilters) {
-        return filterByKeys(getters['getAllAlerts'], hasLocalFilters)
-      } else {
-        return getters['getAllAlerts']
-      }
-    } else if (category === 'AGENT') {
-      if (hasFilters) {
-        return filterByKeys(
-          getters.getFilteredAgents('NO_DATA', category),
-          hasLocalFilters
-        )
-      } else {
-        return getters.getFilteredAgents('NO_DATA', category)
-      }
-    } else if (
-      severity === 'INFO' ||
-      severity === 'WARNING' ||
-      severity === 'CRITICAL'
-    ) {
-      if (hasFilters) {
-        return filterByKeys(
-          getters.getFilteredAlerts(severity, category),
-          hasLocalFilters
-        )
-      } else {
-        return getters.getFilteredAlerts(severity, category)
-      }
-    } else {
-      if (hasFilters) {
+    if (hasFilters) {
+      if (hostname) {
         return filterByKeys(
           getters.getFilteredAlertsByHost(hostname, category),
           hasLocalFilters
         )
       } else {
-        return getters.getFilteredAlertsByHost(hostname, category)
+        return filterByKeys(getters['getAllAlerts'], hasLocalFilters)
       }
+    } else {
+      return getters['getAllAlerts']
     }
   },
   getAllAlerts: state => {
@@ -84,12 +58,6 @@ export const getters = {
   getFilteredAgents: state => (code, category) => {
     const agents = state.alerts[category]
     const filtered = _.filter(agents, ['alertCode', code])
-
-    return _.orderBy(filtered, ['date'], ['desc'])
-  },
-  getFilteredAlerts: state => (severity, category) => {
-    const alerts = state.alerts[category][severity]
-    const filtered = _.filter(alerts, ['alertSeverity', severity])
 
     return _.orderBy(filtered, ['date'], ['desc'])
   },
