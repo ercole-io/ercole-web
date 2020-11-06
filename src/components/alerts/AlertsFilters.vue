@@ -161,6 +161,11 @@ export default {
     resetFilters() {
       this.startDate = null
       this.endDate = null
+      this.$store.commit('SET_ALERTS_PARAMS', {
+        category: null,
+        severity: null,
+        hostname: null
+      })
     },
     configAutocomplete() {
       this.setAutocompleteData('hostname', this.getAlerts)
