@@ -5,11 +5,9 @@ export default {
   methods: {
     getTechTypePrettyName(value) {
       let prettyTypeName = ''
-      _.find(this.getAllTechnologies, item => {
-        if (item.product === value) {
-          prettyTypeName = item.prettyName
-        } else {
-          prettyTypeName = value
+      _.find(this.getAllTechnologies, t => {
+        if (t.product === value) {
+          prettyTypeName = t.prettyName
         }
       })
       return prettyTypeName
