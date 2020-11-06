@@ -34,12 +34,12 @@
           "
         >
           <b-select
-            v-model="filters.location"
+            v-model="glFilters.location"
             size="is-small"
             placeholder="Select an location"
             expanded
           >
-            <option :value="null" v-if="filters.location">
+            <option :value="null" v-if="glFilters.location">
               Reset location
             </option>
             <option
@@ -61,12 +61,12 @@
           "
         >
           <b-select
-            v-model="filters.environment"
+            v-model="glFilters.environment"
             size="is-small"
             placeholder="Select an environment"
             expanded
           >
-            <option :value="null" v-if="filters.environment">
+            <option :value="null" v-if="glFilters.environment">
               Reset environment
             </option>
             <option
@@ -125,7 +125,7 @@
           v-show="$route.name !== 'alerts'"
         >
           <b-datepicker
-            v-model="filters.date"
+            v-model="glFilters.date"
             :date-formatter="formatDate"
             size="is-small"
             placeholder="Select a date"
@@ -134,8 +134,7 @@
             expanded
             editable
             :max-date="new Date()"
-          >
-          </b-datepicker>
+          />
         </b-field>
 
         <div class="filter-buttons">
@@ -184,16 +183,21 @@ export default {
       // tags: [],
       isFiltersOpened: false,
       filterIcon: 'chevron-down',
-      filters: {}
+      glFilters: {},
+      alertStatus: 'NEW'
     }
   },
   beforeMount() {
-    this.filters = {
+    this.glFilters = {
       location: this.getActiveFilters.location,
       environment: this.getActiveFilters.environment,
       date: formatDatepickerDate(this.getActiveFilters.date)
     }
     this.isFiltersOpened = this.globalFilters.isFilterOpened
+
+    bus.$on('alertStatus', val => {
+      this.alertStatus = val
+    })
   },
   methods: {
     ...mapActions([
@@ -230,21 +234,21 @@ export default {
       }
     },
     applyFilters() {
-      this.filters.date = formatDatepickerDate(this.filters.date)
+      this.glFilters.date = formatDatepickerDate(this.glFilters.date)
       this.$store.commit('SET_ACTIVE_FILTERS', {
-        active: this.filters,
+        active: this.glFilters,
         status: true
       })
       this.reloadPage(this.$route.name)
     },
     resetFilters() {
-      this.filters = {
+      this.glFilters = {
         location: null,
         environment: null,
         date: formatDatepickerDate()
       }
       this.$store.commit('SET_ACTIVE_FILTERS', {
-        active: this.filters,
+        active: this.glFilters,
         status: false
       })
       this.reloadPage(this.$route.name)
@@ -281,7 +285,7 @@ export default {
           this.getClusterByName(params.clustername)
           break
         case 'alerts':
-          this.getAlertsData()
+          this.getAlertsData({ status: this.alertStatus })
           break
         case 'licenses-used':
           this.getLicensesList()

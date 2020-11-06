@@ -161,11 +161,6 @@ export default {
     resetFilters() {
       this.startDate = null
       this.endDate = null
-      this.$store.commit('SET_ALERTS_PARAMS', {
-        category: null,
-        severity: null,
-        hostname: null
-      })
     },
     configAutocomplete() {
       this.setAutocompleteData('hostname', this.getAlerts)
@@ -185,6 +180,7 @@ export default {
       if (newValue !== oldValue) {
         this.applyApiParams().then(() => {
           this.apply()
+          bus.$emit('alertStatus', newValue)
         })
       }
     },

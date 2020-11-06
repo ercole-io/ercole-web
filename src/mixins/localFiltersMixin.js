@@ -22,8 +22,10 @@ export default {
     if (this.$route.name === 'alerts') {
       this.filters = {
         alertCategory: this.alerts.params.category,
-        alertSeverity: this.alerts.params.severity
+        alertSeverity: this.alerts.params.severity,
+        hostname: this.alerts.params.hostname
       }
+      this.apply()
     }
   },
   methods: {
@@ -71,5 +73,12 @@ export default {
   },
   beforeDestroy() {
     this.reset()
+    if (this.$route.name === 'alerts') {
+      this.filters = {
+        alertCategory: null,
+        alertSeverity: null,
+        hostname: null
+      }
+    }
   }
 }
