@@ -22,7 +22,8 @@
       ></b-loading>
       <header class="modal-card-head">
         <p class="modal-card-title">
-          Hosts Associated From License Agreement Number {{ agreeNumber }}
+          Hosts Associated <br />
+          <span class="is-size-7">Agreement Number {{ agreeNumber }}</span>
         </p>
       </header>
       <section class="modal-card-body">
@@ -34,7 +35,13 @@
         >
           <template slot="headData">
             <v-th sortKey="hostname">Hostname</v-th>
-            <v-th sortKey="coveredLicensesCount">Number Licenses Used</v-th>
+            <v-th sortKey="consumedLicensesCount">Used Licenses</v-th>
+            <v-th sortKey="coveredLicensesCount"
+              >Covered by this agreement</v-th
+            >
+            <v-th sortKey="totalCoveredLicensesCount"
+              >Covered by all agreements</v-th
+            >
             <th>Actions</th>
           </template>
 
@@ -48,7 +55,23 @@
               }"
             />
             <TdContent
+              :value="rowData.scope.consumedLicensesCount"
+              :class="{
+                'has-background-danger-light':
+                  rowData.scope.totalCoveredLicensesCount <
+                  rowData.scope.consumedLicensesCount
+              }"
+            />
+            <TdContent
               :value="rowData.scope.coveredLicensesCount"
+              :class="{
+                'has-background-danger-light':
+                  rowData.scope.totalCoveredLicensesCount <
+                  rowData.scope.consumedLicensesCount
+              }"
+            />
+            <TdContent
+              :value="rowData.scope.totalCoveredLicensesCount"
               :class="{
                 'has-background-danger-light':
                   rowData.scope.totalCoveredLicensesCount <
@@ -107,7 +130,12 @@ export default {
   data() {
     return {
       openModal: false,
-      keys: ['hostname', 'coveredLicensesCount'],
+      keys: [
+        'hostname',
+        'coveredLicensesCount',
+        'consumedLicensesCount',
+        'totalCoveredLicensesCount'
+      ],
       isLoading: false
     }
   },

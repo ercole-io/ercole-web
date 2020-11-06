@@ -33,6 +33,7 @@
                 <v-th sortKey="licensesCount">Number Licenses</v-th>
                 <v-th sortKey="usersCount">Number User</v-th>
                 <v-th sortKey="availableCount">Number Available</v-th>
+                <v-th sortKey="catchAll">Basket</v-th>
                 <th colspan="3" style="max-width: 100px">Actions</th>
               </template>
 
@@ -47,6 +48,7 @@
                 <TdContent :value="rowData.scope.licensesCount" />
                 <TdContent :value="rowData.scope.usersCount" />
                 <TdContent :value="rowData.scope.availableCount" />
+                <TdIcon :value="bindIcon(rowData.scope.catchAll)" />
 
                 <td style="min-width: 50px;">
                   <HostAssociated
@@ -299,8 +301,19 @@
               </b-taginput>
             </b-field>
 
+            <b-field label="Basket" custom-class="is-small">
+              <div class="is-flex" style="justify-content: space-around;">
+                <b-radio size="is-small" v-model="basket" :native-value="true">
+                  Yes
+                </b-radio>
+                <b-radio size="is-small" v-model="basket" :native-value="false">
+                  No
+                </b-radio>
+              </div>
+            </b-field>
+
             <div
-              class="buttons is-flex"
+              class="buttons is-flex mt-5"
               style="justify-content: space-between;"
             >
               <b-button
@@ -368,7 +381,8 @@ export default {
         'unlimited',
         'licensesCount',
         'usersCount',
-        'availableCount'
+        'availableCount',
+        'catchAll'
       ],
       filteredHostTags: [],
       filteredAgreeNumbers: [],
@@ -376,14 +390,15 @@ export default {
       filteredReferenceNumbers: [],
       isEditing: false,
       licenseId: null,
-      techType: null,
+      techType: 'Oracle',
       agreeNumber: null,
       partNumber: [],
       csi: null,
       referenceNumber: null,
       ula: false,
       licenseNumber: null,
-      hostAssociated: []
+      hostAssociated: [],
+      basket: false
     }
   },
   validations: {
@@ -418,25 +433,23 @@ export default {
         unlimited: this.ula,
         count: Number(this.licenseNumber),
         hosts: this.hostAssociated,
-        catchAll: false,
+        catchAll: this.basket,
         partID: this.partNumber.split(' - ')[0]
       }
       if (!this.isEditing) {
         axiosDefault.post('/agreements/oracle/database', license).then(res => {
           if (res.data[0].InsertedID) {
-            this.getLicensesAgreement()
-            this.cancelAddLicense()
             this.isEditing = false
           }
         })
       } else {
         license.id = this.licenseId
         axiosDefault.put('/agreements/oracle/database', license).then(() => {
-          this.getLicensesAgreement()
-          this.cancelAddLicense()
           this.isEditing = false
         })
       }
+      this.getLicensesAgreement()
+      this.cancelAddLicense()
     },
     cancelAddLicense() {
       this.techType = null
