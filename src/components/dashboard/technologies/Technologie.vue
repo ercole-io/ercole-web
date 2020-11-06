@@ -18,7 +18,7 @@
             :transitionDuration="2000"
           />
         </div>
-        <div>{{ tech.money }} €</div>
+        <!-- <div>{{ tech.money }} €</div> -->
       </div>
     </div>
   </div>
