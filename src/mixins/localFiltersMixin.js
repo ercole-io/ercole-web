@@ -19,9 +19,11 @@ export default {
     }
   },
   beforeMount() {
-    this.filters = {
-      alertCategory: this.alerts.params.category,
-      alertSeverity: this.alerts.params.severity
+    if (this.$route.name === 'alerts') {
+      this.filters = {
+        alertCategory: this.alerts.params.category,
+        alertSeverity: this.alerts.params.severity
+      }
     }
   },
   methods: {
