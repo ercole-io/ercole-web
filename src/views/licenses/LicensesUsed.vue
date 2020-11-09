@@ -25,11 +25,11 @@
           <TdContent :value="rowData.scope.usedLicenses" />
         </template>
 
-        <exportButton
+        <!-- <exportButton
           slot="export"
           url="hosts/technologies/oracle/databases/consumed-licenses"
           expName="licenses-list-data"
-        />
+        /> -->
       </FullTable>
     </BoxContent>
   </section>
@@ -40,7 +40,7 @@ import { mapActions, mapGetters } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import exportButton from '@/components/common/exportButton.vue'
+// import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import DrawerButton from '@/components/common/DrawerButton.vue'
@@ -51,7 +51,7 @@ export default {
   components: {
     BoxContent,
     FullTable,
-    exportButton,
+    // exportButton,
     TdContent,
     HostLink,
     DrawerButton,
