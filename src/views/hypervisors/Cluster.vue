@@ -79,11 +79,11 @@
               <TdIcon :value="bindIcon(rowData.scope.cappedCPU)" />
             </template>
 
-            <exportButton
+            <!-- <exportButton
               slot="export"
               :url="`hosts/clusters/${clustername}`"
               :expName="`cluster-${clustername}`"
-            />
+            /> -->
           </FullTable>
         </div>
       </div>
@@ -99,7 +99,7 @@ import { mapBooleanIcon } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import exportButton from '@/components/common/exportButton.vue'
+// import exportButton from '@/components/common/exportButton.vue'
 import BarChart from '@/components/common/charts/BarChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
@@ -113,7 +113,7 @@ export default {
   components: {
     BoxContent,
     FullTable,
-    exportButton,
+    // exportButton,
     BarChart,
     TdContent,
     HostLink,

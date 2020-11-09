@@ -78,11 +78,11 @@
                 </td>
               </template>
 
-              <exportButton
+              <!-- <exportButton
                 slot="export"
                 url="agreements/oracle/database"
                 expName="agreement"
-              />
+              /> -->
             </FullTable>
           </b-tab-item>
           <!-- <b-tab-item label="MySQL">
@@ -352,7 +352,7 @@ import {
 import { mapBooleanIcon, simpleAutocompleteData } from '@/helpers/helpers.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import exportButton from '@/components/common/exportButton.vue'
+// import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import HostAssociated from '@/components/licenses/agreement/HostAssociated.vue'
@@ -363,7 +363,7 @@ export default {
   components: {
     BoxContent,
     FullTable,
-    exportButton,
+    // exportButton,
     TdContent,
     HostAssociated,
     TdIcon
