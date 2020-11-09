@@ -145,7 +145,7 @@
 
           <exportButton
             slot="export"
-            url="/hosts/technologies/oracle/databases"
+            url="hosts/technologies/oracle/databases"
             expName="oracleDbs"
           />
         </FullTable>

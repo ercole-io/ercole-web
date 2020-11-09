@@ -27,7 +27,7 @@
 
         <exportButton
           slot="export"
-          url="licenses?mode=list"
+          url="hosts/technologies/oracle/databases/consumed-licenses"
           expName="licenses-list-data"
         />
       </FullTable>

@@ -26,7 +26,7 @@
 
       <exportButton
         slot="export"
-        url="/hosts/technologies/oracle/databases/addms"
+        url="hosts/technologies/oracle/databases/addms"
         expName="oracleADDM"
       />
     </FullTable>

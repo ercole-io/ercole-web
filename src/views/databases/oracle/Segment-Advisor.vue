@@ -36,7 +36,7 @@
 
       <exportButton
         slot="export"
-        url="/hosts/technologies/oracle/databases/segment-advisors"
+        url="hosts/technologies/oracle/databases/segment-advisors"
         expName="oraclePatchAdvisor"
       />
     </FullTable>

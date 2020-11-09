@@ -78,7 +78,11 @@
                 </td>
               </template>
 
-              <exportButton slot="export" url="" expName="databases" />
+              <exportButton
+                slot="export"
+                url="agreements/oracle/database"
+                expName="agreement"
+              />
             </FullTable>
           </b-tab-item>
           <!-- <b-tab-item label="MySQL">
