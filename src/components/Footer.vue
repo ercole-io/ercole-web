@@ -1,15 +1,21 @@
 <template>
   <footer class="footer has-background-grey-lighter">
     <div class="content has-text-centered">
-      <p>
-        Ercole 2.0 © 2020 Sorint.lab S.p.A.
+      <p data-footer>
+        {{ version }}
       </p>
     </div>
   </footer>
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      version: 'Ercole 2.0 © 2020 Sorint.lab S.p.A.'
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

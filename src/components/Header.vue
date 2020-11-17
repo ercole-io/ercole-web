@@ -19,7 +19,10 @@
         </p>
       </b-field> -->
 
-      <b-navbar-dropdown :label="`${username}, Operator`">
+      <b-navbar-dropdown
+        :label="`${username}, ${userRole}`"
+        data-navbar-username
+      >
         <!-- <b-navbar-item>
           <b-switch size="is-small" v-model="isAuto" type="is-primary">
             Auto Refresh
@@ -28,7 +31,7 @@
         <b-navbar-item>
           <LocaleSwitcher />
         </b-navbar-item> -->
-        <b-navbar-item @click="logout">Logout</b-navbar-item>
+        <b-navbar-item @click="logout" data-logout-button>Logout</b-navbar-item>
       </b-navbar-dropdown>
     </template>
   </b-navbar>
@@ -37,43 +40,45 @@
 <script>
 // import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 import { capitalize } from '@/helpers/helpers.js'
-import { SnackbarProgrammatic as Snackbar } from 'buefy'
+import { mapActions } from 'vuex'
+// import { SnackbarProgrammatic as Snackbar } from 'buefy'
 
 export default {
   components: {
     // LocaleSwitcher
   },
-  data() {
-    return {
-      isAuto: false
-    }
-  },
+  // data() {
+  //   return {
+  //     isAuto: false
+  //   }
+  // },
   methods: {
-    logout() {
-      this.$store.dispatch('logout')
-    }
+    ...mapActions(['logout'])
   },
   computed: {
     username() {
       return capitalize(localStorage.getItem('username'))
-    }
-  },
-  watch: {
-    isAuto(value) {
-      if (value) {
-        Snackbar.open({
-          message: 'New data available, recharge within 5s',
-          type: 'is-warning',
-          position: 'is-top',
-          actionText: 'Not Refresh',
-          indefinite: true,
-          onAction: () => {
-            this.isAuto = false
-          }
-        })
-      }
+    },
+    userRole() {
+      return 'Operator'
     }
   }
+  // watch: {
+  //   isAuto(value) {
+  //     if (value) {
+  //       Snackbar.open({
+  //         message: 'New data available, recharge within 5s',
+  //         type: 'is-warning',
+  //         position: 'is-top',
+  //         actionText: 'Not Refresh',
+  //         indefinite: true,
+  //         onAction: () => {
+  //           this.isAuto = false
+  //         }
+  //       })
+  //     }
+  //   }
+  // }
 }
 </script>
 
