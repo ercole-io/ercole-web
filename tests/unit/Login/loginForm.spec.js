@@ -24,7 +24,7 @@ describe('LoginForm.vue', () => {
     expect(wrapper.exists()).toBe(true)
   })
 
-  it('will dispatch login action when ogin button is triggered', async () => {
+  it('will dispatch login action when login button is triggered', async () => {
     const mockStore = { dispatch: jest.fn() }
     const data = {
       username: 'test',
