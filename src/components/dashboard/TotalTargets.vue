@@ -9,20 +9,20 @@
       <div class="total-targets-col">
         <div>
           <span class="has-text-weight-semibold is-size-5">
-            {{ totalTarget.agentsDiscovered }}
+            {{ getTotalTarget.agentsDiscovered }}
           </span>
         </div>
         <div>
           <Progress
             :radius="20"
-            :value="totalTarget.percCompliance"
+            :value="percCompliance"
             strokeColor="#363636"
             :strokeWidth="5"
             :transitionDuration="2000"
           />
         </div>
         <!-- <div class="has-text-weight-semibold is-size-5">
-          {{ totalTarget.moneyMissing }}€
+          {{ getTotalTarget.agentsDiscovered }}€
         </div> -->
       </div>
     </div>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import Progress from 'easy-circular-progress'
 
@@ -38,11 +39,16 @@ export default {
     BoxContent,
     Progress
   },
-  props: {
-    totalTarget: {
-      type: Object,
-      required: true
+  data() {
+    return {
+      percCompliance: 0.0
     }
+  },
+  beforeUpdate() {
+    this.percCompliance = this.getTotalTarget.percCompliance
+  },
+  computed: {
+    ...mapGetters(['getTotalTarget'])
   }
 }
 </script>

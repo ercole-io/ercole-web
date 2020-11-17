@@ -1,5 +1,9 @@
 <template>
-  <nav class="breadcrumb is-small" aria-label="breadcrumbs">
+  <nav
+    class="breadcrumb is-small"
+    aria-label="breadcrumbs"
+    v-if="$route.name !== 'dashboard'"
+  >
     <ul>
       <li><a href="/">Dashboard</a></li>
       <li

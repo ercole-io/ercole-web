@@ -1,5 +1,13 @@
 <template>
-  <form @submit.prevent="login" class="login-form has-background-grey-lighter">
+  <form
+    @submit.prevent="
+      login({
+        username: username,
+        password: password
+      })
+    "
+    class="login-form has-background-grey-lighter"
+  >
     <b-field
       label-for="username"
       :type="{
@@ -19,6 +27,7 @@
         icon="user"
         placeholder="Username"
         @blur="$v.username.$touch()"
+        data-username
       />
     </b-field>
 
@@ -42,6 +51,7 @@
         icon="lock"
         placeholder="Password"
         @blur="$v.password.$touch()"
+        data-password
       />
     </b-field>
     <b-button
@@ -49,21 +59,24 @@
       native-type="submit"
       :disabled="$v.$invalid"
       expanded
+      data-submit
     >
       Sign in
     </b-button>
 
-    <p class="help is-danger has-text-centered" v-if="getErrMsg">
-      {{ getErrMsg }}
-    </p>
+    <errorMsg />
   </form>
 </template>
 
 <script>
 import { required, minLength } from 'vuelidate/lib/validators'
-import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
+import errorMsg from '@/components/login/errorMsg.vue'
 
 export default {
+  components: {
+    errorMsg
+  },
   data() {
     return {
       username: '',
@@ -81,19 +94,7 @@ export default {
     }
   },
   methods: {
-    login() {
-      const loginData = {
-        username: this.username,
-        password: this.password
-      }
-      this.$store.dispatch('login', {
-        username: loginData.username,
-        password: loginData.password
-      })
-    }
-  },
-  computed: {
-    ...mapGetters(['getErrMsg'])
+    ...mapActions(['login'])
   }
 }
 </script>
