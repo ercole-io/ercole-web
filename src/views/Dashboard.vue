@@ -4,10 +4,10 @@
       <div class="column is-9">
         <div class="columns">
           <div class="column is-4">
-            <TotalTargets :totalTarget="totalTarget" />
+            <TotalTargets />
           </div>
           <div class="column is-8">
-            <Technologies :technologies="technologies" />
+            <Technologies />
           </div>
         </div>
         <div class="columns">
@@ -19,7 +19,7 @@
       <div class="column is-3">
         <div class="columns">
           <div class="column is-12">
-            <Alerts :licenses="licensesAlerts" :engines="enginesAlerts" />
+            <Alerts />
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 import TotalTargets from '@/components/dashboard/TotalTargets.vue'
 import Technologies from '@/components/dashboard/technologies/Technologies.vue'
 // import ChartTabs from '@/components/dashboard/ChartTabs.vue'
@@ -43,25 +43,11 @@ export default {
     // LicensesChart,
     Alerts
   },
-  data() {
-    return {
-      totalTarget: {},
-      technologies: [],
-      licensesAlerts: {},
-      enginesAlerts: {}
-    }
-  },
   async beforeMount() {
     await this.getDashboardData()
-
-    this.totalTarget = this.getTotalTarget
-    this.technologies = this.getTechnologies
   },
   methods: {
     ...mapActions(['getDashboardData'])
-  },
-  computed: {
-    ...mapGetters(['getTotalTarget', 'getTechnologies'])
   }
 }
 </script>

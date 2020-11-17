@@ -1,5 +1,8 @@
 <template>
-  <section class="filters">
+  <section
+    class="filters"
+    v-if="$route.name !== 'licenses-agreement' && $route.name !== 'dashboard'"
+  >
     <b-button
       v-tooltip.bottom="
         options(globalFilters.hasActiveFilters ? 'Active' : 'Inactive')

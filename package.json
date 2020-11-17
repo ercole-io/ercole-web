@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
+    "test:unit": "vue-cli-service test:unit --watch",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
@@ -17,6 +17,7 @@
     "d3": "^5.16.0",
     "easy-circular-progress": "^1.0.4",
     "file-saver": "^2.0.2",
+    "flush-promises": "^1.0.2",
     "lodash": "^4.17.15",
     "moment": "^2.26.0",
     "numeral": "^2.0.6",

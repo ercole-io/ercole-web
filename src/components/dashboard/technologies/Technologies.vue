@@ -1,10 +1,11 @@
 <template>
   <BoxContent :title="$t('dashboard.pageTitle.technologies')" border>
-    <Technologie :technologies="technologies" />
+    <Technologie :technologies="getTechnologies" />
   </BoxContent>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import Technologie from '@/components/dashboard/technologies/Technologie.vue'
 
@@ -13,11 +14,8 @@ export default {
     BoxContent,
     Technologie
   },
-  props: {
-    technologies: {
-      type: Array,
-      required: true
-    }
+  computed: {
+    ...mapGetters(['getTechnologies'])
   }
 }
 </script>
