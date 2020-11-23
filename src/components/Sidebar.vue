@@ -6,6 +6,7 @@
     :hiddenOnCollapse="true"
     :showOneChild="true"
     @toggle-collapse="onToggleCollapse"
+    data-sidebar
   >
     <span slot="toggle-icon">
       <b-icon pack="fas" icon="bars" size="is-small" />

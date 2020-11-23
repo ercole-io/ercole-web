@@ -22,9 +22,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">29.41% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>5/17</span>
             </div>
         
             
@@ -36,16 +36,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">14.29% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>1/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>4/16</span>
             </div>
         
             
@@ -105,7 +105,7 @@
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -117,29 +117,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -152,7 +152,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axiosNoLoading from '@/axios/axios-no-loading.js'
 &nbsp;
-export const state = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
+export const state = () =&gt; ({
   locations: {},
   environments: {},
   activeFilters: {
@@ -164,13 +164,13 @@ export const state = <span class="cstat-no" title="statement not covered" ><span
   isFilterOpened: false
 })
 &nbsp;
-export const getters = <span class="cstat-no" title="statement not covered" >{</span>
+export const getters = {
   getActiveFilters: <span class="fstat-no" title="function not covered" >st</span>ate =&gt; {
 <span class="cstat-no" title="statement not covered" >    return state.activeFilters</span>
   }
 }
 &nbsp;
-export const mutations = <span class="cstat-no" title="statement not covered" >{</span>
+export const mutations = {
   SET_LOCATIONS: <span class="fstat-no" title="function not covered" >(s</span>tate, payload) =&gt; {
 <span class="cstat-no" title="statement not covered" >    state.locations = payload</span>
   },
@@ -186,7 +186,7 @@ export const mutations = <span class="cstat-no" title="statement not covered" >{
   }
 }
 &nbsp;
-export const actions = <span class="cstat-no" title="statement not covered" >{</span>
+export const actions = {
 <span class="fstat-no" title="function not covered" >  as</span>ync getGlobalFiltersData({ commit }) {
     const requestLocations = <span class="cstat-no" title="statement not covered" >await axiosNoLoading.get('/hosts/locations')</span>
     const responseLocations = <span class="cstat-no" title="statement not covered" >await requestLocations.data</span>
@@ -204,7 +204,7 @@ export const actions = <span class="cstat-no" title="statement not covered" >{</
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 17 2020 14:54:40 GMT-0300 (Brasilia Standard Time)
+                at Mon Nov 23 2020 12:23:47 GMT-0300 (Brasilia Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

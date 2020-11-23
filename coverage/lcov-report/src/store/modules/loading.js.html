@@ -22,9 +22,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>5/10</span>
             </div>
         
             
@@ -36,16 +36,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">16.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>1/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>5/10</span>
             </div>
         
             
@@ -54,7 +54,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -83,26 +83,17 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -110,17 +101,26 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export const state = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  return {</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export const state = () =&gt; {
+  return {
     isLoading: false
   }
 }
 &nbsp;
-export const getters = <span class="cstat-no" title="statement not covered" >{</span>
+export const getters = {
   loadingStatus: <span class="fstat-no" title="function not covered" >st</span>ate =&gt; <span class="cstat-no" title="statement not covered" >state.isLoading</span>
 }
 &nbsp;
-export const mutations = <span class="cstat-no" title="statement not covered" >{</span>
+export const mutations = {
   LOADING_ON: <span class="fstat-no" title="function not covered" >st</span>ate =&gt; {
 <span class="cstat-no" title="statement not covered" >    state.isLoading = true</span>
   },
@@ -129,7 +129,7 @@ export const mutations = <span class="cstat-no" title="statement not covered" >{
   }
 }
 &nbsp;
-export const actions = <span class="cstat-no" title="statement not covered" >{</span>
+export const actions = {
 <span class="fstat-no" title="function not covered" >  on</span>Loading({ commit }) {
 <span class="cstat-no" title="statement not covered" >    commit('LOADING_ON')</span>
   },
@@ -144,7 +144,7 @@ export const actions = <span class="cstat-no" title="statement not covered" >{</
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 17 2020 14:54:40 GMT-0300 (Brasilia Standard Time)
+                at Mon Nov 23 2020 12:23:47 GMT-0300 (Brasilia Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
