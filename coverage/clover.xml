@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1605884455999" clover="3.2.0">
-  <project timestamp="1605884455999" name="All files">
-    <metrics statements="4" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1" elements="6" coveredelements="3" complexity="0" loc="4" ncloc="4" packages="1" files="1" classes="1"/>
-    <file name="Agents.vue" path="/home/rcmaiolini/Dev/ercole-web/src/components/dashboard/alerts/Agents.vue">
-      <metrics statements="4" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
-      <line num="39" count="2" type="stmt"/>
-      <line num="45" count="0" type="stmt"/>
-      <line num="50" count="0" type="stmt"/>
-      <line num="56" count="2" type="stmt"/>
+<coverage generated="1606148288419" clover="3.2.0">
+  <project timestamp="1606148288419" name="All files">
+    <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2" elements="5" coveredelements="5" complexity="0" loc="3" ncloc="3" packages="1" files="1" classes="1"/>
+    <file name="Sidebar.vue" path="/home/rcmaiolini/Dev/ercole-web/src/components/Sidebar.vue">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <line num="18" count="2" type="stmt"/>
+      <line num="26" count="3" type="stmt"/>
+      <line num="204" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>
