@@ -15,7 +15,9 @@
       <template>
         <div class="agents">
           <span>Agents which do not send data:</span>
-          <span class="has-text-weight-bold">{{ stoppedAgents }}</span>
+          <span class="has-text-weight-bold" data-stoped-agents>{{
+            stoppedAgents
+          }}</span>
         </div>
       </template>
     </div>
@@ -25,6 +27,7 @@
         type="is-small"
         class="is-radiusless has-background-grey has-text-white-ter	has-text-weight-bold"
         expanded
+        data-inspect
       >
         Inspect
       </b-button>
@@ -33,12 +36,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   methods: {
+    ...mapMutations(['SET_ALERTS_PARAMS']),
     inspectAgents() {
-      this.$store.commit('SET_ALERTS_PARAMS', {
+      this.SET_ALERTS_PARAMS({
         category: 'AGENT',
         severity: null,
         hostname: null
