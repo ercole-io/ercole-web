@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1605637041177" clover="3.2.0">
-  <project timestamp="1605637041177" name="All files">
-    <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3" elements="8" coveredelements="8" complexity="0" loc="5" ncloc="5" packages="1" files="2" classes="2"/>
-    <file name="Footer.vue" path="/home/rcmaiolini/Dev/ercole-web/src/components/Footer.vue">
-      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <line num="14" count="3" type="stmt"/>
-    </file>
-    <file name="Header.vue" path="/home/rcmaiolini/Dev/ercole-web/src/components/Header.vue">
-      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <line num="42" count="2" type="stmt"/>
-      <line num="43" count="2" type="stmt"/>
-      <line num="60" count="3" type="stmt"/>
-      <line num="63" count="3" type="stmt"/>
+<coverage generated="1605884455999" clover="3.2.0">
+  <project timestamp="1605884455999" name="All files">
+    <metrics statements="4" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1" elements="6" coveredelements="3" complexity="0" loc="4" ncloc="4" packages="1" files="1" classes="1"/>
+    <file name="Agents.vue" path="/home/rcmaiolini/Dev/ercole-web/src/components/dashboard/alerts/Agents.vue">
+      <metrics statements="4" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+      <line num="39" count="2" type="stmt"/>
+      <line num="45" count="0" type="stmt"/>
+      <line num="50" count="0" type="stmt"/>
+      <line num="56" count="2" type="stmt"/>
     </file>
   </project>
 </coverage>
