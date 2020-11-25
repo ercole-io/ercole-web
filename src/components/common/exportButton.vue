@@ -1,5 +1,10 @@
 <template>
-  <b-button type="is-primary" size="is-small" @click="exportData()">
+  <b-button
+    type="is-primary"
+    size="is-small"
+    @click="exportData()"
+    data-export-button
+  >
     {{ text }}
   </b-button>
 </template>
