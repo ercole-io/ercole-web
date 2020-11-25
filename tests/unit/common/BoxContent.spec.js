@@ -38,6 +38,6 @@ describe('BoxContent.vue', () => {
   })
 
   it('will display custom title when passed', () => {
-    expect(wrapper.find('h2').text()).toContain('Custom Information')
+    expect(wrapper.find('div').text()).toContain('Custom Information')
   })
 })
