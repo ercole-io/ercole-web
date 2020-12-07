@@ -1,7 +1,11 @@
 <template>
   <section
     class="filters"
-    v-if="$route.name !== 'licenses-agreement' && $route.name !== 'dashboard'"
+    v-if="
+      $route.name !== 'licenses-agreement' &&
+        $route.name !== 'dashboard' &&
+        $route.name !== 'licenses-compliance'
+    "
   >
     <b-button
       v-tooltip.bottom="
