@@ -130,7 +130,8 @@
 
 <script>
 import _ from 'lodash'
-import { mapGetters, mapActions, mapState } from 'vuex'
+import { bus } from '@/helpers/eventBus.js'
+import { mapGetters, mapActions, mapState, mapMutations } from 'vuex'
 import { checkAlertIcon } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
@@ -188,6 +189,7 @@ export default {
   },
   methods: {
     ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),
+    ...mapMutations(['SET_ALERTS_PARAMS']),
     setIcon(severity) {
       return checkAlertIcon(severity)
     },
@@ -243,11 +245,7 @@ export default {
       )
     },
     removeParams() {
-      return this.$store.commit('SET_ALERTS_PARAMS', {
-        category: null,
-        severity: null,
-        hostname: null
-      })
+      bus.$emit('resetFilters')
     },
     formatDate(date) {
       return formatDate(date)
