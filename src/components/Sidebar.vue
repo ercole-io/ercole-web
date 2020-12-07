@@ -173,11 +173,11 @@ export default {
               title: 'Licenses Agreement',
               icon: 'fas fa-cog'
             },
-            // {
-            //   href: { name: 'licenses-compliance' },
-            //   title: 'Licenses Compliance',
-            //   icon: 'fas fa-cog'
-            // },
+            {
+              href: { name: 'licenses-compliance' },
+              title: 'Licenses Compliance',
+              icon: 'fas fa-cog'
+            },
             {
               href: { name: 'licenses-used' },
               title: 'Licenses Used',
