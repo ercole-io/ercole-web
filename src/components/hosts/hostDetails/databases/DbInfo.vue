@@ -11,6 +11,14 @@
                 <span>{{ details.status }}</span>
               </li>
               <li>
+                <span>Role</span>
+                <span>{{ details.role }}</span>
+              </li>
+              <li>
+                <span>DBid</span>
+                <span>{{ details.dbID }}</span>
+              </li>
+              <li>
                 <span>DBname</span>
                 <span>{{ details.dbName }}</span>
               </li>

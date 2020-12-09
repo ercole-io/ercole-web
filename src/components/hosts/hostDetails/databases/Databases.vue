@@ -13,6 +13,8 @@
               <DbInfo
                 :details="{
                   status: dbs.status,
+                  role: dbs.role,
+                  dbID: dbs.dbID,
                   dbName: dbs.name,
                   uniqueName: dbs.uniqueName,
                   archiveLog: dbs.archivelog,
