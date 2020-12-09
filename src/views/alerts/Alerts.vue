@@ -91,7 +91,7 @@
           </th>
           <v-th style="width: 10%" sortKey="alertCategory">Type</v-th>
           <v-th style="width: 10%" sortKey="date">Date</v-th>
-          <v-th style="width: 5%" sortKey="alertSeverity">Severity</v-th>
+          <v-th style="width: 5%" :sortKey="alertSeveritySort">Severity</v-th>
           <v-th style="width: 20%" sortKey="hostname">Hostname</v-th>
           <v-th style="width: 10%" sortKey="alertCode">Code</v-th>
           <v-th style="width: 40%" sortKey="description">Description</v-th>
@@ -168,11 +168,11 @@ export default {
     return {
       keys: [
         'alertCategory',
-        'alertSeverity',
         'date',
         'hostname',
         'alertCode',
-        'description'
+        'description',
+        'alertSeverity'
       ],
       selectedRows: [],
       isCurrentPageSelected: false,
@@ -243,6 +243,9 @@ export default {
         this.isAllPagesSelected,
         this.handleSelectRows
       )
+    },
+    alertSeveritySort(row) {
+      return row.alertSeverity.length
     },
     removeParams() {
       bus.$emit('resetFilters')
