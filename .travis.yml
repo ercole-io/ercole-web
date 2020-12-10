@@ -23,6 +23,9 @@ install:
   - gem install --no-document fpm
   - npm install
 
+before_script:
+  - npm run test:unit
+
 script:
   - npm run build
   - tar -C dist -czf /tmp/dist/ercole-web-${VERSION}.tar.gz .
