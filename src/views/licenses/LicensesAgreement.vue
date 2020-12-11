@@ -27,7 +27,7 @@
                 <v-th sortKey="partID">Part Number</v-th>
                 <v-th sortKey="itemDescription">Item Description</v-th>
                 <v-th sortKey="metric">Metric</v-th>
-                <v-th sortKey="csi">csi</v-th>
+                <v-th sortKey="csi">CSI</v-th>
                 <v-th sortKey="referenceNumber">Reference Number</v-th>
                 <v-th sortKey="unlimited">ULA</v-th>
                 <v-th sortKey="licensesCount">Number Licenses</v-th>
