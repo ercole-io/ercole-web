@@ -15,19 +15,19 @@
                 <span>{{ details.role }}</span>
               </li>
               <li>
-                <span>DBid</span>
+                <span>Db ID</span>
                 <span>{{ details.dbID }}</span>
               </li>
               <li>
-                <span>DBname</span>
+                <span>Db Name</span>
                 <span>{{ details.dbName }}</span>
               </li>
               <li>
-                <span>UniqueName</span>
+                <span>Unique Name</span>
                 <span>{{ details.uniqueName }}</span>
               </li>
               <li>
-                <span>Archivelog</span>
+                <span>Archive Log</span>
                 <b-icon
                   size="is-small"
                   :icon="bindIcon(details.archiveLog)[0]"
@@ -35,7 +35,7 @@
                 />
               </li>
               <li>
-                <span>BlockSize</span>
+                <span>Block Size</span>
                 <span>{{ details.blockSize }}</span>
               </li>
               <li>
@@ -43,7 +43,7 @@
                 <span>{{ details.charset }}</span>
               </li>
               <li>
-                <span>NCharset</span>
+                <span>N Charset</span>
                 <span>{{ details.nCharset }}</span>
               </li>
             </ul>
@@ -58,15 +58,15 @@
                 <span>{{ memory.memoryTarget }}</span>
               </li>
               <li>
-                <span>PGATarget (gb)</span>
+                <span>PGA Target (GB)</span>
                 <span>{{ memory.pgaTarget }}</span>
               </li>
               <li>
-                <span>SGAMaxSize (gb)</span>
+                <span>SGA MaxSize (GB)</span>
                 <span>{{ memory.sgaMaxSize }}</span>
               </li>
               <li>
-                <span>SGATarget (gb)</span>
+                <span>SGA Target (GB)</span>
                 <span>{{ memory.sgaTarget }}</span>
               </li>
             </ul>
@@ -81,7 +81,7 @@
                 <ul class="db-info">
                   <li>Resource Utilization</li>
                   <li>
-                    <span>DBTime</span>
+                    <span>Db Time</span>
                     <span>{{ resource.dbTime }}</span>
                   </li>
                   <li>
@@ -89,11 +89,11 @@
                     <span>{{ resource.elapsed }}</span>
                   </li>
                   <li>
-                    <span>Thread used</span>
+                    <span>Thread Used</span>
                     <span>{{ resource.threadUsed }}</span>
                   </li>
                   <li>
-                    <span>CPUCount</span>
+                    <span>CPU Count</span>
                     <span>{{ resource.cpuCount }}</span>
                   </li>
                 </ul>
@@ -106,15 +106,15 @@
             <ul class="db-info">
               <li>Space Utilization</li>
               <li>
-                <span>Allocable (gb)</span>
+                <span>Allocable (GB)</span>
                 <span>{{ space.allocable }}</span>
               </li>
               <li>
-                <span>DataFileSize (gb)</span>
+                <span>DataFile Size (GB)</span>
                 <span>{{ space.dataFileSize }}</span>
               </li>
               <li>
-                <span>SegmentsSize (gb)</span>
+                <span>Segments Size (GB)</span>
                 <span>{{ space.segmentSize }}</span>
               </li>
             </ul>
@@ -123,7 +123,7 @@
         <div class="columns">
           <div class="column">
             <ul class="db-info">
-              <li>Additionally Infos</li>
+              <li>Additional Info</li>
               <li>
                 <span>ASM</span>
                 <b-icon
@@ -133,7 +133,7 @@
                 />
               </li>
               <li>
-                <span>DataGuard</span>
+                <span>Data Guard</span>
                 <b-icon
                   size="is-small"
                   :icon="bindIcon(infos.dataGuard)[0]"
@@ -141,7 +141,7 @@
                 />
               </li>
               <li>
-                <span>Plattform</span>
+                <span>Platform</span>
                 <span>{{ infos.plattform }}</span>
               </li>
               <li>
