@@ -99,7 +99,7 @@
           </v-th>
           <v-th sortKey="os">OS</v-th>
           <v-th sortKey="iconCluster">Clust</v-th>
-          <v-th sortKey="kernel">kernel</v-th>
+          <v-th sortKey="kernel">Kernel</v-th>
           <v-th sortKey="memorytotal">Mem.</v-th>
           <v-th sortKey="swaptotal">Swap</v-th>
 
