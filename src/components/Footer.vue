@@ -20,7 +20,7 @@ export default {
 
 <style lang="scss" scoped>
 .footer {
-  padding: 1rem 1.5rem 1rem;
+  padding: 0 1.5rem;
   z-index: 52;
   margin-left: 50px;
 }
