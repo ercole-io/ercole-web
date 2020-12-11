@@ -81,7 +81,13 @@ export default {
       return (value *= 100)
     },
     showStrokeColor(value) {
-      return value >= 100 ? '#23d160' : '#ff3860'
+      if (value < 100 && value >= 80) {
+        return '#ffdb4a'
+      } else if (value < 80) {
+        return '#ff3860'
+      } else {
+        return '#23d160'
+      }
     },
     bindIcon(value) {
       return mapBooleanIcon(value)
