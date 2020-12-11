@@ -120,7 +120,7 @@
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
-          <TdContent :value="rowData.scope.hostname" />
+          <HostLink :hostname="rowData.scope.hostname" />
           <TdContent :value="rowData.scope.environment" />
           <TdArray :value="rowData.scope.databases" />
           <TdContent :value="rowData.scope.techType" />
@@ -192,6 +192,7 @@ import TdArray from '@/components/common/Table/TdArray.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import DrawerButton from '@/components/common/DrawerButton.vue'
 import HostsFilters from '@/components/hosts/hosts/HostsFilters.vue'
+import HostLink from '@/components/common/Table/HostLink.vue'
 import formatDate from '@/filters/formatDate.js'
 
 export default {
@@ -204,7 +205,8 @@ export default {
     TdArray,
     exportButton,
     DrawerButton,
-    HostsFilters
+    HostsFilters,
+    HostLink
   },
   data() {
     return {
