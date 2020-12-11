@@ -25,7 +25,7 @@ export const getters = {
         cluster: host.cluster,
         virtNode: host.virtualizationNode,
         os: host.info.os,
-        kernel: host.info.kernel,
+        kernel: `${host.info.kernelVersion} - ${host.info.kernel}`,
         memorytotal: host.info.memoryTotal,
         swaptotal: host.info.swapTotal,
         iconCluster: mapClustStatus(host.clusterMembershipStatus),
