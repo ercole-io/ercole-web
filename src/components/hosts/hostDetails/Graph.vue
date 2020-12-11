@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="chart-space">
     <LineChart chartId="lineChart" :lineChartData="chartData" />
     <!-- <BarChart chartId="barChart" :barChartData="barData" stacked />
     <ColumnChart chartId="columnChart" :columnChartData="columnData" stacked /> -->
@@ -123,4 +123,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.chart-space {
+  padding-top: 22px;
+}
+</style>
