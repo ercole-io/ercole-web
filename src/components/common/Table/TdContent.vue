@@ -1,5 +1,5 @@
 <template>
-  <td v-tooltip="options(value)">
+  <td v-tooltip="options(value, dataType)">
     <a v-if="link" @click="link(value)">
       {{ value }}
     </a>
@@ -11,7 +11,7 @@
 
 <script>
 import TooltipMixin from '@/mixins/tooltipMixin.js'
-import formatDate from '@/filters/formatDate.js'
+import formatDateTime from '@/filters/formatDateTime.js'
 
 export default {
   mixins: [TooltipMixin],
@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     formatDate(date) {
-      return formatDate(date)
+      return formatDateTime(date)
     }
   }
 }

@@ -1,3 +1,5 @@
+import formatDateTime from '@/filters/formatDateTime.js'
+
 export default {
   props: {
     value: {
@@ -6,9 +8,10 @@ export default {
     }
   },
   methods: {
-    options(val) {
+    options(val, type) {
       return {
-        content: val !== '-' ? val : null,
+        content:
+          val !== '-' ? (type === 'date' ? formatDateTime(val) : val) : null,
         classes: ['info'],
         hideOnTargetClick: true
       }
