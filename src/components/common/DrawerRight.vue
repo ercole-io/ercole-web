@@ -8,10 +8,7 @@
     position="absolute"
     :open.sync="isOpenFilters"
   >
-    <div
-      class="has-background-light"
-      :class="isOpenGlobalFilters ? 'drawer-wrapper-moved' : 'drawer-wrapper'"
-    >
+    <div class="has-background-light drawer-wrapper">
       <b-button
         size="is-small"
         type="is-dark"
@@ -28,6 +25,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import { bus } from '@/helpers/eventBus.js'
 
 export default {
@@ -40,13 +38,13 @@ export default {
   created() {
     bus.$on('openFilters', val => {
       this.isOpenFilters = val
-    })
-
-    bus.$on('isGlobalFilterOpened', val => {
-      this.isOpenGlobalFilters = val
+      if (val) {
+        this.SET_OPEN_FILTERS(false)
+      }
     })
   },
   methods: {
+    ...mapMutations(['SET_OPEN_FILTERS']),
     closeFilters() {
       this.isOpenFilters = false
       bus.$emit('closeFilters', this.isOpenFilters)
@@ -73,16 +71,6 @@ export default {
   @extend .drawer-position;
 
   .close {
-    @extend .close-position;
-  }
-}
-
-.drawer-wrapper-moved {
-  padding-top: 150px;
-  @extend .drawer-position;
-
-  .close {
-    top: 140px;
     @extend .close-position;
   }
 }
