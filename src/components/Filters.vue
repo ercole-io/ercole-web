@@ -169,7 +169,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import formatDate from '@/filters/formatDate.js'
 import { formatDatepickerDate } from '@/helpers/helpers.js'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
@@ -205,6 +205,10 @@ export default {
     bus.$on('alertStatus', val => {
       this.alertStatus = val
     })
+
+    bus.$on('openFilters', () => {
+      this.isFiltersOpened = false
+    })
   },
   methods: {
     ...mapActions([
@@ -220,6 +224,7 @@ export default {
       'getAlertsData',
       'getLicensesList'
     ]),
+    ...mapMutations(['SET_OPEN_FILTERS']),
     // getFilteredTags(text) {
     //   this.filteredTags = this.tagList.filter(option => {
     //     return (
@@ -234,11 +239,10 @@ export default {
       this.isFiltersOpened = !this.isFiltersOpened
       if (this.isFiltersOpened) {
         this.filterIcon = 'chevron-up'
-        this.$store.commit('SET_OPEN_FILTERS', this.isFiltersOpened)
       } else {
         this.filterIcon = 'chevron-down'
-        this.$store.commit('SET_OPEN_FILTERS', this.isFiltersOpened)
       }
+      this.SET_OPEN_FILTERS(this.isFiltersOpened)
     },
     applyFilters() {
       this.glFilters.date = formatDatepickerDate(this.glFilters.date)
