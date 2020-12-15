@@ -26,7 +26,8 @@ export const getters = {
         metric: val.metric,
         consumed: val.consumed,
         covered: val.covered,
-        compliance: [(val.compliance *= 100), showStrokeColor(val.compliance)],
+        complianveValue: (val.compliance *= 100),
+        complianceStroke: showStrokeColor(val.compliance),
         unlimited: val.unlimited
       })
     })

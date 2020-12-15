@@ -13,7 +13,7 @@
           <v-th sortKey="metric">Metric</v-th>
           <v-th sortKey="consumed">Consumed</v-th>
           <v-th sortKey="covered">Covered</v-th>
-          <v-th sortKey="compliance">Compliance</v-th>
+          <v-th sortKey="complianveValue">Compliance</v-th>
           <v-th sortKey="unlimited">ULA</v-th>
         </template>
 
@@ -26,8 +26,8 @@
           <td>
             <b-progress
               format="percent"
-              :type="rowData.scope.compliance[1]"
-              :value="rowData.scope.compliance[0]"
+              :type="rowData.scope.complianceStroke"
+              :value="rowData.scope.complianveValue"
               show-value
             />
           </td>
@@ -63,7 +63,7 @@ export default {
         'metric',
         'consumed',
         'covered',
-        'compliance',
+        'complianveValue',
         'unlimited'
       ]
     }
