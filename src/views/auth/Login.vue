@@ -4,7 +4,7 @@
       <div class="colunms">
         <div class="colunm">
           <div class="logo">
-            <img src="@/assets/images/ercole-logo.png" alt="Ercole" />
+            <ErcoleLogo />
           </div>
         </div>
         <div class="colunm">
@@ -17,10 +17,12 @@
 
 <script>
 import LoginForm from '@/components/login/form.vue'
+import ErcoleLogo from '@/components/common/ErcoleLogo.vue'
 
 export default {
   components: {
-    LoginForm
+    LoginForm,
+    ErcoleLogo
   }
 }
 </script>
