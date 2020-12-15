@@ -1,14 +1,20 @@
 <template>
   <section>
     <div class="error-header">
-      <img src="@/assets/images/ercole-logo.png" alt="Ercole" />
+      <ErcoleLogo />
     </div>
     <slot />
   </section>
 </template>
 
 <script>
-export default {}
+import ErcoleLogo from '@/components/common/ErcoleLogo.vue'
+
+export default {
+  components: {
+    ErcoleLogo
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -21,7 +27,7 @@ export default {}
   padding: 30px;
 
   img {
-    width: 300px;
+    width: 25rem;
   }
 }
 </style>
