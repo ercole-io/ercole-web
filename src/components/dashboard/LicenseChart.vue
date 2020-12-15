@@ -9,11 +9,11 @@
           @change.native="mountLincenseChart"
         >
           <option
-            v-for="(type, index) in licenseChartData"
+            v-for="(type, index) in getChartLicenseHistory"
             :value="type.partID"
             :key="index"
           >
-            {{ type.partID }} - {{ type.itemDescription }} - {{ type.metrics }}
+            {{ type.partID }} - {{ type.metric }} - {{ type.itemDescription }}
           </option>
         </b-select>
       </b-field>
@@ -23,11 +23,11 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import _ from 'lodash'
 import moment from 'moment'
 import BoxContent from '@/components/common/BoxContent.vue'
 import LineChart from '@/components/common/charts/LineChart.vue'
-import chartData from '@/components/dashboard/license-chart.json'
 
 const matchType = (data, selected) => {
   return _.find(data, type => {
@@ -39,7 +39,7 @@ const mapLicenseType = (history, type) => {
   _.map(history, value => {
     historyByType.push({
       date: moment(value.date).format('YYYY-MM-DD'),
-      value: type === 'purchased' ? value.purchasedLicenses : value.usedLicenses
+      value: type === 'purchased' ? value.covered : value.consumed
     })
   })
 
@@ -76,16 +76,19 @@ export default {
   data() {
     return {
       finalChartData: [],
-      licenseChartData: chartData,
-      selectedType: chartData[0].partID
+      selectedType: null
     }
   },
-  beforeMount() {
+  async beforeMount() {
+    await this.getLicenseHistory()
+
+    this.selectedType = this.getChartLicenseHistory[0].partID
     this.mountLincenseChart()
   },
   methods: {
+    ...mapActions(['getLicenseHistory']),
     mountLincenseChart() {
-      let findType = matchType(this.licenseChartData, this.selectedType)
+      let findType = matchType(this.getChartLicenseHistory, this.selectedType)
 
       const purchasedLicenses = mapLicenseType(findType.history, 'purchased')
       const usedLicenses = mapLicenseType(findType.history, 'used')
@@ -98,6 +101,9 @@ export default {
       this.finalChartData = finalData
       return this.finalChartData
     }
+  },
+  computed: {
+    ...mapGetters(['getChartLicenseHistory'])
   }
 }
 </script>
