@@ -25,7 +25,7 @@
       <b-button
         @click="inspectAgents"
         type="is-small"
-        class="is-radiusless has-background-grey has-text-white-ter	has-text-weight-bold"
+        class="is-radiusless has-background-grey has-text-white-bis has-text-weight-bold"
         expanded
         data-inspect
       >

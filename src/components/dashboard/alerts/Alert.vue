@@ -58,7 +58,7 @@
         <NoContent :noContentText="`There are no alerts for ${title[0]}`" />
       </main>
     </transition>
-    <footer class="card-footer card-buttons has-background-grey">
+    <footer class="card-footer card-buttons">
       <b-button
         @click="handleAlertClick(hasFlag, 'INFO')"
         :disabled="alertTotals.info === 0"
@@ -200,11 +200,11 @@ export default {
   }
 
   .card-buttons {
-    border: 2px solid hsl(0, 0%, 48%);
     display: flex;
 
     .alert-button {
-      font-size: 14px;
+      height: 30px;
+      font-size: 15px;
       border-radius: 0;
 
       &:disabled {
@@ -213,8 +213,10 @@ export default {
     }
 
     .inverted-alert {
-      background-color: #7a7a7a;
+      background-color: hsl(0, 0%, 48%);
       border: none;
+      text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff,
+        1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
 
       &.warning {
         color: #ffdd57;

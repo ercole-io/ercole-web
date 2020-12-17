@@ -13,7 +13,7 @@
             :value="type.partID"
             :key="index"
           >
-            {{ type.partID }} - {{ type.metric }} - {{ type.itemDescription }}
+            {{ type.partID }} - {{ type.itemDescription }} - {{ type.metric }}
           </option>
         </b-select>
       </b-field>
