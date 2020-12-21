@@ -1,20 +1,25 @@
 <template>
   <td v-tooltip="options(value, dataType)">
-    <a v-if="link" @click="link(value)">
-      {{ value }}
-    </a>
-    <span v-if="!link">
-      {{ dataType === 'date' ? formatDate(value) : value || '-' }}
-    </span>
+    <template v-if="link">
+      <a @click="link(value)">
+        <span v-html="highlight(value || '-')"></span>
+      </a>
+    </template>
+    <template v-if="!link">
+      <span v-if="!dataType" v-html="highlight(value || '-')"> </span>
+      <span v-if="dataType" v-html="highlight(formatDate(value || '-'))">
+      </span>
+    </template>
   </td>
 </template>
 
 <script>
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import formatDateTime from '@/filters/formatDateTime.js'
 
 export default {
-  mixins: [TooltipMixin],
+  mixins: [HighlightSearchMixin, TooltipMixin],
   props: {
     link: {
       type: Function

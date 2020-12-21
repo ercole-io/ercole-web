@@ -22,10 +22,10 @@ export default {
       return typeof this.hostname === 'string'
         ? this.hostname
         : this.hostname[0]
-    },
-    getDbname() {
-      return typeof this.hostname === 'string' ? '' : this.hostname[1]
     }
+    // getDbname() {
+    //   return typeof this.hostname === 'string' ? '' : this.hostname[1]
+    // }
   }
 }
 </script>
