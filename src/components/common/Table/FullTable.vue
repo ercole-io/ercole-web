@@ -6,11 +6,13 @@
         size="is-small"
         v-model="filters.search.value"
         style="height: 30px;"
+        v-if="!hideSearch"
+        @input="emitSearch"
       />
 
       <slot name="customTopHeader" />
 
-      <SelectPerPage :totalItems="total.length" />
+      <SelectPerPage :totalItems="total.length" v-if="!hidePerpage" />
     </TopTable>
 
     <div class="table-container">
@@ -31,6 +33,7 @@
           <tr class="has-background-grey-lighter">
             <slot name="headData" />
           </tr>
+          <slot name="subCustomHeadData" />
         </thead>
         <tbody
           slot="body"
@@ -62,7 +65,7 @@
       </v-table>
     </div>
 
-    <BottomTable>
+    <BottomTable v-if="!hidePagination">
       <ShowPerPage
         slot="info"
         :totalItems="total.length"
@@ -89,6 +92,7 @@
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import TopTable from '@/components/common/Table/TopTable.vue'
 import BottomTable from '@/components/common/Table/BottomTable.vue'
@@ -123,6 +127,18 @@ export default {
     classSelection: {
       type: String,
       default: ''
+    },
+    hideSearch: {
+      type: Boolean,
+      default: false
+    },
+    hidePerpage: {
+      type: Boolean,
+      default: false
+    },
+    hidePagination: {
+      type: Boolean,
+      default: false
     }
   },
   components: {
@@ -151,6 +167,9 @@ export default {
       return value === 'noData'
         ? (this.filteredData = 0)
         : (this.filteredData = value.length)
+    },
+    emitSearch() {
+      bus.$emit('searchTerm', this.filters.search.value)
     }
   },
   computed: {
@@ -192,5 +211,9 @@ export default {
 
 .content table tr:not(:last-child) {
   border-bottom: 1px solid #dbdbdb;
+}
+
+.highlightText {
+  background: yellow;
 }
 </style>
