@@ -29,6 +29,27 @@
       {{ isFiltersOpened ? 'Hide Global Filters' : 'Show Global Filters' }}
     </b-button>
 
+    <div class="activeFilters" v-if="globalFilters.hasActiveFilters">
+      <div class="has-text-weight-medium is-flex">
+        Active Filters:
+        <div class="field" v-if="glFilters.location">
+          <b-tag type="is-warning is-light">
+            {{ glFilters.location }}
+          </b-tag>
+        </div>
+        <div class="field" v-if="glFilters.environment">
+          <b-tag type="is-warning is-light">
+            {{ glFilters.environment }}
+          </b-tag>
+        </div>
+        <div class="field" v-if="glFilters.date">
+          <b-tag type="is-warning is-light">
+            {{ formatDate(glFilters.date) }}
+          </b-tag>
+        </div>
+      </div>
+    </div>
+
     <b-collapse animation="slide" :open.sync="isFiltersOpened">
       <div class="filters-form">
         <b-field
@@ -354,6 +375,20 @@ export default {
   .bt-show-hide-filters {
     font-size: 11px;
     font-weight: 500;
+  }
+
+  .activeFilters {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    font-size: 11px;
+    line-height: 24px;
+
+    .field {
+      .tag {
+        font-size: 11px;
+      }
+    }
   }
 
   @media screen and (max-width: 960px) {
