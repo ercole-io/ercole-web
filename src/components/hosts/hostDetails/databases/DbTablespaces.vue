@@ -1,37 +1,46 @@
 <template>
-  <section class="wrap-table">
-    <v-table :data="tablespaces" :hideSortIcons="true" class="vTable-custom">
-      <thead slot="head">
-        <tr class="has-background-grey-lighter">
-          <v-th sortKey="name">Name</v-th>
-          <v-th sortKey="status">Status</v-th>
-          <v-th sortKey="used">Used</v-th>
-          <v-th sortKey="usedPerc">Used GB</v-th>
-          <v-th sortKey="total">Total</v-th>
-          <v-th sortKey="maxSize">Max Size</v-th>
-        </tr>
-      </thead>
-      <tbody slot="body" slot-scope="{ displayData }">
-        <v-tr v-for="(row, index) in displayData" :key="index" :row="row">
-          <td>{{ row.name }}</td>
-          <td>{{ row.status }}</td>
-          <td>{{ row.used }}</td>
-          <td>{{ row.usedPerc }}</td>
-          <td>{{ row.total }}</td>
-          <td>{{ row.maxSize }}</td>
-        </v-tr>
-      </tbody>
-    </v-table>
-  </section>
+  <FullTable
+    :tableData="tablespaces"
+    :keys="[]"
+    hideSearch
+    hidePerpage
+    hidePagination
+    hideTopTable
+  >
+    <template slot="headData">
+      <v-th sortKey="name">Name</v-th>
+      <v-th sortKey="status">Status</v-th>
+      <v-th sortKey="used">Used</v-th>
+      <v-th sortKey="usedPerc">Used GB</v-th>
+      <v-th sortKey="total">Total</v-th>
+      <v-th sortKey="maxSize">Max Size</v-th>
+    </template>
+
+    <template slot="bodyData" slot-scope="rowData">
+      <TdContent :value="rowData.scope.name" />
+      <TdContent :value="rowData.scope.status" />
+      <TdContent :value="rowData.scope.used" />
+      <TdContent :value="rowData.scope.usedPerc" />
+      <TdContent :value="rowData.scope.total" />
+      <TdContent :value="rowData.scope.maxSize" />
+    </template>
+  </FullTable>
 </template>
 
 <script>
+import FullTable from '@/components/common/Table/FullTable.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
+
 export default {
   props: {
     tablespaces: {
       type: Array,
       default: null
     }
+  },
+  components: {
+    FullTable,
+    TdContent
   }
 }
 </script>

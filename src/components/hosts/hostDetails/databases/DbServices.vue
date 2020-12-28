@@ -1,31 +1,40 @@
 <template>
-  <section class="wrap-table">
-    <v-table :data="services" :hideSortIcons="true" class="vTable-custom">
-      <thead slot="head">
-        <tr class="has-background-grey-lighter">
-          <v-th sortKey="name">Name</v-th>
-          <v-th sortKey="creationDate">Creation Date</v-th>
-          <v-th sortKey="enable">Enable</v-th>
-        </tr>
-      </thead>
-      <tbody slot="body" slot-scope="{ displayData }">
-        <v-tr v-for="(row, index) in displayData" :key="index" :row="row">
-          <td>{{ row.name }}</td>
-          <td>{{ row.creationDate }}</td>
-          <td>{{ row.enable }}</td>
-        </v-tr>
-      </tbody>
-    </v-table>
-  </section>
+  <FullTable
+    :tableData="addms"
+    :keys="[]"
+    hideSearch
+    hidePerpage
+    hidePagination
+    hideTopTable
+  >
+    <template slot="headData">
+      <v-th sortKey="name">Name</v-th>
+      <v-th sortKey="creationDate">Creation Date</v-th>
+      <v-th sortKey="enable">Enable</v-th>
+    </template>
+
+    <template slot="bodyData" slot-scope="rowData">
+      <TdContent :value="rowData.scope.name" />
+      <TdContent :value="rowData.scope.creationDate" />
+      <TdContent :value="rowData.scope.enable" />
+    </template>
+  </FullTable>
 </template>
 
 <script>
+import FullTable from '@/components/common/Table/FullTable.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
+
 export default {
   props: {
     services: {
       type: Array,
       default: Array
     }
+  },
+  components: {
+    FullTable,
+    TdContent
   }
 }
 </script>
