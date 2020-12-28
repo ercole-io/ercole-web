@@ -1,29 +1,38 @@
 <template>
-  <section class="wrap-table">
-    <v-table :data="psus" :hideSortIcons="true" class="vTable-custom">
-      <thead slot="head">
-        <tr class="has-background-grey-lighter">
-          <v-th sortKey="date">Date</v-th>
-          <v-th sortKey="description">Description</v-th>
-        </tr>
-      </thead>
-      <tbody slot="body" slot-scope="{ displayData }">
-        <v-tr v-for="(row, index) in displayData" :key="index" :row="row">
-          <td>{{ row.date | formatDate }}</td>
-          <td>{{ row.description }}</td>
-        </v-tr>
-      </tbody>
-    </v-table>
-  </section>
+  <FullTable
+    :tableData="psus"
+    :keys="[]"
+    hideSearch
+    hidePerpage
+    hidePagination
+    hideTopTable
+  >
+    <template slot="headData">
+      <v-th sortKey="date">Date</v-th>
+      <v-th sortKey="description">Description</v-th>
+    </template>
+
+    <template slot="bodyData" slot-scope="rowData">
+      <TdContent :value="rowData.scope.date | formatDate" />
+      <TdContent :value="rowData.scope.description" />
+    </template>
+  </FullTable>
 </template>
 
 <script>
+import FullTable from '@/components/common/Table/FullTable.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
+
 export default {
   props: {
     psus: {
       type: Array,
       default: null
     }
+  },
+  components: {
+    FullTable,
+    TdContent
   }
 }
 </script>

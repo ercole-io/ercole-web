@@ -12,7 +12,6 @@
       border-radius: 5px;
       box-shadow: 0 5px 30px rgba(black, .1);
       font-size: 0.8em;
-      white-space: pre;
     }
 
     .tooltip-arrow {
@@ -25,6 +24,9 @@
     color: white;
     border-radius: 16px;
     padding: 5px 10px 4px;
+    white-space: pre-wrap;
+    max-width: 300px;
+    text-align: center;
   }
 
   .tooltip-arrow {

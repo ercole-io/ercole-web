@@ -1,6 +1,6 @@
 <template>
   <section>
-    <TopTable>
+    <TopTable v-if="!hideTopTable">
       <b-input
         :placeholder="placeholder"
         size="is-small"
@@ -137,6 +137,10 @@ export default {
       default: false
     },
     hidePagination: {
+      type: Boolean,
+      default: false
+    },
+    hideTopTable: {
       type: Boolean,
       default: false
     }
