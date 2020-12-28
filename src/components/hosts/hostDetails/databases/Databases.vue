@@ -74,7 +74,7 @@
             <b-tab-item label="Patches" v-if="dbs.patches.length > 0">
               <DbPatches :patches="dbs.patches" />
             </b-tab-item>
-            <b-tab-item label="PSUs" v-if="dbs.psus.length > 0">
+            <b-tab-item label="PSU" v-if="dbs.psus.length > 0">
               <DbPSUs :psus="dbs.psus" />
             </b-tab-item>
             <b-tab-item label="ADDM" v-if="dbs.addms.length > 0">
