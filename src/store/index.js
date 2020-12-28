@@ -24,6 +24,7 @@ import * as oraclePatchAdvisor from './modules/oracle-patch-advisor.js'
 import * as oracleAddm from './modules/oracle-addm.js'
 import * as globalFilters from './modules/globalFilters.js'
 import * as localFilters from './modules/localFilters.js'
+import * as engineeredSystems from './modules/engineered-systems.js'
 
 Vue.use(Vuex)
 
@@ -50,7 +51,8 @@ export default new Vuex.Store({
     oraclePatchAdvisor,
     oracleAddm,
     globalFilters,
-    localFilters
+    localFilters,
+    engineeredSystems
   },
   plugins: [
     createPersistedState({

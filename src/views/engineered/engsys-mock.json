@@ -1,0 +1,542 @@
+[
+  {
+    "hostname": "oraexa03",
+    "location": "string",
+    "environment": "string",
+    "createdAt": "string",
+    "dbServers": [
+      {
+        "hostname": "oraexa3a1",
+        "serverType": "string",
+        "model": "X7-2",
+        "swVersion": "string",
+        "cpuEnabled": "48/48",
+        "memory": "376",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "19.2.4.0.0.190709",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      },
+      {
+        "hostname": "oraexa3a2",
+        "serverType": "string",
+        "model": "X7-2",
+        "swVersion": "string",
+        "cpuEnabled": "48/48",
+        "memory": "376",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "19.2.4.0.0.190709",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      }
+    ],
+    "storageServers": [
+      {
+        "hostname": "adm-oraexa3cell01",
+        "serverType": "string",
+        "model": "X7-2_High_Capacity",
+        "swVersion": "string",
+        "cpuEnabled": "20/40",
+        "memory": "188",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "19.2.4.0.0.190709",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      },
+      {
+        "hostname": "adm-oraexa3cell02",
+        "serverType": "string",
+        "model": "X7-2_High_Capacity",
+        "swVersion": "string",
+        "cpuEnabled": "20/40",
+        "memory": "188",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "19.2.4.0.0.190709",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      }
+    ],
+    "ibSwitches": [
+      {
+        "hostname": "aorexasw3-iba1",
+        "serverType": "string",
+        "model": "SUN_DCS_36p",
+        "swVersion": "string",
+        "cpuEnabled": "-",
+        "memory": "-",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "2.2.13-2.190326",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      },
+      {
+        "hostname": "aorexasw3-iba2",
+        "serverType": "string",
+        "model": "SUN_DCS_36p",
+        "swVersion": "string",
+        "cpuEnabled": "-",
+        "memory": "-",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "2.2.13-2.190326",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "hostname": "oraexa04",
+    "location": "string",
+    "environment": "string",
+    "createdAt": "string",
+    "dbServers": [
+      {
+        "hostname": "oraexa3a1",
+        "serverType": "string",
+        "model": "X7-2",
+        "swVersion": "string",
+        "cpuEnabled": "48/48",
+        "memory": "376",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "19.2.4.0.0.190709",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      },
+      {
+        "hostname": "oraexa3a2",
+        "serverType": "string",
+        "model": "X7-2",
+        "swVersion": "string",
+        "cpuEnabled": "48/48",
+        "memory": "376",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "19.2.4.0.0.190709",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      }
+    ],
+    "storageServers": [
+      {
+        "hostname": "adm-oraexa3cell01",
+        "serverType": "string",
+        "model": "X7-2_High_Capacity",
+        "swVersion": "string",
+        "cpuEnabled": "20/40",
+        "memory": "188",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "19.2.4.0.0.190709",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      },
+      {
+        "hostname": "adm-oraexa3cell02",
+        "serverType": "string",
+        "model": "X7-2_High_Capacity",
+        "swVersion": "string",
+        "cpuEnabled": "20/40",
+        "memory": "188",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "19.2.4.0.0.190709",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      }
+    ],
+    "ibSwitches": [
+      {
+        "hostname": "aorexasw3-iba1",
+        "serverType": "string",
+        "model": "SUN_DCS_36p",
+        "swVersion": "string",
+        "cpuEnabled": "-",
+        "memory": "-",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "2.2.13-2.190326",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      },
+      {
+        "hostname": "aorexasw3-iba2",
+        "serverType": "string",
+        "model": "SUN_DCS_36p",
+        "swVersion": "string",
+        "cpuEnabled": "-",
+        "memory": "-",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "2.2.13-2.190326",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "hostname": "oraexa05",
+    "location": "string",
+    "environment": "string",
+    "createdAt": "string",
+    "dbServers": [
+      {
+        "hostname": "oraexa3a1",
+        "serverType": "string",
+        "model": "X7-2",
+        "swVersion": "string",
+        "cpuEnabled": "48/48",
+        "memory": "376",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "19.2.4.0.0.190709",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      },
+      {
+        "hostname": "oraexa3a2",
+        "serverType": "string",
+        "model": "X7-2",
+        "swVersion": "string",
+        "cpuEnabled": "48/48",
+        "memory": "376",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "19.2.4.0.0.190709",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      }
+    ],
+    "storageServers": [
+      {
+        "hostname": "adm-oraexa3cell01",
+        "serverType": "string",
+        "model": "X7-2_High_Capacity",
+        "swVersion": "string",
+        "cpuEnabled": "20/40",
+        "memory": "188",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "19.2.4.0.0.190709",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      },
+      {
+        "hostname": "adm-oraexa3cell02",
+        "serverType": "string",
+        "model": "X7-2_High_Capacity",
+        "swVersion": "string",
+        "cpuEnabled": "20/40",
+        "memory": "188",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "19.2.4.0.0.190709",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      }
+    ],
+    "ibSwitches": [
+      {
+        "hostname": "aorexasw3-iba1",
+        "serverType": "string",
+        "model": "SUN_DCS_36p",
+        "swVersion": "string",
+        "cpuEnabled": "-",
+        "memory": "-",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "2.2.13-2.190326",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      },
+      {
+        "hostname": "aorexasw3-iba2",
+        "serverType": "string",
+        "model": "SUN_DCS_36p",
+        "swVersion": "string",
+        "cpuEnabled": "-",
+        "memory": "-",
+        "status": "string",
+        "powerCount": "2/2",
+        "powerStatus": "string",
+        "fanCount": "string",
+        "fanStatus": "string",
+        "tempActual": "24.0",
+        "tempStatus": "string",
+        "cellsrvService": "string",
+        "msService": "string",
+        "rsService": "string",
+        "flashcacheMode": "string",
+        "version": "2.2.13-2.190326",
+        "cellDisks": [
+          {
+            "name": "string",
+            "status": "string",
+            "errCount": "string",
+            "usedPerc": "string"
+          }
+        ]
+      }
+    ]
+  }
+]
