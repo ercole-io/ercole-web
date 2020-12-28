@@ -8,7 +8,7 @@
     :colors="colors"
     :legend="legend"
     :messages="{ empty: 'No data' }"
-    :style="{ height: chartHeight }"
+    :style="{ height: chartHeight, lineHeight: chartHeight }"
   ></bar-chart>
 </template>
 

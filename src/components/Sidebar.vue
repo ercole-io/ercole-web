@@ -154,11 +154,11 @@ export default {
         //   title: 'Middlewares',
         //   icon: 'fas fa-globe'
         // },
-        // {
-        //   href: { name: 'engineered-systems' },
-        //   title: 'Engineered Systems',
-        //   icon: 'fas fa-times'
-        // },
+        {
+          href: { name: 'engineered-systems' },
+          title: 'Engineered Systems',
+          icon: 'fas fa-times'
+        },
         {
           href: { name: 'alerts' },
           title: 'Alerts',
