@@ -56,8 +56,11 @@
             <b-tab-item label="Pluggable DBs" v-if="dbs.pdbs.length > 0">
               <DbPDBs :pdbs="dbs.pdbs" />
             </b-tab-item>
-            <b-tab-item label="Licenses" v-if="dbs.licenses.length > 0">
-              <DbLicenses :licenses="dbs.licenses" />
+            <b-tab-item
+              label="Licenses"
+              v-if="dbLicenses(dbs.licenses).length > 0"
+            >
+              <DbLicenses :licenses="dbLicenses(dbs.licenses)" />
             </b-tab-item>
             <b-tab-item label="Options" v-if="dbs.featureUsageStats.length > 0">
               <DbOptions :options="dbs.featureUsageStats" />
@@ -152,6 +155,17 @@ export default {
       this.activeTab = _.findIndex(this.hostDetails.hostDBs, {
         name: this.activeDB
       })
+    }
+  },
+  methods: {
+    dbLicenses(values) {
+      let filteredLicenses = []
+      _.filter(values, val => {
+        if (val.count > 0) {
+          filteredLicenses.push(val)
+        }
+      })
+      return filteredLicenses
     }
   },
   computed: {
