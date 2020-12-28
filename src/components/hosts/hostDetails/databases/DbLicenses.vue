@@ -4,7 +4,7 @@
       <v-table
         class="vTable-custom table-hover"
         :hideSortIcons="true"
-        :data="filteredLicenses"
+        :data="licenses"
       >
         <!-- selectionMode="multiple"
         selectedClass="has-background-primary has-text-grey-lighter"
@@ -18,9 +18,9 @@
         </thead>
         <tbody slot="body" slot-scope="{ displayData }">
           <v-tr v-for="row in displayData" :key="row.Name" :row="row">
-            <td>{{ row.name }}</td>
-            <td>{{ row.count }}</td>
-            <td>{{ row.tags }}</td>
+            <TdContent :value="row.name" />
+            <TdContent :value="row.count" />
+            <TdContent :value="row.tags" />
           </v-tr>
         </tbody>
       </v-table>
@@ -42,27 +42,22 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
   props: {
     licenses: {
-      type: Array,
-      default: Array
+      type: [Array, Function],
+      default: null
     }
+  },
+  components: {
+    TdContent
   },
   data() {
     return {
-      selectedRows: [],
-      filteredLicenses: []
+      // selectedRows: []
     }
-  },
-  beforeMount() {
-    _.filter(this.licenses, val => {
-      if (val.count !== 0) {
-        this.filteredLicenses.push(val)
-      }
-    })
   }
 }
 </script>
