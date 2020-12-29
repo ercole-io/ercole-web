@@ -1,5 +1,5 @@
 <template>
-  <td v-tooltip="options(formatArrayToShow(value))">
+  <td v-tooltip.bottom="options(formatArrayToShow(value))">
     <span v-html="highlight(formatArrayToShow(value))"></span>
   </td>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <td v-tooltip="tooltip">
+  <td v-tooltip.bottom="tooltip">
     <b-icon
       :custom-size="size"
       :icon="icon"
