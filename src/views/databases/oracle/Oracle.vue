@@ -119,6 +119,11 @@
             <v-th sortKey="hostname">Hostname</v-th>
             <v-th sortKey="environment">Env.</v-th>
             <v-th sortKey="charset">Charset</v-th>
+            <v-th sortKey="work">Work</v-th>
+            <v-th sortKey="cpuCount">CPU Count</v-th>
+            <v-th sortKey="blockSize">Block Size</v-th>
+            <v-th sortKey="status">Status</v-th>
+            <v-th sortKey="uniqueName">Unique Name</v-th>
             <v-th sortKey="memory">Memory (GB)</v-th>
             <v-th sortKey="datafileSize">Datafile size (GB)</v-th>
             <v-th sortKey="segmentsSize">Segment size (GB)</v-th>
@@ -135,6 +140,11 @@
             />
             <TdContent :value="rowData.scope.environment" />
             <TdContent :value="rowData.scope.charset" />
+            <TdContent :value="rowData.scope.work" />
+            <TdContent :value="rowData.scope.cpuCount" />
+            <TdContent :value="rowData.scope.blockSize" />
+            <TdContent :value="rowData.scope.status" />
+            <TdContent :value="rowData.scope.uniqueName" />
             <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
             <TdContent :value="rowData.scope.datafileSize" />
             <TdContent :value="rowData.scope.segmentsSize" />
@@ -190,7 +200,12 @@ export default {
         'segmentsSize',
         'archivelog',
         'dataguard',
-        'ha'
+        'ha',
+        'work',
+        'blockSize',
+        'cpuCount',
+        'status',
+        'uniqueName'
       ]
     }
   },
