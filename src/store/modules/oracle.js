@@ -43,6 +43,28 @@ export const getters = {
   },
   getHaChartDataOracle: state => {
     return mountChart('ha', 'High Availability', state.oracleDbs)
+  },
+  getTopWorkload: state => {
+    const topTree = state.topWorkload.slice(0, 3)
+
+    if (topTree.length > 0) {
+      topTree[0].color = '#c9b037'
+      topTree[1].color = '#b4b4b4'
+      topTree[2].color = '#AD8A56'
+    }
+
+    return topTree
+  },
+  getTopReclaimable: state => {
+    const topTree = state.topReclaimable.slice(0, 3)
+
+    if (topTree.length > 0) {
+      topTree[0].color = '#c9b037'
+      topTree[1].color = '#b4b4b4'
+      topTree[2].color = '#AD8A56'
+    }
+
+    return topTree
   }
 }
 
