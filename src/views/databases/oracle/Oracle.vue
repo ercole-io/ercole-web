@@ -3,53 +3,117 @@
     <div class="columns">
       <div class="column is-6">
         <BoxContent title="Top 3 Instance Workload" border>
-          <a
+          <!-- <a
             class="is-size-7 is-italic has-text-weight-normal has-text-dark"
             style="text-decoration: underline;"
             slot="customTitle"
           >
             see the top 10 >>>
-          </a>
-          <div class="columns">
-            <div
-              class="column top3"
-              v-for="(workload, index) in oracle.topWorkload.slice(0, 3)"
-              :key="index"
-            >
-              <span class="number-marker">{{ index + 1 }}</span>
-              <span>Host Name</span>
-              <p>{{ workload.hostname }}</p>
-              <span>DB Name</span>
-              <p>{{ workload.dbname }}</p>
-              <span>Thread Utilization</span>
-              <p>{{ workload.workload }}</p>
-            </div>
+          </a> -->
+          <div class="columns py-1 px-4">
+            <table class="table is-striped">
+              <thead>
+                <tr class="has-background-light">
+                  <th class="is-size-7 has-text-dark"></th>
+                  <th class="is-size-7 has-text-dark">Host Name</th>
+                  <th class="is-size-7 has-text-dark has-text-centered">
+                    DB Name
+                  </th>
+                  <th class="is-size-7 has-text-dark has-text-centered">
+                    Thread Utilization
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="(workload, index) in getTopWorkload"
+                  :key="workload._id"
+                >
+                  <td class="is-size-5 has-text-centered">
+                    <span
+                      class="icon is-size-3"
+                      :style="{ color: workload.color }"
+                      style="position:relative"
+                    >
+                      <i class="fas fa-star" />
+                      <span
+                        class="is-size-6 has-text-grey-darker"
+                        style="position: absolute; top: 2px;"
+                      >
+                        {{ index + 1 }}
+                      </span>
+                    </span>
+                  </td>
+                  <td class="is-size-7">
+                    {{ workload.hostname }}
+                  </td>
+                  <td class="is-size-7 has-text-centered">
+                    {{ workload.dbname }}
+                  </td>
+                  <td class="is-size-7 has-text-centered">
+                    {{ workload.workload }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </BoxContent>
       </div>
       <div class="column is-6">
         <BoxContent title="Top 3 Unused Instance Resource" border>
-          <a
+          <!-- <a
             class="is-size-7 is-italic has-text-weight-normal has-text-dark"
             style="text-decoration: underline;"
             slot="customTitle"
           >
             see the top 10 >>>
-          </a>
-          <div class="columns">
-            <div
-              class="column top3"
-              v-for="(reclaimable, index) in oracle.topReclaimable.slice(0, 3)"
-              :key="index"
-            >
-              <span class="number-marker">{{ index + 1 }}</span>
-              <span>Host Name</span>
-              <p>{{ reclaimable.hostname }}</p>
-              <span>DB Name</span>
-              <p>{{ reclaimable.dbname }}</p>
-              <span>Thread Utilization</span>
-              <p>{{ reclaimable.reclaimableSegmentAdvisors }}</p>
-            </div>
+          </a> -->
+          <div class="columns py-1 px-4">
+            <table class="table is-striped">
+              <thead>
+                <tr class="has-background-light">
+                  <th class="is-size-7 has-text-dark"></th>
+                  <th class="is-size-7 has-text-dark">Host Name</th>
+                  <th class="is-size-7 has-text-dark has-text-centered">
+                    DB Name
+                  </th>
+                  <th class="is-size-7 has-text-dark has-text-centered">
+                    Thread Utilization
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="(reclaimable, index) in getTopReclaimable"
+                  :key="reclaimable._id"
+                >
+                  <td class="is-size-5 has-text-centered">
+                    <span
+                      class="icon is-size-3"
+                      :style="{ color: reclaimable.color }"
+                      style="position:relative"
+                    >
+                      <i class="fas fa-star" />
+                      <span
+                        class="is-size-6 has-text-grey-darker"
+                        style="position: absolute; top: 2px;"
+                      >
+                        {{ index + 1 }}
+                      </span>
+                    </span>
+                  </td>
+                  <td class="is-size-7">
+                    {{ reclaimable.hostname }}
+                  </td>
+                  <td class="is-size-7 has-text-centered">
+                    {{ reclaimable.dbname }}
+                  </td>
+                  <td class="is-size-7 has-text-centered">
+                    {{ reclaimable.reclaimableSegmentAdvisors }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </BoxContent>
       </div>
@@ -165,7 +229,7 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -219,13 +283,14 @@ export default {
     }
   },
   computed: {
-    ...mapState(['oracle']),
     ...mapGetters([
       'getAllOracleDBs',
       'getEnvironmentTypeChartDataOracle',
       'getArchivelogChartDataOracle',
       'getDataguardChartDataOracle',
-      'getHaChartDataOracle'
+      'getHaChartDataOracle',
+      'getTopWorkload',
+      'getTopReclaimable'
     ])
   }
 }
