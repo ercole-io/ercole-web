@@ -25,14 +25,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="(workload, index) in getTopWorkload"
-                  :key="workload._id"
-                >
+                <tr v-for="(workload, index) in getTop3workload" :key="index">
                   <td class="is-size-5 has-text-centered">
                     <span
                       class="icon is-size-3"
-                      :style="{ color: workload.color }"
+                      :class="{
+                        gold: index === 0,
+                        silver: index === 1,
+                        bronze: index === 2
+                      }"
                       style="position:relative"
                     >
                       <i class="fas fa-star" />
@@ -85,12 +86,16 @@
               <tbody>
                 <tr
                   v-for="(reclaimable, index) in getTopReclaimable"
-                  :key="reclaimable._id"
+                  :key="index"
                 >
                   <td class="is-size-5 has-text-centered">
                     <span
                       class="icon is-size-3"
-                      :style="{ color: reclaimable.color }"
+                      :class="{
+                        gold: index === 0,
+                        silver: index === 1,
+                        bronze: index === 2
+                      }"
                       style="position:relative"
                     >
                       <i class="fas fa-star" />
@@ -229,7 +234,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -283,13 +288,14 @@ export default {
     }
   },
   computed: {
+    ...mapState(['oracle']),
     ...mapGetters([
       'getAllOracleDBs',
       'getEnvironmentTypeChartDataOracle',
       'getArchivelogChartDataOracle',
       'getDataguardChartDataOracle',
       'getHaChartDataOracle',
-      'getTopWorkload',
+      'getTop3workload',
       'getTopReclaimable'
     ])
   }
@@ -316,6 +322,16 @@ export default {
     overflow: hidden;
     max-width: 100%;
   }
+}
+
+.gold {
+  color: #c9b037;
+}
+.silver {
+  color: #b4b4b4;
+}
+.bronze {
+  color: #ad8a56;
 }
 
 .number-marker {
