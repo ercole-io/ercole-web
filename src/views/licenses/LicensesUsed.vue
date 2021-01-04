@@ -14,14 +14,14 @@
         <template slot="headData">
           <v-th sortKey="hostname">Hostname</v-th>
           <v-th sortKey="dbName">DB Name</v-th>
-          <v-th sortKey="licenseName">License Name</v-th>
+          <v-th sortKey="licenseTypeID">License ID</v-th>
           <v-th sortKey="usedLicenses">Used Licenses</v-th>
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
           <HostLink :hostname="rowData.scope.hostname" />
           <TdContent :value="rowData.scope.dbName" />
-          <TdContent :value="rowData.scope.licenseName" />
+          <TdContent :value="rowData.scope.licenseTypeID" />
           <TdContent :value="rowData.scope.usedLicenses" />
         </template>
 
@@ -59,7 +59,7 @@ export default {
   },
   data() {
     return {
-      keys: ['hostname', 'dbName', 'licenseName', 'usedLicenses'],
+      keys: ['hostname', 'dbName', 'licenseTypeID', 'usedLicenses'],
       isMounted: false
     }
   },

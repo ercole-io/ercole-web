@@ -21,7 +21,7 @@ export const getters = {
 
     _.map(state.complianceList, val => {
       result.push({
-        partID: val.partID,
+        partID: val.licenseTypeID,
         itemDescription: val.itemDescription,
         metric: val.metric,
         consumed: val.consumed,
