@@ -23,7 +23,7 @@ export const getters = {
 
     _.map(state.agreementParts, val => {
       agreeParts.push({
-        agreeParts: `${val.partID} - ${val.itemDescription} - ${val.metric}`
+        agreeParts: `${val.id} - ${val.itemDescription} - ${val.metric}`
       })
     })
 
@@ -80,7 +80,7 @@ export const actions = {
   },
   async getAgreementParts({ commit }) {
     const agreementParts = await axiosDefault.get(
-      '/settings/oracle/database/agreements-parts'
+      '/settings/oracle/database/license-types'
     )
     const response = await agreementParts.data
 

@@ -10,10 +10,11 @@
         >
           <option
             v-for="(type, index) in getChartLicenseHistory"
-            :value="type.partID"
+            :value="type.licenseTypeID"
             :key="index"
           >
-            {{ type.partID }} - {{ type.itemDescription }} - {{ type.metric }}
+            {{ type.licenseTypeID }} - {{ type.itemDescription }} -
+            {{ type.metric }}
           </option>
         </b-select>
       </b-field>
@@ -31,7 +32,7 @@ import LineChart from '@/components/common/charts/LineChart.vue'
 
 const matchType = (data, selected) => {
   return _.find(data, type => {
-    return type.partID === selected
+    return type.licenseTypeID === selected
   })
 }
 const mapLicenseType = (history, type) => {
@@ -82,7 +83,7 @@ export default {
   async beforeMount() {
     await this.getLicenseHistory()
 
-    this.selectedType = this.getChartLicenseHistory[0].partID
+    this.selectedType = this.getChartLicenseHistory[0].licenseTypeID
     this.mountLincenseChart()
   },
   methods: {

@@ -45,12 +45,10 @@ export const getters = {
     return mountChart('ha', 'High Availability', state.oracleDbs)
   },
   getTop3workload: state => {
-    let top3 = state.topWorkload.slice(0, 3)
-    return top3
+    return state.topWorkload.slice(0, 3)
   },
   getTopReclaimable: state => {
-    const top3 = state.topReclaimable.slice(0, 3)
-    return top3
+    return state.topReclaimable.slice(0, 3)
   }
 }
 

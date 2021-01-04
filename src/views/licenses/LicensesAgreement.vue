@@ -24,7 +24,7 @@
             >
               <template slot="headData">
                 <v-th sortKey="agreementID">Agreement Number</v-th>
-                <v-th sortKey="partID">Part Number</v-th>
+                <v-th sortKey="licenseTypeID">Part Number</v-th>
                 <v-th sortKey="itemDescription">Item Description</v-th>
                 <v-th sortKey="metric">Metric</v-th>
                 <v-th sortKey="csi">CSI</v-th>
@@ -39,7 +39,7 @@
 
               <template slot="bodyData" slot-scope="rowData">
                 <TdContent :value="rowData.scope.agreementID" />
-                <TdContent :value="rowData.scope.partID" />
+                <TdContent :value="rowData.scope.licenseTypeID" />
                 <TdContent :value="rowData.scope.itemDescription" />
                 <TdContent :value="rowData.scope.metric" />
                 <TdContent :value="rowData.scope.csi" />
@@ -377,7 +377,7 @@ export default {
       toggleIcon: 'chevron-left',
       keys: [
         'agreementID',
-        'partID',
+        'licenseTypeID',
         'itemDescription',
         'metric',
         'csi',
@@ -438,7 +438,7 @@ export default {
         count: Number(this.licenseNumber),
         hosts: this.hostAssociated,
         catchAll: this.basket,
-        partID: this.partNumber.split(' - ')[0]
+        licenseTypeID: this.partNumber.split(' - ')[0]
       }
       if (!this.isEditing) {
         axiosDefault.post('/agreements/oracle/database', license).then(res => {
@@ -470,7 +470,7 @@ export default {
       this.licenseId = data.id
       this.agreeNumber = data.agreementID
       this.csi = data.csi
-      this.partNumber = `${data.partID} - ${data.itemDescription} - ${data.metric}`
+      this.partNumber = `${data.licenseTypeID} - ${data.itemDescription} - ${data.metric}`
       this.referenceNumber = data.referenceNumber
       this.techType = 'Oracle'
       this.ula = data.unlimited
