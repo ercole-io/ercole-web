@@ -4,7 +4,10 @@ import axiosDefault from '@/axios/axios-default.js'
 export const state = () => ({
   engSys: {},
   memory: 0,
-  cpu: [],
+  cpu: {
+    running: 0,
+    total: 0
+  },
   storage: 0,
   patching: [
     {
