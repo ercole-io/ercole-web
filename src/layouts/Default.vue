@@ -48,9 +48,8 @@ export default {
 <style lang="scss">
 .app {
   display: flex;
-  min-height: calc(100vh - 56px);
+  min-height: calc(100vh - 52px);
   flex-direction: column;
-  margin-top: 4px;
 }
 
 .main {
