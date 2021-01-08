@@ -243,7 +243,8 @@ export default {
       'getClusters',
       'getClusterByName',
       'getAlertsData',
-      'getLicensesList'
+      'getLicensesList',
+      'getEngineeredSystems'
     ]),
     ...mapMutations(['SET_OPEN_FILTERS']),
     // getFilteredTags(text) {
@@ -321,6 +322,9 @@ export default {
           break
         case 'licenses-used':
           this.getLicensesList()
+          break
+        case 'engineered-systems':
+          this.getEngineeredSystems()
           break
         default:
           return
