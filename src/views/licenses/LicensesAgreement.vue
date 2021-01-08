@@ -307,10 +307,39 @@
 
             <b-field label="Basket" custom-class="is-small">
               <div class="is-flex" style="justify-content: space-around;">
-                <b-radio size="is-small" v-model="basket" :native-value="true">
+                <b-radio
+                  size="is-small"
+                  v-model="basket"
+                  :native-value="true"
+                  :disabled="restricted"
+                >
                   Yes
                 </b-radio>
-                <b-radio size="is-small" v-model="basket" :native-value="false">
+                <b-radio
+                  size="is-small"
+                  v-model="basket"
+                  :native-value="false"
+                  :disabled="restricted"
+                >
+                  No
+                </b-radio>
+              </div>
+            </b-field>
+
+            <b-field label="Restricted" custom-class="is-small">
+              <div class="is-flex" style="justify-content: space-around;">
+                <b-radio
+                  size="is-small"
+                  v-model="restricted"
+                  :native-value="true"
+                >
+                  Yes
+                </b-radio>
+                <b-radio
+                  size="is-small"
+                  v-model="restricted"
+                  :native-value="false"
+                >
                   No
                 </b-radio>
               </div>
@@ -323,12 +352,16 @@
               <b-button
                 type="is-danger"
                 size="is-small"
-                :disabled="$v.$invalid"
                 @click="cancelAddLicense"
               >
                 Cancel
               </b-button>
-              <b-button type="is-primary" size="is-small" native-type="submit">
+              <b-button
+                type="is-primary"
+                size="is-small"
+                native-type="submit"
+                :disabled="$v.$invalid"
+              >
                 {{ isEditing ? 'Edit License' : 'Add License' }}
               </b-button>
             </div>
@@ -402,7 +435,8 @@ export default {
       ula: false,
       licenseNumber: null,
       hostAssociated: [],
-      basket: false
+      basket: false,
+      restricted: false
     }
   },
   validations: {
@@ -438,7 +472,8 @@ export default {
         count: Number(this.licenseNumber),
         hosts: this.hostAssociated,
         catchAll: this.basket,
-        licenseTypeID: this.partNumber.split(' - ')[0]
+        licenseTypeID: this.partNumber.split(' - ')[0],
+        restricted: this.restricted
       }
       if (!this.isEditing) {
         axiosDefault.post('/agreements/oracle/database', license).then(res => {
@@ -456,7 +491,6 @@ export default {
       this.cancelAddLicense()
     },
     cancelAddLicense() {
-      this.techType = null
       this.agreeNumber = null
       this.partNumber = []
       this.csi = null
@@ -539,6 +573,11 @@ export default {
     ula(val) {
       if (val) {
         this.licenseNumber = null
+      }
+    },
+    restricted(val) {
+      if (val) {
+        this.basket = false
       }
     }
   }
