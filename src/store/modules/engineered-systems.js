@@ -1,5 +1,5 @@
 import axios from 'axios'
-import axiosDefault from '@/axios/axios-default.js'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 
 export const state = () => ({
   engSys: {},
@@ -36,7 +36,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async getEngineeredSystems({ commit, getters }, olderThan = null) {
+  async getEngineeredSystems({ commit, getters, dispatch }, olderThan = null) {
     const url = '/hosts/technologies/oracle/exadata'
     let params = {
       'older-than': getters.getActiveFilters.date || olderThan,
@@ -44,15 +44,17 @@ export const actions = {
       location: getters.getActiveFilters.location
     }
 
+    dispatch('onLoading')
+
     axios
       .all([
-        await axiosDefault.get(url, { params: params }),
-        await axiosDefault.get(`${url}/total-memory-size`, {
+        await axiosNoLoading.get(url, { params: params }),
+        await axiosNoLoading.get(`${url}/total-memory-size`, {
           params: params
         }),
-        await axiosDefault.get(`${url}/total-cpu`, { params: params }),
-        await axiosDefault.get(`${url}/average-storage-usage`),
-        await axiosDefault.get(`${url}/patch-status`, { params: params })
+        await axiosNoLoading.get(`${url}/total-cpu`, { params: params }),
+        await axiosNoLoading.get(`${url}/average-storage-usage`),
+        await axiosNoLoading.get(`${url}/patch-status`, { params: params })
       ])
       .then(
         axios.spread((engSysRes, memoryRes, cpuRes, storageRes, patchRes) => {
@@ -65,5 +67,8 @@ export const actions = {
           })
         })
       )
+      .then(() => {
+        dispatch('offLoading')
+      })
   }
 }
