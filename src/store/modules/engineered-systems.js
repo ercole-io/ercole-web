@@ -36,16 +36,23 @@ export const mutations = {
 }
 
 export const actions = {
-  async getEngineeredSystems({ commit }) {
+  async getEngineeredSystems({ commit, getters }, olderThan = null) {
     const url = '/hosts/technologies/oracle/exadata'
+    let params = {
+      'older-than': getters.getActiveFilters.date || olderThan,
+      environment: getters.getActiveFilters.environment,
+      location: getters.getActiveFilters.location
+    }
 
     axios
       .all([
-        await axiosDefault.get(url),
-        await axiosDefault.get(`${url}/total-memory-size`),
-        await axiosDefault.get(`${url}/total-cpu`),
+        await axiosDefault.get(url, { params: params }),
+        await axiosDefault.get(`${url}/total-memory-size`, {
+          params: params
+        }),
+        await axiosDefault.get(`${url}/total-cpu`, { params: params }),
         await axiosDefault.get(`${url}/average-storage-usage`),
-        await axiosDefault.get(`${url}/patch-status`)
+        await axiosDefault.get(`${url}/patch-status`, { params: params })
       ])
       .then(
         axios.spread((engSysRes, memoryRes, cpuRes, storageRes, patchRes) => {
