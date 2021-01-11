@@ -73,11 +73,13 @@ export default {
   props: {
     hostname: {
       type: String,
-      required: true
+      required: true,
+      default: ''
     },
     dbname: {
       type: String,
-      required: false
+      required: false,
+      default: ''
     }
   },
   components: {
