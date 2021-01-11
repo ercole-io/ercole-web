@@ -10,16 +10,16 @@
           >
             see the top 10 >>>
           </a> -->
-          <div class="columns py-1 px-4">
+          <div class="table-container">
             <table class="table is-striped">
               <thead>
                 <tr class="has-background-light">
-                  <th class="is-size-7 has-text-dark"></th>
-                  <th class="is-size-7 has-text-dark">Host Name</th>
-                  <th class="is-size-7 has-text-dark has-text-centered">
+                  <th></th>
+                  <th>Host Name</th>
+                  <th>
                     DB Name
                   </th>
-                  <th class="is-size-7 has-text-dark has-text-centered">
+                  <th>
                     Thread Utilization
                   </th>
                 </tr>
@@ -45,15 +45,9 @@
                       </span>
                     </span>
                   </td>
-                  <td class="is-size-7">
-                    {{ workload.hostname }}
-                  </td>
-                  <td class="is-size-7 has-text-centered">
-                    {{ workload.dbname }}
-                  </td>
-                  <td class="is-size-7 has-text-centered">
-                    {{ workload.workload }}
-                  </td>
+                  <HostLink :hostname="[workload.hostname, workload.dbname]" />
+                  <TdContent :value="workload.dbname" />
+                  <TdContent :value="workload.workload" />
                 </tr>
               </tbody>
             </table>
@@ -69,16 +63,16 @@
           >
             see the top 10 >>>
           </a> -->
-          <div class="columns py-1 px-4">
+          <div class="table-container">
             <table class="table is-striped">
               <thead>
                 <tr class="has-background-light">
-                  <th class="is-size-7 has-text-dark"></th>
-                  <th class="is-size-7 has-text-dark">Host Name</th>
-                  <th class="is-size-7 has-text-dark has-text-centered">
+                  <th></th>
+                  <th>Host Name</th>
+                  <th>
                     DB Name
                   </th>
-                  <th class="is-size-7 has-text-dark has-text-centered">
+                  <th>
                     Thread Utilization
                   </th>
                 </tr>
@@ -107,15 +101,11 @@
                       </span>
                     </span>
                   </td>
-                  <td class="is-size-7">
-                    {{ reclaimable.hostname }}
-                  </td>
-                  <td class="is-size-7 has-text-centered">
-                    {{ reclaimable.dbname }}
-                  </td>
-                  <td class="is-size-7 has-text-centered">
-                    {{ reclaimable.reclaimableSegmentAdvisors }}
-                  </td>
+                  <HostLink
+                    :hostname="[reclaimable.hostname, reclaimable.dbname]"
+                  />
+                  <TdContent :value="reclaimable.dbname" />
+                  <TdContent :value="reclaimable.reclaimableSegmentAdvisors" />
                 </tr>
               </tbody>
             </table>
@@ -125,57 +115,7 @@
     </div>
 
     <div class="columns">
-      <div class="column is-3">
-        <div class="columns">
-          <div class="column is-12">
-            <Collapse title="Type Of Environment" id="TypeOfEnvironment" isOpen>
-              <ColumnChart
-                chartId="et"
-                :columnChartData="getEnvironmentTypeChartDataOracle"
-                chartHeight="150px"
-                stacked
-              />
-            </Collapse>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-12">
-            <Collapse title="Archivelog Mode" id="ArchivelogMode">
-              <ColumnChart
-                chartId="al"
-                :columnChartData="getArchivelogChartDataOracle"
-                chartHeight="150px"
-                stacked
-              />
-            </Collapse>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-12">
-            <Collapse title="Disaster Recovery" id="DisasterRecovery">
-              <ColumnChart
-                chartId="dr"
-                :columnChartData="getDataguardChartDataOracle"
-                chartHeight="150px"
-                stacked
-              />
-            </Collapse>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-12">
-            <Collapse title="High Availability" id="HighAvailability">
-              <ColumnChart
-                chartId="ha"
-                :columnChartData="getHaChartDataOracle"
-                chartHeight="150px"
-                stacked
-              />
-            </Collapse>
-          </div>
-        </div>
-      </div>
-      <div class="column is-9">
+      <div class="column is-12">
         <FullTable
           placeholder="Search on Oracle DBs"
           :keys="keys"
@@ -228,6 +168,52 @@
             expName="oracleDbs"
           />
         </FullTable>
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="column is-6">
+        <Collapse title="Type Of Environment" id="TypeOfEnvironment" isOpen>
+          <ColumnChart
+            chartId="et"
+            :columnChartData="getEnvironmentTypeChartDataOracle"
+            chartHeight="150px"
+            stacked
+          />
+        </Collapse>
+      </div>
+      <div class="column is-6">
+        <Collapse title="Archivelog Mode" id="ArchivelogMode" isOpen>
+          <ColumnChart
+            chartId="al"
+            :columnChartData="getArchivelogChartDataOracle"
+            chartHeight="150px"
+            stacked
+          />
+        </Collapse>
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="column is-6">
+        <Collapse title="Disaster Recovery" id="DisasterRecovery" isOpen>
+          <ColumnChart
+            chartId="dr"
+            :columnChartData="getDataguardChartDataOracle"
+            chartHeight="150px"
+            stacked
+          />
+        </Collapse>
+      </div>
+      <div class="column is-6">
+        <Collapse title="High Availability" id="HighAvailability" isOpen>
+          <ColumnChart
+            chartId="ha"
+            :columnChartData="getHaChartDataOracle"
+            chartHeight="150px"
+            stacked
+          />
+        </Collapse>
       </div>
     </div>
   </section>

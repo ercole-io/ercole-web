@@ -146,16 +146,13 @@ export default {
   data() {
     return {
       activeTab: 0,
-      multiline: true,
-      isActive: true
+      multiline: true
     }
   },
-  beforeMount() {
-    if (this.activeDB) {
-      this.activeTab = _.findIndex(this.hostDetails.hostDBs, {
-        name: this.activeDB
-      })
-    }
+  beforeUpdate() {
+    this.activeTab = _.findIndex(this.hostDetails.hostDBs, {
+      name: this.activeDB
+    })
   },
   methods: {
     dbLicenses(values) {
