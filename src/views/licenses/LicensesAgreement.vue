@@ -34,6 +34,7 @@
                 <v-th sortKey="usersCount">Number User</v-th>
                 <v-th sortKey="availableCount">Number Available</v-th>
                 <v-th sortKey="catchAll">Basket</v-th>
+                <v-th sortKey="restricted">Restricted</v-th>
                 <th colspan="3" style="max-width: 100px">Actions</th>
               </template>
 
@@ -49,6 +50,7 @@
                 <TdContent :value="rowData.scope.usersCount" />
                 <TdContent :value="rowData.scope.availableCount" />
                 <TdIcon :value="bindIcon(rowData.scope.catchAll)" />
+                <TdIcon :value="bindIcon(rowData.scope.restricted)" />
 
                 <td style="min-width: 50px;">
                   <HostAssociated
@@ -362,7 +364,7 @@
                 native-type="submit"
                 :disabled="$v.$invalid"
               >
-                {{ isEditing ? 'Edit License' : 'Add License' }}
+                {{ isEditing ? 'Edit Agreement' : 'Add Agreement' }}
               </b-button>
             </div>
           </form>
@@ -406,7 +408,7 @@ export default {
       isExpanded: true,
       tabsCol: 'is-9',
       addCol: 'is-3',
-      toggleText: 'Hide',
+      toggleText: 'Hide Add Agreement',
       toggleIcon: 'chevron-left',
       keys: [
         'agreementID',
@@ -419,7 +421,8 @@ export default {
         'licensesCount',
         'usersCount',
         'availableCount',
-        'catchAll'
+        'catchAll',
+        'restricted'
       ],
       filteredHostTags: [],
       filteredAgreeNumbers: [],
@@ -561,12 +564,12 @@ export default {
       if (!value) {
         this.tabsCol = 'is-12'
         this.addCol = 'is-hidden'
-        this.toggleText = 'Show Add License'
+        this.toggleText = 'Show Add Agreement'
         this.toggleIcon = 'chevron-right'
       } else {
         this.tabsCol = 'is-9'
         this.addCol = 'is-3'
-        this.toggleText = 'Hide'
+        this.toggleText = 'Hide Add Agreement'
         this.toggleIcon = 'chevron-left'
       }
     },
