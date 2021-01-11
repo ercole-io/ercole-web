@@ -52,6 +52,22 @@ export const getters = {
       referenceNumbers.push(val.referenceNumber)
     })
     return referenceNumbers
+  },
+  returnMetricAndDescription: state => licenseID => {
+    let description = null
+    let metric = null
+
+    _.filter(state.agreementParts, val => {
+      if (val.id === licenseID) {
+        description = val.itemDescription
+        metric = val.metric
+      }
+    })
+
+    return {
+      description: description,
+      metric: metric
+    }
   }
 }
 

@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 import _ from 'lodash'
 import DbInfo from '@/components/hosts/hostDetails/databases/DbInfo.vue'
 import DbTablespaces from '@/components/hosts/hostDetails/databases/DbTablespaces.vue'
@@ -154,19 +154,34 @@ export default {
       name: this.activeDB
     })
   },
+  async beforeMount() {
+    await this.getAgreementParts()
+  },
   methods: {
+    ...mapActions(['getAgreementParts']),
     dbLicenses(values) {
       let filteredLicenses = []
       _.filter(values, val => {
+        let licenseComplement = this.returnMetricAndDescription(
+          val.licenseTypeID
+        )
+
         if (val.count > 0) {
-          filteredLicenses.push(val)
+          filteredLicenses.push({
+            licenseName: val.name,
+            licenseNumber: val.count,
+            partNumber: val.licenseTypeID,
+            description: licenseComplement.description,
+            metric: licenseComplement.metric
+          })
         }
       })
       return filteredLicenses
     }
   },
   computed: {
-    ...mapState(['hostDetails'])
+    ...mapState(['hostDetails']),
+    ...mapGetters(['returnMetricAndDescription'])
   }
 }
 </script>

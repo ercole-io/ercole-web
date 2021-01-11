@@ -8,15 +8,19 @@
     hideTopTable
   >
     <template slot="headData">
-      <v-th sortKey="name">Name</v-th>
-      <v-th sortKey="count">Number</v-th>
-      <v-th sortKey="tags">Tags</v-th>
+      <v-th sortKey="licenseName">Name</v-th>
+      <v-th sortKey="licenseNumber">Number</v-th>
+      <v-th sortKey="partNumber">Part Number</v-th>
+      <v-th sortKey="description">Description</v-th>
+      <v-th sortKey="metric">Metric</v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
-      <TdContent :value="rowData.scope.name" />
-      <TdContent :value="rowData.scope.count" />
-      <TdContent :value="rowData.scope.tags" />
+      <TdContent :value="rowData.scope.licenseName" />
+      <TdContent :value="rowData.scope.licenseNumber" />
+      <TdContent :value="rowData.scope.partNumber" />
+      <TdContent :value="rowData.scope.description" />
+      <TdContent :value="rowData.scope.metric" />
     </template>
   </FullTable>
 </template>
