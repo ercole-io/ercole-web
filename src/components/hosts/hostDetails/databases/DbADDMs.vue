@@ -8,7 +8,7 @@
     hideTopTable
   >
     <template slot="headData">
-      <v-th sortKey="action">Acion</v-th>
+      <v-th sortKey="action">Action</v-th>
       <v-th sortKey="benefit">Benefit</v-th>
       <v-th sortKey="finding">Finding</v-th>
       <v-th sortKey="recommendation">Recommendation</v-th>

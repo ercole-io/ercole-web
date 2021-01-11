@@ -157,7 +157,7 @@ export default {
         {
           href: { name: 'engineered-systems' },
           title: 'Engineered Systems',
-          icon: 'fas fa-times'
+          icon: 'far fa-calendar-times'
         },
         {
           href: { name: 'alerts' },
