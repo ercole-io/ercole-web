@@ -17,7 +17,7 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <TdContent :value="rowData.scope.benefit" />
-        <HostLink :hostname="rowData.scope.hostname" />
+        <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
         <TdContent :value="rowData.scope.dbname" />
         <TdContent :value="rowData.scope.finding" />
         <TdContent :value="rowData.scope.recommendation" />
