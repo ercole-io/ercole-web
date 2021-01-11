@@ -25,7 +25,7 @@
         />
         <TdContent :value="rowData.scope.gbTotal" />
         <TdContent :value="rowData.scope.retrieve" />
-        <HostLink :hostname="rowData.scope.hostname" />
+        <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
         <TdContent :value="rowData.scope.dbname" />
         <TdContent :value="rowData.scope.segmentOwner" />
         <TdContent :value="rowData.scope.segmentName" />
