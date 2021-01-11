@@ -18,7 +18,7 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <HostLink :hostname="rowData.scope.hostname" />
+        <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
         <TdContent :value="rowData.scope.dbname" />
         <TdContent :value="rowData.scope.dbver" />
         <TdContent :value="rowData.scope.date" dataType="date" />
