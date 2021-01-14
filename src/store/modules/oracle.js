@@ -2,7 +2,7 @@ import axiosDefault from '../../axios/axios-default'
 import axiosNoLoading from '../../axios/axios-no-loading.js'
 import _ from 'lodash'
 
-const mountChart = (prop, chartName, data) => {
+const mountChart = (prop, data) => {
   const finalChartData = []
 
   const groupByProp = _.groupBy(data, prop)
@@ -32,22 +32,52 @@ export const getters = {
   getAllOracleDBs: state => {
     return state.oracleDbs
   },
-  getEnvironmentTypeChartDataOracle: state => {
-    return mountChart('environment', 'Type Of Environment', state.oracleDbs)
-  },
-  getArchivelogChartDataOracle: state => {
-    return mountChart('archivelog', 'Archivelog Mode', state.oracleDbs)
-  },
-  getDataguardChartDataOracle: state => {
-    return mountChart('dataguard', 'Disaster Recovery', state.oracleDbs)
-  },
-  getHaChartDataOracle: state => {
-    return mountChart('ha', 'High Availability', state.oracleDbs)
+  getOracleChartsData: state => id => {
+    let chartValues = {}
+
+    switch (id) {
+      case 'TypeOfEnvironment':
+        chartValues = {
+          title: 'Type Of Environment',
+          collapseId: 'TypeOfEnvironment',
+          data: mountChart('environment', state.oracleDbs),
+          chartId: 'et'
+        }
+        break
+      case 'ArchivelogMode':
+        chartValues = {
+          title: 'Archivelog Mode',
+          collapseId: 'ArchivelogMode',
+          data: mountChart('archivelog', state.oracleDbs),
+          chartId: 'al'
+        }
+        break
+      case 'DisasterRecovery':
+        chartValues = {
+          title: 'Disaster Recovery',
+          collapseId: 'DisasterRecovery',
+          data: mountChart('dataguard', state.oracleDbs),
+          chartId: 'dr'
+        }
+        break
+      case 'HighAvailability':
+        chartValues = {
+          title: 'High Availability',
+          collapseId: 'HighAvailability',
+          data: mountChart('ha', state.oracleDbs),
+          chartId: 'ha'
+        }
+        break
+      default:
+        break
+    }
+
+    return chartValues
   },
   getTop3workload: state => {
     return state.topWorkload.slice(0, 3)
   },
-  getTopReclaimable: state => {
+  getTop3Reclaimable: state => {
     return state.topReclaimable.slice(0, 3)
   }
 }
