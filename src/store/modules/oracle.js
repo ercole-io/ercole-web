@@ -1,5 +1,5 @@
-import axiosDefault from '../../axios/axios-default'
-import axiosNoLoading from '../../axios/axios-no-loading.js'
+import axiosDefault from '@/axios/axios-default'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
 
 const mountChart = (prop, data) => {
