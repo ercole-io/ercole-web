@@ -1,8 +1,8 @@
-import axiosDefault from '../../axios/axios-default'
-import axiosNoLoading from '../../axios/axios-no-loading.js'
+import axiosDefault from '@/axios/axios-default'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
 
-const mountChart = (prop, chartName, data) => {
+const mountChart = (prop, data) => {
   const finalChartData = []
 
   const groupByProp = _.groupBy(data, prop)
@@ -36,20 +36,56 @@ export const getters = {
   getTotalCpu: state => {
     return _.sumBy(state.databases, 'cpuCount')
   },
-  getDatabasesTypeChartData: state => {
-    return mountChart('type', 'Type Of Databases', state.databases)
-  },
-  getEnvironmentTypeChartData: state => {
-    return mountChart('environment', 'Type Of Environment', state.databases)
-  },
-  getArchivelogChartData: state => {
-    return mountChart('archivelog', 'Archivelog Mode', state.databases)
-  },
-  getDataguardChartData: state => {
-    return mountChart('dataguard', 'Disaster Recovery', state.databases)
-  },
-  getHaChartData: state => {
-    return mountChart('ha', 'High Availability', state.databases)
+  getDatabasesCharts: state => id => {
+    let chartValues = {}
+
+    switch (id) {
+      case 'TypeOfDatabases':
+        chartValues = {
+          title: 'Type Of Databases',
+          collapseId: 'TypeOfDatabases',
+          data: mountChart('type', state.databases),
+          chartId: 'dt',
+          isOpen: true
+        }
+        break
+      case 'TypeOfEnvironment':
+        chartValues = {
+          title: 'Type Of Environment',
+          collapseId: 'TypeOfEnvironment',
+          data: mountChart('environment', state.databases),
+          chartId: 'et'
+        }
+        break
+      case 'ArchivelogMode':
+        chartValues = {
+          title: 'Archivelog Mode',
+          collapseId: 'ArchivelogMode',
+          data: mountChart('archivelog', state.databases),
+          chartId: 'al'
+        }
+        break
+      case 'DisasterRecovery':
+        chartValues = {
+          title: 'Disaster Recovery',
+          collapseId: 'DisasterRecovery',
+          data: mountChart('dataguard', state.databases),
+          chartId: 'dr'
+        }
+        break
+      case 'HighAvailability':
+        chartValues = {
+          title: 'High Availability',
+          collapseId: 'HighAvailability',
+          data: mountChart('ha', state.databases),
+          chartId: 'ha'
+        }
+        break
+      default:
+        break
+    }
+
+    return chartValues
   }
 }
 
