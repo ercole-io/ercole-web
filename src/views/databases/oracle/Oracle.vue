@@ -58,40 +58,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-// .top3 {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   max-width: 33.3%;
-
-//   span:not(.number-marker) {
-//     font-size: 0.65em;
-//   }
-
-//   p {
-//     margin-bottom: 0.5em;
-//     font-size: 0.9em;
-//     font-weight: 500;
-//     white-space: nowrap;
-//     text-overflow: ellipsis;
-//     overflow: hidden;
-//     max-width: 100%;
-//   }
-// }
-
-// .number-marker {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   border-radius: 50%;
-//   width: 30px;
-//   height: 30px;
-//   background-color: #4a4a4a;
-//   color: #ffffff;
-//   font-weight: bold;
-//   font-size: 18px;
-//   padding-top: 1px;
-//   margin-bottom: 5px;
-// }
-</style>
+<style lang="scss" scoped></style>
