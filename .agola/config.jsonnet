@@ -103,7 +103,6 @@ local task_build_push_image(push) =
     shell: '/busybox/sh',
     working_dir: '/kaniko',
     steps: [
-      { type: 'run', command: 'ls -rl' },
       { type: 'restore_workspace', dest_dir: '/kaniko/ercole-web' },
     ] + std.prune([
       if push then {
