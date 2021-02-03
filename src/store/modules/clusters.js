@@ -45,19 +45,19 @@ export const getters = {
     return ercoleClusterCount
   },
   getClusterChartData: state => {
-    const allVms = state.currentCluster.virtualizationNodesStats
+    const allVms = state.currentCluster.VirtualizationNodesStats
     const withErcole = []
     const withoutErcole = []
     const finalData = []
 
     _.map(allVms, item => {
       withErcole.push([
-        item.virtualizationNode,
-        item.totalVMsWithErcoleAgentCount
+        item.VirtualizationNode,
+        item.TotalVMsWithErcoleAgentCount
       ])
       withoutErcole.push([
-        item.virtualizationNode,
-        item.totalVMsWithoutErcoleAgentCount
+        item.VirtualizationNode,
+        item.TotalVMsWithoutErcoleAgentCount
       ])
     })
 
@@ -101,7 +101,7 @@ export const mutations = {
   },
   SET_CURRENT_CLUSTER: (state, payload) => {
     state.currentCluster = payload
-    state.currentClusterVms = payload.vms
+    state.currentClusterVms = payload.VMs
   }
 }
 
