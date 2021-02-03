@@ -1,10 +1,11 @@
 <template>
   <section>
+    <HbuttonScroll height="30" elemScroll="tabs" />
     <b-tabs
       v-model="activeTab"
-      :multiline="multiline"
       size="is-small"
       type="is-boxed"
+      :animated="true"
     >
       <template v-for="dbs in hostDetails.hostDBs">
         <b-tab-item :key="dbs.UniqueName" :label="dbs.name">
@@ -119,6 +120,7 @@ import DbOptions from '@/components/hosts/hostDetails/databases/DbOptions.vue'
 import DbLicenses from '@/components/hosts/hostDetails/databases/DbLicenses.vue'
 // import DbTags from '@/components/hosts/hostDetails/databases/DbTags.vue'
 import DbPDBs from '@/components/hosts/hostDetails/databases/DbPDBs.vue'
+import HbuttonScroll from '@/components/HbuttonScroll.vue'
 
 export default {
   props: {
@@ -141,12 +143,12 @@ export default {
     DbOptions,
     DbLicenses,
     // DbTags,
-    DbPDBs
+    DbPDBs,
+    HbuttonScroll
   },
   data() {
     return {
-      activeTab: 0,
-      multiline: true
+      activeTab: 0
     }
   },
   beforeUpdate() {
@@ -186,4 +188,10 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.tabs {
+  &::-webkit-scrollbar {
+    background: transparent;
+  }
+}
+</style>

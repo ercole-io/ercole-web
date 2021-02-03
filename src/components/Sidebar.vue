@@ -222,6 +222,8 @@ $icon-width: 20px !default;
   z-index: 53;
 
   .vsm--scroll-wrapper {
+    margin-right: 0 !important;
+
     > .vsm--list {
       margin-top: 56px;
     }

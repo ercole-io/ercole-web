@@ -1,5 +1,5 @@
 <template>
-  <div class="scroll">
+  <HbuttonScroll>
     <div class="technologies">
       <div
         class="technologies-list"
@@ -21,11 +21,12 @@
         <!-- <div>{{ tech.money }} €</div> -->
       </div>
     </div>
-  </div>
+  </HbuttonScroll>
 </template>
 
 <script>
 import Progress from 'easy-circular-progress'
+import HbuttonScroll from '@/components/HbuttonScroll.vue'
 
 export default {
   props: {
@@ -35,16 +36,13 @@ export default {
     }
   },
   components: {
-    Progress
+    Progress,
+    HbuttonScroll
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.scroll {
-  overflow-x: auto;
-}
-
 .technologies {
   display: flex;
   max-width: 625px;
