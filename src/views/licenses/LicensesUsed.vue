@@ -7,7 +7,8 @@
         placeholder="Search on Licenses"
         :keys="keys"
         :tableData="getUsedLicenses"
-        :clickedRow="() => []"
+        @clickedRow="handleClickedRow"
+        isClickable
       >
         <DrawerButton slot="customTopHeader" tooltipText="More Filters" />
 
@@ -19,7 +20,9 @@
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
-          <HostLink :hostname="rowData.scope.hostname" />
+          <HostLink
+            :hostname="[rowData.scope.hostname, rowData.scope.dbName]"
+          />
           <TdContent :value="rowData.scope.dbName" />
           <TdContent :value="rowData.scope.licenseTypeID" />
           <TdContent :value="rowData.scope.usedLicenses" />
@@ -38,6 +41,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
+import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 // import exportButton from '@/components/common/exportButton.vue'
@@ -47,7 +51,7 @@ import DrawerButton from '@/components/common/DrawerButton.vue'
 import UsedFilters from '@/components/licenses/used/UsedFilters.vue'
 
 export default {
-  mixins: [paginationMixin],
+  mixins: [paginationMixin, hostnameLinkRow],
   components: {
     BoxContent,
     FullTable,

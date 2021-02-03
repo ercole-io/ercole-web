@@ -4,7 +4,8 @@
       placeholder="Search on Oracle Patch Advisor"
       :keys="keys"
       :tableData="getOraclePatchAdvisor"
-      :clickedRow="() => []"
+      @clickedRow="handleClickedRow"
+      isClickable
     >
       <template slot="headData">
         <v-th sortKey="hostname">Hostname</v-th>
@@ -40,6 +41,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import moment from 'moment'
+import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -47,6 +49,7 @@ import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 
 export default {
+  mixins: [hostnameLinkRow],
   components: {
     FullTable,
     exportButton,

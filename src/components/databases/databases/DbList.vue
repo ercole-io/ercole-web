@@ -3,7 +3,8 @@
     placeholder="Search on Databases"
     :keys="keys"
     :tableData="getAllDatabases"
-    :clickedRow="() => []"
+    @clickedRow="handleClickedRow"
+    isClickable
   >
     <template slot="headData">
       <v-th sortKey="name">DB Name</v-th>
@@ -46,6 +47,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { mapBooleanIcon } from '@/helpers/helpers.js'
+import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import ExportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -53,6 +55,7 @@ import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 
 export default {
+  mixins: [hostnameLinkRow],
   components: {
     FullTable,
     ExportButton,
