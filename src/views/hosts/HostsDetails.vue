@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="isMounted">
     <boxContent>
       <div class="columns">
         <div class="column is-9">
@@ -94,7 +94,8 @@ export default {
   },
   data() {
     return {
-      chartData: []
+      chartData: [],
+      isMounted: false
     }
   },
   async beforeMount() {
@@ -102,6 +103,8 @@ export default {
     bus.$emit('dynamicTitle', this.hostname)
 
     this.chartData = this.getGpuGrowthChart
+
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getHostByName']),
