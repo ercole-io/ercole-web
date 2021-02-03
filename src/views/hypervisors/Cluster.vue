@@ -12,13 +12,13 @@
                   <p class="is-size-7 has-text-centered">
                     Type <br />
                     <span class="is-size-5 has-text-weight-medium">
-                      {{ getTechTypePrettyName(getCurrentCluster.type) }}
+                      {{ getTechTypePrettyName(getCurrentCluster.Type) || '-' }}
                     </span>
                   </p>
                   <p class="is-size-7 has-text-centered">
                     Physical Host <br />
                     <span class="is-size-5 has-text-weight-medium">
-                      {{ getCurrentCluster.virtualizationNodesCount }}
+                      {{ getCurrentCluster.VirtualizationNodesCount || '-' }}
                     </span>
                   </p>
                 </div>
@@ -32,13 +32,13 @@
                   <p class="is-size-7 has-text-centered">
                     CPU <br />
                     <span class="is-size-5 has-text-weight-medium">
-                      {{ getCurrentCluster.cpu }}
+                      {{ getCurrentCluster.CPU || '-' }}
                     </span>
                   </p>
                   <p class="is-size-7 has-text-centered">
                     Sockets <br />
                     <span class="is-size-5 has-text-weight-medium">
-                      {{ getCurrentCluster.sockets }}
+                      {{ getCurrentCluster.Sockets || '-' }}
                     </span>
                   </p>
                 </div>
@@ -73,17 +73,11 @@
             </template>
 
             <template slot="bodyData" slot-scope="rowData">
-              <TdContent :value="rowData.scope.virtualizationNode" />
-              <HostLink :hostname="rowData.scope.hostname" />
-              <TdContent :value="rowData.scope.name" />
-              <TdIcon :value="bindIcon(rowData.scope.cappedCPU)" />
+              <TdContent :value="rowData.scope.VirtualizationNode" />
+              <HostLink :hostname="rowData.scope.Hostname" />
+              <TdContent :value="rowData.scope.Name" />
+              <TdIcon :value="bindIcon(rowData.scope.CappedCPU)" />
             </template>
-
-            <!-- <exportButton
-              slot="export"
-              :url="`hosts/clusters/${clustername}`"
-              :expName="`cluster-${clustername}`"
-            /> -->
           </FullTable>
         </div>
       </div>
