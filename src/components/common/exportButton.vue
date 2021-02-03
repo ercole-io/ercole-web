@@ -4,6 +4,7 @@
     size="is-small"
     @click="exportData()"
     data-export-button
+    class="mb-0"
   >
     {{ text }}
   </b-button>

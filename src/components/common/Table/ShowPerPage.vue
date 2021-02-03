@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="is-size-7 has-text-weight-medium">
     Showing {{ totalItems > perPage ? perPage : totalItems }} of
     {{ totalItems }} items
   </div>
