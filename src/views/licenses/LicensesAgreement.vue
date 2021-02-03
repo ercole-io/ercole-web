@@ -479,19 +479,29 @@ export default {
         restricted: this.restricted
       }
       if (!this.isEditing) {
-        axiosDefault.post('/agreements/oracle/database', license).then(res => {
-          if (res.data[0].InsertedID) {
-            this.isEditing = false
-          }
-        })
+        axiosDefault
+          .post('/agreements/oracle/database', license)
+          .then(res => {
+            if (res.data[0].InsertedID) {
+              this.isEditing = false
+            }
+          })
+          .then(() => {
+            this.getLicensesAgreement()
+            this.cancelAddLicense()
+          })
       } else {
         license.id = this.licenseId
-        axiosDefault.put('/agreements/oracle/database', license).then(() => {
-          this.isEditing = false
-        })
+        axiosDefault
+          .put('/agreements/oracle/database', license)
+          .then(() => {
+            this.isEditing = false
+          })
+          .then(() => {
+            this.getLicensesAgreement()
+            this.cancelAddLicense()
+          })
       }
-      this.getLicensesAgreement()
-      this.cancelAddLicense()
     },
     cancelAddLicense() {
       this.agreeNumber = null
