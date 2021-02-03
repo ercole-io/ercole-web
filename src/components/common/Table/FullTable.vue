@@ -12,7 +12,15 @@
 
       <slot name="customTopHeader" />
 
-      <SelectPerPage :totalItems="total.length" v-if="!hidePerpage" />
+      <div class="buttons mb-0" style="margin-left: auto;">
+        <slot name="export" />
+      </div>
+
+      <SelectPerPage
+        class="ml-2"
+        :totalItems="total.length"
+        v-if="!hidePerpage"
+      />
     </TopTable>
 
     <div class="table-container">
@@ -66,27 +74,25 @@
     </div>
 
     <BottomTable v-if="!hidePagination">
+      <smart-pagination
+        slot="info"
+        :currentPage.sync="currentPage"
+        :totalPages="totalPages"
+        :maxPageLinks="maxPageLinks"
+      />
       <ShowPerPage
         slot="info"
         :totalItems="total.length"
         :perPage="perPage"
         v-if="!filters.search.value"
+        style="margin-left: auto;"
       />
       <FilteredResults
         slot="info"
         :totalItems="filteredData"
         v-if="filters.search.value"
+        style="margin-left: auto;"
       />
-      <template>
-        <smart-pagination
-          :currentPage.sync="currentPage"
-          :totalPages="totalPages"
-          :maxPageLinks="maxPageLinks"
-        />
-        <div class="buttons" style="margin-left: auto;">
-          <slot name="export" />
-        </div>
-      </template>
     </BottomTable>
   </section>
 </template>
