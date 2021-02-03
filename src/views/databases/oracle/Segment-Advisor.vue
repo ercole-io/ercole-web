@@ -4,7 +4,8 @@
       placeholder="Search on Oracle Segment Advisor"
       :keys="keys"
       :tableData="getOracleSegmentAdvisor"
-      :clickedRow="() => []"
+      @clickedRow="handleClickedRow"
+      isClickable
     >
       <template slot="headData">
         <v-th sortKey="reclaimable">Reclaimable GB</v-th>
@@ -45,12 +46,14 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 
 export default {
+  mixins: [hostnameLinkRow],
   components: {
     FullTable,
     exportButton,

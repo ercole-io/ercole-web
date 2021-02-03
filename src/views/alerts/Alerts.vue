@@ -21,6 +21,8 @@
           }
         "
         @isPageChanged="handleClearAllSelections"
+        @clickedRow="handleClickedRow"
+        isClickable
       >
         <template slot="customTopHeader">
           <DrawerButton tooltipText="More Filters" />
@@ -135,6 +137,7 @@ import { mapGetters, mapActions, mapState, mapMutations } from 'vuex'
 import { checkAlertIcon } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
+import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -153,7 +156,7 @@ const checkOrUncheck = (list, status, handleSelectRows) => {
 }
 
 export default {
-  mixins: [paginationMixin, localFiltersMixin],
+  mixins: [paginationMixin, localFiltersMixin, hostnameLinkRow],
   components: {
     BoxContent,
     FullTable,

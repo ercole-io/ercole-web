@@ -61,7 +61,8 @@
             placeholder="Search on Cluster"
             :keys="keys"
             :tableData="getCurrentClusterVms"
-            :clickedRow="() => []"
+            @clickedRow="handleClickedRow"
+            isClickable
           >
             <DrawerButton slot="customTopHeader" tooltipText="More Filters" />
 
@@ -91,6 +92,7 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import { mapBooleanIcon } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
+import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 // import exportButton from '@/components/common/exportButton.vue'
@@ -102,7 +104,7 @@ import DrawerButton from '@/components/common/DrawerButton.vue'
 import ClusterFilters from '@/components/hypervisors/ClusterFilters.vue'
 
 export default {
-  mixins: [techTypePrettyName, localFiltersMixin],
+  mixins: [techTypePrettyName, localFiltersMixin, hostnameLinkRow],
   props: ['clustername'],
   components: {
     BoxContent,

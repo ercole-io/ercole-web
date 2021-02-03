@@ -184,6 +184,7 @@
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
+import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -196,7 +197,7 @@ import HostLink from '@/components/common/Table/HostLink.vue'
 import formatDate from '@/filters/formatDate.js'
 
 export default {
-  mixins: [localFiltersMixin],
+  mixins: [localFiltersMixin, hostnameLinkRow],
   components: {
     BoxContent,
     FullTable,
@@ -249,15 +250,6 @@ export default {
   },
   methods: {
     ...mapActions(['getHosts']),
-    handleClickedRow(value) {
-      if (value.length > 0) {
-        const selectedRow = value[0].hostname
-        this.$router.push({
-          name: 'hosts-details',
-          params: { hostname: selectedRow }
-        })
-      }
-    },
     formatDate(date) {
       return formatDate(date)
     }

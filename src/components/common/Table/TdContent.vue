@@ -1,7 +1,7 @@
 <template>
   <td v-tooltip.bottom="options(value, dataType)">
     <template v-if="link">
-      <a @click="link(value)">
+      <a @click.prevent="link(value)">
         <span v-html="highlight(value || '-')" />
       </a>
     </template>
