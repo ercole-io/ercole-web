@@ -32,13 +32,15 @@ export default {
     apply() {
       this.$store.commit('SET_FILTERS', {
         status: true,
-        filters: organizeKeysBeforeFilter(this.filters)
+        filters: organizeKeysBeforeFilter(this.filters),
+        showCheckbox: [this.alertStatus, this.filters.alertCategory]
       })
     },
     reset(cb = () => {}) {
       this.$store.commit('SET_FILTERS', {
         status: false,
-        filters: []
+        filters: [],
+        showCheckbox: []
       })
       this.filters = {
         cappedCPU: '',
