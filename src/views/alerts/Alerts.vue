@@ -82,9 +82,7 @@
 
         <template slot="headData">
           <th style="width: 5%">
-            <div
-              v-if="alertStatus === 'NEW' && alerts.params.category !== 'AGENT'"
-            >
+            <div v-if="showCheckbox">
               <b-checkbox
                 v-model="isCurrentPageSelected"
                 @input="handleSelectPageRows"
@@ -259,7 +257,7 @@ export default {
   },
   computed: {
     ...mapState(['alerts']),
-    ...mapGetters(['getAlerts'])
+    ...mapGetters(['getAlerts', 'showCheckbox'])
   },
   watch: {
     selectedRows(value) {
