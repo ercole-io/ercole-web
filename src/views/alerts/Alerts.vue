@@ -148,8 +148,10 @@ import formatDate from '@/filters/formatDate.js'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
   _.map(list, val => {
-    val.isChecked = status
-    return handleSelectRows(val.isChecked, val._id)
+    if (val.alertCategory !== 'AGENT') {
+      val.isChecked = status
+      return handleSelectRows(val.isChecked, val._id)
+    }
   })
 }
 
