@@ -116,10 +116,19 @@ export default {
         type: 'is-danger',
         hasIcon: true,
         onConfirm: () => {
-          axiosDefault.delete(`/hosts/${hostname}`).then(() => {
-            this.$router.push({ name: 'hosts' })
-            bus.$emit('hostDismissedMsg', hostname)
-          })
+          axiosDefault
+            .delete(`/hosts/${hostname}`)
+            .then(() => {
+              this.$router.push({ name: 'hosts' })
+            })
+            .then(() => {
+              this.$buefy.toast.open({
+                message: `The host ${hostname} was successfully dismissed!`,
+                type: 'is-success',
+                duration: 10000000000,
+                position: 'is-bottom'
+              })
+            })
         }
       })
     },
