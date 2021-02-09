@@ -13,7 +13,7 @@
             Status: <span class="has-text-weight-medium">{{ pdb.status }}</span>
           </p>
         </b-tab-item>
-        <b-tab-item label="Services" v-if="pdb.services > 0">
+        <!-- <b-tab-item label="Services" v-if="pdb.services > 0">
           <section class="wrap-table py-3">
             <FullTable
               :tableData="pdb.services"
@@ -23,17 +23,17 @@
               hidePagination
               hideTopTable
             >
-              <!-- <template slot="headData">
+              <template slot="headData">
                 
               </template>
 
               <template slot="bodyData" slot-scope="rowData">
                 
-              </template> -->
+              </template>
             </FullTable>
           </section>
-        </b-tab-item>
-        <b-tab-item label="Schemas" v-if="pdb.schemas > 0">
+        </b-tab-item> -->
+        <b-tab-item label="Schemas" v-if="pdb.schemas.length > 0">
           <section class="wrap-table py-3">
             <FullTable
               :tableData="pdb.schemas"
@@ -61,7 +61,7 @@
             </FullTable>
           </section>
         </b-tab-item>
-        <b-tab-item label="Tablespaces" v-if="pdb.tablespaces > 0">
+        <b-tab-item label="Tablespaces" v-if="pdb.tablespaces.length > 0">
           <section class="wrap-table py-3">
             <FullTable
               :tableData="pdb.tablespaces"
