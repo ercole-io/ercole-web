@@ -213,22 +213,20 @@ export default {
     }
 
     .inverted-alert {
-      background-color: hsl(0, 0%, 48%);
+      background-color: #c1c1c1;
       border: none;
-      text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff,
-        1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
 
-      &.warning {
-        color: #ffdd57;
-      }
+      // &.warning {
+      //   color: #ffdd57;
+      // }
 
-      &.danger {
-        color: #f14668;
-      }
+      // &.danger {
+      //   color: #f14668;
+      // }
 
-      &.info {
-        color: #3298dc;
-      }
+      // &.info {
+      //   color: #3298dc;
+      // }
     }
   }
 }
