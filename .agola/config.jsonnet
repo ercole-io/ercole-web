@@ -59,11 +59,13 @@ local task_deploy_repository() = {
       type: 'run',
       name: 'curl',
       command: |||
-        for f in ./pkg/*; do
+        cd pkg
+        for f in *; do
         	URL=$(curl --user "${REPO_USER}" \
             --upload-file $f ${REPO_UPLOAD_URL} --insecure)
         	echo $URL
-        	curl -H "X-API-Token: ${REPO_TOKEN}" \
+          md5sum $f
+          curl -H "X-API-Token: ${REPO_TOKEN}" \
           -H "Content-Type: application/json" --request POST --data "{ \"filename\": \"$f\", \"url\": \"$URL\" }" \
           ${REPO_INSTALL_URL} --insecure
         done
@@ -73,9 +75,7 @@ local task_deploy_repository() = {
   depends: ['pkg build'],
   when: {
     branch: 'master',
-    ref: {
-      exclude: ['#/refs/pull/.*#'],
-    },
+    tag: '#v.*#',
   },
 };
 
@@ -170,6 +170,7 @@ local task_build_push_image(push) =
             //TODO { type: 'save_cache', key: 'cache-apt-date-{{ year }}-{{ month }}-{{ day }}', contents: [{ source_dir: '/var/cache/apt/archives/' }] },
             { type: 'run', command: 'apt update' },
             { type: 'run', command: 'apt install rpm --yes' },
+            { type: 'run', command: 'cd dist' },
             { type: 'run', command: 'mkdir -p /tmp/dist' },
             { type: 'run', command: 'gem install --no-document fpm' },
             { type: 'run', command: '. /tmp/variables && tar -C dist -czf /tmp/dist/ercole-web-${VERSION}.tar.gz .' },
