@@ -103,7 +103,8 @@ ul.pagination-list {
 
 // toast 
 .notices .toast.is-success {
-  color: #000000;
+  color: $grey-darker;
+  background: lightgreen;
 }
 
 // checkbox

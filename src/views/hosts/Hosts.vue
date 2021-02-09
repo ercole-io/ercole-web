@@ -181,7 +181,6 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
@@ -239,14 +238,6 @@ export default {
   },
   async beforeMount() {
     await this.getHosts().then(() => (this.isMounted = true))
-
-    bus.$on('hostDismissedMsg', value => {
-      this.$buefy.toast.open({
-        message: `The host ${value} was successfully dismissed!`,
-        type: 'is-success',
-        duration: 5000
-      })
-    })
   },
   methods: {
     ...mapActions(['getHosts']),
