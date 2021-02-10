@@ -208,7 +208,7 @@ local task_build_push_image(push) =
         task_build_push_image(true) + {
           when: {
             branch: 'master',
-            tag: '#v.*#',
+            tag: '#.*#',
           },
         },
       ] + [
