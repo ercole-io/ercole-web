@@ -39,7 +39,6 @@ local task_build(version) = {
 
 local task_deploy_repository() = {
   name: 'deploy repository.ercole.io',
-  approval: true,
   runtime: {
     type: 'pod',
     arch: 'amd64',
