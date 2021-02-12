@@ -19,7 +19,7 @@ export const getters = {
         _id: host._id,
         hostname: host.hostname,
         environment: host.environment,
-        databases: mapDbs(host.features.oracle),
+        databases: _.slice(mapDbs(host.features.oracle), 0, 5),
         techType: mapTechType(host.features),
         platform: host.info.hardwareAbstractionTechnology,
         cluster: host.cluster,
