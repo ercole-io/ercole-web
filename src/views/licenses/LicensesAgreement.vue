@@ -25,7 +25,7 @@
               <template slot="headData">
                 <v-th sortKey="agreementID">Agreement Number</v-th>
                 <v-th sortKey="licenseTypeID">Part Number</v-th>
-                <v-th sortKey="itemDescription">Item Description</v-th>
+                <v-th sortKey="itemDescription">Description</v-th>
                 <v-th sortKey="metric">Metric</v-th>
                 <v-th sortKey="csi">CSI</v-th>
                 <v-th sortKey="referenceNumber">Reference Number</v-th>

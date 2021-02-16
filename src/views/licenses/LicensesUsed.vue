@@ -15,7 +15,9 @@
         <template slot="headData">
           <v-th sortKey="hostname">Hostname</v-th>
           <v-th sortKey="dbName">DB Name</v-th>
-          <v-th sortKey="licenseTypeID">License ID</v-th>
+          <v-th sortKey="licenseTypeID">Part Number</v-th>
+          <v-th sortKey="description">Description</v-th>
+          <v-th sortKey="metric">Metric</v-th>
           <v-th sortKey="usedLicenses">Used Licenses</v-th>
         </template>
 
@@ -25,6 +27,8 @@
           />
           <TdContent :value="rowData.scope.dbName" />
           <TdContent :value="rowData.scope.licenseTypeID" />
+          <TdContent :value="rowData.scope.description" />
+          <TdContent :value="rowData.scope.metric" />
           <TdContent :value="rowData.scope.usedLicenses" />
         </template>
 
@@ -63,15 +67,23 @@ export default {
   },
   data() {
     return {
-      keys: ['hostname', 'dbName', 'licenseTypeID', 'usedLicenses'],
+      keys: [
+        'hostname',
+        'dbName',
+        'licenseTypeID',
+        'usedLicenses',
+        'description',
+        'metric'
+      ],
       isMounted: false
     }
   },
   async beforeMount() {
+    await this.getAgreementParts()
     await this.getLicensesList().then(() => (this.isMounted = true))
   },
   methods: {
-    ...mapActions(['getLicensesList'])
+    ...mapActions(['getLicensesList', 'getAgreementParts'])
   },
   computed: {
     ...mapGetters(['getUsedLicenses'])

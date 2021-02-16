@@ -8,7 +8,7 @@
         :clickedRow="() => []"
       >
         <template slot="headData">
-          <v-th sortKey="partID">ID</v-th>
+          <v-th sortKey="partID">Part Number</v-th>
           <v-th sortKey="itemDescription">Description</v-th>
           <v-th sortKey="metric">Metric</v-th>
           <v-th sortKey="consumed">Consumed</v-th>

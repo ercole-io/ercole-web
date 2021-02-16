@@ -1,5 +1,6 @@
 import axiosDefault from '@/axios/axios-default.js'
 import { filterByKeys } from '@/helpers/helpers.js'
+import _ from 'lodash'
 
 export const state = () => ({
   licenseList: []
@@ -35,6 +36,15 @@ export const actions = {
     )
     const response = await licensesList.data
 
-    commit('SET_LICENSE_LIST', response)
+    let setLicensesInfo = _.map(response, val => {
+      return {
+        ...val,
+        description: getters.returnMetricAndDescription(val.licenseTypeID)
+          .description,
+        metric: getters.returnMetricAndDescription(val.licenseTypeID).metric
+      }
+    })
+
+    commit('SET_LICENSE_LIST', setLicensesInfo)
   }
 }

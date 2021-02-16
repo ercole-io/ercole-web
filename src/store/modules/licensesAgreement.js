@@ -3,8 +3,7 @@ import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
 
 export const state = () => ({
-  licensesAgreement: [],
-  agreementParts: {}
+  licensesAgreement: []
 })
 
 export const getters = {
@@ -17,17 +16,6 @@ export const getters = {
   },
   returnLicensesAgreement: state => {
     return state.licensesAgreement
-  },
-  returnAgreementParts: state => {
-    const agreeParts = []
-
-    _.map(state.agreementParts, val => {
-      agreeParts.push({
-        agreeParts: `${val.id} - ${val.itemDescription} - ${val.metric}`
-      })
-    })
-
-    return agreeParts
   },
   returnAgreeNumbers: state => {
     const agreeNumbers = []
@@ -52,31 +40,12 @@ export const getters = {
       referenceNumbers.push(val.referenceNumber)
     })
     return referenceNumbers
-  },
-  returnMetricAndDescription: state => licenseID => {
-    let description = null
-    let metric = null
-
-    _.filter(state.agreementParts, val => {
-      if (val.id === licenseID) {
-        description = val.itemDescription
-        metric = val.metric
-      }
-    })
-
-    return {
-      description: description,
-      metric: metric
-    }
   }
 }
 
 export const mutations = {
   SET_LICENSE_AGREEMENT: (state, payload) => {
     state.licensesAgreement = payload
-  },
-  SET_AGREEMENT_PARTS: (state, payload) => {
-    state.agreementParts = payload
   }
 }
 
@@ -93,13 +62,5 @@ export const actions = {
     const response = await agreementList.data
 
     commit('SET_LICENSE_AGREEMENT', response)
-  },
-  async getAgreementParts({ commit }) {
-    const agreementParts = await axiosDefault.get(
-      '/settings/oracle/database/license-types'
-    )
-    const response = await agreementParts.data
-
-    commit('SET_AGREEMENT_PARTS', response)
   }
 }

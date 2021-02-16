@@ -170,9 +170,7 @@ export default {
 
         if (val.count > 0) {
           filteredLicenses.push({
-            licenseName: val.name,
-            licenseNumber: val.count,
-            partNumber: val.licenseTypeID,
+            ...val,
             description: licenseComplement.description,
             metric: licenseComplement.metric
           })
