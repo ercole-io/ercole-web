@@ -25,6 +25,7 @@ import * as oracleAddm from './modules/oracle-addm.js'
 import * as globalFilters from './modules/globalFilters.js'
 import * as localFilters from './modules/localFilters.js'
 import * as engineeredSystems from './modules/engineered-systems.js'
+import * as agreementParts from './modules/agreementParts.js'
 
 Vue.use(Vuex)
 
@@ -52,7 +53,8 @@ export default new Vuex.Store({
     oracleAddm,
     globalFilters,
     localFilters,
-    engineeredSystems
+    engineeredSystems,
+    agreementParts
   },
   plugins: [
     createPersistedState({
