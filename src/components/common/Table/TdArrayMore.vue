@@ -1,0 +1,96 @@
+<template>
+  <td v-tooltip.bottom="options(formatArrayToShow(value))">
+    <div class="dbsList">
+      <div v-if="valueSize > defaultSize">
+        <b-button
+          size="is-small"
+          type="is-success is-light"
+          @click="show('plus')"
+          icon-right="plus"
+          icon-pack="fas"
+          :disabled="limit > valueSize"
+          outlined
+        />
+        <b-button
+          size="is-small"
+          type="is-danger is-light"
+          @click="show()"
+          icon-right="minus"
+          icon-pack="fas"
+          :disabled="limit === defaultSize"
+          outlined
+        />
+      </div>
+      <ul>
+        <li v-for="(val, index) in value" :key="index">
+          <span v-if="index < limit">{{ val }}</span>
+        </li>
+      </ul>
+    </div>
+  </td>
+</template>
+
+<script>
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+import TooltipMixin from '@/mixins/tooltipMixin.js'
+
+export default {
+  mixins: [HighlightSearchMixin, TooltipMixin],
+  data() {
+    return {
+      limit: 5,
+      defaultSize: 5,
+      valueSize: null
+    }
+  },
+  methods: {
+    formatArrayToShow(val) {
+      this.valueSize = val.length
+      return val.toString().replace(/,\s*/g, ',&nbsp')
+    },
+    show(val = '') {
+      if (val === 'plus') {
+        this.limit += this.defaultSize
+      } else {
+        if (this.limit > this.defaultSize) {
+          this.limit -= this.defaultSize
+        }
+      }
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.dbsList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+
+  div,
+  ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  ul {
+    align-self: flex-start;
+  }
+
+  div {
+    padding: 3px 5px 0 0;
+    align-self: flex-start;
+
+    .button {
+      &.is-small {
+        font-size: 0.55rem;
+      }
+    }
+
+    .button:first-child {
+      margin-bottom: 8px;
+    }
+  }
+}
+</style>

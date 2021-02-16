@@ -122,7 +122,7 @@
         <template slot="bodyData" slot-scope="rowData">
           <HostLink :hostname="rowData.scope.hostname" />
           <TdContent :value="rowData.scope.environment" />
-          <TdArray :value="rowData.scope.databases" />
+          <TdArrayMore :value="rowData.scope.databases" />
           <TdContent :value="rowData.scope.techType" />
           <TdContent
             :value="rowData.scope.platform"
@@ -188,7 +188,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
-import TdArray from '@/components/common/Table/TdArray.vue'
+import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import DrawerButton from '@/components/common/DrawerButton.vue'
 import HostsFilters from '@/components/hosts/hosts/HostsFilters.vue'
@@ -202,7 +202,7 @@ export default {
     FullTable,
     TdContent,
     TdIcon,
-    TdArray,
+    TdArrayMore,
     exportButton,
     DrawerButton,
     HostsFilters,
