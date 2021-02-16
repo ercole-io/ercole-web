@@ -113,9 +113,12 @@
           :min="minmemorytotal"
           :max="maxmemorytotal"
         >
-          <template v-for="val in filteredmemorytotal">
-            <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
-          </template>
+          <b-slider-tick :value="minmemorytotal">
+            {{ minmemorytotal }}
+          </b-slider-tick>
+          <b-slider-tick :value="maxmemorytotal">
+            {{ maxmemorytotal }}
+          </b-slider-tick>
         </b-slider>
       </CustomField>
 
