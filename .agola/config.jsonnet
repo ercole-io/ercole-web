@@ -32,7 +32,7 @@ local task_build(version) = {
     { type: 'run', command: 'npm run build' },
     { type: 'save_cache', key: 'cache-node' + version + '-sum-{{ md5sum "package.json" }}', contents: [{ source_dir: './node_modules' }] },
     { type: 'save_cache', key: 'cache-node' + version + '-date-{{ year }}-{{ month }}-{{ day }}', contents: [{ source_dir: './node_modules' }] },
-    { type: 'save_to_workspace', contents: [{ source_dir: '.', dest_dir: '/dist', paths: ['dist/**'] }] },
+    { type: 'save_to_workspace', contents: [{ source_dir: '.', dest_dir: '/build', paths: ['**'] }] },
   ],
   depends: ['test - node ' + version],
 };
@@ -152,6 +152,7 @@ local task_build_push_image(push) =
           },
           steps: [
             { type: 'restore_workspace', dest_dir: '.' },
+            { type: 'run', command: 'mv ./build/dist .' },
             {
               type: 'run',
               name: 'version',
@@ -169,11 +170,20 @@ local task_build_push_image(push) =
             //TODO { type: 'save_cache', key: 'cache-apt-date-{{ year }}-{{ month }}-{{ day }}', contents: [{ source_dir: '/var/cache/apt/archives/' }] },
             { type: 'run', command: 'apt update' },
             { type: 'run', command: 'apt install rpm --yes' },
-            { type: 'run', command: 'cd dist' },
             { type: 'run', command: 'mkdir -p /tmp/dist' },
             { type: 'run', command: 'gem install --no-document fpm' },
             { type: 'run', command: '. /tmp/variables && tar -C dist -czf /tmp/dist/ercole-web-${VERSION}.tar.gz .' },
-            { type: 'run', command: '. /tmp/variables && fpm -n ercole-web -s dir -t rpm -a all --rpm-os linux --version ${VERSION} --name ercole-web --after-install after-install  -s dir dist/=/usr/share/ercole/web ercoleweb-setup=/usr/bin/ercoleweb-setup nginx-serve-ercoleweb-https.conf=/usr/share/ercole/examples/nginx-serve-ercoleweb-https.conf' },
+            {
+              type: 'run',
+              name: 'fpm',
+              command: |||
+                . /tmp/variables && \
+                fpm -n ercole-web -s dir -t rpm -a all --rpm-os linux --version ${VERSION} --name ercole-web \
+                --after-install after-install -s dir dist/=/usr/share/ercole/web \
+                ercoleweb-setup=/usr/bin/ercoleweb-setup \
+                nginx-serve-ercoleweb-https.conf=/usr/share/ercole/examples/nginx-serve-ercoleweb-https.conf
+              |||,
+            },
             { type: 'run', command: '. /tmp/variables && mv ercole-web-${VERSION}-1.noarch.rpm /tmp/dist/ercole-web-${VERSION}-1.el8.noarch.rpm' },
             { type: 'run', command: '. /tmp/variables && cp /tmp/dist/ercole-web-${VERSION}-1.el8.noarch.rpm /tmp/dist/ercole-web-${VERSION}-1.el7.noarch.rpm' },
             { type: 'save_to_workspace', contents: [{ source_dir: '/tmp/dist', dest_dir: '/pkg/', paths: ['**'] }] },
@@ -202,6 +212,7 @@ local task_build_push_image(push) =
       ] + [
         task_build_push_image(false) + {
           when: {
+            branch: '^(?!master$).*$',
             ref: '#refs/pull/\\d+/head#',
           },
         },
