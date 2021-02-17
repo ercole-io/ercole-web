@@ -74,7 +74,7 @@ local task_deploy_repository() = {
   depends: ['pkg build'],
   when: {
     branch: 'master',
-    tag: '#v.*#',
+    tag: '#.*#',
   },
 };
 
