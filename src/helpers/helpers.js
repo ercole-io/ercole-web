@@ -143,9 +143,7 @@ export const filterByKeys = (data, keys) => {
       return (
         _.indexOf(i.Values, item[field]) > -1 ||
         _.inRange(item[field], i.Values[0][0], i.Values[0][1] + 0.1) ||
-        _.find(item[field], val => {
-          return _.indexOf(i.Values, val) > -1
-        })
+        _.find(item[field], val => _.indexOf(i.Values, val) > -1)
       )
     })
   })
