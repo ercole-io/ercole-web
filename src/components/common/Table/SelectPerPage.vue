@@ -1,6 +1,10 @@
 <template>
   <b-field v-if="totalItems > 5">
-    <b-select v-model="perPage" size="is-small" @change.native="changePerPage">
+    <b-select
+      v-model="perPage"
+      size="is-small"
+      @change.native="changePerPage($event)"
+    >
       <option value="5" v-if="totalItems > 5">5 per page</option>
       <option value="10" v-if="totalItems > 10">10 per page</option>
       <option value="15" v-if="totalItems > 15">15 per page</option>
@@ -14,41 +18,21 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
+import paginationMixin from '@/mixins/paginationMixin.js'
 
 export default {
+  mixins: [paginationMixin],
   props: {
     totalItems: {
       type: Number,
       required: true
     }
   },
-  data() {
-    return {
-      perPage: Number(localStorage.getItem('perPage')) || 20
-    }
-  },
-  beforeMount() {
-    if (this.totalItems < this.perPage) {
-      this.perPage = this.totalItems
-    }
-  },
-  beforeUpdate() {
-    const newPerPage = Number(localStorage.getItem('perPage'))
-    if (this.perPage < 5) {
-      this.perPage = newPerPage
-      localStorage.setItem('perPage', this.perPage)
-    }
-
-    if (this.totalItems < this.perPage) {
-      this.perPage = this.totalItems
-    }
-  },
   methods: {
-    changePerPage() {
-      if (this.totalItems > this.perPage) {
-        localStorage.setItem('perPage', this.perPage)
-      }
-      bus.$emit('changePerPage', Number(this.perPage))
+    changePerPage(e) {
+      let eventVal = e.target.value
+      bus.$emit('changePerPage', eventVal)
+      localStorage.setItem('perPage', eventVal)
     }
   }
 }
