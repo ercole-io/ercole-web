@@ -39,9 +39,17 @@
 
     <div class="columns">
       <BoxContent :title="`Databases of ${hostname}`" class="column is-8">
+        <b-input
+          size="is-small"
+          type="text"
+          v-model="searchDb"
+          slot="customTitle"
+          placeholder="Search by DB name"
+        />
         <HostDatabases
           :activeDB="dbname"
           v-if="hostDetails.hostDBs.length > 0"
+          :searchDb="searchDb"
         />
         <noContent
           v-else
@@ -95,7 +103,8 @@ export default {
   data() {
     return {
       chartData: [],
-      isMounted: false
+      isMounted: false,
+      searchDb: ''
     }
   },
   async beforeMount() {

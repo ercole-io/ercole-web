@@ -7,7 +7,7 @@
       type="is-boxed"
       :animated="true"
     >
-      <template v-for="dbs in hostDetails.hostDBs">
+      <template v-for="dbs in filteredHostDbs">
         <b-tab-item :key="dbs.UniqueName" :label="dbs.name">
           <b-tabs size="is-small" type="is-toggle" vertical :animated="true">
             <b-tab-item label="Info">
@@ -127,6 +127,10 @@ export default {
     activeDB: {
       type: String,
       required: false
+    },
+    searchDb: {
+      type: String,
+      default: ''
     }
   },
   components: {
@@ -152,7 +156,7 @@ export default {
     }
   },
   beforeUpdate() {
-    this.activeTab = _.findIndex(this.hostDetails.hostDBs, {
+    this.activeTab = _.findIndex(this.getCurrentHostDbs, {
       name: this.activeDB
     })
   },
@@ -181,7 +185,20 @@ export default {
   },
   computed: {
     ...mapState(['hostDetails']),
-    ...mapGetters(['returnMetricAndDescription'])
+    ...mapGetters(['returnMetricAndDescription', 'getCurrentHostDbs']),
+    filteredHostDbs() {
+      let hostDbs = this.getCurrentHostDbs
+
+      if (this.searchDb != '' && this.searchDb) {
+        hostDbs = _.filter(hostDbs, db => {
+          return _.includes(db.name.toUpperCase(), this.searchDb.toUpperCase())
+        })
+      } else {
+        hostDbs = this.getCurrentHostDbs
+      }
+
+      return hostDbs
+    }
   }
 }
 </script>
