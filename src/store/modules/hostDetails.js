@@ -189,6 +189,9 @@ export const getters = {
       engine,
       hostname
     }
+  },
+  getCurrentHostDbs: state => {
+    return state.hostDBs
   }
 }
 
