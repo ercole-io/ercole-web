@@ -45,6 +45,7 @@
           v-model="searchDb"
           slot="customTitle"
           placeholder="Search by DB name"
+          v-if="hostDetails.hostDBs.length > 1"
         />
         <HostDatabases
           :activeDB="dbname"
