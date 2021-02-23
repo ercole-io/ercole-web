@@ -5,7 +5,7 @@
     :fullwidth="false"
     :overlay="false"
     :right="true"
-    position="absolute"
+    position="fixed"
     :open.sync="isOpenFilters"
   >
     <div class="has-background-light drawer-wrapper">
@@ -31,15 +31,19 @@ import { bus } from '@/helpers/eventBus.js'
 export default {
   data() {
     return {
-      isOpenFilters: false,
-      isOpenGlobalFilters: false
+      isOpenFilters: false
     }
   },
   created() {
     bus.$on('openFilters', val => {
-      this.isOpenFilters = val
+      if (!this.isOpenFilters && !val) {
+        this.isOpenFilters = true
+      } else {
+        this.isOpenFilters = val
+      }
+
       if (val) {
-        this.SET_OPEN_FILTERS(false)
+        this.SET_OPEN_FILTERS(this.isOpenFilters)
       }
     })
   },
@@ -48,6 +52,7 @@ export default {
     closeFilters() {
       this.isOpenFilters = false
       bus.$emit('closeFilters', this.isOpenFilters)
+      this.SET_OPEN_FILTERS(this.isOpenFilters)
     }
   }
 }
