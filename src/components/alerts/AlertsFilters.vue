@@ -108,8 +108,8 @@
 </template>
 
 <script>
-import moment from 'moment'
 import { bus } from '@/helpers/eventBus.js'
+import { formatDatepickerDate } from '@/helpers/helpers.js'
 import { mapGetters, mapActions, mapState } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import DrawerFilters from '@/components/common/DrawerFilters.vue'
@@ -141,15 +141,8 @@ export default {
       return new Promise((resolve, reject) => {
         this.getAlertsData({
           status: this.alertStatus,
-          startDate: moment(this.startDate)
-            .subtract(1, 'days')
-            .utc()
-            .set({ hour: 23, minute: 59, second: 59 })
-            .toISOString(),
-          endDate: moment(this.endDate)
-            .utc()
-            .set({ hour: 23, minute: 59, second: 59 })
-            .toISOString()
+          startDate: formatDatepickerDate(this.startDate),
+          endDate: formatDatepickerDate(this.endDate)
         }).then(
           res => {
             resolve(res)
