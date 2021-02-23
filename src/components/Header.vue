@@ -85,11 +85,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.global-search {
-  margin-right: 20px;
-  margin-bottom: 0;
-  align-self: center;
-}
+// .global-search {
+//   margin-right: 20px;
+//   margin-bottom: 0;
+//   align-self: center;
+// }
 
 .ercole-logo {
   background-color: #363636 !important;
@@ -97,10 +97,5 @@ export default {
   img {
     height: 2.5em !important;
   }
-}
-
-.btn-sidebar {
-  align-self: center;
-  margin-left: 90px;
 }
 </style>
