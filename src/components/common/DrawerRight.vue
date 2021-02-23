@@ -8,7 +8,7 @@
     position="fixed"
     :open.sync="isOpenFilters"
   >
-    <div class="has-background-light drawer-wrapper">
+    <div class="has-background-light drawer-wrapper scrollbar-y" id="style-1">
       <b-button
         size="is-small"
         type="is-dark"
