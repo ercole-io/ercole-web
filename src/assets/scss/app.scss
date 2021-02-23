@@ -27,6 +27,7 @@ $colors: map-merge($colors, $addColors);
 
 // 4. Provide custom buefy overrides and site styles here
 @import '@/assets/scss/_base.scss';
+@import '@/assets/scss/_custom-scroll.scss';
 @import '@/assets/scss/_custom-buefy.scss';
 @import '@/assets/scss/_v-table-custom.scss';
 @import '@/assets/scss/_v-tooltip-custom.scss';

@@ -23,7 +23,7 @@
       />
     </TopTable>
 
-    <div class="table-container">
+    <div class="table-container scrollbar-x" id="style-1">
       <v-table
         :data="total"
         :filters="filters"
@@ -35,6 +35,7 @@
         :selectionMode="modeSelection"
         :selectedClass="classSelection"
         class="vTable-custom"
+        style="margin-bottom: 10px;"
       >
         <thead slot="head">
           <slot name="customHeadData" />

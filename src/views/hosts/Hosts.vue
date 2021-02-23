@@ -44,7 +44,10 @@
           </div>
         </template>
 
-        <template slot="customHeadData">
+        <template
+          slot="customHeadData"
+          v-if="!hideVirtual || !hideCPU || !hideAgent"
+        >
           <tr
             :class="{
               'has-background-grey-light':
