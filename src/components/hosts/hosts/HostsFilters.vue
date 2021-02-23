@@ -279,10 +279,12 @@
 </template>
 
 <script>
-import moment from 'moment'
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
-import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
+import {
+  prepareDataForAutocomplete,
+  formatDatepickerDate
+} from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import DrawerFilters from '@/components/common/DrawerFilters.vue'
 import FiltersButtons from '@/components/common/Filters/FiltersButtons.vue'
@@ -376,12 +378,7 @@ export default {
   watch: {
     startDate(newValue, oldValue) {
       if (newValue !== oldValue) {
-        this.getHosts(
-          moment(this.startDate)
-            .utc()
-            .set({ hour: 23, minute: 59, second: 59 })
-            .toISOString()
-        )
+        this.getHosts(formatDatepickerDate(this.startDate))
       }
     }
   }
