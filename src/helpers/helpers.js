@@ -136,17 +136,30 @@ export const organizeKeysBeforeFilter = keys => {
 }
 
 export const filterByKeys = (data, keys) => {
-  return _.filter(data, item => {
+  let advancedSearch = _.filter(data, item => {
     return _.every(keys, i => {
       let field = i.Field
+
+      let hostValue =
+        typeof i.Values[0] === 'string' ? i.Values[0].toUpperCase() : null
+      let fieldValue =
+        typeof item[field] === 'string' ? item[field].toUpperCase() : null
+      let fieldValueZero =
+        item[field] && typeof item[field][0] === 'string'
+          ? item[field][0].toUpperCase()
+          : null
 
       return (
         _.indexOf(i.Values, item[field]) > -1 ||
         _.inRange(item[field], i.Values[0][0], i.Values[0][1] + 0.1) ||
-        _.find(item[field], val => _.indexOf(i.Values, val) > -1)
+        _.find(item[field], val => _.indexOf(i.Values, val) > -1) ||
+        _.includes(fieldValueZero, hostValue) ||
+        _.includes(fieldValue, hostValue)
       )
     })
   })
+
+  return advancedSearch
 }
 // END: Functions to use for filter data by keys //
 

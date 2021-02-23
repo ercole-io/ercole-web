@@ -23,15 +23,15 @@
         />
       </CustomField>
 
-      <CustomField label="License Name">
+      <CustomField label="Part Number">
         <b-autocomplete
-          v-model="filters.licenseName"
+          v-model="filters.licenseTypeID"
           size="is-small"
           type="number"
           clearable
           :data="filteredData"
           @typing="
-            setFilteredAutocomplete($event, 'licenseName', getUsedLicenses)
+            setFilteredAutocomplete($event, 'licenseTypeID', getUsedLicenses)
           "
         />
       </CustomField>
@@ -43,9 +43,16 @@
           :max="maxusedLicenses"
           :step="0.5"
         >
-          <template v-for="val in filteredusedLicenses">
+          <!-- <template v-for="val in filteredusedLicenses">
             <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
-          </template>
+          </template> -->
+
+          <b-slider-tick :value="minusedLicenses">
+            {{ minusedLicenses }}
+          </b-slider-tick>
+          <b-slider-tick :value="maxusedLicenses">
+            {{ maxusedLicenses }}
+          </b-slider-tick>
         </b-slider>
       </CustomField>
 
