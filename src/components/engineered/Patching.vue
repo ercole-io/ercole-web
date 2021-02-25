@@ -1,17 +1,16 @@
 <template>
-  <BoxContent title="Patching" border>
+  <BoxContent title="Patching" border :mbottom="false">
     <BarChart
       chartId="patchingChart"
-      :barChartData="engineeredSystems.patching"
-      chartHeight="90px"
-      :colors="[['rgb(87, 117, 144)', 'rgb(67, 170, 139)']]"
-      :legend="false"
+      :barChartData="getPatchingChartData"
+      chartHeight="110px"
+      stacked
     />
   </BoxContent>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import BarChart from '@/components/common/charts/BarChart.vue'
 
@@ -21,7 +20,8 @@ export default {
     BarChart
   },
   computed: {
-    ...mapState(['engineeredSystems'])
+    ...mapState(['engineeredSystems']),
+    ...mapGetters(['getPatchingChartData'])
   }
 }
 </script>

@@ -71,7 +71,6 @@ export const getters = {
         data: withoutErcole
       }
     )
-
     return finalData
   },
   getVirtualizationChartData: (state, getters) => {
