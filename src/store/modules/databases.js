@@ -34,7 +34,7 @@ export const getters = {
     return state.databases
   },
   getTotalCpu: state => {
-    return _.sumBy(state.databases, 'cpuCount')
+    return _.sumBy(state.databases, 'work')
   },
   getDatabasesCharts: state => id => {
     let chartValues = {}
