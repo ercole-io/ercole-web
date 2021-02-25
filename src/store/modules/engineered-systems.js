@@ -88,7 +88,7 @@ export const actions = {
         await axiosNoLoading.get(`${url}/patch-status?window-time=6`, {
           params: params
         }),
-        await axiosNoLoading.get(`${url}/patch-status?window-time=20`, {
+        await axiosNoLoading.get(`${url}/patch-status?window-time=12`, {
           params: params
         })
       ])
