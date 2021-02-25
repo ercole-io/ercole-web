@@ -1,5 +1,5 @@
 <template>
-  <BoxContent title="Storage Used" border>
+  <BoxContent title="Storage Used" border :mbottom="false">
     <p class="is-size-7">
       {{ engineeredSystems.storage | formatNumber('0.00', '%') }}
     </p>

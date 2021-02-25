@@ -4,7 +4,7 @@
       {{ title }}
       <slot name="customTitle" />
     </h2>
-    <article class="box-content">
+    <article class="box-content" :class="{ 'bottom-space': mbottom }">
       <slot />
     </article>
   </section>
@@ -20,6 +20,10 @@ export default {
     border: {
       type: Boolean,
       default: false
+    },
+    mbottom: {
+      type: Boolean,
+      default: true
     }
   }
 }
@@ -29,6 +33,9 @@ export default {
 .box-content {
   padding: 0 0.5rem;
   height: 100%;
+}
+
+.bottom-space {
   margin-bottom: 20px;
 }
 

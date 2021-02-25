@@ -11,7 +11,7 @@
         <Storage />
       </div>
       <div class="column is-7">
-        <!-- <Patching /> -->
+        <Patching />
       </div>
     </div>
 
@@ -28,7 +28,7 @@ import { mapActions } from 'vuex'
 import Cpu from '@/components/engineered/CPU.vue'
 import Memory from '@/components/engineered/Memory.vue'
 import Storage from '@/components/engineered/Storage.vue'
-// import Patching from '@/components/engineered/Patching.vue'
+import Patching from '@/components/engineered/Patching.vue'
 import EngineeredTables from '@/components/engineered/EngineeredTables.vue'
 
 export default {
@@ -36,7 +36,7 @@ export default {
     Cpu,
     Memory,
     Storage,
-    // Patching,
+    Patching,
     EngineeredTables
   },
   async beforeMount() {

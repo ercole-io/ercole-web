@@ -1,5 +1,5 @@
 <template>
-  <BoxContent title="CPU" border>
+  <BoxContent title="CPU" border :mbottom="false">
     <p class="is-size-7">
       {{ engineeredSystems.cpu.running }} /
       {{ engineeredSystems.cpu.total }}

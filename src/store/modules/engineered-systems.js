@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import axios from 'axios'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 
@@ -9,19 +10,46 @@ export const state = () => ({
     total: 0
   },
   storage: 0,
-  patching: [
-    {
-      data: [
-        ['6 months', 20],
-        ['12 months', 15]
-      ]
-    }
-  ]
+  patching6: null,
+  patching12: null
 })
+
+const patchData = (data, months) => {
+  const patched = []
+  const notPatched = []
+
+  _.map(data, item => {
+    if (item.status) {
+      patched.push([months, item.count || 0])
+    } else {
+      notPatched.push([months, item.count || 0])
+    }
+  })
+
+  return { patched, notPatched }
+}
 
 export const getters = {
   getEngSys: state => {
     return state.engSys
+  },
+  getPatchingChartData: state => {
+    const finalData = []
+    const patch6 = patchData(state.patching6, '6 months')
+    const patch12 = patchData(state.patching12, '12 months')
+
+    finalData.push([
+      {
+        name: 'Patched',
+        data: _.concat(patch6.patched, patch12.patched)
+      },
+      {
+        name: 'Not Patched',
+        data: _.concat(patch6.notPatched, patch12.notPatched)
+      }
+    ])
+
+    return _.orderBy(finalData[0], ['name'], ['asc'])
   }
 }
 
@@ -31,7 +59,8 @@ export const mutations = {
     state.memory = payload.memory
     state.cpu = payload.cpu
     state.storage = payload.storage || 0
-    // state.patching = payload.patch
+    state.patching6 = payload.patch6
+    state.patching12 = payload.patch12
   }
 }
 
@@ -53,19 +82,29 @@ export const actions = {
           params: params
         }),
         await axiosNoLoading.get(`${url}/total-cpu`, { params: params }),
-        await axiosNoLoading.get(`${url}/average-storage-usage`),
-        await axiosNoLoading.get(`${url}/patch-status`, { params: params })
+        await axiosNoLoading.get(`${url}/average-storage-usage`, {
+          params: params
+        }),
+        await axiosNoLoading.get(`${url}/patch-status?window-time=6`, {
+          params: params
+        }),
+        await axiosNoLoading.get(`${url}/patch-status?window-time=20`, {
+          params: params
+        })
       ])
       .then(
-        axios.spread((engSysRes, memoryRes, cpuRes, storageRes, patchRes) => {
-          commit('SET_ENGINEERED_SYSTEMS', {
-            engSys: engSysRes.data,
-            memory: memoryRes.data,
-            cpu: cpuRes.data,
-            storage: storageRes.data,
-            patch: patchRes.data
-          })
-        })
+        axios.spread(
+          (engSysRes, memoryRes, cpuRes, storageRes, patchRes6, patchRes12) => {
+            commit('SET_ENGINEERED_SYSTEMS', {
+              engSys: engSysRes.data,
+              memory: memoryRes.data,
+              cpu: cpuRes.data,
+              storage: storageRes.data,
+              patch6: patchRes6.data,
+              patch12: patchRes12.data
+            })
+          }
+        )
       )
       .then(() => {
         dispatch('offLoading')
