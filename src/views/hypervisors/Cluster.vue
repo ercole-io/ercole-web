@@ -12,13 +12,13 @@
                   <p class="is-size-7 has-text-centered">
                     Type <br />
                     <span class="is-size-5 has-text-weight-medium">
-                      {{ getTechTypePrettyName(getCurrentCluster.Type) || '-' }}
+                      {{ getTechTypePrettyName(getCurrentCluster.type) || '-' }}
                     </span>
                   </p>
                   <p class="is-size-7 has-text-centered">
                     Physical Host <br />
                     <span class="is-size-5 has-text-weight-medium">
-                      {{ getCurrentCluster.VirtualizationNodesCount || '-' }}
+                      {{ getCurrentCluster.virtualizationNodesCount || '-' }}
                     </span>
                   </p>
                 </div>
@@ -32,13 +32,13 @@
                   <p class="is-size-7 has-text-centered">
                     CPU <br />
                     <span class="is-size-5 has-text-weight-medium">
-                      {{ getCurrentCluster.CPU || '-' }}
+                      {{ getCurrentCluster.cpu || '-' }}
                     </span>
                   </p>
                   <p class="is-size-7 has-text-centered">
                     Sockets <br />
                     <span class="is-size-5 has-text-weight-medium">
-                      {{ getCurrentCluster.Sockets || '-' }}
+                      {{ getCurrentCluster.sockets || '-' }}
                     </span>
                   </p>
                 </div>
@@ -74,10 +74,10 @@
             </template>
 
             <template slot="bodyData" slot-scope="rowData">
-              <TdContent :value="rowData.scope.VirtualizationNode" />
-              <HostLink :hostname="rowData.scope.Hostname" />
-              <TdContent :value="rowData.scope.Name" />
-              <TdIcon :value="bindIcon(rowData.scope.CappedCPU)" />
+              <TdContent :value="rowData.scope.virtualizationNode" />
+              <HostLink :hostname="rowData.scope.hostname" />
+              <TdContent :value="rowData.scope.name" />
+              <TdIcon :value="bindIcon(rowData.scope.cappedCPU)" />
             </template>
           </FullTable>
         </div>
