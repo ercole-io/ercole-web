@@ -12,7 +12,7 @@
         @click="routeTo(i)"
         :class="{ 'is-active': !b.link }"
       >
-        <a :href="b.link" v-if="b.link">
+        <a :href="b.link" id="link">
           {{ b.name }}
         </a>
         <span
@@ -53,6 +53,9 @@ export default {
   margin: 0;
   padding: 10px 20px 8px 20px;
   border-bottom: 1px solid #ccc;
+  min-height: 43px;
+  display: flex;
+  align-items: center;
 
   li + li::before {
     font-size: 11px;
@@ -70,6 +73,7 @@ export default {
 
   .dynamicTitle {
     padding: 0 0.75em;
+    margin-left: -26px;
   }
 }
 </style>
