@@ -9,7 +9,11 @@
           <TdStarIcon :position="index" />
           <HostLink :hostname="[reclaimable.hostname, reclaimable.dbname]" />
           <TdContent :value="reclaimable.dbname" />
-          <TdContent :value="reclaimable.reclaimableSegmentAdvisors" />
+          <TdContent
+            :value="
+              reclaimable.reclaimableSegmentAdvisors | formatNumber('0.00')
+            "
+          />
         </tr>
       </template>
     </SimpleTable>
