@@ -9,7 +9,7 @@
           <TdStarIcon :position="index" />
           <HostLink :hostname="[workload.hostname, workload.dbname]" />
           <TdContent :value="workload.dbname" />
-          <TdContent :value="workload.workload" />
+          <TdContent :value="workload.workload | formatNumber('0.00')" />
         </tr>
       </template>
     </SimpleTable>

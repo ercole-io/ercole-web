@@ -31,8 +31,8 @@
       <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
       <TdContent :value="rowData.scope.environment" />
       <TdContent :value="rowData.scope.charset" />
-      <TdContent :value="rowData.scope.work" />
-      <TdContent :value="rowData.scope.cpuCount" />
+      <TdContent :value="rowData.scope.work | formatNumber('0.00')" />
+      <TdContent :value="rowData.scope.cpuCount | formatNumber('0.00')" />
       <TdContent :value="rowData.scope.blockSize" />
       <TdContent :value="rowData.scope.status" />
       <TdContent :value="rowData.scope.uniqueName" />
