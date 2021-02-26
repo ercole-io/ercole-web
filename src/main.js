@@ -17,6 +17,7 @@ import Chart from 'chart.js'
 import SmartTable from 'vuejs-smart-table'
 import Vuelidate from 'vuelidate'
 import VTooltip from 'v-tooltip'
+import ClickCopy from 'vue-directive-copy'
 
 import CapitalizeFilter from './filters/capitalize.js'
 import FormatDate from './filters/formatDate.js'
@@ -48,6 +49,7 @@ Chartkick.options = {
 Vue.use(SmartTable)
 Vue.use(Vuelidate)
 Vue.use(VTooltip)
+Vue.use(ClickCopy)
 
 Vue.filter('capitalize', CapitalizeFilter)
 Vue.filter('formatDate', FormatDate)

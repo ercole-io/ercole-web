@@ -15,6 +15,13 @@ export default {
         classes: ['info'],
         hideOnTargetClick: true
       }
+    },
+    optionsAlt(val) {
+      return {
+        content: val,
+        classes: ['info'],
+        hideOnTargetClick: true
+      }
     }
   }
 }
