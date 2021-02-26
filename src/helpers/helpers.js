@@ -110,10 +110,10 @@ export const returnAlertsByTypeDate = (alerts, type, startDate, endDate) => {
 export const formatDatepickerDate = (date = null) => {
   if (date) {
     return new Date(
-      moment(date)
-        .utc()
+      moment
+        .utc(date)
         .set({ hour: 23, minute: 59, second: 59 })
-        .toISOString()
+        .format('YYYY-MM-DDTHH:mm:ssZ')
     )
   } else {
     return null
