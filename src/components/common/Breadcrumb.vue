@@ -12,12 +12,16 @@
         @click="routeTo(i)"
         :class="{ 'is-active': !b.link }"
       >
-        <a :href="b.link">
+        <a :href="b.link" v-if="b.link">
           {{ b.name }}
-          <span v-if="dynamicTitle && !b.link" class="dynamicTitle">
-            {{ dynamicTitle }}
-          </span>
         </a>
+        <span
+          class="dynamicTitle"
+          v-if="dynamicTitle && !b.link"
+          v-copy="dynamicTitle"
+        >
+          {{ dynamicTitle }}
+        </span>
       </li>
     </ul>
   </nav>
@@ -25,9 +29,10 @@
 
 <script>
 import dynamicTitle from '@/mixins/dynamicTitle.js'
+import tooltipMixin from '@/mixins/tooltipMixin.js'
 
 export default {
-  mixins: [dynamicTitle],
+  mixins: [dynamicTitle, tooltipMixin],
   methods: {
     routeTo(route) {
       if (this.breadcrumbList[route].link) {
@@ -49,6 +54,10 @@ export default {
   padding: 10px 20px 8px 20px;
   border-bottom: 1px solid #ccc;
 
+  li + li::before {
+    font-size: 11px;
+  }
+
   ul {
     align-items: center;
   }
@@ -56,6 +65,11 @@ export default {
   .is-active {
     font-size: 1rem;
     font-weight: 500;
+    cursor: pointer;
+  }
+
+  .dynamicTitle {
+    padding: 0 0.75em;
   }
 }
 </style>
