@@ -23,7 +23,7 @@
       </div>
       <ul>
         <li v-for="(val, index) in value" :key="index">
-          <span v-if="index < limit">{{ val }}</span>
+          <span v-if="index < limit" v-html="highlight(val)"></span>
         </li>
       </ul>
     </div>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 
@@ -46,7 +47,14 @@ export default {
   methods: {
     formatArrayToShow(val) {
       this.valueSize = val.length
-      return val.toString().replace(/,\s*/g, ',&nbsp')
+      let values = [...val]
+
+      values = _.map(values, val => {
+        val = ` ${val}`
+        return val
+      })
+
+      return values
     },
     show(val = '') {
       if (val === 'plus') {
