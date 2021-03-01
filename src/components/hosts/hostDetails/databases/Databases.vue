@@ -155,11 +155,6 @@ export default {
       activeTab: 0
     }
   },
-  beforeUpdate() {
-    this.activeTab = _.findIndex(this.getCurrentHostDbs, {
-      name: this.activeDB
-    })
-  },
   async beforeMount() {
     await this.getAgreementParts()
   },
@@ -187,17 +182,26 @@ export default {
     ...mapState(['hostDetails']),
     ...mapGetters(['returnMetricAndDescription', 'getCurrentHostDbs']),
     filteredHostDbs() {
-      let hostDbs = this.getCurrentHostDbs
-
-      if (this.searchDb != '' && this.searchDb) {
-        hostDbs = _.filter(hostDbs, db => {
-          return _.includes(db.name.toUpperCase(), this.searchDb.toUpperCase())
-        })
+      return _.filter(this.getCurrentHostDbs, db => {
+        if (!this.searchDb) return true
+        return (
+          db.name
+            .toString()
+            .toLowerCase()
+            .indexOf(this.searchDb.toLowerCase()) >= 0
+        )
+      })
+    }
+  },
+  watch: {
+    filteredHostDbs(value) {
+      if (value.length > 0 && this.searchDb.length > 0) {
+        this.activeTab = 0
       } else {
-        hostDbs = this.getCurrentHostDbs
+        this.activeTab = _.findIndex(this.filteredHostDbs, {
+          name: this.activeDB
+        })
       }
-
-      return hostDbs
     }
   }
 }
