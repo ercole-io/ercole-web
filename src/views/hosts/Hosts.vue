@@ -13,31 +13,31 @@
         <template slot="customTopHeader">
           <DrawerButton tooltipText="More Filters" />
 
-          <div style="margin-right: auto;">
-            <span class="is-size-7 has-text-weight-medium">
+          <div class="more-info-buttons">
+            <span class="is-size-7 has-text-weight-medium mr-1">
               Show more info:
             </span>
             <b-button
+              class="mr-1"
               size="is-small"
               :type="hideVirtual ? 'is-light' : 'is-primary'"
               @click="hideVirtual = !hideVirtual"
-              rounded
             >
               Virtual
             </b-button>
             <b-button
+              class="mr-1"
               size="is-small"
               :type="hideCPU ? 'is-light' : 'is-primary'"
               @click="hideCPU = !hideCPU"
-              rounded
             >
               CPU
             </b-button>
             <b-button
+              class="mr-1"
               size="is-small"
               :type="hideAgent ? 'is-light' : 'is-primary'"
               @click="hideAgent = !hideAgent"
-              rounded
             >
               Agent
             </b-button>
@@ -261,5 +261,11 @@ export default {
 
 .hide {
   display: none;
+}
+
+.more-info-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
