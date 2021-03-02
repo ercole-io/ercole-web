@@ -31,9 +31,9 @@
       <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
       <TdContent :value="rowData.scope.datafileSize" />
       <TdContent :value="rowData.scope.segmentsSize" />
-      <TdIcon :value="bindIcon(rowData.scope.archivelog)" />
-      <TdIcon :value="bindIcon(rowData.scope.dataguard)" />
-      <TdIcon :value="bindIcon(rowData.scope.ha)" />
+      <TdIcon :value="rowData.scope.archivelog" />
+      <TdIcon :value="rowData.scope.dataguard" />
+      <TdIcon :value="rowData.scope.ha" />
     </template>
 
     <ExportButton
@@ -46,7 +46,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { mapBooleanIcon } from '@/helpers/helpers.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import ExportButton from '@/components/common/exportButton.vue'
@@ -79,11 +78,6 @@ export default {
         'dataguard',
         'ha'
       ]
-    }
-  },
-  methods: {
-    bindIcon(value) {
-      return mapBooleanIcon(value)
     }
   },
   computed: {

@@ -6,8 +6,8 @@
       <span v-if="item.hasIcon">
         <b-icon
           size="is-small"
-          :icon="item.value[0]"
-          :type="item.value[1]"
+          :icon="bindIncon(item.value)[0]"
+          :type="bindIncon(item.value)[1]"
           style="vertical-align: middle;"
         >
         </b-icon>
@@ -17,11 +17,18 @@
 </template>
 
 <script>
+import { mapBooleanIcon } from '@/helpers/helpers.js'
+
 export default {
   props: {
     list: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    bindIncon(value) {
+      return mapBooleanIcon(value)
     }
   }
 }

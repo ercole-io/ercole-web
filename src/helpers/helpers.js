@@ -85,9 +85,9 @@ export const mapClustStatus = clust => {
       clust.sunCluster ||
       clust.veritasClusterServer)
   ) {
-    return mapBooleanIcon(true)
+    return true
   } else {
-    return mapBooleanIcon(false)
+    return false
   }
 }
 
@@ -128,7 +128,7 @@ export const organizeKeysBeforeFilter = keys => {
   _.forEach(organizeFilters, (val, key) => {
     filtersToApply.push({
       Field: key,
-      Values: [val]
+      Values: [checkBoolean(val)]
     })
   })
 
@@ -201,6 +201,16 @@ const searchByChar = (value, text) => {
         .toLowerCase()
         .indexOf(text.toLowerCase()) >= 0
     )
+  }
+}
+
+const checkBoolean = val => {
+  if (val === 'true') {
+    return true
+  } else if (val === 'false') {
+    return false
+  } else {
+    return val
   }
 }
 // END: Prepare and filter data for autocomplete inputs //
