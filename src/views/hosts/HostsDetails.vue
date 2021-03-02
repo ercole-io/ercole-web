@@ -33,34 +33,11 @@
       />
     </boxContent> -->
 
-    <BoxContent>
-      <HostInfo />
-    </BoxContent>
+    <HostInfo />
 
     <div class="columns">
-      <BoxContent :title="`Databases of ${hostname}`" class="column is-8">
-        <b-input
-          size="is-small"
-          type="text"
-          v-model="searchDb"
-          slot="customTitle"
-          placeholder="Search by DB name"
-          v-if="hostDetails.hostDBs.length > 1"
-        />
-        <HostDatabases
-          :activeDB="dbname"
-          v-if="hostDetails.hostDBs.length > 0"
-          :searchDb="searchDb"
-        />
-        <noContent
-          v-else
-          noContentText="There are no Databases for this Host"
-        />
-      </BoxContent>
-
-      <BoxContent :title="`CPU Usage of ${hostname}`" class="column is-4">
-        <HostGraph :chartData="chartData" />
-      </BoxContent>
+      <HostDatabases :activeDB="dbname" :hostname="hostname" />
+      <ChartCpu :chartData="chartData" :hostname="hostname" />
     </div>
   </section>
 </template>
@@ -72,9 +49,8 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import NotificationsInfo from '@/components/hosts/hostDetails/NotificationsInfo.vue'
 // import HostTags from '@/components/common/Tags.vue'
 import HostInfo from '@/components/hosts/hostDetails/HostInfo.vue'
-import HostGraph from '@/components/hosts/hostDetails/Graph.vue'
+import ChartCpu from '@/components/hosts/hostDetails/ChartCpu.vue'
 import HostDatabases from '@/components/hosts/hostDetails/databases/Databases.vue'
-import noContent from '@/components/common/NoContent.vue'
 import Filesys from '@/components/hosts/hostDetails/Filesys.vue'
 import axiosDefault from '@/axios/axios-default.js'
 
@@ -96,16 +72,15 @@ export default {
     NotificationsInfo,
     // HostTags,
     HostInfo,
-    HostGraph,
+    ChartCpu,
     HostDatabases,
-    noContent,
+
     Filesys
   },
   data() {
     return {
       chartData: [],
-      isMounted: false,
-      searchDb: ''
+      isMounted: false
     }
   },
   async beforeMount() {

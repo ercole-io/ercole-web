@@ -1,14 +1,24 @@
 <template>
-  <section>
+  <BoxContent :title="`Databases of ${hostname}`" class="column is-8">
+    <b-input
+      size="is-small"
+      type="text"
+      v-model="searchDb"
+      slot="customTitle"
+      placeholder="Search by DB name"
+      @input="onSearchDb($event)"
+      @blur="findActiveTab"
+    />
     <HbuttonScroll height="30" elemScroll="tabs" />
     <b-tabs
-      v-model="activeTab"
       size="is-small"
       type="is-boxed"
       :animated="true"
+      v-model="activeTab"
+      v-if="filteredHostDbs.length > 0"
     >
-      <template v-for="dbs in filteredHostDbs">
-        <b-tab-item :key="dbs.UniqueName" :label="dbs.name">
+      <template v-for="(dbs, i) in filteredHostDbs">
+        <b-tab-item :key="i" :label="dbs.name">
           <b-tabs size="is-small" type="is-toggle" vertical :animated="true">
             <b-tab-item label="Info">
               <DbInfo
@@ -100,7 +110,8 @@
         </b-tab-item>
       </template>
     </b-tabs>
-  </section>
+    <noContent v-else noContentText="There are no Databases for this Host" />
+  </BoxContent>
 </template>
 
 <script>
@@ -121,16 +132,18 @@ import DbLicenses from '@/components/hosts/hostDetails/databases/DbLicenses.vue'
 // import DbTags from '@/components/hosts/hostDetails/databases/DbTags.vue'
 import DbPDBs from '@/components/hosts/hostDetails/databases/DbPDBs.vue'
 import HbuttonScroll from '@/components/HbuttonScroll.vue'
+import BoxContent from '@/components/common/BoxContent.vue'
+import noContent from '@/components/common/NoContent.vue'
 
 export default {
   props: {
+    hostname: {
+      type: String,
+      required: true
+    },
     activeDB: {
       type: String,
       required: false
-    },
-    searchDb: {
-      type: String,
-      default: ''
     }
   },
   components: {
@@ -148,15 +161,19 @@ export default {
     DbLicenses,
     // DbTags,
     DbPDBs,
-    HbuttonScroll
+    HbuttonScroll,
+    BoxContent,
+    noContent
   },
   data() {
     return {
-      activeTab: 0
+      activeTab: 0,
+      searchDb: ''
     }
   },
   async beforeMount() {
     await this.getAgreementParts()
+    this.findActiveTab()
   },
   methods: {
     ...mapActions(['getAgreementParts']),
@@ -176,6 +193,16 @@ export default {
         }
       })
       return filteredLicenses
+    },
+    findActiveTab() {
+      this.activeTab = _.findIndex(this.filteredHostDbs, {
+        name: this.activeDB
+      })
+    },
+    onSearchDb(e) {
+      if (e !== '' && e.length > 0) {
+        this.activeTab = 0
+      }
     }
   },
   computed: {
@@ -183,7 +210,6 @@ export default {
     ...mapGetters(['returnMetricAndDescription', 'getCurrentHostDbs']),
     filteredHostDbs() {
       return _.filter(this.getCurrentHostDbs, db => {
-        if (!this.searchDb) return true
         return (
           db.name
             .toString()
@@ -191,17 +217,6 @@ export default {
             .indexOf(this.searchDb.toLowerCase()) >= 0
         )
       })
-    }
-  },
-  watch: {
-    filteredHostDbs(value) {
-      if (value.length > 0 && this.searchDb.length > 0) {
-        this.activeTab = 0
-      } else {
-        this.activeTab = _.findIndex(this.filteredHostDbs, {
-          name: this.activeDB
-        })
-      }
     }
   }
 }
