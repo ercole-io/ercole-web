@@ -76,14 +76,14 @@
           <b-radio
             size="is-small"
             v-model="filters.iconCluster"
-            :native-value="true"
+            native-value="true"
           >
             Yes
           </b-radio>
           <b-radio
             size="is-small"
             v-model="filters.iconCluster"
-            :native-value="false"
+            native-value="false"
           >
             No
           </b-radio>

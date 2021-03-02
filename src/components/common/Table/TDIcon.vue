@@ -10,22 +10,31 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
+import { mapBooleanIcon } from '@/helpers/helpers.js'
 
 export default {
   mixins: [TooltipMixin],
   computed: {
+    bindIncon() {
+      if (_.isArray(this.value)) {
+        return this.value
+      } else {
+        return mapBooleanIcon(this.value)
+      }
+    },
     tooltip() {
-      return this.options(this.value[2])
+      return this.options(this.bindIncon[2])
     },
     icon() {
-      return this.value[0]
+      return this.bindIncon[0]
     },
     type() {
-      return this.value[1]
+      return this.bindIncon[1]
     },
     size() {
-      return this.value[3] ? this.value[3] : 'fa-lg'
+      return this.bindIncon[3] ? this.bindIncon[3] : 'fa-lg'
     }
   }
 }

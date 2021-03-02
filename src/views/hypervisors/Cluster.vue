@@ -77,7 +77,7 @@
               <TdContent :value="rowData.scope.virtualizationNode" />
               <HostLink :hostname="rowData.scope.hostname" />
               <TdContent :value="rowData.scope.name" />
-              <TdIcon :value="bindIcon(rowData.scope.cappedCPU)" />
+              <TdIcon :value="rowData.scope.cappedCPU" />
             </template>
           </FullTable>
         </div>
@@ -90,7 +90,6 @@
 import techTypePrettyName from '@/mixins/techTypePrettyName.js'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
-import { mapBooleanIcon } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -130,10 +129,7 @@ export default {
     bus.$emit('dynamicTitle', this.clustername)
   },
   methods: {
-    ...mapActions(['getClusterByName']),
-    bindIcon(value) {
-      return mapBooleanIcon(value)
-    }
+    ...mapActions(['getClusterByName'])
   },
   computed: {
     ...mapGetters([

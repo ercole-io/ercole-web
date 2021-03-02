@@ -45,12 +45,12 @@
                 <TdContent :value="rowData.scope.metric" />
                 <TdContent :value="rowData.scope.csi" />
                 <TdContent :value="rowData.scope.referenceNumber" />
-                <TdIcon :value="bindIcon(rowData.scope.unlimited)" />
+                <TdIcon :value="rowData.scope.unlimited" />
                 <TdContent :value="rowData.scope.licensesCount" />
                 <TdContent :value="rowData.scope.usersCount" />
                 <TdContent :value="rowData.scope.availableCount" />
-                <TdIcon :value="bindIcon(rowData.scope.catchAll)" />
-                <TdIcon :value="bindIcon(rowData.scope.restricted)" />
+                <TdIcon :value="rowData.scope.catchAll" />
+                <TdIcon :value="rowData.scope.restricted" />
 
                 <td style="min-width: 50px;">
                   <HostAssociated
@@ -384,7 +384,7 @@ import {
   numeric,
   decimal
 } from 'vuelidate/lib/validators'
-import { mapBooleanIcon, simpleAutocompleteData } from '@/helpers/helpers.js'
+import { simpleAutocompleteData } from '@/helpers/helpers.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 // import exportButton from '@/components/common/exportButton.vue'
@@ -554,9 +554,6 @@ export default {
         default:
           break
       }
-    },
-    bindIcon(value) {
-      return mapBooleanIcon(value)
     }
   },
   computed: {

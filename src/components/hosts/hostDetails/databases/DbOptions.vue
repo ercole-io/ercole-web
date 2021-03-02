@@ -21,7 +21,7 @@
       <TdContent :value="rowData.scope.lastUsageDate | formatDate" />
       <TdContent :value="rowData.scope.detectedUsages" />
       <TdContent :value="rowData.scope.product" />
-      <TdIcon :value="bindIcon(rowData.scope.currentlyUsed)" />
+      <TdIcon :value="rowData.scope.currentlyUsed" />
       <TdContent :value="rowData.scope.extraFeatureInfo" />
       <TdContent :value="rowData.scope.feature" />
       <TdContent :value="rowData.scope.firstUsageDate | formatDate" />
@@ -33,7 +33,6 @@
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
-import { mapBooleanIcon } from '@/helpers/helpers.js'
 
 export default {
   props: {
@@ -46,11 +45,6 @@ export default {
     FullTable,
     TdContent,
     TdIcon
-  },
-  methods: {
-    bindIcon(value) {
-      return mapBooleanIcon(value)
-    }
   }
 }
 </script>

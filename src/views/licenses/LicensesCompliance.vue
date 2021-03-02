@@ -31,7 +31,7 @@
               show-value
             />
           </td>
-          <TdIcon :value="bindIcon(rowData.scope.unlimited)" />
+          <TdIcon :value="rowData.scope.unlimited" />
         </template>
       </FullTable>
     </BoxContent>
@@ -40,7 +40,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { mapBooleanIcon } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
@@ -72,10 +71,7 @@ export default {
     await this.getComplianceList()
   },
   methods: {
-    ...mapActions(['getComplianceList']),
-    bindIcon(value) {
-      return mapBooleanIcon(value)
-    }
+    ...mapActions(['getComplianceList'])
   },
   computed: {
     ...mapGetters(['getLicensesCompliance'])
