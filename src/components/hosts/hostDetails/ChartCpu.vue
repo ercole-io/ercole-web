@@ -1,19 +1,32 @@
 <template>
-  <div class="chart-space">
-    <LineChart chartId="lineChart" :lineChartData="chartData" />
-    <!-- <BarChart chartId="barChart" :barChartData="barData" stacked />
-    <ColumnChart chartId="columnChart" :columnChartData="columnData" stacked /> -->
-  </div>
+  <BoxContent :title="`CPU Usage of ${hostname}`" class="column is-4">
+    <div class="chart-space">
+      <LineChart chartId="lineChart" :lineChartData="chartData" />
+      <!-- <BarChart chartId="barChart" :barChartData="barData" stacked />
+      <ColumnChart chartId="columnChart" :columnChartData="columnData" stacked /> -->
+    </div>
+  </BoxContent>
 </template>
 
 <script>
+import BoxContent from '@/components/common/BoxContent.vue'
 import LineChart from '@/components/common/charts/LineChart.vue'
 // import BarChart from '@/components/common/charts/BarChart.vue'
 // import ColumnChart from '@/components/common/charts/ColumnChart.vue'
 
 export default {
-  props: ['chartData'],
+  props: {
+    chartData: {
+      type: Array,
+      required: true
+    },
+    hostname: {
+      type: String,
+      required: true
+    }
+  },
   components: {
+    BoxContent,
     LineChart
     // BarChart,
     // ColumnChart

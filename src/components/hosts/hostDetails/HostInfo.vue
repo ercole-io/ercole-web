@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <BoxContent>
     <div class="columns">
       <div class="column">
         <Card cardTitle="General info">
@@ -22,18 +22,20 @@
         </Card>
       </div>
     </div>
-  </section>
+  </BoxContent>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import Card from '@/components/common/Card.vue'
 import CardList from '@/components/common/CardList.vue'
+import BoxContent from '@/components/common/BoxContent.vue'
 
 export default {
   components: {
     Card,
-    CardList
+    CardList,
+    BoxContent
   },
   computed: {
     ...mapGetters(['getHostDetailInfo'])
