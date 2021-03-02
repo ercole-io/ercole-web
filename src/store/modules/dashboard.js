@@ -44,7 +44,23 @@ export const getters = {
     return techArray
   },
   getChartLicenseHistory: state => {
-    return state.licenceHistory
+    let data = []
+    _.map(state.licenceHistory, val => {
+      if (val.licenseTypeID !== '') {
+        data.push(val)
+      }
+    })
+
+    data = _.sortBy(data, ['licenseTypeID'])
+
+    _.forEach(data, (item, i) => {
+      if (item.licenseTypeID === 'A90611') {
+        data.splice(i, 1)
+        data.unshift(item)
+      }
+    })
+
+    return data
   }
 }
 
