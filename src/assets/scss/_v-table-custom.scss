@@ -1,3 +1,15 @@
+.table-container {
+  overflow: auto;
+  height: 550px;
+}
+
+.vTable-custom th, .table th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #dbdbdb;
+}
+
 .vTable-custom, .table {
   thead {
     tr {
