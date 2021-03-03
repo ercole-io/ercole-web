@@ -1,4 +1,5 @@
 import { bus } from '@/helpers/eventBus.js'
+// import _ from 'lodash'
 
 export default {
   data() {
@@ -13,7 +14,6 @@ export default {
     this.checkPerPage()
   },
   mounted() {
-    this.checkPerPage()
     bus.$on('changePerPage', value => {
       this.perPage = Number(value)
     })
@@ -22,31 +22,35 @@ export default {
     this.checkPerPage()
   },
   beforeDestroy() {
-    let localstorage = Number(localStorage.getItem('perPage'))
-    if (
-      localstorage !== 50 ||
-      localstorage !== 25 ||
-      localstorage !== 20 ||
-      localstorage !== 15 ||
-      localstorage !== 10 ||
-      localstorage !== 5
-    ) {
-      localStorage.setItem('perPage', 20)
-    }
+    this.checkPerPage()
   },
   methods: {
     checkPerPage() {
       let storagePerPage = Number(localStorage.getItem('perPage'))
 
-      if (storagePerPage && storagePerPage !== 0) {
+      if (this.checkStorage) {
         if (this.totalItems < storagePerPage) {
           this.perPage = Number(this.totalItems)
         } else {
-          this.perPage = Number(localStorage.getItem('perPage'))
+          this.perPage = Number(storagePerPage)
         }
       } else {
         localStorage.setItem('perPage', 20)
+        this.perPage = 20
       }
+    }
+  },
+  computed: {
+    checkStorage() {
+      let storagePerPage = Number(localStorage.getItem('perPage'))
+      return (
+        storagePerPage === 5 ||
+        storagePerPage === 10 ||
+        storagePerPage === 15 ||
+        storagePerPage === 20 ||
+        storagePerPage === 25 ||
+        storagePerPage === 50
+      )
     }
   }
 }
