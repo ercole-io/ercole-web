@@ -13,6 +13,7 @@ export default {
     this.checkPerPage()
   },
   mounted() {
+    this.checkPerPage()
     bus.$on('changePerPage', value => {
       this.perPage = Number(value)
     })
@@ -21,7 +22,15 @@ export default {
     this.checkPerPage()
   },
   beforeDestroy() {
-    if (Number(localStorage.getItem('perPage')) > 50) {
+    let localstorage = Number(localStorage.getItem('perPage'))
+    if (
+      localstorage !== 50 ||
+      localstorage !== 25 ||
+      localstorage !== 20 ||
+      localstorage !== 15 ||
+      localstorage !== 10 ||
+      localstorage !== 5
+    ) {
       localStorage.setItem('perPage', 20)
     }
   },
