@@ -5,6 +5,7 @@
     <BoxContent>
       <FullTable
         placeholder="Search on Licenses"
+        :urlSearchParam="partNumber"
         :keys="keys"
         :tableData="getUsedLicenses"
         @clickedRow="handleClickedRow"
@@ -56,6 +57,12 @@ import UsedFilters from '@/components/licenses/used/UsedFilters.vue'
 
 export default {
   mixins: [paginationMixin, hostnameLinkRow],
+  props: {
+    partNumber: {
+      type: String,
+      required: false
+    }
+  },
   components: {
     BoxContent,
     FullTable,

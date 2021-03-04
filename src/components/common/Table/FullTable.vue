@@ -150,6 +150,10 @@ export default {
     hideTopTable: {
       type: Boolean,
       default: false
+    },
+    urlSearchParam: {
+      type: String,
+      required: false
     }
   },
   components: {
@@ -170,6 +174,11 @@ export default {
           keys: this.keys
         }
       }
+    }
+  },
+  beforeMount() {
+    if (this.urlSearchParam) {
+      this.filters.search.value = this.urlSearchParam
     }
   },
   methods: {
