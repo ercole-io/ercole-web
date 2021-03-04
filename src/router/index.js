@@ -208,9 +208,10 @@ const routes = [
     beforeEnter: verifyAuth
   },
   {
-    path: '/licenses/used',
+    path: '/licenses/used/:partNumber?',
     name: 'licenses-used',
     component: LicensesUsed,
+    props: true,
     meta: {
       label: 'Licenses Used',
       title: `${title}Licenses Used`,

@@ -5,7 +5,8 @@
         placeholder="Search on Licenses"
         :keys="keys"
         :tableData="getLicensesCompliance"
-        :clickedRow="() => []"
+        @clickedRow="handleClickedRow"
+        isClickable
       >
         <template slot="headData">
           <v-th sortKey="partID">Part Number</v-th>
@@ -71,7 +72,17 @@ export default {
     await this.getComplianceList()
   },
   methods: {
-    ...mapActions(['getComplianceList'])
+    ...mapActions(['getComplianceList']),
+    handleClickedRow(value) {
+      if (value.length > 0) {
+        this.$router.push({
+          name: 'licenses-used',
+          params: {
+            partNumber: value[0].partID
+          }
+        })
+      }
+    }
   },
   computed: {
     ...mapGetters(['getLicensesCompliance'])
