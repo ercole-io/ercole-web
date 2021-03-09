@@ -1,6 +1,6 @@
 <template>
   <BoxContent title="Databases" class="column is-8">
-    <b-input
+    <!-- <b-input
       size="is-small"
       type="text"
       v-model="searchDb"
@@ -8,6 +8,14 @@
       placeholder="Search by DB name"
       @input="onSearchDb($event)"
       @blur="findActiveTab"
+    /> -->
+
+    <SearchInput
+      searchPlaceholder="Search by DB name"
+      v-model="searchDb"
+      slot="customTitle"
+      @input="onSearchDb($event)"
+      :onBlur="findActiveTab"
     />
     <HbuttonScroll height="30" elemScroll="tabs" />
     <b-tabs
@@ -136,6 +144,7 @@ import DbPDBs from '@/components/hosts/hostDetails/databases/DbPDBs.vue'
 import HbuttonScroll from '@/components/HbuttonScroll.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import noContent from '@/components/common/NoContent.vue'
+import SearchInput from '@/components/common/SearchInput.vue'
 
 export default {
   props: {
@@ -161,7 +170,8 @@ export default {
     DbPDBs,
     HbuttonScroll,
     BoxContent,
-    noContent
+    noContent,
+    SearchInput
   },
   data() {
     return {
