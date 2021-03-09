@@ -35,8 +35,6 @@ export default {
     }
   },
   beforeMount() {
-    this.selectedDatabases = [this.getCurrentHostDbsName[0]]
-
     bus.$on('selectedData', val => {
       this.selectedDatabases = val
     })

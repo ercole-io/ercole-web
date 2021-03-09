@@ -16,6 +16,7 @@
       :animated="true"
       v-model="activeTab"
       v-if="filteredHostDbs.length > 0"
+      @click.native="bindDbChart"
     >
       <template v-for="(dbs, i) in filteredHostDbs">
         <b-tab-item :key="i" :label="dbs.name">
@@ -117,6 +118,7 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
 import _ from 'lodash'
+import { bus } from '@/helpers/eventBus.js'
 import DbInfo from '@/components/hosts/hostDetails/databases/DbInfo.vue'
 import DbTablespaces from '@/components/hosts/hostDetails/databases/DbTablespaces.vue'
 import DbSchemas from '@/components/hosts/hostDetails/databases/DbSchemas.vue'
@@ -194,10 +196,19 @@ export default {
       this.activeTab = _.findIndex(this.filteredHostDbs, {
         name: this.activeDB
       })
+      this.bindDbChart()
     },
     onSearchDb(e) {
       if (e !== '' && e.length > 0) {
         this.activeTab = 0
+      }
+      this.bindDbChart()
+    },
+    bindDbChart() {
+      if (this.activeTab === -1) {
+        bus.$emit('selectedData', [this.filteredHostDbs[0].name])
+      } else {
+        bus.$emit('selectedData', [this.filteredHostDbs[this.activeTab].name])
       }
     }
   },
