@@ -1,13 +1,10 @@
 <template>
   <section>
     <TopTable v-if="!hideTopTable">
-      <b-input
-        :placeholder="placeholder"
-        size="is-small"
+      <SearchInput
+        :searchPlaceholder="placeholder"
         v-model="filters.search.value"
-        style="height: 30px;"
         v-if="!hideSearch"
-        @input="emitSearch"
       />
 
       <slot name="customTopHeader" />
@@ -99,7 +96,6 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import TopTable from '@/components/common/Table/TopTable.vue'
 import BottomTable from '@/components/common/Table/BottomTable.vue'
@@ -107,6 +103,7 @@ import SelectPerPage from '@/components/common/Table/SelectPerPage.vue'
 import FilteredResults from '@/components/common/Table/FilteredResults.vue'
 import ShowPerPage from '@/components/common/Table/ShowPerPage.vue'
 import NoContent from '@/components/common/NoContent.vue'
+import SearchInput from '@/components/common/SearchInput.vue'
 
 export default {
   mixins: [paginationMixin],
@@ -162,7 +159,8 @@ export default {
     SelectPerPage,
     FilteredResults,
     ShowPerPage,
-    NoContent
+    NoContent,
+    SearchInput
   },
   data() {
     return {
@@ -176,20 +174,12 @@ export default {
       }
     }
   },
-  beforeMount() {
-    if (this.urlSearchParam) {
-      this.filters.search.value = this.urlSearchParam
-    }
-  },
   methods: {
     getDataLength(value) {
       this.$emit('pageRows', value)
       return value === 'noData'
         ? (this.filteredData = 0)
         : (this.filteredData = value.length)
-    },
-    emitSearch() {
-      bus.$emit('searchTerm', this.filters.search.value)
     }
   },
   computed: {
@@ -235,5 +225,14 @@ export default {
 
 .highlightText {
   background: yellow;
+}
+
+input[type='search'] {
+  &::after {
+    border: 1px solid red;
+  }
+  &::before {
+    border: 1px solid red;
+  }
 }
 </style>
