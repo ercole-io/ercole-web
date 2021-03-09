@@ -1,9 +1,24 @@
 <template>
-  <BoxContent :title="`CPU Usage of ${hostname}`" class="column is-4">
+  <BoxContent title="CPU Usage" class="column is-4">
+    <vueMultiSelect
+      v-model="selectedDatabases"
+      search
+      :filters="filters"
+      :position="position"
+      :options="options"
+      :selectOptions="getCurrentHostDbsName"
+      historyButton
+      slot="customTitle"
+      searchPlaceholder="Search by DB name"
+      emptyTabText="No database found!"
+      :btnLabel="() => 'Compare Databases'"
+      class="custom-multi-select"
+    />
     <div class="chart-space">
-      <LineChart chartId="lineChart" :lineChartData="chartData" />
-      <!-- <BarChart chartId="barChart" :barChartData="barData" stacked />
-      <ColumnChart chartId="columnChart" :columnChartData="columnData" stacked /> -->
+      <LineChart
+        chartId="lineChart"
+        :lineChartData="getCpuUsageChart(selectedDatabases)"
+      />
     </div>
   </BoxContent>
 </template>
@@ -11,127 +26,40 @@
 <script>
 import BoxContent from '@/components/common/BoxContent.vue'
 import LineChart from '@/components/common/charts/LineChart.vue'
-// import BarChart from '@/components/common/charts/BarChart.vue'
-// import ColumnChart from '@/components/common/charts/ColumnChart.vue'
+import { mapGetters } from 'vuex'
+import vueMultiSelect from 'vue-multi-select'
 
 export default {
-  props: {
-    chartData: {
-      type: Array,
-      required: true
-    },
-    hostname: {
-      type: String,
-      required: true
-    }
-  },
   components: {
     BoxContent,
-    LineChart
-    // BarChart,
-    // ColumnChart
+    LineChart,
+    vueMultiSelect
   },
   data() {
     return {
-      lineData: [
+      selectedDatabases: [],
+      filters: [
         {
-          name: 'Workout',
-          data: {
-            '2013-02-17': 3,
-            '2013-02-24': 3,
-            '2013-03-03': 1,
-            '2013-03-10': 4,
-            '2013-03-17': 3,
-            '2013-03-24': 2,
-            '2013-03-31': 3
-          }
-        },
-        {
-          name: 'Go to concert',
-          data: {
-            '2013-02-10': 0,
-            '2013-02-17': 0,
-            '2013-02-24': 0,
-            '2013-03-03': 0,
-            '2013-03-10': 2,
-            '2013-03-17': 1,
-            '2013-03-24': 0
+          nameAll: 'Select all',
+          nameNotAll: 'Deselect all',
+          func() {
+            return true
           }
         }
       ],
-      barData: [
-        {
-          name: 'Series A',
-          data: [
-            ['Type 1', 32],
-            ['Type 2', 46],
-            ['Type 3', 28],
-            ['Type 4', 21],
-            ['Type 5', 20],
-            ['Type 6', 13]
-          ]
-        },
-        {
-          name: 'Series B',
-          data: [
-            ['Type 1', 32],
-            ['Type 2', 46],
-            ['Type 3', 28],
-            ['Type 4', 21],
-            ['Type 5', 20],
-            ['Type 6', 13]
-          ]
-        },
-        {
-          name: 'Series C',
-          data: [
-            ['Type 1', 32],
-            ['Type 2', 46],
-            ['Type 3', 28],
-            ['Type 4', 21],
-            ['Type 5', 20],
-            ['Type 6', 13]
-          ]
-        },
-        {
-          name: 'Series D',
-          data: [
-            ['Type 1', 32],
-            ['Type 2', 46],
-            ['Type 3', 28],
-            ['Type 4', 21],
-            ['Type 5', 20],
-            ['Type 6', 13]
-          ]
-        }
-      ],
-      columnData: [
-        {
-          name: 'Series A',
-          data: [
-            ['0', 32],
-            ['1', 46],
-            ['2', 28],
-            ['3', 21],
-            ['4', 20],
-            ['5', 13],
-            ['6', 27]
-          ]
-        },
-        {
-          name: 'Series B',
-          data: [
-            ['0', 32],
-            ['1', 46],
-            ['2', 28],
-            ['3', 21],
-            ['4', 20],
-            ['5', 13],
-            ['6', 27]
-          ]
-        }
-      ]
+      options: {
+        multi: true,
+        cssSelected: option =>
+          option.selected ? { 'background-color': '#679189' } : ''
+      },
+      position: 'bottom-right'
     }
+  },
+  beforeMount() {
+    this.selectedDatabases = [this.getCurrentHostDbsName[0]]
+  },
+  computed: {
+    ...mapGetters(['getCpuUsageChart', 'getCurrentHostDbsName'])
   }
 }
 </script>

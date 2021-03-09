@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span class="filesys">
+    <span class="filesys mr-1">
       Host FileSystems:
       <b-button
         @click="isFilesysModalActive = true"
@@ -8,6 +8,7 @@
         icon-right="download"
         size="is-small"
         outlined
+        class="ml-1"
       />
     </span>
 

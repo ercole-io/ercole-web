@@ -23,141 +23,103 @@ export const state = () => ({
 })
 
 export const getters = {
-  getCurrentHost: state => {
-    return state.currentHost
-  },
-  getGpuGrowthChart: state => {
-    // calc total daily
-    const totalDailyState = state.currentHost.history
-    const totalDailyData = []
-    let resultTotalDaily = {}
-
-    _.map(totalDailyState, item => {
-      totalDailyData.push({
-        date: moment(item.createdAt).format('YYYY-MM-DD'),
-        value: item.totalDailyCPUUsage
-      })
-    })
-
-    for (const prop in totalDailyData) {
-      resultTotalDaily[totalDailyData[prop].date] = totalDailyData[prop].value
-    }
-
-    // calc daily per db
+  getCpuUsageChart: state => selected => {
     const dailyDbState = state.currentHost.features.oracle.database.databases
-    const dailyDbData = []
+    const dailyHistory = state.currentHost.history
 
-    _.map(dailyDbState, item => {
-      const { name, changes } = item
-      let changed = _.map(changes, data => {
-        return {
-          date: moment(data.updated).format('YYYY-MM-DD'),
-          value: data.dailyCPUUsage
-        }
-      })
-
-      const changedResult = {}
-      for (const prop in changed) {
-        changedResult[changed[prop].date] = changed[prop].value
-      }
-
-      dailyDbData.push({
-        name: name,
-        data: changedResult
-      })
-    })
-
-    const finalResult = [
-      { name: 'Total Daily CPU Usage', data: resultTotalDaily }
-    ]
-
-    _.forEach(dailyDbData, item => {
-      finalResult.push(item)
-    })
-
-    return finalResult
+    return mountCpuUsageChart(dailyHistory, selected, dailyDbState)
   },
   getHostDetailInfo: state => {
     const info = state.hostInfo
-    const hostInfo = {}
-    hostInfo.general = [
-      {
-        name: 'Environment',
-        value: info.environment || '-'
-      },
-      {
-        name: 'Technologie',
-        value: mapTechType(info.features)
-      },
-      {
-        name: 'Clust',
-        value: mapClustStatus(info.clusterMembershipStatus),
-        hasIcon: true
-      },
-      {
-        name: 'OS',
-        value: info.os || '-'
-      },
-      {
-        name: 'Kernel',
-        value: info.kernel || '-'
-      },
-      {
-        name: 'Memorie',
-        value: info.memoryTotal || '-'
-      },
-      {
-        name: 'Swap',
-        value: info.swapTotal || '-'
-      }
-    ]
-    hostInfo.virtual = [
-      {
-        name: 'Platform',
-        value: info.hardwareAbstractionTechnology || '-'
-      },
-      {
-        name: 'Cluster',
-        value: info.cluster || '-'
-      },
-      {
-        name: 'Node',
-        value: info.virtualizationNode || '-'
-      }
-    ]
-    hostInfo.cpu = [
-      {
-        name: 'Model',
-        value: info.cpuModel || '-'
-      },
-      {
-        name: 'Threads',
-        value: info.cpuThreads || '-'
-      },
-      {
-        name: 'Cores',
-        value: info.cpuCores || '-'
-      },
-      {
-        name: 'Socket',
-        value: info.cpuSockets || '-'
-      }
-    ]
-    hostInfo.agent = [
-      {
-        name: 'Version',
-        value: info.agentVersion || '-'
-      },
-      {
-        name: 'Last Update',
-        value:
-          moment(info.createdAt)
-            .utc()
-            .format('DD/MM/YYYY hh:mm') || '-'
-      }
-    ]
-
-    return hostInfo
+    const general = {
+      name: 'General Info',
+      data: [
+        {
+          name: 'Environment',
+          value: info.environment || '-'
+        },
+        {
+          name: 'Technology',
+          value: mapTechType(info.features)
+        },
+        {
+          name: 'Clust',
+          value: mapClustStatus(info.clusterMembershipStatus),
+          hasIcon: true
+        },
+        {
+          name: 'OS',
+          value: info.os || '-'
+        },
+        {
+          name: 'Kernel',
+          value: info.kernel || '-'
+        },
+        {
+          name: 'Memorie',
+          value: info.memoryTotal || '-'
+        },
+        {
+          name: 'Swap',
+          value: info.swapTotal || '-'
+        }
+      ]
+    }
+    const virtual = {
+      name: 'Agent',
+      data: [
+        {
+          name: 'Platform',
+          value: info.hardwareAbstractionTechnology || '-'
+        },
+        {
+          name: 'Cluster',
+          value: info.cluster || '-'
+        },
+        {
+          name: 'Node',
+          value: info.virtualizationNode || '-'
+        }
+      ]
+    }
+    const cpu = {
+      name: 'Virtual',
+      data: [
+        {
+          name: 'Model',
+          value: info.cpuModel || '-'
+        },
+        {
+          name: 'Threads',
+          value: info.cpuThreads || '-'
+        },
+        {
+          name: 'Cores',
+          value: info.cpuCores || '-'
+        },
+        {
+          name: 'Socket',
+          value: info.cpuSockets || '-'
+        }
+      ]
+    }
+    const agent = {
+      name: 'CPU',
+      data: [
+        {
+          name: 'Version',
+          value: info.agentVersion || '-'
+        },
+        {
+          name: 'Last Update',
+          value:
+            moment(info.createdAt)
+              .utc()
+              .format('DD/MM/YYYY hh:mm') || '-'
+        }
+      ]
+    }
+    return _.concat(general, cpu, virtual, agent)
   },
   getNotificationInfo: state => {
     const hostAlerts = state.hostAlerts
@@ -192,6 +154,11 @@ export const getters = {
   },
   getCurrentHostDbs: state => {
     return state.hostDBs
+  },
+  getCurrentHostDbsName: state => {
+    return _.map(state.hostDBs, val => {
+      return val.name
+    })
   }
 }
 
@@ -266,4 +233,73 @@ export const actions = {
     const response = await hostByName.data
     commit('SET_CURRENT_HOST', response)
   }
+}
+
+const mountTotalDailyUsage = data => {
+  const totalDailyData = []
+  let resultTotalDaily = {}
+
+  _.map(data, item => {
+    totalDailyData.push({
+      date: moment(item.createdAt).format('YYYY-MM-DD'),
+      value: item.totalDailyCPUUsage
+    })
+  })
+
+  for (const prop in totalDailyData) {
+    resultTotalDaily[totalDailyData[prop].date] = totalDailyData[prop].value
+  }
+
+  return resultTotalDaily
+}
+
+const mountTotalDailyUsageDbs = data => {
+  let dailyDbData = []
+  _.map(data, item => {
+    const { name, changes } = item
+    let changed = _.map(changes, data => {
+      return {
+        date: moment(data.updated).format('YYYY-MM-DD'),
+        value: data.dailyCPUUsage
+      }
+    })
+
+    const changedResult = {}
+    for (const prop in changed) {
+      changedResult[changed[prop].date] = changed[prop].value
+    }
+
+    dailyDbData.push({
+      name: name,
+      data: changedResult
+    })
+  })
+  return dailyDbData
+}
+
+const matchSelectedDbs = (selected, dbs) => {
+  let selectedDbs = []
+  _.forEach(selected, val => {
+    return _.map(mountTotalDailyUsageDbs(dbs), dbData => {
+      if (dbData.name === val) {
+        selectedDbs.push(dbData)
+      }
+    })
+  })
+  return selectedDbs
+}
+
+const mountCpuUsageChart = (history, selected, dbs) => {
+  const finalResult = [
+    {
+      name: 'Total Daily CPU Usage',
+      data: mountTotalDailyUsage(history)
+    }
+  ]
+
+  _.forEach(matchSelectedDbs(selected, dbs), item => {
+    finalResult.push(item)
+  })
+
+  return finalResult
 }

@@ -27,6 +27,7 @@
     "vue-chartkick": "^0.6.1",
     "vue-directive-copy": "^1.1.2",
     "vue-i18n": "^8.22.4",
+    "vue-multi-select": "^4.6.0",
     "vue-router": "^3.5.1",
     "vue-sidebar-menu": "^4.7.4",
     "vuejs-smart-table": "^0.0.5",

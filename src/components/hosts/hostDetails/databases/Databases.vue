@@ -1,5 +1,5 @@
 <template>
-  <BoxContent :title="`Databases of ${hostname}`" class="column is-8">
+  <BoxContent title="Databases" class="column is-8">
     <b-input
       size="is-small"
       type="text"
@@ -137,10 +137,6 @@ import noContent from '@/components/common/NoContent.vue'
 
 export default {
   props: {
-    hostname: {
-      type: String,
-      required: true
-    },
     activeDB: {
       type: String,
       required: false
