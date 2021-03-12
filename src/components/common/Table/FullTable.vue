@@ -4,6 +4,7 @@
       <SearchInput
         :searchPlaceholder="placeholder"
         v-model="filters.search.value"
+        :urlParam="urlSearchParam"
         v-if="!hideSearch"
       />
 
