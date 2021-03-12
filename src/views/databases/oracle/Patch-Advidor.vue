@@ -13,9 +13,9 @@
         <v-th sortKey="dbver">Version</v-th>
         <v-th sortKey="date">Release Date</v-th>
         <v-th sortKey="description">PSU</v-th>
-        <v-th sortKey="fourMonth">4 Month</v-th>
-        <v-th sortKey="sixMonth">6 Month</v-th>
-        <v-th sortKey="twelveMonth">12 Month</v-th>
+        <v-th sortKey="fourMonths.text">4 Month</v-th>
+        <v-th sortKey="sixMonths.text">6 Month</v-th>
+        <v-th sortKey="twelveMonths.text">12 Month</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
@@ -24,9 +24,9 @@
         <TdContent :value="rowData.scope.dbver" />
         <TdContent :value="rowData.scope.date" dataType="date" />
         <TdContent :value="rowData.scope.description" />
-        <TdIcon :value="dateBetweenMonthRange(rowData.scope.date, 4)" />
-        <TdIcon :value="dateBetweenMonthRange(rowData.scope.date, 6)" />
-        <TdIcon :value="dateBetweenMonthRange(rowData.scope.date, 12)" />
+        <TdIcon :value="rowData.scope.fourMonths.month" />
+        <TdIcon :value="rowData.scope.sixMonths.month" />
+        <TdIcon :value="rowData.scope.twelveMonths.month" />
       </template>
 
       <exportButton
@@ -40,7 +40,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import moment from 'moment'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
@@ -65,9 +64,9 @@ export default {
         'dbver',
         'date',
         'description',
-        'fourMonth',
-        'sixMonth',
-        'twelveMonth'
+        'fourMonths.text',
+        'sixMonths.text',
+        'twelveMonths.text'
       ]
     }
   },
@@ -75,18 +74,7 @@ export default {
     await this.getPatchAdvisor()
   },
   methods: {
-    ...mapActions(['getPatchAdvisor']),
-    dateBetweenMonthRange(date, month) {
-      const startDate = moment()
-        .subtract(month, 'month')
-        .format('YYYY-MM-DD')
-      const endDate = moment()
-        .add(1, 'days')
-        .format('YYYY-MM-DD')
-      const dateToCheck = moment(date).format('YYYY-MM-DD')
-
-      return moment(dateToCheck).isBetween(startDate, endDate)
-    }
+    ...mapActions(['getPatchAdvisor'])
   },
   computed: {
     ...mapGetters(['getOraclePatchAdvisor'])
