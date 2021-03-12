@@ -1,17 +1,23 @@
 <template>
-  <vueMultiSelect
-    v-model="selectedData"
-    search
-    :filters="filters"
-    :position="position"
-    :options="options"
-    :selectOptions="dataOptions"
-    historyButton
-    :searchPlaceholder="placeholderName"
-    :emptyTabText="noDataText"
-    :btnLabel="() => btnLabelText"
-    class="custom-multi-select"
-  />
+  <div>
+    <vueMultiSelect
+      v-model="selectedData"
+      search
+      :filters="filters"
+      :position="position"
+      :options="options"
+      :selectOptions="dataOptions"
+      historyButton
+      :searchPlaceholder="placeholderName"
+      :emptyTabText="noDataText"
+      :btnLabel="() => btnLabelText"
+      class="custom-multi-select"
+    />
+
+    <p class="selected-text">
+      Selected: <span>{{ selectedData.length }}/10</span>
+    </p>
+  </div>
 </template>
 
 <script>
@@ -66,7 +72,7 @@ export default {
   computed: {
     selectedData: {
       get() {
-        return this.selected
+        return this.selected.slice(0, 10)
       },
       set(val) {
         bus.$emit('selectedData', val)
@@ -76,4 +82,16 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.selected-text {
+  position: absolute;
+  top: 40px;
+  left: 5px;
+  font-size: 12px;
+  font-weight: normal;
+
+  span {
+    font-weight: 500;
+  }
+}
+</style>
