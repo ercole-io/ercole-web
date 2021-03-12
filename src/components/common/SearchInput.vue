@@ -8,9 +8,8 @@
     size="is-small"
     style="height: 30px;"
     :placeholder="searchPlaceholder"
-    @input.native="onInput"
     @blur="onBlur"
-    v-model="typedSearch"
+    v-model="searchTherm"
   />
 </template>
 
@@ -20,7 +19,8 @@ import { bus } from '@/helpers/eventBus.js'
 export default {
   props: {
     value: {
-      type: String
+      type: String,
+      default: ''
     },
     searchPlaceholder: {
       type: String,
@@ -28,6 +28,7 @@ export default {
     },
     urlParam: {
       type: String,
+      default: '',
       required: false
     },
     onBlur: {
@@ -35,26 +36,31 @@ export default {
       default: () => {}
     }
   },
-  methods: {
-    onInput() {
-      bus.$emit('searchTerm', this.typedSearch)
-    },
-    onClear() {
-      this.typedSearch = ''
-      bus.$emit('searchTerm', '')
+  data() {
+    return {
+      searchTherm: ''
     }
   },
-  computed: {
-    typedSearch: {
-      get() {
-        if (this.urlParam) {
-          return this.urlParam
-        } else {
-          return this.value
-        }
-      },
-      set(val) {
-        this.$emit('input', val)
+  mounted() {
+    this.searchTherm = this.urlParam
+    this.emitSearchTherm(this.searchTherm)
+  },
+  methods: {
+    emitSearchTherm(value) {
+      bus.$emit('searchTerm', value)
+      this.$emit('input', value)
+    },
+    onClear() {
+      this.searchTherm = ''
+      this.emitSearchTherm(this.searchTherm)
+    }
+  },
+  watch: {
+    searchTherm(value) {
+      if (value) {
+        this.emitSearchTherm(value)
+      } else {
+        this.emitSearchTherm('')
       }
     }
   }
