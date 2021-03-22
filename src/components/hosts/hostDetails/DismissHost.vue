@@ -3,9 +3,10 @@
     class="ml-2"
     type="is-danger is-small"
     @click="deleteHost(hostname)"
-  >
-    Dismiss Host
-  </b-button>
+    label="Dismiss Host"
+    icon-pack="fas"
+    icon-left="trash"
+  />
 </template>
 
 <script>
