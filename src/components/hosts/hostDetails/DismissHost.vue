@@ -36,7 +36,7 @@ export default {
               this.$buefy.toast.open({
                 message: `The host ${hostname} was successfully dismissed!`,
                 type: 'is-success',
-                duration: 10000000000,
+                duration: 5000,
                 position: 'is-bottom'
               })
             })
