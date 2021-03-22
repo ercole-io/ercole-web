@@ -141,7 +141,7 @@ export default {
       return new Promise((resolve, reject) => {
         this.getAlertsData({
           status: this.alertStatus,
-          startDate: formatDatepickerDate(this.startDate),
+          startDate: formatDatepickerDate(this.startDate, 'compare'),
           endDate: formatDatepickerDate(this.endDate)
         }).then(
           res => {
