@@ -5,7 +5,7 @@
         <NotificationsInfo />
       </div>
       <div class="column is-2 has-text-right">
-        <Filesys />
+        <FileSysModal />
       </div>
       <div class="column is-2 has-text-right">
         <DismissHost :hostname="hostname" />
@@ -31,7 +31,7 @@ import NotificationsInfo from '@/components/hosts/hostDetails/NotificationsInfo.
 import HostInfo from '@/components/hosts/hostDetails/HostInfo.vue'
 import ChartCpu from '@/components/hosts/hostDetails/ChartCpu.vue'
 import Databases from '@/components/hosts/hostDetails/databases/Databases.vue'
-import Filesys from '@/components/hosts/hostDetails/Filesys.vue'
+import FileSysModal from '@/components/hosts/hostDetails/FileSysModal.vue'
 import DismissHost from '@/components/hosts/hostDetails/DismissHost.vue'
 
 export default {
@@ -53,7 +53,7 @@ export default {
     HostInfo,
     ChartCpu,
     Databases,
-    Filesys,
+    FileSysModal,
     DismissHost
   },
   data() {

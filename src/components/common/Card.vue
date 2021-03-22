@@ -5,7 +5,10 @@
         {{ cardTitle }}
       </p>
     </header>
-    <div class="card-content">
+    <div
+      class="card-content"
+      :style="`font-size: ${cotentSize}em; padding: ${contentPadding}rem;`"
+    >
       <slot />
     </div>
   </div>
@@ -13,7 +16,19 @@
 
 <script>
 export default {
-  props: ['cardTitle']
+  props: {
+    cardTitle: {
+      type: String
+    },
+    cotentSize: {
+      type: String,
+      default: '0.8'
+    },
+    contentPadding: {
+      type: String,
+      default: '0.5'
+    }
+  }
 }
 </script>
 
@@ -26,11 +41,6 @@ export default {
   font-weight: 500;
   padding: 0.5rem 1rem;
   font-size: 0.9em;
-}
-
-.card-content {
-  padding: 0.5rem 0;
-  font-size: 0.8em;
 }
 
 .card-list li {
