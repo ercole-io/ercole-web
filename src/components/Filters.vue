@@ -219,7 +219,9 @@ export default {
     this.glFilters = {
       location: this.getActiveFilters.location,
       environment: this.getActiveFilters.environment,
-      date: formatDatepickerDate(this.getActiveFilters.date)
+      date: this.getActiveFilters.date
+        ? new Date(this.getActiveFilters.date)
+        : null
     }
     this.isFiltersOpened = this.globalFilters.isFilterOpened
 
@@ -267,7 +269,7 @@ export default {
       this.SET_OPEN_FILTERS(this.isFiltersOpened)
     },
     applyFilters() {
-      this.glFilters.date = formatDatepickerDate(this.glFilters.date)
+      this.glFilters.date = new Date(formatDatepickerDate(this.glFilters.date))
       this.$store.commit('SET_ACTIVE_FILTERS', {
         active: this.glFilters,
         status: true
@@ -278,7 +280,7 @@ export default {
       this.glFilters = {
         location: null,
         environment: null,
-        date: formatDatepickerDate()
+        date: null
       }
       this.$store.commit('SET_ACTIVE_FILTERS', {
         active: this.glFilters,

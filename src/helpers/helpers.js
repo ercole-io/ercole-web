@@ -107,14 +107,15 @@ export const returnAlertsByTypeDate = (alerts, type, startDate, endDate) => {
   })
 }
 
-export const formatDatepickerDate = (date = null) => {
+export const formatDatepickerDate = (date = null, type = null) => {
   if (date) {
-    return new Date(
-      moment
-        .utc(date)
+    if (type === 'compare') {
+      return moment(date).format()
+    } else {
+      return moment(date)
         .set({ hour: 23, minute: 59, second: 59 })
-        .format('YYYY-MM-DDTHH:mm:ssZ')
-    )
+        .format()
+    }
   } else {
     return null
   }
