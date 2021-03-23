@@ -24,7 +24,7 @@ export const getters = {
         platform: host.info.hardwareAbstractionTechnology,
         cluster: host.cluster,
         virtNode: host.virtualizationNode,
-        os: host.info.os,
+        os: `${host.info.os} - ${host.info.osVersion}`,
         kernel: `${host.info.kernelVersion} - ${host.info.kernel}`,
         memorytotal: host.info.memoryTotal,
         swaptotal: host.info.swapTotal,
