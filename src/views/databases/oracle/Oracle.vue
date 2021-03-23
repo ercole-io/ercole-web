@@ -1,6 +1,18 @@
 <template>
   <section>
     <div class="columns">
+      <div class="column is-3">
+        <OracleCpu />
+      </div>
+      <div class="column is-3">
+        <OracleMemory />
+      </div>
+      <div class="column is-6">
+        <OracleStorage />
+      </div>
+    </div>
+
+    <div class="columns">
       <div class="column is-6">
         <Top3Workload />
       </div>
@@ -41,13 +53,19 @@ import Top3Workload from '@/components/databases/oracle/Top3Workload.vue'
 import Top3Reclaimable from '@/components/databases/oracle/Top3Reclaimable.vue'
 import OracleDBs from '@/components/databases/oracle/OracleDBs.vue'
 import OracleCharts from '@/components/databases/oracle/OracleCharts.vue'
+import OracleCpu from '@/components/databases/oracle/OracleCpu.vue'
+import OracleMemory from '@/components/databases/oracle/OracleMemory.vue'
+import OracleStorage from '@/components/databases/oracle/OracleStorage.vue'
 
 export default {
   components: {
     Top3Workload,
     Top3Reclaimable,
     OracleDBs,
-    OracleCharts
+    OracleCharts,
+    OracleCpu,
+    OracleMemory,
+    OracleStorage
   },
   async beforeMount() {
     await this.getOracleDbs()

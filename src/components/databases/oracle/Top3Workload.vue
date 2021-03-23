@@ -1,5 +1,5 @@
 <template>
-  <BoxContent title="Top 3 Instance Workload" border>
+  <BoxContent title="Top 3 Instance Workload" border :mbottom="false">
     <!-- <Top10Link slot="customTitle" /> -->
     <SimpleTable
       :theadData="['', 'Host Name', 'DB Name', 'Thread Utilization']"
