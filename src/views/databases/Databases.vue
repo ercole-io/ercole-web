@@ -4,12 +4,12 @@
       <div class="column is-3">
         <div class="columns">
           <div class="column is-12">
-            <DbCpuMemory />
+            <DbTotalMemorySize />
           </div>
         </div>
         <div class="columns">
           <div class="column is-12">
-            <DbStorage />
+            <DbTotalSegmentSize />
           </div>
         </div>
         <div class="columns">
@@ -47,17 +47,17 @@
 
 <script>
 import { mapActions } from 'vuex'
-import DbCpuMemory from '@/components/databases/databases/DbCpuMemory.vue'
-import DbStorage from '@/components/databases/databases/DbStorage.vue'
 import DbList from '@/components/databases/databases/DbList.vue'
 import DbCharts from '@/components/databases/databases/DbCharts.vue'
+import DbTotalMemorySize from '@/components/databases/databases/DbTotalMemorySize.vue'
+import DbTotalSegmentSize from '@/components/databases/databases/DbTotalSegmentSize.vue'
 
 export default {
   components: {
-    DbCpuMemory,
-    DbStorage,
     DbList,
-    DbCharts
+    DbCharts,
+    DbTotalMemorySize,
+    DbTotalSegmentSize
   },
   async beforeMount() {
     await this.getDatabases()

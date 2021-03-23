@@ -25,7 +25,10 @@ const mountChart = (prop, data) => {
 export const state = () => ({
   oracleDbs: [],
   topWorkload: [],
-  topReclaimable: []
+  topReclaimable: [],
+  totalMemory: 0,
+  totalSegment: 0,
+  totalDatafile: 0
 })
 
 export const getters = {
@@ -79,6 +82,9 @@ export const getters = {
   },
   getTop3Reclaimable: state => {
     return state.topReclaimable.slice(0, 3)
+  },
+  getOracleTotalCpu: state => {
+    return _.sumBy(state.oracleDbs, 'work')
   }
 }
 
@@ -91,6 +97,15 @@ export const mutations = {
   },
   SET_TOP_RECLAIMABLE: (state, payload) => {
     state.topReclaimable = payload
+  },
+  SET_TOTAL_MEMORY: (state, payload) => {
+    state.totalMemory = payload
+  },
+  SET_TOTAL_SEGMENT: (state, payload) => {
+    state.totalSegment = payload
+  },
+  SET_TOTAL_DATAFILE: (state, payload) => {
+    state.totalDatafile = payload
   }
 }
 
@@ -98,6 +113,9 @@ export const actions = {
   async getOracleDbs({ commit, dispatch, getters }) {
     dispatch('getTopWorkload')
     dispatch('getTopReclaimable')
+    dispatch('getTotalMemory')
+    dispatch('getTotalSegment')
+    dispatch('getTotalDatafile')
 
     const oracleDbs = await axiosDefault.get(
       '/hosts/technologies/oracle/databases',
@@ -139,5 +157,47 @@ export const actions = {
     )
     const response = await topReclaimable.data
     commit('SET_TOP_RECLAIMABLE', response)
+  },
+  async getTotalMemory({ commit, getters }) {
+    const totalMemory = await axiosNoLoading.get(
+      '/hosts/technologies/oracle/databases/total-memory-size',
+      {
+        params: {
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location
+        }
+      }
+    )
+    const response = await totalMemory.data
+    commit('SET_TOTAL_MEMORY', response)
+  },
+  async getTotalSegment({ commit, getters }) {
+    const totalSegment = await axiosNoLoading.get(
+      '/hosts/technologies/oracle/databases/total-segment-size',
+      {
+        params: {
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location
+        }
+      }
+    )
+    const response = await totalSegment.data
+    commit('SET_TOTAL_SEGMENT', response)
+  },
+  async getTotalDatafile({ commit, getters }) {
+    const totalDatafile = await axiosNoLoading.get(
+      '/hosts/technologies/oracle/databases/total-datafile-size',
+      {
+        params: {
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location
+        }
+      }
+    )
+    const response = await totalDatafile.data
+    commit('SET_TOTAL_DATAFILE', response)
   }
 }

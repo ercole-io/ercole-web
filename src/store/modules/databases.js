@@ -24,17 +24,12 @@ const mountChart = (prop, data) => {
 
 export const state = () => ({
   databases: [],
-  totalMemory: 0,
-  totalSegment: 0,
-  totalDatafile: 0
+  stats: {}
 })
 
 export const getters = {
   getAllDatabases: state => {
     return state.databases
-  },
-  getTotalCpu: state => {
-    return _.sumBy(state.databases, 'work')
   },
   getDatabasesCharts: state => id => {
     let chartValues = {}
@@ -91,30 +86,19 @@ export const getters = {
 
 export const mutations = {
   SET_DATABASES: (state, payload) => {
-    _.map(payload, item => {
-      item.type = 'Oracle'
-    })
     state.databases = payload
   },
-  SET_TOTAL_MEMORY: (state, payload) => {
-    state.totalMemory = payload
-  },
-  SET_TOTAL_SEGMENT: (state, payload) => {
-    state.totalSegment = payload
-  },
-  SET_TOTAL_DATAFILE: (state, payload) => {
-    state.totalDatafile = payload
+  SET_DB_STATS: (state, payload) => {
+    state.stats = payload
   }
 }
 
 export const actions = {
   async getDatabases({ commit, dispatch, getters }) {
-    dispatch('getTotalMemory')
-    dispatch('getTotalSegment')
-    dispatch('getTotalDatafile')
+    dispatch('getDatabasesStats')
 
     const databases = await axiosDefault.get(
-      '/hosts/technologies/oracle/databases',
+      '/hosts/technologies/all/databases',
       {
         params: {
           'older-than': getters.getActiveFilters.date,
@@ -123,12 +107,12 @@ export const actions = {
         }
       }
     )
-    const response = await databases.data
+    const response = await databases.data.databases
     commit('SET_DATABASES', response)
   },
-  async getTotalMemory({ commit, getters }) {
-    const totalMemory = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/total-memory-size',
+  async getDatabasesStats({ commit, getters }) {
+    const stats = await axiosNoLoading.get(
+      '/hosts/technologies/all/databases/statistics',
       {
         params: {
           'older-than': getters.getActiveFilters.date,
@@ -137,35 +121,7 @@ export const actions = {
         }
       }
     )
-    const response = await totalMemory.data
-    commit('SET_TOTAL_MEMORY', response)
-  },
-  async getTotalSegment({ commit, getters }) {
-    const totalSegment = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/total-segment-size',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location
-        }
-      }
-    )
-    const response = await totalSegment.data
-    commit('SET_TOTAL_SEGMENT', response)
-  },
-  async getTotalDatafile({ commit, getters }) {
-    const totalDatafile = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/total-datafile-size',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location
-        }
-      }
-    )
-    const response = await totalDatafile.data
-    commit('SET_TOTAL_DATAFILE', response)
+    const response = await stats.data
+    commit('SET_DB_STATS', response)
   }
 }

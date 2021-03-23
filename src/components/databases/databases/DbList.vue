@@ -15,7 +15,7 @@
       <v-th sortKey="charset">Charset</v-th>
       <v-th sortKey="memory">Memory (GB)</v-th>
       <v-th sortKey="datafileSize">Datafile Size (GB)</v-th>
-      <v-th sortKey="segmentsSize">Segment Size (GB)</v-th>
+      <v-th sortKey="segmentSize">Segment Size (GB)</v-th>
       <v-th sortKey="archivelog">Archivelog Mode</v-th>
       <v-th sortKey="dataguard">DR</v-th>
       <v-th sortKey="ha">HA</v-th>
@@ -29,8 +29,8 @@
       <TdContent :value="rowData.scope.environment" />
       <TdContent :value="rowData.scope.charset" />
       <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
-      <TdContent :value="rowData.scope.datafileSize" />
-      <TdContent :value="rowData.scope.segmentsSize" />
+      <TdContent :value="rowData.scope.datafileSize | formatNumber('0.00')" />
+      <TdContent :value="rowData.scope.segmentSize | formatNumber('0.00')" />
       <TdIcon :value="rowData.scope.archivelog" />
       <TdIcon :value="rowData.scope.dataguard" />
       <TdIcon :value="rowData.scope.ha" />
@@ -73,7 +73,7 @@ export default {
         'charset',
         'memory',
         'datafileSize',
-        'segmentsSize',
+        'segmentSize',
         'archivelog',
         'dataguard',
         'ha'

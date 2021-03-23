@@ -269,7 +269,9 @@ export default {
       this.SET_OPEN_FILTERS(this.isFiltersOpened)
     },
     applyFilters() {
-      this.glFilters.date = new Date(formatDatepickerDate(this.glFilters.date))
+      this.glFilters.date = this.glFilters.date
+        ? new Date(formatDatepickerDate(this.glFilters.date))
+        : null
       this.$store.commit('SET_ACTIVE_FILTERS', {
         active: this.glFilters,
         status: true
