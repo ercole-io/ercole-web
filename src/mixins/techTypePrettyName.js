@@ -1,19 +1,9 @@
-import _ from 'lodash'
-import { mapGetters } from 'vuex'
+import { returnTechTypePrettyName } from '@/helpers/helpers.js'
 
 export default {
   methods: {
     getTechTypePrettyName(value) {
-      let prettyTypeName = ''
-      _.find(this.getAllTechnologies, t => {
-        if (t.product === value) {
-          prettyTypeName = t.prettyName
-        }
-      })
-      return prettyTypeName
+      return returnTechTypePrettyName(value)
     }
-  },
-  computed: {
-    ...mapGetters(['getAllTechnologies'])
   }
 }

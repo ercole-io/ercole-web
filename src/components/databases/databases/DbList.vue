@@ -17,8 +17,8 @@
       <v-th sortKey="datafileSize">Datafile Size (GB)</v-th>
       <v-th sortKey="segmentSize">Segment Size (GB)</v-th>
       <v-th sortKey="archivelog">Archivelog Mode</v-th>
-      <v-th sortKey="dataguard">DR</v-th>
-      <v-th sortKey="ha">HA</v-th>
+      <v-th sortKey="disasterRecovery">DR</v-th>
+      <v-th sortKey="highAvailability">HA</v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
@@ -32,8 +32,8 @@
       <TdContent :value="rowData.scope.datafileSize | formatNumber('0.00')" />
       <TdContent :value="rowData.scope.segmentSize | formatNumber('0.00')" />
       <TdIcon :value="rowData.scope.archivelog" />
-      <TdIcon :value="rowData.scope.dataguard" />
-      <TdIcon :value="rowData.scope.ha" />
+      <TdIcon :value="rowData.scope.disasterRecovery" />
+      <TdIcon :value="rowData.scope.highAvailability" />
     </template>
 
     <ExportButton
@@ -75,8 +75,8 @@ export default {
         'datafileSize',
         'segmentSize',
         'archivelog',
-        'dataguard',
-        'ha'
+        'disasterRecovery',
+        'highAvailability'
       ]
     }
   },

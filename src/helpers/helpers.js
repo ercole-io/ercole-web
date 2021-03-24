@@ -1,5 +1,6 @@
 import moment from 'moment'
 import _ from 'lodash'
+import store from '@/store/index.js'
 
 // INIT: Manage som localstorage data //
 export const setLocalStorageAuth = payload => {
@@ -216,3 +217,13 @@ const checkBoolean = val => {
   }
 }
 // END: Prepare and filter data for autocomplete inputs //
+
+export const returnTechTypePrettyName = value => {
+  let prettyTypeName = ''
+  _.find(store.getters.getAllTechnologies, t => {
+    if (t.product === value) {
+      prettyTypeName = t.prettyName
+    }
+  })
+  return prettyTypeName
+}
