@@ -1,6 +1,7 @@
 import axiosDefault from '@/axios/axios-default.js'
 import _ from 'lodash'
 import { filterByKeys } from '@/helpers/helpers.js'
+import { returnTechTypePrettyName } from '@/helpers/helpers.js'
 
 export const state = () => ({
   clusters: [],
@@ -96,7 +97,14 @@ export const getters = {
 
 export const mutations = {
   SET_CLUSTERS: (state, payload) => {
-    state.clusters = payload
+    const clusters = []
+    _.map(payload, val => {
+      clusters.push({
+        ...val,
+        type: returnTechTypePrettyName(val.type)
+      })
+    })
+    state.clusters = clusters
   },
   SET_CURRENT_CLUSTER: (state, payload) => {
     state.currentCluster = payload

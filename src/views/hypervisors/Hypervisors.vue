@@ -60,7 +60,7 @@
 
             <template slot="bodyData" slot-scope="rowData">
               <TdContent :value="rowData.scope.name" />
-              <TdContent :value="getTechTypePrettyName(rowData.scope.type)" />
+              <TdContent :value="rowData.scope.type" />
               <TdContent :value="rowData.scope.cpu" />
               <TdContent :value="rowData.scope.sockets" />
               <TdContent :value="rowData.scope.virtualizationNodes" />
