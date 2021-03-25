@@ -1,6 +1,6 @@
-import axiosAuth from '../../axios/axios-auth.js'
-import router from '../../router/index.js'
-import * as helpers from '../../helpers/helpers.js'
+import axiosAuth from '@/axios/axios-auth.js'
+import router from '@/router/index.js'
+import * as helpers from '@/helpers/helpers.js'
 import moment from 'moment'
 
 export const state = () => {

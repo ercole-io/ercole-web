@@ -71,77 +71,18 @@ export default {
                   ]
                 }
               ]
+            },
+            {
+              title: 'MySQL',
+              icon: 'fas fa-cog',
+              child: [
+                {
+                  title: 'Databases',
+                  href: { name: 'mysql' },
+                  icon: 'fas fa-database'
+                }
+              ]
             }
-            // {
-            //   title: 'SQL Server',
-            //   icon: 'fas fa-cog',
-            //   child: [
-            //     {
-            //       title: 'Databases',
-            //       icon: 'fas fa-database'
-            //     },
-            //     {
-            //       title: 'Proactive',
-            //       icon: 'fas fa-microscope'
-            //     }
-            //   ]
-            // },
-            // {
-            //   title: 'MySQL',
-            //   icon: 'fas fa-cog',
-            //   child: [
-            //     {
-            //       title: 'Databases',
-            //       icon: 'fas fa-database'
-            //     },
-            //     {
-            //       title: 'Proactive',
-            //       icon: 'fas fa-microscope'
-            //     }
-            //   ]
-            // },
-            // {
-            //   title: 'MDB',
-            //   icon: 'fas fa-cog',
-            //   child: [
-            //     {
-            //       title: 'Databases',
-            //       icon: 'fas fa-database'
-            //     },
-            //     {
-            //       title: 'Proactive',
-            //       icon: 'fas fa-microscope'
-            //     }
-            //   ]
-            // },
-            // {
-            //   title: 'PSQL',
-            //   icon: 'fas fa-cog',
-            //   child: [
-            //     {
-            //       title: 'Databases',
-            //       icon: 'fas fa-database'
-            //     },
-            //     {
-            //       title: 'Proactive',
-            //       icon: 'fas fa-microscope'
-            //     }
-            //   ]
-            // },
-            // {
-            //   title: 'WEDL',
-            //   icon: 'fas fa-cog',
-            //   child: [
-            //     {
-            //       title: 'Databases',
-            //       icon: 'fas fa-database'
-            //     },
-            //     {
-            //       title: 'Proactive',
-            //       icon: 'fas fa-microscope'
-            //     }
-            //   ]
-            // }
           ]
         },
         {

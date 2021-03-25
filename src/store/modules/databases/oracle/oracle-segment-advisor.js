@@ -1,4 +1,4 @@
-import axiosDefault from '../../axios/axios-default'
+import axiosDefault from '@/axios/axios-default.js'
 
 export const state = () => ({
   segmentAdvisor: []

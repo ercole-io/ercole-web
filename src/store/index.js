@@ -2,30 +2,30 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
-import * as config from './modules/config.js'
+import * as config from './modules/config'
 import * as loading from './modules/loading'
 import * as errors from './modules/errors'
 import * as auth from './modules/auth'
-import * as dashboard from './modules/dashboard.js'
-import * as hosts from './modules/hosts.js'
-import * as hostnames from './modules/hostnames.js'
-import * as hostDetails from './modules/hostDetails.js'
-import * as alerts from './modules/alerts.js'
-import * as licenses from './modules/licenses.js'
-import * as licensesAgreement from './modules/licensesAgreement.js'
-import * as licensesCompliance from './modules/licenses-compliance.js'
-import * as charts from './modules/charts.js'
-import * as clusters from './modules/clusters.js'
-import * as technologies from './modules/technologies.js'
-import * as databases from './modules/databases.js'
-import * as oracle from './modules/oracle.js'
-import * as oracleSegmentAdvisor from './modules/oracle-segment-advisor.js'
-import * as oraclePatchAdvisor from './modules/oracle-patch-advisor.js'
-import * as oracleAddm from './modules/oracle-addm.js'
-import * as globalFilters from './modules/globalFilters.js'
-import * as localFilters from './modules/localFilters.js'
-import * as engineeredSystems from './modules/engineered-systems.js'
-import * as agreementParts from './modules/agreementParts.js'
+import * as dashboard from './modules/dashboard/dashboard'
+import * as hosts from './modules/hosts/hosts'
+import * as hostnames from './modules/hostnames'
+import * as hostDetails from './modules/hosts/hostDetails'
+import * as alerts from './modules/alerts/alerts'
+import * as licenses from './modules/licenses/licenses'
+import * as licensesAgreement from './modules/licenses/licenses-agreement'
+import * as licensesCompliance from './modules/licenses/licenses-compliance'
+import * as clusters from './modules/hypervisors/clusters'
+import * as technologies from './modules/technologies'
+import * as databases from './modules/databases/databases'
+import * as oracle from './modules/databases/oracle/oracle'
+import * as oracleSegmentAdvisor from './modules/databases/oracle/oracle-segment-advisor'
+import * as oraclePatchAdvisor from './modules/databases/oracle/oracle-patch-advisor'
+import * as oracleAddm from './modules/databases/oracle/oracle-addm'
+import * as mysql from './modules/databases/mysql/mysql'
+import * as globalFilters from './modules/global-filters'
+import * as localFilters from './modules/local-filters'
+import * as engineeredSystems from './modules/engineered-systems/engineered-systems'
+import * as agreementParts from './modules/agreement-parts'
 
 Vue.use(Vuex)
 
@@ -43,7 +43,6 @@ export default new Vuex.Store({
     licenses,
     licensesAgreement,
     licensesCompliance,
-    charts,
     clusters,
     technologies,
     databases,
@@ -51,6 +50,7 @@ export default new Vuex.Store({
     oracleSegmentAdvisor,
     oraclePatchAdvisor,
     oracleAddm,
+    mysql,
     globalFilters,
     localFilters,
     engineeredSystems,
