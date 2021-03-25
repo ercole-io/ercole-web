@@ -3,7 +3,6 @@
     <CardStats
       cardStatTitle="Total Thread Used"
       :cardStatValue="getOracleTotalCpu"
-      :formatNumber="['', '']"
     />
   </BoxContent>
 </template>

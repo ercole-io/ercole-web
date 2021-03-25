@@ -5,7 +5,7 @@
       <br />
     </span>
     <span class="is-size-5 has-text-weight-medium">
-      {{ cardStatValue | formatNumber(formatNumber[0], formatNumber[1]) }}
+      {{ cardStatValue }}
     </span>
   </p>
 </template>
@@ -18,12 +18,8 @@ export default {
       required: false
     },
     cardStatValue: {
-      type: [String, Number],
+      type: String,
       default: '0'
-    },
-    formatNumber: {
-      type: Array,
-      default: () => ['0.00', 'GB']
     }
   }
 }
