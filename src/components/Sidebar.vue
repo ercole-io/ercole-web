@@ -45,30 +45,24 @@ export default {
               icon: 'fas fa-cog',
               child: [
                 {
-                  title: 'Databases',
+                  title: 'DB List',
                   href: { name: 'oracle' },
                   icon: 'fas fa-database'
                 },
                 {
-                  title: 'Proactive',
-                  icon: 'fas fa-microscope',
-                  child: [
-                    {
-                      href: { name: 'addm' },
-                      title: 'ADDM',
-                      icon: 'fas fa-heartbeat'
-                    },
-                    {
-                      href: { name: 'segment-advisor' },
-                      title: 'Segment Advisor',
-                      icon: 'fas fa-columns'
-                    },
-                    {
-                      href: { name: 'patch-advisor' },
-                      title: 'Patch Advisor',
-                      icon: 'fas fa-band-aid'
-                    }
-                  ]
+                  href: { name: 'addm' },
+                  title: 'ADDM',
+                  icon: 'fas fa-heartbeat'
+                },
+                {
+                  href: { name: 'segment-advisor' },
+                  title: 'Segment Advisor',
+                  icon: 'fas fa-columns'
+                },
+                {
+                  href: { name: 'patch-advisor' },
+                  title: 'Patch Advisor',
+                  icon: 'fas fa-band-aid'
                 }
               ]
             },
@@ -77,7 +71,7 @@ export default {
               icon: 'fas fa-cog',
               child: [
                 {
-                  title: 'Databases',
+                  title: 'DB List',
                   href: { name: 'mysql' },
                   icon: 'fas fa-database'
                 }
