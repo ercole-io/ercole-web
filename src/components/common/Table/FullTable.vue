@@ -1,23 +1,15 @@
 <template>
   <section>
     <TopTable v-if="!hideTopTable">
+      <SelectPerPage :totalItems="total.length" v-if="!hidePerpage" />
+
+      <slot name="customTopHeader" />
+
       <SearchInput
         :searchPlaceholder="placeholder"
         v-model="filters.search.value"
         :urlParam="urlSearchParam"
         v-if="!hideSearch"
-      />
-
-      <slot name="customTopHeader" />
-
-      <div class="buttons mb-0" style="margin-left: auto;">
-        <slot name="export" />
-      </div>
-
-      <SelectPerPage
-        class="ml-2"
-        :totalItems="total.length"
-        v-if="!hidePerpage"
       />
     </TopTable>
 
@@ -73,25 +65,26 @@
     </div>
 
     <BottomTable v-if="!hidePagination">
+      <ShowPerPage
+        slot="info"
+        :totalItems="total.length"
+        :perPage="perPage"
+        v-if="!filters.search.value"
+      />
+      <FilteredResults
+        slot="info"
+        :totalItems="filteredData"
+        v-if="filters.search.value"
+      />
       <smart-pagination
         slot="info"
         :currentPage.sync="currentPage"
         :totalPages="totalPages"
         :maxPageLinks="maxPageLinks"
       />
-      <ShowPerPage
-        slot="info"
-        :totalItems="total.length"
-        :perPage="perPage"
-        v-if="!filters.search.value"
-        style="margin-left: auto;"
-      />
-      <FilteredResults
-        slot="info"
-        :totalItems="filteredData"
-        v-if="filters.search.value"
-        style="margin-left: auto;"
-      />
+      <div class="buttons mb-0" slot="info">
+        <slot name="export" />
+      </div>
     </BottomTable>
   </section>
 </template>
