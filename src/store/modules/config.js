@@ -1,4 +1,4 @@
-import axiosNoauth from '../../axios/axios-noauth.js'
+import axiosNoauth from '@/axios/axios-noauth.js'
 
 export const state = () => {
   return {

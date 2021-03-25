@@ -19,6 +19,7 @@ const SegmentAdvisor = lazy(() =>
 const PatchAdvidor = lazy(() =>
   import('@/views/databases/oracle/Patch-Advidor.vue')
 )
+const MySQL = lazy(() => import('@/views/databases/mysql/MySQL.vue'))
 const Middleware = lazy(() => import('@/views/middleware/Middleware.vue'))
 const LicensesAgreement = lazy(() =>
   import('@/views/licenses/LicensesAgreement.vue')
@@ -169,6 +170,26 @@ const routes = [
                 beforeEnter: verifyAuth
               }
             ]
+          }
+        ]
+      },
+      {
+        path: '/mysql',
+        component: EmptyRouterView,
+        children: [
+          {
+            path: '',
+            name: 'mysql',
+            component: MySQL,
+            meta: {
+              label: 'MySQL',
+              title: `${title}MySQL`,
+              breadcrumb: [
+                { name: 'Databases', link: '/databases' },
+                { name: 'MySQL' }
+              ]
+            },
+            beforeEnter: verifyAuth
           }
         ]
       }

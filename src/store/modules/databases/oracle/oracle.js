@@ -1,4 +1,4 @@
-import axiosDefault from '@/axios/axios-default'
+import axiosDefault from '@/axios/axios-default.js'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import { pickDatabaseChart } from '@/helpers/databasesCharts.js'
 import _ from 'lodash'
