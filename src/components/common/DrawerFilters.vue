@@ -1,13 +1,13 @@
 <template>
-  <DrawerRight>
+  <Drawer>
     <BoxContent slot="drawer-content" :title="title" class="mt-5">
       <slot />
     </BoxContent>
-  </DrawerRight>
+  </Drawer>
 </template>
 
 <script>
-import DrawerRight from '@/components/common/DrawerRight.vue'
+import Drawer from '@/components/common/Drawer.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 
 export default {
@@ -18,7 +18,7 @@ export default {
     }
   },
   components: {
-    DrawerRight,
+    Drawer,
     BoxContent
   }
 }
