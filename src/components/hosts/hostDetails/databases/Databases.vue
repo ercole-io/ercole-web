@@ -1,15 +1,5 @@
 <template>
   <BoxContent title="Databases" class="column is-8">
-    <!-- <b-input
-      size="is-small"
-      type="text"
-      v-model="searchDb"
-      slot="customTitle"
-      placeholder="Search by DB name"
-      @input="onSearchDb($event)"
-      @blur="findActiveTab"
-    /> -->
-
     <SearchInput
       searchPlaceholder="Search by DB name"
       v-model="searchDb"

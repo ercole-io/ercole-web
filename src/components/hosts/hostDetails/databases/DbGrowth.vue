@@ -1,5 +1,5 @@
 <template>
-  <LineChart :chartId="growthId" :lineChartData="chartData" />
+  <LineChart :chartId="growthId" :lineChartData="chartData" discrete />
 </template>
 
 <script>
@@ -29,14 +29,13 @@ export default {
   },
   beforeMount() {
     this.mountDbGrowthChart()
-    this.$forceUpdate()
   },
   methods: {
     calcDatafileSize() {
       let datafile = _.map(this.growth, val => {
         const { datafileSize, updated } = val
         return {
-          date: moment(updated).format('YYYY-MM-DD'),
+          date: moment(updated).format('ll'),
           value: datafileSize
         }
       })
@@ -47,7 +46,7 @@ export default {
       let segments = _.map(this.growth, val => {
         const { segmentsSize, updated } = val
         return {
-          date: moment(updated).format('YYYY-MM-DD'),
+          date: moment(updated).format('ll'),
           value: segmentsSize
         }
       })
@@ -58,7 +57,7 @@ export default {
       let allocated = _.map(this.growth, val => {
         const { allocable, updated } = val
         return {
-          date: moment(updated).format('YYYY-MM-DD'),
+          date: moment(updated).format('ll'),
           value: allocable
         }
       })
