@@ -18,6 +18,7 @@ import SmartTable from 'vuejs-smart-table'
 import Vuelidate from 'vuelidate'
 import VTooltip from 'v-tooltip'
 import ClickCopy from 'vue-directive-copy'
+import vueFilterPrettyBytes from 'vue-filter-pretty-bytes'
 
 import CapitalizeFilter from './filters/capitalize.js'
 import FormatDate from './filters/formatDate.js'
@@ -50,6 +51,7 @@ Vue.use(SmartTable)
 Vue.use(Vuelidate)
 Vue.use(VTooltip)
 Vue.use(ClickCopy)
+Vue.use(vueFilterPrettyBytes)
 
 Vue.filter('capitalize', CapitalizeFilter)
 Vue.filter('formatDate', FormatDate)

@@ -3,12 +3,12 @@
     <div class="is-flex is-justify-content-space-around">
       <CardStats
         cardStatTitle="Total Segment Size"
-        :cardStatValue="oracle.totalSegment"
+        :cardStatValue="oracle.totalSegment | prettyBytes"
       />
 
       <CardStats
         cardStatTitle="Total Datafile Size"
-        :cardStatValue="oracle.totalDatafile"
+        :cardStatValue="oracle.totalDatafile | prettyBytes"
       />
     </div>
   </BoxContent>

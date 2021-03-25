@@ -1,6 +1,8 @@
 <template>
   <BoxContent title="Total Memory Size" border :mbottom="false">
-    <CardStats :cardStatValue="databases.stats['total-segments-size']" />
+    <CardStats
+      :cardStatValue="databases.stats['total-segments-size'] | prettyBytes"
+    />
   </BoxContent>
 </template>
 

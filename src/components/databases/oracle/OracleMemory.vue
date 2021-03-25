@@ -2,7 +2,7 @@
   <BoxContent title="Memory" border :mbottom="false">
     <CardStats
       cardStatTitle="Total Memory Size"
-      :cardStatValue="oracle.totalMemory"
+      :cardStatValue="oracle.totalMemory | prettyBytes"
     />
   </BoxContent>
 </template>
