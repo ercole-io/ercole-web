@@ -18,7 +18,7 @@ export default {
       required: false
     },
     cardStatValue: {
-      type: String,
+      type: [String, Number],
       default: '0'
     }
   }
