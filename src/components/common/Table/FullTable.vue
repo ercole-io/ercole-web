@@ -107,7 +107,7 @@ export default {
       default: 'Search'
     },
     keys: {
-      type: Array,
+      type: [Array, Function],
       required: true
     },
     tableData: {
