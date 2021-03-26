@@ -19,3 +19,15 @@
 .highlightText {
   background: yellow;
 }
+
+.clear-border {
+  border: none !important;
+}
+
+.border-left {
+  border-left: 1px solid #ccc !important;
+}
+
+.border-right {
+  border-right: 1px solid #ccc !important;
+}

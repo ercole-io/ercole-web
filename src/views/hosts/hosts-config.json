@@ -1,0 +1,50 @@
+[
+  { "sort": "hostname", "name": "Hostname", "type": "", "class": "" },
+  {
+    "sort": "platform",
+    "name": "Platform",
+    "type": "virtual",
+    "class": "virtual"
+  },
+  { "sort": "cluster", "name": "Cluster", "type": "virtual", "class": "virtual" },
+  {
+    "sort": "virtNode",
+    "name": "Node",
+    "type": "virtual",
+    "class": "virtual"
+  },
+  {
+    "sort": "model",
+    "name": "Processor Model",
+    "type": "cpu",
+    "class": "cpu"
+  },
+  { "sort": "threads", "name": "Threa", "type": "cpu", "class": "cpu" },
+  { "sort": "cores", "name": "Cores", "type": "cpu", "class": "cpu" },
+  {
+    "sort": "socket",
+    "name": "Socket",
+    "type": "cpu",
+    "class": "cpu"
+  },
+  {
+    "sort": "version",
+    "name": "Version",
+    "type": "agent",
+    "class": "agent"
+  },
+  {
+    "sort": "updated",
+    "name": "Updated",
+    "type": "agent",
+    "class": "agent"
+  },
+  { "sort": "environment", "name": "Env", "type": "", "class": "" },
+  { "sort": "databases", "name": "DBs", "type": "", "class": "" },
+  { "sort": "tech Type", "name": "Tech", "type": "", "class": "" },
+  { "sort": "os", "name": "OS", "type": "", "class": "" },
+  { "sort": "iconCluster", "name": "Clust", "type": "", "class": "" },
+  { "sort": "kernel", "name": "Kernel", "type": "", "class": "" },
+  { "sort": "memorytotal", "name": "Mem.", "type": "", "class": "" },
+  { "sort": "swaptotal", "name": "Swap", "type": "", "class": "" }
+]
