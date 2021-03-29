@@ -49,11 +49,11 @@ export const getters = {
         },
         {
           name: 'OS',
-          value: info.os || '-'
+          value: `${info.os} - ${info.osVersion}` || '-'
         },
         {
           name: 'Kernel',
-          value: info.kernel || '-'
+          value: `${info.kernel} - ${info.kernelVersion}` || '-'
         },
         {
           name: 'Memorie',
@@ -179,7 +179,9 @@ export const mutations = {
     const {
       hardwareAbstractionTechnology,
       os,
+      osVersion,
       kernel,
+      kernelVersion,
       memoryTotal,
       swapTotal,
       cpuModel,
@@ -198,7 +200,9 @@ export const mutations = {
       createdAt,
       hardwareAbstractionTechnology,
       os,
+      osVersion,
       kernel,
+      kernelVersion,
       memoryTotal,
       swapTotal,
       cpuModel,
