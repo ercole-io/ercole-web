@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import _ from 'lodash'
 import moment from 'moment'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -80,15 +80,12 @@ export default {
       selectedType: null
     }
   },
-  async beforeMount() {
-    await this.getLicenseHistory()
-
-    this.selectedType = this.getChartLicenseHistory[0].licenseTypeID
+  beforeUpdate() {
     this.mountLincenseChart()
   },
   methods: {
-    ...mapActions(['getLicenseHistory']),
     mountLincenseChart() {
+      this.selectedType = this.getChartLicenseHistory[0].licenseTypeID
       let findType = matchType(this.getChartLicenseHistory, this.selectedType)
 
       const purchasedLicenses = mapLicenseType(findType.history, 'purchased')

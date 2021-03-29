@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import Agents from '@/components/dashboard/alerts/Agents.vue'
 import Alert from '@/components/dashboard/alerts/Alert.vue'
@@ -27,12 +27,6 @@ export default {
     BoxContent,
     Agents,
     Alert
-  },
-  async beforeMount() {
-    await this.getAlertsData({ status: 'NEW' })
-  },
-  methods: {
-    ...mapActions(['getAlertsData'])
   },
   computed: {
     ...mapGetters(['getFirstAlertByCategory', 'getTotalAlertsByCategory'])

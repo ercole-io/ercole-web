@@ -1,5 +1,5 @@
-import axiosDefault from '@/axios/axios-default.js'
-import axiosChart from '@/axios/axios-chart.js'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
+import axiosChartNoLoading from '@/axios/axios-chart-no-loading.js'
 import _ from 'lodash'
 
 const getExtraTechInfo = (techName, techs) => {
@@ -76,16 +76,19 @@ export const mutations = {
 
 export const actions = {
   async getDashboardData({ commit, dispatch }) {
-    const dashData = await axiosDefault.get('/frontend/dashboard')
+    dispatch('onLoading')
+
+    dispatch('getLicenseHistory') // Licenses Chart
+    dispatch('getAlertsData', { status: 'NEW' }) // Alerts Boxes
+    dispatch('getTechnologiesData') // Technology Box
+    dispatch('getGlobalFiltersData') // Load Gloabl Filters Selectable Data
+
+    const dashData = await axiosNoLoading.get('/frontend/dashboard')
     const dashResponse = await dashData.data
     commit('SET_DASHBOARD_DATA', dashResponse)
-
-    dispatch('getGlobalFiltersData')
-    dispatch('getTechnologiesData')
-    dispatch('getHosts')
   },
   async getLicenseHistory({ commit }) {
-    const licenseHistory = await axiosChart.get(
+    const licenseHistory = await axiosChartNoLoading.get(
       '/technologies/oracle/license-history'
     )
     const response = await licenseHistory.data
