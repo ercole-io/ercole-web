@@ -40,6 +40,8 @@ export default {
         }
       })
 
+      _.reverse(datafile)
+
       return this.mountFinalData(datafile)
     },
     calcSegmentsSize() {
@@ -51,6 +53,8 @@ export default {
         }
       })
 
+      _.reverse(segments)
+
       return this.mountFinalData(segments)
     },
     calcAllocatedSize() {
@@ -61,6 +65,8 @@ export default {
           value: allocable
         }
       })
+
+      _.reverse(allocated)
 
       return this.mountFinalData(allocated)
     },
