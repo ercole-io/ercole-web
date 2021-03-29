@@ -216,17 +216,29 @@
               :min="minthreads"
               :max="maxthreads"
             >
-              <template v-for="val in filteredthreads">
+              <b-slider-tick :value="minthreads">
+                {{ minthreads }}
+              </b-slider-tick>
+              <b-slider-tick :value="maxthreads">
+                {{ maxthreads }}
+              </b-slider-tick>
+              <!-- <template v-for="val in filteredthreads">
                 <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
-              </template>
+              </template> -->
             </b-slider>
           </CustomField>
 
           <CustomField label="Cores">
             <b-slider v-model="filters.cores" :min="mincores" :max="maxcores">
-              <template v-for="val in filteredcores">
+              <b-slider-tick :value="mincores">
+                {{ mincores }}
+              </b-slider-tick>
+              <b-slider-tick :value="maxcores">
+                {{ maxcores }}
+              </b-slider-tick>
+              <!-- <template v-for="val in filteredcores">
                 <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
-              </template>
+              </template> -->
             </b-slider>
           </CustomField>
 
@@ -236,9 +248,15 @@
               :min="minsocket"
               :max="maxsocket"
             >
-              <template v-for="val in filteredsocket">
+              <b-slider-tick :value="minsocket">
+                {{ minsocket }}
+              </b-slider-tick>
+              <b-slider-tick :value="maxsocket">
+                {{ maxsocket }}
+              </b-slider-tick>
+              <!-- <template v-for="val in filteredsocket">
                 <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
-              </template>
+              </template> -->
             </b-slider>
           </CustomField>
         </Collapse>
@@ -299,16 +317,16 @@ export default {
       techTypeOptions: [],
       platformOptions: [],
       versionOptions: [],
-      filteredthreads: [],
+      // filteredthreads: [],
       minthreads: null,
       maxthreads: null,
-      filteredcores: [],
+      // filteredcores: [],
       mincores: null,
       maxcores: null,
-      filteredsocket: [],
+      // filteredsocket: [],
       minsocket: null,
       maxsocket: null,
-      filteredmemorytotal: [],
+      // filteredmemorytotal: [],
       minmemorytotal: null,
       maxmemorytotal: null,
       minswaptotal: null,
