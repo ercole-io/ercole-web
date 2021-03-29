@@ -85,7 +85,6 @@
         :currentPage.sync="currentPage"
         :totalPages="totalPages"
         :maxPageLinks="maxPageLinks"
-        style="margin-left: auto"
       />
       <div class="buttons mb-0" slot="info">
         <slot name="export" />

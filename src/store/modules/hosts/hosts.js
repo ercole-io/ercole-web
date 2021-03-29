@@ -1,4 +1,5 @@
 import axiosDefault from '@/axios/axios-default'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
 import {
   mapDbs,
@@ -6,9 +7,10 @@ import {
   mapClustStatus,
   filterByKeys
 } from '@/helpers/helpers.js'
+import router from '@/router'
 
 export const state = () => ({
-  hosts: {}
+  hosts: []
 })
 
 export const getters = {
@@ -56,13 +58,23 @@ export const mutations = {
 
 export const actions = {
   async getHosts({ commit, getters }, olderThan = null) {
-    const hostsData = await axiosDefault.get('/hosts', {
-      params: {
-        'older-than': getters.getActiveFilters.date || olderThan,
-        environment: getters.getActiveFilters.environment,
-        location: getters.getActiveFilters.location
-      }
-    })
+    const params = {
+      'older-than': getters.getActiveFilters.date || olderThan,
+      environment: getters.getActiveFilters.environment,
+      location: getters.getActiveFilters.location
+    }
+
+    let hostsData
+    if (router.currentRoute.name === 'hosts') {
+      hostsData = await axiosDefault.get('/hosts', {
+        params: params
+      })
+    } else {
+      hostsData = await axiosNoLoading.get('/hosts', {
+        params: params
+      })
+    }
+
     const response = await hostsData.data
     commit('SET_HOSTS', response)
     commit('SET_HOSTNAMES', response)

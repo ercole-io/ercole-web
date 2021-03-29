@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="isMounted">
     <div class="columns is-desktop">
       <div class="column is-3">
         <ButtonGroup groupTitle="Show more info:">
@@ -28,7 +28,7 @@
             Agent
           </b-button>
         </ButtonGroup>
-        <HostsFilters v-if="isMounted" />
+        <HostsFilters />
       </div>
       <div class="column is-9">
         <BoxContent :mbottom="false">
@@ -162,7 +162,11 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getHosts().then(() => (this.isMounted = true))
+    if (this.getAllHosts.length > 0) {
+      this.isMounted = true
+    } else {
+      await this.getHosts().then(() => (this.isMounted = true))
+    }
   },
   methods: {
     ...mapActions(['getHosts']),

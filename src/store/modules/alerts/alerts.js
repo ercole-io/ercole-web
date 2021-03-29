@@ -3,6 +3,7 @@ import axiosNoLoading from '@/axios/axios-no-loading.js'
 import { returnAlertsByTypeDate, filterByKeys } from '@/helpers/helpers.js'
 import moment from 'moment'
 import _ from 'lodash'
+import router from '@/router'
 
 const startDate = moment()
   .subtract(1, 'week')
@@ -163,15 +164,25 @@ export const mutations = {
 
 export const actions = {
   async getAlertsData({ commit, getters }, data) {
-    const alertsData = await axiosDefault.get('/alerts', {
-      params: {
-        status: data.status,
-        from: data.startDate,
-        to: data.endDate,
-        environment: getters.getActiveFilters.environment,
-        location: getters.getActiveFilters.location
-      }
-    })
+    const params = {
+      status: data.status,
+      from: data.startDate,
+      to: data.endDate,
+      environment: getters.getActiveFilters.environment,
+      location: getters.getActiveFilters.location
+    }
+
+    let alertsData
+    if (router.currentRoute.name === 'alerts') {
+      alertsData = await axiosDefault.get('/alerts', {
+        params: params
+      })
+    } else {
+      alertsData = await axiosNoLoading.get('/alerts', {
+        params: params
+      })
+    }
+
     const response = await alertsData.data
     _.map(response, val => {
       if (val.alertCategory !== 'AGENT') {
