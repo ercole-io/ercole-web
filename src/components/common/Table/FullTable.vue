@@ -1,7 +1,11 @@
 <template>
   <section>
     <TopTable v-if="!hideTopTable">
-      <SelectPerPage :totalItems="total.length" v-if="!hidePerpage" />
+      <SelectPerPage
+        :totalItems="total.length"
+        v-if="!hidePerpage"
+        class="mb-0"
+      />
 
       <slot name="customTopHeader" />
 
@@ -81,6 +85,7 @@
         :currentPage.sync="currentPage"
         :totalPages="totalPages"
         :maxPageLinks="maxPageLinks"
+        style="margin-left: auto"
       />
       <div class="buttons mb-0" slot="info">
         <slot name="export" />

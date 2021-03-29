@@ -12,5 +12,6 @@ export default {}
 .top-table {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.75rem;
 }
 </style>
