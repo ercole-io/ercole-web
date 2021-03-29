@@ -14,7 +14,7 @@
       <v-th sortKey="charsetSystem">Charset</v-th>
       <v-th sortKey="architecture">Architecture</v-th>
       <v-th sortKey="bufferPoolSize">Buffer</v-th>
-      <v-th sortKey="edition">Edition</v-th>engine
+      <v-th sortKey="edition">Edition</v-th>
       <v-th sortKey="engine">Engine</v-th>
       <v-th sortKey="platform">Platform</v-th>
       <v-th sortKey="version">Version</v-th>
