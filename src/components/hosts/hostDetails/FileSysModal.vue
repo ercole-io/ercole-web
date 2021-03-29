@@ -1,16 +1,14 @@
 <template>
   <div>
-    <span class="filesys mr-1">
-      <b-button
-        label="File Systems"
-        @click="isFilesysModalActive = true"
-        type="is-primary"
-        icon-pack="fas"
-        icon-left="receipt"
-        size="is-small"
-        class="ml-1"
-      />
-    </span>
+    <b-button
+      label="File Systems"
+      @click="isFilesysModalActive = true"
+      type="is-primary"
+      icon-pack="fas"
+      icon-left="receipt"
+      size="is-small"
+      class="ml-1"
+    />
 
     <b-modal :active.sync="isFilesysModalActive" :width="750" scroll="keep">
       <FileSysContent :fileSysData="hostDetails.filesys" />
@@ -37,9 +35,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.filesys {
-  font-size: 0.8em;
-  line-height: 27px;
-}
-</style>
+<style lang="scss" scoped></style>

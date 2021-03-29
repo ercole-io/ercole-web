@@ -4,11 +4,11 @@
       <div class="column is-8">
         <NotificationsInfo />
       </div>
-      <div class="column is-2 has-text-right">
-        <FileSysModal />
-      </div>
-      <div class="column is-2 has-text-right">
-        <DismissHost :hostname="hostname" />
+      <div class="column is-4">
+        <div class="buttons is-justify-content-flex-end">
+          <FileSysModal />
+          <DismissHost :hostname="hostname" />
+        </div>
       </div>
     </div>
 
