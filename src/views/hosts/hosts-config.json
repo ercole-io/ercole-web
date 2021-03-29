@@ -41,7 +41,7 @@
   },
   { "sort": "environment", "name": "Env", "type": "", "class": "" },
   { "sort": "databases", "name": "DBs", "type": "", "class": "" },
-  { "sort": "tech Type", "name": "Tech", "type": "", "class": "" },
+  { "sort": "techType", "name": "Tech", "type": "", "class": "" },
   { "sort": "os", "name": "OS", "type": "", "class": "" },
   { "sort": "iconCluster", "name": "Clust", "type": "", "class": "" },
   { "sort": "kernel", "name": "Kernel", "type": "", "class": "" },
