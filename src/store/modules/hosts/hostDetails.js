@@ -212,10 +212,17 @@ export const mutations = {
     }
 
     const hostDBs = payload.features.oracle.database.databases
+
     const dbs = []
+    let number = 0
     if (hostDBs && hostDBs.length > 0) {
       _.forEach(hostDBs, val => {
         if (val.name) {
+          if (val.name === 'ERCOLE') {
+            number++
+            val.name = `${val.name}-${number}`
+          }
+          // console.log(val.name)
           dbs.push(val)
         }
       })

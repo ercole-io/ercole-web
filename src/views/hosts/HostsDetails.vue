@@ -62,10 +62,10 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getHostByName(this.hostname)
+    await this.getHostByName(this.hostname).then(() => {
+      this.isMounted = true
+    })
     bus.$emit('dynamicTitle', this.hostname)
-
-    this.isMounted = true
   },
   methods: {
     ...mapActions(['getHostByName'])
