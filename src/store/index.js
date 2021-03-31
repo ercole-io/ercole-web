@@ -11,7 +11,7 @@ import * as hosts from './modules/hosts/hosts'
 import * as hostnames from './modules/hostnames'
 import * as hostDetails from './modules/hosts/hostDetails'
 import * as alerts from './modules/alerts/alerts'
-import * as licenses from './modules/licenses/licenses'
+import * as licensesUsed from './modules/licenses/licenses-used'
 import * as licensesAgreement from './modules/licenses/licenses-agreement'
 import * as licensesCompliance from './modules/licenses/licenses-compliance'
 import * as clusters from './modules/hypervisors/clusters'
@@ -40,7 +40,7 @@ export default new Vuex.Store({
     hostnames,
     hostDetails,
     alerts,
-    licenses,
+    licensesUsed,
     licensesAgreement,
     licensesCompliance,
     clusters,
