@@ -1,4 +1,4 @@
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import axiosDeafult from '@/axios/axios-default.js'
 
 export const state = () => ({
   allTechs: {}
@@ -18,7 +18,7 @@ export const mutations = {
 
 export const actions = {
   async getTechnologiesData({ commit }) {
-    const techData = await axiosNoLoading.get('/settings/technologies')
+    const techData = await axiosDeafult.get('/settings/technologies')
     const response = await techData.data
 
     commit('SET_TECHNOLOGIES_DATA', response)

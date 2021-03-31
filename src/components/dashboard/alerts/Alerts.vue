@@ -28,6 +28,9 @@ export default {
     Agents,
     Alert
   },
+  async beforeMount() {
+    await this.$store.dispatch('getAlertsData', { status: 'NEW' })
+  },
   computed: {
     ...mapGetters(['getFirstAlertByCategory', 'getTotalAlertsByCategory'])
   }
