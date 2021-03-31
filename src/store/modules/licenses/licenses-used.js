@@ -25,7 +25,7 @@ export const mutations = {
 export const actions = {
   async getLicensesList({ commit, getters }) {
     const licensesList = await axiosDefault.get(
-      '/hosts/technologies/oracle/databases/consumed-licenses',
+      '/hosts/technologies/all/databases/licenses-used',
       {
         params: {
           'older-than': getters.getActiveFilters.date,
@@ -34,7 +34,7 @@ export const actions = {
         }
       }
     )
-    const response = await licensesList.data
+    const response = await licensesList.data.usedLicenses
 
     let setLicensesInfo = _.map(response, val => {
       return {

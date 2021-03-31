@@ -45,7 +45,7 @@ export const mutations = {
 export const actions = {
   async getComplianceList({ commit, getters }) {
     const complianceList = await axiosDefault.get(
-      '/hosts/technologies/oracle/databases/licenses-compliance',
+      '/hosts/technologies/all/databases/licenses-compliance',
       {
         params: {
           'older-than': getters.getActiveFilters.date,
@@ -54,7 +54,7 @@ export const actions = {
         }
       }
     )
-    const response = await complianceList.data
+    const response = await complianceList.data.licensesCompliance
 
     commit('SET_COMPLIANCE_LIST', response)
   }
