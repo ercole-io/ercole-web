@@ -14,6 +14,9 @@ export default {
     BoxContent,
     Technologie
   },
+  async beforeMount() {
+    await this.$store.dispatch('getTechnologiesData')
+  },
   computed: {
     ...mapGetters(['getTechnologies'])
   }

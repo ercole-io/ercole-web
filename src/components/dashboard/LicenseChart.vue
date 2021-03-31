@@ -77,15 +77,16 @@ export default {
   data() {
     return {
       finalChartData: [],
-      selectedType: null
+      selectedType: ''
     }
   },
-  beforeUpdate() {
+  async beforeMount() {
+    await this.$store.dispatch('getLicenseHistory')
+    this.selectedType = this.getChartLicenseHistory[0].licenseTypeID
     this.mountLincenseChart()
   },
   methods: {
     mountLincenseChart() {
-      this.selectedType = this.getChartLicenseHistory[0].licenseTypeID
       let findType = matchType(this.getChartLicenseHistory, this.selectedType)
 
       const purchasedLicenses = mapLicenseType(findType.history, 'purchased')

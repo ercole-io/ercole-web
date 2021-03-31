@@ -44,15 +44,13 @@ export default {
     Alerts
   },
   async beforeMount() {
-    this.$store.dispatch('getHosts') // Pre Load Hosts
-
     await this.getDashboardData().then(() => {
-      this.$store.dispatch('offLoading')
+      this.$store.dispatch('getHosts') // Pre Load Hosts
     })
 
     setInterval(() => {
       this.$store.dispatch('getHosts') // Update hosts automatically each hour
-    }, 3600000)
+    }, 300000)
   },
   methods: {
     ...mapActions(['getDashboardData'])

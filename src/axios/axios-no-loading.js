@@ -1,6 +1,6 @@
 import axios from 'axios'
-import errorResponseHandler from '../helpers/errorHandler.js'
-import store from '../store/index.js'
+import errorResponseHandler from '@/helpers/errorHandler.js'
+import store from '@/store/index.js'
 
 const defaultInstance = axios.create()
 
