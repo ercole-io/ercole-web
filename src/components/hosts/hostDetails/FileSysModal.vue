@@ -7,7 +7,7 @@
       icon-pack="fas"
       icon-left="receipt"
       size="is-small"
-      class="ml-1"
+      class="ml-1 mr-0"
     />
 
     <b-modal :active.sync="isFilesysModalActive" :width="750" scroll="keep">

@@ -14,9 +14,9 @@
         <TdContent :value="rowData.scope.filesystem" />
         <TdContent :value="rowData.scope.type" />
         <TdContent :value="rowData.scope.mountedOn" />
-        <TdContent :value="rowData.scope.size" />
-        <TdContent :value="rowData.scope.availableSpace" />
-        <TdContent :value="rowData.scope.usedSpace" />
+        <TdContent :value="rowData.scope.size | prettyBytes" />
+        <TdContent :value="rowData.scope.availableSpace | prettyBytes" />
+        <TdContent :value="rowData.scope.usedSpace | prettyBytes" />
       </template>
     </FullTable>
   </Card>
