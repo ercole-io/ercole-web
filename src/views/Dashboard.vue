@@ -45,7 +45,8 @@ export default {
   },
   async beforeMount() {
     await this.getDashboardData().then(() => {
-      this.$store.dispatch('getHosts') // Pre Load Hosts
+      this.$store.dispatch('getHosts') // Pre Load Hosts to cache info and save hostnames on vuex-persisted
+      this.$store.dispatch('getClusters') // Pre load clusters to save clusternames on vuex-persisted
     })
 
     setInterval(() => {

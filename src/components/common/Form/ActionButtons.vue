@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed-buttons">
+  <div :class="{ 'fixed-buttons': isFixed }">
     <div class="is-flex is-justify-content-space-between">
       <b-button
         type="is-danger"
@@ -7,15 +7,16 @@
         @click="reset"
         class="m-2 mb-0"
       >
-        Reset
+        {{ cancelText }}
       </b-button>
       <b-button
         type="is-primary"
         size="is-small"
         native-type="submit"
         class="m-2 mb-0"
+        :disabled="isDisabled"
       >
-        Apply
+        {{ applyText }}
       </b-button>
     </div>
   </div>
@@ -25,9 +26,30 @@
 import { bus } from '@/helpers/eventBus.js'
 
 export default {
+  props: {
+    applyText: {
+      type: String,
+      default: 'Apply'
+    },
+    cancelText: {
+      type: String,
+      default: 'Reset'
+    },
+    isDisabled: {
+      type: Boolean,
+      default: false
+    },
+    isFixed: {
+      type: Boolean,
+      default: true
+    }
+  },
   methods: {
+    Apply() {
+      bus.$emit('onApplyAction')
+    },
     reset() {
-      bus.$emit('resetFilters')
+      bus.$emit('onResetAction')
     }
   }
 }

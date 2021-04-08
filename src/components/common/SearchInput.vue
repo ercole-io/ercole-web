@@ -6,7 +6,7 @@
     icon-right-clickable
     @icon-right-click="onClear"
     size="is-small"
-    style="height: 30px;"
+    style="height: 30px; margin-left: auto;"
     :placeholder="searchPlaceholder"
     @blur="onBlur"
     v-model="searchTherm"

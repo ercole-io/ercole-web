@@ -1,0 +1,64 @@
+<template>
+  <b-button
+    class="toggleCol"
+    size="is-small"
+    type="is-text"
+    slot="customTopHeader"
+    pack="fas"
+    :icon-right="toggle ? 'chevron-right' : 'chevron-left'"
+    @click="toggle = !toggle"
+  >
+    {{ toggle ? `Show ${this.toggleText}` : `Hide ${this.toggleText}` }}
+  </b-button>
+</template>
+
+<script>
+import { bus } from '@/helpers/eventBus.js'
+
+export default {
+  props: {
+    toggleText: {
+      type: String,
+      default: ''
+    },
+    hideDirection: {
+      type: String,
+      default: 'right'
+    }
+  },
+  data() {
+    return {
+      toggle: true
+    }
+  },
+  watch: {
+    toggle() {
+      bus.$emit('toggleColumn', {
+        direction: this.hideDirection,
+        toggle: this.toggle
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.toggleCol {
+  position: absolute;
+  right: 20px;
+  top: 110px;
+  padding: 0;
+  z-index: 999999999999;
+
+  &:hover {
+    background-color: transparent;
+    color: #679189;
+  }
+
+  &:focus {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+}
+</style>

@@ -3,24 +3,25 @@ import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
 
 export const state = () => ({
-  licensesAgreement: []
+  oracleAgreements: [],
+  mysqlAgreements: []
 })
 
 export const getters = {
   getLicenseAgreementHostAssociated: state => id => {
-    const findHostAssociated = _.find(state.licensesAgreement, val => {
+    const findHostAssociated = _.find(state.oracleAgreements, val => {
       return val.id === id
     })
     const hostsAssociated = findHostAssociated.hosts
     return hostsAssociated
   },
-  returnLicensesAgreement: state => {
-    return state.licensesAgreement
+  returnLicensesAgreement: state => type => {
+    return state[type + 'Agreements']
   },
   returnAgreeNumbers: state => {
     const agreeNumbers = []
 
-    _.map(state.licensesAgreement, val => {
+    _.map(state.oracleAgreements, val => {
       agreeNumbers.push(val.agreementID)
     })
     return agreeNumbers
@@ -28,7 +29,7 @@ export const getters = {
   returnCsiNumbers: state => {
     const csiNumbers = []
 
-    _.map(state.licensesAgreement, val => {
+    _.map(state.oracleAgreements, val => {
       csiNumbers.push(val.csi)
     })
     return csiNumbers
@@ -36,7 +37,7 @@ export const getters = {
   returnReferenceNumbers: state => {
     const referenceNumbers = []
 
-    _.map(state.licensesAgreement, val => {
+    _.map(state.oracleAgreements, val => {
       referenceNumbers.push(val.referenceNumber)
     })
     return referenceNumbers
@@ -44,23 +45,72 @@ export const getters = {
 }
 
 export const mutations = {
-  SET_LICENSE_AGREEMENT: (state, payload) => {
-    state.licensesAgreement = payload
+  SET_AGREEMENTS: (state, payload) => {
+    state[payload.type + 'Agreements'] =
+      payload.type === 'oracle' ? payload.res : payload.res.agreements
+  },
+  CREATE_AGREEMENT: (state, payload) => {
+    state[payload.type + 'Agreements'].unshift(payload.body)
+  },
+  UPDATE_AGREEMENTS: (state, payload) => {
+    const item = _.find(
+      state[payload.type + 'Agreements'],
+      val => val.id === payload.body.id
+    )
+    Object.assign(item, payload.body)
+  },
+  DELETE_AGREEMENT: (state, payload) => {
+    const index = _.findIndex(
+      state[payload.type + 'Agreements'],
+      val => val.id === payload.id
+    )
+    state[payload.type + 'Agreements'].splice(index, 1)
   }
 }
 
 export const actions = {
-  async getLicensesAgreement({ commit }, noLoading = null) {
+  async getLicensesAgreement({ commit, dispatch }, type, noLoading = null) {
+    dispatch('getAgreementParts')
     let agreementList = null
 
     if (noLoading) {
-      agreementList = await axiosNoLoading.get('/agreements/oracle/database')
+      agreementList = await axiosNoLoading.get(`/agreements/${type}/database`)
     } else {
-      agreementList = await axiosDefault.get('/agreements/oracle/database')
+      agreementList = await axiosDefault.get(`/agreements/${type}/database`)
     }
 
     const response = await agreementList.data
 
-    commit('SET_LICENSE_AGREEMENT', response)
+    commit('SET_AGREEMENTS', { res: response, type: type })
+  },
+  async createLicenseAgreement({ commit }, payload) {
+    const create = await axiosDefault.post(
+      `/agreements/${payload.type}/database`,
+      payload.body
+    )
+    const response = await create.data
+    payload.body.id = response
+
+    commit('CREATE_AGREEMENT', payload)
+  },
+  async updateLicenseAgreement({ commit }, payload) {
+    if (payload.type === 'mysql') {
+      await axiosDefault.put(
+        `/agreements/${payload.type}/database/${payload.body.id}`,
+        payload.body
+      )
+    } else if (payload.type === 'oracle') {
+      await axiosDefault.put(
+        `/agreements/${payload.type}/database`,
+        payload.body
+      )
+    }
+
+    commit('UPDATE_AGREEMENTS', payload)
+  },
+  async deleteAgreement(context, payload) {
+    await axiosDefault.delete(
+      `/agreements/${payload.type}/database/${payload.id}`
+    )
   }
 }

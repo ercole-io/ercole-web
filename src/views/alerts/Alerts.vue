@@ -251,7 +251,7 @@ export default {
       return row.alertSeverity.length
     },
     removeParams() {
-      bus.$emit('resetFilters')
+      bus.$emit('onResetAction')
     },
     formatDate(date) {
       return formatDate(date)
