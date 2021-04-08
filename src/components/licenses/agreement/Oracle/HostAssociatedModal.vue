@@ -13,7 +13,7 @@
       :active.sync="openModal"
       :width="750"
       scroll="keep"
-      :on-cancel="getLicensesAgreement"
+      :on-cancel="() => getLicensesAgreement('oracle')"
     >
       <b-loading
         :is-full-page="false"
@@ -148,7 +148,7 @@ export default {
           `/agreements/oracle/database/${this.licenseID}/hosts/${hostname}`
         )
         .then(() => {
-          this.getLicensesAgreement('noLoading').then(() => {
+          this.getLicensesAgreement('oracle', 'noLoading').then(() => {
             this.isLoading = false
           })
         })

@@ -56,7 +56,7 @@
         </b-slider>
       </CustomField>
 
-      <FiltersButtons />
+      <ActionButtons />
     </form>
   </DrawerFilters>
 </template>
@@ -66,14 +66,14 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import DrawerFilters from '@/components/common/DrawerFilters.vue'
-import FiltersButtons from '@/components/common/Filters/FiltersButtons.vue'
-import CustomField from '@/components/common/Filters/CustomField.vue'
+import ActionButtons from '@/components/common/Form/ActionButtons.vue'
+import CustomField from '@/components/common/Form/CustomField.vue'
 
 export default {
   mixins: [localFiltersMixin],
   components: {
     DrawerFilters,
-    FiltersButtons,
+    ActionButtons,
     CustomField
   },
   data() {
@@ -86,7 +86,7 @@ export default {
   beforeMount() {
     this.setSlider()
 
-    bus.$on('resetFilters', () => this.reset(this.resetFilters))
+    bus.$on('onResetAction', () => this.reset(this.resetFilters))
   },
   methods: {
     resetFilters() {

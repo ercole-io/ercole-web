@@ -283,7 +283,7 @@
           </CustomField>
         </Collapse>
 
-        <FiltersButtons />
+        <ActionButtons />
       </form>
     </div>
   </BoxContent>
@@ -298,8 +298,8 @@ import {
 } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
-import FiltersButtons from '@/components/common/Filters/FiltersButtons.vue'
-import CustomField from '@/components/common/Filters/CustomField.vue'
+import ActionButtons from '@/components/common/Form/ActionButtons.vue'
+import CustomField from '@/components/common/Form/CustomField.vue'
 import Collapse from '@/components/common/Collapse.vue'
 import formatDate from '@/filters/formatDate.js'
 
@@ -307,7 +307,7 @@ export default {
   mixins: [localFiltersMixin],
   components: {
     BoxContent,
-    FiltersButtons,
+    ActionButtons,
     CustomField,
     Collapse
   },
@@ -338,7 +338,7 @@ export default {
     this.configAutocomplete()
     this.setSlider()
 
-    bus.$on('resetFilters', () => this.reset(this.resetFilters))
+    bus.$on('onResetAction', () => this.reset(this.resetFilters))
   },
   methods: {
     ...mapActions(['getHosts']),

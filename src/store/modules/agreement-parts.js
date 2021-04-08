@@ -1,4 +1,4 @@
-import axiosDefault from '@/axios/axios-default.js'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
 
 export const state = () => ({
@@ -43,7 +43,7 @@ export const mutations = {
 
 export const actions = {
   async getAgreementParts({ commit }) {
-    const agreementParts = await axiosDefault.get(
+    const agreementParts = await axiosNoLoading.get(
       '/settings/oracle/database/license-types'
     )
     const response = await agreementParts.data

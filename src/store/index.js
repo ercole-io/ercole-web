@@ -15,6 +15,7 @@ import * as licensesUsed from './modules/licenses/licenses-used'
 import * as licensesAgreement from './modules/licenses/licenses-agreement'
 import * as licensesCompliance from './modules/licenses/licenses-compliance'
 import * as clusters from './modules/hypervisors/clusters'
+import * as clusternames from './modules/clusternames.js'
 import * as technologies from './modules/technologies'
 import * as databases from './modules/databases/databases'
 import * as oracle from './modules/databases/oracle/oracle'
@@ -44,6 +45,7 @@ export default new Vuex.Store({
     licensesAgreement,
     licensesCompliance,
     clusters,
+    clusternames,
     technologies,
     databases,
     oracle,
@@ -59,7 +61,14 @@ export default new Vuex.Store({
   plugins: [
     createPersistedState({
       key: 'persisted-data',
-      paths: ['auth', 'alerts', 'technologies', 'hostnames', 'globalFilters']
+      paths: [
+        'auth',
+        'alerts',
+        'technologies',
+        'hostnames',
+        'globalFilters',
+        'clusternames'
+      ]
     })
   ]
 })

@@ -123,6 +123,7 @@ export const actions = {
     })
     const response = await clustersData.data
     commit('SET_CLUSTERS', response)
+    commit('SET_CLUSTERNAMES', response)
   },
   async getClusterByName({ commit, getters }, clustername) {
     const clusterByName = await axiosDefault.get(
