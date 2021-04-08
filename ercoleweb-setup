@@ -1,11 +1,12 @@
 #!/bin/sh
 
 # Get the required value
-API_SERVICE_REMOTE_ENDPOINT=$(grep "# FE.APIService.RemoteEndpoint" /etc/ercole/conf.d/20-ercolesetup.toml | cut -d'=' -f2 | sed -e 's/[[:space:]]*"//' | sed -e 's/"[[:space:]]*//')
+API_SERVICE_REMOTE_ENDPOINT=$(grep "FE.APIService.RemoteEndpoint" /etc/ercole/conf.d/20-ercolesetup.toml | cut -d'=' -f2 | sed -e 's/[[:space:]]*"//' | sed -e 's/"[[:space:]]*//')
 if [ -z $API_SERVICE_REMOTE_ENDPOINT ]; then 
 	API_SERVICE_REMOTE_ENDPOINT=$(grep "APIService.RemoteEndpoint" /etc/ercole/conf.d/20-ercolesetup.toml | cut -d'=' -f2 | sed -e 's/[[:space:]]*"//' | sed -e 's/"[[:space:]]*//')
 fi
-CHART_SERVICE_REMOTE_ENDPOINT=$(grep "# FE.ChartService.RemoteEndpoint" /etc/ercole/conf.d/20-ercolesetup.toml | cut -d'=' -f2 | sed -e 's/[[:space:]]*"//' | sed -e 's/"[[:space:]]*//')
+
+CHART_SERVICE_REMOTE_ENDPOINT=$(grep "FE.ChartService.RemoteEndpoint" /etc/ercole/conf.d/20-ercolesetup.toml | cut -d'=' -f2 | sed -e 's/[[:space:]]*"//' | sed -e 's/"[[:space:]]*//')
 if [ -z $CHART_SERVICE_REMOTE_ENDPOINT ]; then 
 	CHART_SERVICE_REMOTE_ENDPOINT=$(grep "ChartService.RemoteEndpoint" /etc/ercole/conf.d/20-ercolesetup.toml | cut -d'=' -f2 | sed -e 's/[[:space:]]*"//' | sed -e 's/"[[:space:]]*//')
 fi
