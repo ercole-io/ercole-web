@@ -47,7 +47,11 @@ export const getters = {
 export const mutations = {
   SET_AGREEMENTS: (state, payload) => {
     state[payload.type + 'Agreements'] =
-      payload.type === 'oracle' ? payload.res : payload.res.agreements
+      payload.type === 'oracle'
+        ? payload.res
+        : payload.res.agreements
+        ? payload.res.agreements
+        : []
   },
   CREATE_AGREEMENT: (state, payload) => {
     state[payload.type + 'Agreements'].unshift(payload.body)

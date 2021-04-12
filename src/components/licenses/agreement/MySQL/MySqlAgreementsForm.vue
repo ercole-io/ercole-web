@@ -54,7 +54,11 @@
         />
       </b-field>
 
-      <b-field label="Hosts" custom-class="is-small">
+      <b-field
+        label="Hosts"
+        custom-class="is-small"
+        v-if="mysqlForm.agreementType === 'host'"
+      >
         <b-taginput
           v-model="mysqlForm.agreementHosts"
           :data="filteredHostTags"
@@ -91,7 +95,11 @@
         </b-taginput>
       </b-field>
 
-      <b-field label="Clusters" custom-class="is-small">
+      <b-field
+        label="Clusters"
+        custom-class="is-small"
+        v-if="mysqlForm.agreementType === 'cluster'"
+      >
         <b-taginput
           v-model="mysqlForm.agreementClusters"
           :data="filteredClusterTags"
@@ -180,8 +188,8 @@ export default {
       let mysqlAgreementData = {
         type: this.mysqlForm.agreementType,
         numberOfLicenses: Number(this.mysqlForm.agreementNumber),
-        hosts: this.mysqlForm.agreementHosts,
-        clusters: this.mysqlForm.agreementClusters
+        hosts: this.mysqlForm.agreementHosts || [],
+        clusters: this.mysqlForm.agreementClusters || []
       }
       if (!this.mysqlForm.licenseID) {
         this.createLicenseAgreement({
