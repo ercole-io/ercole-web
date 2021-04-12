@@ -69,18 +69,18 @@ export default {
                   icon: 'fas fa-band-aid'
                 }
               ]
+            },
+            {
+              title: 'MySQL',
+              icon: 'fas fa-cog',
+              child: [
+                {
+                  title: 'DB List',
+                  href: { name: 'mysql' },
+                  icon: 'fas fa-database'
+                }
+              ]
             }
-            // {
-            //   title: 'MySQL',
-            //   icon: 'fas fa-cog',
-            //   child: [
-            //     {
-            //       title: 'DB List',
-            //       href: { name: 'mysql' },
-            //       icon: 'fas fa-database'
-            //     }
-            //   ]
-            // }
           ]
         },
         {
