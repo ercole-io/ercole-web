@@ -36,10 +36,14 @@ export default {
           icon: 'fas fa-server'
         },
         {
-          href: { path: '/databases' },
           title: 'Databases',
           icon: 'fas fa-database',
           child: [
+            {
+              title: 'All technologies',
+              href: { path: '/databases' },
+              icon: 'fas fa-cog'
+            },
             {
               title: 'Oracle',
               icon: 'fas fa-cog',
