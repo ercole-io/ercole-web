@@ -69,29 +69,6 @@
     <BoxContent title="Add or Modify an Oracle Agreement" slot="right">
       <form @submit.prevent="addUpdateAgreement">
         <b-field
-          label="Type of Technologie *"
-          custom-class="is-small"
-          :type="{
-            'is-danger': $v.oracleForm.techType.$error
-          }"
-          :message="{
-            'This field is required':
-              !$v.oracleForm.techType.required && $v.oracleForm.techType.$error
-          }"
-        >
-          <b-select
-            @blur="$v.oracleForm.techType.$touch()"
-            @input="$v.oracleForm.techType.$touch()"
-            size="is-small"
-            placeholder="Select"
-            v-model="oracleForm.techType"
-            expanded
-          >
-            <option value="Oracle">Oracle</option>
-          </b-select>
-        </b-field>
-
-        <b-field
           label="Agreement Number *"
           custom-class="is-small"
           :type="{
@@ -370,7 +347,6 @@ export default {
   },
   validations: {
     oracleForm: {
-      techType: { required },
       agreeNumber: { required, numeric },
       partNumber: { required },
       csi: { required },
@@ -401,7 +377,6 @@ export default {
       ],
       oracleForm: {
         licenseId: '',
-        techType: 'Oracle',
         agreeNumber: '',
         partNumber: [],
         csi: '',
@@ -467,7 +442,6 @@ export default {
       this.oracleForm.csi = data.csi
       this.oracleForm.partNumber = `${data.licenseTypeID} - ${data.itemDescription} - ${data.metric}`
       this.oracleForm.referenceNumber = data.referenceNumber
-      this.oracleForm.techType = 'Oracle'
       this.oracleForm.ula = data.unlimited
       this.oracleForm.licenseNumber = Number(data.count)
       this.oracleForm.hostAssociated = this.checkArray(data.hosts)

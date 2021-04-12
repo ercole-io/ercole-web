@@ -12,7 +12,7 @@ export default {
   mixins: [HighlightSearchMixin, TooltipMixin],
   methods: {
     formatArrayToShow(val) {
-      return val.toString().replace(/,\s*/g, '\n')
+      return val.toString().replace(/,\s*/g, '\n') || '-'
     }
   }
 }
