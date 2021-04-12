@@ -1,15 +1,12 @@
 import axiosDefault from '@/axios/axios-default.js'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import { pickDatabaseChart } from '@/helpers/databasesCharts.js'
-import _ from 'lodash'
 
 export const state = () => ({
   oracleDbs: [],
+  statistics: {},
   topWorkload: [],
-  topReclaimable: [],
-  totalMemory: 0,
-  totalSegment: 0,
-  totalDatafile: 0
+  topUnusedIR: []
 })
 
 export const getters = {
@@ -22,11 +19,8 @@ export const getters = {
   getTop3workload: state => {
     return state.topWorkload.slice(0, 3)
   },
-  getTop3Reclaimable: state => {
-    return state.topReclaimable.slice(0, 3)
-  },
-  getOracleTotalCpu: state => {
-    return _.sumBy(state.oracleDbs, 'work')
+  getTop3UnusedIR: state => {
+    return state.topUnusedIR.slice(0, 3)
   }
 }
 
@@ -37,27 +31,19 @@ export const mutations = {
   SET_TOP_WORLOAD: (state, payload) => {
     state.topWorkload = payload
   },
-  SET_TOP_RECLAIMABLE: (state, payload) => {
-    state.topReclaimable = payload
+  SET_TOP_UNUSEDIR: (state, payload) => {
+    state.topUnusedIR = payload
   },
-  SET_TOTAL_MEMORY: (state, payload) => {
-    state.totalMemory = payload
-  },
-  SET_TOTAL_SEGMENT: (state, payload) => {
-    state.totalSegment = payload
-  },
-  SET_TOTAL_DATAFILE: (state, payload) => {
-    state.totalDatafile = payload
+  SET_ORACLE_STATISTICS: (state, payload) => {
+    state.statistics = payload
   }
 }
 
 export const actions = {
   async getOracleDbs({ commit, dispatch, getters }) {
     dispatch('getTopWorkload')
-    dispatch('getTopReclaimable')
-    dispatch('getTotalMemory')
-    dispatch('getTotalSegment')
-    dispatch('getTotalDatafile')
+    dispatch('getTopUnusedIR')
+    dispatch('getOracleStatistics')
 
     const oracleDbs = await axiosDefault.get(
       '/hosts/technologies/oracle/databases',
@@ -86,9 +72,9 @@ export const actions = {
     const response = await topWorkload.data
     commit('SET_TOP_WORLOAD', response)
   },
-  async getTopReclaimable({ commit, getters }) {
-    const topReclaimable = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/top-reclaimable',
+  async getTopUnusedIR({ commit, getters }) {
+    const topUnused = await axiosNoLoading.get(
+      '/hosts/technologies/oracle/databases/top-unused-instance-resource',
       {
         params: {
           'older-than': getters.getActiveFilters.date,
@@ -97,12 +83,12 @@ export const actions = {
         }
       }
     )
-    const response = await topReclaimable.data
-    commit('SET_TOP_RECLAIMABLE', response)
+    const response = await topUnused.data
+    commit('SET_TOP_UNUSEDIR', response)
   },
-  async getTotalMemory({ commit, getters }) {
-    const totalMemory = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/total-memory-size',
+  async getOracleStatistics({ commit, getters }) {
+    const stats = await axiosNoLoading.get(
+      '/hosts/technologies/oracle/databases/statistics',
       {
         params: {
           'older-than': getters.getActiveFilters.date,
@@ -111,35 +97,8 @@ export const actions = {
         }
       }
     )
-    const response = await totalMemory.data
-    commit('SET_TOTAL_MEMORY', response)
-  },
-  async getTotalSegment({ commit, getters }) {
-    const totalSegment = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/total-segment-size',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location
-        }
-      }
-    )
-    const response = await totalSegment.data
-    commit('SET_TOTAL_SEGMENT', response)
-  },
-  async getTotalDatafile({ commit, getters }) {
-    const totalDatafile = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/total-datafile-size',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location
-        }
-      }
-    )
-    const response = await totalDatafile.data
-    commit('SET_TOTAL_DATAFILE', response)
+
+    const response = await stats.data
+    commit('SET_ORACLE_STATISTICS', response)
   }
 }

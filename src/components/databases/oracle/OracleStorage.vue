@@ -3,12 +3,12 @@
     <div class="is-flex is-justify-content-space-around">
       <CardStats
         cardStatTitle="Total Segment Size"
-        :cardStatValue="oracle.totalSegment | prettyBytes"
+        :cardStatValue="totalSegmentSize | prettyBytes"
       />
 
       <CardStats
         cardStatTitle="Total Datafile Size"
-        :cardStatValue="oracle.totalDatafile | prettyBytes"
+        :cardStatValue="totalDatafileSize | prettyBytes"
       />
     </div>
   </BoxContent>
@@ -25,7 +25,13 @@ export default {
     CardStats
   },
   computed: {
-    ...mapState(['oracle'])
+    ...mapState(['oracle']),
+    totalSegmentSize() {
+      return this.oracle.statistics['total-segments-size']
+    },
+    totalDatafileSize() {
+      return this.oracle.statistics['total-datafile-size']
+    }
   }
 }
 </script>

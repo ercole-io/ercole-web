@@ -2,7 +2,7 @@
   <BoxContent title="Memory" border :mbottom="false">
     <CardStats
       cardStatTitle="Total Memory Size"
-      :cardStatValue="oracle.totalMemory | prettyBytes"
+      :cardStatValue="totalMemory | prettyBytes"
     />
   </BoxContent>
 </template>
@@ -18,7 +18,10 @@ export default {
     CardStats
   },
   computed: {
-    ...mapState(['oracle'])
+    ...mapState(['oracle']),
+    totalMemory() {
+      return this.oracle.statistics['total-memory-size']
+    }
   }
 }
 </script>
