@@ -1,9 +1,7 @@
 <template>
   <BoxContent title="Top 3 Instance Workload" border :mbottom="false">
     <!-- <Top10Link slot="customTitle" /> -->
-    <SimpleTable
-      :theadData="['', 'Host Name', 'DB Name', 'Thread Utilization']"
-    >
+    <SimpleTable :theadData="['', 'Hostname', 'DB Name', 'Thread Utilization']">
       <template slot="tbodyContent">
         <tr v-for="(workload, index) in getTop3workload" :key="index">
           <TdStarIcon :position="index" />

@@ -1,19 +1,12 @@
 <template>
   <BoxContent title="Top 3 Unused Instance Resource" border :mbottom="false">
     <!-- <Top10Link slot="customTitle" /> -->
-    <SimpleTable
-      :theadData="['', 'Host Name', 'DB Name', 'Thread Utilization']"
-    >
+    <SimpleTable :theadData="['', 'Hostname', 'Unused Thread']">
       <template slot="tbodyContent">
-        <tr v-for="(reclaimable, index) in getTop3Reclaimable" :key="index">
+        <tr v-for="(reclaimable, index) in getTop3UnusedIR" :key="index">
           <TdStarIcon :position="index" />
           <HostLink :hostname="[reclaimable.hostname, reclaimable.dbname]" />
-          <TdContent :value="reclaimable.dbname" />
-          <TdContent
-            :value="
-              reclaimable.reclaimableSegmentAdvisors | formatNumber('0.00')
-            "
-          />
+          <TdContent :value="reclaimable.unused | formatNumber('0.00')" />
         </tr>
       </template>
     </SimpleTable>
@@ -39,7 +32,7 @@ export default {
     // Top10Link
   },
   computed: {
-    ...mapGetters(['getTop3Reclaimable'])
+    ...mapGetters(['getTop3UnusedIR'])
   }
 }
 </script>
