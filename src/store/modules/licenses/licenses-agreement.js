@@ -8,15 +8,15 @@ export const state = () => ({
 })
 
 export const getters = {
+  returnLicensesAgreement: state => type => {
+    return state[type + 'Agreements']
+  },
   getLicenseAgreementHostAssociated: state => id => {
     const findHostAssociated = _.find(state.oracleAgreements, val => {
       return val.id === id
     })
     const hostsAssociated = findHostAssociated.hosts
     return hostsAssociated
-  },
-  returnLicensesAgreement: state => type => {
-    return state[type + 'Agreements']
   },
   returnAgreeNumbers: state => {
     const agreeNumbers = []
@@ -73,8 +73,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async getLicensesAgreement({ commit, dispatch }, type, noLoading = null) {
-    dispatch('getAgreementParts')
+  async getLicensesAgreement({ commit }, type, noLoading = null) {
     let agreementList = null
 
     if (noLoading) {
@@ -112,7 +111,7 @@ export const actions = {
 
     commit('UPDATE_AGREEMENTS', payload)
   },
-  async deleteAgreement(context, payload) {
+  async deleteLicenseAgreement(context, payload) {
     await axiosDefault.delete(
       `/agreements/${payload.type}/database/${payload.id}`
     )

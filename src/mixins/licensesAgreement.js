@@ -22,14 +22,15 @@ export default {
     ...mapActions([
       'getLicensesAgreement',
       'createLicenseAgreement',
-      'updateLicenseAgreement'
+      'updateLicenseAgreement',
+      'deleteLicenseAgreement'
     ]),
     deleteAgreement(type, id) {
       const payload = {
         type: type,
         id: id
       }
-      this.$store.dispatch('deleteAgreement', payload).then(() => {
+      this.deleteLicenseAgreement(payload).then(() => {
         this.$store.commit('DELETE_AGREEMENT', payload)
       })
     },

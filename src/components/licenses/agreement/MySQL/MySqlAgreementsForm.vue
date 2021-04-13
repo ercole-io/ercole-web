@@ -210,12 +210,12 @@ export default {
     },
     editAgreement(data) {
       this.mysqlForm = {
+        licenseID: data.id,
         agreementType: data.type,
         agreementNumber: data.numberOfLicenses,
         agreementHosts: data.hosts,
         agreementClusters: data.clusters
       }
-      this.mysqlForm.licenseID = data.id
     }
   }
 }
