@@ -18,6 +18,7 @@ export const state = () => ({
   currentHost: {},
   hostInfo: {},
   hostDBs: [],
+  hostType: '',
   filesys: [],
   hostAlerts: {}
 })
@@ -27,7 +28,11 @@ export const getters = {
     const dailyDbState = state.currentHost.features.oracle.database.databases
     const dailyHistory = state.currentHost.history
 
-    return mountCpuUsageChart(dailyHistory, selected, dailyDbState)
+    if (dailyDbState) {
+      return mountCpuUsageChart(dailyHistory, selected, dailyDbState)
+    } else {
+      return null
+    }
   },
   getHostDetailInfo: state => {
     const info = state.hostInfo
@@ -211,7 +216,14 @@ export const mutations = {
       cpuSockets
     }
 
-    const hostDBs = payload.features.oracle.database.databases
+    let hostDBs
+    if (payload.features.oracle.database.databases) {
+      state.hostType = 'oracle'
+      hostDBs = payload.features.oracle.database.databases
+    } else if (payload.features.mysql.instances) {
+      state.hostType = 'mysql'
+      hostDBs = payload.features.mysql.instances
+    }
 
     const dbs = []
     if (hostDBs && hostDBs.length > 0) {

@@ -1,13 +1,15 @@
 <template>
-  <Tags
-    :title="`Tags for ${dbName}`"
-    inputWidth="150"
-    :tagsList="tags"
-    direction="vertical"
-    @addTag="handleAddTag"
-    @removeTag="handleRemoveTag"
-    @editTag="handleEditTag"
-  />
+  <b-tab-item label="Tags">
+    <Tags
+      :title="`Tags for ${dbName}`"
+      inputWidth="150"
+      :tagsList="tags"
+      direction="vertical"
+      @addTag="handleAddTag"
+      @removeTag="handleRemoveTag"
+      @editTag="handleEditTag"
+    />
+  </b-tab-item>
 </template>
 
 <script>

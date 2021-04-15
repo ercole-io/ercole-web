@@ -1,5 +1,5 @@
 <template>
-  <BoxContent title="CPU Usage" class="column is-4">
+  <BoxContent title="CPU Usage" class="column is-4" v-if="showChart">
     <SearchableMultiSelect
       :selected="selectedDatabases"
       :dataOptions="getCurrentHostDbsName"
@@ -40,7 +40,10 @@ export default {
     })
   },
   computed: {
-    ...mapGetters(['getCpuUsageChart', 'getCurrentHostDbsName'])
+    ...mapGetters(['getCpuUsageChart', 'getCurrentHostDbsName']),
+    showChart() {
+      return this.getCpuUsageChart()
+    }
   }
 }
 </script>

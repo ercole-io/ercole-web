@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <b-tab-item label="Info">
     <div class="columns is-mobile is-multiline">
       <div class="column">
         <div class="columns">
@@ -128,32 +128,32 @@
                 <span>ASM</span>
                 <b-icon
                   size="is-small"
-                  :icon="bindIcon(infos.asm)[0]"
-                  :type="bindIcon(infos.asm)[1]"
+                  :icon="bindIcon(additional.asm)[0]"
+                  :type="bindIcon(additional.asm)[1]"
                 />
               </li>
               <li>
                 <span>Data Guard</span>
                 <b-icon
                   size="is-small"
-                  :icon="bindIcon(infos.dataGuard)[0]"
-                  :type="bindIcon(infos.dataGuard)[1]"
+                  :icon="bindIcon(additional.dataGuard)[0]"
+                  :type="bindIcon(additional.dataGuard)[1]"
                 />
               </li>
               <li>
                 <span>Platform</span>
-                <span>{{ infos.plattform }}</span>
+                <span>{{ additional.plattform }}</span>
               </li>
               <li>
                 <span>Version</span>
-                <span>{{ infos.version }}</span>
+                <span>{{ additional.version }}</span>
               </li>
             </ul>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </b-tab-item>
 </template>
 
 <script>
@@ -161,30 +161,60 @@ import { mapBooleanIcon } from '@/helpers/helpers.js'
 
 export default {
   props: {
-    details: {
+    dbInfo: {
       type: Object,
-      default: null
-    },
-    memory: {
-      type: Object,
-      default: null
-    },
-    resource: {
-      type: Object,
-      default: null
-    },
-    space: {
-      type: Object,
-      default: null
-    },
-    infos: {
-      type: Object,
-      default: null
+      default: () => {}
     }
   },
   methods: {
     bindIcon(value) {
       return mapBooleanIcon(value)
+    }
+  },
+  computed: {
+    details() {
+      return {
+        status: this.dbInfo.status,
+        role: this.dbInfo.role,
+        dbID: this.dbInfo.dbID,
+        dbName: this.dbInfo.name,
+        uniqueName: this.dbInfo.uniqueName,
+        archiveLog: this.dbInfo.archivelog,
+        blockSize: this.dbInfo.blockSize,
+        charset: this.dbInfo.charset,
+        nCharset: this.dbInfo.nCharset
+      }
+    },
+    memory() {
+      return {
+        memoryTarget: this.dbInfo.memoryTarget,
+        pgaTarget: this.dbInfo.pgaTarget,
+        sgaMaxSize: this.dbInfo.sgaMaxSize,
+        sgaTarget: this.dbInfo.sgaTarget
+      }
+    },
+    resource() {
+      return {
+        dbTime: this.dbInfo.dbTime,
+        elapsed: this.dbInfo.elapsed,
+        threadUsed: this.dbInfo.work,
+        cpuCount: this.dbInfo.cpuCount
+      }
+    },
+    space() {
+      return {
+        allocable: this.dbInfo.allocable,
+        dataFileSize: this.dbInfo.datafileSize,
+        segmentSize: this.dbInfo.segmentsSize
+      }
+    },
+    additional() {
+      return {
+        asm: this.dbInfo.asm,
+        dataGuard: this.dbInfo.dataguard,
+        plattform: this.dbInfo.platform,
+        version: this.dbInfo.version
+      }
     }
   }
 }

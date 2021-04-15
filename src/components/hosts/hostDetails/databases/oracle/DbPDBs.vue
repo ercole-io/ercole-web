@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <b-tab-item label="Pluggable DBs" v-if="pdbs.length > 0">
     <Collapse
       v-for="pdb in pdbs"
       :key="pdb.name"
@@ -93,7 +93,7 @@
         </b-tab-item>
       </b-tabs>
     </Collapse>
-  </section>
+  </b-tab-item>
 </template>
 
 <script>

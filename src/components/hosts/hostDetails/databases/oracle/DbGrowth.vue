@@ -1,5 +1,7 @@
 <template>
-  <LineChart :chartId="growthId" :lineChartData="chartData" discrete />
+  <b-tab-item label="DB Growth" v-if="growth.length > 0">
+    <LineChart :chartId="growthId" :lineChartData="chartData" discrete />
+  </b-tab-item>
 </template>
 
 <script>
