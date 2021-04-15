@@ -3,8 +3,8 @@
     size="is-small"
     type="is-boxed"
     :animated="true"
-    v-model="active"
-    @click.native="bindDbChart"
+    v-model="isActive"
+    @click.native="changeChart"
   >
     <template v-for="(dbs, i) in filteredHostDbs">
       <b-tab-item :key="i" :label="dbs.name">
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import DbInfo from '@/components/hosts/hostDetails/databases/oracle/DbInfo.vue'
 import DbTablespaces from '@/components/hosts/hostDetails/databases/oracle/DbTablespaces.vue'
 import DbSchemas from '@/components/hosts/hostDetails/databases/oracle/DbSchemas.vue'
@@ -54,11 +55,11 @@ export default {
       type: Array,
       default: () => []
     },
-    activeTab: {
+    activatedTab: {
       type: Number,
       default: 0
     },
-    bindDbChart: {
+    changeChart: {
       type: Function
     }
   },
@@ -79,13 +80,12 @@ export default {
     DbPDBs
   },
   computed: {
-    active: {
+    isActive: {
       get() {
-        return this.activeTab
+        return this.activatedTab
       },
       set(val) {
-        console.log(val)
-        return val
+        return bus.$emit('changeActiveTab', val)
       }
     }
   }

@@ -12,10 +12,14 @@
     <OracleDatabases
       :activeTab="activeTab"
       :filteredHostDbs="filteredHostDbs"
-      :bindDbChart="bindDbChart"
+      :changeChart="bindDbChart"
       v-if="showDatabases && isOracle"
     />
-    <MysqlDatabases v-else-if="showDatabases && isMysql" />
+    <MysqlDatabases
+      :activeTab="activeTab"
+      :filteredHostDbs="filteredHostDbs"
+      v-else-if="showDatabases && isMysql"
+    />
 
     <noContent
       v-else
@@ -60,6 +64,10 @@ export default {
   async beforeMount() {
     await this.getAgreementParts()
     this.findActiveTab()
+
+    bus.$on('changeActiveTab', val => {
+      this.activeTab = val
+    })
   },
   methods: {
     ...mapActions(['getAgreementParts']),
