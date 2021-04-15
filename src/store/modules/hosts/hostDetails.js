@@ -61,7 +61,7 @@ export const getters = {
           value: `${info.kernel} - ${info.kernelVersion}` || '-'
         },
         {
-          name: 'Memorie',
+          name: 'Memory',
           value: info.memoryTotal || '-'
         },
         {
