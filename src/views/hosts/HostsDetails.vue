@@ -17,15 +17,25 @@
     <HostInfo />
 
     <div class="columns">
-      <Databases :activeDB="dbname" />
-      <ChartCpu />
+      <div
+        class="column"
+        :class="{
+          'is-8': databaseType === 'oracle',
+          'is-12': databaseType === 'mysql'
+        }"
+      >
+        <Databases :activeDB="dbname" :dbType="databaseType" />
+      </div>
+      <div class="column is-4">
+        <ChartCpu />
+      </div>
     </div>
   </section>
 </template>
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import NotificationsInfo from '@/components/hosts/hostDetails/NotificationsInfo.vue'
 // import HostTags from '@/components/hosts/hostDetails/HostTags.vue'
 import HostInfo from '@/components/hosts/hostDetails/HostInfo.vue'
@@ -69,6 +79,12 @@ export default {
   },
   methods: {
     ...mapActions(['getHostByName'])
+  },
+  computed: {
+    ...mapState(['hostDetails']),
+    databaseType() {
+      return this.hostDetails.hostType
+    }
   }
 }
 </script>
