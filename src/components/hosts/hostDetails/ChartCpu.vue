@@ -1,5 +1,5 @@
 <template>
-  <BoxContent title="CPU Usage" class="column is-4" v-if="showChart">
+  <BoxContent title="CPU Usage" v-if="showChart">
     <SearchableMultiSelect
       :selected="selectedDatabases"
       :dataOptions="getCurrentHostDbsName"

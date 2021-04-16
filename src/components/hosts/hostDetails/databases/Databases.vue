@@ -1,5 +1,5 @@
 <template>
-  <BoxContent title="Databases" class="column is-8">
+  <BoxContent title="Databases">
     <SearchInput
       searchPlaceholder="Search by DB name"
       v-model="searchDb"
@@ -15,6 +15,7 @@
       :changeChart="bindDbChart"
       v-if="showDatabases && isOracle"
     />
+
     <MysqlDatabases
       :activeTab="activeTab"
       :filteredHostDbs="filteredHostDbs"
@@ -32,7 +33,7 @@
 <script>
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import OracleDatabases from '@/components/hosts/hostDetails/databases/oracle/OracleDatabases.vue'
 import MysqlDatabases from '@/components/hosts/hostDetails/databases/mysql/MysqlDatabases.vue'
 import HbuttonScroll from '@/components/HbuttonScroll.vue'
@@ -45,6 +46,10 @@ export default {
     activeDB: {
       type: String,
       required: false
+    },
+    dbType: {
+      type: String,
+      required: true
     }
   },
   components: {
@@ -97,7 +102,6 @@ export default {
     }
   },
   computed: {
-    ...mapState(['hostDetails']),
     ...mapGetters(['getCurrentHostDbs']),
     filteredHostDbs() {
       return _.filter(this.getCurrentHostDbs, db => {
@@ -113,10 +117,10 @@ export default {
       return this.filteredHostDbs.length > 0
     },
     isOracle() {
-      return this.hostDetails.hostType === 'oracle'
+      return this.dbType === 'oracle'
     },
     isMysql() {
-      return this.hostDetails.hostType === 'mysql'
+      return this.dbType === 'mysql'
     }
   }
 }
