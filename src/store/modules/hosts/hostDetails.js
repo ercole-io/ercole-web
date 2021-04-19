@@ -51,7 +51,12 @@ export const getters = {
           name: 'Clust',
           value: mapClustStatus(info.clusterMembershipStatus),
           hasIcon: true
-        },
+        }
+      ]
+    }
+    const osDetails = {
+      name: 'OS Details',
+      data: [
         {
           name: 'OS',
           value: `${info.os} - ${info.osVersion}` || '-'
@@ -71,7 +76,7 @@ export const getters = {
       ]
     }
     const virtual = {
-      name: 'Agent',
+      name: 'Virtual',
       data: [
         {
           name: 'Platform',
@@ -88,7 +93,7 @@ export const getters = {
       ]
     }
     const cpu = {
-      name: 'Virtual',
+      name: 'CPU',
       data: [
         {
           name: 'Model',
@@ -109,7 +114,7 @@ export const getters = {
       ]
     }
     const agent = {
-      name: 'CPU',
+      name: 'Agent',
       data: [
         {
           name: 'Version',
@@ -124,7 +129,7 @@ export const getters = {
         }
       ]
     }
-    return _.concat(general, cpu, virtual, agent)
+    return _.concat(general, osDetails, virtual, cpu, agent)
   },
   getNotificationInfo: state => {
     const hostAlerts = state.hostAlerts
