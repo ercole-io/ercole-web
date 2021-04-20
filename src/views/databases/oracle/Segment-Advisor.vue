@@ -9,7 +9,7 @@
     >
       <template slot="headData">
         <v-th sortKey="reclaimable">Reclaimable GB</v-th>
-        <v-th sortKey="gbTotal">GB Total</v-th>
+        <v-th sortKey="segmentsSize">GB Total</v-th>
         <v-th sortKey="retrieve">Retrieve</v-th>
         <v-th sortKey="hostname">Hostname</v-th>
         <v-th sortKey="dbname">DB Name</v-th>
@@ -24,7 +24,9 @@
         <TdContent
           :value="rowData.scope.reclaimable | formatNumber('0.00', 'GB')"
         />
-        <TdContent :value="rowData.scope.gbTotal" />
+        <TdContent
+          :value="rowData.scope.segmentsSize | formatNumber('0.00', 'GB')"
+        />
         <TdContent :value="rowData.scope.retrieve" />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
         <TdContent :value="rowData.scope.dbname" />
@@ -64,7 +66,7 @@ export default {
     return {
       keys: [
         'reclaimable',
-        'gbTotal',
+        'segmentsSize',
         'retrieve',
         'hostname',
         'dbname',

@@ -28,7 +28,7 @@ export const actions = {
         }
       }
     )
-    const response = await segmentAdvisor.data
+    const response = await segmentAdvisor.data.segmentAdvisors
     commit('SET_SEGMENT_ADVISOR', response)
   }
 }
