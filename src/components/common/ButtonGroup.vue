@@ -1,5 +1,8 @@
 <template>
-  <div class="is-flex is-justify-content-center is-align-items-center mb-5">
+  <div
+    class="is-flex is-align-items-center mb-5"
+    :class="hAlign ? hAlign : 'is-justify-content-center'"
+  >
     <span class="is-size-7 has-text-weight-medium mr-2" v-if="groupTitle">
       {{ groupTitle }}
     </span>
@@ -9,7 +12,7 @@
 
 <script>
 export default {
-  props: ['groupTitle']
+  props: ['groupTitle', 'hAlign']
 }
 </script>
 
