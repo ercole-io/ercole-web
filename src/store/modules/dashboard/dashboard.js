@@ -84,9 +84,9 @@ export const actions = {
   },
   async getLicenseHistory({ commit }) {
     const licenseHistory = await axiosChart.get(
-      '/technologies/oracle/license-history'
+      '/technologies/all/license-history'
     )
-    const response = await licenseHistory.data
+    const response = await licenseHistory.data.licenseComplianceHistory
 
     commit('SET_LICENSE_HISTORY', response)
   }
