@@ -1,7 +1,7 @@
 <template>
   <td class="is-size-5 has-text-centered">
     <span
-      class="icon is-size-3"
+      class="icon is-size-4"
       :class="{
         gold: position === 0,
         silver: position === 1,
@@ -11,8 +11,8 @@
     >
       <i class="fas fa-star" />
       <span
-        class="is-size-6 has-text-grey-darker"
-        style="position: absolute; top: 2px;"
+        class="is-size-7 has-text-grey-darker"
+        style="position: absolute; top: 5px;"
       >
         {{ position + 1 }}
       </span>

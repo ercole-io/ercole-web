@@ -1,18 +1,38 @@
 import _ from 'lodash'
 
-const mountDatabasesChart = (prop, data) => {
-  const finalChartData = []
+export const mountDatabasesChart = (data, page) => {
+  let final
+  if (page === 'databases') {
+    final = _.concat(
+      chartBySeries(data, 'type', 'Type Of Databases'),
+      chartBySeries(data, 'environment', 'Type Of Environment'),
+      chartBySeries(data, 'archivelog', 'Archivelog Mode'),
+      chartBySeries(data, 'disasterRecovery', 'Disaster Recovery'),
+      chartBySeries(data, 'highAvailability', 'High Availability')
+    )
+  } else if (page === 'oracle') {
+    final = _.concat(
+      chartBySeries(data, 'environment', 'Type Of Environment'),
+      chartBySeries(data, 'archivelog', 'Archivelog Mode'),
+      chartBySeries(data, 'dataguard', 'Disaster Recovery'),
+      chartBySeries(data, 'ha', 'High Availability')
+    )
+  }
 
-  const groupByProp = _.groupBy(data, prop)
-  const propData = []
+  return final
+}
 
-  _.map(groupByProp, (value, key) => {
-    propData.push({ name: key, value: value.length })
+const chartBySeries = (data, type, title) => {
+  const series = _.groupBy(data, type)
+  const seriesData = []
+  let seriesFinal = []
+
+  _.map(series, (value, key) => {
+    seriesData.push({ name: key, value: value.length })
   })
 
-  _.map(propData, item => {
+  _.map(seriesData, item => {
     let name = ''
-
     if (item.name === 'true') {
       name = 'Yes'
     } else if (item.name === 'false') {
@@ -21,66 +41,11 @@ const mountDatabasesChart = (prop, data) => {
       name = item.name
     }
 
-    finalChartData.push({
+    seriesFinal.push({
       name: name,
-      data: [['', item.value]]
+      data: [[title, item.value]]
     })
   })
 
-  return finalChartData
-}
-
-export const pickDatabaseChart = (data, id, page) => {
-  let chartValues = {}
-  let key
-
-  switch (id) {
-    case 'TypeOfDatabases':
-      chartValues = {
-        title: 'Type Of Databases',
-        collapseId: 'TypeOfDatabases',
-        data: mountDatabasesChart('type', data),
-        chartId: 'dt',
-        isOpen: true
-      }
-      break
-    case 'TypeOfEnvironment':
-      chartValues = {
-        title: 'Type Of Environment',
-        collapseId: 'TypeOfEnvironment',
-        data: mountDatabasesChart('environment', data),
-        chartId: 'et'
-      }
-      break
-    case 'ArchivelogMode':
-      chartValues = {
-        title: 'Archivelog Mode',
-        collapseId: 'ArchivelogMode',
-        data: mountDatabasesChart('archivelog', data),
-        chartId: 'al'
-      }
-      break
-    case 'DisasterRecovery':
-      key = page === 'databases' ? 'disasterRecovery' : 'dataguard'
-      chartValues = {
-        title: 'Disaster Recovery',
-        collapseId: 'DisasterRecovery',
-        data: mountDatabasesChart(key, data),
-        chartId: 'dr'
-      }
-      break
-    case 'HighAvailability':
-      key = page === 'databases' ? 'highAvailability' : 'ha'
-      chartValues = {
-        title: 'High Availability',
-        collapseId: 'HighAvailability',
-        data: mountDatabasesChart(key, data),
-        chartId: 'ha'
-      }
-      break
-    default:
-      break
-  }
-
-  return chartValues
+  return seriesFinal
 }

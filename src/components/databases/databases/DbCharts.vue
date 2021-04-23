@@ -1,39 +1,37 @@
 <template>
-  <Collapse
-    :title="chartValues.title"
-    :id="chartValues.collapseId"
-    :isOpen="chartValues.isOpen"
-  >
-    <BarChart
-      :chartId="chartValues.chartId"
-      :barChartData="chartValues.data"
-      chartHeight="150px"
-      stacked
-    />
-  </Collapse>
+  <BarChart
+    :chartId="id"
+    :barChartData="getDatabasesCharts"
+    :chartHeight="chartHeight"
+    stacked
+    :legend="false"
+    :xAxesConfig="xAxesConfig"
+    :barThickness="70"
+  />
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import BarChart from '@/components/common/charts/BarChart.vue'
-import Collapse from '@/components/common/Collapse.vue'
 
 export default {
   props: {
     id: {
       type: String,
       required: true
+    },
+    xAxesConfig: {
+      type: Array
+    },
+    chartHeight: {
+      type: String
     }
   },
   components: {
-    BarChart,
-    Collapse
+    BarChart
   },
   computed: {
-    ...mapGetters(['getDatabasesCharts']),
-    chartValues() {
-      return this.getDatabasesCharts(this.id)
-    }
+    ...mapGetters(['getDatabasesCharts'])
   }
 }
 </script>

@@ -1,35 +1,25 @@
 <template>
-  <Collapse :title="chartValues.title" :id="chartValues.collapseId" isOpen>
-    <ColumnChart
-      :chartId="chartValues.chartId"
-      :columnChartData="chartValues.data"
-      chartHeight="150px"
-      stacked
-    />
-  </Collapse>
+  <BarChart
+    chartId="oracleCharts"
+    :barChartData="getOracleChartsData"
+    chartHeight="250px"
+    stacked
+    :legend="false"
+    :xAxesConfig="[true, 'top']"
+    :barThickness="50"
+  />
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import Collapse from '@/components/common/Collapse.vue'
-import ColumnChart from '@/components/common/charts/ColumnChart.vue'
+import BarChart from '@/components/common/charts/BarChart.vue'
 
 export default {
-  props: {
-    id: {
-      type: String,
-      required: true
-    }
-  },
   components: {
-    ColumnChart,
-    Collapse
+    BarChart
   },
   computed: {
-    ...mapGetters(['getOracleChartsData']),
-    chartValues() {
-      return this.getOracleChartsData(this.id)
-    }
+    ...mapGetters(['getOracleChartsData'])
   }
 }
 </script>

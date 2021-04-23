@@ -1,47 +1,36 @@
 <template>
   <section>
     <div class="columns">
-      <div class="column is-3">
-        <OracleCpu />
-      </div>
-      <div class="column is-3">
-        <OracleMemory />
-      </div>
-      <div class="column is-6">
-        <OracleStorage />
-      </div>
-    </div>
-
-    <div class="columns">
-      <div class="column is-6">
-        <Top3Workload />
-      </div>
-      <div class="column is-6">
-        <Top3Reclaimable />
-      </div>
-    </div>
-
-    <div class="columns">
-      <div class="column is-12">
+      <div class="column is-8">
         <OracleDBs />
       </div>
-    </div>
-
-    <div class="columns">
-      <div class="column is-6">
-        <OracleCharts id="TypeOfEnvironment" />
-      </div>
-      <div class="column is-6">
-        <OracleCharts id="ArchivelogMode" />
-      </div>
-    </div>
-
-    <div class="columns">
-      <div class="column is-6">
-        <OracleCharts id="DisasterRecovery" />
-      </div>
-      <div class="column is-6">
-        <OracleCharts id="HighAvailability" />
+      <div class="column is-4">
+        <div class="columns">
+          <div class="column is-3">
+            <OracleCpu />
+          </div>
+          <div class="column is-3">
+            <OracleMemory />
+          </div>
+          <div class="column is-6">
+            <OracleStorage />
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-12">
+            <Top3Workload />
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-12">
+            <Top3Reclaimable />
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-12">
+            <OracleCharts />
+          </div>
+        </div>
       </div>
     </div>
   </section>

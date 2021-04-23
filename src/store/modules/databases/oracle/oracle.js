@@ -1,6 +1,6 @@
 import axiosDefault from '@/axios/axios-default.js'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
-import { pickDatabaseChart } from '@/helpers/databasesCharts.js'
+import { mountDatabasesChart } from '@/helpers/databasesCharts.js'
 
 export const state = () => ({
   oracleDbs: [],
@@ -13,8 +13,8 @@ export const getters = {
   getAllOracleDBs: state => {
     return state.oracleDbs
   },
-  getOracleChartsData: state => id => {
-    return pickDatabaseChart(state.oracleDbs, id, 'oracle')
+  getOracleChartsData: state => {
+    return mountDatabasesChart(state.oracleDbs, 'oracle')
   },
   getTop3workload: state => {
     return state.topWorkload.slice(0, 3)

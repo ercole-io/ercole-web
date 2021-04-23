@@ -37,6 +37,12 @@ Vue.use(Buefy)
 Vue.use(Chartkick.use(Chart))
 Chartkick.options = {
   colors: [
+    'rgba(255, 99, 132)',
+    'rgba(54, 162, 235)',
+    'rgba(255, 206, 86)',
+    'rgba(75, 192, 192)',
+    'rgba(153, 102, 255)',
+    'rgba(255, 159, 64)',
     'rgb(176, 101, 156)', // light purple
     'rgb(254, 188, 59)', // light orange
     'rgb(144, 190, 109)', // light green
