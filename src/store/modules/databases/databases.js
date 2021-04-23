@@ -1,6 +1,6 @@
 import axiosDefault from '@/axios/axios-default'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
-import { pickDatabaseChart } from '@/helpers/databasesCharts.js'
+import { mountDatabasesChart } from '@/helpers/databasesCharts.js'
 import { returnTechTypePrettyName } from '@/helpers/helpers.js'
 import _ from 'lodash'
 
@@ -13,8 +13,8 @@ export const getters = {
   getAllDatabases: state => {
     return state.databases
   },
-  getDatabasesCharts: state => id => {
-    return pickDatabaseChart(state.databases, id, 'databases')
+  getDatabasesCharts: state => {
+    return mountDatabasesChart(state.databases, 'databases')
   }
 }
 

@@ -1,45 +1,27 @@
 <template>
   <section>
     <div class="columns">
-      <div class="column is-3">
+      <div class="column is-8">
+        <DbList />
+      </div>
+      <div class="column is-4">
         <div class="columns">
-          <div class="column is-12">
+          <div class="column is-6">
             <DbTotalMemorySize />
           </div>
-        </div>
-        <div class="columns">
-          <div class="column is-12">
+          <div class="column is-6">
             <DbTotalSegmentSize />
           </div>
         </div>
         <div class="columns">
           <div class="column is-12">
-            <DbCharts id="TypeOfDatabases" />
+            <DbCharts
+              id="databasesChart"
+              chartHeight="500px"
+              :xAxesConfig="[true, 'top']"
+            />
           </div>
         </div>
-        <div class="columns">
-          <div class="column is-12">
-            <DbCharts id="TypeOfEnvironment" />
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-12">
-            <DbCharts id="ArchivelogMode" />
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-12">
-            <DbCharts id="DisasterRecovery" />
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-12">
-            <DbCharts id="HighAvailability" />
-          </div>
-        </div>
-      </div>
-      <div class="column is-9">
-        <DbList />
       </div>
     </div>
   </section>
