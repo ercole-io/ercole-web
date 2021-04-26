@@ -46,7 +46,11 @@ export const getters = {
   getChartLicenseHistory: state => {
     let data = []
     _.map(state.licenceHistory, val => {
-      if (val.licenseTypeID !== '') {
+      if (
+        val.licenseTypeID !== '' ||
+        val.itemDescription !== '' ||
+        val.metric !== ''
+      ) {
         data.push(val)
       }
     })
