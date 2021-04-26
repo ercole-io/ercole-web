@@ -13,7 +13,8 @@
             :value="type.licenseTypeID"
             :key="index"
           >
-            {{ type.licenseTypeID }} - {{ type.itemDescription }} -
+            {{ type.licenseTypeID }} <span v-if="type.licenseTypeID">-</span>
+            {{ type.itemDescription }} <span v-if="type.metric">-</span>
             {{ type.metric }}
           </option>
         </b-select>
