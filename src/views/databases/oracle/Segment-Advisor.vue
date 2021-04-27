@@ -27,7 +27,9 @@
         <TdContent
           :value="rowData.scope.segmentsSize | formatNumber('0.00', 'GB')"
         />
-        <TdContent :value="rowData.scope.retrieve" />
+        <TdContent
+          :value="(rowData.scope.retrieve * 100) | formatNumber('0.00', '%')"
+        />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
         <TdContent :value="rowData.scope.dbname" />
         <TdContent :value="rowData.scope.segmentOwner" />
