@@ -1,9 +1,6 @@
 import axiosDefault from '@/axios/axios-default'
-import {
-  mapTechType,
-  mapClustStatus,
-  returnAlertsByTypeDate
-} from '@/helpers/helpers.js'
+import { mapClustStatus, returnAlertsByTypeDate } from '@/helpers/helpers.js'
+import { mapDatabases } from '@/helpers/databasesMap.js'
 import moment from 'moment'
 import _ from 'lodash'
 
@@ -45,7 +42,7 @@ export const getters = {
         },
         {
           name: 'Technology',
-          value: mapTechType(info.features)
+          value: mapDatabases(info.features, 'technology')
         },
         {
           name: 'Clust',
@@ -222,12 +219,23 @@ export const mutations = {
     }
 
     let hostDBs
-    if (payload.features.oracle.database.databases) {
-      state.hostType = 'oracle'
-      hostDBs = payload.features.oracle.database.databases
-    } else if (payload.features.mysql.instances) {
-      state.hostType = 'mysql'
-      hostDBs = payload.features.mysql.instances
+    if (payload.features) {
+      if (
+        payload.features.oracle &&
+        payload.features.oracle.database.databases
+      ) {
+        state.hostType = 'oracle'
+        hostDBs = payload.features.oracle.database.databases
+      } else if (payload.features.mysql && payload.features.mysql.instances) {
+        state.hostType = 'mysql'
+        hostDBs = payload.features.mysql.instances
+      } else if (
+        payload.features.microsoft &&
+        payload.features.microsoft.sqlServer.instances
+      ) {
+        state.hostType = 'microsoft'
+        hostDBs = payload.features.microsoft.sqlServer.instances
+      }
     }
 
     const dbs = []
