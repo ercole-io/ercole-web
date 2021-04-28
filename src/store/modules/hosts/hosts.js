@@ -1,12 +1,8 @@
 import axiosDefault from '@/axios/axios-default'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
-import {
-  mapDbs,
-  mapTechType,
-  mapClustStatus,
-  filterByKeys
-} from '@/helpers/helpers.js'
+import { mapClustStatus, filterByKeys } from '@/helpers/helpers.js'
+import { mapDatabases } from '@/helpers/databasesMap.js'
 import router from '@/router'
 
 export const state = () => ({
@@ -21,8 +17,8 @@ export const getters = {
         _id: host._id,
         hostname: host.hostname,
         environment: host.environment,
-        databases: _.slice(mapDbs(host.features.oracle)),
-        techType: mapTechType(host.features),
+        databases: mapDatabases(host.features, 'databases'),
+        techType: mapDatabases(host.features, 'technology'),
         platform: host.info.hardwareAbstractionTechnology,
         cluster: host.cluster,
         virtNode: host.virtualizationNode,

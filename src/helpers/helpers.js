@@ -39,45 +39,6 @@ export const mapBooleanIcon = value => {
   return value ? yesValue : noValue
 }
 
-export const mapDbs = dbs => {
-  if (dbs) {
-    if (dbs.database) {
-      if (dbs.database.databases.length > 0) {
-        return _.map(dbs.database.databases, dbName => dbName.name)
-      } else {
-        return '-'
-      }
-    } else {
-      return '-'
-    }
-  } else {
-    return '-'
-  }
-}
-
-export const mapTechType = dbs => {
-  if (dbs && dbs.oracle) {
-    if (dbs.oracle && dbs.oracle.database) {
-      if (dbs.oracle.database && dbs.oracle.database.databases) {
-        if (
-          dbs.oracle.database.databases &&
-          dbs.oracle.database.databases.length > 0
-        ) {
-          return 'Oracle Database'
-        } else {
-          return '-'
-        }
-      } else {
-        return '-'
-      }
-    } else {
-      return '-'
-    }
-  } else {
-    return '-'
-  }
-}
-
 export const mapClustStatus = clust => {
   if (
     clust &&

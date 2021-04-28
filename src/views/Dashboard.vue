@@ -49,9 +49,9 @@ export default {
       this.$store.dispatch('getClusters') // Pre load clusters to save clusternames on vuex-persisted
     })
 
-    setInterval(() => {
-      this.$store.dispatch('getHosts') // Update hosts automatically each hour
-    }, 300000)
+    // setInterval(() => {
+    //   this.$store.dispatch('getHosts') // Update hosts automatically each hour
+    // }, 300000)
   },
   methods: {
     ...mapActions(['getDashboardData'])
