@@ -102,7 +102,7 @@ export default {
   },
   methods: {
     editAgreement(data) {
-      bus.$emit('editAgreement', data)
+      bus.$emit('editAgreementOracle', data)
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <BoxContent title="Add or Modify an Oracle Agreement">
+  <BoxContent title="Add or Modify an Oracle Agreement" bgcolor="#f5f5f5">
     <form @submit.prevent="addUpdateAgreement">
       <b-field
         label="Agreement Number *"
@@ -158,7 +158,7 @@
         <b-taginput
           v-model="oracleForm.hostAssociated"
           :data="filteredHostTags"
-          ref="taginput"
+          ref="hostTag"
           autocomplete
           icon="label"
           placeholder="Add a hostname"
@@ -172,16 +172,16 @@
 
           <template slot="selected" slot-scope="props">
             <b-tag
-              v-for="(host, index) in props.tags"
+              v-for="(oracleHost, index) in props.tags"
               :key="index"
               type="is-primary"
               :tabstop="false"
               closable
               attached
               close-type="is-light"
-              @close="$refs.taginput.removeTag(index, $event)"
+              @close="$refs.hostTag.removeTag(index, $event)"
             >
-              {{ host }}
+              {{ oracleHost }}
             </b-tag>
           </template>
 
@@ -233,7 +233,7 @@
 
       <ActionButtons
         :isDisabled="$v.$invalid"
-        :applyText="oracleForm.licenseID ? 'Edit Agreement' : 'Add Agreement'"
+        :applyText="oracleForm.licenseID ? 'Update Agreement' : 'Add Agreement'"
         cancelText="Cancel"
       />
     </form>
@@ -292,7 +292,7 @@ export default {
   },
   beforeMount() {
     bus.$on('onResetAction', () => this.cancelAddLicense())
-    bus.$on('editAgreement', data => {
+    bus.$on('editAgreementOracle', data => {
       this.editAgreement(data)
     })
   },
