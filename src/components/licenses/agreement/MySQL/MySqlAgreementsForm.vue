@@ -258,7 +258,6 @@ export default {
       }
     },
     editAgreement(data) {
-      console.log(data)
       this.mysqlForm = {
         licenseID: data.id,
         agreementType: data.type,
