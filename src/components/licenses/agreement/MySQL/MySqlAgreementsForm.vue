@@ -237,8 +237,14 @@ export default {
       let mysqlAgreementData = {
         type: this.mysqlForm.agreementType,
         numberOfLicenses: Number(this.mysqlForm.agreementLicenses),
-        hosts: this.mysqlForm.agreementHosts || [],
-        clusters: this.mysqlForm.agreementClusters || []
+        hosts:
+          this.mysqlForm.agreementType === 'host'
+            ? this.mysqlForm.agreementHosts
+            : [],
+        clusters:
+          this.mysqlForm.agreementType === 'cluster'
+            ? this.mysqlForm.agreementClusters
+            : []
       }
       if (!this.mysqlForm.licenseID) {
         this.createLicenseAgreement({
