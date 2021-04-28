@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section :style="{ 'background-color': bgcolor }">
     <h2 class="sub-title" v-if="title" :class="{ 'border-bottom': border }">
       {{ title }}
       <slot name="customTitle" />
@@ -24,6 +24,10 @@ export default {
     mbottom: {
       type: Boolean,
       default: true
+    },
+    bgcolor: {
+      type: String,
+      default: '#ffffff'
     }
   }
 }

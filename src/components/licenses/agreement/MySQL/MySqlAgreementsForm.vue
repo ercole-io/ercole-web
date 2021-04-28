@@ -1,8 +1,5 @@
 <template>
-  <BoxContent
-    title="Add or Modify an MySql Agreement"
-    style="min-height: calc(100vh - 263px);"
-  >
+  <BoxContent title="Add or Modify an MySql Agreement" bgcolor="#f5f5f5">
     <form @submit.prevent="createUpdateAgreement">
       <b-field
         label="Type *"
@@ -30,7 +27,7 @@
       </b-field>
 
       <b-field
-        label="Number of Licenses *"
+        label="Agreement Number *"
         custom-class="is-small"
         expanded
         :type="{
@@ -51,6 +48,56 @@
           size="is-small"
           type="number"
           v-model="mysqlForm.agreementNumber"
+        />
+      </b-field>
+
+      <b-field
+        label="CSI *"
+        custom-class="is-small"
+        expanded
+        :type="{
+          'is-danger': $v.mysqlForm.agreementCsi.$error
+        }"
+        :message="{
+          'This field is required':
+            !$v.mysqlForm.agreementCsi.required &&
+            $v.mysqlForm.agreementCsi.$error,
+          'This field accepts only numbers':
+            !$v.mysqlForm.agreementCsi.numeric &&
+            $v.mysqlForm.agreementCsi.$error
+        }"
+      >
+        <b-input
+          @blur="$v.mysqlForm.agreementCsi.$touch()"
+          @input="$v.mysqlForm.agreementCsi.$touch()"
+          size="is-small"
+          type="number"
+          v-model="mysqlForm.agreementCsi"
+        />
+      </b-field>
+
+      <b-field
+        label="Number of Licenses *"
+        custom-class="is-small"
+        expanded
+        :type="{
+          'is-danger': $v.mysqlForm.agreementLicenses.$error
+        }"
+        :message="{
+          'This field is required':
+            !$v.mysqlForm.agreementLicenses.required &&
+            $v.mysqlForm.agreementLicenses.$error,
+          'This field accepts only numbers':
+            !$v.mysqlForm.agreementLicenses.numeric &&
+            $v.mysqlForm.agreementLicenses.$error
+        }"
+      >
+        <b-input
+          @blur="$v.mysqlForm.agreementLicenses.$touch()"
+          @input="$v.mysqlForm.agreementLicenses.$touch()"
+          size="is-small"
+          type="number"
+          v-model="mysqlForm.agreementLicenses"
         />
       </b-field>
 
@@ -76,7 +123,7 @@
 
           <template slot="selected" slot-scope="props">
             <b-tag
-              v-for="(host, index) in props.tags"
+              v-for="(mysqlHost, index) in props.tags"
               :key="index"
               type="is-primary"
               :tabstop="false"
@@ -85,7 +132,7 @@
               close-type="is-light"
               @close="$refs.hostTag.removeTag(index, $event)"
             >
-              {{ host }}
+              {{ mysqlHost }}
             </b-tag>
           </template>
 
@@ -123,7 +170,7 @@
 
           <template slot="selected" slot-scope="props">
             <b-tag
-              v-for="(cluster, index) in props.tags"
+              v-for="(mysqlCluster, index) in props.tags"
               :key="index"
               type="is-primary"
               :tabstop="false"
@@ -132,7 +179,7 @@
               close-type="is-light"
               @close="$refs.clusterTag.removeTag(index, $event)"
             >
-              {{ cluster }}
+              {{ mysqlCluster }}
             </b-tag>
           </template>
 
@@ -144,7 +191,7 @@
 
       <ActionButtons
         :isDisabled="$v.$invalid"
-        :applyText="mysqlForm.licenseID ? 'Edit Agreement' : 'Add Agreement'"
+        :applyText="mysqlForm.licenseID ? 'Update Agreement' : 'Add Agreement'"
         cancelText="Cancel"
       />
     </form>
@@ -167,7 +214,9 @@ export default {
   validations: {
     mysqlForm: {
       agreementType: { required },
-      agreementNumber: { required, numeric }
+      agreementLicenses: { required, numeric },
+      agreementNumber: { required, numeric },
+      agreementCsi: { required, numeric }
     }
   },
   data() {
@@ -179,7 +228,7 @@ export default {
   },
   beforeMount() {
     bus.$on('onResetAction', () => (this.mysqlForm = []))
-    bus.$on('editAgreement', data => {
+    bus.$on('editAgreementMysql', data => {
       this.editAgreement(data)
     })
   },
@@ -187,7 +236,7 @@ export default {
     createUpdateAgreement() {
       let mysqlAgreementData = {
         type: this.mysqlForm.agreementType,
-        numberOfLicenses: Number(this.mysqlForm.agreementNumber),
+        numberOfLicenses: Number(this.mysqlForm.agreementLicenses),
         hosts: this.mysqlForm.agreementHosts || [],
         clusters: this.mysqlForm.agreementClusters || []
       }
@@ -209,10 +258,11 @@ export default {
       }
     },
     editAgreement(data) {
+      console.log(data)
       this.mysqlForm = {
         licenseID: data.id,
         agreementType: data.type,
-        agreementNumber: data.numberOfLicenses,
+        agreementLicenses: data.numberOfLicenses,
         agreementHosts: data.hosts,
         agreementClusters: data.clusters
       }
