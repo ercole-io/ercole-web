@@ -25,13 +25,22 @@ export default {
       'updateLicenseAgreement',
       'deleteLicenseAgreement'
     ]),
-    deleteAgreement(type, id) {
-      const payload = {
-        type: type,
-        id: id
-      }
-      this.deleteLicenseAgreement(payload).then(() => {
-        this.$store.commit('DELETE_AGREEMENT', payload)
+    deleteAgreement(type, id, agreeNumber = '12345') {
+      this.$buefy.dialog.confirm({
+        title: 'Delete Agreement',
+        message: `Are you sure you want to <b>delete</b> the agreement number <b>${agreeNumber}</b>? This action cannot be undone.`,
+        confirmText: 'Confirm',
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: () => {
+          const payload = {
+            type: type,
+            id: id
+          }
+          this.deleteLicenseAgreement(payload).then(() => {
+            this.$store.commit('DELETE_AGREEMENT', payload)
+          })
+        }
       })
     },
     getAutocompleteData(text, toFilter, data) {
