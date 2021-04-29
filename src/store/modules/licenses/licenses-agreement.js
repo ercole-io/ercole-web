@@ -46,12 +46,7 @@ export const getters = {
 
 export const mutations = {
   SET_AGREEMENTS: (state, payload) => {
-    state[payload.type + 'Agreements'] =
-      payload.type === 'oracle'
-        ? payload.res
-        : payload.res.agreements
-        ? payload.res.agreements
-        : []
+    state[payload.type + 'Agreements'] = payload.res
   },
   CREATE_AGREEMENT: (state, payload) => {
     state[payload.type + 'Agreements'].unshift(payload.body)
@@ -82,7 +77,7 @@ export const actions = {
       agreementList = await axiosDefault.get(`/agreements/${type}/database`)
     }
 
-    const response = await agreementList.data
+    const response = await agreementList.data.agreements
 
     commit('SET_AGREEMENTS', { res: response, type: type })
   },
