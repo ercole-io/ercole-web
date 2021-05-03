@@ -2,6 +2,7 @@ import axiosDefault from '@/axios/axios-default'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import { mountDatabasesChart } from '@/helpers/databasesCharts.js'
 import { returnTechTypePrettyName } from '@/helpers/helpers.js'
+import { filterByKeys } from '@/helpers/helpers.js'
 import _ from 'lodash'
 
 export const state = () => ({
@@ -10,8 +11,12 @@ export const state = () => ({
 })
 
 export const getters = {
-  getAllDatabases: state => {
-    return state.databases
+  getAllDatabases: (state, getters, rootState) => {
+    if (rootState.localFilters.hasFilters) {
+      return filterByKeys(state.databases, rootState.localFilters.filters)
+    } else {
+      return state.databases
+    }
   },
   getDatabasesCharts: state => {
     return mountDatabasesChart(state.databases, 'databases')

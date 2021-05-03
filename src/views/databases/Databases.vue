@@ -1,10 +1,10 @@
 <template>
   <section>
     <div class="columns">
-      <div class="column is-8">
-        <DbList />
+      <div class="column is-9">
+        <DbList v-if="isMounted" />
       </div>
-      <div class="column is-4">
+      <div class="column is-3">
         <div class="columns">
           <div class="column is-6">
             <DbTotalMemorySize />
@@ -41,8 +41,13 @@ export default {
     DbTotalMemorySize,
     DbTotalSegmentSize
   },
+  data() {
+    return {
+      isMounted: false
+    }
+  },
   async beforeMount() {
-    await this.getDatabases()
+    await this.getDatabases().then(() => (this.isMounted = true))
   },
   methods: {
     ...mapActions(['getDatabases'])
