@@ -45,7 +45,6 @@ export default {
     TdContent
   },
   methods: {
-    ...mapGetters(['returnMetricAndDescription']),
     dbLicenses(values) {
       let filteredLicenses = []
       _.filter(values, val => {
@@ -61,8 +60,12 @@ export default {
           })
         }
       })
+
       return filteredLicenses
     }
+  },
+  computed: {
+    ...mapGetters(['returnMetricAndDescription'])
   }
 }
 </script>
