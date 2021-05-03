@@ -60,13 +60,13 @@
           sortKey="datafileSize"
           class="spaceUsed"
           :class="{ hide: hideSpaceUsed }"
-          >Datafile size (GB)</v-th
+          >Datafile (GB)</v-th
         >
         <v-th
           sortKey="segmentsSize"
           class="spaceUsed"
           :class="{ hide: hideSpaceUsed }"
-          >Segment size (GB)</v-th
+          >Segment (GB)</v-th
         >
         <v-th sortKey="charset" class="charset" :class="{ hide: hideCharset }"
           >Charset</v-th

@@ -46,8 +46,8 @@
         <v-th sortKey="environment">Env.</v-th>
         <v-th sortKey="charset">Charset</v-th>
         <v-th sortKey="memory">Memory (GB)</v-th>
-        <v-th sortKey="datafileSize">Datafile Size (GB)</v-th>
-        <v-th sortKey="segmentSize">Segment Size (GB)</v-th>
+        <v-th sortKey="datafileSize">Datafile (GB)</v-th>
+        <v-th sortKey="segmentSize">Segment (GB)</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
