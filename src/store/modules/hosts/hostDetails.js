@@ -3,6 +3,7 @@ import { mapClustStatus, returnAlertsByTypeDate } from '@/helpers/helpers.js'
 import { mapDatabases } from '@/helpers/databasesMap.js'
 import moment from 'moment'
 import _ from 'lodash'
+import formatDateTime from '@/filters/formatDateTime.js'
 
 const startDate = moment()
   .subtract(1, 'week')
@@ -119,10 +120,7 @@ export const getters = {
         },
         {
           name: 'Last Update',
-          value:
-            moment(info.createdAt)
-              .utc()
-              .format('DD/MM/YYYY hh:mm') || '-'
+          value: formatDateTime(info.createdAt)
         }
       ]
     }
