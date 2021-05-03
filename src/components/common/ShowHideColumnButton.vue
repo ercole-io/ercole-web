@@ -48,7 +48,7 @@ export default {
   right: 20px;
   top: 110px;
   padding: 0;
-  z-index: 999999999999;
+  z-index: 10;
 
   &:hover {
     background-color: transparent;
