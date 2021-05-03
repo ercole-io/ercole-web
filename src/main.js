@@ -23,6 +23,7 @@ import vueFilterPrettyBytes from 'vue-filter-pretty-bytes'
 import CapitalizeFilter from './filters/capitalize.js'
 import FormatDate from './filters/formatDate.js'
 import FormatNumber from './filters/formatNumber.js'
+import FormatDateTime from './filters/formatDateTime.js'
 
 import './assets/icons/material-design-webfonts/css/materialdesignicons.min.css'
 import './assets/icons/font-awesome/css/all.min.css'
@@ -66,6 +67,7 @@ Vue.use(vueFilterPrettyBytes)
 Vue.filter('capitalize', CapitalizeFilter)
 Vue.filter('formatDate', FormatDate)
 Vue.filter('formatNumber', FormatNumber)
+Vue.filter('formatDateTime', FormatDateTime)
 
 Vue.config.productionTip = false
 
