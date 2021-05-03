@@ -36,10 +36,22 @@
       <TdIcon :value="rowData.scope.restricted" />
 
       <td style="min-width: 50px;">
-        <HostAssociatedModal
-          :agreeNumber="rowData.scope.agreementID"
-          :licenseID="rowData.scope.id"
+        <b-icon
+          v-tooltip="options('Show Hosts')"
+          type="is-link"
+          class="hosts-icon"
+          pack="fas"
+          icon="server"
+          @click.native="
+            openModal(
+              rowData.scope.agreementID,
+              rowData.scope.id,
+              rowData.scope.hosts
+            )
+          "
+          v-if="rowData.scope.hosts.length > 0"
         />
+        <span v-else>-</span>
       </td>
       <td style="min-width: 50px;">
         <b-icon
@@ -69,18 +81,17 @@
 import { bus } from '@/helpers/eventBus.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import LicensesAgreementMixin from '@/mixins/licensesAgreement.js'
+import OracleAssociatedModal from '@/components/licenses/agreement/Oracle/OracleAssociatedModal.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
-import HostAssociatedModal from '@/components/licenses/agreement/Oracle/HostAssociatedModal.vue'
 
 export default {
   mixins: [TooltipMixin, LicensesAgreementMixin],
   components: {
     FullTable,
     TdContent,
-    TdIcon,
-    HostAssociatedModal
+    TdIcon
   },
   data() {
     return {
@@ -103,6 +114,17 @@ export default {
   methods: {
     editAgreement(data) {
       bus.$emit('editAgreementOracle', data)
+    },
+    openModal(agreeId, licenseId, data) {
+      this.$buefy.modal.open({
+        component: OracleAssociatedModal,
+        hasModalCard: true,
+        props: {
+          agreeNumber: agreeId,
+          licenseID: licenseId,
+          agreementData: data
+        }
+      })
     }
   }
 }
