@@ -38,7 +38,7 @@ export default {
 .card-list {
   li {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     font-size: 0.9em;
     padding: 0.2em 1em;
 
@@ -48,6 +48,8 @@ export default {
 
     span:first-child {
       font-weight: 500;
+      min-width: 30%;
+      padding-right: 10px;
     }
 
     span:last-child {
