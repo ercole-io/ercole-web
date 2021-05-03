@@ -1,54 +1,52 @@
 <template>
   <b-tab-item label="Info">
-    <div class="columns is-mobile is-multiline">
+    <div class="columns is-desktop">
       <div class="column">
-        <div class="columns">
-          <div class="column">
-            <ul class="db-info">
-              <li>DB Details</li>
-              <li>
-                <span>status</span>
-                <span>{{ details.status }}</span>
-              </li>
-              <li>
-                <span>Role</span>
-                <span>{{ details.role }}</span>
-              </li>
-              <li>
-                <span>Db ID</span>
-                <span>{{ details.dbID }}</span>
-              </li>
-              <li>
-                <span>Db Name</span>
-                <span>{{ details.dbName }}</span>
-              </li>
-              <li>
-                <span>Unique Name</span>
-                <span>{{ details.uniqueName }}</span>
-              </li>
-              <li>
-                <span>Archive Log</span>
-                <b-icon
-                  size="is-small"
-                  :icon="bindIcon(details.archiveLog)[0]"
-                  :type="bindIcon(details.archiveLog)[1]"
-                />
-              </li>
-              <li>
-                <span>Block Size</span>
-                <span>{{ details.blockSize }}</span>
-              </li>
-              <li>
-                <span>Charset</span>
-                <span>{{ details.charset }}</span>
-              </li>
-              <li>
-                <span>N Charset</span>
-                <span>{{ details.nCharset }}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <ul class="db-info">
+          <li>DB Details</li>
+          <li>
+            <span>status</span>
+            <span>{{ details.status }}</span>
+          </li>
+          <li>
+            <span>Role</span>
+            <span>{{ details.role }}</span>
+          </li>
+          <li>
+            <span>Db ID</span>
+            <span>{{ details.dbID }}</span>
+          </li>
+          <li>
+            <span>Db Name</span>
+            <span>{{ details.dbName }}</span>
+          </li>
+          <li>
+            <span>Unique Name</span>
+            <span>{{ details.uniqueName }}</span>
+          </li>
+          <li>
+            <span>Archive Log</span>
+            <b-icon
+              size="is-small"
+              :icon="bindIcon(details.archiveLog)[0]"
+              :type="bindIcon(details.archiveLog)[1]"
+            />
+          </li>
+          <li>
+            <span>Block Size</span>
+            <span>{{ details.blockSize }}</span>
+          </li>
+          <li>
+            <span>Charset</span>
+            <span>{{ details.charset }}</span>
+          </li>
+          <li>
+            <span>N Charset</span>
+            <span>{{ details.nCharset }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="column">
         <div class="columns">
           <div class="column">
             <ul class="db-info">
@@ -72,35 +70,31 @@
             </ul>
           </div>
         </div>
-      </div>
-      <div class="column">
         <div class="columns">
           <div class="column">
-            <div class="columns">
-              <div class="column">
-                <ul class="db-info">
-                  <li>Resource Utilization</li>
-                  <li>
-                    <span>Db Time</span>
-                    <span>{{ resource.dbTime }}</span>
-                  </li>
-                  <li>
-                    <span>Elapsed</span>
-                    <span>{{ resource.elapsed }}</span>
-                  </li>
-                  <li>
-                    <span>Thread Used</span>
-                    <span>{{ resource.threadUsed }}</span>
-                  </li>
-                  <li>
-                    <span>CPU Count</span>
-                    <span>{{ resource.cpuCount }}</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <ul class="db-info">
+              <li>Resource Utilization</li>
+              <li>
+                <span>Db Time</span>
+                <span>{{ resource.dbTime }}</span>
+              </li>
+              <li>
+                <span>Elapsed</span>
+                <span>{{ resource.elapsed }}</span>
+              </li>
+              <li>
+                <span>Thread Used</span>
+                <span>{{ resource.threadUsed }}</span>
+              </li>
+              <li>
+                <span>CPU Count</span>
+                <span>{{ resource.cpuCount }}</span>
+              </li>
+            </ul>
           </div>
         </div>
+      </div>
+      <div class="column">
         <div class="columns">
           <div class="column">
             <ul class="db-info">
