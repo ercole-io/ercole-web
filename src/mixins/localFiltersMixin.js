@@ -62,7 +62,7 @@ export default {
       this.resolveSliderData(value, fillNumbers)
     },
     resolveSliderData(value, numbers) {
-      this['filtered' + value] = numbers
+      this['filtered' + value] = _.compact(numbers)
 
       this.filters[value] = [
         this['filtered' + value][0],

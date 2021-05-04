@@ -1,6 +1,7 @@
 import axiosDefault from '@/axios/axios-default.js'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import { mountDatabasesChart } from '@/helpers/databasesCharts.js'
+import { filterByKeys } from '@/helpers/helpers.js'
 
 export const state = () => ({
   oracleDbs: [],
@@ -10,8 +11,12 @@ export const state = () => ({
 })
 
 export const getters = {
-  getAllOracleDBs: state => {
-    return state.oracleDbs
+  getAllOracleDBs: (state, getters, rootState) => {
+    if (rootState.localFilters.hasFilters) {
+      return filterByKeys(state.oracleDbs, rootState.localFilters.filters)
+    } else {
+      return state.oracleDbs
+    }
   },
   getOracleChartsData: state => {
     return mountDatabasesChart(state.oracleDbs, 'oracle')
