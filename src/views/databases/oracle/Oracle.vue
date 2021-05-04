@@ -2,7 +2,7 @@
   <section>
     <div class="columns">
       <div class="column is-8">
-        <OracleDBs />
+        <OracleDBs v-if="isMounted" />
       </div>
       <div class="column is-4">
         <div class="columns">
@@ -56,8 +56,13 @@ export default {
     OracleMemory,
     OracleStorage
   },
+  data() {
+    return {
+      isMounted: false
+    }
+  },
   async beforeMount() {
-    await this.getOracleDbs()
+    await this.getOracleDbs().then(() => (this.isMounted = true))
   },
   methods: {
     ...mapActions(['getOracleDbs'])
