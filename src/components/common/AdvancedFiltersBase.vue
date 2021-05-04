@@ -24,7 +24,7 @@ export default {
 
 <style lang="scss" scoped>
 .static-filters {
-  padding: 10px 10px 0 10px;
+  padding: 25px 20px 0 20px;
   background-color: #f5f5f5;
   overflow: auto;
   max-height: 500px;
