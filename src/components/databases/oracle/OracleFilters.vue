@@ -117,7 +117,12 @@
       </CustomField>
 
       <CustomField label="Memory">
-        <b-slider v-model="filters.memory" :min="minmemory" :max="maxmemory">
+        <b-slider
+          v-model="filters.memory"
+          :min="minmemory"
+          :max="maxmemory"
+          step="0.11"
+        >
           <b-slider-tick :value="minmemory">
             {{ minmemory }}
           </b-slider-tick>
@@ -192,10 +197,10 @@
           :max="maxdatafileSize"
         >
           <b-slider-tick :value="mindatafileSize">
-            {{ mindatafileSize | formatNumber('0') }}
+            {{ mindatafileSize }}
           </b-slider-tick>
           <b-slider-tick :value="maxdatafileSize">
-            {{ maxdatafileSize | formatNumber('0') }}
+            {{ maxdatafileSize }}
           </b-slider-tick>
         </b-slider>
       </CustomField>
@@ -207,10 +212,10 @@
           :max="maxsegmentsSize"
         >
           <b-slider-tick :value="minsegmentsSize">
-            {{ minsegmentsSize | formatNumber('0') }}
+            {{ minsegmentsSize }}
           </b-slider-tick>
           <b-slider-tick :value="maxsegmentsSize">
-            {{ maxsegmentsSize | formatNumber('0') }}
+            {{ maxsegmentsSize }}
           </b-slider-tick>
         </b-slider>
       </CustomField>

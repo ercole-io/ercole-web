@@ -101,11 +101,11 @@
             :class="{ hide: hideReliability }"
           />
           <TdContent
-            :value="rowData.scope.datafileSize"
+            :value="rowData.scope.datafileSize | formatNumber('0.00')"
             :class="{ hide: hideSpaceUsed }"
           />
           <TdContent
-            :value="rowData.scope.segmentsSize"
+            :value="rowData.scope.segmentsSize | formatNumber('0.00')"
             :class="{ hide: hideSpaceUsed }"
           />
           <TdContent

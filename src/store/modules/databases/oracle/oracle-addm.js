@@ -1,12 +1,17 @@
 import axiosDefault from '@/axios/axios-default.js'
+import { filterByKeys } from '@/helpers/helpers.js'
 
 export const state = () => ({
   addms: []
 })
 
 export const getters = {
-  getOracleAddms: state => {
-    return state.addms
+  getOracleAddms: (state, getters, rootState) => {
+    if (rootState.localFilters.hasFilters) {
+      return filterByKeys(state.addms, rootState.localFilters.filters)
+    } else {
+      return state.addms
+    }
   }
 }
 
