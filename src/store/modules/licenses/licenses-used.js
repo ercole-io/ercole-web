@@ -1,5 +1,4 @@
 import axiosDefault from '@/axios/axios-default.js'
-import { filterByKeys } from '@/helpers/helpers.js'
 import _ from 'lodash'
 
 export const state = () => ({
@@ -7,12 +6,8 @@ export const state = () => ({
 })
 
 export const getters = {
-  getUsedLicenses: (state, getters, rootState) => {
-    if (rootState.localFilters.hasFilters) {
-      return filterByKeys(state.licenseList, rootState.localFilters.filters)
-    } else {
-      return state.licenseList
-    }
+  getUsedLicenses: (state, getters) => {
+    return getters.filteredOrNot(state.licenseList)
   }
 }
 
