@@ -1,89 +1,81 @@
 <template>
-  <DrawerFilters title="Clusters Filters">
-    <form @submit.prevent="apply">
-      <CustomField label="Physical Host">
-        <b-autocomplete
-          v-model="filters.virtualizationNode"
+  <AdvancedFiltersBase filterTitle="Clusters Filters" :submitAction="apply">
+    <CustomField label="Physical Host">
+      <b-autocomplete
+        v-model="filters.virtualizationNode"
+        size="is-small"
+        type="number"
+        clearable
+        :data="filteredData"
+        @typing="
+          setFilteredAutocomplete(
+            $event,
+            'virtualizationNode',
+            getCurrentClusterVms
+          )
+        "
+      />
+    </CustomField>
+
+    <CustomField label="Hostname">
+      <b-autocomplete
+        v-model="filters.hostname"
+        size="is-small"
+        type="number"
+        clearable
+        :data="filteredData"
+        @typing="
+          setFilteredAutocomplete($event, 'hostname', getCurrentClusterVms)
+        "
+      />
+    </CustomField>
+
+    <CustomField label="VM Name">
+      <b-autocomplete
+        v-model="filters.name"
+        size="is-small"
+        type="number"
+        clearable
+        :data="filteredData"
+        @typing="setFilteredAutocomplete($event, 'name', getCurrentClusterVms)"
+      />
+    </CustomField>
+
+    <CustomField label="Capped CPU">
+      <div class="is-flex" style="justify-content: space-around;">
+        <b-radio
           size="is-small"
-          type="number"
-          clearable
-          :data="filteredData"
-          @typing="
-            setFilteredAutocomplete(
-              $event,
-              'virtualizationNode',
-              getCurrentClusterVms
-            )
-          "
-        />
-      </CustomField>
-
-      <CustomField label="Hostname">
-        <b-autocomplete
-          v-model="filters.hostname"
+          v-model="filters.cappedCPU"
+          :native-value="true"
+        >
+          Yes
+        </b-radio>
+        <b-radio
           size="is-small"
-          type="number"
-          clearable
-          :data="filteredData"
-          @typing="
-            setFilteredAutocomplete($event, 'hostname', getCurrentClusterVms)
-          "
-        />
-      </CustomField>
-
-      <CustomField label="VM Name">
-        <b-autocomplete
-          v-model="filters.name"
-          size="is-small"
-          type="number"
-          clearable
-          :data="filteredData"
-          @typing="
-            setFilteredAutocomplete($event, 'name', getCurrentClusterVms)
-          "
-        />
-      </CustomField>
-
-      <CustomField label="Capped CPU">
-        <div class="is-flex" style="justify-content: space-around;">
-          <b-radio
-            size="is-small"
-            v-model="filters.cappedCPU"
-            :native-value="true"
-          >
-            Yes
-          </b-radio>
-          <b-radio
-            size="is-small"
-            v-model="filters.cappedCPU"
-            :native-value="false"
-          >
-            No
-          </b-radio>
-          <b-radio size="is-small" v-model="filters.cappedCPU" native-value="">
-            All
-          </b-radio>
-        </div>
-      </CustomField>
-
-      <ActionButtons />
-    </form>
-  </DrawerFilters>
+          v-model="filters.cappedCPU"
+          :native-value="false"
+        >
+          No
+        </b-radio>
+        <b-radio size="is-small" v-model="filters.cappedCPU" native-value="">
+          All
+        </b-radio>
+      </div>
+    </CustomField>
+  </AdvancedFiltersBase>
 </template>
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
-import DrawerFilters from '@/components/common/DrawerFilters.vue'
-import ActionButtons from '@/components/common/Form/ActionButtons.vue'
+import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
 
 export default {
   mixins: [localFiltersMixin],
   components: {
-    DrawerFilters,
-    ActionButtons,
+    AdvancedFiltersBase,
     CustomField
   },
   beforeMount() {
