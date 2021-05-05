@@ -149,4 +149,12 @@ ul.pagination-list {
     .b-slider-tick-label {
       padding-top: 2px;
     }
+
+    .b-slider-thumb-wrapper.has-indicator {
+      .b-slider-thumb {
+        padding: 2px 3px;
+        font-size: 10px;
+        font-weight: 600;
+      }
+    }
 }

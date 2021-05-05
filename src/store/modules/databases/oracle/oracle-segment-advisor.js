@@ -1,18 +1,28 @@
+import _ from 'lodash'
 import axiosDefault from '@/axios/axios-default.js'
+import { filterByKeys } from '@/helpers/helpers.js'
 
 export const state = () => ({
   segmentAdvisor: []
 })
 
 export const getters = {
-  getOracleSegmentAdvisor: state => {
-    return state.segmentAdvisor
+  getOracleSegmentAdvisor: (state, getters, rootState) => {
+    if (rootState.localFilters.hasFilters) {
+      return filterByKeys(state.segmentAdvisor, rootState.localFilters.filters)
+    } else {
+      return state.segmentAdvisor
+    }
   }
 }
 
 export const mutations = {
   SET_SEGMENT_ADVISOR: (state, payload) => {
-    state.segmentAdvisor = payload
+    const newPayload = []
+    _.forEach(payload, val => {
+      newPayload.push({ ...val, retrieve: val.retrieve * 100 })
+    })
+    state.segmentAdvisor = newPayload
   }
 }
 
