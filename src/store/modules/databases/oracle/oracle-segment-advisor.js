@@ -1,18 +1,13 @@
 import _ from 'lodash'
 import axiosDefault from '@/axios/axios-default.js'
-import { filterByKeys } from '@/helpers/helpers.js'
 
 export const state = () => ({
   segmentAdvisor: []
 })
 
 export const getters = {
-  getOracleSegmentAdvisor: (state, getters, rootState) => {
-    if (rootState.localFilters.hasFilters) {
-      return filterByKeys(state.segmentAdvisor, rootState.localFilters.filters)
-    } else {
-      return state.segmentAdvisor
-    }
+  getOracleSegmentAdvisor: (state, getters) => {
+    return getters.filteredOrNot(state.segmentAdvisor)
   }
 }
 

@@ -1,6 +1,5 @@
 import axiosDefault from '@/axios/axios-default.js'
 import _ from 'lodash'
-import { filterByKeys } from '@/helpers/helpers.js'
 import { returnTechTypePrettyName } from '@/helpers/helpers.js'
 
 export const state = () => ({
@@ -10,25 +9,14 @@ export const state = () => ({
 })
 
 export const getters = {
-  getHypervisors: (state, getters, rootState) => {
-    if (rootState.localFilters.hasFilters) {
-      return filterByKeys(state.clusters, rootState.localFilters.filters)
-    } else {
-      return state.clusters
-    }
+  getHypervisors: (state, getters) => {
+    return getters.filteredOrNot(state.clusters)
   },
   getCurrentCluster: state => {
     return state.currentCluster
   },
-  getCurrentClusterVms: (state, getters, rootState) => {
-    if (rootState.localFilters.hasFilters) {
-      return filterByKeys(
-        state.currentClusterVms,
-        rootState.localFilters.filters
-      )
-    } else {
-      return state.currentClusterVms
-    }
+  getCurrentClusterVms: (state, getters) => {
+    return getters.filteredOrNot(state.currentClusterVms)
   },
   getErcoleClusterCount: state => {
     const ercoleClusterCount = {

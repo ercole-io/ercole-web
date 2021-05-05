@@ -1,7 +1,7 @@
 import axiosDefault from '@/axios/axios-default'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
-import { mapClustStatus, filterByKeys } from '@/helpers/helpers.js'
+import { mapClustStatus } from '@/helpers/helpers.js'
 import { mapDatabases } from '@/helpers/databasesMap.js'
 import router from '@/router'
 
@@ -10,7 +10,7 @@ export const state = () => ({
 })
 
 export const getters = {
-  getAllHosts: (state, getters, rootState) => {
+  getAllHosts: (state, getters) => {
     let allHosts = []
     _.map(state.hosts, host => {
       allHosts.push({
@@ -36,13 +36,7 @@ export const getters = {
       })
     })
 
-    if (rootState.localFilters.hasFilters) {
-      allHosts = filterByKeys(allHosts, rootState.localFilters.filters)
-    } else {
-      allHosts
-    }
-
-    return allHosts
+    return getters.filteredOrNot(allHosts)
   }
 }
 
