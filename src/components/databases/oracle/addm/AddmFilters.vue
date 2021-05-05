@@ -6,7 +6,7 @@
           v-model="filters.benefit"
           :min="minbenefit"
           :max="maxbenefit"
-          step="0.11"
+          :step="0.11"
         >
           <b-slider-tick :value="minbenefit">
             {{ minbenefit }}
