@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase filterTitle="Oracle Filters">
+  <AdvancedFiltersBase filterTitle="Oracle Filters" :submitAction="apply">
     <form @submit.prevent="apply">
       <CustomField label="Name">
         <b-autocomplete
@@ -121,7 +121,7 @@
           v-model="filters.memory"
           :min="minmemory"
           :max="maxmemory"
-          step="0.11"
+          :step="0.11"
         >
           <b-slider-tick :value="minmemory">
             {{ minmemory }}
@@ -229,8 +229,6 @@
           @typing="setFilteredAutocomplete($event, 'charset', getAllOracleDBs)"
         />
       </CustomField>
-
-      <ActionButtons />
     </form>
   </AdvancedFiltersBase>
 </template>
@@ -241,14 +239,12 @@ import { mapGetters } from 'vuex'
 import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
-import ActionButtons from '@/components/common/Form/ActionButtons.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
 
 export default {
   mixins: [localFiltersMixin],
   components: {
     AdvancedFiltersBase,
-    ActionButtons,
     CustomField
   },
   data() {

@@ -57,11 +57,14 @@ export default {
 
 <style lang="scss" scoped>
 .fixed-buttons {
+  // border: 1px solid red;
   background-color: #f5f5f5;
   position: -webkit-sticky;
   position: sticky;
   bottom: 0;
+  left: 0;
   padding: 25px 0;
   z-index: 10;
+  width: inherit;
 }
 </style>
