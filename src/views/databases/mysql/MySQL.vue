@@ -1,5 +1,5 @@
 <template>
-  <MySqlDbs />
+  <MySqlDbs v-if="isMounted" />
 </template>
 
 <script>
@@ -10,8 +10,13 @@ export default {
   components: {
     MySqlDbs
   },
+  data() {
+    return {
+      isMounted: false
+    }
+  },
   async beforeMount() {
-    await this.getMysqlDbs()
+    await this.getMysqlDbs().then(() => (this.isMounted = true))
   },
   methods: {
     ...mapActions(['getMysqlDbs'])
