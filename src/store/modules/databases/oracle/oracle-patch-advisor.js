@@ -1,13 +1,14 @@
 import { _ } from 'core-js'
 import moment from 'moment'
 import axiosDefault from '@/axios/axios-default'
+import { filterByKeys } from '@/helpers/helpers.js'
 
 export const state = () => ({
   patchAdvisor: []
 })
 
 export const getters = {
-  getOraclePatchAdvisor: state => {
+  getOraclePatchAdvisor: (state, getters, rootState) => {
     let patchAdvisorData = []
 
     _.map(state.patchAdvisor, val => {
@@ -32,7 +33,11 @@ export const getters = {
       })
     })
 
-    return patchAdvisorData
+    if (rootState.localFilters.hasFilters) {
+      return filterByKeys(patchAdvisorData, rootState.localFilters.filters)
+    } else {
+      return patchAdvisorData
+    }
   }
 }
 
