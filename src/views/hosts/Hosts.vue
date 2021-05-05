@@ -1,7 +1,7 @@
 <template>
   <section v-if="isMounted">
     <div class="columns is-desktop">
-      <div class="column is-3">
+      <div class="column is-2">
         <ButtonGroup groupTitle="Show more info:">
           <b-button
             class="mr-1"
@@ -30,7 +30,7 @@
         </ButtonGroup>
         <HostsFilters />
       </div>
-      <div class="column is-9">
+      <div class="column is-10">
         <BoxContent :mbottom="false">
           <FullTable
             placeholder="Search on Hosts"
