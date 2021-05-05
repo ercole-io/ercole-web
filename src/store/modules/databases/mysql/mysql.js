@@ -1,12 +1,17 @@
 import axiosDefault from '@/axios/axios-default.js'
+import { filterByKeys } from '@/helpers/helpers.js'
 
 export const state = () => ({
   mysqlDbs: []
 })
 
 export const getters = {
-  getAllMysqlDbs: state => {
-    return state.mysqlDbs
+  getAllMysqlDbs: (state, getters, rootState) => {
+    if (rootState.localFilters.hasFilters) {
+      return filterByKeys(state.mysqlDbs, rootState.localFilters.filters)
+    } else {
+      return state.mysqlDbs
+    }
   }
 }
 
