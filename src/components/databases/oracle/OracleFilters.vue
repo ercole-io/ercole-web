@@ -121,7 +121,7 @@
           v-model="filters.memory"
           :min="minmemory"
           :max="maxmemory"
-          :step="0.11"
+          :step="0.1"
         >
           <b-slider-tick :value="minmemory">
             {{ minmemory }}
