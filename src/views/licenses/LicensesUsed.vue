@@ -1,56 +1,50 @@
 <template>
-  <div class="columns">
-    <div class="column is-2">
-      <UsedFilters v-if="isMounted" />
-    </div>
-    <div class="column is-10">
-      <BoxContent>
-        <FullTable
-          placeholder="Search on Licenses"
-          :urlSearchParam="partNumber"
-          :keys="keys"
-          :tableData="getUsedLicenses"
-          @clickedRow="handleClickedRow"
-          isClickable
-        >
-          <DrawerButton slot="customTopHeader" tooltipText="More Filters" />
+  <BaseLayoutColumns v-if="isMounted">
+    <UsedFilters slot="col1" />
 
-          <template slot="headData">
-            <v-th sortKey="hostname">Hostname</v-th>
-            <v-th sortKey="dbName">DB Name</v-th>
-            <v-th sortKey="licenseTypeID">Part Number</v-th>
-            <v-th sortKey="description">Description</v-th>
-            <v-th sortKey="metric">Metric</v-th>
-            <v-th sortKey="usedLicenses">Used Licenses</v-th>
-          </template>
+    <FullTable
+      slot="col2"
+      placeholder="Search on Licenses"
+      :urlSearchParam="partNumber"
+      :keys="keys"
+      :tableData="getUsedLicenses"
+      @clickedRow="handleClickedRow"
+      isClickable
+    >
+      <DrawerButton slot="customTopHeader" tooltipText="More Filters" />
 
-          <template slot="bodyData" slot-scope="rowData">
-            <HostLink
-              :hostname="[rowData.scope.hostname, rowData.scope.dbName]"
-            />
-            <TdContent :value="rowData.scope.dbName" />
-            <TdContent :value="rowData.scope.licenseTypeID" />
-            <TdContent :value="rowData.scope.description" />
-            <TdContent :value="rowData.scope.metric" />
-            <TdContent :value="rowData.scope.usedLicenses" />
-          </template>
+      <template slot="headData">
+        <v-th sortKey="hostname">Hostname</v-th>
+        <v-th sortKey="dbName">DB Name</v-th>
+        <v-th sortKey="licenseTypeID">Part Number</v-th>
+        <v-th sortKey="description">Description</v-th>
+        <v-th sortKey="metric">Metric</v-th>
+        <v-th sortKey="usedLicenses">Used Licenses</v-th>
+      </template>
 
-          <!-- <exportButton
-          slot="export"
-          url="hosts/technologies/oracle/databases/consumed-licenses"
-          expName="licenses-list-data"
-        /> -->
-        </FullTable>
-      </BoxContent>
-    </div>
-  </div>
+      <template slot="bodyData" slot-scope="rowData">
+        <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbName]" />
+        <TdContent :value="rowData.scope.dbName" />
+        <TdContent :value="rowData.scope.licenseTypeID" />
+        <TdContent :value="rowData.scope.description" />
+        <TdContent :value="rowData.scope.metric" />
+        <TdContent :value="rowData.scope.usedLicenses" />
+      </template>
+
+      <!-- <exportButton
+      slot="export"
+      url="hosts/technologies/oracle/databases/consumed-licenses"
+      expName="licenses-list-data"
+    /> -->
+    </FullTable>
+  </BaseLayoutColumns>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
-import BoxContent from '@/components/common/BoxContent.vue'
+import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 // import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -67,7 +61,7 @@ export default {
     }
   },
   components: {
-    BoxContent,
+    BaseLayoutColumns,
     FullTable,
     // exportButton,
     TdContent,
