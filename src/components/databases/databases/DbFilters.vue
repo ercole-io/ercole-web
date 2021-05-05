@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase filterTitle="Databases Filters">
+  <AdvancedFiltersBase filterTitle="Databases Filters" :submitAction="apply">
     <form @submit.prevent="apply">
       <CustomField label="Name">
         <b-autocomplete
@@ -78,7 +78,7 @@
           v-model="filters.memory"
           :min="minmemory"
           :max="maxmemory"
-          step="0.111"
+          :step="0.111"
         >
           <b-slider-tick :value="minmemory">
             {{ minmemory | formatNumber('0') }}
@@ -94,7 +94,7 @@
           v-model="filters.datafileSize"
           :min="mindatafileSize"
           :max="maxdatafileSize"
-          step="0.111"
+          :step="0.111"
         >
           <b-slider-tick :value="mindatafileSize">
             {{ mindatafileSize | formatNumber('0') }}
@@ -110,7 +110,7 @@
           v-model="filters.segmentSize"
           :min="minsegmentSize"
           :max="maxsegmentSize"
-          step="0.111"
+          :step="0.111"
         >
           <b-slider-tick :value="minsegmentSize">
             {{ minsegmentSize | formatNumber('0') }}
@@ -194,8 +194,6 @@
           </b-radio>
         </div>
       </CustomField>
-
-      <ActionButtons />
     </form>
   </AdvancedFiltersBase>
 </template>
@@ -206,14 +204,12 @@ import { mapGetters } from 'vuex'
 import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
-import ActionButtons from '@/components/common/Form/ActionButtons.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
 
 export default {
   mixins: [localFiltersMixin],
   components: {
     AdvancedFiltersBase,
-    ActionButtons,
     CustomField
   },
   data() {
