@@ -1,3 +1,5 @@
+import { filterByKeys } from '@/helpers/helpers.js'
+
 export const state = () => ({
   hasFilters: false,
   filters: [],
@@ -5,6 +7,13 @@ export const state = () => ({
 })
 
 export const getters = {
+  filteredOrNot: state => data => {
+    if (state.hasFilters) {
+      return filterByKeys(data, state.filters)
+    } else {
+      return data
+    }
+  },
   showCheckbox: state => {
     if (state.showCheckbox[0] === 'ACK') {
       return false
