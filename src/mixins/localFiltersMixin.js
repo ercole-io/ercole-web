@@ -30,6 +30,7 @@ export default {
   },
   methods: {
     apply() {
+      // console.log(this.filters)
       this.$store.commit('SET_FILTERS', {
         status: true,
         filters: organizeKeysBeforeFilter(this.filters),

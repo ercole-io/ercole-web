@@ -1,51 +1,58 @@
 <template>
-  <section>
-    <FullTable
-      placeholder="Search on Oracle Segment Advisor"
-      :keys="keys"
-      :tableData="getOracleSegmentAdvisor"
-      @clickedRow="handleClickedRow"
-      isClickable
-    >
-      <template slot="headData">
-        <v-th sortKey="reclaimable">Reclaimable GB</v-th>
-        <v-th sortKey="segmentsSize">GB Total</v-th>
-        <v-th sortKey="retrieve">Retrieve</v-th>
-        <v-th sortKey="hostname">Hostname</v-th>
-        <v-th sortKey="dbname">DB Name</v-th>
-        <v-th sortKey="segmentOwner">Segment Owner</v-th>
-        <v-th sortKey="segmentName">Segment Name</v-th>
-        <v-th sortKey="segmentType">Segment Type</v-th>
-        <v-th sortKey="partitionName">Partition Name</v-th>
-        <v-th sortKey="recommendation">Recommendation</v-th>
-      </template>
+  <div class="columns">
+    <div class="column is-2">
+      <SegnmentAdvisorsFilters v-if="isMounted" />
+    </div>
+    <div class="column is-10">
+      <FullTable
+        placeholder="Search on Oracle Segment Advisor"
+        :keys="keys"
+        :tableData="getOracleSegmentAdvisor"
+        @clickedRow="handleClickedRow"
+        isClickable
+      >
+        <template slot="headData">
+          <v-th sortKey="reclaimable">Reclaimable GB</v-th>
+          <v-th sortKey="segmentsSize">GB Total</v-th>
+          <v-th sortKey="retrieve">Retrieve</v-th>
+          <v-th sortKey="hostname">Hostname</v-th>
+          <v-th sortKey="dbname">DB Name</v-th>
+          <v-th sortKey="segmentOwner">Segment Owner</v-th>
+          <v-th sortKey="segmentName">Segment Name</v-th>
+          <v-th sortKey="segmentType">Segment Type</v-th>
+          <v-th sortKey="partitionName">Partition Name</v-th>
+          <v-th sortKey="recommendation">Recommendation</v-th>
+        </template>
 
-      <template slot="bodyData" slot-scope="rowData">
-        <TdContent
-          :value="rowData.scope.reclaimable | formatNumber('0.00', 'GB')"
-        />
-        <TdContent
-          :value="rowData.scope.segmentsSize | formatNumber('0.00', 'GB')"
-        />
-        <TdContent
-          :value="(rowData.scope.retrieve * 100) | formatNumber('0.00', '%')"
-        />
-        <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
-        <TdContent :value="rowData.scope.dbname" />
-        <TdContent :value="rowData.scope.segmentOwner" />
-        <TdContent :value="rowData.scope.segmentName" />
-        <TdContent :value="rowData.scope.segmentType" />
-        <TdContent :value="rowData.scope.partitionName" />
-        <TdContent :value="rowData.scope.recommendation" />
-      </template>
+        <template slot="bodyData" slot-scope="rowData">
+          <TdContent
+            :value="rowData.scope.reclaimable | formatNumber('0.00', 'GB')"
+          />
+          <TdContent
+            :value="rowData.scope.segmentsSize | formatNumber('0.00', 'GB')"
+          />
+          <TdContent
+            :value="rowData.scope.retrieve | formatNumber('0.00', '%')"
+          />
+          <HostLink
+            :hostname="[rowData.scope.hostname, rowData.scope.dbname]"
+          />
+          <TdContent :value="rowData.scope.dbname" />
+          <TdContent :value="rowData.scope.segmentOwner" />
+          <TdContent :value="rowData.scope.segmentName" />
+          <TdContent :value="rowData.scope.segmentType" />
+          <TdContent :value="rowData.scope.partitionName" />
+          <TdContent :value="rowData.scope.recommendation" />
+        </template>
 
-      <exportButton
-        slot="export"
-        url="hosts/technologies/oracle/databases/segment-advisors"
-        expName="oracleSegmentAdvisor"
-      />
-    </FullTable>
-  </section>
+        <exportButton
+          slot="export"
+          url="hosts/technologies/oracle/databases/segment-advisors"
+          expName="oracleSegmentAdvisor"
+        />
+      </FullTable>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -55,6 +62,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
+import SegnmentAdvisorsFilters from '@/components/databases/oracle/segmentAdvisor/SegmentAdvisorFIlters.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -62,7 +70,8 @@ export default {
     FullTable,
     exportButton,
     TdContent,
-    HostLink
+    HostLink,
+    SegnmentAdvisorsFilters
   },
   data() {
     return {
@@ -77,11 +86,12 @@ export default {
         'segmentType',
         'partitionName',
         'recommendation'
-      ]
+      ],
+      isMounted: false
     }
   },
   async beforeMount() {
-    await this.getSegmentAdvisor()
+    await this.getSegmentAdvisor().then(() => (this.isMounted = true))
   },
   methods: {
     ...mapActions(['getSegmentAdvisor'])

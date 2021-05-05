@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="column is-2">
-      <AddmFilters />
+      <AddmFilters v-if="isMounted" />
     </div>
     <div class="column is-10">
       <FullTable
@@ -68,11 +68,12 @@ export default {
         'finding',
         'recommendation',
         'action'
-      ]
+      ],
+      isMounted: false
     }
   },
   async beforeMount() {
-    await this.getAddms()
+    await this.getAddms().then(() => (this.isMounted = true))
   },
   methods: {
     ...mapActions(['getAddms'])
