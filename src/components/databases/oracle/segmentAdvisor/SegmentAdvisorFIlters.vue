@@ -8,7 +8,7 @@
         v-model="filters.reclaimable"
         :min="minreclaimable"
         :max="maxreclaimable"
-        :step="0.11"
+        :step="0.1"
       >
         <b-slider-tick :value="minreclaimable">
           {{ minreclaimable }}
@@ -24,7 +24,7 @@
         v-model="filters.segmentsSize"
         :min="minsegmentsSize"
         :max="maxsegmentsSize"
-        :step="0.11"
+        :step="0.1"
       >
         <b-slider-tick :value="minsegmentsSize">
           {{ minsegmentsSize }}
