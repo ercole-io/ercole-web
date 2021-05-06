@@ -16,29 +16,23 @@ export const state = () => ({
 })
 
 export const getters = {
-  getLicensesCompliance: state => {
-    const result = []
-
-    _.map(state.complianceList, val => {
-      result.push({
-        partID: val.licenseTypeID,
-        itemDescription: val.itemDescription,
-        metric: val.metric,
-        consumed: val.consumed,
-        covered: val.covered,
-        complianveValue: (val.compliance *= 100),
-        complianceStroke: showStrokeColor(val.compliance),
-        unlimited: val.unlimited
-      })
-    })
-
-    return result
+  getLicensesCompliance: (state, getters) => {
+    return getters.filteredOrNot(state.complianceList)
   }
 }
 
 export const mutations = {
   SET_COMPLIANCE_LIST: (state, payload) => {
-    state.complianceList = payload
+    const newPayload = []
+
+    _.map(payload, val => {
+      newPayload.push({
+        ...val,
+        compliance: val.compliance * 100,
+        complianceStroke: showStrokeColor(val.compliance * 100)
+      })
+    })
+    state.complianceList = newPayload
   }
 }
 
