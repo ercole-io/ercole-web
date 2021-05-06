@@ -92,7 +92,7 @@ export const getters = {
       return {
         category: category,
         alertId: alerts._id,
-        host: alerts.otherInfo.hostname,
+        host: alerts.otherInfo ? alerts.otherInfo.hostname : null,
         date: alerts.date,
         msg: alerts.description,
         severity: alerts.alertSeverity
