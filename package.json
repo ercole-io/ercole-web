@@ -19,7 +19,7 @@
     "easy-circular-progress": "^1.0.4",
     "file-saver": "^2.0.5",
     "flush-promises": "^1.0.2",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "numeral": "^2.0.6",
     "v-tooltip": "^2.1.2",
