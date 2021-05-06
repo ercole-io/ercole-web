@@ -30,7 +30,6 @@ export default {
   },
   methods: {
     apply() {
-      // console.log(this.filters)
       this.$store.commit('SET_FILTERS', {
         status: true,
         filters: organizeKeysBeforeFilter(this.filters),
@@ -63,7 +62,7 @@ export default {
       this.resolveSliderData(value, fillNumbers)
     },
     resolveSliderData(value, numbers) {
-      this['filtered' + value] = _.compact(numbers)
+      this['filtered' + value] = _.without(numbers, undefined, null, '')
 
       this.filters[value] = [
         this['filtered' + value][0],

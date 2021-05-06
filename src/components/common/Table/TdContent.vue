@@ -1,13 +1,13 @@
 <template>
-  <td v-tooltip.bottom="options(value, dataType)">
+  <td v-tooltip.bottom="options(setValue, dataType)">
     <template v-if="link">
-      <a @click.prevent="link(value)">
-        <span v-html="highlight(value || '-')" />
+      <a @click.prevent="link(setValue)">
+        <span v-html="highlight(setValue)" />
       </a>
     </template>
     <template v-if="!link">
-      <span v-if="!dataType" v-html="highlight(value || '-')" />
-      <span v-if="dataType" v-html="highlight(formatDate(value || '-'))" />
+      <span v-if="!dataType" v-html="highlight(setValue)" />
+      <span v-if="dataType" v-html="highlight(formatDate(setValue))" />
     </template>
   </td>
 </template>
@@ -31,6 +31,15 @@ export default {
   methods: {
     formatDate(date) {
       return formatDateTime(date)
+    }
+  },
+  computed: {
+    setValue() {
+      if (typeof this.value === 'number') {
+        return this.value
+      } else {
+        return this.value || '-'
+      }
     }
   }
 }
