@@ -1,133 +1,128 @@
 <template>
-  <div class="columns">
+  <BaseLayoutColumns v-if="isMounted">
     <b-loading
       slot="loading"
       :is-full-page="false"
       v-model="isLoading"
       :can-cancel="false"
     />
-    <div class="column is-2">
-      <AlertsFilters v-if="isMounted" />
-    </div>
-    <div class="column is-10">
-      <BoxContent>
-        <FullTable
-          placeholder="Search on Alerts"
-          :keys="keys"
-          :tableData="getAlerts"
-          class="table-alerts"
-          @pageRows="
-            vals => {
-              currentPageSelection = vals
-            }
-          "
-          @isPageChanged="handleClearAllSelections"
-          @clickedRow="handleClickedRow"
-          isClickable
+    <AlertsFilters slot="col1" />
+    <FullTable
+      slot="col2"
+      placeholder="Search on Alerts"
+      :keys="keys"
+      :tableData="getAlerts"
+      class="table-alerts"
+      @pageRows="
+        vals => {
+          currentPageSelection = vals
+        }
+      "
+      @isPageChanged="handleClearAllSelections"
+      @clickedRow="handleClickedRow"
+      isClickable
+    >
+      <template slot="customTopHeader">
+        <DrawerButton tooltipText="More Filters" />
+
+        <div
+          v-if="isCurrentPageSelected || selectedRows.length > 0"
+          style="margin-right: auto;"
         >
-          <template slot="customTopHeader">
-            <DrawerButton tooltipText="More Filters" />
+          <b-button
+            type="is-primary"
+            size="is-small"
+            icon-pack="fas"
+            icon-left="check-circle"
+            class="has-text-weight-semibold mr-3 ml-3"
+            @click="handleMarkAsRead"
+          >
+            Mark as Read
+          </b-button>
 
-            <div
-              v-if="isCurrentPageSelected || selectedRows.length > 0"
-              style="margin-right: auto;"
-            >
-              <b-button
-                type="is-primary"
-                size="is-small"
-                icon-pack="fas"
-                icon-left="check-circle"
-                class="has-text-weight-semibold mr-3 ml-3"
-                @click="handleMarkAsRead"
-              >
-                Mark as Read
-              </b-button>
+          <span
+            class="is-size-7"
+            v-if="!isAllPagesSelected && isCurrentPageSelected"
+          >
+            <span class="px-2">
+              All {{ currentPageSelection.length }} alerts on this page are
+              selected.
+            </span>
+            <a @click="handleSelectAllPagesRows">
+              Select all {{ getAlerts.length }} alerts?
+            </a>
+          </span>
 
-              <span
-                class="is-size-7"
-                v-if="!isAllPagesSelected && isCurrentPageSelected"
-              >
-                <span class="px-2">
-                  All {{ currentPageSelection.length }} alerts on this page are
-                  selected.
-                </span>
-                <a @click="handleSelectAllPagesRows">
-                  Select all {{ getAlerts.length }} alerts?
-                </a>
-              </span>
+          <span
+            class="is-size-7"
+            v-if="isAllPagesSelected && isCurrentPageSelected"
+          >
+            <span class="px-2">
+              All {{ getAlerts.length }} alerts are selected.
+            </span>
+            <a @click="handleClearAllSelections">
+              Clear select all?
+            </a>
+          </span>
+        </div>
 
-              <span
-                class="is-size-7"
-                v-if="isAllPagesSelected && isCurrentPageSelected"
-              >
-                <span class="px-2">
-                  All {{ getAlerts.length }} alerts are selected.
-                </span>
-                <a @click="handleClearAllSelections">
-                  Clear select all?
-                </a>
-              </span>
-            </div>
+        <div v-if="alerts.params.category" style="padding-left: 20px;">
+          <b-button
+            type="is-primary"
+            size="is-small"
+            class="has-text-weight-semibold mr-3"
+            @click="removeParams"
+          >
+            Show All
+          </b-button>
+        </div>
+      </template>
 
-            <div v-if="alerts.params.category" style="padding-left: 20px;">
-              <b-button
-                type="is-primary"
-                size="is-small"
-                class="has-text-weight-semibold mr-3"
-                @click="removeParams"
-              >
-                Show All
-              </b-button>
-            </div>
-          </template>
-
-          <template slot="headData">
-            <th style="width: 5%">
-              <div v-if="showCheckbox">
-                <b-checkbox
-                  v-model="isCurrentPageSelected"
-                  @input="handleSelectPageRows"
-                />
-              </div>
-            </th>
-            <v-th style="width: 10%" sortKey="alertCategory">Type</v-th>
-            <v-th style="width: 10%" sortKey="date">Date</v-th>
-            <v-th style="width: 5%" :sortKey="alertSeveritySort">Severity</v-th>
-            <v-th style="width: 20%" sortKey="hostname">Hostname</v-th>
-            <v-th style="width: 10%" sortKey="alertCode">Code</v-th>
-            <v-th style="width: 40%" sortKey="description">Description</v-th>
-          </template>
-
-          <template slot="bodyData" slot-scope="rowData">
-            <td
-              v-if="
-                rowData.scope.alertCategory !== 'AGENT' &&
-                  rowData.scope.alertStatus === 'NEW'
-              "
-            >
-              <b-checkbox
-                v-model="rowData.scope.isChecked"
-                @input="
-                  handleSelectRows(rowData.scope.isChecked, rowData.scope._id)
-                "
-              />
-            </td>
-            <td v-else></td>
-            <TdContent :value="rowData.scope.alertCategory" />
-            <TdContent :value="rowData.scope.date" dataType="date" />
-            <TdIcon :value="resolveIcon(rowData.scope.alertSeverity)" />
-            <HostLink
-              :hostname="rowData.scope.hostname ? rowData.scope.hostname : '-'"
+      <template slot="headData">
+        <th style="width: 5%">
+          <div v-if="showCheckbox">
+            <b-checkbox
+              v-model="isCurrentPageSelected"
+              @input="handleSelectPageRows"
             />
-            <TdContent :value="rowData.scope.alertCode" />
-            <TdContent :value="rowData.scope.description" />
-          </template>
+          </div>
+        </th>
+        <v-th style="width: 10%" sortKey="alertCategory">Type</v-th>
+        <v-th style="width: 10%" sortKey="date">Date</v-th>
+        <v-th style="width: 5%" :sortKey="alertSeveritySort">Severity</v-th>
+        <v-th style="width: 20%" sortKey="hostname">Hostname</v-th>
+        <v-th style="width: 10%" sortKey="alertCode">Code</v-th>
+        <v-th style="width: 40%" sortKey="description">Description</v-th>
+      </template>
 
-          <exportButton slot="export" url="alerts" expName="alerts-data" />
-        </FullTable>
-      </BoxContent>
-    </div>
-  </div>
+      <template slot="bodyData" slot-scope="rowData">
+        <td
+          v-if="
+            rowData.scope.alertCategory !== 'AGENT' &&
+              rowData.scope.alertStatus === 'NEW'
+          "
+        >
+          <b-checkbox
+            v-model="rowData.scope.isChecked"
+            @input="
+              handleSelectRows(rowData.scope.isChecked, rowData.scope._id)
+            "
+          />
+        </td>
+        <td v-else></td>
+        <TdContent :value="rowData.scope.alertCategory" />
+        <TdContent :value="rowData.scope.date" dataType="date" />
+        <TdIcon :value="resolveIcon(rowData.scope.alertSeverity)" />
+        <HostLink
+          :hostname="rowData.scope.hostname ? rowData.scope.hostname : '-'"
+        />
+        <TdContent :value="rowData.scope.alertCode" />
+        <TdContent :value="rowData.scope.description" />
+      </template>
+
+      <exportButton slot="export" url="alerts" expName="alerts-data" />
+    </FullTable>
+  </BaseLayoutColumns>
 </template>
 
 <script>
@@ -138,7 +133,7 @@ import { checkAlertIcon } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
-import BoxContent from '@/components/common/BoxContent.vue'
+import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -160,7 +155,7 @@ const checkOrUncheck = (list, status, handleSelectRows) => {
 export default {
   mixins: [paginationMixin, localFiltersMixin, hostnameLinkRow],
   components: {
-    BoxContent,
+    BaseLayoutColumns,
     FullTable,
     exportButton,
     TdContent,

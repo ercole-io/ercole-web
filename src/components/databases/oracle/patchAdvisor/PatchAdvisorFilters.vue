@@ -1,8 +1,5 @@
 <template>
-  <AdvancedFiltersBase
-    filterTitle="Patch Advisor Filters"
-    :submitAction="apply"
-  >
+  <AdvancedFiltersBase :submitAction="apply">
     <CustomField label="Hostname">
       <b-autocomplete
         v-model="filters.hostname"

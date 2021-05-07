@@ -1,11 +1,11 @@
 <template>
-  <AdvancedFiltersBase filterTitle="Addm Filters" :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply">
     <CustomField label="Performance Impact">
       <b-slider
         v-model="filters.benefit"
         :min="minbenefit"
         :max="maxbenefit"
-        :step="0.1"
+        :step="0.11"
       >
         <b-slider-tick :value="minbenefit">
           {{ minbenefit }}

@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase filterTitle="Alerts Filters" :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply">
     <CustomField label="Status">
       <b-select
         v-model="alertStatus"

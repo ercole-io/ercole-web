@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase filterTitle="Databases Filters" :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply">
     <CustomField label="Name">
       <b-autocomplete
         v-model="filters.name"

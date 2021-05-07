@@ -1,34 +1,27 @@
 <template>
-  <section>
-    <div class="columns">
-      <div class="column is-9">
-        <DbList v-if="isMounted" />
-      </div>
-      <div class="column is-3">
-        <div class="columns">
-          <div class="column is-6">
-            <DbTotalMemorySize />
-          </div>
-          <div class="column is-6">
-            <DbTotalSegmentSize />
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-12">
-            <DbCharts
-              id="databasesChart"
-              chartHeight="500px"
-              :xAxesConfig="[true, 'top']"
-            />
-          </div>
-        </div>
-      </div>
+  <BaseLayoutColumns
+    v-if="isMounted"
+    :pageCols="[
+      { colsize: '9', slotName: 'content' },
+      { colsize: '3', slotName: 'side' }
+    ]"
+  >
+    <DbList slot="content" />
+    <div slot="side">
+      <DbTotalMemorySize />
+      <DbTotalSegmentSize />
+      <DbCharts
+        id="databasesChart"
+        chartHeight="500px"
+        :xAxesConfig="[true, 'top']"
+      />
     </div>
-  </section>
+  </BaseLayoutColumns>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
 import DbList from '@/components/databases/databases/DbList.vue'
 import DbCharts from '@/components/databases/databases/DbCharts.vue'
 import DbTotalMemorySize from '@/components/databases/databases/DbTotalMemorySize.vue'
@@ -36,6 +29,7 @@ import DbTotalSegmentSize from '@/components/databases/databases/DbTotalSegmentS
 
 export default {
   components: {
+    BaseLayoutColumns,
     DbList,
     DbCharts,
     DbTotalMemorySize,

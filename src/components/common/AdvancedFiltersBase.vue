@@ -17,7 +17,7 @@ export default {
   props: {
     filterTitle: {
       type: String,
-      default: ''
+      default: 'Advanced Filters'
     },
     submitAction: {
       type: Function,
@@ -35,11 +35,13 @@ export default {
 .static-filters {
   background-color: #f5f5f5;
   overflow: auto;
-  max-height: 515px;
+  min-height: 600px;
   position: relative;
 
   form {
-    padding: 25px 20px 0 20px;
+    padding: 25px 20px;
+    // min-height: calc(100vh - 250px);
+    height: 600px;
   }
 }
 </style>

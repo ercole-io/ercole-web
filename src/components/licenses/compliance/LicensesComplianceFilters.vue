@@ -1,8 +1,5 @@
 <template>
-  <AdvancedFiltersBase
-    filterTitle="Licenses Used Filters"
-    :submitAction="apply"
-  >
+  <AdvancedFiltersBase :submitAction="apply">
     <CustomField label="Part Number">
       <b-select
         v-model="filters.licenseTypeID"

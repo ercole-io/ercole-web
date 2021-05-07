@@ -1,43 +1,37 @@
 <template>
-  <section>
-    <div class="columns">
-      <div class="column is-8">
-        <OracleDBs v-if="isMounted" />
-      </div>
-      <div class="column is-4">
-        <div class="columns">
-          <div class="column is-3">
-            <OracleCpu />
-          </div>
-          <div class="column is-3">
-            <OracleMemory />
-          </div>
-          <div class="column is-6">
-            <OracleStorage />
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-12">
-            <Top3Workload />
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-12">
-            <Top3Reclaimable />
-          </div>
-        </div>
-        <div class="columns">
-          <div class="column is-12">
-            <OracleCharts />
-          </div>
-        </div>
-      </div>
+  <BaseLayoutColumns
+    v-if="isMounted"
+    :pageCols="[
+      { colsize: '9', slotName: 'content' },
+      { colsize: '3', slotName: 'side' }
+    ]"
+  >
+    <OracleDBs slot="content" />
+    <div slot="side">
+      <BaseLayoutColumns
+        :pageCols="[
+          { colsize: '6', slotName: 'cpu' },
+          { colsize: '6', slotName: 'memory' }
+        ]"
+      >
+        <OracleCpu slot="cpu" />
+        <OracleMemory slot="memory" />
+      </BaseLayoutColumns>
+
+      <BaseLayoutColumns :pageCols="[{ colSize: '12', slotName: 'storage' }]">
+        <OracleStorage slot="storage" />
+      </BaseLayoutColumns>
+
+      <Top3Workload slot="workload" />
+      <Top3Reclaimable slot="reclaimable" />
+      <OracleCharts slot="charts" />
     </div>
-  </section>
+  </BaseLayoutColumns>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
 import Top3Workload from '@/components/databases/oracle/Top3Workload.vue'
 import Top3Reclaimable from '@/components/databases/oracle/Top3Reclaimable.vue'
 import OracleDBs from '@/components/databases/oracle/OracleDBs.vue'
@@ -48,6 +42,7 @@ import OracleStorage from '@/components/databases/oracle/OracleStorage.vue'
 
 export default {
   components: {
+    BaseLayoutColumns,
     Top3Workload,
     Top3Reclaimable,
     OracleDBs,
