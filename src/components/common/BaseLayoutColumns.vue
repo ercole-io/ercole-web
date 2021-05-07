@@ -4,9 +4,9 @@
       v-for="(col, i) in pageCols"
       :key="i"
       class="column"
-      :class="`is-${col.size}`"
+      :class="`is-${col.colsize}`"
     >
-      <slot :name="col.name" />
+      <slot :name="col.slotName" />
     </div>
   </div>
 </template>
@@ -17,8 +17,8 @@ export default {
     pageCols: {
       type: Array,
       default: () => [
-        { size: '3', name: 'col1' },
-        { size: '9', name: 'col2' }
+        { colsize: '3', slotName: 'col1' },
+        { colsize: '9', slotName: 'col2' }
       ]
     }
   }

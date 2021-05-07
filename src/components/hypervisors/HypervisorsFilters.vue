@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase filterTitle="Hypervisors Filters" :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply">
     <CustomField label="Cluster Name">
       <b-autocomplete
         v-model="filters.name"

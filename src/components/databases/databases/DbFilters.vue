@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase filterTitle="Databases Filters" :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply">
     <CustomField label="Name">
       <b-autocomplete
         v-model="filters.name"
@@ -77,7 +77,7 @@
         v-model="filters.memory"
         :min="minmemory"
         :max="maxmemory"
-        :step="0.1"
+        :step="0.001"
       >
         <b-slider-tick :value="minmemory">
           {{ minmemory | formatNumber('0') }}
@@ -93,7 +93,7 @@
         v-model="filters.datafileSize"
         :min="mindatafileSize"
         :max="maxdatafileSize"
-        :step="0.1"
+        :step="0.001"
       >
         <b-slider-tick :value="mindatafileSize">
           {{ mindatafileSize | formatNumber('0') }}
@@ -109,7 +109,7 @@
         v-model="filters.segmentSize"
         :min="minsegmentSize"
         :max="maxsegmentSize"
-        :step="0.1"
+        :step="0.001"
       >
         <b-slider-tick :value="minsegmentSize">
           {{ minsegmentSize | formatNumber('0') }}

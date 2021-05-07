@@ -1,5 +1,10 @@
 <template>
-  <BoxContent title="Top 3 Unused Instance Resource" border :mbottom="false">
+  <BoxContent
+    title="Top 3 Unused Instance Resource"
+    border
+    :mbottom="false"
+    class="mt-5 mb-5"
+  >
     <!-- <Top10Link slot="customTitle" /> -->
     <SimpleTable :theadData="['', 'Hostname', 'Unused Thread']">
       <template slot="tbodyContent">

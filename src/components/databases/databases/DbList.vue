@@ -1,10 +1,7 @@
 <template>
   <div class="columns">
-    <div class="column is-3">
-      <ButtonGroup
-        groupTitle="Show more info:"
-        hAlign="is-justify-content-flex-start"
-      >
+    <div class="column is-4">
+      <ButtonGroup groupTitle="Show more info:">
         <b-button
           class="mr-1"
           size="is-small"
@@ -16,7 +13,7 @@
       </ButtonGroup>
       <DbFilters />
     </div>
-    <div class="column is-9">
+    <div class="column is-8">
       <FullTable
         placeholder="Search on Databases"
         :keys="keys"

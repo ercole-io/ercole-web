@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase filterTitle="Hosts Filters" :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply">
     <CustomField label="Hostname">
       <b-autocomplete
         v-model="filters.hostname"

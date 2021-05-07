@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase filterTitle="Clusters Filters" :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply">
     <CustomField label="Physical Host">
       <b-autocomplete
         v-model="filters.virtualizationNode"

@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase filterTitle="Oracle Filters" :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply">
     <form @submit.prevent="apply">
       <CustomField label="Name">
         <b-autocomplete
@@ -121,7 +121,7 @@
           v-model="filters.memory"
           :min="minmemory"
           :max="maxmemory"
-          :step="0.1"
+          :step="0.001"
         >
           <b-slider-tick :value="minmemory">
             {{ minmemory }}
@@ -195,6 +195,7 @@
           v-model="filters.datafileSize"
           :min="mindatafileSize"
           :max="maxdatafileSize"
+          :step="0.001"
         >
           <b-slider-tick :value="mindatafileSize">
             {{ mindatafileSize }}
@@ -210,6 +211,7 @@
           v-model="filters.segmentsSize"
           :min="minsegmentsSize"
           :max="maxsegmentsSize"
+          :step="0.001"
         >
           <b-slider-tick :value="minsegmentsSize">
             {{ minsegmentsSize }}

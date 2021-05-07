@@ -1,123 +1,116 @@
 <template>
-  <section v-if="isMounted">
-    <div class="columns is-desktop">
-      <div class="column is-2">
-        <ButtonGroup groupTitle="Show more info:">
-          <b-button
-            class="mr-1"
-            size="is-small"
-            :type="hideVirtual ? 'is-light' : 'is-light virtual'"
-            @click="hideVirtual = !hideVirtual"
-          >
-            Virtual
-          </b-button>
-          <b-button
-            class="mr-1"
-            size="is-small"
-            :type="hideCPU ? 'is-light' : 'is-light cpu'"
-            @click="hideCPU = !hideCPU"
-          >
-            CPU
-          </b-button>
-          <b-button
-            class="mr-1"
-            size="is-small"
-            :type="hideAgent ? 'is-light' : 'is-light agent'"
-            @click="hideAgent = !hideAgent"
-          >
-            Agent
-          </b-button>
-        </ButtonGroup>
-        <HostsFilters />
-      </div>
-      <div class="column is-10">
-        <BoxContent :mbottom="false">
-          <FullTable
-            placeholder="Search on Hosts"
-            :keys="getKeys"
-            :tableData="getAllHosts"
-            @clickedRow="handleClickedRow"
-            isClickable
-          >
-            <HostsHead
-              slot="headData"
-              v-for="head in hostsHead"
-              :key="head.sort"
-              :data="head"
-              :hideAgent="hideAgent"
-              :hideCPU="hideCPU"
-              :hideVirtual="hideVirtual"
-            />
-
-            <template slot="bodyData" slot-scope="rowData">
-              <HostLink :hostname="rowData.scope.hostname" />
-              <TdContent
-                :value="rowData.scope.platform"
-                :class="{ hide: hideVirtual }"
-                class="border-left"
-              />
-              <TdContent
-                :value="rowData.scope.cluster"
-                :class="{ hide: hideVirtual }"
-              />
-              <TdContent
-                :value="rowData.scope.virtNode"
-                :class="{ hide: hideVirtual }"
-                class="border-right"
-              />
-              <TdContent
-                :value="rowData.scope.model"
-                :class="{ hide: hideCPU }"
-                class="border-left"
-              />
-              <TdContent
-                :value="rowData.scope.threads"
-                :class="{ hide: hideCPU }"
-              />
-              <TdContent
-                :value="rowData.scope.cores"
-                :class="{ hide: hideCPU }"
-              />
-              <TdContent
-                :value="rowData.scope.socket"
-                :class="{ hide: hideCPU }"
-                class="border-right"
-              />
-              <TdContent
-                :value="rowData.scope.version"
-                :class="{ hide: hideAgent }"
-                class="border-left"
-              />
-              <TdContent
-                :value="rowData.scope.updated"
-                dataType="date"
-                :class="{ hide: hideAgent }"
-                class="border-right"
-              />
-              <TdContent :value="rowData.scope.environment" />
-              <TdArrayMore :value="rowData.scope.databases" />
-              <TdContent :value="rowData.scope.techType" />
-              <TdContent :value="rowData.scope.os" />
-              <TdIcon :value="rowData.scope.iconCluster" />
-              <TdContent :value="rowData.scope.kernel" />
-              <TdContent :value="rowData.scope.memorytotal" />
-              <TdContent :value="rowData.scope.swaptotal" />
-            </template>
-
-            <template slot="export">
-              <exportButton url="hosts" expName="hosts-data" />
-              <exportButton
-                url="hosts"
-                expName="hosts-lms-data"
-                text="LMS Audit File"
-                type="LMS"
-              />
-            </template>
-          </FullTable>
-        </BoxContent>
-      </div>
+  <BaseLayoutColumns v-if="isMounted">
+    <div slot="col1">
+      <ButtonGroup groupTitle="Show more info:">
+        <b-button
+          class="mr-1"
+          size="is-small"
+          :type="hideVirtual ? 'is-light' : 'is-light virtual'"
+          @click="hideVirtual = !hideVirtual"
+        >
+          Virtual
+        </b-button>
+        <b-button
+          class="mr-1"
+          size="is-small"
+          :type="hideCPU ? 'is-light' : 'is-light cpu'"
+          @click="hideCPU = !hideCPU"
+        >
+          CPU
+        </b-button>
+        <b-button
+          class="mr-1"
+          size="is-small"
+          :type="hideAgent ? 'is-light' : 'is-light agent'"
+          @click="hideAgent = !hideAgent"
+        >
+          Agent
+        </b-button>
+      </ButtonGroup>
+      <HostsFilters />
     </div>
-  </section>
+    <BoxContent slot="col2" :mbottom="false">
+      <FullTable
+        placeholder="Search on Hosts"
+        :keys="getKeys"
+        :tableData="getAllHosts"
+        @clickedRow="handleClickedRow"
+        isClickable
+      >
+        <HostsHead
+          slot="headData"
+          v-for="head in hostsHead"
+          :key="head.sort"
+          :data="head"
+          :hideAgent="hideAgent"
+          :hideCPU="hideCPU"
+          :hideVirtual="hideVirtual"
+        />
+
+        <template slot="bodyData" slot-scope="rowData">
+          <HostLink :hostname="rowData.scope.hostname" />
+          <TdContent
+            :value="rowData.scope.platform"
+            :class="{ hide: hideVirtual }"
+            class="border-left"
+          />
+          <TdContent
+            :value="rowData.scope.cluster"
+            :class="{ hide: hideVirtual }"
+          />
+          <TdContent
+            :value="rowData.scope.virtNode"
+            :class="{ hide: hideVirtual }"
+            class="border-right"
+          />
+          <TdContent
+            :value="rowData.scope.model"
+            :class="{ hide: hideCPU }"
+            class="border-left"
+          />
+          <TdContent
+            :value="rowData.scope.threads"
+            :class="{ hide: hideCPU }"
+          />
+          <TdContent :value="rowData.scope.cores" :class="{ hide: hideCPU }" />
+          <TdContent
+            :value="rowData.scope.socket"
+            :class="{ hide: hideCPU }"
+            class="border-right"
+          />
+          <TdContent
+            :value="rowData.scope.version"
+            :class="{ hide: hideAgent }"
+            class="border-left"
+          />
+          <TdContent
+            :value="rowData.scope.updated"
+            dataType="date"
+            :class="{ hide: hideAgent }"
+            class="border-right"
+          />
+          <TdContent :value="rowData.scope.environment" />
+          <TdArrayMore :value="rowData.scope.databases" />
+          <TdContent :value="rowData.scope.techType" />
+          <TdContent :value="rowData.scope.os" />
+          <TdIcon :value="rowData.scope.iconCluster" />
+          <TdContent :value="rowData.scope.kernel" />
+          <TdContent :value="rowData.scope.memorytotal" />
+          <TdContent :value="rowData.scope.swaptotal" />
+        </template>
+
+        <template slot="export">
+          <exportButton url="hosts" expName="hosts-data" />
+          <exportButton
+            url="hosts"
+            expName="hosts-lms-data"
+            text="LMS Audit File"
+            type="LMS"
+          />
+        </template>
+      </FullTable>
+    </BoxContent>
+  </BaseLayoutColumns>
 </template>
 
 <script>
@@ -125,6 +118,7 @@ import _ from 'lodash'
 import { mapGetters, mapActions } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
+import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -141,6 +135,7 @@ import hostsHead from '@/views/hosts/hosts-config.json'
 export default {
   mixins: [localFiltersMixin, hostnameLinkRow],
   components: {
+    BaseLayoutColumns,
     BoxContent,
     FullTable,
     TdContent,
