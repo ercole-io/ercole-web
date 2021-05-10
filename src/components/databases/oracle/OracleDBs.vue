@@ -39,6 +39,7 @@
       >
         <template slot="headData">
           <v-th sortKey="name">DB Name</v-th>
+          <v-th sortKey="uniqueName">Unique Name</v-th>
           <v-th
             sortKey="archivelog"
             class="reliability"
@@ -73,18 +74,18 @@
             >Charset</v-th
           >
           <v-th sortKey="version">DB Version</v-th>
-          <v-th sortKey="hostname">Hostname</v-th>
-          <v-th sortKey="environment">Env.</v-th>
           <v-th sortKey="work">Work</v-th>
           <v-th sortKey="cpuCount">CPU Count</v-th>
           <v-th sortKey="blockSize">Block Size</v-th>
           <v-th sortKey="status">Status</v-th>
-          <v-th sortKey="uniqueName">Unique Name</v-th>
           <v-th sortKey="memory">Memory (GB)</v-th>
+          <v-th sortKey="hostname">Hostname</v-th>
+          <v-th sortKey="environment">Env.</v-th>
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
           <TdContent :value="rowData.scope.name" />
+          <TdContent :value="rowData.scope.uniqueName" />
           <TdIcon
             :value="rowData.scope.archivelog"
             :class="{ hide: hideReliability }"
@@ -110,14 +111,13 @@
             :class="{ hide: hideCharset }"
           />
           <TdContent :value="rowData.scope.version" />
-          <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
-          <TdContent :value="rowData.scope.environment" />
           <TdContent :value="rowData.scope.work | formatNumber('0')" />
           <TdContent :value="rowData.scope.cpuCount" />
           <TdContent :value="rowData.scope.blockSize" />
           <TdContent :value="rowData.scope.status" />
-          <TdContent :value="rowData.scope.uniqueName" />
           <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
+          <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
+          <TdContent :value="rowData.scope.environment" />
         </template>
 
         <ExportButton
