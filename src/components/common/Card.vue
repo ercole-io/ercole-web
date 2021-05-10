@@ -1,13 +1,13 @@
 <template>
-  <div class="card">
-    <header class="card-header">
-      <p class="card-header-title card-title">
+  <div :class="`${cardType}`">
+    <header :class="`${cardType}-header`">
+      <p :class="`${cardType}-title`">
         {{ cardTitle }}
       </p>
     </header>
     <div
       class="card-content"
-      :style="`font-size: ${cotentSize}em; padding: ${contentPadding}rem;`"
+      :style="`font-size: ${contentSize}em; padding: ${contentPadding};`"
     >
       <slot />
     </div>
@@ -17,16 +17,20 @@
 <script>
 export default {
   props: {
+    cardType: {
+      type: String,
+      default: 'card'
+    },
     cardTitle: {
       type: String
     },
-    cotentSize: {
+    contentSize: {
       type: String,
-      default: '0.8'
+      default: '1'
     },
     contentPadding: {
       type: String,
-      default: '0.5'
+      default: '0.5rem 0rem'
     }
   }
 }
@@ -45,5 +49,14 @@ export default {
 
 .card-list li {
   flex-wrap: wrap;
+}
+
+.custom-title {
+  box-shadow: 0 0.08em 0 lightslategrey;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding-left: 0;
+  padding: 0 5px;
+  font-size: 0.7em;
 }
 </style>

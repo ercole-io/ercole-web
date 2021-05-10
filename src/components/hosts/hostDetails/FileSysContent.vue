@@ -1,5 +1,5 @@
 <template>
-  <Card cardTitle="Host FileSystems List" cotentSize="1" contentPadding="1">
+  <Card cardTitle="Host FileSystems List" contentSize="1" contentPadding="1rem">
     <FullTable :tableData="fileSysData" :keys="keys">
       <template slot="headData">
         <v-th sortKey="filesystem">FileSys</v-th>
