@@ -1,26 +1,26 @@
 <template>
-  <BoxContent>
-    <div class="columns">
-      <div class="column" v-for="(info, i) in getHostDetailInfo" :key="i">
-        <Card :cardTitle="info.name">
-          <CardList :list="info.data" />
-        </Card>
-      </div>
+  <div class="columns">
+    <div
+      class="column is-one-fifth"
+      v-for="(info, i) in getHostDetailInfo"
+      :key="i"
+    >
+      <Card :cardTitle="info.name">
+        <CardList :list="info.data" />
+      </Card>
     </div>
-  </BoxContent>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import Card from '@/components/common/Card.vue'
 import CardList from '@/components/common/CardList.vue'
-import BoxContent from '@/components/common/BoxContent.vue'
 
 export default {
   components: {
     Card,
-    CardList,
-    BoxContent
+    CardList
   },
   computed: {
     ...mapGetters(['getHostDetailInfo'])
