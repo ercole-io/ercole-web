@@ -1,12 +1,18 @@
 <template>
   <div class="columns">
-    <div class="column" :class="leftVal" v-if="leftVal">
+    <slot name="before" />
+
+    <div class="column" :class="`is-${leftVal}`" v-if="leftVal">
       <slot name="left" />
     </div>
 
-    <div class="column" :class="rightVal" v-if="rightVal">
+    <slot name="center" />
+
+    <div class="column" :class="`is-${rightVal}`" v-if="rightVal">
       <slot name="right" />
     </div>
+
+    <slot name="after" />
   </div>
 </template>
 
@@ -16,12 +22,12 @@ import { bus } from '@/helpers/eventBus.js'
 export default {
   props: {
     leftCol: {
-      type: String,
-      default: 'is-9'
+      type: Number,
+      default: 9
     },
     rightCol: {
-      type: String,
-      default: 'is-3'
+      type: Number,
+      default: 3
     }
   },
   data() {
@@ -46,11 +52,11 @@ export default {
     },
     resolveDirection(dir) {
       if (dir === 'right') {
-        this.leftVal = 'is-12'
+        this.leftVal = this.leftVal + this.rightVal
         this.rightVal = false
       } else {
         this.leftVal = false
-        this.rightVal = 'is-12'
+        this.rightVal = this.leftVal + this.rightVal
       }
     }
   }

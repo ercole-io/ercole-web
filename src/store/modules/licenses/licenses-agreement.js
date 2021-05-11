@@ -8,8 +8,8 @@ export const state = () => ({
 })
 
 export const getters = {
-  returnLicensesAgreement: state => type => {
-    return state[type + 'Agreements']
+  returnLicensesAgreement: (state, getters) => type => {
+    return getters.filteredOrNot(state[type + 'Agreements'])
   },
   getLicenseAgreementHostAssociated: state => id => {
     const findHostAssociated = _.find(state.oracleAgreements, val => {
