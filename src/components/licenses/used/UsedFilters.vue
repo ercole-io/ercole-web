@@ -72,9 +72,7 @@ export default {
   },
   data() {
     return {
-      filteredusedLicenses: [],
-      minusedLicenses: null,
-      maxusedLicenses: null
+      filteredusedLicenses: []
     }
   },
   beforeMount() {

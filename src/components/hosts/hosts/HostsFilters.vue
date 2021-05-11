@@ -297,21 +297,10 @@ export default {
       techTypeOptions: [],
       platformOptions: [],
       versionOptions: [],
-      // filteredthreads: [],
-      minthreads: null,
-      maxthreads: null,
-      // filteredcores: [],
-      mincores: null,
-      maxcores: null,
-      // filteredsocket: [],
-      minsocket: null,
-      maxsocket: null,
-      // filteredmemorytotal: [],
-      minmemorytotal: null,
-      maxmemorytotal: null,
-      minswaptotal: null,
-      maxswaptotal: null,
-      startDate: null
+      startDate: null,
+      filters: {
+        iconCluster: ''
+      }
     }
   },
   beforeMount() {
@@ -323,6 +312,9 @@ export default {
   methods: {
     ...mapActions(['getHosts']),
     resetFilters() {
+      this.filters = {
+        iconCluster: ''
+      }
       this.setSlider()
       this.startDate = null
     },

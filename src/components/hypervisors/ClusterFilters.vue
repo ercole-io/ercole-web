@@ -78,12 +78,26 @@ export default {
     AdvancedFiltersBase,
     CustomField
   },
+  data() {
+    return {
+      filters: {
+        cappedCPU: ''
+      }
+    }
+  },
   beforeMount() {
     this.setAutocompleteData('virtualizationNode', this.getCurrentClusterVms)
     this.setAutocompleteData('hostname', this.getCurrentClusterVms)
     this.setAutocompleteData('name', this.getCurrentClusterVms)
 
-    bus.$on('onResetAction', () => this.reset())
+    bus.$on('onResetAction', () => this.reset(this.resetFilters))
+  },
+  methods: {
+    resetFilters() {
+      this.filters = {
+        cappedCPU: ''
+      }
+    }
   },
   computed: {
     ...mapGetters(['getCurrentClusterVms'])

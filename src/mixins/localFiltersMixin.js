@@ -8,24 +8,7 @@ import {
 export default {
   data() {
     return {
-      filters: {
-        cappedCPU: '',
-        iconCluster: '',
-        alertCategory: null,
-        alertSeverity: null
-      },
-      filteredData: [],
-      alertStatus: 'NEW'
-    }
-  },
-  beforeMount() {
-    if (this.$route.name === 'alerts') {
-      this.filters = {
-        alertCategory: this.alerts.params.category,
-        alertSeverity: this.alerts.params.severity,
-        hostname: this.alerts.params.hostname
-      }
-      this.apply()
+      filteredData: []
     }
   },
   methods: {
@@ -42,13 +25,7 @@ export default {
         filters: [],
         showCheckbox: []
       })
-      this.filters = {
-        cappedCPU: '',
-        iconCluster: '',
-        alertCategory: null,
-        alertSeverity: null
-      }
-      this.alertStatus = 'NEW'
+      this.filters = {}
       cb()
     },
     setAutocompleteData(value, data) {
@@ -71,16 +48,6 @@ export default {
 
       this['min' + value] = this['filtered' + value][0]
       this['max' + value] = _.last(this['filtered' + value])
-    }
-  },
-  beforeDestroy() {
-    this.reset()
-    if (this.$route.name === 'alerts') {
-      this.filters = {
-        alertCategory: null,
-        alertSeverity: null,
-        hostname: null
-      }
     }
   }
 }
