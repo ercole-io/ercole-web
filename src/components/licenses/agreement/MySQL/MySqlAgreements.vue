@@ -1,5 +1,7 @@
 <template>
-  <ShowHideColumn :leftCol="'is-9'" :rightCol="'is-3'">
+  <ShowHideColumn :leftCol="6" :rightCol="3">
+    <MySqlAgreementsFilters slot="before" class="column is-3" />
+
     <MySqlAgreementsList slot="left" />
 
     <MySqlAgreementsForm slot="right" />
@@ -11,12 +13,14 @@ import { mapActions } from 'vuex'
 import ShowHideColumn from '@/components/common/ShowHideColumn.vue'
 import MySqlAgreementsList from '@/components/licenses/agreement/MySQL/MySqlAgreementsList.vue'
 import MySqlAgreementsForm from '@/components/licenses/agreement/MySQL/MySqlAgreementsForm.vue'
+import MySqlAgreementsFilters from '@/components/licenses/agreement/MySQL/MySqlAgreementsFilters.vue'
 
 export default {
   components: {
     ShowHideColumn,
     MySqlAgreementsList,
-    MySqlAgreementsForm
+    MySqlAgreementsForm,
+    MySqlAgreementsFilters
   },
   async beforeMount() {
     await this.getLicensesAgreement('mysql')
