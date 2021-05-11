@@ -1,5 +1,5 @@
 <template>
-  <ShowHideColumn :leftCol="6" :rightCol="3">
+  <ShowHideColumn :leftCol="6" :rightCol="3" v-if="isMounted">
     <MySqlAgreementsFilters slot="before" class="column is-3" />
 
     <MySqlAgreementsList slot="left" />
@@ -22,8 +22,15 @@ export default {
     MySqlAgreementsForm,
     MySqlAgreementsFilters
   },
+  data() {
+    return {
+      isMounted: false
+    }
+  },
   async beforeMount() {
-    await this.getLicensesAgreement('mysql')
+    await this.getLicensesAgreement('mysql').then(() => {
+      this.isMounted = true
+    })
   },
   methods: {
     ...mapActions(['getLicensesAgreement'])
