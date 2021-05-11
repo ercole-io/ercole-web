@@ -83,58 +83,16 @@ export default {
   data() {
     return {
       filteredType: []
-      // filteredItemDescription: [],
-      // filteredMetric: [],
-      // filters: {
-      //   unlimited: '',
-      //   catchAll: '',
-      //   restricted: ''
-      // }
     }
   },
   beforeMount() {
-    this.setAutocomplete()
-    this.setSlider()
+    this.filteredType = prepareDataForAutocomplete(
+      this.returnLicensesAgreement('mysql'),
+      'type'
+    )
 
-    bus.$on('onResetAction', () => this.reset(this.resetFilters))
-  },
-  methods: {
-    resetFilters() {
-      // this.filters = {
-      //   unlimited: '',
-      //   catchAll: '',
-      //   restricted: ''
-      // }
-      this.setSlider()
-    },
-    setAutocomplete() {
-      this.filteredType = prepareDataForAutocomplete(
-        this.returnLicensesAgreement('mysql'),
-        'type'
-      )
-      // this.filteredItemDescription = prepareDataForAutocomplete(
-      //   this.returnLicensesAgreement('mysql'),
-      //   'itemDescription'
-      // )
-      // this.filteredMetric = prepareDataForAutocomplete(
-      //   this.returnLicensesAgreement('mysql'),
-      //   'metric'
-      // )
-    },
-    setSlider() {
-      // this.setSliderFilterConfig(
-      //   'licensesCount',
-      //   this.returnLicensesAgreement('mysql')
-      // )
-      // this.setSliderFilterConfig(
-      //   'usersCount',
-      //   this.returnLicensesAgreement('mysql')
-      // )
-      // this.setSliderFilterConfig(
-      //   'availableCount',
-      //   this.returnLicensesAgreement('mysql')
-      // )
-    }
+    bus.$on('onResetAction', () => this.reset())
+    bus.$on('onTabChange', () => this.reset())
   },
   computed: {
     ...mapGetters(['returnLicensesAgreement'])
