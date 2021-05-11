@@ -28,7 +28,7 @@
             class="hosts-icon"
             pack="fas"
             icon="server"
-            @click.native="openModal('Show Clusters', rowData.scope.clusters)"
+            @click.native="openModal('Clusters', rowData.scope.clusters)"
             v-if="rowData.scope.clusters.length > 0"
           />
           <span v-else>-</span>

@@ -2,8 +2,10 @@
   <div class="modal-card" style="width: auto;">
     <header class="modal-card-head">
       <p class="modal-card-title">
-        MySql - {{ agreementType }} <br />
-        <span class="is-size-7">Agreement Number {{ agreementNumber }}</span>
+        {{ agreementType }} Associated <br />
+        <span class="is-size-7"
+          >MySql Agreement Number {{ agreementNumber }}</span
+        >
       </p>
     </header>
     <section class="modal-card-body">
