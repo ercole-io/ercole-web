@@ -236,6 +236,7 @@ export default {
     this.setSlider()
 
     bus.$on('onResetAction', () => this.reset(this.resetFilters))
+    bus.$on('onTabChange', () => this.reset(this.resetFilters))
   },
   methods: {
     resetFilters() {
