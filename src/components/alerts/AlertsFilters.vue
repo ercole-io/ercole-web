@@ -120,12 +120,24 @@ export default {
   },
   data() {
     return {
+      alertStatus: 'NEW',
       startDate: null,
-      endDate: null
+      endDate: null,
+      filters: {
+        alertCategory: null,
+        alertSeverity: null
+      }
     }
   },
   beforeMount() {
     this.configAutocomplete()
+
+    this.filters = {
+      alertCategory: this.alerts.params.category,
+      alertSeverity: this.alerts.params.severity,
+      hostname: this.alerts.params.hostname
+    }
+    this.apply()
 
     bus.$on('onResetAction', () => this.reset(this.resetFilters))
   },
@@ -148,11 +160,16 @@ export default {
     resetFilters() {
       this.startDate = null
       this.endDate = null
+      this.filters = {
+        alertCategory: null,
+        alertSeverity: null
+      }
       this.$store.commit('SET_ALERTS_PARAMS', {
         category: null,
         severity: null,
         hostname: null
       })
+      this.alertStatus = 'NEW'
     },
     configAutocomplete() {
       this.setAutocompleteData('hostname', this.getAlerts)
@@ -189,6 +206,14 @@ export default {
           this.apply()
         })
       }
+    }
+  },
+  beforeDestroy() {
+    this.resetFilters()
+    this.filters = {
+      alertCategory: null,
+      alertSeverity: null,
+      hostname: null
     }
   }
 }

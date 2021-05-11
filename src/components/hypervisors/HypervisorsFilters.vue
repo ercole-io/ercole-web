@@ -108,15 +108,7 @@ export default {
   data() {
     return {
       filteredtype: [],
-      mincpu: null,
-      maxcpu: null,
-      filteredsockets: [],
-      minsockets: null,
-      maxsockets: null,
-      minvmsCount: null,
-      maxvmsCount: null,
-      minvmsErcoleAgentCount: null,
-      maxvmsErcoleAgentCount: null
+      filteredsockets: []
     }
   },
   beforeMount() {
