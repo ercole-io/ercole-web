@@ -42,13 +42,7 @@
           class="hosts-icon"
           pack="fas"
           icon="server"
-          @click.native="
-            openModal(
-              rowData.scope.agreementID,
-              rowData.scope.id,
-              rowData.scope.hosts
-            )
-          "
+          @click.native="openModal(rowData.scope)"
           v-if="rowData.scope.hosts.length > 0"
         />
         <span v-else>-</span>
@@ -70,7 +64,13 @@
           class="delete-icon"
           pack="fas"
           icon="trash-alt"
-          @click.native="deleteAgreement('oracle', rowData.scope.id)"
+          @click.native="
+            deleteAgreement(
+              'oracle',
+              rowData.scope.id,
+              rowData.scope.agreementID
+            )
+          "
         />
       </td>
     </template>
@@ -115,14 +115,12 @@ export default {
     editAgreement(data) {
       bus.$emit('editAgreementOracle', data)
     },
-    openModal(agreeId, licenseId, data) {
+    openModal(data) {
       this.$buefy.modal.open({
         component: OracleAssociatedModal,
         hasModalCard: true,
         props: {
-          agreeNumber: agreeId,
-          licenseID: licenseId,
-          agreementData: data
+          data: data
         }
       })
     }

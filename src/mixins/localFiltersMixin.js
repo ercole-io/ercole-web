@@ -8,7 +8,8 @@ import {
 export default {
   data() {
     return {
-      filteredData: []
+      filteredData: [],
+      filters: {}
     }
   },
   methods: {

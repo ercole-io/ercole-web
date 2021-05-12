@@ -10,13 +10,13 @@
         <option :value="null" v-if="filters.type">
           Reset
         </option>
-        <option v-for="(part, index) in filteredType" :key="index">
-          {{ part }}
+        <option v-for="(type, index) in filteredType" :key="index">
+          {{ type }}
         </option>
       </b-select>
     </CustomField>
 
-    <CustomField label="Agreement Number">
+    <!-- <CustomField label="Agreement Number">
       <b-autocomplete
         v-model="filters.agreementID"
         size="is-small"
@@ -46,7 +46,7 @@
           )
         "
       />
-    </CustomField>
+    </CustomField> -->
 
     <CustomField label="Number of licenses">
       <b-autocomplete

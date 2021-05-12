@@ -1,6 +1,6 @@
+import _ from 'lodash'
 import axiosDefault from '@/axios/axios-default.js'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
-import _ from 'lodash'
 
 export const state = () => ({
   oracleAgreements: [],
@@ -11,13 +11,13 @@ export const getters = {
   returnLicensesAgreement: (state, getters) => type => {
     return getters.filteredOrNot(state[type + 'Agreements'])
   },
-  getLicenseAgreementHostAssociated: state => id => {
-    const findHostAssociated = _.find(state.oracleAgreements, val => {
-      return val.id === id
-    })
-    const hostsAssociated = findHostAssociated.hosts
-    return hostsAssociated
-  },
+  // getLicenseAgreementHostAssociated: state => id => {
+  //   const findHostAssociated = _.find(state.oracleAgreements, val => {
+  //     return val.id === id
+  //   })
+  //   const hostsAssociated = findHostAssociated.hosts
+  //   return hostsAssociated
+  // },
   returnAgreeNumbers: state => {
     const agreeNumbers = []
 
@@ -49,14 +49,14 @@ export const mutations = {
     state[payload.type + 'Agreements'] = payload.res
   },
   CREATE_AGREEMENT: (state, payload) => {
-    state[payload.type + 'Agreements'].unshift(payload.body)
+    state[payload.mode + 'Agreements'].unshift(payload)
   },
   UPDATE_AGREEMENTS: (state, payload) => {
     const item = _.find(
-      state[payload.type + 'Agreements'],
-      val => val.id === payload.body.id
+      state[payload.mode + 'Agreements'],
+      val => val.id === payload.id
     )
-    Object.assign(item, payload.body)
+    Object.assign(item, payload)
   },
   DELETE_AGREEMENT: (state, payload) => {
     const index = _.findIndex(
@@ -86,25 +86,32 @@ export const actions = {
       `/agreements/${payload.type}/database`,
       payload.body
     )
-    const response = await create.data
-    payload.body.id = response
+    let response = await create.data
+    response = { ...response, mode: payload.type }
 
-    commit('CREATE_AGREEMENT', payload)
+    commit('CREATE_AGREEMENT', response)
   },
   async updateLicenseAgreement({ commit }, payload) {
+    let data
     if (payload.type === 'mysql') {
-      await axiosDefault.put(
-        `/agreements/${payload.type}/database/${payload.body.id}`,
-        payload.body
-      )
+      await axiosDefault
+        .put(
+          `/agreements/${payload.type}/database/${payload.body.id}`,
+          payload.body
+        )
+        .then(res => {
+          data = res.data
+        })
     } else if (payload.type === 'oracle') {
-      await axiosDefault.put(
-        `/agreements/${payload.type}/database`,
-        payload.body
-      )
+      await axiosDefault
+        .put(`/agreements/${payload.type}/database`, payload.body)
+        .then(res => {
+          data = res.data
+        })
     }
 
-    commit('UPDATE_AGREEMENTS', payload)
+    data = { ...data, mode: payload.type }
+    commit('UPDATE_AGREEMENTS', data)
   },
   async deleteLicenseAgreement(context, payload) {
     await axiosDefault.delete(

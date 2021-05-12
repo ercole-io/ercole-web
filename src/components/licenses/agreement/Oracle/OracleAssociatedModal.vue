@@ -85,7 +85,8 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import _ from 'lodash'
+import { mapActions } from 'vuex'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
@@ -100,16 +101,8 @@ export default {
     TdContent
   },
   props: {
-    agreeNumber: {
-      type: String,
-      required: true
-    },
-    agreementData: {
-      type: Array,
-      required: true
-    },
-    licenseID: {
-      type: String,
+    data: {
+      type: [Array, Object],
       required: true
     }
   },
@@ -133,19 +126,27 @@ export default {
           `/agreements/oracle/database/${this.licenseID}/hosts/${hostname}`
         )
         .then(() => {
-          this.getLicensesAgreement('oracle', 'noLoading').then(() => {
-            this.isLoading = false
+          this.data.hosts = _.filter(this.data.hosts, val => {
+            if (val.hostname !== hostname) {
+              return val
+            }
           })
+        })
+        .then(() => {
+          console.log(this.data.hosts)
+          this.isLoading = false
         })
     }
   },
   computed: {
-    ...mapGetters(['getLicenseAgreementHostAssociated']),
     hostsData() {
-      return (
-        this.agreementData ||
-        this.getLicenseAgreementHostAssociated(this.licenseID)
-      )
+      return this.data.hosts
+    },
+    licenseID() {
+      return this.data.id
+    },
+    agreeNumber() {
+      return this.data.agreementID
     }
   }
 }
