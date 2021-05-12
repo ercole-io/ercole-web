@@ -8,8 +8,8 @@
     >
       <template slot="headData">
         <v-th sortKey="type">Type</v-th>
-        <v-th sortKey="agreementID">Agreement Number</v-th>
-        <v-th sortKey="csi">CSI</v-th>
+        <!-- <v-th sortKey="agreementID">Agreement Number</v-th>
+        <v-th sortKey="csi">CSI</v-th> -->
         <v-th sortKey="numberOfLicenses">Number of licenses</v-th>
         <v-th sortKey="clusters">Clusters</v-th>
         <v-th sortKey="hosts">Hosts</v-th>
@@ -18,8 +18,8 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <TdContent :value="rowData.scope.type" />
-        <TdContent :value="rowData.scope.agreementID" />
-        <TdContent :value="rowData.scope.csi" />
+        <!-- <TdContent :value="rowData.scope.agreementID" />
+        <TdContent :value="rowData.scope.csi" /> -->
         <TdContent :value="rowData.scope.numberOfLicenses" />
         <td>
           <b-icon
@@ -28,7 +28,13 @@
             class="hosts-icon"
             pack="fas"
             icon="server"
-            @click.native="openModal('Clusters', rowData.scope.clusters)"
+            @click.native="
+              openModal(
+                'Clusters',
+                rowData.scope.clusters,
+                rowData.scope.agreementID
+              )
+            "
             v-if="rowData.scope.clusters.length > 0"
           />
           <span v-else>-</span>
@@ -40,7 +46,9 @@
             class="hosts-icon"
             pack="fas"
             icon="server"
-            @click.native="openModal('Hosts', rowData.scope.hosts)"
+            @click.native="
+              openModal('Hosts', rowData.scope.hosts, rowData.scope.agreementID)
+            "
             v-if="rowData.scope.hosts.length > 0"
           />
           <span v-else>-</span>
@@ -62,7 +70,13 @@
             class="delete-icon"
             pack="fas"
             icon="trash-alt"
-            @click.native="deleteAgreement('mysql', rowData.scope.id)"
+            @click.native="
+              deleteAgreement(
+                'mysql',
+                rowData.scope.id,
+                rowData.scope.agreementID
+              )
+            "
           />
         </td>
       </template>
@@ -93,11 +107,15 @@ export default {
     editAgreement(data) {
       bus.$emit('editAgreementMysql', data)
     },
-    openModal(type, data) {
+    openModal(type, data, agreeID = ' - ') {
       this.$buefy.modal.open({
         component: MysqlAssociatedModal,
         hasModalCard: true,
-        props: { agreementType: type, agreementData: data }
+        props: {
+          agreementType: type,
+          agreementData: data,
+          agreementNumber: agreeID
+        }
       })
     }
   }

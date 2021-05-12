@@ -253,6 +253,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import LicensesAgreementMixin from '@/mixins/licensesAgreement.js'
 import ActionButtons from '@/components/common/Form/ActionButtons.vue'
+import { mapMutations } from 'vuex'
 
 export default {
   mixins: [TooltipMixin, LicensesAgreementMixin],
@@ -297,6 +298,7 @@ export default {
     })
   },
   methods: {
+    ...mapMutations(['CREATE_AGREEMENT']),
     addUpdateAgreement() {
       const oracleAgreementData = {
         agreementID: this.oracleForm.agreeNumber,
