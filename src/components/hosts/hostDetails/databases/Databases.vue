@@ -1,64 +1,54 @@
 <template>
   <BoxContent title="Databases">
-    <!-- <SearchInput
+    <SearchInput
       searchPlaceholder="Search by DB name"
       v-model="searchDb"
       slot="customTitle"
       @input="onSearchDb($event)"
       :onBlur="findActiveTab"
     />
+    <!-- :onBlur="findActiveTab" -->
     <HbuttonScroll height="30" elemScroll="tabs" />
 
     <OracleDatabases
-      :activeTab="activeTab"
-      :filteredHostDbs="filteredHostDbs"
-      :changeChart="bindDbChart"
-      v-if="showDatabases && isOracle"
+      :currentDBs="currentHostFiltered(searchDb)"
+      :activatedTab="activeTab"
+      v-if="currentHostType === 'oracle'"
     />
 
-    <MysqlDatabases
+    <!-- <MysqlDatabases
       :activeTab="activeTab"
       :filteredHostDbs="filteredHostDbs"
       v-else-if="showDatabases && isMysql"
-    />
-
-    <noContent
-      v-else
-      noContentText="There are no Databases for this Host"
-      style="min-height: 200px"
     /> -->
+
+    <NoContent
+      v-else
+      NoContentText="There are no Databases for this Host"
+      style="min-height: 200px"
+    />
   </BoxContent>
 </template>
 
 <script>
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
-// import OracleDatabases from '@/components/hosts/hostDetails/databases/oracle/OracleDatabases.vue'
+import SearchInput from '@/components/common/SearchInput.vue'
+import HbuttonScroll from '@/components/HbuttonScroll.vue'
+import OracleDatabases from '@/components/hosts/hostDetails/databases/oracle/OracleDatabases.vue'
 // import MysqlDatabases from '@/components/hosts/hostDetails/databases/mysql/MysqlDatabases.vue'
-// import HbuttonScroll from '@/components/HbuttonScroll.vue'
-// import noContent from '@/components/common/NoContent.vue'
-// import SearchInput from '@/components/common/SearchInput.vue'
+import NoContent from '@/components/common/NoContent.vue'
 
 export default {
-  props: {
-    activeDB: {
-      type: String,
-      required: false
-    },
-    dbType: {
-      type: String,
-      required: true
-    }
-  },
   components: {
-    BoxContent
-    // OracleDatabases,
+    BoxContent,
+    OracleDatabases,
+    SearchInput,
+    HbuttonScroll,
     // MysqlDatabases,
-    // HbuttonScroll,
-    // noContent,
-    // SearchInput
+    NoContent
   },
   data() {
     return {
@@ -76,52 +66,46 @@ export default {
   },
   methods: {
     ...mapActions(['getAgreementParts']),
-
     findActiveTab() {
-      this.activeTab = _.findIndex(this.filteredHostDbs, {
-        name: this.activeDB
+      this.activeTab = _.findIndex(this.currentHostFiltered(this.searchDb), {
+        name: this.currentHostActiveDB
       })
-      this.bindDbChart()
+      // this.bindDbChart()
     },
     onSearchDb(e) {
       if (e !== '' && e.length > 0) {
         this.activeTab = 0
       }
-      this.bindDbChart()
-    },
-    bindDbChart() {
-      if (this.activeTab === -1) {
-        if (this.filteredHostDbs.length > 0) {
-          bus.$emit('selectedData', [this.filteredHostDbs[0].name])
-        }
-      } else {
-        if (this.filteredHostDbs.length > 0) {
-          bus.$emit('selectedData', [this.filteredHostDbs[this.activeTab].name])
-        }
-      }
+      // this.bindDbChart()
     }
+    //   bindDbChart() {
+    //     if (this.activeTab === -1) {
+    //       if (this.filteredHostDbs.length > 0) {
+    //         bus.$emit('selectedData', [this.filteredHostDbs[0].name])
+    //       }
+    //     } else {
+    //       if (this.filteredHostDbs.length > 0) {
+    //         bus.$emit('selectedData', [this.filteredHostDbs[this.activeTab].name])
+    //       }
+    //     }
+    //   }
   },
   computed: {
-    ...mapGetters(['getCurrentHostDbs']),
-    filteredHostDbs() {
-      return _.filter(this.getCurrentHostDbs, db => {
-        return (
-          db.name
-            .toString()
-            .toLowerCase()
-            .indexOf(this.searchDb.toLowerCase()) >= 0
-        )
-      })
-    },
-    showDatabases() {
-      return this.filteredHostDbs.length > 0
-    },
-    isOracle() {
-      return this.dbType === 'oracle'
-    },
-    isMysql() {
-      return this.dbType === 'mysql'
-    }
+    ...mapGetters([
+      'currentHostActiveDB',
+      'currentHostType',
+      'currentHostFiltered'
+    ])
+    // showDatabases() {
+    //   console.log(this.filteredHostDbs.length > 0)
+    //   return this.filteredHostDbs.length > 0
+    // }
+    //   isOracle() {
+    //     return this.dbType === 'oracle'
+    //   },
+    //   isMysql() {
+    //     return this.dbType === 'mysql'
+    //   }
   }
 }
 </script>

@@ -20,11 +20,11 @@
       <div
         class="column"
         :class="{
-          'is-8': databaseType === 'oracle',
-          'is-12': databaseType === 'mysql'
+          'is-8': currentHostType === 'oracle',
+          'is-12': currentHostType === 'mysql'
         }"
       >
-        <Databases :activeDB="dbname" :dbType="databaseType" />
+        <Databases />
       </div>
       <div class="column is-4">
         <!-- <ChartCpu /> -->
@@ -35,7 +35,7 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import Notifications from '@/components/hosts/hostDetails/Notifications.vue'
 import FileSystems from '@/components/hosts/hostDetails/FileSystems.vue'
 import DismissHost from '@/components/hosts/hostDetails/DismissHost.vue'
@@ -72,10 +72,13 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getHostByName(this.hostname).then(() => {
-      this.SET_ACTIVE_DB(this.dbname)
-      this.isMounted = true
-    })
+    await this.getHostByName(this.hostname)
+      .then(() => {
+        this.SET_ACTIVE_DB(this.dbname)
+      })
+      .then(() => {
+        this.isMounted = true
+      })
     bus.$emit('dynamicTitle', this.hostname)
   },
   methods: {
@@ -83,9 +86,7 @@ export default {
     ...mapMutations(['SET_ACTIVE_DB'])
   },
   computed: {
-    // databaseType() {
-    //   return this.hostDetails.hostType
-    // }
+    ...mapGetters(['currentHostType'])
   }
 }
 </script>
