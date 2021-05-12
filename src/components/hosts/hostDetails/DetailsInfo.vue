@@ -2,7 +2,7 @@
   <div class="columns">
     <div
       class="column is-one-fifth"
-      v-for="(info, i) in getHostDetailInfo"
+      v-for="(info, i) in currentHostInfo"
       :key="i"
     >
       <Card :cardTitle="info.name">
@@ -23,7 +23,7 @@ export default {
     CardList
   },
   computed: {
-    ...mapGetters(['getHostDetailInfo'])
+    ...mapGetters(['currentHostInfo'])
   }
 }
 </script>

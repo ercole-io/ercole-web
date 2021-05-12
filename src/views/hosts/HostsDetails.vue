@@ -2,19 +2,19 @@
   <section v-if="isMounted">
     <div class="columns">
       <div class="column is-8">
-        <NotificationsInfo />
+        <Notifications />
       </div>
       <div class="column is-4">
         <div class="buttons is-justify-content-flex-end">
-          <FileSysModal />
-          <DismissHost :hostname="hostname" />
+          <FileSystems />
+          <DismissHost />
         </div>
       </div>
     </div>
 
     <!-- <HostTags /> -->
 
-    <HostInfo />
+    <DetailsInfo />
 
     <div class="columns">
       <div
@@ -27,7 +27,7 @@
         <Databases :activeDB="dbname" :dbType="databaseType" />
       </div>
       <div class="column is-4">
-        <ChartCpu />
+        <!-- <ChartCpu /> -->
       </div>
     </div>
   </section>
@@ -35,14 +35,14 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapState } from 'vuex'
-import NotificationsInfo from '@/components/hosts/hostDetails/NotificationsInfo.vue'
-// import HostTags from '@/components/hosts/hostDetails/HostTags.vue'
-import HostInfo from '@/components/hosts/hostDetails/HostInfo.vue'
-import ChartCpu from '@/components/hosts/hostDetails/ChartCpu.vue'
-import Databases from '@/components/hosts/hostDetails/databases/Databases.vue'
-import FileSysModal from '@/components/hosts/hostDetails/FileSysModal.vue'
+import { mapActions, mapMutations } from 'vuex'
+import Notifications from '@/components/hosts/hostDetails/Notifications.vue'
+import FileSystems from '@/components/hosts/hostDetails/FileSystems.vue'
 import DismissHost from '@/components/hosts/hostDetails/DismissHost.vue'
+// import HostTags from '@/components/hosts/hostDetails/HostTags.vue'
+import DetailsInfo from '@/components/hosts/hostDetails/DetailsInfo.vue'
+import Databases from '@/components/hosts/hostDetails/databases/Databases.vue'
+// import ChartCpu from '@/components/hosts/hostDetails/ChartCpu.vue'
 
 export default {
   props: {
@@ -58,13 +58,13 @@ export default {
     }
   },
   components: {
-    NotificationsInfo,
+    Notifications,
+    FileSystems,
+    DismissHost,
     // HostTags,
-    HostInfo,
-    ChartCpu,
-    Databases,
-    FileSysModal,
-    DismissHost
+    DetailsInfo,
+    Databases
+    // ChartCpu,
   },
   data() {
     return {
@@ -73,18 +73,19 @@ export default {
   },
   async beforeMount() {
     await this.getHostByName(this.hostname).then(() => {
+      this.SET_ACTIVE_DB(this.dbname)
       this.isMounted = true
     })
     bus.$emit('dynamicTitle', this.hostname)
   },
   methods: {
-    ...mapActions(['getHostByName'])
+    ...mapActions(['getHostByName']),
+    ...mapMutations(['SET_ACTIVE_DB'])
   },
   computed: {
-    ...mapState(['hostDetails']),
-    databaseType() {
-      return this.hostDetails.hostType
-    }
+    // databaseType() {
+    //   return this.hostDetails.hostType
+    // }
   }
 }
 </script>

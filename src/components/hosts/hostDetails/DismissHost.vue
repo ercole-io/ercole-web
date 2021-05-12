@@ -2,7 +2,7 @@
   <b-button
     class="ml-2"
     type="is-danger is-small"
-    @click="deleteHost(hostname)"
+    @click="deleteHost(currentHostName)"
     label="Dismiss Host"
     icon-pack="fas"
     icon-left="trash"
@@ -11,14 +11,9 @@
 
 <script>
 import axiosDefault from '@/axios/axios-default.js'
+import { mapGetters } from 'vuex'
 
 export default {
-  props: {
-    hostname: {
-      type: String,
-      required: true
-    }
-  },
   methods: {
     deleteHost(hostname) {
       this.$buefy.dialog.confirm({
@@ -44,6 +39,9 @@ export default {
         }
       })
     }
+  },
+  computed: {
+    ...mapGetters(['currentHostName'])
   }
 }
 </script>

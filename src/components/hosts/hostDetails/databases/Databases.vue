@@ -1,6 +1,6 @@
 <template>
   <BoxContent title="Databases">
-    <SearchInput
+    <!-- <SearchInput
       searchPlaceholder="Search by DB name"
       v-model="searchDb"
       slot="customTitle"
@@ -26,7 +26,7 @@
       v-else
       noContentText="There are no Databases for this Host"
       style="min-height: 200px"
-    />
+    /> -->
   </BoxContent>
 </template>
 
@@ -34,12 +34,12 @@
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
-import OracleDatabases from '@/components/hosts/hostDetails/databases/oracle/OracleDatabases.vue'
-import MysqlDatabases from '@/components/hosts/hostDetails/databases/mysql/MysqlDatabases.vue'
-import HbuttonScroll from '@/components/HbuttonScroll.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
-import noContent from '@/components/common/NoContent.vue'
-import SearchInput from '@/components/common/SearchInput.vue'
+// import OracleDatabases from '@/components/hosts/hostDetails/databases/oracle/OracleDatabases.vue'
+// import MysqlDatabases from '@/components/hosts/hostDetails/databases/mysql/MysqlDatabases.vue'
+// import HbuttonScroll from '@/components/HbuttonScroll.vue'
+// import noContent from '@/components/common/NoContent.vue'
+// import SearchInput from '@/components/common/SearchInput.vue'
 
 export default {
   props: {
@@ -53,12 +53,12 @@ export default {
     }
   },
   components: {
-    OracleDatabases,
-    MysqlDatabases,
-    HbuttonScroll,
-    BoxContent,
-    noContent,
-    SearchInput
+    BoxContent
+    // OracleDatabases,
+    // MysqlDatabases,
+    // HbuttonScroll,
+    // noContent,
+    // SearchInput
   },
   data() {
     return {

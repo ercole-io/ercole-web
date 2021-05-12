@@ -10,7 +10,7 @@
     <div class="chart-space">
       <LineChart
         chartId="lineChart"
-        :lineChartData="getCpuUsageChart(selectedDatabases)"
+        :lineChartData="getOracleCpuUsageChart(selectedDatabases)"
       />
     </div>
   </BoxContent>
@@ -40,9 +40,9 @@ export default {
     })
   },
   computed: {
-    ...mapGetters(['getCpuUsageChart', 'getCurrentHostDbsName']),
+    ...mapGetters(['getOracleCpuUsageChart', 'getCurrentHostDbsName']),
     showChart() {
-      return this.getCpuUsageChart()
+      return this.getOracleCpuUsageChart()
     }
   }
 }
