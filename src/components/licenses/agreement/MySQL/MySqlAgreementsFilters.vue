@@ -10,8 +10,8 @@
         <option :value="null" v-if="filters.type">
           Reset
         </option>
-        <option v-for="(part, index) in filteredType" :key="index">
-          {{ part }}
+        <option v-for="(type, index) in filteredType" :key="index">
+          {{ type }}
         </option>
       </b-select>
     </CustomField>
