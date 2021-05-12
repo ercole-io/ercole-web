@@ -25,7 +25,7 @@ export default {
       'updateLicenseAgreement',
       'deleteLicenseAgreement'
     ]),
-    deleteAgreement(type, id, agreeNumber = '12345') {
+    deleteAgreement(type, id, agreeNumber = ' - ') {
       this.$buefy.dialog.confirm({
         title: 'Delete Agreement',
         message: `Are you sure you want to <b>delete</b> the agreement number <b>${agreeNumber}</b>? This action cannot be undone.`,
