@@ -26,7 +26,7 @@
         </b-select>
       </b-field>
 
-      <b-field
+      <!-- <b-field
         label="Agreement Number *"
         custom-class="is-small"
         expanded
@@ -74,7 +74,7 @@
           type="number"
           v-model="mysqlForm.agreementCsi"
         />
-      </b-field>
+      </b-field> -->
 
       <b-field
         label="Number of Licenses *"
@@ -214,9 +214,9 @@ export default {
   validations: {
     mysqlForm: {
       agreementType: { required },
-      agreementLicenses: { required, numeric },
-      agreementNumber: { required, numeric },
-      agreementCsi: { required, numeric }
+      agreementLicenses: { required, numeric }
+      // agreementNumber: { required, numeric },
+      // agreementCsi: { required, numeric }
     }
   },
   data() {

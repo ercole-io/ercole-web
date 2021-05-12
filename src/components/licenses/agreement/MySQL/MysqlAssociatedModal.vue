@@ -36,8 +36,7 @@ export default {
       required: true
     },
     agreementNumber: {
-      type: Number,
-      default: 12345
+      type: [Number, String]
     }
   }
 }

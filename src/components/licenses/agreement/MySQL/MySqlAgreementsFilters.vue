@@ -16,7 +16,7 @@
       </b-select>
     </CustomField>
 
-    <CustomField label="Agreement Number">
+    <!-- <CustomField label="Agreement Number">
       <b-autocomplete
         v-model="filters.agreementID"
         size="is-small"
@@ -46,7 +46,7 @@
           )
         "
       />
-    </CustomField>
+    </CustomField> -->
 
     <CustomField label="Number of licenses">
       <b-autocomplete
