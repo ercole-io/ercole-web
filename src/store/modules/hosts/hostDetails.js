@@ -197,8 +197,10 @@ export const getters = {
       )
     })
   }
-  // currentHostActiveTab: state => {
-
+  // currentHostActiveTab: (state, getters) => {
+  //   _.findIndex(this.currentHostFiltered(this.searchDb), {
+  //     name: this.currentHostActiveDB
+  //   })
   // }
 }
 
