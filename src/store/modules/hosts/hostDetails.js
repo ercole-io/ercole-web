@@ -14,7 +14,6 @@ const endDate = moment().format('YYYY-MM-DD')
 export const state = () => ({
   currentHost: {},
   currentHostActiveDB: ''
-  // hostDBs: [],
 })
 
 export const getters = {
@@ -158,17 +157,49 @@ export const getters = {
 
     if (databases) {
       if (databases.oracle && databases.oracle.database.databases) {
-        state.hostType = 'oracle'
+        return 'oracle'
       } else if (databases.mysql && databases.mysql.instances) {
-        state.hostType = 'mysql'
+        return 'mysql'
       } else if (
         databases.microsoft &&
         databases.microsoft.sqlServer.instances
       ) {
-        state.hostType = 'microsoft'
+        return 'microsoft'
       }
     }
+  },
+  currentHostActiveDB: state => {
+    return state.currentHostActiveDB
+  },
+  currentHostDBs: state => {
+    const databases = state.currentHost.features
+
+    if (databases) {
+      if (databases.oracle && databases.oracle.database.databases) {
+        return databases.oracle.database.databases
+      } else if (databases.mysql && databases.mysql.instances) {
+        return databases.mysql.instances
+      } else if (
+        databases.microsoft &&
+        databases.microsoft.sqlServer.instances
+      ) {
+        return databases.microsoft.sqlServer.instances
+      }
+    }
+  },
+  currentHostFiltered: (state, getters) => search => {
+    return _.filter(getters.currentHostDBs, db => {
+      return (
+        db.name
+          .toString()
+          .toLowerCase()
+          .indexOf(search.toLowerCase()) >= 0
+      )
+    })
   }
+  // currentHostActiveTab: state => {
+
+  // }
 }
 
 export const mutations = {
