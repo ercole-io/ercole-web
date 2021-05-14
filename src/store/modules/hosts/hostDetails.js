@@ -187,6 +187,13 @@ export const getters = {
       }
     }
   },
+  currentHostDBsName: (state, getters) => {
+    const databases = getters.currentHostDBs
+
+    return _.map(databases, val => {
+      return val.name
+    })
+  },
   currentHostFiltered: (state, getters) => search => {
     return _.filter(getters.currentHostDBs, db => {
       return (
@@ -196,12 +203,22 @@ export const getters = {
           .indexOf(search.toLowerCase()) >= 0
       )
     })
-  }
+  },
   // currentHostActiveTab: (state, getters) => {
   //   _.findIndex(this.currentHostFiltered(this.searchDb), {
   //     name: this.currentHostActiveDB
   //   })
   // }
+  getOracleCpuUsageChart: state => selected => {
+    const dailyDbState = state.currentHost.features.oracle.database.databases
+    const dailyHistory = state.currentHost.history
+
+    if (dailyDbState) {
+      return mountCpuUsageChart(dailyHistory, selected, dailyDbState)
+    } else {
+      return null
+    }
+  }
 }
 
 export const mutations = {
@@ -224,4 +241,73 @@ export const actions = {
     const response = await hostByName.data
     commit('SET_CURRENT_HOST', response)
   }
+}
+
+const mountTotalDailyUsage = data => {
+  const totalDailyData = []
+  let resultTotalDaily = {}
+
+  _.map(data, item => {
+    totalDailyData.push({
+      date: moment(item.createdAt).format('YYYY-MM-DD'),
+      value: item.totalDailyCPUUsage
+    })
+  })
+
+  for (const prop in totalDailyData) {
+    resultTotalDaily[totalDailyData[prop].date] = totalDailyData[prop].value
+  }
+
+  return resultTotalDaily
+}
+
+const mountTotalDailyUsageDbs = data => {
+  let dailyDbData = []
+  _.map(data, item => {
+    const { name, changes } = item
+    let changed = _.map(changes, data => {
+      return {
+        date: moment(data.updated).format('YYYY-MM-DD'),
+        value: data.dailyCPUUsage
+      }
+    })
+
+    const changedResult = {}
+    for (const prop in changed) {
+      changedResult[changed[prop].date] = changed[prop].value
+    }
+
+    dailyDbData.push({
+      name: name,
+      data: changedResult
+    })
+  })
+  return dailyDbData
+}
+
+const matchSelectedDbs = (selected, dbs) => {
+  let selectedDbs = []
+  _.forEach(selected, val => {
+    return _.map(mountTotalDailyUsageDbs(dbs), dbData => {
+      if (dbData.name === val) {
+        selectedDbs.push(dbData)
+      }
+    })
+  })
+  return selectedDbs
+}
+
+const mountCpuUsageChart = (history, selected, dbs) => {
+  const finalResult = [
+    {
+      name: 'Total Daily CPU Usage',
+      data: mountTotalDailyUsage(history)
+    }
+  ]
+
+  _.forEach(matchSelectedDbs(selected, dbs), item => {
+    finalResult.push(item)
+  })
+
+  return finalResult
 }
