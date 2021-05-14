@@ -4,22 +4,20 @@
       searchPlaceholder="Search by DB name"
       v-model="searchDb"
       slot="customTitle"
-      @input="onSearchDb($event)"
-      :onBlur="findActiveTab"
+      @input="onSearch($event)"
+      :onBlur="onSearchBlur"
     />
+
     <HbuttonScroll height="30" elemScroll="tabs" />
 
     <OracleDatabases
       :currentDBs="currentHostFiltered(searchDb)"
-      :activatedTab="activeTab"
-      :changeChart="bindDbChart"
-      v-if="currentHostType === 'oracle'"
+      v-if="showDatabases && isOracle"
     />
 
     <MysqlDatabases
-      :activeTab="activeTab"
-      :filteredHostDbs="currentHostFiltered(searchDb)"
-      v-else-if="currentHostType === 'mysql'"
+      :currentDbs="currentHostFiltered(searchDb)"
+      v-else-if="showDatabases && isMysql"
     />
 
     <NoContent
@@ -31,7 +29,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -52,62 +49,35 @@ export default {
   },
   data() {
     return {
-      activeTab: 0,
       searchDb: ''
     }
   },
   async beforeMount() {
     await this.getAgreementParts()
-    this.findActiveTab()
-
-    bus.$on('changeActiveTab', val => {
-      this.activeTab = val
-    })
   },
   methods: {
     ...mapActions(['getAgreementParts']),
-    findActiveTab() {
-      this.activeTab = _.findIndex(this.currentHostFiltered(this.searchDb), {
-        name: this.currentHostActiveDB
-      })
-      this.bindDbChart()
-    },
-    onSearchDb(e) {
+    onSearch(e) {
       if (e !== '' && e.length > 0) {
-        this.activeTab = 0
+        bus.$emit('isSearching', true)
       }
-      this.bindDbChart()
     },
-    bindDbChart() {
-      if (this.activeTab === -1) {
-        if (this.currentHostFiltered(this.searchDb).length > 0) {
-          bus.$emit('selectedData', [
-            this.currentHostFiltered(this.searchDb)[0].name
-          ])
-        }
-      } else {
-        if (this.currentHostFiltered(this.searchDb).length > 0) {
-          bus.$emit('selectedData', [
-            this.currentHostFiltered(this.searchDb)[this.activeTab].name
-          ])
-        }
+    onSearchBlur() {
+      if (this.searchDb.length === 0) {
+        bus.$emit('isSearching', false)
       }
     }
   },
   computed: {
-    ...mapGetters([
-      'currentHostActiveDB',
-      'currentHostType',
-      'currentHostFiltered'
-    ]),
+    ...mapGetters(['currentHostType', 'currentHostFiltered']),
     showDatabases() {
       return this.currentHostFiltered(this.searchDb).length > 0
     },
     isOracle() {
-      return this.dbType === 'oracle'
+      return this.currentHostType === 'oracle'
     },
     isMysql() {
-      return this.dbType === 'mysql'
+      return this.currentHostType === 'mysql'
     }
   }
 }

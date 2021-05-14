@@ -171,6 +171,11 @@ export const getters = {
   currentHostActiveDB: state => {
     return state.currentHostActiveDB
   },
+  currentHostActiveDbIndex: (state, getters) => filteredDbs => {
+    return _.findIndex(filteredDbs, {
+      name: getters.currentHostActiveDB
+    })
+  },
   currentHostDBs: state => {
     const databases = state.currentHost.features
 
@@ -195,7 +200,7 @@ export const getters = {
     })
   },
   currentHostFiltered: (state, getters) => search => {
-    return _.filter(getters.currentHostDBs, db => {
+    const filtered = _.filter(getters.currentHostDBs, db => {
       return (
         db.name
           .toString()
@@ -203,14 +208,10 @@ export const getters = {
           .indexOf(search.toLowerCase()) >= 0
       )
     })
+    return filtered
   },
-  // currentHostActiveTab: (state, getters) => {
-  //   _.findIndex(this.currentHostFiltered(this.searchDb), {
-  //     name: this.currentHostActiveDB
-  //   })
-  // }
-  getOracleCpuUsageChart: state => selected => {
-    const dailyDbState = state.currentHost.features.oracle.database.databases
+  getOracleCpuUsageChart: (state, getters) => selected => {
+    const dailyDbState = getters.currentHostDBs
     const dailyHistory = state.currentHost.history
 
     if (dailyDbState) {
@@ -223,7 +224,6 @@ export const getters = {
 
 export const mutations = {
   SET_CURRENT_HOST: (state, payload) => {
-    console.log(payload)
     state.currentHost = payload
   },
   SET_ACTIVE_DB: (state, payload) => {
