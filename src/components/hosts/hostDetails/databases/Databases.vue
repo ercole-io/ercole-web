@@ -13,14 +13,14 @@
     <OracleDatabases
       :currentDBs="currentHostFiltered(searchDb)"
       :activatedTab="activeTab"
-      v-if="showDatabases && isOracle"
+      v-if="currentHostType === 'oracle'"
     />
 
-    <MysqlDatabases
+    <!-- <MysqlDatabases
       :activeTab="activeTab"
-      :filteredHostDbs="currentHostFiltered(searchDb)"
+      :filteredHostDbs="filteredHostDbs"
       v-else-if="showDatabases && isMysql"
-    />
+    /> -->
 
     <NoContent
       v-else
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -51,11 +52,13 @@ export default {
   },
   data() {
     return {
+      activeTab: 0,
       searchDb: ''
     }
   },
   async beforeMount() {
     await this.getAgreementParts()
+    this.findActiveTab()
 
     bus.$on('changeActiveTab', val => {
       this.activeTab = val
@@ -63,6 +66,12 @@ export default {
   },
   methods: {
     ...mapActions(['getAgreementParts']),
+    findActiveTab() {
+      this.activeTab = _.findIndex(this.currentHostFiltered(this.searchDb), {
+        name: this.currentHostActiveDB
+      })
+      // this.bindDbChart()
+    },
     onSearchDb(e) {
       if (e !== '' && e.length > 0) {
         this.activeTab = 0
@@ -86,16 +95,17 @@ export default {
       'currentHostActiveDB',
       'currentHostType',
       'currentHostFiltered'
-    ]),
-    showDatabases() {
-      return this.currentHostFiltered(this.searchDb).length > 0
-    },
-    isOracle() {
-      return this.currentHostType === 'oracle'
-    },
-    isMysql() {
-      return this.currentHostType === 'mysql'
-    }
+    ])
+    // showDatabases() {
+    //   console.log(this.filteredHostDbs.length > 0)
+    //   return this.filteredHostDbs.length > 0
+    // }
+    //   isOracle() {
+    //     return this.dbType === 'oracle'
+    //   },
+    //   isMysql() {
+    //     return this.dbType === 'mysql'
+    //   }
   }
 }
 </script>
