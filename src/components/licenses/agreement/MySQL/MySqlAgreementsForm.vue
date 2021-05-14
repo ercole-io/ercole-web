@@ -21,12 +21,12 @@
           v-model="mysqlForm.agreementType"
           expanded
         >
-          <option value="host">Host</option>
-          <option value="cluster">Cluster</option>
+          <option :value="cluster">{{ cluster }}</option>
+          <option :value="host">{{ host }}</option>
         </b-select>
       </b-field>
 
-      <!-- <b-field
+      <b-field
         label="Agreement Number *"
         custom-class="is-small"
         expanded
@@ -74,7 +74,7 @@
           type="number"
           v-model="mysqlForm.agreementCsi"
         />
-      </b-field> -->
+      </b-field>
 
       <b-field
         label="Number of Licenses *"
@@ -104,7 +104,7 @@
       <b-field
         label="Hosts"
         custom-class="is-small"
-        v-if="mysqlForm.agreementType === 'host'"
+        v-if="mysqlForm.agreementType === host"
       >
         <b-taginput
           v-model="mysqlForm.agreementHosts"
@@ -145,7 +145,7 @@
       <b-field
         label="Clusters"
         custom-class="is-small"
-        v-if="mysqlForm.agreementType === 'cluster'"
+        v-if="mysqlForm.agreementType === cluster"
       >
         <b-taginput
           v-model="mysqlForm.agreementClusters"
@@ -199,6 +199,7 @@
 </template>
 
 <script>
+import toUpper from '@/filters/toUpper.js'
 import { bus } from '@/helpers/eventBus.js'
 import { required, numeric } from 'vuelidate/lib/validators'
 import LicensesAgreementMixin from '@/mixins/licensesAgreement.js'
@@ -214,16 +215,18 @@ export default {
   validations: {
     mysqlForm: {
       agreementType: { required },
-      agreementLicenses: { required, numeric }
-      // agreementNumber: { required, numeric },
-      // agreementCsi: { required, numeric }
+      agreementLicenses: { required, numeric },
+      agreementNumber: { required, numeric },
+      agreementCsi: { required, numeric }
     }
   },
   data() {
     return {
       mysqlForm: {
         licenseID: ''
-      }
+      },
+      host: 'host',
+      cluster: 'cluster'
     }
   },
   beforeMount() {
@@ -235,14 +238,16 @@ export default {
   methods: {
     createUpdateAgreement() {
       let mysqlAgreementData = {
-        type: this.mysqlForm.agreementType,
+        type: toUpper(this.mysqlForm.agreementType),
         numberOfLicenses: Number(this.mysqlForm.agreementLicenses),
+        agreementID: this.mysqlForm.agreementNumber,
+        csi: this.mysqlForm.agreementCsi,
         hosts:
-          this.mysqlForm.agreementType === 'host'
+          this.mysqlForm.agreementType === this.host
             ? this.mysqlForm.agreementHosts
             : [],
         clusters:
-          this.mysqlForm.agreementType === 'cluster'
+          this.mysqlForm.agreementType === this.cluster
             ? this.mysqlForm.agreementClusters
             : []
       }
@@ -268,6 +273,8 @@ export default {
         licenseID: data.id,
         agreementType: data.type,
         agreementLicenses: data.numberOfLicenses,
+        agreementNumber: data.agreementID,
+        agreementCsi: data.csi,
         agreementHosts: data.hosts,
         agreementClusters: data.clusters
       }
