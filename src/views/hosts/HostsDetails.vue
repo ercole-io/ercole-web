@@ -27,7 +27,7 @@
         <Databases />
       </div>
       <div class="column is-4">
-        <!-- <ChartCpu /> -->
+        <ChartCpu />
       </div>
     </div>
   </section>
@@ -42,7 +42,7 @@ import DismissHost from '@/components/hosts/hostDetails/DismissHost.vue'
 // import HostTags from '@/components/hosts/hostDetails/HostTags.vue'
 import DetailsInfo from '@/components/hosts/hostDetails/DetailsInfo.vue'
 import Databases from '@/components/hosts/hostDetails/databases/Databases.vue'
-// import ChartCpu from '@/components/hosts/hostDetails/ChartCpu.vue'
+import ChartCpu from '@/components/hosts/hostDetails/ChartCpu.vue'
 
 export default {
   props: {
@@ -63,8 +63,8 @@ export default {
     DismissHost,
     // HostTags,
     DetailsInfo,
-    Databases
-    // ChartCpu,
+    Databases,
+    ChartCpu
   },
   data() {
     return {
