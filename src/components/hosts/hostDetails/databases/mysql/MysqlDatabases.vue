@@ -1,6 +1,6 @@
 <template>
   <b-tabs size="is-small" type="is-boxed" :animated="true" v-model="isActive">
-    <template v-for="(dbs, i) in filteredHostDbs">
+    <template v-for="(dbs, i) in currentDbs">
       <b-tab-item :key="i" :label="dbs.name">
         <b-tabs size="is-small" type="is-toggle" vertical :animated="true">
           <DbInfo :dbInfo="dbs" />
@@ -22,7 +22,7 @@ import DbTableSchemas from '@/components/hosts/hostDetails/databases/mysql/DbTab
 
 export default {
   props: {
-    filteredHostDbs: {
+    currentDbs: {
       type: Array,
       default: () => []
     },

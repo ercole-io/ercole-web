@@ -4,7 +4,7 @@
     type="is-boxed"
     :animated="true"
     v-model="isActive"
-    @click.native="changeChart"
+    @input="onChange"
   >
     <template v-for="(dbs, i) in currentDBs">
       <b-tab-item :key="i" :label="dbs.name">
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { bus } from '@/helpers/eventBus.js'
 import DbInfo from '@/components/hosts/hostDetails/databases/oracle/DbInfo.vue'
 import DbTablespaces from '@/components/hosts/hostDetails/databases/oracle/DbTablespaces.vue'
@@ -54,13 +55,11 @@ export default {
     currentDBs: {
       type: Array,
       default: () => []
-    },
-    activatedTab: {
-      type: Number,
-      default: 0
-    },
-    changeChart: {
-      type: Function
+    }
+  },
+  data() {
+    return {
+      isActive: 0
     }
   },
   components: {
@@ -79,15 +78,26 @@ export default {
     // DbTags,
     DbPDBs
   },
-  computed: {
-    isActive: {
-      get() {
-        return this.activatedTab
-      },
-      set(val) {
-        return bus.$emit('changeActiveTab', val)
+  beforeMount() {
+    this.isActive = this.currentHostActiveDbIndex(this.currentDBs)
+    bus.$emit('selectedData', [this.currentHostActiveDB])
+
+    bus.$on('isSearching', val => {
+      if (val) {
+        this.isActive = 0
+      } else {
+        this.isActive = this.currentHostActiveDbIndex(this.currentDBs)
       }
+      bus.$emit('selectedData', [this.currentDBs[this.isActive].name])
+    })
+  },
+  methods: {
+    onChange(index) {
+      bus.$emit('selectedData', [this.currentDBs[index].name])
     }
+  },
+  computed: {
+    ...mapGetters(['currentHostActiveDB', 'currentHostActiveDbIndex'])
   }
 }
 </script>
