@@ -2,7 +2,7 @@
   <BoxContent title="CPU Usage" v-if="showChart">
     <SearchableMultiSelect
       :selected="selectedDatabases"
-      :dataOptions="getCurrentHostDbsName"
+      :dataOptions="currentHostDBsName"
       placeholderName="Search by DB name"
       btnLabelText="Compare Databases"
       slot="customTitle"
@@ -40,7 +40,7 @@ export default {
     })
   },
   computed: {
-    ...mapGetters(['getOracleCpuUsageChart', 'getCurrentHostDbsName']),
+    ...mapGetters(['getOracleCpuUsageChart', 'currentHostDBsName']),
     showChart() {
       return this.getOracleCpuUsageChart()
     }

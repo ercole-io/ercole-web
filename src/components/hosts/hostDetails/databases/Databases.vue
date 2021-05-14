@@ -16,11 +16,11 @@
       v-if="currentHostType === 'oracle'"
     />
 
-    <!-- <MysqlDatabases
+    <MysqlDatabases
       :activeTab="activeTab"
-      :filteredHostDbs="filteredHostDbs"
-      v-else-if="showDatabases && isMysql"
-    /> -->
+      :filteredHostDbs="currentHostFiltered(searchDb)"
+      v-else-if="currentHostType === 'mysql'"
+    />
 
     <NoContent
       v-else
@@ -38,7 +38,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 import HbuttonScroll from '@/components/HbuttonScroll.vue'
 import OracleDatabases from '@/components/hosts/hostDetails/databases/oracle/OracleDatabases.vue'
-// import MysqlDatabases from '@/components/hosts/hostDetails/databases/mysql/MysqlDatabases.vue'
+import MysqlDatabases from '@/components/hosts/hostDetails/databases/mysql/MysqlDatabases.vue'
 import NoContent from '@/components/common/NoContent.vue'
 
 export default {
@@ -47,7 +47,7 @@ export default {
     OracleDatabases,
     SearchInput,
     HbuttonScroll,
-    // MysqlDatabases,
+    MysqlDatabases,
     NoContent
   },
   data() {
