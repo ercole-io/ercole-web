@@ -8,8 +8,8 @@
     >
       <template slot="headData">
         <v-th sortKey="type">Type</v-th>
-        <!-- <v-th sortKey="agreementID">Agreement Number</v-th>
-        <v-th sortKey="csi">CSI</v-th> -->
+        <v-th sortKey="agreementID">Agreement Number</v-th>
+        <v-th sortKey="csi">CSI</v-th>
         <v-th sortKey="numberOfLicenses">Number of licenses</v-th>
         <v-th sortKey="clusters">Clusters</v-th>
         <v-th sortKey="hosts">Hosts</v-th>
@@ -17,9 +17,9 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.type" />
-        <!-- <TdContent :value="rowData.scope.agreementID" />
-        <TdContent :value="rowData.scope.csi" /> -->
+        <TdContent :value="rowData.scope.type | toLower" />
+        <TdContent :value="rowData.scope.agreementID" />
+        <TdContent :value="rowData.scope.csi" />
         <TdContent :value="rowData.scope.numberOfLicenses" />
         <td>
           <b-icon

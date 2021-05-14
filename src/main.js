@@ -24,6 +24,8 @@ import CapitalizeFilter from './filters/capitalize.js'
 import FormatDate from './filters/formatDate.js'
 import FormatNumber from './filters/formatNumber.js'
 import FormatDateTime from './filters/formatDateTime.js'
+import ToUpper from './filters/toUpper.js'
+import ToLower from './filters/toLower.js'
 
 import './assets/icons/material-design-webfonts/css/materialdesignicons.min.css'
 import './assets/icons/font-awesome/css/all.min.css'
@@ -68,6 +70,8 @@ Vue.filter('capitalize', CapitalizeFilter)
 Vue.filter('formatDate', FormatDate)
 Vue.filter('formatNumber', FormatNumber)
 Vue.filter('formatDateTime', FormatDateTime)
+Vue.filter('toUpper', ToUpper)
+Vue.filter('toLower', ToLower)
 
 Vue.config.productionTip = false
 
