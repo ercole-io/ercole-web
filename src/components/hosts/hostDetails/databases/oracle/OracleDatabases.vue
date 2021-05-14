@@ -1,6 +1,11 @@
 <template>
-  <b-tabs size="is-small" type="is-boxed" :animated="true" v-model="isActive">
-    <!-- @click.native="changeChart" -->
+  <b-tabs
+    size="is-small"
+    type="is-boxed"
+    :animated="true"
+    v-model="isActive"
+    @click.native="changeChart"
+  >
     <template v-for="(dbs, i) in currentDBs">
       <b-tab-item :key="i" :label="dbs.name">
         <b-tabs size="is-small" type="is-toggle" vertical :animated="true">
@@ -53,10 +58,10 @@ export default {
     activatedTab: {
       type: Number,
       default: 0
+    },
+    changeChart: {
+      type: Function
     }
-    // changeChart: {
-    //   type: Function
-    // }
   },
   components: {
     DbInfo,
