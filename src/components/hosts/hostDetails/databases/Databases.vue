@@ -7,12 +7,12 @@
       @input="onSearchDb($event)"
       :onBlur="findActiveTab"
     />
-    <!-- :onBlur="findActiveTab" -->
     <HbuttonScroll height="30" elemScroll="tabs" />
 
     <OracleDatabases
       :currentDBs="currentHostFiltered(searchDb)"
       :activatedTab="activeTab"
+      :changeChart="bindDbChart"
       v-if="currentHostType === 'oracle'"
     />
 
@@ -70,42 +70,45 @@ export default {
       this.activeTab = _.findIndex(this.currentHostFiltered(this.searchDb), {
         name: this.currentHostActiveDB
       })
-      // this.bindDbChart()
+      this.bindDbChart()
     },
     onSearchDb(e) {
       if (e !== '' && e.length > 0) {
         this.activeTab = 0
       }
-      // this.bindDbChart()
+      this.bindDbChart()
+    },
+    bindDbChart() {
+      if (this.activeTab === -1) {
+        if (this.currentHostFiltered(this.searchDb).length > 0) {
+          bus.$emit('selectedData', [
+            this.currentHostFiltered(this.searchDb)[0].name
+          ])
+        }
+      } else {
+        if (this.currentHostFiltered(this.searchDb).length > 0) {
+          bus.$emit('selectedData', [
+            this.currentHostFiltered(this.searchDb)[this.activeTab].name
+          ])
+        }
+      }
     }
-    //   bindDbChart() {
-    //     if (this.activeTab === -1) {
-    //       if (this.filteredHostDbs.length > 0) {
-    //         bus.$emit('selectedData', [this.filteredHostDbs[0].name])
-    //       }
-    //     } else {
-    //       if (this.filteredHostDbs.length > 0) {
-    //         bus.$emit('selectedData', [this.filteredHostDbs[this.activeTab].name])
-    //       }
-    //     }
-    //   }
   },
   computed: {
     ...mapGetters([
       'currentHostActiveDB',
       'currentHostType',
       'currentHostFiltered'
-    ])
-    // showDatabases() {
-    //   console.log(this.filteredHostDbs.length > 0)
-    //   return this.filteredHostDbs.length > 0
-    // }
-    //   isOracle() {
-    //     return this.dbType === 'oracle'
-    //   },
-    //   isMysql() {
-    //     return this.dbType === 'mysql'
-    //   }
+    ]),
+    showDatabases() {
+      return this.currentHostFiltered(this.searchDb).length > 0
+    },
+    isOracle() {
+      return this.dbType === 'oracle'
+    },
+    isMysql() {
+      return this.dbType === 'mysql'
+    }
   }
 }
 </script>
