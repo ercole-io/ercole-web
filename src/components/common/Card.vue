@@ -37,10 +37,6 @@ export default {
 </script>
 
 <style lang="scss">
-.card {
-  min-height: 100%;
-}
-
 .card-title {
   font-weight: 500;
   padding: 0.5rem 1rem;
