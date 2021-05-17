@@ -24,12 +24,18 @@ export const mountDatabasesChart = (data, page) => {
 
 const chartBySeries = (data, type, title) => {
   const series = _.groupBy(data, type)
-  const seriesData = []
+  let seriesData = []
   let seriesFinal = []
 
   _.map(series, (value, key) => {
     seriesData.push({ name: key, value: value.length })
   })
+
+  if (seriesData[0].name === 'true' || seriesData[0].name === 'false') {
+    seriesData = _.orderBy(seriesData, ['name'], ['desc'])
+  } else {
+    seriesData = _.orderBy(seriesData, ['value'], ['desc'])
+  }
 
   _.map(seriesData, item => {
     let name = ''
