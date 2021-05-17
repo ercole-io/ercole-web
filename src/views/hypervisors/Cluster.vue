@@ -16,8 +16,6 @@
       @clickedRow="handleClickedRow"
       isClickable
     >
-      <DrawerButton slot="customTopHeader" tooltipText="More Filters" />
-
       <template slot="headData">
         <v-th sortKey="virtualizationNode">Physical Host</v-th>
         <v-th sortKey="hostname">Hostname</v-th>
@@ -88,7 +86,6 @@ import BarChart from '@/components/common/charts/BarChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
-import DrawerButton from '@/components/common/DrawerButton.vue'
 import ClusterFilters from '@/components/hypervisors/ClusterFilters.vue'
 
 export default {
@@ -103,7 +100,6 @@ export default {
     TdContent,
     HostLink,
     TdIcon,
-    DrawerButton,
     ClusterFilters
   },
   data() {
