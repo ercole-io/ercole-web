@@ -11,8 +11,6 @@
       @clickedRow="handleClickedRow"
       isClickable
     >
-      <DrawerButton slot="customTopHeader" tooltipText="More Filters" />
-
       <template slot="headData">
         <v-th sortKey="hostname">Hostname</v-th>
         <v-th sortKey="dbName">DB Name</v-th>
@@ -49,7 +47,6 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 // import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
-import DrawerButton from '@/components/common/DrawerButton.vue'
 import UsedFilters from '@/components/licenses/used/UsedFilters.vue'
 
 export default {
@@ -66,7 +63,6 @@ export default {
     // exportButton,
     TdContent,
     HostLink,
-    DrawerButton,
     UsedFilters
   },
   data() {

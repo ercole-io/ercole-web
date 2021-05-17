@@ -16,8 +16,6 @@
       @clickedRow="handleClickedRow"
       isClickable
     >
-      <DrawerButton slot="customTopHeader" tooltipText="More Filters" />
-
       <template slot="headData">
         <v-th sortKey="name">Cluster Name</v-th>
         <v-th sortKey="type">Type</v-th>
@@ -83,7 +81,6 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import ColumnChart from '@/components/common/charts/ColumnChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
-import DrawerButton from '@/components/common/DrawerButton.vue'
 import HypervisorsFilters from '@/components/hypervisors/HypervisorsFilters.vue'
 
 export default {
@@ -95,7 +92,6 @@ export default {
     exportButton,
     ColumnChart,
     TdContent,
-    DrawerButton,
     HypervisorsFilters
   },
   data() {
