@@ -23,8 +23,6 @@
       isClickable
     >
       <template slot="customTopHeader">
-        <DrawerButton tooltipText="More Filters" />
-
         <div
           v-if="isCurrentPageSelected || selectedRows.length > 0"
           style="margin-right: auto;"
@@ -139,7 +137,6 @@ import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
-import DrawerButton from '@/components/common/DrawerButton.vue'
 import AlertsFilters from '@/components/alerts/AlertsFilters.vue'
 import formatDate from '@/filters/formatDate.js'
 
@@ -161,7 +158,6 @@ export default {
     TdContent,
     TdIcon,
     HostLink,
-    DrawerButton,
     AlertsFilters
   },
   data() {
