@@ -50,5 +50,8 @@ export default {
       this['min' + value] = this['filtered' + value][0]
       this['max' + value] = _.last(this['filtered' + value])
     }
+  },
+  beforeDestroy() {
+    this.reset()
   }
 }
