@@ -1,6 +1,12 @@
 <template>
-  <b-tabs size="is-small" type="is-boxed" :animated="true" v-model="isActive">
-    <template v-for="(dbs, i) in currentDbs">
+  <b-tabs
+    size="is-small"
+    type="is-boxed"
+    :animated="true"
+    v-model="isActive"
+    @input="onChange"
+  >
+    <template v-for="(dbs, i) in currentDBs">
       <b-tab-item :key="i" :label="dbs.name">
         <b-tabs size="is-small" type="is-toggle" vertical :animated="true">
           <DbInfo :dbInfo="dbs" />
@@ -14,38 +20,19 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
+import hostDetailsDatabasesMixins from '@/mixins/hostDetailsDatabases.js'
 import DbInfo from '@/components/hosts/hostDetails/databases/mysql/DbInfo.vue'
 import DbDatabases from '@/components/hosts/hostDetails/databases/mysql/DbDatabases.vue'
 import DbSegmantAdvisors from '@/components/hosts/hostDetails/databases/mysql/DbSegmantAdvisors.vue'
 import DbTableSchemas from '@/components/hosts/hostDetails/databases/mysql/DbTableSchemas.vue'
 
 export default {
-  props: {
-    currentDbs: {
-      type: Array,
-      default: () => []
-    },
-    activatedTab: {
-      type: Number,
-      default: 0
-    }
-  },
+  mixins: [hostDetailsDatabasesMixins],
   components: {
     DbInfo,
     DbDatabases,
     DbSegmantAdvisors,
     DbTableSchemas
-  },
-  computed: {
-    isActive: {
-      get() {
-        return this.activatedTab
-      },
-      set(val) {
-        return bus.$emit('changeActiveTab', val)
-      }
-    }
   }
 }
 </script>

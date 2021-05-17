@@ -33,8 +33,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { bus } from '@/helpers/eventBus.js'
+import hostDetailsDatabasesMixins from '@/mixins/hostDetailsDatabases.js'
 import DbInfo from '@/components/hosts/hostDetails/databases/oracle/DbInfo.vue'
 import DbTablespaces from '@/components/hosts/hostDetails/databases/oracle/DbTablespaces.vue'
 import DbSchemas from '@/components/hosts/hostDetails/databases/oracle/DbSchemas.vue'
@@ -51,17 +50,7 @@ import DbLicenses from '@/components/hosts/hostDetails/databases/oracle/DbLicens
 import DbPDBs from '@/components/hosts/hostDetails/databases/oracle/DbPDBs.vue'
 
 export default {
-  props: {
-    currentDBs: {
-      type: Array,
-      default: () => []
-    }
-  },
-  data() {
-    return {
-      isActive: 0
-    }
-  },
+  mixins: [hostDetailsDatabasesMixins],
   components: {
     DbInfo,
     DbTablespaces,
@@ -77,27 +66,6 @@ export default {
     DbLicenses,
     // DbTags,
     DbPDBs
-  },
-  beforeMount() {
-    this.isActive = this.currentHostActiveDbIndex(this.currentDBs)
-    bus.$emit('selectedData', [this.currentHostActiveDB])
-
-    bus.$on('isSearching', val => {
-      if (val) {
-        this.isActive = 0
-      } else {
-        this.isActive = this.currentHostActiveDbIndex(this.currentDBs)
-      }
-      bus.$emit('selectedData', [this.currentDBs[this.isActive].name])
-    })
-  },
-  methods: {
-    onChange(index) {
-      bus.$emit('selectedData', [this.currentDBs[index].name])
-    }
-  },
-  computed: {
-    ...mapGetters(['currentHostActiveDB', 'currentHostActiveDbIndex'])
   }
 }
 </script>

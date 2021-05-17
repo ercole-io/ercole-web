@@ -16,7 +16,7 @@
     />
 
     <MysqlDatabases
-      :currentDbs="currentHostFiltered(searchDb)"
+      :currentDBs="currentHostFiltered(searchDb)"
       v-else-if="showDatabases && isMysql"
     />
 
