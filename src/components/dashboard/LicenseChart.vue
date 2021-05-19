@@ -49,7 +49,7 @@
         size="is-small"
         type="is-primary"
         icon-right="delete"
-        @click="getToday"
+        @click="getCurrentMonthDates"
       />
     </div>
     <LineChart
@@ -59,7 +59,7 @@
     />
     <NoContent
       v-if="!showChart"
-      :noContentText="'Please change the dates!'"
+      :noContentText="'No data. Please change the dates!'"
       style="min-height: 200px"
     />
   </BoxContent>
@@ -137,7 +137,7 @@ export default {
     await this.$store.dispatch('getLicenseHistory')
     this.selectedType = this.getChartLicenseHistory[0].licenseTypeID
 
-    this.getToday()
+    this.getCurrentMonthDates()
 
     this.mountLincenseChart()
   },
@@ -157,9 +157,15 @@ export default {
 
       const finalData = buildFinalData(resultPurchased, resultUsed)
 
-      this.finalChartData = finalData
+      if (_.isEmpty(resultPurchased) || _.isEmpty(resultUsed)) {
+        this.finalChartData = []
+        this.showChart = false
+      } else {
+        this.finalChartData = finalData
+        this.showChart = true
+      }
     },
-    getToday() {
+    getCurrentMonthDates() {
       const today = moment(new Date(), 'YYYY/MM/DD')
       this.startDate = new Date(moment().format('YYYY-MM-01'))
       this.endDate = new Date(moment().format(`YYYY-MM-${today.format('DD')}`))
@@ -172,9 +178,6 @@ export default {
     ...mapGetters(['getChartLicenseHistory'])
   },
   watch: {
-    finalChartData(values) {
-      values.length > 0 ? (this.showChart = true) : (this.showChart = false)
-    },
     startDate(newValue) {
       if (newValue) {
         this.mountLincenseChart()
