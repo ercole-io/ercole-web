@@ -145,8 +145,12 @@ export default {
     mountLincenseChart() {
       let findType = matchType(this.getChartLicenseHistory, this.selectedType)
       const dateRange = [
-        moment(this.startDate).format('YYYY-MM-DD'),
-        moment(this.endDate).format('YYYY-MM-DD')
+        moment(this.startDate)
+          .subtract(1, 'days')
+          .format('YYYY-MM-DD'),
+        moment(this.endDate)
+          .add(1, 'days')
+          .format('YYYY-MM-DD')
       ]
 
       const purchased = mapLicenseType(findType.history, 'purchased', dateRange)
