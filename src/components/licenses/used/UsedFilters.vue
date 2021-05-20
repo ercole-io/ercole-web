@@ -23,16 +23,51 @@
     </CustomField>
 
     <CustomField label="Part Number">
-      <b-autocomplete
+      <b-select
         v-model="filters.licenseTypeID"
         size="is-small"
-        type="number"
-        clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete($event, 'licenseTypeID', getUsedLicenses)
-        "
-      />
+        placeholder="Select a Part Number"
+        expanded
+      >
+        <option :value="null" v-if="filters.licenseTypeID">
+          Reset
+        </option>
+        <option v-for="(part, index) in filteredLicenseTypeID" :key="index">
+          {{ part }}
+        </option>
+      </b-select>
+    </CustomField>
+
+    <CustomField label="Description">
+      <b-select
+        v-model="filters.description"
+        size="is-small"
+        placeholder="Select a Description"
+        expanded
+      >
+        <option :value="null" v-if="filters.description">
+          Reset
+        </option>
+        <option v-for="(desc, index) in filteredDescription" :key="index">
+          {{ desc }}
+        </option>
+      </b-select>
+    </CustomField>
+
+    <CustomField label="Metric">
+      <b-select
+        v-model="filters.metric"
+        size="is-small"
+        placeholder="Select a Metric"
+        expanded
+      >
+        <option :value="null" v-if="filters.metric">
+          Reset
+        </option>
+        <option v-for="(met, index) in filteredMetric" :key="index">
+          {{ met }}
+        </option>
+      </b-select>
     </CustomField>
 
     <CustomField label="Used Licenses">
@@ -60,6 +95,7 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
+import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
@@ -72,10 +108,26 @@ export default {
   },
   data() {
     return {
-      filteredusedLicenses: []
+      filteredusedLicenses: [],
+      filteredLicenseTypeID: [],
+      filteredDescription: [],
+      filteredMetric: []
     }
   },
   beforeMount() {
+    this.filteredLicenseTypeID = prepareDataForAutocomplete(
+      this.getUsedLicenses,
+      'licenseTypeID'
+    )
+    this.filteredDescription = prepareDataForAutocomplete(
+      this.getUsedLicenses,
+      'description'
+    )
+    this.filteredMetric = prepareDataForAutocomplete(
+      this.getUsedLicenses,
+      'metric'
+    )
+
     this.setSlider()
 
     bus.$on('onResetAction', () => this.reset(this.resetFilters))
