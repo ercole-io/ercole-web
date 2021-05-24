@@ -11,7 +11,9 @@
       <v-th sortKey="itemDescription">Description</v-th>
       <v-th sortKey="metric">Metric</v-th>
       <v-th sortKey="csi">CSI</v-th>
-      <v-th sortKey="referenceNumber">Reference Number</v-th>
+      <v-th sortKey="referenceNumber" v-if="hideReferenceNumberColumn"
+        >Reference Number</v-th
+      >
       <v-th sortKey="unlimited">ULA</v-th>
       <v-th sortKey="licensesCount">Licenses Core</v-th>
       <v-th sortKey="usersCount">Licenses User</v-th>
@@ -30,7 +32,10 @@
       />
       <TdContent :value="rowData.scope.metric" />
       <TdContent :value="rowData.scope.csi" />
-      <TdContent :value="rowData.scope.referenceNumber" />
+      <TdContent
+        :value="rowData.scope.referenceNumber"
+        v-if="hideReferenceNumberColumn"
+      />
       <TdIcon :value="rowData.scope.unlimited" />
       <TdContent :value="rowData.scope.licensesCount" />
       <TdContent :value="rowData.scope.usersCount" />
@@ -81,6 +86,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import LicensesAgreementMixin from '@/mixins/licensesAgreement.js'
@@ -126,6 +132,11 @@ export default {
           data: data
         }
       })
+    }
+  },
+  computed: {
+    hideReferenceNumberColumn() {
+      return _.some(this.returnLicensesAgreement('oracle'), 'referenceNumber')
     }
   }
 }
