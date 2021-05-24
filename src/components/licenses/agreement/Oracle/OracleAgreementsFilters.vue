@@ -80,7 +80,7 @@
       />
     </CustomField>
 
-    <CustomField label="Reference Number">
+    <CustomField label="Reference Number" v-if="hideReferenceNumberColumn">
       <b-autocomplete
         v-model="filters.referenceNumber"
         size="is-small"
@@ -206,6 +206,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
@@ -277,7 +278,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['returnLicensesAgreement'])
+    ...mapGetters(['returnLicensesAgreement']),
+    hideReferenceNumberColumn() {
+      return _.some(this.returnLicensesAgreement('oracle'), 'referenceNumber')
+    }
   }
 }
 </script>
