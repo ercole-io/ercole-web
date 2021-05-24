@@ -24,7 +24,10 @@
     <template slot="bodyData" slot-scope="rowData">
       <TdContent :value="rowData.scope.agreementID" />
       <TdContent :value="rowData.scope.licenseTypeID" />
-      <TdContent :value="rowData.scope.itemDescription" />
+      <TdContent
+        :value="rowData.scope.itemDescription"
+        style="max-width: 250px"
+      />
       <TdContent :value="rowData.scope.metric" />
       <TdContent :value="rowData.scope.csi" />
       <TdContent :value="rowData.scope.referenceNumber" />
