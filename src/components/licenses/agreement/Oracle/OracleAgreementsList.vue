@@ -13,8 +13,8 @@
       <v-th sortKey="csi">CSI</v-th>
       <v-th sortKey="referenceNumber">Reference Number</v-th>
       <v-th sortKey="unlimited">ULA</v-th>
-      <v-th sortKey="licensesCount">Number Licenses</v-th>
-      <v-th sortKey="usersCount">Number User</v-th>
+      <v-th sortKey="licensesCount">Licenses Core</v-th>
+      <v-th sortKey="usersCount">Licenses User</v-th>
       <v-th sortKey="availableCount">Number Available</v-th>
       <v-th sortKey="catchAll">Basket</v-th>
       <v-th sortKey="restricted">Restricted</v-th>

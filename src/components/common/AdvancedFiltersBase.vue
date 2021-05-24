@@ -3,7 +3,12 @@
     <div class="static-filters scrollbar-x" id="style-1">
       <form @submit.prevent="submitAction">
         <slot />
-        <ActionButtons />
+        <ActionButtons
+          :applyText="applyText"
+          :cancelText="cancelText"
+          :isDisabled="isDisabled"
+          :isFixed="isFixed"
+        />
       </form>
     </div>
   </BoxContent>
@@ -22,6 +27,22 @@ export default {
     submitAction: {
       type: Function,
       required: true
+    },
+    applyText: {
+      type: String,
+      default: 'Apply'
+    },
+    cancelText: {
+      type: String,
+      default: 'Reset'
+    },
+    isDisabled: {
+      type: Boolean,
+      default: false
+    },
+    isFixed: {
+      type: Boolean,
+      default: true
     }
   },
   components: {
