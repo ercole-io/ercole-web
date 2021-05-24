@@ -118,7 +118,7 @@
       </div>
     </CustomField>
 
-    <CustomField label="Number Licenses">
+    <CustomField label="Licenses Core">
       <b-slider
         v-model="filters.licensesCount"
         :min="minlicensesCount"
@@ -133,7 +133,7 @@
       </b-slider>
     </CustomField>
 
-    <CustomField label="Number User">
+    <CustomField label="Licenses User">
       <b-slider
         v-model="filters.usersCount"
         :min="minusersCount"
