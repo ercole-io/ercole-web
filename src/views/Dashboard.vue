@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="isMounted">
     <div class="columns">
       <div class="column is-9">
         <div class="columns">
@@ -43,11 +43,20 @@ export default {
     LicensesChart,
     Alerts
   },
+  data() {
+    return {
+      isMounted: false
+    }
+  },
   async beforeMount() {
-    await this.getDashboardData().then(() => {
-      this.$store.dispatch('getHosts') // Pre Load Hosts to cache info and save hostnames on vuex-persisted
-      this.$store.dispatch('getClusters') // Pre load clusters to save clusternames on vuex-persisted
-    })
+    await this.getDashboardData()
+      .then(() => {
+        this.$store.dispatch('getHosts') // Pre Load Hosts to cache info and save hostnames on vuex-persisted
+        this.$store.dispatch('getClusters') // Pre load clusters to save clusternames on vuex-persisted
+      })
+      .then(() => {
+        this.isMounted = true
+      })
 
     // setInterval(() => {
     //   this.$store.dispatch('getHosts') // Update hosts automatically each hour
