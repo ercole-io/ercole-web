@@ -5,14 +5,8 @@
         v-model="filters.agreementID"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete(
-            $event,
-            'agreementID',
-            returnLicensesAgreement('oracle')
-          )
-        "
+        :data="filteredagreementID"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -26,7 +20,7 @@
         <option :value="null" v-if="filters.licenseTypeID">
           Reset
         </option>
-        <option v-for="(part, index) in filteredLicenseTypeID" :key="index">
+        <option v-for="(part, index) in filteredlicenseTypeID" :key="index">
           {{ part }}
         </option>
       </b-select>
@@ -42,7 +36,7 @@
         <option :value="null" v-if="filters.itemDescription">
           Reset
         </option>
-        <option v-for="(desc, index) in filteredItemDescription" :key="index">
+        <option v-for="(desc, index) in filtereditemDescription" :key="index">
           {{ desc }}
         </option>
       </b-select>
@@ -58,7 +52,7 @@
         <option :value="null" v-if="filters.metric">
           Reset
         </option>
-        <option v-for="(met, index) in filteredMetric" :key="index">
+        <option v-for="(met, index) in filteredmetric" :key="index">
           {{ met }}
         </option>
       </b-select>
@@ -69,14 +63,8 @@
         v-model="filters.csi"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete(
-            $event,
-            'csi',
-            returnLicensesAgreement('oracle')
-          )
-        "
+        :data="filteredcsi"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -209,7 +197,6 @@
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
-import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
@@ -222,9 +209,9 @@ export default {
   },
   data() {
     return {
-      filteredLicenseTypeID: [],
-      filteredItemDescription: [],
-      filteredMetric: [],
+      autocompletes: ['agreementID', 'csi'],
+      selects: ['licenseTypeID', 'itemDescription', 'metric'],
+      sliders: ['licensesCount', 'usersCount', 'availableCount'],
       filters: {
         unlimited: '',
         catchAll: '',
@@ -232,9 +219,8 @@ export default {
       }
     }
   },
-  beforeMount() {
-    this.setAutocomplete()
-    this.setSlider()
+  created() {
+    this.fullData = this.returnLicensesAgreement('oracle')
 
     bus.$on('onResetAction', () => this.reset(this.resetFilters))
     bus.$on('onTabChange', () => this.reset(this.resetFilters))
@@ -246,35 +232,6 @@ export default {
         catchAll: '',
         restricted: ''
       }
-      this.setSlider()
-    },
-    setAutocomplete() {
-      this.filteredLicenseTypeID = prepareDataForAutocomplete(
-        this.returnLicensesAgreement('oracle'),
-        'licenseTypeID'
-      )
-      this.filteredItemDescription = prepareDataForAutocomplete(
-        this.returnLicensesAgreement('oracle'),
-        'itemDescription'
-      )
-      this.filteredMetric = prepareDataForAutocomplete(
-        this.returnLicensesAgreement('oracle'),
-        'metric'
-      )
-    },
-    setSlider() {
-      this.setSliderFilterConfig(
-        'licensesCount',
-        this.returnLicensesAgreement('oracle')
-      )
-      this.setSliderFilterConfig(
-        'usersCount',
-        this.returnLicensesAgreement('oracle')
-      )
-      this.setSliderFilterConfig(
-        'availableCount',
-        this.returnLicensesAgreement('oracle')
-      )
     }
   },
   computed: {

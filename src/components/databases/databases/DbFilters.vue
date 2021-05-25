@@ -5,8 +5,8 @@
         v-model="filters.name"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'name', getAllDatabases)"
+        :data="filteredname"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -20,7 +20,7 @@
         <option :value="null" v-if="filters.type">
           Reset
         </option>
-        <option v-for="(type, index) in filteredType" :key="index">
+        <option v-for="(type, index) in filteredtype" :key="index">
           {{ type }}
         </option>
       </b-select>
@@ -31,8 +31,8 @@
         v-model="filters.version"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'version', getAllDatabases)"
+        :data="filteredversion"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -41,8 +41,8 @@
         v-model="filters.hostname"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'hostname', getAllDatabases)"
+        :data="filteredhostname"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -56,7 +56,7 @@
         <option :value="null" v-if="filters.environment">
           Reset
         </option>
-        <option v-for="(env, index) in filteredEnv" :key="index">
+        <option v-for="(env, index) in filteredenvironment" :key="index">
           {{ env }}
         </option>
       </b-select>
@@ -67,8 +67,8 @@
         v-model="filters.charset"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'charset', getAllDatabases)"
+        :data="filteredcharset"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -199,7 +199,6 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
-import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
@@ -212,8 +211,9 @@ export default {
   },
   data() {
     return {
-      filteredType: [],
-      filteredEnv: [],
+      autocompletes: ['name', 'version', 'hostname', 'charset'],
+      selects: ['type', 'environment'],
+      sliders: ['memory', 'datafileSize', 'segmentSize'],
       filters: {
         archivelog: '',
         disasterRecovery: '',
@@ -221,13 +221,8 @@ export default {
       }
     }
   },
-  beforeMount() {
-    this.filteredType = prepareDataForAutocomplete(this.getAllDatabases, 'type')
-    this.filteredEnv = prepareDataForAutocomplete(
-      this.getAllDatabases,
-      'environment'
-    )
-    this.setSlider()
+  created() {
+    this.fullData = this.getAllDatabases
 
     bus.$on('onResetAction', () => this.reset(this.resetFilters))
   },
@@ -238,12 +233,6 @@ export default {
         disasterRecovery: '',
         highAvailability: ''
       }
-      this.setSlider()
-    },
-    setSlider() {
-      this.setSliderFilterConfig('memory', this.getAllDatabases)
-      this.setSliderFilterConfig('datafileSize', this.getAllDatabases)
-      this.setSliderFilterConfig('segmentSize', this.getAllDatabases)
     }
   },
   computed: {

@@ -76,8 +76,8 @@
         v-model="filters.hostname"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'hostname', getAlerts)"
+        :data="filteredhostname"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -86,8 +86,8 @@
         v-model="filters.alertCode"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'alertCode', getAlerts)"
+        :data="filteredalertCode"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -96,8 +96,8 @@
         v-model="filters.description"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'description', getAlerts)"
+        :data="filtereddescription"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
   </AdvancedFiltersBase>
@@ -120,6 +120,7 @@ export default {
   },
   data() {
     return {
+      autocompletes: ['hostname', 'alertCode', 'description'],
       alertStatus: 'NEW',
       startDate: null,
       endDate: null,
@@ -129,8 +130,8 @@ export default {
       }
     }
   },
-  beforeMount() {
-    this.configAutocomplete()
+  created() {
+    this.fullData = this.getAlerts
 
     this.filters = {
       alertCategory: this.alerts.params.category,
@@ -170,11 +171,6 @@ export default {
         hostname: null
       })
       this.alertStatus = 'NEW'
-    },
-    configAutocomplete() {
-      this.setAutocompleteData('hostname', this.getAlerts)
-      this.setAutocompleteData('alertCode', this.getAlerts)
-      this.setAutocompleteData('description', this.getAlerts)
     },
     formatDate(date) {
       return formatDate(date)

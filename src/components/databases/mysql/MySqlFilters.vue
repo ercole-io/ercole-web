@@ -5,8 +5,8 @@
         v-model="filters.name"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'name', getAllMysqlDbs)"
+        :data="filteredname"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -15,8 +15,8 @@
         v-model="filters.hostname"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'hostname', getAllMysqlDbs)"
+        :data="filteredhostname"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -30,7 +30,7 @@
         <option :value="null" v-if="filters.environment">
           Reset
         </option>
-        <option v-for="(ver, index) in filteredEnvironment" :key="index">
+        <option v-for="(ver, index) in filteredenvironment" :key="index">
           {{ ver }}
         </option>
       </b-select>
@@ -46,7 +46,7 @@
         <option :value="null" v-if="filters.charsetSystem">
           Reset
         </option>
-        <option v-for="(char, index) in filteredCharsetSystem" :key="index">
+        <option v-for="(char, index) in filteredcharsetSystem" :key="index">
           {{ char }}
         </option>
       </b-select>
@@ -62,7 +62,7 @@
         <option :value="null" v-if="filters.architecture">
           Reset
         </option>
-        <option v-for="(char, index) in filteredArchitecture" :key="index">
+        <option v-for="(char, index) in filteredarchitecture" :key="index">
           {{ char }}
         </option>
       </b-select>
@@ -93,7 +93,7 @@
         <option :value="null" v-if="filters.edition">
           Reset
         </option>
-        <option v-for="(edit, index) in filteredEdition" :key="index">
+        <option v-for="(edit, index) in filterededition" :key="index">
           {{ edit }}
         </option>
       </b-select>
@@ -109,7 +109,7 @@
         <option :value="null" v-if="filters.engine">
           Reset
         </option>
-        <option v-for="(edit, index) in filteredEngine" :key="index">
+        <option v-for="(edit, index) in filteredengine" :key="index">
           {{ edit }}
         </option>
       </b-select>
@@ -125,7 +125,7 @@
         <option :value="null" v-if="filters.platform">
           Reset
         </option>
-        <option v-for="(plat, index) in filteredPlatform" :key="index">
+        <option v-for="(plat, index) in filteredplatform" :key="index">
           {{ plat }}
         </option>
       </b-select>
@@ -141,7 +141,7 @@
         <option :value="null" v-if="filters.version">
           Reset
         </option>
-        <option v-for="(ver, index) in filteredVersion" :key="index">
+        <option v-for="(ver, index) in filteredversion" :key="index">
           {{ ver }}
         </option>
       </b-select>
@@ -178,7 +178,6 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
-import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
@@ -191,48 +190,24 @@ export default {
   },
   data() {
     return {
-      filteredVersion: [],
-      filteredEnvironment: [],
-      filteredCharsetSystem: [],
-      filteredArchitecture: [],
-      filteredEdition: [],
-      filteredEngine: [],
-      filteredPlatform: [],
+      autocompletes: ['name', 'hostname'],
+      selects: [
+        'environment',
+        'charsetSystem',
+        'architecture',
+        'edition',
+        'engine',
+        'platform',
+        'version'
+      ],
+      sliders: ['bufferPoolSize'],
       filters: {
         highAvailability: ''
       }
     }
   },
-  beforeMount() {
-    this.filteredEnvironment = prepareDataForAutocomplete(
-      this.getAllMysqlDbs,
-      'environment'
-    )
-    this.filteredCharsetSystem = prepareDataForAutocomplete(
-      this.getAllMysqlDbs,
-      'charsetSystem'
-    )
-    this.filteredArchitecture = prepareDataForAutocomplete(
-      this.getAllMysqlDbs,
-      'architecture'
-    )
-    this.filteredEdition = prepareDataForAutocomplete(
-      this.getAllMysqlDbs,
-      'edition'
-    )
-    this.filteredEngine = prepareDataForAutocomplete(
-      this.getAllMysqlDbs,
-      'engine'
-    )
-    this.filteredPlatform = prepareDataForAutocomplete(
-      this.getAllMysqlDbs,
-      'platform'
-    )
-    this.filteredVersion = prepareDataForAutocomplete(
-      this.getAllMysqlDbs,
-      'version'
-    )
-    this.setSlider()
+  created() {
+    this.fullData = this.getAllMysqlDbs
 
     bus.$on('onResetAction', () => this.reset(this.resetFilters))
   },
@@ -241,10 +216,6 @@ export default {
       this.filters = {
         highAvailability: ''
       }
-      this.setSlider()
-    },
-    setSlider() {
-      this.setSliderFilterConfig('bufferPoolSize', this.getAllMysqlDbs)
     }
   },
   computed: {

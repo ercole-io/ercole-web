@@ -10,7 +10,7 @@
         <option :value="null" v-if="filters.type">
           Reset
         </option>
-        <option v-for="(type, index) in filteredType" :key="index">
+        <option v-for="(type, index) in filteredtype" :key="index">
           {{ type | toLower }}
         </option>
       </b-select>
@@ -21,14 +21,8 @@
         v-model="filters.agreementID"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete(
-            $event,
-            'agreementID',
-            returnLicensesAgreement('mysql')
-          )
-        "
+        :data="filteredagreementID"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -37,14 +31,8 @@
         v-model="filters.csi"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete(
-            $event,
-            'csi',
-            returnLicensesAgreement('mysql')
-          )
-        "
+        :data="filteredcsi"
+        @typing="setAutocompletes($event, 'csi')"
       />
     </CustomField>
 
@@ -53,14 +41,8 @@
         v-model="filters.numberOfLicenses"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete(
-            $event,
-            'numberOfLicenses',
-            returnLicensesAgreement('mysql')
-          )
-        "
+        :data="filterednumberOfLicenses"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
   </AdvancedFiltersBase>
@@ -69,7 +51,6 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
-import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
@@ -82,14 +63,12 @@ export default {
   },
   data() {
     return {
-      filteredType: []
+      autocompletes: ['agreementID', 'csi', 'numberOfLicenses'],
+      selects: ['type']
     }
   },
-  beforeMount() {
-    this.filteredType = prepareDataForAutocomplete(
-      this.returnLicensesAgreement('mysql'),
-      'type'
-    )
+  created() {
+    this.fullData = this.returnLicensesAgreement('mysql')
 
     bus.$on('onResetAction', () => this.reset())
     bus.$on('onTabChange', () => this.reset())
