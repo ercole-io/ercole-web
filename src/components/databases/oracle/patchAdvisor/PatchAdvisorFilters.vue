@@ -5,10 +5,8 @@
         v-model="filters.hostname"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete($event, 'hostname', getOraclePatchAdvisor)
-        "
+        :data="filteredhostname"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -17,10 +15,8 @@
         v-model="filters.dbname"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete($event, 'dbname', getOraclePatchAdvisor)
-        "
+        :data="filtereddbname"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -34,7 +30,7 @@
         <option :value="null" v-if="filters.dbver">
           Reset
         </option>
-        <option v-for="(env, index) in filteredDbver" :key="index">
+        <option v-for="(env, index) in filtereddbver" :key="index">
           {{ env }}
         </option>
       </b-select>
@@ -50,18 +46,83 @@
         <option :value="null" v-if="filters.description">
           Reset
         </option>
-        <option v-for="(env, index) in filteredDescription" :key="index">
+        <option v-for="(env, index) in filtereddescription" :key="index">
           {{ env }}
         </option>
       </b-select>
+    </CustomField>
+
+    <CustomField label="4 Months">
+      <div class="is-flex" style="justify-content: space-around;">
+        <b-radio
+          size="is-small"
+          v-model="filters.fourMonths"
+          native-value="true"
+        >
+          Yes
+        </b-radio>
+        <b-radio
+          size="is-small"
+          v-model="filters.fourMonths"
+          native-value="false"
+        >
+          No
+        </b-radio>
+        <b-radio size="is-small" v-model="filters.fourMonths" native-value="">
+          All
+        </b-radio>
+      </div>
+    </CustomField>
+
+    <CustomField label="6 Months">
+      <div class="is-flex" style="justify-content: space-around;">
+        <b-radio
+          size="is-small"
+          v-model="filters.sixMonths"
+          native-value="true"
+        >
+          Yes
+        </b-radio>
+        <b-radio
+          size="is-small"
+          v-model="filters.sixMonths"
+          native-value="false"
+        >
+          No
+        </b-radio>
+        <b-radio size="is-small" v-model="filters.sixMonths" native-value="">
+          All
+        </b-radio>
+      </div>
+    </CustomField>
+
+    <CustomField label="12 Months">
+      <div class="is-flex" style="justify-content: space-around;">
+        <b-radio
+          size="is-small"
+          v-model="filters.twelveMonths"
+          native-value="true"
+        >
+          Yes
+        </b-radio>
+        <b-radio
+          size="is-small"
+          v-model="filters.twelveMonths"
+          native-value="false"
+        >
+          No
+        </b-radio>
+        <b-radio size="is-small" v-model="filters.twelveMonths" native-value="">
+          All
+        </b-radio>
+      </div>
     </CustomField>
   </AdvancedFiltersBase>
 </template>
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapGetters, mapActions } from 'vuex'
-import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
+import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
@@ -74,26 +135,27 @@ export default {
   },
   data() {
     return {
-      filteredDbver: [],
-      filteredDescription: []
+      autocompletes: ['hostname', 'dbname'],
+      selects: ['dbver', 'description'],
+      filters: {
+        fourMonths: '',
+        sixMonths: '',
+        twelveMonths: ''
+      }
     }
   },
-  beforeMount() {
-    this.filteredDbver = prepareDataForAutocomplete(
-      this.getOraclePatchAdvisor,
-      'dbver'
-    )
-    this.filteredDescription = prepareDataForAutocomplete(
-      this.getOraclePatchAdvisor,
-      'description'
-    )
+  created() {
+    this.fullData = this.getOraclePatchAdvisor
 
     bus.$on('onResetAction', () => this.reset(this.resetFilters))
   },
   methods: {
-    ...mapActions(['getPatchAdvisor']),
     resetFilters() {
-      this.startDate = null
+      this.filters = {
+        fourMonths: '',
+        sixMonths: '',
+        twelveMonths: ''
+      }
     }
   },
   computed: {

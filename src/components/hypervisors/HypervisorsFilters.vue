@@ -6,8 +6,8 @@
         size="is-small"
         type="number"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'name', getHypervisors)"
+        :data="filteredname"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -52,10 +52,8 @@
         size="is-small"
         type="number"
         clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete($event, 'virtualizationNodes', getHypervisors)
-        "
+        :data="filteredvirtualizationNodes"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -94,7 +92,6 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
-import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
@@ -107,35 +104,15 @@ export default {
   },
   data() {
     return {
-      filteredtype: [],
-      filteredsockets: []
+      autocompletes: ['name', 'virtualizationNodes'],
+      selects: ['type'],
+      sliders: ['cpu', 'sockets', 'vmsCount', 'vmsErcoleAgentCount']
     }
   },
-  beforeMount() {
-    this.setAutocomplete()
-    this.setSlider()
+  created() {
+    this.fullData = this.getHypervisors
 
-    bus.$on('onResetAction', () => this.reset(this.resetFilters))
-  },
-  methods: {
-    resetFilters() {
-      this.setSlider()
-    },
-    setAutocomplete() {
-      this.setAutocompleteData('name', this.getHypervisors)
-      this.setAutocompleteData('type', this.getHypervisors)
-      this.filteredtype = prepareDataForAutocomplete(
-        this.getHypervisors,
-        'type'
-      )
-      this.setAutocompleteData('virtualizationNodes', this.getHypervisors)
-    },
-    setSlider() {
-      this.setSliderFilterConfig('cpu', this.getHypervisors)
-      this.setSliderFilterConfig('sockets', this.getHypervisors)
-      this.setSliderFilterConfig('vmsCount', this.getHypervisors)
-      this.setSliderFilterConfig('vmsErcoleAgentCount', this.getHypervisors)
-    }
+    bus.$on('onResetAction', () => this.reset())
   },
   computed: {
     ...mapGetters(['getHypervisors'])

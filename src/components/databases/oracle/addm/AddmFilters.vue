@@ -21,8 +21,8 @@
         v-model="filters.hostname"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'hostname', getOracleAddms)"
+        :data="filteredhostname"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -31,8 +31,8 @@
         v-model="filters.dbname"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'dbname', getOracleAddms)"
+        :data="filtereddbname"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -46,7 +46,7 @@
         <option :value="null" v-if="filters.finding">
           Reset
         </option>
-        <option v-for="(env, index) in filteredFinding" :key="index">
+        <option v-for="(env, index) in filteredfinding" :key="index">
           {{ env }}
         </option>
       </b-select>
@@ -62,7 +62,7 @@
         <option :value="null" v-if="filters.recommendation">
           Reset
         </option>
-        <option v-for="(env, index) in filteredRecommendation" :key="index">
+        <option v-for="(env, index) in filteredrecommendation" :key="index">
           {{ env }}
         </option>
       </b-select>
@@ -73,8 +73,8 @@
         v-model="filters.action"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'action', getOracleAddms)"
+        :data="filteredaction"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
   </AdvancedFiltersBase>
@@ -83,7 +83,6 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
-import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
@@ -96,30 +95,15 @@ export default {
   },
   data() {
     return {
-      filteredFinding: [],
-      filteredRecommendation: []
+      autocompletes: ['hostname', 'dbname', 'action'],
+      selects: ['finding', 'recommendation'],
+      sliders: ['benefit']
     }
   },
-  beforeMount() {
-    this.filteredFinding = prepareDataForAutocomplete(
-      this.getOracleAddms,
-      'finding'
-    )
-    this.filteredRecommendation = prepareDataForAutocomplete(
-      this.getOracleAddms,
-      'recommendation'
-    )
-    this.setSlider()
+  created() {
+    this.fullData = this.getOracleAddms
 
-    bus.$on('onResetAction', () => this.reset(this.resetFilters))
-  },
-  methods: {
-    resetFilters() {
-      this.setSlider()
-    },
-    setSlider() {
-      this.setSliderFilterConfig('benefit', this.getOracleAddms)
-    }
+    bus.$on('onResetAction', () => this.reset())
   },
   computed: {
     ...mapGetters(['getOracleAddms'])

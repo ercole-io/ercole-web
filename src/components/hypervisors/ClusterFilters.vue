@@ -6,14 +6,8 @@
         size="is-small"
         type="number"
         clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete(
-            $event,
-            'virtualizationNode',
-            getCurrentClusterVms
-          )
-        "
+        :data="filteredvirtualizationNode"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -23,10 +17,8 @@
         size="is-small"
         type="number"
         clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete($event, 'hostname', getCurrentClusterVms)
-        "
+        :data="filteredhostname"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -36,8 +28,8 @@
         size="is-small"
         type="number"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'name', getCurrentClusterVms)"
+        :data="filteredname"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -80,15 +72,14 @@ export default {
   },
   data() {
     return {
+      autocompletes: ['virtualizationNode', 'hostname', 'name'],
       filters: {
         cappedCPU: ''
       }
     }
   },
-  beforeMount() {
-    this.setAutocompleteData('virtualizationNode', this.getCurrentClusterVms)
-    this.setAutocompleteData('hostname', this.getCurrentClusterVms)
-    this.setAutocompleteData('name', this.getCurrentClusterVms)
+  created() {
+    this.fullData = this.getCurrentClusterVms
 
     bus.$on('onResetAction', () => this.reset(this.resetFilters))
   },

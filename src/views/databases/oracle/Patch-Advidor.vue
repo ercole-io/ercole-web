@@ -15,9 +15,9 @@
         <v-th sortKey="dbver">Version</v-th>
         <v-th sortKey="date">Release Date</v-th>
         <v-th sortKey="description">PSU</v-th>
-        <v-th sortKey="fourMonths.text">4 Month</v-th>
-        <v-th sortKey="sixMonths.text">6 Month</v-th>
-        <v-th sortKey="twelveMonths.text">12 Month</v-th>
+        <v-th sortKey="fourMonthsText">4 Months</v-th>
+        <v-th sortKey="sixMonthsText">6 Months</v-th>
+        <v-th sortKey="twelveMonthsText">12 Months</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
@@ -26,9 +26,9 @@
         <TdContent :value="rowData.scope.dbver" />
         <TdContent :value="rowData.scope.date" dataType="date" />
         <TdContent :value="rowData.scope.description" />
-        <TdIcon :value="rowData.scope.fourMonths.month" />
-        <TdIcon :value="rowData.scope.sixMonths.month" />
-        <TdIcon :value="rowData.scope.twelveMonths.month" />
+        <TdIcon :value="rowData.scope.fourMonths" />
+        <TdIcon :value="rowData.scope.sixMonths" />
+        <TdIcon :value="rowData.scope.twelveMonths" />
       </template>
 
       <exportButton
@@ -70,9 +70,9 @@ export default {
         'dbver',
         'date',
         'description',
-        'fourMonths.text',
-        'sixMonths.text',
-        'twelveMonths.text'
+        'fourMonthsText',
+        'sixMonthsText',
+        'twelveMonthsText'
       ],
       isMounted: false
     }

@@ -5,8 +5,8 @@
         v-model="filters.hostname"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'hostname', getAllHosts)"
+        :data="filteredhostname"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -21,7 +21,7 @@
           Reset
         </option>
         <option
-          v-for="(env, index) in environmentOptions"
+          v-for="(env, index) in filteredenvironment"
           :key="index"
           :value="env"
         >
@@ -35,8 +35,8 @@
         v-model="filters.databases"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'databases', getAllHosts)"
+        :data="filtereddatabases"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -51,7 +51,7 @@
           Reset
         </option>
         <option
-          v-for="(tec, index) in techTypeOptions"
+          v-for="(tec, index) in filteredtechType"
           :key="index"
           :value="tec"
         >
@@ -65,8 +65,8 @@
         v-model="filters.os"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'os', getAllHosts)"
+        :data="filteredos"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -97,8 +97,8 @@
         v-model="filters.kernel"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="setFilteredAutocomplete($event, 'kernel', getAllHosts)"
+        :data="filteredkernel"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -157,7 +157,7 @@
             Reset
           </option>
           <option
-            v-for="(plat, index) in platformOptions"
+            v-for="(plat, index) in filteredplatform"
             :key="index"
             :value="plat"
           >
@@ -171,8 +171,8 @@
           v-model="filters.cluster"
           size="is-small"
           clearable
-          :data="filteredData"
-          @typing="setFilteredAutocomplete($event, 'cluster', getAllHosts)"
+          :data="filteredcluster"
+          @typing="setAutocompletes($event)"
         >
           <template slot="empty">No results found</template>
         </b-autocomplete>
@@ -183,8 +183,8 @@
           v-model="filters.virtNode"
           size="is-small"
           clearable
-          :data="filteredData"
-          @typing="setFilteredAutocomplete($event, 'virtNode', getAllHosts)"
+          :data="filteredvirtNode"
+          @typing="setAutocompletes($event)"
         >
           <template slot="empty">No results found</template>
         </b-autocomplete>
@@ -197,8 +197,8 @@
           v-model="filters.model"
           size="is-small"
           clearable
-          :data="filteredData"
-          @typing="setFilteredAutocomplete($event, 'model', getAllHosts)"
+          :data="filteredmodel"
+          @typing="setAutocompletes($event)"
         >
           <template slot="empty">No results found</template>
         </b-autocomplete>
@@ -259,7 +259,7 @@
             Reset
           </option>
           <option
-            v-for="(ver, index) in versionOptions"
+            v-for="(ver, index) in filteredversion"
             :key="index"
             :value="ver"
           >
@@ -274,10 +274,7 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
-import {
-  prepareDataForAutocomplete,
-  formatDatepickerDate
-} from '@/helpers/helpers.js'
+import { formatDatepickerDate } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
@@ -293,19 +290,25 @@ export default {
   },
   data() {
     return {
-      environmentOptions: [],
-      techTypeOptions: [],
-      platformOptions: [],
-      versionOptions: [],
+      autocompletes: [
+        'hostname',
+        'databases',
+        'model',
+        'os',
+        'kernel',
+        'cluster',
+        'virtNode'
+      ],
+      selects: ['environment', 'techType', 'platform', 'version'],
+      sliders: ['threads', 'cores', 'socket', 'memorytotal', 'swaptotal'],
       startDate: null,
       filters: {
         iconCluster: ''
       }
     }
   },
-  beforeMount() {
-    this.configAutocomplete()
-    this.setSlider()
+  created() {
+    this.fullData = this.getAllHosts
 
     bus.$on('onResetAction', () => this.reset(this.resetFilters))
   },
@@ -315,41 +318,7 @@ export default {
       this.filters = {
         iconCluster: ''
       }
-      this.setSlider()
       this.startDate = null
-    },
-    configAutocomplete() {
-      this.setAutocompleteData('hostname', this.getAllHosts)
-      this.setAutocompleteData('databases', this.getAllHosts)
-      this.setAutocompleteData('model', this.getAllHosts)
-      this.setAutocompleteData('os', this.getAllHosts)
-      this.setAutocompleteData('kernel', this.getAllHosts)
-      this.setAutocompleteData('cluster', this.getAllHosts)
-      this.setAutocompleteData('virtNode', this.getAllHosts)
-
-      this.environmentOptions = prepareDataForAutocomplete(
-        this.getAllHosts,
-        'environment'
-      )
-      this.techTypeOptions = prepareDataForAutocomplete(
-        this.getAllHosts,
-        'techType'
-      )
-      this.platformOptions = prepareDataForAutocomplete(
-        this.getAllHosts,
-        'platform'
-      )
-      this.versionOptions = prepareDataForAutocomplete(
-        this.getAllHosts,
-        'version'
-      )
-    },
-    setSlider() {
-      this.setSliderFilterConfig('threads', this.getAllHosts)
-      this.setSliderFilterConfig('cores', this.getAllHosts)
-      this.setSliderFilterConfig('socket', this.getAllHosts)
-      this.setSliderFilterConfig('memorytotal', this.getAllHosts)
-      this.setSliderFilterConfig('swaptotal', this.getAllHosts)
     },
     formatDate(date) {
       return formatDate(date)
