@@ -10,7 +10,7 @@
         <option :value="null" v-if="filters.licenseTypeID">
           Reset
         </option>
-        <option v-for="(part, index) in filteredLicenseTypeID" :key="index">
+        <option v-for="(part, index) in filteredlicenseTypeID" :key="index">
           {{ part }}
         </option>
       </b-select>
@@ -26,7 +26,7 @@
         <option :value="null" v-if="filters.itemDescription">
           Reset
         </option>
-        <option v-for="(desc, index) in filteredItemDescription" :key="index">
+        <option v-for="(desc, index) in filtereditemDescription" :key="index">
           {{ desc }}
         </option>
       </b-select>
@@ -42,7 +42,7 @@
         <option :value="null" v-if="filters.metric">
           Reset
         </option>
-        <option v-for="(met, index) in filteredMetric" :key="index">
+        <option v-for="(met, index) in filteredmetric" :key="index">
           {{ met }}
         </option>
       </b-select>
@@ -116,7 +116,6 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
-import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
@@ -129,28 +128,15 @@ export default {
   },
   data() {
     return {
-      filteredLicenseTypeID: [],
-      filteredItemDescription: [],
-      filteredMetric: [],
+      selects: ['licenseTypeID', 'itemDescription', 'metric'],
+      sliders: ['consumed', 'covered', 'compliance'],
       filters: {
         unlimited: ''
       }
     }
   },
-  beforeMount() {
-    this.filteredLicenseTypeID = prepareDataForAutocomplete(
-      this.getLicensesCompliance,
-      'licenseTypeID'
-    )
-    this.filteredItemDescription = prepareDataForAutocomplete(
-      this.getLicensesCompliance,
-      'itemDescription'
-    )
-    this.filteredMetric = prepareDataForAutocomplete(
-      this.getLicensesCompliance,
-      'metric'
-    )
-    this.setSlider()
+  created() {
+    this.fullData = this.getLicensesCompliance
 
     bus.$on('onResetAction', () => this.reset(this.resetFilters))
   },
@@ -159,12 +145,6 @@ export default {
       this.filters = {
         unlimited: ''
       }
-      this.setSlider()
-    },
-    setSlider() {
-      this.setSliderFilterConfig('consumed', this.getLicensesCompliance)
-      this.setSliderFilterConfig('covered', this.getLicensesCompliance)
-      this.setSliderFilterConfig('compliance', this.getLicensesCompliance)
     }
   },
   computed: {

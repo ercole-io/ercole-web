@@ -46,10 +46,8 @@
         v-model="filters.hostname"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete($event, 'hostname', getOracleSegmentAdvisor)
-        "
+        :data="filteredhostname"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -58,10 +56,8 @@
         v-model="filters.dbname"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete($event, 'dbname', getOracleSegmentAdvisor)
-        "
+        :data="filtereddbname"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -70,14 +66,8 @@
         v-model="filters.segmentOwner"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete(
-            $event,
-            'segmentOwner',
-            getOracleSegmentAdvisor
-          )
-        "
+        :data="filteredsegmentOwner"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -86,14 +76,8 @@
         v-model="filters.segmentName"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete(
-            $event,
-            'segmentName',
-            getOracleSegmentAdvisor
-          )
-        "
+        :data="filteredsegmentName"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
 
@@ -107,7 +91,7 @@
         <option :value="null" v-if="filters.segmentType">
           Reset
         </option>
-        <option v-for="(env, index) in filteredSegmentType" :key="index">
+        <option v-for="(env, index) in filteredsegmentType" :key="index">
           {{ env }}
         </option>
       </b-select>
@@ -118,14 +102,8 @@
         v-model="filters.recommendation"
         size="is-small"
         clearable
-        :data="filteredData"
-        @typing="
-          setFilteredAutocomplete(
-            $event,
-            'recommendation',
-            getOracleSegmentAdvisor
-          )
-        "
+        :data="filteredrecommendation"
+        @typing="setAutocompletes($event)"
       />
     </CustomField>
   </AdvancedFiltersBase>
@@ -134,7 +112,6 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
-import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
@@ -147,27 +124,21 @@ export default {
   },
   data() {
     return {
-      filteredSegmentType: []
+      autocompletes: [
+        'hostname',
+        'dbname',
+        'segmentOwner',
+        'segmentName',
+        'recommendation'
+      ],
+      selects: ['segmentType'],
+      sliders: ['reclaimable', 'segmentsSize', 'retrieve']
     }
   },
-  beforeMount() {
-    this.filteredSegmentType = prepareDataForAutocomplete(
-      this.getOracleSegmentAdvisor,
-      'segmentType'
-    )
-    this.setSlider()
+  created() {
+    this.fullData = this.getOracleSegmentAdvisor
 
-    bus.$on('onResetAction', () => this.reset(this.resetFilters))
-  },
-  methods: {
-    resetFilters() {
-      this.setSlider()
-    },
-    setSlider() {
-      this.setSliderFilterConfig('reclaimable', this.getOracleSegmentAdvisor)
-      this.setSliderFilterConfig('segmentsSize', this.getOracleSegmentAdvisor)
-      this.setSliderFilterConfig('retrieve', this.getOracleSegmentAdvisor)
-    }
+    bus.$on('onResetAction', () => this.reset())
   },
   computed: {
     ...mapGetters(['getOracleSegmentAdvisor'])

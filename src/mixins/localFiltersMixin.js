@@ -8,9 +8,14 @@ import {
 export default {
   data() {
     return {
-      filteredData: [],
+      fullData: [],
       filters: {}
     }
+  },
+  beforeMount() {
+    this.setAutocompletes()
+    this.setSelects()
+    this.setSliders()
   },
   methods: {
     apply() {
@@ -27,20 +32,40 @@ export default {
         showCheckbox: []
       })
       this.filters = {}
+
       cb()
+
+      this.setSliders()
     },
-    setAutocompleteData(value, data) {
-      this.filteredData = prepareDataForAutocomplete(data, value)
+
+    // input autocompletes
+    setAutocompletes(text = '') {
+      _.forEach(this.autocompletes, val => {
+        this['filtered' + val] = returnAutocompleteData(
+          text,
+          this.fullData,
+          val
+        )
+      })
     },
-    setFilteredAutocomplete(text, toFilter, data) {
-      this.filteredData = returnAutocompleteData(text, data, toFilter)
+
+    // selects
+    setSelects() {
+      _.forEach(this.selects, val => {
+        const fillNumbers = prepareDataForAutocomplete(this.fullData, val)
+        this['filtered' + val] = this.clearFilteredResult(fillNumbers)
+      })
     },
-    setSliderFilterConfig(value, data) {
-      const fillNumbers = prepareDataForAutocomplete(data, value)
-      this.resolveSliderData(value, fillNumbers)
+
+    // sliders
+    setSliders() {
+      _.forEach(this.sliders, val => {
+        const fillNumbers = prepareDataForAutocomplete(this.fullData, val)
+        this.resolveSliders(val, fillNumbers)
+      })
     },
-    resolveSliderData(value, numbers) {
-      this['filtered' + value] = _.without(numbers, undefined, null, '')
+    resolveSliders(value, numbers) {
+      this['filtered' + value] = this.clearFilteredResult(numbers)
 
       this.filters[value] = [
         this['filtered' + value][0],
@@ -49,9 +74,13 @@ export default {
 
       this['min' + value] = this['filtered' + value][0]
       this['max' + value] = _.last(this['filtered' + value])
+    },
+    clearFilteredResult(numbers) {
+      return _.without(numbers, undefined, null, '')
     }
   },
   beforeDestroy() {
+    this.fullData = []
     this.reset()
   }
 }

@@ -6,8 +6,8 @@
           v-model="filters.name"
           size="is-small"
           clearable
-          :data="filteredData"
-          @typing="setFilteredAutocomplete($event, 'name', getAllOracleDBs)"
+          :data="filteredname"
+          @typing="setAutocompletes($event)"
         />
       </CustomField>
 
@@ -16,8 +16,8 @@
           v-model="filters.version"
           size="is-small"
           clearable
-          :data="filteredData"
-          @typing="setFilteredAutocomplete($event, 'version', getAllOracleDBs)"
+          :data="filteredversion"
+          @typing="setAutocompletes($event)"
         />
       </CustomField>
 
@@ -26,8 +26,8 @@
           v-model="filters.hostname"
           size="is-small"
           clearable
-          :data="filteredData"
-          @typing="setFilteredAutocomplete($event, 'hostname', getAllOracleDBs)"
+          :data="filteredhostname"
+          @typing="setAutocompletes($event)"
         />
       </CustomField>
 
@@ -41,7 +41,7 @@
           <option :value="null" v-if="filters.environment">
             Reset
           </option>
-          <option v-for="(env, index) in filteredEnv" :key="index">
+          <option v-for="(env, index) in filteredenvironment" :key="index">
             {{ env }}
           </option>
         </b-select>
@@ -98,7 +98,7 @@
           <option :value="null" v-if="filters.status">
             Reset
           </option>
-          <option v-for="(env, index) in filteredStatus" :key="index">
+          <option v-for="(env, index) in filteredstatus" :key="index">
             {{ env }}
           </option>
         </b-select>
@@ -109,10 +109,8 @@
           v-model="filters.uniqueName"
           size="is-small"
           clearable
-          :data="filteredData"
-          @typing="
-            setFilteredAutocomplete($event, 'uniqueName', getAllOracleDBs)
-          "
+          :data="filtereduniqueName"
+          @typing="setAutocompletes($event)"
         />
       </CustomField>
 
@@ -227,8 +225,8 @@
           v-model="filters.charset"
           size="is-small"
           clearable
-          :data="filteredData"
-          @typing="setFilteredAutocomplete($event, 'charset', getAllOracleDBs)"
+          :data="filteredcharset"
+          @typing="setAutocompletes($event)"
         />
       </CustomField>
     </form>
@@ -238,7 +236,6 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
-import { prepareDataForAutocomplete } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
@@ -251,8 +248,16 @@ export default {
   },
   data() {
     return {
-      filteredEnv: [],
-      filteredStatus: [],
+      autocompletes: ['name', 'version', 'hostname', 'uniqueName', 'charset'],
+      selects: ['status', 'environment'],
+      sliders: [
+        'work',
+        'cpuCount',
+        'blockSize',
+        'memory',
+        'datafileSize',
+        'segmentsSize'
+      ],
       filters: {
         archivelog: '',
         dataguard: '',
@@ -260,16 +265,8 @@ export default {
       }
     }
   },
-  beforeMount() {
-    this.filteredEnv = prepareDataForAutocomplete(
-      this.getAllOracleDBs,
-      'environment'
-    )
-    this.filteredStatus = prepareDataForAutocomplete(
-      this.getAllOracleDBs,
-      'status'
-    )
-    this.setSlider()
+  created() {
+    this.fullData = this.getAllOracleDBs
 
     bus.$on('onResetAction', () => this.reset(this.resetFilters))
   },
@@ -280,15 +277,6 @@ export default {
         dataguard: '',
         ha: ''
       }
-      this.setSlider()
-    },
-    setSlider() {
-      this.setSliderFilterConfig('work', this.getAllOracleDBs)
-      this.setSliderFilterConfig('cpuCount', this.getAllOracleDBs)
-      this.setSliderFilterConfig('blockSize', this.getAllOracleDBs)
-      this.setSliderFilterConfig('memory', this.getAllOracleDBs)
-      this.setSliderFilterConfig('datafileSize', this.getAllOracleDBs)
-      this.setSliderFilterConfig('segmentsSize', this.getAllOracleDBs)
     }
   },
   computed: {

@@ -17,18 +17,12 @@ export const getters = {
 
       patchAdvisorData.push({
         ...val,
-        fourMonths: {
-          month: four[0],
-          text: four[1]
-        },
-        sixMonths: {
-          month: six[0],
-          text: six[1]
-        },
-        twelveMonths: {
-          month: twelve[0],
-          text: twelve[1]
-        }
+        fourMonths: four[0],
+        fourMonthsText: four[1],
+        sixMonths: six[0],
+        sixMonthsText: six[0],
+        twelveMonths: twelve[0],
+        twelveMonthsText: twelve[1]
       })
     })
 
