@@ -60,16 +60,18 @@ export const getters = {
   },
   currentHostInfo: state => {
     const info = state.currentHost.info
+
+    console.log(state.currentHost)
     const general = {
       name: 'General Info',
       data: [
         {
           name: 'Environment',
-          value: info.environment
+          value: state.currentHost.environment
         },
         {
           name: 'Technology',
-          value: mapDatabases(info.features, 'technology')
+          value: mapDatabases(state.currentHost.features, 'technology')
         },
         {
           name: 'Clust',
@@ -142,7 +144,7 @@ export const getters = {
       data: [
         {
           name: 'Version',
-          value: info.agentVersion
+          value: state.currentHost.agentVersion
         },
         {
           name: 'Last Update',

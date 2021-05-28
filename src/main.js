@@ -26,6 +26,7 @@ import FormatNumber from './filters/formatNumber.js'
 import FormatDateTime from './filters/formatDateTime.js'
 import ToUpper from './filters/toUpper.js'
 import ToLower from './filters/toLower.js'
+import ToString from './filters/toString.js'
 
 import './assets/icons/material-design-webfonts/css/materialdesignicons.min.css'
 import './assets/icons/font-awesome/css/all.min.css'
@@ -72,6 +73,7 @@ Vue.filter('formatNumber', FormatNumber)
 Vue.filter('formatDateTime', FormatDateTime)
 Vue.filter('toUpper', ToUpper)
 Vue.filter('toLower', ToLower)
+Vue.filter('toString', ToString)
 
 Vue.config.productionTip = false
 

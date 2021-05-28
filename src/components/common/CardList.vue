@@ -8,7 +8,7 @@
           :class="`column is-${colSizes[1]}`"
           v-if="!item.hasIcon"
         >
-          {{ item.value }}
+          {{ item.value | toString }}
         </span>
         <span
           v-tooltip.right="options(item.value)"
