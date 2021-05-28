@@ -6,6 +6,7 @@
     :clickedRow="() => []"
   >
     <template slot="headData">
+      <th colspan="3" style="text-align: center !important;">Actions</th>
       <v-th sortKey="agreementID">Agreement Number</v-th>
       <v-th sortKey="licenseTypeID">Part Number</v-th>
       <v-th sortKey="itemDescription">Description</v-th>
@@ -20,10 +21,47 @@
       <v-th sortKey="availableCount">Number Available</v-th>
       <v-th sortKey="catchAll">Basket</v-th>
       <v-th sortKey="restricted">Restricted</v-th>
-      <th colspan="3" style="max-width: 100px">Actions</th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
+      <td style="min-width: 0;">
+        <b-icon
+          v-tooltip="options('Show Hosts')"
+          type="is-link"
+          class="hosts-icon"
+          pack="fas"
+          icon="server"
+          @click.native="openModal(rowData.scope)"
+          v-if="rowData.scope.hosts.length > 0"
+        />
+        <span v-else>-</span>
+      </td>
+      <td style="min-width: 0;">
+        <b-icon
+          v-tooltip="options('Edit License')"
+          type="is-info"
+          class="edit-icon"
+          pack="fas"
+          icon="edit"
+          @click.native="editAgreement(rowData.scope)"
+        />
+      </td>
+      <td style="min-width: 0;">
+        <b-icon
+          v-tooltip="options('Delete License')"
+          type="is-danger"
+          class="delete-icon"
+          pack="fas"
+          icon="trash-alt"
+          @click.native="
+            deleteAgreement(
+              'oracle',
+              rowData.scope.id,
+              rowData.scope.agreementID
+            )
+          "
+        />
+      </td>
       <TdContent :value="rowData.scope.agreementID" />
       <TdContent :value="rowData.scope.licenseTypeID" />
       <TdContent
@@ -42,45 +80,6 @@
       <TdContent :value="rowData.scope.availableCount" />
       <TdIcon :value="rowData.scope.catchAll" />
       <TdIcon :value="rowData.scope.restricted" />
-
-      <td style="min-width: 50px;">
-        <b-icon
-          v-tooltip="options('Show Hosts')"
-          type="is-link"
-          class="hosts-icon"
-          pack="fas"
-          icon="server"
-          @click.native="openModal(rowData.scope)"
-          v-if="rowData.scope.hosts.length > 0"
-        />
-        <span v-else>-</span>
-      </td>
-      <td style="min-width: 50px;">
-        <b-icon
-          v-tooltip="options('Edit License')"
-          type="is-info"
-          class="edit-icon"
-          pack="fas"
-          icon="edit"
-          @click.native="editAgreement(rowData.scope)"
-        />
-      </td>
-      <td style="min-width: 50px;">
-        <b-icon
-          v-tooltip="options('Delete License')"
-          type="is-danger"
-          class="delete-icon"
-          pack="fas"
-          icon="trash-alt"
-          @click.native="
-            deleteAgreement(
-              'oracle',
-              rowData.scope.id,
-              rowData.scope.agreementID
-            )
-          "
-        />
-      </td>
     </template>
   </FullTable>
 </template>
