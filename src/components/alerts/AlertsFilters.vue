@@ -1,32 +1,19 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
     <CustomField label="Status">
-      <b-select
-        v-model="alertStatus"
-        size="is-small"
-        placeholder="Select a Status"
-        expanded
-      >
+      <CustomSelect v-model="alertStatus" :hasReset="false" fixedOptions>
         <option value="NEW">NEW</option>
         <option value="ACK">ACK</option>
         <option value="">All</option>
-      </b-select>
+      </CustomSelect>
     </CustomField>
 
     <CustomField label="Type">
-      <b-select
-        v-model="filters.alertCategory"
-        size="is-small"
-        placeholder="Select a Type"
-        expanded
-      >
-        <option :value="null" v-if="filters.alertCategory">
-          Reset
-        </option>
+      <CustomSelect v-model="filters.alertCategory" fixedOptions>
         <option value="AGENT">AGENT</option>
         <option value="ENGINE">ENGINE</option>
         <option value="LICENSE">LICENSE</option>
-      </b-select>
+      </CustomSelect>
     </CustomField>
 
     <CustomField label="Date">
@@ -56,48 +43,34 @@
     </CustomField>
 
     <CustomField label="Severity">
-      <b-select
-        v-model="filters.alertSeverity"
-        size="is-small"
-        placeholder="Select a Severity"
-        expanded
-      >
-        <option :value="null" v-if="filters.alertSeverity">
-          Reset
-        </option>
+      <CustomSelect v-model="filters.alertSeverity" fixedOptions>
         <option value="INFO">INFO</option>
         <option value="WARNING">WARNING</option>
         <option value="CRITICAL">CRITICAL</option>
-      </b-select>
+      </CustomSelect>
     </CustomField>
 
     <CustomField label="Hostname">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.hostname"
-        size="is-small"
-        clearable
-        :data="filteredhostname"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredhostname"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Code">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.alertCode"
-        size="is-small"
-        clearable
-        :data="filteredalertCode"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredalertCode"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Description">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.description"
-        size="is-small"
-        clearable
-        :data="filtereddescription"
-        @typing="setAutocompletes($event)"
+        :filterResult="filtereddescription"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
   </AdvancedFiltersBase>
@@ -108,16 +81,10 @@ import { bus } from '@/helpers/eventBus.js'
 import { formatDatepickerDate } from '@/helpers/helpers.js'
 import { mapGetters, mapActions, mapState } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
-import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
-import CustomField from '@/components/common/Form/CustomField.vue'
 import formatDate from '@/filters/formatDate.js'
 
 export default {
   mixins: [localFiltersMixin],
-  components: {
-    AdvancedFiltersBase,
-    CustomField
-  },
   data() {
     return {
       autocompletes: ['hostname', 'alertCode', 'description'],
@@ -139,8 +106,6 @@ export default {
       hostname: this.alerts.params.hostname
     }
     this.apply()
-
-    bus.$on('onResetAction', () => this.reset(this.resetFilters))
   },
   methods: {
     ...mapActions(['getAlertsData']),

@@ -266,7 +266,7 @@ export default {
   data() {
     return {
       oracleForm: {
-        licenseId: '',
+        licenseID: '',
         agreeNumber: '',
         partNumber: [],
         csi: '',
@@ -299,7 +299,7 @@ export default {
         licenseTypeID: this.oracleForm.partNumber.split(' - ')[0],
         restricted: this.oracleForm.restricted
       }
-      if (!this.oracleForm.licenseId) {
+      if (!this.oracleForm.licenseID) {
         this.createLicenseAgreement({
           body: oracleAgreementData,
           type: 'oracle'
@@ -307,7 +307,7 @@ export default {
           this.cancelAddLicense()
         })
       } else {
-        oracleAgreementData.id = this.oracleForm.licenseId
+        oracleAgreementData.id = this.oracleForm.licenseID
         this.updateLicenseAgreement({
           body: oracleAgreementData,
           type: 'oracle'
@@ -318,7 +318,7 @@ export default {
     },
     cancelAddLicense() {
       this.oracleForm = {
-        techType: 'Oracle',
+        licenseID: '',
         agreeNumber: '',
         partNumber: [],
         csi: '',
@@ -332,7 +332,7 @@ export default {
     },
     editAgreement(data) {
       this.oracleForm = {
-        licenseId: data.id,
+        licenseID: data.id,
         agreeNumber: data.agreementID,
         csi: data.csi,
         partNumber: `${data.licenseTypeID} - ${data.itemDescription} - ${data.metric}`,
