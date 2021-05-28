@@ -9,7 +9,7 @@
       <div class="column is-4">
         <div class="columns mb-0">
           <div class="column is-12">
-            <Card cardTitle="DMemory" cardType="custom">
+            <Card cardTitle="Memory" cardType="custom">
               <CardList :colSizes="['6', '6']" :list="memory" />
             </Card>
           </div>
