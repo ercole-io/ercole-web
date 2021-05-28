@@ -1,127 +1,80 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
     <CustomField label="Reclaimable">
-      <b-slider
+      <CustomSlider
         v-model="filters.reclaimable"
-        :min="minreclaimable"
-        :max="maxreclaimable"
-        :step="0.01"
-      >
-        <b-slider-tick :value="minreclaimable">
-          {{ minreclaimable }}
-        </b-slider-tick>
-        <b-slider-tick :value="maxreclaimable">
-          {{ maxreclaimable }}
-        </b-slider-tick>
-      </b-slider>
-    </CustomField>
-
-    <CustomField label="GB Total">
-      <b-slider
-        v-model="filters.segmentsSize"
-        :min="minsegmentsSize"
-        :max="maxsegmentsSize"
-        :step="0.01"
-      >
-        <b-slider-tick :value="minsegmentsSize">
-          {{ minsegmentsSize }}
-        </b-slider-tick>
-        <b-slider-tick :value="maxsegmentsSize">
-          {{ maxsegmentsSize }}
-        </b-slider-tick>
-      </b-slider>
-    </CustomField>
-
-    <CustomField label="Retrieve">
-      <b-slider
-        v-model="filters.retrieve"
-        format="percent"
-        :tooltip="false"
-        indicator
+        :ticks="[minreclaimable, maxreclaimable]"
+        :steps="0.01"
       />
     </CustomField>
 
+    <CustomField label="GB Total">
+      <CustomSlider
+        v-model="filters.segmentsSize"
+        :ticks="[minsegmentsSize, maxsegmentsSize]"
+        :steps="0.01"
+      />
+    </CustomField>
+
+    <CustomField label="Retrieve">
+      <CustomSlider v-model="filters.retrieve" percent />
+    </CustomField>
+
     <CustomField label="Hostname">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.hostname"
-        size="is-small"
-        clearable
-        :data="filteredhostname"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredhostname"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="DB Name">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.dbname"
-        size="is-small"
-        clearable
-        :data="filtereddbname"
-        @typing="setAutocompletes($event)"
+        :filterResult="filtereddbname"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Segment Owner">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.segmentOwner"
-        size="is-small"
-        clearable
-        :data="filteredsegmentOwner"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredsegmentOwner"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Segment Name">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.segmentName"
-        size="is-small"
-        clearable
-        :data="filteredsegmentName"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredsegmentName"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Segment Type">
-      <b-select
+      <CustomSelect
         v-model="filters.segmentType"
-        size="is-small"
-        placeholder="Select a Segment Type"
-        expanded
-      >
-        <option :value="null" v-if="filters.segmentType">
-          Reset
-        </option>
-        <option v-for="(env, index) in filteredsegmentType" :key="index">
-          {{ env }}
-        </option>
-      </b-select>
+        :options="filteredsegmentType"
+      />
     </CustomField>
 
     <CustomField label="Recommendation">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.recommendation"
-        size="is-small"
-        clearable
-        :data="filteredrecommendation"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredrecommendation"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
-import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
-import CustomField from '@/components/common/Form/CustomField.vue'
 
 export default {
   mixins: [localFiltersMixin],
-  components: {
-    AdvancedFiltersBase,
-    CustomField
-  },
   data() {
     return {
       autocompletes: [
@@ -137,8 +90,6 @@ export default {
   },
   created() {
     this.fullData = this.getOracleSegmentAdvisor
-
-    bus.$on('onResetAction', () => this.reset())
   },
   computed: {
     ...mapGetters(['getOracleSegmentAdvisor'])

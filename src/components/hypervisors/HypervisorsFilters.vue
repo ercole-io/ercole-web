@@ -1,107 +1,61 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
     <CustomField label="Cluster Name">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.name"
-        size="is-small"
-        type="number"
-        clearable
-        :data="filteredname"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredname"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Type">
-      <b-select
-        v-model="filters.type"
-        size="is-small"
-        placeholder="Select a Type"
-        expanded
-      >
-        <option :value="null" v-if="filters.type">
-          Reset
-        </option>
-        <option v-for="(type, index) in filteredtype" :key="index">
-          {{ type }}
-        </option>
-      </b-select>
+      <CustomSelect v-model="filters.type" :options="filteredtype" />
     </CustomField>
 
     <CustomField label="Core">
-      <b-slider v-model="filters.cpu" :min="mincpu" :max="maxcpu">
-        <b-slider-tick :value="mincpu">
-          {{ mincpu }}
-        </b-slider-tick>
-        <b-slider-tick :value="maxcpu">
-          {{ maxcpu }}
-        </b-slider-tick>
-      </b-slider>
+      <CustomSlider
+        v-model="filters.cpu"
+        :ticks="[mincpu, maxcpu]"
+        :steps="1"
+      />
     </CustomField>
 
     <CustomField label="Socket">
-      <b-slider v-model="filters.sockets" :min="minsockets" :max="maxsockets">
-        <template v-for="val in filteredsockets">
-          <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
-        </template>
-      </b-slider>
+      <CustomSlider v-model="filters.sockets" :ticks="filteredsockets" marks />
     </CustomField>
 
     <CustomField label="Physical Host">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.virtualizationNodes"
-        size="is-small"
-        type="number"
-        clearable
-        :data="filteredvirtualizationNodes"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredvirtualizationNodes"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Total VM">
-      <b-slider
+      <CustomSlider
         v-model="filters.vmsCount"
-        :min="minvmsCount"
-        :max="maxvmsCount"
-      >
-        <b-slider-tick :value="minvmsCount">
-          {{ minvmsCount }}
-        </b-slider-tick>
-        <b-slider-tick :value="maxvmsCount">
-          {{ maxvmsCount }}
-        </b-slider-tick>
-      </b-slider>
+        :ticks="[minvmsCount, maxvmsCount]"
+        :steps="1"
+      />
     </CustomField>
 
     <CustomField label="Total VM Ercole">
-      <b-slider
+      <CustomSlider
         v-model="filters.vmsErcoleAgentCount"
-        :min="minvmsErcoleAgentCount"
-        :max="maxvmsErcoleAgentCount"
-      >
-        <b-slider-tick :value="minvmsErcoleAgentCount">
-          {{ minvmsErcoleAgentCount }}
-        </b-slider-tick>
-        <b-slider-tick :value="maxvmsErcoleAgentCount">
-          {{ maxvmsErcoleAgentCount }}
-        </b-slider-tick>
-      </b-slider>
+        :ticks="[minvmsErcoleAgentCount, maxvmsErcoleAgentCount]"
+        :steps="1"
+      />
     </CustomField>
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
-import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
-import CustomField from '@/components/common/Form/CustomField.vue'
 
 export default {
   mixins: [localFiltersMixin],
-  components: {
-    AdvancedFiltersBase,
-    CustomField
-  },
   data() {
     return {
       autocompletes: ['name', 'virtualizationNodes'],
@@ -111,8 +65,6 @@ export default {
   },
   created() {
     this.fullData = this.getHypervisors
-
-    bus.$on('onResetAction', () => this.reset())
   },
   computed: {
     ...mapGetters(['getHypervisors'])

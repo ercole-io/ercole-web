@@ -11,7 +11,7 @@
       <v-th sortKey="itemDescription">Description</v-th>
       <v-th sortKey="metric">Metric</v-th>
       <v-th sortKey="csi">CSI</v-th>
-      <v-th sortKey="referenceNumber" v-if="hideReferenceNumberColumn"
+      <v-th sortKey="referenceNumber" v-if="toggleReferenceNumber"
         >Reference Number</v-th
       >
       <v-th sortKey="unlimited">ULA</v-th>
@@ -34,7 +34,7 @@
       <TdContent :value="rowData.scope.csi" />
       <TdContent
         :value="rowData.scope.referenceNumber"
-        v-if="hideReferenceNumberColumn"
+        v-if="toggleReferenceNumber"
       />
       <TdIcon :value="rowData.scope.unlimited" />
       <TdContent :value="rowData.scope.licensesCount" />
@@ -135,7 +135,7 @@ export default {
     }
   },
   computed: {
-    hideReferenceNumberColumn() {
+    toggleReferenceNumber() {
       return _.some(this.returnLicensesAgreement('oracle'), 'referenceNumber')
     }
   }
