@@ -1,138 +1,52 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
     <CustomField label="Hostname">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.hostname"
-        size="is-small"
-        clearable
-        :data="filteredhostname"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredhostname"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Database">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.dbname"
-        size="is-small"
-        clearable
-        :data="filtereddbname"
-        @typing="setAutocompletes($event)"
+        :filterResult="filtereddbname"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Version">
-      <b-select
-        v-model="filters.dbver"
-        size="is-small"
-        placeholder="Select a Version"
-        expanded
-      >
-        <option :value="null" v-if="filters.dbver">
-          Reset
-        </option>
-        <option v-for="(env, index) in filtereddbver" :key="index">
-          {{ env }}
-        </option>
-      </b-select>
+      <CustomSelect v-model="filters.dbver" :options="filtereddbver" />
     </CustomField>
 
     <CustomField label="PSU">
-      <b-select
+      <CustomSelect
         v-model="filters.description"
-        size="is-small"
-        placeholder="Select a PSU"
-        expanded
-      >
-        <option :value="null" v-if="filters.description">
-          Reset
-        </option>
-        <option v-for="(env, index) in filtereddescription" :key="index">
-          {{ env }}
-        </option>
-      </b-select>
+        :options="filtereddescription"
+      />
     </CustomField>
 
     <CustomField label="4 Months">
-      <div class="is-flex" style="justify-content: space-around;">
-        <b-radio
-          size="is-small"
-          v-model="filters.fourMonths"
-          native-value="true"
-        >
-          Yes
-        </b-radio>
-        <b-radio
-          size="is-small"
-          v-model="filters.fourMonths"
-          native-value="false"
-        >
-          No
-        </b-radio>
-        <b-radio size="is-small" v-model="filters.fourMonths" native-value="">
-          All
-        </b-radio>
-      </div>
+      <CustomRadio v-model="filters.fourMonths" />
     </CustomField>
 
     <CustomField label="6 Months">
-      <div class="is-flex" style="justify-content: space-around;">
-        <b-radio
-          size="is-small"
-          v-model="filters.sixMonths"
-          native-value="true"
-        >
-          Yes
-        </b-radio>
-        <b-radio
-          size="is-small"
-          v-model="filters.sixMonths"
-          native-value="false"
-        >
-          No
-        </b-radio>
-        <b-radio size="is-small" v-model="filters.sixMonths" native-value="">
-          All
-        </b-radio>
-      </div>
+      <CustomRadio v-model="filters.sixMonths" />
     </CustomField>
 
     <CustomField label="12 Months">
-      <div class="is-flex" style="justify-content: space-around;">
-        <b-radio
-          size="is-small"
-          v-model="filters.twelveMonths"
-          native-value="true"
-        >
-          Yes
-        </b-radio>
-        <b-radio
-          size="is-small"
-          v-model="filters.twelveMonths"
-          native-value="false"
-        >
-          No
-        </b-radio>
-        <b-radio size="is-small" v-model="filters.twelveMonths" native-value="">
-          All
-        </b-radio>
-      </div>
+      <CustomRadio v-model="filters.twelveMonths" />
     </CustomField>
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
-import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
-import CustomField from '@/components/common/Form/CustomField.vue'
 
 export default {
   mixins: [localFiltersMixin],
-  components: {
-    AdvancedFiltersBase,
-    CustomField
-  },
   data() {
     return {
       autocompletes: ['hostname', 'dbname'],
@@ -146,8 +60,6 @@ export default {
   },
   created() {
     this.fullData = this.getOraclePatchAdvisor
-
-    bus.$on('onResetAction', () => this.reset(this.resetFilters))
   },
   methods: {
     resetFilters() {

@@ -1,292 +1,137 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
     <CustomField label="Hostname">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.hostname"
-        size="is-small"
-        clearable
-        :data="filteredhostname"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredhostname"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Env">
-      <b-select
+      <CustomSelect
         v-model="filters.environment"
-        size="is-small"
-        placeholder="Select an Env"
-        expanded
-      >
-        <option :value="null" v-if="filters.environment">
-          Reset
-        </option>
-        <option
-          v-for="(env, index) in filteredenvironment"
-          :key="index"
-          :value="env"
-        >
-          {{ env }}
-        </option>
-      </b-select>
+        :options="filteredenvironment"
+      />
     </CustomField>
 
     <CustomField label="DBs">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.databases"
-        size="is-small"
-        clearable
-        :data="filtereddatabases"
-        @typing="setAutocompletes($event)"
+        :filterResult="filtereddatabases"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Tech">
-      <b-select
-        v-model="filters.techType"
-        size="is-small"
-        placeholder="Select a Tech"
-        expanded
-      >
-        <option :value="null" v-if="filters.techType">
-          Reset
-        </option>
-        <option
-          v-for="(tec, index) in filteredtechType"
-          :key="index"
-          :value="tec"
-        >
-          {{ tec }}
-        </option>
-      </b-select>
+      <CustomSelect v-model="filters.techType" :options="filteredtechType" />
     </CustomField>
 
     <CustomField label="OS">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.os"
-        size="is-small"
-        clearable
-        :data="filteredos"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredos"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Clust">
-      <div class="is-flex" style="justify-content: space-around;">
-        <b-radio
-          size="is-small"
-          v-model="filters.iconCluster"
-          native-value="true"
-        >
-          Yes
-        </b-radio>
-        <b-radio
-          size="is-small"
-          v-model="filters.iconCluster"
-          native-value="false"
-        >
-          No
-        </b-radio>
-        <b-radio size="is-small" v-model="filters.iconCluster" native-value="">
-          All
-        </b-radio>
-      </div>
+      <CustomRadio v-model="filters.iconCluster" />
     </CustomField>
 
     <CustomField label="Kernel">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.kernel"
-        size="is-small"
-        clearable
-        :data="filteredkernel"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredkernel"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Memory">
-      <b-slider
+      <CustomSlider
         v-model="filters.memorytotal"
-        :min="minmemorytotal"
-        :max="maxmemorytotal"
-      >
-        <b-slider-tick :value="minmemorytotal">
-          {{ minmemorytotal }}
-        </b-slider-tick>
-        <b-slider-tick :value="maxmemorytotal">
-          {{ maxmemorytotal }}
-        </b-slider-tick>
-      </b-slider>
+        :ticks="[minmemorytotal, maxmemorytotal]"
+      />
     </CustomField>
 
     <CustomField label="Swap">
-      <b-slider
+      <CustomSlider
         v-model="filters.swaptotal"
-        :min="minswaptotal"
-        :max="maxswaptotal"
-      >
-        <b-slider-tick :value="minswaptotal">
-          {{ minswaptotal }}
-        </b-slider-tick>
-        <b-slider-tick :value="maxswaptotal">
-          {{ maxswaptotal }}
-        </b-slider-tick>
-      </b-slider>
+        :ticks="[minswaptotal, maxswaptotal]"
+      />
     </CustomField>
 
     <CustomField label="Updated">
-      <b-datepicker
-        v-model="startDate"
-        size="is-small"
-        placeholder="Start Date"
-        position="is-bottom-right"
-        icon="calendar-today"
-        :max-date="new Date()"
-        :date-formatter="formatDate"
-        class="mr-1"
-      />
+      <CustomDatepicker v-model="startDate" />
     </CustomField>
 
     <Collapse title="Virtual" id="virtual" padding margin>
       <CustomField label="Platform">
-        <b-select
-          v-model="filters.platform"
-          size="is-small"
-          placeholder="Select a Platform"
-          expanded
-        >
-          <option :value="null" v-if="filters.platform">
-            Reset
-          </option>
-          <option
-            v-for="(plat, index) in filteredplatform"
-            :key="index"
-            :value="plat"
-          >
-            {{ plat }}
-          </option>
-        </b-select>
+        <CustomSelect v-model="filters.platform" :options="filteredplatform" />
       </CustomField>
 
       <CustomField label="Cluster">
-        <b-autocomplete
+        <CustomAutocomplete
           v-model="filters.cluster"
-          size="is-small"
-          clearable
-          :data="filteredcluster"
-          @typing="setAutocompletes($event)"
-        >
-          <template slot="empty">No results found</template>
-        </b-autocomplete>
+          :filterResult="filteredcluster"
+          :filterMethod="setAutocompletes"
+        />
       </CustomField>
 
       <CustomField label="Node">
-        <b-autocomplete
+        <CustomAutocomplete
           v-model="filters.virtNode"
-          size="is-small"
-          clearable
-          :data="filteredvirtNode"
-          @typing="setAutocompletes($event)"
-        >
-          <template slot="empty">No results found</template>
-        </b-autocomplete>
+          :filterResult="filteredvirtNode"
+          :filterMethod="setAutocompletes"
+        />
       </CustomField>
     </Collapse>
 
     <Collapse title="CPU" id="cpu" padding margin>
       <CustomField label="Processor Model">
-        <b-autocomplete
+        <CustomAutocomplete
           v-model="filters.model"
-          size="is-small"
-          clearable
-          :data="filteredmodel"
-          @typing="setAutocompletes($event)"
-        >
-          <template slot="empty">No results found</template>
-        </b-autocomplete>
+          :filterResult="filteredmodel"
+          :filterMethod="setAutocompletes"
+        />
       </CustomField>
 
       <CustomField label="threads">
-        <b-slider v-model="filters.threads" :min="minthreads" :max="maxthreads">
-          <b-slider-tick :value="minthreads">
-            {{ minthreads }}
-          </b-slider-tick>
-          <b-slider-tick :value="maxthreads">
-            {{ maxthreads }}
-          </b-slider-tick>
-          <!-- <template v-for="val in filteredthreads">
-                <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
-              </template> -->
-        </b-slider>
+        <CustomSlider
+          v-model="filters.threads"
+          :ticks="[minthreads, maxthreads]"
+        />
       </CustomField>
 
       <CustomField label="Cores">
-        <b-slider v-model="filters.cores" :min="mincores" :max="maxcores">
-          <b-slider-tick :value="mincores">
-            {{ mincores }}
-          </b-slider-tick>
-          <b-slider-tick :value="maxcores">
-            {{ maxcores }}
-          </b-slider-tick>
-          <!-- <template v-for="val in filteredcores">
-                <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
-              </template> -->
-        </b-slider>
+        <CustomSlider v-model="filters.cores" :ticks="[mincores, maxcores]" />
       </CustomField>
 
       <CustomField label="Socket">
-        <b-slider v-model="filters.socket" :min="minsocket" :max="maxsocket">
-          <b-slider-tick :value="minsocket">
-            {{ minsocket }}
-          </b-slider-tick>
-          <b-slider-tick :value="maxsocket">
-            {{ maxsocket }}
-          </b-slider-tick>
-          <!-- <template v-for="val in filteredsocket">
-                <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
-              </template> -->
-        </b-slider>
+        <CustomSlider
+          v-model="filters.socket"
+          :ticks="[minsocket, maxsocket]"
+        />
       </CustomField>
     </Collapse>
 
     <Collapse title="Agent" id="agent" padding margin>
       <CustomField label="Version">
-        <b-select
-          v-model="filters.version"
-          size="is-small"
-          placeholder="Select a Version"
-          expanded
-        >
-          <option :value="null" v-if="filters.version">
-            Reset
-          </option>
-          <option
-            v-for="(ver, index) in filteredversion"
-            :key="index"
-            :value="ver"
-          >
-            {{ ver }}
-          </option>
-        </b-select>
+        <CustomSelect v-model="filters.version" :options="filteredversion" />
       </CustomField>
     </Collapse>
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
-import { formatDatepickerDate } from '@/helpers/helpers.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
-import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
-import CustomField from '@/components/common/Form/CustomField.vue'
 import Collapse from '@/components/common/Collapse.vue'
-import formatDate from '@/filters/formatDate.js'
 
 export default {
   mixins: [localFiltersMixin],
   components: {
-    CustomField,
-    Collapse,
-    AdvancedFiltersBase
+    Collapse
   },
   data() {
     return {
@@ -301,16 +146,14 @@ export default {
       ],
       selects: ['environment', 'techType', 'platform', 'version'],
       sliders: ['threads', 'cores', 'socket', 'memorytotal', 'swaptotal'],
-      startDate: null,
       filters: {
         iconCluster: ''
-      }
+      },
+      startDate: null
     }
   },
   created() {
     this.fullData = this.getAllHosts
-
-    bus.$on('onResetAction', () => this.reset(this.resetFilters))
   },
   methods: {
     ...mapActions(['getHosts']),
@@ -319,9 +162,6 @@ export default {
         iconCluster: ''
       }
       this.startDate = null
-    },
-    formatDate(date) {
-      return formatDate(date)
     }
   },
   computed: {
@@ -330,7 +170,7 @@ export default {
   watch: {
     startDate(newValue, oldValue) {
       if (newValue !== oldValue) {
-        this.getHosts(formatDatepickerDate(this.startDate))
+        this.getHosts(this.startDate)
       }
     }
   }

@@ -1,16 +1,38 @@
 import _ from 'lodash'
+import { bus } from '@/helpers/eventBus.js'
+
 import {
   prepareDataForAutocomplete,
   organizeKeysBeforeFilter,
   returnAutocompleteData
 } from '@/helpers/helpers.js'
 
+import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
+import CustomField from '@/components/common/Form/CustomField.vue'
+import CustomAutocomplete from '@/components/common/Form/CustomAutocomplete.vue'
+import CustomSelect from '@/components/common/Form/CustomSelect.vue'
+import CustomSlider from '@/components/common/Form/CustomSlider.vue'
+import CustomRadio from '@/components/common/Form/CustomRadio.vue'
+import CustomDatepicker from '@/components/common/Form/CustomDatepicker.vue'
+
 export default {
+  components: {
+    AdvancedFiltersBase,
+    CustomField,
+    CustomAutocomplete,
+    CustomSelect,
+    CustomSlider,
+    CustomRadio,
+    CustomDatepicker
+  },
   data() {
     return {
       fullData: [],
       filters: {}
     }
+  },
+  created() {
+    bus.$on('onResetAction', () => this.reset(this.resetFilters))
   },
   beforeMount() {
     this.setAutocompletes()

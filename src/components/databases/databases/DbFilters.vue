@@ -1,214 +1,92 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
     <CustomField label="Name">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.name"
-        size="is-small"
-        clearable
-        :data="filteredname"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredname"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Type">
-      <b-select
-        v-model="filters.type"
-        size="is-small"
-        placeholder="Select a Type"
-        expanded
-      >
-        <option :value="null" v-if="filters.type">
-          Reset
-        </option>
-        <option v-for="(type, index) in filteredtype" :key="index">
-          {{ type }}
-        </option>
-      </b-select>
+      <CustomSelect v-model="filters.type" :options="filteredtype" />
     </CustomField>
 
     <CustomField label="Version">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.version"
-        size="is-small"
-        clearable
-        :data="filteredversion"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredversion"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Hostname">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.hostname"
-        size="is-small"
-        clearable
-        :data="filteredhostname"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredhostname"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Environment">
-      <b-select
+      <CustomSelect
         v-model="filters.environment"
-        size="is-small"
-        placeholder="Select an Environment"
-        expanded
-      >
-        <option :value="null" v-if="filters.environment">
-          Reset
-        </option>
-        <option v-for="(env, index) in filteredenvironment" :key="index">
-          {{ env }}
-        </option>
-      </b-select>
+        :options="filteredenvironment"
+      />
     </CustomField>
 
     <CustomField label="Charset">
-      <b-autocomplete
+      <CustomAutocomplete
         v-model="filters.charset"
-        size="is-small"
-        clearable
-        :data="filteredcharset"
-        @typing="setAutocompletes($event)"
+        :filterResult="filteredcharset"
+        :filterMethod="setAutocompletes"
       />
     </CustomField>
 
     <CustomField label="Memory">
-      <b-slider
+      <CustomSlider
         v-model="filters.memory"
-        :min="minmemory"
-        :max="maxmemory"
-        :step="0.001"
-      >
-        <b-slider-tick :value="minmemory">
-          {{ minmemory | formatNumber('0') }}
-        </b-slider-tick>
-        <b-slider-tick :value="maxmemory">
-          {{ maxmemory | formatNumber('0') }}
-        </b-slider-tick>
-      </b-slider>
+        :ticks="[minmemory, maxmemory]"
+        :steps="0.001"
+      />
     </CustomField>
 
     <CustomField label="DataFile">
-      <b-slider
+      <CustomSlider
         v-model="filters.datafileSize"
-        :min="mindatafileSize"
-        :max="maxdatafileSize"
-        :step="0.001"
-      >
-        <b-slider-tick :value="mindatafileSize">
-          {{ mindatafileSize | formatNumber('0') }}
-        </b-slider-tick>
-        <b-slider-tick :value="maxdatafileSize">
-          {{ maxdatafileSize | formatNumber('0') }}
-        </b-slider-tick>
-      </b-slider>
+        :ticks="[mindatafileSize, maxdatafileSize]"
+        :steps="0.001"
+      />
     </CustomField>
 
     <CustomField label="Segmemnt">
-      <b-slider
+      <CustomSlider
         v-model="filters.segmentSize"
-        :min="minsegmentSize"
-        :max="maxsegmentSize"
-        :step="0.001"
-      >
-        <b-slider-tick :value="minsegmentSize">
-          {{ minsegmentSize | formatNumber('0') }}
-        </b-slider-tick>
-        <b-slider-tick :value="maxsegmentSize">
-          {{ maxsegmentSize | formatNumber('0') }}
-        </b-slider-tick>
-      </b-slider>
+        :ticks="[minsegmentSize, maxsegmentSize]"
+        :steps="0.001"
+      />
     </CustomField>
 
     <CustomField label="Archivelog Mode">
-      <div class="is-flex" style="justify-content: space-around;">
-        <b-radio
-          size="is-small"
-          v-model="filters.archivelog"
-          native-value="true"
-        >
-          Yes
-        </b-radio>
-        <b-radio
-          size="is-small"
-          v-model="filters.archivelog"
-          native-value="false"
-        >
-          No
-        </b-radio>
-        <b-radio size="is-small" v-model="filters.archivelog" native-value="">
-          All
-        </b-radio>
-      </div>
+      <CustomRadio v-model="filters.archivelog" />
     </CustomField>
 
     <CustomField label="Disaster Recovery">
-      <div class="is-flex" style="justify-content: space-around;">
-        <b-radio
-          size="is-small"
-          v-model="filters.disasterRecovery"
-          native-value="true"
-        >
-          Yes
-        </b-radio>
-        <b-radio
-          size="is-small"
-          v-model="filters.disasterRecovery"
-          native-value="false"
-        >
-          No
-        </b-radio>
-        <b-radio
-          size="is-small"
-          v-model="filters.disasterRecovery"
-          native-value=""
-        >
-          All
-        </b-radio>
-      </div>
+      <CustomRadio v-model="filters.disasterRecovery" />
     </CustomField>
 
     <CustomField label="High Availability">
-      <div class="is-flex" style="justify-content: space-around;">
-        <b-radio
-          size="is-small"
-          v-model="filters.highAvailability"
-          native-value="true"
-        >
-          Yes
-        </b-radio>
-        <b-radio
-          size="is-small"
-          v-model="filters.highAvailability"
-          native-value="false"
-        >
-          No
-        </b-radio>
-        <b-radio
-          size="is-small"
-          v-model="filters.highAvailability"
-          native-value=""
-        >
-          All
-        </b-radio>
-      </div>
+      <CustomRadio v-model="filters.highAvailability" />
     </CustomField>
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
-import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
-import CustomField from '@/components/common/Form/CustomField.vue'
 
 export default {
   mixins: [localFiltersMixin],
-  components: {
-    AdvancedFiltersBase,
-    CustomField
-  },
   data() {
     return {
       autocompletes: ['name', 'version', 'hostname', 'charset'],
@@ -223,8 +101,6 @@ export default {
   },
   created() {
     this.fullData = this.getAllDatabases
-
-    bus.$on('onResetAction', () => this.reset(this.resetFilters))
   },
   methods: {
     resetFilters() {
