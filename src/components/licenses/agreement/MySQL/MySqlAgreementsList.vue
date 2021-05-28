@@ -7,16 +7,42 @@
       :clickedRow="() => []"
     >
       <template slot="headData">
+        <th colspan="2" style="text-align: center !important;">Actions</th>
         <v-th sortKey="type">Type</v-th>
         <v-th sortKey="agreementID">Agreement Number</v-th>
         <v-th sortKey="csi">CSI</v-th>
         <v-th sortKey="numberOfLicenses">Number of licenses</v-th>
         <v-th sortKey="clusters">Clusters</v-th>
         <v-th sortKey="hosts">Hosts</v-th>
-        <th colspan="2" style="max-width: 100px">Actions</th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
+        <td style="min-width: 0;">
+          <b-icon
+            v-tooltip="options('Edit Agreement')"
+            type="is-info"
+            class="edit-icon"
+            pack="fas"
+            icon="edit"
+            @click.native="editAgreement(rowData.scope)"
+          />
+        </td>
+        <td style="min-width: 0;">
+          <b-icon
+            v-tooltip="options('Delete Agreement')"
+            type="is-danger"
+            class="delete-icon"
+            pack="fas"
+            icon="trash-alt"
+            @click.native="
+              deleteAgreement(
+                'mysql',
+                rowData.scope.id,
+                rowData.scope.agreementID
+              )
+            "
+          />
+        </td>
         <TdContent :value="rowData.scope.type | toLower" />
         <TdContent :value="rowData.scope.agreementID" />
         <TdContent :value="rowData.scope.csi" />
@@ -52,32 +78,6 @@
             v-if="rowData.scope.hosts.length > 0"
           />
           <span v-else>-</span>
-        </td>
-        <td style="min-width: 50px;">
-          <b-icon
-            v-tooltip="options('Edit Agreement')"
-            type="is-info"
-            class="edit-icon"
-            pack="fas"
-            icon="edit"
-            @click.native="editAgreement(rowData.scope)"
-          />
-        </td>
-        <td style="min-width: 50px;">
-          <b-icon
-            v-tooltip="options('Delete Agreement')"
-            type="is-danger"
-            class="delete-icon"
-            pack="fas"
-            icon="trash-alt"
-            @click.native="
-              deleteAgreement(
-                'mysql',
-                rowData.scope.id,
-                rowData.scope.agreementID
-              )
-            "
-          />
         </td>
       </template>
     </FullTable>
