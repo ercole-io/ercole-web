@@ -1,5 +1,12 @@
 <template>
-  <BaseLayoutColumns v-if="isMounted">
+  <BaseLayoutColumns
+    :pageCols="[
+      { colsize: '3', slotName: 'col1' },
+      { colsize: '6', slotName: 'col2' },
+      { colsize: '3', slotName: 'col3' }
+    ]"
+    v-if="isMounted"
+  >
     <SegnmentAdvisorsFilters slot="col1" />
     <FullTable
       slot="col2"
@@ -47,6 +54,14 @@
         expName="oracleSegmentAdvisor"
       />
     </FullTable>
+
+    <BoxContent title="Top 10 Reclaimable DB Storage" border slot="col3">
+      <PieChart
+        chartId="top10reclaimable"
+        :pieChartData="top10reclaimableChart"
+        setSuffix=" GB"
+      />
+    </BoxContent>
   </BaseLayoutColumns>
 </template>
 
@@ -59,6 +74,8 @@ import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import SegnmentAdvisorsFilters from '@/components/databases/oracle/segmentAdvisor/SegmentAdvisorFIlters.vue'
+import PieChart from '@/components/common/charts/PieChart.vue'
+import BoxContent from '@/components/common/BoxContent.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -68,7 +85,9 @@ export default {
     exportButton,
     TdContent,
     HostLink,
-    SegnmentAdvisorsFilters
+    SegnmentAdvisorsFilters,
+    PieChart,
+    BoxContent
   },
   data() {
     return {
@@ -94,7 +113,7 @@ export default {
     ...mapActions(['getSegmentAdvisor'])
   },
   computed: {
-    ...mapGetters(['getOracleSegmentAdvisor'])
+    ...mapGetters(['getOracleSegmentAdvisor', 'top10reclaimableChart'])
   }
 }
 </script>

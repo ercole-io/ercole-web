@@ -3,10 +3,10 @@
     :id="chartId"
     :data="pieChartData"
     :download="{ background: '#fff' }"
-    width="250px"
-    height="250px"
     legend="bottom"
-  ></pie-chart>
+    :suffix="setSuffix"
+    :messages="{ empty: 'No data' }"
+  />
 </template>
 
 <script>
@@ -19,6 +19,9 @@ export default {
     pieChartData: {
       type: Array || Object,
       required: true
+    },
+    setSuffix: {
+      type: String
     }
   }
 }
