@@ -133,7 +133,6 @@ export default {
           })
         })
         .then(() => {
-          console.log(this.data.hosts)
           this.isLoading = false
         })
     }
