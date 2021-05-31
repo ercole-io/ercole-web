@@ -6,6 +6,7 @@
     :download="{ background: '#fff' }"
     legend="bottom"
     :discrete="discrete"
+    :messages="{ empty: 'No data' }"
   />
 </template>
 
