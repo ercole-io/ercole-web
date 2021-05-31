@@ -61,7 +61,6 @@ export const getters = {
   currentHostInfo: state => {
     const info = state.currentHost.info
 
-    console.log(state.currentHost)
     const general = {
       name: 'General Info',
       data: [
