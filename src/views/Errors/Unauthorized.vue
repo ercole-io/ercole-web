@@ -2,20 +2,49 @@
   <ErrorCode
     code="401"
     codeText="Unauthorized"
-    codeDesc="Your token has expired. Please login again."
+    :codeDesc="
+      `YOUR TOKEN HAS EXPIRED AND YOU WILL BE REDIRECTED TO THE LOGIN PAGE IN ${countDown} SECONDS.`
+    "
   >
-    <LoginForm slot="actions" />
+    <b-button
+      slot="actions"
+      type="is-link is-light"
+      size="is-medium"
+      @click="logout"
+    >
+      go to login
+    </b-button>
   </ErrorCode>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import ErrorCode from '@/components/common/ErrorCode.vue'
-import LoginForm from '@/components/login/form.vue'
 
 export default {
   components: {
-    ErrorCode,
-    LoginForm
+    ErrorCode
+  },
+  data() {
+    return {
+      countDown: 5
+    }
+  },
+  created() {
+    this.countDownTimer()
+  },
+  methods: {
+    ...mapActions(['logout']),
+    countDownTimer() {
+      if (this.countDown > 0) {
+        setTimeout(() => {
+          this.countDown--
+          this.countDownTimer()
+        }, 1000)
+      } else {
+        this.logout()
+      }
+    }
   }
 }
 </script>
