@@ -8,6 +8,19 @@ export const state = () => ({
 export const getters = {
   getOracleSegmentAdvisor: (state, getters) => {
     return getters.filteredOrNot(state.segmentAdvisor)
+  },
+  top10reclaimableChart: (state, getters) => {
+    const top10data = _.take(
+      _.orderBy(getters.getOracleSegmentAdvisor, ['reclaimable'], ['desc']),
+      10
+    )
+    let top10result = []
+
+    _.map(top10data, val => {
+      top10result.push([`${val.hostname} - ${val.dbname}`, val.reclaimable])
+    })
+
+    return top10result
   }
 }
 
