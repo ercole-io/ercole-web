@@ -60,6 +60,7 @@
         chartId="top10reclaimable"
         :pieChartData="top10reclaimableChart"
         setSuffix=" GB"
+        :setLegend="false"
       />
     </BoxContent>
   </BaseLayoutColumns>
