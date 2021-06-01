@@ -5,6 +5,9 @@ export const state = () => ({
 })
 
 export const getters = {
+  getHostnames: state => {
+    return state.hostnames
+  },
   checkHostnameExists: state => hostname => {
     let result = _.some(state.hostnames, name => {
       return name === hostname
