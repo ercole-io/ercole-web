@@ -3,9 +3,9 @@
     :id="chartId"
     :data="pieChartData"
     :download="{ background: '#fff' }"
-    legend="bottom"
     :suffix="setSuffix"
     :messages="{ empty: 'No data' }"
+    :legend="setLegend"
   />
 </template>
 
@@ -22,9 +22,13 @@ export default {
     },
     setSuffix: {
       type: String
+    },
+    setLegend: {
+      type: [Boolean, String],
+      default: 'bottom'
     }
   }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss"></style>
