@@ -24,15 +24,26 @@
         </span>
       </li>
     </ul>
+    <FastChange
+      :current="dynamicTitle"
+      :routeName="$route.name"
+      v-if="
+        $route.name === 'hosts-details' || $route.name === 'cluster-details'
+      "
+    />
   </nav>
 </template>
 
 <script>
 import dynamicTitle from '@/mixins/dynamicTitle.js'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
+import FastChange from '@/components/common/FastChange.vue'
 
 export default {
   mixins: [dynamicTitle, tooltipMixin],
+  components: {
+    FastChange
+  },
   methods: {
     routeTo(route) {
       if (this.breadcrumbList[route].link) {

@@ -3,10 +3,17 @@
     v-model="inputVal"
     size="is-small"
     type="number"
-    clearable
+    icon="magnify"
+    :placeholder="setPlaceholder"
     :data="filterResult"
+    :open-on-focus="openOnFocus"
+    :append-to-body="appendToBody"
     @typing="filterMethod($event)"
-  />
+    @input="inputMethod"
+    clearable
+  >
+    <template #empty>No results found</template>
+  </b-autocomplete>
 </template>
 
 <script>
@@ -19,7 +26,23 @@ export default {
     },
     filterMethod: {
       type: Function,
-      required: true
+      default: () => {}
+    },
+    inputMethod: {
+      type: Function,
+      default: () => {}
+    },
+    setPlaceholder: {
+      type: String,
+      default: ''
+    },
+    openOnFocus: {
+      type: Boolean,
+      default: false
+    },
+    appendToBody: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -35,4 +58,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.autocomplete {
+  .dropdown-menu {
+    min-width: 30%;
+  }
+  .dropdown-item {
+    font-size: 0.8em;
+    padding: 0.2rem 1rem;
+  }
+}
+</style>
