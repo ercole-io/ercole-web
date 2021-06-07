@@ -16,9 +16,10 @@
         >Reference Number</v-th
       >
       <v-th sortKey="unlimited">ULA</v-th>
-      <v-th sortKey="licensesCount">Licenses Core</v-th>
-      <v-th sortKey="usersCount">Licenses User</v-th>
-      <v-th sortKey="availableCount">Number Available</v-th>
+      <v-th sortKey="licensesPerCore">Licenses Core</v-th>
+      <v-th sortKey="licensesPerUser">Licenses User</v-th>
+      <v-th sortKey="availableLicensesPerCore">Available Licenses Core</v-th>
+      <v-th sortKey="availableLicensesPerUser">Available Licenses User</v-th>
       <v-th sortKey="catchAll">Basket</v-th>
       <v-th sortKey="restricted">Restricted</v-th>
     </template>
@@ -75,9 +76,10 @@
         v-if="toggleReferenceNumber"
       />
       <TdIcon :value="rowData.scope.unlimited" />
-      <TdContent :value="rowData.scope.licensesCount" />
-      <TdContent :value="rowData.scope.usersCount" />
-      <TdContent :value="rowData.scope.availableCount" />
+      <TdContent :value="rowData.scope.licensesPerCore" />
+      <TdContent :value="rowData.scope.licensesPerUser" />
+      <TdContent :value="rowData.scope.availableLicensesPerCore" />
+      <TdContent :value="rowData.scope.availableLicensesPerUser" />
       <TdIcon :value="rowData.scope.catchAll" />
       <TdIcon :value="rowData.scope.restricted" />
     </template>
@@ -111,9 +113,10 @@ export default {
         'csi',
         'referenceNumber',
         'unlimited',
-        'licensesCount',
-        'usersCount',
-        'availableCount',
+        'licensesPerCore',
+        'licensesPerUser',
+        'availableLicensesPerCore',
+        'availableLicensesPerUser',
         'catchAll',
         'restricted'
       ]
