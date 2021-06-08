@@ -17,7 +17,7 @@ export const getters = {
     let top10result = []
 
     _.map(top10data, val => {
-      top10result.push([`${val.hostname} - ${val.dbname}`, val.reclaimable])
+      top10result.push([val.dbname, val.reclaimable])
     })
 
     return top10result
