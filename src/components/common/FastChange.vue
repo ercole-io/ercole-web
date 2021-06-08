@@ -16,6 +16,7 @@
       openOnFocus
       appendToBody
       v-if="toggleAutocomplete"
+      ref="fastSwitchRef"
     />
   </div>
 </template>
@@ -94,6 +95,15 @@ export default {
     },
     setPlaceholder() {
       return `Switch by ${_.split(this.routeName, '-details', 1)} name`
+    }
+  },
+  watch: {
+    toggleAutocomplete(value) {
+      if (value) {
+        setTimeout(() => {
+          this.$refs.fastSwitchRef.$children[0].focus()
+        }, 0)
+      }
     }
   }
 }
