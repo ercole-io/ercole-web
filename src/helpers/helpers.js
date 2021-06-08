@@ -29,7 +29,7 @@ export const checkAlertIcon = severity => {
   } else if (severity === 'WARNING') {
     return { iconType: 'is-warning', icon: 'alert' }
   } else if (severity === 'CRITICAL') {
-    return { iconType: 'is-danger', icon: 'information' }
+    return { iconType: 'is-danger', icon: 'alert-circle' }
   }
 }
 

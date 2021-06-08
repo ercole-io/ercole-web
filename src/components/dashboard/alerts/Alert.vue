@@ -98,7 +98,7 @@
         }"
         size="is-small"
         icon-pack="mdi"
-        icon-left="information"
+        icon-left="alert-circle"
         class="has-text-weight-semibold alert-button"
         expanded
       >
