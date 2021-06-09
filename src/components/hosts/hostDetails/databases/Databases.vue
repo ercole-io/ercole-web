@@ -6,6 +6,7 @@
       slot="customTitle"
       @input="onSearch($event)"
       :onBlur="onSearchBlur"
+      v-if="currentHostDBs.length > 1"
     />
 
     <HbuttonScroll height="30" elemScroll="tabs" />
@@ -22,7 +23,7 @@
 
     <NoContent
       v-else
-      NoContentText="There are no Databases for this Host"
+      noContentText="There are no Databases for this Host"
       style="min-height: 200px"
     />
   </BoxContent>
@@ -69,7 +70,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentHostType', 'currentHostFiltered']),
+    ...mapGetters(['currentHostType', 'currentHostFiltered', 'currentHostDBs']),
     showDatabases() {
       return this.currentHostFiltered(this.searchDb).length > 0
     },

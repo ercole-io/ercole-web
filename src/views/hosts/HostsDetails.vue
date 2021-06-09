@@ -24,10 +24,17 @@
           'is-12': currentHostType === 'mysql'
         }"
       >
-        <Databases />
+        <Databases
+          v-if="
+            currentHostDBs.length > 0 &&
+              (currentHostType === 'oracle' || currentHostType === 'mysql')
+          "
+        />
       </div>
       <div class="column is-4">
-        <ChartCpu />
+        <ChartCpu
+          v-if="currentHostDBs.length > 0 && currentHostType === 'oracle'"
+        />
       </div>
     </div>
   </section>
@@ -86,7 +93,7 @@ export default {
     ...mapMutations(['SET_ACTIVE_DB'])
   },
   computed: {
-    ...mapGetters(['currentHostType'])
+    ...mapGetters(['currentHostType', 'currentHostDBs'])
   }
 }
 </script>
