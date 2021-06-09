@@ -227,16 +227,19 @@ export default {
     addUpdateAgreement() {
       const mysqlAgreementData = {
         type: toUpper(this.mysqlForm.agreeType),
+        agreementID: this.mysqlForm.agreeNumber,
+        csi: this.mysqlForm.agreeCsi,
         numberOfLicenses: Number(this.mysqlForm.agreeLicenses),
-        hosts:
-          this.mysqlForm.agreeType === this.host
-            ? this.mysqlForm.agreeHosts
-            : [],
         clusters:
           this.mysqlForm.agreeType === this.cluster
             ? this.mysqlForm.agreeClusters
+            : [],
+        hosts:
+          this.mysqlForm.agreeType === this.host
+            ? this.mysqlForm.agreeHosts
             : []
       }
+      console.log(mysqlAgreementData)
       if (!this.mysqlForm.licenseID) {
         this.createLicenseAgreement({
           body: mysqlAgreementData,

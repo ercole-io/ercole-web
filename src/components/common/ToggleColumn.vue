@@ -46,8 +46,8 @@ export default {
       if (!val.toggle) {
         this.resolveDirection(val.direction)
       } else {
-        this.leftVal = this.leftCol
-        this.rightVal = this.rightCol
+        this.leftVal = this.leftCol - 3
+        this.rightVal = this.rightCol + 3
       }
     },
     resolveDirection(dir) {

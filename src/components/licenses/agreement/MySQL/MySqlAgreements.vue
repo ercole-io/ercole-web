@@ -1,23 +1,23 @@
 <template>
-  <ShowHideColumn :leftCol="6" :rightCol="3" v-if="isMounted">
+  <ToggleColumn :leftCol="9" :rightCol="0" v-if="isMounted">
     <MySqlAgreementsFilters slot="before" class="column is-3" />
 
     <MySqlAgreementsList slot="left" />
 
     <MySqlAgreementsForm slot="right" />
-  </ShowHideColumn>
+  </ToggleColumn>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-import ShowHideColumn from '@/components/common/ShowHideColumn.vue'
+import ToggleColumn from '@/components/common/ToggleColumn.vue'
 import MySqlAgreementsList from '@/components/licenses/agreement/MySQL/MySqlAgreementsList.vue'
 import MySqlAgreementsForm from '@/components/licenses/agreement/MySQL/MySqlAgreementsForm.vue'
 import MySqlAgreementsFilters from '@/components/licenses/agreement/MySQL/MySqlAgreementsFilters.vue'
 
 export default {
   components: {
-    ShowHideColumn,
+    ToggleColumn,
     MySqlAgreementsList,
     MySqlAgreementsForm,
     MySqlAgreementsFilters

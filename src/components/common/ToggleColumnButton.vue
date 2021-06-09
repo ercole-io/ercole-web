@@ -28,8 +28,14 @@ export default {
   },
   data() {
     return {
-      toggle: true
+      toggle: false
     }
+  },
+  created() {
+    bus.$emit('toggleColumn', {
+      direction: this.hideDirection,
+      toggle: this.toggle
+    })
   },
   watch: {
     toggle() {
