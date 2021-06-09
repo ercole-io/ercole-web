@@ -37,26 +37,31 @@ export default {
     }
   },
   created() {
-    bus.$on('toggleColumn', val => {
-      this.toggleCol(val)
+    bus.$on('onToggle', val => {
+      if (val.direction === 'right') {
+        this.toggleRight(val.toggle)
+      } else if (val.direction === 'left') {
+        this.toggleLeft(val.toggle)
+      }
     })
   },
   methods: {
-    toggleCol(val) {
-      if (!val.toggle) {
-        this.resolveDirection(val.direction)
+    toggleRight(toggle) {
+      if (toggle) {
+        this.leftVal = this.leftCol - this.rightCol
+        this.rightVal = this.rightCol
       } else {
-        this.leftVal = this.leftCol - 3
-        this.rightVal = this.rightCol + 3
+        this.leftVal = this.leftCol
+        this.rightVal = false
       }
     },
-    resolveDirection(dir) {
-      if (dir === 'right') {
-        this.leftVal = this.leftVal + this.rightVal
-        this.rightVal = false
+    toggleLeft(toggle) {
+      if (toggle) {
+        this.leftVal = this.leftCol
+        this.rightVal = this.rightCol - this.leftCol
       } else {
         this.leftVal = false
-        this.rightVal = this.leftVal + this.rightVal
+        this.rightVal = this.rightCol
       }
     }
   }
