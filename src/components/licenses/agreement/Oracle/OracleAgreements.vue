@@ -1,23 +1,23 @@
 <template>
-  <ShowHideColumn :leftCol="6" :rightCol="3" v-if="isMounted">
+  <ToggleColumn :leftCol="9" :rightCol="0" v-if="isMounted">
     <OracleAgreementsFilters slot="before" class="column is-3" />
 
     <OracleAgreementsList slot="left" />
 
     <OracleAgreementsForm slot="right" />
-  </ShowHideColumn>
+  </ToggleColumn>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-import ShowHideColumn from '@/components/common/ShowHideColumn.vue'
+import ToggleColumn from '@/components/common/ToggleColumn.vue'
 import OracleAgreementsList from '@/components/licenses/agreement/Oracle/OracleAgreementsList.vue'
 import OracleAgreementsForm from '@/components/licenses/agreement/Oracle/OracleAgreementsForm.vue'
 import OracleAgreementsFilters from '@/components/licenses/agreement/Oracle/OracleAgreementsFilters.vue'
 
 export default {
   components: {
-    ShowHideColumn,
+    ToggleColumn,
     OracleAgreementsList,
     OracleAgreementsForm,
     OracleAgreementsFilters
