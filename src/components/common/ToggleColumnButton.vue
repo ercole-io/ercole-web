@@ -32,17 +32,19 @@ export default {
     }
   },
   created() {
-    bus.$emit('toggleColumn', {
-      direction: this.hideDirection,
-      toggle: this.toggle
-    })
+    this.onToggle()
   },
-  watch: {
-    toggle() {
-      bus.$emit('toggleColumn', {
+  methods: {
+    onToggle() {
+      bus.$emit('onToggle', {
         direction: this.hideDirection,
         toggle: this.toggle
       })
+    }
+  },
+  watch: {
+    toggle() {
+      this.onToggle()
     }
   }
 }

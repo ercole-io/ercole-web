@@ -1,5 +1,5 @@
 <template>
-  <ToggleColumn :leftCol="9" :rightCol="0" v-if="isMounted">
+  <ToggleColumn :leftCol="9" :rightCol="3" v-if="isMounted">
     <MySqlAgreementsFilters slot="before" class="column is-3" />
 
     <MySqlAgreementsList slot="left" />
