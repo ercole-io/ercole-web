@@ -175,7 +175,8 @@ export default {
       currentPageSelection: [],
       isAllPagesSelected: false,
       isLoading: false,
-      isMounted: false
+      isMounted: false,
+      alertStatus: 'NEW'
     }
   },
   async beforeMount() {
@@ -199,11 +200,12 @@ export default {
     },
     handleMarkAsRead() {
       this.isLoading = true
-      const idList = this.selectedRows
+      const idList = _.uniqWith(this.selectedRows, _.isEqual)
       this.markAsReadAlertsPage({ idList }).then(() => {
         this.getAlerts
         this.isCurrentPageSelected = false
         this.isLoading = false
+        this.selectedRows = []
       })
     },
     handleSelectRows(status, id) {
