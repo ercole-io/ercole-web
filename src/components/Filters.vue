@@ -229,9 +229,9 @@ export default {
       this.alertStatus = val
     })
 
-    bus.$on('openFilters', () => {
-      this.isFiltersOpened = false
-    })
+    // bus.$on('openFilters', () => {
+    //   this.isFiltersOpened = false
+    // })
   },
   methods: {
     ...mapActions([
@@ -341,16 +341,16 @@ export default {
   computed: {
     ...mapState(['globalFilters']),
     ...mapGetters(['getActiveFilters'])
-  },
-  watch: {
-    isFiltersOpened(value) {
-      if (value) {
-        bus.$emit('isGlobalFilterOpened', true)
-      } else {
-        bus.$emit('isGlobalFilterOpened', false)
-      }
-    }
   }
+  // watch: {
+  //   isFiltersOpened(value) {
+  //     if (value) {
+  //       bus.$emit('isGlobalFilterOpened', true)
+  //     } else {
+  //       bus.$emit('isGlobalFilterOpened', false)
+  //     }
+  //   }
+  // }
 }
 </script>
 
