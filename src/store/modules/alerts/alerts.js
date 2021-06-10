@@ -192,14 +192,18 @@ export const actions = {
     commit('SET_ALERTS', response)
   },
   async markAsRead({ commit }, payload) {
-    const deleteAlert = await axiosNoLoading.post(`/alerts/ack`, [payload.id])
+    const deleteAlert = await axiosNoLoading.post(`/alerts/ack`, {
+      ids: [payload.id]
+    })
     const response = await deleteAlert
     if (response) {
       commit('MARK_AS_READ_DASH', payload)
     }
   },
   async markAsReadAlertsPage({ commit }, payload) {
-    const deleteAlert = await axiosNoLoading.post(`/alerts/ack`, payload.idList)
+    const deleteAlert = await axiosNoLoading.post(`/alerts/ack`, {
+      ids: payload.idList
+    })
     const response = await deleteAlert
     if (response) {
       commit('MARK_AS_READ_ALERTS_PAGE', payload)
