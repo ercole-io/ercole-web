@@ -239,7 +239,6 @@ export default {
             ? this.mysqlForm.agreeHosts
             : []
       }
-      console.log(mysqlAgreementData)
       if (!this.mysqlForm.licenseID) {
         this.createLicenseAgreement({
           body: mysqlAgreementData,
