@@ -2,18 +2,51 @@ import axiosDefault from '@/axios/axios-default.js'
 import _ from 'lodash'
 
 export const state = () => ({
-  licenseList: []
+  dbsLicensesUsed: [],
+  hostsLicensesUsed: []
 })
 
 export const getters = {
-  getUsedLicenses: (state, getters) => {
-    return getters.filteredOrNot(state.licenseList)
+  getUsedLicensesByDbs: (state, getters) => {
+    const cleanData = _.without(state.dbsLicensesUsed, undefined, null, '')
+    return getters.filteredOrNot(cleanData)
+  },
+  getUsedLicensesByHost: (state, getters) => {
+    let cleanData = _.without(state.hostsLicensesUsed, undefined, null, '')
+    const finalData = []
+
+    cleanData = _.groupBy(cleanData, 'licenseTypeID')
+    _.forEach(cleanData, (typeVal, typeIndex) => {
+      let groupByHost = _.groupBy(typeVal, 'hostname')
+      _.forEach(groupByHost, (hostVal, hostIndex) => {
+        let DBs = []
+
+        _.forEach(hostVal, val => {
+          if (val.hostname === hostIndex && val.licenseTypeID === typeIndex) {
+            DBs.push(val.dbName)
+          }
+        })
+
+        finalData.push({
+          dbsQty: DBs.length,
+          databases: DBs,
+          licenseTypeID: typeIndex,
+          description: getters.returnMetricAndDescription(typeIndex)
+            .description,
+          metric: getters.returnMetricAndDescription(typeIndex).metric,
+          hostname: hostIndex
+        })
+        DBs = []
+      })
+    })
+    return getters.filteredOrNot(finalData)
   }
 }
 
 export const mutations = {
   SET_LICENSE_LIST: (state, payload) => {
-    state.licenseList = payload
+    state.dbsLicensesUsed = payload
+    state.hostsLicensesUsed = payload
   }
 }
 

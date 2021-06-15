@@ -8,11 +8,11 @@
       />
     </CustomField>
 
-    <CustomField label="DB Name">
-      <CustomAutocomplete
-        v-model="filters.dbName"
-        :filterResult="filtereddbName"
-        :filterMethod="setAutocompletes"
+    <CustomField label="Databases">
+      <CustomSlider
+        v-model="filters.dbsQty"
+        :ticks="[mindbsQty, maxdbsQty]"
+        :steps="1"
       />
     </CustomField>
 
@@ -33,17 +33,11 @@
     <CustomField label="Metric">
       <CustomSelect v-model="filters.metric" :options="filteredmetric" />
     </CustomField>
-
-    <CustomField label="Used Licenses">
-      <CustomSlider
-        v-model="filters.usedLicenses"
-        :ticks="[minusedLicenses, maxusedLicenses]"
-      />
-    </CustomField>
   </AdvancedFiltersBase>
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 
@@ -51,16 +45,18 @@ export default {
   mixins: [localFiltersMixin],
   data() {
     return {
-      autocompletes: ['hostname', 'dbName'],
+      autocompletes: ['hostname'],
       selects: ['licenseTypeID', 'description', 'metric'],
-      sliders: ['usedLicenses']
+      sliders: ['dbsQty']
     }
   },
   created() {
-    this.fullData = this.getUsedLicenses
+    this.fullData = this.getUsedLicensesByHost
+
+    bus.$on('onUsedTabChange', () => this.reset(this.resetFilters))
   },
   computed: {
-    ...mapGetters(['getUsedLicenses'])
+    ...mapGetters(['getUsedLicensesByHost'])
   }
 }
 </script>
