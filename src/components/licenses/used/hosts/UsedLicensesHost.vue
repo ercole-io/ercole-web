@@ -1,32 +1,29 @@
 <template>
   <BaseLayoutColumns>
-    <UsedLicensesDbsFilters slot="col1" />
+    <UsedLicensesHostFilters slot="col1" />
 
     <FullTable
       slot="col2"
       placeholder="Search on Licenses"
-      :urlSearchParam="partNumber"
       :keys="keys"
-      :tableData="getUsedLicensesByDbs"
+      :tableData="getUsedLicensesByHost"
       @clickedRow="handleClickedRow"
       isClickable
     >
       <template slot="headData">
         <v-th sortKey="hostname">Hostname</v-th>
-        <v-th sortKey="dbName">DB Name</v-th>
+        <v-th sortKey="dbsQty">Databases</v-th>
         <v-th sortKey="licenseTypeID">Part Number</v-th>
         <v-th sortKey="description">Description</v-th>
         <v-th sortKey="metric">Metric</v-th>
-        <v-th sortKey="usedLicenses">Used Licenses</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbName]" />
-        <TdContent :value="rowData.scope.dbName" />
+        <HostLink :hostname="rowData.scope.hostname" />
+        <TdContent :value="rowData.scope.dbsQty" />
         <TdContent :value="rowData.scope.licenseTypeID" />
         <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.metric" />
-        <TdContent :value="rowData.scope.usedLicenses" />
       </template>
 
       <!-- <exportButton
@@ -44,41 +41,29 @@ import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-// import exportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
-import UsedLicensesDbsFilters from '@/components/licenses/used/databases/UsedLicensesDbsFilters.vue'
+import UsedLicensesHostFilters from '@/components/licenses/used/hosts/UsedLicensesHostFilters.vue'
 
 export default {
   mixins: [paginationMixin, hostnameLinkRow],
-  props: {
-    partNumber: {
-      type: String,
-      required: false
-    }
-  },
   components: {
     BaseLayoutColumns,
     FullTable,
-    // exportButton,
     TdContent,
     HostLink,
-    UsedLicensesDbsFilters
+    UsedLicensesHostFilters
   },
   data() {
     return {
-      keys: [
-        'hostname',
-        'dbName',
-        'licenseTypeID',
-        'usedLicenses',
-        'description',
-        'metric'
-      ]
+      keys: ['hostname', 'licenseTypeID', 'dbsQty', 'description', 'metric']
     }
   },
+  mounted() {
+    this.getUsedLicensesByHost
+  },
   computed: {
-    ...mapGetters(['getUsedLicensesByDbs'])
+    ...mapGetters(['getUsedLicensesByHost'])
   }
 }
 </script>
