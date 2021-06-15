@@ -47,24 +47,35 @@
       <CustomRadio v-model="filters.unlimited" />
     </CustomField>
 
-    <CustomField label="Licenses Core">
+    <CustomField label="Licenses Per Core">
       <CustomSlider
-        v-model="filters.licensesCount"
-        :ticks="[minlicensesCount, maxlicensesCount]"
+        v-model="filters.licensesPerCore"
+        :ticks="[minlicensesPerCore, maxlicensesPerCore]"
+        :steps="1"
       />
     </CustomField>
 
-    <CustomField label="Licenses User">
+    <CustomField label="Licenses Per User">
       <CustomSlider
-        v-model="filters.usersCount"
-        :ticks="[minusersCount, maxusersCount]"
+        v-model="filters.licensesPerUser"
+        :ticks="[minlicensesPerUser, maxlicensesPerUser]"
+        :steps="1"
       />
     </CustomField>
 
-    <CustomField label="Number Available">
+    <CustomField label="Available Licenses Core">
       <CustomSlider
-        v-model="filters.availableCount"
-        :ticks="[minavailableCount, maxavailableCount]"
+        v-model="filters.availableLicensesPerCore"
+        :ticks="[minavailableLicensesPerCore, maxavailableLicensesPerCore]"
+        :steps="1"
+      />
+    </CustomField>
+
+    <CustomField label="Available Licenses User">
+      <CustomSlider
+        v-model="filters.availableLicensesPerUser"
+        :ticks="[minavailableLicensesPerUser, maxavailableLicensesPerUser]"
+        :steps="1"
       />
     </CustomField>
 
@@ -95,7 +106,12 @@ export default {
         'metric',
         'referenceNumber'
       ],
-      sliders: ['licensesCount', 'usersCount', 'availableCount'],
+      sliders: [
+        'licensesPerCore',
+        'licensesPerUser',
+        'availableLicensesPerCore',
+        'availableLicensesPerUser'
+      ],
       filters: {
         unlimited: '',
         catchAll: '',
