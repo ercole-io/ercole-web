@@ -23,7 +23,7 @@ export const getters = {
 
         _.forEach(hostVal, val => {
           if (val.hostname === hostIndex && val.licenseTypeID === typeIndex) {
-            DBs.push(val.dbName)
+            DBs.push({ dbName: val.dbName })
           }
         })
 
