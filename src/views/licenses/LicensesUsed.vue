@@ -2,10 +2,10 @@
   <section v-if="isMounted">
     <b-tabs size="is-small" type="is-boxed" class="block" @input="onTabChange">
       <b-tab-item label="Databases">
-        <UsedLicensesDbs />
+        <UsedLicensesDbs :partNumber="partNumber" />
       </b-tab-item>
       <b-tab-item label="Hosts">
-        <UsedLicensesHost />
+        <UsedLicensesHost :partNumber="partNumber" />
       </b-tab-item>
     </b-tabs>
   </section>
@@ -21,6 +21,12 @@ export default {
   components: {
     UsedLicensesDbs,
     UsedLicensesHost
+  },
+  props: {
+    partNumber: {
+      type: String,
+      required: false
+    }
   },
   data() {
     return {
