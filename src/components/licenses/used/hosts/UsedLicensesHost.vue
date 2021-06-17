@@ -5,6 +5,7 @@
     <FullTable
       slot="col2"
       placeholder="Search on Licenses"
+      :urlSearchParam="partNumber"
       :keys="keys"
       :tableData="getUsedLicensesByHost"
       @clickedRow="handleClickedRow"
@@ -74,6 +75,12 @@ export default {
     TdContent,
     HostLink,
     UsedLicensesHostFilters
+  },
+  props: {
+    partNumber: {
+      type: String,
+      required: false
+    }
   },
   data() {
     return {
