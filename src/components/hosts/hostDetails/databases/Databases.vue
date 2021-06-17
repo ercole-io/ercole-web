@@ -1,5 +1,5 @@
 <template>
-  <BoxContent :title="`Databases (${currentHostFiltered(searchDb).length})`">
+  <BoxContent :title="`Databases (${countDatabases})`">
     <SearchInput
       searchPlaceholder="Search by DB name"
       v-model="searchDb"
@@ -71,6 +71,9 @@ export default {
   },
   computed: {
     ...mapGetters(['currentHostType', 'currentHostFiltered', 'currentHostDBs']),
+    countDatabases() {
+      return this.currentHostFiltered(this.searchDb).length
+    },
     showDatabases() {
       return this.currentHostFiltered(this.searchDb).length > 0
     },
