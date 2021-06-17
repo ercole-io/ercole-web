@@ -201,15 +201,14 @@ export const getters = {
     })
   },
   currentHostFiltered: (state, getters) => search => {
-    const filtered = _.filter(getters.currentHostDBs, db => {
+    return _.filter(getters.currentHostDBs, db => {
       return (
         db.name
           .toString()
           .toLowerCase()
-          .indexOf(search.toLowerCase()) >= 0
+          .indexOf(search.toLowerCase()) > -1
       )
     })
-    return filtered
   },
   getOracleCpuUsageChart: (state, getters) => selected => {
     const dailyDbState = getters.currentHostDBs
