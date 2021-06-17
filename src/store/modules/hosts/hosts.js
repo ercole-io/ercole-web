@@ -2,7 +2,6 @@ import axiosDefault from '@/axios/axios-default'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
 import { mapClustStatus } from '@/helpers/helpers.js'
-import { mapDatabases } from '@/helpers/databasesMap.js'
 import router from '@/router'
 
 export const state = () => ({
@@ -17,8 +16,8 @@ export const getters = {
         _id: host._id,
         hostname: host.hostname,
         environment: host.environment,
-        databases: mapDatabases(host.features, 'databases'),
-        techType: mapDatabases(host.features, 'technology'),
+        databases: _.split(Object.values(host.databases), ','),
+        techType: Object.keys(host.databases),
         platform: host.info.hardwareAbstractionTechnology,
         cluster: host.cluster,
         virtNode: host.virtualizationNode,
@@ -56,16 +55,16 @@ export const actions = {
 
     let hostsData
     if (router.currentRoute.name === 'hosts') {
-      hostsData = await axiosDefault.get('/hosts', {
+      hostsData = await axiosDefault.get('/hosts?mode=summary', {
         params: params
       })
     } else {
-      hostsData = await axiosNoLoading.get('/hosts', {
+      hostsData = await axiosNoLoading.get('/hosts?mode=summary', {
         params: params
       })
     }
 
-    const response = await hostsData.data
+    const response = await hostsData.data.hosts
     commit('SET_HOSTS', response)
     commit('SET_HOSTNAMES', response)
   }

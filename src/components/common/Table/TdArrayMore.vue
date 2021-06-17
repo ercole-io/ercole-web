@@ -1,5 +1,5 @@
 <template>
-  <td v-tooltip.bottom="options(formatArrayToShow(value))">
+  <td v-tooltip="options(formatArrayToShow(value))">
     <div class="dbsList">
       <div v-if="valueSize > defaultSize">
         <b-button
@@ -22,8 +22,12 @@
         />
       </div>
       <ul>
-        <li v-for="(val, index) in value" :key="index">
-          <span v-if="index < limit" v-html="highlight(val)"></span>
+        <li
+          v-for="(val, index) in value"
+          :key="index"
+          :class="index > limit && index > 5 ? 'hidden' : ''"
+        >
+          <span v-html="highlight(val)"></span>
         </li>
       </ul>
     </div>
@@ -100,5 +104,9 @@ export default {
       margin-bottom: 8px;
     }
   }
+}
+
+.hidden {
+  display: none;
 }
 </style>
