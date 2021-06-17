@@ -8,7 +8,13 @@
   >
     <template v-for="(dbs, i) in currentDBs">
       <b-tab-item :key="i" :label="dbs.name">
-        <b-tabs size="is-small" type="is-toggle" vertical :animated="true">
+        <b-tabs
+          size="is-small"
+          type="is-toggle"
+          vertical
+          :animated="true"
+          :destroy-on-hide="true"
+        >
           <DbInfo :dbInfo="dbs" />
           <!-- <DbTags
               :dbName="dbs.name"
