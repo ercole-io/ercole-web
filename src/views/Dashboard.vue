@@ -51,19 +51,19 @@ export default {
   async beforeMount() {
     await this.getDashboardData()
       .then(() => {
-        this.$store.dispatch('getHosts') // Pre Load Hosts to cache info and save hostnames on vuex-persisted
-        this.$store.dispatch('getClusters') // Pre load clusters to save clusternames on vuex-persisted
+        this.getHosts() // Pre Load Hosts to cache info and save hostnames on vuex-persisted
+        this.getClusters() // Pre load clusters to save clusternames on vuex-persisted
       })
       .then(() => {
         this.isMounted = true
       })
 
-    // setInterval(() => {
-    //   this.$store.dispatch('getHosts') // Update hosts automatically each hour
-    // }, 300000)
+    setInterval(() => {
+      this.getHosts() // Update hosts automatically each hour
+    }, 300000)
   },
   methods: {
-    ...mapActions(['getDashboardData'])
+    ...mapActions(['getDashboardData', 'getHosts', 'getClusters'])
   }
 }
 </script>
