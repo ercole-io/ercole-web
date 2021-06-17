@@ -5,37 +5,76 @@ import { lazy } from 'vue-async-manager'
 
 const title = 'Ercole - '
 
-const EmptyRouterView = () => import('@/views/Empty-Router-View.vue')
-const Login = () => import('@/views/auth/Login.vue')
-const Dashboard = lazy(() => import('@/views/Dashboard.vue'))
-const Hosts = lazy(() => import('@/views/hosts/Hosts.vue'))
-const HostsDetails = lazy(() => import('@/views/hosts/HostsDetails.vue'))
-const Databases = lazy(() => import('@/views/databases/Databases.vue'))
-const Oracle = lazy(() => import('@/views/databases/oracle/Oracle.vue'))
-const ADDM = lazy(() => import('@/views/databases/oracle/ADDM.vue'))
+const EmptyRouterView = () =>
+  import(/* webpackPreload: true */ '@/views/Empty-Router-View.vue')
+const Login = () => import(/* webpackPreload: true */ '@/views/auth/Login.vue')
+const Dashboard = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/Dashboard.vue')
+)
+const Hosts = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/hosts/Hosts.vue')
+)
+const HostsDetails = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/hosts/HostsDetails.vue')
+)
+const Databases = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/databases/Databases.vue')
+)
+const Oracle = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/databases/oracle/Oracle.vue')
+)
+const ADDM = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/databases/oracle/ADDM.vue')
+)
 const SegmentAdvisor = lazy(() =>
-  import('@/views/databases/oracle/Segment-Advisor.vue')
+  import(
+    /* webpackPreload: true */ '@/views/databases/oracle/Segment-Advisor.vue'
+  )
 )
 const PatchAdvidor = lazy(() =>
-  import('@/views/databases/oracle/Patch-Advidor.vue')
+  import(
+    /* webpackPreload: true */ '@/views/databases/oracle/Patch-Advidor.vue'
+  )
 )
-const MySQL = lazy(() => import('@/views/databases/mysql/MySQL.vue'))
-const Middleware = lazy(() => import('@/views/middleware/Middleware.vue'))
+const MySQL = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/databases/mysql/MySQL.vue')
+)
+const Middleware = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/middleware/Middleware.vue')
+)
 const LicensesAgreement = lazy(() =>
-  import('@/views/licenses/LicensesAgreement.vue')
+  import(/* webpackPreload: true */ '@/views/licenses/LicensesAgreement.vue')
 )
 const LicensesCompliance = lazy(() =>
-  import('@/views/licenses/LicensesCompliance.vue')
+  import(/* webpackPreload: true */ '@/views/licenses/LicensesCompliance.vue')
 )
-const LicensesUsed = lazy(() => import('@/views/licenses/LicensesUsed.vue'))
-const Hypervisors = lazy(() => import('@/views/hypervisors/Hypervisors.vue'))
-const Cluster = lazy(() => import('@/views/hypervisors/Cluster.vue'))
-const Engineered = lazy(() => import('@/views/engineered/Engineered.vue'))
-const Alerts = lazy(() => import('@/views/alerts/Alerts.vue'))
-const Settings = lazy(() => import('@/views/settings/Settings.vue'))
-const InternalServer = lazy(() => import('@/views/Errors/InternalServer.vue'))
-const Unauthorized = lazy(() => import('@/views/Errors/Unauthorized.vue'))
-const NotFound = lazy(() => import('@/views/Errors/NotFound.vue'))
+const LicensesUsed = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/licenses/LicensesUsed.vue')
+)
+const Hypervisors = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/hypervisors/Hypervisors.vue')
+)
+const Cluster = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/hypervisors/Cluster.vue')
+)
+const Engineered = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/engineered/Engineered.vue')
+)
+const Alerts = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/alerts/Alerts.vue')
+)
+const Settings = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/settings/Settings.vue')
+)
+const InternalServer = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/Errors/InternalServer.vue')
+)
+const Unauthorized = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/Errors/Unauthorized.vue')
+)
+const NotFound = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/Errors/NotFound.vue')
+)
 
 Vue.use(VueRouter)
 
