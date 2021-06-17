@@ -5,6 +5,7 @@
     :animated="true"
     v-model="isActive"
     @input="onChange"
+    :destroy-on-hide="true"
   >
     <template v-for="(dbs, i) in currentDBs">
       <b-tab-item :key="i" :label="dbs.name">
