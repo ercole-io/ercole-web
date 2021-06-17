@@ -5,14 +5,22 @@
         <div class="columns">
           <div class="column">
             <ul class="db-info">
-              <li>Database General Info</li>
+              <li>Database Details</li>
               <li>
                 <span>Db Name</span>
                 <span>{{ info.name }}</span>
               </li>
               <li>
+                <span>Version</span>
+                <span>{{ info.version }}</span>
+              </li>
+              <li>
                 <span>Platform</span>
                 <span>{{ info.platform }}</span>
+              </li>
+              <li>
+                <span>Architecture</span>
+                <span>{{ info.architecture }}</span>
               </li>
               <li>
                 <span>Edition</span>
@@ -22,10 +30,11 @@
                 <span>Engine</span>
                 <span>{{ info.engine }}</span>
               </li>
-              <li>
-                <span>Architecture</span>
-                <span>{{ info.architecture }}</span>
-              </li>
+            </ul>
+          </div>
+          <div class="column">
+            <ul class="db-info">
+              <li>Memory</li>
               <li>
                 <span>Sort Buffer Size</span>
                 <span>{{ info.sortBufferSize }}</span>
@@ -38,6 +47,11 @@
                 <span>Pool Buffer Size</span>
                 <span>{{ info.bufferPoolSize }}</span>
               </li>
+            </ul>
+          </div>
+          <div class="column">
+            <ul class="db-info">
+              <li>Additional Info</li>
               <li>
                 <span>Read Only</span>
                 <b-icon
@@ -65,10 +79,6 @@
               <li>
                 <span>Page Size</span>
                 <span>{{ info.pageSize }}</span>
-              </li>
-              <li>
-                <span>Version</span>
-                <span>{{ info.version }}</span>
               </li>
             </ul>
           </div>
