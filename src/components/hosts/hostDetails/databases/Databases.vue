@@ -1,5 +1,5 @@
 <template>
-  <BoxContent title="Databases">
+  <BoxContent :title="`Databases (${currentHostFiltered(searchDb).length})`">
     <SearchInput
       searchPlaceholder="Search by DB name"
       v-model="searchDb"
