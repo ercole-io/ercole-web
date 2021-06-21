@@ -9,9 +9,18 @@
       <p class="modal-card-title">
         List of Databases
         <br />
-        <span class="is-size-7">Hostname: {{ hostname }}</span>
+        <span class="is-size-7">
+          Hostname:
+          <span class="has-text-weight-medium">{{ licenseInfo.hostname }}</span>
+        </span>
         <br />
-        <span class="is-size-7">License ID: {{ licenseId }}</span>
+        <span class="is-size-7">
+          License ID:
+          <span class="has-text-weight-medium"
+            >{{ licenseInfo.licenseId }} - {{ licenseInfo.description }} -
+            {{ licenseInfo.metric }}</span
+          >
+        </span>
       </p>
     </header>
     <section class="modal-card-body">
@@ -50,8 +59,7 @@ export default {
       type: [Array, Object],
       required: true
     },
-    licenseId: {},
-    hostname: {}
+    licenseInfo: {}
   },
   data() {
     return {

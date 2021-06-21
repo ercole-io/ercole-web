@@ -23,16 +23,7 @@
       <template slot="bodyData" slot-scope="rowData">
         <HostLink :hostname="rowData.scope.hostname" />
         <td v-tooltip.bottom="options(rowData.scope.dbsQty)">
-          <a
-            @click.prevent="
-              openModal(
-                rowData.scope.databases,
-                rowData.scope.licenseTypeID,
-                rowData.scope.hostname
-              )
-            "
-            class="is-block"
-          >
+          <a @click.prevent="openModal(rowData.scope)" class="is-block">
             <span v-html="highlight(rowData.scope.dbsQty)" />
           </a>
         </td>
@@ -100,14 +91,18 @@ export default {
     this.getUsedLicensesByHost
   },
   methods: {
-    openModal(data, licenseId, hostname) {
+    openModal(info) {
       this.$buefy.modal.open({
         component: UsedLicensesHostModal,
         hasModalCard: true,
         props: {
-          databases: data,
-          licenseId: licenseId,
-          hostname: hostname
+          databases: info.databases,
+          licenseInfo: {
+            licenseId: info.licenseTypeID,
+            hostname: info.hostname,
+            metric: info.metric,
+            description: info.description
+          }
         }
       })
     }
