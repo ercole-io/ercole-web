@@ -14,15 +14,16 @@
         <TdContent :value="rowData.scope.filesystem" />
         <TdContent :value="rowData.scope.type" />
         <TdContent :value="rowData.scope.mountedOn" />
-        <TdContent :value="rowData.scope.size | prettyBytes" />
-        <TdContent :value="rowData.scope.availableSpace | prettyBytes" />
-        <TdContent :value="rowData.scope.usedSpace | prettyBytes" />
+        <TdContent :value="multi(rowData.scope.size) | prettyBytes" />
+        <TdContent :value="multi(rowData.scope.availableSpace) | prettyBytes" />
+        <TdContent :value="multi(rowData.scope.usedSpace) | prettyBytes" />
       </template>
     </FullTable>
   </Card>
 </template>
 
 <script>
+import _ from 'lodash'
 import Card from '@/components/common/Card.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -49,6 +50,11 @@ export default {
         'availableSpace',
         'usedSpace'
       ]
+    }
+  },
+  methods: {
+    multi(val) {
+      return _.multiply(Number(val), 1024)
     }
   }
 }
