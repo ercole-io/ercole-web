@@ -282,6 +282,7 @@ export default {
   beforeMount() {
     bus.$on('onResetAction', () => this.cancelAddLicense())
     bus.$on('editAgreementOracle', data => {
+      bus.$emit('onToggleEdit', true)
       this.editAgreement(data)
     })
   },
@@ -338,7 +339,10 @@ export default {
         partNumber: `${data.licenseTypeID} - ${data.itemDescription} - ${data.metric}`,
         referenceNumber: data.referenceNumber,
         ula: data.unlimited,
-        licenseNumber: Number(data.count),
+        licenseNumber: _.sum([
+          Number(data.licensesPerUser),
+          Number(data.licensesPerCore)
+        ]),
         hostAssociated: this.checkArray(data.hosts)
           ? data.hosts
           : this.mapHostsAssociated(data.hosts),
