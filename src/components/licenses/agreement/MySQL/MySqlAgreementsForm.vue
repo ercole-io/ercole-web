@@ -220,6 +220,7 @@ export default {
   beforeMount() {
     bus.$on('onResetAction', () => (this.mysqlForm = {}))
     bus.$on('editAgreementMysql', data => {
+      bus.$emit('onToggleEdit', true)
       this.editAgreement(data)
     })
   },

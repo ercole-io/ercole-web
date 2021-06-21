@@ -2,13 +2,13 @@
   <div class="columns">
     <slot name="before" />
 
-    <div class="column" :class="`is-${leftVal}`" v-if="leftVal">
+    <div class="column" :class="`is-${leftVal}`" v-show="leftVal">
       <slot name="left" />
     </div>
 
     <slot name="center" />
 
-    <div class="column" :class="`is-${rightVal}`" v-if="rightVal">
+    <div class="column" :class="`is-${rightVal}`" v-show="rightVal">
       <slot name="right" />
     </div>
 
@@ -38,11 +38,7 @@ export default {
   },
   created() {
     bus.$on('onToggle', val => {
-      if (val.direction === 'right') {
-        this.toggleRight(val.toggle)
-      } else if (val.direction === 'left') {
-        this.toggleLeft(val.toggle)
-      }
+      this.resolveToggle(val)
     })
   },
   methods: {
@@ -62,6 +58,13 @@ export default {
       } else {
         this.leftVal = false
         this.rightVal = this.rightCol
+      }
+    },
+    resolveToggle(val) {
+      if (val.direction === 'right') {
+        this.toggleRight(val.toggle)
+      } else if (val.direction === 'left') {
+        this.toggleLeft(val.toggle)
       }
     }
   }
