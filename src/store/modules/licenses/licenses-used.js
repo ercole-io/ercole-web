@@ -20,10 +20,12 @@ export const getters = {
       let groupByHost = _.groupBy(typeVal, 'hostname')
       _.forEach(groupByHost, (hostVal, hostIndex) => {
         let DBs = []
+        let usedLicenses = null
 
         _.forEach(hostVal, val => {
           if (val.hostname === hostIndex && val.licenseTypeID === typeIndex) {
             DBs.push({ dbName: val.dbName })
+            usedLicenses = val.usedLicenses
           }
         })
 
@@ -34,7 +36,8 @@ export const getters = {
           description: getters.returnMetricAndDescription(typeIndex)
             .description,
           metric: getters.returnMetricAndDescription(typeIndex).metric,
-          hostname: hostIndex
+          hostname: hostIndex,
+          usedLicenses: usedLicenses
         })
         DBs = []
       })

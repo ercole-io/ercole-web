@@ -17,6 +17,7 @@
         <v-th sortKey="licenseTypeID">Part Number</v-th>
         <v-th sortKey="description">Description</v-th>
         <v-th sortKey="metric">Metric</v-th>
+        <v-th sortKey="usedLicenses">Used Licenses</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
@@ -38,6 +39,7 @@
         <TdContent :value="rowData.scope.licenseTypeID" />
         <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.metric" />
+        <TdContent :value="rowData.scope.usedLicenses" />
       </template>
 
       <!-- <exportButton
@@ -84,7 +86,14 @@ export default {
   },
   data() {
     return {
-      keys: ['hostname', 'licenseTypeID', 'dbsQty', 'description', 'metric']
+      keys: [
+        'hostname',
+        'licenseTypeID',
+        'dbsQty',
+        'description',
+        'metric',
+        'usedLicenses'
+      ]
     }
   },
   mounted() {
