@@ -32,7 +32,12 @@ export default {
     }
   },
   created() {
-    this.onToggle()
+    bus.$on('onToggleEdit', val => {
+      if (!this.toggle) {
+        this.toggle = val
+        this.onToggle()
+      }
+    })
   },
   methods: {
     onToggle() {
