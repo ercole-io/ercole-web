@@ -92,7 +92,7 @@ export const mutations = {
         type: returnTechTypePrettyName(val.type)
       })
     })
-    state.clusters = clusters
+    state.clusters = payload
   },
   SET_CURRENT_CLUSTER: (state, payload) => {
     state.currentCluster = payload
