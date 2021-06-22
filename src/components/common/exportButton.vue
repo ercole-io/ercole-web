@@ -11,9 +11,12 @@
 </template>
 
 <script>
-import axiosNoLoading from '@/axios/axios-no-loading.js'
-import { saveAs } from 'file-saver'
+import axios from 'axios'
 import moment from 'moment'
+import { bus } from '@/helpers/eventBus.js'
+import { saveAs } from 'file-saver'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
+import exportModal from '@/components/common/exportModal.vue'
 
 const exportAll = {
   Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -48,13 +51,41 @@ export default {
       const extension = checkType ? 'xlsm' : 'xlsx'
       const date = moment().format('YYYYMMDD')
 
+      const request = axios.CancelToken.source()
+      bus.$on('callCancelExport', () => {
+        request.cancel()
+      })
+
+      this.$buefy.modal.open({
+        component: exportModal,
+        hasModalCard: true,
+        props: {
+          downloadType: checkType ? 'Export LMS Audit File' : 'Export Data'
+        },
+        canCancel: false,
+        close: () => {
+          console.log('teste')
+        }
+      })
+
       axiosNoLoading
         .get(`/${this.url}`, {
           headers: headers,
-          responseType: 'blob'
+          responseType: 'blob',
+          cancelToken: request.token
+          // onDownloadProgress: progressEvent => {
+          // let currentProgress = Math.round(
+          //   (progressEvent.loaded * 100) / progressEvent.total
+          // )
+          // console.log(progressEvent)
+          // vm.percentCompleted = currentProgress
+          // }
         })
         .then(res => {
           saveAs(res.data, `${this.expName}-${date}.${extension}`)
+        })
+        .then(() => {
+          bus.$emit('callCloseModal')
         })
     }
   }
