@@ -69,7 +69,7 @@ export const getters = {
 
     _.map(data, (value, key) => {
       _.find(getters.getAllTechnologies, prod => {
-        if (prod.product === key) {
+        if (prod.prettyName === key) {
           finalData.push({
             name: prod.prettyName,
             data: [['', value.length]]
@@ -92,7 +92,7 @@ export const mutations = {
         type: returnTechTypePrettyName(val.type)
       })
     })
-    state.clusters = payload
+    state.clusters = clusters
   },
   SET_CURRENT_CLUSTER: (state, payload) => {
     state.currentCluster = payload
