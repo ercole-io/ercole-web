@@ -19,5 +19,25 @@
       "date": "Data:",
       "licensesX": "Licenze: Usato x Acquistato"
     }
+  },
+  "common": {
+    "forms": {
+      "reset": "Ripristina",
+      "apply": "Applicare",
+      "select": "Seleziona"
+    },
+    "globalFilters": {
+      "show": "Mostra filtri globali",
+      "hide": "Nascondi filtri globali",
+      "active": "Attivo",
+      "inactive": "Inattivo",
+      "location": "Location",
+      "locationPH": "una località",
+      "environment": "Ambiente",
+      "environmentPH": "un ambiente",
+      "date": "Data",
+      "datePH": "una data",
+      "activeFilters": "Filtri attivi:"
+    }
   }
 }
