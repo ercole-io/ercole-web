@@ -27,7 +27,7 @@
           :key="index"
           :class="index > limit && index > 5 ? 'hidden' : ''"
         >
-          <span v-html="highlight(val)"></span>
+          <span v-html="highlight(val) || '-'"></span>
         </li>
       </ul>
     </div>
