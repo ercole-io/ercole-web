@@ -1,21 +1,23 @@
 {
-  "menu": {
-    "dashboard": "Dashboard",
-    "hosts": "Hosts",
-    "databases": "Databases",
-    "middlewares": "Middlewares",
-    "licenses": "Licenze",
-    "hypervisors": "Hypervisors",
-    "engeenered": "Engeenered Systems",
-    "alerts": "Avvisi",
-    "settings": "Impostazioni"
+  "header": {
+    "logout": "Disconnettersi"
   },
-  "dashboard": {
-    "pageTitle": {
-      "filters": "Filtri",
+  "views": {
+    "dashboard": {
       "totalTargets": "Obiettivi Totali",
+      "agentsDiscovered": "Agenti scoperti",
+      "percCompliance": "Percentuale di conformità",
       "technologies": "Tecnologie",
-      "notificatons": "Avvisi"
+      "alerts": "Avvisi",
+      "agents": "Agenti",
+      "agentsText": "Agenti che non inviano dati:",
+      "inspect": "Ispezionare",
+      "licenses": "Licenze",
+      "ercoleEngine": "Motore Ercole",
+      "markAsRead": "Segna come letto",
+      "from": "Dal:",
+      "date": "Data:",
+      "licensesX": "Licenze: Usato x Acquistato"
     }
   }
 }

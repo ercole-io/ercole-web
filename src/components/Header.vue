@@ -27,18 +27,20 @@
           <b-switch size="is-small" v-model="isAuto" type="is-primary">
             Auto Refresh
           </b-switch>
-        </b-navbar-item>
-        <b-navbar-item>
-          <LocaleSwitcher />
         </b-navbar-item> -->
-        <b-navbar-item @click="logout" data-logout-button>Logout</b-navbar-item>
+        <b-navbar-item tag="div">
+          <LocaleSwitcher />
+        </b-navbar-item>
+        <b-navbar-item @click="logout" data-logout-button>{{
+          $t('header.logout')
+        }}</b-navbar-item>
       </b-navbar-dropdown>
     </template>
   </b-navbar>
 </template>
 
 <script>
-// import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
+import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 import { capitalize } from '@/helpers/helpers.js'
 import { mapActions } from 'vuex'
 // import { SnackbarProgrammatic as Snackbar } from 'buefy'
@@ -46,8 +48,8 @@ import ErcoleLogo from '@/components/common/ErcoleLogo.vue'
 
 export default {
   components: {
-    ErcoleLogo
-    // LocaleSwitcher
+    ErcoleLogo,
+    LocaleSwitcher
   },
   // data() {
   //   return {

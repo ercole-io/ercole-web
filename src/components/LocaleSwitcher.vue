@@ -1,10 +1,10 @@
 <template>
   <div class="locale-switcher">
-    <select v-model="$i18n.locale">
+    <b-select v-model="$i18n.locale" size="is-small" expanded>
       <option :value="locale.code" v-for="locale in locales" :key="locale.code">
         {{ locale.name }}
       </option>
-    </select>
+    </b-select>
   </div>
 </template>
 
@@ -16,14 +16,23 @@ export default {
     return {
       locales: getSupportedLocales()
     }
+  },
+  beforeMount() {
+    if (localStorage.getItem('lang')) {
+      this.$i18n.locale = localStorage.getItem('lang')
+    }
+  },
+  watch: {
+    '$i18n.locale'(value) {
+      localStorage.setItem('lang', value)
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .locale-switcher {
-  display: flex;
-  align-items: center;
-  margin-right: 0.5rem;
+  display: block;
+  width: 100%;
 }
 </style>
