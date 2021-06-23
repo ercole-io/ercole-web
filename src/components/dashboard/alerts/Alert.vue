@@ -28,14 +28,16 @@
               class="has-text-weight-semibold"
               style="float: right"
             >
-              Mark as Read
+              {{ $t('views.dashboard.markAsRead') }}
             </b-button>
           </div>
         </div>
         <div class="columns is-vcentered is-gapless bottom-space">
           <div class="column">
             <p v-if="hasFlag === 'LICENSE'">
-              <span class="has-text-weight-semibold">From:</span>
+              <span class="has-text-weight-semibold">{{
+                $t('views.dashboard.from')
+              }}</span>
               {{ alertInfo.host }}
             </p>
           </div>
@@ -43,7 +45,9 @@
         <div class="columns is-vcentered is-gapless bottom-space">
           <div class="column">
             <p>
-              <span class="has-text-weight-semibold">Date:</span>
+              <span class="has-text-weight-semibold">{{
+                $t('views.dashboard.date')
+              }}</span>
               {{ alertInfo.date | formatDate }}
             </p>
           </div>

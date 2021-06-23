@@ -1,5 +1,5 @@
 export default {
   en: 'English',
-  it: 'Italian',
-  'pt-br': 'Portuguese'
+  it: 'Italian'
+  // 'pt-br': 'Portuguese'
 }

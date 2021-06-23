@@ -1,4 +1,7 @@
 {
+  "header": {
+    "logout": "Deslogar"
+  },
   "menu": {
     "dashboard": "Dashboard",
     "hosts": "Hosts",

@@ -1,15 +1,15 @@
 <template>
-  <BoxContent :title="$t('dashboard.pageTitle.notificatons')" border>
+  <BoxContent :title="$t('views.dashboard.alerts')" border>
     <Agents />
 
     <Alert
-      :title="['Licenses', 'dollar-sign']"
+      :title="[$t('views.dashboard.licenses'), 'dollar-sign']"
       :alertInfo="getFirstAlertByCategory('LICENSE')"
       :alertTotals="getTotalAlertsByCategory('LICENSE')"
     />
 
     <Alert
-      :title="['Ercole Engine', 'tools']"
+      :title="[$t('views.dashboard.ercoleEngine'), 'tools']"
       :alertInfo="getFirstAlertByCategory('ENGINE')"
       :alertTotals="getTotalAlertsByCategory('ENGINE')"
     />
