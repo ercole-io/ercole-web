@@ -1,5 +1,5 @@
 <template>
-  <BoxContent title="Licenses: Used x Purchased">
+  <BoxContent :title="$t('views.dashboard.licensesX')">
     <div slot="customTitle">
       <b-field>
         <b-select

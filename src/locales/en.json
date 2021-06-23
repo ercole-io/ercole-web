@@ -1,21 +1,23 @@
 {
-  "menu": {
-    "dashboard": "Dashboard",
-    "hosts": "Hosts",
-    "databases": "Databases",
-    "middlewares": "Middlewares",
-    "licenses": "Licenses",
-    "hypervisors": "Hypervisors",
-    "engeenered": "Engeenered Systems",
-    "alerts": "Alerts",
-    "settings": "Settings"
+  "header": {
+    "logout": "Logout"
   },
-  "dashboard": {
-    "pageTitle": {
-      "filters": "Filters",
+  "views": {
+    "dashboard": {
       "totalTargets": "Total Targets",
+      "agentsDiscovered": "Agents discovered",
+      "percCompliance": "Percentage of compliance",
       "technologies": "Technologies",
-      "notificatons": "Alerts"
+      "alerts": "Alerts",
+      "agents": "Agents",
+      "agentsText": "Agents which do not send data:",
+      "inspect": "Inspect",
+      "licenses": "Licenses",
+      "ercoleEngine": "Ercole Engine",
+      "markAsRead": "Mark as Read",
+      "from": "From:",
+      "date": "Date:",
+      "licensesX": "Licenses: Used x Purchased"
     }
   }
 }

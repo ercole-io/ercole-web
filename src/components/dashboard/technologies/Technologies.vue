@@ -1,5 +1,5 @@
 <template>
-  <BoxContent :title="$t('dashboard.pageTitle.technologies')" border>
+  <BoxContent :title="$t('views.dashboard.technologies')" border>
     <Technologie :technologies="getTechnologies" />
   </BoxContent>
 </template>

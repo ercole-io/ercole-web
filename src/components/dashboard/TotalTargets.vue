@@ -1,10 +1,9 @@
 <template>
-  <BoxContent :title="$t('dashboard.pageTitle.totalTargets')" border>
+  <BoxContent :title="$t('views.dashboard.totalTargets')" border>
     <div class="total-targets">
       <div class="total-targets-col">
-        <div>Agents discovered</div>
-        <div>Percentage of compliance</div>
-        <!-- <div>Unpaid Dues</div> -->
+        <div>{{ $t('views.dashboard.agentsDiscovered') }}</div>
+        <div>{{ $t('views.dashboard.percCompliance') }}</div>
       </div>
       <div class="total-targets-col">
         <div>
@@ -21,9 +20,6 @@
             :transitionDuration="2000"
           />
         </div>
-        <!-- <div class="has-text-weight-semibold is-size-5">
-          {{ getTotalTarget.agentsDiscovered }}€
-        </div> -->
       </div>
     </div>
   </BoxContent>

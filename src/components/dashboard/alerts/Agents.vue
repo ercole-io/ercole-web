@@ -8,13 +8,13 @@
           size="is-small"
           icon="broadcast-tower"
         />
-        <span>Agents</span>
+        <span>{{ $t('views.dashboard.agents') }}</span>
       </p>
     </header>
     <div class="card-content body">
       <template>
         <div class="agents">
-          <span>Agents which do not send data:</span>
+          <span>{{ $t('views.dashboard.agentsText') }} </span>
           <span class="has-text-weight-bold" data-stoped-agents>{{
             stoppedAgents
           }}</span>
@@ -29,7 +29,7 @@
         expanded
         data-inspect
       >
-        Inspect
+        {{ $t('views.dashboard.inspect') }}
       </b-button>
     </footer>
   </div>
