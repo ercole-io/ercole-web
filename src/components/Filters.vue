@@ -9,7 +9,11 @@
   >
     <b-button
       v-tooltip.bottom="
-        options(globalFilters.hasActiveFilters ? 'Active' : 'Inactive')
+        options(
+          globalFilters.hasActiveFilters
+            ? $t('common.globalFilters.active')
+            : $t('common.globalFilters.inactive')
+        )
       "
       @click="expandFilters"
       size="is-small"
@@ -26,23 +30,27 @@
         pack="fas"
         style="margin: -2px 0 0 0"
       />
-      {{ isFiltersOpened ? 'Hide Global Filters' : 'Show Global Filters' }}
+      {{
+        isFiltersOpened
+          ? $t('common.globalFilters.hide')
+          : $t('common.globalFilters.show')
+      }}
     </b-button>
 
     <div class="activeFilters" v-if="globalFilters.hasActiveFilters">
       <div class="has-text-weight-medium is-flex">
-        Active Filters:
-        <div class="field" v-if="glFilters.location">
+        {{ $t('common.globalFilters.activeFilters') }}
+        <div class="field ml-2" v-if="glFilters.location">
           <b-tag type="is-warning is-light">
             {{ glFilters.location }}
           </b-tag>
         </div>
-        <div class="field" v-if="glFilters.environment">
+        <div class="field ml-2" v-if="glFilters.environment">
           <b-tag type="is-warning is-light">
             {{ glFilters.environment }}
           </b-tag>
         </div>
-        <div class="field" v-if="glFilters.date">
+        <div class="field ml-2" v-if="glFilters.date">
           <b-tag type="is-warning is-light">
             {{ formatDate(glFilters.date) }}
           </b-tag>
@@ -53,7 +61,7 @@
     <b-collapse animation="slide" :open.sync="isFiltersOpened">
       <div class="filters-form">
         <b-field
-          label="Location"
+          :label="$t('common.globalFilters.location')"
           class="filters-field"
           custom-class="is-size-7"
           horizontal
@@ -64,11 +72,16 @@
           <b-select
             v-model="glFilters.location"
             size="is-small"
-            placeholder="Select an location"
+            :placeholder="
+              `${$t('common.forms.select')} ${$t(
+                'common.globalFilters.locationPH'
+              )}`
+            "
             expanded
           >
             <option :value="null" v-if="glFilters.location">
-              Reset location
+              {{ $t('common.forms.reset') }}
+              {{ $t('common.globalFilters.location') }}
             </option>
             <option
               v-for="(loc, index) in globalFilters.locations"
@@ -80,7 +93,7 @@
         </b-field>
 
         <b-field
-          label="Environment"
+          :label="$t('common.globalFilters.environment')"
           class="filters-field"
           custom-class="is-size-7"
           horizontal
@@ -91,11 +104,16 @@
           <b-select
             v-model="glFilters.environment"
             size="is-small"
-            placeholder="Select an environment"
+            :placeholder="
+              `${$t('common.forms.select')} ${$t(
+                'common.globalFilters.environmentPH'
+              )}`
+            "
             expanded
           >
             <option :value="null" v-if="glFilters.environment">
-              Reset environment
+              {{ $t('common.forms.reset') }}
+              {{ $t('common.globalFilters.environment') }}
             </option>
             <option
               v-for="(env, index) in globalFilters.environments"
@@ -146,7 +164,7 @@
         </b-field> -->
 
         <b-field
-          label="Date"
+          :label="$t('common.globalFilters.date')"
           class="filters-field"
           custom-class="is-size-7"
           horizontal
@@ -156,7 +174,11 @@
             v-model="glFilters.date"
             :date-formatter="formatDate"
             size="is-small"
-            placeholder="Select a date"
+            :placeholder="
+              `${$t('common.forms.select')} ${$t(
+                'common.globalFilters.environmentPH'
+              )}`
+            "
             icon="calendar-today"
             trap-focus
             expanded
@@ -172,7 +194,7 @@
             size="is-small"
             type="is-primary"
           >
-            Apply
+            {{ $t('common.forms.apply') }}
           </b-button>
 
           <b-button
@@ -181,7 +203,7 @@
             size="is-small"
             type="is-danger"
           >
-            Reset
+            {{ $t('common.forms.reset') }}
           </b-button>
         </div>
       </div>
