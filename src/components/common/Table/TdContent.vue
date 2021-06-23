@@ -2,12 +2,12 @@
   <td v-tooltip.bottom="options(setValue, dataType)">
     <template v-if="link">
       <a @click.prevent="link(setValue)">
-        <span v-html="highlight(setValue)" />
+        <span v-html="highlight(setValue) || '-'" />
       </a>
     </template>
     <template v-if="!link">
-      <span v-if="!dataType" v-html="highlight(setValue)" />
-      <span v-if="dataType" v-html="highlight(formatDate(setValue))" />
+      <span v-if="!dataType" v-html="highlight(setValue) || '-'" />
+      <span v-if="dataType" v-html="highlight(formatDate(setValue)) || '-'" />
     </template>
   </td>
 </template>
