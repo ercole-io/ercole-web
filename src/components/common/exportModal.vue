@@ -8,7 +8,11 @@
       <b-progress type="is-primary"></b-progress>
     </section>
     <footer class="modal-card-foot">
-      <b-button type="is-danger" label="Export Cancel" @click="CancelExport" />
+      <b-button
+        type="is-danger"
+        label="Cancel Request"
+        @click="CancelRequest"
+      />
     </footer>
   </div>
 </template>
@@ -30,7 +34,7 @@ export default {
     })
   },
   methods: {
-    CancelExport() {
+    CancelRequest() {
       this.$emit('close')
       bus.$emit('callCancelExport')
     }
