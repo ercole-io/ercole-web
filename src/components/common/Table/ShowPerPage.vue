@@ -1,7 +1,8 @@
 <template>
   <div class="is-size-7 has-text-weight-medium">
-    Showing {{ totalItems > perPage ? perPage : totalItems }} of
-    {{ totalItems }} items
+    {{ $t('common.table.showing') }}
+    {{ totalItems > perPage ? perPage : totalItems }}
+    {{ $t('common.table.of') }} {{ totalItems }} {{ $t('common.table.items') }}
   </div>
 </template>
 

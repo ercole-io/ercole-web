@@ -10,7 +10,7 @@
     <HypervisorsFilters slot="filters" />
     <FullTable
       slot="content"
-      placeholder="Search on Hypervisors"
+      placeholder="Hypervisors"
       :keys="keys"
       :tableData="getHypervisors"
       @clickedRow="handleClickedRow"

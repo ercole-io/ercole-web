@@ -10,7 +10,7 @@
     <ClusterFilters slot="filters" />
     <FullTable
       slot="content"
-      placeholder="Search on Cluster"
+      placeholder="Cluster"
       :keys="keys"
       :tableData="getCurrentClusterVms"
       @clickedRow="handleClickedRow"

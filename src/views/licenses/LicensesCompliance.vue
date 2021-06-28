@@ -3,7 +3,7 @@
     <LicensesComplianceFilters slot="col1" />
     <FullTable
       slot="col2"
-      placeholder="Search on Licenses"
+      placeholder="Licenses"
       :keys="keys"
       :tableData="getLicensesCompliance"
       @clickedRow="handleClickedRow"

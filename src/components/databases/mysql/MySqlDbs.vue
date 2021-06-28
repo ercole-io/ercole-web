@@ -3,7 +3,7 @@
     <MySqlFilters slot="col1" />
     <FullTable
       slot="col2"
-      placeholder="Search on MySQL Databases"
+      placeholder="MySQL Databases"
       :keys="keys"
       :tableData="getAllMysqlDbs"
       @clickedRow="handleClickedRow"

@@ -13,7 +13,7 @@
     </header>
     <section class="modal-card-body">
       <FullTable
-        placeholder="Search on Hosts Associated"
+        placeholder="Hosts Associated"
         :keys="keys"
         :tableData="hostsData"
         :clickedRow="() => []"
