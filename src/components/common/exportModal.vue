@@ -1,18 +1,14 @@
 <template>
   <div class="modal-card" style="width: auto">
     <header class="modal-card-head">
-      <p class="modal-card-title">{{ downloadType }} in Progress</p>
+      <p class="modal-card-title">{{ downloadType }}</p>
     </header>
     <section class="modal-card-body">
-      <p class="mb-2">This may take a few time, please wait...</p>
+      <p class="mb-2">{{ msgTxt }}</p>
       <b-progress type="is-primary"></b-progress>
     </section>
     <footer class="modal-card-foot">
-      <b-button
-        type="is-danger"
-        label="Cancel Request"
-        @click="CancelRequest"
-      />
+      <b-button type="is-danger" :label="btText" @click="CancelRequest" />
     </footer>
   </div>
 </template>
@@ -23,6 +19,12 @@ import { bus } from '@/helpers/eventBus.js'
 export default {
   props: {
     downloadType: {
+      type: String
+    },
+    msgTxt: {
+      type: String
+    },
+    btText: {
       type: String
     }
   },
