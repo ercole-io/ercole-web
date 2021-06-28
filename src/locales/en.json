@@ -30,7 +30,10 @@
       "apply": "Apply",
       "select": "Select",
       "option": "Select an option",
-      "date": "Set a date"
+      "date": "Set a date",
+      "yes": "Yes",
+      "no": "No",
+      "all": "All"
     },
     "table": {
       "perPage": "per page",

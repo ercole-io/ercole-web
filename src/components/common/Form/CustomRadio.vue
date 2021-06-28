@@ -21,24 +21,6 @@ export default {
       default: () => []
     }
   },
-  data() {
-    return {
-      defaultOptions: [
-        {
-          text: 'Yes',
-          val: 'true'
-        },
-        {
-          text: 'No',
-          val: 'false'
-        },
-        {
-          text: 'All',
-          val: ''
-        }
-      ]
-    }
-  },
   computed: {
     radioVal: {
       get() {
@@ -50,6 +32,22 @@ export default {
     },
     setOptions() {
       return this.options.length > 0 ? this.options : this.defaultOptions
+    },
+    defaultOptions() {
+      return [
+        {
+          text: this.$i18n.t('common.forms.yes'),
+          val: 'true'
+        },
+        {
+          text: this.$i18n.t('common.forms.no'),
+          val: 'false'
+        },
+        {
+          text: this.$i18n.t('common.forms.all'),
+          val: ''
+        }
+      ]
     }
   }
 }
