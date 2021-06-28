@@ -22,7 +22,12 @@
   },
   "common": {
     "general": {
-      "moreInfo": "Mostra più informazioni"
+      "moreInfo": "Mostra più informazioni",
+      "exportData": "Esportare i dati",
+      "exportLms": "Esportare LMS Audit File",
+      "inProgress": "in Corso",
+      "wait": "Questo potrebbe richiedere un paio di tempo, per favore aspetta ...",
+      "cancelRequest": "Annulla Richiesta"
     },
     "forms": {
       "advancedFilters": "Filtri Avanzati",
