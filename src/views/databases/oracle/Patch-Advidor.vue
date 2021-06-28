@@ -3,7 +3,7 @@
     <PatchAdvisorFilters slot="col1" />
     <FullTable
       slot="col2"
-      placeholder="Search on Oracle Patch Advisor"
+      placeholder="Oracle Patch Advisor"
       :keys="keys"
       :tableData="getOraclePatchAdvisor"
       @clickedRow="handleClickedRow"

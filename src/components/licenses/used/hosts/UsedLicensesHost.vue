@@ -4,7 +4,7 @@
 
     <FullTable
       slot="col2"
-      placeholder="Search on Licenses"
+      placeholder="Licenses"
       :urlSearchParam="partNumber"
       :keys="keys"
       :tableData="getUsedLicensesByHost"

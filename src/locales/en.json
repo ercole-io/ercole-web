@@ -21,10 +21,24 @@
     }
   },
   "common": {
+    "general": {
+      "moreInfo": "Show more info"
+    },
     "forms": {
+      "advancedFilters": "Advanced Filters",
       "reset": "Reset",
       "apply": "Apply",
-      "select": "Select"
+      "select": "Select",
+      "option": "Select an option",
+      "date": "Set a date"
+    },
+    "table": {
+      "perPage": "per page",
+      "search": "Search on",
+      "showing": "Showing",
+      "of": "of",
+      "items": "items",
+      "allData": "All data"
     },
     "globalFilters": {
       "show": "Show Global Filters",

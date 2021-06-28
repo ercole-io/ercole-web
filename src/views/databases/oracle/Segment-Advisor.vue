@@ -10,7 +10,7 @@
     <SegnmentAdvisorsFilters slot="col1" />
     <FullTable
       slot="col2"
-      placeholder="Search on Oracle Segment Advisor"
+      placeholder="Oracle Segment Advisor"
       :keys="keys"
       :tableData="getOracleSegmentAdvisor"
       @clickedRow="handleClickedRow"

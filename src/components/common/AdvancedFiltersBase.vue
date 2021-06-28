@@ -1,11 +1,11 @@
 <template>
-  <BoxContent :title="filterTitle" border :mbottom="false">
+  <BoxContent :title="title" border :mbottom="false">
     <div class="static-filters scrollbar-x" id="style-1">
       <form @submit.prevent="submitAction">
         <slot />
         <ActionButtons
-          :applyText="applyText"
-          :cancelText="cancelText"
+          :applyText="apply"
+          :cancelText="reset"
           :isDisabled="isDisabled"
           :isFixed="isFixed"
         />
@@ -22,7 +22,7 @@ export default {
   props: {
     filterTitle: {
       type: String,
-      default: 'Advanced Filters'
+      required: false
     },
     submitAction: {
       type: Function,
@@ -30,11 +30,11 @@ export default {
     },
     applyText: {
       type: String,
-      default: 'Apply'
+      required: false
     },
     cancelText: {
       type: String,
-      default: 'Reset'
+      required: false
     },
     isDisabled: {
       type: Boolean,
@@ -48,6 +48,23 @@ export default {
   components: {
     BoxContent,
     ActionButtons
+  },
+  computed: {
+    title() {
+      return this.filterTitle
+        ? this.filterTitle
+        : this.$i18n.t('common.forms.advancedFilters')
+    },
+    apply() {
+      return this.applyText
+        ? this.applyText
+        : this.$i18n.t('common.forms.apply')
+    },
+    reset() {
+      return this.cancelText
+        ? this.cancelText
+        : this.$i18n.t('common.forms.reset')
+    }
   }
 }
 </script>

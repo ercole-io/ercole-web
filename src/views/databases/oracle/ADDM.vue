@@ -3,7 +3,7 @@
     <AddmFilters slot="col1" />
     <FullTable
       slot="col2"
-      placeholder="Search on Oracle ADDM"
+      placeholder="Oracle ADDM"
       :keys="keys"
       :tableData="getOracleAddms"
       @clickedRow="handleClickedRow"
