@@ -2,7 +2,7 @@
   <b-select
     v-model="selectVal"
     size="is-small"
-    :placeholder="placeholder"
+    :placeholder="optionMsg"
     expanded
   >
     <template v-if="hasReset">
@@ -33,7 +33,7 @@ export default {
     },
     placeholder: {
       type: String,
-      default: 'Select an option'
+      required: false
     },
     fixedOptions: {
       type: Boolean,
@@ -52,6 +52,11 @@ export default {
       set(val) {
         this.$emit('input', val)
       }
+    },
+    optionMsg() {
+      return this.placeholder
+        ? this.placeholder
+        : this.$i18n.t('common.forms.option')
     }
   }
 }
