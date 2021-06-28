@@ -104,7 +104,7 @@
           <exportButton
             url="hosts"
             expName="hosts-lms-data"
-            text="LMS Audit File"
+            :text="`${$t('common.general.exportLms')}`"
             type="LMS"
           />
         </template>

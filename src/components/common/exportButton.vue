@@ -6,7 +6,7 @@
     data-export-button
     class="mb-0"
   >
-    {{ text }}
+    {{ bindText }}
   </b-button>
 </template>
 
@@ -29,7 +29,7 @@ export default {
   props: {
     text: {
       type: String,
-      default: 'Export Data'
+      required: false
     },
     type: {
       type: String,
@@ -60,7 +60,15 @@ export default {
         component: exportModal,
         hasModalCard: true,
         props: {
-          downloadType: checkType ? 'Export LMS Audit File' : 'Export Data'
+          msgTxt: this.$i18n.t('common.general.wait'),
+          btText: this.$i18n.t('common.general.cancelRequest'),
+          downloadType: checkType
+            ? `${this.$i18n.t('common.general.exportLms')} ${this.$i18n.t(
+                'common.general.inProgress'
+              )}`
+            : `${this.$i18n.t('common.general.exportData')} ${this.$i18n.t(
+                'common.general.inProgress'
+              )}`
         },
         canCancel: false,
         close: () => {
@@ -87,6 +95,11 @@ export default {
         .then(() => {
           bus.$emit('callCloseModal')
         })
+    }
+  },
+  computed: {
+    bindText() {
+      return this.text ? this.text : this.$i18n.t('common.general.exportData')
     }
   }
 }

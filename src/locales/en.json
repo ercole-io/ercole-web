@@ -22,7 +22,12 @@
   },
   "common": {
     "general": {
-      "moreInfo": "Show more info"
+      "moreInfo": "Show more info",
+      "exportData": "Export Data",
+      "exportLms": "Export LMS Audit File",
+      "inProgress": "in Progress",
+      "wait": "This may take a few time, please wait...",
+      "cancelRequest": "Cancel Request"
     },
     "forms": {
       "advancedFilters": "Advanced Filters",
