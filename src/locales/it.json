@@ -30,7 +30,10 @@
       "apply": "Applicare",
       "select": "Seleziona",
       "option": "Seleziona un'opzione",
-      "date": "Fissare una data"
+      "date": "Fissare una data",
+      "yes": "Sì",
+      "no": "No",
+      "all": "Tutti"
     },
     "table": {
       "perPage": "per pagina",

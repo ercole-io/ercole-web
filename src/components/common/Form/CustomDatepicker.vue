@@ -2,7 +2,7 @@
   <b-datepicker
     v-model="dateVal"
     size="is-small"
-    :placeholder="placeholder"
+    :placeholder="dateMsg"
     position="is-bottom-right"
     icon="calendar-today"
     :max-date="new Date()"
@@ -19,7 +19,7 @@ export default {
     value: {},
     placeholder: {
       type: String,
-      default: 'Set a Date'
+      required: false
     }
   },
   methods: {
@@ -35,6 +35,11 @@ export default {
       set(val) {
         this.$emit('input', val)
       }
+    },
+    dateMsg() {
+      return this.placeholder
+        ? this.placeholder
+        : this.$i18n.t('common.forms.date')
     }
   }
 }
