@@ -10,7 +10,7 @@
       <slot name="customTopHeader" />
 
       <SearchInput
-        :searchPlaceholder="placeholder"
+        :searchPlaceholder="`${$t('common.table.search')} ${placeholder}`"
         v-model="filters.search.value"
         :urlParam="urlSearchParam"
         v-if="!hideSearch"

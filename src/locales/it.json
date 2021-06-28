@@ -21,10 +21,24 @@
     }
   },
   "common": {
+    "general": {
+      "moreInfo": "Mostra più informazioni"
+    },
     "forms": {
+      "advancedFilters": "Filtri Avanzati",
       "reset": "Ripristina",
       "apply": "Applicare",
-      "select": "Seleziona"
+      "select": "Seleziona",
+      "option": "Seleziona un'opzione",
+      "date": "Fissare una data"
+    },
+    "table": {
+      "perPage": "per pagina",
+      "search": "Cerca su",
+      "showing": "Mostrando",
+      "of": "di",
+      "items": "articoli",
+      "allData": "Tutti i dati"
     },
     "globalFilters": {
       "show": "Mostra filtri globali",

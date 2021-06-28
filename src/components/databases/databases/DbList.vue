@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="column is-4">
-      <ButtonGroup groupTitle="Show more info:">
+      <ButtonGroup :groupTitle="`${$t('common.general.moreInfo')}`">
         <b-button
           class="mr-1"
           size="is-small"
@@ -15,7 +15,7 @@
     </div>
     <div class="column is-8">
       <FullTable
-        placeholder="Search on Databases"
+        placeholder="Databases"
         :keys="keys"
         :tableData="getAllDatabases"
         @clickedRow="handleClickedRow"

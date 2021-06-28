@@ -9,7 +9,7 @@
     <AlertsFilters slot="col1" />
     <FullTable
       slot="col2"
-      placeholder="Search on Alerts"
+      placeholder="Alerts"
       :keys="keys"
       :tableData="getAlerts"
       class="table-alerts"

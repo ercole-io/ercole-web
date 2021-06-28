@@ -1,7 +1,7 @@
 <template>
   <BaseLayoutColumns v-if="isMounted">
     <div slot="col1">
-      <ButtonGroup groupTitle="Show more info:">
+      <ButtonGroup :groupTitle="`${$t('common.general.moreInfo')}`">
         <b-button
           class="mr-1"
           size="is-small"
@@ -31,7 +31,7 @@
     </div>
     <BoxContent slot="col2" :mbottom="false">
       <FullTable
-        placeholder="Search on Hosts"
+        placeholder="Hosts"
         :keys="getKeys"
         :tableData="getAllHosts"
         @clickedRow="handleClickedRow"
