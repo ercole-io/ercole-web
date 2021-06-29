@@ -38,6 +38,22 @@
       "multiSelect": "Selezione multipla",
       "noDatabaseHost": "Non ci sono database per questo host",
       "databases": "Database"
+    },
+    "databases": {
+      "memory": "Memoria",
+      "storage": "Storage",
+      "totalMemory": "Dimensione totale della memoria",
+      "totalSegment": "Dimensione totale del segmento",
+      "totalThread": "Filo totale utilizzato",
+      "totalDatafil": "Dimensione totale del file di dati",
+      "topWorkload": "Carico di lavoro delle {0} istanze principali",
+      "topReclaimable": "Principali {0} risorse di istanze inutilizzate",
+      "topStorage": "Top {0} Archiviazione DB recuperabile"
+    },
+    "hypervisors": {
+      "with": "with",
+      "without": "Without",
+      "typeVirt": "Type Of Virtualization"
     }
   },
   "common": {

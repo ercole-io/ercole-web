@@ -1,7 +1,7 @@
 <template>
-  <BoxContent title="Memory" border :mbottom="false">
+  <BoxContent :title="$t('views.databases.memory')" border :mbottom="false">
     <CardStats
-      cardStatTitle="Total Memory Size"
+      :cardStatTitle="$t('views.databases.totalMemory')"
       :cardStatValue="totalMemory | prettyBytes"
     />
   </BoxContent>

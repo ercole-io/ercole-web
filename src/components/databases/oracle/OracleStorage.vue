@@ -1,13 +1,13 @@
 <template>
-  <BoxContent title="Storage" border :mbottom="false">
+  <BoxContent :title="$t('views.databases.storage')" border :mbottom="false">
     <div class="is-flex is-justify-content-space-around">
       <CardStats
-        cardStatTitle="Total Segment Size"
+        :cardStatTitle="$t('views.databases.totalSegment')"
         :cardStatValue="totalSegmentSize | prettyBytes"
       />
 
       <CardStats
-        cardStatTitle="Total Datafile Size"
+        :cardStatTitle="$t('views.databases.totalDatafile')"
         :cardStatValue="totalDatafileSize | prettyBytes"
       />
     </div>
