@@ -59,7 +59,7 @@
     />
     <NoContent
       v-if="!showChart"
-      :noContentText="'No data. Please change the dates!'"
+      :noContentText="$t('views.dashboard.noData')"
       style="min-height: 200px"
     />
   </BoxContent>
@@ -103,20 +103,6 @@ const loopLicenseTypeValues = values => {
 
   return result
 }
-const buildFinalData = (purchased, used) => {
-  const finalResult = []
-  finalResult.push(
-    {
-      name: 'Purchased Licenses',
-      data: purchased
-    },
-    {
-      name: 'Used Licenses',
-      data: used
-    }
-  )
-  return finalResult
-}
 
 export default {
   components: {
@@ -159,7 +145,7 @@ export default {
       const resultPurchased = loopLicenseTypeValues(purchased)
       const resultUsed = loopLicenseTypeValues(used)
 
-      const finalData = buildFinalData(resultPurchased, resultUsed)
+      const finalData = this.buildFinalData(resultPurchased, resultUsed)
 
       if (_.isEmpty(resultPurchased) || _.isEmpty(resultUsed)) {
         this.finalChartData = []
@@ -168,6 +154,20 @@ export default {
         this.finalChartData = finalData
         this.showChart = true
       }
+    },
+    buildFinalData(purchased, used) {
+      const finalResult = []
+      finalResult.push(
+        {
+          name: this.purchased,
+          data: purchased
+        },
+        {
+          name: this.used,
+          data: used
+        }
+      )
+      return finalResult
     },
     getCurrentMonthDates() {
       const today = moment(new Date(), 'YYYY/MM/DD')
@@ -179,7 +179,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getChartLicenseHistory'])
+    ...mapGetters(['getChartLicenseHistory']),
+    used() {
+      return this.$i18n.t('views.dashboard.usedLicenses')
+    },
+    purchased() {
+      return this.$i18n.t('views.dashboard.purchasedLicenses')
+    }
   },
   watch: {
     startDate(newValue) {
@@ -190,6 +196,11 @@ export default {
     endDate(newValue) {
       if (newValue) {
         this.mountLincenseChart()
+      }
+    },
+    '$i18n.locale'(newValue) {
+      if (newValue) {
+        this.getCurrentMonthDates()
       }
     }
   }

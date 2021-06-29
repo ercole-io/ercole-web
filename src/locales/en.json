@@ -17,7 +17,10 @@
       "markAsRead": "Mark as Read",
       "from": "From:",
       "date": "Date:",
-      "licensesX": "Licenses: Used x Purchased"
+      "licensesX": "Licenses: Used x Purchased",
+      "usedLicenses": "Used Licenses",
+      "purchasedLicenses": "Purchased Licenses",
+      "noData": "No data. Please change the dates!"
     },
     "hostDetails": {
       "fileSystems": "File Systems",
