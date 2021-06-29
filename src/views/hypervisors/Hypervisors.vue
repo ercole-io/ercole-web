@@ -46,20 +46,20 @@
       <BoxContent title="Cluster" border>
         <div class="is-flex" style="justify-content: space-around;">
           <p class="is-size-7 has-text-centered">
-            With Ercole <br />
+            {{ $t('views.hypervisors.with') }} Ercole <br />
             <span class="is-size-5 has-text-weight-medium">
               {{ getErcoleClusterCount.withErcole }}
             </span>
           </p>
           <p class="is-size-7 has-text-centered">
-            Without Ercole <br />
+            {{ $t('views.hypervisors.without') }} Ercole <br />
             <span class="is-size-5 has-text-weight-medium">
               {{ getErcoleClusterCount.withoutErcole }}
             </span>
           </p>
         </div>
       </BoxContent>
-      <BoxContent title="Type Of Virtualization" border>
+      <BoxContent :title="$t('views.hypervisors.typeVirt')" border>
         <ColumnChart
           chartId="columnChart"
           :columnChartData="getVirtualizationChartData.finalData"
