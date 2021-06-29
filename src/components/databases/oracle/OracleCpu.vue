@@ -1,6 +1,9 @@
 <template>
   <BoxContent title="CPU" border :mbottom="false">
-    <CardStats cardStatTitle="Total Thread Used" :cardStatValue="totalCpu" />
+    <CardStats
+      :cardStatTitle="$t('views.databases.totalThread')"
+      :cardStatValue="totalCpu"
+    />
   </BoxContent>
 </template>
 

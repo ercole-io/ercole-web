@@ -1,5 +1,9 @@
 <template>
-  <BoxContent title="Top 3 Instance Workload" border :mbottom="false">
+  <BoxContent
+    :title="$t('views.databases.topWorkload', ['3'])"
+    border
+    :mbottom="false"
+  >
     <!-- <Top10Link slot="customTitle" /> -->
     <SimpleTable :theadData="['', 'Hostname', 'DB Name', 'Thread Utilization']">
       <template slot="tbodyContent">

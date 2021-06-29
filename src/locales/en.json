@@ -38,6 +38,22 @@
       "multiSelect": "Multi Select",
       "noDatabaseHost": "There are no Databases for this Host",
       "databases": "Databases"
+    },
+    "databases": {
+      "memory": "Memory",
+      "storage": "Storage",
+      "totalMemory": "Total Memory Size",
+      "totalSegment": "Total Segment Size",
+      "totalThread": "Total Thread Used",
+      "totalDatafile": "Total Datafile Size",
+      "topWorkload": "Top {0} Instance Workload",
+      "topReclaimable": "Top {0} Unused Instance Resource",
+      "topStorage": "Top {0} Reclaimable DB Storage"
+    },
+    "hypervisors": {
+      "with": "with",
+      "without": "Without",
+      "typeVirt": "Type Of Virtualization"
     }
   },
   "common": {
