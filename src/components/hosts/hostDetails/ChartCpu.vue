@@ -1,10 +1,10 @@
 <template>
-  <BoxContent title="CPU Usage" v-if="showChart">
+  <BoxContent :title="$t('views.hostDetails.cpuUsage')" v-if="showChart">
     <SearchableMultiSelect
       :selected="selectedDatabases"
       :dataOptions="currentHostDBsName"
-      placeholderName="Search by DB name"
-      btnLabelText="Compare Databases"
+      :placeholderName="$t('views.hostDetails.searchBy')"
+      :btnLabelText="$t('views.hostDetails.compareDb')"
       slot="customTitle"
     />
     <div class="chart-space">

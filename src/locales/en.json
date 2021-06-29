@@ -27,7 +27,17 @@
       "notifications": "new alerts from the last week:",
       "agents": "Agents",
       "licenses": "Licenses",
-      "engine": "Engine"
+      "engine": "Engine",
+      "cpuUsage": "CPU Usage",
+      "searchBy": "Search by DB name",
+      "compareDb": "Compare Databases",
+      "selectAll": "Select all",
+      "deselectAll": "Deselect all",
+      "selected": "Selected",
+      "noResults": "No results found!",
+      "multiSelect": "Multi Select",
+      "noDatabaseHost": "There are no Databases for this Host",
+      "databases": "Databases"
     }
   },
   "common": {
