@@ -1,7 +1,9 @@
 <template>
-  <BoxContent :title="`Databases (${countDatabases})`">
+  <BoxContent
+    :title="`${$t('views.hostDetails.databases')} (${countDatabases})`"
+  >
     <SearchInput
-      searchPlaceholder="Search by DB name"
+      :searchPlaceholder="$t('views.hostDetails.searchBy')"
       v-model="searchDb"
       slot="customTitle"
       @input="onSearch($event)"
@@ -23,7 +25,7 @@
 
     <NoContent
       v-else
-      noContentText="There are no Databases for this Host"
+      :noContentText="$t('views.hostDetails.noDatabaseHost')"
       style="min-height: 200px"
     />
   </BoxContent>
