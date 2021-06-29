@@ -12,7 +12,6 @@
       v-model="searchValue"
       :filterResult="setData"
       :inputMethod="onSelectOption"
-      :setPlaceholder="setPlaceholder"
       openOnFocus
       appendToBody
       v-if="toggleAutocomplete"
@@ -92,9 +91,6 @@ export default {
             .indexOf(this.searchValue.toLowerCase()) >= 0
         )
       })
-    },
-    setPlaceholder() {
-      return `Switch by ${_.split(this.routeName, '-details', 1)} name`
     }
   },
   watch: {

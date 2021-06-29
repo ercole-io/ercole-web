@@ -1,15 +1,20 @@
 <template>
   <span class="has-text-weight-medium	is-size-7">
-    {{ currentHostNotifications.total }} new alerts from the last week:
+    {{ currentHostNotifications.total }}
+    {{ $t('views.hostDetails.notifications') }}
     <a
       v-if="currentHostNotifications.agents > 0"
       @click="redirectToAlerts(currentHostNotifications.hostname, 'AGENT')"
     >
-      <span class="has-text-weight-light">Agents:</span>
+      <span class="has-text-weight-light">
+        {{ $t('views.hostDetails.agents') }}:
+      </span>
       {{ currentHostNotifications.agents }}
     </a>
     <span v-if="currentHostNotifications.agents === 0">
-      <span class="has-text-weight-light">Agents:</span>
+      <span class="has-text-weight-light">
+        {{ $t('views.hostDetails.agents') }}:
+      </span>
       {{ currentHostNotifications.agents }}
     </span>
     |
@@ -17,11 +22,15 @@
       v-if="currentHostNotifications.licenses > 0"
       @click="redirectToAlerts(currentHostNotifications.hostname, 'LICENSE')"
     >
-      <span class="has-text-weight-light">Licenses:</span>
+      <span class="has-text-weight-light">
+        {{ $t('views.hostDetails.licenses') }}:
+      </span>
       {{ currentHostNotifications.licenses }}
     </a>
     <span v-if="currentHostNotifications.licenses === 0">
-      <span class="has-text-weight-light">Licenses:</span>
+      <span class="has-text-weight-light">
+        {{ $t('views.hostDetails.licenses') }}:
+      </span>
       {{ currentHostNotifications.licenses }}
     </span>
     |
@@ -29,11 +38,15 @@
       v-if="currentHostNotifications.engine > 0"
       @click="redirectToAlerts(currentHostNotifications.hostname, 'ENGINE')"
     >
-      <span class="has-text-weight-light">Engine:</span>
+      <span class="has-text-weight-light">
+        {{ $t('views.hostDetails.engine') }}:
+      </span>
       {{ currentHostNotifications.engine }}
     </a>
     <span v-if="currentHostNotifications.engine === 0">
-      <span class="has-text-weight-light">Engine:</span>
+      <span class="has-text-weight-light">
+        {{ $t('views.hostDetails.engine') }}:
+      </span>
       {{ currentHostNotifications.engine }}
     </span>
   </span>

@@ -18,6 +18,16 @@
       "from": "Dal:",
       "date": "Data:",
       "licensesX": "Licenze: Usato x Acquistato"
+    },
+    "hostDetails": {
+      "fileSystems": "File di Sistemi",
+      "fileSystemsTitle": "Elenco di File di Sistemi",
+      "dismissHost": "Cancella Host",
+      "dismissMsg": "Sei sicuro di voler <b>cancellare</b> L'host <b>{hostname}</b>? Questa azione non può essere annullata.",
+      "notifications": "nuovi avvisi dalla scorsa settimana:",
+      "agents": "Agenti",
+      "licenses": "Licenze",
+      "engine": "Motore"
     }
   },
   "common": {
@@ -27,7 +37,9 @@
       "exportLms": "Esportare LMS Audit File",
       "inProgress": "in Corso",
       "wait": "Questo potrebbe richiedere un paio di tempo, per favore aspetta ...",
-      "cancelRequest": "Annulla Richiesta"
+      "cancelRequest": "Annulla Richiesta",
+      "yes": "Sì",
+      "no": "No"
     },
     "forms": {
       "advancedFilters": "Filtri Avanzati",
@@ -53,7 +65,7 @@
       "hide": "Nascondi filtri globali",
       "active": "Attivo",
       "inactive": "Inattivo",
-      "location": "Location",
+      "location": "Località",
       "locationPH": "una località",
       "environment": "Ambiente",
       "environmentPH": "un ambiente",

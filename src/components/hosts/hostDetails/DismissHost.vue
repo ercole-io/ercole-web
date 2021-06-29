@@ -3,7 +3,7 @@
     class="ml-2"
     type="is-danger is-small"
     @click="deleteHost(currentHostName)"
-    label="Dismiss Host"
+    :label="`${$t('views.hostDetails.dismissHost')}`"
     icon-pack="fas"
     icon-left="trash"
   />
@@ -17,9 +17,11 @@ export default {
   methods: {
     deleteHost(hostname) {
       this.$buefy.dialog.confirm({
-        title: 'Dismissing Host',
-        message: `Are you sure you want to <b>dismiss</b> the host <b>${hostname}</b>? This action cannot be undone.`,
-        confirmText: 'Dismiss Host',
+        title: this.$i18n.t('views.hostDetails.dismissHost'),
+        message: this.$i18n.t('views.hostDetails.dismissMsg', {
+          hostname: hostname
+        }),
+        confirmText: this.$i18n.t('common.general.yes'),
         type: 'is-danger',
         hasIcon: true,
         onConfirm: () => {
@@ -36,7 +38,8 @@ export default {
                 position: 'is-bottom'
               })
             })
-        }
+        },
+        cancelText: this.$i18n.t('common.general.no')
       })
     }
   },
