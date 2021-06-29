@@ -48,7 +48,7 @@
       "totalMemory": "Dimensione totale della memoria",
       "totalSegment": "Dimensione totale del segmento",
       "totalThread": "Filo totale utilizzato",
-      "totalDatafil": "Dimensione totale del file di dati",
+      "totalDatafile": "Dimensione totale del file di dati",
       "topWorkload": "Carico di lavoro delle {0} istanze principali",
       "topReclaimable": "Principali {0} risorse di istanze inutilizzate",
       "topStorage": "Top {0} Archiviazione DB recuperabile"
