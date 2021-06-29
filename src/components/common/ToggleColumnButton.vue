@@ -8,7 +8,11 @@
     :icon-right="toggle ? 'chevron-right' : 'chevron-left'"
     @click="toggle = !toggle"
   >
-    {{ toggle ? `Hide ${this.toggleText}` : `Show ${this.toggleText}` }}
+    {{
+      toggle
+        ? $t('common.forms.hide', [this.toggleText])
+        : $t('common.forms.show', [this.toggleText])
+    }}
   </b-button>
 </template>
 
