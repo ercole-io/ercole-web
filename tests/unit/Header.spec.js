@@ -2,8 +2,14 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { mount, createLocalVue } from '@vue/test-utils'
 import Header from '@/components/Header.vue'
+import i18n from '@/i18n.js'
 
-Vue.config.ignoredElements = ['b-navbar', 'b-navbar-item', 'b-navbar-dropdown']
+Vue.config.ignoredElements = [
+  'b-navbar',
+  'b-navbar-item',
+  'b-navbar-dropdown',
+  'b-select'
+]
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -17,12 +23,12 @@ const store = new Vuex.Store({
 
 describe('Header.vue', () => {
   it('is a Vue instance', () => {
-    const wrapper = mount(Header)
+    const wrapper = mount(Header, { i18n })
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
   it('verify if component exists', () => {
-    const wrapper = mount(Header)
+    const wrapper = mount(Header, { i18n })
     expect(wrapper.exists()).toBe(true)
   })
 
@@ -31,7 +37,8 @@ describe('Header.vue', () => {
       computed: {
         username: () => 'Username Test',
         userRole: () => 'User Role Test'
-      }
+      },
+      i18n
     })
 
     const el = wrapper.find('[data-navbar-username]')
@@ -41,7 +48,8 @@ describe('Header.vue', () => {
   it('will dispatch logout action when click logout button', async () => {
     const wrapper = mount(Header, {
       store,
-      localVue
+      localVue,
+      i18n
     })
 
     wrapper.find('[data-logout-button]').trigger('click')

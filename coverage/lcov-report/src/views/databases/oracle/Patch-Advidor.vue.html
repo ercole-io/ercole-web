@@ -24,14 +24,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -45,7 +45,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
@@ -148,11 +148,10 @@
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,16 +198,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -228,13 +218,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -249,12 +241,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
-  &lt;section&gt;
+  &lt;BaseLayoutColumns v-if="isMounted"&gt;
+    &lt;PatchAdvisorFilters slot="col1" /&gt;
     &lt;FullTable
-      placeholder="Search on Oracle Patch Advisor"
+      slot="col2"
+      placeholder="Oracle Patch Advisor"
       :keys="keys"
       :tableData="getOraclePatchAdvisor"
-      :clickedRow="() =&gt; []"
+      @clickedRow="handleClickedRow"
+      isClickable
     &gt;
       &lt;template slot="headData"&gt;
         &lt;v-th sortKey="hostname"&gt;Hostname&lt;/v-th&gt;
@@ -262,20 +257,20 @@
         &lt;v-th sortKey="dbver"&gt;Version&lt;/v-th&gt;
         &lt;v-th sortKey="date"&gt;Release Date&lt;/v-th&gt;
         &lt;v-th sortKey="description"&gt;PSU&lt;/v-th&gt;
-        &lt;v-th sortKey="fourMonth"&gt;4 Month&lt;/v-th&gt;
-        &lt;v-th sortKey="sixMonth"&gt;6 Month&lt;/v-th&gt;
-        &lt;v-th sortKey="twelveMonth"&gt;12 Month&lt;/v-th&gt;
+        &lt;v-th sortKey="fourMonthsText"&gt;4 Months&lt;/v-th&gt;
+        &lt;v-th sortKey="sixMonthsText"&gt;6 Months&lt;/v-th&gt;
+        &lt;v-th sortKey="twelveMonthsText"&gt;12 Months&lt;/v-th&gt;
       &lt;/template&gt;
 &nbsp;
       &lt;template slot="bodyData" slot-scope="rowData"&gt;
-        &lt;HostLink :hostname="rowData.scope.hostname" /&gt;
+        &lt;HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" /&gt;
         &lt;TdContent :value="rowData.scope.dbname" /&gt;
         &lt;TdContent :value="rowData.scope.dbver" /&gt;
         &lt;TdContent :value="rowData.scope.date" dataType="date" /&gt;
         &lt;TdContent :value="rowData.scope.description" /&gt;
-        &lt;TdIcon :value="dateBetweenMonthRange(rowData.scope.date, 4)" /&gt;
-        &lt;TdIcon :value="dateBetweenMonthRange(rowData.scope.date, 6)" /&gt;
-        &lt;TdIcon :value="dateBetweenMonthRange(rowData.scope.date, 12)" /&gt;
+        &lt;TdIcon :value="rowData.scope.fourMonths" /&gt;
+        &lt;TdIcon :value="rowData.scope.sixMonths" /&gt;
+        &lt;TdIcon :value="rowData.scope.twelveMonths" /&gt;
       &lt;/template&gt;
 &nbsp;
       &lt;exportButton
@@ -284,25 +279,30 @@
         expName="oraclePatchAdvisor"
       /&gt;
     &lt;/FullTable&gt;
-  &lt;/section&gt;
+  &lt;/BaseLayoutColumns&gt;
 &lt;/template&gt;
 &nbsp;
 &lt;script&gt;
 <span class="cstat-no" title="statement not covered" >import { mapActions, mapGetters } from 'vuex'</span>
-<span class="cstat-no" title="statement not covered" >import moment from 'moment'</span>
+<span class="cstat-no" title="statement not covered" >import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'</span>
+<span class="cstat-no" title="statement not covered" >import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'</span>
 <span class="cstat-no" title="statement not covered" >import FullTable from '@/components/common/Table/FullTable.vue'</span>
 <span class="cstat-no" title="statement not covered" >import exportButton from '@/components/common/exportButton.vue'</span>
 <span class="cstat-no" title="statement not covered" >import TdContent from '@/components/common/Table/TdContent.vue'</span>
 <span class="cstat-no" title="statement not covered" >import TdIcon from '@/components/common/Table/TDIcon.vue'</span>
 <span class="cstat-no" title="statement not covered" >import HostLink from '@/components/common/Table/HostLink.vue'</span>
+<span class="cstat-no" title="statement not covered" >import PatchAdvisorFilters from '@/components/databases/oracle/patchAdvisor/PatchAdvisorFilters.vue'</span>
 &nbsp;
 export default {
+  mixins: [hostnameLinkRow],
   components: {
+    BaseLayoutColumns,
     FullTable,
     exportButton,
     TdContent,
     TdIcon,
-    HostLink
+    HostLink,
+    PatchAdvisorFilters
   },
 <span class="fstat-no" title="function not covered" >  data() {</span>
 <span class="cstat-no" title="statement not covered" >    return {</span>
@@ -312,30 +312,18 @@ export default {
         'dbver',
         'date',
         'description',
-        'fourMonth',
-        'sixMonth',
-        'twelveMonth'
-      ]
+        'fourMonthsText',
+        'sixMonthsText',
+        'twelveMonthsText'
+      ],
+      isMounted: false
     }
   },
 <span class="fstat-no" title="function not covered" >  async beforeMount() {</span>
-<span class="cstat-no" title="statement not covered" >    await this.getPatchAdvisor()</span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >    await this.getPatchAdvisor().then(() =&gt; (this.isMounted = true))</span></span>
   },
   methods: {
-    ...mapActions(['getPatchAdvisor']),
-<span class="fstat-no" title="function not covered" >    dateBetweenMonthRange(date, month) {</span>
-<span class="cstat-no" title="statement not covered" >      const startDate = moment()</span>
-        .subtract(month, 'month')
-        .format('YYYY-MM-DD')
-<span class="cstat-no" title="statement not covered" >      const endDate = moment()</span>
-        .add(1, 'days')
-        .format('YYYY-MM-DD')
-<span class="cstat-no" title="statement not covered" >      const dateToCheck = moment(date).format('YYYY-MM-DD')</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >      return moment(dateToCheck).isBetween(startDate, endDate)</span>
-        ? ['check-circle', 'is-success', 'yes']
-        : ['minus-circle', 'is-danger', 'no']
-    }
+    ...mapActions(['getPatchAdvisor'])
   },
   computed: {
     ...mapGetters(['getOraclePatchAdvisor'])
@@ -351,7 +339,7 @@ export default {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 25 2020 13:29:25 GMT-0300 (Brasilia Standard Time)
+                at Tue Jun 29 2021 20:21:57 GMT+0200 (Central European Summer Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
