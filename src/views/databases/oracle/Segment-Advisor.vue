@@ -55,7 +55,11 @@
       />
     </FullTable>
 
-    <BoxContent title="Top 10 Reclaimable DB Storage" border slot="col3">
+    <BoxContent
+      :title="$t('views.databases.topStorage', ['10'])"
+      border
+      slot="col3"
+    >
       <PieChart
         chartId="top10reclaimable"
         :pieChartData="top10reclaimableChart"

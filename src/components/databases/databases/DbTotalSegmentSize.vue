@@ -1,5 +1,9 @@
 <template>
-  <BoxContent title="Total Memory Size" border :mbottom="false">
+  <BoxContent
+    :title="$t('views.databases.totalSegment')"
+    border
+    :mbottom="false"
+  >
     <CardStats
       :cardStatValue="databases.stats['total-segments-size'] | prettyBytes"
     />

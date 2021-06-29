@@ -1,6 +1,6 @@
 <template>
   <BoxContent
-    title="Top 3 Unused Instance Resource"
+    :title="$t('views.databases.topReclaimable', ['3'])"
     border
     :mbottom="false"
     class="mt-5 mb-5"
