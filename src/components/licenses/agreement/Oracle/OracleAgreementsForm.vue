@@ -1,10 +1,12 @@
 <template>
   <AdvancedFiltersBase
-    filterTitle="Add or Modify an Oracle Agreement"
+    :filterTitle="$t('views.licenses.addAgreement')"
     :submitAction="addUpdateAgreement"
     :isDisabled="$v.$invalid"
-    :applyText="oracleForm.licenseID ? 'Update Agreement' : 'Add Agreement'"
-    cancelText="Cancel"
+    :applyText="
+      oracleForm.licenseID ? $t('common.forms.update') : $t('common.forms.add')
+    "
+    :cancelText="$t('common.forms.cancel')"
   >
     <b-field
       label="Agreement Number *"
@@ -121,7 +123,7 @@
         <b-checkbox size="is-small" v-model="oracleForm.ula" />
       </b-field>
 
-      <span class="pr-4 pt-3">or</span>
+      <span class="pr-4 pt-3">{{ $t('common.forms.or') }}</span>
 
       <b-field
         label="Number"
@@ -158,7 +160,7 @@
         ref="hostTag"
         autocomplete
         icon="label"
-        placeholder="Add a hostname"
+        :placeholder="`${$t('common.forms.choose')} hostname`"
         @typing="getAutocompleteData($event, 'hostTags', hostnames.hostnames)"
         custom-class="is-small"
         :open-on-focus="true"
@@ -196,7 +198,7 @@
           :native-value="true"
           :disabled="restricted"
         >
-          Yes
+          {{ $t('common.forms.yes') }}
         </b-radio>
         <b-radio
           size="is-small"
@@ -204,7 +206,7 @@
           :native-value="false"
           :disabled="restricted"
         >
-          No
+          {{ $t('common.forms.no') }}
         </b-radio>
       </div>
     </b-field>
@@ -216,7 +218,7 @@
           v-model="oracleForm.restricted"
           :native-value="true"
         >
-          Yes
+          {{ $t('common.forms.yes') }}
         </b-radio>
         <b-radio
           size="is-small"
