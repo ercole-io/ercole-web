@@ -27,7 +27,17 @@
       "notifications": "nuovi avvisi dalla scorsa settimana:",
       "agents": "Agenti",
       "licenses": "Licenze",
-      "engine": "Motore"
+      "engine": "Motore",
+      "cpuUsage": "Uso della CPU",
+      "searchBy": "Cerca per nome DB",
+      "compareDb": "Confronta Database",
+      "selectAll": "Seleziona tutto",
+      "deselectAll": "Deselezionare tutto",
+      "selected": "Selezionato",
+      "noResults": "Nessun risultato trovato!",
+      "multiSelect": "Selezione multipla",
+      "noDatabaseHost": "Non ci sono database per questo host",
+      "databases": "Database"
     }
   },
   "common": {

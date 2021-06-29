@@ -9,13 +9,14 @@
       :selectOptions="dataOptions"
       historyButton
       :searchPlaceholder="placeholderName"
-      :emptyTabText="noDataText"
-      :btnLabel="() => btnLabelText"
+      :emptyTabText="noDataFound"
+      :btnLabel="() => btLabel"
       class="custom-multi-select"
     />
 
     <p class="selected-text">
-      Selected: <span>{{ selectedData.length }}/10</span>
+      {{ $t('views.hostDetails.selected') }}:
+      <span>{{ selectedData.length }}/10</span>
     </p>
   </div>
 </template>
@@ -40,11 +41,11 @@ export default {
     },
     noDataText: {
       type: String,
-      default: 'No results found!'
+      required: false
     },
     btnLabelText: {
       type: String,
-      default: 'Multi Select'
+      required: false
     }
   },
   components: {
@@ -52,15 +53,6 @@ export default {
   },
   data() {
     return {
-      filters: [
-        {
-          nameAll: 'Select all',
-          nameNotAll: 'Deselect all',
-          func() {
-            return true
-          }
-        }
-      ],
       options: {
         multi: true,
         cssSelected: option =>
@@ -77,6 +69,27 @@ export default {
       set(val) {
         bus.$emit('selectedData', val)
       }
+    },
+    filters() {
+      return [
+        {
+          nameAll: this.$i18n.t('views.hostDetails.selectAll'),
+          nameNotAll: this.$i18n.t('views.hostDetails.deselectAll'),
+          func() {
+            return true
+          }
+        }
+      ]
+    },
+    noDataFound() {
+      return this.noDataText
+        ? this.noDataText
+        : this.$i18n.t('views.hostDetails.noResults')
+    },
+    btLabel() {
+      return this.btnLabelText
+        ? this.btnLabelText
+        : this.$i18n.t('views.hostDetails.multiSelect')
     }
   }
 }
