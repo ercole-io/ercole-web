@@ -9,8 +9,11 @@ let store
 let actions
 beforeEach(() => {
   actions = {
-    getDashboardData: jest.fn().mockName('getDashboardData')
+    getDashboardData: jest.fn().mockName('getDashboardData'),
+    getHosts: jest.fn().mockName('getHosts'),
+    getClusters: jest.fn().mockName('getClusters')
   }
+
   store = new Vuex.Store({
     actions
   })

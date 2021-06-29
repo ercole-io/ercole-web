@@ -24,28 +24,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
                 <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
-                <span class="quiet">Lines</span>
+                <span class="quiet">Functions</span>
                 <span class='fraction'>0/5</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -90,7 +90,16 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -103,8 +112,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -125,7 +143,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
-  &lt;td v-tooltip="tooltip"&gt;
+  &lt;td v-tooltip.bottom="tooltip"&gt;
     &lt;b-icon
       :custom-size="size"
       :icon="icon"
@@ -136,22 +154,31 @@
 &lt;/template&gt;
 &nbsp;
 &lt;script&gt;
+<span class="cstat-no" title="statement not covered" >import _ from 'lodash'</span>
 <span class="cstat-no" title="statement not covered" >import TooltipMixin from '@/mixins/tooltipMixin.js'</span>
+<span class="cstat-no" title="statement not covered" >import { mapBooleanIcon } from '@/helpers/helpers.js'</span>
 &nbsp;
 export default {
   mixins: [TooltipMixin],
   computed: {
+<span class="fstat-no" title="function not covered" >    bindIncon() {</span>
+<span class="cstat-no" title="statement not covered" >      if (_.isArray(this.value)) {</span>
+<span class="cstat-no" title="statement not covered" >        return this.value</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        return mapBooleanIcon(this.value)</span>
+      }
+    },
 <span class="fstat-no" title="function not covered" >    tooltip() {</span>
-<span class="cstat-no" title="statement not covered" >      return this.options(this.value[2])</span>
+<span class="cstat-no" title="statement not covered" >      return this.options(this.bindIncon[2])</span>
     },
 <span class="fstat-no" title="function not covered" >    icon() {</span>
-<span class="cstat-no" title="statement not covered" >      return this.value[0]</span>
+<span class="cstat-no" title="statement not covered" >      return this.bindIncon[0]</span>
     },
 <span class="fstat-no" title="function not covered" >    type() {</span>
-<span class="cstat-no" title="statement not covered" >      return this.value[1]</span>
+<span class="cstat-no" title="statement not covered" >      return this.bindIncon[1]</span>
     },
 <span class="fstat-no" title="function not covered" >    size() {</span>
-<span class="cstat-no" title="statement not covered" >      return this.value[3] ? this.value[3] : 'fa-lg'</span>
+<span class="cstat-no" title="statement not covered" >      return this.bindIncon[3] ? this.bindIncon[3] : 'fa-lg'</span>
     }
   }
 }
@@ -165,7 +192,7 @@ export default {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 25 2020 13:29:25 GMT-0300 (Brasilia Standard Time)
+                at Tue Jun 29 2021 20:21:57 GMT+0200 (Central European Summer Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
