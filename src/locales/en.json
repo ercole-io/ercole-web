@@ -18,6 +18,16 @@
       "from": "From:",
       "date": "Date:",
       "licensesX": "Licenses: Used x Purchased"
+    },
+    "hostDetails": {
+      "fileSystems": "File Systems",
+      "fileSystemsTitle": "File Systems List",
+      "dismissHost": "Dismiss Host",
+      "dismissMsg": "Are you sure you want to <b>dismiss</b> the host <b>{hostname}</b>? This action cannot be undone.",
+      "notifications": "new alerts from the last week:",
+      "agents": "Agents",
+      "licenses": "Licenses",
+      "engine": "Engine"
     }
   },
   "common": {
@@ -27,7 +37,9 @@
       "exportLms": "Export LMS Audit File",
       "inProgress": "in Progress",
       "wait": "This may take a few time, please wait...",
-      "cancelRequest": "Cancel Request"
+      "cancelRequest": "Cancel Request",
+      "yes": "Yes",
+      "no": "No"
     },
     "forms": {
       "advancedFilters": "Advanced Filters",
