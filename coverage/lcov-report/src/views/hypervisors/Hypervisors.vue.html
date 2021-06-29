@@ -192,25 +192,7 @@
 <a name='L134'></a><a href='#L134'>134</a>
 <a name='L135'></a><a href='#L135'>135</a>
 <a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L137'></a><a href='#L137'>137</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -347,108 +329,99 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
-  &lt;section&gt;
-    &lt;HypervisorsFilters v-if="isMounted" /&gt;
-    &lt;BoxContent&gt;
-      &lt;div class="columns"&gt;
-        &lt;div class="column is-3"&gt;
-          &lt;div class="columns"&gt;
-            &lt;div class="column is-12"&gt;
-              &lt;BoxContent title="Cluster" border&gt;
-                &lt;div class="is-flex" style="justify-content: space-around;"&gt;
-                  &lt;p class="is-size-7 has-text-centered"&gt;
-                    With Ercole &lt;br /&gt;
-                    &lt;span class="is-size-5 has-text-weight-medium"&gt;
-                      {{ getErcoleClusterCount.withErcole }}
-                    &lt;/span&gt;
-                  &lt;/p&gt;
-                  &lt;p class="is-size-7 has-text-centered"&gt;
-                    Without Ercole &lt;br /&gt;
-                    &lt;span class="is-size-5 has-text-weight-medium"&gt;
-                      {{ getErcoleClusterCount.withoutErcole }}
-                    &lt;/span&gt;
-                  &lt;/p&gt;
-                &lt;/div&gt;
-              &lt;/BoxContent&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-          &lt;div class="columns"&gt;
-            &lt;div class="column is-12"&gt;
-              &lt;BoxContent title="Type Of Virtualization" border&gt;
-                &lt;ColumnChart
-                  chartId="columnChart"
-                  :columnChartData="getVirtualizationChartData.finalData"
-                  :colors="getVirtualizationChartData.colors"
-                  stacked
-                /&gt;
-              &lt;/BoxContent&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
+  &lt;BaseLayoutColumns
+    v-if="isMounted"
+    :pageCols="[
+      { colsize: '3', slotName: 'filters' },
+      { colsize: '6', slotName: 'content' },
+      { colsize: '3', slotName: 'side' }
+    ]"
+  &gt;
+    &lt;HypervisorsFilters slot="filters" /&gt;
+    &lt;FullTable
+      slot="content"
+      placeholder="Hypervisors"
+      :keys="keys"
+      :tableData="getHypervisors"
+      @clickedRow="handleClickedRow"
+      isClickable
+    &gt;
+      &lt;template slot="headData"&gt;
+        &lt;v-th sortKey="name"&gt;Cluster Name&lt;/v-th&gt;
+        &lt;v-th sortKey="type"&gt;Type&lt;/v-th&gt;
+        &lt;v-th sortKey="cpu"&gt;Core&lt;/v-th&gt;
+        &lt;v-th sortKey="sockets"&gt;Socket&lt;/v-th&gt;
+        &lt;v-th sortKey="virtualizationNodes"&gt;Physical Host&lt;/v-th&gt;
+        &lt;v-th sortKey="vmsCount"&gt;Total VM&lt;/v-th&gt;
+        &lt;v-th sortKey="vmsErcoleAgentCount"&gt;Total VM Ercole&lt;/v-th&gt;
+      &lt;/template&gt;
+&nbsp;
+      &lt;template slot="bodyData" slot-scope="rowData"&gt;
+        &lt;TdContent :value="rowData.scope.name" /&gt;
+        &lt;TdContent :value="rowData.scope.type" /&gt;
+        &lt;TdContent :value="rowData.scope.cpu" /&gt;
+        &lt;TdContent :value="rowData.scope.sockets" /&gt;
+        &lt;TdContent :value="rowData.scope.virtualizationNodes" /&gt;
+        &lt;TdContent :value="rowData.scope.vmsCount" /&gt;
+        &lt;TdContent :value="rowData.scope.vmsErcoleAgentCount" /&gt;
+      &lt;/template&gt;
+&nbsp;
+      &lt;exportButton
+        slot="export"
+        url="hosts/clusters"
+        expName="clusters-data"
+      /&gt;
+    &lt;/FullTable&gt;
+    &lt;div slot="side"&gt;
+      &lt;BoxContent title="Cluster" border&gt;
+        &lt;div class="is-flex" style="justify-content: space-around;"&gt;
+          &lt;p class="is-size-7 has-text-centered"&gt;
+            {{ $t('views.hypervisors.with') }} Ercole &lt;br /&gt;
+            &lt;span class="is-size-5 has-text-weight-medium"&gt;
+              {{ getErcoleClusterCount.withErcole }}
+            &lt;/span&gt;
+          &lt;/p&gt;
+          &lt;p class="is-size-7 has-text-centered"&gt;
+            {{ $t('views.hypervisors.without') }} Ercole &lt;br /&gt;
+            &lt;span class="is-size-5 has-text-weight-medium"&gt;
+              {{ getErcoleClusterCount.withoutErcole }}
+            &lt;/span&gt;
+          &lt;/p&gt;
         &lt;/div&gt;
-&nbsp;
-        &lt;div class="column is-9"&gt;
-          &lt;FullTable
-            placeholder="Search on Hypervisors"
-            :keys="keys"
-            :tableData="getHypervisors"
-            @clickedRow="handleClickedRow"
-            isClickable
-          &gt;
-            &lt;DrawerButton slot="customTopHeader" tooltipText="More Filters" /&gt;
-&nbsp;
-            &lt;template slot="headData"&gt;
-              &lt;v-th sortKey="name"&gt;Cluster Name&lt;/v-th&gt;
-              &lt;v-th sortKey="type"&gt;Type&lt;/v-th&gt;
-              &lt;v-th sortKey="cpu"&gt;Core&lt;/v-th&gt;
-              &lt;v-th sortKey="sockets"&gt;Socket&lt;/v-th&gt;
-              &lt;v-th sortKey="virtualizationNodes"&gt;Physical Host&lt;/v-th&gt;
-              &lt;v-th sortKey="vmsCount"&gt;Total VM&lt;/v-th&gt;
-              &lt;v-th sortKey="vmsErcoleAgentCount"&gt;Total VM Ercole&lt;/v-th&gt;
-            &lt;/template&gt;
-&nbsp;
-            &lt;template slot="bodyData" slot-scope="rowData"&gt;
-              &lt;TdContent :value="rowData.scope.name" /&gt;
-              &lt;TdContent :value="getTechTypePrettyName(rowData.scope.type)" /&gt;
-              &lt;TdContent :value="rowData.scope.cpu" /&gt;
-              &lt;TdContent :value="rowData.scope.sockets" /&gt;
-              &lt;TdContent :value="rowData.scope.virtualizationNodes" /&gt;
-              &lt;TdContent :value="rowData.scope.vmsCount" /&gt;
-              &lt;TdContent :value="rowData.scope.vmsErcoleAgentCount" /&gt;
-            &lt;/template&gt;
-&nbsp;
-            &lt;exportButton
-              slot="export"
-              url="hosts/clusters"
-              expName="clusters-data"
-            /&gt;
-          &lt;/FullTable&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/BoxContent&gt;
-  &lt;/section&gt;
+      &lt;/BoxContent&gt;
+      &lt;BoxContent :title="$t('views.hypervisors.typeVirt')" border&gt;
+        &lt;ColumnChart
+          chartId="columnChart"
+          :columnChartData="getVirtualizationChartData.finalData"
+          :colors="getVirtualizationChartData.colors"
+          stacked
+        /&gt;
+      &lt;/BoxContent&gt;
+    &lt;/div&gt;
+  &lt;/BaseLayoutColumns&gt;
 &lt;/template&gt;
 &nbsp;
 &lt;script&gt;
 <span class="cstat-no" title="statement not covered" >import techTypePrettyName from '@/mixins/techTypePrettyName.js'</span>
 <span class="cstat-no" title="statement not covered" >import { mapActions, mapGetters } from 'vuex'</span>
 <span class="cstat-no" title="statement not covered" >import localFiltersMixin from '@/mixins/localFiltersMixin.js'</span>
+<span class="cstat-no" title="statement not covered" >import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'</span>
 <span class="cstat-no" title="statement not covered" >import BoxContent from '@/components/common/BoxContent.vue'</span>
 <span class="cstat-no" title="statement not covered" >import FullTable from '@/components/common/Table/FullTable.vue'</span>
 <span class="cstat-no" title="statement not covered" >import exportButton from '@/components/common/exportButton.vue'</span>
 <span class="cstat-no" title="statement not covered" >import ColumnChart from '@/components/common/charts/ColumnChart.vue'</span>
 <span class="cstat-no" title="statement not covered" >import TdContent from '@/components/common/Table/TdContent.vue'</span>
-<span class="cstat-no" title="statement not covered" >import DrawerButton from '@/components/common/DrawerButton.vue'</span>
 <span class="cstat-no" title="statement not covered" >import HypervisorsFilters from '@/components/hypervisors/HypervisorsFilters.vue'</span>
 &nbsp;
 export default {
   mixins: [techTypePrettyName, localFiltersMixin],
   components: {
+    BaseLayoutColumns,
     BoxContent,
     FullTable,
     exportButton,
     ColumnChart,
     TdContent,
-    DrawerButton,
     HypervisorsFilters
   },
 <span class="fstat-no" title="function not covered" >  data() {</span>
@@ -498,7 +471,7 @@ export default {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 25 2020 13:29:25 GMT-0300 (Brasilia Standard Time)
+                at Tue Jun 29 2021 20:21:57 GMT+0200 (Central European Summer Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

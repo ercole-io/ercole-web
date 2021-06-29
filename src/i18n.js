@@ -35,5 +35,6 @@ function getStartingLocale() {
 export default new VueI18n({
   locale: getStartingLocale(),
   fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
-  messages: loadLocaleMessages()
+  messages: loadLocaleMessages(),
+  silentTranslationWarn: true
 })

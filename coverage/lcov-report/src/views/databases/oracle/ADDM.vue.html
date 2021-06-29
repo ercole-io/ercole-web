@@ -24,7 +24,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -38,14 +38,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -130,7 +130,20 @@
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,6 +184,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,6 +200,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -205,12 +225,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
-  &lt;section&gt;
+  &lt;BaseLayoutColumns v-if="isMounted"&gt;
+    &lt;AddmFilters slot="col1" /&gt;
     &lt;FullTable
-      placeholder="Search on Oracle ADDM"
+      slot="col2"
+      placeholder="Oracle ADDM"
       :keys="keys"
       :tableData="getOracleAddms"
-      :clickedRow="() =&gt; []"
+      @clickedRow="handleClickedRow"
+      isClickable
     &gt;
       &lt;template slot="headData"&gt;
         &lt;v-th sortKey="benefit"&gt;Performance Impact&lt;/v-th&gt;
@@ -223,7 +246,7 @@
 &nbsp;
       &lt;template slot="bodyData" slot-scope="rowData"&gt;
         &lt;TdContent :value="rowData.scope.benefit" /&gt;
-        &lt;HostLink :hostname="rowData.scope.hostname" /&gt;
+        &lt;HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" /&gt;
         &lt;TdContent :value="rowData.scope.dbname" /&gt;
         &lt;TdContent :value="rowData.scope.finding" /&gt;
         &lt;TdContent :value="rowData.scope.recommendation" /&gt;
@@ -236,22 +259,28 @@
         expName="oracleADDM"
       /&gt;
     &lt;/FullTable&gt;
-  &lt;/section&gt;
+  &lt;/BaseLayoutColumns&gt;
 &lt;/template&gt;
 &nbsp;
 &lt;script&gt;
 <span class="cstat-no" title="statement not covered" >import { mapActions, mapGetters } from 'vuex'</span>
+<span class="cstat-no" title="statement not covered" >import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'</span>
+<span class="cstat-no" title="statement not covered" >import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'</span>
 <span class="cstat-no" title="statement not covered" >import FullTable from '@/components/common/Table/FullTable.vue'</span>
 <span class="cstat-no" title="statement not covered" >import exportButton from '@/components/common/exportButton.vue'</span>
 <span class="cstat-no" title="statement not covered" >import TdContent from '@/components/common/Table/TdContent.vue'</span>
 <span class="cstat-no" title="statement not covered" >import HostLink from '@/components/common/Table/HostLink.vue'</span>
+<span class="cstat-no" title="statement not covered" >import AddmFilters from '@/components/databases/oracle/addm/AddmFilters.vue'</span>
 &nbsp;
 export default {
+  mixins: [hostnameLinkRow],
   components: {
+    BaseLayoutColumns,
     FullTable,
     exportButton,
     TdContent,
-    HostLink
+    HostLink,
+    AddmFilters
   },
 <span class="fstat-no" title="function not covered" >  data() {</span>
 <span class="cstat-no" title="statement not covered" >    return {</span>
@@ -262,11 +291,12 @@ export default {
         'finding',
         'recommendation',
         'action'
-      ]
+      ],
+      isMounted: false
     }
   },
 <span class="fstat-no" title="function not covered" >  async beforeMount() {</span>
-<span class="cstat-no" title="statement not covered" >    await this.getAddms()</span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >    await this.getAddms().then(() =&gt; (this.isMounted = true))</span></span>
   },
   methods: {
     ...mapActions(['getAddms'])
@@ -285,7 +315,7 @@ export default {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 25 2020 13:29:25 GMT-0300 (Brasilia Standard Time)
+                at Tue Jun 29 2021 20:21:57 GMT+0200 (Central European Summer Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
