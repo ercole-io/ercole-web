@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-button
-      label="File Systems"
+      :label="$t('views.hostDetails.fileSystems')"
       @click="isModalActive = true"
       type="is-primary"
       icon-pack="fas"

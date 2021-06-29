@@ -1,5 +1,9 @@
 <template>
-  <Card cardTitle="Host FileSystems List" contentSize="1" contentPadding="1rem">
+  <Card
+    :cardTitle="$t('views.hostDetails.fileSystemsTitle')"
+    contentSize="1"
+    contentPadding="1rem"
+  >
     <FullTable :tableData="fileSysData" :keys="keys">
       <template slot="headData">
         <v-th sortKey="filesystem">FileSys</v-th>
