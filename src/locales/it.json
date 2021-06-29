@@ -17,7 +17,10 @@
       "markAsRead": "Segna come letto",
       "from": "Dal:",
       "date": "Data:",
-      "licensesX": "Licenze: Usato x Acquistato"
+      "licensesX": "Licenze: Usato x Acquistato",
+      "usedLicenses": "Licenze Usate",
+      "purchasedLicenses": "Licenze Acquistate",
+      "noData": "Nessun dato. Si prega di modificare le date!"
     },
     "hostDetails": {
       "fileSystems": "File di Sistemi",
