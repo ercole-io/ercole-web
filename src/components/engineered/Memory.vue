@@ -1,5 +1,5 @@
 <template>
-  <BoxContent title="Memory" border :mbottom="false">
+  <BoxContent :title="$t('views.engSystems.memory')" border :mbottom="false">
     <p class="is-size-7">
       {{ engineeredSystems.memory | formatNumber('0', 'GB') }}
     </p>

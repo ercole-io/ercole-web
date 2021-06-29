@@ -56,6 +56,10 @@
       "typeVirt": "Tipo di Virtualizzazione",
       "type": "Tipo",
       "physicalHost": "Host Fisico"
+    },
+    "engSystems": {
+      "memory": "Memoria",
+      "storage": "Memoria Utilizzata"
     }
   },
   "common": {
