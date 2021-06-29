@@ -51,9 +51,11 @@
       "topStorage": "Top {0} Archiviazione DB recuperabile"
     },
     "hypervisors": {
-      "with": "with",
-      "without": "Without",
-      "typeVirt": "Type Of Virtualization"
+      "with": "Con",
+      "without": "Senza",
+      "typeVirt": "Tipo di Virtualizzazione",
+      "type": "Tipo",
+      "physicalHost": "Host Fisico"
     }
   },
   "common": {

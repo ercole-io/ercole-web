@@ -34,13 +34,13 @@
       <BoxContent :title="`Cluster: ${clustername}`" border>
         <div class="is-flex" style="justify-content: space-around;">
           <p class="is-size-7 has-text-centered">
-            Type <br />
+            {{ $t('views.hypervisors.type') }} <br />
             <span class="is-size-5 has-text-weight-medium">
               {{ getTechTypePrettyName(getCurrentCluster.type) || '-' }}
             </span>
           </p>
           <p class="is-size-7 has-text-centered">
-            Physical Host <br />
+            {{ $t('views.hypervisors.physicalHost') }} <br />
             <span class="is-size-5 has-text-weight-medium">
               {{ getCurrentCluster.virtualizationNodesCount || '-' }}
             </span>
