@@ -60,6 +60,9 @@
     "engSystems": {
       "memory": "Memory",
       "storage": "Storage Used"
+    },
+    "licenses": {
+      "addAgreement": "Add or Modify an Oracle Agreement"
     }
   },
   "common": {
@@ -82,7 +85,14 @@
       "date": "Set a date",
       "yes": "Yes",
       "no": "No",
-      "all": "All"
+      "all": "All",
+      "cancel": "Cancel",
+      "add": "Add",
+      "update": "Update",
+      "choose": "Choose",
+      "or": "or",
+      "hide": "Hide {0}",
+      "show": "Show {0}"
     },
     "table": {
       "perPage": "per page",
