@@ -1,4 +1,9 @@
 {
+  "lang": {
+    "en": "Inglese",
+    "it": "Italiano",
+    "pt-br": "Portoghese"
+  },
   "header": {
     "logout": "Disconnettersi"
   },
@@ -13,7 +18,7 @@
       "agentsText": "Agenti che non inviano dati:",
       "inspect": "Ispezionare",
       "licenses": "Licenze",
-      "ercoleEngine": "Motore Ercole",
+      "ercoleEngine": "Engine Ercole",
       "markAsRead": "Segna come letto",
       "from": "Dal:",
       "date": "Data:",
@@ -30,7 +35,7 @@
       "notifications": "nuovi avvisi dalla scorsa settimana:",
       "agents": "Agenti",
       "licenses": "Licenze",
-      "engine": "Motore",
+      "engine": "Engine",
       "cpuUsage": "Uso della CPU",
       "searchBy": "Cerca per nome DB",
       "compareDb": "Confronta Database",
@@ -96,6 +101,29 @@
       "or": "o",
       "hide": "Nascondi {0}",
       "show": "Mostra {0}"
+    },
+    "fields": {
+      "hostname": "Nome Host",
+      "env": "Ambiente",
+      "dbs": "Database",
+      "tech": "Tecnologia",
+      "os": "Sistema Operativo",
+      "clust": "Clust",
+      "kernel": "Kernel",
+      "memory": "Memoria",
+      "swap": "Swap",
+      "updated": "Aggiornato",
+      "virtual": "Virtuale",
+      "platform": "Piattaforma",
+      "cluster": "Cluster",
+      "node": "Nodo",
+      "cpu": "CPU",
+      "procModel": "Modello di Processore",
+      "threads": "Threads",
+      "cores": "Core",
+      "socket": "Socket",
+      "agent": "Agente",
+      "version": "Versione"
     },
     "table": {
       "perPage": "per pagina",

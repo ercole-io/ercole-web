@@ -2,7 +2,7 @@
   <div class="locale-switcher">
     <b-select v-model="$i18n.locale" size="is-small" expanded>
       <option :value="locale.code" v-for="locale in locales" :key="locale.code">
-        {{ locale.name }}
+        {{ $t(`lang.${locale.code}`) }}
       </option>
     </b-select>
   </div>
@@ -18,6 +18,7 @@ export default {
     }
   },
   beforeMount() {
+    console.log(this.$i18n.locale)
     if (localStorage.getItem('lang')) {
       this.$i18n.locale = localStorage.getItem('lang')
     }
