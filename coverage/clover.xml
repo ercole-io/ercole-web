@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1624990917228" clover="3.2.0">
-  <project timestamp="1624990917228" name="All files">
-    <metrics statements="2209" coveredstatements="292" conditionals="524" coveredconditionals="8" methods="811" coveredmethods="48" elements="3544" coveredelements="348" complexity="0" loc="2209" ncloc="2209" packages="59" files="207" classes="207"/>
+<coverage generated="1625075027172" clover="3.2.0">
+  <project timestamp="1625075027172" name="All files">
+    <metrics statements="2210" coveredstatements="271" conditionals="524" coveredconditionals="2" methods="811" coveredmethods="41" elements="3545" coveredelements="314" complexity="0" loc="2210" ncloc="2210" packages="59" files="207" classes="207"/>
     <package name="src">
-      <metrics statements="17" coveredstatements="8" conditionals="12" coveredconditionals="2" methods="5" coveredmethods="2"/>
+      <metrics statements="17" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="5" coveredmethods="0"/>
       <file name="App.vue" path="/home/rcmaiolini/Dev/sorint/ercole-web-2/src/App.vue">
         <metrics statements="4" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="17" count="0" type="stmt"/>
@@ -12,19 +12,19 @@
         <line num="32" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
       <file name="i18n.js" path="/home/rcmaiolini/Dev/sorint/ercole-web-2/src/i18n.js">
-        <metrics statements="13" coveredstatements="8" conditionals="10" coveredconditionals="2" methods="3" coveredmethods="2"/>
-        <line num="6" count="2" type="stmt"/>
-        <line num="9" count="2" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
+        <metrics statements="13" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
         <line num="17" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="18" count="0" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
-        <line num="22" count="2" type="stmt"/>
-        <line num="26" count="2" type="stmt"/>
-        <line num="28" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="29" count="2" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="28" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="29" count="0" type="stmt"/>
         <line num="31" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
     </package>
@@ -95,7 +95,7 @@
       </file>
     </package>
     <package name="src.components">
-      <metrics statements="77" coveredstatements="19" conditionals="29" coveredconditionals="1" methods="23" coveredmethods="7"/>
+      <metrics statements="78" coveredstatements="17" conditionals="29" coveredconditionals="0" methods="23" coveredmethods="5"/>
       <file name="Filters.vue" path="/home/rcmaiolini/Dev/sorint/ercole-web-2/src/components/Filters.vue">
         <metrics statements="49" coveredstatements="5" conditionals="19" coveredconditionals="0" methods="8" coveredmethods="0"/>
         <line num="215" count="1" type="stmt"/>
@@ -177,12 +177,13 @@
         <line num="67" count="3" type="stmt"/>
       </file>
       <file name="LocaleSwitcher.vue" path="/home/rcmaiolini/Dev/sorint/ercole-web-2/src/components/LocaleSwitcher.vue">
-        <metrics statements="5" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="2"/>
+        <metrics statements="6" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="12" count="2" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="21" count="4" type="cond" truecount="1" falsecount="1"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
       </file>
       <file name="Main.vue" path="/home/rcmaiolini/Dev/sorint/ercole-web-2/src/components/Main.vue">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -2667,24 +2668,24 @@
       </file>
     </package>
     <package name="src.util">
-      <metrics statements="12" coveredstatements="11" conditionals="7" coveredconditionals="3" methods="3" coveredmethods="3"/>
+      <metrics statements="12" coveredstatements="0" conditionals="7" coveredconditionals="0" methods="3" coveredmethods="0"/>
       <file name="get-browser-locale.js" path="/home/rcmaiolini/Dev/sorint/ercole-web-2/src/util/get-browser-locale.js">
-        <metrics statements="7" coveredstatements="6" conditionals="7" coveredconditionals="3" methods="1" coveredmethods="1"/>
-        <line num="2" count="2" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
-        <line num="7" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="11" count="2" type="cond" truecount="1" falsecount="1"/>
+        <metrics statements="7" coveredstatements="0" conditionals="7" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="2" count="0" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="7" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="12" count="0" type="stmt"/>
-        <line num="15" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="19" count="2" type="stmt"/>
+        <line num="15" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="19" count="0" type="stmt"/>
       </file>
       <file name="supported-locales.js" path="/home/rcmaiolini/Dev/sorint/ercole-web-2/src/util/supported-locales.js">
-        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="7" count="8" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
-        <line num="17" count="2" type="stmt"/>
+        <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.views">

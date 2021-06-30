@@ -1,24 +1,150 @@
 {
+  "lang": {
+    "en": "Inglês",
+    "it": "Italiano",
+    "pt-br": "Português"
+  },
   "header": {
-    "logout": "Deslogar"
+    "logout": "Sair"
   },
-  "menu": {
-    "dashboard": "Dashboard",
-    "hosts": "Hosts",
-    "databases": "Databases",
-    "middlewares": "Middlewares",
-    "licenses": "Licenças",
-    "hypervisors": "Hypervisors",
-    "engeenered": "Engeenered Systems",
-    "alerts": "Alertas",
-    "settings": "Configurações"
-  },
-  "dashboard": {
-    "pageTitle": {
-      "filters": "Filtros",
-      "totalTargets": "Metas Totais",
+  "views": {
+    "dashboard": {
+      "totalTargets": "Objetivos Totais",
+      "agentsDiscovered": "Agentes descobertos",
+      "percCompliance": "Porcentagem de conformidade",
       "technologies": "Tecnologias",
-      "notificatons": "Alertas"
+      "alerts": "Alertas",
+      "agents": "Agentes",
+      "agentsText": "Agentes que não enviam dados:",
+      "inspect": "Inspecionar",
+      "licenses": "Licenças",
+      "ercoleEngine": "Ercole Engine",
+      "markAsRead": "Marcar como lido",
+      "from": "de:",
+      "date": "Data:",
+      "licensesX": "Licenças: Usado x Adquirido",
+      "usedLicenses": "Licenças Usadas",
+      "purchasedLicenses": "Licenças Adquiridas",
+      "noData": "Sem dados. Por favor, altere as datas!"
+    },
+    "hostDetails": {
+      "fileSystems": "File Systems",
+      "fileSystemsTitle": "File Systems List",
+      "dismissHost": "Dismiss Host",
+      "dismissMsg": "Are you sure you want to <b>dismiss</b> the host <b>{hostname}</b>? This action cannot be undone.",
+      "notifications": "new alerts from the last week:",
+      "agents": "Agents",
+      "licenses": "Licenses",
+      "engine": "Engine",
+      "cpuUsage": "CPU Usage",
+      "searchBy": "Search by DB name",
+      "compareDb": "Compare Databases",
+      "selectAll": "Select all",
+      "deselectAll": "Deselect all",
+      "selected": "Selected",
+      "noResults": "No results found!",
+      "multiSelect": "Multi Select",
+      "noDatabaseHost": "There are no Databases for this Host",
+      "databases": "Databases"
+    },
+    "databases": {
+      "memory": "Memory",
+      "storage": "Storage",
+      "totalMemory": "Total Memory Size",
+      "totalSegment": "Total Segment Size",
+      "totalThread": "Total Thread Used",
+      "totalDatafile": "Total Datafile Size",
+      "topWorkload": "Top {0} Instance Workload",
+      "topReclaimable": "Top {0} Unused Instance Resource",
+      "topStorage": "Top {0} Reclaimable DB Storage"
+    },
+    "hypervisors": {
+      "with": "With",
+      "without": "Without",
+      "typeVirt": "Type Of Virtualization",
+      "type": "Type",
+      "physicalHost": "Physical Host"
+    },
+    "engSystems": {
+      "memory": "Memory",
+      "storage": "Storage Used"
+    },
+    "licenses": {
+      "addAgreement": "Add or Modify an Oracle Agreement"
+    }
+  },
+  "common": {
+    "general": {
+      "moreInfo": "Show more info",
+      "exportData": "Export Data",
+      "exportLms": "Export LMS Audit File",
+      "inProgress": "in Progress",
+      "wait": "This may take a few time, please wait...",
+      "cancelRequest": "Cancel Request",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "forms": {
+      "advancedFilters": "Advanced Filters",
+      "reset": "Reset",
+      "apply": "Apply",
+      "select": "Select",
+      "option": "Select an option",
+      "date": "Set a date",
+      "yes": "Yes",
+      "no": "No",
+      "all": "All",
+      "cancel": "Cancel",
+      "add": "Add",
+      "update": "Update",
+      "choose": "Choose",
+      "or": "or",
+      "hide": "Hide {0}",
+      "show": "Show {0}"
+    },
+    "fields": {
+      "hostname": "hostname",
+      "env": "Environment",
+      "dbs": "Databases",
+      "tech": "technology",
+      "os": "Operating System",
+      "clust": "Clust",
+      "kernel": "Kernel",
+      "memory": "Memory",
+      "swap": "Swap",
+      "updated": "Updated",
+      "virtual": "Virtual",
+      "platform": "Platform",
+      "cluster": "Cluster",
+      "node": "Node",
+      "cpu": "CPU",
+      "procModel": "Processor Model",
+      "threads": "Threads",
+      "cores": "Cores",
+      "socket": "Socket",
+      "agent": "Agent",
+      "version": "Version"
+    },
+    "table": {
+      "perPage": "per page",
+      "search": "Search on",
+      "showing": "Showing",
+      "of": "of",
+      "items": "items",
+      "allData": "All data"
+    },
+    "globalFilters": {
+      "show": "Show Global Filters",
+      "hide": "Hide Global Filters",
+      "active": "Active",
+      "inactive": "Inactive",
+      "location": "Location",
+      "locationPH": "a location",
+      "environment": "Environment",
+      "environmentPH": "an environment",
+      "date": "Date",
+      "datePH": "a date",
+      "activeFilters": "Active Filters:"
     }
   }
 }

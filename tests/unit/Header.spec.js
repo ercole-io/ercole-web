@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { mount, createLocalVue } from '@vue/test-utils'
+import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Header from '@/components/Header.vue'
-import i18n from '@/i18n.js'
 
 Vue.config.ignoredElements = [
   'b-navbar',
@@ -21,24 +20,26 @@ const store = new Vuex.Store({
   actions
 })
 
+const $t = () => {}
+
 describe('Header.vue', () => {
   it('is a Vue instance', () => {
-    const wrapper = mount(Header, { i18n })
+    const wrapper = shallowMount(Header, { mocks: { $t } })
     expect(wrapper.isVueInstance()).toBe(true)
   })
 
   it('verify if component exists', () => {
-    const wrapper = mount(Header, { i18n })
+    const wrapper = shallowMount(Header, { mocks: { $t } })
     expect(wrapper.exists()).toBe(true)
   })
 
   it('will show the logged username on header', () => {
-    const wrapper = mount(Header, {
+    const wrapper = shallowMount(Header, {
       computed: {
         username: () => 'Username Test',
         userRole: () => 'User Role Test'
       },
-      i18n
+      mocks: { $t }
     })
 
     const el = wrapper.find('[data-navbar-username]')
@@ -46,10 +47,10 @@ describe('Header.vue', () => {
   })
 
   it('will dispatch logout action when click logout button', async () => {
-    const wrapper = mount(Header, {
+    const wrapper = shallowMount(Header, {
       store,
       localVue,
-      i18n
+      mocks: { $t }
     })
 
     wrapper.find('[data-logout-button]').trigger('click')
