@@ -4,6 +4,25 @@
     "it": "Italiano",
     "pt-br": "Português"
   },
+  "menu": {
+    "dashboard": "Dashboard",
+    "hosts": "Hosts",
+    "databases": "Banco de Dados",
+    "allTechs": "Todas as Tecnologias",
+    "oracle": "Oracle",
+    "dbList": "Lista Banco de Dados",
+    "addm": "ADDM",
+    "segAdvisor": "Consultor de Segmento",
+    "patAdvisor": "Conselheiro de Patch",
+    "mysql": "MySQL",
+    "hypervisors": "Hipervisores",
+    "engSystems": "Sistemas de Engenharia",
+    "alerts": "Alertas",
+    "licenses": "Licenças",
+    "licAgreements": "Acordo de Licença",
+    "licCompliance": "Conformidade de Licenças",
+    "licUsed": "Licenças Usadas"
+  },
   "header": {
     "logout": "Sair"
   },
