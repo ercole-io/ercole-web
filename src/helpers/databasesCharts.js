@@ -1,14 +1,24 @@
 import _ from 'lodash'
+import i18n from '@/i18n.js'
 
 export const mountDatabasesChart = (data, page) => {
   let final
+
   if (page === 'databases') {
     final = _.concat(
-      chartBySeries(data, 'type', 'Type Of Databases'),
-      chartBySeries(data, 'environment', 'Type Of Environment'),
-      chartBySeries(data, 'archivelog', 'Archivelog Mode'),
-      chartBySeries(data, 'disasterRecovery', 'Disaster Recovery'),
-      chartBySeries(data, 'highAvailability', 'High Availability')
+      chartBySeries(data, 'type', i18n.t('common.charts.tyepDatabases')),
+      chartBySeries(data, 'environment', i18n.t('common.charts.typeEnv')),
+      chartBySeries(data, 'archivelog', i18n.t('common.charts.archivelog')),
+      chartBySeries(
+        data,
+        'disasterRecovery',
+        i18n.t('common.charts.disasterRecovery')
+      ),
+      chartBySeries(
+        data,
+        'highAvailability',
+        i18n.t('common.charts.highAvailability')
+      )
     )
   } else if (page === 'oracle') {
     final = _.concat(

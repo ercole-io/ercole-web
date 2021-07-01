@@ -142,7 +142,15 @@
       "cores": "Cores",
       "socket": "Socket",
       "agent": "Agent",
-      "version": "Version"
+      "version": "Version",
+      "name": "Name",
+      "type": "Type",
+      "charset": "Charset",
+      "datafile": "DataFile",
+      "segment": "Segment",
+      "archMode": "Archive Mode",
+      "disRecovery": "Disaster Recovery",
+      "highAvail": "High Availability"
     },
     "table": {
       "perPage": "per page",
@@ -173,7 +181,24 @@
       "cores": "Cores",
       "socket": "Socket",
       "agent": "Agent",
-      "version": "Version"
+      "version": "Version",
+      "name": "Name",
+      "type": "Type",
+      "charset": "Charset",
+      "memory": "Memory (GB)",
+      "datafileSize": "DataFile (GB)",
+      "segmentSize": "Segment (GB)",
+      "archivelog": "Archivelog Mode",
+      "disasterRecovery": "Disaster Recovery",
+      "highAvailability": "High Availability",
+      "reliability": "Reliability"
+    },
+    "charts": {
+      "archivelog": "Archivelog Mode",
+      "disasterRecovery": "Disaster Recovery",
+      "highAvailability": "High Availability",
+      "tyepDatabases": "Type of Databases",
+      "typeEnv": "Type of Environment"
     },
     "globalFilters": {
       "show": "Show Global Filters",

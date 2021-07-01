@@ -8,8 +8,8 @@
   >
     <DbList slot="content" />
     <div slot="side">
-      <DbTotalMemorySize />
-      <DbTotalSegmentSize />
+      <DbTotalMemorySize class="mb-4" />
+      <DbTotalSegmentSize class="mb-4" />
       <DbCharts
         id="databasesChart"
         chartHeight="500px"
