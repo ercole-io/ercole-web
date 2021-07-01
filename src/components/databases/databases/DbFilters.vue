@@ -1,6 +1,6 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField label="Name">
+    <CustomField :label="$t('common.fields.name')">
       <CustomAutocomplete
         v-model="filters.name"
         :filterResult="filteredname"
@@ -8,11 +8,11 @@
       />
     </CustomField>
 
-    <CustomField label="Type">
+    <CustomField :label="$t('common.fields.type')">
       <CustomSelect v-model="filters.type" :options="filteredtype" />
     </CustomField>
 
-    <CustomField label="Version">
+    <CustomField :label="$t('common.fields.version')">
       <CustomAutocomplete
         v-model="filters.version"
         :filterResult="filteredversion"
@@ -20,7 +20,7 @@
       />
     </CustomField>
 
-    <CustomField label="Hostname">
+    <CustomField :label="$t('common.fields.hostname')">
       <CustomAutocomplete
         v-model="filters.hostname"
         :filterResult="filteredhostname"
@@ -28,14 +28,14 @@
       />
     </CustomField>
 
-    <CustomField label="Environment">
+    <CustomField :label="$t('common.fields.env')">
       <CustomSelect
         v-model="filters.environment"
         :options="filteredenvironment"
       />
     </CustomField>
 
-    <CustomField label="Charset">
+    <CustomField :label="$t('common.fields.charset')">
       <CustomAutocomplete
         v-model="filters.charset"
         :filterResult="filteredcharset"
@@ -43,7 +43,7 @@
       />
     </CustomField>
 
-    <CustomField label="Memory">
+    <CustomField :label="$t('common.fields.memory')">
       <CustomSlider
         v-model="filters.memory"
         :ticks="[minmemory, maxmemory]"
@@ -51,7 +51,7 @@
       />
     </CustomField>
 
-    <CustomField label="DataFile">
+    <CustomField :label="$t('common.fields.datafile')">
       <CustomSlider
         v-model="filters.datafileSize"
         :ticks="[mindatafileSize, maxdatafileSize]"
@@ -59,7 +59,7 @@
       />
     </CustomField>
 
-    <CustomField label="Segmemnt">
+    <CustomField :label="$t('common.fields.segment')">
       <CustomSlider
         v-model="filters.segmentSize"
         :ticks="[minsegmentSize, maxsegmentSize]"
@@ -67,15 +67,15 @@
       />
     </CustomField>
 
-    <CustomField label="Archivelog Mode">
+    <CustomField :label="$t('common.fields.archMode')">
       <CustomRadio v-model="filters.archivelog" />
     </CustomField>
 
-    <CustomField label="Disaster Recovery">
+    <CustomField :label="$t('common.fields.disRecovery')">
       <CustomRadio v-model="filters.disasterRecovery" />
     </CustomField>
 
-    <CustomField label="High Availability">
+    <CustomField :label="$t('common.fields.highAvail')">
       <CustomRadio v-model="filters.highAvailability" />
     </CustomField>
   </AdvancedFiltersBase>

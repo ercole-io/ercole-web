@@ -8,7 +8,7 @@
           :type="hideReliability ? 'is-light' : 'is-light reliability'"
           @click="hideReliability = !hideReliability"
         >
-          Reliability
+          {{ $t('common.collumns.reliability') }}
         </b-button>
       </ButtonGroup>
       <DbFilters />
@@ -22,33 +22,39 @@
         isClickable
       >
         <template slot="headData">
-          <v-th sortKey="name">DB Name</v-th>
+          <v-th sortKey="name">{{ $t('common.collumns.name') }}</v-th>
           <v-th
             sortKey="archivelog"
             class="reliability"
             :class="{ hide: hideReliability }"
-            >Archivelog Mode</v-th
+            >{{ $t('common.collumns.archivelog') }}</v-th
           >
           <v-th
             sortKey="dataguard"
             class="reliability"
             :class="{ hide: hideReliability }"
-            >DR</v-th
+            >{{ $t('common.collumns.disasterRecovery') }}</v-th
           >
           <v-th
             sortKey="ha"
             class="reliability"
             :class="{ hide: hideReliability }"
-            >HA</v-th
+            >{{ $t('common.collumns.highAvailability') }}</v-th
           >
-          <v-th sortKey="type">DB Type</v-th>
-          <v-th sortKey="version">DB Version</v-th>
-          <v-th sortKey="hostname">Hostname</v-th>
-          <v-th sortKey="environment">Env.</v-th>
-          <v-th sortKey="charset">Charset</v-th>
-          <v-th sortKey="memory">Memory (GB)</v-th>
-          <v-th sortKey="datafileSize">Datafile (GB)</v-th>
-          <v-th sortKey="segmentSize">Segment (GB)</v-th>
+          <v-th sortKey="type">{{ $t('common.collumns.type') }}</v-th>
+          <v-th sortKey="version">{{ $t('common.collumns.version') }}</v-th>
+          <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
+          <v-th sortKey="environment">{{
+            $t('common.collumns.environment')
+          }}</v-th>
+          <v-th sortKey="charset">{{ $t('common.collumns.charset') }}</v-th>
+          <v-th sortKey="memory">{{ $t('common.collumns.memory') }}</v-th>
+          <v-th sortKey="datafileSize">{{
+            $t('common.collumns.datafileSize')
+          }}</v-th>
+          <v-th sortKey="segmentSize">{{
+            $t('common.collumns.segmentSize')
+          }}</v-th>
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
