@@ -1,6 +1,6 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField label="Hostname">
+    <CustomField :label="$t('common.fields.hostname')">
       <CustomAutocomplete
         v-model="filters.hostname"
         :filterResult="filteredhostname"
@@ -8,14 +8,14 @@
       />
     </CustomField>
 
-    <CustomField label="Env">
+    <CustomField :label="$t('common.fields.env')">
       <CustomSelect
         v-model="filters.environment"
         :options="filteredenvironment"
       />
     </CustomField>
 
-    <CustomField label="DBs">
+    <CustomField :label="$t('common.fields.dbs')">
       <CustomAutocomplete
         v-model="filters.databases"
         :filterResult="filtereddatabases"
@@ -23,11 +23,11 @@
       />
     </CustomField>
 
-    <CustomField label="Tech">
+    <CustomField :label="$t('common.fields.tech')">
       <CustomSelect v-model="filters.techType" :options="filteredtechType" />
     </CustomField>
 
-    <CustomField label="OS">
+    <CustomField :label="$t('common.fields.os')">
       <CustomAutocomplete
         v-model="filters.os"
         :filterResult="filteredos"
@@ -35,11 +35,11 @@
       />
     </CustomField>
 
-    <CustomField label="Clust">
+    <CustomField :label="$t('common.fields.clust')">
       <CustomRadio v-model="filters.iconCluster" />
     </CustomField>
 
-    <CustomField label="Kernel">
+    <CustomField :label="$t('common.fields.kernel')">
       <CustomAutocomplete
         v-model="filters.kernel"
         :filterResult="filteredkernel"
@@ -47,30 +47,30 @@
       />
     </CustomField>
 
-    <CustomField label="Memory">
+    <CustomField :label="$t('common.fields.memory')">
       <CustomSlider
         v-model="filters.memorytotal"
         :ticks="[minmemorytotal, maxmemorytotal]"
       />
     </CustomField>
 
-    <CustomField label="Swap">
+    <CustomField :label="$t('common.fields.swap')">
       <CustomSlider
         v-model="filters.swaptotal"
         :ticks="[minswaptotal, maxswaptotal]"
       />
     </CustomField>
 
-    <CustomField label="Updated">
+    <CustomField :label="$t('common.fields.updated')">
       <CustomDatepicker v-model="startDate" />
     </CustomField>
 
-    <Collapse title="Virtual" id="virtual" padding margin>
-      <CustomField label="Platform">
+    <Collapse :title="$t('common.fields.virtual')" id="virtual" padding margin>
+      <CustomField :label="$t('common.fields.platform')">
         <CustomSelect v-model="filters.platform" :options="filteredplatform" />
       </CustomField>
 
-      <CustomField label="Cluster">
+      <CustomField :label="$t('common.fields.cluster')">
         <CustomAutocomplete
           v-model="filters.cluster"
           :filterResult="filteredcluster"
@@ -78,7 +78,7 @@
         />
       </CustomField>
 
-      <CustomField label="Node">
+      <CustomField :label="$t('common.fields.node')">
         <CustomAutocomplete
           v-model="filters.virtNode"
           :filterResult="filteredvirtNode"
@@ -87,8 +87,8 @@
       </CustomField>
     </Collapse>
 
-    <Collapse title="CPU" id="cpu" padding margin>
-      <CustomField label="Processor Model">
+    <Collapse :title="$t('common.fields.cpu')" id="cpu" padding margin>
+      <CustomField :label="$t('common.fields.procModel')">
         <CustomAutocomplete
           v-model="filters.model"
           :filterResult="filteredmodel"
@@ -96,18 +96,18 @@
         />
       </CustomField>
 
-      <CustomField label="threads">
+      <CustomField :label="$t('common.fields.threads')">
         <CustomSlider
           v-model="filters.threads"
           :ticks="[minthreads, maxthreads]"
         />
       </CustomField>
 
-      <CustomField label="Cores">
+      <CustomField :label="$t('common.fields.cores')">
         <CustomSlider v-model="filters.cores" :ticks="[mincores, maxcores]" />
       </CustomField>
 
-      <CustomField label="Socket">
+      <CustomField :label="$t('common.fields.socket')">
         <CustomSlider
           v-model="filters.socket"
           :ticks="[minsocket, maxsocket]"
@@ -115,8 +115,8 @@
       </CustomField>
     </Collapse>
 
-    <Collapse title="Agent" id="agent" padding margin>
-      <CustomField label="Version">
+    <Collapse :title="$t('common.fields.agent')" id="agent" padding margin>
+      <CustomField :label="$t('common.fields.version')">
         <CustomSelect v-model="filters.version" :options="filteredversion" />
       </CustomField>
     </Collapse>
