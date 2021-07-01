@@ -103,7 +103,7 @@
       "show": "Mostrar {0}"
     },
     "fields": {
-      "hostname": "Hostname",
+      "hostname": "Nome do Host",
       "env": "Ambiente",
       "dbs": "Banco de Dados",
       "tech": "Tecnologia",
@@ -132,6 +132,29 @@
       "of": "de",
       "items": "Itens",
       "allData": "Todos os dados"
+    },
+    "collumns": {
+      "hostname": "Nome do Host",
+      "environment": "Ambiente",
+      "databases": "Banco de Dados",
+      "techType": "Tecnologia",
+      "os": "Sistema Operacional",
+      "iconCluster": "Clust",
+      "kernel": "Kernel",
+      "memorytotal": "Memória",
+      "swaptotal": "Swap",
+      "updated": "Atualizado",
+      "virtual": "Virtual",
+      "platform": "Platforma",
+      "cluster": "Cluster",
+      "virtNode": "Node",
+      "cpu": "CPU",
+      "model": "Modelo de Processador",
+      "threads": "Threads",
+      "cores": "Núcleos",
+      "socket": "Socket",
+      "agent": "Agente",
+      "version": "Versão"
     },
     "globalFilters": {
       "show": "Mostrar Filtros Globais",

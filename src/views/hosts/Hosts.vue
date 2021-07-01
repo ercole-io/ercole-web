@@ -8,7 +8,7 @@
           :type="hideVirtual ? 'is-light' : 'is-light virtual'"
           @click="hideVirtual = !hideVirtual"
         >
-          Virtual
+          {{ $t('common.fields.virtual') }}
         </b-button>
         <b-button
           class="mr-1"
@@ -16,7 +16,7 @@
           :type="hideCPU ? 'is-light' : 'is-light cpu'"
           @click="hideCPU = !hideCPU"
         >
-          CPU
+          {{ $t('common.fields.cpu') }}
         </b-button>
         <b-button
           class="mr-1"
@@ -24,7 +24,7 @@
           :type="hideAgent ? 'is-light' : 'is-light agent'"
           @click="hideAgent = !hideAgent"
         >
-          Agent
+          {{ $t('common.fields.agent') }}
         </b-button>
       </ButtonGroup>
       <HostsFilters />
