@@ -18,7 +18,6 @@ export default {
     }
   },
   beforeMount() {
-    console.log(this.$i18n.locale)
     if (localStorage.getItem('lang')) {
       this.$i18n.locale = localStorage.getItem('lang')
     }

@@ -142,7 +142,15 @@
       "cores": "Núcleos",
       "socket": "Socket",
       "agent": "Agente",
-      "version": "Versão"
+      "version": "Versão",
+      "name": "Nome",
+      "type": "Tipo",
+      "charset": "Charset",
+      "datafile": "DataFile",
+      "segment": "Segmento",
+      "archMode": "Modo de Arquivo",
+      "disRecovery": "Recuperação de Desastres",
+      "highAvail": "Alta Disponibilidade"
     },
     "table": {
       "perPage": "por página",
@@ -173,7 +181,24 @@
       "cores": "Núcleos",
       "socket": "Socket",
       "agent": "Agente",
-      "version": "Versão"
+      "version": "Versão",
+      "name": "Nome",
+      "type": "Tipe",
+      "charset": "Charset",
+      "memory": "Memória (GB)",
+      "datafileSize": "DataFile (GB)",
+      "segmentSize": "Segmento (GB)",
+      "archivelog": "Modo Archivelog",
+      "disasterRecovery": "Recuperação de Desastres",
+      "highAvailability": "Alta Disponibilidade",
+      "reliability": "Confiabilidade"
+    },
+    "charts": {
+      "archivelog": "Modo Archivelog",
+      "disasterRecovery": "Recuperação de Desastres",
+      "highAvailability": "Alta Disponibilidade",
+      "tyepDatabases": "Tipo de Banco de Dados",
+      "typeEnv": "Tipo de ambiente"
     },
     "globalFilters": {
       "show": "Mostrar Filtros Globais",
