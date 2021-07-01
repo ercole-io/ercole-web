@@ -8,8 +8,9 @@
         ? 'hide'
         : data.class
     "
-    >{{ data.name }}</v-th
   >
+    {{ $t(`common.collumns.${data.sort}`) }}
+  </v-th>
 </template>
 
 <script>
