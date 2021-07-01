@@ -21,61 +21,65 @@ export default {
   components: {
     SidebarMenu
   },
-
-  data() {
-    return {
-      menu: [
+  methods: {
+    onToggleCollapse(collapsed) {
+      this.$emit('collapsedSidebar', collapsed)
+    }
+  },
+  computed: {
+    menu() {
+      return [
         {
           href: { name: 'dashboard' },
-          title: 'Dashboard',
+          title: this.$i18n.t('menu.dashboard'),
           icon: 'fas fa-home'
         },
         {
           href: { name: 'hosts' },
-          title: 'Hosts',
+          title: this.$i18n.t('menu.hosts'),
           icon: 'fas fa-server'
         },
         {
-          title: 'Databases',
+          title: this.$i18n.t('menu.databases'),
           icon: 'fas fa-database',
           child: [
             {
-              title: 'All technologies',
+              title: this.$i18n.t('menu.allTechs'),
               href: { path: '/databases' },
               icon: 'fas fa-cog'
             },
             {
-              title: 'Oracle',
+              title: this.$i18n.t('menu.oracle'),
               icon: 'fas fa-cog',
               child: [
                 {
-                  title: 'DB List',
+                  title: this.$i18n.t('menu.dbList'),
                   href: { name: 'oracle' },
                   icon: 'fas fa-database'
                 },
                 {
                   href: { name: 'addm' },
-                  title: 'ADDM',
+                  title: this.$i18n.t('menu.addm'),
                   icon: 'fas fa-heartbeat'
                 },
                 {
                   href: { name: 'segment-advisor' },
-                  title: 'Segment Advisor',
+                  title: this.$i18n.t('menu.segAdvisor'),
                   icon: 'fas fa-columns'
                 },
                 {
                   href: { name: 'patch-advisor' },
-                  title: 'Patch Advisor',
+                  title: this.$i18n.t('menu.patAdvisor'),
                   icon: 'fas fa-band-aid'
                 }
               ]
             },
             {
-              title: 'MySQL',
+              title: this.$i18n.t('menu.mysql'),
               icon: 'fas fa-cog',
               child: [
                 {
-                  title: 'DB List',
+                  title: this.$i18n.t('menu.dbList'),
                   href: { name: 'mysql' },
                   icon: 'fas fa-database'
                 }
@@ -85,7 +89,7 @@ export default {
         },
         {
           href: { name: 'hypervisors' },
-          title: 'Hypervisors',
+          title: this.$i18n.t('menu.hypervisors'),
           icon: 'fas fa-object-group'
         },
         // {
@@ -95,31 +99,31 @@ export default {
         // },
         {
           href: { name: 'engineered-systems' },
-          title: 'Engineered Systems',
+          title: this.$i18n.t('menu.engSystems'),
           icon: 'far fa-calendar-times'
         },
         {
           href: { name: 'alerts' },
-          title: 'Alerts',
+          title: this.$i18n.t('menu.alerts'),
           icon: 'fas fa-bell'
         },
         {
-          title: 'Licenses',
+          title: this.$i18n.t('menu.licenses'),
           icon: 'fas fa-dollar-sign',
           child: [
             {
               href: { name: 'licenses-agreement' },
-              title: 'Licenses Agreement',
+              title: this.$i18n.t('menu.licAgreements'),
               icon: 'fas fa-cog'
             },
             {
               href: { name: 'licenses-compliance' },
-              title: 'Licenses Compliance',
+              title: this.$i18n.t('menu.licCompliance'),
               icon: 'fas fa-cog'
             },
             {
               href: { name: 'licenses-used' },
-              title: 'Licenses Used',
+              title: this.$i18n.t('menu.licUsed'),
               icon: 'fas fa-cog'
             }
           ]
@@ -136,11 +140,6 @@ export default {
         //   ]
         // }
       ]
-    }
-  },
-  methods: {
-    onToggleCollapse(collapsed) {
-      this.$emit('collapsedSidebar', collapsed)
     }
   }
 }
