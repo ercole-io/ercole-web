@@ -1,12 +1,13 @@
 import Vue from 'vue'
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import Sidebar from '@/components/Sidebar.vue'
+import i18n from '@/i18n'
 
 Vue.config.ignoredElements = ['b-icon']
 
 let wrapper
 beforeEach(() => {
-  wrapper = mount(Sidebar)
+  wrapper = shallowMount(Sidebar, { i18n })
 })
 
 afterEach(() => {
