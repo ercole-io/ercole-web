@@ -155,7 +155,11 @@
       "cpuCount": "Contagem de CPU",
       "blockSize": "Tamanho do bloco",
       "status": "Status",
-      "uniqueName": "Nome Único"
+      "uniqueName": "Nome Único",
+      "perfImpact": "Impacto de Desempenho",
+      "finding": "Finding",
+      "recommendation": "Recomendação",
+      "action": "Açao"
     },
     "table": {
       "perPage": "por página",
@@ -203,7 +207,11 @@
       "blockSize": "Tamanho do bloco",
       "status": "Status",
       "threadUtil": "Utilização de Thread",
-      "threadUnused": "Thread Não Utilizado"
+      "threadUnused": "Thread Não Utilizado",
+      "perfImpact": "Impacto de Desempenho",
+      "finding": "Finding",
+      "recommendation": "Recomendação",
+      "action": "Açao"
     },
     "charts": {
       "archivelog": "Modo Archivelog",

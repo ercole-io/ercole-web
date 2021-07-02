@@ -155,7 +155,11 @@
       "cpuCount": "CPU Count",
       "blockSize": "Block Size",
       "status": "Status",
-      "uniqueName": "Unique Name"
+      "uniqueName": "Unique Name",
+      "perfImpact": "Performance Impact",
+      "finding": "Finding",
+      "recommendation": "Recommendation",
+      "action": "Action"
     },
     "table": {
       "perPage": "per page",
@@ -204,7 +208,11 @@
       "blockSize": "Block Size",
       "status": "Status",
       "threadUtil": "Thread Utilization",
-      "threadUnused": "Unused Thread"
+      "threadUnused": "Unused Thread",
+      "perfImpact": "Performance Impact",
+      "finding": "Finding",
+      "recommendation": "Recommendation",
+      "action": "Action"
     },
     "charts": {
       "archivelog": "Archivelog Mode",
