@@ -22,10 +22,14 @@ export const mountDatabasesChart = (data, page) => {
     )
   } else if (page === 'oracle') {
     final = _.concat(
-      chartBySeries(data, 'environment', 'Type Of Environment'),
-      chartBySeries(data, 'archivelog', 'Archivelog Mode'),
-      chartBySeries(data, 'dataguard', 'Disaster Recovery'),
-      chartBySeries(data, 'ha', 'High Availability')
+      chartBySeries(data, 'environment', i18n.t('common.charts.typeEnv')),
+      chartBySeries(data, 'archivelog', i18n.t('common.charts.archivelog')),
+      chartBySeries(
+        data,
+        'dataguard',
+        i18n.t('common.charts.disasterRecovery')
+      ),
+      chartBySeries(data, 'ha', i18n.t('common.charts.highAvailability'))
     )
   }
 

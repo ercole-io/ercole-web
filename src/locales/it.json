@@ -143,14 +143,19 @@
       "socket": "Socket",
       "agent": "Agente",
       "version": "Versione",
-      "name": "Nome",
+      "name": "Nome Database",
       "type": "Tipo",
       "charset": "Charset",
       "datafile": "File di Dati",
       "segment": "Segmento",
       "archMode": "Modalità Archivio",
       "disRecovery": "Ripristino di Emergenza",
-      "highAvail": "Alta Disponibilità"
+      "highAvail": "Alta Disponibilità",
+      "work": "Lavoro",
+      "cpuCount": "Conteggio CPU",
+      "blockSize": "Misura del Blocco",
+      "status": "Stato",
+      "uniqueName": "Nome Unico"
     },
     "table": {
       "perPage": "per pagina",
@@ -182,7 +187,7 @@
       "socket": "Socket",
       "agent": "Agente",
       "version": "Versione",
-      "name": "Nome",
+      "name": "Nome Database",
       "type": "Tipo",
       "charset": "Charset",
       "memory": "Memoria (GB)",
@@ -191,7 +196,15 @@
       "archivelog": "Modalità Registro Archivio",
       "disasterRecovery": "Ripristino di Emergenza",
       "highAvailability": "Alta Disponibilità",
-      "reliability": "Affidabilità"
+      "reliability": "Affidabilità",
+      "spaceUsed": "Spazio Utilizzato",
+      "uniqueName": "Nome Unico",
+      "work": "Lavoro",
+      "cpuCount": "Conteggio CPU",
+      "blockSize": "Misura del Blocco",
+      "status": "Stato",
+      "threadUtil": "Utilizzo del Thread",
+      "threadUnused": "Thread Inutilizzato"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",
