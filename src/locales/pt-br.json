@@ -170,7 +170,10 @@
       "architecture": "Arquitetura",
       "buffer": "Buffer",
       "edition": "Edição",
-      "engine": "Engine"
+      "engine": "Engine",
+      "clusterName": "Nome do Cluster",
+      "totalVM": "Total VM | Total VM Ercole",
+      "physicalHost": "Host Físico"
     },
     "table": {
       "perPage": "por página",
@@ -232,7 +235,10 @@
       "partitionName": "Nome da Partição",
       "releaseDate": "Data de Lançamento",
       "psu": "PSU",
-      "months": "{0} Meses"
+      "months": "{0} Meses",
+      "clusterName": "Nome do Cluster",
+      "totalVM": "Total VM | Total VM Ercole",
+      "physicalHost": "Host Físico"
     },
     "charts": {
       "archivelog": "Modo Archivelog",

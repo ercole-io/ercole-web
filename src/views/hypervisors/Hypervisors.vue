@@ -17,13 +17,17 @@
       isClickable
     >
       <template slot="headData">
-        <v-th sortKey="name">Cluster Name</v-th>
-        <v-th sortKey="type">Type</v-th>
-        <v-th sortKey="cpu">Core</v-th>
-        <v-th sortKey="sockets">Socket</v-th>
-        <v-th sortKey="virtualizationNodes">Physical Host</v-th>
-        <v-th sortKey="vmsCount">Total VM</v-th>
-        <v-th sortKey="vmsErcoleAgentCount">Total VM Ercole</v-th>
+        <v-th sortKey="name">{{ $t('common.collumns.clusterName') }}</v-th>
+        <v-th sortKey="type">{{ $t('common.collumns.type') }}</v-th>
+        <v-th sortKey="cpu">{{ $t('common.collumns.cores') }}</v-th>
+        <v-th sortKey="sockets">{{ $t('common.collumns.socket') }}</v-th>
+        <v-th sortKey="virtualizationNodes">{{
+          $t('common.collumns.physicalHost')
+        }}</v-th>
+        <v-th sortKey="vmsCount">{{ $tc('common.collumns.totalVM', 1) }}</v-th>
+        <v-th sortKey="vmsErcoleAgentCount">{{
+          $tc('common.collumns.totalVM', 2)
+        }}</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">

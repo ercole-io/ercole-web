@@ -1,6 +1,6 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField label="Cluster Name">
+    <CustomField :label="$t('common.fields.clusterName')">
       <CustomAutocomplete
         v-model="filters.name"
         :filterResult="filteredname"
@@ -8,11 +8,11 @@
       />
     </CustomField>
 
-    <CustomField label="Type">
+    <CustomField :label="$t('common.fields.type')">
       <CustomSelect v-model="filters.type" :options="filteredtype" />
     </CustomField>
 
-    <CustomField label="Core">
+    <CustomField :label="$t('common.fields.cores')">
       <CustomSlider
         v-model="filters.cpu"
         :ticks="[mincpu, maxcpu]"
@@ -20,11 +20,11 @@
       />
     </CustomField>
 
-    <CustomField label="Socket">
+    <CustomField :label="$t('common.fields.socket')">
       <CustomSlider v-model="filters.sockets" :ticks="filteredsockets" marks />
     </CustomField>
 
-    <CustomField label="Physical Host">
+    <CustomField :label="$t('common.fields.physicalHost')">
       <CustomAutocomplete
         v-model="filters.virtualizationNodes"
         :filterResult="filteredvirtualizationNodes"
@@ -32,7 +32,7 @@
       />
     </CustomField>
 
-    <CustomField label="Total VM">
+    <CustomField :label="$tc('common.fields.totalVM', 1)">
       <CustomSlider
         v-model="filters.vmsCount"
         :ticks="[minvmsCount, maxvmsCount]"
@@ -40,7 +40,7 @@
       />
     </CustomField>
 
-    <CustomField label="Total VM Ercole">
+    <CustomField :label="$tc('common.fields.totalVM', 2)">
       <CustomSlider
         v-model="filters.vmsErcoleAgentCount"
         :ticks="[minvmsErcoleAgentCount, maxvmsErcoleAgentCount]"
