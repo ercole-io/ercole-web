@@ -143,14 +143,19 @@
       "socket": "Socket",
       "agent": "Agente",
       "version": "Versão",
-      "name": "Nome",
+      "name": "Nome do Banco de Dados",
       "type": "Tipo",
       "charset": "Charset",
       "datafile": "DataFile",
       "segment": "Segmento",
       "archMode": "Modo de Arquivo",
       "disRecovery": "Recuperação de Desastres",
-      "highAvail": "Alta Disponibilidade"
+      "highAvail": "Alta Disponibilidade",
+      "work": "Trabalho",
+      "cpuCount": "Contagem de CPU",
+      "blockSize": "Tamanho do bloco",
+      "status": "Status",
+      "uniqueName": "Nome Único"
     },
     "table": {
       "perPage": "por página",
@@ -182,7 +187,7 @@
       "socket": "Socket",
       "agent": "Agente",
       "version": "Versão",
-      "name": "Nome",
+      "name": "Nome do Banco de Dados",
       "type": "Tipe",
       "charset": "Charset",
       "memory": "Memória (GB)",
@@ -191,7 +196,14 @@
       "archivelog": "Modo Archivelog",
       "disasterRecovery": "Recuperação de Desastres",
       "highAvailability": "Alta Disponibilidade",
-      "reliability": "Confiabilidade"
+      "reliability": "Confiabilidade",
+      "spaceUsed": "Nome Único",
+      "work": "Trabalho",
+      "cpuCount": "Contagem de CPU",
+      "blockSize": "Tamanho do bloco",
+      "status": "Status",
+      "threadUtil": "Utilização de Thread",
+      "threadUnused": "Thread Não Utilizado"
     },
     "charts": {
       "archivelog": "Modo Archivelog",

@@ -8,7 +8,7 @@
           :type="hideReliability ? 'is-light' : 'is-light reliability'"
           @click="hideReliability = !hideReliability"
         >
-          Reliability
+          {{ $t('common.collumns.reliability') }}
         </b-button>
         <b-button
           class="mr-1"
@@ -16,7 +16,7 @@
           :type="hideSpaceUsed ? 'is-light' : 'is-light spaceUsed'"
           @click="hideSpaceUsed = !hideSpaceUsed"
         >
-          Space Used
+          {{ $t('common.collumns.spaceUsed') }}
         </b-button>
         <b-button
           class="mr-1"
@@ -24,7 +24,7 @@
           :type="hideCharset ? 'is-light' : 'is-light charset'"
           @click="hideCharset = !hideCharset"
         >
-          Charset
+          {{ $t('common.collumns.charset') }}
         </b-button>
       </ButtonGroup>
       <OracleFilters />
@@ -38,49 +38,56 @@
         isClickable
       >
         <template slot="headData">
-          <v-th sortKey="name">DB Name</v-th>
-          <v-th sortKey="uniqueName">Unique Name</v-th>
+          <v-th sortKey="name">{{ $t('common.collumns.name') }}</v-th>
+          <v-th sortKey="uniqueName">{{
+            $t('common.collumns.uniqueName')
+          }}</v-th>
           <v-th
             sortKey="archivelog"
             class="reliability"
             :class="{ hide: hideReliability }"
-            >Archivelog Mode</v-th
+            >{{ $t('common.collumns.archivelog') }}</v-th
           >
           <v-th
             sortKey="dataguard"
             class="reliability"
             :class="{ hide: hideReliability }"
-            >DR</v-th
+            >{{ $t('common.collumns.disasterRecovery') }}</v-th
           >
           <v-th
             sortKey="ha"
             class="reliability"
             :class="{ hide: hideReliability }"
-            >HA</v-th
+            >{{ $t('common.collumns.highAvailability') }}</v-th
           >
           <v-th
             sortKey="datafileSize"
             class="spaceUsed"
             :class="{ hide: hideSpaceUsed }"
-            >Datafile (GB)</v-th
+            >{{ $t('common.collumns.datafileSize') }}</v-th
           >
           <v-th
             sortKey="segmentsSize"
             class="spaceUsed"
             :class="{ hide: hideSpaceUsed }"
-            >Segment (GB)</v-th
+            >{{ $t('common.collumns.segmentSize') }}</v-th
           >
-          <v-th sortKey="charset" class="charset" :class="{ hide: hideCharset }"
-            >Charset</v-th
+          <v-th
+            sortKey="charset"
+            class="charset"
+            :class="{ hide: hideCharset }"
+            >{{ $t('common.collumns.charset') }}</v-th
           >
-          <v-th sortKey="version">DB Version</v-th>
-          <v-th sortKey="work">Work</v-th>
-          <v-th sortKey="cpuCount">CPU Count</v-th>
-          <v-th sortKey="blockSize">Block Size</v-th>
-          <v-th sortKey="status">Status</v-th>
-          <v-th sortKey="memory">Memory (GB)</v-th>
-          <v-th sortKey="hostname">Hostname</v-th>
-          <v-th sortKey="environment">Env.</v-th>
+          <v-th sortKey="version">{{ $t('common.collumns.version') }}</v-th>
+          <v-th sortKey="work">{{ $t('common.collumns.work') }}</v-th>
+          <v-th sortKey="cpuCount">{{ $t('common.collumns.cpuCount') }}</v-th>
+          <v-th sortKey="blockSize">{{ $t('common.collumns.blockSize') }}</v-th>
+          <v-th sortKey="status">{{ $t('common.collumns.status') }}</v-th>
+          <v-th sortKey="memory">{{ $t('common.collumns.memory') }}</v-th>
+          <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
+          <v-th sortKey="environment">{{
+            $t('common.collumns.environment')
+          }}</v-th>
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
