@@ -159,7 +159,14 @@
       "perfImpact": "Impatto Sulle Prestazioni",
       "finding": "Finding",
       "recommendation": "Raccomandazione",
-      "action": "Azione"
+      "action": "Azione",
+      "reclaimable": "Rivendicabile GB",
+      "totalGB": "GB Totale",
+      "retrieve": "Recuperare",
+      "segmentOwner": "Proprietario del Segmento",
+      "segmentName": "Nome Segmento",
+      "segmentType": "Tipo di Segmento",
+      "partitionName": "Nome della Partizione"
     },
     "table": {
       "perPage": "per pagina",
@@ -212,7 +219,14 @@
       "perfImpact": "Impatto Sulle Prestazioni",
       "finding": "Finding",
       "recommendation": "Raccomandazione",
-      "action": "Azione"
+      "action": "Azione",
+      "reclaimable": "Rivendicabile GB",
+      "totalGB": "GB Totale",
+      "retrieve": "Recuperare",
+      "segmentOwner": "Proprietario del Segmento",
+      "segmentName": "Nome Segmento",
+      "segmentType": "Tipo di Segmento",
+      "partitionName": "Nome della Partizione"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",
