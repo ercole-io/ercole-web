@@ -91,7 +91,8 @@
       "patching": "Senza Patch | Con Patch"
     },
     "licenses": {
-      "addAgreement": "Aggiungi o modifica un Agreement Oracle"
+      "addAgreement": "Aggiungi o modifica un Agreement Oracle",
+      "dbList": "Elenco dei Database"
     },
     "alerts": {
       "markRead": "Segna come letto",
@@ -211,7 +212,8 @@
       "numberLicenses": "Numero di Licenze",
       "consumed": "Consumato",
       "covered": "Coperto",
-      "compliance": "Conformità"
+      "compliance": "Conformità",
+      "usedLicenses": "Licenze Usate"
     },
     "table": {
       "perPage": "per pagina",
@@ -305,7 +307,8 @@
       "numberLicenses": "Numero di Licenze",
       "consumed": "Consumato",
       "covered": "Coperto",
-      "compliance": "Conformità"
+      "compliance": "Conformità",
+      "usedLicenses": "Licenze Usate"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",
