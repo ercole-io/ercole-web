@@ -92,6 +92,14 @@
     },
     "licenses": {
       "addAgreement": "Adicionar ou modificar um contrato Oracle"
+    },
+    "alerts": {
+      "markRead": "Marcar como Lido",
+      "selected": "Todos os {0} alertas nesta página estão selecionados.",
+      "selectAll": "Selecionar todos os {0} alertas?",
+      "allAlerts": "Todos os {0} alertas estão selecionados.",
+      "clearAll": "Limpar selecionados?",
+      "showAll": "Mostrar todos"
     }
   },
   "common": {
@@ -177,7 +185,11 @@
       "totalVM": "Total VM | Total VM Ercole",
       "physicalHost": "Host Físico",
       "vmName": "Nome da VM",
-      "cappedCpu": "Capped CPU"
+      "cappedCpu": "Capped CPU",
+      "date": "Data",
+      "severity": "Gravidade",
+      "code": "Código",
+      "description": "Descrição"
     },
     "table": {
       "perPage": "por página",
@@ -245,7 +257,11 @@
       "physicalHost": "Host Físico",
       "vmName": "Nome da VM",
       "cappedCpu": "Capped CPU",
-      "powerTemp": "Potência / Temperatura"
+      "powerTemp": "Potência / Temperatura",
+      "date": "Data",
+      "severity": "Gravidade",
+      "code": "Código",
+      "description": "Descrição"
     },
     "charts": {
       "archivelog": "Modo Archivelog",

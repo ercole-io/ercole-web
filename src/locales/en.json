@@ -92,6 +92,14 @@
     },
     "licenses": {
       "addAgreement": "Add or Modify an Oracle Agreement"
+    },
+    "alerts": {
+      "markRead": "Mark as Read",
+      "selected": "All {0} alerts on this page are selected.",
+      "selectAll": "Select all {0} alerts?",
+      "allAlerts": "All {0} alerts are selected.",
+      "clearAll": "Clear select all?",
+      "showAll": "Show All"
     }
   },
   "common": {
@@ -179,7 +187,11 @@
       "totalVM": "Total VM | Total VM Ercole",
       "physicalHost": "Physical Host",
       "vmName": "VM Name",
-      "cappedCpu": "Capped CPU"
+      "cappedCpu": "Capped CPU",
+      "date": "Date",
+      "severity": "Severity",
+      "code": "Code",
+      "description": "Description"
     },
     "table": {
       "perPage": "per page",
@@ -252,7 +264,11 @@
       "physicalHost": "Physical Host",
       "vmName": "VM Name",
       "cappedCpu": "Capped CPU",
-      "powerTemp": "Power / Temp"
+      "powerTemp": "Power / Temp",
+      "date": "Date",
+      "severity": "Severity",
+      "code": "Code",
+      "description": "Description"
     },
     "charts": {
       "archivelog": "Archivelog Mode",
