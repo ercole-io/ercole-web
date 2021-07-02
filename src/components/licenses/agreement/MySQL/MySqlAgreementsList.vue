@@ -7,11 +7,21 @@
       :clickedRow="() => []"
     >
       <template slot="headData">
-        <th colspan="2" style="text-align: center !important;">Actions</th>
-        <v-th sortKey="type">Type</v-th>
-        <v-th sortKey="agreementID">Agreement Number</v-th>
-        <v-th sortKey="csi">CSI</v-th>
-        <v-th sortKey="numberOfLicenses">Number of licenses</v-th>
+        <th colspan="2" style="text-align: center !important;">
+          {{ $t('common.collumns.actions') }}
+        </th>
+        <v-th sortKey="type">
+          {{ $t('common.collumns.type') }}
+        </v-th>
+        <v-th sortKey="agreementID">
+          {{ $t('common.collumns.agreeNumber') }}
+        </v-th>
+        <v-th sortKey="csi">
+          {{ $t('common.collumns.csi') }}
+        </v-th>
+        <v-th sortKey="numberOfLicenses">
+          {{ $t('common.collumns.numberLicenses') }}
+        </v-th>
         <v-th sortKey="clusters">Clusters</v-th>
         <v-th sortKey="hosts">Hosts</v-th>
       </template>

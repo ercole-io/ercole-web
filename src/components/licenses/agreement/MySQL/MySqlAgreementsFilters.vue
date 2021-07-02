@@ -1,10 +1,10 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField label="Type">
+    <CustomField :label="$t('common.fields.type')">
       <CustomSelect v-model="filters.type" :options="filteredtype" />
     </CustomField>
 
-    <CustomField label="Agreement Number">
+    <CustomField :label="$t('common.fields.agreeNumber')">
       <CustomAutocomplete
         v-model="filters.agreementID"
         :filterResult="filteredagreementID"
@@ -12,7 +12,7 @@
       />
     </CustomField>
 
-    <CustomField label="CSI">
+    <CustomField :label="$t('common.fields.csi')">
       <CustomAutocomplete
         v-model="filters.csi"
         :filterResult="filteredcsi"
@@ -20,7 +20,7 @@
       />
     </CustomField>
 
-    <CustomField label="Number of licenses">
+    <CustomField :label="$t('common.fields.numberLicenses')">
       <CustomAutocomplete
         v-model="filters.numberOfLicenses"
         :filterResult="filterednumberOfLicenses"

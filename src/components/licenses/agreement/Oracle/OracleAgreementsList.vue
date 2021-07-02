@@ -6,22 +6,48 @@
     :clickedRow="() => []"
   >
     <template slot="headData">
-      <th colspan="3" style="text-align: center !important;">Actions</th>
-      <v-th sortKey="agreementID">Agreement Number</v-th>
-      <v-th sortKey="licenseTypeID">Part Number</v-th>
-      <v-th sortKey="itemDescription">Description</v-th>
-      <v-th sortKey="metric">Metric</v-th>
-      <v-th sortKey="csi">CSI</v-th>
-      <v-th sortKey="referenceNumber" v-if="toggleReferenceNumber"
-        >Reference Number</v-th
-      >
-      <v-th sortKey="unlimited">ULA</v-th>
-      <v-th sortKey="licensesPerCore">Licenses Core</v-th>
-      <v-th sortKey="licensesPerUser">Licenses User</v-th>
-      <v-th sortKey="availableLicensesPerCore">Available Licenses Core</v-th>
-      <v-th sortKey="availableLicensesPerUser">Available Licenses User</v-th>
-      <v-th sortKey="catchAll">Basket</v-th>
-      <v-th sortKey="restricted">Restricted</v-th>
+      <th colspan="3" style="text-align: center !important;">
+        {{ $t('common.collumns.actions') }}
+      </th>
+      <v-th sortKey="agreementID">
+        {{ $t('common.collumns.agreeNumber') }}
+      </v-th>
+      <v-th sortKey="licenseTypeID">
+        {{ $t('common.collumns.partNumber') }}
+      </v-th>
+      <v-th sortKey="itemDescription">
+        {{ $t('common.collumns.description') }}
+      </v-th>
+      <v-th sortKey="metric">
+        {{ $t('common.collumns.metric') }}
+      </v-th>
+      <v-th sortKey="csi">
+        {{ $t('common.collumns.csi') }}
+      </v-th>
+      <v-th sortKey="referenceNumber" v-if="toggleReferenceNumber">
+        {{ $t('common.collumns.refNumber') }}
+      </v-th>
+      <v-th sortKey="unlimited">
+        {{ $t('common.collumns.ula') }}
+      </v-th>
+      <v-th sortKey="licensesPerCore">
+        {{ $t('common.collumns.licPerCore') }}
+      </v-th>
+      <v-th sortKey="licensesPerUser">
+        {{ $t('common.collumns.licPerUser') }}
+      </v-th>
+      <v-th sortKey="availableLicensesPerCore">
+        {{ $t('common.collumns.avLicPerCore') }}
+      </v-th>
+      <v-th sortKey="availableLicensesPerUser">
+        {{ $t('common.collumns.avLicPerUser') }}
+      </v-th>
+      <v-th sortKey="catchAll">
+        {{ $t('common.collumns.basket') }}
+      </v-th>
+      <v-th sortKey="restricted">
+        {{ $t('common.collumns.restricted') }}
+      </v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
