@@ -10,12 +10,14 @@
       isClickable
     >
       <template slot="headData">
-        <v-th sortKey="benefit">Performance Impact</v-th>
-        <v-th sortKey="hostname">Hostname</v-th>
-        <v-th sortKey="dbname">Database</v-th>
-        <v-th sortKey="finding">Finding</v-th>
-        <v-th sortKey="recommendation">Recommendation</v-th>
-        <v-th sortKey="action">Action</v-th>
+        <v-th sortKey="benefit">{{ $t('common.collumns.perfImpact') }}</v-th>
+        <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
+        <v-th sortKey="dbname">{{ $t('common.collumns.databases') }}</v-th>
+        <v-th sortKey="finding">{{ $t('common.collumns.finding') }}</v-th>
+        <v-th sortKey="recommendation">{{
+          $t('common.collumns.recommendation')
+        }}</v-th>
+        <v-th sortKey="action">{{ $t('common.collumns.action') }}</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">

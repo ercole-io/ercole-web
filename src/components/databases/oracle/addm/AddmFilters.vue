@@ -1,6 +1,6 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField label="Performance Impact">
+    <CustomField :label="$t('common.fields.perfImpact')">
       <CustomSlider
         v-model="filters.benefit"
         :ticks="[minbenefit, maxbenefit]"
@@ -8,7 +8,7 @@
       />
     </CustomField>
 
-    <CustomField label="Hostname">
+    <CustomField :label="$t('common.fields.hostname')">
       <CustomAutocomplete
         v-model="filters.hostname"
         :filterResult="filteredhostname"
@@ -16,7 +16,7 @@
       />
     </CustomField>
 
-    <CustomField label="Database">
+    <CustomField :label="$t('common.fields.dbs')">
       <CustomAutocomplete
         v-model="filters.dbname"
         :filterResult="filtereddbname"
@@ -24,18 +24,18 @@
       />
     </CustomField>
 
-    <CustomField label="Finding">
+    <CustomField :label="$t('common.fields.finding')">
       <CustomSelect v-model="filters.finding" :options="filteredfinding" />
     </CustomField>
 
-    <CustomField label="Recommendation">
+    <CustomField :label="$t('common.fields.recommendation')">
       <CustomSelect
         v-model="filters.recommendation"
         :options="filteredrecommendation"
       />
     </CustomField>
 
-    <CustomField label="Action">
+    <CustomField :label="$t('common.fields.action')">
       <CustomAutocomplete
         v-model="filters.action"
         :filterResult="filteredaction"
