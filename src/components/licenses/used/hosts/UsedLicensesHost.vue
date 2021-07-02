@@ -12,12 +12,20 @@
       isClickable
     >
       <template slot="headData">
-        <v-th sortKey="hostname">Hostname</v-th>
-        <v-th sortKey="dbsQty">Databases</v-th>
-        <v-th sortKey="licenseTypeID">Part Number</v-th>
-        <v-th sortKey="description">Description</v-th>
-        <v-th sortKey="metric">Metric</v-th>
-        <v-th sortKey="usedLicenses">Used Licenses</v-th>
+        <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
+        <v-th sortKey="dbsQty">{{ $t('common.collumns.databases') }}</v-th>
+        <v-th sortKey="licenseTypeID">
+          {{ $t('common.collumns.partNumber') }}
+        </v-th>
+        <v-th sortKey="description">
+          {{ $t('common.collumns.description') }}
+        </v-th>
+        <v-th sortKey="metric">
+          {{ $t('common.collumns.metric') }}
+        </v-th>
+        <v-th sortKey="usedLicenses">
+          {{ $t('common.collumns.usedLicenses') }}
+        </v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">

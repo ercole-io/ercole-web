@@ -10,7 +10,7 @@
       <slot name="customTopHeader" />
 
       <SearchInput
-        :searchPlaceholder="`${$t('common.table.search')} ${placeholder}`"
+        :searchPlaceholder="setPlaceholder"
         v-model="filters.search.value"
         :urlParam="urlSearchParam"
         v-if="!hideSearch"
@@ -102,6 +102,7 @@ import FilteredResults from '@/components/common/Table/FilteredResults.vue'
 import ShowPerPage from '@/components/common/Table/ShowPerPage.vue'
 import NoContent from '@/components/common/NoContent.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
+import i18n from '@/i18n.js'
 
 export default {
   mixins: [paginationMixin],
@@ -183,6 +184,9 @@ export default {
   computed: {
     total() {
       return this.tableData
+    },
+    setPlaceholder() {
+      return `${i18n.t('common.table.search')} ${this.placeholder}`
     }
   },
   watch: {
