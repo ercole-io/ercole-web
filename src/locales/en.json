@@ -166,7 +166,9 @@
       "segmentOwner": "Segment Owner",
       "segmentName": "Segment Name",
       "segmentType": "Segment Type",
-      "partitionName": "Partition Name"
+      "partitionName": "Partition Name",
+      "psu": "PSU",
+      "months": "{0} Months"
     },
     "table": {
       "perPage": "per page",
@@ -226,7 +228,10 @@
       "segmentOwner": "Segment Owner",
       "segmentName": "Segment Name",
       "segmentType": "Segment Type",
-      "partitionName": "Partition Name"
+      "partitionName": "Partition Name",
+      "releaseDate": "Release Date",
+      "psu": "PSU",
+      "months": "{0} Months"
     },
     "charts": {
       "archivelog": "Archivelog Mode",
