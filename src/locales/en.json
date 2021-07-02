@@ -91,7 +91,8 @@
       "patching": "Not Patched | Patched"
     },
     "licenses": {
-      "addAgreement": "Add or Modify an Oracle Agreement"
+      "addAgreement": "Add or Modify an Oracle Agreement",
+      "dbList": "List of Databases"
     },
     "alerts": {
       "markRead": "Mark as Read",
@@ -211,7 +212,8 @@
       "numberLicenses": "Number of Licences",
       "consumed": "Consumed",
       "covered": "Covered",
-      "compliance": "Compliance"
+      "compliance": "Compliance",
+      "usedLicenses": "Used Licenses"
     },
     "table": {
       "perPage": "per page",
@@ -305,7 +307,8 @@
       "numberLicenses": "Number of Licences",
       "consumed": "Consumed",
       "covered": "Covered",
-      "compliance": "Compliance"
+      "compliance": "Compliance",
+      "usedLicenses": "Used Licenses"
     },
     "charts": {
       "archivelog": "Archivelog Mode",

@@ -7,7 +7,7 @@
     ></b-loading>
     <header class="modal-card-head">
       <p class="modal-card-title">
-        List of Databases
+        {{ modalTitle }}
         <br />
         <span class="is-size-7">
           Hostname:
@@ -47,6 +47,7 @@
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import i18n from '@/i18n.js'
 
 export default {
   mixins: [TooltipMixin],
@@ -65,6 +66,11 @@ export default {
     return {
       keys: ['dbName'],
       isLoading: false
+    }
+  },
+  computed: {
+    modalTitle() {
+      return i18n.t('views.licenses.dbList')
     }
   }
 }

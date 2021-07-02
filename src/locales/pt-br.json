@@ -91,7 +91,8 @@
       "patching": "Sem Patch | Com Patch"
     },
     "licenses": {
-      "addAgreement": "Adicionar ou modificar um contrato Oracle"
+      "addAgreement": "Adicionar ou modificar um contrato Oracle",
+      "dbList": "Lista de Bancos de Dados"
     },
     "alerts": {
       "markRead": "Marcar como Lido",
@@ -209,7 +210,8 @@
       "numberLicenses": "Número de Licenças",
       "consumed": "Consumido",
       "covered": "Coberto",
-      "compliance": "Conformidade"
+      "compliance": "Conformidade",
+      "usedLicenses": "Licenças Usadas"
     },
     "table": {
       "perPage": "por página",
@@ -298,7 +300,8 @@
       "numberLicenses": "Numero di Licenze",
       "consumed": "Consumido",
       "covered": "Coberto",
-      "compliance": "Conformidade"
+      "compliance": "Conformidade",
+      "usedLicenses": "Licenças Usadas"
     },
     "charts": {
       "archivelog": "Modo Archivelog",

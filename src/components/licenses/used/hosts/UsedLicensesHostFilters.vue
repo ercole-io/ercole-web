@@ -1,6 +1,6 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField label="Hostname">
+    <CustomField :label="$t('common.fields.hostname')">
       <CustomAutocomplete
         v-model="filters.hostname"
         :filterResult="filteredhostname"
@@ -8,7 +8,7 @@
       />
     </CustomField>
 
-    <CustomField label="Databases">
+    <CustomField :label="$t('common.fields.dbs')">
       <CustomSlider
         v-model="filters.dbsQty"
         :ticks="[mindbsQty, maxdbsQty]"
@@ -16,21 +16,21 @@
       />
     </CustomField>
 
-    <CustomField label="Part Number">
+    <CustomField :label="$t('common.fields.partNumber')">
       <CustomSelect
         v-model="filters.licenseTypeID"
         :options="filteredlicenseTypeID"
       />
     </CustomField>
 
-    <CustomField label="Description">
+    <CustomField :label="$t('common.fields.description')">
       <CustomSelect
         v-model="filters.description"
         :options="filtereddescription"
       />
     </CustomField>
 
-    <CustomField label="Metric">
+    <CustomField :label="$t('common.fields.metric')">
       <CustomSelect v-model="filters.metric" :options="filteredmetric" />
     </CustomField>
   </AdvancedFiltersBase>
