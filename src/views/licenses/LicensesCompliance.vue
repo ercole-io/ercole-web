@@ -10,13 +10,27 @@
       isClickable
     >
       <template slot="headData">
-        <v-th sortKey="licenseTypeID">Part Number</v-th>
-        <v-th sortKey="itemDescription">Description</v-th>
-        <v-th sortKey="metric">Metric</v-th>
-        <v-th sortKey="consumed">Consumed</v-th>
-        <v-th sortKey="covered">Covered</v-th>
-        <v-th sortKey="compliance">Compliance</v-th>
-        <v-th sortKey="unlimited">ULA</v-th>
+        <v-th sortKey="licenseTypeID">
+          {{ $t('common.collumns.partNumber') }}
+        </v-th>
+        <v-th sortKey="itemDescription">
+          {{ $t('common.collumns.description') }}
+        </v-th>
+        <v-th sortKey="metric">
+          {{ $t('common.collumns.metric') }}
+        </v-th>
+        <v-th sortKey="consumed">
+          {{ $t('common.collumns.consumed') }}
+        </v-th>
+        <v-th sortKey="covered">
+          {{ $t('common.collumns.covered') }}
+        </v-th>
+        <v-th sortKey="compliance">
+          {{ $t('common.collumns.compliance') }}
+        </v-th>
+        <v-th sortKey="unlimited">
+          {{ $t('common.collumns.ula') }}
+        </v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
