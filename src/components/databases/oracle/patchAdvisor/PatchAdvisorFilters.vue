@@ -1,6 +1,6 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField label="Hostname">
+    <CustomField :label="$t('common.fields.hostname')">
       <CustomAutocomplete
         v-model="filters.hostname"
         :filterResult="filteredhostname"
@@ -8,7 +8,7 @@
       />
     </CustomField>
 
-    <CustomField label="Database">
+    <CustomField :label="$t('common.fields.dbs')">
       <CustomAutocomplete
         v-model="filters.dbname"
         :filterResult="filtereddbname"
@@ -16,26 +16,26 @@
       />
     </CustomField>
 
-    <CustomField label="Version">
+    <CustomField :label="$t('common.fields.version')">
       <CustomSelect v-model="filters.dbver" :options="filtereddbver" />
     </CustomField>
 
-    <CustomField label="PSU">
+    <CustomField :label="$t('common.fields.psu')">
       <CustomSelect
         v-model="filters.description"
         :options="filtereddescription"
       />
     </CustomField>
 
-    <CustomField label="4 Months">
+    <CustomField :label="$t('common.fields.months', ['4'])">
       <CustomRadio v-model="filters.fourMonths" />
     </CustomField>
 
-    <CustomField label="6 Months">
+    <CustomField :label="$t('common.fields.months', ['6'])">
       <CustomRadio v-model="filters.sixMonths" />
     </CustomField>
 
-    <CustomField label="12 Months">
+    <CustomField :label="$t('common.fields.months', ['12'])">
       <CustomRadio v-model="filters.twelveMonths" />
     </CustomField>
   </AdvancedFiltersBase>

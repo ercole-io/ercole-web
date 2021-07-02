@@ -166,7 +166,9 @@
       "segmentOwner": "Proprietario del Segmento",
       "segmentName": "Nome Segmento",
       "segmentType": "Tipo di Segmento",
-      "partitionName": "Nome della Partizione"
+      "partitionName": "Nome della Partizione",
+      "psu": "PSU",
+      "months": "{0} Mesi"
     },
     "table": {
       "perPage": "per pagina",
@@ -226,7 +228,10 @@
       "segmentOwner": "Proprietario del Segmento",
       "segmentName": "Nome Segmento",
       "segmentType": "Tipo di Segmento",
-      "partitionName": "Nome della Partizione"
+      "partitionName": "Nome della Partizione",
+      "releaseDate": "Data di Rilascio",
+      "psu": "PSU",
+      "months": "{0} Mesi"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",
