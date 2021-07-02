@@ -5,7 +5,14 @@
     :mbottom="false"
   >
     <!-- <Top10Link slot="customTitle" /> -->
-    <SimpleTable :theadData="['', 'Hostname', 'DB Name', 'Thread Utilization']">
+    <SimpleTable
+      :theadData="[
+        '',
+        $t('common.collumns.hostname'),
+        $t('common.collumns.name'),
+        $t('common.collumns.threadUtil')
+      ]"
+    >
       <template slot="tbodyContent">
         <tr v-for="(workload, index) in getTop3workload" :key="index">
           <TdStarIcon :position="index" />

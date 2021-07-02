@@ -6,7 +6,13 @@
     class="mt-5 mb-5"
   >
     <!-- <Top10Link slot="customTitle" /> -->
-    <SimpleTable :theadData="['', 'Hostname', 'Unused Thread']">
+    <SimpleTable
+      :theadData="[
+        '',
+        $t('common.collumns.hostname'),
+        $t('common.collumns.threadUnused')
+      ]"
+    >
       <template slot="tbodyContent">
         <tr v-for="(reclaimable, index) in getTop3UnusedIR" :key="index">
           <TdStarIcon :position="index" />
