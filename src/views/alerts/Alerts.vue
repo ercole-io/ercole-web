@@ -35,7 +35,7 @@
             class="has-text-weight-semibold mr-3 ml-3"
             @click="handleMarkAsRead"
           >
-            Mark as Read
+            {{ $t('views.alerts.markRead') }}
           </b-button>
 
           <span
@@ -43,11 +43,10 @@
             v-if="!isAllPagesSelected && isCurrentPageSelected"
           >
             <span class="px-2">
-              All {{ currentPageSelection.length }} alerts on this page are
-              selected.
+              {{ $t('views.alerts.selected', [currentPageSelection.length]) }}
             </span>
             <a @click="handleSelectAllPagesRows">
-              Select all {{ getAlerts.length }} alerts?
+              {{ $t('views.alerts.selectAll', [getAlerts.length]) }}
             </a>
           </span>
 
@@ -56,10 +55,10 @@
             v-if="isAllPagesSelected && isCurrentPageSelected"
           >
             <span class="px-2">
-              All {{ getAlerts.length }} alerts are selected.
+              {{ $t('views.alerts.allAlerts', [getAlerts.length]) }}
             </span>
             <a @click="handleClearAllSelections">
-              Clear select all?
+              {{ $t('views.alerts.clearAll') }}
             </a>
           </span>
         </div>
@@ -71,7 +70,7 @@
             class="has-text-weight-semibold mr-3"
             @click="removeParams"
           >
-            Show All
+            {{ $t('views.alerts.showAll') }}
           </b-button>
         </div>
       </template>
@@ -85,12 +84,24 @@
             />
           </div>
         </th>
-        <v-th style="width: 10%" sortKey="alertCategory">Type</v-th>
-        <v-th style="width: 10%" sortKey="date">Date</v-th>
-        <v-th style="width: 5%" :sortKey="alertSeveritySort">Severity</v-th>
-        <v-th style="width: 20%" sortKey="hostname">Hostname</v-th>
-        <v-th style="width: 10%" sortKey="alertCode">Code</v-th>
-        <v-th style="width: 40%" sortKey="description">Description</v-th>
+        <v-th style="width: 10%" sortKey="alertCategory">
+          {{ $t('common.collumns.type') }}
+        </v-th>
+        <v-th style="width: 10%" sortKey="date">
+          {{ $t('common.collumns.date') }}
+        </v-th>
+        <v-th style="width: 5%" :sortKey="alertSeveritySort">
+          {{ $t('common.collumns.severity') }}
+        </v-th>
+        <v-th style="width: 20%" sortKey="hostname">
+          {{ $t('common.collumns.hostname') }}
+        </v-th>
+        <v-th style="width: 10%" sortKey="alertCode">
+          {{ $t('common.collumns.code') }}
+        </v-th>
+        <v-th style="width: 40%" sortKey="description">
+          {{ $t('common.collumns.description') }}
+        </v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">

@@ -1,6 +1,6 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField label="Status">
+    <CustomField :label="$t('common.fields.status')">
       <CustomSelect v-model="alertStatus" :hasReset="false" fixedOptions>
         <option value="NEW">NEW</option>
         <option value="ACK">ACK</option>
@@ -8,7 +8,7 @@
       </CustomSelect>
     </CustomField>
 
-    <CustomField label="Type">
+    <CustomField :label="$t('common.fields.type')">
       <CustomSelect v-model="filters.alertCategory" fixedOptions>
         <option value="AGENT">AGENT</option>
         <option value="ENGINE">ENGINE</option>
@@ -16,7 +16,7 @@
       </CustomSelect>
     </CustomField>
 
-    <CustomField label="Date">
+    <CustomField :label="$t('common.fields.date')">
       <b-datepicker
         v-model="startDate"
         size="is-small"
@@ -42,7 +42,7 @@
       />
     </CustomField>
 
-    <CustomField label="Severity">
+    <CustomField :label="$t('common.fields.severity')">
       <CustomSelect v-model="filters.alertSeverity" fixedOptions>
         <option value="INFO">INFO</option>
         <option value="WARNING">WARNING</option>
@@ -50,7 +50,7 @@
       </CustomSelect>
     </CustomField>
 
-    <CustomField label="Hostname">
+    <CustomField :label="$t('common.fields.hostname')">
       <CustomAutocomplete
         v-model="filters.hostname"
         :filterResult="filteredhostname"
@@ -58,7 +58,7 @@
       />
     </CustomField>
 
-    <CustomField label="Code">
+    <CustomField :label="$t('common.fields.code')">
       <CustomAutocomplete
         v-model="filters.alertCode"
         :filterResult="filteredalertCode"
@@ -66,7 +66,7 @@
       />
     </CustomField>
 
-    <CustomField label="Description">
+    <CustomField :label="$t('common.fields.description')">
       <CustomAutocomplete
         v-model="filters.description"
         :filterResult="filtereddescription"
