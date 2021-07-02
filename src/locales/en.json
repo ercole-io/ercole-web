@@ -208,7 +208,10 @@
       "licemnses": "Licences",
       "number": "Number",
       "hostAssociated": "Host Associated",
-      "numberLicenses": "Number of Licences"
+      "numberLicenses": "Number of Licences",
+      "consumed": "Consumed",
+      "covered": "Covered",
+      "compliance": "Compliance"
     },
     "table": {
       "perPage": "per page",
@@ -299,7 +302,10 @@
       "basket": "Basket",
       "restricted": "Restricted",
       "actions": "Actions",
-      "numberLicenses": "Number of Licences"
+      "numberLicenses": "Number of Licences",
+      "consumed": "Consumed",
+      "covered": "Covered",
+      "compliance": "Compliance"
     },
     "charts": {
       "archivelog": "Archivelog Mode",
