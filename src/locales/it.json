@@ -172,7 +172,10 @@
       "architecture": "Architettura",
       "buffer": "Buffer",
       "edition": "Edizione",
-      "engine": "Engine"
+      "engine": "Engine",
+      "clusterName": "Nome Cluster",
+      "totalVM": "VM Totale | VM Totale Ercole",
+      "physicalHost": "Host Fisico"
     },
     "table": {
       "perPage": "per pagina",
@@ -239,7 +242,10 @@
       "architecture": "Architettura",
       "buffer": "Buffer",
       "edition": "Edizione",
-      "engine": "Engine"
+      "engine": "Engine",
+      "clusterName": "Nome Cluster",
+      "totalVM": "VM Totale | VM Totale Ercole",
+      "physicalHost": "Host Fisico"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",
