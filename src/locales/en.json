@@ -159,7 +159,14 @@
       "perfImpact": "Performance Impact",
       "finding": "Finding",
       "recommendation": "Recommendation",
-      "action": "Action"
+      "action": "Action",
+      "reclaimable": "Reclaimable GB",
+      "totalGB": "GB Total",
+      "retrieve": "Retrieve",
+      "segmentOwner": "Segment Owner",
+      "segmentName": "Segment Name",
+      "segmentType": "Segment Type",
+      "partitionName": "Partition Name"
     },
     "table": {
       "perPage": "per page",
@@ -212,7 +219,14 @@
       "perfImpact": "Performance Impact",
       "finding": "Finding",
       "recommendation": "Recommendation",
-      "action": "Action"
+      "action": "Action",
+      "reclaimable": "Reclaimable GB",
+      "totalGB": "GB Total",
+      "retrieve": "Retrieve",
+      "segmentOwner": "Segment Owner",
+      "segmentName": "Segment Name",
+      "segmentType": "Segment Type",
+      "partitionName": "Partition Name"
     },
     "charts": {
       "archivelog": "Archivelog Mode",

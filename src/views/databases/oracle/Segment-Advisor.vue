@@ -17,16 +17,22 @@
       isClickable
     >
       <template slot="headData">
-        <v-th sortKey="reclaimable">Reclaimable GB</v-th>
-        <v-th sortKey="segmentsSize">GB Total</v-th>
-        <v-th sortKey="retrieve">Retrieve</v-th>
-        <v-th sortKey="hostname">Hostname</v-th>
-        <v-th sortKey="dbname">DB Name</v-th>
-        <v-th sortKey="segmentOwner">Segment Owner</v-th>
-        <v-th sortKey="segmentName">Segment Name</v-th>
-        <v-th sortKey="segmentType">Segment Type</v-th>
-        <v-th sortKey="partitionName">Partition Name</v-th>
-        <v-th sortKey="recommendation">Recommendation</v-th>
+        <v-th sortKey="reclaimable">{{ $t('common.fields.reclaimable') }}</v-th>
+        <v-th sortKey="segmentsSize">{{ $t('common.fields.totalGB') }}</v-th>
+        <v-th sortKey="retrieve">{{ $t('common.fields.retrieve') }}</v-th>
+        <v-th sortKey="hostname">{{ $t('common.fields.hostname') }}</v-th>
+        <v-th sortKey="dbname">{{ $t('common.fields.name') }}</v-th>
+        <v-th sortKey="segmentOwner">{{
+          $t('common.fields.segmentOwner')
+        }}</v-th>
+        <v-th sortKey="segmentName">{{ $t('common.fields.segmentName') }}</v-th>
+        <v-th sortKey="segmentType">{{ $t('common.fields.segmentType') }}</v-th>
+        <v-th sortKey="partitionName">{{
+          $t('common.fields.partitionName')
+        }}</v-th>
+        <v-th sortKey="recommendation">{{
+          $t('common.fields.recommendation')
+        }}</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
