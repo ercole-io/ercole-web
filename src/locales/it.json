@@ -20,7 +20,7 @@
     "alerts": "Avvisi",
     "licenses": "Licenze",
     "licAgreements": "Contratto di Licenza",
-    "licCompliance": "Conformità alle Licenze",
+    "licCompliance": "Conformità di Licenze",
     "licUsed": "Licenze Utilizzate"
   },
   "header": {
@@ -208,7 +208,10 @@
       "licemnses": "Licenze",
       "number": "Numero",
       "hostAssociated": "Associato all'host",
-      "numberLicenses": "Numero di Licenze"
+      "numberLicenses": "Numero di Licenze",
+      "consumed": "Consumato",
+      "covered": "Coperto",
+      "compliance": "Conformità"
     },
     "table": {
       "perPage": "per pagina",
@@ -299,7 +302,10 @@
       "basket": "Cestino",
       "restricted": "Limitato",
       "actions": "Azioni",
-      "numberLicenses": "Numero di Licenze"
+      "numberLicenses": "Numero di Licenze",
+      "consumed": "Consumato",
+      "covered": "Coperto",
+      "compliance": "Conformità"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",

@@ -206,7 +206,10 @@
       "licemnses": "Licenças",
       "number": "Número",
       "hostAssociated": "Hosts Associados",
-      "numberLicenses": "Número de Licenças"
+      "numberLicenses": "Número de Licenças",
+      "consumed": "Consumido",
+      "covered": "Coberto",
+      "compliance": "Conformidade"
     },
     "table": {
       "perPage": "por página",
@@ -292,7 +295,10 @@
       "basket": "Cesta",
       "restricted": "Restrito",
       "actions": "Ações",
-      "numberLicenses": "Numero di Licenze"
+      "numberLicenses": "Numero di Licenze",
+      "consumed": "Consumido",
+      "covered": "Coberto",
+      "compliance": "Conformidade"
     },
     "charts": {
       "archivelog": "Modo Archivelog",

@@ -1,42 +1,42 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField label="Part Number">
+    <CustomField :label="$t('common.fields.partNumber')">
       <CustomSelect
         v-model="filters.licenseTypeID"
         :options="filteredlicenseTypeID"
       />
     </CustomField>
 
-    <CustomField label="Description">
+    <CustomField :label="$t('common.fields.description')">
       <CustomSelect
         v-model="filters.itemDescription"
         :options="filtereditemDescription"
       />
     </CustomField>
 
-    <CustomField label="Metric">
+    <CustomField :label="$t('common.fields.metric')">
       <CustomSelect v-model="filters.metric" :options="filteredmetric" />
     </CustomField>
 
-    <CustomField label="Consumed">
+    <CustomField :label="$t('common.fields.consumed')">
       <CustomSlider
         v-model="filters.consumed"
         :ticks="[minconsumed, maxconsumed]"
       />
     </CustomField>
 
-    <CustomField label="Covered">
+    <CustomField :label="$t('common.fields.covered')">
       <CustomSlider
         v-model="filters.covered"
         :ticks="[mincovered, maxcovered]"
       />
     </CustomField>
 
-    <CustomField label="Comnpliance">
+    <CustomField :label="$t('common.fields.compliance')">
       <CustomSlider v-model="filters.compliance" percent />
     </CustomField>
 
-    <CustomField label="ULA">
+    <CustomField :label="$t('common.fields.ula')">
       <CustomRadio v-model="filters.unlimited" />
     </CustomField>
   </AdvancedFiltersBase>
