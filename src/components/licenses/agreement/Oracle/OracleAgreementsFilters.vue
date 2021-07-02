@@ -1,6 +1,6 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField label="Agreement Number">
+    <CustomField :label="$t('common.fields.agreeNumber')">
       <CustomAutocomplete
         v-model="filters.agreementID"
         :filterResult="filteredagreementID"
@@ -8,25 +8,25 @@
       />
     </CustomField>
 
-    <CustomField label="Part Number">
+    <CustomField :label="$t('common.fields.partNumber')">
       <CustomSelect
         v-model="filters.licenseTypeID"
         :options="filteredlicenseTypeID"
       />
     </CustomField>
 
-    <CustomField label="Description">
+    <CustomField :label="$t('common.fields.description')">
       <CustomSelect
         v-model="filters.itemDescription"
         :options="filtereditemDescription"
       />
     </CustomField>
 
-    <CustomField label="Metric">
+    <CustomField :label="$t('common.fields.metric')">
       <CustomSelect v-model="filters.metric" :options="filteredmetric" />
     </CustomField>
 
-    <CustomField label="CSI">
+    <CustomField :label="$t('common.fields.csi')">
       <CustomAutocomplete
         v-model="filters.csi"
         :filterResult="filteredcsi"
@@ -34,7 +34,7 @@
       />
     </CustomField>
 
-    <CustomField label="Reference Number">
+    <CustomField :label="$t('common.fields.refNumber')">
       <CustomAutocomplete
         v-model="filters.referenceNumber"
         :filterResult="filteredreferenceNumber"
@@ -43,11 +43,11 @@
       />
     </CustomField>
 
-    <CustomField label="ULA">
+    <CustomField :label="$t('common.fields.ula')">
       <CustomRadio v-model="filters.unlimited" />
     </CustomField>
 
-    <CustomField label="Licenses Per Core">
+    <CustomField :label="$t('common.fields.licPerCore')">
       <CustomSlider
         v-model="filters.licensesPerCore"
         :ticks="[minlicensesPerCore, maxlicensesPerCore]"
@@ -55,7 +55,7 @@
       />
     </CustomField>
 
-    <CustomField label="Licenses Per User">
+    <CustomField :label="$t('common.fields.licPerUser')">
       <CustomSlider
         v-model="filters.licensesPerUser"
         :ticks="[minlicensesPerUser, maxlicensesPerUser]"
@@ -63,7 +63,7 @@
       />
     </CustomField>
 
-    <CustomField label="Available Licenses Core">
+    <CustomField :label="$t('common.fields.avLicPerCore')">
       <CustomSlider
         v-model="filters.availableLicensesPerCore"
         :ticks="[minavailableLicensesPerCore, maxavailableLicensesPerCore]"
@@ -71,7 +71,7 @@
       />
     </CustomField>
 
-    <CustomField label="Available Licenses User">
+    <CustomField :label="$t('common.fields.avLicPerUser')">
       <CustomSlider
         v-model="filters.availableLicensesPerUser"
         :ticks="[minavailableLicensesPerUser, maxavailableLicensesPerUser]"
@@ -79,11 +79,11 @@
       />
     </CustomField>
 
-    <CustomField label="Basket">
+    <CustomField :label="$t('common.fields.basket')">
       <CustomRadio v-model="filters.catchAll" />
     </CustomField>
 
-    <CustomField label="Restricted">
+    <CustomField :label="$t('common.fields.restricted')">
       <CustomRadio v-model="filters.restricted" />
     </CustomField>
   </AdvancedFiltersBase>

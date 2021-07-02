@@ -7,7 +7,7 @@
     cancelText="Cancel"
   >
     <b-field
-      label="Type *"
+      :label="`${$t('common.fields.type')} *`"
       custom-class="is-small"
       :type="{
         'is-danger': $v.mysqlForm.agreeType.$error
@@ -31,7 +31,7 @@
     </b-field>
 
     <b-field
-      label="Agreement Number *"
+      :label="`${$t('common.fields.agreeNumber')} *`"
       custom-class="is-small"
       expanded
       :type="{
@@ -54,7 +54,7 @@
     </b-field>
 
     <b-field
-      label="CSI *"
+      :label="`${$t('common.fields.csi')} *`"
       custom-class="is-small"
       expanded
       :type="{
@@ -77,7 +77,7 @@
     </b-field>
 
     <b-field
-      label="Number of Licenses *"
+      :label="`${$t('common.fields.numberLicenses')} *`"
       custom-class="is-small"
       expanded
       :type="{

@@ -9,7 +9,7 @@
     :cancelText="$t('common.forms.cancel')"
   >
     <b-field
-      label="Agreement Number *"
+      :label="`${$t('common.fields.agreeNumber')} *`"
       custom-class="is-small"
       :type="{
         'is-danger': $v.oracleForm.agreeNumber.$error
@@ -37,7 +37,7 @@
     </b-field>
 
     <b-field
-      label="Part Number, Item Description and Metric *"
+      :label="`${$t('common.fields.fullAgreement')} *`"
       custom-class="is-small"
       :type="{
         'is-danger': $v.oracleForm.partNumber.$error
@@ -66,7 +66,7 @@
     </b-field>
 
     <b-field
-      label="CSI *"
+      :label="`${$t('common.fields.csi')} *`"
       custom-class="is-small"
       :type="{
         'is-danger': $v.oracleForm.csi.$error
@@ -91,7 +91,7 @@
     </b-field>
 
     <b-field
-      label="Reference Number"
+      :label="`${$t('common.fields.refNumber')}`"
       custom-class="is-small"
       :type="{
         'is-danger': $v.oracleForm.referenceNumber.$error
@@ -118,15 +118,23 @@
       </b-autocomplete>
     </b-field>
 
-    <b-field label="Licenses *" custom-class="is-small" grouped>
-      <b-field label="ULA" custom-class="is-small" expanded>
+    <b-field
+      :label="`${$t('common.fields.licemnses')} *`"
+      custom-class="is-small"
+      grouped
+    >
+      <b-field
+        :label="`${$t('common.fields.ula')}`"
+        custom-class="is-small"
+        expanded
+      >
         <b-checkbox size="is-small" v-model="oracleForm.ula" />
       </b-field>
 
       <span class="pr-4 pt-3">{{ $t('common.forms.or') }}</span>
 
       <b-field
-        label="Number"
+        :label="`${$t('common.fields.number')}`"
         custom-class="is-small"
         expanded
         :type="{
@@ -153,7 +161,10 @@
       </b-field>
     </b-field>
 
-    <b-field label="Host Associated" custom-class="is-small">
+    <b-field
+      :label="`${$t('common.fields.hostAssociated')}`"
+      custom-class="is-small"
+    >
       <b-taginput
         v-model="oracleForm.hostAssociated"
         :data="filteredHostTags"
@@ -190,7 +201,7 @@
       </b-taginput>
     </b-field>
 
-    <b-field label="Basket" custom-class="is-small">
+    <b-field :label="`${$t('common.fields.basket')}`" custom-class="is-small">
       <div class="is-flex" style="justify-content: space-around;">
         <b-radio
           size="is-small"
@@ -211,7 +222,10 @@
       </div>
     </b-field>
 
-    <b-field label="Restricted" custom-class="is-small">
+    <b-field
+      :label="`${$t('common.fields.restricted')}`"
+      custom-class="is-small"
+    >
       <div class="is-flex" style="justify-content: space-around;">
         <b-radio
           size="is-small"
