@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import axios from 'axios'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
+import i18n from '@/i18n.js'
 
 export const state = () => ({
   engSys: {},
@@ -35,16 +36,22 @@ export const getters = {
   },
   getPatchingChartData: state => {
     const finalData = []
-    const patch6 = patchData(state.patching6, '6 months')
-    const patch12 = patchData(state.patching12, '12 months')
+    const patch6 = patchData(
+      state.patching6,
+      i18n.t('views.engSystems.months', ['6'])
+    )
+    const patch12 = patchData(
+      state.patching12,
+      i18n.t('views.engSystems.months', ['12'])
+    )
 
     finalData.push([
       {
-        name: 'Patched',
+        name: i18n.tc('views.engSystems.patching', 1),
         data: _.concat(patch6.patched, patch12.patched)
       },
       {
-        name: 'Not Patched',
+        name: i18n.tc('views.engSystems.patching', 2),
         data: _.concat(patch6.notPatched, patch12.notPatched)
       }
     ])

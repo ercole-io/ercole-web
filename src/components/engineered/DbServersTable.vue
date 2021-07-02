@@ -8,12 +8,12 @@
     hidePagination
   >
     <template slot="headData">
-      <th style="width: 30%">Hostname</th>
-      <th style="width: 20%">Model</th>
-      <th style="width: 10%">CPU</th>
-      <th style="width: 10%">Memory</th>
-      <th style="width: 25%">Version</th>
-      <th style="width: 25%">Power / Temp</th>
+      <th style="width: 30%">{{ $t('common.collumns.hostname') }}</th>
+      <th style="width: 20%">{{ $t('common.collumns.model') }}</th>
+      <th style="width: 10%">{{ $t('common.collumns.cpu') }}</th>
+      <th style="width: 10%">{{ $t('common.collumns.memory') }}</th>
+      <th style="width: 25%">{{ $t('common.collumns.version') }}</th>
+      <th style="width: 25%">{{ $t('common.collumns.powerTemp') }}</th>
     </template>
 
     <template slot="subCustomHeadData">

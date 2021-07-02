@@ -86,7 +86,9 @@
     },
     "engSystems": {
       "memory": "Memory",
-      "storage": "Storage Used"
+      "storage": "Storage Used",
+      "months": "{0} months",
+      "patching": "Not Patched | Patched"
     },
     "licenses": {
       "addAgreement": "Add or Modify an Oracle Agreement"
@@ -249,7 +251,8 @@
       "totalVM": "Total VM | Total VM Ercole",
       "physicalHost": "Physical Host",
       "vmName": "VM Name",
-      "cappedCpu": "Capped CPU"
+      "cappedCpu": "Capped CPU",
+      "powerTemp": "Power / Temp"
     },
     "charts": {
       "archivelog": "Archivelog Mode",
