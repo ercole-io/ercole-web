@@ -17,10 +17,12 @@
       isClickable
     >
       <template slot="headData">
-        <v-th sortKey="virtualizationNode">Physical Host</v-th>
-        <v-th sortKey="hostname">Hostname</v-th>
-        <v-th sortKey="name">VM Name</v-th>
-        <v-th sortKey="cappedCPU">Capped CPU</v-th>
+        <v-th sortKey="virtualizationNode">{{
+          $t('common.collumns.physicalHost')
+        }}</v-th>
+        <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
+        <v-th sortKey="name">{{ $t('common.collumns.vmName') }}</v-th>
+        <v-th sortKey="cappedCPU">{{ $t('common.collumns.cappedCpu') }}</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
