@@ -1,6 +1,6 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField label="Reclaimable">
+    <CustomField :label="$t('common.collumns.reclaimable')">
       <CustomSlider
         v-model="filters.reclaimable"
         :ticks="[minreclaimable, maxreclaimable]"
@@ -8,7 +8,7 @@
       />
     </CustomField>
 
-    <CustomField label="GB Total">
+    <CustomField :label="$t('common.collumns.totalGB')">
       <CustomSlider
         v-model="filters.segmentsSize"
         :ticks="[minsegmentsSize, maxsegmentsSize]"
@@ -16,11 +16,11 @@
       />
     </CustomField>
 
-    <CustomField label="Retrieve">
+    <CustomField :label="$t('common.collumns.retrieve')">
       <CustomSlider v-model="filters.retrieve" percent />
     </CustomField>
 
-    <CustomField label="Hostname">
+    <CustomField :label="$t('common.collumns.hostname')">
       <CustomAutocomplete
         v-model="filters.hostname"
         :filterResult="filteredhostname"
@@ -28,7 +28,7 @@
       />
     </CustomField>
 
-    <CustomField label="DB Name">
+    <CustomField :label="$t('common.collumns.name')">
       <CustomAutocomplete
         v-model="filters.dbname"
         :filterResult="filtereddbname"
@@ -36,7 +36,7 @@
       />
     </CustomField>
 
-    <CustomField label="Segment Owner">
+    <CustomField :label="$t('common.collumns.segmentOwner')">
       <CustomAutocomplete
         v-model="filters.segmentOwner"
         :filterResult="filteredsegmentOwner"
@@ -44,7 +44,7 @@
       />
     </CustomField>
 
-    <CustomField label="Segment Name">
+    <CustomField :label="$t('common.collumns.segmentName')">
       <CustomAutocomplete
         v-model="filters.segmentName"
         :filterResult="filteredsegmentName"
@@ -52,14 +52,14 @@
       />
     </CustomField>
 
-    <CustomField label="Segment Type">
+    <CustomField :label="$t('common.collumns.segmentType')">
       <CustomSelect
         v-model="filters.segmentType"
         :options="filteredsegmentType"
       />
     </CustomField>
 
-    <CustomField label="Recommendation">
+    <CustomField :label="$t('common.collumns.recommendation')">
       <CustomAutocomplete
         v-model="filters.recommendation"
         :filterResult="filteredrecommendation"
