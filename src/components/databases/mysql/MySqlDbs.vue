@@ -10,17 +10,23 @@
       isClickable
     >
       <template slot="headData">
-        <v-th sortKey="name">DB Name</v-th>
-        <v-th sortKey="hostname">Hostname</v-th>
-        <v-th sortKey="environment">Env.</v-th>
-        <v-th sortKey="charsetSystem">Charset</v-th>
-        <v-th sortKey="architecture">Architecture</v-th>
-        <v-th sortKey="bufferPoolSize">Buffer</v-th>
-        <v-th sortKey="edition">Edition</v-th>
-        <v-th sortKey="engine">Engine</v-th>
-        <v-th sortKey="platform">Platform</v-th>
-        <v-th sortKey="version">Version</v-th>
-        <v-th sortKey="highAvailability">HA</v-th>
+        <v-th sortKey="name">{{ $t('common.collumns.name') }}</v-th>
+        <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
+        <v-th sortKey="environment">{{
+          $t('common.collumns.environment')
+        }}</v-th>
+        <v-th sortKey="charsetSystem">{{ $t('common.collumns.charset') }}</v-th>
+        <v-th sortKey="architecture">{{
+          $t('common.collumns.architecture')
+        }}</v-th>
+        <v-th sortKey="bufferPoolSize">{{ $t('common.collumns.buffer') }}</v-th>
+        <v-th sortKey="edition">{{ $t('common.collumns.edition') }}</v-th>
+        <v-th sortKey="engine">{{ $t('common.collumns.engine') }}</v-th>
+        <v-th sortKey="platform">{{ $t('common.collumns.platform') }}</v-th>
+        <v-th sortKey="version">{{ $t('common.collumns.version') }}</v-th>
+        <v-th sortKey="highAvailability">{{
+          $t('common.collumns.highAvailability')
+        }}</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">

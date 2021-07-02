@@ -168,7 +168,11 @@
       "segmentType": "Tipo di Segmento",
       "partitionName": "Nome della Partizione",
       "psu": "PSU",
-      "months": "{0} Mesi"
+      "months": "{0} Mesi",
+      "architecture": "Architettura",
+      "buffer": "Buffer",
+      "edition": "Edizione",
+      "engine": "Engine"
     },
     "table": {
       "perPage": "per pagina",
@@ -231,7 +235,11 @@
       "partitionName": "Nome della Partizione",
       "releaseDate": "Data di Rilascio",
       "psu": "PSU",
-      "months": "{0} Mesi"
+      "months": "{0} Mesi",
+      "architecture": "Architettura",
+      "buffer": "Buffer",
+      "edition": "Edizione",
+      "engine": "Engine"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",

@@ -1,6 +1,6 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField label="Name">
+    <CustomField :label="$t('common.fields.name')">
       <CustomAutocomplete
         v-model="filters.name"
         :filterResult="filteredname"
@@ -8,7 +8,7 @@
       />
     </CustomField>
 
-    <CustomField label="Hostname">
+    <CustomField :label="$t('common.fields.hostname')">
       <CustomAutocomplete
         v-model="filters.hostname"
         :filterResult="filteredhostname"
@@ -16,28 +16,28 @@
       />
     </CustomField>
 
-    <CustomField label="Env">
+    <CustomField :label="$t('common.fields.env')">
       <CustomSelect
         v-model="filters.environment"
         :options="filteredenvironment"
       />
     </CustomField>
 
-    <CustomField label="Charset">
+    <CustomField :label="$t('common.fields.charset')">
       <CustomSelect
         v-model="filters.charsetSystem"
         :options="filteredcharsetSystem"
       />
     </CustomField>
 
-    <CustomField label="Architecture">
+    <CustomField :label="$t('common.fields.architecture')">
       <CustomSelect
         v-model="filters.architecture"
         :options="filteredarchitecture"
       />
     </CustomField>
 
-    <CustomField label="Buffer">
+    <CustomField :label="$t('common.fields.buffer')">
       <CustomSlider
         v-model="filters.bufferPoolSize"
         :ticks="[minbufferPoolSize, maxbufferPoolSize]"
@@ -45,23 +45,23 @@
       />
     </CustomField>
 
-    <CustomField label="Edition">
+    <CustomField :label="$t('common.fields.edition')">
       <CustomSelect v-model="filters.edition" :options="filterededition" />
     </CustomField>
 
-    <CustomField label="Engine">
+    <CustomField :label="$t('common.fields.engine')">
       <CustomSelect v-model="filters.engine" :options="filteredengine" />
     </CustomField>
 
-    <CustomField label="Platform">
+    <CustomField :label="$t('common.fields.platform')">
       <CustomSelect v-model="filters.platform" :options="filteredplatform" />
     </CustomField>
 
-    <CustomField label="Version">
+    <CustomField :label="$t('common.fields.version')">
       <CustomSelect v-model="filters.version" :options="filteredversion" />
     </CustomField>
 
-    <CustomField label="High Availability">
+    <CustomField :label="$t('common.fields.highAvail')">
       <CustomRadio v-model="filters.highAvailability" />
     </CustomField>
   </AdvancedFiltersBase>
