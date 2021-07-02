@@ -155,7 +155,11 @@
       "cpuCount": "Conteggio CPU",
       "blockSize": "Misura del Blocco",
       "status": "Stato",
-      "uniqueName": "Nome Unico"
+      "uniqueName": "Nome Unico",
+      "perfImpact": "Impatto Sulle Prestazioni",
+      "finding": "Finding",
+      "recommendation": "Raccomandazione",
+      "action": "Azione"
     },
     "table": {
       "perPage": "per pagina",
@@ -204,7 +208,11 @@
       "blockSize": "Misura del Blocco",
       "status": "Stato",
       "threadUtil": "Utilizzo del Thread",
-      "threadUnused": "Thread Inutilizzato"
+      "threadUnused": "Thread Inutilizzato",
+      "perfImpact": "Impatto Sulle Prestazioni",
+      "finding": "Finding",
+      "recommendation": "Raccomandazione",
+      "action": "Azione"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",
