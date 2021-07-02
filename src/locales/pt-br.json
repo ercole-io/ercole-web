@@ -225,7 +225,10 @@
       "segmentOwner": "Proprietário do Segmento",
       "segmentName": "Nome do Segmento",
       "segmentType": "Tipo de Segmento",
-      "partitionName": "Nome da Partição"
+      "partitionName": "Nome da Partição",
+      "releaseDate": "Data de Lançamento",
+      "psu": "PSU",
+      "months": "{0} Meses"
     },
     "charts": {
       "archivelog": "Modo Archivelog",

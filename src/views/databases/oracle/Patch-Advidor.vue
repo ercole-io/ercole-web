@@ -10,14 +10,20 @@
       isClickable
     >
       <template slot="headData">
-        <v-th sortKey="hostname">Hostname</v-th>
-        <v-th sortKey="dbname">Database</v-th>
-        <v-th sortKey="dbver">Version</v-th>
-        <v-th sortKey="date">Release Date</v-th>
-        <v-th sortKey="description">PSU</v-th>
-        <v-th sortKey="fourMonthsText">4 Months</v-th>
-        <v-th sortKey="sixMonthsText">6 Months</v-th>
-        <v-th sortKey="twelveMonthsText">12 Months</v-th>
+        <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
+        <v-th sortKey="dbname">{{ $t('common.collumns.databases') }}</v-th>
+        <v-th sortKey="dbver">{{ $t('common.collumns.version') }}</v-th>
+        <v-th sortKey="date">{{ $t('common.collumns.releaseDate') }}</v-th>
+        <v-th sortKey="description">{{ $t('common.collumns.psu') }}</v-th>
+        <v-th sortKey="fourMonthsText">{{
+          $t('common.collumns.months', ['4'])
+        }}</v-th>
+        <v-th sortKey="sixMonthsText">{{
+          $t('common.collumns.months', ['6'])
+        }}</v-th>
+        <v-th sortKey="twelveMonthsText">{{
+          $t('common.collumns.months', ['12'])
+        }}</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
