@@ -1,6 +1,6 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField label="Physical Host">
+    <CustomField :label="$t('common.fields.physicalHost')">
       <CustomAutocomplete
         v-model="filters.virtualizationNode"
         :filterResult="filteredvirtualizationNode"
@@ -8,7 +8,7 @@
       />
     </CustomField>
 
-    <CustomField label="Hostname">
+    <CustomField :label="$t('common.fields.hostname')">
       <CustomAutocomplete
         v-model="filters.hostname"
         :filterResult="filteredhostname"
@@ -16,7 +16,7 @@
       />
     </CustomField>
 
-    <CustomField label="VM Name">
+    <CustomField :label="$t('common.fields.vmName')">
       <CustomAutocomplete
         v-model="filters.name"
         :filterResult="filteredname"
@@ -24,7 +24,7 @@
       />
     </CustomField>
 
-    <CustomField label="Capped CPU">
+    <CustomField :label="$t('common.fields.cappedCpu')">
       <CustomRadio v-model="filters.cappedCPU" />
     </CustomField>
   </AdvancedFiltersBase>

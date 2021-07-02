@@ -173,7 +173,9 @@
       "engine": "Engine",
       "clusterName": "Nome do Cluster",
       "totalVM": "Total VM | Total VM Ercole",
-      "physicalHost": "Host Físico"
+      "physicalHost": "Host Físico",
+      "vmName": "Nome da VM",
+      "cappedCpu": "Capped CPU"
     },
     "table": {
       "perPage": "por página",
@@ -238,7 +240,9 @@
       "months": "{0} Meses",
       "clusterName": "Nome do Cluster",
       "totalVM": "Total VM | Total VM Ercole",
-      "physicalHost": "Host Físico"
+      "physicalHost": "Host Físico",
+      "vmName": "Nome da VM",
+      "cappedCpu": "Capped CPU"
     },
     "charts": {
       "archivelog": "Modo Archivelog",

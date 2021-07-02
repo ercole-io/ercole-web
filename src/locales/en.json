@@ -175,7 +175,9 @@
       "engine": "Engine",
       "clusterName": "Cluster Name",
       "totalVM": "Total VM | Total VM Ercole",
-      "physicalHost": "Physical Host"
+      "physicalHost": "Physical Host",
+      "vmName": "VM Name",
+      "cappedCpu": "Capped CPU"
     },
     "table": {
       "perPage": "per page",
@@ -245,7 +247,9 @@
       "engine": "Engine",
       "clusterName": "Cluster Name",
       "totalVM": "Total VM | Total VM Ercole",
-      "physicalHost": "Physical Host"
+      "physicalHost": "Physical Host",
+      "vmName": "VM Name",
+      "cappedCpu": "Capped CPU"
     },
     "charts": {
       "archivelog": "Archivelog Mode",
