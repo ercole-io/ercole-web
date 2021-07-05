@@ -313,7 +313,9 @@
       "consumed": "Consumed",
       "covered": "Covered",
       "compliance": "Compliance",
-      "usedLicenses": "Used Licenses"
+      "usedLicenses": "Used Licenses",
+      "agreeCovered": "Covered by this agreement",
+      "agreeCoveredAll": "Covered by all agreements"
     },
     "charts": {
       "archivelog": "Archivelog Mode",
