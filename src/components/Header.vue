@@ -19,6 +19,10 @@
         </p>
       </b-field> -->
 
+      <b-navbar-item tag="div">
+        <LocaleSwitcher />
+      </b-navbar-item>
+
       <b-navbar-dropdown
         :label="`${username}, ${userRole}`"
         data-navbar-username
@@ -28,9 +32,6 @@
             Auto Refresh
           </b-switch>
         </b-navbar-item> -->
-        <b-navbar-item tag="div">
-          <LocaleSwitcher />
-        </b-navbar-item>
         <b-navbar-item @click="logout" data-logout-button>{{
           $t('header.logout')
         }}</b-navbar-item>

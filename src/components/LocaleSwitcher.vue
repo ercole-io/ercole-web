@@ -1,11 +1,33 @@
 <template>
-  <div class="locale-switcher">
-    <b-select v-model="$i18n.locale" size="is-small" expanded>
-      <option :value="locale.code" v-for="locale in locales" :key="locale.code">
-        {{ $t(`lang.${locale.code}`) }}
-      </option>
-    </b-select>
-  </div>
+  <b-dropdown v-model="$i18n.locale" aria-role="list">
+    <template #trigger>
+      <b-icon
+        size="is-medium"
+        icon="globe"
+        pack="fa"
+        type="is-light"
+        style="cursor: pointer;"
+      />
+    </template>
+
+    <b-dropdown-item
+      :value="locale.code"
+      aria-role="listitem"
+      v-for="locale in locales"
+      :key="locale.code"
+    >
+      <div class="media">
+        <b-image
+          :src="require(`@/assets/lang/${locale.code}.png`)"
+          class="media-left"
+          style="width: 15%;"
+        />
+        <div class="media-content">
+          <h3>{{ $t(`lang.${locale.code}`) }}</h3>
+        </div>
+      </div>
+    </b-dropdown-item>
+  </b-dropdown>
 </template>
 
 <script>
@@ -30,9 +52,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.locale-switcher {
-  display: block;
-  width: 100%;
-}
-</style>
+<style lang="scss" scoped></style>
