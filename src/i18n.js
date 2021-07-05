@@ -24,6 +24,7 @@ function loadLocaleMessages() {
 
 function getStartingLocale() {
   const browserLocale = getBrowserLocale({ countryCodeOnly: true })
+  localStorage.setItem('lang', browserLocale)
 
   if (supportedLocalesInclude(browserLocale)) {
     return browserLocale
