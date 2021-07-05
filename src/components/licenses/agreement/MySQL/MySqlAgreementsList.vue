@@ -1,7 +1,7 @@
 <template>
   <section>
     <FullTable
-      placeholder="MySql Agreements"
+      :placeholder="$t('menu.licAgreements')"
       :keys="keys"
       :tableData="returnLicensesAgreement('mysql')"
       :clickedRow="() => []"

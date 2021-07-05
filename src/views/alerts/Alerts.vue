@@ -9,7 +9,7 @@
     <AlertsFilters slot="col1" />
     <FullTable
       slot="col2"
-      placeholder="Alerts"
+      :placeholder="$t('menu.alerts')"
       :keys="keys"
       :tableData="getAlerts"
       class="table-alerts"

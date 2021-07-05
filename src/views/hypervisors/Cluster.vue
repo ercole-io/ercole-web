@@ -10,7 +10,7 @@
     <ClusterFilters slot="filters" />
     <FullTable
       slot="content"
-      placeholder="Cluster"
+      :placeholder="$t('menu.clusters')"
       :keys="keys"
       :tableData="getCurrentClusterVms"
       @clickedRow="handleClickedRow"

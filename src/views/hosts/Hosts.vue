@@ -31,7 +31,7 @@
     </div>
     <BoxContent slot="col2" :mbottom="false">
       <FullTable
-        placeholder="Hosts"
+        :placeholder="$t('menu.hosts')"
         :keys="getKeys"
         :tableData="getAllHosts"
         @clickedRow="handleClickedRow"

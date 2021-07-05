@@ -1,6 +1,6 @@
 <template>
   <FullTable
-    placeholder="Oracle Agreements"
+    :placeholder="$t('menu.licAgreements')"
     :keys="keys"
     :tableData="returnLicensesAgreement('oracle')"
     :clickedRow="() => []"

@@ -3,7 +3,7 @@
     <MySqlFilters slot="col1" />
     <FullTable
       slot="col2"
-      placeholder="MySQL Databases"
+      :placeholder="$t('menu.mysql')"
       :keys="keys"
       :tableData="getAllMysqlDbs"
       @clickedRow="handleClickedRow"

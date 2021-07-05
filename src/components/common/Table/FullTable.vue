@@ -186,7 +186,11 @@ export default {
       return this.tableData
     },
     setPlaceholder() {
-      return `${i18n.t('common.table.search')} ${this.placeholder}`
+      if (this.placeholder !== 'Search') {
+        return `${i18n.t('common.table.search')} ${this.placeholder}`
+      } else {
+        return `${i18n.t('common.table.simpleSearch')}`
+      }
     }
   },
   watch: {

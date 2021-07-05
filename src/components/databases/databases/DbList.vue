@@ -15,7 +15,7 @@
     </div>
     <div class="column is-8">
       <FullTable
-        placeholder="Databases"
+        :placeholder="$t('menu.databases')"
         :keys="keys"
         :tableData="getAllDatabases"
         @clickedRow="handleClickedRow"

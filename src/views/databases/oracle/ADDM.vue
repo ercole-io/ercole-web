@@ -3,7 +3,7 @@
     <AddmFilters slot="col1" />
     <FullTable
       slot="col2"
-      placeholder="Oracle ADDM"
+      :placeholder="$t('menu.addm')"
       :keys="keys"
       :tableData="getOracleAddms"
       @clickedRow="handleClickedRow"

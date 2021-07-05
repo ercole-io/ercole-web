@@ -3,7 +3,7 @@
     <LicensesComplianceFilters slot="col1" />
     <FullTable
       slot="col2"
-      placeholder="Licenses"
+      :placeholder="$t('menu.licCompliance')"
       :keys="keys"
       :tableData="getLicensesCompliance"
       @clickedRow="handleClickedRow"

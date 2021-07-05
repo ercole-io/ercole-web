@@ -4,7 +4,7 @@
 
     <FullTable
       slot="col2"
-      placeholder="Licenses"
+      :placeholder="$t('menu.licUsed')"
       :urlSearchParam="partNumber"
       :keys="keys"
       :tableData="getUsedLicensesByDbs"
