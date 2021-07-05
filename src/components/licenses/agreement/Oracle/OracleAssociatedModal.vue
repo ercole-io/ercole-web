@@ -67,7 +67,7 @@
             }"
           >
             <b-icon
-              v-tooltip="options('Delete License')"
+              v-tooltip="options(delButton)"
               type="is-danger"
               class="delete-icon"
               pack="fas"
@@ -160,6 +160,9 @@ export default {
         i18n.t('common.collumns.agreeCoveredAll'),
         i18n.t('common.collumns.actions')
       ]
+    },
+    delButton() {
+      return i18n.t('common.general.delete')
     }
   }
 }

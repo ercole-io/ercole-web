@@ -113,7 +113,9 @@
       "wait": "This may take a little time, please wait...",
       "cancelRequest": "Cancel Request",
       "yes": "Yes",
-      "no": "No"
+      "no": "No",
+      "delete": "Delete",
+      "edit": "Edit"
     },
     "forms": {
       "advancedFilters": "Advanced Filters",
