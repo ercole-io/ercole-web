@@ -16,6 +16,7 @@
     "patAdvisor": "Conselheiro de Patch",
     "mysql": "MySQL",
     "hypervisors": "Hipervisores",
+    "clusters": "Clusters",
     "engSystems": "Sistemas de Engenharia",
     "alerts": "Alertas",
     "licenses": "Licenças",
@@ -213,15 +214,17 @@
       "consumed": "Consumido",
       "covered": "Coberto",
       "compliance": "Conformidade",
-      "usedLicenses": "Licenças Usadas"
+      "usedLicenses": "Licenças Usadas",
+      "hostsAssociated": "Hosts Associados"
     },
     "table": {
       "perPage": "por página",
-      "search": "Pesquisa em",
+      "search": "Pesquisar em",
       "showing": "Mostrando",
       "of": "de",
       "items": "Itens",
-      "allData": "Todos os dados"
+      "allData": "Todos os dados",
+      "simpleSearch": "Pesquisar"
     },
     "collumns": {
       "hostname": "Nome do Host",

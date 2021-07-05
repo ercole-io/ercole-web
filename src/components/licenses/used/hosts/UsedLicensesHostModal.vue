@@ -25,7 +25,7 @@
     </header>
     <section class="modal-card-body">
       <FullTable
-        placeholder="Hosts Associated"
+        :placeholder="placeholder"
         :keys="keys"
         :tableData="databases"
         :clickedRow="() => []"
@@ -71,6 +71,9 @@ export default {
   computed: {
     modalTitle() {
       return i18n.t('views.licenses.dbList')
+    },
+    placeholder() {
+      return i18n.t('menu.databases')
     }
   }
 }

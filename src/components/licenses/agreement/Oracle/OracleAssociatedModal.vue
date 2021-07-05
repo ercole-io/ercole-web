@@ -7,13 +7,13 @@
     ></b-loading>
     <header class="modal-card-head">
       <p class="modal-card-title">
-        Hosts Associated <br />
-        <span class="is-size-7">Agreement Number {{ agreeNumber }}</span>
+        {{ modalTitle }} <br />
+        <span class="is-size-7">{{ agreeNumberText }} {{ agreeNumber }}</span>
       </p>
     </header>
     <section class="modal-card-body">
       <FullTable
-        placeholder="Hosts Associated"
+        :placeholder="modalTitle"
         :keys="keys"
         :tableData="hostsData"
         :clickedRow="() => []"
@@ -92,6 +92,7 @@ import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import i18n from '@/i18n.js'
 
 export default {
   mixins: [TooltipMixin],
@@ -146,6 +147,12 @@ export default {
     },
     agreeNumber() {
       return this.data.agreementID
+    },
+    agreeNumberText() {
+      return i18n.t('menu.licAgreements')
+    },
+    modalTitle() {
+      return i18n.t('common.fields.hostsAssociated')
     }
   }
 }
