@@ -10,7 +10,7 @@
     <HypervisorsFilters slot="filters" />
     <FullTable
       slot="content"
-      placeholder="Hypervisors"
+      :placeholder="$t('menu.hypervisors')"
       :keys="keys"
       :tableData="getHypervisors"
       @clickedRow="handleClickedRow"

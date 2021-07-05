@@ -31,7 +31,7 @@
     </div>
     <div class="column is-8">
       <FullTable
-        placeholder="Oracle DBs"
+        :placeholder="$t('menu.oracle')"
         :keys="keys"
         :tableData="getAllOracleDBs"
         @clickedRow="handleClickedRow"
