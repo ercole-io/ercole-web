@@ -19,7 +19,7 @@
         v-model="username"
         icon-pack="fas"
         icon="user"
-        placeholder="Username"
+        :placeholder="$t('common.fields.username')"
         @blur="$v.username.$touch()"
         data-username
       />
@@ -45,7 +45,7 @@
         v-model="password"
         icon-pack="fas"
         icon="lock"
-        placeholder="Password"
+        :placeholder="$t('common.fields.password')"
         @blur="$v.password.$touch()"
         data-password
       />

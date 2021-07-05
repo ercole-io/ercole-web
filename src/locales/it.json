@@ -133,6 +133,8 @@
       "show": "Mostra {0}"
     },
     "fields": {
+      "username": "Nome Utente",
+      "password": "Password",
       "hostname": "Nome Host",
       "env": "Ambiente",
       "dbs": "Database",
