@@ -306,7 +306,9 @@
       "consumed": "Consumido",
       "covered": "Coberto",
       "compliance": "Conformidade",
-      "usedLicenses": "Licenças Usadas"
+      "usedLicenses": "Licenças Usadas",
+      "agreeCovered": "Coberto por este acordo",
+      "agreeCoveredAll": "Coberto por todos os acordos"
     },
     "charts": {
       "archivelog": "Modo Archivelog",
