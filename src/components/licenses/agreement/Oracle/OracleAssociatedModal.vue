@@ -19,13 +19,11 @@
         :clickedRow="() => []"
       >
         <template slot="headData">
-          <v-th sortKey="hostname">Hostname</v-th>
-          <v-th sortKey="consumedLicensesCount">Used Licenses</v-th>
-          <v-th sortKey="coveredLicensesCount">Covered by this agreement</v-th>
-          <v-th sortKey="totalCoveredLicensesCount"
-            >Covered by all agreements</v-th
-          >
-          <th>Actions</th>
+          <v-th sortKey="hostname">{{ headData[0] }}</v-th>
+          <v-th sortKey="consumedLicensesCount">{{ headData[1] }}</v-th>
+          <v-th sortKey="coveredLicensesCount">{{ headData[2] }}</v-th>
+          <v-th sortKey="totalCoveredLicensesCount">{{ headData[3] }}</v-th>
+          <th>{{ headData[4] }}</th>
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
@@ -153,6 +151,15 @@ export default {
     },
     modalTitle() {
       return i18n.t('common.fields.hostsAssociated')
+    },
+    headData() {
+      return [
+        i18n.t('common.collumns.hostname'),
+        i18n.t('common.collumns.usedLicenses'),
+        i18n.t('common.collumns.agreeCovered'),
+        i18n.t('common.collumns.agreeCoveredAll'),
+        i18n.t('common.collumns.actions')
+      ]
     }
   }
 }
