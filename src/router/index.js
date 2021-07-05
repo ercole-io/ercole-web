@@ -2,8 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store/index.js'
 import { lazy } from 'vue-async-manager'
+import i18n from '@/i18n.js'
 
 const title = 'Ercole - '
+const lang = localStorage.getItem('lang')
+i18n.locale = lang
 
 const EmptyRouterView = () =>
   import(/* webpackPreload: true */ '@/views/Empty-Router-View.vue')
@@ -106,9 +109,9 @@ const routes = [
         name: 'hosts',
         component: Hosts,
         meta: {
-          label: 'Hosts',
-          title: `${title}Hosts`,
-          breadcrumb: [{ name: 'Hosts' }]
+          label: i18n.t('menu.hosts'),
+          title: `${title}${i18n.t('menu.hosts')}`,
+          breadcrumb: [{ name: i18n.t('menu.hosts') }]
         },
         beforeEnter: verifyAuth
       },
@@ -119,8 +122,11 @@ const routes = [
         props: true,
         meta: {
           // label: 'Host Details',
-          title: `${title}Host Details`,
-          breadcrumb: [{ name: 'Hosts', link: '/hosts' }, { name: '' }]
+          title: `${title}${i18n.t('menu.hosts')}`,
+          breadcrumb: [
+            { name: i18n.t('menu.hosts'), link: '/hosts' },
+            { name: '' }
+          ]
         },
         beforeEnter: verifyAuth
       }
@@ -135,9 +141,9 @@ const routes = [
         name: 'databases',
         component: Databases,
         meta: {
-          label: 'Databases',
-          title: `${title}Databases`,
-          breadcrumb: [{ name: 'Databases' }]
+          label: i18n.t('menu.databases'),
+          title: `${title}${i18n.t('menu.databases')}`,
+          breadcrumb: [{ name: i18n.t('menu.databases') }]
         },
         beforeEnter: verifyAuth
       },
@@ -150,11 +156,11 @@ const routes = [
             name: 'oracle',
             component: Oracle,
             meta: {
-              label: 'Oracle',
-              title: `${title}Oracle`,
+              label: i18n.t('menu.oracle'),
+              title: `${title}${i18n.t('menu.oracle')}`,
               breadcrumb: [
-                { name: 'Databases', link: '/databases' },
-                { name: 'Oracle' }
+                { name: i18n.t('menu.databases'), link: '/databases' },
+                { name: i18n.t('menu.oracle') }
               ]
             },
             beforeEnter: verifyAuth
@@ -168,12 +174,14 @@ const routes = [
                 name: 'addm',
                 component: ADDM,
                 meta: {
-                  label: 'Oracle: ADDM',
-                  title: `${title}Oracle: ADDM`,
+                  label: `${i18n.t('menu.oracle')}: ${i18n.t('menu.addm')}`,
+                  title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.addm'
+                  )}`,
                   breadcrumb: [
-                    { name: 'Databases', link: '/databases' },
-                    { name: 'Oracle', link: '/oracle' },
-                    { name: 'ADDM' }
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: i18n.t('menu.addm') }
                   ]
                 },
                 beforeEnter: verifyAuth
@@ -183,12 +191,16 @@ const routes = [
                 name: 'segment-advisor',
                 component: SegmentAdvisor,
                 meta: {
-                  label: 'Oracle: Segment Advisor',
-                  title: `${title}Oracle: Segment Advisor`,
+                  label: `${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.segAdvisor'
+                  )}`,
+                  title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.segAdvisor'
+                  )}`,
                   breadcrumb: [
-                    { name: 'Databases', link: '/databases' },
-                    { name: 'Oracle', link: '/oracle' },
-                    { name: 'Segment Advisor' }
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: i18n.t('menu.segAdvisor') }
                   ]
                 },
                 beforeEnter: verifyAuth
@@ -198,12 +210,16 @@ const routes = [
                 name: 'patch-advisor',
                 component: PatchAdvidor,
                 meta: {
-                  label: 'Oracle: Patch Advisor',
-                  title: `${title}Oracle: Patch Advisor`,
+                  label: `${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.patAdvisor'
+                  )}`,
+                  title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.patAdvisor'
+                  )}`,
                   breadcrumb: [
-                    { name: 'Databases', link: '/databases' },
-                    { name: 'Oracle', link: '/oracle' },
-                    { name: 'Patch Advisor' }
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: i18n.t('menu.patAdvisor') }
                   ]
                 },
                 beforeEnter: verifyAuth
@@ -221,11 +237,11 @@ const routes = [
             name: 'mysql',
             component: MySQL,
             meta: {
-              label: 'MySQL',
-              title: `${title}MySQL`,
+              label: i18n.t('menu.mysql'),
+              title: `${title}${i18n.t('menu.mysql')}`,
               breadcrumb: [
-                { name: 'Databases', link: '/databases' },
-                { name: 'MySQL' }
+                { name: i18n.t('menu.databases'), link: '/databases' },
+                { name: i18n.t('menu.mysql') }
               ]
             },
             beforeEnter: verifyAuth
@@ -250,9 +266,9 @@ const routes = [
     name: 'licenses-agreement',
     component: LicensesAgreement,
     meta: {
-      label: 'Licenses Agreement',
-      title: `${title}Licenses Agreement`,
-      breadcrumb: [{ name: 'Licenses Agreement' }]
+      label: i18n.t('menu.licAgreements'),
+      title: `${title}${i18n.t('menu.licAgreements')}`,
+      breadcrumb: [{ name: i18n.t('menu.licAgreements') }]
     },
     beforeEnter: verifyAuth
   },
@@ -261,9 +277,9 @@ const routes = [
     name: 'licenses-compliance',
     component: LicensesCompliance,
     meta: {
-      label: 'Licenses Compliance',
-      title: `${title}Licenses Compliance`,
-      breadcrumb: [{ name: 'Licenses Compliance' }]
+      label: i18n.t('menu.licCompliance'),
+      title: `${title}${i18n.t('menu.licCompliance')}`,
+      breadcrumb: [{ name: i18n.t('menu.licCompliance') }]
     },
     beforeEnter: verifyAuth
   },
@@ -273,9 +289,9 @@ const routes = [
     component: LicensesUsed,
     props: true,
     meta: {
-      label: 'Licenses Used',
-      title: `${title}Licenses Used`,
-      breadcrumb: [{ name: 'Licenses Used' }]
+      label: i18n.tc('menu.licUsed'),
+      title: `${title}${i18n.tc('menu.licUsed')}`,
+      breadcrumb: [{ name: i18n.tc('menu.licUsed') }]
     },
     beforeEnter: verifyAuth
   },
@@ -288,9 +304,9 @@ const routes = [
         name: 'hypervisors',
         component: Hypervisors,
         meta: {
-          label: 'Hypervisors',
-          title: `${title}Hypervisors`,
-          breadcrumb: [{ name: 'Hypervisors' }]
+          label: i18n.t('menu.hypervisors'),
+          title: `${title}${i18n.t('menu.hypervisors')}`,
+          breadcrumb: [{ name: i18n.t('menu.hypervisors') }]
         },
         beforeEnter: verifyAuth
       },
@@ -301,9 +317,9 @@ const routes = [
         props: true,
         meta: {
           // label: 'Cluster Details',
-          title: `${title}Cluster Details`,
+          title: `${title}${i18n.t('menu.hypervisors')}`,
           breadcrumb: [
-            { name: 'Hypervisors', link: '/hypervisors' },
+            { name: i18n.t('menu.hypervisors'), link: '/hypervisors' },
             { name: '' }
           ]
         },
@@ -316,9 +332,9 @@ const routes = [
     name: 'engineered-systems',
     component: Engineered,
     meta: {
-      label: 'Engineered Systems',
-      title: `${title}Engineered Systems`,
-      breadcrumb: [{ name: 'Engineered Systems' }]
+      label: i18n.t('menu.engSystems'),
+      title: `${title}${i18n.t('menu.engSystems')}`,
+      breadcrumb: [{ name: i18n.t('menu.engSystems') }]
     },
     beforeEnter: verifyAuth
   },
@@ -327,9 +343,9 @@ const routes = [
     name: 'alerts',
     component: Alerts,
     meta: {
-      label: 'Alerts',
-      title: `${title}Alerts`,
-      breadcrumb: [{ name: 'Alerts' }]
+      label: i18n.t('menu.alerts'),
+      title: `${title}${i18n.t('menu.alerts')}`,
+      breadcrumb: [{ name: i18n.t('menu.alerts') }]
     },
     beforeEnter: verifyAuth
   },
