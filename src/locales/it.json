@@ -329,6 +329,10 @@
       "date": "Data",
       "datePH": "una data",
       "activeFilters": "Filtri attivi:"
+    },
+    "validations": {
+      "required": "Il campo {fieldname} è obbligatorio",
+      "characters": "{0} deve contenere almeno {1} caratteri"
     }
   }
 }

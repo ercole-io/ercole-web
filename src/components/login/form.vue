@@ -14,12 +14,6 @@
         'is-danger': $v.username.$error,
         'is-success': !$v.username.$invalid
       }"
-      :message="{
-        'The username field is required':
-          !$v.username.required && $v.username.$error,
-        'Username must have at least 4 caracters':
-          !$v.username.minLen && $v.username.$error
-      }"
     >
       <b-input
         v-model="username"
@@ -29,6 +23,14 @@
         @blur="$v.username.$touch()"
         data-username
       />
+      <template #message>
+        <div v-if="!$v.username.required && $v.username.$error">
+          {{ required('username') }}
+        </div>
+        <div v-if="!$v.username.minLen && $v.username.$error">
+          {{ characters('username', '4') }}
+        </div>
+      </template>
     </b-field>
 
     <b-field
@@ -36,12 +38,6 @@
       :type="{
         'is-danger': $v.password.$error,
         'is-success': !$v.password.$invalid
-      }"
-      :message="{
-        'The password field is required':
-          !$v.password.required && $v.password.$error,
-        'password must have at least 8 caracters':
-          !$v.password.minLen && $v.password.$error
       }"
     >
       <b-input
@@ -53,6 +49,14 @@
         @blur="$v.password.$touch()"
         data-password
       />
+      <template #message>
+        <div v-if="!$v.password.required && $v.password.$error">
+          {{ required('password') }}
+        </div>
+        <div v-if="!$v.password.minLen && $v.password.$error">
+          {{ characters('password', '8') }}
+        </div>
+      </template>
     </b-field>
     <b-button
       type="is-primary"
@@ -94,7 +98,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['login'])
+    ...mapActions(['login']),
+    required(field) {
+      return this.$i18n.t('common.validations.required', [field])
+    },
+    characters(field, char) {
+      return this.$i18n.t('common.validations.characters', [field, char])
+    }
   }
 }
 </script>

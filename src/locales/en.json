@@ -329,6 +329,10 @@
       "date": "Date",
       "datePH": "a date",
       "activeFilters": "Active Filters:"
+    },
+    "validations": {
+      "required": "The {0} field is required",
+      "characters": "{0} must have at least {1} characters"
     }
   }
 }
