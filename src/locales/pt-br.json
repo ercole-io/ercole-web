@@ -113,7 +113,9 @@
       "wait": "Isso pode demorar um pouco, por favor aguarde ...",
       "cancelRequest": "Cancelar Requisição",
       "yes": "Sim",
-      "no": "Não"
+      "no": "Não",
+      "delete": "Excluir",
+      "edit": "Editar"
     },
     "forms": {
       "advancedFilters": "Filtros Avançados",

@@ -113,7 +113,9 @@
       "wait": "Questo potrebbe richiedere un pò di tempo, per favore aspetta ...",
       "cancelRequest": "Annulla Richiesta",
       "yes": "Sì",
-      "no": "No"
+      "no": "No",
+      "delete": "Elimina",
+      "edit": "Edit"
     },
     "forms": {
       "advancedFilters": "Filtri Avanzati",

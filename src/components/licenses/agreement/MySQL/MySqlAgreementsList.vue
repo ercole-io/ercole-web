@@ -29,7 +29,7 @@
       <template slot="bodyData" slot-scope="rowData">
         <td style="min-width: 0;">
           <b-icon
-            v-tooltip="options('Edit Agreement')"
+            v-tooltip="options($t('common.general.edit'))"
             type="is-info"
             class="edit-icon"
             pack="fas"
@@ -39,7 +39,7 @@
         </td>
         <td style="min-width: 0;">
           <b-icon
-            v-tooltip="options('Delete Agreement')"
+            v-tooltip="options($t('common.general.delete'))"
             type="is-danger"
             class="delete-icon"
             pack="fas"
@@ -59,7 +59,7 @@
         <TdContent :value="rowData.scope.numberOfLicenses" />
         <td>
           <b-icon
-            v-tooltip="options('Show Clusters')"
+            v-tooltip="options('Clusters')"
             type="is-link"
             class="hosts-icon"
             pack="fas"

@@ -53,7 +53,7 @@
     <template slot="bodyData" slot-scope="rowData">
       <td style="min-width: 0;">
         <b-icon
-          v-tooltip="options('Show Hosts')"
+          v-tooltip="options('Hosts')"
           type="is-link"
           class="hosts-icon"
           pack="fas"
@@ -65,7 +65,7 @@
       </td>
       <td style="min-width: 0;">
         <b-icon
-          v-tooltip="options('Edit License')"
+          v-tooltip="options($t('common.general.edit'))"
           type="is-info"
           class="edit-icon"
           pack="fas"
@@ -75,7 +75,7 @@
       </td>
       <td style="min-width: 0;">
         <b-icon
-          v-tooltip="options('Delete License')"
+          v-tooltip="options($t('common.general.delete'))"
           type="is-danger"
           class="delete-icon"
           pack="fas"
