@@ -133,6 +133,8 @@
       "show": "Show {0}"
     },
     "fields": {
+      "username": "Username",
+      "password": "Password",
       "hostname": "hostname",
       "env": "Environment",
       "dbs": "Databases",
