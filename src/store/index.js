@@ -63,7 +63,7 @@ export default new Vuex.Store({
       key: 'persisted-data',
       paths: [
         'auth',
-        'alerts',
+        // 'alerts',
         'technologies',
         'hostnames',
         'globalFilters',
