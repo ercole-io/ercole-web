@@ -1,5 +1,7 @@
-import axiosDefault from '@/axios/axios-default.js'
-import axiosChart from '@/axios/axios-chart.js'
+// import axiosNoLoading from '@/axios/axios-default.js'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
+// import axiosChart from '@/axios/axios-chart.js'
+import axiosChartNoLoading from '@/axios/axios-chart-no-loading.js'
 import _ from 'lodash'
 
 const getExtraTechInfo = (techName, techs) => {
@@ -82,12 +84,12 @@ export const actions = {
   async getDashboardData({ commit, dispatch }) {
     dispatch('getGlobalFiltersData') // Load Gloabl Filters Selectable Data
 
-    const dashData = await axiosDefault.get('/frontend/dashboard')
+    const dashData = await axiosNoLoading.get('/frontend/dashboard')
     const dashResponse = await dashData.data
     commit('SET_DASHBOARD_DATA', dashResponse)
   },
   async getLicenseHistory({ commit }) {
-    const licenseHistory = await axiosChart.get(
+    const licenseHistory = await axiosChartNoLoading.get(
       '/technologies/all/license-history'
     )
     const response = await licenseHistory.data.licenseComplianceHistory

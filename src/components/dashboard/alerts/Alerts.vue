@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { bus } from '@/helpers/eventBus.js'
+import { mapActions, mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import Agents from '@/components/dashboard/alerts/Agents.vue'
 import Alert from '@/components/dashboard/alerts/Alert.vue'
@@ -29,7 +30,12 @@ export default {
     Alert
   },
   async beforeMount() {
-    await this.$store.dispatch('getAlertsData', { status: 'NEW' })
+    await this.getAlertsData({ status: 'NEW' }).then(() => {
+      bus.$emit('loadAlertsComplete')
+    })
+  },
+  methods: {
+    ...mapActions(['getAlertsData'])
   },
   computed: {
     ...mapGetters(['getFirstAlertByCategory', 'getTotalAlertsByCategory'])

@@ -102,9 +102,9 @@ export const getters = {
   getTotalAlertsByCategory: state => category => {
     let alerts = state.alerts[category]
 
-    let info = alerts.INFO ? alerts.INFO.length : 0
-    let warn = alerts.WARNING ? alerts.WARNING.length : 0
-    let crit = alerts.CRITICAL ? alerts.CRITICAL.length : 0
+    let info = alerts && alerts.INFO ? alerts.INFO.length : 0
+    let warn = alerts && alerts.WARNING ? alerts.WARNING.length : 0
+    let crit = alerts && alerts.CRITICAL ? alerts.CRITICAL.length : 0
     return {
       info: info,
       warn: warn,
@@ -216,14 +216,16 @@ const organizeAlertsByFlag = flag => {
 }
 
 const organizeAlertByFirst = alert => {
-  return (
-    (alert.CRITICAL && alert.CRITICAL[0]) ||
-    null ||
-    (alert.WARNING && alert.WARNING[0]) ||
-    null ||
-    (alert.INFO && alert.INFO[0]) ||
-    null
-  )
+  if (alert) {
+    return (
+      (alert.CRITICAL && alert.CRITICAL[0]) ||
+      null ||
+      (alert.WARNING && alert.WARNING[0]) ||
+      null ||
+      (alert.INFO && alert.INFO[0]) ||
+      null
+    )
+  }
 }
 
 const filterOnAlertsById = (alerts, flag, type, id) => {

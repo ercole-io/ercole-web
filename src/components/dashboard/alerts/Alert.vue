@@ -16,6 +16,7 @@
               custom-size="mdi-24px"
             />
           </div>
+
           <div class="column">
             <b-button
               @click="
@@ -59,60 +60,69 @@
         </div>
       </main>
       <main class="alert-body" v-else>
-        <NoContent :noContentText="`There are no alerts for ${title[0]}`" />
+        <template v-if="!loading">
+          <NoContent :noContentText="`There are no alerts for ${title[0]}`" />
+        </template>
+        <b-skeleton height="125" :active="loading"></b-skeleton>
       </main>
     </transition>
     <footer class="card-footer card-buttons">
-      <b-button
-        @click="handleAlertClick(hasFlag, 'INFO')"
-        :disabled="alertTotals.info === 0"
-        :type="{
-          'is-info': alertTotals.info !== 0,
-          'inverted-alert info': alertTotals.info === 0
-        }"
-        size="is-small"
-        icon-pack="mdi"
-        icon-left="information"
-        class="has-text-weight-semibold alert-button"
-        expanded
-      >
-        {{ alertTotals.info }}
-      </b-button>
-      <b-button
-        @click="handleAlertClick(hasFlag, 'WARNING')"
-        :disabled="alertTotals.warn === 0"
-        :type="{
-          'is-warning': alertTotals.warn !== 0,
-          'inverted-alert warning': alertTotals.warn === 0
-        }"
-        size="is-small"
-        icon-pack="mdi"
-        icon-left="alert"
-        class="has-text-weight-semibold alert-button"
-        expanded
-      >
-        {{ alertTotals.warn }}
-      </b-button>
-      <b-button
-        @click="handleAlertClick(hasFlag, 'CRITICAL')"
-        :disabled="alertTotals.crit === 0"
-        :type="{
-          'is-danger': alertTotals.crit !== 0,
-          'inverted-alert danger': alertTotals.crit === 0
-        }"
-        size="is-small"
-        icon-pack="mdi"
-        icon-left="alert-circle"
-        class="has-text-weight-semibold alert-button"
-        expanded
-      >
-        {{ alertTotals.crit }}
-      </b-button>
+      <template v-if="!loading">
+        <b-button
+          @click="handleAlertClick(hasFlag, 'INFO')"
+          :disabled="alertTotals.info === 0"
+          :type="{
+            'is-info': alertTotals.info !== 0,
+            'inverted-alert info': alertTotals.info === 0
+          }"
+          size="is-small"
+          icon-pack="mdi"
+          icon-left="information"
+          class="has-text-weight-semibold alert-button"
+          expanded
+        >
+          {{ alertTotals.info }}
+        </b-button>
+
+        <b-button
+          @click="handleAlertClick(hasFlag, 'WARNING')"
+          :disabled="alertTotals.warn === 0"
+          :type="{
+            'is-warning': alertTotals.warn !== 0,
+            'inverted-alert warning': alertTotals.warn === 0
+          }"
+          size="is-small"
+          icon-pack="mdi"
+          icon-left="alert"
+          class="has-text-weight-semibold alert-button"
+          expanded
+        >
+          {{ alertTotals.warn }}
+        </b-button>
+
+        <b-button
+          @click="handleAlertClick(hasFlag, 'CRITICAL')"
+          :disabled="alertTotals.crit === 0"
+          :type="{
+            'is-danger': alertTotals.crit !== 0,
+            'inverted-alert danger': alertTotals.crit === 0
+          }"
+          size="is-small"
+          icon-pack="mdi"
+          icon-left="alert-circle"
+          class="has-text-weight-semibold alert-button"
+          expanded
+        >
+          {{ alertTotals.crit }}
+        </b-button>
+      </template>
+      <b-skeleton height="30" :active="loading"></b-skeleton>
     </footer>
   </div>
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapActions } from 'vuex'
 import { checkAlertIcon } from '@/helpers/helpers.js'
 import NoContent from '@/components/common/NoContent.vue'
@@ -137,8 +147,14 @@ export default {
   },
   data() {
     return {
-      isAnimated: false
+      isAnimated: false,
+      loading: true
     }
+  },
+  beforeMount() {
+    bus.$on('loadAlertsComplete', () => {
+      this.loading = false
+    })
   },
   methods: {
     ...mapActions(['markAsRead']),

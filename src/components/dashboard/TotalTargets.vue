@@ -1,31 +1,39 @@
 <template>
   <BoxContent :title="$t('views.dashboard.totalTargets')" border>
     <div class="total-targets">
-      <div class="total-targets-col">
-        <div>{{ $t('views.dashboard.agentsDiscovered') }}</div>
-        <div>{{ $t('views.dashboard.percCompliance') }}</div>
+      <div class="col col01">
+        <span>{{ $t('views.dashboard.agentsDiscovered') }}</span>
+        <span>
+          <template v-if="!loading">
+            <span class="has-text-weight-semibold is-size-5">
+              {{ getTotalTarget.agentsDiscovered }}
+            </span>
+          </template>
+          <b-skeleton width="50" :active="loading"></b-skeleton>
+        </span>
       </div>
-      <div class="total-targets-col">
-        <div>
-          <span class="has-text-weight-semibold is-size-5">
-            {{ getTotalTarget.agentsDiscovered }}
-          </span>
-        </div>
-        <div>
-          <Progress
-            :radius="20"
-            :value="percCompliance"
-            strokeColor="#363636"
-            :strokeWidth="5"
-            :transitionDuration="2000"
-          />
-        </div>
+
+      <div class="col col02">
+        <span>{{ $t('views.dashboard.percCompliance') }}</span>
+        <span>
+          <template v-if="!loading">
+            <Progress
+              :radius="20"
+              :value="getTotalTarget.percCompliance"
+              strokeColor="#363636"
+              :strokeWidth="5"
+              :transitionDuration="2000"
+            />
+          </template>
+          <b-skeleton circle width="50" :active="loading"></b-skeleton>
+        </span>
       </div>
     </div>
   </BoxContent>
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import Progress from 'easy-circular-progress'
@@ -37,11 +45,14 @@ export default {
   },
   data() {
     return {
-      percCompliance: 0.0
+      percCompliance: 0.0,
+      loading: true
     }
   },
-  beforeUpdate() {
-    this.percCompliance = this.getTotalTarget.percCompliance
+  beforeMount() {
+    bus.$on('loadDashboardComplete', () => {
+      this.loading = false
+    })
   },
   computed: {
     ...mapGetters(['getTotalTarget'])
@@ -53,29 +64,38 @@ export default {
 .total-targets {
   display: flex;
   font-size: 13px;
-  margin-top: 66px;
+  margin-top: 78px;
+  flex-direction: column;
 
-  .total-targets-col {
-    width: 50%;
+  .col {
+    display: flex;
+    line-height: 14px;
+    align-items: center;
 
-    div {
-      height: 30px;
+    span:first-child {
+      width: 70%;
       display: flex;
-      align-items: center;
-      margin: 12px 0;
-    }
-  }
-
-  .total-targets-col:first-child {
-    div {
       justify-content: left;
-      line-height: 14px;
+    }
+
+    span:last-child {
+      width: 30%;
+      display: flex;
+      justify-content: center;
     }
   }
 
-  .total-targets-col:last-child {
-    div {
-      justify-content: center;
+  .col01 {
+    height: 30px;
+  }
+
+  .col02 {
+    height: 50px;
+
+    span:last-child {
+      div {
+        height: 50px;
+      }
     }
   }
 }
