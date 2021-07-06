@@ -1,74 +1,90 @@
 <template>
   <BoxContent :title="$t('views.dashboard.licensesX')">
     <div slot="customTitle">
-      <b-field>
-        <b-select
-          placeholder="Select a type"
-          size="is-small"
-          v-model="selectedType"
-          @change.native="mountLincenseChart"
-        >
-          <option
-            v-for="(type, index) in getChartLicenseHistory"
-            :value="type.licenseTypeID"
-            :key="index"
+      <template v-if="!loading">
+        <b-field>
+          <b-select
+            placeholder="Select a type"
+            size="is-small"
+            v-model="selectedType"
+            @change.native="mountLincenseChart"
           >
-            {{ type.licenseTypeID }} <span v-if="type.licenseTypeID">-</span>
-            {{ type.itemDescription }} <span v-if="type.metric">-</span>
-            {{ type.metric }}
-          </option>
-        </b-select>
-      </b-field>
+            <option
+              v-for="(type, index) in getChartLicenseHistory"
+              :value="type.licenseTypeID"
+              :key="index"
+            >
+              {{ type.licenseTypeID }} <span v-if="type.licenseTypeID">-</span>
+              {{ type.itemDescription }} <span v-if="type.metric">-</span>
+              {{ type.metric }}
+            </option>
+          </b-select>
+        </b-field>
+      </template>
+      <b-skeleton width="430" height="30" :active="loading"></b-skeleton>
     </div>
+
     <div class="range-dates">
-      <b-datepicker
-        v-model="startDate"
-        size="is-small"
-        placeholder="Start Date"
-        position="is-bottom-right"
-        icon="calendar-today"
-        :max-date="endDate ? endDate : new Date()"
-        :date-formatter="formatDate"
-        class="mr-1 range-dates-field"
-        trap-focus
-      />
-      <b-datepicker
-        v-model="endDate"
-        size="is-small"
-        placeholder="End Date"
-        position="is-bottom-left"
-        icon="calendar-today"
-        :min-date="startDate"
-        :max-date="new Date()"
-        :date-formatter="formatDate"
-        class="ml-1 range-dates-field"
-        trap-focus
-      />
-      <b-button
-        class="ml-1"
-        size="is-small"
-        type="is-primary"
-        icon-right="delete"
-        @click="getCurrentMonthDates"
-      />
+      <template v-if="!loading">
+        <b-datepicker
+          v-model="startDate"
+          size="is-small"
+          placeholder="Start Date"
+          position="is-bottom-right"
+          icon="calendar-today"
+          :max-date="endDate ? endDate : new Date()"
+          :date-formatter="formatDate"
+          class="mr-1 range-dates-field"
+          trap-focus
+        />
+        <b-datepicker
+          v-model="endDate"
+          size="is-small"
+          placeholder="End Date"
+          position="is-bottom-left"
+          icon="calendar-today"
+          :min-date="startDate"
+          :max-date="new Date()"
+          :date-formatter="formatDate"
+          class="ml-1 range-dates-field"
+          trap-focus
+        />
+        <b-button
+          class="ml-1"
+          size="is-small"
+          type="is-primary"
+          icon-right="delete"
+          @click="getCurrentMonthDates"
+        />
+      </template>
     </div>
-    <LineChart
-      chartId="lincenseChart"
-      :lineChartData="finalChartData"
-      v-if="showChart"
-    />
-    <NoContent
-      v-if="!showChart"
-      :noContentText="$t('views.dashboard.noData')"
-      style="min-height: 200px"
-    />
+    <b-skeleton
+      width="430"
+      height="30"
+      :active="loading"
+      position="is-right"
+    ></b-skeleton>
+
+    <template v-if="!loading">
+      <LineChart
+        chartId="lincenseChart"
+        :lineChartData="finalChartData"
+        v-if="showChart"
+      />
+      <NoContent
+        v-if="!showChart"
+        :noContentText="$t('views.dashboard.noData')"
+        style="min-height: 200px"
+      />
+    </template>
+    <b-skeleton height="300" :active="loading"></b-skeleton>
   </BoxContent>
 </template>
 
 <script>
 import _ from 'lodash'
 import moment from 'moment'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import formatDate from '@/filters/formatDate.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import LineChart from '@/components/common/charts/LineChart.vue'
@@ -116,11 +132,14 @@ export default {
       selectedType: '',
       startDate: null,
       endDate: null,
-      showChart: false
+      showChart: false,
+      loading: true
     }
   },
   async beforeMount() {
-    await this.$store.dispatch('getLicenseHistory')
+    await this.getLicenseHistory().then(() => {
+      this.loading = false
+    })
     this.selectedType = this.getChartLicenseHistory[0].licenseTypeID
 
     this.getCurrentMonthDates()
@@ -128,6 +147,7 @@ export default {
     this.mountLincenseChart()
   },
   methods: {
+    ...mapActions(['getLicenseHistory']),
     mountLincenseChart() {
       let findType = matchType(this.getChartLicenseHistory, this.selectedType)
       const dateRange = [
