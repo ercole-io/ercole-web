@@ -1,5 +1,7 @@
 import axiosDefault from '@/axios/axios-default.js'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
+import router from '@/router'
 import { returnTechTypePrettyName } from '@/helpers/helpers.js'
 
 export const state = () => ({
@@ -102,13 +104,23 @@ export const mutations = {
 
 export const actions = {
   async getClusters({ commit, getters }) {
-    const clustersData = await axiosDefault.get('/hosts/clusters', {
-      params: {
-        'older-than': getters.getActiveFilters.date,
-        environment: getters.getActiveFilters.environment,
-        location: getters.getActiveFilters.location
-      }
-    })
+    const params = {
+      'older-than': getters.getActiveFilters.date,
+      environment: getters.getActiveFilters.environment,
+      location: getters.getActiveFilters.location
+    }
+
+    let clustersData
+    if (router.currentRoute.name === 'hypervisors') {
+      clustersData = await axiosDefault.get('/hosts/clusters', {
+        params: params
+      })
+    } else {
+      clustersData = await axiosNoLoading.get('/hosts/clusters', {
+        params: params
+      })
+    }
+
     const response = await clustersData.data
     commit('SET_CLUSTERS', response)
     commit('SET_CLUSTERNAMES', response)

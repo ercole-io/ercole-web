@@ -1,11 +1,12 @@
 <template>
   <BoxContent :title="$t('views.dashboard.technologies')" border>
-    <Technologie :technologies="getTechnologies" />
+    <Technologie />
   </BoxContent>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { bus } from '@/helpers/eventBus.js'
+import { mapActions } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import Technologie from '@/components/dashboard/technologies/Technologie.vue'
 
@@ -15,10 +16,12 @@ export default {
     Technologie
   },
   async beforeMount() {
-    await this.$store.dispatch('getTechnologiesData')
+    await this.getTechnologiesData().then(() => {
+      bus.$emit('loadTechComplete')
+    })
   },
-  computed: {
-    ...mapGetters(['getTechnologies'])
+  methods: {
+    ...mapActions(['getTechnologiesData'])
   }
 }
 </script>

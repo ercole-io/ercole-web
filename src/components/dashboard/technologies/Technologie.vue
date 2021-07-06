@@ -1,43 +1,55 @@
 <template>
   <HbuttonScroll>
-    <div class="technologies">
-      <div
-        class="technologies-list"
-        v-for="tech in technologies"
-        :key="tech.id"
-      >
-        <img v-bind:src="`data:image/jpeg;base64,${tech.extra.logo}`" />
-        <span>{{ tech.extra.name }}</span>
-        <div>{{ tech.agents }}</div>
-        <div>
-          <Progress
-            :radius="20"
-            :value="tech.perc"
-            :strokeColor="tech.extra.color"
-            :strokeWidth="5"
-            :transitionDuration="2000"
-          />
+    <template v-if="!loading">
+      <div class="technologies">
+        <div
+          class="technologies-list"
+          v-for="tech in getTechnologies"
+          :key="tech.id"
+        >
+          <img v-bind:src="`data:image/jpeg;base64,${tech.extra.logo}`" />
+          <span>{{ tech.extra.name }}</span>
+          <div>{{ tech.agents }}</div>
+          <div>
+            <Progress
+              :radius="20"
+              :value="tech.perc"
+              :strokeColor="tech.extra.color"
+              :strokeWidth="5"
+              :transitionDuration="2000"
+            />
+          </div>
+          <!-- <div>{{ tech.money }} €</div> -->
         </div>
-        <!-- <div>{{ tech.money }} €</div> -->
       </div>
-    </div>
+    </template>
+    <b-skeleton height="155" :active="loading"></b-skeleton>
   </HbuttonScroll>
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
+import { mapGetters } from 'vuex'
 import Progress from 'easy-circular-progress'
 import HbuttonScroll from '@/components/HbuttonScroll.vue'
 
 export default {
-  props: {
-    technologies: {
-      type: Array,
-      required: true
-    }
-  },
   components: {
     Progress,
     HbuttonScroll
+  },
+  data() {
+    return {
+      loading: true
+    }
+  },
+  beforeMount() {
+    bus.$on('loadTechComplete', () => {
+      this.loading = false
+    })
+  },
+  computed: {
+    ...mapGetters(['getTechnologies'])
   }
 }
 </script>

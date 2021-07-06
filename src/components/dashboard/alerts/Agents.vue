@@ -12,7 +12,7 @@
       </p>
     </header>
     <div class="card-content body">
-      <template>
+      <template v-if="!loading">
         <div class="agents">
           <span>{{ $t('views.dashboard.agentsText') }} </span>
           <span class="has-text-weight-bold" data-stoped-agents>{{
@@ -20,25 +20,41 @@
           }}</span>
         </div>
       </template>
+      <b-skeleton size="is-small" :active="loading"></b-skeleton>
     </div>
     <footer class="card-footer">
-      <b-button
-        @click="inspectAgents"
-        type="is-small"
-        class="is-radiusless has-background-primary has-text-white-bis has-text-weight-bold"
-        expanded
-        data-inspect
-      >
-        {{ $t('views.dashboard.inspect') }}
-      </b-button>
+      <template v-if="!loading">
+        <b-button
+          @click="inspectAgents"
+          type="is-small"
+          class="is-radiusless has-background-primary has-text-white-bis has-text-weight-bold"
+          expanded
+          data-inspect
+        >
+          {{ $t('views.dashboard.inspect') }}
+        </b-button>
+      </template>
+
+      <b-skeleton height="30" :active="loading"></b-skeleton>
     </footer>
   </div>
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
+  data() {
+    return {
+      loading: true
+    }
+  },
+  beforeMount() {
+    bus.$on('loadAlertsComplete', () => {
+      this.loading = false
+    })
+  },
   methods: {
     ...mapMutations(['SET_ALERTS_PARAMS']),
     inspectAgents() {

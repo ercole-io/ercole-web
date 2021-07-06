@@ -47,6 +47,7 @@ export const actions = {
       })
       .then(() => {
         router.replace('/dashboard')
+        dispatch('offLoading')
       })
       .catch(err => {
         const errorMessage = err.response.data.errorDescription
