@@ -6,74 +6,77 @@
         <span>{{ title[0] }}</span>
       </p>
     </header>
-    <transition :duration="5000">
-      <main class="alert-body" v-if="alertTotals.total > 0 && !isAnimated">
-        <div class="columns is-vcentered is-gapless bottom-space">
-          <div class="column">
-            <b-icon
-              :type="setIcon.iconType"
-              :icon="setIcon.icon"
-              custom-size="mdi-24px"
-            />
-          </div>
+    <main class="alert-body" v-if="getTotals.total">
+      <transition name="flip" :duration="5000">
+        <div v-if="!isAnimated">
+          <div class="columns is-vcentered is-gapless bottom-space">
+            <div class="column">
+              <b-icon
+                :type="setIcon.iconType"
+                :icon="setIcon.icon"
+                custom-size="mdi-24px"
+              />
+            </div>
 
-          <div class="column">
-            <b-button
-              @click="
-                handleMarkAsRead(alertInfo.alertId, hasFlag, alertInfo.severity)
-              "
-              type="is-primary"
-              size="is-small"
-              icon-pack="fas"
-              icon-left="check-circle"
-              class="has-text-weight-semibold"
-              style="float: right"
-            >
-              {{ $t('views.dashboard.markAsRead') }}
-            </b-button>
+            <div class="column">
+              <b-button
+                @click="
+                  handleMarkAsRead(getFirst.alertId, hasFlag, getFirst.severity)
+                "
+                type="is-primary"
+                size="is-small"
+                icon-pack="fas"
+                icon-left="check-circle"
+                class="has-text-weight-semibold"
+                style="float: right"
+              >
+                {{ $t('views.dashboard.markAsRead') }}
+              </b-button>
+            </div>
+          </div>
+          <div class="columns is-vcentered is-gapless bottom-space">
+            <div class="column">
+              <p v-if="hasFlag === 'LICENSE'">
+                <span class="has-text-weight-semibold">{{
+                  $t('views.dashboard.from')
+                }}</span>
+                {{ getFirst.host }}
+              </p>
+            </div>
+          </div>
+          <div class="columns is-vcentered is-gapless bottom-space">
+            <div class="column">
+              <p>
+                <span class="has-text-weight-semibold">{{
+                  $t('views.dashboard.date')
+                }}</span>
+                {{ getFirst.date | formatDate }}
+              </p>
+            </div>
+          </div>
+          <div class="columns is-vcentered is-gapless bottom-space">
+            <div class="column">
+              <p>{{ getFirst.msg }}</p>
+            </div>
           </div>
         </div>
-        <div class="columns is-vcentered is-gapless bottom-space">
-          <div class="column">
-            <p v-if="hasFlag === 'LICENSE'">
-              <span class="has-text-weight-semibold">{{
-                $t('views.dashboard.from')
-              }}</span>
-              {{ alertInfo.host }}
-            </p>
-          </div>
-        </div>
-        <div class="columns is-vcentered is-gapless bottom-space">
-          <div class="column">
-            <p>
-              <span class="has-text-weight-semibold">{{
-                $t('views.dashboard.date')
-              }}</span>
-              {{ alertInfo.date | formatDate }}
-            </p>
-          </div>
-        </div>
-        <div class="columns is-vcentered is-gapless bottom-space">
-          <div class="column">
-            <p>{{ alertInfo.msg }}</p>
-          </div>
-        </div>
-      </main>
-      <main class="alert-body" v-else>
-        <template v-if="!loading">
-          <NoContent :noContentText="`There are no alerts for ${title[0]}`" />
-        </template>
-        <b-skeleton height="125" :active="loading"></b-skeleton>
-      </main>
-    </transition>
+      </transition>
+    </main>
+    <main class="alert-body" v-else>
+      <template v-if="!loading">
+        <NoContent :noContentText="`There are no alerts for ${title[0]}`" />
+      </template>
+      <b-skeleton height="125" :active="loading"></b-skeleton>
+    </main>
+
     <footer class="card-footer card-buttons">
       <template v-if="!loading">
         <b-button
           @click="handleAlertClick(hasFlag, 'INFO')"
-          :disabled="alertTotals.info === 0"
+          :disabled="getTotals.info === 0"
           :type="{
-            'is-info': alertTotals.info !== 0,
-            'inverted-alert info': alertTotals.info === 0
+            'is-info': getTotals.info !== 0,
+            'inverted-alert info': getTotals.info === 0
           }"
           size="is-small"
           icon-pack="mdi"
@@ -81,15 +84,15 @@
           class="has-text-weight-semibold alert-button"
           expanded
         >
-          {{ alertTotals.info }}
+          {{ getTotals.info }}
         </b-button>
 
         <b-button
           @click="handleAlertClick(hasFlag, 'WARNING')"
-          :disabled="alertTotals.warn === 0"
+          :disabled="getTotals.warn === 0"
           :type="{
-            'is-warning': alertTotals.warn !== 0,
-            'inverted-alert warning': alertTotals.warn === 0
+            'is-warning': getTotals.warn !== 0,
+            'inverted-alert warning': getTotals.warn === 0
           }"
           size="is-small"
           icon-pack="mdi"
@@ -97,15 +100,15 @@
           class="has-text-weight-semibold alert-button"
           expanded
         >
-          {{ alertTotals.warn }}
+          {{ getTotals.warn }}
         </b-button>
 
         <b-button
           @click="handleAlertClick(hasFlag, 'CRITICAL')"
-          :disabled="alertTotals.crit === 0"
+          :disabled="getTotals.crit === 0"
           :type="{
-            'is-danger': alertTotals.crit !== 0,
-            'inverted-alert danger': alertTotals.crit === 0
+            'is-danger': getTotals.crit !== 0,
+            'inverted-alert danger': getTotals.crit === 0
           }"
           size="is-small"
           icon-pack="mdi"
@@ -113,7 +116,7 @@
           class="has-text-weight-semibold alert-button"
           expanded
         >
-          {{ alertTotals.crit }}
+          {{ getTotals.crit }}
         </b-button>
       </template>
       <b-skeleton height="30" :active="loading"></b-skeleton>
@@ -123,7 +126,7 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { checkAlertIcon } from '@/helpers/helpers.js'
 import NoContent from '@/components/common/NoContent.vue'
 
@@ -133,13 +136,9 @@ export default {
       type: Array,
       default: () => []
     },
-    alertInfo: {
-      type: Object,
-      default: () => {}
-    },
-    alertTotals: {
-      type: Object,
-      default: () => {}
+    alertCategory: {
+      type: String,
+      required: true
     }
   },
   components: {
@@ -159,8 +158,9 @@ export default {
   methods: {
     ...mapActions(['markAsRead']),
     handleMarkAsRead(id, flag, type) {
-      this.isAnimated = !this.isAnimated
-      this.markAsRead({ id, flag, type })
+      this.markAsRead({ id, flag, type }).then(() => {
+        this.isAnimated = !this.isAnimated
+      })
     },
     handleAlertClick(category, severity) {
       this.$store.commit('SET_ALERTS_PARAMS', {
@@ -172,13 +172,20 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['getFirstAlertByCategory', 'getTotalAlertsByCategory']),
+    getFirst() {
+      return this.getFirstAlertByCategory(this.alertCategory)
+    },
+    getTotals() {
+      return this.getTotalAlertsByCategory(this.alertCategory)
+    },
     hasFlag() {
-      return this.alertInfo && this.alertInfo.category
-        ? this.alertInfo.category
+      return this.getFirst && this.getFirst.category
+        ? this.getFirst.category
         : null
     },
     setIcon() {
-      return checkAlertIcon(this.alertInfo.severity)
+      return checkAlertIcon(this.getFirst.severity)
     }
   },
   watch: {
@@ -186,7 +193,7 @@ export default {
       if (newValue) {
         setTimeout(() => {
           this.isAnimated = oldValue
-        }, 0)
+        }, 1000)
       }
     }
   }
@@ -235,42 +242,21 @@ export default {
     .inverted-alert {
       background-color: #c1c1c1;
       border: none;
-
-      // &.warning {
-      //   color: #ffdd57;
-      // }
-
-      // &.danger {
-      //   color: #f14668;
-      // }
-
-      // &.info {
-      //   color: #3298dc;
-      // }
     }
   }
 }
 
-// .flip-enter-active {
-//   transition: all 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53); //ease-in-quad
-// }
-
-// .flip-leave-active {
-//   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); //ease-out-quad
-// }
-
-// .flip-enter,
-// .flip-leave-to {
-//   transform: scaleY(0) translateZ(0);
-//   opacity: 0;
-// }
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 5s;
+.flip-enter-active {
+  transition: all 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53); //ease-in-quad
 }
-.fade-enter,
-.fade-leave-to {
+
+.flip-leave-active {
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); //ease-out-quad
+}
+
+.flip-enter,
+.flip-leave-to {
+  transform: scaleY(0) translateZ(0);
   opacity: 0;
 }
 </style>
