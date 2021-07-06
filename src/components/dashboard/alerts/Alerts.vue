@@ -4,21 +4,19 @@
 
     <Alert
       :title="[$t('views.dashboard.licenses'), 'dollar-sign']"
-      :alertInfo="getFirstAlertByCategory('LICENSE')"
-      :alertTotals="getTotalAlertsByCategory('LICENSE')"
+      alertCategory="LICENSE"
     />
 
     <Alert
       :title="[$t('views.dashboard.ercoleEngine'), 'tools']"
-      :alertInfo="getFirstAlertByCategory('ENGINE')"
-      :alertTotals="getTotalAlertsByCategory('ENGINE')"
+      alertCategory="ENGINE"
     />
   </BoxContent>
 </template>
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import Agents from '@/components/dashboard/alerts/Agents.vue'
 import Alert from '@/components/dashboard/alerts/Alert.vue'
@@ -36,9 +34,6 @@ export default {
   },
   methods: {
     ...mapActions(['getAlertsData'])
-  },
-  computed: {
-    ...mapGetters(['getFirstAlertByCategory', 'getTotalAlertsByCategory'])
   }
 }
 </script>
