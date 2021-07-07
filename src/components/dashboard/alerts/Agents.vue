@@ -15,9 +15,9 @@
       <template v-if="!loading">
         <div class="agents">
           <span>{{ $t('views.dashboard.agentsText') }} </span>
-          <span class="has-text-weight-bold" data-stoped-agents>{{
-            stoppedAgents
-          }}</span>
+          <span class="has-text-weight-bold" data-stoped-agents>
+            {{ stoppedAgents }}
+          </span>
         </div>
       </template>
       <b-skeleton size="is-small" :active="loading"></b-skeleton>

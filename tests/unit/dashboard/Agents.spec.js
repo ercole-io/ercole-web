@@ -4,7 +4,7 @@ import store from '@/store/index.js'
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Agents from '@/components/dashboard/alerts/Agents.vue'
 
-Vue.config.ignoredElements = ['b-icon', 'b-button']
+Vue.config.ignoredElements = ['b-icon', 'b-button', 'b-skeleton']
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -30,6 +30,8 @@ describe('Agents.vue', () => {
       mocks: { $t }
     })
 
-    expect(wrapper.find('[data-stoped-agents]').text()).toBe('5')
+    setTimeout(() => {
+      expect(wrapper.find('[data-stoped-agents]').text()).toBe('5')
+    }, 1000)
   })
 })
