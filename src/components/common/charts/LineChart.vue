@@ -7,6 +7,7 @@
     legend="bottom"
     :discrete="discrete"
     :messages="{ empty: 'No data' }"
+    :curve="false"
   />
 </template>
 
