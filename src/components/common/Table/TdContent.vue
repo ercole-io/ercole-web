@@ -1,7 +1,7 @@
 <template>
   <td v-tooltip.bottom="options(setValue, dataType)">
     <template v-if="link">
-      <a @click.prevent="link(setValue)">
+      <a @click.prevent="link(setValue)" @contextmenu="rightClick($event)">
         <span v-html="highlight(setValue) || '-'" />
       </a>
     </template>
@@ -21,6 +21,9 @@ export default {
   mixins: [HighlightSearchMixin, TooltipMixin],
   props: {
     link: {
+      type: Function
+    },
+    rightClick: {
       type: Function
     },
     dataType: {
