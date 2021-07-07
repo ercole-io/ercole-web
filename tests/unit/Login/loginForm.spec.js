@@ -7,8 +7,9 @@ Vue.config.ignoredElements = ['b-field', 'b-input', 'b-button']
 Vue.use(Vuelidate)
 
 let wrapper
+const $t = () => {}
 beforeEach(() => {
-  wrapper = shallowMount(Form)
+  wrapper = shallowMount(Form, { mocks: { $t } })
 })
 
 afterEach(() => {
@@ -32,7 +33,8 @@ describe('LoginForm.vue', () => {
     }
     wrapper = shallowMount(Form, {
       mocks: {
-        $store: mockStore
+        $store: mockStore,
+        $t
       }
     })
 
