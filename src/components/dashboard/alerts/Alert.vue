@@ -6,67 +6,85 @@
         <span>{{ title[0] }}</span>
       </p>
     </header>
-    <main class="alert-body" v-if="getTotals.total">
+
+    <main class="alert-body" v-if="loading || getTotals.total">
       <transition name="flip" :duration="5000">
         <div v-if="!isAnimated">
           <div class="columns is-vcentered is-gapless bottom-space">
             <div class="column">
-              <b-icon
-                :type="setIcon.iconType"
-                :icon="setIcon.icon"
-                custom-size="mdi-24px"
-              />
+              <template v-if="!loading && getTotals.total">
+                <b-icon
+                  :type="setIcon.iconType"
+                  :icon="setIcon.icon"
+                  custom-size="mdi-24px"
+                />
+              </template>
+              <b-skeleton height="24" width="24" circle :active="loading" />
             </div>
 
             <div class="column">
-              <b-button
-                @click="
-                  handleMarkAsRead(getFirst.alertId, hasFlag, getFirst.severity)
-                "
-                type="is-primary"
-                size="is-small"
-                icon-pack="fas"
-                icon-left="check-circle"
-                class="has-text-weight-semibold"
-                style="float: right"
-              >
-                {{ $t('views.dashboard.markAsRead') }}
-              </b-button>
+              <template v-if="!loading && getTotals.total">
+                <b-button
+                  @click="
+                    handleMarkAsRead(
+                      getFirst.alertId,
+                      hasFlag,
+                      getFirst.severity
+                    )
+                  "
+                  type="is-primary"
+                  size="is-small"
+                  icon-pack="fas"
+                  icon-left="check-circle"
+                  class="has-text-weight-semibold"
+                  style="float: right"
+                >
+                  {{ $t('views.dashboard.markAsRead') }}
+                </b-button>
+              </template>
+              <b-skeleton height="30" width="116" :active="loading" />
             </div>
           </div>
           <div class="columns is-vcentered is-gapless bottom-space">
             <div class="column">
-              <p v-if="hasFlag === 'LICENSE'">
-                <span class="has-text-weight-semibold">{{
-                  $t('views.dashboard.from')
-                }}</span>
-                {{ getFirst.host }}
-              </p>
+              <template v-if="!loading && getTotals.total">
+                <p v-if="hasFlag === 'LICENSE'">
+                  <span class="has-text-weight-semibold">
+                    {{ $t('views.dashboard.from') }}
+                  </span>
+
+                  {{ getFirst.host }}
+                </p>
+              </template>
+              <b-skeleton size="is-small" :active="loading" />
             </div>
           </div>
           <div class="columns is-vcentered is-gapless bottom-space">
             <div class="column">
               <p>
-                <span class="has-text-weight-semibold">{{
-                  $t('views.dashboard.date')
-                }}</span>
-                {{ getFirst.date | formatDate }}
+                <template v-if="!loading && getTotals.total">
+                  <span class="has-text-weight-semibold">
+                    {{ $t('views.dashboard.date') }}
+                  </span>
+                  {{ getFirst.date | formatDate }}
+                </template>
+                <b-skeleton size="is-small" :active="loading" />
               </p>
             </div>
           </div>
           <div class="columns is-vcentered is-gapless bottom-space">
             <div class="column">
-              <p>{{ getFirst.msg }}</p>
+              <template v-if="!loading && getTotals.total">
+                <p>{{ getFirst.msg }}</p>
+              </template>
+              <b-skeleton size="is-large" :active="loading" />
             </div>
           </div>
         </div>
       </transition>
     </main>
-    <main class="alert-body" v-else>
-      <template v-if="!loading">
-        <NoContent :noContentText="`There are no alerts for ${title[0]}`" />
-      </template>
-      <b-skeleton height="125" :active="loading"></b-skeleton>
+    <main class="alert-body" v-if="!getTotals.total && !loading">
+      <NoContent :noContentText="`There are no alerts for ${title[0]}`" />
     </main>
 
     <footer class="card-footer card-buttons">
