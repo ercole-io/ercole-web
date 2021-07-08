@@ -9,7 +9,7 @@
 
     <main class="alert-body" v-if="loading || getTotals.total">
       <transition name="flip" :duration="5000">
-        <div v-if="!isAnimated">
+        <div v-if="!isAnimated" class="wrap-msg">
           <div class="columns is-vcentered is-gapless bottom-space">
             <div class="column">
               <template v-if="!loading && getTotals.total">
@@ -262,6 +262,14 @@ export default {
       border: none;
     }
   }
+}
+
+.wrap-msg {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 155px;
+  white-space: break-spaces;
+  overflow-wrap: anywhere;
 }
 
 .flip-enter-active {
