@@ -45,7 +45,8 @@
       "licensesX": "Licenses: Used x Purchased",
       "usedLicenses": "Used Licenses",
       "purchasedLicenses": "Purchased Licenses",
-      "noData": "No data. Please change the dates!"
+      "noData": "No data. Please change the dates!",
+      "noAlerts": "There are no alerts for"
     },
     "hostDetails": {
       "fileSystems": "File Systems",
