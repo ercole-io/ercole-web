@@ -84,7 +84,9 @@
       </transition>
     </main>
     <main class="alert-body" v-if="!getTotals.total && !loading">
-      <NoContent :noContentText="`There are no alerts for ${title[0]}`" />
+      <NoContent
+        :noContentText="`${$t('views.dashboard.noAlerts')} ${title[0]}`"
+      />
     </main>
 
     <footer class="card-footer card-buttons">

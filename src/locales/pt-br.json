@@ -45,7 +45,8 @@
       "licensesX": "Licenças: Usado x Adquirido",
       "usedLicenses": "Licenças Usadas",
       "purchasedLicenses": "Licenças Adquiridas",
-      "noData": "Sem dados. Por favor, altere as datas!"
+      "noData": "Sem dados. Por favor, altere as datas!",
+      "noAlerts": "Não há alertas para"
     },
     "hostDetails": {
       "fileSystems": "Sistemas de Arquivos",
