@@ -9,7 +9,9 @@ const startDate = moment()
   .subtract(1, 'week')
   .add(1, 'days')
   .format('YYYY-MM-DD')
-const endDate = moment().format('YYYY-MM-DD')
+const endDate = moment()
+  .add(1, 'days')
+  .format('YYYY-MM-DD')
 
 export const state = () => ({
   currentHost: {},
