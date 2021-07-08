@@ -7,7 +7,6 @@ import formatDateTime from '@/filters/formatDateTime.js'
 
 const startDate = moment()
   .subtract(1, 'week')
-  .add(1, 'days')
   .format('YYYY-MM-DD')
 const endDate = moment()
   .add(1, 'days')
