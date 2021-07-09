@@ -111,7 +111,7 @@
       "exportData": "Export Data",
       "exportLms": "Export LMS Audit File",
       "inProgress": "in Progress",
-      "wait": "This may take a little time, please wait...",
+      "wait": "This may take some time, please wait...",
       "cancelRequest": "Cancel Request",
       "yes": "Yes",
       "no": "No",
