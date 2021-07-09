@@ -102,7 +102,8 @@
       "selectAll": "Select all {0} alerts?",
       "allAlerts": "All {0} alerts are selected.",
       "clearAll": "Clear select all?",
-      "showAll": "Show All"
+      "showAll": "Show All",
+      "descModalTitle": "Alert Description"
     }
   },
   "common": {
@@ -116,7 +117,9 @@
       "yes": "Yes",
       "no": "No",
       "delete": "Delete",
-      "edit": "Edit"
+      "edit": "Edit",
+      "fullDesc": "Show Full Description",
+      "close": "Close"
     },
     "forms": {
       "advancedFilters": "Advanced Filters",
