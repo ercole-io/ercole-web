@@ -277,7 +277,6 @@ export default {
       bus.$emit('onResetAction')
     },
     descriptionAlert(info) {
-      console.log(info)
       this.$buefy.dialog.alert({
         title: this.$i18n.t('views.alerts.descModalTitle'),
         message: `
