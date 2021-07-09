@@ -102,7 +102,8 @@
       "selectAll": "Selecionar todos os {0} alertas?",
       "allAlerts": "Todos os {0} alertas estão selecionados.",
       "clearAll": "Limpar selecionados?",
-      "showAll": "Mostrar todos"
+      "showAll": "Mostrar todos",
+      "descModalTitle": "Descrição do Alerta"
     }
   },
   "common": {
@@ -116,7 +117,9 @@
       "yes": "Sim",
       "no": "Não",
       "delete": "Excluir",
-      "edit": "Editar"
+      "edit": "Editar",
+      "fullDesc": "Mostrar Descrição Completa",
+      "close": "Fechar"
     },
     "forms": {
       "advancedFilters": "Filtros Avançados",
