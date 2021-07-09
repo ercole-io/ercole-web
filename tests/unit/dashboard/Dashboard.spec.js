@@ -10,6 +10,7 @@ let actions
 beforeEach(() => {
   actions = {
     getDashboardData: jest.fn().mockName('getDashboardData'),
+    getTechnologiesData: jest.fn().mockName('getTechnologiesData'),
     getHosts: jest.fn().mockName('getHosts'),
     getClusters: jest.fn().mockName('getClusters')
   }
@@ -30,8 +31,8 @@ describe('Dashboard.vue', () => {
     expect(wrapper.exists()).toBe(true)
   })
 
-  it('will dispatch getDashboardData action when mounting component', () => {
+  it('will dispatch getTechnologiesData action when mounting component', () => {
     shallowMount(Dashboard, { localVue, store })
-    expect(actions.getDashboardData).toHaveBeenCalled()
+    expect(actions.getTechnologiesData).toHaveBeenCalled()
   })
 })
