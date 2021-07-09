@@ -45,21 +45,31 @@ export default {
     Alerts
   },
   async beforeMount() {
-    await this.getDashboardData()
-      .then(() => {
-        this.getHosts() // Pre Load Hosts to cache info and save hostnames on vuex-persisted
-        this.getClusters() // Pre load clusters to save clusternames on vuex-persisted
-      })
-      .then(() => {
-        bus.$emit('loadDashboardComplete')
-      })
+    await this.getTechnologiesData().then(() => {
+      this.getDashboardData()
+        .then(() => {
+          this.getHosts() // Pre Load Hosts to cache info and save hostnames on vuex-persisted
+          this.getClusters() // Pre load clusters to save clusternames on vuex-persisted
+        })
+        .then(() => {
+          bus.$emit('loadDashboardComplete')
+        })
+        .then(() => {
+          bus.$emit('loadTechComplete')
+        })
+    })
 
-    setInterval(() => {
+    await setInterval(() => {
       this.getHosts() // Update hosts automatically each hour
     }, 300000)
   },
   methods: {
-    ...mapActions(['getDashboardData', 'getHosts', 'getClusters'])
+    ...mapActions([
+      'getDashboardData',
+      'getHosts',
+      'getClusters',
+      'getTechnologiesData'
+    ])
   }
 }
 </script>
