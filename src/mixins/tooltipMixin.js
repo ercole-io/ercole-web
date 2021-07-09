@@ -8,19 +8,14 @@ export default {
     }
   },
   methods: {
-    options(val, type) {
+    options(val, type, placement) {
       return {
         content:
           val !== '-' ? (type === 'date' ? formatDateTime(val) : val) : null,
         classes: ['info'],
-        hideOnTargetClick: true
-      }
-    },
-    optionsAlt(val) {
-      return {
-        content: val,
-        classes: ['info'],
-        hideOnTargetClick: true
+        hideOnTargetClick: true,
+        trigger: 'hover',
+        placement: placement
       }
     }
   }
