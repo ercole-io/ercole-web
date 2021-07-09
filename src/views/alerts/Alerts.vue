@@ -134,7 +134,7 @@
         />
         <td v-if="rowData.scope.description.length > 100">
           <b-icon
-            v-tooltip="options('Show Full Description')"
+            v-tooltip="options($t('common.general.fullDesc'))"
             type="is-primary"
             class="delete-icon"
             pack="fas"
@@ -287,9 +287,9 @@ export default {
     },
     descriptionAlert(desc, code, host) {
       this.$buefy.dialog.alert({
-        title: 'Alert Description',
+        title: this.$i18n.t('views.alerts.descModalTitle'),
         message: `<b>${host}</b> - ${code} </br></br> ${desc}`,
-        confirmText: 'Close',
+        confirmText: this.$i18n.t('common.general.close'),
         size: 'is-small'
       })
     }
