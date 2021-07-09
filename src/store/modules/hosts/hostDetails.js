@@ -148,7 +148,7 @@ export const getters = {
         },
         {
           name: 'Last Update',
-          value: formatDateTime(info.createdAt)
+          value: formatDateTime(state.currentHost.createdAt)
         }
       ]
     }
