@@ -139,13 +139,7 @@
             class="delete-icon"
             pack="fas"
             icon="file-alt"
-            @click.native="
-              descriptionAlert(
-                rowData.scope.description,
-                rowData.scope.alertCode,
-                rowData.scope.hostname
-              )
-            "
+            @click.native="descriptionAlert(rowData.scope)"
           />
           {{ rowData.scope.description }}
         </td>
@@ -172,7 +166,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import AlertsFilters from '@/components/alerts/AlertsFilters.vue'
-import formatDate from '@/filters/formatDate.js'
+import formatDateTime from '@/filters/formatDateTime.js'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
   _.map(list, val => {
@@ -282,15 +276,27 @@ export default {
     removeParams() {
       bus.$emit('onResetAction')
     },
-    formatDate(date) {
-      return formatDate(date)
-    },
-    descriptionAlert(desc, code, host) {
+    descriptionAlert(info) {
+      console.log(info)
       this.$buefy.dialog.alert({
         title: this.$i18n.t('views.alerts.descModalTitle'),
-        message: `<b>${host}</b> - ${code} </br></br> ${desc}`,
+        message: `
+          <b>${info.alertCode}</b> 
+          </br> 
+          ${info.hostname} 
+          </br> 
+          ${info.alertCategory} 
+          </br> 
+          ${formatDateTime(info.date)} 
+          </br></br> 
+          ${info.description}
+        `,
         confirmText: this.$i18n.t('common.general.close'),
-        size: 'is-small'
+        size: 'is-small',
+        hasIcon: true,
+        iconPack: 'mdi',
+        icon: this.resolveIcon(info.alertSeverity)[0],
+        type: this.resolveIcon(info.alertSeverity)[1]
       })
     }
   },
