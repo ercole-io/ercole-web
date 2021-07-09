@@ -38,10 +38,11 @@
         min-width: 100px;
         padding: 0.3em 1em;
         vertical-align: middle;
-        white-space: pre;
+        white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
         max-width: 150px;
+        overflow-wrap: anywhere;
 
         &:first-child {
           text-align: left;

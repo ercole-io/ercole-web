@@ -99,7 +99,7 @@
         <v-th style="width: 10%" sortKey="alertCode">
           {{ $t('common.collumns.code') }}
         </v-th>
-        <v-th style="width: 40%" sortKey="description">
+        <v-th style="width: 40%;" sortKey="description">
           {{ $t('common.collumns.description') }}
         </v-th>
       </template>
@@ -126,7 +126,29 @@
           :hostname="rowData.scope.hostname ? rowData.scope.hostname : '-'"
         />
         <TdContent :value="rowData.scope.alertCode" />
-        <TdContent :value="rowData.scope.description" />
+
+        <TdContent
+          :value="rowData.scope.description"
+          tooltipPlace="left"
+          v-if="rowData.scope.description.length < 100"
+        />
+        <td v-if="rowData.scope.description.length > 100">
+          <b-icon
+            v-tooltip="options('Show Full Description')"
+            type="is-primary"
+            class="delete-icon"
+            pack="fas"
+            icon="file-alt"
+            @click.native="
+              descriptionAlert(
+                rowData.scope.description,
+                rowData.scope.alertCode,
+                rowData.scope.hostname
+              )
+            "
+          />
+          {{ rowData.scope.description }}
+        </td>
       </template>
 
       <exportButton slot="export" url="alerts" expName="alerts-data" />
@@ -140,6 +162,7 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions, mapState, mapMutations } from 'vuex'
 import { checkAlertIcon } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
+import TooltipMixin from '@/mixins/tooltipMixin.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
@@ -161,7 +184,7 @@ const checkOrUncheck = (list, status, handleSelectRows) => {
 }
 
 export default {
-  mixins: [paginationMixin, localFiltersMixin, hostnameLinkRow],
+  mixins: [paginationMixin, localFiltersMixin, hostnameLinkRow, TooltipMixin],
   components: {
     BaseLayoutColumns,
     FullTable,
@@ -261,6 +284,14 @@ export default {
     },
     formatDate(date) {
       return formatDate(date)
+    },
+    descriptionAlert(desc, code, host) {
+      this.$buefy.dialog.alert({
+        title: 'Alert Description',
+        message: `<b>${host}</b> - ${code} </br></br> ${desc}`,
+        confirmText: 'Close',
+        size: 'is-small'
+      })
     }
   },
   computed: {

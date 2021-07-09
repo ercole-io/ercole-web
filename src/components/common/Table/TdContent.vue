@@ -1,5 +1,5 @@
 <template>
-  <td v-tooltip.bottom="options(setValue, dataType)">
+  <td v-tooltip="options(setValue, dataType, tooltipPlace)">
     <template v-if="link">
       <a @click.prevent="link(setValue)" @contextmenu="rightClick($event)">
         <span v-html="highlight(setValue) || '-'" />
@@ -29,6 +29,10 @@ export default {
     dataType: {
       type: String,
       default: ''
+    },
+    tooltipPlace: {
+      type: String,
+      default: 'bottom'
     }
   },
   methods: {
