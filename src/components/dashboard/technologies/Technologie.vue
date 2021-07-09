@@ -1,16 +1,34 @@
 <template>
   <HbuttonScroll>
-    <template v-if="!loading">
-      <div class="technologies">
-        <div
-          class="technologies-list"
-          v-for="tech in getTechnologies"
-          :key="tech.id"
-        >
-          <img v-bind:src="`data:image/jpeg;base64,${tech.extra.logo}`" />
-          <span>{{ tech.extra.name }}</span>
-          <div>{{ tech.agents }}</div>
-          <div>
+    <div class="technologies">
+      <div
+        class="technologies-list"
+        v-for="(tech, i) in getTech"
+        :key="tech.id || i"
+      >
+        <div class="image">
+          <template v-if="!loading">
+            <img v-bind:src="`data:image/jpeg;base64,${tech.extra.logo}`" />
+          </template>
+          <b-skeleton width="30" height="30" :active="loading"></b-skeleton>
+        </div>
+
+        <div class="tech-name">
+          <template v-if="!loading">
+            {{ tech.extra.name }}
+          </template>
+          <b-skeleton width="100" :active="loading"></b-skeleton>
+        </div>
+
+        <div class="agents">
+          <template v-if="!loading">
+            {{ tech.agents }}
+          </template>
+          <b-skeleton width="15" :active="loading"></b-skeleton>
+        </div>
+
+        <div class="progress">
+          <template v-if="!loading">
             <Progress
               :radius="20"
               :value="tech.perc"
@@ -18,12 +36,18 @@
               :strokeWidth="5"
               :transitionDuration="2000"
             />
-          </div>
-          <!-- <div>{{ tech.money }} €</div> -->
+          </template>
+          <b-skeleton
+            circle
+            width="50"
+            height="50"
+            :active="loading"
+          ></b-skeleton>
         </div>
+
+        <!-- <div>{{ tech.money }} €</div> -->
       </div>
-    </template>
-    <b-skeleton height="155" :active="loading"></b-skeleton>
+    </div>
   </HbuttonScroll>
 </template>
 
@@ -49,7 +73,10 @@ export default {
     })
   },
   computed: {
-    ...mapGetters(['getTechnologies'])
+    ...mapGetters(['getTechnologies']),
+    getTech() {
+      return this.loading ? 5 : this.getTechnologies
+    }
   }
 }
 </script>
@@ -61,32 +88,36 @@ export default {
   width: 0;
 }
 .technologies-list {
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
   padding: 0 3px;
+  min-width: 120px;
 
-  img {
-    width: 30%;
+  .image {
+    width: 30px;
+    height: 30px;
     margin: 0 auto;
     display: block;
   }
 
-  span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+  .tech-name {
     font-size: 0.75em;
     font-weight: 500;
-    min-height: 35px;
+    padding: 10px 0;
   }
 
-  div {
-    text-align: center;
+  .agents {
     border-width: 0;
-    padding: 2px 0;
+    padding-bottom: 4px;
     list-style: none;
-    min-width: 100px;
     font-size: 0.9em;
+  }
+
+  .progress {
+    width: 50px;
+    height: 50px;
   }
 }
 </style>
