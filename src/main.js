@@ -63,7 +63,9 @@ Chartkick.options = {
 
 Vue.use(SmartTable)
 Vue.use(Vuelidate)
-Vue.use(VTooltip)
+Vue.use(VTooltip, {
+  defaultHtml: false
+})
 Vue.use(ClickCopy)
 Vue.use(vueFilterPrettyBytes)
 
