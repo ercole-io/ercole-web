@@ -110,11 +110,11 @@ export const getters = {
         },
         {
           name: 'Cluster',
-          value: info.cluster
+          value: state.currentHost.cluster
         },
         {
           name: 'Node',
-          value: info.virtualizationNode
+          value: state.currentHost.virtualizationNode
         }
       ]
     }
