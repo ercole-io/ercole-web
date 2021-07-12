@@ -1,24 +1,17 @@
 <template>
-  <div>
-    <vueMultiSelect
-      v-model="selectedData"
-      search
-      :filters="filters"
-      :position="position"
-      :options="options"
-      :selectOptions="dataOptions"
-      historyButton
-      :searchPlaceholder="placeholderName"
-      :emptyTabText="noDataFound"
-      :btnLabel="() => btLabel"
-      class="custom-multi-select"
-    />
-
-    <p class="selected-text">
-      {{ $t('views.hostDetails.selected') }}:
-      <span>{{ selectedData.length }}/10</span>
-    </p>
-  </div>
+  <vueMultiSelect
+    v-model="selectedData"
+    search
+    :filters="filters"
+    :position="position"
+    :options="options"
+    :selectOptions="dataOptions"
+    historyButton
+    :searchPlaceholder="placeholderName"
+    :emptyTabText="noDataFound"
+    :btnLabel="() => btLabel"
+    class="custom-multi-select"
+  />
 </template>
 
 <script>
