@@ -14,7 +14,8 @@ const endDate = moment()
 
 export const state = () => ({
   currentHost: {},
-  currentHostActiveDB: ''
+  currentHostActiveDB: '',
+  rangeDates: []
 })
 
 export const getters = {
@@ -223,9 +224,15 @@ export const getters = {
   getOracleCpuUsageChart: (state, getters) => selected => {
     const dailyDbState = getters.currentHostDBs
     const dailyHistory = state.currentHost.history
+    const rangeDates = state.rangeDates
 
     if (dailyDbState) {
-      return mountCpuUsageChart(dailyHistory, selected, dailyDbState)
+      return mountCpuUsageChart(
+        dailyHistory,
+        selected,
+        dailyDbState,
+        rangeDates
+      )
     } else {
       return null
     }
@@ -238,6 +245,16 @@ export const mutations = {
   },
   SET_ACTIVE_DB: (state, payload) => {
     state.currentHostActiveDB = payload
+  },
+  SET_RANGE_DATES: (state, payload) => {
+    state.rangeDates = [
+      moment(payload[0])
+        .subtract(1, 'days')
+        .format('YYYY-MM-DD'),
+      moment(payload[1])
+        .add(1, 'days')
+        .format('YYYY-MM-DD')
+    ]
   }
 }
 
@@ -253,15 +270,19 @@ export const actions = {
   }
 }
 
-const mountTotalDailyUsage = data => {
+const mountTotalDailyUsage = (data, rangeDates) => {
   const totalDailyData = []
   let resultTotalDaily = {}
 
   _.map(data, item => {
-    totalDailyData.push({
-      date: moment(item.createdAt).format('YYYY-MM-DD'),
-      value: item.totalDailyCPUUsage
-    })
+    let date = moment(item.createdAt).format('YYYY-MM-DD')
+
+    if (date > rangeDates[0] && date < rangeDates[1]) {
+      totalDailyData.push({
+        date: date,
+        value: item.totalDailyCPUUsage
+      })
+    }
   })
 
   for (const prop in totalDailyData) {
@@ -271,14 +292,21 @@ const mountTotalDailyUsage = data => {
   return resultTotalDaily
 }
 
-const mountTotalDailyUsageDbs = data => {
+const mountTotalDailyUsageDbs = (data, rangeDates) => {
   let dailyDbData = []
+  let changed = []
+
   _.map(data, item => {
     const { name, changes } = item
-    let changed = _.map(changes, data => {
-      return {
-        date: moment(data.updated).format('YYYY-MM-DD'),
-        value: data.dailyCPUUsage
+
+    _.map(changes, data => {
+      let date = moment(data.updated).format('YYYY-MM-DD')
+
+      if (date > rangeDates[0] && date < rangeDates[1]) {
+        changed.push({
+          date: date,
+          value: data.dailyCPUUsage
+        })
       }
     })
 
@@ -295,10 +323,10 @@ const mountTotalDailyUsageDbs = data => {
   return dailyDbData
 }
 
-const matchSelectedDbs = (selected, dbs) => {
+const matchSelectedDbs = (selected, dbs, rangeDates) => {
   let selectedDbs = []
   _.forEach(selected, val => {
-    return _.map(mountTotalDailyUsageDbs(dbs), dbData => {
+    return _.map(mountTotalDailyUsageDbs(dbs, rangeDates), dbData => {
       if (dbData.name === val) {
         selectedDbs.push(dbData)
       }
@@ -307,15 +335,15 @@ const matchSelectedDbs = (selected, dbs) => {
   return selectedDbs
 }
 
-const mountCpuUsageChart = (history, selected, dbs) => {
+const mountCpuUsageChart = (history, selected, dbs, rangeDates) => {
   const finalResult = [
     {
       name: 'Total Daily CPU Usage',
-      data: mountTotalDailyUsage(history)
+      data: mountTotalDailyUsage(history, rangeDates)
     }
   ]
 
-  _.forEach(matchSelectedDbs(selected, dbs), item => {
+  _.forEach(matchSelectedDbs(selected, dbs, rangeDates), item => {
     finalResult.push(item)
   })
 
