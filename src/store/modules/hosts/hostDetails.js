@@ -225,10 +225,10 @@ export const getters = {
       )
     })
   },
-  getOracleCpuUsageChart: (state, getters, rootstate) => selected => {
+  getOracleCpuUsageChart: (state, getters) => selected => {
     const dailyDbState = getters.currentHostDBs
     const dailyHistory = state.currentHost.history
-    const rangeDates = rootstate.rangeDates.rangeDates
+    const rangeDates = getters.getRangeDates
 
     if (dailyDbState) {
       return mountCpuUsageChart(
@@ -240,6 +240,9 @@ export const getters = {
     } else {
       return null
     }
+  },
+  getRangeDates: (state, getters, rootstate) => {
+    return rootstate.rangeDates.rangeDates
   }
 }
 
