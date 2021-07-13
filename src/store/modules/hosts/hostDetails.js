@@ -14,8 +14,7 @@ const endDate = moment()
 
 export const state = () => ({
   currentHost: {},
-  currentHostActiveDB: '',
-  rangeDates: []
+  currentHostActiveDB: ''
 })
 
 export const getters = {
@@ -221,10 +220,10 @@ export const getters = {
       )
     })
   },
-  getOracleCpuUsageChart: (state, getters) => selected => {
+  getOracleCpuUsageChart: (state, getters, rootstate) => selected => {
     const dailyDbState = getters.currentHostDBs
     const dailyHistory = state.currentHost.history
-    const rangeDates = state.rangeDates
+    const rangeDates = rootstate.rangeDates.rangeDates
 
     if (dailyDbState) {
       return mountCpuUsageChart(
@@ -245,16 +244,6 @@ export const mutations = {
   },
   SET_ACTIVE_DB: (state, payload) => {
     state.currentHostActiveDB = payload
-  },
-  SET_RANGE_DATES: (state, payload) => {
-    state.rangeDates = [
-      moment(payload[0])
-        .subtract(1, 'days')
-        .format('YYYY-MM-DD'),
-      moment(payload[1])
-        .add(1, 'days')
-        .format('YYYY-MM-DD')
-    ]
   }
 }
 

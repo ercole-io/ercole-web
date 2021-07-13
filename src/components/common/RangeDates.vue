@@ -67,6 +67,9 @@ export default {
     formatDate(date) {
       return formatDate(date)
     }
+  },
+  beforeDestroy() {
+    this.getCurrentMonthDates()
   }
 }
 </script>
