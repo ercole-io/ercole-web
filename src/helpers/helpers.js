@@ -188,3 +188,17 @@ export const returnTechTypePrettyName = value => {
   })
   return prettyTypeName
 }
+
+// INIT: functions to use with range dates
+export const setRangeDateFormat = value => {
+  return moment(value).format('YYYY-MM-DD')
+}
+
+export const checkRangeDate = (date, range) => {
+  if (date > range[0] && date < range[1]) {
+    return true
+  } else {
+    return false
+  }
+}
+// END: functions to use with range dates
