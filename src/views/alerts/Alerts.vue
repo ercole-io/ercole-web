@@ -76,7 +76,7 @@
       </template>
 
       <template slot="headData">
-        <th style="width: 5%">
+        <th style="width: 5%; z-index: 1;">
           <div v-if="showCheckbox">
             <b-checkbox
               v-model="isCurrentPageSelected"
@@ -106,6 +106,7 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <td
+          class="py-0 px-0"
           v-if="
             rowData.scope.alertCategory !== 'AGENT' &&
               rowData.scope.alertStatus === 'NEW'
@@ -116,6 +117,8 @@
             @input="
               handleSelectRows(rowData.scope.isChecked, rowData.scope._id)
             "
+            class="is-flex is-justify-content-center"
+            style="height: 32px; z-index: 0;"
           />
         </td>
         <td v-else></td>
