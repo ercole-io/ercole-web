@@ -27,6 +27,7 @@ import * as globalFilters from './modules/global-filters'
 import * as localFilters from './modules/local-filters'
 import * as engineeredSystems from './modules/engineered-systems/engineered-systems'
 import * as agreementParts from './modules/agreement-parts'
+import * as rangeDates from './modules/range-dates'
 
 Vue.use(Vuex)
 
@@ -56,7 +57,8 @@ export default new Vuex.Store({
     globalFilters,
     localFilters,
     engineeredSystems,
-    agreementParts
+    agreementParts,
+    rangeDates
   },
   plugins: [
     createPersistedState({
