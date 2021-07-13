@@ -1,7 +1,12 @@
 import _ from 'lodash'
 import moment from 'moment'
 import axiosDefault from '@/axios/axios-default'
-import { mapClustStatus, returnAlertsByTypeDate } from '@/helpers/helpers.js'
+import {
+  mapClustStatus,
+  returnAlertsByTypeDate,
+  setRangeDateFormat,
+  checkRangeDate
+} from '@/helpers/helpers.js'
 import { mapDatabases } from '@/helpers/databasesMap.js'
 import formatDateTime from '@/filters/formatDateTime.js'
 
@@ -264,9 +269,9 @@ const mountTotalDailyUsage = (data, rangeDates) => {
   let resultTotalDaily = {}
 
   _.map(data, item => {
-    let date = moment(item.createdAt).format('YYYY-MM-DD')
+    let date = setRangeDateFormat(item.createdAt)
 
-    if (date > rangeDates[0] && date < rangeDates[1]) {
+    if (checkRangeDate(date, rangeDates)) {
       totalDailyData.push({
         date: date,
         value: item.totalDailyCPUUsage
@@ -289,9 +294,9 @@ const mountTotalDailyUsageDbs = (data, rangeDates) => {
     const { name, changes } = item
 
     _.map(changes, data => {
-      let date = moment(data.updated).format('YYYY-MM-DD')
+      let date = setRangeDateFormat(data.updated)
 
-      if (date > rangeDates[0] && date < rangeDates[1]) {
+      if (checkRangeDate(date, rangeDates)) {
         changed.push({
           date: date,
           value: data.dailyCPUUsage
