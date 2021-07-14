@@ -12,18 +12,18 @@
         <div v-if="!isAnimated" class="wrap-msg">
           <div class="columns is-vcentered is-gapless bottom-space">
             <div class="column">
-              <template v-if="!loading && getTotals.total">
+              <GhostLoading :isLoading="loading" setHeight="24" setWidth="24">
                 <b-icon
+                  v-if="!loading && getTotals.total"
                   :type="setIcon.iconType"
                   :icon="setIcon.icon"
                   custom-size="mdi-24px"
                 />
-              </template>
-              <b-skeleton height="24" width="24" circle :active="loading" />
+              </GhostLoading>
             </div>
 
             <div class="column">
-              <template v-if="!loading && getTotals.total">
+              <GhostLoading :isLoading="loading" setHeight="30" setWidth="116">
                 <b-button
                   @click="
                     handleMarkAsRead(
@@ -38,46 +38,46 @@
                   icon-left="check-circle"
                   class="has-text-weight-semibold"
                   style="float: right"
+                  v-if="!loading && getTotals.total"
                 >
                   {{ $t('views.dashboard.markAsRead') }}
                 </b-button>
-              </template>
-              <b-skeleton height="30" width="116" :active="loading" />
+              </GhostLoading>
             </div>
           </div>
           <div class="columns is-vcentered is-gapless bottom-space">
             <div class="column">
-              <template v-if="!loading && getTotals.total">
-                <p v-if="hasFlag === 'LICENSE'">
-                  <span class="has-text-weight-semibold">
+              <GhostLoading :isLoading="loading">
+                <p v-if="!loading && getTotals.total">
+                  <span
+                    class="has-text-weight-semibold"
+                    v-if="hasFlag === 'LICENSE'"
+                  >
                     {{ $t('views.dashboard.from') }}
                   </span>
 
                   {{ getFirst.host }}
                 </p>
-              </template>
-              <b-skeleton size="is-small" :active="loading" />
+              </GhostLoading>
             </div>
           </div>
           <div class="columns is-vcentered is-gapless bottom-space">
             <div class="column">
-              <p>
-                <template v-if="!loading && getTotals.total">
+              <GhostLoading :isLoading="loading">
+                <p v-if="!loading && getTotals.total">
                   <span class="has-text-weight-semibold">
                     {{ $t('views.dashboard.date') }}
                   </span>
                   {{ getFirst.date | formatDate }}
-                </template>
-                <b-skeleton size="is-small" :active="loading" />
-              </p>
+                </p>
+              </GhostLoading>
             </div>
           </div>
           <div class="columns is-vcentered is-gapless bottom-space">
             <div class="column">
-              <template v-if="!loading && getTotals.total">
-                <p>{{ getFirst.msg }}</p>
-              </template>
-              <b-skeleton size="is-large" :active="loading" />
+              <GhostLoading :isLoading="loading" setSize="is-large">
+                <p v-if="!loading && getTotals.total">{{ getFirst.msg }}</p>
+              </GhostLoading>
             </div>
           </div>
         </div>
@@ -88,9 +88,8 @@
         :noContentText="`${$t('views.dashboard.noAlerts')} ${title[0]}`"
       />
     </main>
-
-    <footer class="card-footer card-buttons">
-      <template v-if="!loading">
+    <GhostLoading :isLoading="loading" setHeight="30">
+      <footer class="card-footer card-buttons">
         <b-button
           @click="handleAlertClick(hasFlag, 'INFO')"
           :disabled="getTotals.info === 0"
@@ -138,9 +137,8 @@
         >
           {{ getTotals.crit }}
         </b-button>
-      </template>
-      <b-skeleton height="30" :active="loading"></b-skeleton>
-    </footer>
+      </footer>
+    </GhostLoading>
   </div>
 </template>
 
@@ -149,6 +147,7 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import { checkAlertIcon } from '@/helpers/helpers.js'
 import NoContent from '@/components/common/NoContent.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   props: {
@@ -162,7 +161,8 @@ export default {
     }
   },
   components: {
-    NoContent
+    NoContent,
+    GhostLoading
   },
   data() {
     return {
@@ -248,6 +248,7 @@ export default {
 
   .card-buttons {
     display: flex;
+    width: 100%;
 
     .alert-button {
       height: 30px;

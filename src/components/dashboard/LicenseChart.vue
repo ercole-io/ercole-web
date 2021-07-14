@@ -1,7 +1,7 @@
 <template>
   <BoxContent :title="$t('views.dashboard.licensesX')">
-    <div slot="customTitle">
-      <template v-if="!loading">
+    <div slot="customTitle" class="mr-1">
+      <GhostLoading :isLoading="loading" setHeight="30" setWidth="430">
         <b-field>
           <b-select
             placeholder="Select a type"
@@ -20,52 +20,53 @@
             </option>
           </b-select>
         </b-field>
-      </template>
-      <b-skeleton width="430" height="30" :active="loading"></b-skeleton>
+      </GhostLoading>
     </div>
 
-    <div class="range-dates">
-      <template v-if="!loading">
-        <b-datepicker
-          v-model="startDate"
-          size="is-small"
-          placeholder="Start Date"
-          position="is-bottom-right"
-          icon="calendar-today"
-          :max-date="endDate ? endDate : new Date()"
-          :date-formatter="formatDate"
-          class="mr-1 range-dates-field"
-          trap-focus
-        />
-        <b-datepicker
-          v-model="endDate"
-          size="is-small"
-          placeholder="End Date"
-          position="is-bottom-left"
-          icon="calendar-today"
-          :min-date="startDate"
-          :max-date="new Date()"
-          :date-formatter="formatDate"
-          class="ml-1 range-dates-field"
-          trap-focus
-        />
+    <div class="range-dates mr-0">
+      <div class="mr-2">
+        <GhostLoading :isLoading="loading" setHeight="30" setWidth="150">
+          <b-datepicker
+            v-model="startDate"
+            size="is-small"
+            placeholder="Start Date"
+            position="is-bottom-right"
+            icon="calendar-today"
+            :max-date="endDate ? endDate : new Date()"
+            :date-formatter="formatDate"
+            class="range-dates-field"
+            trap-focus
+          />
+        </GhostLoading>
+      </div>
+
+      <div class="mr-2">
+        <GhostLoading :isLoading="loading" setHeight="30" setWidth="150">
+          <b-datepicker
+            v-model="endDate"
+            size="is-small"
+            placeholder="End Date"
+            position="is-bottom-left"
+            icon="calendar-today"
+            :min-date="startDate"
+            :max-date="new Date()"
+            :date-formatter="formatDate"
+            class="range-dates-field"
+            trap-focus
+          />
+        </GhostLoading>
+      </div>
+      <GhostLoading :isLoading="loading" setHeight="30" setWidth="30">
         <b-button
-          class="ml-1"
           size="is-small"
           type="is-primary"
           icon-right="delete"
           @click="getCurrentMonthDates"
         />
-      </template>
+      </GhostLoading>
     </div>
-    <b-skeleton
-      width="430"
-      height="30"
-      :active="loading"
-      position="is-right"
-    ></b-skeleton>
 
-    <template v-if="!loading">
+    <GhostLoading :isLoading="loading" setHeight="300">
       <LineChart
         chartId="lincenseChart"
         :lineChartData="finalChartData"
@@ -76,8 +77,7 @@
         :noContentText="$t('views.dashboard.noData')"
         style="min-height: 200px"
       />
-    </template>
-    <b-skeleton height="300" :active="loading"></b-skeleton>
+    </GhostLoading>
   </BoxContent>
 </template>
 
@@ -89,6 +89,7 @@ import formatDate from '@/filters/formatDate.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import LineChart from '@/components/common/charts/LineChart.vue'
 import NoContent from '@/components/common/NoContent.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 const matchType = (data, selected) => {
   return _.find(data, type => {
@@ -124,7 +125,8 @@ export default {
   components: {
     LineChart,
     BoxContent,
-    NoContent
+    NoContent,
+    GhostLoading
   },
   data() {
     return {
@@ -232,12 +234,12 @@ export default {
   display: flex;
   justify-content: flex-end;
   flex-direction: row;
-  margin-right: -3px;
   margin-top: -10px;
+  margin-bottom: 5px;
 
   .range-dates-field {
     width: 100%;
-    max-width: 180px;
+    max-width: 150px;
   }
 }
 </style>

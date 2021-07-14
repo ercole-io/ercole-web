@@ -12,18 +12,18 @@
       </p>
     </header>
     <div class="card-content body">
-      <template v-if="!loading">
-        <div class="agents">
-          <span>{{ $t('views.dashboard.agentsText') }} </span>
-          <span class="has-text-weight-bold" data-stoped-agents>
+      <div class="agents">
+        <span>{{ $t('views.dashboard.agentsText') }} </span>
+
+        <span class="has-text-weight-bold" data-stoped-agents>
+          <GhostLoading :isLoading="loading" setWidth="20">
             {{ stoppedAgents }}
-          </span>
-        </div>
-      </template>
-      <b-skeleton size="is-small" :active="loading"></b-skeleton>
+          </GhostLoading>
+        </span>
+      </div>
     </div>
-    <footer class="card-footer">
-      <template v-if="!loading">
+    <GhostLoading :isLoading="loading" setHeight="30">
+      <footer class="card-footer">
         <b-button
           @click="inspectAgents"
           type="is-small"
@@ -33,18 +33,20 @@
         >
           {{ $t('views.dashboard.inspect') }}
         </b-button>
-      </template>
-
-      <b-skeleton height="30" :active="loading"></b-skeleton>
-    </footer>
+      </footer>
+    </GhostLoading>
   </div>
 </template>
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapMutations } from 'vuex'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  components: {
+    GhostLoading
+  },
   data() {
     return {
       loading: true

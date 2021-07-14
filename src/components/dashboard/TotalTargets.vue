@@ -3,20 +3,24 @@
     <div class="total-targets">
       <div class="col col01">
         <span>{{ $t('views.dashboard.agentsDiscovered') }}</span>
-        <span>
-          <template v-if="!loading">
-            <span class="has-text-weight-semibold is-size-5">
-              {{ getTotalTarget.agentsDiscovered }}
-            </span>
-          </template>
-          <b-skeleton width="50" :active="loading"></b-skeleton>
+        <span
+          class="has-text-weight-semibold is-justify-content-center is-size-5"
+        >
+          <GhostLoading :isLoading="loading" setHeight="14" setWidth="23">
+            {{ getTotalTarget.agentsDiscovered }}
+          </GhostLoading>
         </span>
       </div>
 
       <div class="col col02">
         <span>{{ $t('views.dashboard.percCompliance') }}</span>
         <span>
-          <template v-if="!loading">
+          <GhostLoading
+            :isLoading="loading"
+            setHeight="50"
+            setWidth="50"
+            isCircle
+          >
             <Progress
               :radius="20"
               :value="getTotalTarget.percCompliance"
@@ -24,8 +28,7 @@
               :strokeWidth="5"
               :transitionDuration="2000"
             />
-          </template>
-          <b-skeleton circle width="50" :active="loading"></b-skeleton>
+          </GhostLoading>
         </span>
       </div>
     </div>
@@ -37,11 +40,13 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import Progress from 'easy-circular-progress'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   components: {
     BoxContent,
-    Progress
+    Progress,
+    GhostLoading
   },
   data() {
     return {
@@ -53,6 +58,7 @@ export default {
     bus.$on('loadDashboardComplete', () => {
       this.loading = false
     })
+    console.log()
   },
   computed: {
     ...mapGetters(['getTotalTarget'])
@@ -62,7 +68,6 @@ export default {
 
 <style lang="scss" scoped>
 .total-targets {
-  display: flex;
   font-size: 13px;
   margin-top: 78px;
   flex-direction: column;
@@ -91,12 +96,6 @@ export default {
 
   .col02 {
     height: 50px;
-
-    span:last-child {
-      div {
-        height: 50px;
-      }
-    }
   }
 }
 </style>
