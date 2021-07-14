@@ -7,45 +7,43 @@
         :key="tech.id || i"
       >
         <div class="image">
-          <template v-if="!loading">
-            <img v-bind:src="`data:image/jpeg;base64,${tech.extra.logo}`" />
-          </template>
-          <b-skeleton width="30" height="30" :active="loading"></b-skeleton>
+          <GhostLoading :isLoading="loading" setHeight="30" setWidth="30">
+            <img
+              v-bind:src="`data:image/jpeg;base64,${tech.extra.logo}`"
+              v-if="!loading"
+            />
+          </GhostLoading>
         </div>
 
         <div class="tech-name">
-          <template v-if="!loading">
-            {{ tech.extra.name }}
-          </template>
-          <b-skeleton width="100" :active="loading"></b-skeleton>
+          <GhostLoading :isLoading="loading" setWidth="100">
+            <span v-if="!loading">{{ tech.extra.name }}</span>
+          </GhostLoading>
         </div>
 
         <div class="agents">
-          <template v-if="!loading">
-            {{ tech.agents }}
-          </template>
-          <b-skeleton width="15" :active="loading"></b-skeleton>
+          <GhostLoading :isLoading="loading" setHeight="15" setWidth="15">
+            <span v-if="!loading">{{ tech.agents }}</span>
+          </GhostLoading>
         </div>
 
         <div class="progress">
-          <template v-if="!loading">
+          <GhostLoading
+            :isLoading="loading"
+            setHeight="50"
+            setWidth="50"
+            isCircle
+          >
             <Progress
               :radius="20"
               :value="tech.perc"
               :strokeColor="tech.extra.color"
               :strokeWidth="5"
               :transitionDuration="2000"
+              v-if="!loading"
             />
-          </template>
-          <b-skeleton
-            circle
-            width="50"
-            height="50"
-            :active="loading"
-          ></b-skeleton>
+          </GhostLoading>
         </div>
-
-        <!-- <div>{{ tech.money }} €</div> -->
       </div>
     </div>
   </HbuttonScroll>
@@ -56,11 +54,13 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import Progress from 'easy-circular-progress'
 import HbuttonScroll from '@/components/HbuttonScroll.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   components: {
     Progress,
-    HbuttonScroll
+    HbuttonScroll,
+    GhostLoading
   },
   data() {
     return {
