@@ -11,19 +11,8 @@
 </template>
 
 <script>
-import axios from 'axios'
-import moment from 'moment'
-import { bus } from '@/helpers/eventBus.js'
-import { saveAs } from 'file-saver'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { mapState } from 'vuex'
 import exportModal from '@/components/common/exportModal.vue'
-
-const exportAll = {
-  Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-}
-const exportLms = {
-  Accept: 'application/vnd.oracle.lms+vnd.ms-excel.sheet.macroEnabled.12'
-}
 
 export default {
   props: {
@@ -46,58 +35,33 @@ export default {
   },
   methods: {
     exportData() {
-      const checkType = this.type && this.type === 'LMS' ? true : false
-      const headers = checkType ? exportLms : exportAll
-      const extension = checkType ? 'xlsm' : 'xlsx'
-      const date = moment().format('YYYYMMDD')
-
-      const request = axios.CancelToken.source()
-      bus.$on('callCancelExport', () => {
-        request.cancel()
-      })
+      const checkType =
+        this.type === 'LMS'
+          ? `${this.$i18n.t('common.general.exportLms')} ${this.$i18n.t(
+              'common.general.inProgress'
+            )}`
+          : `${this.$i18n.t('common.general.exportData')} ${this.$i18n.t(
+              'common.general.inProgress'
+            )}`
 
       this.$buefy.modal.open({
         component: exportModal,
         hasModalCard: true,
         props: {
+          exportType: this.type,
+          exportUrl: this.url,
+          exportName: this.expName,
+          exportTitle: checkType,
+          glFiltersState: this.globalFilters,
           msgTxt: this.$i18n.t('common.general.wait'),
-          btText: this.$i18n.t('common.general.cancelRequest'),
-          downloadType: checkType
-            ? `${this.$i18n.t('common.general.exportLms')} ${this.$i18n.t(
-                'common.general.inProgress'
-              )}`
-            : `${this.$i18n.t('common.general.exportData')} ${this.$i18n.t(
-                'common.general.inProgress'
-              )}`
+          btText: this.$i18n.t('common.general.cancelRequest')
         },
-        canCancel: false,
-        close: () => {
-          console.log('teste')
-        }
+        canCancel: false
       })
-
-      axiosNoLoading
-        .get(`/${this.url}`, {
-          headers: headers,
-          responseType: 'blob',
-          cancelToken: request.token
-          // onDownloadProgress: progressEvent => {
-          // let currentProgress = Math.round(
-          //   (progressEvent.loaded * 100) / progressEvent.total
-          // )
-          // console.log(progressEvent)
-          // vm.percentCompleted = currentProgress
-          // }
-        })
-        .then(res => {
-          saveAs(res.data, `${this.expName}-${date}.${extension}`)
-        })
-        .then(() => {
-          bus.$emit('callCloseModal')
-        })
     }
   },
   computed: {
+    ...mapState(['globalFilters']),
     bindText() {
       return this.text ? this.text : this.$i18n.t('common.general.exportData')
     }
