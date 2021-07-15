@@ -1,32 +1,7 @@
 <template>
   <BaseLayoutColumns v-if="isMounted">
     <div slot="col1">
-      <ButtonGroup :groupTitle="`${$t('common.general.moreInfo')}`">
-        <b-button
-          class="mr-1"
-          size="is-small"
-          :type="hideVirtual ? 'is-light' : 'is-light virtual'"
-          @click="toggleMoreInfo('Virtual')"
-        >
-          {{ $t('common.fields.virtual') }}
-        </b-button>
-        <b-button
-          class="mr-1"
-          size="is-small"
-          :type="hideCPU ? 'is-light' : 'is-light cpu'"
-          @click="toggleMoreInfo('Cpu')"
-        >
-          {{ $t('common.fields.cpu') }}
-        </b-button>
-        <b-button
-          class="mr-1"
-          size="is-small"
-          :type="hideAgent ? 'is-light' : 'is-light agent'"
-          @click="toggleMoreInfo('Agent')"
-        >
-          {{ $t('common.fields.agent') }}
-        </b-button>
-      </ButtonGroup>
+      <MoreInfoButtons :buttonItems="moreInfoButtons" />
       <HostsFilters />
     </div>
     <BoxContent slot="col2" :mbottom="false">
@@ -42,51 +17,54 @@
           v-for="head in hostsHead"
           :key="head.sort"
           :data="head"
-          :hideAgent="hideAgent"
-          :hideCPU="hideCPU"
-          :hideVirtual="hideVirtual"
+          :hideAgent="moreInfoToggle.hiddenAgent"
+          :hideCPU="moreInfoToggle.hiddenCpu"
+          :hideVirtual="moreInfoToggle.hiddenVirtual"
         />
 
         <template slot="bodyData" slot-scope="rowData">
           <HostLink :hostname="rowData.scope.hostname" />
           <TdContent
             :value="rowData.scope.platform"
-            :class="{ hide: hideVirtual }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenVirtual }"
             class="border-left"
           />
           <TdContent
             :value="rowData.scope.cluster"
-            :class="{ hide: hideVirtual }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenVirtual }"
           />
           <TdContent
             :value="rowData.scope.virtNode"
-            :class="{ hide: hideVirtual }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenVirtual }"
             class="border-right"
           />
           <TdContent
             :value="rowData.scope.model"
-            :class="{ hide: hideCPU }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenCpu }"
             class="border-left"
           />
           <TdContent
             :value="rowData.scope.threads"
-            :class="{ hide: hideCPU }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenCpu }"
           />
-          <TdContent :value="rowData.scope.cores" :class="{ hide: hideCPU }" />
+          <TdContent
+            :value="rowData.scope.cores"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenCpu }"
+          />
           <TdContent
             :value="rowData.scope.socket"
-            :class="{ hide: hideCPU }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenCpu }"
             class="border-right"
           />
           <TdContent
             :value="rowData.scope.version"
-            :class="{ hide: hideAgent }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenAgent }"
             class="border-left"
           />
           <TdContent
             :value="rowData.scope.updated"
             dataType="date"
-            :class="{ hide: hideAgent }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenAgent }"
             class="border-right"
           />
           <TdContent :value="rowData.scope.environment" />
@@ -115,7 +93,7 @@
 
 <script>
 import _ from 'lodash'
-import { mapGetters, mapActions, mapMutations, mapState } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
@@ -128,7 +106,7 @@ import exportButton from '@/components/common/exportButton.vue'
 import HostsFilters from '@/components/hosts/hosts/HostsFilters.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import HostsHead from '@/components/hosts/hosts/HostsHead.vue'
-import ButtonGroup from '@/components/common/ButtonGroup.vue'
+import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
 import formatDate from '@/filters/formatDate.js'
 import hostsHead from '@/views/hosts/hosts-config.json'
 
@@ -145,13 +123,26 @@ export default {
     HostsFilters,
     HostLink,
     HostsHead,
-    ButtonGroup
+    MoreInfoButtons
   },
   data() {
     return {
-      toggle: true,
       isMounted: false,
-      hostsHead: hostsHead
+      hostsHead: hostsHead,
+      moreInfoButtons: [
+        {
+          name: 'Virtual',
+          text: this.$i18n.t('common.fields.virtual')
+        },
+        {
+          name: 'Cpu',
+          text: this.$i18n.t('common.fields.cpu')
+        },
+        {
+          name: 'Agent',
+          text: this.$i18n.t('common.fields.agent')
+        }
+      ]
     }
   },
   async beforeMount() {
@@ -163,13 +154,6 @@ export default {
   },
   methods: {
     ...mapActions(['getHosts']),
-    ...mapMutations(['SET_VISIBLE_COLS']),
-    toggleMoreInfo(name) {
-      this.SET_VISIBLE_COLS({
-        value: (this.toggle = !this.toggle),
-        name: name
-      })
-    },
     formatDate(date) {
       return formatDate(date)
     }
@@ -183,36 +167,9 @@ export default {
         keys.push(val.sort)
       })
       return keys
-    },
-    hideVirtual() {
-      return this.moreInfoToggle.hiddenVirtual
-    },
-    hideCPU() {
-      return this.moreInfoToggle.hiddenCpu
-    },
-    hideAgent() {
-      return this.moreInfoToggle.hiddenAgent
     }
   }
 }
 </script>
 
-<style lang="scss">
-.no-margin-bottom {
-  margin-bottom: 0 !important;
-}
-
-.hide {
-  display: none;
-}
-
-.virtual {
-  box-shadow: inset 0 -14px 0 -10px #f37021 !important;
-}
-.cpu {
-  box-shadow: inset 0 -14px 0 -10px #fcd217 !important;
-}
-.agent {
-  box-shadow: inset 0 -14px 0 -10px #9c4d1e !important;
-}
-</style>
+<style lang="scss"></style>

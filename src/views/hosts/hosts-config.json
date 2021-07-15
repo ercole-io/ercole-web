@@ -3,35 +3,35 @@
   {
     "sort": "platform",
     "type": "virtual",
-    "class": "virtual"
+    "class": "color-1"
   },
-  { "sort": "cluster", "type": "virtual", "class": "virtual" },
+  { "sort": "cluster", "type": "virtual", "class": "color-1" },
   {
     "sort": "virtNode",
     "type": "virtual",
-    "class": "virtual"
+    "class": "color-1"
   },
   {
     "sort": "model",
     "type": "cpu",
-    "class": "cpu"
+    "class": "color-2"
   },
-  { "sort": "threads", "type": "cpu", "class": "cpu" },
-  { "sort": "cores", "type": "cpu", "class": "cpu" },
+  { "sort": "threads", "type": "cpu", "class": "color-2" },
+  { "sort": "cores", "type": "cpu", "class": "color-2" },
   {
     "sort": "socket",
     "type": "cpu",
-    "class": "cpu"
+    "class": "color-2"
   },
   {
     "sort": "version",
     "type": "agent",
-    "class": "agent"
+    "class": "color-3"
   },
   {
     "sort": "updated",
     "type": "agent",
-    "class": "agent"
+    "class": "color-3"
   },
   { "sort": "environment", "type": "", "class": "" },
   { "sort": "databases", "type": "", "class": "" },
