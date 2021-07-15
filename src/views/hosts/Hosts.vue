@@ -6,7 +6,7 @@
           class="mr-1"
           size="is-small"
           :type="hideVirtual ? 'is-light' : 'is-light virtual'"
-          @click="hideVirtual = !hideVirtual"
+          @click="toggleMoreInfo('Virtual')"
         >
           {{ $t('common.fields.virtual') }}
         </b-button>
@@ -14,7 +14,7 @@
           class="mr-1"
           size="is-small"
           :type="hideCPU ? 'is-light' : 'is-light cpu'"
-          @click="hideCPU = !hideCPU"
+          @click="toggleMoreInfo('Cpu')"
         >
           {{ $t('common.fields.cpu') }}
         </b-button>
@@ -22,7 +22,7 @@
           class="mr-1"
           size="is-small"
           :type="hideAgent ? 'is-light' : 'is-light agent'"
-          @click="hideAgent = !hideAgent"
+          @click="toggleMoreInfo('Agent')"
         >
           {{ $t('common.fields.agent') }}
         </b-button>
@@ -115,7 +115,7 @@
 
 <script>
 import _ from 'lodash'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations, mapState } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
@@ -149,9 +149,7 @@ export default {
   },
   data() {
     return {
-      hideVirtual: true,
-      hideCPU: true,
-      hideAgent: true,
+      toggle: true,
       isMounted: false,
       hostsHead: hostsHead
     }
@@ -165,18 +163,35 @@ export default {
   },
   methods: {
     ...mapActions(['getHosts']),
+    ...mapMutations(['SET_VISIBLE_COLS']),
+    toggleMoreInfo(name) {
+      this.SET_VISIBLE_COLS({
+        value: (this.toggle = !this.toggle),
+        name: name
+      })
+    },
     formatDate(date) {
       return formatDate(date)
     }
   },
   computed: {
     ...mapGetters(['getAllHosts']),
+    ...mapState(['moreInfoToggle']),
     getKeys() {
       const keys = []
       _.map(this.hostsHead, val => {
         keys.push(val.sort)
       })
       return keys
+    },
+    hideVirtual() {
+      return this.moreInfoToggle.hiddenVirtual
+    },
+    hideCPU() {
+      return this.moreInfoToggle.hiddenCpu
+    },
+    hideAgent() {
+      return this.moreInfoToggle.hiddenAgent
     }
   }
 }
