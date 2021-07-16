@@ -6,16 +6,18 @@
       class="mr-1"
       size="is-small"
       :type="
-        toggle['hidden' + button.name] ? 'is-light' : `is-light color-${i + 1}`
+        toggle['hidden' + button.toggle]
+          ? 'is-light'
+          : `is-light color-${i + 1}`
       "
       @click="
         toggleMoreInfo(
-          button.name,
-          (toggle['hidden' + button.name] = !toggle['hidden' + button.name])
+          button.toggle,
+          (toggle['hidden' + button.toggle] = !toggle['hidden' + button.toggle])
         )
       "
     >
-      {{ button.text }}
+      {{ $t(`${button.langKey}`) }}
     </b-button>
   </ButtonGroup>
 </template>
