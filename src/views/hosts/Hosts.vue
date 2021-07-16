@@ -1,25 +1,22 @@
 <template>
   <BaseLayoutColumns v-if="isMounted">
     <div slot="col1">
-      <MoreInfoButtons :buttonItems="moreInfoButtons" />
+      <MoreInfoButtons :buttonItems="hostsMoreInfo" />
       <HostsFilters />
     </div>
     <BoxContent slot="col2" :mbottom="false">
       <FullTable
         :placeholder="$t('menu.hosts')"
-        :keys="getKeys"
+        :keys="getHeadKeys(hostsHead)"
         :tableData="getAllHosts"
         @clickedRow="handleClickedRow"
         isClickable
       >
-        <HostsHead
+        <DynamicHeading
           slot="headData"
           v-for="head in hostsHead"
           :key="head.sort"
           :data="head"
-          :hideAgent="moreInfoToggle.hiddenAgent"
-          :hideCPU="moreInfoToggle.hiddenCpu"
-          :hideVirtual="moreInfoToggle.hiddenVirtual"
         />
 
         <template slot="bodyData" slot-scope="rowData">
@@ -92,10 +89,11 @@
 </template>
 
 <script>
-import _ from 'lodash'
+//
 import { mapGetters, mapActions, mapState } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
+import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
 import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
@@ -105,13 +103,14 @@ import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
 import exportButton from '@/components/common/exportButton.vue'
 import HostsFilters from '@/components/hosts/hosts/HostsFilters.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
-import HostsHead from '@/components/hosts/hosts/HostsHead.vue'
+import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
 import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
 import formatDate from '@/filters/formatDate.js'
-import hostsHead from '@/views/hosts/hosts-config.json'
+import hostsHead from '@/views/hosts/hosts-head.json'
+import hostsMoreInfo from '@/views/hosts/hosts-more-info.json'
 
 export default {
-  mixins: [localFiltersMixin, hostnameLinkRow],
+  mixins: [localFiltersMixin, hostnameLinkRow, getHeadKeys],
   components: {
     BaseLayoutColumns,
     BoxContent,
@@ -122,27 +121,14 @@ export default {
     exportButton,
     HostsFilters,
     HostLink,
-    HostsHead,
+    DynamicHeading,
     MoreInfoButtons
   },
   data() {
     return {
       isMounted: false,
       hostsHead: hostsHead,
-      moreInfoButtons: [
-        {
-          name: 'Virtual',
-          text: this.$i18n.t('common.fields.virtual')
-        },
-        {
-          name: 'Cpu',
-          text: this.$i18n.t('common.fields.cpu')
-        },
-        {
-          name: 'Agent',
-          text: this.$i18n.t('common.fields.agent')
-        }
-      ]
+      hostsMoreInfo: hostsMoreInfo
     }
   },
   async beforeMount() {
@@ -160,14 +146,7 @@ export default {
   },
   computed: {
     ...mapGetters(['getAllHosts']),
-    ...mapState(['moreInfoToggle']),
-    getKeys() {
-      const keys = []
-      _.map(this.hostsHead, val => {
-        keys.push(val.sort)
-      })
-      return keys
-    }
+    ...mapState(['moreInfoToggle'])
   }
 }
 </script>
