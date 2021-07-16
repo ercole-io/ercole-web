@@ -17,19 +17,19 @@
           <v-th
             sortKey="archivelog"
             class="reliability"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityDB }"
             >{{ $t('common.collumns.archivelog') }}</v-th
           >
           <v-th
             sortKey="dataguard"
             class="reliability"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityDB }"
             >{{ $t('common.collumns.disasterRecovery') }}</v-th
           >
           <v-th
             sortKey="ha"
             class="reliability"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityDB }"
             >{{ $t('common.collumns.highAvailability') }}</v-th
           >
           <v-th sortKey="type">{{ $t('common.collumns.type') }}</v-th>
@@ -52,15 +52,15 @@
           <TdContent :value="rowData.scope.name" />
           <TdIcon
             :value="rowData.scope.archivelog"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityDB }"
           />
           <TdIcon
             :value="rowData.scope.disasterRecovery"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityDB }"
           />
           <TdIcon
             :value="rowData.scope.highAvailability"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityDB }"
           />
           <TdContent :value="rowData.scope.type" />
           <TdContent :value="rowData.scope.version" />
@@ -124,10 +124,9 @@ export default {
         'disasterRecovery',
         'highAvailability'
       ],
-      hideReliability: true,
       moreInfoButtons: [
         {
-          name: 'Reliability',
+          name: 'ReliabilityDB',
           text: this.$i18n.t('common.collumns.reliability')
         }
       ]

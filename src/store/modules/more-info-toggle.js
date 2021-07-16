@@ -2,7 +2,10 @@ export const state = () => ({
   hiddenVirtual: true,
   hiddenCpu: true,
   hiddenAgent: true,
-  hiddenReliability: true
+  hiddenReliabilityDB: true,
+  hiddenReliabilityOracle: true,
+  hiddenSpaceUsed: true,
+  hiddenCharset: true
 })
 
 export const mutations = {
