@@ -15,9 +15,9 @@ afterEach(() => {
 })
 
 describe('Sidebar Component', () => {
-  it('will mount the component', () => {
-    expect(wrapper).toMatchSnapshot()
-  })
+  // it('will mount the component', () => {
+  //   expect(wrapper).toMatchSnapshot()
+  // })
 
   it('is a Vue instance', () => {
     expect(wrapper.isVueInstance()).toBe(true)
