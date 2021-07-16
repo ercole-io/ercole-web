@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Ercole Logo will mount the component 1`] = `<img src="@/assets/images/ercole-logo-white.svg" alt="Ercole">`;
