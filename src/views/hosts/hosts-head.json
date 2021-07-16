@@ -1,0 +1,80 @@
+[
+  { "sort": "hostname", 
+    "langKey": "common.collumns.hostname" 
+  },
+  {
+    "sort": "platform",
+    "group": "Virtual",
+    "class": "color-1", 
+    "langKey": "common.collumns.platform"
+  },
+  { "sort": "cluster", 
+    "group": "Virtual", 
+    "class": "color-1", 
+    "langKey": "common.collumns.cluster" 
+  },
+  {
+    "sort": "virtNode",
+    "group": "Virtual",
+    "class": "color-1", 
+    "langKey": "common.collumns.virtNode"
+  },
+  {
+    "sort": "model",
+    "group": "Cpu",
+    "class": "color-2", 
+    "langKey": "common.collumns.model"
+  },
+  { "sort": "threads", 
+    "group": "Cpu", 
+    "class": "color-2", 
+    "langKey": "common.collumns.threads" 
+  },
+  { "sort": "cores", 
+    "group": "Cpu", 
+    "class": "color-2", 
+    "langKey": "common.collumns.cores" 
+  },
+  {
+    "sort": "socket",
+    "group": "Cpu",
+    "class": "color-2", 
+    "langKey": "common.collumns.socket"
+  },
+  {
+    "sort": "version",
+    "group": "Agent",
+    "class": "color-3", 
+    "langKey": "common.collumns.version"
+  },
+  {
+    "sort": "updated",
+    "group": "Agent",
+    "class": "color-3", 
+    "langKey": "common.collumns.updated"
+  },
+  { "sort": "environment", 
+    "langKey": "common.collumns.environment" 
+  },
+  { "sort": "databases", 
+    "langKey": "common.collumns.databases" 
+  },
+  { "sort": "techType", 
+    "langKey": "common.collumns.techType" 
+  },
+  { "sort": "os", 
+    "langKey": "common.collumns.os" 
+  },
+  { "sort": "iconCluster", 
+    "langKey": "common.collumns.iconCluster" 
+  },
+  { "sort": "kernel", 
+    "langKey": "common.collumns.kernel" 
+  },
+  { "sort": "memorytotal", 
+    "langKey": "common.collumns.memorytotal" 
+  },
+  { "sort": "swaptotal", 
+    "langKey": "common.collumns.swaptotal" 
+  }
+]
