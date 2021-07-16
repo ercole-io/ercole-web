@@ -1,69 +1,23 @@
 <template>
   <div class="columns">
     <div class="column is-4">
-      <MoreInfoButtons :buttonItems="moreInfoButtons" />
+      <MoreInfoButtons :buttonItems="oraclesMoreInfo" />
       <OracleFilters />
     </div>
     <div class="column is-8">
       <FullTable
         :placeholder="$t('menu.oracle')"
-        :keys="keys"
+        :keys="getHeadKeys(oracleHead)"
         :tableData="getAllOracleDBs"
         @clickedRow="handleClickedRow"
         isClickable
       >
-        <template slot="headData">
-          <v-th sortKey="name">{{ $t('common.collumns.name') }}</v-th>
-          <v-th sortKey="uniqueName">{{
-            $t('common.collumns.uniqueName')
-          }}</v-th>
-          <v-th
-            sortKey="archivelog"
-            class="reliability"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
-            >{{ $t('common.collumns.archivelog') }}</v-th
-          >
-          <v-th
-            sortKey="dataguard"
-            class="reliability"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
-            >{{ $t('common.collumns.disasterRecovery') }}</v-th
-          >
-          <v-th
-            sortKey="ha"
-            class="reliability"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
-            >{{ $t('common.collumns.highAvailability') }}</v-th
-          >
-          <v-th
-            sortKey="datafileSize"
-            class="spaceUsed"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
-            >{{ $t('common.collumns.datafileSize') }}</v-th
-          >
-          <v-th
-            sortKey="segmentsSize"
-            class="spaceUsed"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
-            >{{ $t('common.collumns.segmentSize') }}</v-th
-          >
-          <v-th
-            sortKey="charset"
-            class="charset"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenCharset }"
-            >{{ $t('common.collumns.charset') }}</v-th
-          >
-          <v-th sortKey="version">{{ $t('common.collumns.version') }}</v-th>
-          <v-th sortKey="work">{{ $t('common.collumns.work') }}</v-th>
-          <v-th sortKey="cpuCount">{{ $t('common.collumns.cpuCount') }}</v-th>
-          <v-th sortKey="blockSize">{{ $t('common.collumns.blockSize') }}</v-th>
-          <v-th sortKey="status">{{ $t('common.collumns.status') }}</v-th>
-          <v-th sortKey="memory">{{ $t('common.collumns.memory') }}</v-th>
-          <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
-          <v-th sortKey="environment">{{
-            $t('common.collumns.environment')
-          }}</v-th>
-        </template>
+        <DynamicHeading
+          slot="headData"
+          v-for="head in oracleHead"
+          :key="head.sort"
+          :data="head"
+        />
 
         <template slot="bodyData" slot-scope="rowData">
           <TdContent :value="rowData.scope.name" />
@@ -115,6 +69,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
+import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import ExportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -122,9 +77,12 @@ import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import OracleFilters from '@/components/databases/oracle/OracleFilters.vue'
 import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
+import oraclesMoreInfo from '@/components/databases/oracle/oracle-more-info.json'
+import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
+import oracleHead from '@/components/databases/oracle/oracle-head.json'
 
 export default {
-  mixins: [hostnameLinkRow],
+  mixins: [hostnameLinkRow, getHeadKeys],
   components: {
     FullTable,
     ExportButton,
@@ -132,42 +90,13 @@ export default {
     TdIcon,
     HostLink,
     OracleFilters,
-    MoreInfoButtons
+    MoreInfoButtons,
+    DynamicHeading
   },
   data() {
     return {
-      keys: [
-        'name',
-        'version',
-        'hostname',
-        'environment',
-        'charset',
-        'memory',
-        'datafileSize',
-        'segmentsSize',
-        'archivelog',
-        'dataguard',
-        'ha',
-        'work',
-        'blockSize',
-        'cpuCount',
-        'status',
-        'uniqueName'
-      ],
-      moreInfoButtons: [
-        {
-          name: 'ReliabilityOracle',
-          text: this.$i18n.t('common.collumns.reliability')
-        },
-        {
-          name: 'SpaceUsed',
-          text: this.$i18n.t('common.collumns.spaceUsed')
-        },
-        {
-          name: 'Charset',
-          text: this.$i18n.t('common.collumns.charset')
-        }
-      ]
+      oraclesMoreInfo: oraclesMoreInfo,
+      oracleHead: oracleHead
     }
   },
   computed: {
