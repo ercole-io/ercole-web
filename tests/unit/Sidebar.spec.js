@@ -33,18 +33,18 @@ describe('Sidebar Component', () => {
     expect(wrapper.emitted().collapsedSidebar[0]).toEqual([true])
   })
 
-  it.skip('will update the menu', () => {
-    const newMenu = wrapper.vm.menu
-    wrapper.setData({
-      menu: [
-        ...newMenu,
-        {
-          href: { name: 'test' },
-          title: 'menu.test',
-          icon: 'fas fa-test'
-        }
-      ]
-    })
-    expect(wrapper).toMatchSnapshot()
-  })
+  // it.skip('will update the menu', () => {
+  //   const newMenu = wrapper.vm.menu
+  //   wrapper.setData({
+  //     menu: [
+  //       ...newMenu,
+  //       {
+  //         href: { name: 'test' },
+  //         title: 'menu.test',
+  //         icon: 'fas fa-test'
+  //       }
+  //     ]
+  //   })
+  //   expect(wrapper).toMatchSnapshot()
+  // })
 })
