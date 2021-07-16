@@ -1,16 +1,7 @@
 <template>
   <div class="columns">
     <div class="column is-4">
-      <ButtonGroup :groupTitle="`${$t('common.general.moreInfo')}`">
-        <b-button
-          class="mr-1"
-          size="is-small"
-          :type="hideReliability ? 'is-light' : 'is-light reliability'"
-          @click="hideReliability = !hideReliability"
-        >
-          {{ $t('common.collumns.reliability') }}
-        </b-button>
-      </ButtonGroup>
+      <MoreInfoButtons :buttonItems="moreInfoButtons" />
       <DbFilters />
     </div>
     <div class="column is-8">
@@ -26,19 +17,19 @@
           <v-th
             sortKey="archivelog"
             class="reliability"
-            :class="{ hide: hideReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliability }"
             >{{ $t('common.collumns.archivelog') }}</v-th
           >
           <v-th
             sortKey="dataguard"
             class="reliability"
-            :class="{ hide: hideReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliability }"
             >{{ $t('common.collumns.disasterRecovery') }}</v-th
           >
           <v-th
             sortKey="ha"
             class="reliability"
-            :class="{ hide: hideReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliability }"
             >{{ $t('common.collumns.highAvailability') }}</v-th
           >
           <v-th sortKey="type">{{ $t('common.collumns.type') }}</v-th>
@@ -61,15 +52,15 @@
           <TdContent :value="rowData.scope.name" />
           <TdIcon
             :value="rowData.scope.archivelog"
-            :class="{ hide: hideReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliability }"
           />
           <TdIcon
             :value="rowData.scope.disasterRecovery"
-            :class="{ hide: hideReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliability }"
           />
           <TdIcon
             :value="rowData.scope.highAvailability"
-            :class="{ hide: hideReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliability }"
           />
           <TdContent :value="rowData.scope.type" />
           <TdContent :value="rowData.scope.version" />
@@ -96,15 +87,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import ExportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
-import ButtonGroup from '@/components/common/ButtonGroup.vue'
 import DbFilters from '@/components/databases/databases/DbFilters.vue'
+import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -114,8 +105,8 @@ export default {
     TdContent,
     TdIcon,
     HostLink,
-    ButtonGroup,
-    DbFilters
+    DbFilters,
+    MoreInfoButtons
   },
   data() {
     return {
@@ -133,11 +124,18 @@ export default {
         'disasterRecovery',
         'highAvailability'
       ],
-      hideReliability: true
+      hideReliability: true,
+      moreInfoButtons: [
+        {
+          name: 'Reliability',
+          text: this.$i18n.t('common.collumns.reliability')
+        }
+      ]
     }
   },
   computed: {
-    ...mapGetters(['getAllDatabases'])
+    ...mapGetters(['getAllDatabases']),
+    ...mapState(['moreInfoToggle'])
   }
 }
 </script>
