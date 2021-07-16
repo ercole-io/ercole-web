@@ -1,0 +1,12 @@
+[
+  {
+    "toggle": "Virtual",
+    "langKey": "common.collumns.virtual"
+  },
+  { "toggle": "Cpu",
+    "langKey": "common.collumns.cpu" },
+  {
+    "toggle": "Agent",
+    "langKey": "common.collumns.agent"
+  }
+]
