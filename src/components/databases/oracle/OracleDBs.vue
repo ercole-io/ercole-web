@@ -1,32 +1,7 @@
 <template>
   <div class="columns">
     <div class="column is-4">
-      <ButtonGroup :groupTitle="`${$t('common.general.moreInfo')}`">
-        <b-button
-          class="mr-1"
-          size="is-small"
-          :type="hideReliability ? 'is-light' : 'is-light reliability'"
-          @click="hideReliability = !hideReliability"
-        >
-          {{ $t('common.collumns.reliability') }}
-        </b-button>
-        <b-button
-          class="mr-1"
-          size="is-small"
-          :type="hideSpaceUsed ? 'is-light' : 'is-light spaceUsed'"
-          @click="hideSpaceUsed = !hideSpaceUsed"
-        >
-          {{ $t('common.collumns.spaceUsed') }}
-        </b-button>
-        <b-button
-          class="mr-1"
-          size="is-small"
-          :type="hideCharset ? 'is-light' : 'is-light charset'"
-          @click="hideCharset = !hideCharset"
-        >
-          {{ $t('common.collumns.charset') }}
-        </b-button>
-      </ButtonGroup>
+      <MoreInfoButtons :buttonItems="moreInfoButtons" />
       <OracleFilters />
     </div>
     <div class="column is-8">
@@ -45,37 +20,37 @@
           <v-th
             sortKey="archivelog"
             class="reliability"
-            :class="{ hide: hideReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
             >{{ $t('common.collumns.archivelog') }}</v-th
           >
           <v-th
             sortKey="dataguard"
             class="reliability"
-            :class="{ hide: hideReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
             >{{ $t('common.collumns.disasterRecovery') }}</v-th
           >
           <v-th
             sortKey="ha"
             class="reliability"
-            :class="{ hide: hideReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
             >{{ $t('common.collumns.highAvailability') }}</v-th
           >
           <v-th
             sortKey="datafileSize"
             class="spaceUsed"
-            :class="{ hide: hideSpaceUsed }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
             >{{ $t('common.collumns.datafileSize') }}</v-th
           >
           <v-th
             sortKey="segmentsSize"
             class="spaceUsed"
-            :class="{ hide: hideSpaceUsed }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
             >{{ $t('common.collumns.segmentSize') }}</v-th
           >
           <v-th
             sortKey="charset"
             class="charset"
-            :class="{ hide: hideCharset }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenCharset }"
             >{{ $t('common.collumns.charset') }}</v-th
           >
           <v-th sortKey="version">{{ $t('common.collumns.version') }}</v-th>
@@ -95,27 +70,27 @@
           <TdContent :value="rowData.scope.uniqueName" />
           <TdIcon
             :value="rowData.scope.archivelog"
-            :class="{ hide: hideReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
           />
           <TdIcon
             :value="rowData.scope.dataguard"
-            :class="{ hide: hideReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
           />
           <TdIcon
             :value="rowData.scope.ha"
-            :class="{ hide: hideReliability }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
           />
           <TdContent
             :value="rowData.scope.datafileSize | formatNumber('0.00')"
-            :class="{ hide: hideSpaceUsed }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
           />
           <TdContent
             :value="rowData.scope.segmentsSize | formatNumber('0.00')"
-            :class="{ hide: hideSpaceUsed }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
           />
           <TdContent
             :value="rowData.scope.charset"
-            :class="{ hide: hideCharset }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenCharset }"
           />
           <TdContent :value="rowData.scope.version" />
           <TdContent :value="rowData.scope.work | formatNumber('0')" />
@@ -138,15 +113,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import ExportButton from '@/components/common/exportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
-import ButtonGroup from '@/components/common/ButtonGroup.vue'
 import OracleFilters from '@/components/databases/oracle/OracleFilters.vue'
+import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -156,8 +131,8 @@ export default {
     TdContent,
     TdIcon,
     HostLink,
-    ButtonGroup,
-    OracleFilters
+    OracleFilters,
+    MoreInfoButtons
   },
   data() {
     return {
@@ -179,13 +154,25 @@ export default {
         'status',
         'uniqueName'
       ],
-      hideReliability: true,
-      hideSpaceUsed: true,
-      hideCharset: true
+      moreInfoButtons: [
+        {
+          name: 'ReliabilityOracle',
+          text: this.$i18n.t('common.collumns.reliability')
+        },
+        {
+          name: 'SpaceUsed',
+          text: this.$i18n.t('common.collumns.spaceUsed')
+        },
+        {
+          name: 'Charset',
+          text: this.$i18n.t('common.collumns.charset')
+        }
+      ]
     }
   },
   computed: {
-    ...mapGetters(['getAllOracleDBs'])
+    ...mapGetters(['getAllOracleDBs']),
+    ...mapState(['moreInfoToggle'])
   }
 }
 </script>
