@@ -111,7 +111,10 @@ export const getters = {
       data: [
         {
           name: 'Platform',
-          value: info.hardwareAbstractionTechnology
+          value:
+            info.hardwareAbstractionTechnology === 'PH'
+              ? 'Bare Metal'
+              : info.hardwareAbstractionTechnology
         },
         {
           name: 'Cluster',
