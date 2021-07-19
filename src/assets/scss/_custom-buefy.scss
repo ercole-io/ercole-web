@@ -101,6 +101,11 @@ ul.pagination-list {
   z-index: 100;
 }
 
+// dialog 
+.dialog .modal-card {
+  max-width: 1000px;
+}
+
 // toast 
 .notices .toast.is-success {
   color: $grey-darker;
