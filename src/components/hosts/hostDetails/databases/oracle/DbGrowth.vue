@@ -1,6 +1,10 @@
 <template>
   <b-tab-item label="DB Growth" v-if="growth.length > 0">
-    <RangeDates :setRange="SET_RANGE_DATES_ALT" class="mt-0 mr-0" />
+    <RangeDates
+      :setRange="SET_RANGE_DATES_ALT"
+      totalRange="30"
+      class="mt-0 mr-0"
+    />
     <LineChart
       :chartId="growthId"
       :lineChartData="mountDbGrowthChart"
