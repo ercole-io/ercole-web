@@ -83,7 +83,7 @@ import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-// import exportButton from '@/components/common/exportButton.vue'
+// import ExportButton from '@/components/common/ExportButton.vue'
 import BarChart from '@/components/common/charts/BarChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
@@ -97,7 +97,7 @@ export default {
     BaseLayoutColumns,
     BoxContent,
     FullTable,
-    // exportButton,
+    // ExportButton,
     BarChart,
     TdContent,
     HostLink,

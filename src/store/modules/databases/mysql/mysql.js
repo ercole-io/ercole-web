@@ -28,7 +28,7 @@ export const actions = {
         }
       }
     )
-    const response = await mysqlDbs.data.databases
+    const response = (await mysqlDbs.data.databases) || []
     commit('SET_MYSQL_DBS', response)
   }
 }

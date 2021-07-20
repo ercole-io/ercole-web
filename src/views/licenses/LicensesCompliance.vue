@@ -49,6 +49,12 @@
         </td>
         <TdIcon :value="rowData.scope.unlimited" />
       </template>
+
+      <ExportButton
+        slot="export"
+        url="/hosts/technologies/all/databases/licenses-compliance"
+        expName="licensesCompliance"
+      />
     </FullTable>
   </BaseLayoutColumns>
 </template>
@@ -61,6 +67,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import LicensesComplianceFilters from '@/components/licenses/compliance/LicensesComplianceFilters.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
   mixins: [paginationMixin],
@@ -69,7 +76,8 @@ export default {
     FullTable,
     TdContent,
     TdIcon,
-    LicensesComplianceFilters
+    LicensesComplianceFilters,
+    ExportButton
   },
   data() {
     return {

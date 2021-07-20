@@ -90,6 +90,12 @@
           <span v-else>-</span>
         </td>
       </template>
+
+      <ExportButton
+        slot="export"
+        url="/agreements/mysql/database"
+        expName="mysqlAgreements"
+      />
     </FullTable>
   </section>
 </template>
@@ -101,12 +107,14 @@ import LicensesAgreementMixin from '@/mixins/licensesAgreement.js'
 import MysqlAssociatedModal from '@/components/licenses/agreement/MySQL/MysqlAssociatedModal.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
   mixins: [TooltipMixin, LicensesAgreementMixin],
   components: {
     FullTable,
-    TdContent
+    TdContent,
+    ExportButton
   },
   data() {
     return {
