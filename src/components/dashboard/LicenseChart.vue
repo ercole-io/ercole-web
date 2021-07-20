@@ -193,7 +193,11 @@ export default {
     },
     getCurrentMonthDates() {
       const today = moment(new Date(), 'YYYY/MM/DD')
-      this.startDate = new Date(moment().format('YYYY-MM-01'))
+      this.startDate = new Date(
+        moment()
+          .subtract(30, 'days')
+          .format('YYYY-MM-DD')
+      )
       this.endDate = new Date(moment().format(`YYYY-MM-${today.format('DD')}`))
     },
     formatDate(date) {

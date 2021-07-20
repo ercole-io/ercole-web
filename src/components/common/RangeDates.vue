@@ -44,6 +44,9 @@ export default {
     setRange: {
       type: Function,
       default: () => {}
+    },
+    totalRange: {
+      type: String
     }
   },
   data() {
@@ -58,7 +61,15 @@ export default {
   methods: {
     getCurrentMonthDates() {
       const today = moment(new Date(), 'YYYY/MM/DD')
-      this.startDate = new Date(moment().format('YYYY-MM-01'))
+      if (this.totalRange) {
+        this.startDate = new Date(
+          moment()
+            .subtract(this.totalRange, 'days')
+            .format('YYYY-MM-DD')
+        )
+      } else {
+        this.startDate = new Date(moment().format('YYYY-MM-01'))
+      }
       this.endDate = new Date(moment().format(`YYYY-MM-${today.format('DD')}`))
 
       const dateRange = [this.startDate, this.endDate]
