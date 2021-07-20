@@ -268,7 +268,8 @@ export default {
       'getClusterByName',
       'getAlertsData',
       'getLicensesList',
-      'getEngineeredSystems'
+      'getEngineeredSystems',
+      'getMysqlDbs'
     ]),
     ...mapMutations(['SET_OPEN_FILTERS']),
     // getFilteredTags(text) {
@@ -351,6 +352,9 @@ export default {
           break
         case 'engineered-systems':
           this.getEngineeredSystems()
+          break
+        case 'mysql':
+          this.getMysqlDbs()
           break
         default:
           return

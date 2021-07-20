@@ -41,11 +41,11 @@
         <TdContent :value="rowData.scope.usedLicenses" />
       </template>
 
-      <!-- <exportButton
-      slot="export"
-      url="hosts/technologies/oracle/databases/consumed-licenses"
-      expName="licenses-list-data"
-    /> -->
+      <exportButton
+        slot="export"
+        url="/hosts/technologies/all/databases/licenses-used"
+        expName="licensesUsedByHosts"
+      />
     </FullTable>
   </BaseLayoutColumns>
 </template>
@@ -62,6 +62,7 @@ import UsedLicensesHostFilters from '@/components/licenses/used/hosts/UsedLicens
 import UsedLicensesHostModal from '@/components/licenses/used/hosts/UsedLicensesHostModal.vue'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
   mixins: [
@@ -75,7 +76,8 @@ export default {
     FullTable,
     TdContent,
     HostLink,
-    UsedLicensesHostFilters
+    UsedLicensesHostFilters,
+    ExportButton
   },
   props: {
     partNumber: {

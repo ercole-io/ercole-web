@@ -148,7 +148,11 @@
         </td>
       </template>
 
-      <exportButton slot="export" url="alerts" expName="alerts-data" />
+      <ExportButton
+        slot="export"
+        :url="`alerts?status=${alertStatus}`"
+        expName="alerts-data"
+      />
     </FullTable>
   </BaseLayoutColumns>
 </template>
@@ -164,7 +168,7 @@ import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import exportButton from '@/components/common/exportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
@@ -185,7 +189,7 @@ export default {
   components: {
     BaseLayoutColumns,
     FullTable,
-    exportButton,
+    ExportButton,
     TdContent,
     TdIcon,
     HostLink,

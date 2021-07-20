@@ -109,6 +109,12 @@
       <TdIcon :value="rowData.scope.catchAll" />
       <TdIcon :value="rowData.scope.restricted" />
     </template>
+
+    <ExportButton
+      slot="export"
+      url="/agreements/oracle/database"
+      expName="oracleAgreements"
+    />
   </FullTable>
 </template>
 
@@ -121,13 +127,15 @@ import OracleAssociatedModal from '@/components/licenses/agreement/Oracle/Oracle
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
   mixins: [TooltipMixin, LicensesAgreementMixin],
   components: {
     FullTable,
     TdContent,
-    TdIcon
+    TdIcon,
+    ExportButton
   },
   data() {
     return {

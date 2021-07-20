@@ -35,11 +35,11 @@
         <TdContent :value="rowData.scope.usedLicenses" />
       </template>
 
-      <!-- <exportButton
-      slot="export"
-      url="hosts/technologies/oracle/databases/consumed-licenses"
-      expName="licenses-list-data"
-    /> -->
+      <ExportButton
+        slot="export"
+        url="/hosts/technologies/all/databases/licenses-used"
+        expName="licensesUsedByDatabases"
+      />
     </FullTable>
   </BaseLayoutColumns>
 </template>
@@ -50,7 +50,7 @@ import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-// import exportButton from '@/components/common/exportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import UsedLicensesDbsFilters from '@/components/licenses/used/databases/UsedLicensesDbsFilters.vue'
@@ -66,7 +66,7 @@ export default {
   components: {
     BaseLayoutColumns,
     FullTable,
-    // exportButton,
+    ExportButton,
     TdContent,
     HostLink,
     UsedLicensesDbsFilters

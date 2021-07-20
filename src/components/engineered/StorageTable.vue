@@ -47,14 +47,14 @@ export default {
       default: () => []
     }
   },
+  components: {
+    FullTable,
+    TdContent
+  },
   data() {
     return {
       keys: []
     }
-  },
-  components: {
-    FullTable,
-    TdContent
   }
 }
 </script>

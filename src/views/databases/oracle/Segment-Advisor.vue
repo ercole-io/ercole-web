@@ -54,7 +54,7 @@
         <TdContent :value="rowData.scope.recommendation" />
       </template>
 
-      <exportButton
+      <ExportButton
         slot="export"
         url="hosts/technologies/oracle/databases/segment-advisors"
         expName="oracleSegmentAdvisor"
@@ -80,7 +80,7 @@ import { mapActions, mapGetters } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import exportButton from '@/components/common/exportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import SegnmentAdvisorsFilters from '@/components/databases/oracle/segmentAdvisor/SegmentAdvisorFIlters.vue'
@@ -92,7 +92,7 @@ export default {
   components: {
     BaseLayoutColumns,
     FullTable,
-    exportButton,
+    ExportButton,
     TdContent,
     HostLink,
     SegnmentAdvisorsFilters,
