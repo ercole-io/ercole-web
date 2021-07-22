@@ -40,7 +40,7 @@
         <TdContent :value="rowData.scope.vmsErcoleAgentCount" />
       </template>
 
-      <exportButton
+      <ExportButton
         slot="export"
         url="hosts/clusters"
         expName="clusters-data"
@@ -82,7 +82,7 @@ import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import exportButton from '@/components/common/exportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import ColumnChart from '@/components/common/charts/ColumnChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HypervisorsFilters from '@/components/hypervisors/HypervisorsFilters.vue'
@@ -93,7 +93,7 @@ export default {
     BaseLayoutColumns,
     BoxContent,
     FullTable,
-    exportButton,
+    ExportButton,
     ColumnChart,
     TdContent,
     HypervisorsFilters

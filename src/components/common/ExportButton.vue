@@ -6,7 +6,7 @@
     data-export-button
     class="mb-0"
   >
-    {{ bindText }}
+    {{ exportText }}
   </b-button>
 </template>
 
@@ -15,8 +15,9 @@ import axios from 'axios'
 import moment from 'moment'
 import { bus } from '@/helpers/eventBus.js'
 import { saveAs } from 'file-saver'
+import { mapGetters } from 'vuex'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
-import exportModal from '@/components/common/exportModal.vue'
+import ExportModal from '@/components/common/ExportModal.vue'
 
 const exportAll = {
   Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -57,7 +58,7 @@ export default {
       })
 
       this.$buefy.modal.open({
-        component: exportModal,
+        component: ExportModal,
         hasModalCard: true,
         props: {
           msgTxt: this.$i18n.t('common.general.wait'),
@@ -70,17 +71,21 @@ export default {
                 'common.general.inProgress'
               )}`
         },
-        canCancel: false,
-        close: () => {
-          console.log('teste')
-        }
+        canCancel: false
       })
+
+      const params = {
+        'older-than': this.getActiveFilters.date,
+        environment: this.getActiveFilters.environment,
+        location: this.getActiveFilters.location
+      }
 
       axiosNoLoading
         .get(`/${this.url}`, {
           headers: headers,
           responseType: 'blob',
-          cancelToken: request.token
+          cancelToken: request.token,
+          params: params
           // onDownloadProgress: progressEvent => {
           // let currentProgress = Math.round(
           //   (progressEvent.loaded * 100) / progressEvent.total
@@ -98,7 +103,8 @@ export default {
     }
   },
   computed: {
-    bindText() {
+    ...mapGetters(['getActiveFilters']),
+    exportText() {
       return this.text ? this.text : this.$i18n.t('common.general.exportData')
     }
   }

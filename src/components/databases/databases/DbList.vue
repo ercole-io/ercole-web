@@ -49,7 +49,7 @@
 
         <ExportButton
           slot="export"
-          url="hosts/technologies/oracle/databases"
+          url="/hosts/technologies/oracle/databases"
           expName="databases"
         />
       </FullTable>
@@ -62,7 +62,7 @@ import { mapGetters, mapState } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import ExportButton from '@/components/common/exportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
