@@ -6,7 +6,7 @@
     data-export-button
     class="mb-0"
   >
-    {{ bindText }}
+    {{ exportText }}
   </b-button>
 </template>
 
@@ -104,7 +104,7 @@ export default {
   },
   computed: {
     ...mapGetters(['getActiveFilters']),
-    bindText() {
+    exportText() {
       return this.text ? this.text : this.$i18n.t('common.general.exportData')
     }
   }
