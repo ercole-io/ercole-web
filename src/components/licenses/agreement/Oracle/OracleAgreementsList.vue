@@ -112,7 +112,7 @@
 
     <ExportButton
       slot="export"
-      url="/agreements/oracle/database"
+      url="agreements/oracle/database"
       expName="oracleAgreements"
     />
   </FullTable>

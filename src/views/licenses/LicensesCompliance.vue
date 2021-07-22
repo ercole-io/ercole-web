@@ -52,7 +52,7 @@
 
       <ExportButton
         slot="export"
-        url="/hosts/technologies/all/databases/licenses-compliance"
+        url="hosts/technologies/all/databases/licenses-compliance"
         expName="licensesCompliance"
       />
     </FullTable>

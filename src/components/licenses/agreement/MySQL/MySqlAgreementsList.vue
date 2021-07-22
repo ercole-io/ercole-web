@@ -93,7 +93,7 @@
 
       <ExportButton
         slot="export"
-        url="/agreements/mysql/database"
+        url="agreements/mysql/database"
         expName="mysqlAgreements"
       />
     </FullTable>
