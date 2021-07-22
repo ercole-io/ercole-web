@@ -75,8 +75,8 @@
         </template>
 
         <template slot="export">
-          <exportButton url="hosts" expName="hosts-data" />
-          <exportButton
+          <ExportButton url="hosts" expName="hosts-data" />
+          <ExportButton
             url="hosts"
             expName="hosts-lms-data"
             :text="`${$t('common.general.exportLms')}`"
@@ -100,7 +100,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
-import exportButton from '@/components/common/exportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import HostsFilters from '@/components/hosts/hosts/HostsFilters.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
@@ -118,7 +118,7 @@ export default {
     TdContent,
     TdIcon,
     TdArrayMore,
-    exportButton,
+    ExportButton,
     HostsFilters,
     HostLink,
     DynamicHeading,
