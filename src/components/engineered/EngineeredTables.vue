@@ -3,13 +3,14 @@
     <BoxContent
       :title="data.hostname"
       border
-      v-for="data in getEngSys"
+      v-for="(data, i) in getEngSys"
       :key="data.hostname"
     >
       <ExportButton
         slot="customTitle"
-        url="/hosts/technologies/oracle/exadata"
+        url="hosts/technologies/oracle/exadata"
         expName="engSystems"
+        v-if="i === 0"
       />
 
       <DbServers :data="data.dbServers" />
