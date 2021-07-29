@@ -9,7 +9,7 @@
 
     <main class="alert-body" v-if="loading || getTotals.total">
       <transition name="flip" :duration="5000">
-        <div v-if="!isAnimated" class="wrap-msg">
+        <div v-if="!isAnimated">
           <div class="columns is-vcentered is-gapless bottom-space">
             <div class="column">
               <GhostLoading :isLoading="loading" setHeight="24" setWidth="24">
@@ -45,7 +45,7 @@
               </GhostLoading>
             </div>
           </div>
-          <div class="columns is-vcentered is-gapless bottom-space">
+          <div class="columns is-vcentered is-gapless bottom-space mt-3">
             <div class="column">
               <GhostLoading :isLoading="loading">
                 <p v-if="!loading && getTotals.total">
@@ -76,7 +76,21 @@
           <div class="columns is-vcentered is-gapless bottom-space">
             <div class="column">
               <GhostLoading :isLoading="loading" setSize="is-large">
-                <p v-if="!loading && getTotals.total">{{ getFirst.msg }}</p>
+                <p v-if="!loading && getTotals.total" class="wrap-msg">
+                  {{ getFirst.msg }}
+                </p>
+              </GhostLoading>
+            </div>
+          </div>
+          <div class="columns is-vcentered is-gapless bottom-space">
+            <div class="column has-text-centered">
+              <GhostLoading :isLoading="loading" setSize="is-small">
+                <a
+                  @click="descriptionAlert(getFirst)"
+                  v-if="!loading && getTotals.total"
+                >
+                  {{ $t('common.general.fullDesc') }}
+                </a>
               </GhostLoading>
             </div>
           </div>
@@ -145,6 +159,7 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
+import { descriptionAlertDialog } from '@/helpers/alertsDescDialog.js'
 import { checkAlertIcon } from '@/helpers/helpers.js'
 import NoContent from '@/components/common/NoContent.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
@@ -189,6 +204,17 @@ export default {
         hostname: null
       })
       this.$router.push('/alerts')
+    },
+    descriptionAlert(info) {
+      const data = {
+        code: info.code,
+        host: info.host,
+        categ: info.category,
+        date: info.date,
+        desc: info.msg,
+        severity: info.severity
+      }
+      descriptionAlertDialog(data)
     }
   },
   computed: {
@@ -241,7 +267,7 @@ export default {
 
     .bottom-space {
       &:not(:last-child) {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.2rem;
       }
     }
   }
@@ -270,7 +296,7 @@ export default {
 .wrap-msg {
   text-overflow: ellipsis;
   overflow: hidden;
-  max-height: 155px;
+  max-height: 55px;
   white-space: break-spaces;
   overflow-wrap: anywhere;
 }

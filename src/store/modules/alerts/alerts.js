@@ -95,7 +95,8 @@ export const getters = {
         host: alerts.otherInfo ? alerts.otherInfo.hostname : null,
         date: alerts.date,
         msg: alerts.description,
-        severity: alerts.alertSeverity
+        severity: alerts.alertSeverity,
+        code: alerts.alertCode
       }
     }
   },

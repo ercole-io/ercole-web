@@ -161,7 +161,8 @@
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions, mapState, mapMutations } from 'vuex'
-import { checkAlertIcon } from '@/helpers/helpers.js'
+import { descriptionAlertDialog } from '@/helpers/alertsDescDialog.js'
+import { resolveSeverityIcon } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
@@ -173,7 +174,6 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import AlertsFilters from '@/components/alerts/AlertsFilters.vue'
-import formatDateTime from '@/filters/formatDateTime.js'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
   _.map(list, val => {
@@ -222,16 +222,8 @@ export default {
   methods: {
     ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),
     ...mapMutations(['SET_ALERTS_PARAMS']),
-    setIcon(severity) {
-      return checkAlertIcon(severity)
-    },
     resolveIcon(value) {
-      return [
-        this.setIcon(value).icon,
-        this.setIcon(value).iconType,
-        value,
-        'mdi-24px'
-      ]
+      return resolveSeverityIcon(value)
     },
     handleMarkAsRead() {
       this.isLoading = true
@@ -284,26 +276,15 @@ export default {
       bus.$emit('onResetAction')
     },
     descriptionAlert(info) {
-      this.$buefy.dialog.alert({
-        title: this.$i18n.t('views.alerts.descModalTitle'),
-        message: `
-          <b>${info.alertCode}</b> 
-          </br> 
-          ${info.hostname} 
-          </br> 
-          ${info.alertCategory} 
-          </br> 
-          ${formatDateTime(info.date)} 
-          </br></br> 
-          ${info.description}
-        `,
-        confirmText: this.$i18n.t('common.general.close'),
-        size: 'is-small',
-        hasIcon: true,
-        iconPack: 'mdi',
-        icon: this.resolveIcon(info.alertSeverity)[0],
-        type: this.resolveIcon(info.alertSeverity)[1]
-      })
+      const data = {
+        code: info.alertCode,
+        host: info.hostname,
+        categ: info.alertCategory,
+        date: info.date,
+        desc: info.description,
+        severity: info.alertSeverity
+      }
+      descriptionAlertDialog(data)
     }
   },
   computed: {
