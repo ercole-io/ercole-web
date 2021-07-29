@@ -23,6 +23,7 @@ export const capitalize = value => {
   return value.charAt(0).toUpperCase() + value.slice(1)
 }
 
+// INIT: Resolve Icon Severity
 export const checkAlertIcon = severity => {
   if (severity === 'INFO') {
     return { iconType: 'is-info', icon: 'information' }
@@ -32,6 +33,16 @@ export const checkAlertIcon = severity => {
     return { iconType: 'is-danger', icon: 'alert-circle' }
   }
 }
+
+export const resolveSeverityIcon = severity => {
+  return [
+    checkAlertIcon(severity).icon,
+    checkAlertIcon(severity).iconType,
+    severity,
+    'mdi-24px'
+  ]
+}
+// END: Resolve Icon Severity
 
 export const mapBooleanIcon = value => {
   const yesValue = ['check-circle', 'is-success', 'yes']
