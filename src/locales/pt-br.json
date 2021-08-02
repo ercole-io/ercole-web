@@ -338,7 +338,8 @@
     },
     "validations": {
       "required": "O campo {fieldname} é obrigatório",
-      "characters": "{0} deve ter pelo menos {1} caracteres"
+      "characters": "{0} deve ter pelo menos {1} caracteres",
+      "loginUnauthorized": "Nome de usuário ou senha inválidos."
     }
   }
 }
