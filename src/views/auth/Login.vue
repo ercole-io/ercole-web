@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import LoginForm from '@/components/login/form.vue'
+import LoginForm from '@/components/login/FormLogin.vue'
 import ErcoleLogo from '@/components/common/ErcoleLogo.vue'
 
 export default {
