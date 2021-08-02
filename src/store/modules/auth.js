@@ -2,6 +2,7 @@ import axiosAuth from '@/axios/axios-auth.js'
 import router from '@/router/index.js'
 import * as helpers from '@/helpers/helpers.js'
 import moment from 'moment'
+import i18n from '@/i18n.js'
 
 export const state = () => {
   return {
@@ -50,8 +51,11 @@ export const actions = {
         dispatch('offLoading')
       })
       .catch(err => {
-        const errorMessage = err.response.data.errorDescription
-        dispatch('setErrMsg', errorMessage)
+        const message = err.response.data.message
+        if (message === 'Unauthorized') {
+          dispatch('setErrMsg', i18n.t(`common.validations.login${message}`))
+        }
+
         dispatch('offLoading')
       })
   },

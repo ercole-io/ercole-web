@@ -27,9 +27,9 @@
         <div v-if="!$v.username.required && $v.username.$error">
           {{ required('username') }}
         </div>
-        <div v-if="!$v.username.minLen && $v.username.$error">
+        <!-- <div v-if="!$v.username.minLen && $v.username.$error">
           {{ characters('username', '4') }}
-        </div>
+        </div> -->
       </template>
     </b-field>
 
@@ -53,9 +53,9 @@
         <div v-if="!$v.password.required && $v.password.$error">
           {{ required('password') }}
         </div>
-        <div v-if="!$v.password.minLen && $v.password.$error">
+        <!-- <div v-if="!$v.password.minLen && $v.password.$error">
           {{ characters('password', '8') }}
-        </div>
+        </div> -->
       </template>
     </b-field>
     <b-button
@@ -68,18 +68,18 @@
       Sign in
     </b-button>
 
-    <errorMsg />
+    <ErrorMsg />
   </form>
 </template>
 
 <script>
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required } from 'vuelidate/lib/validators'
 import { mapActions } from 'vuex'
-import errorMsg from '@/components/login/errorMsg.vue'
+import ErrorMsg from '@/components/login/ErrorMsg.vue'
 
 export default {
   components: {
-    errorMsg
+    ErrorMsg
   },
   data() {
     return {
@@ -89,22 +89,22 @@ export default {
   },
   validations: {
     username: {
-      required,
-      minLen: minLength(4)
+      required
+      // minLen: minLength(4)
     },
     password: {
-      required,
-      minLen: minLength(8)
+      required
+      // minLen: minLength(8)
     }
   },
   methods: {
     ...mapActions(['login']),
     required(field) {
       return this.$i18n.t('common.validations.required', [field])
-    },
-    characters(field, char) {
-      return this.$i18n.t('common.validations.characters', [field, char])
     }
+    // characters(field, char) {
+    //   return this.$i18n.t('common.validations.characters', [field, char])
+    // }
   }
 }
 </script>

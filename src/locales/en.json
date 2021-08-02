@@ -345,7 +345,8 @@
     },
     "validations": {
       "required": "The {0} field is required",
-      "characters": "{0} must have at least {1} characters"
+      "characters": "{0} must have at least {1} characters",
+      "loginUnauthorized": "Invalid username or password."
     }
   }
 }

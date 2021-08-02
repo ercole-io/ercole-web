@@ -1,5 +1,9 @@
 <template>
-  <p data-errormsg class="help is-danger has-text-centered" v-if="getErrMsg">
+  <p
+    data-errormsg
+    class="help is-danger has-text-centered is-size-6 mt-4"
+    v-if="getErrMsg"
+  >
     {{ getErrMsg }}
   </p>
 </template>
