@@ -21,6 +21,7 @@
 
         <template slot="bodyData" slot-scope="rowData">
           <TdContent :value="rowData.scope.name" />
+          <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
           <TdContent :value="rowData.scope.uniqueName" />
           <TdIcon
             :value="rowData.scope.archivelog"
@@ -52,7 +53,6 @@
           <TdContent :value="rowData.scope.blockSize" />
           <TdContent :value="rowData.scope.status" />
           <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
-          <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
           <TdContent :value="rowData.scope.environment" />
         </template>
 

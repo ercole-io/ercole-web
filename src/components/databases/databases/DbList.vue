@@ -21,6 +21,7 @@
 
         <template slot="bodyData" slot-scope="rowData">
           <TdContent :value="rowData.scope.name" />
+          <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
           <TdIcon
             :value="rowData.scope.archivelog"
             :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityDB }"
@@ -35,7 +36,6 @@
           />
           <TdContent :value="rowData.scope.type" />
           <TdContent :value="rowData.scope.version" />
-          <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
           <TdContent :value="rowData.scope.environment" />
           <TdContent :value="rowData.scope.charset" />
           <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
