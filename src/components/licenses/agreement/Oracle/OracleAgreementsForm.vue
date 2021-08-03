@@ -14,26 +14,39 @@
       :type="{
         'is-danger': $v.oracleForm.agreeNumber.$error
       }"
-      :message="{
-        'This field is required':
-          !$v.oracleForm.agreeNumber.required &&
-          $v.oracleForm.agreeNumber.$error,
-        'This field accepts only numbers':
-          !$v.oracleForm.agreeNumber.numeric && $v.oracleForm.agreeNumber.$error
-      }"
     >
       <b-autocomplete
         v-model="oracleForm.agreeNumber"
         size="is-small"
         type="number"
-        :data="filteredAgreeNumbers"
+        :data="filteredagreeNumber"
         @typing="getAutocompleteData($event, 'agreeNumber', returnAgreeNumbers)"
         clearable
         @blur="$v.oracleForm.agreeNumber.$touch()"
         @input="$v.oracleForm.agreeNumber.$touch()"
       >
-        <template slot="empty">No results found</template>
+        <template slot="empty">
+          {{ $i18n.t('common.validations.noResults') }}
+        </template>
       </b-autocomplete>
+      <template #message>
+        <div
+          v-if="
+            !$v.oracleForm.agreeNumber.required &&
+              $v.oracleForm.agreeNumber.$error
+          "
+        >
+          {{ $i18n.t('common.validations.requiredAlt') }}
+        </div>
+        <div
+          v-if="
+            !$v.oracleForm.agreeNumber.numeric &&
+              $v.oracleForm.agreeNumber.$error
+          "
+        >
+          {{ $i18n.t('common.validations.onlyNumbers') }}
+        </div>
+      </template>
     </b-field>
 
     <b-field
@@ -41,10 +54,6 @@
       custom-class="is-small"
       :type="{
         'is-danger': $v.oracleForm.partNumber.$error
-      }"
-      :message="{
-        'This field is required':
-          !$v.oracleForm.partNumber.required && $v.oracleForm.partNumber.$error
       }"
     >
       <b-select
@@ -63,6 +72,16 @@
           {{ part.agreeParts }}
         </option>
       </b-select>
+      <template #message>
+        <div
+          v-if="
+            !$v.oracleForm.partNumber.required &&
+              $v.oracleForm.partNumber.$error
+          "
+        >
+          {{ $i18n.t('common.validations.requiredAlt') }}
+        </div>
+      </template>
     </b-field>
 
     <b-field
@@ -71,23 +90,26 @@
       :type="{
         'is-danger': $v.oracleForm.csi.$error
       }"
-      :message="{
-        'This field is required':
-          !$v.oracleForm.csi.required && $v.oracleForm.csi.$error
-      }"
     >
       <b-autocomplete
         v-model="oracleForm.csi"
         size="is-small"
         type="text"
-        :data="filteredCsi"
+        :data="filteredcsi"
         @typing="getAutocompleteData($event, 'csi', returnCsiNumbers)"
         clearable
         @blur="$v.oracleForm.csi.$touch()"
         @input="$v.oracleForm.csi.$touch()"
       >
-        <template slot="empty">No results found</template>
+        <template slot="empty">
+          {{ $i18n.t('common.validations.noResults') }}
+        </template>
       </b-autocomplete>
+      <template #message>
+        <div v-if="!$v.oracleForm.csi.required && $v.oracleForm.csi.$error">
+          {{ $i18n.t('common.validations.requiredAlt') }}
+        </div>
+      </template>
     </b-field>
 
     <b-field
@@ -96,17 +118,12 @@
       :type="{
         'is-danger': $v.oracleForm.referenceNumber.$error
       }"
-      :message="{
-        'This field is accepts only numbers':
-          !$v.oracleForm.referenceNumber.numeric &&
-          $v.oracleForm.referenceNumber.$error
-      }"
     >
       <b-autocomplete
         v-model="oracleForm.referenceNumber"
         size="is-small"
         type="number"
-        :data="filteredReferenceNumbers"
+        :data="filteredreferenceNumber"
         @typing="
           getAutocompleteData($event, 'referenceNumber', returnReferenceNumbers)
         "
@@ -114,8 +131,20 @@
         @blur="$v.oracleForm.referenceNumber.$touch()"
         @input="$v.oracleForm.referenceNumber.$touch()"
       >
-        <template slot="empty">No results found</template>
+        <template slot="empty">
+          {{ $i18n.t('common.validations.noResults') }}
+        </template>
       </b-autocomplete>
+      <template #message>
+        <div
+          v-if="
+            !$v.oracleForm.referenceNumber.numeric &&
+              $v.oracleForm.referenceNumber.$error
+          "
+        >
+          {{ $i18n.t('common.validations.onlyNumbers') }}
+        </div>
+      </template>
     </b-field>
 
     <b-field
@@ -140,14 +169,6 @@
         :type="{
           'is-danger': $v.oracleForm.licenseNumber.$error
         }"
-        :message="{
-          'This field is required':
-            !$v.oracleForm.licenseNumber.required &&
-            $v.oracleForm.licenseNumber.$error,
-          'This field accepts only numbers':
-            !$v.oracleForm.licenseNumber.numeric &&
-            $v.oracleForm.licenseNumber.$error
-        }"
       >
         <b-input
           @blur="$v.oracleForm.licenseNumber.$touch()"
@@ -157,7 +178,27 @@
           step="any"
           v-model="oracleForm.licenseNumber"
           :disabled="ula"
+          :custom-class="disableInput"
         />
+
+        <template #message>
+          <div
+            v-if="
+              !$v.oracleForm.licenseNumber.required &&
+                $v.oracleForm.licenseNumber.$error
+            "
+          >
+            {{ $i18n.t('common.validations.requiredAlt') }}
+          </div>
+          <div
+            v-if="
+              !$v.oracleForm.licenseNumber.numeric &&
+                $v.oracleForm.licenseNumber.$error
+            "
+          >
+            {{ $i18n.t('common.validations.onlyNumbers') }}
+          </div>
+        </template>
       </b-field>
     </b-field>
 
@@ -167,7 +208,7 @@
     >
       <b-taginput
         v-model="oracleForm.hostAssociated"
-        :data="filteredHostTags"
+        :data="filteredhostTags"
         ref="hostTag"
         autocomplete
         icon="label"
@@ -259,11 +300,15 @@ import {
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import LicensesAgreementMixin from '@/mixins/licensesAgreement.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
+// import CustomField from '@/components/common/Form/CustomField.vue'
+// import CustomAutocomplete from '@/components/common/Form/CustomAutocomplete.vue'
 
 export default {
   mixins: [TooltipMixin, LicensesAgreementMixin],
   components: {
     AdvancedFiltersBase
+    // CustomField,
+    // CustomAutocomplete
   },
   validations: {
     oracleForm: {
@@ -373,6 +418,9 @@ export default {
       return _.map(hostsAssociated, host => {
         return host.hostname
       })
+    },
+    getEvent(e) {
+      this.getAutocompleteData(e, Object.keys(this.$refs)[0])
     }
   },
   computed: {
@@ -381,6 +429,9 @@ export default {
     },
     restricted() {
       return this.oracleForm.restricted
+    },
+    disableInput() {
+      return this.ula ? 'has-background-grey-lighter' : ''
     }
   },
   watch: {
