@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
 import { shallowMount } from '@vue/test-utils'
-import Form from '@/components/login/form.vue'
+import Form from '@/components/login/FormLogin.vue'
 
 Vue.config.ignoredElements = ['b-field', 'b-input', 'b-button']
 Vue.use(Vuelidate)
