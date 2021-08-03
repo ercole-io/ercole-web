@@ -2,6 +2,9 @@
   { "sort": "name", 
     "langKey": "common.collumns.name" 
   },
+  { "sort": "hostname", 
+    "langKey": "common.collumns.hostname" 
+  },
   { "sort": "uniqueName", 
     "langKey": "common.collumns.uniqueName" 
   },
@@ -58,9 +61,6 @@
   },
   { "sort": "memory", 
     "langKey": "common.collumns.memory" 
-  },
-  { "sort": "hostname", 
-    "langKey": "common.collumns.hostname" 
   },
   { "sort": "environment", 
     "langKey": "common.collumns.environment" 
