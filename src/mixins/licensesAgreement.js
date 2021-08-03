@@ -1,22 +1,23 @@
+import _ from 'lodash'
 import { mapState, mapGetters, mapActions } from 'vuex'
 import { simpleAutocompleteData } from '@/helpers/helpers.js'
 
 export default {
   data() {
     return {
-      filteredClusterTags: [],
-      filteredHostTags: [],
-      filteredAgreeNumbers: [],
-      filteredCsi: [],
-      filteredReferenceNumbers: []
+      filteredclusterTags: [],
+      filteredhostTags: [],
+      filteredagreeNumber: [],
+      filteredcsi: [],
+      filteredreferenceNumber: []
     }
   },
   beforeMount() {
-    this.filteredClusterTags = this.clusternames.clusternames
-    this.filteredHostTags = this.hostnames.hostnames
-    this.filteredAgreeNumbers = this.returnAgreeNumbers
-    this.filteredCsi = this.returnCsiNumbers
-    this.filteredReferenceNumbers = this.returnReferenceNumbers
+    this.filteredclusterTags = this.clusternames.clusternames
+    this.filteredhostTags = this.hostnames.hostnames
+    this.filteredagreeNumber = this.returnAgreeNumbers
+    this.filteredcsi = this.returnCsiNumbers
+    this.filteredreferenceNumber = this.returnReferenceNumbers
   },
   methods: {
     ...mapActions([
@@ -44,27 +45,8 @@ export default {
       })
     },
     getAutocompleteData(text, toFilter, data) {
-      const autocomplete = simpleAutocompleteData(text, data)
-
-      switch (toFilter) {
-        case 'clusterTags':
-          this.filteredClusterTags = autocomplete
-          break
-        case 'hostTags':
-          this.filteredHostTags = autocomplete
-          break
-        case 'agreeNumber':
-          this.filteredAgreeNumbers = autocomplete
-          break
-        case 'csi':
-          this.filteredCsi = autocomplete
-          break
-        case 'referenceNumber':
-          this.filteredReferenceNumbers = autocomplete
-          break
-        default:
-          break
-      }
+      const values = simpleAutocompleteData(text, data)
+      this[`filtered${toFilter}`] = _.uniqBy(values, e => e)
     }
   },
   computed: {

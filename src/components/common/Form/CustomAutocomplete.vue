@@ -12,7 +12,7 @@
     @input="inputMethod"
     clearable
   >
-    <template #empty>No results found</template>
+    <template #empty>{{ $i18n.t('common.validations.noResults') }}</template>
   </b-autocomplete>
 </template>
 

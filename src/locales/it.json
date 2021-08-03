@@ -344,9 +344,12 @@
       "activeFilters": "Filtri attivi:"
     },
     "validations": {
-      "required": "Il campo {fieldname} è obbligatorio",
+      "requiredAlt": "Questo campo è obbligatorio.",
+      "required": "Il campo {fieldname} è obbligatorio.",
+      "onlyNumbers": "Questo campo accetta solo numeri.",
       "characters": "{0} deve contenere almeno {1} caratteri",
-      "loginUnauthorized": "Nome utente o password non valido."
+      "loginUnauthorized": "Nome utente o password non valido.",
+      "noResults": "Nessun risultato trovato."
     }
   }
 }
