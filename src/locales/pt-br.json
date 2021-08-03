@@ -337,9 +337,12 @@
       "activeFilters": "Filtros Ativos:"
     },
     "validations": {
-      "required": "O campo {fieldname} é obrigatório",
+      "requiredAlt": "Este campo é obrigatório.",
+      "required": "O campo {fieldname} é obrigatório.",
+      "onlyNumbers": "Este campo aceita apenas número.",
       "characters": "{0} deve ter pelo menos {1} caracteres",
-      "loginUnauthorized": "Nome de usuário ou senha inválidos."
+      "loginUnauthorized": "Nome de usuário ou senha inválidos.",
+      "noResults": "Nenhum resultado encontrado."
     }
   }
 }

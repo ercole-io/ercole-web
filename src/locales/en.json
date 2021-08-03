@@ -344,9 +344,12 @@
       "activeFilters": "Active Filters:"
     },
     "validations": {
-      "required": "The {0} field is required",
+      "requiredAlt": "This field is required.",
+      "required": "The {0} field is required.",
+      "onlyNumbers": "This field accepts only number.",
       "characters": "{0} must have at least {1} characters",
-      "loginUnauthorized": "Invalid username or password."
+      "loginUnauthorized": "Invalid username or password.",
+      "noResults": "No results found"
     }
   }
 }

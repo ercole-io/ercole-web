@@ -12,10 +12,6 @@
       :type="{
         'is-danger': $v.mysqlForm.agreeType.$error
       }"
-      :message="{
-        'This field is required':
-          !$v.mysqlForm.agreeType.required && $v.mysqlForm.agreeType.$error
-      }"
     >
       <b-select
         @blur="$v.mysqlForm.agreeType.$touch()"
@@ -28,6 +24,15 @@
         <option :value="cluster">{{ cluster }}</option>
         <option :value="host">{{ host }}</option>
       </b-select>
+      <template #message>
+        <div
+          v-if="
+            !$v.mysqlForm.agreeType.required && $v.mysqlForm.agreeType.$error
+          "
+        >
+          {{ $i18n.t('common.validations.requiredAlt') }}
+        </div>
+      </template>
     </b-field>
 
     <b-field
@@ -37,12 +42,6 @@
       :type="{
         'is-danger': $v.mysqlForm.agreeNumber.$error
       }"
-      :message="{
-        'This field is required':
-          !$v.mysqlForm.agreeNumber.required && $v.mysqlForm.agreeNumber.$error,
-        'This field accepts only numbers':
-          !$v.mysqlForm.agreeNumber.numeric && $v.mysqlForm.agreeNumber.$error
-      }"
     >
       <b-input
         @blur="$v.mysqlForm.agreeNumber.$touch()"
@@ -51,6 +50,23 @@
         type="number"
         v-model="mysqlForm.agreeNumber"
       />
+      <template #message>
+        <div
+          v-if="
+            !$v.mysqlForm.agreeNumber.required &&
+              $v.mysqlForm.agreeNumber.$error
+          "
+        >
+          {{ $i18n.t('common.validations.requiredAlt') }}
+        </div>
+        <div
+          v-if="
+            !$v.mysqlForm.agreeNumber.numeric && $v.mysqlForm.agreeNumber.$error
+          "
+        >
+          {{ $i18n.t('common.validations.onlyNumbers') }}
+        </div>
+      </template>
     </b-field>
 
     <b-field
@@ -60,12 +76,6 @@
       :type="{
         'is-danger': $v.mysqlForm.agreeCsi.$error
       }"
-      :message="{
-        'This field is required':
-          !$v.mysqlForm.agreeCsi.required && $v.mysqlForm.agreeCsi.$error,
-        'This field accepts only numbers':
-          !$v.mysqlForm.agreeCsi.numeric && $v.mysqlForm.agreeCsi.$error
-      }"
     >
       <b-input
         @blur="$v.mysqlForm.agreeCsi.$touch()"
@@ -74,6 +84,18 @@
         type="number"
         v-model="mysqlForm.agreeCsi"
       />
+      <template #message>
+        <div
+          v-if="!$v.mysqlForm.agreeCsi.required && $v.mysqlForm.agreeCsi.$error"
+        >
+          {{ $i18n.t('common.validations.requiredAlt') }}
+        </div>
+        <div
+          v-if="!$v.mysqlForm.agreeCsi.numeric && $v.mysqlForm.agreeCsi.$error"
+        >
+          {{ $i18n.t('common.validations.onlyNumbers') }}
+        </div>
+      </template>
     </b-field>
 
     <b-field
@@ -83,14 +105,6 @@
       :type="{
         'is-danger': $v.mysqlForm.agreeLicenses.$error
       }"
-      :message="{
-        'This field is required':
-          !$v.mysqlForm.agreeLicenses.required &&
-          $v.mysqlForm.agreeLicenses.$error,
-        'This field accepts only numbers':
-          !$v.mysqlForm.agreeLicenses.numeric &&
-          $v.mysqlForm.agreeLicenses.$error
-      }"
     >
       <b-input
         @blur="$v.mysqlForm.agreeLicenses.$touch()"
@@ -99,6 +113,24 @@
         type="number"
         v-model="mysqlForm.agreeLicenses"
       />
+      <template #message>
+        <div
+          v-if="
+            !$v.mysqlForm.agreeLicenses.required &&
+              $v.mysqlForm.agreeLicenses.$error
+          "
+        >
+          {{ $i18n.t('common.validations.requiredAlt') }}
+        </div>
+        <div
+          v-if="
+            !$v.mysqlForm.agreeLicenses.numeric &&
+              $v.mysqlForm.agreeLicenses.$error
+          "
+        >
+          {{ $i18n.t('common.validations.onlyNumbers') }}
+        </div>
+      </template>
     </b-field>
 
     <b-field
@@ -108,7 +140,7 @@
     >
       <b-taginput
         v-model="mysqlForm.agreeHosts"
-        :data="filteredHostTags"
+        :data="filteredhostTags"
         ref="hostTag"
         autocomplete
         icon="label"
@@ -149,7 +181,7 @@
     >
       <b-taginput
         v-model="mysqlForm.agreeClusters"
-        :data="filteredClusterTags"
+        :data="filteredclusterTags"
         ref="clusterTag"
         autocomplete
         icon="label"
