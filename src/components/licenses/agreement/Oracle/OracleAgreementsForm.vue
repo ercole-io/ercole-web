@@ -19,6 +19,7 @@
         v-model="oracleForm.agreeNumber"
         size="is-small"
         type="number"
+        icon="magnify"
         :data="filteredagreeNumber"
         @typing="getAutocompleteData($event, 'agreeNumber', returnAgreeNumbers)"
         clearable
@@ -56,7 +57,41 @@
         'is-danger': $v.oracleForm.partNumber.$error
       }"
     >
-      <b-select
+      <b-autocomplete
+        v-model="oracleForm.partNumber"
+        size="is-small"
+        type="text"
+        icon="magnify"
+        field="full"
+        :data="filteredpartNumber"
+        @typing="
+          getAutocompletePartNumber($event, 'partNumber', returnAgreementParts)
+        "
+        @focus="() => (filteredpartNumber = returnAgreementParts)"
+        @blur="$v.oracleForm.partNumber.$touch()"
+        @input="$v.oracleForm.partNumber.$touch()"
+        open-on-focus
+        clearable
+      >
+        <template slot-scope="props">
+          <div class="media media-custom">
+            <div class="media-content">
+              <b>{{ props.option.id }}</b>
+              <br />
+              <small>
+                {{ props.option.desc }}
+                <br />
+                {{ props.option.metric }}
+              </small>
+            </div>
+          </div>
+        </template>
+        <template slot="empty">
+          {{ $i18n.t('common.validations.noResults') }}
+        </template>
+      </b-autocomplete>
+
+      <!-- <b-select
         @blur="$v.oracleForm.partNumber.$touch()"
         @input="$v.oracleForm.partNumber.$touch()"
         size="is-small"
@@ -71,7 +106,7 @@
         >
           {{ part.agreeParts }}
         </option>
-      </b-select>
+      </b-select> -->
       <template #message>
         <div
           v-if="
@@ -95,6 +130,7 @@
         v-model="oracleForm.csi"
         size="is-small"
         type="text"
+        icon="magnify"
         :data="filteredcsi"
         @typing="getAutocompleteData($event, 'csi', returnCsiNumbers)"
         clearable
@@ -123,6 +159,7 @@
         v-model="oracleForm.referenceNumber"
         size="is-small"
         type="number"
+        icon="magnify"
         :data="filteredreferenceNumber"
         @typing="
           getAutocompleteData($event, 'referenceNumber', returnReferenceNumbers)
@@ -190,14 +227,6 @@
           >
             {{ $i18n.t('common.validations.requiredAlt') }}
           </div>
-          <div
-            v-if="
-              !$v.oracleForm.licenseNumber.numeric &&
-                $v.oracleForm.licenseNumber.$error
-            "
-          >
-            {{ $i18n.t('common.validations.onlyNumbers') }}
-          </div>
         </template>
       </b-field>
     </b-field>
@@ -215,7 +244,7 @@
         :placeholder="`${$t('common.forms.choose')} hostname`"
         @typing="getAutocompleteData($event, 'hostTags', hostnames.hostnames)"
         custom-class="is-small"
-        :open-on-focus="true"
+        open-on-focus
       >
         <template slot-scope="props">
           {{ props.option }}
@@ -300,15 +329,11 @@ import {
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import LicensesAgreementMixin from '@/mixins/licensesAgreement.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
-// import CustomField from '@/components/common/Form/CustomField.vue'
-// import CustomAutocomplete from '@/components/common/Form/CustomAutocomplete.vue'
 
 export default {
   mixins: [TooltipMixin, LicensesAgreementMixin],
   components: {
     AdvancedFiltersBase
-    // CustomField,
-    // CustomAutocomplete
   },
   validations: {
     oracleForm: {
@@ -329,7 +354,7 @@ export default {
       oracleForm: {
         licenseID: '',
         agreeNumber: '',
-        partNumber: [],
+        partNumber: '',
         csi: '',
         referenceNumber: '',
         ula: false,
@@ -382,7 +407,7 @@ export default {
       this.oracleForm = {
         licenseID: '',
         agreeNumber: '',
-        partNumber: [],
+        partNumber: '',
         csi: '',
         referenceNumber: '',
         ula: false,
@@ -449,4 +474,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.media-custom {
+  line-height: 1.2;
+  font-size: 0.75rem;
+}
+</style>

@@ -60,12 +60,18 @@ export default {
 
 <style lang="scss">
 .autocomplete {
+  .dropdown-content {
+    padding-top: 0.1rem;
+    padding-bottom: 0;
+  }
+
   .dropdown-menu {
-    min-width: 30%;
+    min-width: 100%;
   }
   .dropdown-item {
     font-size: 0.8em;
-    padding: 0.2rem 1rem;
+    padding: 0.15rem 0.7rem;
+    border-bottom: 1px dotted #dbdbdb;
   }
 }
 </style>

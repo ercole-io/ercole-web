@@ -9,7 +9,8 @@ export default {
       filteredhostTags: [],
       filteredagreeNumber: [],
       filteredcsi: [],
-      filteredreferenceNumber: []
+      filteredreferenceNumber: [],
+      filteredpartNumber: []
     }
   },
   beforeMount() {
@@ -18,6 +19,9 @@ export default {
     this.filteredagreeNumber = this.returnAgreeNumbers
     this.filteredcsi = this.returnCsiNumbers
     this.filteredreferenceNumber = this.returnReferenceNumbers
+    setTimeout(() => {
+      this.filteredpartNumber = this.returnAgreementParts
+    }, 1000)
   },
   methods: {
     ...mapActions([
@@ -47,6 +51,27 @@ export default {
     getAutocompleteData(text, toFilter, data) {
       const values = simpleAutocompleteData(text, data)
       this[`filtered${toFilter}`] = _.uniqBy(values, e => e)
+    },
+    getAutocompletePartNumber(text, toFilter, data) {
+      const newData = []
+      _.map(data, val => {
+        newData.push(val.full)
+      })
+
+      const values = simpleAutocompleteData(text, newData)
+
+      const newValues = []
+      _.map(values, val => {
+        const newVal = _.split(val, ' - ')
+        newValues.push({
+          id: newVal[0],
+          desc: newVal[1],
+          metric: newVal[2],
+          full: `${newVal[0]} - ${newVal[1]} - ${newVal[2]}`
+        })
+      })
+
+      this[`filtered${toFilter}`] = newValues
     }
   },
   computed: {
