@@ -99,7 +99,7 @@ export default {
   mixins: [localFiltersMixin],
   data() {
     return {
-      autocompletes: ['agreementID', 'csi'],
+      autocompletes: ['agreementID', 'csi', 'referenceNumber'],
       selects: [
         'licenseTypeID',
         'itemDescription',
