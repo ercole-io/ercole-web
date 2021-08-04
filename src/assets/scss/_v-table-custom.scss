@@ -41,8 +41,8 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
-        max-width: 150px;
         overflow-wrap: anywhere;
+        max-width: 150px;
 
         &:first-child {
           text-align: left;

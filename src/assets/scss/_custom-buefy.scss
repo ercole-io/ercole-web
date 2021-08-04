@@ -163,3 +163,25 @@ ul.pagination-list {
       }
     }
 }
+
+// taginput
+.taginput .taginput-container > .tag, .taginput .taginput-container > .tags {
+  overflow: hidden;
+}
+
+.taginput .taginput-container > .tag .tag, .taginput .taginput-container > .tags .tag {
+  max-width: 80%;
+}
+
+.taginput .taginput-container > .tag .tag, .taginput .taginput-container > .tags .tag span {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+.autocomplete {
+  &.control {
+    min-width: 100%;
+  }
+}
