@@ -1,6 +1,7 @@
 import { _ } from 'core-js'
 import moment from 'moment'
 import axiosDefault from '@/axios/axios-default'
+import formatDate from '@/filters/formatDate.js'
 
 export const state = () => ({
   patchAdvisor: []
@@ -17,6 +18,7 @@ export const getters = {
 
       patchAdvisorData.push({
         ...val,
+        date: formatDate(val.date),
         fourMonths: four[0],
         fourMonthsText: four[1],
         sixMonths: six[0],

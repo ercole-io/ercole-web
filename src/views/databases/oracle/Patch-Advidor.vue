@@ -30,7 +30,7 @@
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
         <TdContent :value="rowData.scope.dbname" />
         <TdContent :value="rowData.scope.dbver" />
-        <TdContent :value="rowData.scope.date" dataType="date" />
+        <TdContent :value="rowData.scope.date" />
         <TdContent :value="rowData.scope.description" />
         <TdIcon :value="rowData.scope.fourMonths" />
         <TdIcon :value="rowData.scope.sixMonths" />
