@@ -76,7 +76,7 @@
       </template>
 
       <template slot="headData">
-        <th style="width: 5%; z-index: 1;">
+        <th style="width: 5%;">
           <div v-if="showCheckbox">
             <b-checkbox
               v-model="isCurrentPageSelected"
@@ -118,7 +118,7 @@
               handleSelectRows(rowData.scope.isChecked, rowData.scope._id)
             "
             class="is-flex is-justify-content-center"
-            style="height: 32px; z-index: 0;"
+            style="height: 32px;"
           />
         </td>
         <td v-else></td>
