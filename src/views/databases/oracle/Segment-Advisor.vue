@@ -1,15 +1,12 @@
 <template>
-  <BaseLayoutColumns
-    :pageCols="[
-      { colsize: '3', slotName: 'col1' },
-      { colsize: '6', slotName: 'col2' },
-      { colsize: '3', slotName: 'col3' }
-    ]"
+  <ToggleColumns
+    :leftButton="$t('common.forms.advancedFilters')"
+    :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
   >
-    <SegnmentAdvisorsFilters slot="col1" />
+    <SegnmentAdvisorsFilters slot="left" />
     <FullTable
-      slot="col2"
+      slot="center"
       :placeholder="$t('menu.segAdvisor')"
       :keys="keys"
       :tableData="getOracleSegmentAdvisor"
@@ -64,7 +61,7 @@
     <BoxContent
       :title="$t('views.databases.topStorage', ['10'])"
       border
-      slot="col3"
+      slot="right"
     >
       <PieChart
         chartId="top10reclaimable"
@@ -72,13 +69,13 @@
         setSuffix=" GB"
       />
     </BoxContent>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -90,7 +87,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 export default {
   mixins: [hostnameLinkRow],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     FullTable,
     ExportButton,
     TdContent,
