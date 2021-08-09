@@ -1,8 +1,12 @@
 <template>
-  <BaseLayoutColumns v-if="isMounted">
-    <PatchAdvisorFilters slot="col1" />
+  <ToggleColumns
+    :leftButton="$t('common.forms.advancedFilters')"
+    :centerCol="9"
+    v-if="isMounted"
+  >
+    <PatchAdvisorFilters slot="left" />
     <FullTable
-      slot="col2"
+      slot="center"
       :placeholder="$t('menu.patAdvisor')"
       :keys="keys"
       :tableData="getOraclePatchAdvisor"
@@ -43,13 +47,13 @@
         expName="oraclePatchAdvisor"
       />
     </FullTable>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -60,7 +64,7 @@ import PatchAdvisorFilters from '@/components/databases/oracle/patchAdvisor/Patc
 export default {
   mixins: [hostnameLinkRow],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     FullTable,
     ExportButton,
     TdContent,
