@@ -1,41 +1,26 @@
 <template>
   <div>
     <div class="columns">
-      <div
-        class="column is-flex pt-2 pb-0"
-        :class="
-          !leftButton
-            ? 'is-justify-content-flex-end'
-            : 'is-justify-content-space-between'
-        "
-      >
+      <div class="column is-flex pt-1 pb-0" :class="dynamicFlexClass">
         <b-button
           size="is-small"
           type="is-link is-light"
           pack="fas"
-          @click="toggleLeft = !toggleLeft"
-          :icon-right="toggleLeft ? 'chevron-left' : 'chevron-right'"
+          @click="toggle('Left')"
+          :icon-right="leftBtIcon"
           v-if="leftButton"
         >
-          {{
-            toggleLeft
-              ? $t('common.forms.hide', [leftButton])
-              : $t('common.forms.show', [leftButton])
-          }}
+          {{ leftBtText }}
         </b-button>
         <b-button
           size="is-small"
           type="is-link is-light"
           pack="fas"
-          @click="toggleRight = !toggleRight"
-          :icon-left="toggleRight ? 'chevron-right' : 'chevron-left'"
+          @click="toggle('Right')"
+          :icon-left="rightBtIcon"
           v-if="rightButton"
         >
-          {{
-            toggleRight
-              ? $t('common.forms.hide', [rightButton])
-              : $t('common.forms.show', [rightButton])
-          }}
+          {{ rightBtText }}
         </b-button>
       </div>
     </div>
@@ -90,6 +75,11 @@ export default {
       this.toggleRight = val
     })
   },
+  methods: {
+    toggle(side) {
+      this[`toggle${side}`] = !this[`toggle${side}`]
+    }
+  },
   computed: {
     left() {
       if (this.noLeftCol) {
@@ -124,6 +114,27 @@ export default {
     },
     onlyCenterCol() {
       return !this.toggleLeft && !this.toggleRight
+    },
+    dynamicFlexClass() {
+      return !this.leftButton
+        ? 'is-justify-content-flex-end'
+        : 'is-justify-content-space-between'
+    },
+    leftBtIcon() {
+      return this.toggleLeft ? 'chevron-left' : 'chevron-right'
+    },
+    rightBtIcon() {
+      return this.toggleRight ? 'chevron-right' : 'chevron-left'
+    },
+    leftBtText() {
+      return this.toggleLeft
+        ? this.$i18n.t('common.forms.hide', [this.leftButton])
+        : this.$i18n.t('common.forms.show', [this.leftButton])
+    },
+    rightBtText() {
+      return this.toggleRight
+        ? this.$i18n.t('common.forms.hide', [this.rightButton])
+        : this.$i18n.t('common.forms.show', [this.rightButton])
     }
   }
 }
