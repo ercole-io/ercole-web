@@ -1,5 +1,6 @@
 <template>
   <ToggleColumns
+    getPage="segmentAdvisor"
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"

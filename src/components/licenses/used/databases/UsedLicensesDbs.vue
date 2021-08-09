@@ -1,5 +1,6 @@
 <template>
   <ToggleColumns
+    getPage="licensesUsedDbs"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
   >

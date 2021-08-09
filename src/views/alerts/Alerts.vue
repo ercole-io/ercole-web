@@ -1,5 +1,10 @@
 <template>
-  <ToggleColumns leftButton="Advanced Filters" :centerCol="9" v-if="isMounted">
+  <ToggleColumns
+    getPage="alerts"
+    leftButton="Advanced Filters"
+    :centerCol="9"
+    v-if="isMounted"
+  >
     <b-loading
       slot="loading"
       :is-full-page="false"

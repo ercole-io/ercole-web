@@ -1,5 +1,6 @@
 <template>
   <ToggleColumns
+    getPage="hosts"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
     v-if="isMounted"

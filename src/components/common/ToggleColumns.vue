@@ -42,6 +42,7 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -62,6 +63,9 @@ export default {
     },
     rightButton: {
       type: String
+    },
+    getPage: {
+      type: String
     }
   },
   data() {
@@ -74,13 +78,22 @@ export default {
     bus.$on('onToggleEdit', val => {
       this.toggleRight = val
     })
+
+    this.toggleLeft = this.getColumnsStatus(this.getPage)[0]
+    this.toggleRight = this.getColumnsStatus(this.getPage)[1]
   },
   methods: {
+    ...mapMutations(['SET_HIDDEN_COLS']),
     toggle(side) {
       this[`toggle${side}`] = !this[`toggle${side}`]
+      this.SET_HIDDEN_COLS({
+        name: this.getPage,
+        values: [this.toggleLeft, this.toggleRight]
+      })
     }
   },
   computed: {
+    ...mapGetters(['getColumnsStatus']),
     left() {
       if (this.noLeftCol) {
         return 0
