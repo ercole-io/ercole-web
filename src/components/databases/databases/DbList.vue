@@ -1,5 +1,6 @@
 <template>
   <ToggleColumns
+    getPage="databases"
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('common.general.sideInfo')"
   >

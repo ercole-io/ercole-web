@@ -1,5 +1,6 @@
 <template>
   <ToggleColumns
+    getPage="mysqlAgreements"
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('views.licenses.agreeForm')"
     v-if="isMounted"

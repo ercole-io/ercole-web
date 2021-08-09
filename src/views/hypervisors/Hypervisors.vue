@@ -1,5 +1,6 @@
 <template>
   <ToggleColumns
+    getPage="hypervisors"
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
