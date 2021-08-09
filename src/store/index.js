@@ -29,6 +29,7 @@ import * as engineeredSystems from './modules/engineered-systems/engineered-syst
 import * as agreementParts from './modules/agreement-parts'
 import * as rangeDates from './modules/range-dates'
 import * as moreInfoToggle from '@/store/modules/more-info-toggle.js'
+import * as columnToggle from '@/store/modules/columns-toggle.js'
 
 Vue.use(Vuex)
 
@@ -60,7 +61,8 @@ export default new Vuex.Store({
     engineeredSystems,
     agreementParts,
     rangeDates,
-    moreInfoToggle
+    moreInfoToggle,
+    columnToggle
   },
   plugins: [
     createPersistedState({
@@ -71,7 +73,8 @@ export default new Vuex.Store({
         'hostnames',
         'globalFilters',
         'clusternames',
-        'moreInfoToggle'
+        'moreInfoToggle',
+        'columnToggle'
       ]
     })
   ]
