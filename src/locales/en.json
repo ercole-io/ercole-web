@@ -93,6 +93,7 @@
       "patching": "Not Patched | Patched"
     },
     "licenses": {
+      "agreeForm": "Agreement Form",
       "addAgreement": "Add or Modify an Oracle Agreement",
       "dbList": "List of Databases"
     },
@@ -119,7 +120,8 @@
       "delete": "Delete",
       "edit": "Edit",
       "fullDesc": "Show Full Description",
-      "close": "Close"
+      "close": "Close",
+      "sideInfo": "Extra Info"
     },
     "forms": {
       "advancedFilters": "Advanced Filters",
