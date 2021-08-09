@@ -1,8 +1,8 @@
 <template>
-  <BaseLayoutColumns v-if="isMounted">
-    <LicensesComplianceFilters slot="col1" />
+  <ToggleColumns leftButton="Advanced Filters" :centerCol="9" v-if="isMounted">
+    <LicensesComplianceFilters slot="left" />
     <FullTable
-      slot="col2"
+      slot="center"
       :placeholder="$t('menu.licCompliance')"
       :keys="keys"
       :tableData="getLicensesCompliance"
@@ -56,13 +56,13 @@
         expName="licensesCompliance"
       />
     </FullTable>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
@@ -72,7 +72,7 @@ import ExportButton from '@/components/common/ExportButton.vue'
 export default {
   mixins: [paginationMixin],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     FullTable,
     TdContent,
     TdIcon,
