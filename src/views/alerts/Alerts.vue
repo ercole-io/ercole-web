@@ -1,14 +1,14 @@
 <template>
-  <BaseLayoutColumns v-if="isMounted">
+  <ToggleColumns leftButton="Advanced Filters" :centerCol="9" v-if="isMounted">
     <b-loading
       slot="loading"
       :is-full-page="false"
       v-model="isLoading"
       :can-cancel="false"
     />
-    <AlertsFilters slot="col1" />
+    <AlertsFilters slot="left" />
     <FullTable
-      slot="col2"
+      slot="center"
       :placeholder="$t('menu.alerts')"
       :keys="keys"
       :tableData="getAlerts"
@@ -154,7 +154,7 @@
         expName="alerts-data"
       />
     </FullTable>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
@@ -167,7 +167,7 @@ import paginationMixin from '@/mixins/paginationMixin.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -187,7 +187,7 @@ const checkOrUncheck = (list, status, handleSelectRows) => {
 export default {
   mixins: [paginationMixin, localFiltersMixin, hostnameLinkRow, TooltipMixin],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     FullTable,
     ExportButton,
     TdContent,
