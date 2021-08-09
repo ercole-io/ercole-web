@@ -1,15 +1,12 @@
 <template>
-  <BaseLayoutColumns
+  <ToggleColumns
+    :leftButton="$t('common.forms.advancedFilters')"
+    :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
-    :pageCols="[
-      { colsize: '3', slotName: 'filters' },
-      { colsize: '6', slotName: 'content' },
-      { colsize: '3', slotName: 'side' }
-    ]"
   >
-    <ClusterFilters slot="filters" />
+    <ClusterFilters slot="left" />
     <FullTable
-      slot="content"
+      slot="center"
       :placeholder="$t('menu.clusters')"
       :keys="keys"
       :tableData="getCurrentClusterVms"
@@ -32,7 +29,7 @@
         <TdIcon :value="rowData.scope.cappedCPU" />
       </template>
     </FullTable>
-    <div slot="side">
+    <div slot="right">
       <BoxContent :title="`Cluster: ${clustername}`" border>
         <div class="is-flex" style="justify-content: space-around;">
           <p class="is-size-7 has-text-centered">
@@ -71,7 +68,7 @@
         stacked
       />
     </div>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
@@ -80,7 +77,7 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 // import ExportButton from '@/components/common/ExportButton.vue'
@@ -94,7 +91,7 @@ export default {
   mixins: [techTypePrettyName, localFiltersMixin, hostnameLinkRow],
   props: ['clustername'],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     BoxContent,
     FullTable,
     // ExportButton,
