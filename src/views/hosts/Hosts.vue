@@ -1,10 +1,14 @@
 <template>
-  <BaseLayoutColumns v-if="isMounted">
-    <div slot="col1">
+  <ToggleColumns
+    :leftButton="$t('common.forms.advancedFilters')"
+    :centerCol="9"
+    v-if="isMounted"
+  >
+    <div slot="left">
       <MoreInfoButtons :buttonItems="hostsMoreInfo" />
       <HostsFilters />
     </div>
-    <BoxContent slot="col2" :mbottom="false">
+    <BoxContent slot="center" :mbottom="false">
       <FullTable
         :placeholder="$t('menu.hosts')"
         :keys="getHeadKeys(hostsHead)"
@@ -85,7 +89,7 @@
         </template>
       </FullTable>
     </BoxContent>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
@@ -94,7 +98,7 @@ import { mapGetters, mapActions, mapState } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -112,7 +116,7 @@ import hostsMoreInfo from '@/views/hosts/hosts-more-info.json'
 export default {
   mixins: [localFiltersMixin, hostnameLinkRow, getHeadKeys],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     BoxContent,
     FullTable,
     TdContent,
