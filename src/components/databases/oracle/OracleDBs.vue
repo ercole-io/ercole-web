@@ -1,75 +1,100 @@
 <template>
-  <div class="columns">
-    <div class="column is-4">
+  <ToggleColumns
+    :leftButton="$t('common.forms.advancedFilters')"
+    :rightButton="$t('common.general.sideInfo')"
+  >
+    <div slot="left">
       <MoreInfoButtons :buttonItems="oraclesMoreInfo" />
       <OracleFilters />
     </div>
-    <div class="column is-8">
-      <FullTable
-        :placeholder="$t('menu.oracle')"
-        :keys="getHeadKeys(oracleHead)"
-        :tableData="getAllOracleDBs"
-        @clickedRow="handleClickedRow"
-        isClickable
+
+    <FullTable
+      slot="center"
+      :placeholder="$t('menu.oracle')"
+      :keys="getHeadKeys(oracleHead)"
+      :tableData="getAllOracleDBs"
+      @clickedRow="handleClickedRow"
+      isClickable
+    >
+      <DynamicHeading
+        slot="headData"
+        v-for="head in oracleHead"
+        :key="head.sort"
+        :data="head"
+      />
+
+      <template slot="bodyData" slot-scope="rowData">
+        <TdContent :value="rowData.scope.name" />
+        <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
+        <TdContent :value="rowData.scope.uniqueName" />
+        <TdIcon
+          :value="rowData.scope.archivelog"
+          :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
+        />
+        <TdIcon
+          :value="rowData.scope.dataguard"
+          :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
+        />
+        <TdIcon
+          :value="rowData.scope.ha"
+          :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
+        />
+        <TdContent
+          :value="rowData.scope.datafileSize | formatNumber('0.00')"
+          :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
+        />
+        <TdContent
+          :value="rowData.scope.segmentsSize | formatNumber('0.00')"
+          :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
+        />
+        <TdContent
+          :value="rowData.scope.charset"
+          :class="{ 'is-hidden': moreInfoToggle.hiddenCharset }"
+        />
+        <TdContent :value="rowData.scope.version" />
+        <TdContent :value="rowData.scope.work | formatNumber('0')" />
+        <TdContent :value="rowData.scope.cpuCount" />
+        <TdContent :value="rowData.scope.blockSize" />
+        <TdContent :value="rowData.scope.status" />
+        <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
+        <TdContent :value="rowData.scope.environment" />
+      </template>
+
+      <ExportButton
+        slot="export"
+        url="hosts/technologies/oracle/databases"
+        expName="oracleDbs"
+      />
+    </FullTable>
+
+    <div slot="right">
+      <BaseLayoutColumns
+        :pageCols="[
+          { colsize: '6', slotName: 'cpu' },
+          { colsize: '6', slotName: 'memory' }
+        ]"
       >
-        <DynamicHeading
-          slot="headData"
-          v-for="head in oracleHead"
-          :key="head.sort"
-          :data="head"
-        />
+        <OracleCpu slot="cpu" />
+        <OracleMemory slot="memory" />
+      </BaseLayoutColumns>
 
-        <template slot="bodyData" slot-scope="rowData">
-          <TdContent :value="rowData.scope.name" />
-          <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
-          <TdContent :value="rowData.scope.uniqueName" />
-          <TdIcon
-            :value="rowData.scope.archivelog"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
-          />
-          <TdIcon
-            :value="rowData.scope.dataguard"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
-          />
-          <TdIcon
-            :value="rowData.scope.ha"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
-          />
-          <TdContent
-            :value="rowData.scope.datafileSize | formatNumber('0.00')"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
-          />
-          <TdContent
-            :value="rowData.scope.segmentsSize | formatNumber('0.00')"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
-          />
-          <TdContent
-            :value="rowData.scope.charset"
-            :class="{ 'is-hidden': moreInfoToggle.hiddenCharset }"
-          />
-          <TdContent :value="rowData.scope.version" />
-          <TdContent :value="rowData.scope.work | formatNumber('0')" />
-          <TdContent :value="rowData.scope.cpuCount" />
-          <TdContent :value="rowData.scope.blockSize" />
-          <TdContent :value="rowData.scope.status" />
-          <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
-          <TdContent :value="rowData.scope.environment" />
-        </template>
+      <BaseLayoutColumns :pageCols="[{ colSize: '12', slotName: 'storage' }]">
+        <OracleStorage slot="storage" />
+      </BaseLayoutColumns>
 
-        <ExportButton
-          slot="export"
-          url="hosts/technologies/oracle/databases"
-          expName="oracleDbs"
-        />
-      </FullTable>
+      <Top3Workload slot="workload" />
+      <Top3Reclaimable slot="reclaimable" />
+      <OracleCharts slot="charts" />
     </div>
-  </div>
+  </ToggleColumns>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
+import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -80,10 +105,18 @@ import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
 import oraclesMoreInfo from '@/components/databases/oracle/oracle-more-info.json'
 import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
 import oracleHead from '@/components/databases/oracle/oracle-head.json'
+import Top3Workload from '@/components/databases/oracle/Top3Workload.vue'
+import Top3Reclaimable from '@/components/databases/oracle/Top3Reclaimable.vue'
+import OracleCharts from '@/components/databases/oracle/OracleCharts.vue'
+import OracleCpu from '@/components/databases/oracle/OracleCpu.vue'
+import OracleMemory from '@/components/databases/oracle/OracleMemory.vue'
+import OracleStorage from '@/components/databases/oracle/OracleStorage.vue'
 
 export default {
   mixins: [hostnameLinkRow, getHeadKeys],
   components: {
+    ToggleColumns,
+    BaseLayoutColumns,
     FullTable,
     ExportButton,
     TdContent,
@@ -91,7 +124,13 @@ export default {
     HostLink,
     OracleFilters,
     MoreInfoButtons,
-    DynamicHeading
+    DynamicHeading,
+    Top3Workload,
+    Top3Reclaimable,
+    OracleCharts,
+    OracleCpu,
+    OracleMemory,
+    OracleStorage
   },
   data() {
     return {
