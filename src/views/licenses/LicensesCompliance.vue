@@ -1,5 +1,9 @@
 <template>
-  <ToggleColumns leftButton="Advanced Filters" :centerCol="9" v-if="isMounted">
+  <ToggleColumns
+    :leftButton="$t('common.forms.advancedFilters')"
+    :centerCol="9"
+    v-if="isMounted"
+  >
     <LicensesComplianceFilters slot="left" />
     <FullTable
       slot="center"

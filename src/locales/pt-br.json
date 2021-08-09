@@ -93,7 +93,8 @@
       "patching": "Sem Patch | Com Patch"
     },
     "licenses": {
-      "addAgreement": "Adicionar ou modificar um contrato Oracle",
+      "agreeForm": "Formulário de Contrato",
+      "addAgreement": "Adicionar ou modificar um Contrato de Licença Oracle",
       "dbList": "Lista de Bancos de Dados"
     },
     "alerts": {
@@ -119,7 +120,8 @@
       "delete": "Excluir",
       "edit": "Editar",
       "fullDesc": "Mostrar Descrição Completa",
-      "close": "Fechar"
+      "close": "Fechar",
+      "sideInfo": "Informação Extra"
     },
     "forms": {
       "advancedFilters": "Filtros Avançados",

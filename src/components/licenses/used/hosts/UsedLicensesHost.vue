@@ -1,5 +1,8 @@
 <template>
-  <ToggleColumns leftButton="Advanced Filters" :centerCol="9">
+  <ToggleColumns
+    :leftButton="$t('common.forms.advancedFilters')"
+    :centerCol="9"
+  >
     <UsedLicensesHostFilters slot="left" />
 
     <FullTable
