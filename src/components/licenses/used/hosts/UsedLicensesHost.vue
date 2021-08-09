@@ -1,9 +1,9 @@
 <template>
-  <BaseLayoutColumns>
-    <UsedLicensesHostFilters slot="col1" />
+  <ToggleColumns leftButton="Advanced Filters" :centerCol="9">
+    <UsedLicensesHostFilters slot="left" />
 
     <FullTable
-      slot="col2"
+      slot="center"
       :placeholder="$t('menu.licUsed')"
       :urlSearchParam="partNumber"
       :keys="keys"
@@ -47,14 +47,14 @@
         expName="licensesUsedPerHosts"
       />
     </FullTable>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
@@ -72,7 +72,7 @@ export default {
     hostnameLinkRow
   ],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     FullTable,
     TdContent,
     HostLink,
