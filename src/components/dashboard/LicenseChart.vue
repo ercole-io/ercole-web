@@ -1,29 +1,30 @@
 <template>
-  <BoxContent :title="$t('views.dashboard.licensesX')">
-    <div slot="customTitle" class="mr-1">
-      <GhostLoading :isLoading="loading" setHeight="30" setWidth="430">
-        <b-field>
-          <b-select
-            placeholder="Select a type"
-            size="is-small"
-            v-model="selectedType"
-            @change.native="mountLincenseChart"
-          >
-            <option
-              v-for="(type, index) in getChartLicenseHistory"
-              :value="type.licenseTypeID"
-              :key="index"
+  <div>
+    <div class="range-dates mt-0 mb-4">
+      <div class="mr-2">
+        <GhostLoading :isLoading="loading" setHeight="30" setWidth="430">
+          <b-field>
+            <b-select
+              placeholder="Select a type"
+              size="is-small"
+              v-model="selectedType"
+              @change.native="mountLincenseChart"
             >
-              {{ type.licenseTypeID }} <span v-if="type.licenseTypeID">-</span>
-              {{ type.itemDescription }} <span v-if="type.metric">-</span>
-              {{ type.metric }}
-            </option>
-          </b-select>
-        </b-field>
-      </GhostLoading>
-    </div>
+              <option
+                v-for="(type, index) in getChartLicenseHistory"
+                :value="type.licenseTypeID"
+                :key="index"
+              >
+                {{ type.licenseTypeID }}
+                <span v-if="type.licenseTypeID">-</span>
+                {{ type.itemDescription }} <span v-if="type.metric">-</span>
+                {{ type.metric }}
+              </option>
+            </b-select>
+          </b-field>
+        </GhostLoading>
+      </div>
 
-    <div class="range-dates mr-0">
       <div class="mr-2">
         <GhostLoading :isLoading="loading" setHeight="30" setWidth="150">
           <b-datepicker
@@ -78,7 +79,7 @@
         style="min-height: 200px"
       />
     </GhostLoading>
-  </BoxContent>
+  </div>
 </template>
 
 <script>
@@ -86,7 +87,6 @@ import _ from 'lodash'
 import moment from 'moment'
 import { mapActions, mapGetters } from 'vuex'
 import formatDate from '@/filters/formatDate.js'
-import BoxContent from '@/components/common/BoxContent.vue'
 import LineChart from '@/components/common/charts/LineChart.vue'
 import NoContent from '@/components/common/NoContent.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
@@ -124,7 +124,6 @@ const loopLicenseTypeValues = values => {
 export default {
   components: {
     LineChart,
-    BoxContent,
     NoContent,
     GhostLoading
   },
