@@ -82,7 +82,7 @@ export const getters = {
 
       if (checkRangeDate(newDate, rootState.rangeDates.rangeDatesAlt)) {
         organizeData.push({
-          date: moment(date).format('YYYY-MM-DD'),
+          date: moment(date).format('ll'),
           value: cores
         })
       }
