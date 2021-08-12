@@ -78,6 +78,9 @@ const Unauthorized = lazy(() =>
 const NotFound = lazy(() =>
   import(/* webpackPreload: true */ '@/views/Errors/NotFound.vue')
 )
+const CloudRecommendation = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/cloud/Recommendations.vue')
+)
 
 Vue.use(VueRouter)
 
@@ -346,6 +349,17 @@ const routes = [
       label: i18n.t('menu.alerts'),
       title: `${title}${i18n.t('menu.alerts')}`,
       breadcrumb: [{ name: i18n.t('menu.alerts') }]
+    },
+    beforeEnter: verifyAuth
+  },
+  {
+    path: '/cloud-recommendations',
+    name: 'cloud-recommendations',
+    component: CloudRecommendation,
+    meta: {
+      label: i18n.t('menu.cloudRec'),
+      title: `${title}${i18n.t('menu.cloudRec')}`,
+      breadcrumb: [{ name: i18n.t('menu.cloudRec') }]
     },
     beforeEnter: verifyAuth
   },
