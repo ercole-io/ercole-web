@@ -86,6 +86,7 @@
 import _ from 'lodash'
 import moment from 'moment'
 import { mapActions, mapGetters } from 'vuex'
+import { getKeyValuePair } from '@/helpers/helpers.js'
 import formatDate from '@/filters/formatDate.js'
 import LineChart from '@/components/common/charts/LineChart.vue'
 import NoContent from '@/components/common/NoContent.vue'
@@ -111,14 +112,6 @@ const mapLicenseType = (history, type, dateRange) => {
   })
 
   return historyByType
-}
-const loopLicenseTypeValues = values => {
-  const result = {}
-  for (const prop in values) {
-    result[values[prop].date] = values[prop].value
-  }
-
-  return result
 }
 
 export default {
@@ -163,8 +156,8 @@ export default {
       const purchased = mapLicenseType(findType.history, 'purchased', dateRange)
       const used = mapLicenseType(findType.history, 'used', dateRange)
 
-      const resultPurchased = loopLicenseTypeValues(purchased)
-      const resultUsed = loopLicenseTypeValues(used)
+      const resultPurchased = getKeyValuePair(purchased, 'date', 'value')
+      const resultUsed = getKeyValuePair(used, 'date', 'value')
 
       const finalData = this.buildFinalData(resultPurchased, resultUsed)
 
@@ -194,7 +187,7 @@ export default {
       const today = moment(new Date(), 'YYYY/MM/DD')
       this.startDate = new Date(
         moment()
-          .subtract(30, 'days')
+          .subtract(31, 'days')
           .format('YYYY-MM-DD')
       )
       this.endDate = new Date(moment().format(`YYYY-MM-${today.format('DD')}`))

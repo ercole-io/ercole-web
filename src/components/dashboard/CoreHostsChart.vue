@@ -2,7 +2,7 @@
   <div>
     <RangeDates
       :setRange="SET_RANGE_DATES_ALT"
-      totalRange="30"
+      totalRange="31"
       class="mt-0 mb-4"
     />
     <LineChart
