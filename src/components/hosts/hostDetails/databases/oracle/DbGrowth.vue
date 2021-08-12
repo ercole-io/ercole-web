@@ -42,8 +42,7 @@ export default {
   },
   data() {
     return {
-      chartData: [],
-      dynamicType: null
+      chartData: []
     }
   },
   methods: {
