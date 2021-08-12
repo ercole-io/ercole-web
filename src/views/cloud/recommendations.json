@@ -1,0 +1,315 @@
+[
+    {
+        "id": "ocid1.optimizerrecommendation.oc1..aaaaaaaanptucivsbo24dkml7exd2fldalykkz52gld3nk3jt5c2e4ydgzjq",
+        "compartmentId": "ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q",
+        "categoryId": "ocid1.optimizercategory.oc1..aaaaaaaaqeiskhuyp4pr7tohuooyujgyjmcq6cibc3btq6na62ev4ytz7ppa",
+        "name": "cost-management-load-balancer-underutilized-name",
+        "description": "cost-management-load-balancer-underutilized-desc",
+        "importance": "MODERATE",
+        "resourceCounts": [
+            {
+                "status": "PENDING",
+                "count": 1
+            },
+            {
+                "status": "DISMISSED",
+                "count": 0
+            },
+            {
+                "status": "IMPLEMENTED",
+                "count": 0
+            },
+            {
+                "status": "POSTPONED",
+                "count": 0
+            }
+        ],
+        "lifecycleState": "ACTIVE",
+        "estimatedCostSaving": 1.92,
+        "status": "PENDING",
+        "timeStatusBegin": "2021-07-14T21:08:23.114Z",
+        "timeStatusEnd": null,
+        "timeCreated": "2021-07-14T21:08:23.114Z",
+        "timeUpdated": "2021-07-14T21:08:23.114Z",
+        "supportedLevels": {
+            "items": [
+                {
+                    "name": "cost-lbaas_standard_max"
+                },
+                {
+                    "name": "cost-lbaas_conservative_max"
+                },
+                {
+                    "name": "cost-lbaas_aggressive_max"
+                }
+            ]
+        },
+        "extendedMetadata": null
+    },
+    {
+        "id": "ocid1.optimizerrecommendation.oc1..aaaaaaaadtjdkfx7efwea7czmq5apuyr3oholubrjn5k4udaoka6ftf7m65a",
+        "compartmentId": "ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q",
+        "categoryId": "ocid1.optimizercategory.oc1..aaaaaaaaqeiskhuyp4pr7tohuooyujgyjmcq6cibc3btq6na62ev4ytz7ppa",
+        "name": "cost-management-boot-volume-attachment-name",
+        "description": "cost-management-boot-volume-attachment-desc",
+        "importance": "MODERATE",
+        "resourceCounts": [
+            {
+                "status": "PENDING",
+                "count": 2
+            },
+            {
+                "status": "DISMISSED",
+                "count": 0
+            },
+            {
+                "status": "IMPLEMENTED",
+                "count": 0
+            },
+            {
+                "status": "POSTPONED",
+                "count": 0
+            }
+        ],
+        "lifecycleState": "ACTIVE",
+        "estimatedCostSaving": 1.61,
+        "status": "PENDING",
+        "timeStatusBegin": "2021-02-19T18:47:54.990Z",
+        "timeStatusEnd": null,
+        "timeCreated": "2021-02-19T18:47:54.990Z",
+        "timeUpdated": "2021-02-19T18:47:54.990Z",
+        "supportedLevels": null,
+        "extendedMetadata": null
+    },
+    {
+        "id": "ocid1.optimizerrecommendation.oc1..aaaaaaaaw3kvofgg5j4hcswcjdmqryu4rgzwp2ocsput6akakr6vxyyokxnq",
+        "compartmentId": "ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q",
+        "categoryId": "ocid1.optimizercategory.oc1..aaaaaaaaqeiskhuyp4pr7tohuooyujgyjmcq6cibc3btq6na62ev4ytz7ppa",
+        "name": "cost-management-compute-host-terminated-name",
+        "description": "cost-management-compute-host-terminated-desc",
+        "importance": "CRITICAL",
+        "resourceCounts": [
+            {
+                "status": "PENDING",
+                "count": 1
+            },
+            {
+                "status": "IMPLEMENTED",
+                "count": 1
+            },
+            {
+                "status": "DISMISSED",
+                "count": 0
+            },
+            {
+                "status": "POSTPONED",
+                "count": 0
+            }
+        ],
+        "lifecycleState": "ACTIVE",
+        "estimatedCostSaving": 10.59,
+        "status": "PENDING",
+        "timeStatusBegin": "2021-02-12T18:42:43.141Z",
+        "timeStatusEnd": null,
+        "timeCreated": "2021-02-12T18:42:43.141Z",
+        "timeUpdated": "2021-02-12T18:42:43.141Z",
+        "supportedLevels": null,
+        "extendedMetadata": null
+    },
+    {
+        "id": "ocid1.optimizerrecommendation.oc1..aaaaaaaapduyytcacqxvn24xryrce7b3nuxbtulmqbmir47lx3i3rx7x3viq",
+        "compartmentId": "ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q",
+        "categoryId": "ocid1.optimizercategory.oc1..aaaaaaaaqeiskhuyp4pr7tohuooyujgyjmcq6cibc3btq6na62ev4ytz7ppa",
+        "name": "cost-management-autonomous-database-underutilized-name",
+        "description": "cost-management-autonomous-database-underutilized-desc",
+        "importance": "MODERATE",
+        "resourceCounts": [
+            {
+                "status": "PENDING",
+                "count": 0
+            },
+            {
+                "status": "DISMISSED",
+                "count": 0
+            },
+            {
+                "status": "POSTPONED",
+                "count": 0
+            },
+            {
+                "status": "IMPLEMENTED",
+                "count": 0
+            }
+        ],
+        "lifecycleState": "ACTIVE",
+        "estimatedCostSaving": 0,
+        "status": "PENDING",
+        "timeStatusBegin": "2020-10-30T07:44:27.808Z",
+        "timeStatusEnd": null,
+        "timeCreated": "2020-10-30T07:44:27.808Z",
+        "timeUpdated": "2020-10-30T07:44:27.808Z",
+        "supportedLevels": null,
+        "extendedMetadata": null
+    },
+    {
+        "id": "ocid1.optimizerrecommendation.oc1..aaaaaaaa6lifbdmtt55q5rwmmp4nhhvdsohmlj5ezdlv522loc7c2bpcqa2a",
+        "compartmentId": "ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q",
+        "categoryId": "ocid1.optimizercategory.oc1..aaaaaaaaqeiskhuyp4pr7tohuooyujgyjmcq6cibc3btq6na62ev4ytz7ppa",
+        "name": "cost-management-block-volume-attachment-name",
+        "description": "cost-management-block-volume-attachment-desc",
+        "importance": "MODERATE",
+        "resourceCounts": [
+            {
+                "status": "PENDING",
+                "count": 8
+            },
+            {
+                "status": "DISMISSED",
+                "count": 0
+            },
+            {
+                "status": "IMPLEMENTED",
+                "count": 0
+            },
+            {
+                "status": "POSTPONED",
+                "count": 0
+            }
+        ],
+        "lifecycleState": "ACTIVE",
+        "estimatedCostSaving": 11.8,
+        "status": "PENDING",
+        "timeStatusBegin": "2020-10-30T07:44:27.808Z",
+        "timeStatusEnd": null,
+        "timeCreated": "2020-10-30T07:44:27.808Z",
+        "timeUpdated": "2020-10-30T07:44:27.808Z",
+        "supportedLevels": null,
+        "extendedMetadata": null
+    },
+    {
+        "id": "ocid1.optimizerrecommendation.oc1..aaaaaaaa623kye5cs4d7tkwvicizre3hhgmcu2hnfkpkw6xliniqqqf2xz2a",
+        "compartmentId": "ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q",
+        "categoryId": "ocid1.optimizercategory.oc1..aaaaaaaaqeiskhuyp4pr7tohuooyujgyjmcq6cibc3btq6na62ev4ytz7ppa",
+        "name": "cost-management-compute-enable-monitoring-name",
+        "description": "cost-management-compute-enable-monitoring-desc",
+        "importance": "CRITICAL",
+        "resourceCounts": [
+            {
+                "status": "PENDING",
+                "count": 0
+            },
+            {
+                "status": "DISMISSED",
+                "count": 0
+            },
+            {
+                "status": "POSTPONED",
+                "count": 0
+            },
+            {
+                "status": "IMPLEMENTED",
+                "count": 0
+            }
+        ],
+        "lifecycleState": "ACTIVE",
+        "estimatedCostSaving": 0,
+        "status": "PENDING",
+        "timeStatusBegin": "2020-10-30T07:44:27.808Z",
+        "timeStatusEnd": null,
+        "timeCreated": "2020-10-30T07:44:27.808Z",
+        "timeUpdated": "2020-10-30T07:44:27.808Z",
+        "supportedLevels": null,
+        "extendedMetadata": null
+    },
+    {
+        "id": "ocid1.optimizerrecommendation.oc1..aaaaaaaavnra3wc236hif2klnr4pumgojeflmcmqn7gn2r5ylb6kivruc25a",
+        "compartmentId": "ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q",
+        "categoryId": "ocid1.optimizercategory.oc1..aaaaaaaaqeiskhuyp4pr7tohuooyujgyjmcq6cibc3btq6na62ev4ytz7ppa",
+        "name": "cost-management-compute-host-underutilized-name",
+        "description": "cost-management-compute-host-underutilized-desc",
+        "importance": "HIGH",
+        "resourceCounts": [
+            {
+                "status": "PENDING",
+                "count": 0
+            },
+            {
+                "status": "DISMISSED",
+                "count": 0
+            },
+            {
+                "status": "POSTPONED",
+                "count": 0
+            },
+            {
+                "status": "IMPLEMENTED",
+                "count": 0
+            }
+        ],
+        "lifecycleState": "ACTIVE",
+        "estimatedCostSaving": 0,
+        "status": "PENDING",
+        "timeStatusBegin": "2020-10-30T07:44:27.808Z",
+        "timeStatusEnd": null,
+        "timeCreated": "2020-10-30T07:44:27.808Z",
+        "timeUpdated": "2020-10-30T07:44:27.808Z",
+        "supportedLevels": {
+            "items": [
+                {
+                    "name": "cost-compute_conservative_average"
+                },
+                {
+                    "name": "cost-compute_standard_average"
+                },
+                {
+                    "name": "cost-compute_aggressive_average"
+                },
+                {
+                    "name": "cost-compute_standard_p95"
+                },
+                {
+                    "name": "cost-compute_conservative_p95"
+                },
+                {
+                    "name": "cost-compute_aggressive_p95"
+                }
+            ]
+        },
+        "extendedMetadata": null
+    },
+    {
+        "id": "ocid1.optimizerrecommendation.oc1..aaaaaaaa6runlvt3n53d5534mfail3w2lo7nt64ijp5i4sxxhxrn2n2pqmsq",
+        "compartmentId": "ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q",
+        "categoryId": "ocid1.optimizercategory.oc1..aaaaaaaaqeiskhuyp4pr7tohuooyujgyjmcq6cibc3btq6na62ev4ytz7ppa",
+        "name": "cost-management-object-storage-enable-olm-name",
+        "description": "cost-management-object-storage-enable-olm-name",
+        "importance": "MODERATE",
+        "resourceCounts": [
+            {
+                "status": "PENDING",
+                "count": 6
+            },
+            {
+                "status": "DISMISSED",
+                "count": 0
+            },
+            {
+                "status": "IMPLEMENTED",
+                "count": 0
+            },
+            {
+                "status": "POSTPONED",
+                "count": 0
+            }
+        ],
+        "lifecycleState": "ACTIVE",
+        "estimatedCostSaving": 0,
+        "status": "PENDING",
+        "timeStatusBegin": "2020-10-30T07:44:27.808Z",
+        "timeStatusEnd": null,
+        "timeCreated": "2020-10-30T07:44:27.808Z",
+        "timeUpdated": "2020-10-30T07:44:27.808Z",
+        "supportedLevels": null,
+        "extendedMetadata": null
+    }
+]

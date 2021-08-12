@@ -22,7 +22,8 @@
     "licenses": "Licenças",
     "licAgreements": "Acordo de Licença",
     "licCompliance": "Conformidade de Licenças",
-    "licUsed": "Licenças Usadas"
+    "licUsed": "Licenças Usadas",
+    "cloudRec": "Recomendações de Cloud"
   },
   "header": {
     "logout": "Sair"

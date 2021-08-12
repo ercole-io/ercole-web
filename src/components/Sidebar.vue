@@ -127,6 +127,11 @@ export default {
               icon: 'fas fa-cog'
             }
           ]
+        },
+        {
+          href: { name: 'cloud-recommendations' },
+          title: this.$i18n.t('menu.cloudRec'),
+          icon: 'fas fa-cloud'
         }
         // {
         //   href: { name: 'settings' },
