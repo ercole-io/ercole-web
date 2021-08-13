@@ -357,9 +357,9 @@ const routes = [
     name: 'cloud-recommendations',
     component: CloudRecommendation,
     meta: {
-      label: i18n.t('menu.cloudRec'),
-      title: `${title}${i18n.t('menu.cloudRec')}`,
-      breadcrumb: [{ name: i18n.t('menu.cloudRec') }]
+      label: i18n.t('menu.recommendations'),
+      title: `${title}${i18n.t('menu.recommendations')}`,
+      breadcrumb: [{ name: i18n.t('menu.recommendations') }]
     },
     beforeEnter: verifyAuth
   },
