@@ -139,7 +139,8 @@
       "choose": "Scegliere",
       "or": "o",
       "hide": "Nascondi {0}",
-      "show": "Mostra {0}"
+      "show": "Mostra {0}",
+      "signIn": "Accesso"
     },
     "fields": {
       "username": "Nome Utente",
@@ -347,7 +348,7 @@
     },
     "validations": {
       "requiredAlt": "Questo campo è obbligatorio.",
-      "required": "Il campo {fieldname} è obbligatorio.",
+      "required": "Il campo {0} è obbligatorio.",
       "onlyNumbers": "Questo campo accetta solo numeri.",
       "characters": "{0} deve contenere almeno {1} caratteri",
       "loginUnauthorized": "Nome utente o password non valido.",
