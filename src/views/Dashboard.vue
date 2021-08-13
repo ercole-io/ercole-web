@@ -12,7 +12,7 @@
         </div>
         <div class="columns">
           <div class="column is-12">
-            <LicensesChart />
+            <DashboardTabs />
           </div>
         </div>
       </div>
@@ -32,16 +32,14 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapActions } from 'vuex'
 import TotalTargets from '@/components/dashboard/TotalTargets.vue'
 import Technologies from '@/components/dashboard/technologies/Technologies.vue'
-// import ChartTabs from '@/components/dashboard/ChartTabs.vue'
-import LicensesChart from '@/components/dashboard/LicenseChart.vue'
+import DashboardTabs from '@/components/dashboard/DashboardTabs.vue'
 import Alerts from '@/components/dashboard/alerts/Alerts.vue'
 
 export default {
   components: {
     TotalTargets,
     Technologies,
-    // ChartTabs,
-    LicensesChart,
+    DashboardTabs,
     Alerts
   },
   async beforeMount() {

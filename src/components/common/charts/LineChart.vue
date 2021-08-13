@@ -4,7 +4,7 @@
     :data="lineChartData"
     :dataset="{ borderWidth: 0 }"
     :download="{ background: '#fff' }"
-    legend="bottom"
+    :legend="hasLegend"
     :discrete="discrete"
     :messages="{ empty: 'No data' }"
     :curve="false"
@@ -25,6 +25,10 @@ export default {
     discrete: {
       type: Boolean,
       default: false
+    },
+    hasLegend: {
+      type: [String, Boolean],
+      default: 'bottom'
     }
   }
 }
