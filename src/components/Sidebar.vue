@@ -129,9 +129,15 @@ export default {
           ]
         },
         {
-          href: { name: 'cloud-recommendations' },
-          title: this.$i18n.t('menu.cloudRec'),
-          icon: 'fas fa-cloud'
+          title: this.$i18n.t('menu.cloudAdvisor'),
+          icon: 'fas fa-cloud',
+          child: [
+            {
+              href: { name: 'cloud-recommendations' },
+              title: this.$i18n.t('menu.recommendations'),
+              icon: 'fas fa-cog'
+            }
+          ]
         }
         // {
         //   href: { name: 'settings' },
