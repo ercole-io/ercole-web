@@ -140,7 +140,8 @@
       "choose": "Choose",
       "or": "or",
       "hide": "Hide {0}",
-      "show": "Show {0}"
+      "show": "Show {0}",
+      "signIn": "Sign In"
     },
     "fields": {
       "username": "Username",

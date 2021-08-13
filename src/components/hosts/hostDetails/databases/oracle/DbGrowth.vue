@@ -2,7 +2,7 @@
   <b-tab-item label="DB Growth" v-if="growth.length > 0">
     <RangeDates
       :setRange="SET_RANGE_DATES_ALT"
-      totalRange="30"
+      totalRange="31"
       class="mt-0 mr-0"
     />
     <LineChart
@@ -17,7 +17,11 @@
 import _ from 'lodash'
 import moment from 'moment'
 import { mapMutations, mapState } from 'vuex'
-import { setRangeDateFormat, checkRangeDate } from '@/helpers/helpers.js'
+import {
+  setRangeDateFormat,
+  checkRangeDate,
+  getKeyValuePair
+} from '@/helpers/helpers.js'
 import LineChart from '@/components/common/charts/LineChart.vue'
 import RangeDates from '@/components/common/RangeDates.vue'
 
@@ -38,8 +42,7 @@ export default {
   },
   data() {
     return {
-      chartData: [],
-      dynamicType: null
+      chartData: []
     }
   },
   methods: {
@@ -61,7 +64,7 @@ export default {
 
       _.reverse(datafile)
 
-      return this.mountFinalData(datafile)
+      return getKeyValuePair(datafile, 'date', 'value')
     },
     calcSegmentsSize() {
       const segments = []
@@ -80,7 +83,7 @@ export default {
 
       _.reverse(segments)
 
-      return this.mountFinalData(segments)
+      return getKeyValuePair(segments, 'date', 'value')
     },
     calcAllocatedSize() {
       const allocated = []
@@ -99,15 +102,7 @@ export default {
 
       _.reverse(allocated)
 
-      return this.mountFinalData(allocated)
-    },
-    mountFinalData(result) {
-      const finalResult = {}
-      for (const prop in result) {
-        finalResult[result[prop].date] = result[prop].value
-      }
-
-      return finalResult
+      return getKeyValuePair(allocated, 'date', 'value')
     }
   },
   computed: {
