@@ -9,6 +9,9 @@
       <v-th sortKey="name">
         Recommendation
       </v-th>
+      <v-th sortKey="type">
+        Cloud Infrastructure
+      </v-th>
       <v-th sortKey="resourceCounts[0].count">
         Pending
       </v-th>
@@ -21,22 +24,15 @@
       <v-th sortKey="importance">
         Importance
       </v-th>
-      <v-th sortKey="resourceCounts[0].count">
-        Dismissed/Postponed
-      </v-th>
-      <v-th sortKey="resourceCounts[0].count">
-        Implemented
-      </v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
       <TdContent :value="rowData.scope.name" />
+      <TdContent :value="rowData.scope.type" />
       <TdContent :value="rowData.scope.resourceCounts[0].count" />
       <TdContent :value="`€${rowData.scope.estimatedCostSaving}/month`" />
       <TdContent :value="rowData.scope.lifecycleState" />
       <TdContent :value="rowData.scope.importance" />
-      <TdContent :value="rowData.scope.resourceCounts[0].count" />
-      <TdContent :value="rowData.scope.resourceCounts[0].count" />
     </template>
   </FullTable>
 </template>
