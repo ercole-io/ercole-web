@@ -2,11 +2,11 @@
   { "sort": "name", 
     "langKey": "common.collumns.name" 
   },
-  { "sort": "hostname", 
-    "langKey": "common.collumns.hostname" 
-  },
   { "sort": "uniqueName", 
     "langKey": "common.collumns.uniqueName" 
+  },
+  { "sort": "hostname", 
+    "langKey": "common.collumns.hostname" 
   },
   {
     "sort": "archivelog",
