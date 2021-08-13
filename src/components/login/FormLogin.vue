@@ -25,7 +25,7 @@
       />
       <template #message>
         <div v-if="!$v.username.required && $v.username.$error">
-          {{ required('username') }}
+          {{ required($t('common.fields.username')) }}
         </div>
         <!-- <div v-if="!$v.username.minLen && $v.username.$error">
           {{ characters('username', '4') }}
@@ -51,7 +51,7 @@
       />
       <template #message>
         <div v-if="!$v.password.required && $v.password.$error">
-          {{ required('password') }}
+          {{ required($t('common.fields.password')) }}
         </div>
         <!-- <div v-if="!$v.password.minLen && $v.password.$error">
           {{ characters('password', '8') }}
@@ -65,7 +65,7 @@
       expanded
       data-submit
     >
-      Sign in
+      {{ $t('common.forms.signIn') }}
     </b-button>
 
     <ErrorMsg />
