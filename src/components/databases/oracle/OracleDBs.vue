@@ -26,8 +26,8 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <TdContent :value="rowData.scope.name" />
-        <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
         <TdContent :value="rowData.scope.uniqueName" />
+        <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
         <TdIcon
           :value="rowData.scope.archivelog"
           :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
