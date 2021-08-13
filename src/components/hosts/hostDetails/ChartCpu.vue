@@ -10,7 +10,7 @@
       :btnLabelText="$t('views.hostDetails.compareDb')"
       slot="customTitle"
     />
-    <RangeDates :setRange="SET_RANGE_DATES" totalRange="30" />
+    <RangeDates :setRange="SET_RANGE_DATES" totalRange="31" />
     <div class="chart-space">
       <LineChart
         chartId="lineChart"

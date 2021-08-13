@@ -2,10 +2,10 @@
   <b-tabs
     size="is-small"
     type="is-boxed"
-    :animated="true"
     v-model="isActive"
     @input="onChange"
-    :destroy-on-hide="true"
+    destroy-on-hide
+    animated
   >
     <template v-for="(dbs, i) in currentDBs">
       <b-tab-item :key="i" :label="dbs.name">
@@ -13,8 +13,8 @@
           size="is-small"
           type="is-toggle"
           vertical
-          :animated="true"
-          :destroy-on-hide="true"
+          animated
+          destroy-on-hide
         >
           <DbInfo :dbInfo="dbs" />
           <!-- <DbTags
