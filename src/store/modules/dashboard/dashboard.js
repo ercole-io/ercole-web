@@ -1,8 +1,12 @@
-// import axiosNoLoading from '@/axios/axios-default.js'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
-// import axiosChart from '@/axios/axios-chart.js'
-import axiosChartNoLoading from '@/axios/axios-chart-no-loading.js'
 import _ from 'lodash'
+import moment from 'moment'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
+import axiosChartNoLoading from '@/axios/axios-chart-no-loading.js'
+import {
+  setRangeDateFormat,
+  checkRangeDate,
+  getKeyValuePair
+} from '@/helpers/helpers.js'
 
 const getExtraTechInfo = (techName, techs) => {
   const tech = _.find(techs, t => {
@@ -20,7 +24,8 @@ const getExtraTechInfo = (techName, techs) => {
 export const state = () => ({
   totalTarget: {},
   techDash: {},
-  licenceHistory: {}
+  licenceHistory: {},
+  coreHosts: {}
 })
 
 export const getters = {
@@ -67,6 +72,29 @@ export const getters = {
     })
 
     return data
+  },
+  getChartCoreHosts: (state, getters, rootState) => {
+    const organizeData = []
+
+    _.map(state.coreHosts, val => {
+      const { cores, date } = val
+      let newDate = setRangeDateFormat(date)
+
+      if (checkRangeDate(newDate, rootState.rangeDates.rangeDatesAlt)) {
+        organizeData.push({
+          date: moment(date).format('ll'),
+          value: cores
+        })
+      }
+    })
+
+    const coreHostsData = []
+    coreHostsData.push({
+      name: '',
+      data: getKeyValuePair(organizeData, 'date', 'value')
+    })
+
+    return coreHostsData
   }
 }
 
@@ -77,6 +105,9 @@ export const mutations = {
   },
   SET_LICENSE_HISTORY: (state, payload) => {
     state.licenceHistory = payload
+  },
+  SET_CORE_HOSTS: (state, payload) => {
+    state.coreHosts = payload
   }
 }
 
@@ -95,5 +126,11 @@ export const actions = {
     const response = await licenseHistory.data.licenseComplianceHistory
 
     commit('SET_LICENSE_HISTORY', response)
+  },
+  async getCoreHosts({ commit }) {
+    const hostsCore = await axiosChartNoLoading.get('/host/cores')
+    const response = await hostsCore.data.coresHistory
+
+    commit('SET_CORE_HOSTS', response)
   }
 }

@@ -216,3 +216,13 @@ export const checkRangeDate = (date, range) => {
   }
 }
 // END: functions to use with range dates
+
+// INIT: Line chart loop key/value
+export const getKeyValuePair = (data, key1, key2) => {
+  const result = {}
+  for (const prop in data) {
+    result[data[prop][key1]] = data[prop][key2]
+  }
+  return result
+}
+// END: Line chart loop key/value
