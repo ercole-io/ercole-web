@@ -1,5 +1,10 @@
 <template>
-  <b-dropdown v-model="$i18n.locale" aria-role="list">
+  <b-dropdown
+    v-model="$i18n.locale"
+    aria-role="list"
+    :class="{ isAbsolute: 'isAbsolute' }"
+    :position="dropitemPosition"
+  >
     <template #trigger>
       <b-icon
         size="is-medium"
@@ -34,6 +39,16 @@
 import { getSupportedLocales } from '@/util/supported-locales.js'
 
 export default {
+  props: {
+    isAbsolute: {
+      type: Boolean,
+      default: false
+    },
+    dropitemPosition: {
+      type: String,
+      default: 'is-bottom-right'
+    }
+  },
   data() {
     return {
       locales: getSupportedLocales()
@@ -52,4 +67,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.isAbsolute {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+</style>
