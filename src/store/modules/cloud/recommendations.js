@@ -5,8 +5,8 @@ export const state = () => ({
 })
 
 export const getters = {
-  getRecommendations: state => {
-    return state.recommendations
+  getRecommendations: (state, getters) => {
+    return getters.filteredOrNot(state.recommendations)
   }
 }
 

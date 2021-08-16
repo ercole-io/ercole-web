@@ -12,7 +12,7 @@
       <v-th sortKey="type">
         Cloud Infrastructure
       </v-th>
-      <v-th sortKey="resourceCounts[0].count">
+      <v-th sortKey="pending">
         Pending
       </v-th>
       <v-th sortKey="estimatedCostSaving">
@@ -29,25 +29,29 @@
     <template slot="bodyData" slot-scope="rowData">
       <TdContent :value="rowData.scope.name" />
       <TdContent :value="rowData.scope.type" />
-      <TdContent :value="rowData.scope.resourceCounts[0].count" />
+      <TdContent :value="rowData.scope.pending" />
       <TdContent :value="`€${rowData.scope.estimatedCostSaving}/month`" />
       <TdContent :value="rowData.scope.lifecycleState" />
       <TdContent :value="rowData.scope.importance" />
     </template>
+
+    <ExportButton slot="export" url="" expName="cloudRecommendations" />
   </FullTable>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
-import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
   mixins: [getHeadKeys],
   components: {
     FullTable,
-    TdContent
+    TdContent,
+    ExportButton
   },
   computed: {
     ...mapGetters(['getRecommendations'])
