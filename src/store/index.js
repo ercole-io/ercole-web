@@ -30,6 +30,7 @@ import * as agreementParts from './modules/agreement-parts'
 import * as rangeDates from './modules/range-dates'
 import * as moreInfoToggle from '@/store/modules/more-info-toggle.js'
 import * as columnToggle from '@/store/modules/columns-toggle.js'
+import * as recommendations from '@/store/modules/cloud/recommendations.js'
 
 Vue.use(Vuex)
 
@@ -62,7 +63,8 @@ export default new Vuex.Store({
     agreementParts,
     rangeDates,
     moreInfoToggle,
-    columnToggle
+    columnToggle,
+    recommendations
   },
   plugins: [
     createPersistedState({
