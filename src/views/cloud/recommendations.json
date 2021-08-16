@@ -6,6 +6,7 @@
         "name": "cost-management-load-balancer-underutilized-name",
         "description": "cost-management-load-balancer-underutilized-desc",
         "importance": "MODERATE",
+        "pending": 1,
         "resourceCounts": [
             {
                 "status": "PENDING",
@@ -53,6 +54,7 @@
         "name": "cost-management-boot-volume-attachment-name",
         "description": "cost-management-boot-volume-attachment-desc",
         "importance": "MODERATE",
+        "pending": 2,
         "resourceCounts": [
             {
                 "status": "PENDING",
@@ -88,6 +90,7 @@
         "name": "cost-management-compute-host-terminated-name",
         "description": "cost-management-compute-host-terminated-desc",
         "importance": "CRITICAL",
+        "pending": 1,
         "resourceCounts": [
             {
                 "status": "PENDING",
@@ -123,6 +126,7 @@
         "name": "cost-management-autonomous-database-underutilized-name",
         "description": "cost-management-autonomous-database-underutilized-desc",
         "importance": "MODERATE",
+        "pending": 0,
         "resourceCounts": [
             {
                 "status": "PENDING",
@@ -158,6 +162,7 @@
         "name": "cost-management-block-volume-attachment-name",
         "description": "cost-management-block-volume-attachment-desc",
         "importance": "MODERATE",
+        "pending": 8,
         "resourceCounts": [
             {
                 "status": "PENDING",
@@ -193,6 +198,7 @@
         "name": "cost-management-compute-enable-monitoring-name",
         "description": "cost-management-compute-enable-monitoring-desc",
         "importance": "CRITICAL",
+        "pending": 0,
         "resourceCounts": [
             {
                 "status": "PENDING",
@@ -228,6 +234,7 @@
         "name": "cost-management-compute-host-underutilized-name",
         "description": "cost-management-compute-host-underutilized-desc",
         "importance": "HIGH",
+        "pending": 0,
         "resourceCounts": [
             {
                 "status": "PENDING",
@@ -284,6 +291,7 @@
         "name": "cost-management-object-storage-enable-olm-name",
         "description": "cost-management-object-storage-enable-olm-name",
         "importance": "MODERATE",
+        "pending": 6,
         "resourceCounts": [
             {
                 "status": "PENDING",
