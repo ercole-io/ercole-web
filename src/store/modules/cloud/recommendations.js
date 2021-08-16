@@ -4,6 +4,12 @@ export const state = () => ({
   recommendations: []
 })
 
+export const getters = {
+  getRecommendations: state => {
+    return state.recommendations
+  }
+}
+
 export const mutations = {
   SET_RECOMMENDATIONS: (state, payload) => {
     state.recommendations = payload
