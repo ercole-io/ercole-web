@@ -1,9 +1,10 @@
 <template>
   <FullTable
+    v-if="isMounted"
     slot="center"
     placeholder="Cloud Recommendations"
-    :keys="getHeadKeys(recommendations)"
-    :tableData="recommendations"
+    :keys="getHeadKeys(data)"
+    :tableData="data"
   >
     <template slot="headData">
       <v-th sortKey="name">
@@ -38,10 +39,10 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
-import recommendations from '@/views/cloud/recommendations.json'
 
 export default {
   mixins: [getHeadKeys],
@@ -51,8 +52,21 @@ export default {
   },
   data() {
     return {
-      recommendations: recommendations
+      isMounted: false,
+      data: []
     }
+  },
+  async beforeMount() {
+    await this.getRecommendationsData().then(() => {
+      this.isMounted = true
+    })
+    this.data = this.recommendations.recommendations
+  },
+  methods: {
+    ...mapActions(['getRecommendationsData'])
+  },
+  computed: {
+    ...mapState(['recommendations'])
   }
 }
 </script>
