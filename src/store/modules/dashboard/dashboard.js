@@ -128,7 +128,7 @@ export const actions = {
     commit('SET_LICENSE_HISTORY', response)
   },
   async getCoreHosts({ commit }) {
-    const hostsCore = await axiosChartNoLoading.get('/host/cores')
+    const hostsCore = await axiosChartNoLoading.get('/hosts/cores')
     const response = await hostsCore.data.coresHistory
 
     commit('SET_CORE_HOSTS', response)
