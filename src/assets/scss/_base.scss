@@ -41,3 +41,7 @@
 .color-3 {
   box-shadow: inset 0 -14px 0 -10px #9c4d1e !important;
 }
+
+input[readonly] {
+  cursor: pointer;
+}

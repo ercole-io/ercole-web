@@ -96,6 +96,7 @@ export default {
 
   .range-dates-field {
     width: 100%;
+    max-width: 150px;
   }
 }
 </style>
