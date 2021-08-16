@@ -4,7 +4,8 @@
     v-if="
       $route.name !== 'licenses-agreement' &&
         $route.name !== 'dashboard' &&
-        $route.name !== 'licenses-compliance'
+        $route.name !== 'licenses-compliance' &&
+        $route.name !== 'cloud-recommendations'
     "
   >
     <b-button
