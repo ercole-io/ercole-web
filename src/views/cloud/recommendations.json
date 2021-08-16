@@ -7,6 +7,7 @@
         "description": "cost-management-load-balancer-underutilized-desc",
         "importance": "MODERATE",
         "pending": 1,
+        "type": "Oracle Cloud",
         "resourceCounts": [
             {
                 "status": "PENDING",
@@ -51,10 +52,11 @@
         "id": "ocid1.optimizerrecommendation.oc1..aaaaaaaadtjdkfx7efwea7czmq5apuyr3oholubrjn5k4udaoka6ftf7m65a",
         "compartmentId": "ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q",
         "categoryId": "ocid1.optimizercategory.oc1..aaaaaaaaqeiskhuyp4pr7tohuooyujgyjmcq6cibc3btq6na62ev4ytz7ppa",
-        "name": "cost-management-boot-volume-attachment-name",
+        "name": "Delete unattached boot volumes",
         "description": "cost-management-boot-volume-attachment-desc",
         "importance": "MODERATE",
         "pending": 2,
+        "type": "Oracle Cloud",
         "resourceCounts": [
             {
                 "status": "PENDING",
@@ -87,10 +89,11 @@
         "id": "ocid1.optimizerrecommendation.oc1..aaaaaaaaw3kvofgg5j4hcswcjdmqryu4rgzwp2ocsput6akakr6vxyyokxnq",
         "compartmentId": "ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q",
         "categoryId": "ocid1.optimizercategory.oc1..aaaaaaaaqeiskhuyp4pr7tohuooyujgyjmcq6cibc3btq6na62ev4ytz7ppa",
-        "name": "cost-management-compute-host-terminated-name",
+        "name": "Delete idle compute instances",
         "description": "cost-management-compute-host-terminated-desc",
         "importance": "CRITICAL",
         "pending": 1,
+        "type": "Oracle Cloud",
         "resourceCounts": [
             {
                 "status": "PENDING",
@@ -123,10 +126,11 @@
         "id": "ocid1.optimizerrecommendation.oc1..aaaaaaaapduyytcacqxvn24xryrce7b3nuxbtulmqbmir47lx3i3rx7x3viq",
         "compartmentId": "ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q",
         "categoryId": "ocid1.optimizercategory.oc1..aaaaaaaaqeiskhuyp4pr7tohuooyujgyjmcq6cibc3btq6na62ev4ytz7ppa",
-        "name": "cost-management-autonomous-database-underutilized-name",
+        "name": "Downsize underutilized ADW and ATP databases",
         "description": "cost-management-autonomous-database-underutilized-desc",
         "importance": "MODERATE",
         "pending": 0,
+        "type": "Oracle Cloud",
         "resourceCounts": [
             {
                 "status": "PENDING",
@@ -159,10 +163,11 @@
         "id": "ocid1.optimizerrecommendation.oc1..aaaaaaaa6lifbdmtt55q5rwmmp4nhhvdsohmlj5ezdlv522loc7c2bpcqa2a",
         "compartmentId": "ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q",
         "categoryId": "ocid1.optimizercategory.oc1..aaaaaaaaqeiskhuyp4pr7tohuooyujgyjmcq6cibc3btq6na62ev4ytz7ppa",
-        "name": "cost-management-block-volume-attachment-name",
+        "name": "Delete unattached block volumes",
         "description": "cost-management-block-volume-attachment-desc",
         "importance": "MODERATE",
         "pending": 8,
+        "type": "Oracle Cloud",
         "resourceCounts": [
             {
                 "status": "PENDING",
@@ -195,10 +200,11 @@
         "id": "ocid1.optimizerrecommendation.oc1..aaaaaaaa623kye5cs4d7tkwvicizre3hhgmcu2hnfkpkw6xliniqqqf2xz2a",
         "compartmentId": "ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q",
         "categoryId": "ocid1.optimizercategory.oc1..aaaaaaaaqeiskhuyp4pr7tohuooyujgyjmcq6cibc3btq6na62ev4ytz7ppa",
-        "name": "cost-management-compute-enable-monitoring-name",
+        "name": "Enable monitoring on compute instances",
         "description": "cost-management-compute-enable-monitoring-desc",
         "importance": "CRITICAL",
         "pending": 0,
+        "type": "Oracle Cloud",
         "resourceCounts": [
             {
                 "status": "PENDING",
@@ -231,10 +237,11 @@
         "id": "ocid1.optimizerrecommendation.oc1..aaaaaaaavnra3wc236hif2klnr4pumgojeflmcmqn7gn2r5ylb6kivruc25a",
         "compartmentId": "ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q",
         "categoryId": "ocid1.optimizercategory.oc1..aaaaaaaaqeiskhuyp4pr7tohuooyujgyjmcq6cibc3btq6na62ev4ytz7ppa",
-        "name": "cost-management-compute-host-underutilized-name",
+        "name": "Downsize underutilized compute instances",
         "description": "cost-management-compute-host-underutilized-desc",
         "importance": "HIGH",
         "pending": 0,
+        "type": "Oracle Cloud",
         "resourceCounts": [
             {
                 "status": "PENDING",
@@ -288,10 +295,11 @@
         "id": "ocid1.optimizerrecommendation.oc1..aaaaaaaa6runlvt3n53d5534mfail3w2lo7nt64ijp5i4sxxhxrn2n2pqmsq",
         "compartmentId": "ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q",
         "categoryId": "ocid1.optimizercategory.oc1..aaaaaaaaqeiskhuyp4pr7tohuooyujgyjmcq6cibc3btq6na62ev4ytz7ppa",
-        "name": "cost-management-object-storage-enable-olm-name",
-        "description": "cost-management-object-storage-enable-olm-name",
+        "name": "Enable object lifecycle management",
+        "description": "cost-management-object-storage-enable-olm-dec",
         "importance": "MODERATE",
         "pending": 6,
+        "type": "Oracle Cloud",
         "resourceCounts": [
             {
                 "status": "PENDING",

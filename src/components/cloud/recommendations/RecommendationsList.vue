@@ -1,11 +1,17 @@
 <template>
   <FullTable
-    slot="center"
     placeholder="Cloud Recommendations"
-    :keys="getHeadKeys(getRecommendations)"
+    :keys="getHeadKeys(recommendationHead)"
     :tableData="getRecommendations"
   >
-    <template slot="headData">
+    <DynamicHeading
+      slot="headData"
+      v-for="head in recommendationHead"
+      :key="head.sort"
+      :data="head"
+    />
+
+    <!-- <template slot="headData">
       <v-th sortKey="name">
         Recommendation
       </v-th>
@@ -16,7 +22,7 @@
         Pending
       </v-th>
       <v-th sortKey="estimatedCostSaving">
-        Estimated Savings
+        Estimated Savings / month
       </v-th>
       <v-th sortKey="lifecycleState">
         Status
@@ -24,13 +30,17 @@
       <v-th sortKey="importance">
         Importance
       </v-th>
-    </template>
+    </template> -->
 
     <template slot="bodyData" slot-scope="rowData">
       <TdContent :value="rowData.scope.name" />
       <TdContent :value="rowData.scope.type" />
       <TdContent :value="rowData.scope.pending" />
-      <TdContent :value="`€${rowData.scope.estimatedCostSaving}/month`" />
+      <TdContent
+        :value="
+          rowData.scope.estimatedCostSaving | formatNumber('0.00', '€', 1)
+        "
+      />
       <TdContent :value="rowData.scope.lifecycleState" />
       <TdContent :value="rowData.scope.importance" />
     </template>
@@ -45,13 +55,21 @@ import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
+import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
+import recommendationHead from '@/components/cloud/recommendations/recommendationsHead.json'
 
 export default {
   mixins: [getHeadKeys],
   components: {
     FullTable,
     TdContent,
-    ExportButton
+    ExportButton,
+    DynamicHeading
+  },
+  data() {
+    return {
+      recommendationHead: recommendationHead
+    }
   },
   computed: {
     ...mapGetters(['getRecommendations'])
