@@ -1,0 +1,26 @@
+[
+  { 
+    "sort": "name", 
+    "langKey": "common.collumns.recommendation" 
+  },
+  { 
+    "sort": "type", 
+    "langKey": "common.collumns.cloudInfra" 
+  },
+  {
+    "sort": "pending",
+    "langKey": "common.collumns.pending"
+  },
+  { 
+    "sort": "estimatedCostSaving", 
+    "langKey": "common.collumns.estimateSaving" 
+  },
+  {
+    "sort": "lifecycleState",
+    "langKey": "common.collumns.status"
+  },
+  {
+    "sort": "importance",
+    "langKey": "common.collumns.importance"
+  }
+]

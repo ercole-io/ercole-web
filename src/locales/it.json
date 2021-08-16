@@ -326,7 +326,11 @@
       "compliance": "Conformità",
       "usedLicenses": "Licenze Usate",
       "agreeCovered": "Coperto da questo accordo",
-      "agreeCoveredAll": "Coperto da tutti gli accordi"
+      "agreeCoveredAll": "Coperto da tutti gli accordi",
+      "cloudInfra": "Infrastruttura Cloud",
+      "pending": "In Attesa",
+      "estimateSaving": "Risparmio Stimato / Mese",
+      "importance": "Importanza"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",

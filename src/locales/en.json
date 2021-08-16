@@ -326,7 +326,11 @@
       "compliance": "Compliance",
       "usedLicenses": "Used Licenses",
       "agreeCovered": "Covered by this agreement",
-      "agreeCoveredAll": "Covered by all agreements"
+      "agreeCoveredAll": "Covered by all agreements",
+      "cloudInfra": "Cloud Infrastructure",
+      "pending": "Pending",
+      "estimateSaving": "Estimated Savings / Month",
+      "importance": "Importance"
     },
     "charts": {
       "archivelog": "Archivelog Mode",
