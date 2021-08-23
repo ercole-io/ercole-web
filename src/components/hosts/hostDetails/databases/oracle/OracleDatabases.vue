@@ -23,14 +23,14 @@
             /> -->
           <DbPDBs :pdbs="dbs.pdbs" />
           <DbLicenses :licenses="dbs.licenses" />
-          <DbOptions :options="dbs.featureUsageStats" />
+          <DbOptions :options="dbs.options" />
           <DbTablespaces :tablespaces="dbs.tablespaces" />
           <DbSchemas :schemas="dbs.schemas" />
           <DbPatches :patches="dbs.patches" />
           <DbPSUs :psus="dbs.psus" />
           <DbADDMs :addms="dbs.addms" />
           <DbSegmentAdvisors :segmentAdvisors="dbs.segmentAdvisors" />
-          <DbGrowth :growth="dbs.changes" :growthId="dbs.name" />
+          <DbGrowth :growth="dbs.dbGrowth" :growthId="dbs.name" />
           <DbBackups :backups="dbs.backups" />
           <DbServices :services="dbs.services" />
         </b-tabs>
