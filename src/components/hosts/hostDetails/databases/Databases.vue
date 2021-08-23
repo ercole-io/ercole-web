@@ -1,34 +1,45 @@
 <template>
-  <BoxContent
-    :title="`${$t('views.hostDetails.databases')} (${countDatabases})`"
-  >
-    <SearchInput
-      :searchPlaceholder="$t('views.hostDetails.searchBy')"
-      v-model="searchDb"
-      slot="customTitle"
-      @input="onSearch($event)"
-      :onBlur="onSearchBlur"
-      v-if="currentHostDBs.length > 1"
-    />
+  <div>
+    <BoxContent
+      :title="`${$t('views.hostDetails.databases')} (${countDatabases})`"
+    >
+      <SearchInput
+        :searchPlaceholder="$t('views.hostDetails.searchBy')"
+        v-model="searchDb"
+        slot="customTitle"
+        @input="onSearch($event)"
+        :onBlur="onSearchBlur"
+        v-if="currentHostDBs.length > 1"
+      />
+      <b-button
+        type="is-primary"
+        size="is-small"
+        @click="toggleDbFilters"
+        slot="customTitle"
+        class="ml-1"
+      >
+        Advanced Filters
+      </b-button>
 
-    <HbuttonScroll height="30" elemScroll="tabs" />
+      <HbuttonScroll height="30" elemScroll="tabs" />
 
-    <OracleDatabases
-      :currentDBs="currentHostFiltered(searchDb)"
-      v-if="showDatabases && isOracle"
-    />
+      <OracleDatabases
+        :currentDBs="currentHostFiltered(searchDb)"
+        v-if="showDatabases && isOracle"
+      />
 
-    <MysqlDatabases
-      :currentDBs="currentHostFiltered(searchDb)"
-      v-else-if="showDatabases && isMysql"
-    />
+      <MysqlDatabases
+        :currentDBs="currentHostFiltered(searchDb)"
+        v-else-if="showDatabases && isMysql"
+      />
 
-    <NoContent
-      v-else
-      :noContentText="$t('views.hostDetails.noDatabaseHost')"
-      style="min-height: 200px"
-    />
-  </BoxContent>
+      <NoContent
+        v-else
+        :noContentText="$t('views.hostDetails.noDatabaseHost')"
+        style="min-height: 200px"
+      />
+    </BoxContent>
+  </div>
 </template>
 
 <script>
@@ -52,7 +63,8 @@ export default {
   },
   data() {
     return {
-      searchDb: ''
+      searchDb: '',
+      isFiltersOpened: false
     }
   },
   async beforeMount() {
@@ -69,6 +81,12 @@ export default {
       if (this.searchDb.length === 0) {
         bus.$emit('isSearching', false)
       }
+    },
+    toggleDbFilters() {
+      bus.$emit(
+        'isDbFiltersOpen',
+        (this.isFiltersOpened = !this.isFiltersOpened)
+      )
     }
   },
   computed: {

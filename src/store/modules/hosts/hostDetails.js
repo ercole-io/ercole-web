@@ -9,6 +9,7 @@ import {
 } from '@/helpers/helpers.js'
 import { mapDatabases } from '@/helpers/databasesMap.js'
 import formatDateTime from '@/filters/formatDateTime.js'
+import store from '@/store/index.js'
 
 const startDate = moment()
   .subtract(1, 'week')
@@ -19,7 +20,8 @@ const endDate = moment()
 
 export const state = () => ({
   currentHost: {},
-  currentHostActiveDB: ''
+  currentHostActiveDB: '',
+  dbFiltersSelected: ['name']
 })
 
 export const getters = {
@@ -192,7 +194,7 @@ export const getters = {
     if (databases) {
       if (databases.oracle) {
         if (databases.oracle.database.databases) {
-          return databases.oracle.database.databases
+          return mapOracleDatabase(databases.oracle.database.databases)
         } else {
           return []
         }
@@ -219,14 +221,31 @@ export const getters = {
     })
   },
   currentHostFiltered: (state, getters) => search => {
-    return _.filter(getters.currentHostDBs, db => {
-      return (
-        db.name
-          .toString()
-          .toLowerCase()
-          .indexOf(search.toLowerCase()) > -1
-      )
+    const databases = getters.currentHostDBs
+    let keys = state.dbFiltersSelected
+
+    const filterChildArray = (childArray, termSearched) => {
+      return _.filter(childArray, value => {
+        return _.some(value, result => {
+          return (
+            _.includes(_.toLower(result).toString(), _.toLower(termSearched)) ||
+            _.includes(result, termSearched)
+          )
+        })
+      })
+    }
+
+    const filterDatabases = _.filter(databases, db => {
+      return _.some(keys, key => {
+        return _.includes(_.toLower(db[key]).toString(), _.toLower(search)) ||
+          _.includes(db[key], search) ||
+          filterChildArray(db[key], search).length > 0
+          ? db
+          : null
+      })
     })
+
+    return filterDatabases
   },
   getOracleCpuUsageChart: (state, getters) => selected => {
     const dailyDbState = getters.currentHostDBs
@@ -255,6 +274,9 @@ export const mutations = {
   },
   SET_ACTIVE_DB: (state, payload) => {
     state.currentHostActiveDB = payload
+  },
+  SET_DATABASES_FILTERS: (state, payload) => {
+    state.dbFiltersSelected = payload
   }
 }
 
@@ -297,9 +319,9 @@ const mountTotalDailyUsageDbs = (data, rangeDates) => {
   let changed = []
 
   _.map(data, item => {
-    const { name, changes } = item
+    const { name, dbGrowth } = item
 
-    _.map(changes, data => {
+    _.map(dbGrowth, data => {
       let date = setRangeDateFormat(data.updated)
 
       if (checkRangeDate(date, rangeDates)) {
@@ -348,4 +370,68 @@ const mountCpuUsageChart = (history, selected, dbs, rangeDates) => {
   })
 
   return finalResult
+}
+
+const mapOracleDatabase = data => {
+  const newData = []
+  _.map(data, item => {
+    newData.push({
+      name: item.name,
+      status: item.status,
+      role: item.role,
+      dbID: item.dbID,
+      uniqueName: item.uniqueName,
+      archiveLog: item.archiveLog,
+      blockSize: item.blockSize,
+      charset: item.charset,
+      nCharset: item.nCharset,
+      memoryTarget: item.memoryTarget,
+      pgaTarget: item.pgaTarget,
+      sgaMaxSize: item.sgaMaxSize,
+      sgaTarget: item.sgaTarget,
+      dbTime: item.dbTime,
+      elapsed: item.elapsed,
+      work: item.work,
+      cpuCount: item.cpuCount,
+      allocable: item.allocable,
+      datafileSize: item.datafileSize,
+      segmentsSize: item.segmentsSize,
+      asm: item.asm,
+      dataguard: item.dataguard,
+      platform: item.platform,
+      version: item.version,
+      pdbs: [...item.pdbs],
+      licenses: resolveLicenses([...item.licenses]),
+      options: [...item.featureUsageStats],
+      tablespaces: [...item.tablespaces],
+      schemas: [...item.schemas],
+      patches: [...item.patches],
+      psus: [...item.psus],
+      addms: [...item.addms],
+      segmentAdvisors: [...item.segmentAdvisors],
+      dbGrowth: [...item.changes],
+      backups: [...item.backups],
+      services: [...item.services]
+    })
+  })
+  return newData
+}
+
+const resolveLicenses = licences => {
+  let filteredLicenses = []
+  _.filter(licences, val => {
+    let licenseComplement = store.getters.returnMetricAndDescription(
+      val.licenseTypeID
+    )
+
+    if (val.count > 0) {
+      filteredLicenses.push({
+        ...val,
+        description: licenseComplement.description,
+        metric: licenseComplement.metric
+      })
+    }
+  })
+
+  return filteredLicenses
 }

@@ -33,8 +33,13 @@
       </div>
       <div class="column is-4">
         <ChartCpu
-          v-if="currentHostDBs.length > 0 && currentHostType === 'oracle'"
+          v-show="
+            currentHostDBs.length > 0 &&
+              currentHostType === 'oracle' &&
+              !showDbFilters
+          "
         />
+        <DatabasesFilters v-show="showDbFilters" />
       </div>
     </div>
   </section>
@@ -50,6 +55,7 @@ import DismissHost from '@/components/hosts/hostDetails/DismissHost.vue'
 import DetailsInfo from '@/components/hosts/hostDetails/DetailsInfo.vue'
 import Databases from '@/components/hosts/hostDetails/databases/Databases.vue'
 import ChartCpu from '@/components/hosts/hostDetails/ChartCpu.vue'
+import DatabasesFilters from '@/components/hosts/hostDetails/DatabasesFilters.vue'
 
 export default {
   props: {
@@ -71,11 +77,13 @@ export default {
     // HostTags,
     DetailsInfo,
     Databases,
-    ChartCpu
+    ChartCpu,
+    DatabasesFilters
   },
   data() {
     return {
-      isMounted: false
+      isMounted: false,
+      showDbFilters: false
     }
   },
   async beforeMount() {
@@ -87,6 +95,9 @@ export default {
         this.isMounted = true
       })
     bus.$emit('dynamicTitle', this.hostname)
+    bus.$on('isDbFiltersOpen', val => {
+      this.showDbFilters = val
+    })
   },
   methods: {
     ...mapActions(['getHostByName']),
