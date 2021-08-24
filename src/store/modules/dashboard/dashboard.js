@@ -53,12 +53,13 @@ export const getters = {
   getChartLicenseHistory: state => {
     let data = []
     _.map(state.licenceHistory, val => {
+      const full = `${val.licenseTypeID} - ${val.itemDescription} - ${val.metric}`
       if (
         val.licenseTypeID !== '' ||
         val.itemDescription !== '' ||
         val.metric !== ''
       ) {
-        data.push(val)
+        data.push({ ...val, full: full })
       }
     })
 
