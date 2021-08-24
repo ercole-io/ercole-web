@@ -1,7 +1,7 @@
 <template>
   <b-tab-item label="Licenses" v-if="licenses.length > 0">
     <FullTable
-      :tableData="dbLicenses(licenses)"
+      :tableData="licenses"
       :keys="[]"
       hideSearch
       hidePerpage
@@ -28,8 +28,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import { mapGetters } from 'vuex'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 
@@ -43,29 +41,6 @@ export default {
   components: {
     FullTable,
     TdContent
-  },
-  methods: {
-    dbLicenses(values) {
-      let filteredLicenses = []
-      _.filter(values, val => {
-        let licenseComplement = this.returnMetricAndDescription(
-          val.licenseTypeID
-        )
-
-        if (val.count > 0) {
-          filteredLicenses.push({
-            ...val,
-            description: licenseComplement.description,
-            metric: licenseComplement.metric
-          })
-        }
-      })
-
-      return filteredLicenses
-    }
-  },
-  computed: {
-    ...mapGetters(['returnMetricAndDescription'])
   }
 }
 </script>
