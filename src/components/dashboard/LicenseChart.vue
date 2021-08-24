@@ -2,25 +2,37 @@
   <div>
     <div class="range-dates mt-0 mb-4">
       <div class="mr-2">
-        <GhostLoading :isLoading="loading" setHeight="30" setWidth="430">
-          <b-field>
-            <b-select
-              placeholder="Select a type"
-              size="is-small"
+        <GhostLoading :isLoading="loading" setHeight="30" setWidth="400">
+          <b-field style="min-width: 400px;">
+            <b-autocomplete
               v-model="selectedType"
-              @change.native="mountLincenseChart"
+              size="is-small"
+              type="text"
+              icon-right="chevron-down"
+              field="full"
+              :data="getChartLicenseHistory"
+              open-on-focus
+              expanded
+              readonly
+              keep-first
             >
-              <option
-                v-for="(type, index) in getChartLicenseHistory"
-                :value="type.licenseTypeID"
-                :key="index"
-              >
-                {{ type.licenseTypeID }}
-                <span v-if="type.licenseTypeID">-</span>
-                {{ type.itemDescription }} <span v-if="type.metric">-</span>
-                {{ type.metric }}
-              </option>
-            </b-select>
+              <template slot-scope="props">
+                <div class="media media-custom">
+                  <div class="media-content">
+                    <b>{{ props.option.licenseTypeID }}</b>
+                    <br />
+                    <small>
+                      {{ props.option.itemDescription }}
+                      <br />
+                      {{ props.option.metric }}
+                    </small>
+                  </div>
+                </div>
+              </template>
+              <template slot="empty">
+                {{ $i18n.t('common.validations.noResults') }}
+              </template>
+            </b-autocomplete>
           </b-field>
         </GhostLoading>
       </div>
@@ -134,7 +146,7 @@ export default {
     await this.getLicenseHistory().then(() => {
       this.loading = false
     })
-    this.selectedType = this.getChartLicenseHistory[0].licenseTypeID
+    this.selectedType = this.getChartLicenseHistory[0].full
 
     this.getCurrentMonthDates()
 
@@ -143,7 +155,10 @@ export default {
   methods: {
     ...mapActions(['getLicenseHistory']),
     mountLincenseChart() {
-      let findType = matchType(this.getChartLicenseHistory, this.selectedType)
+      let findType = matchType(
+        this.getChartLicenseHistory,
+        this.selectedType.split(' - ')[0]
+      )
       const dateRange = [
         moment(this.startDate)
           .subtract(1, 'days')
@@ -220,6 +235,11 @@ export default {
       if (newValue) {
         this.getCurrentMonthDates()
       }
+    },
+    selectedType(newValue) {
+      if (newValue) {
+        this.mountLincenseChart()
+      }
     }
   }
 }
@@ -237,5 +257,10 @@ export default {
     width: 100%;
     max-width: 150px;
   }
+}
+
+.media-custom {
+  line-height: 1.2;
+  font-size: 0.75rem;
 }
 </style>

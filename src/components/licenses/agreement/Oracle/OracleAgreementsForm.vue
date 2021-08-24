@@ -277,7 +277,7 @@
           size="is-small"
           v-model="oracleForm.basket"
           :native-value="true"
-          :disabled="restricted"
+          :disabled="restricted || ula"
         >
           {{ $t('common.forms.yes') }}
         </b-radio>
@@ -285,7 +285,7 @@
           size="is-small"
           v-model="oracleForm.basket"
           :native-value="false"
-          :disabled="restricted"
+          :disabled="restricted || ula"
         >
           {{ $t('common.forms.no') }}
         </b-radio>
@@ -301,6 +301,7 @@
           size="is-small"
           v-model="oracleForm.restricted"
           :native-value="true"
+          :disabled="ula"
         >
           {{ $t('common.forms.yes') }}
         </b-radio>
@@ -308,6 +309,7 @@
           size="is-small"
           v-model="oracleForm.restricted"
           :native-value="false"
+          :disabled="ula"
         >
           No
         </b-radio>
@@ -463,6 +465,7 @@ export default {
     ula(val) {
       if (val) {
         this.oracleForm.licenseNumber = ''
+        this.oracleForm.basket = true
       }
     },
     restricted(val) {
