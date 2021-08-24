@@ -1,4 +1,5 @@
-import recommendations from '@/views/cloud/recommendations.json'
+import axiosOci from '@/axios/axios-oci'
+// import recommendations from '@/views/cloud/recommendations.json'
 
 export const state = () => ({
   recommendations: []
@@ -17,8 +18,16 @@ export const mutations = {
 }
 
 export const actions = {
-  async getRecommendationsData({ commit }) {
+  async getRecommendationsData({ commit, getters }) {
+    const recommendations = await axiosOci.get('/GetOCRecommendations', {
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location
+      }
+    })
     const response = await recommendations
+    console.log(response)
     commit('SET_RECOMMENDATIONS', response)
   }
 }
