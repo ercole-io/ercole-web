@@ -19,6 +19,15 @@
         class="ml-1"
       >
         Advanced Filters
+        <span
+          style="height: 1px;
+            width: 30px;
+            background-color: rgb(103, 145, 137);
+            position: absolute;
+            top: 13px;
+            right: -30px;"
+          v-if="isFiltersOpened"
+        ></span>
       </b-button>
 
       <HbuttonScroll height="30" elemScroll="tabs" />

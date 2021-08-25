@@ -1,7 +1,16 @@
 <template>
-  <BoxContent title="Databases Advanced Filters" class="database-filters">
+  <BoxContent
+    title="Databases Advanced Filters"
+    class="database-filters"
+    :mbottom="false"
+  >
     <span v-for="(opt, i) in filterOptions" :key="i">
-      <div class="is-block" v-if="opt.level === 1">
+      <hr
+        class="my-0 has-background-grey-light"
+        style="height: 1px;"
+        v-if="i > 0 && opt.level === 1"
+      />
+      <div class="is-block px-2" v-if="opt.level === 1">
         <b-checkbox
           size="is-small"
           v-model="selectedKeys"
@@ -13,12 +22,14 @@
         </b-checkbox>
       </div>
 
-      <div class="is-inline-block mx-1" v-if="opt.level === 2">
+      <div class="is-inline" v-if="opt.level === 2">
         <b-checkbox
           size="is-small"
           v-model="selectedKeys"
           :native-value="opt.value"
           @change.native="getChecked($event, opt.value)"
+          style="min-width: 50%"
+          class="px-5"
         >
           {{ opt.name }}
         </b-checkbox>
@@ -26,9 +37,9 @@
     </span>
 
     <b-button
-      type="is-danger is-light"
+      type="is-light"
       size="is-small"
-      class="mt-2"
+      class="my-2"
       @click="resetFilters"
       expanded
     >
@@ -337,5 +348,8 @@ export default {
 <style lang="scss" scoped>
 .database-filters {
   margin-top: 6px;
+  padding-bottom: 0;
+  border: 1px solid #679189;
+  border-radius: 4px;
 }
 </style>
