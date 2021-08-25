@@ -224,13 +224,25 @@ export const getters = {
     const databases = getters.currentHostDBs
     let keys = state.dbFiltersSelected
 
-    const filterChildArray = (childArray, termSearched) => {
-      return _.filter(childArray, value => {
+    const filterSubChildArray = subChildArray => {
+      return _.filter(subChildArray, value => {
         return _.some(value, result => {
           return (
-            _.includes(_.toLower(result).toString(), _.toLower(termSearched)) ||
-            _.includes(result, termSearched)
+            _.includes(_.toLower(result).toString(), _.toLower(search)) ||
+            _.includes(result, search)
           )
+        })
+      })
+    }
+
+    const filterChildArray = childArray => {
+      return _.filter(childArray, value => {
+        return _.some(value, result => {
+          return _.includes(_.toLower(result).toString(), _.toLower(search)) ||
+            _.includes(result, search) ||
+            filterSubChildArray(result).length > 0
+            ? childArray
+            : null
         })
       })
     }
@@ -239,7 +251,7 @@ export const getters = {
       return _.some(keys, key => {
         return _.includes(_.toLower(db[key]).toString(), _.toLower(search)) ||
           _.includes(db[key], search) ||
-          filterChildArray(db[key], search).length > 0
+          filterChildArray(db[key]).length > 0
           ? db
           : null
       })
@@ -400,7 +412,7 @@ const mapOracleDatabase = data => {
       dataguard: item.dataguard,
       platform: item.platform,
       version: item.version,
-      pdbs: [...item.pdbs],
+      pdbs: resolvePdbs([...item.pdbs]),
       licenses: resolveLicenses([...item.licenses]),
       options: [...item.featureUsageStats],
       tablespaces: [...item.tablespaces],
@@ -415,6 +427,23 @@ const mapOracleDatabase = data => {
     })
   })
   return newData
+}
+
+const resolvePdbs = pdbs => {
+  let filteredPdbs = []
+  _.filter(pdbs, val => {
+    if (val) {
+      filteredPdbs.push({
+        pdbName: val.name,
+        pdbSchemas: val.schemas,
+        pdbService: val.services,
+        pdbStatus: val.status,
+        pdbTablespaces: val.tablespaces
+      })
+    }
+  })
+
+  return filteredPdbs
 }
 
 const resolveLicenses = licences => {
