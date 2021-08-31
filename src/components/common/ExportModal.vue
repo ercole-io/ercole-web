@@ -5,7 +5,14 @@
     </header>
     <section class="modal-card-body">
       <p class="mb-2">{{ msgTxt }}</p>
-      <b-progress type="is-primary"></b-progress>
+      <b-progress type="is-primary" v-if="downloading === 0" />
+      <b-progress
+        v-else
+        type="is-primary"
+        :value="downloading"
+        show-value
+        format="percent"
+      />
     </section>
     <footer class="modal-card-foot">
       <b-button type="is-danger" :label="btText" @click="CancelRequest" />
@@ -28,11 +35,22 @@ export default {
       type: String
     }
   },
+  data() {
+    return {
+      downloading: 0
+    }
+  },
   beforeMount() {
     bus.$on('callCloseModal', () => {
       setTimeout(() => {
         this.$emit('close')
       }, 500)
+    })
+
+    bus.$on('updateDownloadPerc', val => {
+      if (val) {
+        this.downloading = val
+      }
     })
   },
   methods: {

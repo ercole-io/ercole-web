@@ -13,7 +13,8 @@ export const state = () => ({
   'page-patchAdvisor': [true, true],
   'page-segmentAdvisor': [true, true],
   'page-databasesMysql': [true, true],
-  'page-hosts': [true, true]
+  'page-hosts': [true, true],
+  'page-repository': [true, true]
 })
 
 export const getters = {
