@@ -1,0 +1,75 @@
+<template>
+  <FullTable
+    :placeholder="$t('menu.repository')"
+    :keys="keys"
+    :tableData="getRepository"
+  >
+    <template slot="headData">
+      <v-th sortKey="Download">Download</v-th>
+      <v-th sortKey="Name">Name</v-th>
+      <v-th sortKey="Filename">Filename</v-th>
+      <v-th sortKey="Arch">Arch</v-th>
+      <v-th sortKey="OperatingSystem">OS</v-th>
+      <v-th sortKey="OperatingSystemFamily">OS Family</v-th>
+      <v-th sortKey="Repository">Repository</v-th>
+      <v-th sortKey="Installed">Installed</v-th>
+      <v-th sortKey="ReleaseDate">Release Date</v-th>
+      <v-th sortKey="Version">Version</v-th>
+    </template>
+
+    <template slot="bodyData" slot-scope="rowData">
+      <TdAction
+        :fileName="rowData.scope.Filename"
+        :link="rowData.scope.Download"
+        :iconSet="['is-link', 'fas', 'download']"
+      />
+      <TdContent :value="rowData.scope.Name" />
+      <TdContent :value="rowData.scope.Filename" />
+      <TdContent :value="rowData.scope.Arch" />
+      <TdContent :value="rowData.scope.OperatingSystem" />
+      <TdContent :value="rowData.scope.OperatingSystemFamily" />
+      <TdContent :value="rowData.scope.Repository" />
+      <TdIcon :value="rowData.scope.Installed" />
+      <TdContent :value="rowData.scope.ReleaseDate" />
+      <TdContent :value="rowData.scope.Version" />
+    </template>
+  </FullTable>
+</template>
+
+<script>
+import { mapGetters } from 'vuex'
+import FullTable from '@/components/common/Table/FullTable.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
+import TdIcon from '@/components/common/Table/TDIcon.vue'
+import TdAction from '@/components/common/Table/TdAction.vue'
+
+export default {
+  components: {
+    FullTable,
+    TdContent,
+    TdIcon,
+    TdAction
+  },
+  data() {
+    return {
+      keys: [
+        'Repository',
+        'Installed',
+        'Version',
+        'ReleaseDate',
+        'Filename',
+        'Name',
+        'OperatingSystemFamily',
+        'OperatingSystem',
+        'Arch',
+        'Download'
+      ]
+    }
+  },
+  computed: {
+    ...mapGetters(['getRepository'])
+  }
+}
+</script>
+
+<style lang="scss" scoped></style>

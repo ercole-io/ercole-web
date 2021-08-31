@@ -66,6 +66,9 @@ const Engineered = lazy(() =>
 const Alerts = lazy(() =>
   import(/* webpackPreload: true */ '@/views/alerts/Alerts.vue')
 )
+const Repository = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/repository/Repository.vue')
+)
 const Settings = lazy(() =>
   import(/* webpackPreload: true */ '@/views/settings/Settings.vue')
 )
@@ -346,6 +349,17 @@ const routes = [
       label: i18n.t('menu.alerts'),
       title: `${title}${i18n.t('menu.alerts')}`,
       breadcrumb: [{ name: i18n.t('menu.alerts') }]
+    },
+    beforeEnter: verifyAuth
+  },
+  {
+    path: '/repository',
+    name: 'repository',
+    component: Repository,
+    meta: {
+      label: i18n.t('menu.repository'),
+      title: `${title}${i18n.t('menu.repository')}`,
+      breadcrumb: [{ name: i18n.t('menu.repository') }]
     },
     beforeEnter: verifyAuth
   },
