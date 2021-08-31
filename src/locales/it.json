@@ -22,7 +22,8 @@
     "licenses": "Licenze",
     "licAgreements": "Contratto di Licenza",
     "licCompliance": "Conformità di Licenze",
-    "licUsed": "Licenze Utilizzate"
+    "licUsed": "Licenze Utilizzate",
+    "repository": "Repository"
   },
   "header": {
     "logout": "Disconnettersi"
