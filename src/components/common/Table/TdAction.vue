@@ -16,7 +16,7 @@ import { saveAs } from 'file-saver'
 import axios from 'axios'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
-import ExportModal from '@/components/common/ExportModal.vue'
+import DownloadingModal from '@/components/common/DownloadingModal.vue'
 
 export default {
   mixins: [TooltipMixin],
@@ -42,7 +42,7 @@ export default {
       })
 
       this.$buefy.modal.open({
-        component: ExportModal,
+        component: DownloadingModal,
         hasModalCard: true,
         props: {
           msgTxt: this.$i18n.t('common.general.wait'),
