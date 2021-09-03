@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="applyFilters">
     <CustomField label="Name">
       <CustomSelect v-model="filters.Name" :options="filteredName" />
     </CustomField>
@@ -41,33 +41,9 @@
       <CustomRadio v-model="filters.Installed" />
     </CustomField>
 
-    <!-- <CustomField label="Release Date">
-      <b-datepicker
-        v-model="startDate"
-        size="is-small"
-        placeholder="Start Date"
-        position="is-top-right"
-        icon="calendar-today"
-        :max-date="endDate ? endDate : new Date()"
-        :date-formatter="formatDate"
-        class="mr-1"
-        trap-focus
-        append-to-body
-      />
-      <b-datepicker
-        v-model="endDate"
-        size="is-small"
-        placeholder="End Date"
-        position="is-top-right"
-        icon="calendar-today"
-        :min-date="startDate"
-        :max-date="new Date()"
-        :date-formatter="formatDate"
-        class="ml-1"
-        trap-focus
-        append-to-body
-      />
-    </CustomField> -->
+    <CustomField label="Release Date">
+      <CustomDatepicker v-model="startDate" />
+    </CustomField>
 
     <CustomField label="Version">
       <CustomSelect v-model="filters.Version" :options="filteredVersion" />
@@ -76,9 +52,9 @@
 </template>
 
 <script>
+import moment from 'moment'
 import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
-import formatDate from '@/filters/formatDate.js'
 
 export default {
   mixins: [localFiltersMixin],
@@ -96,21 +72,25 @@ export default {
       filters: {
         Installed: ''
       },
-      startDate: null,
-      endDate: null
+      startDate: null
     }
   },
   created() {
     this.fullData = this.getRepository
   },
   methods: {
+    applyFilters() {
+      this.filters = {
+        Installed: '',
+        ReleaseDate: moment(this.startDate).format('DD/MM/YYYY')
+      }
+      this.apply()
+    },
     resetFilters() {
       this.filters = {
         Installed: ''
       }
-    },
-    formatDate(date) {
-      return formatDate(date)
+      this.startDate = null
     }
   },
   computed: {
