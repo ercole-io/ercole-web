@@ -227,7 +227,15 @@
       "covered": "Coperto",
       "compliance": "Conformità",
       "usedLicenses": "Licenze Usate",
-      "hostsAssociated": "Host Associati"
+      "hostsAssociated": "Host Associati",
+      "repoName": "Nome",
+      "filename": "Nome del File",
+      "arch": "Architettura",
+      "opSys": "Sistema Operativo",
+      "opSysFam": "Famiglia SO",
+      "repository": "Repository",
+      "installed": "Installato",
+      "releaseDate": "Data di Rilascio"
     },
     "table": {
       "perPage": "per pagina",
@@ -325,7 +333,14 @@
       "compliance": "Conformità",
       "usedLicenses": "Licenze Usate",
       "agreeCovered": "Coperto da questo accordo",
-      "agreeCoveredAll": "Coperto da tutti gli accordi"
+      "agreeCoveredAll": "Coperto da tutti gli accordi",
+      "repoName": "Nome",
+      "filename": "Nome del File",
+      "arch": "Architettura",
+      "opSys": "Sistema Operativo",
+      "opSysFam": "Famiglia SO",
+      "repository": "Repository",
+      "installed": "Installato"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",
