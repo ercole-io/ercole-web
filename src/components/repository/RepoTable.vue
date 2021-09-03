@@ -6,15 +6,17 @@
   >
     <template slot="headData">
       <v-th sortKey="Download">Download</v-th>
-      <v-th sortKey="Name">Name</v-th>
-      <v-th sortKey="Filename">Filename</v-th>
-      <v-th sortKey="Arch">Arch</v-th>
-      <v-th sortKey="OperatingSystem">OS</v-th>
-      <v-th sortKey="OperatingSystemFamily">OS Family</v-th>
-      <v-th sortKey="Repository">Repository</v-th>
-      <v-th sortKey="Installed">Installed</v-th>
-      <v-th sortKey="ReleaseDate">Release Date</v-th>
-      <v-th sortKey="Version">Version</v-th>
+      <v-th sortKey="Name">{{ $t('common.collumns.repoName') }}</v-th>
+      <v-th sortKey="Filename">{{ $t('common.collumns.filename') }}</v-th>
+      <v-th sortKey="Arch">{{ $t('common.collumns.arch') }}</v-th>
+      <v-th sortKey="OperatingSystem">{{ $t('common.collumns.opSys') }}</v-th>
+      <v-th sortKey="OperatingSystemFamily">{{
+        $t('common.collumns.opSysFam')
+      }}</v-th>
+      <v-th sortKey="Repository">{{ $t('common.collumns.repository') }}</v-th>
+      <v-th sortKey="Installed">{{ $t('common.collumns.installed') }}</v-th>
+      <v-th sortKey="ReleaseDate">{{ $t('common.collumns.releaseDate') }}</v-th>
+      <v-th sortKey="Version">{{ $t('common.collumns.version') }}</v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">

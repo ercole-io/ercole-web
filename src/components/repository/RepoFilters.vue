@@ -1,10 +1,10 @@
 <template>
   <AdvancedFiltersBase :submitAction="applyFilters">
-    <CustomField label="Name">
+    <CustomField :label="$t('common.fields.repoName')">
       <CustomSelect v-model="filters.Name" :options="filteredName" />
     </CustomField>
 
-    <CustomField label="Filename">
+    <CustomField :label="$t('common.fields.filename')">
       <CustomAutocomplete
         v-model="filters.Filename"
         :filterResult="filteredFilename"
@@ -12,40 +12,40 @@
       />
     </CustomField>
 
-    <CustomField label="Arch">
+    <CustomField :label="$t('common.fields.arch')">
       <CustomSelect v-model="filters.Arch" :options="filteredArch" />
     </CustomField>
 
-    <CustomField label="OS">
+    <CustomField :label="$t('common.fields.opSys')">
       <CustomSelect
         v-model="filters.OperatingSystem"
         :options="filteredOperatingSystem"
       />
     </CustomField>
 
-    <CustomField label="OS Family">
+    <CustomField :label="$t('common.fields.opSysFam')">
       <CustomSelect
         v-model="filters.OperatingSystemFamily"
         :options="filteredOperatingSystemFamily"
       />
     </CustomField>
 
-    <CustomField label="Repository">
+    <CustomField :label="$t('common.fields.repository')">
       <CustomSelect
         v-model="filters.Repository"
         :options="filteredRepository"
       />
     </CustomField>
 
-    <CustomField label="Installed">
+    <CustomField :label="$t('common.fields.installed')">
       <CustomRadio v-model="filters.Installed" />
     </CustomField>
 
-    <CustomField label="Release Date">
+    <CustomField :label="$t('common.fields.releaseDate')">
       <CustomDatepicker v-model="startDate" />
     </CustomField>
 
-    <CustomField label="Version">
+    <CustomField :label="$t('common.fields.version')">
       <CustomSelect v-model="filters.Version" :options="filteredVersion" />
     </CustomField>
   </AdvancedFiltersBase>
