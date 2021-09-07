@@ -24,7 +24,8 @@
     "licCompliance": "Conformità di Licenze",
     "licUsed": "Licenze Utilizzate",
     "cloudAdvisor": "Cloud Advisor",
-    "recommendations": "Raccomandazioni"
+    "recommendations": "Raccomandazioni",
+    "repository": "Repository"
   },
   "header": {
     "logout": "Disconnettersi"
@@ -228,7 +229,15 @@
       "covered": "Coperto",
       "compliance": "Conformità",
       "usedLicenses": "Licenze Usate",
-      "hostsAssociated": "Host Associati"
+      "hostsAssociated": "Host Associati",
+      "repoName": "Nome",
+      "filename": "Nome del File",
+      "arch": "Architettura",
+      "opSys": "Sistema Operativo",
+      "opSysFam": "Famiglia SO",
+      "repository": "Repository",
+      "installed": "Installato",
+      "releaseDate": "Data di Rilascio"
     },
     "table": {
       "perPage": "per pagina",
@@ -330,7 +339,14 @@
       "cloudInfra": "Infrastruttura Cloud",
       "pending": "In Attesa",
       "estimateSaving": "Risparmio Stimato / Mese",
-      "importance": "Importanza"
+      "importance": "Importanza",
+      "repoName": "Nome",
+      "filename": "Nome del File",
+      "arch": "Architettura",
+      "opSys": "Sistema Operativo",
+      "opSysFam": "Famiglia SO",
+      "repository": "Repository",
+      "installed": "Installato"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",
