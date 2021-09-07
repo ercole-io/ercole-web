@@ -55,7 +55,7 @@ import DismissHost from '@/components/hosts/hostDetails/DismissHost.vue'
 import DetailsInfo from '@/components/hosts/hostDetails/DetailsInfo.vue'
 import Databases from '@/components/hosts/hostDetails/databases/Databases.vue'
 import ChartCpu from '@/components/hosts/hostDetails/ChartCpu.vue'
-import DatabasesFilters from '@/components/hosts/hostDetails/DatabasesFilters.vue'
+import DatabasesFilters from '@/components/hosts/hostDetails/databases/DatabasesFilters.vue'
 
 export default {
   props: {

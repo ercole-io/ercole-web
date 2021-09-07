@@ -24,7 +24,8 @@
     "licCompliance": "Licenses Compliance",
     "licUsed": "Licenses Used",
     "cloudAdvisor": "Cloud Advisor",
-    "recommendations": "Recommendations"
+    "recommendations": "Recommendations",
+    "repository": "Repository"
   },
   "header": {
     "logout": "Logout"
@@ -228,7 +229,15 @@
       "covered": "Covered",
       "compliance": "Compliance",
       "usedLicenses": "Used Licenses",
-      "hostsAssociated": "Hosts Associated"
+      "hostsAssociated": "Hosts Associated",
+      "repoName": "Name",
+      "filename": "Filename",
+      "arch": "Architecture",
+      "opSys": "OS",
+      "opSysFam": "OS Family",
+      "repository": "Repository",
+      "installed": "Installed",
+      "releaseDate": "Release Date"
     },
     "table": {
       "perPage": "per page",
@@ -330,7 +339,14 @@
       "cloudInfra": "Cloud Infrastructure",
       "pending": "Pending",
       "estimateSaving": "Estimated Savings / Month",
-      "importance": "Importance"
+      "importance": "Importance",
+      "repoName": "Name",
+      "filename": "Filename",
+      "arch": "Architecture",
+      "opSys": "OS",
+      "opSysFam": "OS Family",
+      "repository": "Repository",
+      "installed": "Installed"
     },
     "charts": {
       "archivelog": "Archivelog Mode",

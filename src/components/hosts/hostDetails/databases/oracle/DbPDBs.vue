@@ -2,41 +2,40 @@
   <b-tab-item label="Pluggable DBs" v-if="pdbs.length > 0">
     <Collapse
       v-for="pdb in pdbs"
-      :key="pdb.name"
-      :title="pdb.name"
-      :id="pdb.name"
+      :key="pdb.pdbName"
+      :title="pdb.pdbName"
+      :id="pdb.pdbName"
       class="mt-2"
     >
       <b-tabs size="is-small" position="is-centered" class="block">
         <b-tab-item label="Status">
           <p class="py-3">
-            Status: <span class="has-text-weight-medium">{{ pdb.status }}</span>
+            Status:
+            <span class="has-text-weight-medium">{{ pdb.pdbStatus }}</span>
           </p>
         </b-tab-item>
-        <!-- <b-tab-item label="Services" v-if="pdb.services > 0">
+        <!-- <b-tab-item label="Services" v-if="pdb.pdbServices.length > 0">
           <section class="wrap-table py-3">
             <FullTable
-              :tableData="pdb.services"
+              :tableData="pdb.pdbServices"
               :keys="[]"
               hideSearch
               hidePerpage
               hidePagination
               hideTopTable
             >
-              <template slot="headData">
-                
-              </template>
+              <template slot="headData"> </template>
 
               <template slot="bodyData" slot-scope="rowData">
-                
+                {{ rowData.scope }}
               </template>
             </FullTable>
           </section>
         </b-tab-item> -->
-        <b-tab-item label="Schemas" v-if="pdb.schemas.length > 0">
+        <b-tab-item label="Schemas" v-if="pdb.pdbSchemas.length > 0">
           <section class="wrap-table py-3">
             <FullTable
-              :tableData="pdb.schemas"
+              :tableData="pdb.pdbSchemas"
               :keys="[]"
               hideSearch
               hidePerpage
@@ -61,10 +60,10 @@
             </FullTable>
           </section>
         </b-tab-item>
-        <b-tab-item label="Tablespaces" v-if="pdb.tablespaces.length > 0">
+        <b-tab-item label="Tablespaces" v-if="pdb.pdbTablespaces.length > 0">
           <section class="wrap-table py-3">
             <FullTable
-              :tableData="pdb.tablespaces"
+              :tableData="pdb.pdbTablespaces"
               :keys="[]"
               hideSearch
               hidePerpage
