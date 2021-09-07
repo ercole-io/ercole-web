@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import axios from 'axios'
 import formatDate from '@/filters/formatDate.js'
+import axiosRepoService from '@/axios/axios-repoService.js'
 
 export const state = () => ({
   repository: []
@@ -9,7 +9,7 @@ export const state = () => ({
 export const getters = {
   getRepository: (state, getters) => {
     let repos = []
-    const link = 'https://repository.ercole.io/all/'
+    const link = `${getters.getRepoServiceBaseUrl}/all/`
 
     _.map(state.repository, val => {
       repos.push({
@@ -31,9 +31,7 @@ export const mutations = {
 
 export const actions = {
   async requestRepository({ commit }) {
-    const repositoryData = await axios.get(
-      'https://repository.ercole.io/index.json'
-    )
+    const repositoryData = await axiosRepoService.get('/index.json')
     const response = await repositoryData.data
 
     commit('SET_REPO_DATA', response)

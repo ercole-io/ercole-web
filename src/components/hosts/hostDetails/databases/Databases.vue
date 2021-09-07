@@ -11,24 +11,8 @@
         :onBlur="onSearchBlur"
         v-if="currentHostDBs.length > 1"
       />
-      <b-button
-        type="is-primary"
-        size="is-small"
-        @click="toggleDbFilters"
-        slot="customTitle"
-        class="ml-1"
-      >
-        Advanced Filters
-        <span
-          style="height: 1px;
-            width: 30px;
-            background-color: rgb(103, 145, 137);
-            position: absolute;
-            top: 13px;
-            right: -30px;"
-          v-if="isFiltersOpened"
-        ></span>
-      </b-button>
+
+      <AdvancedFiltersButton slot="customTitle" v-if="isOracle" />
 
       <HbuttonScroll height="30" elemScroll="tabs" />
 
@@ -60,6 +44,7 @@ import HbuttonScroll from '@/components/HbuttonScroll.vue'
 import OracleDatabases from '@/components/hosts/hostDetails/databases/oracle/OracleDatabases.vue'
 import MysqlDatabases from '@/components/hosts/hostDetails/databases/mysql/MysqlDatabases.vue'
 import NoContent from '@/components/common/NoContent.vue'
+import AdvancedFiltersButton from '@/components/hosts/hostDetails/databases/DatabasesFiltersButton.vue'
 
 export default {
   components: {
@@ -68,12 +53,12 @@ export default {
     SearchInput,
     HbuttonScroll,
     MysqlDatabases,
-    NoContent
+    NoContent,
+    AdvancedFiltersButton
   },
   data() {
     return {
-      searchDb: '',
-      isFiltersOpened: false
+      searchDb: ''
     }
   },
   async beforeMount() {
@@ -90,12 +75,6 @@ export default {
       if (this.searchDb.length === 0) {
         bus.$emit('isSearching', false)
       }
-    },
-    toggleDbFilters() {
-      bus.$emit(
-        'isDbFiltersOpen',
-        (this.isFiltersOpened = !this.isFiltersOpened)
-      )
     }
   },
   computed: {

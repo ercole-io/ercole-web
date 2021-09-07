@@ -5,6 +5,7 @@
     :tableData="getRepository"
   >
     <template slot="headData">
+      <v-th sortKey="Download">Copy Path</v-th>
       <v-th sortKey="Download">Download</v-th>
       <v-th sortKey="Name">{{ $t('common.collumns.repoName') }}</v-th>
       <v-th sortKey="Filename">{{ $t('common.collumns.filename') }}</v-th>
@@ -20,6 +21,14 @@
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
+      <td>
+        <span
+          class="is-block has-text-centered"
+          v-copy="rowData.scope.Download"
+        >
+          <b-icon icon="copy" pack="fas" size="is-small" type="is-info" />
+        </span>
+      </td>
       <TdAction
         :fileName="rowData.scope.Filename"
         :link="rowData.scope.Download"
@@ -74,4 +83,12 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+[copy-tooltip]::before {
+  opacity: 0;
+}
+[copy-tooltip]::after {
+  top: 21px;
+  z-index: 0;
+}
+</style>

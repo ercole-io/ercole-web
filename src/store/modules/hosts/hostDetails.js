@@ -21,8 +21,35 @@ const endDate = moment()
 export const state = () => ({
   currentHost: {},
   currentHostActiveDB: '',
-  dbFiltersSelected: ['name']
+  dbFiltersSelected: ['name'],
+  isEmpty: false
 })
+
+const info = [
+  'status',
+  'role',
+  'dbID',
+  'uniqueName',
+  'archiveLog',
+  'blockSize',
+  'charset',
+  'nCharset',
+  'memoryTarget',
+  'pgaTarget',
+  'sgaMaxSize',
+  'sgaTarget',
+  'dbTime',
+  'elapsed',
+  'work',
+  'cpuCount',
+  'allocable',
+  'datafileSize',
+  'segmentsSize',
+  'asm',
+  'dataguard',
+  'platform',
+  'version'
+]
 
 export const getters = {
   currentHostNotifications: state => {
@@ -277,6 +304,22 @@ export const getters = {
   },
   getRangeDates: (state, getters, rootstate) => {
     return rootstate.rangeDates.rangeDates
+  },
+  getCheckedFilters: state => item => {
+    const checkInfo = _.map(info, val => {
+      return _.includes(state.dbFiltersSelected, val)
+    })
+
+    if (
+      state.dbFiltersSelected.length === 1 &&
+      state.dbFiltersSelected[0] === 'name'
+    ) {
+      return true
+    } else if (_.includes(checkInfo, true) && item === 'info') {
+      return true
+    } else {
+      return _.includes(state.dbFiltersSelected, item)
+    }
   }
 }
 
