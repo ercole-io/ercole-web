@@ -101,6 +101,7 @@ export default {
     ...mapMutations(['SET_DATABASES_FILTERS']),
     resetFilters() {
       this.selectedKeys = ['name']
+      this.SET_DATABASES_FILTERS(this.selectedKeys)
     },
     getChecked(e, value) {
       const checked = e.target.checked
