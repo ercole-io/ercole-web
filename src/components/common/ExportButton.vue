@@ -17,7 +17,7 @@ import { bus } from '@/helpers/eventBus.js'
 import { saveAs } from 'file-saver'
 import { mapGetters } from 'vuex'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
-import ExportModal from '@/components/common/ExportModal.vue'
+import DownloadingModal from '@/components/common/DownloadingModal.vue'
 
 const exportAll = {
   Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -58,7 +58,7 @@ export default {
       })
 
       this.$buefy.modal.open({
-        component: ExportModal,
+        component: DownloadingModal,
         hasModalCard: true,
         props: {
           msgTxt: this.$i18n.t('common.general.wait'),
