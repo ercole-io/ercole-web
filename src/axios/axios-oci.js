@@ -7,9 +7,6 @@ const oracleCloudInstance = axios.create()
 oracleCloudInstance.interceptors.request.use(config => {
   config.baseURL = store.getters.getOracleCloudInfraUrl
 
-  // const token = localStorage.getItem('token')
-  // config.headers.Authorization = `Bearer ${token}`
-
   store.dispatch('onLoading')
   return config
 })

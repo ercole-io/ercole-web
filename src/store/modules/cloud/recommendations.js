@@ -1,5 +1,5 @@
+import _ from 'lodash'
 import axiosOci from '@/axios/axios-oci'
-// import recommendations from '@/views/cloud/recommendations.json'
 
 export const state = () => ({
   recommendations: []
@@ -7,7 +7,22 @@ export const state = () => ({
 
 export const getters = {
   getRecommendations: (state, getters) => {
-    return getters.filteredOrNot(state.recommendations)
+    const recommendations = state.recommendations
+
+    let mapRecommendations = []
+    _.map(recommendations, item => {
+      mapRecommendations.push({
+        costSaving: _.toNumber(item.EstimatedCostSaving),
+        importance: item.Importance,
+        name: item.Name,
+        pending: _.toNumber(item.NumPending),
+        recID: item.RecommendationId,
+        status: item.RecommendationId,
+        cloudInfra: item.CloudInfra
+      })
+    })
+
+    return getters.filteredOrNot(mapRecommendations)
   }
 }
 
@@ -18,16 +33,10 @@ export const mutations = {
 }
 
 export const actions = {
-  async getRecommendationsData({ commit, getters }) {
-    const recommendations = await axiosOci.get('/GetOCRecommendations', {
-      params: {
-        'older-than': getters.getActiveFilters.date,
-        environment: getters.getActiveFilters.environment,
-        location: getters.getActiveFilters.location
-      }
-    })
-    const response = await recommendations
-    console.log(response)
+  async getRecommendationsData({ commit }) {
+    const recommendations = await axiosOci.get('/GetOCRecommendations')
+    const response = await recommendations.data
+
     commit('SET_RECOMMENDATIONS', response)
   }
 }

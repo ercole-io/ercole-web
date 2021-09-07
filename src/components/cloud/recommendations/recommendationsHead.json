@@ -4,7 +4,7 @@
     "langKey": "common.collumns.recommendation" 
   },
   { 
-    "sort": "type", 
+    "sort": "cloudInfra", 
     "langKey": "common.collumns.cloudInfra" 
   },
   {
@@ -12,11 +12,11 @@
     "langKey": "common.collumns.pending"
   },
   { 
-    "sort": "estimatedCostSaving", 
+    "sort": "costSaving", 
     "langKey": "common.collumns.estimateSaving" 
   },
   {
-    "sort": "lifecycleState",
+    "sort": "status",
     "langKey": "common.collumns.status"
   },
   {
