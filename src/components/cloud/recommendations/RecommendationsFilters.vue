@@ -10,8 +10,8 @@
 
     <CustomField label="Cloud Infrastructure">
       <CustomAutocomplete
-        v-model="filters.type"
-        :filterResult="filteredtype"
+        v-model="filters.cloudInfra"
+        :filterResult="filteredcloudInfra"
         :filterMethod="setAutocompletes"
       />
     </CustomField>
@@ -26,17 +26,14 @@
 
     <CustomField label="Estimated Savings">
       <CustomSlider
-        v-model="filters.estimatedCostSaving"
-        :ticks="[minestimatedCostSaving, maxestimatedCostSaving]"
+        v-model="filters.costSaving"
+        :ticks="[mincostSaving, maxcostSaving]"
         :steps="0.01"
       />
     </CustomField>
 
     <CustomField label="Status">
-      <CustomSelect
-        v-model="filters.lifecycleState"
-        :options="filteredlifecycleState"
-      />
+      <CustomSelect v-model="filters.status" :options="filteredstatus" />
     </CustomField>
 
     <CustomField label="Importance">
@@ -56,9 +53,9 @@ export default {
   mixins: [localFiltersMixin],
   data() {
     return {
-      autocompletes: ['name', 'type'],
-      sliders: ['pending', 'estimatedCostSaving'],
-      selects: ['lifecycleState', 'importance']
+      autocompletes: ['name', 'cloudInfra'],
+      sliders: ['pending', 'costSaving'],
+      selects: ['status', 'importance']
     }
   },
   created() {
