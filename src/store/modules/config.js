@@ -9,7 +9,8 @@ export const state = () => {
 export const getters = {
   isConfigLoaded: state => state.config !== null,
   getAPIServiceBaseURL: state => state.config.APIServiceBaseUrl,
-  getChartServiceBaseUrl: state => state.config.ChartServiceBaseUrl
+  getChartServiceBaseUrl: state => state.config.ChartServiceBaseUrl,
+  getRepoServiceBaseUrl: state => state.config.RepoServiceUrl
 }
 
 export const mutations = {
