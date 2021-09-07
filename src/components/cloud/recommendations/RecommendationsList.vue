@@ -11,37 +11,14 @@
       :data="head"
     />
 
-    <!-- <template slot="headData">
-      <v-th sortKey="name">
-        Recommendation
-      </v-th>
-      <v-th sortKey="type">
-        Cloud Infrastructure
-      </v-th>
-      <v-th sortKey="pending">
-        Pending
-      </v-th>
-      <v-th sortKey="estimatedCostSaving">
-        Estimated Savings / month
-      </v-th>
-      <v-th sortKey="lifecycleState">
-        Status
-      </v-th>
-      <v-th sortKey="importance">
-        Importance
-      </v-th>
-    </template> -->
-
     <template slot="bodyData" slot-scope="rowData">
       <TdContent :value="rowData.scope.name" />
-      <TdContent :value="rowData.scope.type" />
+      <TdContent :value="rowData.scope.cloudInfra" />
       <TdContent :value="rowData.scope.pending" />
       <TdContent
-        :value="
-          rowData.scope.estimatedCostSaving | formatNumber('0.00', '€', 1)
-        "
+        :value="rowData.scope.costSaving | formatNumber('0.00', '€', 1)"
       />
-      <TdContent :value="rowData.scope.lifecycleState" />
+      <TdContent :value="rowData.scope.status" />
       <TdContent :value="rowData.scope.importance" />
     </template>
 
