@@ -3,10 +3,6 @@
     "sort": "name", 
     "langKey": "common.collumns.recommendation" 
   },
-  { 
-    "sort": "cloudInfra", 
-    "langKey": "common.collumns.cloudInfra" 
-  },
   {
     "sort": "pending",
     "langKey": "common.collumns.pending"
