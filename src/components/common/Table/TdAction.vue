@@ -1,12 +1,8 @@
 <template>
-  <td style="min-width: 0; text-align: center">
-    <b-icon
-      v-tooltip="options(fileName)"
-      :type="iconSet[0]"
-      :pack="iconSet[1]"
-      :icon="iconSet[2]"
-      @click.native="callAction"
-    />
+  <td style="min-width: 0;" v-tooltip="options(fileName)">
+    <span class="is-block has-text-centered" @click="callAction">
+      <b-icon :type="iconSet[0]" :pack="iconSet[1]" :icon="iconSet[2]" />
+    </span>
   </td>
 </template>
 
