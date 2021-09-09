@@ -8,14 +8,6 @@
       />
     </CustomField>
 
-    <CustomField label="Cloud Infrastructure">
-      <CustomAutocomplete
-        v-model="filters.cloudInfra"
-        :filterResult="filteredcloudInfra"
-        :filterMethod="setAutocompletes"
-      />
-    </CustomField>
-
     <CustomField label="Pending">
       <CustomSlider
         v-model="filters.pending"
@@ -53,7 +45,7 @@ export default {
   mixins: [localFiltersMixin],
   data() {
     return {
-      autocompletes: ['name', 'cloudInfra'],
+      autocompletes: ['name'],
       sliders: ['pending', 'costSaving'],
       selects: ['status', 'importance']
     }

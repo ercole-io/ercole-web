@@ -12,13 +12,12 @@ export const getters = {
     let mapRecommendations = []
     _.map(recommendations, item => {
       mapRecommendations.push({
-        costSaving: _.toNumber(item.EstimatedCostSaving),
-        importance: item.Importance,
-        name: item.Name,
-        pending: _.toNumber(item.NumPending),
-        recID: item.RecommendationId,
-        status: item.RecommendationId,
-        cloudInfra: item.CloudInfra
+        costSaving: _.toNumber(item.estimatedCostSaving),
+        importance: item.importance,
+        name: item.name,
+        pending: _.toNumber(item.numPending),
+        recID: item.recommendationId,
+        status: item.status
       })
     })
 
