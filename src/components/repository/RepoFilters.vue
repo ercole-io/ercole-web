@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="applyFilters">
+  <AdvancedFiltersBase :submitAction="apply">
     <CustomField :label="$t('common.fields.repoName')">
       <CustomSelect v-model="filters.Name" :options="filteredName" />
     </CustomField>
@@ -79,22 +79,25 @@ export default {
     this.fullData = this.getRepository
   },
   methods: {
-    applyFilters() {
-      this.filters = {
-        Installed: '',
-        ReleaseDate: moment(this.startDate).format('DD/MM/YYYY')
-      }
-      this.apply()
-    },
     resetFilters() {
       this.filters = {
-        Installed: ''
+        Installed: '',
+        ReleaseDate: null
       }
       this.startDate = null
     }
   },
   computed: {
     ...mapGetters(['getRepository'])
+  },
+  watch: {
+    startDate(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.filters = {
+          ReleaseDate: moment(this.startDate).format('DD/MM/YYYY')
+        }
+      }
+    }
   }
 }
 </script>

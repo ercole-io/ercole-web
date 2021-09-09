@@ -16,23 +16,51 @@
           animated
           destroy-on-hide
         >
-          <DbInfo :dbInfo="dbs" />
+          <DbInfo :dbInfo="dbs" v-if="getCheckedFilters('info')" />
           <!-- <DbTags
               :dbName="dbs.name"
               :tags="['Albino', 'Milano', 'Como', 'Torino']"
             /> -->
-          <DbPDBs :pdbs="dbs.pdbs" />
-          <DbLicenses :licenses="dbs.licenses" />
-          <DbOptions :options="dbs.options" />
-          <DbTablespaces :tablespaces="dbs.tablespaces" />
-          <DbSchemas :schemas="dbs.schemas" />
-          <DbPatches :patches="dbs.patches" />
-          <DbPSUs :psus="dbs.psus" />
-          <DbADDMs :addms="dbs.addms" />
-          <DbSegmentAdvisors :segmentAdvisors="dbs.segmentAdvisors" />
-          <DbGrowth :growth="dbs.dbGrowth" :growthId="dbs.name" />
-          <DbBackups :backups="dbs.backups" />
-          <DbServices :services="dbs.services" />
+          <DbPDBs :pdbs="dbs.pdbs" v-if="getCheckedFilters('pdbs')" />
+          <DbLicenses
+            :licenses="dbs.licenses"
+            v-if="getCheckedFilters('licenses')"
+          />
+          <DbOptions
+            :options="dbs.options"
+            v-if="getCheckedFilters('options')"
+          />
+          <DbTablespaces
+            :tablespaces="dbs.tablespaces"
+            v-if="getCheckedFilters('tablespaces')"
+          />
+          <DbSchemas
+            :schemas="dbs.schemas"
+            v-if="getCheckedFilters('schemas')"
+          />
+          <DbPatches
+            :patches="dbs.patches"
+            v-if="getCheckedFilters('patches')"
+          />
+          <DbPSUs :psus="dbs.psus" v-if="getCheckedFilters('psus')" />
+          <DbADDMs :addms="dbs.addms" v-if="getCheckedFilters('addms')" />
+          <DbSegmentAdvisors
+            :segmentAdvisors="dbs.segmentAdvisors"
+            v-if="getCheckedFilters('segmentAdvisors')"
+          />
+          <DbGrowth
+            :growth="dbs.dbGrowth"
+            :growthId="dbs.name"
+            v-if="getCheckedFilters('dbGrowth')"
+          />
+          <DbBackups
+            :backups="dbs.backups"
+            v-if="getCheckedFilters('backups')"
+          />
+          <DbServices
+            :services="dbs.services"
+            v-if="getCheckedFilters('services')"
+          />
         </b-tabs>
       </b-tab-item>
     </template>
@@ -55,6 +83,7 @@ import DbOptions from '@/components/hosts/hostDetails/databases/oracle/DbOptions
 import DbLicenses from '@/components/hosts/hostDetails/databases/oracle/DbLicenses.vue'
 // import DbTags from '@/components/hosts/hostDetails/databases/oracle/DbTags.vue'
 import DbPDBs from '@/components/hosts/hostDetails/databases/oracle/DbPDBs.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   mixins: [hostDetailsDatabasesMixins],
@@ -73,6 +102,9 @@ export default {
     DbLicenses,
     // DbTags,
     DbPDBs
+  },
+  computed: {
+    ...mapGetters(['getCheckedFilters'])
   }
 }
 </script>
