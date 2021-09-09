@@ -13,7 +13,6 @@
 
     <template slot="bodyData" slot-scope="rowData">
       <TdContent :value="rowData.scope.name" />
-      <TdContent :value="rowData.scope.cloudInfra" />
       <TdContent :value="rowData.scope.pending" />
       <TdContent
         :value="rowData.scope.costSaving | formatNumber('0.00', '€', 1)"
