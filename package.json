@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "animate.css": "^4.1.1",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "babel-plugin-transform-require-context": "^0.1.1",
     "buefy": "^0.9.4",
     "chart.js": "^2.9.4",
