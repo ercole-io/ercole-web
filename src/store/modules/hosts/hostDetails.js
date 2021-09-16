@@ -21,8 +21,7 @@ const endDate = moment()
 export const state = () => ({
   currentHost: {},
   currentHostActiveDB: '',
-  dbFiltersSelected: ['name'],
-  isEmpty: false
+  dbFiltersSelected: ['name']
 })
 
 const info = [
@@ -95,21 +94,22 @@ export const getters = {
   },
   currentHostInfo: state => {
     const info = state.currentHost.info
+    const current = state.currentHost
 
     const general = {
       name: 'General Info',
       data: [
         {
           name: 'Environment',
-          value: state.currentHost.environment
+          value: current.environment
         },
         {
           name: 'Technology',
-          value: mapDatabases(state.currentHost.features, 'technology')
+          value: mapDatabases(current.features, 'technology')
         },
         {
           name: 'Clust',
-          value: mapClustStatus(info.clusterMembershipStatus),
+          value: mapClustStatus(current.clusterMembershipStatus),
           hasIcon: true
         }
       ]
@@ -147,11 +147,11 @@ export const getters = {
         },
         {
           name: 'Cluster',
-          value: state.currentHost.cluster
+          value: current.cluster
         },
         {
           name: 'Node',
-          value: state.currentHost.virtualizationNode
+          value: current.virtualizationNode
         }
       ]
     }
@@ -181,11 +181,11 @@ export const getters = {
       data: [
         {
           name: 'Version',
-          value: state.currentHost.agentVersion
+          value: current.agentVersion
         },
         {
           name: 'Last Update',
-          value: formatDateTime(state.currentHost.createdAt)
+          value: formatDateTime(current.createdAt)
         }
       ]
     }
