@@ -158,7 +158,7 @@
       <b-autocomplete
         v-model="oracleForm.referenceNumber"
         size="is-small"
-        type="number"
+        type="text"
         icon="magnify"
         :data="filteredreferenceNumber"
         @typing="
