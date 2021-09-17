@@ -2,7 +2,7 @@
   <b-autocomplete
     v-model="inputVal"
     size="is-small"
-    type="number"
+    type="text"
     icon="magnify"
     :placeholder="setPlaceholder"
     :data="filterResult"
