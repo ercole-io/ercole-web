@@ -4,6 +4,7 @@ export const state = () => ({
   'page-licensesCompliance': [true, true],
   'page-licensesUsedHosts': [true, true],
   'page-licensesUsedDbs': [true, true],
+  'page-licensesUsedClusters': [true, true],
   'page-alerts': [true, true],
   'page-hypervisors': [true, true],
   'page-clusters': [true, true],
