@@ -1,9 +1,11 @@
-import axiosDefault from '@/axios/axios-default.js'
 import _ from 'lodash'
+import axiosDefault from '@/axios/axios-default.js'
+import licUsedCluster from '@/components/licenses/used/clusters/licensesUsed_cluster.json'
 
 export const state = () => ({
   dbsLicensesUsed: [],
-  hostsLicensesUsed: []
+  hostsLicensesUsed: [],
+  clustersLicensesUsed: []
 })
 
 export const getters = {
@@ -43,6 +45,9 @@ export const getters = {
       })
     })
     return getters.filteredOrNot(finalData)
+  },
+  getUsedLicensesByCluster: (state, getters) => {
+    return getters.filteredOrNot(state.clustersLicensesUsed)
   }
 }
 
@@ -50,6 +55,9 @@ export const mutations = {
   SET_LICENSE_LIST: (state, payload) => {
     state.dbsLicensesUsed = payload
     state.hostsLicensesUsed = payload
+  },
+  SET_LICENSES_CLUSTER: (state, payload) => {
+    state.clustersLicensesUsed = payload
   }
 }
 
@@ -77,5 +85,22 @@ export const actions = {
     })
 
     commit('SET_LICENSE_LIST', setLicensesInfo)
+  },
+  async getLicensesCluster({ commit }) {
+    // const licensesCluster = await axiosDefault.get(
+    //   '/hosts/technologies/all/databases/licenses-used-per-cluster',
+    //   {
+    //     params: {
+    //       'older-than': getters.getActiveFilters.date,
+    //       environment: getters.getActiveFilters.environment,
+    //       location: getters.getActiveFilters.location
+    //     }
+    //   }
+    // )
+    // const response = await licensesCluster.data
+
+    const response = licUsedCluster
+
+    commit('SET_LICENSES_CLUSTER', response)
   }
 }
