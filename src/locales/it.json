@@ -235,7 +235,8 @@
       "opSysFam": "Famiglia SO",
       "repository": "Repository",
       "installed": "Installato",
-      "releaseDate": "Data di Rilascio"
+      "releaseDate": "Data di Rilascio",
+      "licAvailable": "Licenza Disponibile"
     },
     "table": {
       "perPage": "per pagina",
@@ -340,7 +341,8 @@
       "opSys": "Sistema Operativo",
       "opSysFam": "Famiglia SO",
       "repository": "Repository",
-      "installed": "Installato"
+      "installed": "Installato",
+      "licAvailable": "Licenza Disponibile"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",
