@@ -18,6 +18,13 @@
       <CustomSelect v-model="filters.metric" :options="filteredmetric" />
     </CustomField>
 
+    <CustomField :label="$t('common.fields.licAvailable')">
+      <CustomSlider
+        v-model="filters.licenseAvailable"
+        :ticks="[minlicenseAvailable, maxlicenseAvailable]"
+      />
+    </CustomField>
+
     <CustomField :label="$t('common.fields.consumed')">
       <CustomSlider
         v-model="filters.consumed"
@@ -51,7 +58,7 @@ export default {
   data() {
     return {
       selects: ['licenseTypeID', 'itemDescription', 'metric'],
-      sliders: ['consumed', 'covered', 'compliance'],
+      sliders: ['consumed', 'covered', 'compliance', 'licenseAvailable'],
       filters: {
         unlimited: ''
       }

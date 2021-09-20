@@ -235,7 +235,8 @@
       "opSysFam": "OS Family",
       "repository": "Repository",
       "installed": "Installed",
-      "releaseDate": "Release Date"
+      "releaseDate": "Release Date",
+      "licAvailable": "License Available"
     },
     "table": {
       "perPage": "per page",
@@ -340,7 +341,8 @@
       "opSys": "OS",
       "opSysFam": "OS Family",
       "repository": "Repository",
-      "installed": "Installed"
+      "installed": "Installed",
+      "licAvailable": "License Available"
     },
     "charts": {
       "archivelog": "Archivelog Mode",
