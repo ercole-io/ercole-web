@@ -61,6 +61,7 @@ export default {
   bottom: 0;
   left: 0;
   padding: 25px 0;
+  margin-top: 5px;
   z-index: 10;
   width: inherit;
 }

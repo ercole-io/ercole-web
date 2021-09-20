@@ -7,6 +7,9 @@
       <b-tab-item label="Hosts">
         <UsedLicensesHost :partNumber="partNumber" />
       </b-tab-item>
+      <b-tab-item label="Clusters">
+        <UsedLicensesClusters :partNumber="partNumber" />
+      </b-tab-item>
     </b-tabs>
   </section>
 </template>
@@ -16,11 +19,13 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapActions } from 'vuex'
 import UsedLicensesDbs from '@/components/licenses/used/databases/UsedLicensesDbs.vue'
 import UsedLicensesHost from '@/components/licenses/used/hosts/UsedLicensesHost.vue'
+import UsedLicensesClusters from '@/components/licenses/used/clusters/UsedLicensesClusters.vue'
 
 export default {
   components: {
     UsedLicensesDbs,
-    UsedLicensesHost
+    UsedLicensesHost,
+    UsedLicensesClusters
   },
   props: {
     partNumber: {
@@ -35,10 +40,19 @@ export default {
   },
   async beforeMount() {
     await this.getAgreementParts()
-    await this.getLicensesList().then(() => (this.isMounted = true))
+
+    await this.getLicensesList()
+      .then(() => {
+        this.getLicensesCluster()
+      })
+      .then(() => (this.isMounted = true))
   },
   methods: {
-    ...mapActions(['getLicensesList', 'getAgreementParts']),
+    ...mapActions([
+      'getLicensesList',
+      'getAgreementParts',
+      'getLicensesCluster'
+    ]),
     onTabChange() {
       bus.$emit('onUsedTabChange')
     }
