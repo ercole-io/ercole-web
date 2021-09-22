@@ -2,7 +2,7 @@
   <b-tab-item label="Licenses" v-if="licenses.length > 0">
     <FullTable
       :tableData="licenses"
-      :keys="[]"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
@@ -41,6 +41,11 @@ export default {
   components: {
     FullTable,
     TdContent
+  },
+  data() {
+    return {
+      keys: ['name', 'count', 'licenseTypeID', 'description', 'metric']
+    }
   }
 }
 </script>
