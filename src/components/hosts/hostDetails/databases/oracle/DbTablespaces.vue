@@ -2,7 +2,7 @@
   <b-tab-item label="Tablespaces" v-if="tablespaces.length > 0">
     <FullTable
       :tableData="tablespaces"
-      :keys="[]"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
@@ -43,6 +43,11 @@ export default {
   components: {
     FullTable,
     TdContent
+  },
+  data() {
+    return {
+      keys: ['name', 'status', 'used', 'usedPerc', 'total', 'maxSize']
+    }
   }
 }
 </script>

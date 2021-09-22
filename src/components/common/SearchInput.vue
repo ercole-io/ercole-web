@@ -44,6 +44,10 @@ export default {
   mounted() {
     this.searchTherm = this.urlParam
     this.emitSearchTherm(this.searchTherm)
+
+    bus.$on('sendSearchVal', val => {
+      this.searchTherm = val
+    })
   },
   methods: {
     emitSearchTherm(value) {
