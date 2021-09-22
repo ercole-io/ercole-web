@@ -69,11 +69,13 @@ export default {
     onSearch(e) {
       if (e !== '' && e.length > 0) {
         bus.$emit('isSearching', true)
+        bus.$emit('sendSearchVal', e)
       }
     },
     onSearchBlur() {
       if (this.searchDb.length === 0) {
         bus.$emit('isSearching', false)
+        bus.$emit('sendSearchVal', '')
       }
     }
   },

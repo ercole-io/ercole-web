@@ -2,7 +2,7 @@
   <b-tab-item label="Schemas" v-if="schemas.length > 0">
     <FullTable
       :tableData="schemas"
-      :keys="[]"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
@@ -41,6 +41,11 @@ export default {
   components: {
     FullTable,
     TdContent
+  },
+  data() {
+    return {
+      keys: ['user', 'total', 'tables', 'indexes', 'lob']
+    }
   }
 }
 </script>
