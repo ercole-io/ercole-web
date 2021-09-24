@@ -437,7 +437,7 @@ const mapOracleDatabase = data => {
       role: item.role,
       dbID: item.dbID,
       uniqueName: item.uniqueName,
-      archiveLog: item.archiveLog,
+      archivelog: item.archivelog,
       blockSize: item.blockSize,
       charset: item.charset,
       nCharset: item.nCharset,
