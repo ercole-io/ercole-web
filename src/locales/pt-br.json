@@ -363,7 +363,17 @@
       "onlyNumbers": "Este campo aceita apenas número.",
       "characters": "{0} deve ter pelo menos {1} caracteres",
       "loginUnauthorized": "Nome de usuário ou senha inválidos.",
-      "noResults": "Nenhum resultado encontrado."
+      "noResults": "Nenhum resultado encontrado.",
+      "goBack": "voltar",
+      "goLogin": "vá para o login"
+    },
+    "errors": {
+      "500": "Erro Interno do Servidor",
+      "500msg": "Algo deu errado. Por favor, tente novamente.",
+      "404": "Página Não Encontrada",
+      "404msg": "A página que você está procurando parece não existir.",
+      "401": "Não Autorizado",
+      "401msg": "SEU TOKEN EXPIROU E VOCÊ SERÁ REDIRECIONADO PARA A PÁGINA DE LOGIN EM {0} SEGUNDOS."
     }
   }
 }

@@ -122,7 +122,9 @@
       "edit": "Edit",
       "fullDesc": "Show Full Description",
       "close": "Close",
-      "sideInfo": "Extra Info"
+      "sideInfo": "Extra Info",
+      "goBack": "go back",
+      "goLogin": "go to login"
     },
     "forms": {
       "advancedFilters": "Advanced Filters",
@@ -371,6 +373,14 @@
       "characters": "{0} must have at least {1} characters",
       "loginUnauthorized": "Invalid username or password.",
       "noResults": "No results found"
+    },
+    "errors": {
+      "500": "Internal Server Error",
+      "500msg": "Somenthing went wrong. Please try again.",
+      "404": "Page Not Found",
+      "404msg": "The page you are looking for does not seem to exist.",
+      "401": "Unauthorized",
+      "401msg": "YOUR TOKEN HAS EXPIRED AND YOU WILL BE REDIRECTED TO THE LOGIN PAGE IN {0} SECONDS."
     }
   }
 }

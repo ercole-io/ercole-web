@@ -122,7 +122,9 @@
       "edit": "Modificare",
       "fullDesc": "Mostra Descrizione Completa",
       "close": "Chiudere",
-      "sideInfo": "Informazioni Aggiuntive"
+      "sideInfo": "Informazioni Aggiuntive",
+      "goBack": "torna indietro",
+      "goLogin": "vai al login"
     },
     "forms": {
       "advancedFilters": "Filtri Avanzati",
@@ -371,6 +373,14 @@
       "characters": "{0} deve contenere almeno {1} caratteri",
       "loginUnauthorized": "Nome utente o password non valido.",
       "noResults": "Nessun risultato trovato."
+    },
+    "errors": {
+      "500": "Errore Interno Del Server",
+      "500msg": "Qualcosa è andato storto. Per favore riprova.",
+      "404": "Pagina Non Trovata",
+      "404msg": "La pagina che stai cercando non sembra esistere.",
+      "401": "Non Autorizzato",
+      "401msg": "IL TUO TOKEN È SCADUTO E SARAI REINDIRIZZATO ALLA PAGINA DI ACCESSO IN {0} SECONDI."
     }
   }
 }
