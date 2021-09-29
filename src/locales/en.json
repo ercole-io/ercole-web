@@ -372,6 +372,7 @@
       "onlyNumbers": "This field accepts only number.",
       "characters": "{0} must have at least {1} characters",
       "loginUnauthorized": "Invalid username or password.",
+      "loginTimeout": "Request timeout exceeded", 
       "noResults": "No results found"
     },
     "errors": {
