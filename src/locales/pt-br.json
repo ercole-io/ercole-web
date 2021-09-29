@@ -122,7 +122,9 @@
       "edit": "Editar",
       "fullDesc": "Mostrar Descrição Completa",
       "close": "Fechar",
-      "sideInfo": "Informação Extra"
+      "sideInfo": "Informação Extra",
+      "goBack": "voltar",
+      "goLogin": "vá para o login"
     },
     "forms": {
       "advancedFilters": "Filtros Avançados",
@@ -363,9 +365,8 @@
       "onlyNumbers": "Este campo aceita apenas número.",
       "characters": "{0} deve ter pelo menos {1} caracteres",
       "loginUnauthorized": "Nome de usuário ou senha inválidos.",
-      "noResults": "Nenhum resultado encontrado.",
-      "goBack": "voltar",
-      "goLogin": "vá para o login"
+      "loginTimeout": "Tempo limite da solicitação excedido",
+      "noResults": "Nenhum resultado encontrado."
     },
     "errors": {
       "500": "Erro Interno do Servidor",
