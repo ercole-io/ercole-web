@@ -58,9 +58,30 @@ export const mapClustStatus = clust => {
       clust.sunCluster ||
       clust.veritasClusterServer)
   ) {
-    return true
+    let cluster = []
+    _.filter(clust, (val, key) => {
+      if (val) {
+        cluster.push(val, mapClusterType(key))
+      }
+    })
+    return cluster
   } else {
-    return false
+    return [false, '-']
+  }
+}
+
+const mapClusterType = clustType => {
+  switch (clustType) {
+    case 'hacmp':
+      return 'HACMP'
+    case 'oracleClusterware':
+      return 'Cluster Ware'
+    case 'sunCluster':
+      return 'Sun Cluster'
+    case 'veritasClusterServer':
+      return 'Veritas Cluster'
+    default:
+      break
   }
 }
 

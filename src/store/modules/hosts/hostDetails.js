@@ -110,8 +110,12 @@ export const getters = {
         },
         {
           name: 'Clust',
-          value: mapClustStatus(current.clusterMembershipStatus),
+          value: mapClustStatus(current.clusterMembershipStatus)[0],
           hasIcon: true
+        },
+        {
+          name: 'Cluster Type',
+          value: mapClustStatus(current.clusterMembershipStatus)[1]
         }
       ]
     }
