@@ -119,6 +119,14 @@ export const getters = {
         }
       ]
     }
+
+    if (mapClustStatus(current.clusterMembershipStatus)[2]) {
+      general.data.push({
+        name: 'Cluster Nodes',
+        value: mapClustStatus(current.clusterMembershipStatus)[2]
+      })
+    }
+
     const osDetails = {
       name: 'OS Details',
       data: [
