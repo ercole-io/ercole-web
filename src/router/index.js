@@ -84,6 +84,9 @@ const NotFound = lazy(() =>
 const CloudRecommendation = lazy(() =>
   import(/* webpackPreload: true */ '@/views/cloud/Recommendations.vue')
 )
+const ProfileConfigurations = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/cloud/ProfileConfigurations.vue')
+)
 
 Vue.use(VueRouter)
 
@@ -363,6 +366,16 @@ const routes = [
       label: i18n.t('menu.recommendations'),
       title: `${title}${i18n.t('menu.recommendations')}`,
       breadcrumb: [{ name: i18n.t('menu.recommendations') }]
+    }
+  },
+  {
+    path: '/profile-configurations',
+    name: 'profile-configurations',
+    component: ProfileConfigurations,
+    meta: {
+      label: i18n.t('menu.profileConfig'),
+      title: `${title}${i18n.t('menu.profileConfig')}`,
+      breadcrumb: [{ name: i18n.t('menu.profileConfig') }]
     }
   },
   {
