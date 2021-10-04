@@ -9,6 +9,7 @@ import {
 } from '@/helpers/helpers.js'
 import { mapDatabases } from '@/helpers/databasesMap.js'
 import formatDateTime from '@/filters/formatDateTime.js'
+import formatDate from '@/filters/formatDate.js'
 import store from '@/store/index.js'
 
 const startDate = moment()
@@ -21,8 +22,7 @@ const endDate = moment()
 export const state = () => ({
   currentHost: {},
   currentHostActiveDB: '',
-  dbFiltersSelected: ['name'],
-  isEmpty: false
+  dbFiltersSelected: ['name']
 })
 
 const info = [
@@ -95,25 +95,38 @@ export const getters = {
   },
   currentHostInfo: state => {
     const info = state.currentHost.info
+    const current = state.currentHost
 
     const general = {
       name: 'General Info',
       data: [
         {
           name: 'Environment',
-          value: state.currentHost.environment
+          value: current.environment
         },
         {
           name: 'Technology',
-          value: mapDatabases(state.currentHost.features, 'technology')
+          value: mapDatabases(current.features, 'technology')
         },
         {
           name: 'Clust',
-          value: mapClustStatus(info.clusterMembershipStatus),
+          value: mapClustStatus(current.clusterMembershipStatus)[0],
           hasIcon: true
+        },
+        {
+          name: 'Cluster Type',
+          value: mapClustStatus(current.clusterMembershipStatus)[1]
         }
       ]
     }
+
+    if (mapClustStatus(current.clusterMembershipStatus)[2]) {
+      general.data.push({
+        name: 'Cluster Nodes',
+        value: mapClustStatus(current.clusterMembershipStatus)[2]
+      })
+    }
+
     const osDetails = {
       name: 'OS Details',
       data: [
@@ -147,11 +160,11 @@ export const getters = {
         },
         {
           name: 'Cluster',
-          value: state.currentHost.cluster
+          value: current.cluster
         },
         {
           name: 'Node',
-          value: state.currentHost.virtualizationNode
+          value: current.virtualizationNode
         }
       ]
     }
@@ -181,11 +194,11 @@ export const getters = {
       data: [
         {
           name: 'Version',
-          value: state.currentHost.agentVersion
+          value: current.agentVersion
         },
         {
           name: 'Last Update',
-          value: formatDateTime(state.currentHost.createdAt)
+          value: formatDateTime(current.createdAt)
         }
       ]
     }
@@ -436,7 +449,7 @@ const mapOracleDatabase = data => {
       role: item.role,
       dbID: item.dbID,
       uniqueName: item.uniqueName,
-      archiveLog: item.archiveLog,
+      archivelog: item.archivelog,
       blockSize: item.blockSize,
       charset: item.charset,
       nCharset: item.nCharset,
@@ -457,16 +470,16 @@ const mapOracleDatabase = data => {
       version: item.version,
       pdbs: resolvePdbs([...item.pdbs]),
       licenses: resolveLicenses([...item.licenses]),
-      options: [...item.featureUsageStats],
+      options: resolveOptions([...item.featureUsageStats]),
       tablespaces: [...item.tablespaces],
       schemas: [...item.schemas],
-      patches: [...item.patches],
-      psus: [...item.psus],
+      patches: genericResolve([...item.patches]),
+      psus: genericResolve([...item.psus]),
       addms: [...item.addms],
       segmentAdvisors: [...item.segmentAdvisors],
       dbGrowth: [...item.changes],
       backups: [...item.backups],
-      services: [...item.services]
+      services: resolveServices([...item.services])
     })
   })
   return newData
@@ -489,6 +502,35 @@ const resolvePdbs = pdbs => {
   return filteredPdbs
 }
 
+const resolveOptions = options => {
+  let filteredOptions = []
+  _.filter(options, val => {
+    if (val) {
+      filteredOptions.push({
+        ...val,
+        lastUsageDate: formatDate(val.lastUsageDate),
+        firstUsageDate: formatDate(val.firstUsageDate)
+      })
+    }
+  })
+
+  return filteredOptions
+}
+
+const resolveServices = services => {
+  let filteredServices = []
+  _.filter(services, val => {
+    if (val) {
+      filteredServices.push({
+        ...val,
+        creationDate: formatDate(val.creationDate)
+      })
+    }
+  })
+
+  return filteredServices
+}
+
 const resolveLicenses = licences => {
   let filteredLicenses = []
   _.filter(licences, val => {
@@ -506,4 +548,15 @@ const resolveLicenses = licences => {
   })
 
   return filteredLicenses
+}
+
+const genericResolve = data => {
+  let filteredData = []
+  _.filter(data, val => {
+    filteredData.push({
+      ...val,
+      date: formatDate(val.date)
+    })
+  })
+  return filteredData
 }

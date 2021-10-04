@@ -1,8 +1,8 @@
 <template>
   <b-tab-item label="Services" v-if="services.length > 0">
     <FullTable
-      :tableData="addms"
-      :keys="[]"
+      :tableData="services"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
@@ -37,6 +37,11 @@ export default {
   components: {
     FullTable,
     TdContent
+  },
+  data() {
+    return {
+      keyy: ['name', 'creationDate', 'enable']
+    }
   }
 }
 </script>

@@ -62,6 +62,7 @@
       "engine": "Engine",
       "cpuUsage": "CPU Usage",
       "searchBy": "Search by DB name",
+      "search": "Search",
       "compareDb": "Compare Databases",
       "selectAll": "Select all",
       "deselectAll": "Deselect all",
@@ -124,7 +125,9 @@
       "edit": "Edit",
       "fullDesc": "Show Full Description",
       "close": "Close",
-      "sideInfo": "Extra Info"
+      "sideInfo": "Extra Info",
+      "goBack": "go back",
+      "goLogin": "go to login"
     },
     "forms": {
       "advancedFilters": "Advanced Filters",
@@ -237,7 +240,8 @@
       "opSysFam": "OS Family",
       "repository": "Repository",
       "installed": "Installed",
-      "releaseDate": "Release Date"
+      "releaseDate": "Release Date",
+      "licAvailable": "License Available"
     },
     "table": {
       "perPage": "per page",
@@ -346,7 +350,8 @@
       "opSys": "OS",
       "opSysFam": "OS Family",
       "repository": "Repository",
-      "installed": "Installed"
+      "installed": "Installed",
+      "licAvailable": "License Available"
     },
     "charts": {
       "archivelog": "Archivelog Mode",
@@ -374,7 +379,16 @@
       "onlyNumbers": "This field accepts only number.",
       "characters": "{0} must have at least {1} characters",
       "loginUnauthorized": "Invalid username or password.",
+      "loginTimeout": "Request timeout exceeded", 
       "noResults": "No results found"
+    },
+    "errors": {
+      "500": "Internal Server Error",
+      "500msg": "Somenthing went wrong. Please try again.",
+      "404": "Page Not Found",
+      "404msg": "The page you are looking for does not seem to exist.",
+      "401": "Unauthorized",
+      "401msg": "YOUR TOKEN HAS EXPIRED AND YOU WILL BE REDIRECTED TO THE LOGIN PAGE IN {0} SECONDS."
     }
   }
 }

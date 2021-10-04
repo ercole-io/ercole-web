@@ -27,9 +27,6 @@
         <div v-if="!$v.username.required && $v.username.$error">
           {{ required($t('common.fields.username')) }}
         </div>
-        <!-- <div v-if="!$v.username.minLen && $v.username.$error">
-          {{ characters('username', '4') }}
-        </div> -->
       </template>
     </b-field>
 
@@ -53,9 +50,6 @@
         <div v-if="!$v.password.required && $v.password.$error">
           {{ required($t('common.fields.password')) }}
         </div>
-        <!-- <div v-if="!$v.password.minLen && $v.password.$error">
-          {{ characters('password', '8') }}
-        </div> -->
       </template>
     </b-field>
     <b-button
@@ -90,11 +84,9 @@ export default {
   validations: {
     username: {
       required
-      // minLen: minLength(4)
     },
     password: {
       required
-      // minLen: minLength(8)
     }
   },
   methods: {
@@ -102,9 +94,6 @@ export default {
     required(field) {
       return this.$i18n.t('common.validations.required', [field])
     }
-    // characters(field, char) {
-    //   return this.$i18n.t('common.validations.characters', [field, char])
-    // }
   }
 }
 </script>

@@ -151,37 +151,22 @@
     <b-field
       :label="`${$t('common.fields.refNumber')}`"
       custom-class="is-small"
-      :type="{
-        'is-danger': $v.oracleForm.referenceNumber.$error
-      }"
     >
       <b-autocomplete
         v-model="oracleForm.referenceNumber"
         size="is-small"
-        type="number"
+        type="text"
         icon="magnify"
         :data="filteredreferenceNumber"
         @typing="
           getAutocompleteData($event, 'referenceNumber', returnReferenceNumbers)
         "
         clearable
-        @blur="$v.oracleForm.referenceNumber.$touch()"
-        @input="$v.oracleForm.referenceNumber.$touch()"
       >
         <template slot="empty">
           {{ $i18n.t('common.validations.noResults') }}
         </template>
       </b-autocomplete>
-      <template #message>
-        <div
-          v-if="
-            !$v.oracleForm.referenceNumber.numeric &&
-              $v.oracleForm.referenceNumber.$error
-          "
-        >
-          {{ $i18n.t('common.validations.onlyNumbers') }}
-        </div>
-      </template>
     </b-field>
 
     <b-field
@@ -342,7 +327,6 @@ export default {
       agreeNumber: { required, numeric },
       partNumber: { required },
       csi: { required },
-      referenceNumber: { numeric },
       licenseNumber: {
         required: requiredIf(val => {
           return !val.ula

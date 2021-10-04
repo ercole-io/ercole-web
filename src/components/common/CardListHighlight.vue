@@ -5,11 +5,10 @@
         <span :class="`column is-${colSizes[0]}`">{{ item.name }}</span>
         <span
           v-tooltip.right="options(item.value)"
+          v-html="highlight(toString(item.value))"
           :class="`column is-${colSizes[1]}`"
           v-if="!item.hasIcon"
-        >
-          {{ item.value | toString }}
-        </span>
+        />
         <span
           v-tooltip.right="options(bindIncon(item.value)[2])"
           :class="`column is-${colSizes[1]}`"
@@ -20,8 +19,7 @@
             :icon="bindIncon(item.value)[0]"
             :type="bindIncon(item.value)[1]"
             style="vertical-align: middle;"
-          >
-          </b-icon>
+          />
         </span>
       </div>
     </li>
@@ -29,11 +27,13 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapBooleanIcon } from '@/helpers/helpers.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 
 export default {
-  mixins: [TooltipMixin],
+  mixins: [TooltipMixin, HighlightSearchMixin],
   props: {
     list: {
       type: Array,
@@ -47,6 +47,9 @@ export default {
   methods: {
     bindIncon(value) {
       return mapBooleanIcon(value)
+    },
+    toString(val) {
+      return _.toString(val)
     }
   }
 }

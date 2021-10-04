@@ -36,7 +36,7 @@
           <section class="wrap-table py-3">
             <FullTable
               :tableData="pdb.pdbSchemas"
-              :keys="[]"
+              :keys="['user', 'total', 'tables', 'indexes', 'lob']"
               hideSearch
               hidePerpage
               hidePagination
@@ -64,7 +64,7 @@
           <section class="wrap-table py-3">
             <FullTable
               :tableData="pdb.pdbTablespaces"
-              :keys="[]"
+              :keys="['name', 'status', 'usedPerc', 'used', 'total', 'maxSize']"
               hideSearch
               hidePerpage
               hidePagination

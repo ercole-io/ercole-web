@@ -62,6 +62,7 @@
       "engine": "Engine",
       "cpuUsage": "Uso della CPU",
       "searchBy": "Cerca per nome DB",
+      "search": "Cerca",
       "compareDb": "Confronta Database",
       "selectAll": "Seleziona tutto",
       "deselectAll": "Deselezionare tutto",
@@ -124,7 +125,9 @@
       "edit": "Modificare",
       "fullDesc": "Mostra Descrizione Completa",
       "close": "Chiudere",
-      "sideInfo": "Informazioni Aggiuntive"
+      "sideInfo": "Informazioni Aggiuntive",
+      "goBack": "torna indietro",
+      "goLogin": "vai al login"
     },
     "forms": {
       "advancedFilters": "Filtri Avanzati",
@@ -237,7 +240,8 @@
       "opSysFam": "Famiglia SO",
       "repository": "Repository",
       "installed": "Installato",
-      "releaseDate": "Data di Rilascio"
+      "releaseDate": "Data di Rilascio",
+      "licAvailable": "Licenza Disponibile"
     },
     "table": {
       "perPage": "per pagina",
@@ -346,7 +350,8 @@
       "opSys": "Sistema Operativo",
       "opSysFam": "Famiglia SO",
       "repository": "Repository",
-      "installed": "Installato"
+      "installed": "Installato",
+      "licAvailable": "Licenza Disponibile"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",
@@ -374,7 +379,16 @@
       "onlyNumbers": "Questo campo accetta solo numeri.",
       "characters": "{0} deve contenere almeno {1} caratteri",
       "loginUnauthorized": "Nome utente o password non valido.",
+      "loginTimeout": "Timeout richiesta superato",
       "noResults": "Nessun risultato trovato."
+    },
+    "errors": {
+      "500": "Errore Interno Del Server",
+      "500msg": "Qualcosa è andato storto. Per favore riprova.",
+      "404": "Pagina Non Trovata",
+      "404msg": "La pagina che stai cercando non sembra esistere.",
+      "401": "Non Autorizzato",
+      "401msg": "IL TUO TOKEN È SCADUTO E SARAI REINDIRIZZATO ALLA PAGINA DI ACCESSO IN {0} SECONDI."
     }
   }
 }

@@ -33,11 +33,11 @@
       <v-th sortKey="licensesPerCore">
         {{ $t('common.collumns.licPerCore') }}
       </v-th>
-      <v-th sortKey="licensesPerUser">
-        {{ $t('common.collumns.licPerUser') }}
-      </v-th>
       <v-th sortKey="availableLicensesPerCore">
         {{ $t('common.collumns.avLicPerCore') }}
+      </v-th>
+      <v-th sortKey="licensesPerUser">
+        {{ $t('common.collumns.licPerUser') }}
       </v-th>
       <v-th sortKey="availableLicensesPerUser">
         {{ $t('common.collumns.avLicPerUser') }}
@@ -103,8 +103,8 @@
       />
       <TdIcon :value="rowData.scope.unlimited" />
       <TdContent :value="rowData.scope.licensesPerCore" />
-      <TdContent :value="rowData.scope.licensesPerUser" />
       <TdContent :value="rowData.scope.availableLicensesPerCore" />
+      <TdContent :value="rowData.scope.licensesPerUser" />
       <TdContent :value="rowData.scope.availableLicensesPerUser" />
       <TdIcon :value="rowData.scope.catchAll" />
       <TdIcon :value="rowData.scope.restricted" />
