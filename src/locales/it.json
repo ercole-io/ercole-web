@@ -60,6 +60,7 @@
       "engine": "Engine",
       "cpuUsage": "Uso della CPU",
       "searchBy": "Cerca per nome DB",
+      "search": "Cerca",
       "compareDb": "Confronta Database",
       "selectAll": "Seleziona tutto",
       "deselectAll": "Deselezionare tutto",
