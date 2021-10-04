@@ -51,6 +51,10 @@ export const mapBooleanIcon = value => {
 }
 
 export const mapClustStatus = clust => {
+  const veritasCount = clust.veritasClusterHostnames
+    ? clust.veritasClusterHostnames.length
+    : 0
+
   if (
     clust &&
     (clust.hacmp ||
@@ -58,9 +62,34 @@ export const mapClustStatus = clust => {
       clust.sunCluster ||
       clust.veritasClusterServer)
   ) {
-    return true
+    let cluster = []
+    _.filter(clust, (val, key) => {
+      if (val && !_.isArray(val)) {
+        cluster.push(val, mapClusterType(key))
+      }
+    })
+
+    if (veritasCount > 0) {
+      cluster.push(veritasCount)
+    }
+    return cluster
   } else {
-    return false
+    return [false, '-']
+  }
+}
+
+const mapClusterType = clustType => {
+  switch (clustType) {
+    case 'hacmp':
+      return 'HACMP'
+    case 'oracleClusterware':
+      return 'Cluster Ware'
+    case 'sunCluster':
+      return 'Sun Cluster'
+    case 'veritasClusterServer':
+      return 'Veritas Cluster'
+    default:
+      return '-'
   }
 }
 

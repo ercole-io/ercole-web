@@ -8,6 +8,7 @@
       <v-th sortKey="Download">Copy Path</v-th>
       <v-th sortKey="Download">Download</v-th>
       <v-th sortKey="Name">{{ $t('common.collumns.repoName') }}</v-th>
+      <v-th sortKey="Version">{{ $t('common.collumns.version') }}</v-th>
       <v-th sortKey="Filename">{{ $t('common.collumns.filename') }}</v-th>
       <v-th sortKey="Arch">{{ $t('common.collumns.arch') }}</v-th>
       <v-th sortKey="OperatingSystem">{{ $t('common.collumns.opSys') }}</v-th>
@@ -17,7 +18,6 @@
       <v-th sortKey="Repository">{{ $t('common.collumns.repository') }}</v-th>
       <v-th sortKey="Installed">{{ $t('common.collumns.installed') }}</v-th>
       <v-th sortKey="ReleaseDate">{{ $t('common.collumns.releaseDate') }}</v-th>
-      <v-th sortKey="Version">{{ $t('common.collumns.version') }}</v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
@@ -35,6 +35,7 @@
         :iconSet="['is-link', 'fas', 'download']"
       />
       <TdContent :value="rowData.scope.Name" />
+      <TdContent :value="rowData.scope.Version" />
       <TdContent :value="rowData.scope.Filename" />
       <TdContent :value="rowData.scope.Arch" />
       <TdContent :value="rowData.scope.OperatingSystem" />
@@ -42,7 +43,6 @@
       <TdContent :value="rowData.scope.Repository" />
       <TdIcon :value="rowData.scope.Installed" />
       <TdContent :value="rowData.scope.ReleaseDate" />
-      <TdContent :value="rowData.scope.Version" />
     </template>
   </FullTable>
 </template>

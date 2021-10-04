@@ -29,7 +29,8 @@ export const mutations = {
       newPayload.push({
         ...val,
         compliance: val.compliance * 100,
-        complianceStroke: showStrokeColor(val.compliance * 100)
+        complianceStroke: showStrokeColor(val.compliance * 100),
+        licenseAvailable: _.random(0, 10)
       })
     })
     state.complianceList = newPayload

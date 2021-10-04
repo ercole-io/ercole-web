@@ -8,13 +8,23 @@
               v-model="selectedType"
               size="is-small"
               type="text"
-              icon-right="chevron-down"
+              icon="magnify"
               field="full"
-              :data="getChartLicenseHistory"
+              :data="filteredChartLicenseHistory"
+              @typing="
+                getAutocompletePartNumber(
+                  $event,
+                  'ChartLicenseHistory',
+                  getChartLicenseHistory
+                )
+              "
+              @focus="
+                () => (filteredChartLicenseHistory = getChartLicenseHistory)
+              "
               open-on-focus
               expanded
-              readonly
               keep-first
+              clearable
             >
               <template slot-scope="props">
                 <div class="media media-custom">
@@ -103,6 +113,7 @@ import formatDate from '@/filters/formatDate.js'
 import LineChart from '@/components/common/charts/LineChart.vue'
 import NoContent from '@/components/common/NoContent.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
+import { simpleAutocompleteData } from '@/helpers/helpers.js'
 
 const matchType = (data, selected) => {
   return _.find(data, type => {
@@ -139,7 +150,8 @@ export default {
       startDate: null,
       endDate: null,
       showChart: false,
-      loading: true
+      loading: true,
+      filteredChartLicenseHistory: []
     }
   },
   async beforeMount() {
@@ -209,6 +221,31 @@ export default {
     },
     formatDate(date) {
       return formatDate(date)
+    },
+    getAutocompleteData(text, toFilter, data) {
+      const values = simpleAutocompleteData(text, data)
+      this[`filtered${toFilter}`] = _.uniqBy(values, e => e)
+    },
+    getAutocompletePartNumber(text, toFilter, data) {
+      const newData = []
+      _.map(data, val => {
+        newData.push(val.full)
+      })
+
+      const values = simpleAutocompleteData(text, newData)
+
+      const newValues = []
+      _.map(values, val => {
+        const newVal = _.split(val, ' - ')
+        newValues.push({
+          licenseTypeID: newVal[0],
+          itemDescription: newVal[1],
+          metric: newVal[2],
+          full: `${newVal[0]} - ${newVal[1]} - ${newVal[2]}`
+        })
+      })
+
+      this[`filtered${toFilter}`] = newValues
     }
   },
   computed: {
@@ -237,7 +274,7 @@ export default {
       }
     },
     selectedType(newValue) {
-      if (newValue) {
+      if (newValue.split(' - ').length > 1) {
         this.mountLincenseChart()
       }
     }

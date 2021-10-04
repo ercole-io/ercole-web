@@ -2,7 +2,7 @@
   <b-tab-item label="Backups" v-if="backups.length > 0">
     <FullTable
       :tableData="backups"
-      :keys="[]"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
@@ -42,6 +42,11 @@ export default {
     backups: {
       type: Array,
       default: null
+    }
+  },
+  data() {
+    return {
+      keys: ['weekDays', 'hour', 'backupType', 'avgBckSize', 'retention']
     }
   }
 }
