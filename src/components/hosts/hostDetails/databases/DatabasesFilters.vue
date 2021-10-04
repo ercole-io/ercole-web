@@ -4,6 +4,14 @@
     class="database-filters"
     :mbottom="false"
   >
+    <SearchInput
+      :searchPlaceholder="$t('views.hostDetails.search')"
+      v-model="searchDb"
+      @input="onSearch($event)"
+      :onBlur="onSearchBlur"
+      class="mb-3"
+    />
+
     <span v-for="(opt, i) in filterOptions" :key="i">
       <hr
         class="my-0 has-background-grey-light"
@@ -51,11 +59,15 @@
 <script>
 import _ from 'lodash'
 import { mapMutations, mapState } from 'vuex'
+import hostDatabasesFilters from '@/mixins/hostDatabasesFilters.js'
 import BoxContent from '@/components/common/BoxContent.vue'
+import SearchInput from '@/components/common/SearchInput.vue'
 
 export default {
+  mixins: [hostDatabasesFilters],
   components: {
-    BoxContent
+    BoxContent,
+    SearchInput
   },
   data() {
     return {
@@ -84,13 +96,6 @@ export default {
         'platform',
         'version'
       ],
-      // pdbs: [
-      //   'pdbName',
-      //   'pdbSchemas',
-      //   'pdbStatus',
-      //   'pdbTablespaces'
-      //   // 'pdbServices'
-      // ],
       selectedKeys: []
     }
   },
@@ -109,23 +114,12 @@ export default {
         _.map(this.info, item => {
           this.selectedKeys.push(item)
         })
-      }
-      // else if (value === 'pdbs' && checked) {
-      //   _.map(this.pdbs, item => {
-      //     this.selectedKeys.push(item)
-      //   })
-      // }
-      else {
+      } else {
         if (value === 'info' && !checked) {
           this.selectedKeys = this.selectedKeys.filter(
             item => !this.info.includes(item)
           )
         }
-        // else if (value === 'pdbs' && !checked) {
-        //   this.selectedKeys = this.selectedKeys.filter(
-        //     item => !this.pdbs.includes(item)
-        //   )
-        // }
       }
 
       if (this.selectedKeys.length === 0) {
