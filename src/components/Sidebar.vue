@@ -131,6 +131,11 @@ export default {
               href: { name: 'cloud-recommendations' },
               title: this.$i18n.t('menu.recommendations'),
               icon: 'fas fa-cog'
+            },
+            {
+              href: { name: 'profile-configurations' },
+              title: this.$i18n.t('menu.profileConfig'),
+              icon: 'fas fa-cog'
             }
           ]
         },
