@@ -1,27 +1,26 @@
 <template>
   <ToggleColumns
-    getPage="licensesUsedHosts"
+    getPage="licensesUsedClusters"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
   >
-    <UsedLicensesHostFilters slot="left" />
+    <UsedLicensesClustersFilters slot="left" />
 
     <FullTable
       slot="center"
       :placeholder="$t('menu.licUsed')"
       :urlSearchParam="partNumber"
       :keys="keys"
-      :tableData="getUsedLicensesByHost"
-      @clickedRow="handleClickedRow"
-      isClickable
+      :tableData="getUsedLicensesByCluster"
     >
       <template slot="headData">
-        <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
-        <v-th sortKey="dbsQty">{{ $t('common.collumns.databases') }}</v-th>
-        <v-th sortKey="licenseTypeID">
-          {{ $t('common.collumns.partNumber') }}
+        <v-th sortKey="cluster">
+          {{ $t('common.fields.cluster') }}
         </v-th>
-        <v-th sortKey="description">
+        <v-th sortKey="licenseTypeID">
+          {{ $t('common.fields.partNumber') }}
+        </v-th>
+        <v-th sortKey="itemDescription">
           {{ $t('common.collumns.description') }}
         </v-th>
         <v-th sortKey="metric">
@@ -33,22 +32,17 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <HostLink :hostname="rowData.scope.hostname" />
-        <td v-tooltip.bottom="options(rowData.scope.dbsQty)">
-          <a @click.prevent="openModal(rowData.scope)" class="is-block">
-            <span v-html="highlight(rowData.scope.dbsQty)" />
-          </a>
-        </td>
+        <TdContent :value="rowData.scope.cluster" />
         <TdContent :value="rowData.scope.licenseTypeID" />
-        <TdContent :value="rowData.scope.description" />
+        <TdContent :value="rowData.scope.itemDescription" />
         <TdContent :value="rowData.scope.metric" />
         <TdContent :value="rowData.scope.usedLicenses" />
       </template>
 
       <exportButton
         slot="export"
-        url="hosts/technologies/all/databases/licenses-used"
-        expName="licensesUsedPerHosts"
+        url="hosts/technologies/all/databases/licenses-used-per-cluster"
+        expName="licensesUsedPerCluster"
       />
     </FullTable>
   </ToggleColumns>
@@ -61,9 +55,7 @@ import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
-import HostLink from '@/components/common/Table/HostLink.vue'
-import UsedLicensesHostFilters from '@/components/licenses/used/hosts/UsedLicensesHostFilters.vue'
-import UsedLicensesHostModal from '@/components/licenses/used/hosts/UsedLicensesHostModal.vue'
+import UsedLicensesClustersFilters from '@/components/licenses/used/clusters/UsedLicensesClustersFilters.vue'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import ExportButton from '@/components/common/ExportButton.vue'
@@ -79,8 +71,7 @@ export default {
     ToggleColumns,
     FullTable,
     TdContent,
-    HostLink,
-    UsedLicensesHostFilters,
+    UsedLicensesClustersFilters,
     ExportButton
   },
   props: {
@@ -92,37 +83,19 @@ export default {
   data() {
     return {
       keys: [
-        'hostname',
+        'cluster',
         'licenseTypeID',
-        'dbsQty',
-        'description',
+        'itemDescription',
         'metric',
         'usedLicenses'
       ]
     }
   },
   mounted() {
-    this.getUsedLicensesByHost
-  },
-  methods: {
-    openModal(info) {
-      this.$buefy.modal.open({
-        component: UsedLicensesHostModal,
-        hasModalCard: true,
-        props: {
-          databases: info.databases,
-          licenseInfo: {
-            licenseId: info.licenseTypeID,
-            hostname: info.hostname,
-            metric: info.metric,
-            description: info.description
-          }
-        }
-      })
-    }
+    this.getUsedLicensesByCluster
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByHost'])
+    ...mapGetters(['getUsedLicensesByCluster'])
   }
 }
 </script>

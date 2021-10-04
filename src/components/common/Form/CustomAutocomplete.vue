@@ -2,7 +2,7 @@
   <b-autocomplete
     v-model="inputVal"
     size="is-small"
-    type="number"
+    type="text"
     icon="magnify"
     :placeholder="setPlaceholder"
     :data="filterResult"
@@ -10,6 +10,7 @@
     :append-to-body="appendToBody"
     @typing="filterMethod($event)"
     @input="inputMethod"
+    @select="onSelect"
     clearable
   >
     <template #empty>{{ $i18n.t('common.validations.noResults') }}</template>
@@ -29,6 +30,10 @@ export default {
       default: () => {}
     },
     inputMethod: {
+      type: Function,
+      default: () => {}
+    },
+    onSelect: {
       type: Function,
       default: () => {}
     },

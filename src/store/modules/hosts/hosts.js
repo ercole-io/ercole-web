@@ -32,7 +32,7 @@ export const getters = {
         kernel: `${host.info.kernelVersion} - ${host.info.kernel}`,
         memorytotal: host.info.memoryTotal,
         swaptotal: host.info.swapTotal,
-        iconCluster: mapClustStatus(host.clusterMembershipStatus),
+        iconCluster: mapClustStatus(host.clusterMembershipStatus)[0],
         model: host.info.cpuModel,
         threads: host.info.cpuThreads,
         cores: host.info.cpuCores,

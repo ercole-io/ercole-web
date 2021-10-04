@@ -26,10 +26,16 @@ export const mutations = {
 export const actions = {
   login({ commit, dispatch }, auth) {
     return axiosAuth
-      .post('/login', {
-        username: auth.username,
-        password: auth.password
-      })
+      .post(
+        '/login',
+        {
+          username: auth.username,
+          password: auth.password
+        },
+        {
+          timeout: 15000
+        }
+      )
       .then(res => {
         const token = res.data
         const decodeToken = JSON.parse(atob(token.split('.')[1]))
@@ -51,9 +57,10 @@ export const actions = {
         dispatch('offLoading')
       })
       .catch(err => {
-        const message = err.response.data.message
-        if (message === 'Unauthorized') {
-          dispatch('setErrMsg', i18n.t(`common.validations.login${message}`))
+        if (err.code === 'ECONNABORTED' && err.message !== 'Unauthorized') {
+          dispatch('setErrMsg', i18n.t(`common.validations.loginTimeout`))
+        } else {
+          dispatch('setErrMsg', i18n.t(`common.validations.loginUnauthorized`))
         }
 
         dispatch('offLoading')

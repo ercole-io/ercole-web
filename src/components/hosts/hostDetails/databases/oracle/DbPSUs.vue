@@ -2,7 +2,7 @@
   <b-tab-item label="PSU" v-if="psus.length > 0">
     <FullTable
       :tableData="psus"
-      :keys="[]"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
@@ -14,7 +14,7 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.date | formatDate" />
+        <TdContent :value="rowData.scope.date" />
         <TdContent :value="rowData.scope.description" />
       </template>
     </FullTable>
@@ -35,6 +35,11 @@ export default {
   components: {
     FullTable,
     TdContent
+  },
+  data() {
+    return {
+      keys: ['date', 'description']
+    }
   }
 }
 </script>
