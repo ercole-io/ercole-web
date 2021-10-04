@@ -18,12 +18,12 @@
       <CustomSelect v-model="filters.metric" :options="filteredmetric" />
     </CustomField>
 
-    <CustomField :label="$t('common.fields.licAvailable')">
+    <!-- <CustomField :label="$t('common.fields.licAvailable')">
       <CustomSlider
         v-model="filters.licenseAvailable"
         :ticks="[minlicenseAvailable, maxlicenseAvailable]"
       />
-    </CustomField>
+    </CustomField> -->
 
     <CustomField :label="$t('common.fields.consumed')">
       <CustomSlider
