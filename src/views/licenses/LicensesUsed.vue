@@ -43,6 +43,7 @@ export default {
 
     await this.getLicensesList()
       .then(() => {
+        this.getLicensesPerHost()
         this.getLicensesCluster()
       })
       .then(() => (this.isMounted = true))
@@ -51,6 +52,7 @@ export default {
     ...mapActions([
       'getLicensesList',
       'getAgreementParts',
+      'getLicensesPerHost',
       'getLicensesCluster'
     ]),
     onTabChange() {

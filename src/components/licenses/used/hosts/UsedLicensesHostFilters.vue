@@ -10,8 +10,8 @@
 
     <CustomField :label="$t('common.fields.dbs')">
       <CustomSlider
-        v-model="filters.dbsQty"
-        :ticks="[mindbsQty, maxdbsQty]"
+        v-model="filters.databases"
+        :ticks="[mindatabases, maxdatabases]"
         :steps="1"
       />
     </CustomField>
@@ -47,7 +47,7 @@ export default {
     return {
       autocompletes: ['hostname'],
       selects: ['licenseTypeID', 'description', 'metric'],
-      sliders: ['dbsQty']
+      sliders: ['databases']
     }
   },
   created() {

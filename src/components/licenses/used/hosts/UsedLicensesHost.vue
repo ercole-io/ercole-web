@@ -17,7 +17,7 @@
     >
       <template slot="headData">
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
-        <v-th sortKey="dbsQty">{{ $t('common.collumns.databases') }}</v-th>
+        <v-th sortKey="databases">{{ $t('common.collumns.databases') }}</v-th>
         <v-th sortKey="licenseTypeID">
           {{ $t('common.collumns.partNumber') }}
         </v-th>
@@ -34,9 +34,9 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <HostLink :hostname="rowData.scope.hostname" />
-        <td v-tooltip.bottom="options(rowData.scope.dbsQty)">
+        <td v-tooltip.bottom="options(rowData.scope.databases)">
           <a @click.prevent="openModal(rowData.scope)" class="is-block">
-            <span v-html="highlight(rowData.scope.dbsQty)" />
+            <span v-html="highlight(rowData.scope.databases)" />
           </a>
         </td>
         <TdContent :value="rowData.scope.licenseTypeID" />
@@ -47,7 +47,7 @@
 
       <exportButton
         slot="export"
-        url="hosts/technologies/all/databases/licenses-used"
+        url="/hosts/technologies/all/databases/licenses-used-per-host"
         expName="licensesUsedPerHosts"
       />
     </FullTable>
@@ -94,7 +94,7 @@ export default {
       keys: [
         'hostname',
         'licenseTypeID',
-        'dbsQty',
+        'databases',
         'description',
         'metric',
         'usedLicenses'
@@ -106,6 +106,7 @@ export default {
   },
   methods: {
     openModal(info) {
+      console.log(info)
       this.$buefy.modal.open({
         component: UsedLicensesHostModal,
         hasModalCard: true,
