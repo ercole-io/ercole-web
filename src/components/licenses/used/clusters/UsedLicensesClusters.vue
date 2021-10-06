@@ -17,10 +17,13 @@
         <v-th sortKey="cluster">
           {{ $t('common.fields.cluster') }}
         </v-th>
+        <v-th sortKey="hostCount">
+          Hosts
+        </v-th>
         <v-th sortKey="licenseTypeID">
           {{ $t('common.fields.partNumber') }}
         </v-th>
-        <v-th sortKey="itemDescription">
+        <v-th sortKey="description">
           {{ $t('common.collumns.description') }}
         </v-th>
         <v-th sortKey="metric">
@@ -33,8 +36,9 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <TdContent :value="rowData.scope.cluster" />
+        <TdContent :value="rowData.scope.hostCount" />
         <TdContent :value="rowData.scope.licenseTypeID" />
-        <TdContent :value="rowData.scope.itemDescription" />
+        <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.metric" />
         <TdContent :value="rowData.scope.usedLicenses" />
       </template>
@@ -85,9 +89,10 @@ export default {
       keys: [
         'cluster',
         'licenseTypeID',
-        'itemDescription',
+        'description',
         'metric',
-        'usedLicenses'
+        'usedLicenses',
+        'hostCount'
       ]
     }
   },
