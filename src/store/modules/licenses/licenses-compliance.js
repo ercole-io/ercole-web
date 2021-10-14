@@ -26,13 +26,20 @@ export const mutations = {
     const newPayload = []
 
     _.map(payload, val => {
+      let full = ''
+      if (val.licenseTypeID && val.itemDescription && val.metric) {
+        full = `${val.licenseTypeID} - ${val.itemDescription} - ${val.metric}`
+      }
+
       newPayload.push({
         ...val,
         compliance: val.compliance * 100,
         complianceStroke: showStrokeColor(val.compliance * 100),
-        licenseAvailable: _.random(0, 10)
+        licenseAvailable: _.random(0, 10),
+        fullPartNumber: full
       })
     })
+
     state.complianceList = newPayload
   }
 }
