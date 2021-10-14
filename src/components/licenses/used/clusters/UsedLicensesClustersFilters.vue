@@ -17,8 +17,8 @@
 
     <CustomField :label="$t('common.fields.description')">
       <CustomSelect
-        v-model="filters.itemDescription"
-        :options="filtereditemDescription"
+        v-model="filters.description"
+        :options="filtereddescription"
       />
     </CustomField>
 
@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       autocompletes: ['cluster'],
-      selects: ['licenseTypeID', 'itemDescription', 'metric'],
+      selects: ['licenseTypeID', 'description', 'metric'],
       sliders: ['usedLicenses']
     }
   },
