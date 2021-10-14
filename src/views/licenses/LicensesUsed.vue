@@ -40,13 +40,10 @@ export default {
   },
   async beforeMount() {
     await this.getAgreementParts()
+    await this.getLicensesCluster()
+    await this.getLicensesPerHost()
 
-    await this.getLicensesList()
-      .then(() => {
-        this.getLicensesPerHost()
-        this.getLicensesCluster()
-      })
-      .then(() => (this.isMounted = true))
+    await this.getLicensesList().then(() => (this.isMounted = true))
   },
   methods: {
     ...mapActions([

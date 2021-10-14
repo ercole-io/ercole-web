@@ -1,29 +1,13 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField :label="$t('common.fields.partNumber')">
-      <CustomSelect
-        v-model="filters.licenseTypeID"
-        :options="filteredlicenseTypeID"
+    <CustomField :label="$t('common.fields.fullAgreement')">
+      <CustomSelectAutocomplete
+        v-model="filters.fullPartNumber"
+        :filterResult="filteredfullPartNumber"
+        :filterMethod="setAutocompletes"
+        field="fullPartNumber"
       />
     </CustomField>
-
-    <CustomField :label="$t('common.fields.description')">
-      <CustomSelect
-        v-model="filters.itemDescription"
-        :options="filtereditemDescription"
-      />
-    </CustomField>
-
-    <CustomField :label="$t('common.fields.metric')">
-      <CustomSelect v-model="filters.metric" :options="filteredmetric" />
-    </CustomField>
-
-    <!-- <CustomField :label="$t('common.fields.licAvailable')">
-      <CustomSlider
-        v-model="filters.licenseAvailable"
-        :ticks="[minlicenseAvailable, maxlicenseAvailable]"
-      />
-    </CustomField> -->
 
     <CustomField :label="$t('common.fields.consumed')">
       <CustomSlider
@@ -52,12 +36,16 @@
 <script>
 import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
+import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutocomplete.vue'
 
 export default {
   mixins: [localFiltersMixin],
+  components: {
+    CustomSelectAutocomplete
+  },
   data() {
     return {
-      selects: ['licenseTypeID', 'itemDescription', 'metric'],
+      autocompletes: ['fullPartNumber'],
       sliders: ['consumed', 'covered', 'compliance', 'licenseAvailable'],
       filters: {
         unlimited: ''
