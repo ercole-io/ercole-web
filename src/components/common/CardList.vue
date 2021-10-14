@@ -3,13 +3,25 @@
     <li v-for="item in list" :key="item.name">
       <div class="columns">
         <span :class="`column is-${colSizes[0]}`">{{ item.name }}</span>
+
         <span
           v-tooltip.right="options(item.value)"
           :class="`column is-${colSizes[1]}`"
-          v-if="!item.hasIcon"
+          v-if="!item.hasIcon && !item.hasLink"
         >
           {{ item.value | toString }}
         </span>
+
+        <span
+          v-tooltip.right="options(item.value)"
+          :class="`column is-${colSizes[1]}`"
+          v-if="item.hasLink && !item.hasIcon"
+        >
+          <a @click="item.link">
+            {{ item.value | toString }}
+          </a>
+        </span>
+
         <span
           v-tooltip.right="options(bindIncon(item.value)[2])"
           :class="`column is-${colSizes[1]}`"
