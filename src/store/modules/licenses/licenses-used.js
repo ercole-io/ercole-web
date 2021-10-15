@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import axiosDefault from '@/axios/axios-default.js'
-// import licUsedCluster from '@/components/licenses/used/clusters/licensesUsed_cluster.json'
+import { setFullPartNumber } from '@/helpers/helpers.js'
 
 export const state = () => ({
   dbsLicensesUsed: [],
@@ -94,22 +94,4 @@ export const actions = {
     const response = await licensesCluster.data.usedLicensesPerCluster
     commit('SET_LICENSES_CLUSTER', response)
   }
-}
-
-const setFullPartNumber = data => {
-  const customData = []
-
-  _.map(data, val => {
-    let full = ''
-    if (val.licenseTypeID && val.description && val.metric) {
-      full = `${val.licenseTypeID} - ${val.description} - ${val.metric}`
-    }
-
-    customData.push({
-      ...val,
-      fullPartNumber: full
-    })
-  })
-
-  return customData
 }
