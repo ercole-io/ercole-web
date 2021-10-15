@@ -8,22 +8,13 @@
       />
     </CustomField>
 
-    <CustomField :label="$t('common.fields.partNumber')">
-      <CustomSelect
-        v-model="filters.licenseTypeID"
-        :options="filteredlicenseTypeID"
+    <CustomField :label="$t('common.fields.fullAgreement')">
+      <CustomSelectAutocomplete
+        v-model="filters.fullPartNumber"
+        :filterResult="filteredfullPartNumber"
+        :filterMethod="setAutocompletes"
+        field="fullPartNumber"
       />
-    </CustomField>
-
-    <CustomField :label="$t('common.fields.description')">
-      <CustomSelect
-        v-model="filters.itemDescription"
-        :options="filtereditemDescription"
-      />
-    </CustomField>
-
-    <CustomField :label="$t('common.fields.metric')">
-      <CustomSelect v-model="filters.metric" :options="filteredmetric" />
     </CustomField>
 
     <CustomField :label="$t('common.fields.csi')">
@@ -94,18 +85,22 @@ import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
+import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutocomplete.vue'
 
 export default {
   mixins: [localFiltersMixin],
+  components: {
+    CustomSelectAutocomplete
+  },
   data() {
     return {
-      autocompletes: ['agreementID', 'csi', 'referenceNumber'],
-      selects: [
-        'licenseTypeID',
-        'itemDescription',
-        'metric',
-        'referenceNumber'
+      autocompletes: [
+        'agreementID',
+        'csi',
+        'referenceNumber',
+        'fullPartNumber'
       ],
+      selects: ['referenceNumber'],
       sliders: [
         'licensesPerCore',
         'licensesPerUser',
