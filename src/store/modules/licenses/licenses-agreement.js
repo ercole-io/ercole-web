@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import axiosDefault from '@/axios/axios-default.js'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { setFullPartNumber } from '@/helpers/helpers.js'
 
 export const state = () => ({
   oracleAgreements: [],
@@ -119,22 +120,4 @@ export const actions = {
       `/agreements/${payload.type}/database/${payload.id}`
     )
   }
-}
-
-const setFullPartNumber = data => {
-  const customData = []
-
-  _.map(data, val => {
-    let full = ''
-    if (val.licenseTypeID && val.itemDescription && val.metric) {
-      full = `${val.licenseTypeID} - ${val.itemDescription} - ${val.metric}`
-    }
-
-    customData.push({
-      ...val,
-      fullPartNumber: full
-    })
-  })
-
-  return customData
 }
