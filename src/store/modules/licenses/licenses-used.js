@@ -17,14 +17,7 @@ export const getters = {
     return getters.filteredOrNot(state.hostsLicensesUsed)
   },
   getUsedLicensesByCluster: (state, getters) => {
-    let licensesPerCluster = _.map(state.clustersLicensesUsed, val => {
-      return {
-        ...val,
-        hostCount: val.hostnames.length
-      }
-    })
-
-    return getters.filteredOrNot(licensesPerCluster)
+    return getters.filteredOrNot(state.clustersLicensesUsed)
   }
 }
 
@@ -36,7 +29,14 @@ export const mutations = {
     state.hostsLicensesUsed = setFullPartNumber(payload)
   },
   SET_LICENSES_CLUSTER: (state, payload) => {
-    state.clustersLicensesUsed = setFullPartNumber(payload)
+    let newPayload = _.map(payload, val => {
+      return {
+        ...val,
+        hostCount: val.hostnames.length
+      }
+    })
+
+    state.clustersLicensesUsed = setFullPartNumber(newPayload)
   }
 }
 
@@ -53,17 +53,7 @@ export const actions = {
       }
     )
     const response = await licensesList.data.usedLicenses
-
-    let licensesPerDatabase = _.map(response, val => {
-      return {
-        ...val,
-        description: getters.returnMetricAndDescription(val.licenseTypeID)
-          .description,
-        metric: getters.returnMetricAndDescription(val.licenseTypeID).metric
-      }
-    })
-
-    commit('SET_LICENSE_DATABASES', licensesPerDatabase)
+    commit('SET_LICENSE_DATABASES', response)
   },
   async getLicensesPerHost({ commit, getters }) {
     const licensePerHost = await axiosDefault.get(
@@ -90,7 +80,6 @@ export const actions = {
         }
       }
     )
-
     const response = await licensesCluster.data.usedLicensesPerCluster
     commit('SET_LICENSES_CLUSTER', response)
   }
