@@ -46,7 +46,8 @@ export const getters = {
 
 export const mutations = {
   SET_AGREEMENTS: (state, payload) => {
-    state[payload.type + 'Agreements'] = payload.res
+    state[payload.type + 'Agreements'] =
+      payload.type === 'oracle' ? setFullPartNumber(payload.res) : payload.res
   },
   CREATE_AGREEMENT: (state, payload) => {
     state[payload.mode + 'Agreements'].unshift(payload)
@@ -118,4 +119,22 @@ export const actions = {
       `/agreements/${payload.type}/database/${payload.id}`
     )
   }
+}
+
+const setFullPartNumber = data => {
+  const customData = []
+
+  _.map(data, val => {
+    let full = ''
+    if (val.licenseTypeID && val.itemDescription && val.metric) {
+      full = `${val.licenseTypeID} - ${val.itemDescription} - ${val.metric}`
+    }
+
+    customData.push({
+      ...val,
+      fullPartNumber: full
+    })
+  })
+
+  return customData
 }
