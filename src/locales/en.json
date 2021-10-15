@@ -43,9 +43,9 @@
       "markAsRead": "Mark as Read",
       "from": "From:",
       "date": "Date:",
-      "licensesX": "Licenses: Used x Purchased",
+      "licensesX": "Licenses",
       "usedLicenses": "Used Licenses",
-      "purchasedLicenses": "Purchased Licenses",
+      "purchasedLicenses": "Covered Licenses",
       "noData": "No data. Please change the dates!",
       "noAlerts": "There are no alerts for"
     },
