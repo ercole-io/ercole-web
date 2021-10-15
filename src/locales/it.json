@@ -43,9 +43,9 @@
       "markAsRead": "Segna come letto",
       "from": "Dal:",
       "date": "Data:",
-      "licensesX": "Licenze: Usato x Acquistato",
+      "licensesX": "Licenze",
       "usedLicenses": "Licenze Usate",
-      "purchasedLicenses": "Licenze Acquistate",
+      "purchasedLicenses": "Licenze Coperte",
       "noData": "Nessun dato. Si prega di modificare le date!",
       "noAlerts": "Non ci sono avvisi per"
     },
