@@ -16,22 +16,13 @@
       />
     </CustomField>
 
-    <CustomField :label="$t('common.fields.partNumber')">
-      <CustomSelect
-        v-model="filters.licenseTypeID"
-        :options="filteredlicenseTypeID"
+    <CustomField :label="$t('common.fields.fullAgreement')">
+      <CustomSelectAutocomplete
+        v-model="filters.fullPartNumber"
+        :filterResult="filteredfullPartNumber"
+        :filterMethod="setAutocompletes"
+        field="fullPartNumber"
       />
-    </CustomField>
-
-    <CustomField :label="$t('common.fields.description')">
-      <CustomSelect
-        v-model="filters.description"
-        :options="filtereddescription"
-      />
-    </CustomField>
-
-    <CustomField :label="$t('common.fields.metric')">
-      <CustomSelect v-model="filters.metric" :options="filteredmetric" />
     </CustomField>
   </AdvancedFiltersBase>
 </template>
@@ -40,13 +31,16 @@
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
+import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutocomplete.vue'
 
 export default {
   mixins: [localFiltersMixin],
+  components: {
+    CustomSelectAutocomplete
+  },
   data() {
     return {
-      autocompletes: ['hostname'],
-      selects: ['licenseTypeID', 'description', 'metric'],
+      autocompletes: ['hostname', 'fullPartNumber'],
       sliders: ['databases']
     }
   },
