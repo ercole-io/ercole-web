@@ -8,6 +8,14 @@
       />
     </CustomField>
 
+    <CustomField label="Hosts">
+      <CustomSlider
+        v-model="filters.hostCount"
+        :ticks="[minhostCount, maxhostCount]"
+        :steps="1"
+      />
+    </CustomField>
+
     <CustomField :label="$t('common.fields.fullAgreement')">
       <CustomSelectAutocomplete
         v-model="filters.fullPartNumber"
@@ -21,6 +29,7 @@
       <CustomSlider
         v-model="filters.usedLicenses"
         :ticks="[minusedLicenses, maxusedLicenses]"
+        :steps="1"
       />
     </CustomField>
   </AdvancedFiltersBase>
@@ -40,7 +49,7 @@ export default {
   data() {
     return {
       autocompletes: ['cluster', 'fullPartNumber'],
-      sliders: ['usedLicenses']
+      sliders: ['usedLicenses', 'hostCount']
     }
   },
   created() {
