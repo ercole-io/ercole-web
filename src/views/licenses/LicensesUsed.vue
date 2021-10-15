@@ -39,7 +39,6 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getAgreementParts()
     await this.getLicensesCluster()
     await this.getLicensesPerHost()
 
@@ -48,7 +47,6 @@ export default {
   methods: {
     ...mapActions([
       'getLicensesList',
-      'getAgreementParts',
       'getLicensesPerHost',
       'getLicensesCluster'
     ]),
