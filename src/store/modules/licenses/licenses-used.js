@@ -30,13 +30,13 @@ export const getters = {
 
 export const mutations = {
   SET_LICENSE_DATABASES: (state, payload) => {
-    state.dbsLicensesUsed = payload
+    state.dbsLicensesUsed = setFullPartNumber(payload)
   },
   SET_LICENSES_HOST: (state, payload) => {
-    state.hostsLicensesUsed = payload
+    state.hostsLicensesUsed = setFullPartNumber(payload)
   },
   SET_LICENSES_CLUSTER: (state, payload) => {
-    state.clustersLicensesUsed = payload
+    state.clustersLicensesUsed = setFullPartNumber(payload)
   }
 }
 
@@ -94,4 +94,22 @@ export const actions = {
     const response = await licensesCluster.data.usedLicensesPerCluster
     commit('SET_LICENSES_CLUSTER', response)
   }
+}
+
+const setFullPartNumber = data => {
+  const customData = []
+
+  _.map(data, val => {
+    let full = ''
+    if (val.licenseTypeID && val.description && val.metric) {
+      full = `${val.licenseTypeID} - ${val.description} - ${val.metric}`
+    }
+
+    customData.push({
+      ...val,
+      fullPartNumber: full
+    })
+  })
+
+  return customData
 }
