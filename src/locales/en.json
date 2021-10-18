@@ -97,7 +97,8 @@
     "licenses": {
       "agreeForm": "Agreement Form",
       "addAgreement": "Add or Modify an Oracle Agreement",
-      "dbList": "List of Databases"
+      "dbList": "List of Databases",
+      "hostsList": "List of Hosts"
     },
     "alerts": {
       "markRead": "Mark as Read",
