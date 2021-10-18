@@ -97,7 +97,8 @@
     "licenses": {
       "agreeForm": "Modulo di Contratto",
       "addAgreement": "Aggiungi o modifica un Contratto di licenza Oracle",
-      "dbList": "Elenco dei Database"
+      "dbList": "Elenco dei Database",
+      "hostsList": "Elenco dei Hosts"
     },
     "alerts": {
       "markRead": "Segna come letto",

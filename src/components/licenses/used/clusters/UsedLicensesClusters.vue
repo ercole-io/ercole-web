@@ -36,7 +36,12 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <TdContent :value="rowData.scope.cluster" />
-        <TdContent :value="rowData.scope.hostCount" />
+        <!-- <TdContent :value="rowData.scope.hostCount" /> -->
+        <td v-tooltip.bottom="options(rowData.scope.hostCount)">
+          <a @click.prevent="openModal(rowData.scope)" class="is-block">
+            <span v-html="highlight(rowData.scope.hostCount)" />
+          </a>
+        </td>
         <TdContent :value="rowData.scope.licenseTypeID" />
         <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.metric" />
@@ -63,6 +68,7 @@ import UsedLicensesClustersFilters from '@/components/licenses/used/clusters/Use
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import ExportButton from '@/components/common/ExportButton.vue'
+import UsedLicensesClustersModal from '@/components/licenses/used/clusters/UsedLicensesClustersModal.vue'
 
 export default {
   mixins: [
@@ -98,6 +104,22 @@ export default {
   },
   mounted() {
     this.getUsedLicensesByCluster
+  },
+  methods: {
+    openModal(info) {
+      // console.log(info)
+      this.$buefy.modal.open({
+        component: UsedLicensesClustersModal,
+        hasModalCard: true,
+        props: {
+          hosts: info.hostnames,
+          licenseInfo: {
+            cluster: info.cluster,
+            fullPartNumber: info.fullPartNumber
+          }
+        }
+      })
+    }
   },
   computed: {
     ...mapGetters(['getUsedLicensesByCluster'])

@@ -97,7 +97,8 @@
     "licenses": {
       "agreeForm": "Formulário de Contrato",
       "addAgreement": "Adicionar ou modificar um Contrato de Licença Oracle",
-      "dbList": "Lista de Bancos de Dados"
+      "dbList": "Lista de Bancos de Dados",
+      "hostsList": "Lista de Hosts"
     },
     "alerts": {
       "markRead": "Marcar como Lido",
