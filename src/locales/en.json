@@ -255,7 +255,7 @@
       "hostname": "Hostname",
       "environment": "Environment",
       "databases": "Databases",
-      "techType": "technology",
+      "techType": "Technology",
       "os": "Operating System",
       "iconCluster": "Clust",
       "kernel": "Kernel",
