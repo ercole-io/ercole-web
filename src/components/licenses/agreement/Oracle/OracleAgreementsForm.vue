@@ -450,6 +450,7 @@ export default {
       if (val) {
         this.oracleForm.licenseNumber = ''
         this.oracleForm.basket = true
+        this.oracleForm.restricted = false
       }
     },
     restricted(val) {
