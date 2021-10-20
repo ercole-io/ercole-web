@@ -368,7 +368,7 @@ export default {
         unlimited: this.oracleForm.ula,
         count: Number(this.oracleForm.licenseNumber),
         hosts: this.oracleForm.hostAssociated,
-        catchAll: this.oracleForm.basket,
+        basket: this.oracleForm.basket,
         licenseTypeID: this.oracleForm.partNumber.split(' - ')[0],
         restricted: this.oracleForm.restricted
       }
@@ -418,7 +418,7 @@ export default {
         hostAssociated: this.checkArray(data.hosts)
           ? data.hosts
           : this.mapHostsAssociated(data.hosts),
-        basket: data.catchAll,
+        basket: data.basket,
         restricted: data.restricted
       }
     },
