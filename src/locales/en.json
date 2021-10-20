@@ -150,7 +150,7 @@
     "fields": {
       "username": "Username",
       "password": "Password",
-      "hostname": "hostname",
+      "hostname": "Hostname",
       "env": "Environment",
       "dbs": "Databases",
       "tech": "technology",
