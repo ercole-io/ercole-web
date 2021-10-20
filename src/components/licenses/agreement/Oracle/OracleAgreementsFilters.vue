@@ -71,7 +71,7 @@
     </CustomField>
 
     <CustomField :label="$t('common.fields.basket')">
-      <CustomRadio v-model="filters.catchAll" />
+      <CustomRadio v-model="filters.basket" />
     </CustomField>
 
     <CustomField :label="$t('common.fields.restricted')">
@@ -109,7 +109,7 @@ export default {
       ],
       filters: {
         unlimited: '',
-        catchAll: '',
+        basket: '',
         restricted: ''
       }
     }
@@ -123,7 +123,7 @@ export default {
     resetFilters() {
       this.filters = {
         unlimited: '',
-        catchAll: '',
+        basket: '',
         restricted: ''
       }
     }
