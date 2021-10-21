@@ -1,54 +1,58 @@
+import _ from 'lodash'
+import axiosOci from '@/axios/axios-oci'
+
 export const state = () => ({
-  profileList: 'myvalue'
+  ociProfiles: []
 })
 
 export const getters = {
-  getProfileList: (state, getters) => {
-    return getters.filteredOrNot(state.profileList)
+  getOciProfiles: (state, getters) => {
+    return getters.filteredOrNot(state.ociProfiles)
   }
 }
 
 export const mutations = {
-  SET_PROFILE: (state, payload) => {
-    state.profileList = payload
+  SET_OCI_PROFILE: (state, payload) => {
+    state.ociProfiles = payload
+  },
+  CREATE_OCI_PROFILE: (state, payload) => {
+    state.ociProfiles.unshift(payload)
+  },
+  UPDATE_OCI_PROFILE: (state, payload) => {
+    const toUpdate = _.find(state.ociProfiles, val => val.id === payload.id)
+    Object.assign(toUpdate, payload)
+  },
+  DELETE_OCI_PROFILE: (state, payload) => {
+    const index = _.findIndex(state.ociProfiles, val => val.id === payload)
+    state.ociProfiles.splice(index, 1)
   }
 }
 
 export const actions = {
-  getProfiles({ commit }) {
-    const profiles = [
-      {
-        Profile: 'User Profile 1',
-        TenancyOCID:
-          'ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q',
-        UserOCID:
-          'ocid1.user.oc1..aaaaaaaaxvidbloqkas7ct4urmpow4kfaoipfhgnss6pvfmlkis7fm2znufa',
-        KeyFingerprint: 'df:af:15:e7:6c:43:34:3d:aa:db:dc:90:0a:6c:58:04',
-        Region: 'eu-frankfurt-1',
-        PrivateKey: 'kwebfçakwhrfgwhfovwkn'
-      },
-      {
-        Profile: 'User Profile 2',
-        TenancyOCID:
-          'ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q',
-        UserOCID:
-          'ocid1.user.oc1..aaaaaaaaxvidbloqkas7ct4urmpow4kfaoipfhgnss6pvfmlkis7fm2znufa',
-        KeyFingerprint: 'df:af:15:e7:6c:43:34:3d:aa:db:dc:90:0a:6c:58:04',
-        Region: 'eu-frankfurt-2',
-        PrivateKey: 'kwebfçakwhrfgwhfovwkn'
-      },
-      {
-        Profile: 'User Profile 3',
-        TenancyOCID:
-          'ocid1.tenancy.oc1..aaaaaaaazizzbqqbjv2se3y3fvm5osfumnorh32nznanirqoju3uks4buh4q',
-        UserOCID:
-          'ocid1.user.oc1..aaaaaaaaxvidbloqkas7ct4urmpow4kfaoipfhgnss6pvfmlkis7fm2znufa',
-        KeyFingerprint: 'df:af:15:e7:6c:43:34:3d:aa:db:dc:90:0a:6c:58:04',
-        Region: 'eu-frankfurt-3',
-        PrivateKey: 'kwebfçakwhrfgwhfovwkn'
-      }
-    ]
+  async getProfiles({ commit }) {
+    const ociProfiles = await axiosOci.get('/oracle-cloud/configurations')
+    const response = await ociProfiles.data
 
-    commit('SET_PROFILE', profiles)
+    commit('SET_OCI_PROFILE', response)
+  },
+  async createProfile({ commit }, payload) {
+    const create = await axiosOci.post('/oracle-cloud/configurations', payload)
+    const response = await create.data
+
+    commit('CREATE_OCI_PROFILE', response)
+  },
+  async updateProfile({ commit }, payload) {
+    const update = await axiosOci.put(
+      `/oracle-cloud/configurations/${payload.id}`,
+      payload
+    )
+    const response = await update.data
+
+    commit('UPDATE_OCI_PROFILE', response)
+  },
+  async removeProfile({ commit }, id) {
+    await axiosOci.delete(`/oracle-cloud/configurations/${id}`)
+
+    commit('DELETE_OCI_PROFILE', id)
   }
 }
