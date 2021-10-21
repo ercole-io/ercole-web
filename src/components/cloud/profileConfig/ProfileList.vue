@@ -3,33 +3,39 @@
     slot="center"
     placeholder="Profile"
     :keys="keys"
-    :tableData="getProfileList"
+    :tableData="getOciProfiles"
   >
     <template slot="headData">
-      <th colspan="2" style="text-align: center !important;">
+      <th colspan="3" style="text-align: center !important;">
         {{ $t('common.collumns.actions') }}
       </th>
-      <v-th sortKey="Profile">
+      <v-th sortKey="profile">
         Profile Name
       </v-th>
-      <v-th sortKey="TenancyOCID">
+      <v-th sortKey="tenancyOCID">
         Tenancy OCID
       </v-th>
-      <v-th sortKey="UserOCID">
+      <v-th sortKey="userOCID">
         User OCID
       </v-th>
-      <v-th sortKey="KeyFingerprint">
+      <v-th sortKey="keyFingerprint">
         Key Fingerprint
       </v-th>
-      <v-th sortKey="Region">
+      <v-th sortKey="region">
         Region
       </v-th>
-      <v-th sortKey="PrivateKey">
+      <v-th sortKey="privateKey">
         Private Key
       </v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
+      <td style="min-width: 0;">
+        <b-checkbox
+          v-model="activeOciProfiles"
+          :native-value="rowData.scope.id"
+        />
+      </td>
       <td style="min-width: 0;">
         <b-icon
           v-tooltip="options($t('common.general.edit'))"
@@ -47,21 +53,21 @@
           class="delete-icon"
           pack="fas"
           icon="trash-alt"
-          @click.native="deleteProfile(rowData.scope.Profile)"
+          @click.native="deleteProfile(rowData.scope.id)"
         />
       </td>
-      <TdContent :value="rowData.scope.Profile" />
-      <TdContent :value="rowData.scope.TenancyOCID" />
-      <TdContent :value="rowData.scope.UserOCID" />
-      <TdContent :value="rowData.scope.KeyFingerprint" />
-      <TdContent :value="rowData.scope.Region" />
-      <TdContent :value="rowData.scope.PrivateKey" />
+      <TdContent :value="rowData.scope.profile" />
+      <TdContent :value="rowData.scope.tenancyOCID" />
+      <TdContent :value="rowData.scope.userOCID" />
+      <TdContent :value="rowData.scope.keyFingerprint" />
+      <TdContent :value="rowData.scope.region" />
+      <TdContent :value="rowData.scope.privateKey" />
     </template>
   </FullTable>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { bus } from '@/helpers/eventBus.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
@@ -76,25 +82,38 @@ export default {
   data() {
     return {
       keys: [
-        'Profile',
-        'TenancyOCID',
-        'UserOCID',
-        'KeyFingerprint',
-        'Region',
-        'PrivateKey'
-      ]
+        'profile',
+        'tenancyOCID',
+        'userOCID',
+        'keyFingerprint',
+        'region',
+        'privateKey'
+      ],
+      activeOciProfiles: []
     }
   },
+  beforeMount() {
+    this.activeOciProfiles = this.getOciActiveProfiles
+  },
   methods: {
+    ...mapActions(['removeProfile']),
+    ...mapMutations(['SET_OCI_ACTIVE_PROFILE']),
     editProfile(profile) {
       bus.$emit('editProfile', profile)
     },
-    deleteProfile(profile) {
-      console.log(`delete profile ${profile}`)
+    deleteProfile(id) {
+      this.removeProfile(id)
     }
   },
   computed: {
-    ...mapGetters(['getProfileList'])
+    ...mapGetters(['getOciProfiles', 'getOciActiveProfiles'])
+  },
+  watch: {
+    activeOciProfiles(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.SET_OCI_ACTIVE_PROFILE(newValue)
+      }
+    }
   }
 }
 </script>

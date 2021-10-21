@@ -11,20 +11,20 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.profileForm.Profile.$error
+        'is-danger': $v.profileForm.profile.$error
       }"
     >
       <b-input
-        @blur="$v.profileForm.Profile.$touch()"
-        @input="$v.profileForm.Profile.$touch()"
+        @blur="$v.profileForm.profile.$touch()"
+        @input="$v.profileForm.profile.$touch()"
         size="is-small"
         type="text"
-        v-model="profileForm.Profile"
+        v-model="profileForm.profile"
       />
       <template #message>
         <div
           v-if="
-            !$v.profileForm.Profile.required && $v.profileForm.Profile.$error
+            !$v.profileForm.profile.required && $v.profileForm.profile.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
@@ -37,21 +37,21 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.profileForm.TenancyOCID.$error
+        'is-danger': $v.profileForm.tenancyOCID.$error
       }"
     >
       <b-input
-        @blur="$v.profileForm.TenancyOCID.$touch()"
-        @input="$v.profileForm.TenancyOCID.$touch()"
+        @blur="$v.profileForm.tenancyOCID.$touch()"
+        @input="$v.profileForm.tenancyOCID.$touch()"
         size="is-small"
         type="text"
-        v-model="profileForm.TenancyOCID"
+        v-model="profileForm.tenancyOCID"
       />
       <template #message>
         <div
           v-if="
-            !$v.profileForm.TenancyOCID.required &&
-              $v.profileForm.TenancyOCID.$error
+            !$v.profileForm.tenancyOCID.required &&
+              $v.profileForm.tenancyOCID.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
@@ -64,20 +64,20 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.profileForm.UserOCID.$error
+        'is-danger': $v.profileForm.userOCID.$error
       }"
     >
       <b-input
-        @blur="$v.profileForm.UserOCID.$touch()"
-        @input="$v.profileForm.UserOCID.$touch()"
+        @blur="$v.profileForm.userOCID.$touch()"
+        @input="$v.profileForm.userOCID.$touch()"
         size="is-small"
         type="text"
-        v-model="profileForm.UserOCID"
+        v-model="profileForm.userOCID"
       />
       <template #message>
         <div
           v-if="
-            !$v.profileForm.UserOCID.required && $v.profileForm.UserOCID.$error
+            !$v.profileForm.userOCID.required && $v.profileForm.userOCID.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
@@ -90,21 +90,21 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.profileForm.KeyFingerprint.$error
+        'is-danger': $v.profileForm.keyFingerprint.$error
       }"
     >
       <b-input
-        @blur="$v.profileForm.KeyFingerprint.$touch()"
-        @input="$v.profileForm.KeyFingerprint.$touch()"
+        @blur="$v.profileForm.keyFingerprint.$touch()"
+        @input="$v.profileForm.keyFingerprint.$touch()"
         size="is-small"
         type="text"
-        v-model="profileForm.KeyFingerprint"
+        v-model="profileForm.keyFingerprint"
       />
       <template #message>
         <div
           v-if="
-            !$v.profileForm.KeyFingerprint.required &&
-              $v.profileForm.KeyFingerprint.$error
+            !$v.profileForm.keyFingerprint.required &&
+              $v.profileForm.keyFingerprint.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
@@ -117,19 +117,19 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.profileForm.Region.$error
+        'is-danger': $v.profileForm.region.$error
       }"
     >
       <b-input
-        @blur="$v.profileForm.Region.$touch()"
-        @input="$v.profileForm.Region.$touch()"
+        @blur="$v.profileForm.region.$touch()"
+        @input="$v.profileForm.region.$touch()"
         size="is-small"
         type="text"
-        v-model="profileForm.Region"
+        v-model="profileForm.region"
       />
       <template #message>
         <div
-          v-if="!$v.profileForm.Region.required && $v.profileForm.Region.$error"
+          v-if="!$v.profileForm.region.required && $v.profileForm.region.$error"
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
         </div>
@@ -141,21 +141,21 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.profileForm.PrivateKey.$error
+        'is-danger': $v.profileForm.privateKey.$error
       }"
     >
       <b-input
-        @blur="$v.profileForm.PrivateKey.$touch()"
-        @input="$v.profileForm.PrivateKey.$touch()"
+        @blur="$v.profileForm.privateKey.$touch()"
+        @input="$v.profileForm.privateKey.$touch()"
         size="is-small"
         type="textarea"
-        v-model="profileForm.PrivateKey"
+        v-model="profileForm.privateKey"
       />
       <template #message>
         <div
           v-if="
-            !$v.profileForm.PrivateKey.required &&
-              $v.profileForm.PrivateKey.$error
+            !$v.profileForm.privateKey.required &&
+              $v.profileForm.privateKey.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
@@ -169,6 +169,7 @@
 import { bus } from '@/helpers/eventBus.js'
 import { required } from 'vuelidate/lib/validators'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -176,12 +177,12 @@ export default {
   },
   validations: {
     profileForm: {
-      Profile: { required },
-      TenancyOCID: { required },
-      UserOCID: { required },
-      KeyFingerprint: { required },
-      Region: { required },
-      PrivateKey: { required }
+      profile: { required },
+      tenancyOCID: { required },
+      userOCID: { required },
+      keyFingerprint: { required },
+      region: { required },
+      privateKey: { required }
     }
   },
   beforeMount() {
@@ -193,21 +194,34 @@ export default {
   },
   data() {
     return {
-      profileForm: {}
+      profileForm: {
+        // profile: 'ABRPROVA999',
+        // tenancyOCID: 'ocid1.tenancy.ABRTen444',
+        // userOCID: 'ocid1.user.ABRUsr444',
+        // keyFingerprint: 'ABRFinger1',
+        // region: 'ABRRegion1',
+        // privateKey: 'ABRPrivate'
+      }
     }
   },
   methods: {
+    ...mapActions(['createProfile', 'updateProfile']),
     addUpdateProfile() {
-      console.log(this.profileForm)
+      if (this.profileForm.id) {
+        this.updateProfile(this.profileForm)
+      } else {
+        this.createProfile(this.profileForm)
+      }
     },
     editProfile(data) {
       this.profileForm = {
-        Profile: data.Profile,
-        TenancyOCID: data.TenancyOCID,
-        UserOCID: data.UserOCID,
-        KeyFingerprint: data.KeyFingerprint,
-        Region: data.Region,
-        PrivateKey: data.PrivateKey
+        id: data.id,
+        profile: data.profile,
+        tenancyOCID: data.tenancyOCID,
+        userOCID: data.userOCID,
+        keyFingerprint: data.keyFingerprint,
+        region: data.region,
+        privateKey: data.privateKey
       }
     }
   }
