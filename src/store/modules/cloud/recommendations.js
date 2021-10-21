@@ -17,7 +17,8 @@ export const getters = {
         name: item.name,
         pending: _.toNumber(item.numPending),
         recID: item.recommendationId,
-        status: item.status
+        status: item.status,
+        tenOCID: item.tenancyOCID
       })
     })
 
@@ -32,9 +33,17 @@ export const mutations = {
 }
 
 export const actions = {
-  async getRecommendationsData({ commit }) {
-    const recommendations = await axiosOci.get('/GetOCRecommendations')
-    const response = await recommendations.data
+  async getRecommendationsData({ commit, getters }) {
+    let response = null
+
+    if (getters.getOciActiveProfiles.length > 0) {
+      const recommendations = await axiosOci.get(
+        `/oracle-cloud/recommendations/${getters.getOciActiveProfiles}`
+      )
+      response = await recommendations.data.recommendations
+    } else {
+      response = []
+    }
 
     commit('SET_RECOMMENDATIONS', response)
   }

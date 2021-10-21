@@ -18,5 +18,9 @@
   {
     "sort": "importance",
     "langKey": "common.collumns.importance"
+  },
+  {
+    "sort": "tenOCID",
+    "langKey": "Tenancy OCID"
   }
 ]

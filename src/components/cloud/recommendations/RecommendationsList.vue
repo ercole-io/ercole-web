@@ -19,6 +19,7 @@
       />
       <TdContent :value="rowData.scope.status" />
       <TdContent :value="rowData.scope.importance" />
+      <tdContent :value="rowData.scope.tenOCID" />
     </template>
 
     <ExportButton slot="export" url="" expName="cloudRecommendations" />
