@@ -11,6 +11,8 @@ import { mapDatabases } from '@/helpers/databasesMap.js'
 import formatDateTime from '@/filters/formatDateTime.js'
 import formatDate from '@/filters/formatDate.js'
 import store from '@/store/index.js'
+import { ModalProgrammatic as Modal } from 'buefy'
+import ClusterNamesModal from '@/components/hosts/hostDetails/ClusterNamesModal.vue'
 
 const startDate = moment()
   .subtract(1, 'week')
@@ -123,7 +125,18 @@ export const getters = {
     if (mapClustStatus(current.clusterMembershipStatus)[2]) {
       general.data.push({
         name: 'Cluster Nodes',
-        value: mapClustStatus(current.clusterMembershipStatus)[2]
+        value: mapClustStatus(current.clusterMembershipStatus)[2],
+        hasLink: true,
+        link: () => {
+          Modal.open({
+            component: ClusterNamesModal,
+            hasModalCard: true,
+            props: {
+              clusterNames:
+                current.clusterMembershipStatus.veritasClusterHostnames
+            }
+          })
+        }
       })
     }
 
