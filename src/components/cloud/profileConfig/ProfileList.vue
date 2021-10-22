@@ -53,7 +53,7 @@
           class="delete-icon"
           pack="fas"
           icon="trash-alt"
-          @click.native="deleteProfile(rowData.scope.id)"
+          @click.native="deleteProfile(rowData.scope.id, rowData.scope.profile)"
         />
       </td>
       <TdContent :value="rowData.scope.profile" />
@@ -67,6 +67,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { bus } from '@/helpers/eventBus.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
@@ -101,8 +102,33 @@ export default {
     editProfile(profile) {
       bus.$emit('editProfile', profile)
     },
-    deleteProfile(id) {
-      this.removeProfile(id)
+    deleteProfile(id, profile) {
+      if (_.includes(this.activeOciProfiles, id)) {
+        this.$buefy.dialog.alert(this.$i18n.t('views.cloud.cannotDelete'))
+      } else {
+        this.$buefy.dialog.confirm({
+          title: this.$i18n.t('views.cloud.deleteTitle'),
+          message: this.$i18n.t('views.cloud.deleteCheck', {
+            profile: profile
+          }),
+          confirmText: this.$i18n.t('common.general.yes'),
+          type: 'is-danger',
+          hasIcon: true,
+          onConfirm: () => {
+            this.removeProfile(id).then(() => {
+              this.$buefy.toast.open({
+                message: this.$i18n.t('views.cloud.deleteSuccess', {
+                  profile: profile
+                }),
+                type: 'is-success',
+                duration: 5000,
+                position: 'is-bottom'
+              })
+            })
+          },
+          cancelText: this.$i18n.t('common.general.no')
+        })
+      }
     }
   },
   computed: {

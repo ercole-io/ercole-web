@@ -110,6 +110,12 @@
       "clearAll": "Limpar selecionados?",
       "showAll": "Mostrar todos",
       "descModalTitle": "Descrição do Alerta"
+    },
+    "cloud": {
+      "cannotDelete": "Você não pode deletar um perfil ativo!",
+      "deleteTitle": "Exclusão de Perfil",
+      "deleteCheck": "Tem certeza de que deseja excluir o perfil <b> {profile} </b>?",
+      "deleteSuccess": "O perfil {profile} foi excluído com sucesso!"
     }
   },
   "common": {

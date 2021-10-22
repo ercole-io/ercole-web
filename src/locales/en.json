@@ -110,6 +110,12 @@
       "clearAll": "Clear select all?",
       "showAll": "Show All",
       "descModalTitle": "Alert Description"
+    },
+    "cloud": {
+      "cannotDelete": "You can not delete an active profile!",
+      "deleteTitle": "Profile Delete",
+      "deleteCheck": "Are you sure you want to delete the profile <b>{profile}</b>?",
+      "deleteSuccess": "The profile {profile} was successfully deleted!"
     }
   },
   "common": {
