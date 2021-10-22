@@ -42,7 +42,7 @@
       <v-th sortKey="availableLicensesPerUser">
         {{ $t('common.collumns.avLicPerUser') }}
       </v-th>
-      <v-th sortKey="catchAll">
+      <v-th sortKey="basket">
         {{ $t('common.collumns.basket') }}
       </v-th>
       <v-th sortKey="restricted">
@@ -106,7 +106,7 @@
       <TdContent :value="rowData.scope.availableLicensesPerCore" />
       <TdContent :value="rowData.scope.licensesPerUser" />
       <TdContent :value="rowData.scope.availableLicensesPerUser" />
-      <TdIcon :value="rowData.scope.catchAll" />
+      <TdIcon :value="rowData.scope.basket" />
       <TdIcon :value="rowData.scope.restricted" />
     </template>
 
@@ -151,7 +151,7 @@ export default {
         'licensesPerUser',
         'availableLicensesPerCore',
         'availableLicensesPerUser',
-        'catchAll',
+        'basket',
         'restricted'
       ]
     }

@@ -1,5 +1,6 @@
 import axiosDefault from '@/axios/axios-default.js'
 import _ from 'lodash'
+import { setFullPartNumber } from '@/helpers/helpers.js'
 
 const showStrokeColor = value => {
   if (value < 100 && value >= 80) {
@@ -33,7 +34,8 @@ export const mutations = {
         licenseAvailable: _.random(0, 10)
       })
     })
-    state.complianceList = newPayload
+
+    state.complianceList = setFullPartNumber(newPayload)
   }
 }
 

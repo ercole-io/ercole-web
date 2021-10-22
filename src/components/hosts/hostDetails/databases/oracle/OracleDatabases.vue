@@ -4,7 +4,7 @@
     type="is-boxed"
     v-model="isActive"
     @input="onChange"
-    :destroy-on-hide="!disableDestroy"
+    destroy-on-hide
     animated
   >
     <template v-for="(dbs, i) in currentDBs">
@@ -14,7 +14,7 @@
           type="is-toggle"
           vertical
           animated
-          :destroy-on-hide="!disableDestroy"
+          destroy-on-hide
         >
           <DbInfo :dbInfo="dbs" v-if="getCheckedFilters('info')" />
           <!-- <DbTags
@@ -68,7 +68,6 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
 import hostDetailsDatabasesMixins from '@/mixins/hostDetailsDatabases.js'
 import DbInfo from '@/components/hosts/hostDetails/databases/oracle/DbInfo.vue'
 import DbTablespaces from '@/components/hosts/hostDetails/databases/oracle/DbTablespaces.vue'
@@ -103,16 +102,6 @@ export default {
     DbLicenses,
     // DbTags,
     DbPDBs
-  },
-  data() {
-    return {
-      disableDestroy: false
-    }
-  },
-  beforeMount() {
-    bus.$on('isSearching', val => {
-      this.disableDestroy = val
-    })
   },
   computed: {
     ...mapGetters(['getCheckedFilters'])

@@ -255,3 +255,25 @@ export const getKeyValuePair = (data, key1, key2) => {
   return result
 }
 // END: Line chart loop key/value
+
+// INIT: Create a full value prop with part number + description + metric together
+export const setFullPartNumber = data => {
+  const customData = []
+
+  _.map(data, val => {
+    let full = ''
+    let description = val.description || val.itemDescription
+
+    if (val.licenseTypeID && description && val.metric) {
+      full = `${val.licenseTypeID} - ${description} - ${val.metric}`
+    }
+
+    customData.push({
+      ...val,
+      fullPartNumber: full
+    })
+  })
+
+  return customData
+}
+// END: Create a full value prop with part number + description + metric together
