@@ -46,9 +46,9 @@
       "markAsRead": "Mark as Read",
       "from": "From:",
       "date": "Date:",
-      "licensesX": "Licenses: Used x Purchased",
+      "licensesX": "Licenses",
       "usedLicenses": "Used Licenses",
-      "purchasedLicenses": "Purchased Licenses",
+      "purchasedLicenses": "Covered Licenses",
       "noData": "No data. Please change the dates!",
       "noAlerts": "There are no alerts for"
     },
@@ -100,7 +100,8 @@
     "licenses": {
       "agreeForm": "Agreement Form",
       "addAgreement": "Add or Modify an Oracle Agreement",
-      "dbList": "List of Databases"
+      "dbList": "List of Databases",
+      "hostsList": "List of Hosts"
     },
     "alerts": {
       "markRead": "Mark as Read",
@@ -158,7 +159,7 @@
     "fields": {
       "username": "Username",
       "password": "Password",
-      "hostname": "hostname",
+      "hostname": "Hostname",
       "env": "Environment",
       "dbs": "Databases",
       "tech": "technology",
@@ -263,7 +264,7 @@
       "hostname": "Hostname",
       "environment": "Environment",
       "databases": "Databases",
-      "techType": "technology",
+      "techType": "Technology",
       "os": "Operating System",
       "iconCluster": "Clust",
       "kernel": "Kernel",
