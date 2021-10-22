@@ -194,14 +194,7 @@ export default {
   },
   data() {
     return {
-      profileForm: {
-        // profile: 'ABRPROVA999',
-        // tenancyOCID: 'ocid1.tenancy.ABRTen444',
-        // userOCID: 'ocid1.user.ABRUsr444',
-        // keyFingerprint: 'ABRFinger1',
-        // region: 'ABRRegion1',
-        // privateKey: 'ABRPrivate'
-      }
+      profileForm: {}
     }
   },
   methods: {

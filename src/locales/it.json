@@ -110,6 +110,12 @@
       "clearAll": "Cancella selezionato?",
       "showAll": "Mostra tutto",
       "descModalTitle": "Descrizione dell'Avviso"
+    },
+    "cloud": {
+      "cannotDelete": "Non puoi eliminare un profilo attivo!",
+      "deleteTitle": "Elimina Profilo",
+      "deleteCheck": "Sei sicuro di voler eliminare il profilo <b>{profile}</b>?",
+      "deleteSuccess": "Il profilo {profile} è stato eliminato con successo!"
     }
   },
   "common": {
