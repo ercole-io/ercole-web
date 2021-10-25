@@ -249,7 +249,11 @@
       "repository": "Repository",
       "installed": "Installato",
       "releaseDate": "Data di Rilascio",
-      "licAvailable": "Licenza Disponibile"
+      "licAvailable": "Licenza Disponibile",
+      "tenancy": "Tenancy OCID",
+      "pending": "In Attesa",
+      "estimateSaving": "Risparmio Stimato / Mese",
+      "importance": "Importanza"
     },
     "table": {
       "perPage": "per pagina",
@@ -359,7 +363,8 @@
       "opSysFam": "Famiglia SO",
       "repository": "Repository",
       "installed": "Installato",
-      "licAvailable": "Licenza Disponibile"
+      "licAvailable": "Licenza Disponibile",
+      "tenancy": "Tenancy OCID"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",

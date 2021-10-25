@@ -1,6 +1,14 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField label="Recommendation">
+    <CustomField :label="$t('common.fields.tenancy')">
+      <CustomAutocomplete
+        v-model="filters.tenOCID"
+        :filterResult="filteredtenOCID"
+        :filterMethod="setAutocompletes"
+      />
+    </CustomField>
+
+    <CustomField :label="$t('common.fields.recommendation')">
       <CustomAutocomplete
         v-model="filters.name"
         :filterResult="filteredname"
@@ -8,7 +16,7 @@
       />
     </CustomField>
 
-    <CustomField label="Pending">
+    <CustomField :label="$t('common.fields.pending')">
       <CustomSlider
         v-model="filters.pending"
         :ticks="[minpending, maxpending]"
@@ -16,7 +24,7 @@
       />
     </CustomField>
 
-    <CustomField label="Estimated Savings">
+    <CustomField :label="$t('common.fields.estimateSaving')">
       <CustomSlider
         v-model="filters.costSaving"
         :ticks="[mincostSaving, maxcostSaving]"
@@ -24,11 +32,11 @@
       />
     </CustomField>
 
-    <CustomField label="Status">
+    <CustomField :label="$t('common.fields.status')">
       <CustomSelect v-model="filters.status" :options="filteredstatus" />
     </CustomField>
 
-    <CustomField label="Importance">
+    <CustomField :label="$t('common.fields.importance')">
       <CustomSelect
         v-model="filters.importance"
         :options="filteredimportance"
@@ -45,7 +53,7 @@ export default {
   mixins: [localFiltersMixin],
   data() {
     return {
-      autocompletes: ['name'],
+      autocompletes: ['name', 'tenOCID'],
       sliders: ['pending', 'costSaving'],
       selects: ['status', 'importance']
     }

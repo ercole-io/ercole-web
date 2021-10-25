@@ -247,7 +247,11 @@
       "repository": "Repositório",
       "installed": "Instalado",
       "releaseDate": "Data de Lançamento",
-      "licAvailable": "Licença Disponível"
+      "licAvailable": "Licença Disponível",
+      "tenancy": "Tenancy OCID",
+      "pending": "Pendente",
+      "estimateSaving": "Economia Estimada / Mês",
+      "importance": "Importância"
     },
     "table": {
       "perPage": "por página",
@@ -352,7 +356,8 @@
       "opSysFam": "Família do SO",
       "repository": "Repositório",
       "installed": "Instalado",
-      "licAvailable": "Licença Disponível"
+      "licAvailable": "Licença Disponível",
+      "tenancy": "Tenancy OCID"
     },
     "charts": {
       "archivelog": "Modo Archivelog",
