@@ -12,6 +12,7 @@
     />
 
     <template slot="bodyData" slot-scope="rowData">
+      <tdContent :value="rowData.scope.tenOCID" />
       <TdContent :value="rowData.scope.name" />
       <TdContent :value="rowData.scope.pending" />
       <TdContent
@@ -19,7 +20,6 @@
       />
       <TdContent :value="rowData.scope.status" />
       <TdContent :value="rowData.scope.importance" />
-      <tdContent :value="rowData.scope.tenOCID" />
     </template>
 
     <ExportButton slot="export" url="" expName="cloudRecommendations" />
