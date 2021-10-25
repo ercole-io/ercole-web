@@ -1,4 +1,8 @@
 [
+  {
+    "sort": "tenOCID",
+    "langKey": "common.collumns.tenancy"
+  },
   { 
     "sort": "name", 
     "langKey": "common.collumns.recommendation" 
@@ -18,9 +22,5 @@
   {
     "sort": "importance",
     "langKey": "common.collumns.importance"
-  },
-  {
-    "sort": "tenOCID",
-    "langKey": "Tenancy OCID"
   }
 ]
