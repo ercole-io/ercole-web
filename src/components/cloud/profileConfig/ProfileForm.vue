@@ -7,7 +7,7 @@
     cancelText="Cancel"
   >
     <b-field
-      label="Profile Name *"
+      :label="`${$t('common.collumns.profileName')} *`"
       custom-class="is-small"
       expanded
       :type="{
@@ -33,7 +33,7 @@
     </b-field>
 
     <b-field
-      label="Tenancy OCID *"
+      :label="`${$t('common.collumns.tenancy')} *`"
       custom-class="is-small"
       expanded
       :type="{
@@ -60,7 +60,7 @@
     </b-field>
 
     <b-field
-      label="User OCID *"
+      :label="`${$t('common.collumns.userOCID')} *`"
       custom-class="is-small"
       expanded
       :type="{
@@ -86,7 +86,7 @@
     </b-field>
 
     <b-field
-      label="Key Fingerprint *"
+      :label="`${$t('common.collumns.keyFingerprint')} *`"
       custom-class="is-small"
       expanded
       :type="{
@@ -113,7 +113,7 @@
     </b-field>
 
     <b-field
-      label="Region *"
+      :label="`${$t('common.collumns.region')} *`"
       custom-class="is-small"
       expanded
       :type="{
@@ -137,7 +137,7 @@
     </b-field>
 
     <b-field
-      label="Private Key *"
+      :label="`${$t('common.collumns.privateKey')} *`"
       custom-class="is-small"
       expanded
       :type="{

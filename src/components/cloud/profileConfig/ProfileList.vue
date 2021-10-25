@@ -6,31 +6,34 @@
     :tableData="getOciProfiles"
   >
     <template slot="headData">
-      <th colspan="3" style="text-align: center !important;">
+      <th style="text-align: center !important;">
+        {{ $t('common.collumns.activeProfiles') }}
+      </th>
+      <th colspan="2" style="text-align: center !important;">
         {{ $t('common.collumns.actions') }}
       </th>
       <v-th sortKey="profile">
-        Profile Name
+        {{ $t('common.collumns.profileName') }}
       </v-th>
       <v-th sortKey="tenancyOCID">
-        Tenancy OCID
+        {{ $t('common.collumns.tenancy') }}
       </v-th>
       <v-th sortKey="userOCID">
-        User OCID
+        {{ $t('common.collumns.userOCID') }}
       </v-th>
       <v-th sortKey="keyFingerprint">
-        Key Fingerprint
+        {{ $t('common.collumns.keyFingerprint') }}
       </v-th>
       <v-th sortKey="region">
-        Region
+        {{ $t('common.collumns.region') }}
       </v-th>
       <v-th sortKey="privateKey">
-        Private Key
+        {{ $t('common.collumns.privateKey') }}
       </v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
-      <td style="min-width: 0;">
+      <td style="min-width: 0; text-align: center !important;">
         <b-checkbox
           v-model="activeOciProfiles"
           :native-value="rowData.scope.id"
