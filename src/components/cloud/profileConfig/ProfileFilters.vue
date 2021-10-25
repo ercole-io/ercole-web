@@ -1,6 +1,6 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField label="Profile Name">
+    <CustomField :label="$t('common.collumns.profileName')">
       <CustomAutocomplete
         v-model="filters.profile"
         :filterResult="filteredprofile"
@@ -8,25 +8,25 @@
       />
     </CustomField>
 
-    <CustomField label="Tenancy OCID">
+    <CustomField :label="$t('common.collumns.tenancy')">
       <CustomSelect
         v-model="filters.tenancyOCID"
         :options="filteredtenancyOCID"
       />
     </CustomField>
 
-    <CustomField label="User OCID">
+    <CustomField :label="$t('common.collumns.userOCID')">
       <CustomSelect v-model="filters.userOCID" :options="filtereduserOCID" />
     </CustomField>
 
-    <CustomField label="Key Fingerprint">
+    <CustomField :label="$t('common.collumns.keyFingerprint')">
       <CustomSelect
         v-model="filters.keyFingerprint"
         :options="filteredkeyFingerprint"
       />
     </CustomField>
 
-    <CustomField label="Region">
+    <CustomField :label="$t('common.collumns.region')">
       <CustomSelect v-model="filters.region" :options="filteredregion" />
     </CustomField>
   </AdvancedFiltersBase>

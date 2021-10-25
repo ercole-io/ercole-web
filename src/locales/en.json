@@ -253,7 +253,12 @@
       "tenancy": "Tenancy OCID",
       "pending": "Pending",
       "estimateSaving": "Estimated Savings / Month",
-      "importance": "Importance"
+      "importance": "Importance",
+      "profileName": "Profile Name",
+      "userOCID": "User OCID",
+      "keyFingerprint": "Key Fingerprint",
+      "region": "Region",
+      "privateKey": "Private Key"
     },
     "table": {
       "perPage": "per page",
@@ -364,7 +369,13 @@
       "repository": "Repository",
       "installed": "Installed",
       "licAvailable": "License Available",
-      "tenancy": "Tenancy OCID"
+      "tenancy": "Tenancy OCID",
+      "activeProfiles": "Active Profiles",
+      "profileName": "Profile Name",
+      "userOCID": "User OCID",
+      "keyFingerprint": "Key Fingerprint",
+      "region": "Region",
+      "privateKey": "Private Key"
     },
     "charts": {
       "archivelog": "Archivelog Mode",
