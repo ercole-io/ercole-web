@@ -4,6 +4,27 @@
     :keys="getHeadKeys(recommendationHead)"
     :tableData="getRecommendations"
   >
+    <template slot="customTopHeader">
+      <b-notification
+        v-if="getRecommendations.length <= 0"
+        type="is-warning is-light"
+        aria-close-label="Close notification"
+        role="alert"
+      >
+        {{ $t('views.cloud.noActiveProfile') }}
+      </b-notification>
+
+      <b-notification
+        v-if="getOciActiveProfileError"
+        type="is-warning is-light"
+        aria-close-label="Close notification"
+        role="alert"
+        style="margin: 0 auto"
+      >
+        {{ getErrActiveProfile }}
+      </b-notification>
+    </template>
+
     <DynamicHeading
       slot="headData"
       v-for="head in recommendationHead"
@@ -49,7 +70,20 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getRecommendations'])
+    ...mapGetters(['getRecommendations', 'getOciActiveProfileError']),
+    getErrActiveProfile() {
+      const number = Number(this.getOciActiveProfileError) > 1 ? 2 : 1
+
+      if (number > 1) {
+        return this.$i18n.t('views.cloud.moreErrActiveProfile', {
+          n: this.getOciActiveProfileError
+        })
+      } else {
+        return this.$i18n.t('views.cloud.oneErrActiveProfile', {
+          n: this.getOciActiveProfileError
+        })
+      }
+    }
   }
 }
 </script>
