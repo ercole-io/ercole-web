@@ -238,7 +238,8 @@
       "repository": "Repositório",
       "installed": "Instalado",
       "releaseDate": "Data de Lançamento",
-      "licAvailable": "Licença Disponível"
+      "licAvailable": "Licença Disponível",
+      "clusterLicenses": "Licenças de cluster"
     },
     "table": {
       "perPage": "por página",
@@ -339,7 +340,8 @@
       "opSysFam": "Família do SO",
       "repository": "Repositório",
       "installed": "Instalado",
-      "licAvailable": "Licença Disponível"
+      "licAvailable": "Licença Disponível",
+      "clusterLicenses": "Licenças de cluster"
     },
     "charts": {
       "archivelog": "Modo Archivelog",

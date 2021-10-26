@@ -30,6 +30,9 @@
         <v-th sortKey="usedLicenses">
           {{ $t('common.collumns.usedLicenses') }}
         </v-th>
+        <v-th sortKey="clusterLicenses">
+          {{ $t('common.collumns.clusterLicenses') }}
+        </v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
@@ -44,6 +47,7 @@
         <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.metric" />
         <TdContent :value="rowData.scope.usedLicenses" />
+        <TdContent :value="rowData.scope.clusterLicenses" />
       </template>
 
       <exportButton
@@ -98,7 +102,8 @@ export default {
         'databases',
         'description',
         'metric',
-        'usedLicenses'
+        'usedLicenses',
+        'clusterLicenses'
       ]
     }
   },

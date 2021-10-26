@@ -31,6 +31,13 @@
         :ticks="[minusedLicenses, maxusedLicenses]"
       />
     </CustomField>
+
+    <CustomField :label="$t('common.fields.clusterLicenses')">
+      <CustomSlider
+        v-model="filters.clusterLicenses"
+        :ticks="[minclusterLicenses, maxclusterLicenses]"
+      />
+    </CustomField>
   </AdvancedFiltersBase>
 </template>
 
@@ -48,7 +55,7 @@ export default {
   data() {
     return {
       autocompletes: ['hostname', 'dbName', 'fullPartNumber'],
-      sliders: ['usedLicenses']
+      sliders: ['usedLicenses', 'clusterLicenses']
     }
   },
   created() {

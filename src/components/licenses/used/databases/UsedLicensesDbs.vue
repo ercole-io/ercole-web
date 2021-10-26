@@ -17,16 +17,19 @@
       <template slot="headData">
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
         <v-th sortKey="dbName">{{ $t('common.collumns.name') }}</v-th>
-        <v-th sortKey="licenseTypeID">{{
-          $t('common.collumns.partNumber')
-        }}</v-th>
-        <v-th sortKey="description">{{
-          $t('common.collumns.description')
-        }}</v-th>
+        <v-th sortKey="licenseTypeID">
+          {{ $t('common.collumns.partNumber') }}
+        </v-th>
+        <v-th sortKey="description">
+          {{ $t('common.collumns.description') }}
+        </v-th>
         <v-th sortKey="metric">{{ $t('common.collumns.metric') }}</v-th>
-        <v-th sortKey="usedLicenses">{{
-          $t('common.collumns.usedLicenses')
-        }}</v-th>
+        <v-th sortKey="usedLicenses">
+          {{ $t('common.collumns.usedLicenses') }}
+        </v-th>
+        <v-th sortKey="clusterLicenses">
+          {{ $t('common.collumns.clusterLicenses') }}
+        </v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
@@ -36,6 +39,7 @@
         <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.metric" />
         <TdContent :value="rowData.scope.usedLicenses" />
+        <TdContent :value="rowData.scope.clusterLicenses" />
       </template>
 
       <ExportButton
@@ -82,7 +86,8 @@ export default {
         'licenseTypeID',
         'usedLicenses',
         'description',
-        'metric'
+        'metric',
+        'clusterLicenses'
       ]
     }
   },
