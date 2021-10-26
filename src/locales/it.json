@@ -116,7 +116,10 @@
       "cannotDelete": "Non puoi eliminare un profilo attivo!",
       "deleteTitle": "Elimina Profilo",
       "deleteCheck": "Sei sicuro di voler eliminare il profilo <b>{profile}</b>?",
-      "deleteSuccess": "Il profilo {profile} è stato eliminato con successo!"
+      "deleteSuccess": "Il profilo {profile} è stato eliminato con successo!",
+      "noActiveProfile": "Al momento non ci sono profili attivi! Vai alla pagina delle configurazioni del profilo per attivare!",
+      "oneErrActiveProfile": "{n} profilo non funziona correttamente, controlla la pagina di configurazione del profilo!",
+      "moreErrActiveProfile": "Ci sono {n} profili che non funzionano correttamente, controlla la pagina di configurazione del profilo!"
     }
   },
   "common": {

@@ -185,3 +185,12 @@ ul.pagination-list {
     min-width: 100%;
   }
 }
+
+.notification.is-warning.is-light {
+  margin-bottom: 0;
+  padding: 0.20rem 2.5rem 0.20rem 1rem;
+
+  > .delete {
+    top: 0.3rem;
+  }
+}

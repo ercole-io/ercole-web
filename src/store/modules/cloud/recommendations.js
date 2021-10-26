@@ -35,16 +35,19 @@ export const mutations = {
 export const actions = {
   async getRecommendationsData({ commit, getters }) {
     let response = null
+    let error = null
 
     if (getters.getOciActiveProfiles.length > 0) {
       const recommendations = await axiosOci.get(
         `/oracle-cloud/recommendations/${getters.getOciActiveProfiles}`
       )
       response = await recommendations.data.recommendations
+      error = await recommendations.data.error
     } else {
-      response = []
+      ;(response = []), (error = '')
     }
 
     commit('SET_RECOMMENDATIONS', response)
+    commit('SET_OCI_ACTIVE_PROFILE_ERROR', error)
   }
 }
