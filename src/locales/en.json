@@ -348,7 +348,8 @@
       "repository": "Repository",
       "installed": "Installed",
       "licAvailable": "License Available",
-      "clusterLicenses": "Cluster Licenses"
+      "clusterLicenses": "Cluster Licenses",
+      "purchased": "Purchased"
     },
     "charts": {
       "archivelog": "Archivelog Mode",

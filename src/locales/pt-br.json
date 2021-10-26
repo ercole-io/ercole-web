@@ -341,7 +341,8 @@
       "repository": "Repositório",
       "installed": "Instalado",
       "licAvailable": "Licença Disponível",
-      "clusterLicenses": "Licenças de cluster"
+      "clusterLicenses": "Licenças de cluster",
+      "purchased": "Comprado"
     },
     "charts": {
       "archivelog": "Modo Archivelog",
