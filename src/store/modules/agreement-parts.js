@@ -49,8 +49,8 @@ export const actions = {
     const agreementParts = await axiosNoLoading.get(
       '/settings/oracle/database/license-types'
     )
-    const response = await agreementParts.data
-
+    const response = await agreementParts.data['license-types']
+    console.log(response)
     commit('SET_AGREEMENT_PARTS', response)
   }
 }
