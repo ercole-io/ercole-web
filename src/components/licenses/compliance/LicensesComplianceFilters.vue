@@ -9,6 +9,14 @@
       />
     </CustomField>
 
+    <CustomField :label="$t('common.fields.metric')">
+      <CustomAutocomplete
+        v-model="filters.metric"
+        :filterResult="filteredmetric"
+        :filterMethod="setAutocompletes"
+      />
+    </CustomField>
+
     <CustomField :label="$t('common.fields.consumed')">
       <CustomSlider
         v-model="filters.consumed"
@@ -45,7 +53,7 @@ export default {
   },
   data() {
     return {
-      autocompletes: ['fullPartNumber'],
+      autocompletes: ['fullPartNumber', 'metric'],
       sliders: ['consumed', 'covered', 'compliance', 'licenseAvailable'],
       filters: {
         unlimited: ''
