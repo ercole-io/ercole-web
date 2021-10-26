@@ -50,7 +50,7 @@ export const actions = {
       '/settings/oracle/database/license-types'
     )
     const response = await agreementParts.data['license-types']
-    console.log(response)
+
     commit('SET_AGREEMENT_PARTS', response)
   }
 }
