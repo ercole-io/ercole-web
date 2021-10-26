@@ -239,7 +239,8 @@
       "installed": "Instalado",
       "releaseDate": "Data de Lançamento",
       "licAvailable": "Licença Disponível",
-      "clusterLicenses": "Licenças de cluster"
+      "clusterLicenses": "Licenças de cluster",
+      "purchased": "Comprado"
     },
     "table": {
       "perPage": "por página",
