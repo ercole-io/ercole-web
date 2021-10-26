@@ -24,6 +24,20 @@
         field="fullPartNumber"
       />
     </CustomField>
+
+    <CustomField :label="$t('common.fields.usedLicenses')">
+      <CustomSlider
+        v-model="filters.usedLicenses"
+        :ticks="[minusedLicenses, maxusedLicenses]"
+      />
+    </CustomField>
+
+    <CustomField :label="$t('common.fields.clusterLicenses')">
+      <CustomSlider
+        v-model="filters.clusterLicenses"
+        :ticks="[minclusterLicenses, maxclusterLicenses]"
+      />
+    </CustomField>
   </AdvancedFiltersBase>
 </template>
 
@@ -41,7 +55,7 @@ export default {
   data() {
     return {
       autocompletes: ['hostname', 'fullPartNumber'],
-      sliders: ['databases']
+      sliders: ['databases', 'usedLicenses', 'clusterLicenses']
     }
   },
   created() {
