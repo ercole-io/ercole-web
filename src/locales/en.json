@@ -241,7 +241,8 @@
       "installed": "Installed",
       "releaseDate": "Release Date",
       "licAvailable": "License Available",
-      "clusterLicenses": "Cluster Licenses"
+      "clusterLicenses": "Cluster Licenses",
+      "purchased": "Purchased"
     },
     "table": {
       "perPage": "per page",

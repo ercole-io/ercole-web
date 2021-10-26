@@ -17,10 +17,19 @@
       />
     </CustomField>
 
+    <CustomField :label="$t('common.fields.purchased')">
+      <CustomSlider
+        v-model="filters.purchased"
+        :ticks="[minpurchased, maxpurchased]"
+        :steps="1"
+      />
+    </CustomField>
+
     <CustomField :label="$t('common.fields.consumed')">
       <CustomSlider
         v-model="filters.consumed"
         :ticks="[minconsumed, maxconsumed]"
+        :steps="1"
       />
     </CustomField>
 
@@ -28,6 +37,7 @@
       <CustomSlider
         v-model="filters.covered"
         :ticks="[mincovered, maxcovered]"
+        :steps="1"
       />
     </CustomField>
 
@@ -54,7 +64,13 @@ export default {
   data() {
     return {
       autocompletes: ['fullPartNumber', 'metric'],
-      sliders: ['consumed', 'covered', 'compliance', 'licenseAvailable'],
+      sliders: [
+        'consumed',
+        'covered',
+        'compliance',
+        'licenseAvailable',
+        'purchased'
+      ],
       filters: {
         unlimited: ''
       }
