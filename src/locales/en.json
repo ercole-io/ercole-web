@@ -240,7 +240,8 @@
       "repository": "Repository",
       "installed": "Installed",
       "releaseDate": "Release Date",
-      "licAvailable": "License Available"
+      "licAvailable": "License Available",
+      "clusterLicenses": "Cluster Licenses"
     },
     "table": {
       "perPage": "per page",
@@ -346,7 +347,8 @@
       "opSysFam": "OS Family",
       "repository": "Repository",
       "installed": "Installed",
-      "licAvailable": "License Available"
+      "licAvailable": "License Available",
+      "clusterLicenses": "Cluster Licenses"
     },
     "charts": {
       "archivelog": "Archivelog Mode",
