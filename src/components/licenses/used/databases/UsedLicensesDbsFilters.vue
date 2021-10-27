@@ -25,10 +25,25 @@
       />
     </CustomField>
 
+    <CustomField :label="$t('common.fields.metric')">
+      <CustomAutocomplete
+        v-model="filters.metric"
+        :filterResult="filteredmetric"
+        :filterMethod="setAutocompletes"
+      />
+    </CustomField>
+
     <CustomField :label="$t('common.fields.usedLicenses')">
       <CustomSlider
         v-model="filters.usedLicenses"
         :ticks="[minusedLicenses, maxusedLicenses]"
+      />
+    </CustomField>
+
+    <CustomField :label="$t('common.fields.clusterLicenses')">
+      <CustomSlider
+        v-model="filters.clusterLicenses"
+        :ticks="[minclusterLicenses, maxclusterLicenses]"
       />
     </CustomField>
   </AdvancedFiltersBase>
@@ -47,8 +62,8 @@ export default {
   },
   data() {
     return {
-      autocompletes: ['hostname', 'dbName', 'fullPartNumber'],
-      sliders: ['usedLicenses']
+      autocompletes: ['hostname', 'dbName', 'fullPartNumber', 'metric'],
+      sliders: ['usedLicenses', 'clusterLicenses']
     }
   },
   created() {
