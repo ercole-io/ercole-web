@@ -45,7 +45,8 @@
       "date": "Data:",
       "licensesX": "Licenças",
       "usedLicenses": "Licenças Usadas",
-      "purchasedLicenses": "Licenças Cobertas",
+      "coveredLicenses": "Licenças Cobertas",
+      "purchasedLicenses": "Licenças Adquiridas",
       "noData": "Sem dados. Por favor, altere as datas!",
       "noAlerts": "Não há alertas para"
     },
