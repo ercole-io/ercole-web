@@ -48,7 +48,8 @@
       "date": "Date:",
       "licensesX": "Licenses",
       "usedLicenses": "Used Licenses",
-      "purchasedLicenses": "Covered Licenses",
+      "coveredLicenses": "Covered Licenses",
+      "purchasedLicenses": "Purchased Licenses",
       "noData": "No data. Please change the dates!",
       "noAlerts": "There are no alerts for"
     },
@@ -261,7 +262,9 @@
       "userOCID": "User OCID",
       "keyFingerprint": "Key Fingerprint",
       "region": "Region",
-      "privateKey": "Private Key"
+      "privateKey": "Private Key",
+      "clusterLicenses": "Cluster Licenses",
+      "purchased": "Purchased"
     },
     "table": {
       "perPage": "per page",
@@ -378,7 +381,9 @@
       "userOCID": "User OCID",
       "keyFingerprint": "Key Fingerprint",
       "region": "Region",
-      "privateKey": "Private Key"
+      "privateKey": "Private Key",
+      "clusterLicenses": "Cluster Licenses",
+      "purchased": "Purchased"
     },
     "charts": {
       "archivelog": "Archivelog Mode",

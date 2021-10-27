@@ -17,6 +17,14 @@
       />
     </CustomField>
 
+    <CustomField :label="$t('common.fields.metric')">
+      <CustomAutocomplete
+        v-model="filters.metric"
+        :filterResult="filteredmetric"
+        :filterMethod="setAutocompletes"
+      />
+    </CustomField>
+
     <CustomField :label="$t('common.fields.csi')">
       <CustomAutocomplete
         v-model="filters.csi"
@@ -98,7 +106,8 @@ export default {
         'agreementID',
         'csi',
         'referenceNumber',
-        'fullPartNumber'
+        'fullPartNumber',
+        'metric'
       ],
       selects: ['referenceNumber'],
       sliders: [

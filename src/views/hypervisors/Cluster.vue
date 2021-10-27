@@ -29,6 +29,12 @@
         <TdContent :value="rowData.scope.name" />
         <TdIcon :value="rowData.scope.cappedCPU" />
       </template>
+
+      <ExportButton
+        slot="export"
+        :url="`hosts/clusters/${clustername}`"
+        :expName="`cluster-${clustername}-data`"
+      />
     </FullTable>
     <div slot="right">
       <BoxContent :title="`Cluster: ${clustername}`" border>
@@ -81,7 +87,7 @@ import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-// import ExportButton from '@/components/common/ExportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import BarChart from '@/components/common/charts/BarChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
@@ -95,7 +101,7 @@ export default {
     ToggleColumns,
     BoxContent,
     FullTable,
-    // ExportButton,
+    ExportButton,
     BarChart,
     TdContent,
     HostLink,
@@ -105,7 +111,8 @@ export default {
   data() {
     return {
       keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU'],
-      isMounted: false
+      isMounted: false,
+      chartHeight: 100
     }
   },
   async beforeMount() {
