@@ -9,10 +9,27 @@
       />
     </CustomField>
 
+    <CustomField :label="$t('common.fields.metric')">
+      <CustomAutocomplete
+        v-model="filters.metric"
+        :filterResult="filteredmetric"
+        :filterMethod="setAutocompletes"
+      />
+    </CustomField>
+
+    <CustomField :label="$t('common.fields.purchased')">
+      <CustomSlider
+        v-model="filters.purchased"
+        :ticks="[minpurchased, maxpurchased]"
+        :steps="1"
+      />
+    </CustomField>
+
     <CustomField :label="$t('common.fields.consumed')">
       <CustomSlider
         v-model="filters.consumed"
         :ticks="[minconsumed, maxconsumed]"
+        :steps="1"
       />
     </CustomField>
 
@@ -20,6 +37,7 @@
       <CustomSlider
         v-model="filters.covered"
         :ticks="[mincovered, maxcovered]"
+        :steps="1"
       />
     </CustomField>
 
@@ -45,8 +63,14 @@ export default {
   },
   data() {
     return {
-      autocompletes: ['fullPartNumber'],
-      sliders: ['consumed', 'covered', 'compliance', 'licenseAvailable'],
+      autocompletes: ['fullPartNumber', 'metric'],
+      sliders: [
+        'consumed',
+        'covered',
+        'compliance',
+        'licenseAvailable',
+        'purchased'
+      ],
       filters: {
         unlimited: ''
       }

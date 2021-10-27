@@ -48,7 +48,8 @@
       "date": "Data:",
       "licensesX": "Licenças",
       "usedLicenses": "Licenças Usadas",
-      "purchasedLicenses": "Licenças Cobertas",
+      "coveredLicenses": "Licenças Cobertas",
+      "purchasedLicenses": "Licenças Adquiridas",
       "noData": "Sem dados. Por favor, altere as datas!",
       "noAlerts": "Não há alertas para"
     },
@@ -259,7 +260,9 @@
       "userOCID": "Usuário OCID",
       "keyFingerprint": "Key Fingerprint",
       "region": "Região",
-      "privateKey": "Chave Privada"
+      "privateKey": "Chave Privada",
+      "clusterLicenses": "Licenças de cluster",
+      "purchased": "Comprado"
     },
     "table": {
       "perPage": "por página",
@@ -371,7 +374,9 @@
       "userOCID": "Usuário OCID",
       "keyFingerprint": "Key Fingerprint",
       "region": "Região",
-      "privateKey": "Chave Privada"
+      "privateKey": "Chave Privada",
+      "clusterLicenses": "Licenças de cluster",
+      "purchased": "Comprado"
     },
     "charts": {
       "archivelog": "Modo Archivelog",
