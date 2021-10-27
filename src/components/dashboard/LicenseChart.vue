@@ -129,12 +129,22 @@ const mapLicenseType = (history, type, dateRange) => {
     if (date > dateRange[0] && date < dateRange[1]) {
       historyByType.push({
         date: date,
-        value: type === 'purchased' ? value.covered : value.consumed
+        value: resolveType(type, value)
       })
     }
   })
 
   return historyByType
+}
+
+const resolveType = (type, value) => {
+  if (type === 'covered') {
+    return value.covered
+  } else if (type === 'consumed') {
+    return value.consumed
+  } else if (type === 'purchased') {
+    return value.purchased
+  }
 }
 
 export default {
@@ -180,15 +190,25 @@ export default {
           .format('YYYY-MM-DD')
       ]
 
+      const covered = mapLicenseType(findType.history, 'covered', dateRange)
+      const consumed = mapLicenseType(findType.history, 'consumed', dateRange)
       const purchased = mapLicenseType(findType.history, 'purchased', dateRange)
-      const used = mapLicenseType(findType.history, 'used', dateRange)
 
+      const resultCovered = getKeyValuePair(covered, 'date', 'value')
+      const resultConsumed = getKeyValuePair(consumed, 'date', 'value')
       const resultPurchased = getKeyValuePair(purchased, 'date', 'value')
-      const resultUsed = getKeyValuePair(used, 'date', 'value')
 
-      const finalData = this.buildFinalData(resultPurchased, resultUsed)
+      const finalData = this.buildFinalData(
+        resultCovered,
+        resultConsumed,
+        resultPurchased
+      )
 
-      if (_.isEmpty(resultPurchased) || _.isEmpty(resultUsed)) {
+      if (
+        _.isEmpty(resultCovered) ||
+        _.isEmpty(resultConsumed) ||
+        _.isEmpty(resultPurchased)
+      ) {
         this.finalChartData = []
         this.showChart = false
       } else {
@@ -196,7 +216,7 @@ export default {
         this.showChart = true
       }
     },
-    buildFinalData(purchased, used) {
+    buildFinalData(covered, consumed, purchased) {
       const finalResult = []
       finalResult.push(
         {
@@ -204,8 +224,12 @@ export default {
           data: purchased
         },
         {
-          name: this.used,
-          data: used
+          name: this.covered,
+          data: covered
+        },
+        {
+          name: this.consumed,
+          data: consumed
         }
       )
       return finalResult
@@ -250,8 +274,11 @@ export default {
   },
   computed: {
     ...mapGetters(['getChartLicenseHistory']),
-    used() {
+    consumed() {
       return this.$i18n.t('views.dashboard.usedLicenses')
+    },
+    covered() {
+      return this.$i18n.t('views.dashboard.coveredLicenses')
     },
     purchased() {
       return this.$i18n.t('views.dashboard.purchasedLicenses')

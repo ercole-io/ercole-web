@@ -71,7 +71,7 @@ export const getters = {
         data.unshift(item)
       }
     })
-
+    console.log(data)
     return data
   },
   getChartCoreHosts: (state, getters, rootState) => {

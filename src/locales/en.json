@@ -45,7 +45,8 @@
       "date": "Date:",
       "licensesX": "Licenses",
       "usedLicenses": "Used Licenses",
-      "purchasedLicenses": "Covered Licenses",
+      "coveredLicenses": "Covered Licenses",
+      "purchasedLicenses": "Purchased Licenses",
       "noData": "No data. Please change the dates!",
       "noAlerts": "There are no alerts for"
     },
