@@ -10,7 +10,12 @@ export const getters = {
     const activeProfiles = state.ociActiveProfile
 
     _.map(activeProfiles, (id, index) => {
-      if (!_.includes(_.map(getters.getOciProfiles, 'id'), id)) {
+      const checkProfilesId = _.includes(
+        _.map(getters.getOciProfiles, 'id'),
+        id
+      )
+
+      if (!checkProfilesId) {
         activeProfiles.splice(index, 1)
       }
     })
