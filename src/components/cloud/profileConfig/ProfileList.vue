@@ -27,9 +27,6 @@
       <v-th sortKey="region">
         {{ $t('common.collumns.region') }}
       </v-th>
-      <v-th sortKey="privateKey">
-        {{ $t('common.collumns.privateKey') }}
-      </v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
@@ -64,7 +61,6 @@
       <TdContent :value="rowData.scope.userOCID" />
       <TdContent :value="rowData.scope.keyFingerprint" />
       <TdContent :value="rowData.scope.region" />
-      <TdContent :value="rowData.scope.privateKey" />
     </template>
   </FullTable>
 </template>
