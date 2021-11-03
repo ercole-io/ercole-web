@@ -136,8 +136,12 @@
       </template>
     </b-field>
 
+    <b-checkbox v-if="isEditing" size="is-small" v-model="editPrivateKey">
+      Update Private Key
+    </b-checkbox>
     <b-field
-      :label="`${$t('common.collumns.privateKey')}${showRequiredSymble}`"
+      v-if="!isEditing || (isEditing && editPrivateKey)"
+      :label="`${$t('common.collumns.privateKey')} ${showRequiredSymble}`"
       custom-class="is-small"
       expanded
       :type="{
@@ -183,7 +187,8 @@ export default {
   data() {
     return {
       profileForm: {},
-      isEditing: false
+      isEditing: false,
+      editPrivateKey: false
     }
   },
   beforeMount() {
@@ -203,6 +208,8 @@ export default {
       } else {
         this.createProfile(this.profileForm).then(() => this.resetForm())
       }
+      this.isEditing = false
+      this.editPrivateKey = false
     },
     editProfile(data) {
       this.profileForm = {
@@ -213,10 +220,13 @@ export default {
         keyFingerprint: data.keyFingerprint,
         region: data.region
       }
+      this.isEditing = false
+      this.editPrivateKey = false
     },
     resetForm() {
       this.profileForm = {}
       this.isEditing = false
+      this.editPrivateKey = false
     }
   },
   computed: {
