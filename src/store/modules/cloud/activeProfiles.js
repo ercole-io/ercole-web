@@ -6,21 +6,22 @@ export const state = () => ({
 })
 
 export const getters = {
-  getOciActiveProfiles: (state, getters) => {
-    const activeProfiles = state.ociActiveProfile
+  getOciActiveProfiles: state => {
+    // const activeProfiles = state.ociActiveProfile
 
-    _.map(activeProfiles, (id, index) => {
-      const checkProfilesId = _.includes(
-        _.map(getters.getOciProfiles, 'id'),
-        id
-      )
+    // _.map(activeProfiles, (id, index) => {
+    //   const checkProfilesId = _.includes(
+    //     _.map(getters.getOciProfiles, 'id'),
+    //     id
+    //   )
 
-      if (!checkProfilesId) {
-        activeProfiles.splice(index, 1)
-      }
-    })
+    //   if (!checkProfilesId) {
+    //     activeProfiles.splice(index, 1)
+    //   }
+    // })
 
-    return activeProfiles
+    // return activeProfiles
+    return state.ociActiveProfile
   },
   getOciActiveProfileError: state => {
     const errNumber = _.slice(state.ociActiveProfileError)[0]
