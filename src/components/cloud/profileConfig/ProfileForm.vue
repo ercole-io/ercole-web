@@ -137,7 +137,7 @@
     </b-field>
 
     <b-field
-      :label="`${$t('common.collumns.privateKey')} *`"
+      :label="`${$t('common.collumns.privateKey')}${showRequiredSymble}`"
       custom-class="is-small"
       expanded
       :type="{
@@ -167,43 +167,41 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { required } from 'vuelidate/lib/validators'
-import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import { mapActions } from 'vuex'
+import { required, requiredIf } from 'vuelidate/lib/validators'
+import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 
 export default {
   components: {
     AdvancedFiltersBase
   },
-  validations: {
-    profileForm: {
-      profile: { required },
-      tenancyOCID: { required },
-      userOCID: { required },
-      keyFingerprint: { required },
-      region: { required },
-      privateKey: { required }
+  validations() {
+    return {
+      profileForm: this.validationFormFields
     }
-  },
-  beforeMount() {
-    bus.$on('onResetAction', () => (this.profileForm = {}))
-    bus.$on('editProfile', data => {
-      bus.$emit('onToggleEdit', true)
-      this.editProfile(data)
-    })
   },
   data() {
     return {
-      profileForm: {}
+      profileForm: {},
+      isEditing: false
     }
+  },
+  beforeMount() {
+    bus.$on('onResetAction', () => this.resetForm())
+
+    bus.$on('editProfile', data => {
+      bus.$emit('onToggleEdit', true)
+      this.editProfile(data)
+      this.isEditing = true
+    })
   },
   methods: {
     ...mapActions(['createProfile', 'updateProfile']),
     addUpdateProfile() {
       if (this.profileForm.id) {
-        this.updateProfile(this.profileForm)
+        this.updateProfile(this.profileForm).then(() => this.resetForm())
       } else {
-        this.createProfile(this.profileForm)
+        this.createProfile(this.profileForm).then(() => this.resetForm())
       }
     },
     editProfile(data) {
@@ -213,9 +211,31 @@ export default {
         tenancyOCID: data.tenancyOCID,
         userOCID: data.userOCID,
         keyFingerprint: data.keyFingerprint,
-        region: data.region,
-        privateKey: data.privateKey
+        region: data.region
       }
+    },
+    resetForm() {
+      this.profileForm = {}
+      this.isEditing = false
+    }
+  },
+  computed: {
+    validationFormFields() {
+      return {
+        profile: { required },
+        tenancyOCID: { required },
+        userOCID: { required },
+        keyFingerprint: { required },
+        region: { required },
+        privateKey: {
+          required: requiredIf(() => {
+            return !this.isEditing
+          })
+        }
+      }
+    },
+    showRequiredSymble() {
+      return this.isEditing ? '' : '*'
     }
   }
 }
