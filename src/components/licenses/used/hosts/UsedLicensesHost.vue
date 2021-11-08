@@ -37,12 +37,11 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <HostLink :hostname="rowData.scope.hostname" />
-        <!-- <td v-tooltip.bottom="options(rowData.scope.databases)">
+        <td v-tooltip.bottom="options(rowData.scope.databases)">
           <a @click.prevent="openModal(rowData.scope)" class="is-block">
             <span v-html="highlight(rowData.scope.databases)" />
           </a>
-        </td> -->
-        <TdContent :value="rowData.scope.databases" />
+        </td>
         <TdContent :value="rowData.scope.licenseTypeID" />
         <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.metric" />
@@ -117,7 +116,7 @@ export default {
         component: UsedLicensesHostModal,
         hasModalCard: true,
         props: {
-          databases: info.databases,
+          databases: info.databasesNames,
           licenseInfo: {
             licenseId: info.licenseTypeID,
             hostname: info.hostname,
