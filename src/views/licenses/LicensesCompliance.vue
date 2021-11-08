@@ -24,9 +24,9 @@
         <v-th sortKey="metric">
           {{ $t('common.collumns.metric') }}
         </v-th>
-        <!-- <v-th sortKey="licenseAvailable">
+        <v-th sortKey="available">
           {{ $t('common.collumns.licAvailable') }}
-        </v-th> -->
+        </v-th>
         <v-th sortKey="purchased">
           {{ $t('common.collumns.purchased') }}
         </v-th>
@@ -48,7 +48,7 @@
         <TdContent :value="rowData.scope.licenseTypeID" />
         <TdContent :value="rowData.scope.itemDescription" />
         <TdContent :value="rowData.scope.metric" />
-        <!-- <TdContent :value="rowData.scope.licenseAvailable" /> -->
+        <TdContent :value="rowData.scope.available" />
         <TdContent :value="rowData.scope.purchased" />
         <TdContent :value="rowData.scope.consumed" />
         <TdContent :value="rowData.scope.covered" />
@@ -102,7 +102,8 @@ export default {
         'covered',
         'compliance',
         'unlimited',
-        'purchased'
+        'purchased',
+        'available'
       ],
       isMounted: false
     }
