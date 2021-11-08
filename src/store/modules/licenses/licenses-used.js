@@ -14,7 +14,22 @@ export const getters = {
     return getters.filteredOrNot(cleanData)
   },
   getUsedLicensesByHost: (state, getters) => {
-    return getters.filteredOrNot(state.hostsLicensesUsed)
+    let licensesByHost = []
+
+    _.map(state.hostsLicensesUsed, val => {
+      licensesByHost.push({
+        hostname: val.hostname,
+        databases: val.databaseNames.length,
+        databasesNames: val.databaseNames,
+        licenseTypeID: val.licenseTypeID,
+        description: val.description,
+        metric: val.metric,
+        usedLicenses: val.usedLicenses,
+        clusterLicenses: val.clusterLicenses
+      })
+    })
+
+    return getters.filteredOrNot(licensesByHost)
   },
   getUsedLicensesByCluster: (state, getters) => {
     return getters.filteredOrNot(state.clustersLicensesUsed)
