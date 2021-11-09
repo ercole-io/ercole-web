@@ -1,6 +1,6 @@
 <template>
   <vueMultiSelect
-    v-model="selectedData"
+    v-model="cpuChartSelected"
     search
     :filters="filters"
     :position="position"
@@ -55,12 +55,12 @@ export default {
     }
   },
   computed: {
-    selectedData: {
+    cpuChartSelected: {
       get() {
         return this.selected.slice(0, 10)
       },
       set(val) {
-        bus.$emit('selectedData', val)
+        bus.$emit('cpuChartSelected', val)
       }
     },
     filters() {
