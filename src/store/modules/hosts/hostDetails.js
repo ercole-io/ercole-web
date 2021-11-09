@@ -266,11 +266,14 @@ export const getters = {
       }
     }
   },
-  currentHostDBsName: (state, getters) => {
+  currentHostDBsInfo: (state, getters) => {
     const databases = getters.currentHostDBs
 
     return _.map(databases, val => {
-      return val.name
+      return {
+        name: val.name,
+        id: val.dbID
+      }
     })
   },
   currentHostFiltered: (state, getters) => search => {
@@ -400,7 +403,7 @@ const mountTotalDailyUsageDbs = (data, rangeDates) => {
   let changed = []
 
   _.map(data, item => {
-    const { name, dbGrowth } = item
+    const { name, dbID, dbGrowth } = item
 
     _.map(dbGrowth, data => {
       let date = setRangeDateFormat(data.updated)
@@ -420,6 +423,7 @@ const mountTotalDailyUsageDbs = (data, rangeDates) => {
 
     dailyDbData.push({
       name: name,
+      id: dbID,
       data: changedResult
     })
   })
@@ -430,7 +434,7 @@ const matchSelectedDbs = (selected, dbs, rangeDates) => {
   let selectedDbs = []
   _.forEach(selected, val => {
     return _.map(mountTotalDailyUsageDbs(dbs, rangeDates), dbData => {
-      if (dbData.name === val) {
+      if (dbData.id === val.id) {
         selectedDbs.push(dbData)
       }
     })
