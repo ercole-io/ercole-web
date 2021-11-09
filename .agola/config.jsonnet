@@ -92,7 +92,7 @@ local task_build_push_image(push) =
       arch: 'amd64',
       containers: [
         {
-          image: 'gcr.io/kaniko-project/executor:debug-v0.11.0',
+          image: 'gcr.io/kaniko-project/executor:debug-v1.0.0',
         },
       ],
     },
