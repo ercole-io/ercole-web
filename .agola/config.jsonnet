@@ -131,16 +131,16 @@ local task_build_push_image(push) =
                [
                  task_test(version),
                ]
-               for version in ['14']
+               for version in ['16']
              ]) +
              std.flattenArrays([
                [
                  task_build(version),
                ]
-               for version in ['14']
+               for version in ['16']
              ]) + [
 
-        local version = '14';
+        local version = '16';
         {
           name: 'pkg build',
           runtime: {
@@ -207,7 +207,7 @@ local task_build_push_image(push) =
             { type: 'clone' },
             { type: 'save_to_workspace', contents: [{ source_dir: '.', dest_dir: '.', paths: ['**'] }] },
           ],
-          depends: ['build - node 14'],
+          depends: ['build - node 16'],
         },
       ] + [
         task_build_push_image(false) + {
