@@ -19,19 +19,17 @@ const default_layout = 'default'
 
 export default {
   created() {
-    this.fetchConfig()
-      .then(this.tryAutoLogin)
-      .then(this.offLoading)
+    this.fetchConfig().then(this.tryAutoLogin).then(this.offLoading)
   },
   methods: {
-    ...mapActions(['tryAutoLogin', 'fetchConfig', 'offLoading'])
+    ...mapActions(['tryAutoLogin', 'fetchConfig', 'offLoading']),
   },
   computed: {
     ...mapGetters(['loadingStatus', 'isConfigLoaded']),
     layout() {
       return (this.$route.meta.layout || default_layout) + '-layout'
-    }
-  }
+    },
+  },
 }
 </script>
 

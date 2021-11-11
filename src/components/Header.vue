@@ -32,7 +32,7 @@
             Auto Refresh
           </b-switch>
         </b-navbar-item> -->
-        <b-navbar-item @click="logout" data-logout-button>{{
+        <b-navbar-item @click="callLogout" data-logout-button>{{
           $t('header.logout')
         }}</b-navbar-item>
       </b-navbar-dropdown>
@@ -50,7 +50,7 @@ import ErcoleLogo from '@/components/common/ErcoleLogo.vue'
 export default {
   components: {
     ErcoleLogo,
-    LocaleSwitcher
+    LocaleSwitcher,
   },
   // data() {
   //   return {
@@ -58,7 +58,11 @@ export default {
   //   }
   // },
   methods: {
-    ...mapActions(['logout'])
+    ...mapActions(['logout']),
+    callLogout() {
+      localStorage.setItem('historyPage', '')
+      this.logout()
+    },
   },
   computed: {
     username() {
@@ -66,8 +70,8 @@ export default {
     },
     userRole() {
       return 'Operator'
-    }
-  }
+    },
+  },
   // watch: {
   //   isAuto(value) {
   //     if (value) {
