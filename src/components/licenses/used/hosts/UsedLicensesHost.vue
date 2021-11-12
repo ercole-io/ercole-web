@@ -77,7 +77,7 @@ export default {
     HighlightSearchMixin,
     TooltipMixin,
     paginationMixin,
-    hostnameLinkRow
+    hostnameLinkRow,
   ],
   components: {
     ToggleColumns,
@@ -85,13 +85,13 @@ export default {
     TdContent,
     HostLink,
     UsedLicensesHostFilters,
-    ExportButton
+    ExportButton,
   },
   props: {
     partNumber: {
       type: String,
-      required: false
-    }
+      required: false,
+    },
   },
   data() {
     return {
@@ -102,8 +102,8 @@ export default {
         'description',
         'metric',
         'usedLicenses',
-        'clusterLicenses'
-      ]
+        'clusterLicenses',
+      ],
     }
   },
   mounted() {
@@ -111,7 +111,6 @@ export default {
   },
   methods: {
     openModal(info) {
-      console.log(info)
       this.$buefy.modal.open({
         component: UsedLicensesHostModal,
         hasModalCard: true,
@@ -121,15 +120,15 @@ export default {
             licenseId: info.licenseTypeID,
             hostname: info.hostname,
             metric: info.metric,
-            description: info.description
-          }
-        }
+            description: info.description,
+          },
+        },
       })
-    }
+    },
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByHost'])
-  }
+    ...mapGetters(['getUsedLicensesByHost']),
+  },
 }
 </script>
 
