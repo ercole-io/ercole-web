@@ -17,9 +17,7 @@
         <v-th sortKey="cluster">
           {{ $t('common.fields.cluster') }}
         </v-th>
-        <v-th sortKey="hostCount">
-          Hosts
-        </v-th>
+        <v-th sortKey="hostCount"> Hosts </v-th>
         <v-th sortKey="licenseTypeID">
           {{ $t('common.fields.partNumber') }}
         </v-th>
@@ -75,20 +73,20 @@ export default {
     HighlightSearchMixin,
     TooltipMixin,
     paginationMixin,
-    hostnameLinkRow
+    hostnameLinkRow,
   ],
   components: {
     ToggleColumns,
     FullTable,
     TdContent,
     UsedLicensesClustersFilters,
-    ExportButton
+    ExportButton,
   },
   props: {
     partNumber: {
       type: String,
-      required: false
-    }
+      required: false,
+    },
   },
   data() {
     return {
@@ -98,8 +96,8 @@ export default {
         'description',
         'metric',
         'usedLicenses',
-        'hostCount'
-      ]
+        'hostCount',
+      ],
     }
   },
   mounted() {
@@ -107,7 +105,6 @@ export default {
   },
   methods: {
     openModal(info) {
-      // console.log(info)
       this.$buefy.modal.open({
         component: UsedLicensesClustersModal,
         hasModalCard: true,
@@ -115,15 +112,15 @@ export default {
           hosts: info.hostnames,
           licenseInfo: {
             cluster: info.cluster,
-            fullPartNumber: info.fullPartNumber
-          }
-        }
+            fullPartNumber: info.fullPartNumber,
+          },
+        },
       })
-    }
+    },
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByCluster'])
-  }
+    ...mapGetters(['getUsedLicensesByCluster']),
+  },
 }
 </script>
 

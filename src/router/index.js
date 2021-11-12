@@ -422,7 +422,6 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to.name)
   if (
     to.name !== 'login' &&
     to.name !== '401' &&
