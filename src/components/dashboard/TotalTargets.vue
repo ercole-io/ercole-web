@@ -46,23 +46,22 @@ export default {
   components: {
     BoxContent,
     Progress,
-    GhostLoading
+    GhostLoading,
   },
   data() {
     return {
       percCompliance: 0.0,
-      loading: true
+      loading: true,
     }
   },
   beforeMount() {
     bus.$on('loadDashboardComplete', () => {
       this.loading = false
     })
-    console.log()
   },
   computed: {
-    ...mapGetters(['getTotalTarget'])
-  }
+    ...mapGetters(['getTotalTarget']),
+  },
 }
 </script>
 
