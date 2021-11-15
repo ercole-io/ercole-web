@@ -1,5 +1,5 @@
-import { mapGetters } from 'vuex'
 import { bus } from '@/helpers/eventBus.js'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -17,7 +17,6 @@ export default {
     const dbs = this.currentDBs
 
     this.isActive = this.currentHostActiveDbIndex(dbs)
-    bus.$emit('selectedData', [this.currentHostActiveDB])
 
     bus.$on('isSearching', val => {
       if (val) {
@@ -28,7 +27,7 @@ export default {
 
       setTimeout(() => {
         if (dbs[this.isActive] && dbs[this.isActive].name) {
-          bus.$emit('selectedData', [dbs[this.isActive].name])
+          bus.$emit('selectedData', [dbs[this.isActive].dbID])
         } else {
           bus.$emit('selectedData', [this.currentHostActiveDB])
         }
@@ -37,7 +36,7 @@ export default {
   },
   methods: {
     onChange(index) {
-      bus.$emit('selectedData', [this.currentDBs[index].name])
+      bus.$emit('selectedData', [this.currentDBs[index].dbID])
     }
   },
   computed: {
