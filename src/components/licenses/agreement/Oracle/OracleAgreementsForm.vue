@@ -353,7 +353,13 @@ export default {
   },
   beforeMount() {
     bus.$on('onResetAction', () => this.cancelAddLicense())
+
     bus.$on('editAgreementOracle', data => {
+      bus.$emit('onToggleEdit', true)
+      this.editAgreement(data)
+    })
+
+    bus.$on('cloneAgreementOracle', data => {
       bus.$emit('onToggleEdit', true)
       this.editAgreement(data)
     })
@@ -377,7 +383,7 @@ export default {
           body: oracleAgreementData,
           type: 'oracle'
         }).then(() => {
-          this.cancelAddLicense()
+          this.sussessToastMsg(this.oracleForm.agreeNumber, 'created')
         })
       } else {
         oracleAgreementData.id = this.oracleForm.licenseID
@@ -385,7 +391,7 @@ export default {
           body: oracleAgreementData,
           type: 'oracle'
         }).then(() => {
-          this.cancelAddLicense()
+          this.sussessToastMsg(this.oracleForm.agreeNumber, 'modified')
         })
       }
     },
@@ -432,6 +438,14 @@ export default {
     },
     getEvent(e) {
       this.getAutocompleteData(e, Object.keys(this.$refs)[0])
+    },
+    sussessToastMsg(agreeNumber, text) {
+      this.$buefy.toast.open({
+        message: `The Agreement Number <b>${agreeNumber}</b> was successfully ${text}!`,
+        type: 'is-success',
+        duration: 5000,
+        position: 'is-bottom'
+      })
     }
   },
   computed: {

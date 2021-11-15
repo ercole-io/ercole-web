@@ -1,6 +1,6 @@
 {
-  "APIServiceBaseUrl": "http://localhost:11113",
-  "ChartServiceBaseUrl": "http://localhost:11116",
-  "OracleCloudInfra": "http://localhost:11117",
-  "RepoServiceUrl": "https://repository.ercole.io"
+  "APIServiceBaseUrl": "http://exemple-domain/main-api",
+  "ChartServiceBaseUrl": "http://exemple-domain/chart-api",
+  "OracleCloudInfra": "http://exemple-domain/cloud-api",
+  "RepoServiceUrl": "http://exemple-domain/repo-api"
 }

@@ -13,7 +13,6 @@
       :filterResult="setData"
       :onSelect="onSelectOption"
       openOnFocus
-      appendToBody
       v-if="toggleAutocomplete"
       ref="fastSwitchRef"
     />

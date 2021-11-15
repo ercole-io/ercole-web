@@ -10,14 +10,24 @@ export const getters = {
     return getters.filteredOrNot(state.segmentAdvisor)
   },
   top10reclaimableChart: (state, getters) => {
-    const top10data = _.take(
-      _.orderBy(getters.getOracleSegmentAdvisor, ['reclaimable'], ['desc']),
-      10
-    )
+    const agregateData = _.groupBy(getters.getOracleSegmentAdvisor, 'dbname')
+    const organizeData = []
     let top10result = []
 
+    _.map(agregateData, (v, k) => {
+      organizeData.push({
+        dbname: k,
+        reclaimable: _.floor(_.sumBy(v, 'reclaimable'), 2)
+      })
+    })
+
+    const top10data = _.take(
+      _.orderBy(organizeData, ['reclaimable'], ['desc']),
+      10
+    )
+
     _.map(top10data, val => {
-      top10result.push([val.dbname, val.reclaimable])
+      top10result.push([val.dbname, _.floor(val.reclaimable, 1)])
     })
 
     return top10result

@@ -6,21 +6,21 @@ import i18n from '@/i18n.js'
 
 export const state = () => {
   return {
-    isLoggedIn: !!localStorage.getItem('token')
+    isLoggedIn: !!localStorage.getItem('token'),
   }
 }
 
 export const getters = {
-  isLoggedIn: state => state.isLoggedIn
+  isLoggedIn: (state) => state.isLoggedIn,
 }
 
 export const mutations = {
-  LOGIN_SUCCESS: state => {
+  LOGIN_SUCCESS: (state) => {
     state.isLoggedIn = true
   },
-  LOGOUT: state => {
+  LOGOUT: (state) => {
     state.isLoggedIn = false
-  }
+  },
 }
 
 export const actions = {
@@ -30,13 +30,13 @@ export const actions = {
         '/login',
         {
           username: auth.username,
-          password: auth.password
+          password: auth.password,
         },
         {
-          timeout: 15000
+          timeout: 15000,
         }
       )
-      .then(res => {
+      .then((res) => {
         const token = res.data
         const decodeToken = JSON.parse(atob(token.split('.')[1]))
         const username = decodeToken.aud[0]
@@ -45,7 +45,7 @@ export const actions = {
         const payload = {
           token: token,
           username: username,
-          expiration: expiration
+          expiration: expiration,
         }
 
         commit('LOGIN_SUCCESS')
@@ -53,10 +53,16 @@ export const actions = {
         dispatch('setErrMsg', null)
       })
       .then(() => {
-        router.replace('/dashboard')
+        const historyPage = localStorage.getItem('historyPage')
+        if (!historyPage) {
+          router.replace('/dashboard')
+        } else {
+          router.replace(`${historyPage}`)
+        }
+
         dispatch('offLoading')
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.code === 'ECONNABORTED' && err.message !== 'Unauthorized') {
           dispatch('setErrMsg', i18n.t(`common.validations.loginTimeout`))
         } else {
@@ -87,5 +93,5 @@ export const actions = {
     commit('LOGOUT')
     helpers.clearLocalStorageAuth()
     router.push('/login')
-  }
+  },
 }
