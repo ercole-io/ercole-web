@@ -37,12 +37,11 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <HostLink :hostname="rowData.scope.hostname" />
-        <!-- <td v-tooltip.bottom="options(rowData.scope.databases)">
+        <td v-tooltip.bottom="options(rowData.scope.databases)">
           <a @click.prevent="openModal(rowData.scope)" class="is-block">
             <span v-html="highlight(rowData.scope.databases)" />
           </a>
-        </td> -->
-        <TdContent :value="rowData.scope.databases" />
+        </td>
         <TdContent :value="rowData.scope.licenseTypeID" />
         <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.metric" />
@@ -78,7 +77,7 @@ export default {
     HighlightSearchMixin,
     TooltipMixin,
     paginationMixin,
-    hostnameLinkRow
+    hostnameLinkRow,
   ],
   components: {
     ToggleColumns,
@@ -86,13 +85,13 @@ export default {
     TdContent,
     HostLink,
     UsedLicensesHostFilters,
-    ExportButton
+    ExportButton,
   },
   props: {
     partNumber: {
       type: String,
-      required: false
-    }
+      required: false,
+    },
   },
   data() {
     return {
@@ -103,8 +102,8 @@ export default {
         'description',
         'metric',
         'usedLicenses',
-        'clusterLicenses'
-      ]
+        'clusterLicenses',
+      ],
     }
   },
   mounted() {
@@ -112,25 +111,24 @@ export default {
   },
   methods: {
     openModal(info) {
-      console.log(info)
       this.$buefy.modal.open({
         component: UsedLicensesHostModal,
         hasModalCard: true,
         props: {
-          databases: info.databases,
+          databases: info.databasesNames,
           licenseInfo: {
             licenseId: info.licenseTypeID,
             hostname: info.hostname,
             metric: info.metric,
-            description: info.description
-          }
-        }
+            description: info.description,
+          },
+        },
       })
-    }
+    },
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByHost'])
-  }
+    ...mapGetters(['getUsedLicensesByHost']),
+  },
 }
 </script>
 

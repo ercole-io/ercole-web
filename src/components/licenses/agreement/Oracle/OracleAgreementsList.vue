@@ -6,7 +6,7 @@
     :clickedRow="() => []"
   >
     <template slot="headData">
-      <th colspan="3" style="text-align: center !important;">
+      <th colspan="4" style="text-align: center !important;">
         {{ $t('common.collumns.actions') }}
       </th>
       <v-th sortKey="agreementID">
@@ -89,6 +89,16 @@
           "
         />
       </td>
+      <td style="min-width: 0;">
+        <b-icon
+          v-tooltip="options('Clone Information')"
+          type="is-warning"
+          class="edit-icon"
+          pack="fas"
+          icon="clone"
+          @click.native="cloneAgreement(rowData.scope)"
+        />
+      </td>
       <TdContent :value="rowData.scope.agreementID" />
       <TdContent :value="rowData.scope.licenseTypeID" />
       <TdContent
@@ -159,6 +169,9 @@ export default {
   methods: {
     editAgreement(data) {
       bus.$emit('editAgreementOracle', data)
+    },
+    cloneAgreement(data) {
+      bus.$emit('cloneAgreementOracle', _.omit(data, ['id']))
     },
     openModal(data) {
       this.$buefy.modal.open({

@@ -11,10 +11,11 @@
 
 <script>
 import axiosDefault from '@/axios/axios-default.js'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   methods: {
+    ...mapActions(['getHosts']),
     deleteHost(hostname) {
       this.$buefy.dialog.confirm({
         title: this.$i18n.t('views.hostDetails.dismissHost'),
@@ -27,6 +28,9 @@ export default {
         onConfirm: () => {
           axiosDefault
             .delete(`/hosts/${hostname}`)
+            .then(() => {
+              this.getHosts()
+            })
             .then(() => {
               this.$router.push({ name: 'hosts' })
             })

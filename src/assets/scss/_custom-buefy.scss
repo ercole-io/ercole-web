@@ -184,6 +184,10 @@ ul.pagination-list {
   &.control {
     min-width: 100%;
   }
+
+  .dropdown-item {
+    display: block !important;
+  }
 }
 
 .notification.is-warning.is-light {

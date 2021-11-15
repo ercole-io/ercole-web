@@ -17,6 +17,14 @@
       />
     </CustomField>
 
+    <CustomField :label="$t('common.collumns.licAvailable')">
+      <CustomSlider
+        v-model="filters.available"
+        :ticks="[minavailable, maxavailable]"
+        :steps="1"
+      />
+    </CustomField>
+
     <CustomField :label="$t('common.fields.purchased')">
       <CustomSlider
         v-model="filters.purchased"
@@ -69,7 +77,8 @@ export default {
         'covered',
         'compliance',
         'licenseAvailable',
-        'purchased'
+        'purchased',
+        'available'
       ],
       filters: {
         unlimited: ''
