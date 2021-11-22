@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card" style="width: 500px;">
+  <div class="modal-card" style="width: 500px">
     <b-loading
       :is-full-page="false"
       v-model="isLoading"
@@ -35,7 +35,10 @@
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
-          <TdContent :value="rowData.scope.dbname" />
+          <HostLink
+            :hostname="[licenseInfo.hostname, rowData.scope.dbname]"
+            showDbName
+          />
         </template>
       </FullTable>
     </section>
@@ -47,33 +50,33 @@
 import _ from 'lodash'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import TdContent from '@/components/common/Table/TdContent.vue'
+import HostLink from '@/components/common/Table/HostLink.vue'
 import i18n from '@/i18n.js'
 
 export default {
   mixins: [TooltipMixin],
   components: {
     FullTable,
-    TdContent
+    HostLink,
   },
   props: {
     databases: {
       type: [Array, Object],
-      required: true
+      required: true,
     },
-    licenseInfo: {}
+    licenseInfo: {},
   },
   data() {
     return {
-      isLoading: false
+      isLoading: false,
     }
   },
   computed: {
     returnDatabases() {
       const databases = []
-      _.map(this.databases, db => {
+      _.map(this.databases, (db) => {
         databases.push({
-          dbname: db
+          dbname: db,
         })
       })
       return databases
@@ -83,8 +86,8 @@ export default {
     },
     placeholder() {
       return i18n.t('menu.databases')
-    }
-  }
+    },
+  },
 }
 </script>
 
