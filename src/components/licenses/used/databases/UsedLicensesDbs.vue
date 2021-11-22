@@ -34,12 +34,12 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdIgnoreIcon
+        <!-- <TdIgnoreIcon
           :db="rowData.scope.dbName"
           :host="rowData.scope.hostname"
           :licenseID="rowData.scope.licenseTypeID"
           :status="!rowData.scope.ignored"
-        />
+        /> -->
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbName]" />
         <TdContent :value="rowData.scope.dbName" />
         <TdContent :value="rowData.scope.licenseTypeID" />
@@ -68,7 +68,7 @@ import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import UsedLicensesDbsFilters from '@/components/licenses/used/databases/UsedLicensesDbsFilters.vue'
-import TdIgnoreIcon from '@/components/common/Table/TdIgnoreIcon.vue'
+// import TdIgnoreIcon from '@/components/common/Table/TdIgnoreIcon.vue'
 
 export default {
   mixins: [paginationMixin, hostnameLinkRow],
@@ -85,7 +85,7 @@ export default {
     TdContent,
     HostLink,
     UsedLicensesDbsFilters,
-    TdIgnoreIcon,
+    // TdIgnoreIcon,
   },
   data() {
     return {
