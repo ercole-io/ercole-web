@@ -5,18 +5,18 @@ import { setFullPartNumber } from '@/helpers/helpers.js'
 export const state = () => ({
   dbsLicensesUsed: [],
   hostsLicensesUsed: [],
-  clustersLicensesUsed: []
+  clustersLicensesUsed: [],
 })
 
 export const getters = {
   getUsedLicensesByDbs: (state, getters) => {
-    const cleanData = _.without(state.dbsLicensesUsed, undefined, null, '')
+    let cleanData = _.without(state.dbsLicensesUsed, undefined, null, '')
     return getters.filteredOrNot(cleanData)
   },
   getUsedLicensesByHost: (state, getters) => {
     let licensesByHost = []
 
-    _.map(state.hostsLicensesUsed, val => {
+    _.map(state.hostsLicensesUsed, (val) => {
       licensesByHost.push({
         hostname: val.hostname,
         databases: val.databaseNames.length,
@@ -25,7 +25,7 @@ export const getters = {
         description: val.description,
         metric: val.metric,
         usedLicenses: val.usedLicenses,
-        clusterLicenses: val.clusterLicenses
+        clusterLicenses: val.clusterLicenses,
       })
     })
 
@@ -33,7 +33,7 @@ export const getters = {
   },
   getUsedLicensesByCluster: (state, getters) => {
     return getters.filteredOrNot(state.clustersLicensesUsed)
-  }
+  },
 }
 
 export const mutations = {
@@ -44,15 +44,15 @@ export const mutations = {
     state.hostsLicensesUsed = setFullPartNumber(payload)
   },
   SET_LICENSES_CLUSTER: (state, payload) => {
-    let newPayload = _.map(payload, val => {
+    let newPayload = _.map(payload, (val) => {
       return {
         ...val,
-        hostCount: val.hostnames.length
+        hostCount: val.hostnames.length,
       }
     })
 
     state.clustersLicensesUsed = setFullPartNumber(newPayload)
-  }
+  },
 }
 
 export const actions = {
@@ -63,11 +63,19 @@ export const actions = {
         params: {
           'older-than': getters.getActiveFilters.date,
           environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location
-        }
+          location: getters.getActiveFilters.location,
+        },
       }
     )
-    const response = await licensesList.data.usedLicenses
+    let response = await licensesList.data.usedLicenses
+
+    response = _.map(response, (val) => {
+      return {
+        ...val,
+        ignore: false,
+      }
+    })
+
     commit('SET_LICENSE_DATABASES', response)
   },
   async getLicensesPerHost({ commit, getters }) {
@@ -77,8 +85,8 @@ export const actions = {
         params: {
           'older-than': getters.getActiveFilters.date,
           environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location
-        }
+          location: getters.getActiveFilters.location,
+        },
       }
     )
     const response = await licensePerHost.data.usedLicenses
@@ -91,11 +99,11 @@ export const actions = {
         params: {
           'older-than': getters.getActiveFilters.date,
           environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location
-        }
+          location: getters.getActiveFilters.location,
+        },
       }
     )
     const response = await licensesCluster.data.usedLicensesPerCluster
     commit('SET_LICENSES_CLUSTER', response)
-  }
+  },
 }

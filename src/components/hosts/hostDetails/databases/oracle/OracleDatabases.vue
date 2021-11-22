@@ -24,6 +24,7 @@
           <DbPDBs :pdbs="dbs.pdbs" v-if="getCheckedFilters('pdbs')" />
           <DbLicenses
             :licenses="dbs.licenses"
+            :dbName="dbs.name"
             v-if="getCheckedFilters('licenses')"
           />
           <DbOptions
@@ -101,11 +102,11 @@ export default {
     DbOptions,
     DbLicenses,
     // DbTags,
-    DbPDBs
+    DbPDBs,
   },
   computed: {
-    ...mapGetters(['getCheckedFilters'])
-  }
+    ...mapGetters(['getCheckedFilters']),
+  },
 }
 </script>
 
