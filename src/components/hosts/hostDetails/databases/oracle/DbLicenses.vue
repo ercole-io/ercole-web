@@ -9,7 +9,7 @@
       hideTopTable
     >
       <template slot="headData">
-        <v-th sortKey="ignored">Ignore License</v-th>
+        <!-- <v-th sortKey="ignored">Ignore License</v-th> -->
         <v-th sortKey="name">Name</v-th>
         <v-th sortKey="count">Number</v-th>
         <v-th sortKey="licenseTypeID">Part Number</v-th>
@@ -18,12 +18,12 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdIgnoreIcon
+        <!-- <TdIgnoreIcon
           :db="dbName"
           :host="$route.params.hostname"
           :licenseID="rowData.scope.licenseTypeID"
           :status="!rowData.scope.ignored"
-        />
+        /> -->
         <TdContent :value="rowData.scope.name" />
         <TdContent :value="rowData.scope.count" />
         <TdContent :value="rowData.scope.licenseTypeID" />
@@ -37,7 +37,7 @@
 <script>
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
-import TdIgnoreIcon from '@/components/common/Table/TdIgnoreIcon.vue'
+// import TdIgnoreIcon from '@/components/common/Table/TdIgnoreIcon.vue'
 
 export default {
   props: {
@@ -53,7 +53,7 @@ export default {
   components: {
     FullTable,
     TdContent,
-    TdIgnoreIcon,
+    // TdIgnoreIcon,
   },
   data() {
     return {
