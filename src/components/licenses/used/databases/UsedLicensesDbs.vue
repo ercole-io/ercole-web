@@ -15,6 +15,7 @@
       isClickable
     >
       <template slot="headData">
+        <v-th sortKey="ignore" class="has-text-centered">Ignore License</v-th>
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
         <v-th sortKey="dbName">{{ $t('common.collumns.name') }}</v-th>
         <v-th sortKey="licenseTypeID">
@@ -33,6 +34,12 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
+        <TdIgnoreIcon
+          :db="rowData.scope.dbName"
+          :host="rowData.scope.hostname"
+          :licenseID="rowData.scope.licenseTypeID"
+          :status="!rowData.scope.ignored"
+        />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbName]" />
         <TdContent :value="rowData.scope.dbName" />
         <TdContent :value="rowData.scope.licenseTypeID" />
@@ -61,14 +68,15 @@ import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import UsedLicensesDbsFilters from '@/components/licenses/used/databases/UsedLicensesDbsFilters.vue'
+import TdIgnoreIcon from '@/components/common/Table/TdIgnoreIcon.vue'
 
 export default {
   mixins: [paginationMixin, hostnameLinkRow],
   props: {
     partNumber: {
       type: String,
-      required: false
-    }
+      required: false,
+    },
   },
   components: {
     ToggleColumns,
@@ -76,7 +84,8 @@ export default {
     ExportButton,
     TdContent,
     HostLink,
-    UsedLicensesDbsFilters
+    UsedLicensesDbsFilters,
+    TdIgnoreIcon,
   },
   data() {
     return {
@@ -87,14 +96,24 @@ export default {
         'usedLicenses',
         'description',
         'metric',
-        'clusterLicenses'
-      ]
+        'clusterLicenses',
+        'ignore',
+      ],
     }
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByDbs'])
-  }
+    ...mapGetters(['getUsedLicensesByDbs']),
+  },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.bt-ignore {
+  &:focus {
+    box-shadow: none;
+  }
+  &:hover {
+    text-decoration: none;
+  }
+}
+</style>
