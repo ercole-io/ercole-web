@@ -5,20 +5,16 @@ import moment from 'moment'
 import _ from 'lodash'
 import router from '@/router'
 
-const startDate = moment()
-  .subtract(1, 'week')
-  .format('YYYY-MM-DD')
-const endDate = moment()
-  .add(1, 'days')
-  .format('YYYY-MM-DD')
+const startDate = moment().subtract(1, 'week').format('YYYY-MM-DD')
+const endDate = moment().add(1, 'days').format('YYYY-MM-DD')
 
 export const state = () => ({
   alerts: [],
   params: {
     category: null,
     severity: null,
-    hostname: null
-  }
+    hostname: null,
+  },
 })
 
 export const getters = {
@@ -42,7 +38,7 @@ export const getters = {
       return getters['getAllAlerts']
     }
   },
-  getAllAlerts: state => {
+  getAllAlerts: (state) => {
     const agents = state.alerts.AGENT
 
     const licenses = state.alerts.LICENSE
@@ -56,13 +52,13 @@ export const getters = {
 
     return _.compact(all)
   },
-  getFilteredAgents: state => (code, category) => {
+  getFilteredAgents: (state) => (code, category) => {
     const agents = state.alerts[category]
     const filtered = _.filter(agents, ['alertCode', code])
 
     return _.orderBy(filtered, ['date'], ['desc'])
   },
-  getFilteredAlertsByHost: state => (host, category) => {
+  getFilteredAlertsByHost: (state) => (host, category) => {
     let alertsByHost = {}
 
     if (category === 'AGENT') {
@@ -84,7 +80,7 @@ export const getters = {
 
     return _.orderBy(filtered, ['date'], ['desc'])
   },
-  getFirstAlertByCategory: state => category => {
+  getFirstAlertByCategory: (state) => (category) => {
     const alert = state.alerts[category]
     const alerts = organizeAlertByFirst(alert)
 
@@ -96,11 +92,11 @@ export const getters = {
         date: alerts.date,
         msg: alerts.description,
         severity: alerts.alertSeverity,
-        code: alerts.alertCode
+        code: alerts.alertCode,
       }
     }
   },
-  getTotalAlertsByCategory: state => category => {
+  getTotalAlertsByCategory: (state) => (category) => {
     let alerts = state.alerts[category]
 
     let info = alerts && alerts.INFO ? alerts.INFO.length : 0
@@ -110,9 +106,9 @@ export const getters = {
       info: info,
       warn: warn,
       crit: crit,
-      total: info + warn + crit
+      total: info + warn + crit,
     }
-  }
+  },
 }
 
 export const mutations = {
@@ -135,7 +131,7 @@ export const mutations = {
     let type = payload.type
 
     if (flag === 'AGENT') {
-      state.alerts[flag] = _.filter(state.alerts[flag], item => {
+      state.alerts[flag] = _.filter(state.alerts[flag], (item) => {
         return item._id !== id
       })
     }
@@ -145,7 +141,7 @@ export const mutations = {
   MARK_AS_READ_ALERTS_PAGE: (state, payload) => {
     const alerts = state.alerts
 
-    _.forEach(payload.idList, id => {
+    _.forEach(payload.idList, (id) => {
       filterOnAlertsById(alerts, 'ENGINE', 'INFO', id)
       filterOnAlertsById(alerts, 'ENGINE', 'WARNING', id)
       filterOnAlertsById(alerts, 'ENGINE', 'CRITICAL', id)
@@ -158,9 +154,9 @@ export const mutations = {
     state.params = {
       category: payload.category,
       severity: payload.severity,
-      hostname: payload.hostname
+      hostname: payload.hostname,
     }
-  }
+  },
 }
 
 export const actions = {
@@ -170,31 +166,32 @@ export const actions = {
       from: data.startDate,
       to: data.endDate,
       environment: getters.getActiveFilters.environment,
-      location: getters.getActiveFilters.location
+      location: getters.getActiveFilters.location,
     }
 
     let alertsData
     if (router.currentRoute.name === 'alerts') {
       alertsData = await axiosDefault.get('/alerts', {
-        params: params
+        params: params,
       })
     } else {
       alertsData = await axiosNoLoading.get('/alerts', {
-        params: params
+        params: params,
       })
     }
 
     const response = await alertsData.data
-    _.map(response, val => {
+    _.map(response, (val) => {
       if (val.alertCategory !== 'AGENT') {
         val.isChecked = false
       }
     })
+
     commit('SET_ALERTS', response)
   },
   async markAsRead({ commit }, payload) {
     const deleteAlert = await axiosNoLoading.post(`/alerts/ack`, {
-      ids: [payload.id]
+      ids: [payload.id],
     })
     const response = await deleteAlert
     if (response) {
@@ -203,20 +200,20 @@ export const actions = {
   },
   async markAsReadAlertsPage({ commit }, payload) {
     const deleteAlert = await axiosNoLoading.post(`/alerts/ack`, {
-      ids: payload.idList
+      ids: payload.idList,
     })
     const response = await deleteAlert
     if (response) {
       commit('MARK_AS_READ_ALERTS_PAGE', payload)
     }
-  }
+  },
 }
 
-const organizeAlertsByFlag = flag => {
+const organizeAlertsByFlag = (flag) => {
   return _.concat(flag.INFO || [], flag.WARNING || [], flag.CRITICAL || [])
 }
 
-const organizeAlertByFirst = alert => {
+const organizeAlertByFirst = (alert) => {
   if (alert) {
     return (
       (alert.CRITICAL && alert.CRITICAL[0]) ||
@@ -230,7 +227,7 @@ const organizeAlertByFirst = alert => {
 }
 
 const filterOnAlertsById = (alerts, flag, type, id) => {
-  alerts[flag][type] = _.filter(alerts[flag][type], item => {
+  alerts[flag][type] = _.filter(alerts[flag][type], (item) => {
     return item._id !== id
   })
 

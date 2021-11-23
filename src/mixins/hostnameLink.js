@@ -1,3 +1,5 @@
+import router from '../router/index.js'
+
 export default {
   methods: {
     handleHostnameClick(e) {
@@ -10,23 +12,31 @@ export default {
     },
     resolveRoute(method, place) {
       let routeRedirect
-      if (this.$store.getters.checkHostnameExists(this.getHostname)) {
-        if (this.getDbname !== '') {
-          routeRedirect = this.$router[method]({
-            name: 'hosts-details',
-            params: { hostname: this.getHostname, dbname: this.getDbname }
-          })
-        } else {
-          routeRedirect = this.$router[method]({
-            name: 'hosts-details',
-            params: { hostname: this.getHostname }
-          })
-        }
+      if (this.showDbName) {
+        this.$parent.$parent.$parent.$parent.$parent.close()
+        routeRedirect = router[method]({
+          name: 'hosts-details',
+          params: { hostname: this.hostname[0], dbname: this.hostname[1] },
+        })
       } else {
-        routeRedirect = this.$router[method]({ name: '404' })
+        if (this.$store.getters.checkHostnameExists(this.getHostname)) {
+          if (this.getDbname !== '') {
+            routeRedirect = this.$router[method]({
+              name: 'hosts-details',
+              params: { hostname: this.getHostname, dbname: this.getDbname },
+            })
+          } else {
+            routeRedirect = this.$router[method]({
+              name: 'hosts-details',
+              params: { hostname: this.getHostname },
+            })
+          }
+        } else {
+          routeRedirect = this.$router[method]({ name: '404' })
+        }
       }
 
       window.open(routeRedirect.href, `_${place}`)
-    }
-  }
+    },
+  },
 }
