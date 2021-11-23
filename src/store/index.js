@@ -34,6 +34,7 @@ import * as recommendations from '@/store/modules/cloud/recommendations.js'
 import * as profileConfig from '@/store/modules/cloud/profileConfig.js'
 import * as activeProfiles from '@/store/modules/cloud/activeProfiles.js'
 import * as repository from '@/store/modules/repository/repository.js'
+import * as databaseIgnore from '@/store/modules/databaseIgnore.js'
 
 Vue.use(Vuex)
 
@@ -70,7 +71,8 @@ export default new Vuex.Store({
     recommendations,
     profileConfig,
     activeProfiles,
-    repository
+    repository,
+    databaseIgnore,
   },
   plugins: [
     createPersistedState({
@@ -83,8 +85,8 @@ export default new Vuex.Store({
         'clusternames',
         'moreInfoToggle',
         'columnToggle',
-        'activeProfiles'
-      ]
-    })
-  ]
+        'activeProfiles',
+      ],
+    }),
+  ],
 })
