@@ -31,7 +31,7 @@ import * as rangeDates from './modules/range-dates'
 import * as moreInfoToggle from '@/store/modules/more-info-toggle.js'
 import * as columnToggle from '@/store/modules/columns-toggle.js'
 import * as repository from '@/store/modules/repository/repository.js'
-import * as databaseIgnore from '@/store/modules/databaseIgnore.js'
+import * as ignoreLicense from '@/store/modules/ignoreLicense.js'
 
 Vue.use(Vuex)
 
@@ -66,7 +66,7 @@ export default new Vuex.Store({
     moreInfoToggle,
     columnToggle,
     repository,
-    databaseIgnore,
+    ignoreLicense,
   },
   plugins: [
     createPersistedState({

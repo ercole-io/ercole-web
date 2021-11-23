@@ -15,7 +15,7 @@
       isClickable
     >
       <template slot="headData">
-        <!-- <v-th sortKey="ignore" class="has-text-centered">Ignore License</v-th> -->
+        <v-th sortKey="ignore" class="has-text-centered">Ignore License</v-th>
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
         <v-th sortKey="dbName">{{ $t('common.collumns.name') }}</v-th>
         <v-th sortKey="licenseTypeID">
@@ -34,12 +34,13 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <!-- <TdIgnoreIcon
+        <ignoreDbLicense
           :db="rowData.scope.dbName"
           :host="rowData.scope.hostname"
           :licenseID="rowData.scope.licenseTypeID"
           :status="!rowData.scope.ignored"
-        /> -->
+          page="licenses-used"
+        />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbName]" />
         <TdContent :value="rowData.scope.dbName" />
         <TdContent :value="rowData.scope.licenseTypeID" />
@@ -68,7 +69,7 @@ import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import UsedLicensesDbsFilters from '@/components/licenses/used/databases/UsedLicensesDbsFilters.vue'
-// import TdIgnoreIcon from '@/components/common/Table/TdIgnoreIcon.vue'
+import ignoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
 
 export default {
   mixins: [paginationMixin, hostnameLinkRow],
@@ -85,7 +86,7 @@ export default {
     TdContent,
     HostLink,
     UsedLicensesDbsFilters,
-    // TdIgnoreIcon,
+    ignoreDbLicense,
   },
   data() {
     return {
