@@ -6,11 +6,12 @@ export default {
   data() {
     return {
       filteredclusterTags: [],
+      filteredhostTagsOracle: [],
       filteredhostTags: [],
       filteredagreeNumber: [],
       filteredcsi: [],
       filteredreferenceNumber: [],
-      filteredpartNumber: []
+      filteredpartNumber: [],
     }
   },
   beforeMount() {
@@ -28,7 +29,7 @@ export default {
       'getLicensesAgreement',
       'createLicenseAgreement',
       'updateLicenseAgreement',
-      'deleteLicenseAgreement'
+      'deleteLicenseAgreement',
     ]),
     deleteAgreement(type, id, agreeNumber = ' - ') {
       this.$buefy.dialog.confirm({
@@ -40,39 +41,39 @@ export default {
         onConfirm: () => {
           const payload = {
             type: type,
-            id: id
+            id: id,
           }
           this.deleteLicenseAgreement(payload).then(() => {
             this.$store.commit('DELETE_AGREEMENT', payload)
           })
-        }
+        },
       })
     },
     getAutocompleteData(text, toFilter, data) {
       const values = simpleAutocompleteData(text, data)
-      this[`filtered${toFilter}`] = _.uniqBy(values, e => e)
+      this[`filtered${toFilter}`] = _.uniqBy(values, (e) => e)
     },
     getAutocompletePartNumber(text, toFilter, data) {
       const newData = []
-      _.map(data, val => {
+      _.map(data, (val) => {
         newData.push(val.full)
       })
 
       const values = simpleAutocompleteData(text, newData)
 
       const newValues = []
-      _.map(values, val => {
+      _.map(values, (val) => {
         const newVal = _.split(val, ' - ')
         newValues.push({
           id: newVal[0],
           desc: newVal[1],
           metric: newVal[2],
-          full: `${newVal[0]} - ${newVal[1]} - ${newVal[2]}`
+          full: `${newVal[0]} - ${newVal[1]} - ${newVal[2]}`,
         })
       })
 
       this[`filtered${toFilter}`] = newValues
-    }
+    },
   },
   computed: {
     ...mapState(['hostnames', 'clusternames']),
@@ -81,7 +82,7 @@ export default {
       'returnLicensesAgreement',
       'returnAgreeNumbers',
       'returnCsiNumbers',
-      'returnReferenceNumbers'
-    ])
-  }
+      'returnReferenceNumbers',
+    ]),
+  },
 }
