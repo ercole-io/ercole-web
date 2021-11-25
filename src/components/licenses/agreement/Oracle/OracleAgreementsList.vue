@@ -6,7 +6,7 @@
     :clickedRow="() => []"
   >
     <template slot="headData">
-      <th colspan="4" style="text-align: center !important;">
+      <th colspan="4" style="text-align: center !important">
         {{ $t('common.collumns.actions') }}
       </th>
       <v-th sortKey="agreementID">
@@ -51,7 +51,7 @@
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
-      <td style="min-width: 0;">
+      <td style="min-width: 0">
         <b-icon
           v-tooltip="options('Hosts')"
           type="is-link"
@@ -63,7 +63,7 @@
         />
         <span v-else>-</span>
       </td>
-      <td style="min-width: 0;">
+      <td style="min-width: 0">
         <b-icon
           v-tooltip="options($t('common.general.edit'))"
           type="is-info"
@@ -73,7 +73,7 @@
           @click.native="editAgreement(rowData.scope)"
         />
       </td>
-      <td style="min-width: 0;">
+      <td style="min-width: 0">
         <b-icon
           v-tooltip="options($t('common.general.delete'))"
           type="is-danger"
@@ -89,7 +89,7 @@
           "
         />
       </td>
-      <td style="min-width: 0;">
+      <td style="min-width: 0">
         <b-icon
           v-tooltip="options('Clone Information')"
           type="is-warning"
@@ -145,7 +145,7 @@ export default {
     FullTable,
     TdContent,
     TdIcon,
-    ExportButton
+    ExportButton,
   },
   data() {
     return {
@@ -162,8 +162,8 @@ export default {
         'availableLicensesPerCore',
         'availableLicensesPerUser',
         'basket',
-        'restricted'
-      ]
+        'restricted',
+      ],
     }
   },
   methods: {
@@ -178,16 +178,16 @@ export default {
         component: OracleAssociatedModal,
         hasModalCard: true,
         props: {
-          data: data
-        }
+          data: data,
+        },
       })
-    }
+    },
   },
   computed: {
     toggleReferenceNumber() {
       return _.some(this.returnLicensesAgreement('oracle'), 'referenceNumber')
-    }
-  }
+    },
+  },
 }
 </script>
 

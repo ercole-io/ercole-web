@@ -12,7 +12,7 @@
       :label="`${$t('common.fields.agreeNumber')} *`"
       custom-class="is-small"
       :type="{
-        'is-danger': $v.oracleForm.agreeNumber.$error
+        'is-danger': $v.oracleForm.agreeNumber.$error,
       }"
     >
       <b-autocomplete
@@ -34,7 +34,7 @@
         <div
           v-if="
             !$v.oracleForm.agreeNumber.required &&
-              $v.oracleForm.agreeNumber.$error
+            $v.oracleForm.agreeNumber.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
@@ -42,7 +42,7 @@
         <div
           v-if="
             !$v.oracleForm.agreeNumber.numeric &&
-              $v.oracleForm.agreeNumber.$error
+            $v.oracleForm.agreeNumber.$error
           "
         >
           {{ $i18n.t('common.validations.onlyNumbers') }}
@@ -54,7 +54,7 @@
       :label="`${$t('common.fields.fullAgreement')} *`"
       custom-class="is-small"
       :type="{
-        'is-danger': $v.oracleForm.partNumber.$error
+        'is-danger': $v.oracleForm.partNumber.$error,
       }"
     >
       <b-autocomplete
@@ -70,6 +70,7 @@
         @focus="() => (filteredpartNumber = returnAgreementParts)"
         @blur="$v.oracleForm.partNumber.$touch()"
         @input="$v.oracleForm.partNumber.$touch()"
+        @select="getHostAssociatedList"
         open-on-focus
         clearable
       >
@@ -111,7 +112,7 @@
         <div
           v-if="
             !$v.oracleForm.partNumber.required &&
-              $v.oracleForm.partNumber.$error
+            $v.oracleForm.partNumber.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
@@ -123,7 +124,7 @@
       :label="`${$t('common.fields.csi')} *`"
       custom-class="is-small"
       :type="{
-        'is-danger': $v.oracleForm.csi.$error
+        'is-danger': $v.oracleForm.csi.$error,
       }"
     >
       <b-autocomplete
@@ -189,7 +190,7 @@
         custom-class="is-small"
         expanded
         :type="{
-          'is-danger': $v.oracleForm.licenseNumber.$error
+          'is-danger': $v.oracleForm.licenseNumber.$error,
         }"
       >
         <b-input
@@ -207,7 +208,7 @@
           <div
             v-if="
               !$v.oracleForm.licenseNumber.required &&
-                $v.oracleForm.licenseNumber.$error
+              $v.oracleForm.licenseNumber.$error
             "
           >
             {{ $i18n.t('common.validations.requiredAlt') }}
@@ -222,12 +223,12 @@
     >
       <b-taginput
         v-model="oracleForm.hostAssociated"
-        :data="filteredhostTags"
+        :data="filteredhostTagsOracle"
         ref="hostTag"
         autocomplete
         icon="label"
         :placeholder="`${$t('common.forms.choose')} hostname`"
-        @typing="getAutocompleteData($event, 'hostTags', hostnames.hostnames)"
+        @typing="getAutocompleteData($event, 'hostTags', hostAssociatedList)"
         custom-class="is-small"
         open-on-focus
       >
@@ -250,14 +251,12 @@
           </b-tag>
         </template>
 
-        <template slot="empty">
-          There are no hostnames
-        </template>
+        <template slot="empty"> There are no hostnames </template>
       </b-taginput>
     </b-field>
 
     <b-field :label="`${$t('common.fields.basket')}`" custom-class="is-small">
-      <div class="is-flex" style="justify-content: space-around;">
+      <div class="is-flex" style="justify-content: space-around">
         <b-radio
           size="is-small"
           v-model="oracleForm.basket"
@@ -281,7 +280,7 @@
       :label="`${$t('common.fields.restricted')}`"
       custom-class="is-small"
     >
-      <div class="is-flex" style="justify-content: space-around;">
+      <div class="is-flex" style="justify-content: space-around">
         <b-radio
           size="is-small"
           v-model="oracleForm.restricted"
@@ -306,12 +305,12 @@
 <script>
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
-import { mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import {
   required,
   requiredIf,
   numeric,
-  decimal
+  decimal,
 } from 'vuelidate/lib/validators'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import LicensesAgreementMixin from '@/mixins/licensesAgreement.js'
@@ -320,7 +319,7 @@ import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 export default {
   mixins: [TooltipMixin, LicensesAgreementMixin],
   components: {
-    AdvancedFiltersBase
+    AdvancedFiltersBase,
   },
   validations: {
     oracleForm: {
@@ -328,12 +327,12 @@ export default {
       partNumber: { required },
       csi: { required },
       licenseNumber: {
-        required: requiredIf(val => {
+        required: requiredIf((val) => {
           return !val.ula
         }),
-        decimal
-      }
-    }
+        decimal,
+      },
+    },
   },
   data() {
     return {
@@ -347,25 +346,44 @@ export default {
         licenseNumber: '',
         hostAssociated: [],
         basket: false,
-        restricted: false
-      }
+        restricted: false,
+      },
+      licensesUsed: [],
+      hostAssociatedList: [],
     }
   },
-  beforeMount() {
+  async beforeMount() {
     bus.$on('onResetAction', () => this.cancelAddLicense())
 
-    bus.$on('editAgreementOracle', data => {
+    bus.$on('editAgreementOracle', (data) => {
       bus.$emit('onToggleEdit', true)
       this.editAgreement(data)
     })
 
-    bus.$on('cloneAgreementOracle', data => {
+    bus.$on('cloneAgreementOracle', (data) => {
       bus.$emit('onToggleEdit', true)
       this.editAgreement(data)
     })
+
+    await this.getLicensesPerHost()
+    this.licensesUsed = await this.getUsedLicensesByHost
   },
   methods: {
+    ...mapActions(['getLicensesPerHost']),
     ...mapMutations(['CREATE_AGREEMENT']),
+    getHostAssociatedList(e) {
+      if (e) {
+        _.map(this.licensesUsed, (item) => {
+          if (e.id === item.licenseTypeID) {
+            this.hostAssociatedList.push(item.hostname)
+          }
+        })
+      } else {
+        this.hostAssociatedList = []
+      }
+
+      this.filteredhostTagsOracle = this.hostAssociatedList
+    },
     addUpdateAgreement() {
       const oracleAgreementData = {
         agreementID: this.oracleForm.agreeNumber,
@@ -376,12 +394,12 @@ export default {
         hosts: this.oracleForm.hostAssociated,
         basket: this.oracleForm.basket,
         licenseTypeID: this.oracleForm.partNumber.split(' - ')[0],
-        restricted: this.oracleForm.restricted
+        restricted: this.oracleForm.restricted,
       }
       if (!this.oracleForm.licenseID) {
         this.createLicenseAgreement({
           body: oracleAgreementData,
-          type: 'oracle'
+          type: 'oracle',
         }).then(() => {
           this.sussessToastMsg(this.oracleForm.agreeNumber, 'created')
         })
@@ -389,7 +407,7 @@ export default {
         oracleAgreementData.id = this.oracleForm.licenseID
         this.updateLicenseAgreement({
           body: oracleAgreementData,
-          type: 'oracle'
+          type: 'oracle',
         }).then(() => {
           this.sussessToastMsg(this.oracleForm.agreeNumber, 'modified')
         })
@@ -406,7 +424,7 @@ export default {
         licenseNumber: '',
         hostAssociated: [],
         basket: false,
-        restricted: false
+        restricted: false,
       }
     },
     editAgreement(data) {
@@ -419,20 +437,20 @@ export default {
         ula: data.unlimited,
         licenseNumber: _.sum([
           Number(data.licensesPerUser),
-          Number(data.licensesPerCore)
+          Number(data.licensesPerCore),
         ]),
         hostAssociated: this.checkArray(data.hosts)
           ? data.hosts
           : this.mapHostsAssociated(data.hosts),
         basket: data.basket,
-        restricted: data.restricted
+        restricted: data.restricted,
       }
     },
     checkArray(array) {
-      return array.every(i => typeof i === 'string')
+      return array.every((i) => typeof i === 'string')
     },
     mapHostsAssociated(hostsAssociated) {
-      return _.map(hostsAssociated, host => {
+      return _.map(hostsAssociated, (host) => {
         return host.hostname
       })
     },
@@ -444,11 +462,12 @@ export default {
         message: `The Agreement Number <b>${agreeNumber}</b> was successfully ${text}!`,
         type: 'is-success',
         duration: 5000,
-        position: 'is-bottom'
+        position: 'is-bottom',
       })
-    }
+    },
   },
   computed: {
+    ...mapGetters(['getUsedLicensesByHost']),
     ula() {
       return this.oracleForm.ula
     },
@@ -457,7 +476,7 @@ export default {
     },
     disableInput() {
       return this.ula ? 'has-background-grey-lighter' : ''
-    }
+    },
   },
   watch: {
     ula(val) {
@@ -471,8 +490,8 @@ export default {
       if (val) {
         this.oracleForm.basket = false
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
