@@ -19,7 +19,7 @@
       :tableData="getAlerts"
       class="table-alerts"
       @pageRows="
-        vals => {
+        (vals) => {
           currentPageSelection = vals
         }
       "
@@ -30,7 +30,7 @@
       <template slot="customTopHeader">
         <div
           v-if="isCurrentPageSelected || selectedRows.length > 0"
-          style="margin-right: auto;"
+          style="margin-right: auto"
         >
           <b-button
             type="is-primary"
@@ -68,7 +68,7 @@
           </span>
         </div>
 
-        <div v-if="alerts.params.category" style="padding-left: 20px;">
+        <div v-if="alerts.params.category" style="padding-left: 20px">
           <b-button
             type="is-primary"
             size="is-small"
@@ -81,7 +81,7 @@
       </template>
 
       <template slot="headData">
-        <th style="width: 5%;">
+        <th style="width: 5%">
           <div v-if="showCheckbox">
             <b-checkbox
               v-model="isCurrentPageSelected"
@@ -104,7 +104,7 @@
         <v-th style="width: 10%" sortKey="alertCode">
           {{ $t('common.collumns.code') }}
         </v-th>
-        <v-th style="width: 40%;" sortKey="description">
+        <v-th style="width: 40%" sortKey="description">
           {{ $t('common.collumns.description') }}
         </v-th>
       </template>
@@ -114,7 +114,7 @@
           class="py-0 px-0"
           v-if="
             rowData.scope.alertCategory !== 'AGENT' &&
-              rowData.scope.alertStatus === 'NEW'
+            rowData.scope.alertStatus === 'NEW'
           "
         >
           <b-checkbox
@@ -123,7 +123,7 @@
               handleSelectRows(rowData.scope.isChecked, rowData.scope._id)
             "
             class="is-flex is-justify-content-center"
-            style="height: 32px;"
+            style="height: 32px"
           />
         </td>
         <td v-else></td>
@@ -131,8 +131,10 @@
         <TdContent :value="rowData.scope.date" dataType="date" />
         <TdIcon :value="resolveIcon(rowData.scope.alertSeverity)" />
         <HostLink
+          v-if="rowData.scope.alertStatus !== 'DISMISSED'"
           :hostname="rowData.scope.hostname ? rowData.scope.hostname : '-'"
         />
+        <TdContent v-else :value="rowData.scope.hostname" />
         <TdContent :value="rowData.scope.alertCode" />
 
         <TdContent
@@ -181,7 +183,7 @@ import HostLink from '@/components/common/Table/HostLink.vue'
 import AlertsFilters from '@/components/alerts/AlertsFilters.vue'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
-  _.map(list, val => {
+  _.map(list, (val) => {
     if (val.alertCategory !== 'AGENT') {
       val.isChecked = status
       return handleSelectRows(val.isChecked, val._id)
@@ -198,7 +200,7 @@ export default {
     TdContent,
     TdIcon,
     HostLink,
-    AlertsFilters
+    AlertsFilters,
   },
   data() {
     return {
@@ -208,7 +210,7 @@ export default {
         'hostname',
         'alertCode',
         'description',
-        'alertSeverity'
+        'alertSeverity',
       ],
       selectedRows: [],
       isCurrentPageSelected: false,
@@ -216,7 +218,7 @@ export default {
       isAllPagesSelected: false,
       isLoading: false,
       isMounted: false,
-      alertStatus: 'NEW'
+      alertStatus: 'NEW',
     }
   },
   async beforeMount() {
@@ -244,7 +246,7 @@ export default {
       if (status) {
         this.selectedRows.push(id)
       } else {
-        this.selectedRows = _.filter(this.selectedRows, val => {
+        this.selectedRows = _.filter(this.selectedRows, (val) => {
           return val !== id
         })
       }
@@ -287,14 +289,14 @@ export default {
         categ: info.alertCategory,
         date: info.date,
         desc: info.description,
-        severity: info.alertSeverity
+        severity: info.alertSeverity,
       }
       descriptionAlertDialog(data)
-    }
+    },
   },
   computed: {
     ...mapState(['alerts']),
-    ...mapGetters(['getAlerts', 'showCheckbox'])
+    ...mapGetters(['getAlerts', 'showCheckbox']),
   },
   watch: {
     selectedRows(value) {
@@ -303,11 +305,11 @@ export default {
       } else {
         this.isCurrentPageSelected = true
       }
-    }
+    },
   },
   beforeDestroy() {
     this.removeParams()
-  }
+  },
 }
 </script>
 

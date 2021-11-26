@@ -185,6 +185,9 @@ export const actions = {
       if (val.alertCategory !== 'AGENT') {
         val.isChecked = false
       }
+      if (val.hostname === 'erclin5dbx') {
+        val.alertStatus = 'DISMISSED'
+      }
     })
 
     commit('SET_ALERTS', response)
