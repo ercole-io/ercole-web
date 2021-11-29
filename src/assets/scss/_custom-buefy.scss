@@ -101,6 +101,11 @@ ul.pagination-list {
   z-index: 100;
 }
 
+// dialog 
+.dialog .modal-card {
+  max-width: 1000px;
+}
+
 // toast 
 .notices .toast.is-success {
   color: $grey-darker;
@@ -157,4 +162,30 @@ ul.pagination-list {
         font-weight: 600;
       }
     }
+}
+
+// taginput
+.taginput .taginput-container > .tag, .taginput .taginput-container > .tags {
+  overflow: hidden;
+}
+
+.taginput .taginput-container > .tag .tag, .taginput .taginput-container > .tags .tag {
+  max-width: 80%;
+}
+
+.taginput .taginput-container > .tag .tag, .taginput .taginput-container > .tags .tag span {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+.autocomplete {
+  &.control {
+    min-width: 100%;
+  }
+
+  .dropdown-item {
+    display: block !important;
+  }
 }

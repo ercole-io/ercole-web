@@ -1,56 +1,69 @@
-import axiosDefault from '@/axios/axios-default.js'
 import _ from 'lodash'
+import axiosDefault from '@/axios/axios-default.js'
+import { setFullPartNumber } from '@/helpers/helpers.js'
 
 export const state = () => ({
   dbsLicensesUsed: [],
-  hostsLicensesUsed: []
+  hostsLicensesUsed: [],
+  clustersLicensesUsed: [],
 })
 
 export const getters = {
   getUsedLicensesByDbs: (state, getters) => {
-    const cleanData = _.without(state.dbsLicensesUsed, undefined, null, '')
+    let cleanData = _.without(state.dbsLicensesUsed, undefined, null, '')
     return getters.filteredOrNot(cleanData)
   },
   getUsedLicensesByHost: (state, getters) => {
-    let cleanData = _.without(state.hostsLicensesUsed, undefined, null, '')
-    const finalData = []
+    let licensesByHost = []
 
-    cleanData = _.groupBy(cleanData, 'licenseTypeID')
-    _.forEach(cleanData, (typeVal, typeIndex) => {
-      let groupByHost = _.groupBy(typeVal, 'hostname')
-      _.forEach(groupByHost, (hostVal, hostIndex) => {
-        let DBs = []
-        let usedLicenses = null
-
-        _.forEach(hostVal, val => {
-          if (val.hostname === hostIndex && val.licenseTypeID === typeIndex) {
-            DBs.push({ dbName: val.dbName })
-            usedLicenses = val.usedLicenses
-          }
-        })
-
-        finalData.push({
-          dbsQty: DBs.length,
-          databases: DBs,
-          licenseTypeID: typeIndex,
-          description: getters.returnMetricAndDescription(typeIndex)
-            .description,
-          metric: getters.returnMetricAndDescription(typeIndex).metric,
-          hostname: hostIndex,
-          usedLicenses: usedLicenses
-        })
-        DBs = []
+    _.map(state.hostsLicensesUsed, (val) => {
+      licensesByHost.push({
+        hostname: val.hostname,
+        databases: val.databaseNames.length,
+        databasesNames: val.databaseNames,
+        licenseTypeID: val.licenseTypeID,
+        description: val.description,
+        metric: val.metric,
+        usedLicenses: val.usedLicenses,
+        clusterLicenses: val.clusterLicenses,
       })
     })
-    return getters.filteredOrNot(finalData)
-  }
+
+    return getters.filteredOrNot(licensesByHost)
+  },
+  getUsedLicensesByCluster: (state, getters) => {
+    return getters.filteredOrNot(state.clustersLicensesUsed)
+  },
 }
 
 export const mutations = {
-  SET_LICENSE_LIST: (state, payload) => {
-    state.dbsLicensesUsed = payload
-    state.hostsLicensesUsed = payload
-  }
+  SET_LICENSE_DATABASES: (state, payload) => {
+    state.dbsLicensesUsed = setFullPartNumber(payload)
+  },
+  SET_LICENSES_HOST: (state, payload) => {
+    state.hostsLicensesUsed = setFullPartNumber(payload)
+  },
+  SET_LICENSES_CLUSTER: (state, payload) => {
+    let newPayload = _.map(payload, (val) => {
+      return {
+        ...val,
+        hostCount: val.hostnames.length,
+      }
+    })
+
+    state.clustersLicensesUsed = setFullPartNumber(newPayload)
+  },
+  SET_IGNORE_DB_LICENSE: (state, payload) => {
+    _.map(state.dbsLicensesUsed, (val) => {
+      if (
+        val.dbName === payload.database &&
+        val.licenseTypeID === payload.licenseID &&
+        val.hostname === payload.hostname
+      ) {
+        val.ignored = !val.ignored
+      }
+    })
+  },
 }
 
 export const actions = {
@@ -61,21 +74,47 @@ export const actions = {
         params: {
           'older-than': getters.getActiveFilters.date,
           environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location
-        }
+          location: getters.getActiveFilters.location,
+        },
       }
     )
-    const response = await licensesList.data.usedLicenses
+    let response = await licensesList.data.usedLicenses
 
-    let setLicensesInfo = _.map(response, val => {
+    response = _.map(response, (val) => {
       return {
         ...val,
-        description: getters.returnMetricAndDescription(val.licenseTypeID)
-          .description,
-        metric: getters.returnMetricAndDescription(val.licenseTypeID).metric
+        ignore: false,
       }
     })
 
-    commit('SET_LICENSE_LIST', setLicensesInfo)
-  }
+    commit('SET_LICENSE_DATABASES', response)
+  },
+  async getLicensesPerHost({ commit, getters }) {
+    const licensePerHost = await axiosDefault.get(
+      '/hosts/technologies/all/databases/licenses-used-per-host',
+      {
+        params: {
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location,
+        },
+      }
+    )
+    const response = await licensePerHost.data.usedLicenses
+    commit('SET_LICENSES_HOST', response)
+  },
+  async getLicensesCluster({ commit, getters }) {
+    const licensesCluster = await axiosDefault.get(
+      '/hosts/technologies/all/databases/licenses-used-per-cluster',
+      {
+        params: {
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location,
+        },
+      }
+    )
+    const response = await licensesCluster.data.usedLicensesPerCluster
+    commit('SET_LICENSES_CLUSTER', response)
+  },
 }

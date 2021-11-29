@@ -1,20 +1,25 @@
 <template>
-  <BaseLayoutColumns v-if="isMounted">
+  <ToggleColumns
+    getPage="alerts"
+    leftButton="Advanced Filters"
+    :centerCol="9"
+    v-if="isMounted"
+  >
     <b-loading
       slot="loading"
       :is-full-page="false"
       v-model="isLoading"
       :can-cancel="false"
     />
-    <AlertsFilters slot="col1" />
+    <AlertsFilters slot="left" />
     <FullTable
-      slot="col2"
+      slot="center"
       :placeholder="$t('menu.alerts')"
       :keys="keys"
       :tableData="getAlerts"
       class="table-alerts"
       @pageRows="
-        vals => {
+        (vals) => {
           currentPageSelection = vals
         }
       "
@@ -25,7 +30,7 @@
       <template slot="customTopHeader">
         <div
           v-if="isCurrentPageSelected || selectedRows.length > 0"
-          style="margin-right: auto;"
+          style="margin-right: auto"
         >
           <b-button
             type="is-primary"
@@ -63,7 +68,7 @@
           </span>
         </div>
 
-        <div v-if="alerts.params.category" style="padding-left: 20px;">
+        <div v-if="alerts.params.category" style="padding-left: 20px">
           <b-button
             type="is-primary"
             size="is-small"
@@ -76,7 +81,7 @@
       </template>
 
       <template slot="headData">
-        <th style="width: 5%; z-index: 1;">
+        <th style="width: 5%">
           <div v-if="showCheckbox">
             <b-checkbox
               v-model="isCurrentPageSelected"
@@ -99,7 +104,7 @@
         <v-th style="width: 10%" sortKey="alertCode">
           {{ $t('common.collumns.code') }}
         </v-th>
-        <v-th style="width: 40%;" sortKey="description">
+        <v-th style="width: 40%" sortKey="description">
           {{ $t('common.collumns.description') }}
         </v-th>
       </template>
@@ -109,7 +114,7 @@
           class="py-0 px-0"
           v-if="
             rowData.scope.alertCategory !== 'AGENT' &&
-              rowData.scope.alertStatus === 'NEW'
+            rowData.scope.alertStatus === 'NEW'
           "
         >
           <b-checkbox
@@ -118,7 +123,7 @@
               handleSelectRows(rowData.scope.isChecked, rowData.scope._id)
             "
             class="is-flex is-justify-content-center"
-            style="height: 32px; z-index: 0;"
+            style="height: 32px"
           />
         </td>
         <td v-else></td>
@@ -126,8 +131,10 @@
         <TdContent :value="rowData.scope.date" dataType="date" />
         <TdIcon :value="resolveIcon(rowData.scope.alertSeverity)" />
         <HostLink
+          v-if="rowData.scope.alertStatus !== 'DISMISSED'"
           :hostname="rowData.scope.hostname ? rowData.scope.hostname : '-'"
         />
+        <TdContent v-else :value="rowData.scope.hostname" />
         <TdContent :value="rowData.scope.alertCode" />
 
         <TdContent
@@ -148,31 +155,35 @@
         </td>
       </template>
 
-      <exportButton slot="export" url="alerts" expName="alerts-data" />
+      <ExportButton
+        slot="export"
+        :url="`alerts?status=${alertStatus}`"
+        expName="alerts-data"
+      />
     </FullTable>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions, mapState, mapMutations } from 'vuex'
-import { checkAlertIcon } from '@/helpers/helpers.js'
+import { descriptionAlertDialog } from '@/helpers/alertsDescDialog.js'
+import { resolveSeverityIcon } from '@/helpers/helpers.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import exportButton from '@/components/common/exportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import AlertsFilters from '@/components/alerts/AlertsFilters.vue'
-import formatDateTime from '@/filters/formatDateTime.js'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
-  _.map(list, val => {
+  _.map(list, (val) => {
     if (val.alertCategory !== 'AGENT') {
       val.isChecked = status
       return handleSelectRows(val.isChecked, val._id)
@@ -183,13 +194,13 @@ const checkOrUncheck = (list, status, handleSelectRows) => {
 export default {
   mixins: [paginationMixin, localFiltersMixin, hostnameLinkRow, TooltipMixin],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     FullTable,
-    exportButton,
+    ExportButton,
     TdContent,
     TdIcon,
     HostLink,
-    AlertsFilters
+    AlertsFilters,
   },
   data() {
     return {
@@ -199,7 +210,7 @@ export default {
         'hostname',
         'alertCode',
         'description',
-        'alertSeverity'
+        'alertSeverity',
       ],
       selectedRows: [],
       isCurrentPageSelected: false,
@@ -207,7 +218,7 @@ export default {
       isAllPagesSelected: false,
       isLoading: false,
       isMounted: false,
-      alertStatus: 'NEW'
+      alertStatus: 'NEW',
     }
   },
   async beforeMount() {
@@ -218,16 +229,8 @@ export default {
   methods: {
     ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),
     ...mapMutations(['SET_ALERTS_PARAMS']),
-    setIcon(severity) {
-      return checkAlertIcon(severity)
-    },
     resolveIcon(value) {
-      return [
-        this.setIcon(value).icon,
-        this.setIcon(value).iconType,
-        value,
-        'mdi-24px'
-      ]
+      return resolveSeverityIcon(value)
     },
     handleMarkAsRead() {
       this.isLoading = true
@@ -243,7 +246,7 @@ export default {
       if (status) {
         this.selectedRows.push(id)
       } else {
-        this.selectedRows = _.filter(this.selectedRows, val => {
+        this.selectedRows = _.filter(this.selectedRows, (val) => {
           return val !== id
         })
       }
@@ -280,31 +283,20 @@ export default {
       bus.$emit('onResetAction')
     },
     descriptionAlert(info) {
-      this.$buefy.dialog.alert({
-        title: this.$i18n.t('views.alerts.descModalTitle'),
-        message: `
-          <b>${info.alertCode}</b> 
-          </br> 
-          ${info.hostname} 
-          </br> 
-          ${info.alertCategory} 
-          </br> 
-          ${formatDateTime(info.date)} 
-          </br></br> 
-          ${info.description}
-        `,
-        confirmText: this.$i18n.t('common.general.close'),
-        size: 'is-small',
-        hasIcon: true,
-        iconPack: 'mdi',
-        icon: this.resolveIcon(info.alertSeverity)[0],
-        type: this.resolveIcon(info.alertSeverity)[1]
-      })
-    }
+      const data = {
+        code: info.alertCode,
+        host: info.hostname,
+        categ: info.alertCategory,
+        date: info.date,
+        desc: info.description,
+        severity: info.alertSeverity,
+      }
+      descriptionAlertDialog(data)
+    },
   },
   computed: {
     ...mapState(['alerts']),
-    ...mapGetters(['getAlerts', 'showCheckbox'])
+    ...mapGetters(['getAlerts', 'showCheckbox']),
   },
   watch: {
     selectedRows(value) {
@@ -313,11 +305,11 @@ export default {
       } else {
         this.isCurrentPageSelected = true
       }
-    }
+    },
   },
   beforeDestroy() {
     this.removeParams()
-  }
+  },
 }
 </script>
 

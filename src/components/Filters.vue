@@ -1,12 +1,5 @@
 <template>
-  <section
-    class="filters"
-    v-if="
-      $route.name !== 'licenses-agreement' &&
-        $route.name !== 'dashboard' &&
-        $route.name !== 'licenses-compliance'
-    "
-  >
+  <section class="filters" v-if="notShowing">
     <b-button
       v-tooltip.bottom="
         options(
@@ -268,7 +261,8 @@ export default {
       'getClusterByName',
       'getAlertsData',
       'getLicensesList',
-      'getEngineeredSystems'
+      'getEngineeredSystems',
+      'getMysqlDbs'
     ]),
     ...mapMutations(['SET_OPEN_FILTERS']),
     // getFilteredTags(text) {
@@ -352,6 +346,9 @@ export default {
         case 'engineered-systems':
           this.getEngineeredSystems()
           break
+        case 'mysql':
+          this.getMysqlDbs()
+          break
         default:
           return
       }
@@ -362,7 +359,15 @@ export default {
   },
   computed: {
     ...mapState(['globalFilters']),
-    ...mapGetters(['getActiveFilters'])
+    ...mapGetters(['getActiveFilters']),
+    notShowing() {
+      return (
+        this.$route.name !== 'licenses-agreement' &&
+        this.$route.name !== 'dashboard' &&
+        this.$route.name !== 'licenses-compliance' &&
+        this.$route.name !== 'repository'
+      )
+    }
   }
   // watch: {
   //   isFiltersOpened(value) {

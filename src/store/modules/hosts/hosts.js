@@ -12,20 +12,27 @@ export const getters = {
   getAllHosts: (state, getters) => {
     let allHosts = []
     _.map(state.hosts, host => {
+      let platform = null
+      if (host.info.hardwareAbstractionTechnology === 'PH') {
+        platform = 'Bare Metal'
+      } else {
+        platform = host.info.hardwareAbstractionTechnology
+      }
+
       allHosts.push({
         _id: host._id,
         hostname: host.hostname,
         environment: host.environment,
         databases: _.split(Object.values(host.databases), ','),
         techType: Object.keys(host.databases),
-        platform: host.info.hardwareAbstractionTechnology,
+        platform: platform,
         cluster: host.cluster,
         virtNode: host.virtualizationNode,
         os: `${host.info.os} - ${host.info.osVersion}`,
         kernel: `${host.info.kernelVersion} - ${host.info.kernel}`,
         memorytotal: host.info.memoryTotal,
         swaptotal: host.info.swapTotal,
-        iconCluster: mapClustStatus(host.clusterMembershipStatus),
+        iconCluster: mapClustStatus(host.clusterMembershipStatus)[0],
         model: host.info.cpuModel,
         threads: host.info.cpuThreads,
         cores: host.info.cpuCores,

@@ -1,9 +1,13 @@
 <template>
-  <BaseLayoutColumns>
-    <UsedLicensesHostFilters slot="col1" />
+  <ToggleColumns
+    getPage="licensesUsedHosts"
+    :leftButton="$t('common.forms.advancedFilters')"
+    :centerCol="9"
+  >
+    <UsedLicensesHostFilters slot="left" />
 
     <FullTable
-      slot="col2"
+      slot="center"
       :placeholder="$t('menu.licUsed')"
       :urlSearchParam="partNumber"
       :keys="keys"
@@ -13,7 +17,7 @@
     >
       <template slot="headData">
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
-        <v-th sortKey="dbsQty">{{ $t('common.collumns.databases') }}</v-th>
+        <v-th sortKey="databases">{{ $t('common.collumns.databases') }}</v-th>
         <v-th sortKey="licenseTypeID">
           {{ $t('common.collumns.partNumber') }}
         </v-th>
@@ -26,35 +30,39 @@
         <v-th sortKey="usedLicenses">
           {{ $t('common.collumns.usedLicenses') }}
         </v-th>
+        <v-th sortKey="clusterLicenses">
+          {{ $t('common.collumns.clusterLicenses') }}
+        </v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
         <HostLink :hostname="rowData.scope.hostname" />
-        <td v-tooltip.bottom="options(rowData.scope.dbsQty)">
+        <td v-tooltip.bottom="options(rowData.scope.databases)">
           <a @click.prevent="openModal(rowData.scope)" class="is-block">
-            <span v-html="highlight(rowData.scope.dbsQty)" />
+            <span v-html="highlight(rowData.scope.databases)" />
           </a>
         </td>
         <TdContent :value="rowData.scope.licenseTypeID" />
         <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.metric" />
         <TdContent :value="rowData.scope.usedLicenses" />
+        <TdContent :value="rowData.scope.clusterLicenses" />
       </template>
 
-      <!-- <exportButton
-      slot="export"
-      url="hosts/technologies/oracle/databases/consumed-licenses"
-      expName="licenses-list-data"
-    /> -->
+      <exportButton
+        slot="export"
+        url="/hosts/technologies/all/databases/licenses-used-per-host"
+        expName="licensesUsedPerHosts"
+      />
     </FullTable>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
@@ -62,37 +70,40 @@ import UsedLicensesHostFilters from '@/components/licenses/used/hosts/UsedLicens
 import UsedLicensesHostModal from '@/components/licenses/used/hosts/UsedLicensesHostModal.vue'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
   mixins: [
     HighlightSearchMixin,
     TooltipMixin,
     paginationMixin,
-    hostnameLinkRow
+    hostnameLinkRow,
   ],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     FullTable,
     TdContent,
     HostLink,
-    UsedLicensesHostFilters
+    UsedLicensesHostFilters,
+    ExportButton,
   },
   props: {
     partNumber: {
       type: String,
-      required: false
-    }
+      required: false,
+    },
   },
   data() {
     return {
       keys: [
         'hostname',
         'licenseTypeID',
-        'dbsQty',
+        'databases',
         'description',
         'metric',
-        'usedLicenses'
-      ]
+        'usedLicenses',
+        'clusterLicenses',
+      ],
     }
   },
   mounted() {
@@ -104,20 +115,20 @@ export default {
         component: UsedLicensesHostModal,
         hasModalCard: true,
         props: {
-          databases: info.databases,
+          databases: info.databasesNames,
           licenseInfo: {
             licenseId: info.licenseTypeID,
             hostname: info.hostname,
             metric: info.metric,
-            description: info.description
-          }
-        }
+            description: info.description,
+          },
+        },
       })
-    }
+    },
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByHost'])
-  }
+    ...mapGetters(['getUsedLicensesByHost']),
+  },
 }
 </script>
 

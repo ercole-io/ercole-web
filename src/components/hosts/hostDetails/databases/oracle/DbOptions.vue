@@ -2,30 +2,30 @@
   <b-tab-item label="Options" v-if="options.length > 0">
     <FullTable
       :tableData="options"
-      :keys="[]"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
       hideTopTable
     >
       <template slot="headData">
+        <v-th sortKey="firstUsageDate">First</v-th>
         <v-th sortKey="lastUsageDate">Last</v-th>
         <v-th sortKey="detectedUsages">Detected</v-th>
         <v-th sortKey="product">Prod</v-th>
         <v-th sortKey="currentlyUsed">Currently</v-th>
         <v-th sortKey="extraFeatureInfo">Extra</v-th>
         <v-th sortKey="feature">Feature</v-th>
-        <v-th sortKey="firstUsageDate">First</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.lastUsageDate | formatDate" />
+        <TdContent :value="rowData.scope.firstUsageDate" />
+        <TdContent :value="rowData.scope.lastUsageDate" />
         <TdContent :value="rowData.scope.detectedUsages" />
         <TdContent :value="rowData.scope.product" />
         <TdIcon :value="rowData.scope.currentlyUsed" />
         <TdContent :value="rowData.scope.extraFeatureInfo" />
         <TdContent :value="rowData.scope.feature" />
-        <TdContent :value="rowData.scope.firstUsageDate | formatDate" />
       </template>
     </FullTable>
   </b-tab-item>
@@ -47,6 +47,19 @@ export default {
     FullTable,
     TdContent,
     TdIcon
+  },
+  data() {
+    return {
+      keys: [
+        'lastUsageDate',
+        'detectedUsages',
+        'product',
+        'currentlyUsed',
+        'extraFeatureInfo',
+        'feature',
+        'firstUsageDate'
+      ]
+    }
   }
 }
 </script>

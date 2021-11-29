@@ -2,7 +2,7 @@
   <b-tab-item label="ADDM" v-if="addms.length > 0">
     <FullTable
       :tableData="addms"
-      :keys="[]"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
@@ -39,6 +39,11 @@ export default {
   components: {
     FullTable,
     TdContent
+  },
+  data() {
+    return {
+      keys: ['action', 'benefit', 'finding', 'recommendation']
+    }
   }
 }
 </script>

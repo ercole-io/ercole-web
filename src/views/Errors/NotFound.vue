@@ -1,11 +1,11 @@
 <template>
   <ErrorCode
     code="404"
-    codeText="Page Not Found"
-    codeDesc="The page you are looking for does not seem to exist."
+    :codeText="$t('common.errors.404')"
+    :codeDesc="$t('common.errors.404msg')"
   >
     <b-button type="is-primary" @click="$router.go(-1)" slot="actions">
-      go back
+      {{ $t('common.general.goBack') }}
     </b-button>
   </ErrorCode>
 </template>

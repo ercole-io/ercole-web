@@ -37,6 +37,7 @@ export default {
 .box-content {
   padding: 0 0.5rem;
   height: 100%;
+  position: relative;
 }
 
 .bottom-space {

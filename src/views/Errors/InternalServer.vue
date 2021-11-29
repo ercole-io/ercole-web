@@ -1,11 +1,11 @@
 <template>
   <ErrorCode
     code="500"
-    codeText="Internal Server Error"
-    codeDesc="Somenthing went wrong. Please try again."
+    :codeText="$t('common.errors.500')"
+    :codeDesc="$t('common.errors.500msg')"
   >
     <b-button type="is-primary" @click="$router.go(-1)" slot="actions">
-      go back
+      {{ $t('common.general.goBack') }}
     </b-button>
   </ErrorCode>
 </template>

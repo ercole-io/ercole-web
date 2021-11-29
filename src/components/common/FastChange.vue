@@ -11,9 +11,8 @@
     <CustomAutocomplete
       v-model="searchValue"
       :filterResult="setData"
-      :inputMethod="onSelectOption"
+      :onSelect="onSelectOption"
       openOnFocus
-      appendToBody
       v-if="toggleAutocomplete"
       ref="fastSwitchRef"
     />
@@ -48,7 +47,7 @@ export default {
   },
   methods: {
     onSelectOption() {
-      if (this.checkOption() && this.searchValue !== this.current) {
+      setTimeout(() => {
         if (this.routeName === 'hosts-details') {
           this.$router.push({
             name: 'hosts-details',
@@ -63,12 +62,7 @@ export default {
 
         this.toggleAutocomplete = false
         this.searchValue = ''
-      }
-    },
-    checkOption() {
-      return _.some(this.originalData, name => {
-        return name === this.searchValue
-      })
+      }, 100)
     }
   },
   computed: {

@@ -2,7 +2,7 @@
   <b-tab-item label="Patches" v-if="patches.length > 0">
     <FullTable
       :tableData="patches"
-      :keys="[]"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
@@ -21,7 +21,7 @@
         <TdContent :value="rowData.scope.version" />
         <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.patchID" />
-        <TdContent :value="rowData.scope.date | formatDate" />
+        <TdContent :value="rowData.scope.date" />
       </template>
     </FullTable>
   </b-tab-item>
@@ -41,6 +41,11 @@ export default {
   components: {
     FullTable,
     TdContent
+  },
+  data() {
+    return {
+      keys: ['action', 'version', 'description', 'patchID', 'date']
+    }
   }
 }
 </script>

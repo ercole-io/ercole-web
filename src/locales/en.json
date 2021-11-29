@@ -22,7 +22,8 @@
     "licenses": "Licenses",
     "licAgreements": "Licenses Agreement",
     "licCompliance": "Licenses Compliance",
-    "licUsed": "Licenses Used"
+    "licUsed": "Licenses Used",
+    "repository": "Repository"
   },
   "header": {
     "logout": "Logout"
@@ -42,8 +43,9 @@
       "markAsRead": "Mark as Read",
       "from": "From:",
       "date": "Date:",
-      "licensesX": "Licenses: Used x Purchased",
+      "licensesX": "Licenses",
       "usedLicenses": "Used Licenses",
+      "coveredLicenses": "Covered Licenses",
       "purchasedLicenses": "Purchased Licenses",
       "noData": "No data. Please change the dates!",
       "noAlerts": "There are no alerts for"
@@ -59,6 +61,7 @@
       "engine": "Engine",
       "cpuUsage": "CPU Usage",
       "searchBy": "Search by DB name",
+      "search": "Search",
       "compareDb": "Compare Databases",
       "selectAll": "Select all",
       "deselectAll": "Deselect all",
@@ -93,8 +96,10 @@
       "patching": "Not Patched | Patched"
     },
     "licenses": {
+      "agreeForm": "Agreement Form",
       "addAgreement": "Add or Modify an Oracle Agreement",
-      "dbList": "List of Databases"
+      "dbList": "List of Databases",
+      "hostsList": "List of Hosts"
     },
     "alerts": {
       "markRead": "Mark as Read",
@@ -119,7 +124,10 @@
       "delete": "Delete",
       "edit": "Edit",
       "fullDesc": "Show Full Description",
-      "close": "Close"
+      "close": "Close",
+      "sideInfo": "Extra Info",
+      "goBack": "go back",
+      "goLogin": "go to login"
     },
     "forms": {
       "advancedFilters": "Advanced Filters",
@@ -137,12 +145,13 @@
       "choose": "Choose",
       "or": "or",
       "hide": "Hide {0}",
-      "show": "Show {0}"
+      "show": "Show {0}",
+      "signIn": "Sign In"
     },
     "fields": {
       "username": "Username",
       "password": "Password",
-      "hostname": "hostname",
+      "hostname": "Hostname",
       "env": "Environment",
       "dbs": "Databases",
       "tech": "technology",
@@ -223,7 +232,18 @@
       "covered": "Covered",
       "compliance": "Compliance",
       "usedLicenses": "Used Licenses",
-      "hostsAssociated": "Hosts Associated"
+      "hostsAssociated": "Hosts Associated",
+      "repoName": "Name",
+      "filename": "Filename",
+      "arch": "Architecture",
+      "opSys": "OS",
+      "opSysFam": "OS Family",
+      "repository": "Repository",
+      "installed": "Installed",
+      "releaseDate": "Release Date",
+      "licAvailable": "License Available",
+      "clusterLicenses": "Cluster Licenses",
+      "purchased": "Purchased"
     },
     "table": {
       "perPage": "per page",
@@ -238,7 +258,7 @@
       "hostname": "Hostname",
       "environment": "Environment",
       "databases": "Databases",
-      "techType": "technology",
+      "techType": "Technology",
       "os": "Operating System",
       "iconCluster": "Clust",
       "kernel": "Kernel",
@@ -321,7 +341,17 @@
       "compliance": "Compliance",
       "usedLicenses": "Used Licenses",
       "agreeCovered": "Covered by this agreement",
-      "agreeCoveredAll": "Covered by all agreements"
+      "agreeCoveredAll": "Covered by all agreements",
+      "repoName": "Name",
+      "filename": "Filename",
+      "arch": "Architecture",
+      "opSys": "OS",
+      "opSysFam": "OS Family",
+      "repository": "Repository",
+      "installed": "Installed",
+      "licAvailable": "License Available",
+      "clusterLicenses": "Cluster Licenses",
+      "purchased": "Purchased"
     },
     "charts": {
       "archivelog": "Archivelog Mode",
@@ -344,8 +374,21 @@
       "activeFilters": "Active Filters:"
     },
     "validations": {
-      "required": "The {0} field is required",
-      "characters": "{0} must have at least {1} characters"
+      "requiredAlt": "This field is required.",
+      "required": "The {0} field is required.",
+      "onlyNumbers": "This field accepts only number.",
+      "characters": "{0} must have at least {1} characters",
+      "loginUnauthorized": "Invalid username or password.",
+      "loginTimeout": "Request timeout exceeded", 
+      "noResults": "No results found"
+    },
+    "errors": {
+      "500": "Internal Server Error",
+      "500msg": "Somenthing went wrong. Please try again.",
+      "404": "Page Not Found",
+      "404msg": "The page you are looking for does not seem to exist.",
+      "401": "Unauthorized",
+      "401msg": "YOUR TOKEN HAS EXPIRED AND YOU WILL BE REDIRECTED TO THE LOGIN PAGE IN {0} SECONDS."
     }
   }
 }

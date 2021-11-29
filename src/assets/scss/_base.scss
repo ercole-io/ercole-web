@@ -31,3 +31,17 @@
 .border-right {
   border-right: 1px solid #ccc !important;
 }
+
+.color-1 {
+  box-shadow: inset 0 -14px 0 -10px #f37021 !important;
+}
+.color-2 {
+  box-shadow: inset 0 -14px 0 -10px #fcd217 !important;
+}
+.color-3 {
+  box-shadow: inset 0 -14px 0 -10px #9c4d1e !important;
+}
+
+input[readonly] {
+  cursor: pointer;
+}

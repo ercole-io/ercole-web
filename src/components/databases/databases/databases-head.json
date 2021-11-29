@@ -1,0 +1,50 @@
+[
+  { "sort": "name", 
+    "langKey": "common.collumns.name" 
+  },
+  { "sort": "hostname", 
+    "langKey": "common.collumns.hostname" 
+  },
+  {
+    "sort": "archivelog",
+    "group": "ReliabilityDB",
+    "class": "color-1", 
+    "langKey": "common.collumns.archivelog"
+  },
+  { "sort": "disasterRecovery", 
+    "group": "ReliabilityDB", 
+    "class": "color-1", 
+    "langKey": "common.collumns.disasterRecovery" 
+  },
+  {
+    "sort": "highAvailability",
+    "group": "ReliabilityDB",
+    "class": "color-1", 
+    "langKey": "common.collumns.highAvailability"
+  },
+  {
+    "sort": "type",
+    "langKey": "common.collumns.type"
+  },
+  { "sort": "version", 
+    "langKey": "common.collumns.version" 
+  },
+  {
+    "sort": "environment",
+    "langKey": "common.collumns.environment"
+  },
+  {
+    "sort": "charset",
+    "langKey": "common.collumns.charset"
+  },
+  {
+    "sort": "memory",
+    "langKey": "common.collumns.memory"
+  },
+  { "sort": "datafileSize", 
+    "langKey": "common.collumns.datafileSize" 
+  },
+  { "sort": "segmentSize", 
+    "langKey": "common.collumns.segmentSize" 
+  }
+]

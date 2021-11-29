@@ -1,15 +1,13 @@
 <template>
-  <BaseLayoutColumns
-    :pageCols="[
-      { colsize: '3', slotName: 'col1' },
-      { colsize: '6', slotName: 'col2' },
-      { colsize: '3', slotName: 'col3' }
-    ]"
+  <ToggleColumns
+    getPage="segmentAdvisor"
+    :leftButton="$t('common.forms.advancedFilters')"
+    :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
   >
-    <SegnmentAdvisorsFilters slot="col1" />
+    <SegnmentAdvisorsFilters slot="left" />
     <FullTable
-      slot="col2"
+      slot="center"
       :placeholder="$t('menu.segAdvisor')"
       :keys="keys"
       :tableData="getOracleSegmentAdvisor"
@@ -54,7 +52,7 @@
         <TdContent :value="rowData.scope.recommendation" />
       </template>
 
-      <exportButton
+      <ExportButton
         slot="export"
         url="hosts/technologies/oracle/databases/segment-advisors"
         expName="oracleSegmentAdvisor"
@@ -64,7 +62,7 @@
     <BoxContent
       :title="$t('views.databases.topStorage', ['10'])"
       border
-      slot="col3"
+      slot="right"
     >
       <PieChart
         chartId="top10reclaimable"
@@ -72,15 +70,15 @@
         setSuffix=" GB"
       />
     </BoxContent>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import exportButton from '@/components/common/exportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import SegnmentAdvisorsFilters from '@/components/databases/oracle/segmentAdvisor/SegmentAdvisorFIlters.vue'
@@ -90,9 +88,9 @@ import BoxContent from '@/components/common/BoxContent.vue'
 export default {
   mixins: [hostnameLinkRow],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     FullTable,
-    exportButton,
+    ExportButton,
     TdContent,
     HostLink,
     SegnmentAdvisorsFilters,

@@ -1,191 +1,147 @@
 <template>
-  <div class="columns">
-    <div class="column is-4">
-      <ButtonGroup :groupTitle="`${$t('common.general.moreInfo')}`">
-        <b-button
-          class="mr-1"
-          size="is-small"
-          :type="hideReliability ? 'is-light' : 'is-light reliability'"
-          @click="hideReliability = !hideReliability"
-        >
-          {{ $t('common.collumns.reliability') }}
-        </b-button>
-        <b-button
-          class="mr-1"
-          size="is-small"
-          :type="hideSpaceUsed ? 'is-light' : 'is-light spaceUsed'"
-          @click="hideSpaceUsed = !hideSpaceUsed"
-        >
-          {{ $t('common.collumns.spaceUsed') }}
-        </b-button>
-        <b-button
-          class="mr-1"
-          size="is-small"
-          :type="hideCharset ? 'is-light' : 'is-light charset'"
-          @click="hideCharset = !hideCharset"
-        >
-          {{ $t('common.collumns.charset') }}
-        </b-button>
-      </ButtonGroup>
+  <ToggleColumns
+    getPage="databasesOracle"
+    :leftButton="$t('common.forms.advancedFilters')"
+    :rightButton="$t('common.general.sideInfo')"
+  >
+    <div slot="left">
+      <MoreInfoButtons :buttonItems="oraclesMoreInfo" />
       <OracleFilters />
     </div>
-    <div class="column is-8">
-      <FullTable
-        :placeholder="$t('menu.oracle')"
-        :keys="keys"
-        :tableData="getAllOracleDBs"
-        @clickedRow="handleClickedRow"
-        isClickable
-      >
-        <template slot="headData">
-          <v-th sortKey="name">{{ $t('common.collumns.name') }}</v-th>
-          <v-th sortKey="uniqueName">{{
-            $t('common.collumns.uniqueName')
-          }}</v-th>
-          <v-th
-            sortKey="archivelog"
-            class="reliability"
-            :class="{ hide: hideReliability }"
-            >{{ $t('common.collumns.archivelog') }}</v-th
-          >
-          <v-th
-            sortKey="dataguard"
-            class="reliability"
-            :class="{ hide: hideReliability }"
-            >{{ $t('common.collumns.disasterRecovery') }}</v-th
-          >
-          <v-th
-            sortKey="ha"
-            class="reliability"
-            :class="{ hide: hideReliability }"
-            >{{ $t('common.collumns.highAvailability') }}</v-th
-          >
-          <v-th
-            sortKey="datafileSize"
-            class="spaceUsed"
-            :class="{ hide: hideSpaceUsed }"
-            >{{ $t('common.collumns.datafileSize') }}</v-th
-          >
-          <v-th
-            sortKey="segmentsSize"
-            class="spaceUsed"
-            :class="{ hide: hideSpaceUsed }"
-            >{{ $t('common.collumns.segmentSize') }}</v-th
-          >
-          <v-th
-            sortKey="charset"
-            class="charset"
-            :class="{ hide: hideCharset }"
-            >{{ $t('common.collumns.charset') }}</v-th
-          >
-          <v-th sortKey="version">{{ $t('common.collumns.version') }}</v-th>
-          <v-th sortKey="work">{{ $t('common.collumns.work') }}</v-th>
-          <v-th sortKey="cpuCount">{{ $t('common.collumns.cpuCount') }}</v-th>
-          <v-th sortKey="blockSize">{{ $t('common.collumns.blockSize') }}</v-th>
-          <v-th sortKey="status">{{ $t('common.collumns.status') }}</v-th>
-          <v-th sortKey="memory">{{ $t('common.collumns.memory') }}</v-th>
-          <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
-          <v-th sortKey="environment">{{
-            $t('common.collumns.environment')
-          }}</v-th>
-        </template>
 
-        <template slot="bodyData" slot-scope="rowData">
-          <TdContent :value="rowData.scope.name" />
-          <TdContent :value="rowData.scope.uniqueName" />
-          <TdIcon
-            :value="rowData.scope.archivelog"
-            :class="{ hide: hideReliability }"
-          />
-          <TdIcon
-            :value="rowData.scope.dataguard"
-            :class="{ hide: hideReliability }"
-          />
-          <TdIcon
-            :value="rowData.scope.ha"
-            :class="{ hide: hideReliability }"
-          />
-          <TdContent
-            :value="rowData.scope.datafileSize | formatNumber('0.00')"
-            :class="{ hide: hideSpaceUsed }"
-          />
-          <TdContent
-            :value="rowData.scope.segmentsSize | formatNumber('0.00')"
-            :class="{ hide: hideSpaceUsed }"
-          />
-          <TdContent
-            :value="rowData.scope.charset"
-            :class="{ hide: hideCharset }"
-          />
-          <TdContent :value="rowData.scope.version" />
-          <TdContent :value="rowData.scope.work | formatNumber('0')" />
-          <TdContent :value="rowData.scope.cpuCount" />
-          <TdContent :value="rowData.scope.blockSize" />
-          <TdContent :value="rowData.scope.status" />
-          <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
-          <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
-          <TdContent :value="rowData.scope.environment" />
-        </template>
+    <FullTable
+      slot="center"
+      :placeholder="$t('menu.oracle')"
+      :keys="getHeadKeys(oracleHead)"
+      :tableData="getAllOracleDBs"
+      @clickedRow="handleClickedRow"
+      isClickable
+    >
+      <DynamicHeading
+        slot="headData"
+        v-for="head in oracleHead"
+        :key="head.sort"
+        :data="head"
+      />
 
-        <ExportButton
-          slot="export"
-          url="hosts/technologies/oracle/databases"
-          expName="oracleDbs"
+      <template slot="bodyData" slot-scope="rowData">
+        <TdContent :value="rowData.scope.name" />
+        <TdContent :value="rowData.scope.uniqueName" />
+        <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
+        <TdIcon
+          :value="rowData.scope.archivelog"
+          :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
         />
-      </FullTable>
+        <TdIcon
+          :value="rowData.scope.dataguard"
+          :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
+        />
+        <TdIcon
+          :value="rowData.scope.ha"
+          :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
+        />
+        <TdContent
+          :value="rowData.scope.datafileSize | formatNumber('0.00')"
+          :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
+        />
+        <TdContent
+          :value="rowData.scope.segmentsSize | formatNumber('0.00')"
+          :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
+        />
+        <TdContent
+          :value="rowData.scope.charset"
+          :class="{ 'is-hidden': moreInfoToggle.hiddenCharset }"
+        />
+        <TdContent :value="rowData.scope.version" />
+        <TdContent :value="rowData.scope.work | formatNumber('0')" />
+        <TdContent :value="rowData.scope.cpuCount" />
+        <TdContent :value="rowData.scope.blockSize" />
+        <TdContent :value="rowData.scope.status" />
+        <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
+        <TdContent :value="rowData.scope.environment" />
+      </template>
+
+      <ExportButton
+        slot="export"
+        url="hosts/technologies/oracle/databases"
+        expName="oracleDbs"
+      />
+    </FullTable>
+
+    <div slot="right">
+      <BaseLayoutColumns
+        :pageCols="[
+          { colsize: '6', slotName: 'cpu' },
+          { colsize: '6', slotName: 'memory' }
+        ]"
+      >
+        <OracleCpu slot="cpu" />
+        <OracleMemory slot="memory" />
+      </BaseLayoutColumns>
+
+      <BaseLayoutColumns :pageCols="[{ colSize: '12', slotName: 'storage' }]">
+        <OracleStorage slot="storage" />
+      </BaseLayoutColumns>
+
+      <Top3Workload slot="workload" />
+      <Top3Reclaimable slot="reclaimable" />
+      <OracleCharts slot="charts" />
     </div>
-  </div>
+  </ToggleColumns>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
+import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
+import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import ExportButton from '@/components/common/exportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
-import ButtonGroup from '@/components/common/ButtonGroup.vue'
 import OracleFilters from '@/components/databases/oracle/OracleFilters.vue'
+import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
+import oraclesMoreInfo from '@/components/databases/oracle/oracle-more-info.json'
+import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
+import oracleHead from '@/components/databases/oracle/oracle-head.json'
+import Top3Workload from '@/components/databases/oracle/Top3Workload.vue'
+import Top3Reclaimable from '@/components/databases/oracle/Top3Reclaimable.vue'
+import OracleCharts from '@/components/databases/oracle/OracleCharts.vue'
+import OracleCpu from '@/components/databases/oracle/OracleCpu.vue'
+import OracleMemory from '@/components/databases/oracle/OracleMemory.vue'
+import OracleStorage from '@/components/databases/oracle/OracleStorage.vue'
 
 export default {
-  mixins: [hostnameLinkRow],
+  mixins: [hostnameLinkRow, getHeadKeys],
   components: {
+    ToggleColumns,
+    BaseLayoutColumns,
     FullTable,
     ExportButton,
     TdContent,
     TdIcon,
     HostLink,
-    ButtonGroup,
-    OracleFilters
+    OracleFilters,
+    MoreInfoButtons,
+    DynamicHeading,
+    Top3Workload,
+    Top3Reclaimable,
+    OracleCharts,
+    OracleCpu,
+    OracleMemory,
+    OracleStorage
   },
   data() {
     return {
-      keys: [
-        'name',
-        'version',
-        'hostname',
-        'environment',
-        'charset',
-        'memory',
-        'datafileSize',
-        'segmentsSize',
-        'archivelog',
-        'dataguard',
-        'ha',
-        'work',
-        'blockSize',
-        'cpuCount',
-        'status',
-        'uniqueName'
-      ],
-      hideReliability: true,
-      hideSpaceUsed: true,
-      hideCharset: true
+      oraclesMoreInfo: oraclesMoreInfo,
+      oracleHead: oracleHead
     }
   },
   computed: {
-    ...mapGetters(['getAllOracleDBs'])
+    ...mapGetters(['getAllOracleDBs']),
+    ...mapState(['moreInfoToggle'])
   }
 }
 </script>

@@ -1,8 +1,13 @@
 <template>
-  <BaseLayoutColumns v-if="isMounted">
-    <PatchAdvisorFilters slot="col1" />
+  <ToggleColumns
+    getPage="patchAdvisor"
+    :leftButton="$t('common.forms.advancedFilters')"
+    :centerCol="9"
+    v-if="isMounted"
+  >
+    <PatchAdvisorFilters slot="left" />
     <FullTable
-      slot="col2"
+      slot="center"
       :placeholder="$t('menu.patAdvisor')"
       :keys="keys"
       :tableData="getOraclePatchAdvisor"
@@ -30,28 +35,28 @@
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
         <TdContent :value="rowData.scope.dbname" />
         <TdContent :value="rowData.scope.dbver" />
-        <TdContent :value="rowData.scope.date" dataType="date" />
+        <TdContent :value="rowData.scope.date" />
         <TdContent :value="rowData.scope.description" />
         <TdIcon :value="rowData.scope.fourMonths" />
         <TdIcon :value="rowData.scope.sixMonths" />
         <TdIcon :value="rowData.scope.twelveMonths" />
       </template>
 
-      <exportButton
+      <ExportButton
         slot="export"
         url="hosts/technologies/oracle/databases/patch-advisors"
         expName="oraclePatchAdvisor"
       />
     </FullTable>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import exportButton from '@/components/common/exportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
@@ -60,9 +65,9 @@ import PatchAdvisorFilters from '@/components/databases/oracle/patchAdvisor/Patc
 export default {
   mixins: [hostnameLinkRow],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     FullTable,
-    exportButton,
+    ExportButton,
     TdContent,
     TdIcon,
     HostLink,

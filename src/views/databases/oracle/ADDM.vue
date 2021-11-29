@@ -1,8 +1,13 @@
 <template>
-  <BaseLayoutColumns v-if="isMounted">
-    <AddmFilters slot="col1" />
+  <ToggleColumns
+    getPage="addm"
+    :leftButton="$t('common.forms.advancedFilters')"
+    :centerCol="9"
+    v-if="isMounted"
+  >
+    <AddmFilters slot="left" />
     <FullTable
-      slot="col2"
+      slot="center"
       :placeholder="$t('menu.addm')"
       :keys="keys"
       :tableData="getOracleAddms"
@@ -29,21 +34,21 @@
         <TdContent :value="rowData.scope.action" />
       </template>
 
-      <exportButton
+      <ExportButton
         slot="export"
         url="hosts/technologies/oracle/databases/addms"
         expName="oracleADDM"
       />
     </FullTable>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import exportButton from '@/components/common/exportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import AddmFilters from '@/components/databases/oracle/addm/AddmFilters.vue'
@@ -51,9 +56,9 @@ import AddmFilters from '@/components/databases/oracle/addm/AddmFilters.vue'
 export default {
   mixins: [hostnameLinkRow],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     FullTable,
-    exportButton,
+    ExportButton,
     TdContent,
     HostLink,
     AddmFilters

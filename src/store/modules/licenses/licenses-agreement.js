@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import axiosDefault from '@/axios/axios-default.js'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { setFullPartNumber } from '@/helpers/helpers.js'
 
 export const state = () => ({
   oracleAgreements: [],
@@ -46,7 +47,8 @@ export const getters = {
 
 export const mutations = {
   SET_AGREEMENTS: (state, payload) => {
-    state[payload.type + 'Agreements'] = payload.res
+    state[payload.type + 'Agreements'] =
+      payload.type === 'oracle' ? setFullPartNumber(payload.res) : payload.res
   },
   CREATE_AGREEMENT: (state, payload) => {
     state[payload.mode + 'Agreements'].unshift(payload)

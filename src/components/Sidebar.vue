@@ -92,11 +92,6 @@ export default {
           title: this.$i18n.t('menu.hypervisors'),
           icon: 'fas fa-object-group'
         },
-        // {
-        //   href: { name: 'middleware' },
-        //   title: 'Middlewares',
-        //   icon: 'fas fa-globe'
-        // },
         {
           href: { name: 'engineered-systems' },
           title: this.$i18n.t('menu.engSystems'),
@@ -127,18 +122,12 @@ export default {
               icon: 'fas fa-cog'
             }
           ]
+        },
+        {
+          href: { name: 'repository' },
+          title: this.$i18n.t('menu.repository'),
+          icon: 'fas fa-download'
         }
-        // {
-        //   href: { name: 'settings' },
-        //   title: 'Settings',
-        //   icon: 'fas fa-cogs',
-        //   child: [
-        //     {
-        //       title: 'Agents',
-        //       icon: 'fas fa-cog'
-        //     }
-        //   ]
-        // }
       ]
     }
   }

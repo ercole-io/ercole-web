@@ -1,15 +1,13 @@
 <template>
-  <BaseLayoutColumns
+  <ToggleColumns
+    getPage="hypervisors"
+    :leftButton="$t('common.forms.advancedFilters')"
+    :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
-    :pageCols="[
-      { colsize: '3', slotName: 'filters' },
-      { colsize: '6', slotName: 'content' },
-      { colsize: '3', slotName: 'side' }
-    ]"
   >
-    <HypervisorsFilters slot="filters" />
+    <HypervisorsFilters slot="left" />
     <FullTable
-      slot="content"
+      slot="center"
       :placeholder="$t('menu.hypervisors')"
       :keys="keys"
       :tableData="getHypervisors"
@@ -40,13 +38,13 @@
         <TdContent :value="rowData.scope.vmsErcoleAgentCount" />
       </template>
 
-      <exportButton
+      <ExportButton
         slot="export"
         url="hosts/clusters"
         expName="clusters-data"
       />
     </FullTable>
-    <div slot="side">
+    <div slot="right">
       <BoxContent title="Cluster" border>
         <div class="is-flex" style="justify-content: space-around;">
           <p class="is-size-7 has-text-centered">
@@ -72,17 +70,17 @@
         />
       </BoxContent>
     </div>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
 import techTypePrettyName from '@/mixins/techTypePrettyName.js'
 import { mapActions, mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import exportButton from '@/components/common/exportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import ColumnChart from '@/components/common/charts/ColumnChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HypervisorsFilters from '@/components/hypervisors/HypervisorsFilters.vue'
@@ -90,10 +88,10 @@ import HypervisorsFilters from '@/components/hypervisors/HypervisorsFilters.vue'
 export default {
   mixins: [techTypePrettyName, localFiltersMixin],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     BoxContent,
     FullTable,
-    exportButton,
+    ExportButton,
     ColumnChart,
     TdContent,
     HypervisorsFilters

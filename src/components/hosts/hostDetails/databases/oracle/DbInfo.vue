@@ -3,21 +3,21 @@
     <div class="columns">
       <div class="column is-4">
         <Card cardTitle="DB Details" cardType="custom">
-          <CardList :colSizes="['6', '6']" :list="details" />
+          <CardListHighlight :colSizes="['6', '6']" :list="details" />
         </Card>
       </div>
       <div class="column is-4">
         <div class="columns mb-0">
           <div class="column is-12">
             <Card cardTitle="Memory" cardType="custom">
-              <CardList :colSizes="['6', '6']" :list="memory" />
+              <CardListHighlight :colSizes="['6', '6']" :list="memory" />
             </Card>
           </div>
         </div>
         <div class="columns">
           <div class="column is-12">
             <Card cardTitle="Resource Utilization" cardType="custom">
-              <CardList :colSizes="['6', '6']" :list="resource" />
+              <CardListHighlight :colSizes="['6', '6']" :list="resource" />
             </Card>
           </div>
         </div>
@@ -26,14 +26,14 @@
         <div class="columns mb-0">
           <div class="column is-12">
             <Card cardTitle="Space Utilization" cardType="custom">
-              <CardList :colSizes="['6', '6']" :list="space" />
+              <CardListHighlight :colSizes="['6', '6']" :list="space" />
             </Card>
           </div>
         </div>
         <div class="columns">
           <div class="column is-12">
             <Card cardTitle="Additional Info" cardType="custom">
-              <CardList :colSizes="['6', '6']" :list="additional" />
+              <CardListHighlight :colSizes="['6', '6']" :list="additional" />
             </Card>
           </div>
         </div>
@@ -44,7 +44,7 @@
 
 <script>
 import Card from '@/components/common/Card.vue'
-import CardList from '@/components/common/CardList.vue'
+import CardListHighlight from '@/components/common/CardListHighlight.vue'
 
 export default {
   props: {
@@ -55,7 +55,7 @@ export default {
   },
   components: {
     Card,
-    CardList
+    CardListHighlight
   },
   computed: {
     details() {
@@ -67,7 +67,7 @@ export default {
         { name: 'Unique Name', value: this.dbInfo.uniqueName },
         {
           name: 'Archive Log',
-          value: this.dbInfo.archiveLog,
+          value: this.dbInfo.archivelog,
           hasIcon: true
         },
         { name: 'Block Size', value: this.dbInfo.blockSize },
