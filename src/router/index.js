@@ -66,6 +66,9 @@ const Engineered = lazy(() =>
 const Alerts = lazy(() =>
   import(/* webpackPreload: true */ '@/views/alerts/Alerts.vue')
 )
+const Repository = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/repository/Repository.vue')
+)
 const Settings = lazy(() =>
   import(/* webpackPreload: true */ '@/views/settings/Settings.vue')
 )
@@ -88,17 +91,17 @@ const routes = [
     component: Login,
     meta: {
       title: `${title}Login`,
-      layout: 'simple'
-    }
+      layout: 'simple',
+    },
   },
   {
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
     meta: {
-      title: `${title}Dashboard`
+      title: `${title}Dashboard`,
     },
-    beforeEnter: verifyAuth
+    beforeEnter: verifyAuth,
   },
   {
     path: '/hosts',
@@ -111,9 +114,9 @@ const routes = [
         meta: {
           label: i18n.t('menu.hosts'),
           title: `${title}${i18n.t('menu.hosts')}`,
-          breadcrumb: [{ name: i18n.t('menu.hosts') }]
+          breadcrumb: [{ name: i18n.t('menu.hosts') }],
         },
-        beforeEnter: verifyAuth
+        beforeEnter: verifyAuth,
       },
       {
         path: '/details/:hostname/:dbname?',
@@ -125,12 +128,12 @@ const routes = [
           title: `${title}${i18n.t('menu.hosts')}`,
           breadcrumb: [
             { name: i18n.t('menu.hosts'), link: '/hosts' },
-            { name: '' }
-          ]
+            { name: '' },
+          ],
         },
-        beforeEnter: verifyAuth
-      }
-    ]
+        beforeEnter: verifyAuth,
+      },
+    ],
   },
   {
     path: '/databases',
@@ -143,9 +146,9 @@ const routes = [
         meta: {
           label: i18n.t('menu.databases'),
           title: `${title}${i18n.t('menu.databases')}`,
-          breadcrumb: [{ name: i18n.t('menu.databases') }]
+          breadcrumb: [{ name: i18n.t('menu.databases') }],
         },
-        beforeEnter: verifyAuth
+        beforeEnter: verifyAuth,
       },
       {
         path: '/oracle',
@@ -160,10 +163,10 @@ const routes = [
               title: `${title}${i18n.t('menu.oracle')}`,
               breadcrumb: [
                 { name: i18n.t('menu.databases'), link: '/databases' },
-                { name: i18n.t('menu.oracle') }
-              ]
+                { name: i18n.t('menu.oracle') },
+              ],
             },
-            beforeEnter: verifyAuth
+            beforeEnter: verifyAuth,
           },
           {
             path: '',
@@ -181,10 +184,10 @@ const routes = [
                   breadcrumb: [
                     { name: i18n.t('menu.databases'), link: '/databases' },
                     { name: i18n.t('menu.oracle'), link: '/oracle' },
-                    { name: i18n.t('menu.addm') }
-                  ]
+                    { name: i18n.t('menu.addm') },
+                  ],
                 },
-                beforeEnter: verifyAuth
+                beforeEnter: verifyAuth,
               },
               {
                 path: '/segment-advisor',
@@ -200,10 +203,10 @@ const routes = [
                   breadcrumb: [
                     { name: i18n.t('menu.databases'), link: '/databases' },
                     { name: i18n.t('menu.oracle'), link: '/oracle' },
-                    { name: i18n.t('menu.segAdvisor') }
-                  ]
+                    { name: i18n.t('menu.segAdvisor') },
+                  ],
                 },
-                beforeEnter: verifyAuth
+                beforeEnter: verifyAuth,
               },
               {
                 path: '/patch-advisor',
@@ -219,14 +222,14 @@ const routes = [
                   breadcrumb: [
                     { name: i18n.t('menu.databases'), link: '/databases' },
                     { name: i18n.t('menu.oracle'), link: '/oracle' },
-                    { name: i18n.t('menu.patAdvisor') }
-                  ]
+                    { name: i18n.t('menu.patAdvisor') },
+                  ],
                 },
-                beforeEnter: verifyAuth
-              }
-            ]
-          }
-        ]
+                beforeEnter: verifyAuth,
+              },
+            ],
+          },
+        ],
       },
       {
         path: '/mysql',
@@ -241,14 +244,14 @@ const routes = [
               title: `${title}${i18n.t('menu.mysql')}`,
               breadcrumb: [
                 { name: i18n.t('menu.databases'), link: '/databases' },
-                { name: i18n.t('menu.mysql') }
-              ]
+                { name: i18n.t('menu.mysql') },
+              ],
             },
-            beforeEnter: verifyAuth
-          }
-        ]
-      }
-    ]
+            beforeEnter: verifyAuth,
+          },
+        ],
+      },
+    ],
   },
   {
     path: '/middleware',
@@ -257,9 +260,9 @@ const routes = [
     meta: {
       label: 'Middleware',
       title: `${title}Middleware`,
-      breadcrumb: [{ name: 'Middleware' }]
+      breadcrumb: [{ name: 'Middleware' }],
     },
-    beforeEnter: verifyAuth
+    beforeEnter: verifyAuth,
   },
   {
     path: '/licenses/agreement',
@@ -268,9 +271,9 @@ const routes = [
     meta: {
       label: i18n.t('menu.licAgreements'),
       title: `${title}${i18n.t('menu.licAgreements')}`,
-      breadcrumb: [{ name: i18n.t('menu.licAgreements') }]
+      breadcrumb: [{ name: i18n.t('menu.licAgreements') }],
     },
-    beforeEnter: verifyAuth
+    beforeEnter: verifyAuth,
   },
   {
     path: '/licenses/compliance',
@@ -279,9 +282,9 @@ const routes = [
     meta: {
       label: i18n.t('menu.licCompliance'),
       title: `${title}${i18n.t('menu.licCompliance')}`,
-      breadcrumb: [{ name: i18n.t('menu.licCompliance') }]
+      breadcrumb: [{ name: i18n.t('menu.licCompliance') }],
     },
-    beforeEnter: verifyAuth
+    beforeEnter: verifyAuth,
   },
   {
     path: '/licenses/used/:partNumber?',
@@ -291,9 +294,9 @@ const routes = [
     meta: {
       label: i18n.tc('menu.licUsed'),
       title: `${title}${i18n.tc('menu.licUsed')}`,
-      breadcrumb: [{ name: i18n.tc('menu.licUsed') }]
+      breadcrumb: [{ name: i18n.tc('menu.licUsed') }],
     },
-    beforeEnter: verifyAuth
+    beforeEnter: verifyAuth,
   },
   {
     path: '/hypervisors',
@@ -306,9 +309,9 @@ const routes = [
         meta: {
           label: i18n.t('menu.hypervisors'),
           title: `${title}${i18n.t('menu.hypervisors')}`,
-          breadcrumb: [{ name: i18n.t('menu.hypervisors') }]
+          breadcrumb: [{ name: i18n.t('menu.hypervisors') }],
         },
-        beforeEnter: verifyAuth
+        beforeEnter: verifyAuth,
       },
       {
         path: '/cluster/:clustername',
@@ -320,12 +323,12 @@ const routes = [
           title: `${title}${i18n.t('menu.hypervisors')}`,
           breadcrumb: [
             { name: i18n.t('menu.hypervisors'), link: '/hypervisors' },
-            { name: '' }
-          ]
+            { name: '' },
+          ],
         },
-        beforeEnter: verifyAuth
-      }
-    ]
+        beforeEnter: verifyAuth,
+      },
+    ],
   },
   {
     path: '/engineered-systems',
@@ -334,9 +337,9 @@ const routes = [
     meta: {
       label: i18n.t('menu.engSystems'),
       title: `${title}${i18n.t('menu.engSystems')}`,
-      breadcrumb: [{ name: i18n.t('menu.engSystems') }]
+      breadcrumb: [{ name: i18n.t('menu.engSystems') }],
     },
-    beforeEnter: verifyAuth
+    beforeEnter: verifyAuth,
   },
   {
     path: '/alerts',
@@ -345,9 +348,20 @@ const routes = [
     meta: {
       label: i18n.t('menu.alerts'),
       title: `${title}${i18n.t('menu.alerts')}`,
-      breadcrumb: [{ name: i18n.t('menu.alerts') }]
+      breadcrumb: [{ name: i18n.t('menu.alerts') }],
     },
-    beforeEnter: verifyAuth
+    beforeEnter: verifyAuth,
+  },
+  {
+    path: '/repository',
+    name: 'repository',
+    component: Repository,
+    meta: {
+      label: i18n.t('menu.repository'),
+      title: `${title}${i18n.t('menu.repository')}`,
+      breadcrumb: [{ name: i18n.t('menu.repository') }],
+    },
+    beforeEnter: verifyAuth,
   },
   {
     path: '/settings',
@@ -356,9 +370,9 @@ const routes = [
     meta: {
       label: 'Settings',
       title: `${title}Settings`,
-      breadcrumb: [{ name: 'Settings' }]
+      breadcrumb: [{ name: 'Settings' }],
     },
-    beforeEnter: verifyAuth
+    beforeEnter: verifyAuth,
   },
   {
     path: '/500',
@@ -366,8 +380,8 @@ const routes = [
     component: InternalServer,
     meta: {
       title: `${title}500 Internal Server Error`,
-      layout: 'error'
-    }
+      layout: 'error',
+    },
   },
   {
     path: '/401',
@@ -375,8 +389,8 @@ const routes = [
     component: Unauthorized,
     meta: {
       title: `${title}401 Unauthorized`,
-      layout: 'error'
-    }
+      layout: 'error',
+    },
   },
   {
     path: '/404',
@@ -384,19 +398,19 @@ const routes = [
     component: NotFound,
     meta: {
       title: `${title}404 Page Not Found`,
-      layout: 'error'
-    }
+      layout: 'error',
+    },
   },
   {
     path: '*',
     redirect: {
-      name: '404'
-    }
+      name: '404',
+    },
   },
   {
     path: '/',
-    redirect: '/dashboard'
-  }
+    redirect: '/dashboard',
+  },
 ]
 
 const router = new VueRouter({
@@ -404,10 +418,19 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
   linkActiveClass: 'is-active',
-  linkExactActiveClass: 'is-active'
+  linkExactActiveClass: 'is-active',
 })
 
 router.beforeEach((to, from, next) => {
+  if (
+    to.name !== 'login' &&
+    to.name !== '401' &&
+    to.name !== '404' &&
+    to.name !== '500'
+  ) {
+    localStorage.setItem('historyPage', to.path)
+  }
+
   document.title = to.meta.title
   next()
 })

@@ -1,14 +1,15 @@
 <template>
   <b-tab-item label="Licenses" v-if="licenses.length > 0">
     <FullTable
-      :tableData="dbLicenses(licenses)"
-      :keys="[]"
+      :tableData="licenses"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
       hideTopTable
     >
       <template slot="headData">
+        <v-th sortKey="ignored">Ignore License</v-th>
         <v-th sortKey="name">Name</v-th>
         <v-th sortKey="count">Number</v-th>
         <v-th sortKey="licenseTypeID">Part Number</v-th>
@@ -17,6 +18,13 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
+        <ignoreDbLicense
+          :db="dbName"
+          :host="$route.params.hostname"
+          :licenseID="rowData.scope.licenseTypeID"
+          :status="!rowData.scope.ignored"
+          page="host-details"
+        />
         <TdContent :value="rowData.scope.name" />
         <TdContent :value="rowData.scope.count" />
         <TdContent :value="rowData.scope.licenseTypeID" />
@@ -28,45 +36,38 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import { mapGetters } from 'vuex'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import ignoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
 
 export default {
   props: {
     licenses: {
       type: Array,
-      default: null
-    }
+      default: null,
+    },
+    dbName: {
+      type: String,
+      required: true,
+    },
   },
   components: {
     FullTable,
-    TdContent
+    TdContent,
+    ignoreDbLicense,
   },
-  methods: {
-    dbLicenses(values) {
-      let filteredLicenses = []
-      _.filter(values, val => {
-        let licenseComplement = this.returnMetricAndDescription(
-          val.licenseTypeID
-        )
-
-        if (val.count > 0) {
-          filteredLicenses.push({
-            ...val,
-            description: licenseComplement.description,
-            metric: licenseComplement.metric
-          })
-        }
-      })
-
-      return filteredLicenses
+  data() {
+    return {
+      keys: [
+        'ignored',
+        'name',
+        'count',
+        'licenseTypeID',
+        'description',
+        'metric',
+      ],
     }
   },
-  computed: {
-    ...mapGetters(['returnMetricAndDescription'])
-  }
 }
 </script>
 

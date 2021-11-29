@@ -1,8 +1,12 @@
 <template>
-  <BaseLayoutColumns>
-    <MySqlFilters slot="col1" />
+  <ToggleColumns
+    getPage="databasesMysql"
+    :leftButton="$t('common.forms.advancedFilters')"
+    :centerCol="9"
+  >
+    <MySqlFilters slot="left" />
     <FullTable
-      slot="col2"
+      slot="center"
       :placeholder="$t('menu.mysql')"
       :keys="keys"
       :tableData="getAllMysqlDbs"
@@ -49,15 +53,15 @@
         expName="mysqlDbs"
       />
     </FullTable>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import ExportButton from '@/components/common/exportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
@@ -66,7 +70,7 @@ import MySqlFilters from '@/components/databases/mysql/MySqlFilters.vue'
 export default {
   mixins: [hostnameLinkRow],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     FullTable,
     ExportButton,
     TdContent,

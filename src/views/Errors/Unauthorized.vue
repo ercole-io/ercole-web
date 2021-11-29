@@ -1,10 +1,8 @@
 <template>
   <ErrorCode
     code="401"
-    codeText="Unauthorized"
-    :codeDesc="
-      `YOUR TOKEN HAS EXPIRED AND YOU WILL BE REDIRECTED TO THE LOGIN PAGE IN ${countDown} SECONDS.`
-    "
+    :codeText="$t('common.errors.401')"
+    :codeDesc="$t('common.errors.401msg', [countDown])"
   >
     <b-button
       slot="actions"
@@ -12,7 +10,7 @@
       size="is-medium"
       @click="logout"
     >
-      go to login
+      {{ $t('common.general.goLogin') }}
     </b-button>
   </ErrorCode>
 </template>

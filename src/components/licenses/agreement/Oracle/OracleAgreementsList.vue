@@ -6,7 +6,7 @@
     :clickedRow="() => []"
   >
     <template slot="headData">
-      <th colspan="3" style="text-align: center !important;">
+      <th colspan="4" style="text-align: center !important">
         {{ $t('common.collumns.actions') }}
       </th>
       <v-th sortKey="agreementID">
@@ -33,16 +33,16 @@
       <v-th sortKey="licensesPerCore">
         {{ $t('common.collumns.licPerCore') }}
       </v-th>
-      <v-th sortKey="licensesPerUser">
-        {{ $t('common.collumns.licPerUser') }}
-      </v-th>
       <v-th sortKey="availableLicensesPerCore">
         {{ $t('common.collumns.avLicPerCore') }}
+      </v-th>
+      <v-th sortKey="licensesPerUser">
+        {{ $t('common.collumns.licPerUser') }}
       </v-th>
       <v-th sortKey="availableLicensesPerUser">
         {{ $t('common.collumns.avLicPerUser') }}
       </v-th>
-      <v-th sortKey="catchAll">
+      <v-th sortKey="basket">
         {{ $t('common.collumns.basket') }}
       </v-th>
       <v-th sortKey="restricted">
@@ -51,7 +51,7 @@
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
-      <td style="min-width: 0;">
+      <td style="min-width: 0">
         <b-icon
           v-tooltip="options('Hosts')"
           type="is-link"
@@ -63,7 +63,7 @@
         />
         <span v-else>-</span>
       </td>
-      <td style="min-width: 0;">
+      <td style="min-width: 0">
         <b-icon
           v-tooltip="options($t('common.general.edit'))"
           type="is-info"
@@ -73,7 +73,7 @@
           @click.native="editAgreement(rowData.scope)"
         />
       </td>
-      <td style="min-width: 0;">
+      <td style="min-width: 0">
         <b-icon
           v-tooltip="options($t('common.general.delete'))"
           type="is-danger"
@@ -87,6 +87,16 @@
               rowData.scope.agreementID
             )
           "
+        />
+      </td>
+      <td style="min-width: 0">
+        <b-icon
+          v-tooltip="options('Clone Information')"
+          type="is-warning"
+          class="edit-icon"
+          pack="fas"
+          icon="clone"
+          @click.native="cloneAgreement(rowData.scope)"
         />
       </td>
       <TdContent :value="rowData.scope.agreementID" />
@@ -103,12 +113,18 @@
       />
       <TdIcon :value="rowData.scope.unlimited" />
       <TdContent :value="rowData.scope.licensesPerCore" />
-      <TdContent :value="rowData.scope.licensesPerUser" />
       <TdContent :value="rowData.scope.availableLicensesPerCore" />
+      <TdContent :value="rowData.scope.licensesPerUser" />
       <TdContent :value="rowData.scope.availableLicensesPerUser" />
-      <TdIcon :value="rowData.scope.catchAll" />
+      <TdIcon :value="rowData.scope.basket" />
       <TdIcon :value="rowData.scope.restricted" />
     </template>
+
+    <ExportButton
+      slot="export"
+      url="agreements/oracle/database"
+      expName="oracleAgreements"
+    />
   </FullTable>
 </template>
 
@@ -121,13 +137,15 @@ import OracleAssociatedModal from '@/components/licenses/agreement/Oracle/Oracle
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
   mixins: [TooltipMixin, LicensesAgreementMixin],
   components: {
     FullTable,
     TdContent,
-    TdIcon
+    TdIcon,
+    ExportButton,
   },
   data() {
     return {
@@ -143,30 +161,33 @@ export default {
         'licensesPerUser',
         'availableLicensesPerCore',
         'availableLicensesPerUser',
-        'catchAll',
-        'restricted'
-      ]
+        'basket',
+        'restricted',
+      ],
     }
   },
   methods: {
     editAgreement(data) {
       bus.$emit('editAgreementOracle', data)
     },
+    cloneAgreement(data) {
+      bus.$emit('cloneAgreementOracle', _.omit(data, ['id']))
+    },
     openModal(data) {
       this.$buefy.modal.open({
         component: OracleAssociatedModal,
         hasModalCard: true,
         props: {
-          data: data
-        }
+          data: data,
+        },
       })
-    }
+    },
   },
   computed: {
     toggleReferenceNumber() {
       return _.some(this.returnLicensesAgreement('oracle'), 'referenceNumber')
-    }
-  }
+    },
+  },
 }
 </script>
 

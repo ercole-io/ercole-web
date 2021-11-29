@@ -1,6 +1,6 @@
 <template>
   <section>
-    <TopTable v-if="!hideTopTable">
+    <TopTable v-show="!hideTopTable">
       <SelectPerPage
         :totalItems="total.length"
         v-if="!hidePerpage"
@@ -13,7 +13,7 @@
         :searchPlaceholder="setPlaceholder"
         v-model="filters.search.value"
         :urlParam="urlSearchParam"
-        v-if="!hideSearch"
+        v-show="!hideSearch"
       />
     </TopTable>
 

@@ -28,6 +28,10 @@ import * as localFilters from './modules/local-filters'
 import * as engineeredSystems from './modules/engineered-systems/engineered-systems'
 import * as agreementParts from './modules/agreement-parts'
 import * as rangeDates from './modules/range-dates'
+import * as moreInfoToggle from '@/store/modules/more-info-toggle.js'
+import * as columnToggle from '@/store/modules/columns-toggle.js'
+import * as repository from '@/store/modules/repository/repository.js'
+import * as ignoreLicense from '@/store/modules/ignoreLicense.js'
 
 Vue.use(Vuex)
 
@@ -58,19 +62,24 @@ export default new Vuex.Store({
     localFilters,
     engineeredSystems,
     agreementParts,
-    rangeDates
+    rangeDates,
+    moreInfoToggle,
+    columnToggle,
+    repository,
+    ignoreLicense,
   },
   plugins: [
     createPersistedState({
       key: 'persisted-data',
       paths: [
         'auth',
-        // 'alerts',
         'technologies',
         'hostnames',
         'globalFilters',
-        'clusternames'
-      ]
-    })
-  ]
+        'clusternames',
+        'moreInfoToggle',
+        'columnToggle',
+      ],
+    }),
+  ],
 })

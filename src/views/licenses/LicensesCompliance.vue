@@ -1,8 +1,13 @@
 <template>
-  <BaseLayoutColumns v-if="isMounted">
-    <LicensesComplianceFilters slot="col1" />
+  <ToggleColumns
+    getPage="licensesCompliance"
+    :leftButton="$t('common.forms.advancedFilters')"
+    :centerCol="9"
+    v-if="isMounted"
+  >
+    <LicensesComplianceFilters slot="left" />
     <FullTable
-      slot="col2"
+      slot="center"
       :placeholder="$t('menu.licCompliance')"
       :keys="keys"
       :tableData="getLicensesCompliance"
@@ -18,6 +23,12 @@
         </v-th>
         <v-th sortKey="metric">
           {{ $t('common.collumns.metric') }}
+        </v-th>
+        <v-th sortKey="available">
+          {{ $t('common.collumns.licAvailable') }}
+        </v-th>
+        <v-th sortKey="purchased">
+          {{ $t('common.collumns.purchased') }}
         </v-th>
         <v-th sortKey="consumed">
           {{ $t('common.collumns.consumed') }}
@@ -37,6 +48,8 @@
         <TdContent :value="rowData.scope.licenseTypeID" />
         <TdContent :value="rowData.scope.itemDescription" />
         <TdContent :value="rowData.scope.metric" />
+        <TdContent :value="rowData.scope.available" />
+        <TdContent :value="rowData.scope.purchased" />
         <TdContent :value="rowData.scope.consumed" />
         <TdContent :value="rowData.scope.covered" />
         <td>
@@ -49,27 +62,35 @@
         </td>
         <TdIcon :value="rowData.scope.unlimited" />
       </template>
+
+      <ExportButton
+        slot="export"
+        url="hosts/technologies/all/databases/licenses-compliance"
+        expName="licensesCompliance"
+      />
     </FullTable>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import LicensesComplianceFilters from '@/components/licenses/compliance/LicensesComplianceFilters.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
   mixins: [paginationMixin],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     FullTable,
     TdContent,
     TdIcon,
-    LicensesComplianceFilters
+    LicensesComplianceFilters,
+    ExportButton
   },
   data() {
     return {
@@ -80,7 +101,9 @@ export default {
         'consumed',
         'covered',
         'compliance',
-        'unlimited'
+        'unlimited',
+        'purchased',
+        'available'
       ],
       isMounted: false
     }

@@ -1,0 +1,68 @@
+[
+  { "sort": "name", 
+    "langKey": "common.collumns.name" 
+  },
+  { "sort": "uniqueName", 
+    "langKey": "common.collumns.uniqueName" 
+  },
+  { "sort": "hostname", 
+    "langKey": "common.collumns.hostname" 
+  },
+  {
+    "sort": "archivelog",
+    "group": "ReliabilityOracle",
+    "class": "color-1", 
+    "langKey": "common.collumns.archivelog"
+  },
+  { "sort": "dataguard", 
+    "group": "ReliabilityOracle", 
+    "class": "color-1", 
+    "langKey": "common.collumns.disasterRecovery" 
+  },
+  {
+    "sort": "ha",
+    "group": "ReliabilityOracle",
+    "class": "color-1", 
+    "langKey": "common.collumns.highAvailability"
+  },
+  {
+    "sort": "datafileSize",
+    "group": "SpaceUsed",
+    "class": "color-2",
+    "langKey": "common.collumns.datafileSize"
+  },
+  { "sort": "segmentsSize", 
+    "group": "SpaceUsed",
+    "class": "color-2",
+    "langKey": "common.collumns.segmentSize" 
+  },
+  { "sort": "charset", 
+    "group": "Charset",
+    "class": "color-3",
+    "langKey": "common.collumns.charset" 
+  },
+  {
+    "sort": "version",
+    "langKey": "common.collumns.version"
+  },
+  {
+    "sort": "work",
+    "langKey": "common.collumns.work"
+  },
+  {
+    "sort": "cpuCount",
+    "langKey": "common.collumns.cpuCount"
+  },
+  { "sort": "blockSize", 
+    "langKey": "common.collumns.blockSize" 
+  },
+  { "sort": "status", 
+    "langKey": "common.collumns.status" 
+  },
+  { "sort": "memory", 
+    "langKey": "common.collumns.memory" 
+  },
+  { "sort": "environment", 
+    "langKey": "common.collumns.environment" 
+  }
+]

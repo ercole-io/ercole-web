@@ -16,28 +16,34 @@
       />
     </CustomField>
 
-    <CustomField :label="$t('common.fields.partNumber')">
-      <CustomSelect
-        v-model="filters.licenseTypeID"
-        :options="filteredlicenseTypeID"
-      />
-    </CustomField>
-
-    <CustomField :label="$t('common.fields.description')">
-      <CustomSelect
-        v-model="filters.description"
-        :options="filtereddescription"
+    <CustomField :label="$t('common.fields.fullAgreement')">
+      <CustomSelectAutocomplete
+        v-model="filters.fullPartNumber"
+        :filterResult="filteredfullPartNumber"
+        :filterMethod="setAutocompletes"
+        field="fullPartNumber"
       />
     </CustomField>
 
     <CustomField :label="$t('common.fields.metric')">
-      <CustomSelect v-model="filters.metric" :options="filteredmetric" />
+      <CustomAutocomplete
+        v-model="filters.metric"
+        :filterResult="filteredmetric"
+        :filterMethod="setAutocompletes"
+      />
     </CustomField>
 
     <CustomField :label="$t('common.fields.usedLicenses')">
       <CustomSlider
         v-model="filters.usedLicenses"
         :ticks="[minusedLicenses, maxusedLicenses]"
+      />
+    </CustomField>
+
+    <CustomField :label="$t('common.fields.clusterLicenses')">
+      <CustomSlider
+        v-model="filters.clusterLicenses"
+        :ticks="[minclusterLicenses, maxclusterLicenses]"
       />
     </CustomField>
   </AdvancedFiltersBase>
@@ -47,14 +53,17 @@
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
+import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutocomplete.vue'
 
 export default {
   mixins: [localFiltersMixin],
+  components: {
+    CustomSelectAutocomplete
+  },
   data() {
     return {
-      autocompletes: ['hostname', 'dbName'],
-      selects: ['licenseTypeID', 'description', 'metric'],
-      sliders: ['usedLicenses']
+      autocompletes: ['hostname', 'dbName', 'fullPartNumber', 'metric'],
+      sliders: ['usedLicenses', 'clusterLicenses']
     }
   },
   created() {

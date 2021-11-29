@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
-import ExportButton from '@/components/common/exportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 Vue.config.ignoredElements = ['b-button']
 

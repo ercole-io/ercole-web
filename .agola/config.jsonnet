@@ -92,7 +92,7 @@ local task_build_push_image(push) =
       arch: 'amd64',
       containers: [
         {
-          image: 'gcr.io/kaniko-project/executor:debug-v0.11.0',
+          image: 'gcr.io/kaniko-project/executor:debug-v1.0.0',
         },
       ],
     },
@@ -131,16 +131,16 @@ local task_build_push_image(push) =
                [
                  task_test(version),
                ]
-               for version in ['12']
+               for version in ['16']
              ]) +
              std.flattenArrays([
                [
                  task_build(version),
                ]
-               for version in ['12']
+               for version in ['16']
              ]) + [
 
-        local version = '12';
+        local version = '16';
         {
           name: 'pkg build',
           runtime: {
@@ -207,7 +207,7 @@ local task_build_push_image(push) =
             { type: 'clone' },
             { type: 'save_to_workspace', contents: [{ source_dir: '.', dest_dir: '.', paths: ['**'] }] },
           ],
-          depends: ['build - node 12'],
+          depends: ['build - node 16'],
         },
       ] + [
         task_build_push_image(false) + {

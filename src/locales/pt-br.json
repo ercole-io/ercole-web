@@ -22,7 +22,8 @@
     "licenses": "Licenças",
     "licAgreements": "Acordo de Licença",
     "licCompliance": "Conformidade de Licenças",
-    "licUsed": "Licenças Usadas"
+    "licUsed": "Licenças Usadas",
+    "repository": "Repositório"
   },
   "header": {
     "logout": "Sair"
@@ -42,8 +43,9 @@
       "markAsRead": "Marcar como lido",
       "from": "de:",
       "date": "Data:",
-      "licensesX": "Licenças: Usado x Adquirido",
+      "licensesX": "Licenças",
       "usedLicenses": "Licenças Usadas",
+      "coveredLicenses": "Licenças Cobertas",
       "purchasedLicenses": "Licenças Adquiridas",
       "noData": "Sem dados. Por favor, altere as datas!",
       "noAlerts": "Não há alertas para"
@@ -58,7 +60,8 @@
       "licenses": "Licenças",
       "engine": "Engine",
       "cpuUsage": "Utilização do CPU",
-      "searchBy": "Pesquisa por nome do DB",
+      "searchBy": "Pesquisar por nome do DB",
+      "search": "Pesquisar",
       "compareDb": "Comparar bancos de dados",
       "selectAll": "Selecionar tudo",
       "deselectAll": "Desmarcar todos",
@@ -93,8 +96,10 @@
       "patching": "Sem Patch | Com Patch"
     },
     "licenses": {
-      "addAgreement": "Adicionar ou modificar um contrato Oracle",
-      "dbList": "Lista de Bancos de Dados"
+      "agreeForm": "Formulário de Contrato",
+      "addAgreement": "Adicionar ou modificar um Contrato de Licença Oracle",
+      "dbList": "Lista de Bancos de Dados",
+      "hostsList": "Lista de Hosts"
     },
     "alerts": {
       "markRead": "Marcar como Lido",
@@ -119,7 +124,10 @@
       "delete": "Excluir",
       "edit": "Editar",
       "fullDesc": "Mostrar Descrição Completa",
-      "close": "Fechar"
+      "close": "Fechar",
+      "sideInfo": "Informação Extra",
+      "goBack": "voltar",
+      "goLogin": "vá para o login"
     },
     "forms": {
       "advancedFilters": "Filtros Avançados",
@@ -137,7 +145,8 @@
       "choose": "Escolher",
       "or": "ou",
       "hide": "Esconder {0}",
-      "show": "Mostrar {0}"
+      "show": "Mostrar {0}",
+      "signIn": "Entrar"
     },
     "fields": {
       "username": "Nome do Usuário",
@@ -221,7 +230,18 @@
       "covered": "Coberto",
       "compliance": "Conformidade",
       "usedLicenses": "Licenças Usadas",
-      "hostsAssociated": "Hosts Associados"
+      "hostsAssociated": "Hosts Associados",
+      "repoName": "Nome",
+      "filename": "Nome do Arquivo",
+      "arch": "Arquitetura",
+      "opSys": "Sistema Operacional",
+      "opSysFam": "Família do SO",
+      "repository": "Repositório",
+      "installed": "Instalado",
+      "releaseDate": "Data de Lançamento",
+      "licAvailable": "Licença Disponível",
+      "clusterLicenses": "Licenças de cluster",
+      "purchased": "Comprado"
     },
     "table": {
       "perPage": "por página",
@@ -314,7 +334,17 @@
       "compliance": "Conformidade",
       "usedLicenses": "Licenças Usadas",
       "agreeCovered": "Coberto por este acordo",
-      "agreeCoveredAll": "Coberto por todos os acordos"
+      "agreeCoveredAll": "Coberto por todos os acordos",
+      "repoName": "Nome",
+      "filename": "Nome do Arquivo",
+      "arch": "Arquitetura",
+      "opSys": "Sistema Operacional",
+      "opSysFam": "Família do SO",
+      "repository": "Repositório",
+      "installed": "Instalado",
+      "licAvailable": "Licença Disponível",
+      "clusterLicenses": "Licenças de cluster",
+      "purchased": "Comprado"
     },
     "charts": {
       "archivelog": "Modo Archivelog",
@@ -337,8 +367,21 @@
       "activeFilters": "Filtros Ativos:"
     },
     "validations": {
-      "required": "O campo {fieldname} é obrigatório",
-      "characters": "{0} deve ter pelo menos {1} caracteres"
+      "requiredAlt": "Este campo é obrigatório.",
+      "required": "O campo {0} é obrigatório.",
+      "onlyNumbers": "Este campo aceita apenas número.",
+      "characters": "{0} deve ter pelo menos {1} caracteres",
+      "loginUnauthorized": "Nome de usuário ou senha inválidos.",
+      "loginTimeout": "Tempo limite da solicitação excedido",
+      "noResults": "Nenhum resultado encontrado."
+    },
+    "errors": {
+      "500": "Erro Interno do Servidor",
+      "500msg": "Algo deu errado. Por favor, tente novamente.",
+      "404": "Página Não Encontrada",
+      "404msg": "A página que você está procurando parece não existir.",
+      "401": "Não Autorizado",
+      "401msg": "SEU TOKEN EXPIROU E VOCÊ SERÁ REDIRECIONADO PARA A PÁGINA DE LOGIN EM {0} SEGUNDOS."
     }
   }
 }

@@ -22,6 +22,7 @@
         cursor: pointer;
         text-align: center !important;
         border-width: 0;
+        z-index: 1;
 
         &:first-child {
           text-align: left !important;
@@ -41,8 +42,8 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
-        max-width: 150px;
         overflow-wrap: anywhere;
+        max-width: 150px;
 
         &:first-child {
           text-align: left;

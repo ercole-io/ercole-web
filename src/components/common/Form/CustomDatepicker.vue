@@ -3,11 +3,12 @@
     v-model="dateVal"
     size="is-small"
     :placeholder="dateMsg"
-    position="is-bottom-right"
+    position="is-top-right"
     icon="calendar-today"
     :max-date="new Date()"
     :date-formatter="formatDate"
     class="mr-1"
+    append-to-body
   />
 </template>
 
