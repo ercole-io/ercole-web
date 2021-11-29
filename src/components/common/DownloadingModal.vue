@@ -1,11 +1,36 @@
 <template>
-  <div class="modal-card" style="width: auto">
+  <div class="modal-card" style="width: 400px">
     <header class="modal-card-head">
       <p class="modal-card-title">{{ exportTitle }}</p>
     </header>
-    <section class="modal-card-body">
+    <section class="modal-card-body" style="z-index: 0">
       <div v-if="isLms && !isLmsRequest">
-        <b-field label="Location" custom-class="is-size-7" horizontal>
+        <CustomField label="Date">
+          <b-datepicker
+            v-model="lmsFilters.from"
+            size="is-small"
+            placeholder="From"
+            position="is-bottom-right"
+            icon="calendar-today"
+            :max-date="lmsFilters.to ? lmsFilters.to : new Date()"
+            :date-formatter="formatDate"
+            class="mr-1"
+            trap-focus
+          />
+          <b-datepicker
+            v-model="lmsFilters.to"
+            size="is-small"
+            placeholder="To"
+            position="is-bottom-left"
+            icon="calendar-today"
+            :min-date="lmsFilters.from"
+            :max-date="new Date()"
+            :date-formatter="formatDate"
+            class="ml-1"
+            trap-focus
+          />
+        </CustomField>
+        <CustomField label="Location">
           <b-select v-model="lmsFilters.location" size="is-small" expanded>
             <option :value="null" v-if="lmsFilters.location">
               Reset Location
@@ -17,8 +42,8 @@
               {{ loc }}
             </option>
           </b-select>
-        </b-field>
-        <b-field label="Environment" custom-class="is-size-7" horizontal>
+        </CustomField>
+        <CustomField label="Environment">
           <b-select v-model="lmsFilters.environment" size="is-small" expanded>
             <option :value="null" v-if="lmsFilters.environment">
               Reset Environment
@@ -30,7 +55,7 @@
               {{ env }}
             </option>
           </b-select>
-        </b-field>
+        </CustomField>
       </div>
 
       <div v-if="!isLms || isLmsRequest">
@@ -69,6 +94,8 @@ import axios from 'axios'
 import moment from 'moment'
 import { saveAs } from 'file-saver'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
+import CustomField from '@/components/common/Form/CustomField.vue'
+import formatDate from '@/filters/formatDate.js'
 
 const exportAll = {
   Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -101,6 +128,9 @@ export default {
       type: String,
     },
   },
+  components: {
+    CustomField,
+  },
   data() {
     return {
       request: null,
@@ -110,7 +140,8 @@ export default {
       lmsFilters: {
         location: null,
         environment: null,
-        date: null,
+        from: null,
+        to: null,
       },
     }
   },
@@ -134,10 +165,9 @@ export default {
           responseType: 'blob',
           cancelToken: this.request.token,
           params: this.lmsFilters,
-          // params: params
-          // onDownloadProgress: progressEvent => {
-          //   this.onDownloadProgress(progressEvent)
-          // }
+          onDownloadProgress: (progressEvent) => {
+            this.onDownloadProgress(progressEvent)
+          },
         })
         .then((res) => {
           saveAs(res.data, `${this.exportName}-${date}.${extension}`)
@@ -167,6 +197,9 @@ export default {
         (progressEvent.loaded * 100) / progressEvent.total
       )
       this.setDownloadPercent = currentProgress
+    },
+    formatDate(date) {
+      return formatDate(date)
     },
   },
   computed: {
