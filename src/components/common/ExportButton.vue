@@ -12,13 +12,6 @@
 
 <script>
 import { mapState } from 'vuex'
-// import exportModal from '@/components/common/exportModal.vue'
-// import axios from 'axios'
-// import moment from 'moment'
-// import { bus } from '@/helpers/eventBus.js'
-// import { saveAs } from 'file-saver'
-import { mapGetters } from 'vuex'
-// import axiosNoLoading from '@/axios/axios-no-loading.js'
 import DownloadingModal from '@/components/common/DownloadingModal.vue'
 
 export default {
@@ -69,38 +62,9 @@ export default {
   },
   computed: {
     ...mapState(['globalFilters']),
-    ...mapGetters(['getActiveFilters']),
     exportText() {
       return this.text ? this.text : this.$i18n.t('common.general.exportData')
     },
-    // bindText() {
-    //   const params = {
-    //     'older-than': this.getActiveFilters.date,
-    //     environment: this.getActiveFilters.environment,
-    //     location: this.getActiveFilters.location,
-    //   }
-
-    //   axiosNoLoading
-    //     .get(`/${this.url}`, {
-    //       headers: headers,
-    //       responseType: 'blob',
-    //       cancelToken: request.token,
-    //       params: params,
-    //       // onDownloadProgress: progressEvent => {
-    //       // let currentProgress = Math.round(
-    //       //   (progressEvent.loaded * 100) / progressEvent.total
-    //       // )
-    //       // console.log(progressEvent)
-    //       // vm.percentCompleted = currentProgress
-    //       // }
-    //     })
-    //     .then((res) => {
-    //       saveAs(res.data, `${this.expName}-${date}.${extension}`)
-    //     })
-    //     .then(() => {
-    //       bus.$emit('callCloseModal')
-    //     })
-    // },
   },
 }
 </script>
