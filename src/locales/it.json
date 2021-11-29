@@ -22,7 +22,8 @@
     "licenses": "Licenze",
     "licAgreements": "Contratto di Licenza",
     "licCompliance": "Conformità di Licenze",
-    "licUsed": "Licenze Utilizzate"
+    "licUsed": "Licenze Utilizzate",
+    "repository": "Repository"
   },
   "header": {
     "logout": "Disconnettersi"
@@ -42,8 +43,9 @@
       "markAsRead": "Segna come letto",
       "from": "Dal:",
       "date": "Data:",
-      "licensesX": "Licenze: Usato x Acquistato",
+      "licensesX": "Licenze",
       "usedLicenses": "Licenze Usate",
+      "coveredLicenses": "Licenze Coperte",
       "purchasedLicenses": "Licenze Acquistate",
       "noData": "Nessun dato. Si prega di modificare le date!",
       "noAlerts": "Non ci sono avvisi per"
@@ -59,6 +61,7 @@
       "engine": "Engine",
       "cpuUsage": "Uso della CPU",
       "searchBy": "Cerca per nome DB",
+      "search": "Cerca",
       "compareDb": "Confronta Database",
       "selectAll": "Seleziona tutto",
       "deselectAll": "Deselezionare tutto",
@@ -93,8 +96,10 @@
       "patching": "Senza Patch | Con Patch"
     },
     "licenses": {
-      "addAgreement": "Aggiungi o modifica un Agreement Oracle",
-      "dbList": "Elenco dei Database"
+      "agreeForm": "Modulo di Contratto",
+      "addAgreement": "Aggiungi o modifica un Contratto di licenza Oracle",
+      "dbList": "Elenco dei Database",
+      "hostsList": "Elenco dei Hosts"
     },
     "alerts": {
       "markRead": "Segna come letto",
@@ -119,7 +124,10 @@
       "delete": "Elimina",
       "edit": "Modificare",
       "fullDesc": "Mostra Descrizione Completa",
-      "close": "Chiudere"
+      "close": "Chiudere",
+      "sideInfo": "Informazioni Aggiuntive",
+      "goBack": "torna indietro",
+      "goLogin": "vai al login"
     },
     "forms": {
       "advancedFilters": "Filtri Avanzati",
@@ -137,7 +145,8 @@
       "choose": "Scegliere",
       "or": "o",
       "hide": "Nascondi {0}",
-      "show": "Mostra {0}"
+      "show": "Mostra {0}",
+      "signIn": "Accesso"
     },
     "fields": {
       "username": "Nome Utente",
@@ -223,7 +232,18 @@
       "covered": "Coperto",
       "compliance": "Conformità",
       "usedLicenses": "Licenze Usate",
-      "hostsAssociated": "Host Associati"
+      "hostsAssociated": "Host Associati",
+      "repoName": "Nome",
+      "filename": "Nome del File",
+      "arch": "Architettura",
+      "opSys": "Sistema Operativo",
+      "opSysFam": "Famiglia SO",
+      "repository": "Repository",
+      "installed": "Installato",
+      "releaseDate": "Data di Rilascio",
+      "licAvailable": "Licenza Disponibile",
+      "clusterLicenses": "Licenze Cluster",
+      "purchased": "Acquistato"
     },
     "table": {
       "perPage": "per pagina",
@@ -321,7 +341,17 @@
       "compliance": "Conformità",
       "usedLicenses": "Licenze Usate",
       "agreeCovered": "Coperto da questo accordo",
-      "agreeCoveredAll": "Coperto da tutti gli accordi"
+      "agreeCoveredAll": "Coperto da tutti gli accordi",
+      "repoName": "Nome",
+      "filename": "Nome del File",
+      "arch": "Architettura",
+      "opSys": "Sistema Operativo",
+      "opSysFam": "Famiglia SO",
+      "repository": "Repository",
+      "installed": "Installato",
+      "licAvailable": "Licenza Disponibile",
+      "clusterLicenses": "Licenze Cluster",
+      "purchased": "Acquistato"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",
@@ -344,8 +374,21 @@
       "activeFilters": "Filtri attivi:"
     },
     "validations": {
-      "required": "Il campo {fieldname} è obbligatorio",
-      "characters": "{0} deve contenere almeno {1} caratteri"
+      "requiredAlt": "Questo campo è obbligatorio.",
+      "required": "Il campo {0} è obbligatorio.",
+      "onlyNumbers": "Questo campo accetta solo numeri.",
+      "characters": "{0} deve contenere almeno {1} caratteri",
+      "loginUnauthorized": "Nome utente o password non valido.",
+      "loginTimeout": "Timeout richiesta superato",
+      "noResults": "Nessun risultato trovato."
+    },
+    "errors": {
+      "500": "Errore Interno Del Server",
+      "500msg": "Qualcosa è andato storto. Per favore riprova.",
+      "404": "Pagina Non Trovata",
+      "404msg": "La pagina che stai cercando non sembra esistere.",
+      "401": "Non Autorizzato",
+      "401msg": "IL TUO TOKEN È SCADUTO E SARAI REINDIRIZZATO ALLA PAGINA DI ACCESSO IN {0} SECONDI."
     }
   }
 }

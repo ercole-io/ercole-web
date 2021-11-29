@@ -1,23 +1,26 @@
 <template>
-  <ToggleColumn :leftCol="9" :rightCol="3" v-if="isMounted">
-    <OracleAgreementsFilters slot="before" class="column is-3" />
-
-    <OracleAgreementsList slot="left" />
-
+  <ToggleColumns
+    getPage="oracleAgreements"
+    :leftButton="$t('common.forms.advancedFilters')"
+    :rightButton="$t('views.licenses.agreeForm')"
+    v-if="isMounted"
+  >
+    <OracleAgreementsFilters slot="left" />
+    <OracleAgreementsList slot="center" />
     <OracleAgreementsForm slot="right" />
-  </ToggleColumn>
+  </ToggleColumns>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-import ToggleColumn from '@/components/common/ToggleColumn.vue'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import OracleAgreementsList from '@/components/licenses/agreement/Oracle/OracleAgreementsList.vue'
 import OracleAgreementsForm from '@/components/licenses/agreement/Oracle/OracleAgreementsForm.vue'
 import OracleAgreementsFilters from '@/components/licenses/agreement/Oracle/OracleAgreementsFilters.vue'
 
 export default {
   components: {
-    ToggleColumn,
+    ToggleColumns,
     OracleAgreementsList,
     OracleAgreementsForm,
     OracleAgreementsFilters

@@ -1,5 +1,4 @@
 import { bus } from '@/helpers/eventBus.js'
-// import _ from 'lodash'
 
 export default {
   data() {

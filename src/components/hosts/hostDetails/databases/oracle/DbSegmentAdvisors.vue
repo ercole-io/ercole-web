@@ -2,7 +2,7 @@
   <b-tab-item label="Segment Advisors" v-if="segmentAdvisors.length > 0">
     <FullTable
       :tableData="segmentAdvisors"
-      :keys="[]"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
@@ -43,6 +43,18 @@ export default {
   components: {
     FullTable,
     TdContent
+  },
+  data() {
+    return {
+      keys: [
+        'reclaimable',
+        'segmentName',
+        'segmentOwner',
+        'segmentType',
+        'partitionName',
+        'recommendation'
+      ]
+    }
   }
 }
 </script>

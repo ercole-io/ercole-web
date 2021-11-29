@@ -1,6 +1,7 @@
 <template>
   <section>
     <div class="login has-background-dark">
+      <LocaleSwitcher dropitemPosition="is-bottom-left" isAbsolute />
       <div class="colunms">
         <div class="colunm">
           <div class="logo">
@@ -16,13 +17,15 @@
 </template>
 
 <script>
-import LoginForm from '@/components/login/form.vue'
+import LoginForm from '@/components/login/FormLogin.vue'
 import ErcoleLogo from '@/components/common/ErcoleLogo.vue'
+import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 
 export default {
   components: {
     LoginForm,
-    ErcoleLogo
+    ErcoleLogo,
+    LocaleSwitcher
   }
 }
 </script>

@@ -1,0 +1,14 @@
+[
+  {
+    "toggle": "ReliabilityOracle",
+    "langKey": "common.collumns.reliability"
+  },
+  {
+    "toggle": "SpaceUsed",
+    "langKey": "common.collumns.spaceUsed"
+  },
+  {
+    "toggle": "Charset",
+    "langKey": "common.collumns.charset"
+  }
+]

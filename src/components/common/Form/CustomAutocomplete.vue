@@ -2,7 +2,7 @@
   <b-autocomplete
     v-model="inputVal"
     size="is-small"
-    type="number"
+    type="text"
     icon="magnify"
     :placeholder="setPlaceholder"
     :data="filterResult"
@@ -10,9 +10,10 @@
     :append-to-body="appendToBody"
     @typing="filterMethod($event)"
     @input="inputMethod"
+    @select="onSelect"
     clearable
   >
-    <template #empty>No results found</template>
+    <template #empty>{{ $i18n.t('common.validations.noResults') }}</template>
   </b-autocomplete>
 </template>
 
@@ -29,6 +30,10 @@ export default {
       default: () => {}
     },
     inputMethod: {
+      type: Function,
+      default: () => {}
+    },
+    onSelect: {
       type: Function,
       default: () => {}
     },
@@ -60,12 +65,18 @@ export default {
 
 <style lang="scss">
 .autocomplete {
+  .dropdown-content {
+    padding-top: 0.1rem;
+    padding-bottom: 0;
+  }
+
   .dropdown-menu {
-    min-width: 30%;
+    min-width: 100%;
   }
   .dropdown-item {
     font-size: 0.8em;
-    padding: 0.2rem 1rem;
+    padding: 0.15rem 0.7rem;
+    border-bottom: 1px dotted #dbdbdb;
   }
 }
 </style>

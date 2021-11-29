@@ -71,35 +71,35 @@ import { saveAs } from 'file-saver'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 
 const exportAll = {
-  Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 }
 const exportLms = {
-  Accept: 'application/vnd.oracle.lms+vnd.ms-excel.sheet.macroEnabled.12'
+  Accept: 'application/vnd.oracle.lms+vnd.ms-excel.sheet.macroEnabled.12',
 }
 
 export default {
   props: {
     exportType: {
-      type: String
+      type: String,
     },
     exportTitle: {
-      type: String
+      type: String,
     },
     exportUrl: {
-      type: String
+      type: String,
     },
     exportName: {
-      type: String
+      type: String,
     },
     glFiltersState: {
-      type: Object
+      type: Object,
     },
     msgTxt: {
-      type: String
+      type: String,
     },
     btText: {
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {
@@ -110,8 +110,8 @@ export default {
       lmsFilters: {
         location: null,
         environment: null,
-        date: null
-      }
+        date: null,
+      },
     }
   },
   mounted() {
@@ -133,13 +133,13 @@ export default {
           headers: headers,
           responseType: 'blob',
           cancelToken: this.request.token,
-          params: this.lmsFilters
+          params: this.lmsFilters,
           // params: params
           // onDownloadProgress: progressEvent => {
           //   this.onDownloadProgress(progressEvent)
           // }
         })
-        .then(res => {
+        .then((res) => {
           saveAs(res.data, `${this.exportName}-${date}.${extension}`)
         })
         .then(() => {
@@ -167,13 +167,13 @@ export default {
         (progressEvent.loaded * 100) / progressEvent.total
       )
       this.setDownloadPercent = currentProgress
-    }
+    },
   },
   computed: {
     isLms() {
       return this.exportType === 'LMS' ? true : false
-    }
-  }
+    },
+  },
 }
 </script>
 

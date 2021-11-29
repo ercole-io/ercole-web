@@ -12,42 +12,87 @@
       :label="`${$t('common.fields.agreeNumber')} *`"
       custom-class="is-small"
       :type="{
-        'is-danger': $v.oracleForm.agreeNumber.$error
-      }"
-      :message="{
-        'This field is required':
-          !$v.oracleForm.agreeNumber.required &&
-          $v.oracleForm.agreeNumber.$error,
-        'This field accepts only numbers':
-          !$v.oracleForm.agreeNumber.numeric && $v.oracleForm.agreeNumber.$error
+        'is-danger': $v.oracleForm.agreeNumber.$error,
       }"
     >
       <b-autocomplete
         v-model="oracleForm.agreeNumber"
         size="is-small"
         type="number"
-        :data="filteredAgreeNumbers"
+        icon="magnify"
+        :data="filteredagreeNumber"
         @typing="getAutocompleteData($event, 'agreeNumber', returnAgreeNumbers)"
         clearable
         @blur="$v.oracleForm.agreeNumber.$touch()"
         @input="$v.oracleForm.agreeNumber.$touch()"
       >
-        <template slot="empty">No results found</template>
+        <template slot="empty">
+          {{ $i18n.t('common.validations.noResults') }}
+        </template>
       </b-autocomplete>
+      <template #message>
+        <div
+          v-if="
+            !$v.oracleForm.agreeNumber.required &&
+            $v.oracleForm.agreeNumber.$error
+          "
+        >
+          {{ $i18n.t('common.validations.requiredAlt') }}
+        </div>
+        <div
+          v-if="
+            !$v.oracleForm.agreeNumber.numeric &&
+            $v.oracleForm.agreeNumber.$error
+          "
+        >
+          {{ $i18n.t('common.validations.onlyNumbers') }}
+        </div>
+      </template>
     </b-field>
 
     <b-field
       :label="`${$t('common.fields.fullAgreement')} *`"
       custom-class="is-small"
       :type="{
-        'is-danger': $v.oracleForm.partNumber.$error
-      }"
-      :message="{
-        'This field is required':
-          !$v.oracleForm.partNumber.required && $v.oracleForm.partNumber.$error
+        'is-danger': $v.oracleForm.partNumber.$error,
       }"
     >
-      <b-select
+      <b-autocomplete
+        v-model="oracleForm.partNumber"
+        size="is-small"
+        type="text"
+        icon="magnify"
+        field="full"
+        :data="filteredpartNumber"
+        @typing="
+          getAutocompletePartNumber($event, 'partNumber', returnAgreementParts)
+        "
+        @focus="() => (filteredpartNumber = returnAgreementParts)"
+        @blur="$v.oracleForm.partNumber.$touch()"
+        @input="$v.oracleForm.partNumber.$touch()"
+        @select="getHostAssociatedList"
+        open-on-focus
+        clearable
+      >
+        <template slot-scope="props">
+          <div class="media media-custom">
+            <div class="media-content">
+              <b>{{ props.option.id }}</b>
+              <br />
+              <small>
+                {{ props.option.desc }}
+                <br />
+                {{ props.option.metric }}
+              </small>
+            </div>
+          </div>
+        </template>
+        <template slot="empty">
+          {{ $i18n.t('common.validations.noResults') }}
+        </template>
+      </b-autocomplete>
+
+      <!-- <b-select
         @blur="$v.oracleForm.partNumber.$touch()"
         @input="$v.oracleForm.partNumber.$touch()"
         size="is-small"
@@ -62,59 +107,66 @@
         >
           {{ part.agreeParts }}
         </option>
-      </b-select>
+      </b-select> -->
+      <template #message>
+        <div
+          v-if="
+            !$v.oracleForm.partNumber.required &&
+            $v.oracleForm.partNumber.$error
+          "
+        >
+          {{ $i18n.t('common.validations.requiredAlt') }}
+        </div>
+      </template>
     </b-field>
 
     <b-field
       :label="`${$t('common.fields.csi')} *`"
       custom-class="is-small"
       :type="{
-        'is-danger': $v.oracleForm.csi.$error
-      }"
-      :message="{
-        'This field is required':
-          !$v.oracleForm.csi.required && $v.oracleForm.csi.$error
+        'is-danger': $v.oracleForm.csi.$error,
       }"
     >
       <b-autocomplete
         v-model="oracleForm.csi"
         size="is-small"
         type="text"
-        :data="filteredCsi"
+        icon="magnify"
+        :data="filteredcsi"
         @typing="getAutocompleteData($event, 'csi', returnCsiNumbers)"
         clearable
         @blur="$v.oracleForm.csi.$touch()"
         @input="$v.oracleForm.csi.$touch()"
       >
-        <template slot="empty">No results found</template>
+        <template slot="empty">
+          {{ $i18n.t('common.validations.noResults') }}
+        </template>
       </b-autocomplete>
+      <template #message>
+        <div v-if="!$v.oracleForm.csi.required && $v.oracleForm.csi.$error">
+          {{ $i18n.t('common.validations.requiredAlt') }}
+        </div>
+      </template>
     </b-field>
 
     <b-field
       :label="`${$t('common.fields.refNumber')}`"
       custom-class="is-small"
-      :type="{
-        'is-danger': $v.oracleForm.referenceNumber.$error
-      }"
-      :message="{
-        'This field is accepts only numbers':
-          !$v.oracleForm.referenceNumber.numeric &&
-          $v.oracleForm.referenceNumber.$error
-      }"
     >
       <b-autocomplete
         v-model="oracleForm.referenceNumber"
         size="is-small"
-        type="number"
-        :data="filteredReferenceNumbers"
+        type="text"
+        icon="magnify"
+        :data="filteredreferenceNumber"
         @typing="
           getAutocompleteData($event, 'referenceNumber', returnReferenceNumbers)
         "
         clearable
-        @blur="$v.oracleForm.referenceNumber.$touch()"
-        @input="$v.oracleForm.referenceNumber.$touch()"
       >
-        <template slot="empty">No results found</template>
+        <template slot="empty">
+          {{ $i18n.t('common.validations.noResults') }}
+        </template>
       </b-autocomplete>
     </b-field>
 
@@ -138,15 +190,7 @@
         custom-class="is-small"
         expanded
         :type="{
-          'is-danger': $v.oracleForm.licenseNumber.$error
-        }"
-        :message="{
-          'This field is required':
-            !$v.oracleForm.licenseNumber.required &&
-            $v.oracleForm.licenseNumber.$error,
-          'This field accepts only numbers':
-            !$v.oracleForm.licenseNumber.numeric &&
-            $v.oracleForm.licenseNumber.$error
+          'is-danger': $v.oracleForm.licenseNumber.$error,
         }"
       >
         <b-input
@@ -157,7 +201,19 @@
           step="any"
           v-model="oracleForm.licenseNumber"
           :disabled="ula"
+          :custom-class="disableInput"
         />
+
+        <template #message>
+          <div
+            v-if="
+              !$v.oracleForm.licenseNumber.required &&
+              $v.oracleForm.licenseNumber.$error
+            "
+          >
+            {{ $i18n.t('common.validations.requiredAlt') }}
+          </div>
+        </template>
       </b-field>
     </b-field>
 
@@ -167,14 +223,14 @@
     >
       <b-taginput
         v-model="oracleForm.hostAssociated"
-        :data="filteredHostTags"
+        :data="filteredhostTagsOracle"
         ref="hostTag"
         autocomplete
         icon="label"
         :placeholder="`${$t('common.forms.choose')} hostname`"
-        @typing="getAutocompleteData($event, 'hostTags', hostnames.hostnames)"
+        @typing="getAutocompleteData($event, 'hostTags', hostAssociatedList)"
         custom-class="is-small"
-        :open-on-focus="true"
+        open-on-focus
       >
         <template slot-scope="props">
           {{ props.option }}
@@ -195,19 +251,17 @@
           </b-tag>
         </template>
 
-        <template slot="empty">
-          There are no hostnames
-        </template>
+        <template slot="empty"> There are no hostnames </template>
       </b-taginput>
     </b-field>
 
     <b-field :label="`${$t('common.fields.basket')}`" custom-class="is-small">
-      <div class="is-flex" style="justify-content: space-around;">
+      <div class="is-flex" style="justify-content: space-around">
         <b-radio
           size="is-small"
           v-model="oracleForm.basket"
           :native-value="true"
-          :disabled="restricted"
+          :disabled="restricted || ula"
         >
           {{ $t('common.forms.yes') }}
         </b-radio>
@@ -215,7 +269,7 @@
           size="is-small"
           v-model="oracleForm.basket"
           :native-value="false"
-          :disabled="restricted"
+          :disabled="restricted || ula"
         >
           {{ $t('common.forms.no') }}
         </b-radio>
@@ -226,11 +280,12 @@
       :label="`${$t('common.fields.restricted')}`"
       custom-class="is-small"
     >
-      <div class="is-flex" style="justify-content: space-around;">
+      <div class="is-flex" style="justify-content: space-around">
         <b-radio
           size="is-small"
           v-model="oracleForm.restricted"
           :native-value="true"
+          :disabled="ula"
         >
           {{ $t('common.forms.yes') }}
         </b-radio>
@@ -238,6 +293,7 @@
           size="is-small"
           v-model="oracleForm.restricted"
           :native-value="false"
+          :disabled="ula"
         >
           No
         </b-radio>
@@ -249,12 +305,12 @@
 <script>
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
-import { mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import {
   required,
   requiredIf,
   numeric,
-  decimal
+  decimal,
 } from 'vuelidate/lib/validators'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import LicensesAgreementMixin from '@/mixins/licensesAgreement.js'
@@ -263,47 +319,71 @@ import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 export default {
   mixins: [TooltipMixin, LicensesAgreementMixin],
   components: {
-    AdvancedFiltersBase
+    AdvancedFiltersBase,
   },
   validations: {
     oracleForm: {
       agreeNumber: { required, numeric },
       partNumber: { required },
       csi: { required },
-      referenceNumber: { numeric },
       licenseNumber: {
-        required: requiredIf(val => {
+        required: requiredIf((val) => {
           return !val.ula
         }),
-        decimal
-      }
-    }
+        decimal,
+      },
+    },
   },
   data() {
     return {
       oracleForm: {
         licenseID: '',
         agreeNumber: '',
-        partNumber: [],
+        partNumber: '',
         csi: '',
         referenceNumber: '',
         ula: false,
         licenseNumber: '',
         hostAssociated: [],
         basket: false,
-        restricted: false
-      }
+        restricted: false,
+      },
+      licensesUsed: [],
+      hostAssociatedList: [],
     }
   },
-  beforeMount() {
+  async beforeMount() {
     bus.$on('onResetAction', () => this.cancelAddLicense())
-    bus.$on('editAgreementOracle', data => {
+
+    bus.$on('editAgreementOracle', (data) => {
       bus.$emit('onToggleEdit', true)
       this.editAgreement(data)
     })
+
+    bus.$on('cloneAgreementOracle', (data) => {
+      bus.$emit('onToggleEdit', true)
+      this.editAgreement(data)
+    })
+
+    await this.getLicensesPerHost()
+    this.licensesUsed = await this.getUsedLicensesByHost
   },
   methods: {
+    ...mapActions(['getLicensesPerHost']),
     ...mapMutations(['CREATE_AGREEMENT']),
+    getHostAssociatedList(e) {
+      if (e) {
+        _.map(this.licensesUsed, (item) => {
+          if (e.id === item.licenseTypeID) {
+            this.hostAssociatedList.push(item.hostname)
+          }
+        })
+      } else {
+        this.hostAssociatedList = []
+      }
+
+      this.filteredhostTagsOracle = this.hostAssociatedList
+    },
     addUpdateAgreement() {
       const oracleAgreementData = {
         agreementID: this.oracleForm.agreeNumber,
@@ -312,24 +392,24 @@ export default {
         unlimited: this.oracleForm.ula,
         count: Number(this.oracleForm.licenseNumber),
         hosts: this.oracleForm.hostAssociated,
-        catchAll: this.oracleForm.basket,
+        basket: this.oracleForm.basket,
         licenseTypeID: this.oracleForm.partNumber.split(' - ')[0],
-        restricted: this.oracleForm.restricted
+        restricted: this.oracleForm.restricted,
       }
       if (!this.oracleForm.licenseID) {
         this.createLicenseAgreement({
           body: oracleAgreementData,
-          type: 'oracle'
+          type: 'oracle',
         }).then(() => {
-          this.cancelAddLicense()
+          this.sussessToastMsg(this.oracleForm.agreeNumber, 'created')
         })
       } else {
         oracleAgreementData.id = this.oracleForm.licenseID
         this.updateLicenseAgreement({
           body: oracleAgreementData,
-          type: 'oracle'
+          type: 'oracle',
         }).then(() => {
-          this.cancelAddLicense()
+          this.sussessToastMsg(this.oracleForm.agreeNumber, 'modified')
         })
       }
     },
@@ -337,14 +417,14 @@ export default {
       this.oracleForm = {
         licenseID: '',
         agreeNumber: '',
-        partNumber: [],
+        partNumber: '',
         csi: '',
         referenceNumber: '',
         ula: false,
         licenseNumber: '',
         hostAssociated: [],
         basket: false,
-        restricted: false
+        restricted: false,
       }
     },
     editAgreement(data) {
@@ -357,45 +437,67 @@ export default {
         ula: data.unlimited,
         licenseNumber: _.sum([
           Number(data.licensesPerUser),
-          Number(data.licensesPerCore)
+          Number(data.licensesPerCore),
         ]),
         hostAssociated: this.checkArray(data.hosts)
           ? data.hosts
           : this.mapHostsAssociated(data.hosts),
-        basket: data.catchAll,
-        restricted: data.restricted
+        basket: data.basket,
+        restricted: data.restricted,
       }
     },
     checkArray(array) {
-      return array.every(i => typeof i === 'string')
+      return array.every((i) => typeof i === 'string')
     },
     mapHostsAssociated(hostsAssociated) {
-      return _.map(hostsAssociated, host => {
+      return _.map(hostsAssociated, (host) => {
         return host.hostname
       })
-    }
+    },
+    getEvent(e) {
+      this.getAutocompleteData(e, Object.keys(this.$refs)[0])
+    },
+    sussessToastMsg(agreeNumber, text) {
+      this.$buefy.toast.open({
+        message: `The Agreement Number <b>${agreeNumber}</b> was successfully ${text}!`,
+        type: 'is-success',
+        duration: 5000,
+        position: 'is-bottom',
+      })
+    },
   },
   computed: {
+    ...mapGetters(['getUsedLicensesByHost']),
     ula() {
       return this.oracleForm.ula
     },
     restricted() {
       return this.oracleForm.restricted
-    }
+    },
+    disableInput() {
+      return this.ula ? 'has-background-grey-lighter' : ''
+    },
   },
   watch: {
     ula(val) {
       if (val) {
         this.oracleForm.licenseNumber = ''
+        this.oracleForm.basket = true
+        this.oracleForm.restricted = false
       }
     },
     restricted(val) {
       if (val) {
         this.oracleForm.basket = false
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.media-custom {
+  line-height: 1.2;
+  font-size: 0.75rem;
+}
+</style>

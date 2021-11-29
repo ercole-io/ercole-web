@@ -5,12 +5,12 @@
   >
     <SearchableMultiSelect
       :selected="selectedDatabases"
-      :dataOptions="currentHostDBsName"
+      :dataOptions="currentHostDBsInfo"
       :placeholderName="$t('views.hostDetails.searchBy')"
       :btnLabelText="$t('views.hostDetails.compareDb')"
       slot="customTitle"
     />
-    <RangeDates :setRange="SET_RANGE_DATES" />
+    <RangeDates :setRange="SET_RANGE_DATES" totalRange="31" />
     <div class="chart-space">
       <LineChart
         chartId="lineChart"
@@ -41,8 +41,7 @@ export default {
     }
   },
   beforeMount() {
-    this.selectedDatabases = [this.currentHostActiveDB]
-    bus.$on('selectedData', val => {
+    bus.$on('cpuChartSelected', val => {
       this.selectedDatabases = val
     })
   },
@@ -50,11 +49,7 @@ export default {
     ...mapMutations(['SET_RANGE_DATES'])
   },
   computed: {
-    ...mapGetters([
-      'getOracleCpuUsageChart',
-      'currentHostDBsName',
-      'currentHostActiveDB'
-    ]),
+    ...mapGetters(['getOracleCpuUsageChart', 'currentHostDBsInfo']),
     showChart() {
       return this.getOracleCpuUsageChart()
     },
@@ -62,8 +57,8 @@ export default {
       return this.selectedDatabases.length
     },
     dbTotal() {
-      return this.currentHostDBsName.length < 10
-        ? this.currentHostDBsName.length
+      return this.currentHostDBsInfo.length < 10
+        ? this.currentHostDBsInfo.length
         : '10'
     }
   }

@@ -1,92 +1,72 @@
 <template>
-  <BaseLayoutColumns v-if="isMounted">
-    <div slot="col1">
-      <ButtonGroup :groupTitle="`${$t('common.general.moreInfo')}`">
-        <b-button
-          class="mr-1"
-          size="is-small"
-          :type="hideVirtual ? 'is-light' : 'is-light virtual'"
-          @click="hideVirtual = !hideVirtual"
-        >
-          {{ $t('common.fields.virtual') }}
-        </b-button>
-        <b-button
-          class="mr-1"
-          size="is-small"
-          :type="hideCPU ? 'is-light' : 'is-light cpu'"
-          @click="hideCPU = !hideCPU"
-        >
-          {{ $t('common.fields.cpu') }}
-        </b-button>
-        <b-button
-          class="mr-1"
-          size="is-small"
-          :type="hideAgent ? 'is-light' : 'is-light agent'"
-          @click="hideAgent = !hideAgent"
-        >
-          {{ $t('common.fields.agent') }}
-        </b-button>
-      </ButtonGroup>
+  <ToggleColumns
+    getPage="hosts"
+    :leftButton="$t('common.forms.advancedFilters')"
+    :centerCol="9"
+    v-if="isMounted"
+  >
+    <div slot="left">
+      <MoreInfoButtons :buttonItems="hostsMoreInfo" />
       <HostsFilters />
     </div>
-    <BoxContent slot="col2" :mbottom="false">
+    <BoxContent slot="center" :mbottom="false">
       <FullTable
         :placeholder="$t('menu.hosts')"
-        :keys="getKeys"
+        :keys="getHeadKeys(hostsHead)"
         :tableData="getAllHosts"
         @clickedRow="handleClickedRow"
         isClickable
       >
-        <HostsHead
+        <DynamicHeading
           slot="headData"
           v-for="head in hostsHead"
           :key="head.sort"
           :data="head"
-          :hideAgent="hideAgent"
-          :hideCPU="hideCPU"
-          :hideVirtual="hideVirtual"
         />
 
         <template slot="bodyData" slot-scope="rowData">
           <HostLink :hostname="rowData.scope.hostname" />
           <TdContent
             :value="rowData.scope.platform"
-            :class="{ hide: hideVirtual }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenVirtual }"
             class="border-left"
           />
           <TdContent
             :value="rowData.scope.cluster"
-            :class="{ hide: hideVirtual }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenVirtual }"
           />
           <TdContent
             :value="rowData.scope.virtNode"
-            :class="{ hide: hideVirtual }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenVirtual }"
             class="border-right"
           />
           <TdContent
             :value="rowData.scope.model"
-            :class="{ hide: hideCPU }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenCpu }"
             class="border-left"
           />
           <TdContent
             :value="rowData.scope.threads"
-            :class="{ hide: hideCPU }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenCpu }"
           />
-          <TdContent :value="rowData.scope.cores" :class="{ hide: hideCPU }" />
+          <TdContent
+            :value="rowData.scope.cores"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenCpu }"
+          />
           <TdContent
             :value="rowData.scope.socket"
-            :class="{ hide: hideCPU }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenCpu }"
             class="border-right"
           />
           <TdContent
             :value="rowData.scope.version"
-            :class="{ hide: hideAgent }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenAgent }"
             class="border-left"
           />
           <TdContent
             :value="rowData.scope.updated"
             dataType="date"
-            :class="{ hide: hideAgent }"
+            :class="{ 'is-hidden': moreInfoToggle.hiddenAgent }"
             class="border-right"
           />
           <TdContent :value="rowData.scope.environment" />
@@ -100,8 +80,8 @@
         </template>
 
         <template slot="export">
-          <exportButton url="hosts" expName="hosts-data" />
-          <exportButton
+          <ExportButton url="hosts" expName="hosts-data" />
+          <ExportButton
             url="hosts"
             expName="hosts-lms-data"
             :text="`${$t('common.general.exportLms')}`"
@@ -110,50 +90,50 @@
         </template>
       </FullTable>
     </BoxContent>
-  </BaseLayoutColumns>
+  </ToggleColumns>
 </template>
 
 <script>
-import _ from 'lodash'
-import { mapGetters, mapActions } from 'vuex'
+//
+import { mapGetters, mapActions, mapState } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
-import BaseLayoutColumns from '@/components/common/BaseLayoutColumns.vue'
+import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
+import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
-import exportButton from '@/components/common/exportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import HostsFilters from '@/components/hosts/hosts/HostsFilters.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
-import HostsHead from '@/components/hosts/hosts/HostsHead.vue'
-import ButtonGroup from '@/components/common/ButtonGroup.vue'
+import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
+import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
 import formatDate from '@/filters/formatDate.js'
-import hostsHead from '@/views/hosts/hosts-config.json'
+import hostsHead from '@/views/hosts/hosts-head.json'
+import hostsMoreInfo from '@/views/hosts/hosts-more-info.json'
 
 export default {
-  mixins: [localFiltersMixin, hostnameLinkRow],
+  mixins: [localFiltersMixin, hostnameLinkRow, getHeadKeys],
   components: {
-    BaseLayoutColumns,
+    ToggleColumns,
     BoxContent,
     FullTable,
     TdContent,
     TdIcon,
     TdArrayMore,
-    exportButton,
+    ExportButton,
     HostsFilters,
     HostLink,
-    HostsHead,
-    ButtonGroup
+    DynamicHeading,
+    MoreInfoButtons
   },
   data() {
     return {
-      hideVirtual: true,
-      hideCPU: true,
-      hideAgent: true,
       isMounted: false,
-      hostsHead: hostsHead
+      hostsHead: hostsHead,
+      hostsMoreInfo: hostsMoreInfo
     }
   },
   async beforeMount() {
@@ -171,33 +151,9 @@ export default {
   },
   computed: {
     ...mapGetters(['getAllHosts']),
-    getKeys() {
-      const keys = []
-      _.map(this.hostsHead, val => {
-        keys.push(val.sort)
-      })
-      return keys
-    }
+    ...mapState(['moreInfoToggle'])
   }
 }
 </script>
 
-<style lang="scss">
-.no-margin-bottom {
-  margin-bottom: 0 !important;
-}
-
-.hide {
-  display: none;
-}
-
-.virtual {
-  box-shadow: inset 0 -14px 0 -10px #f37021 !important;
-}
-.cpu {
-  box-shadow: inset 0 -14px 0 -10px #fcd217 !important;
-}
-.agent {
-  box-shadow: inset 0 -14px 0 -10px #9c4d1e !important;
-}
-</style>
+<style lang="scss"></style>

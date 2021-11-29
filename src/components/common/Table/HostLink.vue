@@ -1,36 +1,41 @@
 <template>
-  <TdContent
-    :value="getHostname"
-    :link="handleHostnameClick"
-    :rightClick="handleHostnameRightClick"
-  />
+  <TdContent :value="getHostname" :link="handleHostnameClick" />
 </template>
 
 <script>
+import _ from 'lodash'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import hostnameLinkMixin from '@/mixins/hostnameLink.js'
 
 export default {
   mixins: [hostnameLinkMixin],
   components: {
-    TdContent
+    TdContent,
   },
   props: {
     hostname: {
       type: [String, Array],
-      required: true
-    }
+      required: true,
+    },
+    showDbName: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     getHostname() {
-      return typeof this.hostname === 'string'
-        ? this.hostname
-        : this.hostname[0]
+      if (_.isString(this.hostname)) {
+        return this.hostname
+      } else if (_.isArray(this.hostname) && this.showDbName) {
+        return this.hostname[1]
+      } else {
+        return this.hostname[0]
+      }
     },
     getDbname() {
-      return typeof this.hostname === 'string' ? '' : this.hostname[1]
-    }
-  }
+      return _.isString(this.hostname) ? '' : this.hostname[1]
+    },
+  },
 }
 </script>
 

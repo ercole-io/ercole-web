@@ -1,4 +1,6 @@
 {
-  "APIServiceBaseUrl": "https://dev.ercole.io/api",
-  "ChartServiceBaseUrl": "https://dev.ercole.io/chart"
+  "APIServiceBaseUrl": "http://exemple-domain/main-api",
+  "ChartServiceBaseUrl": "http://exemple-domain/chart-api",
+  "OracleCloudInfra": "http://exemple-domain/cloud-api",
+  "RepoServiceUrl": "http://exemple-domain/repo-api"
 }

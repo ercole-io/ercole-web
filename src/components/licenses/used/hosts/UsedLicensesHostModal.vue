@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card" style="width: 500px;">
+  <div class="modal-card" style="width: 500px">
     <b-loading
       :is-full-page="false"
       v-model="isLoading"
@@ -26,16 +26,19 @@
     <section class="modal-card-body">
       <FullTable
         :placeholder="placeholder"
-        :keys="keys"
-        :tableData="databases"
+        :keys="['dbname']"
+        :tableData="returnDatabases"
         :clickedRow="() => []"
       >
         <template slot="headData">
-          <v-th sortKey="dbName" style="width: 100%">Database Name</v-th>
+          <v-th sortKey="dbname" style="width: 100%">Database Name</v-th>
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
-          <TdContent :value="rowData.scope.dbName" />
+          <HostLink
+            :hostname="[licenseInfo.hostname, rowData.scope.dbname]"
+            showDbName
+          />
         </template>
       </FullTable>
     </section>
@@ -44,38 +47,47 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
-import TdContent from '@/components/common/Table/TdContent.vue'
+import HostLink from '@/components/common/Table/HostLink.vue'
 import i18n from '@/i18n.js'
 
 export default {
   mixins: [TooltipMixin],
   components: {
     FullTable,
-    TdContent
+    HostLink,
   },
   props: {
     databases: {
       type: [Array, Object],
-      required: true
+      required: true,
     },
-    licenseInfo: {}
+    licenseInfo: {},
   },
   data() {
     return {
-      keys: ['dbName'],
-      isLoading: false
+      isLoading: false,
     }
   },
   computed: {
+    returnDatabases() {
+      const databases = []
+      _.map(this.databases, (db) => {
+        databases.push({
+          dbname: db,
+        })
+      })
+      return databases
+    },
     modalTitle() {
       return i18n.t('views.licenses.dbList')
     },
     placeholder() {
       return i18n.t('menu.databases')
-    }
-  }
+    },
+  },
 }
 </script>
 

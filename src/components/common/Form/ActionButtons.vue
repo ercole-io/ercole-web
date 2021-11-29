@@ -1,20 +1,17 @@
 <template>
-  <div :class="{ 'fixed-buttons': isFixed }">
-    <div class="is-flex is-justify-content-space-between">
-      <b-button
-        type="is-danger"
-        size="is-small"
-        @click="reset"
-        class="m-2 mb-0"
-      >
+  <div class="columns" :class="{ 'fixed-buttons': isFixed }">
+    <div class="column">
+      <b-button type="is-danger" size="is-small" @click="reset" expanded>
         {{ cancelText }}
       </b-button>
+    </div>
+    <div class="column">
       <b-button
         type="is-primary"
         size="is-small"
         native-type="submit"
-        class="m-2 mb-0"
         :disabled="isDisabled"
+        expanded
       >
         {{ applyText }}
       </b-button>
@@ -64,6 +61,7 @@ export default {
   bottom: 0;
   left: 0;
   padding: 25px 0;
+  margin-top: 5px;
   z-index: 10;
   width: inherit;
 }
