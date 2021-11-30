@@ -5,12 +5,12 @@ export default {
   props: {
     currentDBs: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
-      isActive: 0
+      isActive: 0,
     }
   },
   beforeMount() {
@@ -18,7 +18,7 @@ export default {
 
     this.isActive = this.currentHostActiveDbIndex(dbs)
 
-    bus.$on('isSearching', val => {
+    bus.$on('isSearching', (val) => {
       if (val) {
         this.isActive = 0
       } else {
@@ -26,20 +26,19 @@ export default {
       }
 
       setTimeout(() => {
-        if (dbs[this.isActive] && dbs[this.isActive].name) {
-          bus.$emit('selectedData', [dbs[this.isActive].dbID])
-        } else {
-          bus.$emit('selectedData', [this.currentHostActiveDB])
-        }
+        this.onChange(this.isActive)
       }, 500)
     })
   },
   methods: {
     onChange(index) {
+      bus.$emit('cpuChartSelected', [
+        { name: this.currentDBs[index].name, id: this.currentDBs[index].dbID },
+      ])
       bus.$emit('selectedData', [this.currentDBs[index].dbID])
-    }
+    },
   },
   computed: {
-    ...mapGetters(['currentHostActiveDB', 'currentHostActiveDbIndex'])
-  }
+    ...mapGetters(['currentHostActiveDB', 'currentHostActiveDbIndex']),
+  },
 }
