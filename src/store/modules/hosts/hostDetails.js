@@ -5,7 +5,7 @@ import {
   mapClustStatus,
   returnAlertsByTypeDate,
   setRangeDateFormat,
-  checkRangeDate
+  checkRangeDate,
 } from '@/helpers/helpers.js'
 import { mapDatabases } from '@/helpers/databasesMap.js'
 import formatDateTime from '@/filters/formatDateTime.js'
@@ -14,17 +14,13 @@ import store from '@/store/index.js'
 import { ModalProgrammatic as Modal } from 'buefy'
 import ClusterNamesModal from '@/components/hosts/hostDetails/ClusterNamesModal.vue'
 
-const startDate = moment()
-  .subtract(1, 'week')
-  .format('YYYY-MM-DD')
-const endDate = moment()
-  .add(1, 'days')
-  .format('YYYY-MM-DD')
+const startDate = moment().subtract(1, 'week').format('YYYY-MM-DD')
+const endDate = moment().add(1, 'days').format('YYYY-MM-DD')
 
 export const state = () => ({
   currentHost: {},
   currentHostActiveDB: '',
-  dbFiltersSelected: ['name']
+  dbFiltersSelected: ['name'],
 })
 
 const info = [
@@ -50,11 +46,11 @@ const info = [
   'asm',
   'dataguard',
   'platform',
-  'version'
+  'version',
 ]
 
 export const getters = {
-  currentHostNotifications: state => {
+  currentHostNotifications: (state) => {
     const notifications = state.currentHost.alerts
     const hostname = state.currentHost.hostname
 
@@ -86,16 +82,16 @@ export const getters = {
       agents,
       licenses,
       engine,
-      hostname
+      hostname,
     }
   },
-  currentHostFileSystems: state => {
+  currentHostFileSystems: (state) => {
     return state.currentHost.filesystems
   },
-  currentHostName: state => {
+  currentHostName: (state) => {
     return state.currentHost.hostname
   },
-  currentHostInfo: state => {
+  currentHostInfo: (state) => {
     const info = state.currentHost.info
     const current = state.currentHost
 
@@ -104,22 +100,22 @@ export const getters = {
       data: [
         {
           name: 'Environment',
-          value: current.environment
+          value: current.environment,
         },
         {
           name: 'Technology',
-          value: mapDatabases(current.features, 'technology')
+          value: mapDatabases(current.features, 'technology'),
         },
         {
           name: 'Clust',
           value: mapClustStatus(current.clusterMembershipStatus)[0],
-          hasIcon: true
+          hasIcon: true,
         },
         {
           name: 'Cluster Type',
-          value: mapClustStatus(current.clusterMembershipStatus)[1]
-        }
-      ]
+          value: mapClustStatus(current.clusterMembershipStatus)[1],
+        },
+      ],
     }
 
     if (mapClustStatus(current.clusterMembershipStatus)[2]) {
@@ -133,10 +129,10 @@ export const getters = {
             hasModalCard: true,
             props: {
               clusterNames:
-                current.clusterMembershipStatus.veritasClusterHostnames
-            }
+                current.clusterMembershipStatus.veritasClusterHostnames,
+            },
           })
-        }
+        },
       })
     }
 
@@ -145,21 +141,21 @@ export const getters = {
       data: [
         {
           name: 'OS',
-          value: `${info.os} - ${info.osVersion}`
+          value: `${info.os} - ${info.osVersion}`,
         },
         {
           name: 'Kernel',
-          value: `${info.kernel} - ${info.kernelVersion}`
+          value: `${info.kernel} - ${info.kernelVersion}`,
         },
         {
           name: 'Memory',
-          value: info.memoryTotal
+          value: info.memoryTotal,
         },
         {
           name: 'Swap',
-          value: info.swapTotal
-        }
-      ]
+          value: info.swapTotal,
+        },
+      ],
     }
     const virtual = {
       name: 'Virtual',
@@ -169,55 +165,55 @@ export const getters = {
           value:
             info.hardwareAbstractionTechnology === 'PH'
               ? 'Bare Metal'
-              : info.hardwareAbstractionTechnology
+              : info.hardwareAbstractionTechnology,
         },
         {
           name: 'Cluster',
-          value: current.cluster
+          value: current.cluster,
         },
         {
           name: 'Node',
-          value: current.virtualizationNode
-        }
-      ]
+          value: current.virtualizationNode,
+        },
+      ],
     }
     const cpu = {
       name: 'CPU',
       data: [
         {
           name: 'Model',
-          value: info.cpuModel
+          value: info.cpuModel,
         },
         {
           name: 'Threads',
-          value: info.cpuThreads
+          value: info.cpuThreads,
         },
         {
           name: 'Cores',
-          value: info.cpuCores
+          value: info.cpuCores,
         },
         {
           name: 'Socket',
-          value: info.cpuSockets
-        }
-      ]
+          value: info.cpuSockets,
+        },
+      ],
     }
     const agent = {
       name: 'Agent',
       data: [
         {
           name: 'Version',
-          value: current.agentVersion
+          value: current.agentVersion,
         },
         {
           name: 'Last Update',
-          value: formatDateTime(current.createdAt)
-        }
-      ]
+          value: formatDateTime(current.createdAt),
+        },
+      ],
     }
     return _.concat(general, osDetails, virtual, cpu, agent)
   },
-  currentHostType: state => {
+  currentHostType: (state) => {
     const databases = state.currentHost.features
 
     if (databases) {
@@ -233,15 +229,15 @@ export const getters = {
       }
     }
   },
-  currentHostActiveDB: state => {
+  currentHostActiveDB: (state) => {
     return state.currentHostActiveDB
   },
-  currentHostActiveDbIndex: (state, getters) => filteredDbs => {
+  currentHostActiveDbIndex: (state, getters) => (filteredDbs) => {
     return _.findIndex(filteredDbs, {
-      name: getters.currentHostActiveDB
+      name: getters.currentHostActiveDB,
     })
   },
-  currentHostDBs: state => {
+  currentHostDBs: (state) => {
     const databases = state.currentHost.features
 
     if (databases) {
@@ -269,20 +265,20 @@ export const getters = {
   currentHostDBsInfo: (state, getters) => {
     const databases = getters.currentHostDBs
 
-    return _.map(databases, val => {
+    return _.map(databases, (val) => {
       return {
         name: val.name,
-        id: val.dbID
+        id: val.dbID,
       }
     })
   },
-  currentHostFiltered: (state, getters) => search => {
+  currentHostFiltered: (state, getters) => (search) => {
     const databases = getters.currentHostDBs
     let keys = state.dbFiltersSelected
 
-    const filterSubChildArray = subChildArray => {
-      return _.filter(subChildArray, value => {
-        return _.some(value, result => {
+    const filterSubChildArray = (subChildArray) => {
+      return _.filter(subChildArray, (value) => {
+        return _.some(value, (result) => {
           return (
             _.includes(_.toLower(result).toString(), _.toLower(search)) ||
             _.includes(result, search)
@@ -291,9 +287,9 @@ export const getters = {
       })
     }
 
-    const filterChildArray = childArray => {
-      return _.filter(childArray, value => {
-        return _.some(value, result => {
+    const filterChildArray = (childArray) => {
+      return _.filter(childArray, (value) => {
+        return _.some(value, (result) => {
           return _.includes(_.toLower(result).toString(), _.toLower(search)) ||
             _.includes(result, search) ||
             filterSubChildArray(result).length > 0
@@ -303,8 +299,8 @@ export const getters = {
       })
     }
 
-    const filterDatabases = _.filter(databases, db => {
-      return _.some(keys, key => {
+    const filterDatabases = _.filter(databases, (db) => {
+      return _.some(keys, (key) => {
         return _.includes(_.toLower(db[key]).toString(), _.toLower(search)) ||
           _.includes(db[key], search) ||
           filterChildArray(db[key]).length > 0
@@ -315,7 +311,7 @@ export const getters = {
 
     return filterDatabases
   },
-  getOracleCpuUsageChart: (state, getters) => selected => {
+  getOracleCpuUsageChart: (state, getters) => (selected) => {
     const dailyDbState = getters.currentHostDBs
     const dailyHistory = state.currentHost.history
     const rangeDates = getters.getRangeDates
@@ -334,8 +330,8 @@ export const getters = {
   getRangeDates: (state, getters, rootstate) => {
     return rootstate.rangeDates.rangeDates
   },
-  getCheckedFilters: state => item => {
-    const checkInfo = _.map(info, val => {
+  getCheckedFilters: (state) => (item) => {
+    const checkInfo = _.map(info, (val) => {
       return _.includes(state.dbFiltersSelected, val)
     })
 
@@ -349,7 +345,7 @@ export const getters = {
     } else {
       return _.includes(state.dbFiltersSelected, item)
     }
-  }
+  },
 }
 
 export const mutations = {
@@ -361,32 +357,32 @@ export const mutations = {
   },
   SET_DATABASES_FILTERS: (state, payload) => {
     state.dbFiltersSelected = payload
-  }
+  },
 }
 
 export const actions = {
   async getHostByName({ commit, getters }, hostname) {
     const hostByName = await axiosDefault.get(`/hosts/${hostname}`, {
       params: {
-        'older-than': getters.getActiveFilters.date
-      }
+        'older-than': getters.getActiveFilters.date,
+      },
     })
     const response = await hostByName.data
     commit('SET_CURRENT_HOST', response)
-  }
+  },
 }
 
 const mountTotalDailyUsage = (data, rangeDates) => {
   const totalDailyData = []
   let resultTotalDaily = {}
 
-  _.map(data, item => {
+  _.map(data, (item) => {
     let date = setRangeDateFormat(item.createdAt)
 
     if (checkRangeDate(date, rangeDates)) {
       totalDailyData.push({
         date: date,
-        value: item.totalDailyCPUUsage
+        value: item.totalDailyCPUUsage,
       })
     }
   })
@@ -402,16 +398,16 @@ const mountTotalDailyUsageDbs = (data, rangeDates) => {
   let dailyDbData = []
   let changed = []
 
-  _.map(data, item => {
+  _.map(data, (item) => {
     const { name, dbID, dbGrowth } = item
 
-    _.map(dbGrowth, data => {
+    _.map(dbGrowth, (data) => {
       let date = setRangeDateFormat(data.updated)
 
       if (checkRangeDate(date, rangeDates)) {
         changed.push({
           date: date,
-          value: data.dailyCPUUsage
+          value: data.dailyCPUUsage,
         })
       }
     })
@@ -424,7 +420,7 @@ const mountTotalDailyUsageDbs = (data, rangeDates) => {
     dailyDbData.push({
       name: name,
       id: dbID,
-      data: changedResult
+      data: changedResult,
     })
   })
   return dailyDbData
@@ -432,8 +428,8 @@ const mountTotalDailyUsageDbs = (data, rangeDates) => {
 
 const matchSelectedDbs = (selected, dbs, rangeDates) => {
   let selectedDbs = []
-  _.forEach(selected, val => {
-    return _.map(mountTotalDailyUsageDbs(dbs, rangeDates), dbData => {
+  _.forEach(selected, (val) => {
+    return _.map(mountTotalDailyUsageDbs(dbs, rangeDates), (dbData) => {
       if (dbData.id === val.id) {
         selectedDbs.push(dbData)
       }
@@ -446,20 +442,20 @@ const mountCpuUsageChart = (history, selected, dbs, rangeDates) => {
   const finalResult = [
     {
       name: 'Total Daily CPU Usage',
-      data: mountTotalDailyUsage(history, rangeDates)
-    }
+      data: mountTotalDailyUsage(history, rangeDates),
+    },
   ]
 
-  _.forEach(matchSelectedDbs(selected, dbs, rangeDates), item => {
+  _.forEach(matchSelectedDbs(selected, dbs, rangeDates), (item) => {
     finalResult.push(item)
   })
 
   return finalResult
 }
 
-const mapOracleDatabase = data => {
+const mapOracleDatabase = (data) => {
   const newData = []
-  _.map(data, item => {
+  _.map(data, (item) => {
     newData.push({
       name: item.name,
       status: item.status,
@@ -496,22 +492,22 @@ const mapOracleDatabase = data => {
       segmentAdvisors: [...item.segmentAdvisors],
       dbGrowth: [...item.changes],
       backups: [...item.backups],
-      services: resolveServices([...item.services])
+      services: resolveServices([...item.services]),
     })
   })
   return newData
 }
 
-const resolvePdbs = pdbs => {
+const resolvePdbs = (pdbs) => {
   let filteredPdbs = []
-  _.filter(pdbs, val => {
+  _.filter(pdbs, (val) => {
     if (val) {
       filteredPdbs.push({
         pdbName: val.name,
         pdbSchemas: val.schemas,
         pdbService: val.services,
         pdbStatus: val.status,
-        pdbTablespaces: val.tablespaces
+        pdbTablespaces: val.tablespaces,
       })
     }
   })
@@ -519,14 +515,14 @@ const resolvePdbs = pdbs => {
   return filteredPdbs
 }
 
-const resolveOptions = options => {
+const resolveOptions = (options) => {
   let filteredOptions = []
-  _.filter(options, val => {
+  _.filter(options, (val) => {
     if (val) {
       filteredOptions.push({
         ...val,
         lastUsageDate: formatDate(val.lastUsageDate),
-        firstUsageDate: formatDate(val.firstUsageDate)
+        firstUsageDate: formatDate(val.firstUsageDate),
       })
     }
   })
@@ -534,13 +530,13 @@ const resolveOptions = options => {
   return filteredOptions
 }
 
-const resolveServices = services => {
+const resolveServices = (services) => {
   let filteredServices = []
-  _.filter(services, val => {
+  _.filter(services, (val) => {
     if (val) {
       filteredServices.push({
         ...val,
-        creationDate: formatDate(val.creationDate)
+        creationDate: formatDate(val.creationDate),
       })
     }
   })
@@ -548,9 +544,9 @@ const resolveServices = services => {
   return filteredServices
 }
 
-const resolveLicenses = licences => {
+const resolveLicenses = (licences) => {
   let filteredLicenses = []
-  _.filter(licences, val => {
+  _.filter(licences, (val) => {
     let licenseComplement = store.getters.returnMetricAndDescription(
       val.licenseTypeID
     )
@@ -559,7 +555,7 @@ const resolveLicenses = licences => {
       filteredLicenses.push({
         ...val,
         description: licenseComplement.description,
-        metric: licenseComplement.metric
+        metric: licenseComplement.metric,
       })
     }
   })
@@ -567,12 +563,12 @@ const resolveLicenses = licences => {
   return filteredLicenses
 }
 
-const genericResolve = data => {
+const genericResolve = (data) => {
   let filteredData = []
-  _.filter(data, val => {
+  _.filter(data, (val) => {
     filteredData.push({
       ...val,
-      date: formatDate(val.date)
+      date: formatDate(val.date),
     })
   })
   return filteredData
