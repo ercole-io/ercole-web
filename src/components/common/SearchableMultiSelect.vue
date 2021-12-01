@@ -1,7 +1,7 @@
 <template>
   <vueMultiSelect
     v-model="cpuChartSelected"
-    search
+    :search="false"
     :filters="filters"
     :position="position"
     :options="options"
@@ -11,7 +11,11 @@
     :emptyTabText="noDataFound"
     :btnLabel="() => btLabel"
     class="custom-multi-select"
-  />
+  >
+    <template v-slot:option="{ option }">
+      <span>{{ option.name }}</span>
+    </template>
+  </vueMultiSelect>
 </template>
 
 <script>
@@ -22,36 +26,38 @@ export default {
   props: {
     selected: {
       type: Array,
-      required: true
+      required: true,
     },
     dataOptions: {
       type: Array,
-      required: true
+      required: true,
     },
     placeholderName: {
       type: String,
-      default: ''
+      default: '',
     },
     noDataText: {
       type: String,
-      required: false
+      required: false,
     },
     btnLabelText: {
       type: String,
-      required: false
-    }
+      required: false,
+    },
   },
   components: {
-    vueMultiSelect
+    vueMultiSelect,
   },
   data() {
     return {
       options: {
         multi: true,
-        cssSelected: option =>
-          option.selected ? { 'background-color': '#679189' } : ''
+        labelName: 'id',
+        labelValue: 'id',
+        cssSelected: (option) =>
+          option['selected'] ? { 'background-color': '#679189' } : '',
       },
-      position: 'bottom-right'
+      position: 'bottom-right',
     }
   },
   computed: {
@@ -61,7 +67,7 @@ export default {
       },
       set(val) {
         bus.$emit('cpuChartSelected', val)
-      }
+      },
     },
     filters() {
       return [
@@ -70,8 +76,8 @@ export default {
           nameNotAll: this.$i18n.t('views.hostDetails.deselectAll'),
           func() {
             return true
-          }
-        }
+          },
+        },
       ]
     },
     noDataFound() {
@@ -83,8 +89,8 @@ export default {
       return this.btnLabelText
         ? this.btnLabelText
         : this.$i18n.t('views.hostDetails.multiSelect')
-    }
-  }
+    },
+  },
 }
 </script>
 

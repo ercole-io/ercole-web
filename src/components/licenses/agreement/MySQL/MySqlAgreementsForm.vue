@@ -10,7 +10,7 @@
       :label="`${$t('common.fields.type')} *`"
       custom-class="is-small"
       :type="{
-        'is-danger': $v.mysqlForm.agreeType.$error
+        'is-danger': $v.mysqlForm.agreeType.$error,
       }"
     >
       <b-select
@@ -40,7 +40,7 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.mysqlForm.agreeNumber.$error
+        'is-danger': $v.mysqlForm.agreeNumber.$error,
       }"
     >
       <b-input
@@ -54,7 +54,7 @@
         <div
           v-if="
             !$v.mysqlForm.agreeNumber.required &&
-              $v.mysqlForm.agreeNumber.$error
+            $v.mysqlForm.agreeNumber.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
@@ -74,7 +74,7 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.mysqlForm.agreeCsi.$error
+        'is-danger': $v.mysqlForm.agreeCsi.$error,
       }"
     >
       <b-input
@@ -103,7 +103,7 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.mysqlForm.agreeLicenses.$error
+        'is-danger': $v.mysqlForm.agreeLicenses.$error,
       }"
     >
       <b-input
@@ -117,7 +117,7 @@
         <div
           v-if="
             !$v.mysqlForm.agreeLicenses.required &&
-              $v.mysqlForm.agreeLicenses.$error
+            $v.mysqlForm.agreeLicenses.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
@@ -125,7 +125,7 @@
         <div
           v-if="
             !$v.mysqlForm.agreeLicenses.numeric &&
-              $v.mysqlForm.agreeLicenses.$error
+            $v.mysqlForm.agreeLicenses.$error
           "
         >
           {{ $i18n.t('common.validations.onlyNumbers') }}
@@ -168,9 +168,7 @@
           </b-tag>
         </template>
 
-        <template slot="empty">
-          There are no hostnames
-        </template>
+        <template slot="empty"> There are no hostnames </template>
       </b-taginput>
     </b-field>
 
@@ -211,9 +209,7 @@
           </b-tag>
         </template>
 
-        <template slot="empty">
-          There are no clusternames
-        </template>
+        <template slot="empty"> There are no clusternames </template>
       </b-taginput>
     </b-field>
   </AdvancedFiltersBase>
@@ -230,28 +226,28 @@ import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 export default {
   mixins: [LicensesAgreementMixin],
   components: {
-    AdvancedFiltersBase
+    AdvancedFiltersBase,
   },
   validations: {
     mysqlForm: {
       agreeType: { required },
       agreeLicenses: { required, numeric },
       agreeNumber: { required, numeric },
-      agreeCsi: { required, numeric }
-    }
+      agreeCsi: { required, numeric },
+    },
   },
   data() {
     return {
       mysqlForm: {
-        licenseID: ''
+        licenseID: '',
       },
       host: 'host',
-      cluster: 'cluster'
+      cluster: 'cluster',
     }
   },
   beforeMount() {
     bus.$on('onResetAction', () => (this.mysqlForm = {}))
-    bus.$on('editAgreementMysql', data => {
+    bus.$on('editAgreementMysql', (data) => {
       bus.$emit('onToggleEdit', true)
       this.editAgreement(data)
     })
@@ -270,12 +266,12 @@ export default {
         hosts:
           this.mysqlForm.agreeType === this.host
             ? this.mysqlForm.agreeHosts
-            : []
+            : [],
       }
       if (!this.mysqlForm.licenseID) {
         this.createLicenseAgreement({
           body: mysqlAgreementData,
-          type: 'mysql'
+          type: 'mysql',
         }).then(() => {
           this.mysqlForm = { licenseID: '' }
         })
@@ -283,7 +279,7 @@ export default {
         mysqlAgreementData.id = this.mysqlForm.licenseID
         this.updateLicenseAgreement({
           body: mysqlAgreementData,
-          type: 'mysql'
+          type: 'mysql',
         }).then(() => {
           this.mysqlForm = { licenseID: '' }
         })
@@ -297,10 +293,10 @@ export default {
         agreeNumber: data.agreementID,
         agreeCsi: data.csi,
         agreeHosts: data.hosts,
-        agreeClusters: data.clusters
+        agreeClusters: data.clusters,
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

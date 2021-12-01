@@ -53,6 +53,17 @@ export const mutations = {
 
     state.clustersLicensesUsed = setFullPartNumber(newPayload)
   },
+  SET_IGNORE_DB_LICENSE: (state, payload) => {
+    _.map(state.dbsLicensesUsed, (val) => {
+      if (
+        val.dbName === payload.database &&
+        val.licenseTypeID === payload.licenseID &&
+        val.hostname === payload.hostname
+      ) {
+        val.ignored = !val.ignored
+      }
+    })
+  },
 }
 
 export const actions = {
