@@ -18,20 +18,24 @@
 </template>
 
 <script>
-// import { mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
-  props: ['db', 'host', 'licenseID', 'status'],
+  props: ['db', 'host', 'licenseID', 'status', 'page'],
   methods: {
-    // ...mapActions(['ignoreDatabaseLicense']),
+    ...mapActions(['ignoreDatabaseLicense', 'getHostByName']),
     ignoreLicense() {
-      console.log(this.db, this.host, this.licenseID, this.status)
-      // this.ignoreDatabaseLicense({
-      //   database: db,
-      //   hostname: host,
-      //   licenseID: licenseTypeID,
-      //   status: status,
-      // })
+      this.ignoreDatabaseLicense({
+        database: this.db,
+        hostname: this.host,
+        licenseID: this.licenseID,
+        status: this.status,
+        page: this.page,
+      }).then(() => {
+        if (this.page === 'host-details') {
+          this.getHostByName(this.host)
+        }
+      })
     },
   },
 }
