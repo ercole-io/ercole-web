@@ -33,20 +33,20 @@ export default {
     BoxContent,
     LineChart,
     SearchableMultiSelect,
-    RangeDates
+    RangeDates,
   },
   data() {
     return {
-      selectedDatabases: []
+      selectedDatabases: [],
     }
   },
   beforeMount() {
-    bus.$on('cpuChartSelected', val => {
+    bus.$on('cpuChartSelected', (val) => {
       this.selectedDatabases = val
     })
   },
   methods: {
-    ...mapMutations(['SET_RANGE_DATES'])
+    ...mapMutations(['SET_RANGE_DATES']),
   },
   computed: {
     ...mapGetters(['getOracleCpuUsageChart', 'currentHostDBsInfo']),
@@ -60,8 +60,8 @@ export default {
       return this.currentHostDBsInfo.length < 10
         ? this.currentHostDBsInfo.length
         : '10'
-    }
-  }
+    },
+  },
 }
 </script>
 

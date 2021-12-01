@@ -34,7 +34,7 @@ import * as recommendations from '@/store/modules/cloud/recommendations.js'
 import * as profileConfig from '@/store/modules/cloud/profileConfig.js'
 import * as activeProfiles from '@/store/modules/cloud/activeProfiles.js'
 import * as repository from '@/store/modules/repository/repository.js'
-import * as databaseIgnore from '@/store/modules/databaseIgnore.js'
+import * as ignoreLicense from '@/store/modules/ignoreLicense.js'
 
 Vue.use(Vuex)
 
@@ -72,7 +72,7 @@ export default new Vuex.Store({
     profileConfig,
     activeProfiles,
     repository,
-    databaseIgnore,
+    ignoreLicense,
   },
   plugins: [
     createPersistedState({

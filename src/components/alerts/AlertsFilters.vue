@@ -4,6 +4,7 @@
       <CustomSelect v-model="alertStatus" :hasReset="false" fixedOptions>
         <option value="NEW">NEW</option>
         <option value="ACK">ACK</option>
+        <option value="DISMISSED">DISMISSED</option>
         <option value="">All</option>
       </CustomSelect>
     </CustomField>
@@ -93,8 +94,8 @@ export default {
       endDate: null,
       filters: {
         alertCategory: null,
-        alertSeverity: null
-      }
+        alertSeverity: null,
+      },
     }
   },
   created() {
@@ -103,7 +104,7 @@ export default {
     this.filters = {
       alertCategory: this.alerts.params.category,
       alertSeverity: this.alerts.params.severity,
-      hostname: this.alerts.params.hostname
+      hostname: this.alerts.params.hostname,
     }
     this.apply()
   },
@@ -114,12 +115,12 @@ export default {
         this.getAlertsData({
           status: this.alertStatus,
           startDate: formatDatepickerDate(this.startDate, 'compare'),
-          endDate: formatDatepickerDate(this.endDate)
+          endDate: formatDatepickerDate(this.endDate),
         }).then(
-          res => {
+          (res) => {
             resolve(res)
           },
-          err => reject(err)
+          (err) => reject(err)
         )
       })
     },
@@ -128,22 +129,22 @@ export default {
       this.endDate = null
       this.filters = {
         alertCategory: null,
-        alertSeverity: null
+        alertSeverity: null,
       }
       this.$store.commit('SET_ALERTS_PARAMS', {
         category: null,
         severity: null,
-        hostname: null
+        hostname: null,
       })
       this.alertStatus = 'NEW'
     },
     formatDate(date) {
       return formatDate(date)
-    }
+    },
   },
   computed: {
     ...mapState(['alerts']),
-    ...mapGetters(['getAlerts'])
+    ...mapGetters(['getAlerts']),
   },
   watch: {
     alertStatus(newValue, oldValue) {
@@ -167,16 +168,16 @@ export default {
           this.apply()
         })
       }
-    }
+    },
   },
   beforeDestroy() {
     this.resetFilters()
     this.filters = {
       alertCategory: null,
       alertSeverity: null,
-      hostname: null
+      hostname: null,
     }
-  }
+  },
 }
 </script>
 
