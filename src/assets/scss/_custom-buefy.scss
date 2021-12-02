@@ -198,3 +198,16 @@ ul.pagination-list {
     top: 0.3rem;
   }
 }
+
+
+// menu 
+.v-sidebar-menu {
+  * {
+    max-width: 270px !important;
+  }
+
+  .vsm--link {
+    font-size: 13px !important;
+    padding: 12px 15px !important;
+  }
+}

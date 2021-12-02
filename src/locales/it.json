@@ -26,7 +26,8 @@
     "cloudAdvisor": "Cloud Advisor",
     "recommendations": "Raccomandazioni",
     "profileConfig": "Configurazioni del Profilo",
-    "repository": "Repository"
+    "repository": "Repository",
+    "ercoleRecommendations": "Raccomandazioni Ercole"
   },
   "header": {
     "logout": "Disconnettersi"
@@ -264,7 +265,9 @@
       "region": "Regione",
       "privateKey": "Chiave Privata",
       "clusterLicenses": "Licenze Cluster",
-      "purchased": "Acquistato"
+      "purchased": "Acquistato",
+      "compartmentID": "Compartment ID",
+      "resourceID": "Resource ID"
     },
     "table": {
       "perPage": "per pagina",
@@ -383,7 +386,9 @@
       "region": "Regione",
       "privateKey": "Chiave Privata",
       "clusterLicenses": "Licenze Cluster",
-      "purchased": "Acquistato"
+      "purchased": "Acquistato",
+      "compartmentID": "Compartment ID",
+      "resourceID": "Resource ID"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",

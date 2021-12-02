@@ -15,17 +15,20 @@ export const state = () => ({
   'page-segmentAdvisor': [true, true],
   'page-databasesMysql': [true, true],
   'page-hosts': [true, true],
-  'page-repository': [true, true]
+  'page-repository': [true, true],
+  'page-profileConfig': [true, true],
+  'page-loadBalancers': [true, true],
+  'page-recommendations': [true, true],
 })
 
 export const getters = {
-  getColumnsStatus: state => page => {
+  getColumnsStatus: (state) => (page) => {
     return state['page-' + page]
-  }
+  },
 }
 
 export const mutations = {
   SET_HIDDEN_COLS: (state, payload) => {
     state['page-' + payload.name] = payload.values
-  }
+  },
 }
