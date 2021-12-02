@@ -20,12 +20,12 @@ import { mapGetters } from 'vuex'
 
 export default {
   components: {
-    SidebarMenu
+    SidebarMenu,
   },
   methods: {
     onToggleCollapse(collapsed) {
       this.$emit('collapsedSidebar', collapsed)
-    }
+    },
   },
   computed: {
     ...mapGetters(['getOciActiveProfiles']),
@@ -34,12 +34,12 @@ export default {
         {
           href: { name: 'dashboard' },
           title: this.$i18n.t('menu.dashboard'),
-          icon: 'fas fa-home'
+          icon: 'fas fa-home',
         },
         {
           href: { name: 'hosts' },
           title: this.$i18n.t('menu.hosts'),
-          icon: 'fas fa-server'
+          icon: 'fas fa-server',
         },
         {
           title: this.$i18n.t('menu.databases'),
@@ -48,7 +48,7 @@ export default {
             {
               title: this.$i18n.t('menu.allTechs'),
               href: { path: '/databases' },
-              icon: 'fas fa-cog'
+              icon: 'fas fa-cog',
             },
             {
               title: this.$i18n.t('menu.oracle'),
@@ -57,24 +57,24 @@ export default {
                 {
                   title: this.$i18n.t('menu.dbList'),
                   href: { name: 'oracle' },
-                  icon: 'fas fa-database'
+                  icon: 'fas fa-database',
                 },
                 {
                   href: { name: 'addm' },
                   title: this.$i18n.t('menu.addm'),
-                  icon: 'fas fa-heartbeat'
+                  icon: 'fas fa-heartbeat',
                 },
                 {
                   href: { name: 'segment-advisor' },
                   title: this.$i18n.t('menu.segAdvisor'),
-                  icon: 'fas fa-columns'
+                  icon: 'fas fa-columns',
                 },
                 {
                   href: { name: 'patch-advisor' },
                   title: this.$i18n.t('menu.patAdvisor'),
-                  icon: 'fas fa-band-aid'
-                }
-              ]
+                  icon: 'fas fa-band-aid',
+                },
+              ],
             },
             {
               title: this.$i18n.t('menu.mysql'),
@@ -83,26 +83,26 @@ export default {
                 {
                   title: this.$i18n.t('menu.dbList'),
                   href: { name: 'mysql' },
-                  icon: 'fas fa-database'
-                }
-              ]
-            }
-          ]
+                  icon: 'fas fa-database',
+                },
+              ],
+            },
+          ],
         },
         {
           href: { name: 'hypervisors' },
           title: this.$i18n.t('menu.hypervisors'),
-          icon: 'fas fa-object-group'
+          icon: 'fas fa-object-group',
         },
         {
           href: { name: 'engineered-systems' },
           title: this.$i18n.t('menu.engSystems'),
-          icon: 'far fa-calendar-times'
+          icon: 'far fa-calendar-times',
         },
         {
           href: { name: 'alerts' },
           title: this.$i18n.t('menu.alerts'),
-          icon: 'fas fa-bell'
+          icon: 'fas fa-bell',
         },
         {
           title: this.$i18n.t('menu.licenses'),
@@ -111,19 +111,19 @@ export default {
             {
               href: { name: 'licenses-agreement' },
               title: this.$i18n.t('menu.licAgreements'),
-              icon: 'fas fa-cog'
+              icon: 'fas fa-cog',
             },
             {
               href: { name: 'licenses-compliance' },
               title: this.$i18n.t('menu.licCompliance'),
-              icon: 'fas fa-cog'
+              icon: 'fas fa-cog',
             },
             {
               href: { name: 'licenses-used' },
               title: this.$i18n.t('menu.licUsed'),
-              icon: 'fas fa-cog'
-            }
-          ]
+              icon: 'fas fa-cog',
+            },
+          ],
         },
         {
           title: this.$i18n.t('menu.cloudAdvisor'),
@@ -132,24 +132,30 @@ export default {
             {
               href: { name: 'profile-configurations' },
               title: this.$i18n.t('menu.profileConfig'),
-              icon: 'fas fa-cog'
+              icon: 'fas fa-cog',
             },
             {
               href: { name: 'cloud-recommendations' },
               title: this.$i18n.t('menu.recommendations'),
               icon: 'fas fa-cog',
-              disabled: this.getOciActiveProfiles.length <= 0
-            }
-          ]
+              disabled: this.getOciActiveProfiles.length <= 0,
+            },
+            {
+              href: { name: 'ercole-recommendations' },
+              title: this.$i18n.t('menu.ercoleRecommendations'),
+              icon: 'fas fa-cog',
+              disabled: this.getOciActiveProfiles.length <= 0,
+            },
+          ],
         },
         {
           href: { name: 'repository' },
           title: this.$i18n.t('menu.repository'),
-          icon: 'fas fa-download'
-        }
+          icon: 'fas fa-download',
+        },
       ]
-    }
-  }
+    },
+  },
 }
 </script>
 

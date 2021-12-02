@@ -23,11 +23,11 @@ export default {
     ToggleColumns,
     ProfileConfigList,
     ProfileConfigForm,
-    ProfileConfigFilters
+    ProfileConfigFilters,
   },
   data() {
     return {
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
@@ -36,8 +36,8 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['getProfiles'])
-  }
+    ...mapActions(['getProfiles']),
+  },
 }
 </script>
 

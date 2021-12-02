@@ -1,12 +1,12 @@
 <template>
   <FullTable
     placeholder="Cloud Recommendations"
-    :keys="getHeadKeys(recommendationHead)"
-    :tableData="getRecommendations"
+    :keys="getHeadKeys(loadBalancersHead)"
+    :tableData="getLoadBalancers"
   >
     <template slot="customTopHeader">
       <b-notification
-        v-if="getRecommendations.length <= 0"
+        v-if="getLoadBalancers.length <= 0"
         type="is-warning is-light"
         aria-close-label="Close notification"
         role="alert"
@@ -27,20 +27,16 @@
 
     <DynamicHeading
       slot="headData"
-      v-for="head in recommendationHead"
+      v-for="head in loadBalancersHead"
       :key="head.sort"
       :data="head"
     />
 
     <template slot="bodyData" slot-scope="rowData">
-      <TdContent :value="rowData.scope.tenOCID" />
       <TdContent :value="rowData.scope.name" />
-      <TdContent :value="rowData.scope.pending" />
-      <TdContent
-        :value="rowData.scope.costSaving | formatNumber('0.00', '€', 1)"
-      />
-      <TdContent :value="rowData.scope.status" />
-      <TdContent :value="rowData.scope.importance" />
+      <TdContent :value="rowData.scope.type" />
+      <TdContent :value="rowData.scope.compartmentID" />
+      <TdContent :value="rowData.scope.resourceID" />
     </template>
 
     <ExportButton slot="export" url="" expName="cloudRecommendations" />
@@ -54,7 +50,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
-import recommendationHead from '@/components/cloud/recommendations/recommendationsHead.json'
+import loadBalancersHead from '@/components/cloud/loadBalancers/loadBalancersHead.json'
 
 export default {
   mixins: [getHeadKeys],
@@ -66,11 +62,11 @@ export default {
   },
   data() {
     return {
-      recommendationHead: recommendationHead,
+      loadBalancersHead: loadBalancersHead,
     }
   },
   computed: {
-    ...mapGetters(['getRecommendations', 'getOciActiveProfileError']),
+    ...mapGetters(['getLoadBalancers', 'getOciActiveProfileError']),
     getErrActiveProfile() {
       const number = Number(this.getOciActiveProfileError) > 1 ? 2 : 1
 
