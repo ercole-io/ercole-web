@@ -25,6 +25,13 @@ export default {
   methods: {
     ...mapActions(['ignoreDatabaseLicense', 'getHostByName']),
     ignoreLicense() {
+      if (this.status) {
+        this.ignoreLicenseDialog('ignoreDbLicense')
+      } else {
+        this.ignoreLicenseDialog('reactivateDbLicense')
+      }
+    },
+    ignoreLicenseAction() {
       this.ignoreDatabaseLicense({
         database: this.db,
         hostname: this.host,
@@ -35,6 +42,21 @@ export default {
         if (this.page === 'host-details') {
           this.getHostByName(this.host)
         }
+      })
+    },
+    ignoreLicenseDialog(message) {
+      this.$buefy.dialog.confirm({
+        title: this.$i18n.t('views.licenses.ignoreLicense'),
+        message: this.$i18n.t(`views.licenses.${message}`, {
+          license: this.licenseID,
+          database: this.db,
+          hostname: this.host,
+        }),
+        confirmText: this.$i18n.t('common.general.yes'),
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: () => this.ignoreLicenseAction(),
+        cancelText: this.$i18n.t('common.general.no'),
       })
     },
   },
