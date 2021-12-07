@@ -372,14 +372,13 @@ export default {
     ...mapActions(['getLicensesPerHost']),
     ...mapMutations(['CREATE_AGREEMENT']),
     getHostAssociatedList(e) {
+      this.hostAssociatedList = []
       if (e) {
         _.map(this.licensesUsed, (item) => {
           if (e.id === item.licenseTypeID) {
             this.hostAssociatedList.push(item.hostname)
           }
         })
-      } else {
-        this.hostAssociatedList = []
       }
 
       this.filteredhostTagsOracle = this.hostAssociatedList
