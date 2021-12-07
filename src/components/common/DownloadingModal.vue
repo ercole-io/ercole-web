@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card" style="width: 400px">
+  <div class="modal-card" style="width: 400px; height: 550px">
     <header class="modal-card-head">
       <p class="modal-card-title">{{ exportTitle }}</p>
     </header>
@@ -175,6 +175,12 @@ export default {
         .then(() => {
           this.$emit('close')
         })
+        .catch((err) => {
+          if (err) {
+            this.CancelRequest()
+            this.closeModal()
+          }
+        })
     },
     exportLms() {
       this.isLmsRequest = true
@@ -185,7 +191,7 @@ export default {
         this.isClose = true
         this.isLmsRequest = false
       } else {
-        this.$emit('close')
+        this.closeModal()
       }
       this.request.cancel()
     },
