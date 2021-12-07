@@ -99,7 +99,10 @@
       "agreeForm": "Modulo di Contratto",
       "addAgreement": "Aggiungi o modifica un Contratto di licenza Oracle",
       "dbList": "Elenco dei Database",
-      "hostsList": "Elenco dei Hosts"
+      "hostsList": "Elenco dei Hosts",
+      "ignoreDbLicense": "Sei sicuro di voler ignorare la licenza <b>{license}</b> per l'host <b>{hostname}</b> e il database <b>{database}</b>?",
+      "reactivateDbLicense": "Sei sicuro di voler riattivare la licenza <b>{license}</b> per l'host <b>{hostname}</b> e il database <b>{database}</b>?",
+      "ignoreLicense": "Ignora licenza"
     },
     "alerts": {
       "markRead": "Segna come letto",

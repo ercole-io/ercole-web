@@ -99,7 +99,10 @@
       "agreeForm": "Formulário de Contrato",
       "addAgreement": "Adicionar ou modificar um Contrato de Licença Oracle",
       "dbList": "Lista de Bancos de Dados",
-      "hostsList": "Lista de Hosts"
+      "hostsList": "Lista de Hosts",
+      "ignoreDbLicense": "Tem certeza de que deseja ignorar a licença <b> {license} </b> para o host <b> {hostname} </b> e o banco de dados <b> {database} </b>?",
+      "reactivateDbLicense": "Tem certeza de que deseja reativar a licença <b> {license} </b> para o host <b> {hostname} </b> e o banco de dados <b> {database} </b>?",
+      "ignoreLicense": "Ignorar Licença"
     },
     "alerts": {
       "markRead": "Marcar como Lido",
