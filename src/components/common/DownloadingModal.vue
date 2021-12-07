@@ -83,7 +83,7 @@
         size="is-small"
         label="Export LMS"
         @click="exportLms"
-        v-if="isLms"
+        v-if="isLms && !isLmsRequest"
       />
     </footer>
   </div>
