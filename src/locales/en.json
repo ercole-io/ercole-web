@@ -99,7 +99,10 @@
       "agreeForm": "Agreement Form",
       "addAgreement": "Add or Modify an Oracle Agreement",
       "dbList": "List of Databases",
-      "hostsList": "List of Hosts"
+      "hostsList": "List of Hosts",
+      "ignoreDbLicense": "Are you sure you want to ignore the license <b>{license}</b> for the host <b>{hostname}</b> and database <b>{database}</b>?",
+      "reactivateDbLicense": "Are you sure you want to reactivate the license <b>{license}</b> for the host <b>{hostname}</b> and database <b>{database}</b>?",
+      "ignoreLicense": "Ignore License"
     },
     "alerts": {
       "markRead": "Mark as Read",
