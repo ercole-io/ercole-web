@@ -31,6 +31,10 @@
       />
     </CustomField>
 
+    <CustomField :label="$t('common.fields.pluggable')">
+      <CustomRadio v-model="filters.isCDB" />
+    </CustomField>
+
     <CustomField :label="$t('common.fields.work')">
       <CustomSlider
         v-model="filters.work"
@@ -129,13 +133,14 @@ export default {
         'blockSize',
         'memory',
         'datafileSize',
-        'segmentsSize'
+        'segmentsSize',
       ],
       filters: {
         archivelog: '',
         dataguard: '',
-        ha: ''
-      }
+        ha: '',
+        isCDB: '',
+      },
     }
   },
   created() {
@@ -146,13 +151,14 @@ export default {
       this.filters = {
         archivelog: '',
         dataguard: '',
-        ha: ''
+        ha: '',
+        isCDB: '',
       }
-    }
+    },
   },
   computed: {
-    ...mapGetters(['getAllOracleDBs'])
-  }
+    ...mapGetters(['getAllOracleDBs']),
+  },
 }
 </script>
 

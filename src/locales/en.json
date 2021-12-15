@@ -246,7 +246,8 @@
       "releaseDate": "Release Date",
       "licAvailable": "License Available",
       "clusterLicenses": "Cluster Licenses",
-      "purchased": "Purchased"
+      "purchased": "Purchased",
+      "pluggable": "Pluggable"
     },
     "table": {
       "perPage": "per page",
@@ -354,7 +355,8 @@
       "installed": "Installed",
       "licAvailable": "License Available",
       "clusterLicenses": "Cluster Licenses",
-      "purchased": "Purchased"
+      "purchased": "Purchased",
+      "pluggable": "Pluggable"
     },
     "charts": {
       "archivelog": "Archivelog Mode",

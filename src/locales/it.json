@@ -246,7 +246,8 @@
       "releaseDate": "Data di Rilascio",
       "licAvailable": "Licenza Disponibile",
       "clusterLicenses": "Licenze Cluster",
-      "purchased": "Acquistato"
+      "purchased": "Acquistato",
+      "pluggable": "Collegabile"
     },
     "table": {
       "perPage": "per pagina",
@@ -354,7 +355,8 @@
       "installed": "Installato",
       "licAvailable": "Licenza Disponibile",
       "clusterLicenses": "Licenze Cluster",
-      "purchased": "Acquistato"
+      "purchased": "Acquistato",
+      "pluggable": "Collegabile"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",

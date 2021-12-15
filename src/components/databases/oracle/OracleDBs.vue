@@ -53,6 +53,7 @@
           :class="{ 'is-hidden': moreInfoToggle.hiddenCharset }"
         />
         <TdContent :value="rowData.scope.version" />
+        <TdIcon :value="rowData.scope.isCDB" />
         <TdContent :value="rowData.scope.work | formatNumber('0')" />
         <TdContent :value="rowData.scope.cpuCount" />
         <TdContent :value="rowData.scope.blockSize" />
@@ -72,7 +73,7 @@
       <BaseLayoutColumns
         :pageCols="[
           { colsize: '6', slotName: 'cpu' },
-          { colsize: '6', slotName: 'memory' }
+          { colsize: '6', slotName: 'memory' },
         ]"
       >
         <OracleCpu slot="cpu" />
@@ -131,18 +132,18 @@ export default {
     OracleCharts,
     OracleCpu,
     OracleMemory,
-    OracleStorage
+    OracleStorage,
   },
   data() {
     return {
       oraclesMoreInfo: oraclesMoreInfo,
-      oracleHead: oracleHead
+      oracleHead: oracleHead,
     }
   },
   computed: {
     ...mapGetters(['getAllOracleDBs']),
-    ...mapState(['moreInfoToggle'])
-  }
+    ...mapState(['moreInfoToggle']),
+  },
 }
 </script>
 
