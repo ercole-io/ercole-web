@@ -3,6 +3,7 @@ import router from '@/router/index.js'
 import * as helpers from '@/helpers/helpers.js'
 import moment from 'moment'
 import i18n from '@/i18n.js'
+import _ from 'lodash'
 
 export const state = () => {
   return {
@@ -65,8 +66,14 @@ export const actions = {
       .catch((err) => {
         if (err.code === 'ECONNABORTED' && err.message !== 'Unauthorized') {
           dispatch('setErrMsg', i18n.t(`common.validations.loginTimeout`))
-        } else {
+        } else if (_.includes(err, '401')) {
           dispatch('setErrMsg', i18n.t(`common.validations.loginUnauthorized`))
+        } else if (_.includes(err, '422')) {
+          dispatch('setErrMsg', i18n.t(`common.validations.loginErr422`))
+        } else if (_.includes(err, '500')) {
+          dispatch('setErrMsg', i18n.t(`common.validations.loginErr500`))
+        } else {
+          dispatch('setErrMsg', i18n.t(`common.validations.loginErrGeneric`))
         }
 
         dispatch('offLoading')
