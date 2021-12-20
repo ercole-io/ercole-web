@@ -65,11 +65,9 @@
           <b-select
             v-model="glFilters.location"
             size="is-small"
-            :placeholder="
-              `${$t('common.forms.select')} ${$t(
-                'common.globalFilters.locationPH'
-              )}`
-            "
+            :placeholder="`${$t('common.forms.select')} ${$t(
+              'common.globalFilters.locationPH'
+            )}`"
             expanded
           >
             <option :value="null" v-if="glFilters.location">
@@ -97,11 +95,9 @@
           <b-select
             v-model="glFilters.environment"
             size="is-small"
-            :placeholder="
-              `${$t('common.forms.select')} ${$t(
-                'common.globalFilters.environmentPH'
-              )}`
-            "
+            :placeholder="`${$t('common.forms.select')} ${$t(
+              'common.globalFilters.environmentPH'
+            )}`"
             expanded
           >
             <option :value="null" v-if="glFilters.environment">
@@ -167,11 +163,9 @@
             v-model="glFilters.date"
             :date-formatter="formatDate"
             size="is-small"
-            :placeholder="
-              `${$t('common.forms.select')} ${$t(
-                'common.globalFilters.environmentPH'
-              )}`
-            "
+            :placeholder="`${$t('common.forms.select')} ${$t(
+              'common.globalFilters.environmentPH'
+            )}`"
             icon="calendar-today"
             trap-focus
             expanded
@@ -227,7 +221,7 @@ export default {
       isFiltersOpened: false,
       filterIcon: 'chevron-down',
       glFilters: {},
-      alertStatus: 'NEW'
+      alertStatus: 'NEW',
     }
   },
   beforeMount() {
@@ -236,11 +230,11 @@ export default {
       environment: this.getActiveFilters.environment,
       date: this.getActiveFilters.date
         ? new Date(this.getActiveFilters.date)
-        : null
+        : null,
     }
     this.isFiltersOpened = this.globalFilters.isFilterOpened
 
-    bus.$on('alertStatus', val => {
+    bus.$on('alertStatus', (val) => {
       this.alertStatus = val
     })
 
@@ -262,7 +256,7 @@ export default {
       'getAlertsData',
       'getLicensesList',
       'getEngineeredSystems',
-      'getMysqlDbs'
+      'getMysqlDbs',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS']),
     // getFilteredTags(text) {
@@ -290,7 +284,7 @@ export default {
         : null
       this.$store.commit('SET_ACTIVE_FILTERS', {
         active: this.glFilters,
-        status: true
+        status: true,
       })
       this.reloadPage(this.$route.name)
     },
@@ -298,11 +292,11 @@ export default {
       this.glFilters = {
         location: null,
         environment: null,
-        date: null
+        date: null,
       }
       this.$store.commit('SET_ACTIVE_FILTERS', {
         active: this.glFilters,
-        status: false
+        status: false,
       })
       this.reloadPage(this.$route.name)
     },
@@ -311,7 +305,11 @@ export default {
 
       switch (name) {
         case 'hosts':
-          this.getHosts()
+          this.getHosts().catch((err) => {
+            if (err) {
+              this.resetFilters()
+            }
+          })
           break
         case 'hosts-details':
           this.getHostByName(params.hostname)
@@ -355,7 +353,7 @@ export default {
     },
     formatDate(date) {
       return formatDate(date)
-    }
+    },
   },
   computed: {
     ...mapState(['globalFilters']),
@@ -367,8 +365,8 @@ export default {
         this.$route.name !== 'licenses-compliance' &&
         this.$route.name !== 'repository'
       )
-    }
-  }
+    },
+  },
   // watch: {
   //   isFiltersOpened(value) {
   //     if (value) {
