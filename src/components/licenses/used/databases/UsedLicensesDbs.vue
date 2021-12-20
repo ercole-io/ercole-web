@@ -38,6 +38,8 @@
           :db="rowData.scope.dbName"
           :host="rowData.scope.hostname"
           :licenseID="rowData.scope.licenseTypeID"
+          :description="rowData.scope.description"
+          :metric="rowData.scope.metric"
           :status="!rowData.scope.ignored"
           page="licenses-used"
         />
