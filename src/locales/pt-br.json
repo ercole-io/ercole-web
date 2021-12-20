@@ -377,6 +377,9 @@
       "onlyNumbers": "Este campo aceita apenas número.",
       "characters": "{0} deve ter pelo menos {1} caracteres",
       "loginUnauthorized": "Nome de usuário ou senha inválidos.",
+      "loginErr422": "Sua solicitação foi rejeitada.",
+      "loginErr500": "Erro Interno do Servidor.",
+      "loginErrGeneric": "Algo deu errado. Por favor, tente novamente!",
       "loginTimeout": "Tempo limite da solicitação excedido",
       "noResults": "Nenhum resultado encontrado."
     },

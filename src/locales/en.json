@@ -384,6 +384,9 @@
       "onlyNumbers": "This field accepts only number.",
       "characters": "{0} must have at least {1} characters",
       "loginUnauthorized": "Invalid username or password.",
+      "loginErr422": "Your request was rejected.",
+      "loginErr500": "Internal Server Error.",
+      "loginErrGeneric": "Something went wrong. Please try again!",
       "loginTimeout": "Request timeout exceeded", 
       "noResults": "No results found"
     },
