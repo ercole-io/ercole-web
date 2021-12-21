@@ -1,64 +1,81 @@
 <template>
-  <div class="modal-card" style="width: 400px; height: 550px">
+  <div class="modal-card" style="width: 400px">
     <header class="modal-card-head">
       <p class="modal-card-title">{{ exportTitle }}</p>
     </header>
-    <section class="modal-card-body" style="z-index: 0">
-      <div v-if="isLms && !isLmsRequest">
-        <CustomField label="Date">
-          <b-datepicker
-            v-model="lmsFilters.from"
-            size="is-small"
-            placeholder="From"
-            position="is-bottom-right"
-            icon="calendar-today"
-            :max-date="lmsFilters.to ? lmsFilters.to : new Date()"
-            :date-formatter="formatDate"
-            class="mr-1"
-            trap-focus
-          />
-          <b-datepicker
-            v-model="lmsFilters.to"
-            size="is-small"
-            placeholder="To"
-            position="is-bottom-left"
-            icon="calendar-today"
-            :min-date="lmsFilters.from"
-            :max-date="new Date()"
-            :date-formatter="formatDate"
-            class="ml-1"
-            trap-focus
-          />
-        </CustomField>
-        <CustomField label="Location">
-          <b-select v-model="lmsFilters.location" size="is-small" expanded>
-            <option :value="null" v-if="lmsFilters.location">
-              Reset Location
-            </option>
-            <option
-              v-for="(loc, index) in glFiltersState.locations"
-              :key="index"
-            >
-              {{ loc }}
-            </option>
-          </b-select>
-        </CustomField>
-        <CustomField label="Environment">
-          <b-select v-model="lmsFilters.environment" size="is-small" expanded>
-            <option :value="null" v-if="lmsFilters.environment">
-              Reset Environment
-            </option>
-            <option
-              v-for="(env, index) in glFiltersState.environments"
-              :key="index"
-            >
-              {{ env }}
-            </option>
-          </b-select>
-        </CustomField>
-      </div>
+    <section class="modal-card-body">
+      <b-button
+        :label="exportParamsText"
+        type="is-primary"
+        size="is-small"
+        :icon-right="isOpen ? 'menu-up' : 'menu-down'"
+        @click="isOpen = !isOpen"
+        aria-controls="openExportLmsParams"
+        v-if="isLms && !isLmsRequest"
+      />
 
-      <div v-if="!isLms || isLmsRequest">
+      <b-collapse
+        aria-id="openExportLmsParams"
+        animation="slide"
+        v-model="isOpen"
+        v-if="isLms && !isLmsRequest"
+      >
+        <div style="height: 400px; align-items: flex-start; margin-top: 20px">
+          <CustomField label="Date">
+            <b-datepicker
+              v-model="lmsFilters.from"
+              size="is-small"
+              placeholder="From"
+              position="is-bottom-right"
+              icon="calendar-today"
+              :max-date="lmsFilters.to ? lmsFilters.to : new Date()"
+              :date-formatter="formatDate"
+              class="mr-1"
+              trap-focus
+            />
+            <b-datepicker
+              v-model="lmsFilters.to"
+              size="is-small"
+              placeholder="To"
+              position="is-bottom-left"
+              icon="calendar-today"
+              :min-date="lmsFilters.from"
+              :max-date="new Date()"
+              :date-formatter="formatDate"
+              class="ml-1"
+              trap-focus
+            />
+          </CustomField>
+          <CustomField label="Location">
+            <b-select v-model="lmsFilters.location" size="is-small" expanded>
+              <option :value="null" v-if="lmsFilters.location">
+                Reset Location
+              </option>
+              <option
+                v-for="(loc, index) in glFiltersState.locations"
+                :key="index"
+              >
+                {{ loc }}
+              </option>
+            </b-select>
+          </CustomField>
+          <CustomField label="Environment">
+            <b-select v-model="lmsFilters.environment" size="is-small" expanded>
+              <option :value="null" v-if="lmsFilters.environment">
+                Reset Environment
+              </option>
+              <option
+                v-for="(env, index) in glFiltersState.environments"
+                :key="index"
+              >
+                {{ env }}
+              </option>
+            </b-select>
+          </CustomField>
+        </div>
+      </b-collapse>
+
+      <div v-if="!isLms || isLmsRequest" style="align-items: flex-start">
         <p class="mb-2">{{ msgTxt }}</p>
         <b-progress type="is-primary"></b-progress>
       </div>
@@ -96,6 +113,7 @@ import { saveAs } from 'file-saver'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import CustomField from '@/components/common/Form/CustomField.vue'
 import formatDate from '@/filters/formatDate.js'
+import i18n from '@/i18n.js'
 
 const exportAll = {
   Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -143,6 +161,7 @@ export default {
         from: null,
         to: null,
       },
+      isOpen: false,
     }
   },
   mounted() {
@@ -211,6 +230,9 @@ export default {
   computed: {
     isLms() {
       return this.exportType === 'LMS' ? true : false
+    },
+    exportParamsText() {
+      return i18n.t('views.hosts.addExportParams')
     },
   },
 }

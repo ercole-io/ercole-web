@@ -112,6 +112,9 @@
       "clearAll": "Clear select all?",
       "showAll": "Show All",
       "descModalTitle": "Alert Description"
+    },
+    "hosts": {
+      "addExportParams": "Add Export Params"
     }
   },
   "common": {

@@ -112,6 +112,9 @@
       "clearAll": "Cancella selezionato?",
       "showAll": "Mostra tutto",
       "descModalTitle": "Descrizione dell'Avviso"
+    },
+    "hosts": {
+      "addExportParams": "Aggiungi Parametri di Esportazione"
     }
   },
   "common": {
