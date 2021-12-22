@@ -19,6 +19,7 @@ import Vuelidate from 'vuelidate'
 import VTooltip from 'v-tooltip'
 import ClickCopy from 'vue-directive-copy'
 import vueFilterPrettyBytes from 'vue-filter-pretty-bytes'
+import VueSanitize from 'vue-sanitize'
 
 import CapitalizeFilter from './filters/capitalize.js'
 import FormatDate from './filters/formatDate.js'
@@ -57,17 +58,18 @@ Chartkick.options = {
     'rgb(139, 117, 215)', // dark purple
     'rgb(249, 65, 68)', // dark red
     'rgb(67, 170, 139)', // dark green
-    'rgb(87, 117, 144)' // dark blue
-  ].reverse()
+    'rgb(87, 117, 144)', // dark blue
+  ].reverse(),
 }
 
 Vue.use(SmartTable)
 Vue.use(Vuelidate)
 Vue.use(VTooltip, {
-  defaultHtml: false
+  defaultHtml: false,
 })
 Vue.use(ClickCopy)
 Vue.use(vueFilterPrettyBytes)
+Vue.use(VueSanitize)
 
 Vue.filter('capitalize', CapitalizeFilter)
 Vue.filter('formatDate', FormatDate)
@@ -84,5 +86,5 @@ new Vue({
   router,
   store,
   i18n,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount('#app')
