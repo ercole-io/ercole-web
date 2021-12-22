@@ -1,27 +1,33 @@
 import axiosDefault from '@/axios/axios-default.js'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import { mountDatabasesChart } from '@/helpers/databasesCharts.js'
+import _ from 'lodash'
 
 export const state = () => ({
   oracleDbs: [],
   statistics: {},
   topWorkload: [],
-  topUnusedIR: []
+  topUnusedIR: [],
 })
 
 export const getters = {
   getAllOracleDBs: (state, getters) => {
-    return getters.filteredOrNot(state.oracleDbs)
+    const oracleDbs = []
+    _.map(state.oracleDbs, (val) => {
+      oracleDbs.push({ ...val, work: val.work === null ? 0 : val.work })
+      return oracleDbs
+    })
+    return getters.filteredOrNot(oracleDbs)
   },
-  getOracleChartsData: state => {
+  getOracleChartsData: (state) => {
     return mountDatabasesChart(state.oracleDbs, 'oracle')
   },
-  getTop3workload: state => {
+  getTop3workload: (state) => {
     return state.topWorkload.slice(0, 3)
   },
-  getTop3UnusedIR: state => {
+  getTop3UnusedIR: (state) => {
     return state.topUnusedIR.slice(0, 3)
-  }
+  },
 }
 
 export const mutations = {
@@ -36,7 +42,7 @@ export const mutations = {
   },
   SET_ORACLE_STATISTICS: (state, payload) => {
     state.statistics = payload
-  }
+  },
 }
 
 export const actions = {
@@ -51,8 +57,8 @@ export const actions = {
         params: {
           'older-than': getters.getActiveFilters.date,
           environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location
-        }
+          location: getters.getActiveFilters.location,
+        },
       }
     )
     const response = await oracleDbs.data
@@ -65,8 +71,8 @@ export const actions = {
         params: {
           'older-than': getters.getActiveFilters.date,
           environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location
-        }
+          location: getters.getActiveFilters.location,
+        },
       }
     )
     const response = await topWorkload.data
@@ -79,8 +85,8 @@ export const actions = {
         params: {
           'older-than': getters.getActiveFilters.date,
           environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location
-        }
+          location: getters.getActiveFilters.location,
+        },
       }
     )
     const response = await topUnused.data
@@ -93,12 +99,12 @@ export const actions = {
         params: {
           'older-than': getters.getActiveFilters.date,
           environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location
-        }
+          location: getters.getActiveFilters.location,
+        },
       }
     )
 
     const response = await stats.data
     commit('SET_ORACLE_STATISTICS', response)
-  }
+  },
 }
