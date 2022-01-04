@@ -1,23 +1,12 @@
 <template>
   <b-tab-item label="Services" v-if="services.length > 0">
-    <FullTable
-      :tableData="services"
-      :keys="keys"
-      hideSearch
-      hidePerpage
-      hidePagination
-      hideTopTable
-    >
+    <FullTable :tableData="services" :keys="keys">
       <template slot="headData">
         <v-th sortKey="name">Name</v-th>
-        <v-th sortKey="creationDate">Creation Date</v-th>
-        <v-th sortKey="enable">Enable</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
         <TdContent :value="rowData.scope.name" />
-        <TdContent :value="rowData.scope.creationDate" />
-        <TdContent :value="rowData.scope.enable" />
       </template>
     </FullTable>
   </b-tab-item>
@@ -31,18 +20,18 @@ export default {
   props: {
     services: {
       type: Array,
-      default: Array
-    }
+      default: Array,
+    },
   },
   components: {
     FullTable,
-    TdContent
+    TdContent,
   },
   data() {
     return {
-      keyy: ['name', 'creationDate', 'enable']
+      keys: ['name'],
     }
-  }
+  },
 }
 </script>
 
