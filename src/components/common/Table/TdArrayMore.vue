@@ -45,7 +45,7 @@ export default {
     return {
       limit: 5,
       defaultSize: 5,
-      valueSize: null
+      valueSize: null,
     }
   },
   methods: {
@@ -53,7 +53,7 @@ export default {
       this.valueSize = val.length
       let values = [...val]
 
-      values = _.map(values, val => {
+      values = _.map(values, (val) => {
         val = ` ${val}`
         return val
       })
@@ -68,8 +68,8 @@ export default {
           this.limit -= this.defaultSize
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
