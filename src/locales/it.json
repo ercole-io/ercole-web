@@ -250,7 +250,8 @@
       "licAvailable": "Licenza Disponibile",
       "clusterLicenses": "Licenze Cluster",
       "purchased": "Acquistato",
-      "pluggable": "Collegabile"
+      "pluggable": "Collegabile",
+      "services": "Servizi"
     },
     "table": {
       "perPage": "per pagina",
@@ -359,7 +360,8 @@
       "licAvailable": "Licenza Disponibile",
       "clusterLicenses": "Licenze Cluster",
       "purchased": "Acquistato",
-      "pluggable": "Collegabile"
+      "pluggable": "Collegabile",
+      "services": "Servizi"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",
