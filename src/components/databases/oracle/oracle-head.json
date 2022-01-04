@@ -50,6 +50,10 @@
     "langKey": "common.collumns.pluggable"
   },
   {
+    "sort": "services",
+    "langKey": "common.collumns.services"
+  },
+  {
     "sort": "work",
     "langKey": "common.collumns.work"
   },

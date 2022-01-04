@@ -35,6 +35,14 @@
       <CustomRadio v-model="filters.isCDB" />
     </CustomField>
 
+    <CustomField :label="$t('common.fields.services')">
+      <CustomAutocomplete
+        v-model="filters.services"
+        :filterResult="filteredservices"
+        :filterMethod="setAutocompletes"
+      />
+    </CustomField>
+
     <CustomField :label="$t('common.fields.work')">
       <CustomSlider
         v-model="filters.work"
@@ -125,7 +133,14 @@ export default {
   mixins: [localFiltersMixin],
   data() {
     return {
-      autocompletes: ['name', 'version', 'hostname', 'uniqueName', 'charset'],
+      autocompletes: [
+        'name',
+        'version',
+        'hostname',
+        'uniqueName',
+        'charset',
+        'services',
+      ],
       selects: ['status', 'environment'],
       sliders: [
         'work',

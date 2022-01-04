@@ -250,7 +250,8 @@
       "licAvailable": "License Available",
       "clusterLicenses": "Cluster Licenses",
       "purchased": "Purchased",
-      "pluggable": "Pluggable"
+      "pluggable": "Pluggable",
+      "services": "Services"
     },
     "table": {
       "perPage": "per page",
@@ -359,7 +360,8 @@
       "licAvailable": "License Available",
       "clusterLicenses": "Cluster Licenses",
       "purchased": "Purchased",
-      "pluggable": "Pluggable"
+      "pluggable": "Pluggable",
+      "services": "Services"
     },
     "charts": {
       "archivelog": "Archivelog Mode",

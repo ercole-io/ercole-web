@@ -14,7 +14,11 @@ export const getters = {
   getAllOracleDBs: (state, getters) => {
     const oracleDbs = []
     _.map(state.oracleDbs, (val) => {
-      oracleDbs.push({ ...val, work: val.work === null ? 0 : val.work })
+      oracleDbs.push({
+        ...val,
+        work: val.work === null ? 0 : val.work,
+        services: val.services.length > 0 ? val.services : '-',
+      })
       return oracleDbs
     })
     return getters.filteredOrNot(oracleDbs)
