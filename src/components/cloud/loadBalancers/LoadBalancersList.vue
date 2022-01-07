@@ -2,11 +2,11 @@
   <FullTable
     placeholder="Cloud Recommendations"
     :keys="getHeadKeys(loadBalancersHead)"
-    :tableData="getLoadBalancers"
+    :tableData="getMergedData"
   >
     <template slot="customTopHeader">
       <b-notification
-        v-if="getLoadBalancers.length <= 0"
+        v-if="getMergedData.length <= 0"
         type="is-warning is-light"
         aria-close-label="Close notification"
         role="alert"
@@ -33,9 +33,9 @@
     />
 
     <template slot="bodyData" slot-scope="rowData">
-      <TdContent :value="rowData.scope.name" />
       <TdContent :value="rowData.scope.type" />
-      <TdContent :value="rowData.scope.compartmentID" />
+      <TdContent :value="rowData.scope.compartmentName" />
+      <TdContent :value="rowData.scope.name" />
       <TdContent :value="rowData.scope.resourceID" />
     </template>
 
@@ -66,7 +66,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getLoadBalancers', 'getOciActiveProfileError']),
+    ...mapGetters(['getMergedData', 'getOciActiveProfileError']),
     getErrActiveProfile() {
       const number = Number(this.getOciActiveProfileError) > 1 ? 2 : 1
 

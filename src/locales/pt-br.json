@@ -270,7 +270,7 @@
       "privateKey": "Chave Privada",
       "clusterLicenses": "Licenças de cluster",
       "purchased": "Comprado",
-      "compartmentID": "Compartment ID",
+      "compartmentName": "Compartment Name",
       "resourceID": "Resource ID",
       "pluggable": "Plugável",
       "services": "Serviços"
@@ -388,7 +388,7 @@
       "privateKey": "Chave Privada",
       "clusterLicenses": "Licenças de cluster",
       "purchased": "Comprado",
-      "compartmentID": "Compartment ID",
+      "compartmentName": "Compartment Name",
       "resourceID": "Resource ID",
       "pluggable": "Plugável",
       "services": "Serviços"
