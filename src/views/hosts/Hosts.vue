@@ -127,13 +127,13 @@ export default {
     HostsFilters,
     HostLink,
     DynamicHeading,
-    MoreInfoButtons
+    MoreInfoButtons,
   },
   data() {
     return {
       isMounted: false,
       hostsHead: hostsHead,
-      hostsMoreInfo: hostsMoreInfo
+      hostsMoreInfo: hostsMoreInfo,
     }
   },
   async beforeMount() {
@@ -147,12 +147,12 @@ export default {
     ...mapActions(['getHosts']),
     formatDate(date) {
       return formatDate(date)
-    }
+    },
   },
   computed: {
     ...mapGetters(['getAllHosts']),
-    ...mapState(['moreInfoToggle'])
-  }
+    ...mapState(['moreInfoToggle']),
+  },
 }
 </script>
 
