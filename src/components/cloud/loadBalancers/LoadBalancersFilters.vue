@@ -1,21 +1,21 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField :label="$t('common.fields.repoName')">
-      <CustomAutocomplete
-        v-model="filters.name"
-        :filterResult="filteredname"
-        :filterMethod="setAutocompletes"
-      />
-    </CustomField>
-
     <CustomField :label="$t('common.fields.type')">
       <CustomSelect v-model="filters.type" :options="filteredtype" />
     </CustomField>
 
-    <CustomField :label="$t('common.fields.compartmentID')">
+    <CustomField :label="$t('common.fields.compartmentName')">
       <CustomAutocomplete
-        v-model="filters.compartmentID"
-        :filterResult="filteredcompartmentID"
+        v-model="filters.compartmentName"
+        :filterResult="filteredcompartmentName"
+        :filterMethod="setAutocompletes"
+      />
+    </CustomField>
+
+    <CustomField :label="$t('common.fields.repoName')">
+      <CustomAutocomplete
+        v-model="filters.name"
+        :filterResult="filteredname"
         :filterMethod="setAutocompletes"
       />
     </CustomField>
@@ -38,15 +38,15 @@ export default {
   mixins: [localFiltersMixin],
   data() {
     return {
-      autocompletes: ['name', 'compartmentID', 'resourceID'],
+      autocompletes: ['name', 'compartmentName', 'resourceID'],
       selects: ['type'],
     }
   },
   created() {
-    this.fullData = this.getLoadBalancers
+    this.fullData = this.getMergedData
   },
   computed: {
-    ...mapGetters(['getLoadBalancers']),
+    ...mapGetters(['getMergedData']),
   },
 }
 </script>

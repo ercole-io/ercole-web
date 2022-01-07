@@ -29,11 +29,19 @@ export default {
   },
   async beforeMount() {
     await this.getLoadBalancersData().then(() => {
-      this.isMounted = true
+      this.getInstancesIdleData().then(() => {
+        this.getBlockStorageData().then(() => {
+          this.isMounted = true
+        })
+      })
     })
   },
   methods: {
-    ...mapActions(['getLoadBalancersData']),
+    ...mapActions([
+      'getLoadBalancersData',
+      'getInstancesIdleData',
+      'getBlockStorageData',
+    ]),
   },
 }
 </script>
