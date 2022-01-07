@@ -25,31 +25,31 @@ export default {
   mixins: [HighlightSearchMixin, TooltipMixin],
   props: {
     link: {
-      type: Function
+      type: Function,
     },
     dataType: {
       type: String,
-      default: ''
+      default: '',
     },
     tooltipPlace: {
       type: String,
-      default: 'bottom'
-    }
+      default: 'bottom',
+    },
   },
   methods: {
     formatDate(date) {
       return formatDateTime(date)
-    }
+    },
   },
   computed: {
     setValue() {
       if (typeof this.value === 'number') {
-        return this.value
+        return this.$sanitize(this.value)
       } else {
-        return this.value || '-'
+        return this.$sanitize(this.value) || '-'
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -103,7 +103,10 @@
       "agreeForm": "Formulário de Contrato",
       "addAgreement": "Adicionar ou modificar um Contrato de Licença Oracle",
       "dbList": "Lista de Bancos de Dados",
-      "hostsList": "Lista de Hosts"
+      "hostsList": "Lista de Hosts",
+      "ignoreDbLicense": "Tem certeza de que deseja ignorar a licença <b> {license} </b> para o host <b> {hostname} </b> e o banco de dados <b> {database} </b>?",
+      "reactivateDbLicense": "Tem certeza de que deseja reativar a licença <b> {license} </b> para o host <b> {hostname} </b> e o banco de dados <b> {database} </b>?",
+      "ignoreLicense": "Ignorar Licença"
     },
     "alerts": {
       "markRead": "Marcar como Lido",
@@ -122,6 +125,9 @@
       "noActiveProfile": "Atualmente não há perfis ativos! Vá para a página de configurações de perfil para ativar!",
       "oneErrActiveProfile": "Há {n} perfil não funcionando corretamente, verifique a página de configuração do perfil!",
       "moreErrActiveProfile": "Existem {n} perfis que não funcionam corretamente, verifique a página de configuração do perfil!"
+    },
+    "hosts": {
+      "addExportParams": "Adicionar Parâmetros de Exportação"
     }
   },
   "common": {
@@ -130,7 +136,7 @@
       "exportData": "Exportar Dados",
       "exportLms": "Exportar Arquivo LMS Audit",
       "inProgress": "em Andamento",
-      "wait": "Isso pode demorar um pouco, por favor aguarde ...",
+      "wait": "Isso pode demorar um pouco, por favor aguarde...",
       "cancelRequest": "Cancelar Requisição",
       "yes": "Sim",
       "no": "Não",
@@ -265,7 +271,9 @@
       "clusterLicenses": "Licenças de cluster",
       "purchased": "Comprado",
       "compartmentID": "Compartment ID",
-      "resourceID": "Resource ID"
+      "resourceID": "Resource ID",
+      "pluggable": "Plugável",
+      "services": "Serviços"
     },
     "table": {
       "perPage": "por página",
@@ -381,7 +389,9 @@
       "clusterLicenses": "Licenças de cluster",
       "purchased": "Comprado",
       "compartmentID": "Compartment ID",
-      "resourceID": "Resource ID"
+      "resourceID": "Resource ID",
+      "pluggable": "Plugável",
+      "services": "Serviços"
     },
     "charts": {
       "archivelog": "Modo Archivelog",
@@ -409,6 +419,9 @@
       "onlyNumbers": "Este campo aceita apenas número.",
       "characters": "{0} deve ter pelo menos {1} caracteres",
       "loginUnauthorized": "Nome de usuário ou senha inválidos.",
+      "loginErr422": "Sua solicitação foi rejeitada.",
+      "loginErr500": "Erro Interno do Servidor.",
+      "loginErrGeneric": "Algo deu errado. Por favor, tente novamente!",
       "loginTimeout": "Tempo limite da solicitação excedido",
       "noResults": "Nenhum resultado encontrado."
     },

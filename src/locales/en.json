@@ -103,7 +103,10 @@
       "agreeForm": "Agreement Form",
       "addAgreement": "Add or Modify an Oracle Agreement",
       "dbList": "List of Databases",
-      "hostsList": "List of Hosts"
+      "hostsList": "List of Hosts",
+      "ignoreDbLicense": "Are you sure you want to ignore the license <b>{license}</b> for the host <b>{hostname}</b> and database <b>{database}</b>?",
+      "reactivateDbLicense": "Are you sure you want to reactivate the license <b>{license}</b> for the host <b>{hostname}</b> and database <b>{database}</b>?",
+      "ignoreLicense": "Ignore License"
     },
     "alerts": {
       "markRead": "Mark as Read",
@@ -122,6 +125,9 @@
       "noActiveProfile": "There are currently no active profiles! Go to profile configurations page to activate!",
       "oneErrActiveProfile": "There is {n} profile not working properly, please check profile configuration page!",
       "moreErrActiveProfile": "There are {n} profiles not working properly, please check profile configuration page!"
+    },
+    "hosts": {
+      "addExportParams": "Add Export Params"
     }
   },
   "common": {
@@ -267,7 +273,9 @@
       "clusterLicenses": "Cluster Licenses",
       "purchased": "Purchased",
       "compartmentID": "Compartment ID",
-      "resourceID": "Resource ID"
+      "resourceID": "Resource ID",
+      "pluggable": "Pluggable",
+      "services": "Services"
     },
     "table": {
       "perPage": "per page",
@@ -388,7 +396,9 @@
       "clusterLicenses": "Cluster Licenses",
       "purchased": "Purchased",
       "compartmentID": "Compartment ID",
-      "resourceID": "Resource ID"
+      "resourceID": "Resource ID",
+      "pluggable": "Pluggable",
+      "services": "Services"
     },
     "charts": {
       "archivelog": "Archivelog Mode",
@@ -416,6 +426,9 @@
       "onlyNumbers": "This field accepts only number.",
       "characters": "{0} must have at least {1} characters",
       "loginUnauthorized": "Invalid username or password.",
+      "loginErr422": "Your request was rejected.",
+      "loginErr500": "Internal Server Error.",
+      "loginErrGeneric": "Something went wrong. Please try again!",
       "loginTimeout": "Request timeout exceeded", 
       "noResults": "No results found"
     },

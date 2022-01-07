@@ -53,6 +53,8 @@
           :class="{ 'is-hidden': moreInfoToggle.hiddenCharset }"
         />
         <TdContent :value="rowData.scope.version" />
+        <TdIcon :value="rowData.scope.isCDB" />
+        <TdArrayMore :value="rowData.scope.services" />
         <TdContent :value="rowData.scope.work | formatNumber('0')" />
         <TdContent :value="rowData.scope.cpuCount" />
         <TdContent :value="rowData.scope.blockSize" />
@@ -72,7 +74,7 @@
       <BaseLayoutColumns
         :pageCols="[
           { colsize: '6', slotName: 'cpu' },
-          { colsize: '6', slotName: 'memory' }
+          { colsize: '6', slotName: 'memory' },
         ]"
       >
         <OracleCpu slot="cpu" />
@@ -100,6 +102,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
+import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import OracleFilters from '@/components/databases/oracle/OracleFilters.vue'
 import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
@@ -122,6 +125,7 @@ export default {
     ExportButton,
     TdContent,
     TdIcon,
+    TdArrayMore,
     HostLink,
     OracleFilters,
     MoreInfoButtons,
@@ -131,18 +135,18 @@ export default {
     OracleCharts,
     OracleCpu,
     OracleMemory,
-    OracleStorage
+    OracleStorage,
   },
   data() {
     return {
       oraclesMoreInfo: oraclesMoreInfo,
-      oracleHead: oracleHead
+      oracleHead: oracleHead,
     }
   },
   computed: {
     ...mapGetters(['getAllOracleDBs']),
-    ...mapState(['moreInfoToggle'])
-  }
+    ...mapState(['moreInfoToggle']),
+  },
 }
 </script>
 
