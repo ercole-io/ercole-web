@@ -272,7 +272,7 @@
       "privateKey": "Chiave Privata",
       "clusterLicenses": "Licenze Cluster",
       "purchased": "Acquistato",
-      "compartmentID": "Compartment ID",
+      "compartmentName": "Compartment Name",
       "resourceID": "Resource ID",
       "pluggable": "Collegabile",
       "services": "Servizi"
@@ -395,7 +395,7 @@
       "privateKey": "Chiave Privata",
       "clusterLicenses": "Licenze Cluster",
       "purchased": "Acquistato",
-      "compartmentID": "Compartment ID",
+      "compartmentName": "Compartment Name",
       "resourceID": "Resource ID",
       "pluggable": "Collegabile",
       "services": "Servizi"
