@@ -1,0 +1,17 @@
+{
+  "baseUrl": "http://localhost:8080/",
+  "viewportHeight": 1080,
+  "viewportWidth": 1920,
+  "video": false,
+  "retries": {
+    "runMode": 2,
+    "openMode": 0
+  },
+  "env": {
+    "username": "ercole",
+    "password": "P4pp1n14ll011!",
+    "apiUrl": "https://dev.ercole.io/api/"
+  },
+  "testFiles": "**/*.spec.js",
+  "componentFolder": "src"
+}

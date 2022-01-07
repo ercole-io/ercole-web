@@ -1,0 +1,324 @@
+{
+  "hosts": [
+    {
+      "id": "61d472bf023479c1fbec4d49",
+      "createdAt": "2022-01-04T16:15:59.847Z",
+      "hostname": "ERCWIN2016",
+      "location": "Germany",
+      "environment": "TST",
+      "agentVersion": "2.8.2",
+      "info": {
+        "coresPerSocket": 1,
+        "cpuCores": 2,
+        "cpuFrequency": "1698  MHz",
+        "cpuModel": "Intel Core Processor (Broadwell)",
+        "cpuSockets": 2,
+        "cpuThreads": 2,
+        "hardwareAbstraction": "PH",
+        "hardwareAbstractionTechnology": "PH",
+        "hostname": "ERCWIN2016",
+        "kernel": "NT",
+        "kernelVersion": "10.0.14393",
+        "memoryTotal": 4,
+        "os": "Microsoft Windows Server 2016 Datacenter",
+        "osVersion": "Microsoft Windows Server 2016 Datacenter",
+        "swapTotal": 7,
+        "threadsPerCore": 2
+      },
+      "clusterMembershipStatus": {
+        "hacmp": false,
+        "oracleClusterware": false,
+        "sunCluster": false,
+        "veritasClusterHostnames": null,
+        "veritasClusterServer": false
+      },
+      "virtualizationNode": "",
+      "cluster": "",
+      "databases": {
+        "Oracle/Database": [
+          "ERC11204"
+        ]
+      }
+    },
+    {
+      "id": "61d46472023479c1fbec4d48",
+      "createdAt": "2022-01-04T15:14:58.717Z",
+      "hostname": "erclin6db18",
+      "location": "Germany",
+      "environment": "PRD",
+      "agentVersion": "2.8.2",
+      "info": {
+        "coresPerSocket": 1,
+        "cpuCores": 1,
+        "cpuFrequency": "1698.056Mhz",
+        "cpuModel": "Intel Core Processor (Broadwell)",
+        "cpuSockets": 2,
+        "cpuThreads": 2,
+        "hardwareAbstraction": "VIRT",
+        "hardwareAbstractionTechnology": "KVM",
+        "hostname": "erclin6db18",
+        "kernel": "Linux",
+        "kernelVersion": "4.1.12-124.16.4.el6uek.x86_64",
+        "memoryTotal": 3,
+        "os": "Red Hat Enterprise Linux",
+        "osVersion": "6.10",
+        "swapTotal": 1,
+        "threadsPerCore": 2
+      },
+      "clusterMembershipStatus": {
+        "hacmp": false,
+        "oracleClusterware": false,
+        "sunCluster": false,
+        "veritasClusterHostnames": null,
+        "veritasClusterServer": false
+      },
+      "virtualizationNode": "",
+      "cluster": "",
+      "databases": {
+        "Oracle/Database": [
+          "ERC18",
+          "ERC6122"
+        ]
+      }
+    },
+    {
+      "id": "61c2e45489df971807fc0926",
+      "createdAt": "2021-12-22T08:39:48.412Z",
+      "hostname": "erclin7dbx",
+      "location": "Germany",
+      "environment": "TST",
+      "agentVersion": "2.8.2",
+      "info": {
+        "coresPerSocket": 1,
+        "cpuCores": 4,
+        "cpuFrequency": "1697.973Mhz",
+        "cpuModel": "Intel Core Processor (Broadwell)",
+        "cpuSockets": 8,
+        "cpuThreads": 8,
+        "hardwareAbstraction": "VIRT",
+        "hardwareAbstractionTechnology": "KVM",
+        "hostname": "erclin7dbx",
+        "kernel": "Linux",
+        "kernelVersion": "4.14.35-1902.300.11.el7uek.x86_64",
+        "memoryTotal": 7,
+        "os": "Red Hat Enterprise Linux",
+        "osVersion": "7.8",
+        "swapTotal": 1,
+        "threadsPerCore": 2
+      },
+      "clusterMembershipStatus": {
+        "hacmp": false,
+        "oracleClusterware": false,
+        "sunCluster": false,
+        "veritasClusterHostnames": null,
+        "veritasClusterServer": false
+      },
+      "virtualizationNode": "",
+      "cluster": "",
+      "databases": {
+        "Oracle/Database": [
+          "ERCSTD11",
+          "ERC719",
+          "ERC718",
+          "ERC7122"
+        ]
+      }
+    },
+    {
+      "id": "61d57cda57c10178322c6dfe",
+      "createdAt": "2022-01-05T11:11:22.309Z",
+      "hostname": "erclin7mysqlee",
+      "location": "Germany",
+      "environment": "TST",
+      "agentVersion": "2.8.2",
+      "info": {
+        "coresPerSocket": 1,
+        "cpuCores": 2,
+        "cpuFrequency": "1697.973Mhz",
+        "cpuModel": "Intel Core Processor (Broadwell)",
+        "cpuSockets": 4,
+        "cpuThreads": 4,
+        "hardwareAbstraction": "VIRT",
+        "hardwareAbstractionTechnology": "KVM",
+        "hostname": "erclin7mysqlee",
+        "kernel": "Linux",
+        "kernelVersion": "3.10.0-1127.el7.x86_64",
+        "memoryTotal": 3,
+        "os": "Red Hat Enterprise Linux",
+        "osVersion": "7",
+        "swapTotal": 1,
+        "threadsPerCore": 2
+      },
+      "clusterMembershipStatus": {
+        "hacmp": false,
+        "oracleClusterware": false,
+        "sunCluster": false,
+        "veritasClusterHostnames": null,
+        "veritasClusterServer": false
+      },
+      "virtualizationNode": "",
+      "cluster": "",
+      "databases": {
+        "Oracle/MySQL": [
+          "erclin7mysqlee:3306"
+        ]
+      }
+    },
+    {
+      "id": "61c327ba89df971807fc0928",
+      "createdAt": "2021-12-22T13:27:22.234Z",
+      "hostname": "erclin8dbx",
+      "location": "Germany",
+      "environment": "TST",
+      "agentVersion": "2.8.2",
+      "info": {
+        "coresPerSocket": 1,
+        "cpuCores": 4,
+        "cpuFrequency": "1697.973Mhz",
+        "cpuModel": "Intel Core Processor (Broadwell)",
+        "cpuSockets": 8,
+        "cpuThreads": 8,
+        "hardwareAbstraction": "VIRT",
+        "hardwareAbstractionTechnology": "KVM",
+        "hostname": "erclin8dbx",
+        "kernel": "Linux",
+        "kernelVersion": "5.4.17-2011.2.2.el8uek.x86_64",
+        "memoryTotal": 3,
+        "os": "Red Hat Enterprise Linux",
+        "osVersion": "8.2",
+        "swapTotal": 1,
+        "threadsPerCore": 2
+      },
+      "clusterMembershipStatus": {
+        "hacmp": false,
+        "oracleClusterware": false,
+        "sunCluster": false,
+        "veritasClusterHostnames": null,
+        "veritasClusterServer": false
+      },
+      "virtualizationNode": "",
+      "cluster": "",
+      "databases": {
+        "Oracle/Database": []
+      }
+    },
+    {
+      "id": "61d4c07f57c10178322c6df9",
+      "createdAt": "2022-01-04T21:47:43.892Z",
+      "hostname": "ercsoldbx",
+      "location": "Germany",
+      "environment": "PROD",
+      "agentVersion": "2.7.0",
+      "info": {
+        "coresPerSocket": 1,
+        "cpuCores": 8,
+        "cpuFrequency": "1700 MHz",
+        "cpuModel": "Intel Core Processor (Broadwell) @ 1700 MHz",
+        "cpuSockets": 8,
+        "cpuThreads": 8,
+        "hardwareAbstraction": "PH",
+        "hardwareAbstractionTechnology": "PH",
+        "hostname": "ercsoldbx",
+        "kernel": "SunOS",
+        "kernelVersion": "5.11",
+        "memoryTotal": 8,
+        "os": "SunOS",
+        "osVersion": "11.4.0.15.0",
+        "swapTotal": 0,
+        "threadsPerCore": 1
+      },
+      "clusterMembershipStatus": {
+        "hacmp": false,
+        "oracleClusterware": false,
+        "sunCluster": false,
+        "veritasClusterHostnames": null,
+        "veritasClusterServer": false
+      },
+      "virtualizationNode": "",
+      "cluster": "",
+      "databases": {
+        "Oracle/Database": []
+      }
+    },
+    {
+      "id": "61d47598023479c1fbec4d4a",
+      "createdAt": "2022-01-04T16:28:08.273Z",
+      "hostname": "ercxedb18.ercole.io",
+      "location": "Germany",
+      "environment": "TST",
+      "agentVersion": "2.8.2",
+      "info": {
+        "coresPerSocket": 1,
+        "cpuCores": 4,
+        "cpuFrequency": "1697.973Mhz",
+        "cpuModel": "Intel Core Processor (Broadwell)",
+        "cpuSockets": 8,
+        "cpuThreads": 8,
+        "hardwareAbstraction": "VIRT",
+        "hardwareAbstractionTechnology": "KVM",
+        "hostname": "ercxedb18.ercole.io",
+        "kernel": "Linux",
+        "kernelVersion": "4.14.35-1902.300.11.el7uek.x86_64",
+        "memoryTotal": 7,
+        "os": "Red Hat Enterprise Linux",
+        "osVersion": "7.8",
+        "swapTotal": 2,
+        "threadsPerCore": 2
+      },
+      "clusterMembershipStatus": {
+        "hacmp": false,
+        "oracleClusterware": false,
+        "sunCluster": false,
+        "veritasClusterHostnames": null,
+        "veritasClusterServer": false
+      },
+      "virtualizationNode": "",
+      "cluster": "",
+      "databases": {
+        "Oracle/Database": [
+          "XE"
+        ]
+      }
+    },
+    {
+      "id": "61d4777a023479c1fbec4d4b",
+      "createdAt": "2022-01-04T16:36:10.13Z",
+      "hostname": "itl-csllab-112.sorint.localpippo",
+      "location": "Germany",
+      "environment": "TST",
+      "agentVersion": "2.8.2",
+      "info": {
+        "coresPerSocket": 1,
+        "cpuCores": 1,
+        "cpuFrequency": "2.53GHz",
+        "cpuModel": "Intel(R) Xeon(R) CPU E5630",
+        "cpuSockets": 2,
+        "cpuThreads": 2,
+        "hardwareAbstraction": "VIRT",
+        "hardwareAbstractionTechnology": "VMWARE",
+        "hostname": "itl-csllab-112.sorint.localpippo",
+        "kernel": "Linux",
+        "kernelVersion": "3.10.0-514.el7.x86_64",
+        "memoryTotal": 3,
+        "os": "Red Hat Enterprise Linux",
+        "osVersion": "7.6",
+        "swapTotal": 1,
+        "threadsPerCore": 2
+      },
+      "clusterMembershipStatus": {
+        "hacmp": false,
+        "oracleClusterware": false,
+        "sunCluster": false,
+        "veritasClusterHostnames": null,
+        "veritasClusterServer": false
+      },
+      "virtualizationNode": "",
+      "cluster": "",
+      "databases": {
+        "Oracle/Database": [
+          "ERCOLE"
+        ]
+      }
+    }
+  ]
+}

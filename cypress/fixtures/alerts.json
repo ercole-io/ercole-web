@@ -1,0 +1,1109 @@
+[
+  {
+    "_id": "61951f8511c8eb610497dd55",
+    "alertAffectedTechnology": null,
+    "alertCategory": "ENGINE",
+    "alertCode": "NEW_SERVER",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:28:05.072Z",
+    "description": "The host erclin7dbx was added to ercole",
+    "hostname": "erclin7dbx",
+    "otherInfo": {
+      "hostname": "erclin7dbx"
+    }
+  },
+  {
+    "_id": "61951f8511c8eb610497dd57",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_DATABASE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:28:05.079Z",
+    "description": "The database ERC719 was created on the host erclin7dbx",
+    "hostname": "erclin7dbx",
+    "otherInfo": {
+      "dbname": "ERC719",
+      "hostname": "erclin7dbx"
+    }
+  },
+  {
+    "_id": "61951f8511c8eb610497dd59",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:28:05.08Z",
+    "description": "The database ERC719 on erclin7dbx has enabled new option: Oracle Diagnostics Pack",
+    "hostname": "erclin7dbx",
+    "otherInfo": {
+      "dbname": "ERC719",
+      "hostname": "erclin7dbx",
+      "licenseTypeID": "A90649"
+    }
+  },
+  {
+    "_id": "61951f8511c8eb610497dd5b",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_LICENSE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:28:05.081Z",
+    "description": "The database ERC719 on erclin7dbx has enabled new license: Oracle Database Enterprise Edition",
+    "hostname": "erclin7dbx",
+    "otherInfo": {
+      "dbname": "ERC719",
+      "hostname": "erclin7dbx",
+      "licenseTypeID": "A90611"
+    }
+  },
+  {
+    "_id": "61951f8511c8eb610497dd5d",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_DATABASE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:28:05.082Z",
+    "description": "The database ERC718 was created on the host erclin7dbx",
+    "hostname": "erclin7dbx",
+    "otherInfo": {
+      "dbname": "ERC718",
+      "hostname": "erclin7dbx"
+    }
+  },
+  {
+    "_id": "61951f8511c8eb610497dd5f",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_LICENSE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:28:05.082Z",
+    "description": "The database ERC718 on erclin7dbx has enabled new license: Oracle Database Enterprise Edition",
+    "hostname": "erclin7dbx",
+    "otherInfo": {
+      "dbname": "ERC718",
+      "hostname": "erclin7dbx",
+      "licenseTypeID": "A90611"
+    }
+  },
+  {
+    "_id": "61951f8511c8eb610497dd61",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:28:05.083Z",
+    "description": "The database ERC718 on erclin7dbx has enabled new option: Oracle Partitioning",
+    "hostname": "erclin7dbx",
+    "otherInfo": {
+      "dbname": "ERC718",
+      "hostname": "erclin7dbx",
+      "licenseTypeID": "A90620"
+    }
+  },
+  {
+    "_id": "61951f8511c8eb610497dd63",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:28:05.084Z",
+    "description": "The database ERC718 on erclin7dbx has enabled new option: Oracle Tuning Pack",
+    "hostname": "erclin7dbx",
+    "otherInfo": {
+      "dbname": "ERC718",
+      "hostname": "erclin7dbx",
+      "licenseTypeID": "A90650"
+    }
+  },
+  {
+    "_id": "61951f8511c8eb610497dd65",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:28:05.085Z",
+    "description": "The database ERC718 on erclin7dbx has enabled new option: Oracle Diagnostics Pack",
+    "hostname": "erclin7dbx",
+    "otherInfo": {
+      "dbname": "ERC718",
+      "hostname": "erclin7dbx",
+      "licenseTypeID": "A90649"
+    }
+  },
+  {
+    "_id": "61951f8511c8eb610497dd67",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_DATABASE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:28:05.086Z",
+    "description": "The database ERC7122 was created on the host erclin7dbx",
+    "hostname": "erclin7dbx",
+    "otherInfo": {
+      "dbname": "ERC7122",
+      "hostname": "erclin7dbx"
+    }
+  },
+  {
+    "_id": "61951f8511c8eb610497dd69",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:28:05.087Z",
+    "description": "The database ERC7122 on erclin7dbx has enabled new option: Oracle Diagnostics Pack",
+    "hostname": "erclin7dbx",
+    "otherInfo": {
+      "dbname": "ERC7122",
+      "hostname": "erclin7dbx",
+      "licenseTypeID": "A90649"
+    }
+  },
+  {
+    "_id": "61951f8511c8eb610497dd6b",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_LICENSE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:28:05.088Z",
+    "description": "The database ERC7122 on erclin7dbx has enabled new license: Oracle Database Enterprise Edition",
+    "hostname": "erclin7dbx",
+    "otherInfo": {
+      "dbname": "ERC7122",
+      "hostname": "erclin7dbx",
+      "licenseTypeID": "A90611"
+    }
+  },
+  {
+    "_id": "61951f8511c8eb610497dd6d",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_DATABASE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:28:05.089Z",
+    "description": "The database ERCSTD11 was created on the host erclin7dbx",
+    "hostname": "erclin7dbx",
+    "otherInfo": {
+      "dbname": "ERCSTD11",
+      "hostname": "erclin7dbx"
+    }
+  },
+  {
+    "_id": "61951f8511c8eb610497dd6f",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:28:05.09Z",
+    "description": "The database ERCSTD11 on erclin7dbx has enabled new option: Oracle Diagnostics Pack",
+    "hostname": "erclin7dbx",
+    "otherInfo": {
+      "dbname": "ERCSTD11",
+      "hostname": "erclin7dbx",
+      "licenseTypeID": "A90649"
+    }
+  },
+  {
+    "_id": "6195209b11c8eb610497dd72",
+    "alertAffectedTechnology": null,
+    "alertCategory": "ENGINE",
+    "alertCode": "NEW_SERVER",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:32:43.204Z",
+    "description": "The host erclin6db18 was added to ercole",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "hostname": "erclin6db18"
+    }
+  },
+  {
+    "_id": "6195209b11c8eb610497dd74",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_DATABASE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:32:43.208Z",
+    "description": "The database ERC18 was created on the host erclin6db18",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbname": "ERC18",
+      "hostname": "erclin6db18"
+    }
+  },
+  {
+    "_id": "6195209b11c8eb610497dd76",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:32:43.209Z",
+    "description": "The database ERC18 on erclin6db18 has enabled new option: Oracle Diagnostics Pack",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbname": "ERC18",
+      "hostname": "erclin6db18",
+      "licenseTypeID": "A90649"
+    }
+  },
+  {
+    "_id": "6195209b11c8eb610497dd78",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_LICENSE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:32:43.21Z",
+    "description": "The database ERC18 on erclin6db18 has enabled new license: Oracle Database Enterprise Edition",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbname": "ERC18",
+      "hostname": "erclin6db18",
+      "licenseTypeID": "A90611"
+    }
+  },
+  {
+    "_id": "6195209b11c8eb610497dd7a",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:32:43.211Z",
+    "description": "The database ERC18 on erclin6db18 has enabled new option: Oracle Tuning Pack",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbname": "ERC18",
+      "hostname": "erclin6db18",
+      "licenseTypeID": "A90650"
+    }
+  },
+  {
+    "_id": "6195209b11c8eb610497dd7c",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_DATABASE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:32:43.212Z",
+    "description": "The database ERC6122 was created on the host erclin6db18",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbname": "ERC6122",
+      "hostname": "erclin6db18"
+    }
+  },
+  {
+    "_id": "6195209b11c8eb610497dd7e",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:32:43.213Z",
+    "description": "The database ERC6122 on erclin6db18 has enabled new option: Oracle Diagnostics Pack",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbname": "ERC6122",
+      "hostname": "erclin6db18",
+      "licenseTypeID": "A90649"
+    }
+  },
+  {
+    "_id": "6195209b11c8eb610497dd80",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_LICENSE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-17T15:32:43.213Z",
+    "description": "The database ERC6122 on erclin6db18 has enabled new license: Oracle Database Enterprise Edition",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbname": "ERC6122",
+      "hostname": "erclin6db18",
+      "licenseTypeID": "A90611"
+    }
+  },
+  {
+    "_id": "619619879d2f28306079ef84",
+    "alertAffectedTechnology": null,
+    "alertCategory": "ENGINE",
+    "alertCode": "NEW_SERVER",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T09:14:47.075Z",
+    "description": "The host erclin8dbx was added to ercole",
+    "hostname": "erclin8dbx",
+    "otherInfo": {
+      "hostname": "erclin8dbx"
+    }
+  },
+  {
+    "_id": "619619879d2f28306079ef85",
+    "alertAffectedTechnology": null,
+    "alertCategory": "ENGINE",
+    "alertCode": "AGENT_ERROR",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T09:14:47.081Z",
+    "description": "1 error occurred:\n\t* /root/project/builder/common_builder/oracle_databases.go:146 : 'Unknown dbStatus: [ERROR: ORA-09925: Unable to create audit trail file Linux-x86_64 Error: 28: No space left on device Additional information: 9925 ORA-01075: you are currently logged on SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM|SYSBACKUP|SYSDG|SYSKM|SYSRAC}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM|SYSBACKUP|SYSDG|SYSKM|SYSRAC}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0157: unable to CONNECT to ORACLE after 3 attempts, exiting SQL*Plus] DBName: [ERC819] OracleHome: [/u01/app/oracle/product/19.0/dbhome_1]'\n\n\n\n",
+    "hostname": "erclin8dbx",
+    "otherInfo": {
+      "errors": [
+        {
+          "message": "1 error occurred:\n\t* /root/project/builder/common_builder/oracle_databases.go:146 : 'Unknown dbStatus: [ERROR: ORA-09925: Unable to create audit trail file Linux-x86_64 Error: 28: No space left on device Additional information: 9925 ORA-01075: you are currently logged on SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM|SYSBACKUP|SYSDG|SYSKM|SYSRAC}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM|SYSBACKUP|SYSDG|SYSKM|SYSRAC}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0157: unable to CONNECT to ORACLE after 3 attempts, exiting SQL*Plus] DBName: [ERC819] OracleHome: [/u01/app/oracle/product/19.0/dbhome_1]'\n\n\n",
+          "source": ""
+        }
+      ],
+      "hostname": "erclin8dbx"
+    }
+  },
+  {
+    "_id": "619673b69d2f28306079ef8a",
+    "alertAffectedTechnology": null,
+    "alertCategory": "ENGINE",
+    "alertCode": "AGENT_ERROR",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T15:39:34.362Z",
+    "description": "Unknown dbStatus: [ERROR: ORA-09925: Unable to create audit trail file Linux-x86_64 Error: 28: No space left on device Additional information: 9925 ORA-01075: you are currently logged on SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM|SYSBACKUP|SYSDG|SYSKM|SYSRAC}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM|SYSBACKUP|SYSDG|SYSKM|SYSRAC}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0157: unable to CONNECT to ORACLE after 3 attempts, exiting SQL*Plus] DBName: [ERC819] OracleHome: [/u01/app/oracle/product/19.0/dbhome_1]\n",
+    "hostname": "erclin8dbx",
+    "otherInfo": {
+      "errors": [
+        {
+          "message": "Unknown dbStatus: [ERROR: ORA-09925: Unable to create audit trail file Linux-x86_64 Error: 28: No space left on device Additional information: 9925 ORA-01075: you are currently logged on SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM|SYSBACKUP|SYSDG|SYSKM|SYSRAC}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM|SYSBACKUP|SYSDG|SYSKM|SYSRAC}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0157: unable to CONNECT to ORACLE after 3 attempts, exiting SQL*Plus] DBName: [ERC819] OracleHome: [/u01/app/oracle/product/19.0/dbhome_1]",
+          "source": "/root/project/builder/common_builder/oracle_databases.go:129"
+        }
+      ],
+      "hostname": "erclin8dbx"
+    }
+  },
+  {
+    "_id": "619678ae9d2f28306079ef8d",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_DATABASE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T16:00:46.492Z",
+    "description": "The database ERC819 was created on the host erclin8dbx",
+    "hostname": "erclin8dbx",
+    "otherInfo": {
+      "dbname": "ERC819",
+      "hostname": "erclin8dbx"
+    }
+  },
+  {
+    "_id": "619678ae9d2f28306079ef8f",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_LICENSE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T16:00:46.494Z",
+    "description": "The database ERC819 on erclin8dbx has enabled new license: Oracle Database Enterprise Edition",
+    "hostname": "erclin8dbx",
+    "otherInfo": {
+      "dbname": "ERC819",
+      "hostname": "erclin8dbx",
+      "licenseTypeID": "A90611"
+    }
+  },
+  {
+    "_id": "619678ae9d2f28306079ef91",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T16:00:46.495Z",
+    "description": "The database ERC819 on erclin8dbx has enabled new option: Oracle Diagnostics Pack",
+    "hostname": "erclin8dbx",
+    "otherInfo": {
+      "dbname": "ERC819",
+      "hostname": "erclin8dbx",
+      "licenseTypeID": "A90649"
+    }
+  },
+  {
+    "_id": "61967bfd9d2f28306079ef94",
+    "alertAffectedTechnology": null,
+    "alertCategory": "ENGINE",
+    "alertCode": "NEW_SERVER",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T16:14:53.615Z",
+    "description": "The host ERCWIN2016 was added to ercole",
+    "hostname": "ERCWIN2016",
+    "otherInfo": {
+      "hostname": "ERCWIN2016"
+    }
+  },
+  {
+    "_id": "61967bfd9d2f28306079ef96",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_DATABASE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T16:14:53.62Z",
+    "description": "The database ERC11204 was created on the host ERCWIN2016",
+    "hostname": "ERCWIN2016",
+    "otherInfo": {
+      "dbname": "ERC11204",
+      "hostname": "ERCWIN2016"
+    }
+  },
+  {
+    "_id": "61967bfd9d2f28306079ef98",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_LICENSE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T16:14:53.622Z",
+    "description": "The database ERC11204 on ERCWIN2016 has enabled new license: Oracle Database Enterprise Edition",
+    "hostname": "ERCWIN2016",
+    "otherInfo": {
+      "dbname": "ERC11204",
+      "hostname": "ERCWIN2016",
+      "licenseTypeID": "A90611"
+    }
+  },
+  {
+    "_id": "61967bfd9d2f28306079ef9a",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T16:14:53.623Z",
+    "description": "The database ERC11204 on ERCWIN2016 has enabled new option: Oracle Partitioning",
+    "hostname": "ERCWIN2016",
+    "otherInfo": {
+      "dbname": "ERC11204",
+      "hostname": "ERCWIN2016",
+      "licenseTypeID": "A90620"
+    }
+  },
+  {
+    "_id": "61967e349d2f28306079ef9e",
+    "alertAffectedTechnology": null,
+    "alertCategory": "ENGINE",
+    "alertCode": "NEW_SERVER",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T16:24:20.007Z",
+    "description": "The host ercxedb18.ercole.io was added to ercole",
+    "hostname": "ercxedb18.ercole.io",
+    "otherInfo": {
+      "hostname": "ercxedb18.ercole.io"
+    }
+  },
+  {
+    "_id": "61967e349d2f28306079efa0",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_DATABASE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T16:24:20.011Z",
+    "description": "The database XE was created on the host ercxedb18.ercole.io",
+    "hostname": "ercxedb18.ercole.io",
+    "otherInfo": {
+      "dbname": "XE",
+      "hostname": "ercxedb18.ercole.io"
+    }
+  },
+  {
+    "_id": "619680639d2f28306079efa4",
+    "alertAffectedTechnology": null,
+    "alertCategory": "ENGINE",
+    "alertCode": "NEW_SERVER",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T16:33:39.738Z",
+    "description": "The host itl-csllab-112.sorint.localpippo was added to ercole",
+    "hostname": "itl-csllab-112.sorint.localpippo",
+    "otherInfo": {
+      "hostname": "itl-csllab-112.sorint.localpippo"
+    }
+  },
+  {
+    "_id": "619680639d2f28306079efa6",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_DATABASE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T16:33:39.744Z",
+    "description": "The database ERCOLE was created on the host itl-csllab-112.sorint.localpippo",
+    "hostname": "itl-csllab-112.sorint.localpippo",
+    "otherInfo": {
+      "dbname": "ERCOLE",
+      "hostname": "itl-csllab-112.sorint.localpippo"
+    }
+  },
+  {
+    "_id": "619680639d2f28306079efa8",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T16:33:39.745Z",
+    "description": "The database ERCOLE on itl-csllab-112.sorint.localpippo has enabled new option: Oracle Diagnostics Pack",
+    "hostname": "itl-csllab-112.sorint.localpippo",
+    "otherInfo": {
+      "dbname": "ERCOLE",
+      "hostname": "itl-csllab-112.sorint.localpippo",
+      "licenseTypeID": "A90649"
+    }
+  },
+  {
+    "_id": "619680639d2f28306079efaa",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_LICENSE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T16:33:39.746Z",
+    "description": "The database ERCOLE on itl-csllab-112.sorint.localpippo has enabled new license: Oracle Database Enterprise Edition",
+    "hostname": "itl-csllab-112.sorint.localpippo",
+    "otherInfo": {
+      "dbname": "ERCOLE",
+      "hostname": "itl-csllab-112.sorint.localpippo",
+      "licenseTypeID": "A90611"
+    }
+  },
+  {
+    "_id": "61968c859d2f28306079efb1",
+    "alertAffectedTechnology": null,
+    "alertCategory": "ENGINE",
+    "alertCode": "AGENT_ERROR",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T17:25:25.839Z",
+    "description": "Invalid hostdata:\n\t- info.threadsPerCore: Must be greater than or equal to 1. Value: [0]\n\n",
+    "hostname": "",
+    "otherInfo": {
+      "errors": [
+        {
+          "message": "Invalid hostdata:\n\t- info.threadsPerCore: Must be greater than or equal to 1. Value: [0]\n",
+          "source": ""
+        }
+      ],
+      "hostname": ""
+    }
+  },
+  {
+    "_id": "619692729d2f28306079efb4",
+    "alertAffectedTechnology": null,
+    "alertCategory": "ENGINE",
+    "alertCode": "NEW_SERVER",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T17:50:42.781Z",
+    "description": "The host ercsoldbx was added to ercole",
+    "hostname": "ercsoldbx",
+    "otherInfo": {
+      "hostname": "ercsoldbx"
+    }
+  },
+  {
+    "_id": "619692729d2f28306079efb6",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_DATABASE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T17:50:42.785Z",
+    "description": "The database ERCSOL19 was created on the host ercsoldbx",
+    "hostname": "ercsoldbx",
+    "otherInfo": {
+      "dbname": "ERCSOL19",
+      "hostname": "ercsoldbx"
+    }
+  },
+  {
+    "_id": "619692729d2f28306079efb8",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T17:50:42.786Z",
+    "description": "The database ERCSOL19 on ercsoldbx has enabled new option: Oracle Diagnostics Pack",
+    "hostname": "ercsoldbx",
+    "otherInfo": {
+      "dbname": "ERCSOL19",
+      "hostname": "ercsoldbx",
+      "licenseTypeID": "A90649"
+    }
+  },
+  {
+    "_id": "619692729d2f28306079efba",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_LICENSE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T17:50:42.787Z",
+    "description": "The database ERCSOL19 on ercsoldbx has enabled new license: Oracle Database Enterprise Edition",
+    "hostname": "ercsoldbx",
+    "otherInfo": {
+      "dbname": "ERCSOL19",
+      "hostname": "ercsoldbx",
+      "licenseTypeID": "A90611"
+    }
+  },
+  {
+    "_id": "619692729d2f28306079efbc",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-18T17:50:42.788Z",
+    "description": "The database ERCSOL19 on ercsoldbx has enabled new option: Oracle Tuning Pack",
+    "hostname": "ercsoldbx",
+    "otherInfo": {
+      "dbname": "ERCSOL19",
+      "hostname": "ercsoldbx",
+      "licenseTypeID": "A90650"
+    }
+  },
+  {
+    "_id": "6197d4329d2f28306079efc6",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_DATABASE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-19T16:43:30.248Z",
+    "description": "The database ERCSCDB1 was created on the host ercsoldbx",
+    "hostname": "ercsoldbx",
+    "otherInfo": {
+      "dbname": "ERCSCDB1",
+      "hostname": "ercsoldbx"
+    }
+  },
+  {
+    "_id": "6197d4329d2f28306079efc8",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-19T16:43:30.249Z",
+    "description": "The database ERCSCDB1 on ercsoldbx has enabled new option: Oracle Diagnostics Pack (already enabled before in this host)",
+    "hostname": "ercsoldbx",
+    "otherInfo": {
+      "dbname": "ERCSCDB1",
+      "hostname": "ercsoldbx",
+      "licenseTypeID": "A90649"
+    }
+  },
+  {
+    "_id": "6197d4329d2f28306079efca",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_LICENSE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-19T16:43:30.25Z",
+    "description": "The database ERCSCDB1 on ercsoldbx has enabled new license: Oracle Database Enterprise Edition (already enabled before in this host)",
+    "hostname": "ercsoldbx",
+    "otherInfo": {
+      "dbname": "ERCSCDB1",
+      "hostname": "ercsoldbx",
+      "licenseTypeID": "A90611"
+    }
+  },
+  {
+    "_id": "619abfbd9d2f28306079efdf",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "MISSING_DATABASE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-21T21:53:01.241Z",
+    "description": "The databases \"ERCSCDB1, ERCSOL19\" on \"ercsoldbx\" are missing compared to the previous hostdata",
+    "hostname": "ercsoldbx",
+    "otherInfo": {
+      "dbNames": [
+        "ERCSCDB1",
+        "ERCSOL19"
+      ],
+      "hostname": "ercsoldbx"
+    }
+  },
+  {
+    "_id": "619bab4025ca3ae16fb5fdb9",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_LICENSE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-22T14:37:52.648Z",
+    "description": "The database ERC6122 on erclin6db18 has enabled new license: Oracle Database Enterprise Edition",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbname": "ERC6122",
+      "hostname": "erclin6db18",
+      "licenseTypeID": "L10001"
+    }
+  },
+  {
+    "_id": "619bab4025ca3ae16fb5fdbb",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_LICENSE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-22T14:37:52.649Z",
+    "description": "The database ERC18 on erclin6db18 has enabled new license: Oracle Database Enterprise Edition",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbname": "ERC18",
+      "hostname": "erclin6db18",
+      "licenseTypeID": "L10001"
+    }
+  },
+  {
+    "_id": "619bab4025ca3ae16fb5fdbd",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-22T14:37:52.65Z",
+    "description": "Database ERC6122 has enabled new option: Oracle Diagnostics Pack\nDatabase ERC18 has enabled new option: Oracle Diagnostics Pack\nDatabase ERC18 has enabled new option: Oracle Tuning Pack",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbname": "ERC6122,ERC18,ERC18",
+      "hostname": "erclin6db18",
+      "licenseTypeID": "L10012,L10012,L10013"
+    }
+  },
+  {
+    "_id": "619bad8325ca3ae16fb5fdbf",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "MISSING_DATABASE",
+    "alertSeverity": "WARNING",
+    "alertStatus": "NEW",
+    "date": "2021-11-22T14:47:31.778Z",
+    "description": "The databases \"ERC6122\" on \"erclin6db18\" are missing compared to the previous hostdata",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbNames": [
+        "ERC6122"
+      ],
+      "hostname": "erclin6db18"
+    }
+  },
+  {
+    "_id": "619bada825ca3ae16fb5fdc3",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "MISSING_DATABASE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-22T14:48:08.018Z",
+    "description": "The databases \"ERC18\" on \"erclin6db18\" are missing compared to the previous hostdata",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbNames": [
+        "ERC18"
+      ],
+      "hostname": "erclin6db18"
+    }
+  },
+  {
+    "_id": "619badec25ca3ae16fb5fdd2",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "ENGINE",
+    "alertCode": "UNLISTED_RUNNING_DATABASE",
+    "alertSeverity": "WARNING",
+    "alertStatus": "NEW",
+    "date": "2021-11-22T14:49:16.999Z",
+    "description": "The database ERC18 is not listed in the oratab of the host erclin6db18",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbname": "ERC18",
+      "hostname": "erclin6db18"
+    }
+  },
+  {
+    "_id": "619bb3b625ca3ae16fb5fdd5",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_DATABASE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-22T15:13:58.165Z",
+    "description": "The database ERC18 was created on the host erclin6db18",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbname": "ERC18",
+      "hostname": "erclin6db18"
+    }
+  },
+  {
+    "_id": "619bb3b625ca3ae16fb5fdd7",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_LICENSE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-22T15:13:58.167Z",
+    "description": "The database ERC18 on erclin6db18 has enabled new license: Oracle Database Enterprise Edition",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbname": "ERC18",
+      "hostname": "erclin6db18",
+      "licenseTypeID": "L10001"
+    }
+  },
+  {
+    "_id": "619bb3b625ca3ae16fb5fdd9",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_DATABASE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-22T15:13:58.169Z",
+    "description": "The database ERC6122 was created on the host erclin6db18",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbname": "ERC6122",
+      "hostname": "erclin6db18"
+    }
+  },
+  {
+    "_id": "619bb3b625ca3ae16fb5fddd",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-22T15:13:58.171Z",
+    "description": "Database ERC18 has enabled new option: Oracle Diagnostics Pack\nDatabase ERC18 has enabled new option: Oracle Tuning Pack\nDatabase ERC6122 has enabled new option: Oracle Diagnostics Pack",
+    "hostname": "erclin6db18",
+    "otherInfo": {
+      "dbname": "ERC18,ERC18,ERC6122",
+      "hostname": "erclin6db18",
+      "licenseTypeID": "L10012,L10013,L10012"
+    }
+  },
+  {
+    "_id": "619ccc62186ad28976c5bf0a",
+    "alertAffectedTechnology": null,
+    "alertCategory": "ENGINE",
+    "alertCode": "NEW_SERVER",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-23T11:11:30.226Z",
+    "description": "The host erclin7mysqlee was added to ercole",
+    "hostname": "erclin7mysqlee",
+    "otherInfo": {
+      "hostname": "erclin7mysqlee"
+    }
+  },
+  {
+    "_id": "61a250b9b3239bdb8898e296",
+    "alertAffectedTechnology": null,
+    "alertCategory": "ENGINE",
+    "alertCode": "NEW_SERVER",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-27T15:37:29.425Z",
+    "description": "The host erclin5dbx was added to ercole",
+    "hostname": "erclin5dbx",
+    "otherInfo": {
+      "hostname": "erclin5dbx"
+    }
+  },
+  {
+    "_id": "61a250b9b3239bdb8898e298",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_DATABASE",
+    "alertSeverity": "INFO",
+    "alertStatus": "NEW",
+    "date": "2021-11-27T15:37:29.429Z",
+    "description": "The database ERC51120 was created on the host erclin5dbx",
+    "hostname": "erclin5dbx",
+    "otherInfo": {
+      "dbname": "ERC51120",
+      "hostname": "erclin5dbx"
+    }
+  },
+  {
+    "_id": "61a250b9b3239bdb8898e29a",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_LICENSE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-27T15:37:29.43Z",
+    "description": "The database ERC51120 on erclin5dbx has enabled new license: Oracle Database Enterprise Edition",
+    "hostname": "erclin5dbx",
+    "otherInfo": {
+      "dbname": "ERC51120",
+      "hostname": "erclin5dbx",
+      "licenseTypeID": "A90611"
+    }
+  },
+  {
+    "_id": "61a250b9b3239bdb8898e29c",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "NEW_OPTION",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-11-27T15:37:29.43Z",
+    "description": "Database ERC51120 has enabled new option: Oracle Diagnostics Pack\nDatabase ERC51120 has enabled new option: Oracle Partitioning",
+    "hostname": "erclin5dbx",
+    "otherInfo": {
+      "dbname": "ERC51120,ERC51120",
+      "hostname": "erclin5dbx",
+      "licenseTypeID": "A90649,A90620"
+    }
+  },
+  {
+    "_id": "61a9f297276523a5b131ef55",
+    "alertAffectedTechnology": "Oracle/Database",
+    "alertCategory": "LICENSE",
+    "alertCode": "MISSING_DATABASE",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-12-03T10:33:59.282Z",
+    "description": "The databases \"ERC51120\" on \"erclin5dbx\" are missing compared to the previous hostdata",
+    "hostname": "erclin5dbx",
+    "otherInfo": {
+      "dbNames": [
+        "ERC51120"
+      ],
+      "hostname": "erclin5dbx"
+    }
+  },
+  {
+    "_id": "61a9f297276523a5b131ef56",
+    "alertAffectedTechnology": null,
+    "alertCategory": "ENGINE",
+    "alertCode": "AGENT_ERROR",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-12-03T10:33:59.285Z",
+    "description": "- Error running [/opt/ercole-agent/fetch/linux/cloud_membership_aws.sh ]: [fork/exec /opt/ercole-agent/fetch/linux/cloud_membership_aws.sh: no such file or directory]\n- Unknown dbStatus: [ERROR: ORA-01017: invalid username/password; logon denied SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0157: unable to CONNECT to ORACLE after 3 attempts, exiting SQL*Plus] DBName: [ERC511204] OracleHome: [/u01/app/oracle/product/11.2.0.4/dbhome_1]\n",
+    "hostname": "erclin5dbx",
+    "otherInfo": {
+      "errors": [
+        {
+          "message": "Error running [/opt/ercole-agent/fetch/linux/cloud_membership_aws.sh ]: [fork/exec /opt/ercole-agent/fetch/linux/cloud_membership_aws.sh: no such file or directory]",
+          "source": "/mnt/c/ercole-agent/fetcher/linux_fetcher.go:621"
+        },
+        {
+          "message": "Unknown dbStatus: [ERROR: ORA-01017: invalid username/password; logon denied SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0157: unable to CONNECT to ORACLE after 3 attempts, exiting SQL*Plus] DBName: [ERC511204] OracleHome: [/u01/app/oracle/product/11.2.0.4/dbhome_1]",
+          "source": "/mnt/c/ercole-agent/builder/common_builder/oracle_databases.go:129"
+        }
+      ],
+      "hostname": "erclin5dbx"
+    }
+  },
+  {
+    "_id": "61a9f2d5276523a5b131ef58",
+    "alertAffectedTechnology": null,
+    "alertCategory": "ENGINE",
+    "alertCode": "AGENT_ERROR",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-12-03T10:35:01.818Z",
+    "description": "- Error running [/opt/ercole-agent/fetch/linux/cloud_membership_aws.sh ]: [fork/exec /opt/ercole-agent/fetch/linux/cloud_membership_aws.sh: no such file or directory]\n- Unknown dbStatus: [ERROR: ORA-01017: invalid username/password; logon denied SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0157: unable to CONNECT to ORACLE after 3 attempts, exiting SQL*Plus] DBName: [ERC511204] OracleHome: [/u01/app/oracle/product/11.2.0.4/dbhome_1]\n",
+    "hostname": "erclin5dbx",
+    "otherInfo": {
+      "errors": [
+        {
+          "message": "Error running [/opt/ercole-agent/fetch/linux/cloud_membership_aws.sh ]: [fork/exec /opt/ercole-agent/fetch/linux/cloud_membership_aws.sh: no such file or directory]",
+          "source": "/mnt/c/ercole-agent/fetcher/linux_fetcher.go:621"
+        },
+        {
+          "message": "Unknown dbStatus: [ERROR: ORA-01017: invalid username/password; logon denied SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0157: unable to CONNECT to ORACLE after 3 attempts, exiting SQL*Plus] DBName: [ERC511204] OracleHome: [/u01/app/oracle/product/11.2.0.4/dbhome_1]",
+          "source": "/mnt/c/ercole-agent/builder/common_builder/oracle_databases.go:129"
+        }
+      ],
+      "hostname": "erclin5dbx"
+    }
+  },
+  {
+    "_id": "61a9f2e4276523a5b131ef5a",
+    "alertAffectedTechnology": null,
+    "alertCategory": "ENGINE",
+    "alertCode": "AGENT_ERROR",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2021-12-03T10:35:16.72Z",
+    "description": "- Error running [/opt/ercole-agent/fetch/linux/cloud_membership_aws.sh ]: [fork/exec /opt/ercole-agent/fetch/linux/cloud_membership_aws.sh: no such file or directory]\n- Unknown dbStatus: [ERROR: ORA-01017: invalid username/password; logon denied SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0157: unable to CONNECT to ORACLE after 3 attempts, exiting SQL*Plus] DBName: [ERC511204] OracleHome: [/u01/app/oracle/product/11.2.0.4/dbhome_1]\n",
+    "hostname": "erclin5dbx",
+    "otherInfo": {
+      "errors": [
+        {
+          "message": "Error running [/opt/ercole-agent/fetch/linux/cloud_membership_aws.sh ]: [fork/exec /opt/ercole-agent/fetch/linux/cloud_membership_aws.sh: no such file or directory]",
+          "source": "/mnt/c/ercole-agent/fetcher/linux_fetcher.go:621"
+        },
+        {
+          "message": "Unknown dbStatus: [ERROR: ORA-01017: invalid username/password; logon denied SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0306: Invalid option. Usage: CONN[ECT] [{logon|/|proxy} [AS {SYSDBA|SYSOPER|SYSASM}] [edition=value]] where \u003clogon\u003e ::= \u003cusername\u003e[/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] \u003cproxy\u003e ::= \u003cproxyuser\u003e[\u003cusername\u003e][/\u003cpassword\u003e][@\u003cconnect_identifier\u003e] SP2-0157: unable to CONNECT to ORACLE after 3 attempts, exiting SQL*Plus] DBName: [ERC511204] OracleHome: [/u01/app/oracle/product/11.2.0.4/dbhome_1]",
+          "source": "/mnt/c/ercole-agent/builder/common_builder/oracle_databases.go:129"
+        }
+      ],
+      "hostname": "erclin5dbx"
+    }
+  },
+  {
+    "_id": "61d4df8057c10178322c6dfb",
+    "alertAffectedTechnology": null,
+    "alertCategory": "AGENT",
+    "alertCode": "NO_DATA",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2022-01-05T00:00:00.005Z",
+    "description": "No data received from the host erclin7dbx in the last 13 day(s)",
+    "hostname": "erclin7dbx",
+    "otherInfo": {
+      "hostname": "erclin7dbx"
+    }
+  },
+  {
+    "_id": "61d4df8057c10178322c6dfd",
+    "alertAffectedTechnology": null,
+    "alertCategory": "AGENT",
+    "alertCode": "NO_DATA",
+    "alertSeverity": "CRITICAL",
+    "alertStatus": "NEW",
+    "date": "2022-01-05T00:00:00.007Z",
+    "description": "No data received from the host erclin8dbx in the last 13 day(s)",
+    "hostname": "erclin8dbx",
+    "otherInfo": {
+      "hostname": "erclin8dbx"
+    }
+  }
+]

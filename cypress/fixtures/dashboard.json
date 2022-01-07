@@ -1,0 +1,45 @@
+{
+  "features": {
+    "Oracle/Database": true,
+    "Oracle/Exadata": false
+  },
+  "technologies": {
+    "technologies": [
+      {
+        "product": "Oracle/Database",
+        "compliance": 0.56,
+        "unpaidDues": 0,
+        "hostsCount": 5
+      },
+      {
+        "product": "Oracle/MySQL",
+        "compliance": 0,
+        "unpaidDues": 0,
+        "hostsCount": 1
+      },
+      {
+        "product": "MariaDBFoundation/MariaDB",
+        "compliance": 0,
+        "unpaidDues": 0,
+        "hostsCount": 0
+      },
+      {
+        "product": "PostgreSQL/PostgreSQL",
+        "compliance": 0,
+        "unpaidDues": 0,
+        "hostsCount": 0
+      },
+      {
+        "product": "Microsoft/SQLServer",
+        "compliance": 0,
+        "unpaidDues": 0,
+        "hostsCount": 0
+      }
+    ],
+    "total": {
+      "compliance": 0.56,
+      "hostsCount": 8,
+      "unpaidDues": 0
+    }
+  }
+}
