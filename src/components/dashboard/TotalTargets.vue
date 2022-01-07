@@ -1,10 +1,17 @@
 <template>
-  <BoxContent :title="$t('views.dashboard.totalTargets')" border>
+  <BoxContent
+    :title="$t('views.dashboard.totalTargets')"
+    border
+    data-cy="total-targets"
+  >
     <div class="total-targets">
       <div class="col col01">
-        <span>{{ $t('views.dashboard.agentsDiscovered') }}</span>
+        <span data-cy="agents-discovered">
+          {{ $t('views.dashboard.agentsDiscovered') }}
+        </span>
         <span
           class="has-text-weight-semibold is-justify-content-center is-size-5"
+          data-cy="agents-discovered-value"
         >
           <GhostLoading :isLoading="loading" setHeight="14" setWidth="23">
             {{ getTotalTarget.agentsDiscovered }}
@@ -13,8 +20,10 @@
       </div>
 
       <div class="col col02">
-        <span>{{ $t('views.dashboard.percCompliance') }}</span>
-        <span>
+        <span data-cy="perc-compliance">
+          {{ $t('views.dashboard.percCompliance') }}
+        </span>
+        <span data-cy="perc-compliance-value">
           <GhostLoading
             :isLoading="loading"
             setHeight="50"

@@ -2,52 +2,56 @@
 
 describe('Dashboard Suite', () => {
   beforeEach('login into Ercole App', () => {
-    cy.intercept('GET', `${Cypress.env('apiUrl')}settings/technologies`, {
-      fixture: 'technologies.json',
-    }).as('technologies')
-
     cy.ercoleLogin()
   })
 
-  it('will load technologies api correctly', () => {
-    cy.intercept('GET', `${Cypress.env('apiUrl')}settings/technologies`, {
-      fixture: 'technologies.json',
-    }).as('technologies')
-    cy.wait('@technologies')
-    cy.get('@technologies').then((res) => {
-      expect(res.response.statusCode).to.equal(200)
+  describe('Total Targets Box', () => {
+    beforeEach('login into Ercole App', () => {
+      cy.intercept('GET', `${Cypress.env('apiUrl')}frontend/dashboard`, {
+        fixture: 'dashboard.json',
+      }).as('dashboard')
     })
 
-    cy.intercept('GET', `${Cypress.env('apiUrl')}alerts?status=NEW`, {
-      fixture: 'alerts.json',
-    }).as('alerts')
-    cy.wait('@alerts')
-    cy.get('@alerts').then((res) => {
-      expect(res.response.statusCode).to.equal(200)
+    it('box must gave the correct name', () => {
+      cy.get('[data-cy="total-targets"]')
+        .find('h2')
+        .then((text) => {
+          expect(text).contain('Total Targets')
+        })
+    })
+
+    it('will check box contents texts', () => {
+      cy.get('[data-cy="agents-discovered"]').should(
+        'contain',
+        'Agents discovered'
+      )
+
+      cy.get('[data-cy="perc-compliance"]').should(
+        'contain',
+        'Percentage of compliance'
+      )
+    })
+
+    it.only('will check box contents values', () => {
+      cy.wait('@dashboard')
+      cy.get('@dashboard').then((res) => {
+        expect(res.response.statusCode).to.equal(200)
+
+        cy.get('[data-cy="agents-discovered-value"]')
+          .find('div')
+          .should('contain', res.response.body.technologies.total.hostsCount)
+
+        cy.get('[data-cy="perc-compliance-value"]')
+          .find('[class="percent__int"]')
+          .should(
+            'contain',
+            Math.round(res.response.body.technologies.total.compliance * 100)
+          )
+
+        cy.get('[data-cy="perc-compliance-value"]')
+          .find('[class="percent_sign"]')
+          .should('contain', '%')
+      })
     })
   })
-
-  // it('will load alerts api correctly', () => {
-  //   cy.intercept('GET', `${Cypress.env('apiUrl')}alerts?status=NEW`, {
-  //     fixture: 'alerts.json',
-  //   }).as('alerts')
-  //   cy.wait('@alerts')
-  //   cy.get('@alerts').then((res) => {
-  //     expect(res.response.statusCode).to.equal(200)
-  //   })
-  // })
-
-  // it('will load license-history api correctly', () => {
-  //   cy.intercept('GET', '**/license-history', {
-  //     fixture: 'license-history.json',
-  //   }).as(`license-history`)
-  //   cy.wait('@license-history')
-  //   cy.get('@license-history').then((res) => {
-  //     expect(res.response.statusCode).to.equal(200)
-  //   })
-  // })
-
-  // it('Visits the app root url', () => {
-  //   cy.get('[class="card notification"]')
-  // })
 })
