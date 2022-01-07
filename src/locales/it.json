@@ -103,7 +103,10 @@
       "agreeForm": "Modulo di Contratto",
       "addAgreement": "Aggiungi o modifica un Contratto di licenza Oracle",
       "dbList": "Elenco dei Database",
-      "hostsList": "Elenco dei Hosts"
+      "hostsList": "Elenco dei Hosts",
+      "ignoreDbLicense": "Sei sicuro di voler ignorare la licenza <b>{license}</b> per l'host <b>{hostname}</b> e il database <b>{database}</b>?",
+      "reactivateDbLicense": "Sei sicuro di voler riattivare la licenza <b>{license}</b> per l'host <b>{hostname}</b> e il database <b>{database}</b>?",
+      "ignoreLicense": "Ignora licenza"
     },
     "alerts": {
       "markRead": "Segna come letto",
@@ -122,6 +125,9 @@
       "noActiveProfile": "Al momento non ci sono profili attivi! Vai alla pagina delle configurazioni del profilo per attivare!",
       "oneErrActiveProfile": "{n} profilo non funziona correttamente, controlla la pagina di configurazione del profilo!",
       "moreErrActiveProfile": "Ci sono {n} profili che non funzionano correttamente, controlla la pagina di configurazione del profilo!"
+    },
+    "hosts": {
+      "addExportParams": "Aggiungi Parametri di Esportazione"
     }
   },
   "common": {
@@ -130,7 +136,7 @@
       "exportData": "Esportare i dati",
       "exportLms": "Esportare LMS Audit File",
       "inProgress": "in Corso",
-      "wait": "Questo potrebbe richiedere un pò di tempo, per favore aspetta ...",
+      "wait": "Questo potrebbe richiedere un pò di tempo, per favore aspetta...",
       "cancelRequest": "Annulla Richiesta",
       "yes": "Sì",
       "no": "No",
@@ -267,7 +273,9 @@
       "clusterLicenses": "Licenze Cluster",
       "purchased": "Acquistato",
       "compartmentID": "Compartment ID",
-      "resourceID": "Resource ID"
+      "resourceID": "Resource ID",
+      "pluggable": "Collegabile",
+      "services": "Servizi"
     },
     "table": {
       "perPage": "per pagina",
@@ -388,7 +396,9 @@
       "clusterLicenses": "Licenze Cluster",
       "purchased": "Acquistato",
       "compartmentID": "Compartment ID",
-      "resourceID": "Resource ID"
+      "resourceID": "Resource ID",
+      "pluggable": "Collegabile",
+      "services": "Servizi"
     },
     "charts": {
       "archivelog": "Modalità Registro Archivio",
@@ -416,6 +426,9 @@
       "onlyNumbers": "Questo campo accetta solo numeri.",
       "characters": "{0} deve contenere almeno {1} caratteri",
       "loginUnauthorized": "Nome utente o password non valido.",
+      "loginErr422": "La tua richiesta è stata respinta.",
+      "loginErr500": "Errore interno del server.",
+      "loginErrGeneric": "Qualcosa è andato storto. Per favore riprova!",
       "loginTimeout": "Timeout richiesta superato",
       "noResults": "Nessun risultato trovato."
     },

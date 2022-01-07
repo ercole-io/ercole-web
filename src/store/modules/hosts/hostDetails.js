@@ -533,14 +533,10 @@ const resolveOptions = (options) => {
 const resolveServices = (services) => {
   let filteredServices = []
   _.filter(services, (val) => {
-    if (val) {
-      filteredServices.push({
-        ...val,
-        creationDate: formatDate(val.creationDate),
-      })
-    }
+    filteredServices.push({
+      name: val,
+    })
   })
-
   return filteredServices
 }
 

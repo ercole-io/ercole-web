@@ -46,6 +46,14 @@
     "langKey": "common.collumns.version"
   },
   {
+    "sort": "isCDB",
+    "langKey": "common.collumns.pluggable"
+  },
+  {
+    "sort": "services",
+    "langKey": "common.collumns.services"
+  },
+  {
     "sort": "work",
     "langKey": "common.collumns.work"
   },

@@ -305,7 +305,11 @@ export default {
 
       switch (name) {
         case 'hosts':
-          this.getHosts()
+          this.getHosts().catch((err) => {
+            if (err) {
+              this.resetFilters()
+            }
+          })
           break
         case 'hosts-details':
           this.getHostByName(params.hostname)

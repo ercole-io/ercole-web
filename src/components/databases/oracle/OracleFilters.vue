@@ -31,6 +31,18 @@
       />
     </CustomField>
 
+    <CustomField :label="$t('common.fields.pluggable')">
+      <CustomRadio v-model="filters.isCDB" />
+    </CustomField>
+
+    <CustomField :label="$t('common.fields.services')">
+      <CustomAutocomplete
+        v-model="filters.services"
+        :filterResult="filteredservices"
+        :filterMethod="setAutocompletes"
+      />
+    </CustomField>
+
     <CustomField :label="$t('common.fields.work')">
       <CustomSlider
         v-model="filters.work"
@@ -121,7 +133,14 @@ export default {
   mixins: [localFiltersMixin],
   data() {
     return {
-      autocompletes: ['name', 'version', 'hostname', 'uniqueName', 'charset'],
+      autocompletes: [
+        'name',
+        'version',
+        'hostname',
+        'uniqueName',
+        'charset',
+        'services',
+      ],
       selects: ['status', 'environment'],
       sliders: [
         'work',
@@ -129,13 +148,14 @@ export default {
         'blockSize',
         'memory',
         'datafileSize',
-        'segmentsSize'
+        'segmentsSize',
       ],
       filters: {
         archivelog: '',
         dataguard: '',
-        ha: ''
-      }
+        ha: '',
+        isCDB: '',
+      },
     }
   },
   created() {
@@ -146,13 +166,14 @@ export default {
       this.filters = {
         archivelog: '',
         dataguard: '',
-        ha: ''
+        ha: '',
+        isCDB: '',
       }
-    }
+    },
   },
   computed: {
-    ...mapGetters(['getAllOracleDBs'])
-  }
+    ...mapGetters(['getAllOracleDBs']),
+  },
 }
 </script>
 
