@@ -9,7 +9,7 @@ export const state = () => ({
 
 export const getters = {
   getMergedData: (state, getters) => {
-    const mergedData = _.merge(
+    const mergedData = _.concat(
       state.loadBalancers,
       state.instancesIdle,
       state.blockstorage
