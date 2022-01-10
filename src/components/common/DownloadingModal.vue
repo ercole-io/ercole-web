@@ -11,6 +11,7 @@
         :icon-right="isOpen ? 'menu-up' : 'menu-down'"
         @click="isOpen = !isOpen"
         aria-controls="openExportLmsParams"
+        expanded
         v-if="isLms && !isLmsRequest"
       />
 
