@@ -534,7 +534,9 @@ const resolveServices = (services) => {
   let filteredServices = []
   _.filter(services, (val) => {
     filteredServices.push({
-      name: val,
+      name: val.name,
+      creationDate: formatDate(val.creationDate),
+      enabled: val.enabled,
     })
   })
   return filteredServices
