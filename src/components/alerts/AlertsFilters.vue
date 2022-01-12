@@ -59,12 +59,16 @@
       />
     </CustomField>
 
-    <CustomField :label="$t('common.fields.code')">
+    <!-- <CustomField :label="$t('common.fields.code')">
       <CustomAutocomplete
         v-model="filters.alertCode"
         :filterResult="filteredalertCode"
         :filterMethod="setAutocompletes"
       />
+    </CustomField> -->
+
+    <CustomField :label="$t('common.fields.code')">
+      <CustomSelect v-model="filters.alertCode" :options="filteredalertCode" />
     </CustomField>
 
     <CustomField :label="$t('common.fields.description')">
@@ -89,6 +93,7 @@ export default {
   data() {
     return {
       autocompletes: ['hostname', 'alertCode', 'description'],
+      selects: ['alertCode'],
       alertStatus: 'NEW',
       startDate: null,
       endDate: null,
