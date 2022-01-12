@@ -59,14 +59,6 @@
       />
     </CustomField>
 
-    <!-- <CustomField :label="$t('common.fields.code')">
-      <CustomAutocomplete
-        v-model="filters.alertCode"
-        :filterResult="filteredalertCode"
-        :filterMethod="setAutocompletes"
-      />
-    </CustomField> -->
-
     <CustomField :label="$t('common.fields.code')">
       <CustomSelect v-model="filters.alertCode" :options="filteredalertCode" />
     </CustomField>

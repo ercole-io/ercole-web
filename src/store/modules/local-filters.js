@@ -3,18 +3,19 @@ import { filterByKeys } from '@/helpers/helpers.js'
 export const state = () => ({
   hasFilters: false,
   filters: [],
-  showCheckbox: []
+  showCheckbox: [],
+  selectList: [],
 })
 
 export const getters = {
-  filteredOrNot: state => data => {
+  filteredOrNot: (state) => (data) => {
     if (state.hasFilters) {
-      return filterByKeys(data, state.filters)
+      return filterByKeys(data, state.filters, state.selectList)
     } else {
       return data
     }
   },
-  showCheckbox: state => {
+  showCheckbox: (state) => {
     if (state.showCheckbox[0] === 'ACK') {
       return false
     } else if (state.showCheckbox[1] === 'AGENT') {
@@ -22,7 +23,7 @@ export const getters = {
     } else {
       return true
     }
-  }
+  },
 }
 
 export const mutations = {
@@ -30,7 +31,8 @@ export const mutations = {
     state.hasFilters = payload.status
     state.filters = payload.filters
     state.showCheckbox = payload.showCheckbox
-  }
+    state.selectList = payload.selectList
+  },
 }
 
 export const actions = {}
