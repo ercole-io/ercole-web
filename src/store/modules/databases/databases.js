@@ -6,32 +6,32 @@ import _ from 'lodash'
 
 export const state = () => ({
   databases: [],
-  stats: {}
+  stats: {},
 })
 
 export const getters = {
   getAllDatabases: (state, getters) => {
     return getters.filteredOrNot(state.databases)
   },
-  getDatabasesCharts: state => {
+  getDatabasesCharts: (state) => {
     return mountDatabasesChart(state.databases, 'databases')
-  }
+  },
 }
 
 export const mutations = {
   SET_DATABASES: (state, payload) => {
     const databases = []
-    _.map(payload, val => {
+    _.map(payload, (val) => {
       databases.push({
         ...val,
-        type: returnTechTypePrettyName(val.type)
+        type: returnTechTypePrettyName(val.type),
       })
     })
     state.databases = databases
   },
   SET_DB_STATS: (state, payload) => {
     state.stats = payload
-  }
+  },
 }
 
 export const actions = {
@@ -44,8 +44,8 @@ export const actions = {
         params: {
           'older-than': getters.getActiveFilters.date,
           environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location
-        }
+          location: getters.getActiveFilters.location,
+        },
       }
     )
     const response = await databases.data.databases
@@ -58,11 +58,11 @@ export const actions = {
         params: {
           'older-than': getters.getActiveFilters.date,
           environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location
-        }
+          location: getters.getActiveFilters.location,
+        },
       }
     )
     const response = await stats.data
     commit('SET_DB_STATS', response)
-  }
+  },
 }

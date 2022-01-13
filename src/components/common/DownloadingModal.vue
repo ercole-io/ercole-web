@@ -179,6 +179,10 @@ export default {
       this.request = axios.CancelToken.source()
       this.isClose = false
 
+      const dateTo = this.lmsFilters.to
+      dateTo.setDate(dateTo.getDate() + 1)
+      this.lmsFilters.to = dateTo
+
       axiosNoLoading
         .get(`/${this.exportUrl}`, {
           headers: headers,

@@ -4,7 +4,7 @@ import { bus } from '@/helpers/eventBus.js'
 import {
   prepareDataForAutocomplete,
   organizeKeysBeforeFilter,
-  returnAutocompleteData
+  returnAutocompleteData,
 } from '@/helpers/helpers.js'
 
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
@@ -23,12 +23,12 @@ export default {
     CustomSelect,
     CustomSlider,
     CustomRadio,
-    CustomDatepicker
+    CustomDatepicker,
   },
   data() {
     return {
       fullData: [],
-      filters: {}
+      filters: {},
     }
   },
   created() {
@@ -44,14 +44,15 @@ export default {
       this.$store.commit('SET_FILTERS', {
         status: true,
         filters: organizeKeysBeforeFilter(this.filters),
-        showCheckbox: [this.alertStatus, this.filters.alertCategory]
+        showCheckbox: [this.alertStatus, this.filters.alertCategory],
+        selectList: this.selects,
       })
     },
     reset(cb = () => {}) {
       this.$store.commit('SET_FILTERS', {
         status: false,
         filters: [],
-        showCheckbox: []
+        showCheckbox: [],
       })
       this.filters = {}
 
@@ -62,7 +63,7 @@ export default {
 
     // input autocompletes
     setAutocompletes(text = '') {
-      _.forEach(this.autocompletes, val => {
+      _.forEach(this.autocompletes, (val) => {
         this['filtered' + val] = returnAutocompleteData(
           text,
           this.fullData,
@@ -73,7 +74,7 @@ export default {
 
     // selects
     setSelects() {
-      _.forEach(this.selects, val => {
+      _.forEach(this.selects, (val) => {
         const fillNumbers = prepareDataForAutocomplete(this.fullData, val)
         this['filtered' + val] = this.clearFilteredResult(fillNumbers)
       })
@@ -81,7 +82,7 @@ export default {
 
     // sliders
     setSliders() {
-      _.forEach(this.sliders, val => {
+      _.forEach(this.sliders, (val) => {
         const fillNumbers = prepareDataForAutocomplete(this.fullData, val)
         this.resolveSliders(val, fillNumbers)
       })
@@ -91,7 +92,7 @@ export default {
 
       this.filters[value] = [
         this['filtered' + value][0],
-        _.last(this['filtered' + value])
+        _.last(this['filtered' + value]),
       ]
 
       this['min' + value] = this['filtered' + value][0]
@@ -99,10 +100,10 @@ export default {
     },
     clearFilteredResult(numbers) {
       return _.without(numbers, undefined, null, '')
-    }
+    },
   },
   beforeDestroy() {
     this.fullData = []
     this.reset()
-  }
+  },
 }

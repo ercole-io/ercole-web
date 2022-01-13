@@ -136,14 +136,14 @@ export const organizeKeysBeforeFilter = (keys) => {
   return filtersToApply
 }
 
-export const filterByKeys = (data, keys) => {
+export const filterByKeys = (data, keys, selects) => {
   let advancedSearch = _.filter(data, (item) => {
     return _.every(keys, (i) => {
       let field = i.Field
       let result = null
 
       if (item[field] !== '') {
-        let hostValue =
+        let searchValue =
           typeof i.Values[0] === 'string' ? i.Values[0].toUpperCase() : null
         let fieldValue =
           typeof item[field] === 'string' ? item[field].toUpperCase() : null
@@ -152,12 +152,16 @@ export const filterByKeys = (data, keys) => {
             ? item[field][0].toUpperCase()
             : null
 
-        result =
-          _.indexOf(i.Values, item[field]) > -1 ||
-          _.inRange(item[field], i.Values[0][0], i.Values[0][1] + 0.1) ||
-          _.find(item[field], (val) => _.indexOf(i.Values, val) > -1) ||
-          _.includes(fieldValueZero, hostValue) ||
-          _.includes(fieldValue, hostValue)
+        if (_.includes(selects, i.Field)) {
+          result = item[field].match(new RegExp('^' + i.Values[0] + '$'))
+        } else {
+          result =
+            _.indexOf(i.Values, item[field]) > -1 ||
+            _.inRange(item[field], i.Values[0][0], i.Values[0][1] + 0.1) ||
+            _.find(item[field], (val) => _.indexOf(i.Values, val) > -1) ||
+            _.includes(fieldValueZero, searchValue) ||
+            _.includes(fieldValue, searchValue)
+        }
       }
 
       return result

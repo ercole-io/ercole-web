@@ -5,13 +5,13 @@ import { mapClustStatus } from '@/helpers/helpers.js'
 import router from '@/router'
 
 export const state = () => ({
-  hosts: []
+  hosts: [],
 })
 
 export const getters = {
   getAllHosts: (state, getters) => {
     let allHosts = []
-    _.map(state.hosts, host => {
+    _.map(state.hosts, (host) => {
       let platform = null
       if (host.info.hardwareAbstractionTechnology === 'PH') {
         platform = 'Bare Metal'
@@ -38,18 +38,18 @@ export const getters = {
         cores: host.info.cpuCores,
         socket: host.info.cpuSockets,
         version: host.agentVersion,
-        updated: host.createdAt
+        updated: host.createdAt,
       })
     })
 
     return getters.filteredOrNot(allHosts)
-  }
+  },
 }
 
 export const mutations = {
   SET_HOSTS: (state, payload) => {
     state.hosts = payload
-  }
+  },
 }
 
 export const actions = {
@@ -57,22 +57,22 @@ export const actions = {
     const params = {
       'older-than': getters.getActiveFilters.date || olderThan,
       environment: getters.getActiveFilters.environment,
-      location: getters.getActiveFilters.location
+      location: getters.getActiveFilters.location,
     }
 
     let hostsData
     if (router.currentRoute.name === 'hosts') {
       hostsData = await axiosDefault.get('/hosts?mode=summary', {
-        params: params
+        params: params,
       })
     } else {
       hostsData = await axiosNoLoading.get('/hosts?mode=summary', {
-        params: params
+        params: params,
       })
     }
 
     const response = await hostsData.data.hosts
     commit('SET_HOSTS', response)
     commit('SET_HOSTNAMES', response)
-  }
+  },
 }

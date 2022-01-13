@@ -16,18 +16,18 @@
 
     <DetailsInfo />
 
-    <div class="columns">
+    <div class="columns" v-if="currentHostType">
       <div
         class="column"
         :class="{
           'is-8': currentHostType === 'oracle',
-          'is-12': currentHostType === 'mysql'
+          'is-12': currentHostType === 'mysql',
         }"
       >
         <Databases
           v-if="
             currentHostDBs.length > 0 &&
-              (currentHostType === 'oracle' || currentHostType === 'mysql')
+            (currentHostType === 'oracle' || currentHostType === 'mysql')
           "
         />
       </div>
@@ -35,8 +35,8 @@
         <ChartCpu
           v-show="
             currentHostDBs.length > 0 &&
-              currentHostType === 'oracle' &&
-              !showDbFilters
+            currentHostType === 'oracle' &&
+            !showDbFilters
           "
         />
         <DatabasesFilters v-show="showDbFilters" />
@@ -62,13 +62,13 @@ export default {
     hostname: {
       type: String,
       required: true,
-      default: ''
+      default: '',
     },
     dbname: {
       type: String,
       required: false,
-      default: ''
-    }
+      default: '',
+    },
   },
   components: {
     Notifications,
@@ -78,12 +78,12 @@ export default {
     DetailsInfo,
     Databases,
     ChartCpu,
-    DatabasesFilters
+    DatabasesFilters,
   },
   data() {
     return {
       isMounted: false,
-      showDbFilters: false
+      showDbFilters: false,
     }
   },
   async beforeMount() {
@@ -95,17 +95,17 @@ export default {
         this.isMounted = true
       })
     bus.$emit('dynamicTitle', this.hostname)
-    bus.$on('isDbFiltersOpen', val => {
+    bus.$on('isDbFiltersOpen', (val) => {
       this.showDbFilters = val
     })
   },
   methods: {
     ...mapActions(['getHostByName']),
-    ...mapMutations(['SET_ACTIVE_DB'])
+    ...mapMutations(['SET_ACTIVE_DB']),
   },
   computed: {
-    ...mapGetters(['currentHostType', 'currentHostDBs'])
-  }
+    ...mapGetters(['currentHostType', 'currentHostDBs']),
+  },
 }
 </script>
 
