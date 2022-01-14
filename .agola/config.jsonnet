@@ -7,6 +7,20 @@ local node_runtime(version) = {
   ],
 };
 
+local task_e2e(version) = {
+  name: 'test - node ' + version,
+  runtime: node_runtime(version),
+  environment: {},
+  steps: [
+    { type: 'clone' },
+    { type: 'restore_cache', keys: ['cache-node' + version + '-sum-{{ md5sum "package.json" }}', 'cache-node' + version + '-date-'], dest_dir: './node_modules' },
+    { type: 'run', command: 'npm install' },
+    { type: 'run', command: 'npm run cypress:run' },
+    { type: 'save_cache', key: 'cache-node' + version + '-sum-{{ md5sum "package.json" }}', contents: [{ source_dir: './node_modules' }] },
+    { type: 'save_cache', key: 'cache-node' + version + '-date-{{ year }}-{{ month }}-{{ day }}', contents: [{ source_dir: './node_modules' }] },
+  ],
+};
+
 local task_test(version) = {
   name: 'test - node ' + version,
   runtime: node_runtime(version),
