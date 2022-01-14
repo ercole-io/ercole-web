@@ -40,7 +40,12 @@ export default {
     TotalTargets,
     Technologies,
     DashboardTabs,
-    Alerts
+    Alerts,
+  },
+  data() {
+    return {
+      setInterval: null,
+    }
   },
   async beforeMount() {
     await this.getTechnologiesData().then(() => {
@@ -57,8 +62,8 @@ export default {
         })
     })
 
-    await setInterval(() => {
-      this.getHosts() // Update hosts automatically each hour
+    this.setInterval = await setInterval(() => {
+      this.getHosts() // Update hosts automatically each 5 minutes
     }, 300000)
   },
   methods: {
@@ -66,9 +71,12 @@ export default {
       'getDashboardData',
       'getHosts',
       'getClusters',
-      'getTechnologiesData'
-    ])
-  }
+      'getTechnologiesData',
+    ]),
+  },
+  beforeDestroy() {
+    clearInterval(this.setInterval)
+  },
 }
 </script>
 
