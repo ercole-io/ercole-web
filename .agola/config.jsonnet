@@ -8,7 +8,7 @@ local node_runtime(version) = {
 };
 
 local task_e2e(version) = {
-  name: 'test - node ' + version,
+  name: 'e2e - node ' + version,
   runtime: node_runtime(version),
   environment: {},
   steps: [
@@ -142,6 +142,12 @@ local task_build_push_image(push) =
     {
       name: 'ercole-web',
       tasks: std.flattenArrays([
+              [
+                task_e2e(version),
+              ]
+              for version in ['16']
+            ]) +
+            std.flattenArrays([
                [
                  task_test(version),
                ]
