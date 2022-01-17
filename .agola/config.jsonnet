@@ -14,7 +14,7 @@ local task_e2e(version) = {
   steps: [
     { type: 'clone' },
     { type: 'run', command: 'yarn install --frozen-lockfile' },
-    { type: 'run', command: 'yarn run cypress:run' },
+    { type: 'run', command: 'yarn cypress:run --headless' },
   ],
 };
 
