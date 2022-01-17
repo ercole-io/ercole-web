@@ -141,26 +141,11 @@ local task_build_push_image(push) =
   runs: [
     {
       name: 'ercole-web',
-      tasks: std.flattenArrays([
-               [
-                 task_test(version),
-               ]
-               for version in ['16']
-             ]) +
-             std.flattenArrays([
-              [
-                task_e2e(version),
-              ]
-              for version in ['16']
-            ]) +
-             std.flattenArrays([
-               [
-                 task_build(version),
-               ]
-               for version in ['16']
-             ]) + [
-
-        local version = '16';
+      tasks: 
+        std.flattenArrays([[task_test(version), task_e2e(version)] for version in ['16']]) +
+        std.flattenArrays([[task_build(version),] for version in ['16']]) + 
+        [
+          local version = '16';
         {
           name: 'pkg build',
           runtime: {
