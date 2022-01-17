@@ -13,8 +13,9 @@ local task_e2e(version) = {
   environment: {},
   steps: [
     { type: 'clone' },
+    { type: 'run', command: 'apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb' }
     { type: 'run', command: 'yarn install --frozen-lockfile' },
-    { type: 'run', command: 'yarn cypress:run --headless' },
+    { type: 'run', command: 'yarn cypress:run' },
   ],
 };
 
