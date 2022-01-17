@@ -13,7 +13,7 @@ local task_e2e(version) = {
   environment: {},
   steps: [
     { type: 'clone' },
-    { type: 'restore_cache', keys: ['cache-node' + version + '-sum-{{ md5sum "package.json" }}', 'cache-node' + version + '-date-'], dest_dir: './node_modules' },
+    { type: 'restore_cache', keys: ['cache-node' + version + '-sum-{{ md5sum "package.json" }}', 'cache-date' + version + '-date-'], dest_dir: './node_modules' },
     { type: 'run', command: 'npm install' },
     { type: 'run', command: 'npm run cypress:run' },
     { type: 'save_cache', key: 'cache-node' + version + '-sum-{{ md5sum "package.json" }}', contents: [{ source_dir: './node_modules' }] },
@@ -27,7 +27,7 @@ local task_test(version) = {
   environment: {},
   steps: [
     { type: 'clone' },
-    { type: 'restore_cache', keys: ['cache-node' + version + '-sum-{{ md5sum "package.json" }}', 'cache-node' + version + '-date-'], dest_dir: './node_modules' },
+    { type: 'restore_cache', keys: ['cache-node' + version + '-sum-{{ md5sum "package.json" }}', 'cache-date' + version + '-date-'], dest_dir: './node_modules' },
     { type: 'run', command: 'npm install' },
     { type: 'run', command: 'npm run test:unit' },
     { type: 'save_cache', key: 'cache-node' + version + '-sum-{{ md5sum "package.json" }}', contents: [{ source_dir: './node_modules' }] },
@@ -141,11 +141,26 @@ local task_build_push_image(push) =
   runs: [
     {
       name: 'ercole-web',
-      tasks: 
-        std.flattenArrays([[task_test(version), task_e2e(version)] for version in ['16']]) +
-        std.flattenArrays([[task_build(version),] for version in ['16']]) + 
-        [
-          local version = '16';
+      tasks: std.flattenArrays([
+               [
+                 task_e2e(version),
+               ]
+               for version in ['16']
+             ]) +
+             std.flattenArrays([
+               [
+                 task_test(version),
+               ]
+               for version in ['16']
+             ]) +
+             std.flattenArrays([
+               [
+                 task_build(version),
+               ]
+               for version in ['16']
+             ]) + [
+
+        local version = '16';
         {
           name: 'pkg build',
           runtime: {
