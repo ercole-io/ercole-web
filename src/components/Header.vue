@@ -32,9 +32,9 @@
             Auto Refresh
           </b-switch>
         </b-navbar-item> -->
-        <b-navbar-item @click="callLogout" data-logout-button>{{
-          $t('header.logout')
-        }}</b-navbar-item>
+        <b-navbar-item @click="callLogout" data-logout-button>
+          {{ $t('header.logout') }}
+        </b-navbar-item>
       </b-navbar-dropdown>
     </template>
   </b-navbar>
