@@ -18,8 +18,7 @@ local task_e2e(version) = {
   environment: {},
   steps: [
     { type: 'clone' },
-    { type: 'run', command: 'yarn install --frozen-lockfile' },
-    { type: 'save_cache', key: 'cache-node' + version + '-date-{{ year }}-{{ month }}-{{ day }}', contents: [{ source_dir: '~/.cache' }] },
+    { type: 'run', command: 'yarn install' },
     { type: 'run', command: 'yarn cypress:e2e' },
   ],
 };
@@ -51,7 +50,7 @@ local task_build(version) = {
     { type: 'save_cache', key: 'cache-node' + version + '-date-{{ year }}-{{ month }}-{{ day }}', contents: [{ source_dir: './node_modules' }] },
     { type: 'save_to_workspace', contents: [{ source_dir: '.', dest_dir: '/build', paths: ['**'] }] },
   ],
-  depends: ['test - node ' + version],
+  depends: ['test - node ' + version, 'e2e - node ' + version],
 };
 
 local task_deploy_repository() = {
