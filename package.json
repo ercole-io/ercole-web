@@ -9,7 +9,7 @@
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
     "cypress:open": "npx cypress open",
-    "cypress:run": "npx cypress run  --headless"
+    "cypress:run": "npx cypress run"
   },
   "dependencies": {
     "animate.css": "^4.1.1",

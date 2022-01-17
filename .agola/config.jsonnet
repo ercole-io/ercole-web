@@ -7,18 +7,6 @@ local node_runtime(version) = {
   ],
 };
 
-local task_e2e(version) = {
-  name: 'e2e - node ' + version,
-  runtime: node_runtime(version),
-  environment: {},
-  steps: [
-    { type: 'clone' },
-    { type: 'run', command: 'apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb' },
-    { type: 'run', command: 'yarn install --frozen-lockfile' },
-    { type: 'run', command: 'yarn cypress:run' },
-  ],
-};
-
 local task_test(version) = {
   name: 'test - node ' + version,
   runtime: node_runtime(version),
@@ -140,9 +128,6 @@ local task_build_push_image(push) =
     {
       name: 'ercole-web',
       tasks: std.flattenArrays([
-               [task_e2e(version),] for version in ['16']
-             ]) +
-             std.flattenArrays([
                [task_test(version),] for version in ['16']
              ]) +
              std.flattenArrays([
