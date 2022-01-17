@@ -7,6 +7,18 @@ local node_runtime(version) = {
   ],
 };
 
+local task_e2e(version) = {
+  name: 'e2e - node ' + version,
+  runtime: node_runtime(version),
+  environment: {},
+  steps: [
+    { type: 'clone' },
+    { type: 'run', command: 'yarn install --frozen-lockfile' },
+    { type: 'save_cache', key: 'cache-node' + version + '-date-{{ year }}-{{ month }}-{{ day }}', contents: [{ source_dir: '~/.cache' }] },
+    { type: 'run', command: 'yarn cypress:run --headless' },
+  ],
+};
+
 local task_test(version) = {
   name: 'test - node ' + version,
   runtime: node_runtime(version),
@@ -128,6 +140,9 @@ local task_build_push_image(push) =
     {
       name: 'ercole-web',
       tasks: std.flattenArrays([
+               [task_e2e(version),] for version in ['16']
+             ]) +
+             std.flattenArrays([
                [task_test(version),] for version in ['16']
              ]) +
              std.flattenArrays([
