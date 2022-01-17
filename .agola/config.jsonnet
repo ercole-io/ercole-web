@@ -142,17 +142,17 @@ local task_build_push_image(push) =
     {
       name: 'ercole-web',
       tasks: std.flattenArrays([
-              [
-                task_e2e(version),
-              ]
-              for version in ['16']
-            ]) +
-            std.flattenArrays([
                [
                  task_test(version),
                ]
                for version in ['16']
              ]) +
+             std.flattenArrays([
+              [
+                task_e2e(version),
+              ]
+              for version in ['16']
+            ]) +
              std.flattenArrays([
                [
                  task_build(version),
