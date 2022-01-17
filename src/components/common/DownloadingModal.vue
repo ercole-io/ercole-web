@@ -179,7 +179,7 @@ export default {
       this.request = axios.CancelToken.source()
       this.isClose = false
 
-      if (this.isLms) {
+      if (this.isLms && this.lmsFilters.to) {
         const dateTo = this.lmsFilters.to
         dateTo.setDate(dateTo.getDate() + 1)
         this.lmsFilters.to = dateTo
