@@ -9,13 +9,18 @@ local node_runtime(version) = {
 
 local task_e2e(version) = {
   name: 'e2e - node ' + version,
-  runtime: node_runtime(version),
+  runtime: {
+    arch: 'amd64',
+    containers: [
+      { image: 'cypress/base:16.13.0' },
+    ],
+  },
   environment: {},
   steps: [
     { type: 'clone' },
     { type: 'run', command: 'yarn install --frozen-lockfile' },
     { type: 'save_cache', key: 'cache-node' + version + '-date-{{ year }}-{{ month }}-{{ day }}', contents: [{ source_dir: '~/.cache' }] },
-    { type: 'run', command: 'yarn cypress:run --headless' },
+    { type: 'run', command: 'yarn cypress:run' },
   ],
 };
 
