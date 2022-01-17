@@ -20,6 +20,7 @@ local task_e2e(version) = {
     { type: 'clone' },
     { type: 'run', command: 'yarn install --frozen-lockfile' },
     { type: 'save_cache', key: 'cache-node' + version + '-date-{{ year }}-{{ month }}-{{ day }}', contents: [{ source_dir: '~/.cache' }] },
+    { type: 'run', command: 'yarn serve' },
     { type: 'run', command: 'yarn cypress:run' },
   ],
 };
