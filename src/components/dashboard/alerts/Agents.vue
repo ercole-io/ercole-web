@@ -8,12 +8,14 @@
           size="is-small"
           icon="broadcast-tower"
         />
-        <span>{{ $t('views.dashboard.agents') }}</span>
+        <span data-cy="agents">{{ $t('views.dashboard.agents') }}</span>
       </p>
     </header>
     <div class="card-content body">
       <div class="agents">
-        <span>{{ $t('views.dashboard.agentsText') }} </span>
+        <span data-cy="agents-desc"
+          >{{ $t('views.dashboard.agentsText') }}
+        </span>
 
         <span class="has-text-weight-bold" data-stoped-agents>
           <GhostLoading :isLoading="loading" setWidth="20">
@@ -27,7 +29,10 @@
         <b-button
           @click="inspectAgents"
           type="is-small"
-          class="is-radiusless has-background-primary has-text-white-bis has-text-weight-bold"
+          class="
+            is-radiusless
+            has-background-primary has-text-white-bis has-text-weight-bold
+          "
           expanded
           data-inspect
         >
@@ -45,11 +50,11 @@ import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   components: {
-    GhostLoading
+    GhostLoading,
   },
   data() {
     return {
-      loading: true
+      loading: true,
     }
   },
   beforeMount() {
@@ -63,17 +68,17 @@ export default {
       this.SET_ALERTS_PARAMS({
         category: 'AGENT',
         severity: null,
-        hostname: null
+        hostname: null,
       })
       this.$router.push('/alerts')
-    }
+    },
   },
   computed: {
     ...mapGetters(['getFilteredAgents']),
     stoppedAgents() {
       return this.getFilteredAgents('NO_DATA', 'AGENT').length
-    }
-  }
+    },
+  },
 }
 </script>
 

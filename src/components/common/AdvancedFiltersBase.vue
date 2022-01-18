@@ -1,5 +1,5 @@
 <template>
-  <BoxContent :title="title" border :mbottom="false">
+  <BoxContent :title="title" border :mbottom="false" data-cy="advanced-form">
     <div class="static-filters scrollbar-x" id="style-1">
       <form @submit.prevent="submitAction">
         <slot />
@@ -22,32 +22,32 @@ export default {
   props: {
     filterTitle: {
       type: String,
-      required: false
+      required: false,
     },
     submitAction: {
       type: Function,
-      required: true
+      required: true,
     },
     applyText: {
       type: String,
-      required: false
+      required: false,
     },
     cancelText: {
       type: String,
-      required: false
+      required: false,
     },
     isDisabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isFixed: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   components: {
     BoxContent,
-    ActionButtons
+    ActionButtons,
   },
   computed: {
     title() {
@@ -64,8 +64,8 @@ export default {
       return this.cancelText
         ? this.cancelText
         : this.$i18n.t('common.forms.reset')
-    }
-  }
+    },
+  },
 }
 </script>
 

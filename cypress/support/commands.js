@@ -38,6 +38,7 @@ Cypress.Commands.add('ercoleLogin', () => {
       cy.visit('/', {
         onBeforeLoad(win) {
           win.localStorage.setItem('token', token)
+          win.localStorage.setItem('username', userCred.username)
         },
       })
     })

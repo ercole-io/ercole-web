@@ -3,7 +3,7 @@
     <header class="card-header">
       <p class="card-header-title alert-title">
         <b-icon type="is-dark" pack="fas" size="is-small" :icon="title[1]" />
-        <span>{{ title[0] }}</span>
+        <span :data-cy="title[0]">{{ title[0] }}</span>
       </p>
     </header>
 
@@ -109,13 +109,14 @@
           :disabled="getTotals.info === 0"
           :type="{
             'is-info': getTotals.info !== 0,
-            'inverted-alert info': getTotals.info === 0
+            'inverted-alert info': getTotals.info === 0,
           }"
           size="is-small"
           icon-pack="mdi"
           icon-left="information"
           class="has-text-weight-semibold alert-button"
           expanded
+          :data-cy="`${title[0]}-info`"
         >
           {{ getTotals.info }}
         </b-button>
@@ -125,13 +126,14 @@
           :disabled="getTotals.warn === 0"
           :type="{
             'is-warning': getTotals.warn !== 0,
-            'inverted-alert warning': getTotals.warn === 0
+            'inverted-alert warning': getTotals.warn === 0,
           }"
           size="is-small"
           icon-pack="mdi"
           icon-left="alert"
           class="has-text-weight-semibold alert-button"
           expanded
+          :data-cy="`${title[0]}-warn`"
         >
           {{ getTotals.warn }}
         </b-button>
@@ -141,13 +143,14 @@
           :disabled="getTotals.crit === 0"
           :type="{
             'is-danger': getTotals.crit !== 0,
-            'inverted-alert danger': getTotals.crit === 0
+            'inverted-alert danger': getTotals.crit === 0,
           }"
           size="is-small"
           icon-pack="mdi"
           icon-left="alert-circle"
           class="has-text-weight-semibold alert-button"
           expanded
+          :data-cy="`${title[0]}-crit`"
         >
           {{ getTotals.crit }}
         </b-button>
@@ -168,21 +171,21 @@ export default {
   props: {
     title: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     alertCategory: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
     NoContent,
-    GhostLoading
+    GhostLoading,
   },
   data() {
     return {
       isAnimated: false,
-      loading: true
+      loading: true,
     }
   },
   beforeMount() {
@@ -201,7 +204,7 @@ export default {
       this.$store.commit('SET_ALERTS_PARAMS', {
         category: category,
         severity: severity,
-        hostname: null
+        hostname: null,
       })
       this.$router.push('/alerts')
     },
@@ -212,10 +215,10 @@ export default {
         categ: info.category,
         date: info.date,
         desc: info.msg,
-        severity: info.severity
+        severity: info.severity,
       }
       descriptionAlertDialog(data)
-    }
+    },
   },
   computed: {
     ...mapGetters(['getFirstAlertByCategory', 'getTotalAlertsByCategory']),
@@ -232,7 +235,7 @@ export default {
     },
     setIcon() {
       return checkAlertIcon(this.getFirst.severity)
-    }
+    },
   },
   watch: {
     isAnimated(newValue, oldValue) {
@@ -241,8 +244,8 @@ export default {
           this.isAnimated = oldValue
         }, 1000)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
