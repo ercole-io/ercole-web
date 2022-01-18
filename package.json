@@ -48,16 +48,23 @@
     "@vue/cli-service": "~4.5.15",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/test-utils": "1.2.2",
+    "ansi-regex": "^5.0.1",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^6.2.2",
+    "glob-parent": "^5.1.2",
+    "node-forge": "^1.0.0",
+    "node-notifier": "^8.0.1",
     "node-sass": "^6.0.1",
+    "nth-check": "^2.0.1",
+    "postcss": "^8.2.13",
     "prettier": "^2.4.1",
     "sass-loader": "^10",
     "vue-cli-plugin-buefy": "^0.3.8",
     "vue-cli-plugin-i18n": "~2.3.1",
     "vue-template-compiler": "^2.6.14",
+    "yargs-parser": "^13.1.2",
     "yarn-audit-fix": "^9.0.7"
   }
 }
