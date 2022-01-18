@@ -103,7 +103,7 @@ export default {
   }
 
   .col02 {
-    height: 50px;
+    height: 55px;
   }
 }
 </style>
