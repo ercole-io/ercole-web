@@ -8,7 +8,7 @@ local node_runtime(version) = {
 };
 
 local task_e2e(version) = {
-  name: 'e2e - node ' + version,
+  name: 'e2e test - node ' + version,
   runtime: {
     arch: 'amd64',
     containers: [
@@ -17,14 +17,13 @@ local task_e2e(version) = {
   },
   environment: {},
   steps: [
-    { type: 'clone' },
     { type: 'run', command: 'yarn install' },
     { type: 'run', command: 'yarn cypress:e2e' },
   ],
 };
 
 local task_test(version) = {
-  name: 'test - node ' + version,
+  name: 'unit test - node ' + version,
   runtime: node_runtime(version),
   environment: {},
   steps: [
