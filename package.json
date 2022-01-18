@@ -66,5 +66,12 @@
     "vue-template-compiler": "^2.6.14",
     "yargs-parser": "^21.0.0",
     "yarn-audit-fix": "^9.0.7"
+  },
+  "resolutions": {
+    "node-forge": "^1.2.1",
+    "nth-check": "^2.0.1",
+    "glob-parent": "^6.0.2",
+    "node-notifier": "^10.0.0",
+    "yargs-parser": "^21.0.0"
   }
 }
