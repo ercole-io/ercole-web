@@ -27,11 +27,11 @@ export default {
   components: {
     LineChart,
     RangeDates,
-    GhostLoading
+    GhostLoading,
   },
   data() {
     return {
-      loading: true
+      loading: true,
     }
   },
   async beforeMount() {
@@ -41,11 +41,11 @@ export default {
   },
   methods: {
     ...mapActions(['getCoreHosts']),
-    ...mapMutations(['SET_RANGE_DATES_ALT'])
+    ...mapMutations(['SET_RANGE_DATES_ALT']),
   },
   computed: {
-    ...mapGetters(['getChartCoreHosts'])
-  }
+    ...mapGetters(['getChartCoreHosts']),
+  },
 }
 </script>
 

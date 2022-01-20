@@ -64,8 +64,8 @@ export default {
     }
   },
   beforeMount() {
-    bus.$on('loadDashboardComplete', () => {
-      this.loading = false
+    bus.$on('dashboardLoaded', (val) => {
+      this.loading = val
     })
   },
   computed: {

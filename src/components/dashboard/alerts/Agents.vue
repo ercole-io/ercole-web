@@ -29,10 +29,7 @@
         <b-button
           @click="inspectAgents"
           type="is-small"
-          class="
-            is-radiusless
-            has-background-primary has-text-white-bis has-text-weight-bold
-          "
+          class="is-radiusless has-background-primary has-text-white-bis has-text-weight-bold"
           expanded
           data-inspect
         >
@@ -58,8 +55,8 @@ export default {
     }
   },
   beforeMount() {
-    bus.$on('loadAlertsComplete', () => {
-      this.loading = false
+    bus.$on('alertsLoaded', (val) => {
+      this.loading = val
     })
   },
   methods: {

@@ -60,24 +60,24 @@ export default {
   components: {
     Progress,
     HbuttonScroll,
-    GhostLoading
+    GhostLoading,
   },
   data() {
     return {
-      loading: true
+      loading: true,
     }
   },
   beforeMount() {
-    bus.$on('loadTechComplete', () => {
-      this.loading = false
+    bus.$on('dashboardLoaded', (val) => {
+      this.loading = val
     })
   },
   computed: {
     ...mapGetters(['getTechnologies']),
     getTech() {
       return this.loading ? 5 : this.getTechnologies
-    }
-  }
+    },
+  },
 }
 </script>
 

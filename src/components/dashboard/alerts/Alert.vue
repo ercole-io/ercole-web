@@ -119,7 +119,7 @@
           expanded
           :data-cy="`${title[0]}-info`"
         >
-          {{ getTotals.info }}
+          <p :data-cy="`${title[0]}-info-value`">{{ getTotals.info }}</p>
         </b-button>
 
         <b-button
@@ -136,7 +136,7 @@
           expanded
           :data-cy="`${title[0]}-warn`"
         >
-          {{ getTotals.warn }}
+          <p :data-cy="`${title[0]}-warn-value`">{{ getTotals.warn }}</p>
         </b-button>
 
         <b-button
@@ -153,7 +153,7 @@
           expanded
           :data-cy="`${title[0]}-crit`"
         >
-          {{ getTotals.crit }}
+          <p :data-cy="`${title[0]}-crit-value`">{{ getTotals.crit }}</p>
         </b-button>
       </footer>
     </GhostLoading>
@@ -190,8 +190,8 @@ export default {
     }
   },
   beforeMount() {
-    bus.$on('loadAlertsComplete', () => {
-      this.loading = false
+    bus.$on('alertsLoaded', (val) => {
+      this.loading = val
     })
   },
   methods: {
