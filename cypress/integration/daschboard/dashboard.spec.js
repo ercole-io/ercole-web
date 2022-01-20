@@ -79,6 +79,10 @@ describe('Dashboard Suite', () => {
   })
 
   context('Licenses Box', () => {
+    beforeEach('Request Alerts', () => {
+      onDashboardLoad.requestAlerts()
+    })
+
     it('box must have the correct name', () => {
       cy.get('[data-cy="Licenses"]').then((text) => {
         expect(text).contain('Licenses')
@@ -93,15 +97,10 @@ describe('Dashboard Suite', () => {
       cy.get('[class="modal-card-foot"]').contains('Close').click()
     })
 
-    it('will check if the button info works', () => {
-      let info
-      cy.get('[data-cy="Licenses-info"]')
-        .find('span')
-        .last()
+    it.only('will check if the button info works', () => {
+      cy.get('[data-cy="Licenses-info-value"]')
         .invoke('text')
-        .then((value) => {
-          info = value
-
+        .then((text) => {
           cy.get('[data-cy="Licenses-info"]').click()
           cy.url().should('contain', '/alerts')
 
@@ -114,7 +113,7 @@ describe('Dashboard Suite', () => {
             .select('INFO')
             .should('contain', 'INFO')
 
-          cy.get('[data-cy="show-items"]').should('contain', info)
+          cy.get('[data-cy="show-items"]').should('contain', text)
         })
     })
   })
