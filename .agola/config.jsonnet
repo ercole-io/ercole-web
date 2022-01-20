@@ -49,7 +49,7 @@ local task_build(version) = {
     { type: 'save_cache', key: 'cache-node' + version + '-date-{{ year }}-{{ month }}-{{ day }}', contents: [{ source_dir: './node_modules' }] },
     { type: 'save_to_workspace', contents: [{ source_dir: '.', dest_dir: '/build', paths: ['**'] }] },
   ],
-  depends: ['test - node ' + version, 'e2e - node ' + version],
+  depends: ['unit test - node ' + version, 'e2e test - node ' + version],
 };
 
 local task_deploy_repository() = {
