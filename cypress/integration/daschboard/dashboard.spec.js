@@ -1,19 +1,13 @@
 /// <reference types="cypress" />
 
+import { onDashboardLoad } from '../../support/page_objects/dashboard'
+
 describe('Dashboard Suite', () => {
   beforeEach('login into Ercole App', () => {
     cy.ercoleLogin()
-
-    // cy.intercept('GET', '**/technologies', {
-    //   fixture: 'technologies.json',
-    // }).as('technologies')
-    // cy.wait('@technologies')
-    // cy.get('@technologies').then((res) => {
-    //   expect(res.response.statusCode).to.equal(200)
-    // })
   })
 
-  describe('Total Targets Box', () => {
+  context('Total Targets Box', () => {
     it('box must gave the correct name', () => {
       cy.get('[data-cy="total-targets"]')
         .find('h2')
@@ -35,9 +29,7 @@ describe('Dashboard Suite', () => {
     })
 
     it('will check box contents values', () => {
-      cy.intercept('GET', `${Cypress.env('apiUrl')}frontend/dashboard`, {
-        fixture: 'dashboard.json',
-      })
+      onDashboardLoad.requestDashboard()
 
       cy.fixture('dashboard').then((file) => {
         cy.get('[data-cy="agents-discovered-value"]')
@@ -58,7 +50,7 @@ describe('Dashboard Suite', () => {
     })
   })
 
-  describe('Agents Box', () => {
+  context('Agents Box', () => {
     it('box must have the correct name', () => {
       cy.get('[data-cy="agents"]').then((text) => {
         expect(text).contain('Agents')
@@ -73,27 +65,57 @@ describe('Dashboard Suite', () => {
     })
 
     it('will check box content value', () => {
-      cy.intercept('GET', `${Cypress.env('apiUrl')}alerts?status=NEW`, {
-        fixture: 'alerts.json',
-      }).as('alerts')
+      onDashboardLoad.requestAlerts()
 
-      cy.wait('@alerts').its('response.statusCode').should('eq', 200)
-      cy.get('@alerts').then(() => {
+      cy.fixture('alerts').then(() => {
         cy.get('[data-stoped-agents]').should('contain', '2')
       })
     })
 
-    it('will check if the button works', () => {
+    it('will check if the button inpect works', () => {
       cy.get('[data-inspect]').click()
       cy.url().should('contain', '/alerts')
     })
   })
 
-  describe('Licenses Box', () => {
+  context('Licenses Box', () => {
     it('box must have the correct name', () => {
       cy.get('[data-cy="Licenses"]').then((text) => {
         expect(text).contain('Licenses')
       })
+    })
+
+    it('will assert if show full description button is working', () => {
+      cy.get('[data-cy="Licenses-full-desc"]').click()
+      cy.get('[class="dialog modal is-active is-small"]')
+        .find('[class="modal-card-title"]')
+        .should('contain', 'Alert Description')
+      cy.get('[class="modal-card-foot"]').contains('Close').click()
+    })
+
+    it('will check if the button info works', () => {
+      let info
+      cy.get('[data-cy="Licenses-info"]')
+        .find('span')
+        .last()
+        .invoke('text')
+        .then((value) => {
+          info = value
+
+          cy.get('[data-cy="Licenses-info"]').click()
+          cy.url().should('contain', '/alerts')
+
+          cy.get('[data-cy="alert-category"]')
+            .find('select')
+            .select('LICENSE')
+            .should('contain', 'LICENSE')
+          cy.get('[data-cy="alert-severity"]')
+            .find('select')
+            .select('INFO')
+            .should('contain', 'INFO')
+
+          cy.get('[data-cy="show-items"]').should('contain', info)
+        })
     })
   })
 })

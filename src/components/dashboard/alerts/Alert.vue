@@ -88,6 +88,7 @@
                 <a
                   @click="descriptionAlert(getFirst)"
                   v-if="!loading && getTotals.total"
+                  :data-cy="`${title[0]}-full-desc`"
                 >
                   {{ $t('common.general.fullDesc') }}
                 </a>
