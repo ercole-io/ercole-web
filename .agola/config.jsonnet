@@ -17,6 +17,7 @@ local task_e2e(version) = {
   },
   environment: {},
   steps: [
+    { type: 'clone' },
     { type: 'run', command: 'yarn install' },
     { type: 'run', command: 'yarn cypress:e2e' },
   ],
