@@ -427,6 +427,12 @@ export default {
       }
     },
     editAgreement(data) {
+      this.getHostAssociatedList({
+        desc: data.itemDescription,
+        full: `${data.licenseTypeID} - ${data.itemDescription} - ${data.metric}`,
+        id: data.licenseTypeID,
+        metric: data.metric,
+      })
       this.oracleForm = {
         licenseID: data.id,
         agreeNumber: data.agreementID,
@@ -453,9 +459,10 @@ export default {
         return host.hostname
       })
     },
-    getEvent(e) {
-      this.getAutocompleteData(e, Object.keys(this.$refs)[0])
-    },
+    // getEvent(e) {
+    //   console.log(e)
+    //   this.getAutocompleteData(e, Object.keys(this.$refs)[0])
+    // },
     sussessToastMsg(agreeNumber, text) {
       this.$buefy.toast.open({
         message: `The Agreement Number <b>${agreeNumber}</b> was successfully ${text}!`,
