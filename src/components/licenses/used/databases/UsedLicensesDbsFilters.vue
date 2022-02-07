@@ -58,12 +58,12 @@ import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutoc
 export default {
   mixins: [localFiltersMixin],
   components: {
-    CustomSelectAutocomplete
+    CustomSelectAutocomplete,
   },
   data() {
     return {
       autocompletes: ['hostname', 'dbName', 'fullPartNumber', 'metric'],
-      sliders: ['usedLicenses', 'clusterLicenses']
+      sliders: ['usedLicenses', 'clusterLicenses'],
     }
   },
   created() {
@@ -72,8 +72,8 @@ export default {
     bus.$on('onUsedTabChange', () => this.reset(this.resetFilters))
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByDbs'])
-  }
+    ...mapGetters(['getUsedLicensesByDbs']),
+  },
 }
 </script>
 
