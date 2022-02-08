@@ -227,6 +227,8 @@ export const getters = {
       ) {
         return 'microsoft'
       }
+    } else {
+      return null
     }
   },
   currentHostActiveDB: (state) => {
