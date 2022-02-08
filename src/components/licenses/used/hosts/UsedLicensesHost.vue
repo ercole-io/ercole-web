@@ -51,7 +51,7 @@
 
       <exportButton
         slot="export"
-        url="/hosts/technologies/all/databases/licenses-used-per-host"
+        url="hosts/technologies/all/databases/licenses-used-per-host"
         expName="licensesUsedPerHosts"
       />
     </FullTable>
