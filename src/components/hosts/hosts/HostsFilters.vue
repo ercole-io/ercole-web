@@ -131,7 +131,7 @@ import Collapse from '@/components/common/Collapse.vue'
 export default {
   mixins: [localFiltersMixin],
   components: {
-    Collapse
+    Collapse,
   },
   data() {
     return {
@@ -142,14 +142,14 @@ export default {
         'os',
         'kernel',
         'cluster',
-        'virtNode'
+        'virtNode',
       ],
       selects: ['environment', 'techType', 'platform', 'version'],
       sliders: ['threads', 'cores', 'socket', 'memorytotal', 'swaptotal'],
       filters: {
-        iconCluster: ''
+        iconCluster: '',
       },
-      startDate: null
+      startDate: null,
     }
   },
   created() {
@@ -159,21 +159,21 @@ export default {
     ...mapActions(['getHosts']),
     resetFilters() {
       this.filters = {
-        iconCluster: ''
+        iconCluster: '',
       }
       this.startDate = null
-    }
+    },
   },
   computed: {
-    ...mapGetters(['getAllHosts'])
+    ...mapGetters(['getAllHosts']),
   },
   watch: {
     startDate(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.getHosts(this.startDate)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
