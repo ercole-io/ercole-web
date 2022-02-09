@@ -12,9 +12,9 @@
 export default {
   data() {
     return {
-      version: 'Ercole 2.0 © 2020 Sorint.lab S.p.A.'
+      version: `Ercole 2.0 © ${new Date().getFullYear()} Sorint.lab S.p.A.`,
     }
-  }
+  },
 }
 </script>
 
