@@ -40,7 +40,7 @@ export const actions = {
       .then((res) => {
         const token = res.data
         const decodeToken = JSON.parse(atob(token.split('.')[1]))
-        const username = decodeToken.aud[0]
+        const username = decodeToken.sub
         const expiration = decodeToken.exp
 
         const payload = {
