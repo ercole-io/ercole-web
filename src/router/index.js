@@ -81,14 +81,14 @@ const Unauthorized = lazy(() =>
 const NotFound = lazy(() =>
   import(/* webpackPreload: true */ '@/views/Errors/NotFound.vue')
 )
-const CloudRecommendation = lazy(() =>
+const CloudRecommendations = lazy(() =>
   import(/* webpackPreload: true */ '@/views/cloud/Recommendations.vue')
 )
 const ProfileConfigurations = lazy(() =>
   import(/* webpackPreload: true */ '@/views/cloud/ProfileConfigurations.vue')
 )
-const LoadBalancers = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/cloud/LoadBalancers.vue')
+const ErcoleRecommendations = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/cloud/ErcoleRecommendations.vue')
 )
 
 Vue.use(VueRouter)
@@ -364,7 +364,7 @@ const routes = [
   {
     path: '/cloud-recommendations',
     name: 'cloud-recommendations',
-    component: CloudRecommendation,
+    component: CloudRecommendations,
     meta: {
       label: i18n.t('menu.recommendations'),
       title: `${title}${i18n.t('menu.recommendations')}`,
@@ -384,7 +384,7 @@ const routes = [
   {
     path: '/ercole-recommendations',
     name: 'ercole-recommendations',
-    component: LoadBalancers,
+    component: ErcoleRecommendations,
     meta: {
       label: i18n.t('menu.ercoleRecommendations'),
       title: `${title}${i18n.t('menu.ercoleRecommendations')}`,
