@@ -1,7 +1,7 @@
 <template>
   <FullTable
     placeholder="Cloud Recommendations"
-    :keys="getHeadKeys(loadBalancersHead)"
+    :keys="getHeadKeys(ErcoleRecommendationsHead)"
     :tableData="getMergedData"
   >
     <template slot="customTopHeader">
@@ -27,7 +27,7 @@
 
     <DynamicHeading
       slot="headData"
-      v-for="head in loadBalancersHead"
+      v-for="head in ErcoleRecommendationsHead"
       :key="head.sort"
       :data="head"
     />
@@ -50,7 +50,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
-import loadBalancersHead from '@/components/cloud/loadBalancers/loadBalancersHead.json'
+import ErcoleRecommendationsHead from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsHead.json'
 
 export default {
   mixins: [getHeadKeys],
@@ -62,7 +62,7 @@ export default {
   },
   data() {
     return {
-      loadBalancersHead: loadBalancersHead,
+      ErcoleRecommendationsHead: ErcoleRecommendationsHead,
     }
   },
   computed: {

@@ -2,7 +2,7 @@ import _ from 'lodash'
 import axiosOci from '@/axios/axios-oci'
 
 export const state = () => ({
-  recommendations: []
+  recommendations: [],
 })
 
 export const getters = {
@@ -10,7 +10,7 @@ export const getters = {
     const recommendations = state.recommendations
 
     let mapRecommendations = []
-    _.map(recommendations, item => {
+    _.map(recommendations, (item) => {
       mapRecommendations.push({
         costSaving: _.toNumber(item.estimatedCostSaving),
         importance: item.importance,
@@ -18,18 +18,18 @@ export const getters = {
         pending: _.toNumber(item.numPending),
         recID: item.recommendationId,
         status: item.status,
-        tenOCID: item.tenancyOCID
+        tenOCID: item.tenancyOCID,
       })
     })
 
     return getters.filteredOrNot(mapRecommendations)
-  }
+  },
 }
 
 export const mutations = {
   SET_RECOMMENDATIONS: (state, payload) => {
     state.recommendations = payload
-  }
+  },
 }
 
 export const actions = {
@@ -49,5 +49,5 @@ export const actions = {
 
     commit('SET_RECOMMENDATIONS', response)
     commit('SET_OCI_ACTIVE_PROFILE_ERROR', error)
-  }
+  },
 }
