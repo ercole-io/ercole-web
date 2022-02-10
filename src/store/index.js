@@ -32,7 +32,7 @@ import * as moreInfoToggle from '@/store/modules/more-info-toggle.js'
 import * as columnToggle from '@/store/modules/columns-toggle.js'
 import * as recommendations from '@/store/modules/cloud/recommendations.js'
 import * as profileConfig from '@/store/modules/cloud/profileConfig.js'
-import * as loadBalancers from '@/store/modules/cloud/loadBalancers.js'
+import * as ercoleRecommendations from '@/store/modules/cloud/ercoleRecommendations.js'
 import * as activeProfiles from '@/store/modules/cloud/activeProfiles.js'
 import * as repository from '@/store/modules/repository/repository.js'
 import * as ignoreLicense from '@/store/modules/ignoreLicense.js'
@@ -71,7 +71,7 @@ export default new Vuex.Store({
     columnToggle,
     recommendations,
     profileConfig,
-    loadBalancers,
+    ercoleRecommendations,
     activeProfiles,
     repository,
     ignoreLicense,
