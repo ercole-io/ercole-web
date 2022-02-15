@@ -1,5 +1,5 @@
 <template>
-  <b-navbar type="is-dark" fixed-top>
+  <b-navbar type="is-ercole-blue" class="navbar-custom" fixed-top>
     <template slot="brand">
       <b-navbar-item tag="router-link" :to="'/'" class="ercole-logo">
         <ErcoleLogo />
@@ -92,14 +92,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/_variables';
+
 // .global-search {
 //   margin-right: 20px;
 //   margin-bottom: 0;
 //   align-self: center;
 // }
 
+.navbar-custom {
+  z-index: 54;
+  margin-left: 50px;
+}
+
 .ercole-logo {
-  background-color: #363636 !important;
+  background-color: $ercole-blue !important;
 
   img {
     height: 2.5em !important;

@@ -16,8 +16,8 @@ import CoreHostsChart from '@/components/dashboard/CoreHostsChart.vue'
 export default {
   components: {
     LicensesChart,
-    CoreHostsChart
-  }
+    CoreHostsChart,
+  },
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="login has-background-dark">
+    <div class="login">
       <LocaleSwitcher dropitemPosition="is-bottom-left" isAbsolute />
       <div class="colunms">
         <div class="colunm">
@@ -25,8 +25,8 @@ export default {
   components: {
     LoginForm,
     ErcoleLogo,
-    LocaleSwitcher
-  }
+    LocaleSwitcher,
+  },
 }
 </script>
 
@@ -36,6 +36,7 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background-color: #101336;
 
   .logo {
     text-align: center;

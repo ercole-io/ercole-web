@@ -3,7 +3,7 @@
     @submit.prevent="
       login({
         username: username,
-        password: password
+        password: password,
       })
     "
     class="login-form has-background-grey-lighter"
@@ -12,7 +12,7 @@
       label-for="username"
       :type="{
         'is-danger': $v.username.$error,
-        'is-success': !$v.username.$invalid
+        'is-success': !$v.username.$invalid,
       }"
     >
       <b-input
@@ -34,7 +34,7 @@
       label-for="password"
       :type="{
         'is-danger': $v.password.$error,
-        'is-success': !$v.password.$invalid
+        'is-success': !$v.password.$invalid,
       }"
     >
       <b-input
@@ -53,7 +53,7 @@
       </template>
     </b-field>
     <b-button
-      type="is-primary"
+      type="is-ercole-green"
       native-type="submit"
       :disabled="$v.$invalid"
       expanded
@@ -73,28 +73,28 @@ import ErrorMsg from '@/components/login/ErrorMsg.vue'
 
 export default {
   components: {
-    ErrorMsg
+    ErrorMsg,
   },
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
     }
   },
   validations: {
     username: {
-      required
+      required,
     },
     password: {
-      required
-    }
+      required,
+    },
   },
   methods: {
     ...mapActions(['login']),
     required(field) {
       return this.$i18n.t('common.validations.required', [field])
-    }
-  }
+    },
+  },
 }
 </script>
 
