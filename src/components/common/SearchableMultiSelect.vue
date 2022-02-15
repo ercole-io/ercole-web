@@ -55,7 +55,7 @@ export default {
         labelName: 'id',
         labelValue: 'id',
         cssSelected: (option) =>
-          option['selected'] ? { 'background-color': '#679189' } : '',
+          option['selected'] ? { 'background-color': '#2bad84' } : '',
       },
       position: 'bottom-right',
     }
