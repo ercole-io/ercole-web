@@ -32,7 +32,7 @@
                       getFirst.severity
                     )
                   "
-                  type="is-primary"
+                  type="is-ercole-green"
                   size="is-small"
                   icon-pack="fas"
                   icon-left="check-circle"
@@ -109,7 +109,7 @@
           :disabled="getTotals.info === 0"
           :type="{
             'is-info': getTotals.info !== 0,
-            'inverted-alert info': getTotals.info === 0
+            'inverted-alert info': getTotals.info === 0,
           }"
           size="is-small"
           icon-pack="mdi"
@@ -125,7 +125,7 @@
           :disabled="getTotals.warn === 0"
           :type="{
             'is-warning': getTotals.warn !== 0,
-            'inverted-alert warning': getTotals.warn === 0
+            'inverted-alert warning': getTotals.warn === 0,
           }"
           size="is-small"
           icon-pack="mdi"
@@ -141,7 +141,7 @@
           :disabled="getTotals.crit === 0"
           :type="{
             'is-danger': getTotals.crit !== 0,
-            'inverted-alert danger': getTotals.crit === 0
+            'inverted-alert danger': getTotals.crit === 0,
           }"
           size="is-small"
           icon-pack="mdi"
@@ -168,21 +168,21 @@ export default {
   props: {
     title: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     alertCategory: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
     NoContent,
-    GhostLoading
+    GhostLoading,
   },
   data() {
     return {
       isAnimated: false,
-      loading: true
+      loading: true,
     }
   },
   beforeMount() {
@@ -201,7 +201,7 @@ export default {
       this.$store.commit('SET_ALERTS_PARAMS', {
         category: category,
         severity: severity,
-        hostname: null
+        hostname: null,
       })
       this.$router.push('/alerts')
     },
@@ -212,10 +212,10 @@ export default {
         categ: info.category,
         date: info.date,
         desc: info.msg,
-        severity: info.severity
+        severity: info.severity,
       }
       descriptionAlertDialog(data)
-    }
+    },
   },
   computed: {
     ...mapGetters(['getFirstAlertByCategory', 'getTotalAlertsByCategory']),
@@ -232,7 +232,7 @@ export default {
     },
     setIcon() {
       return checkAlertIcon(this.getFirst.severity)
-    }
+    },
   },
   watch: {
     isAnimated(newValue, oldValue) {
@@ -241,8 +241,8 @@ export default {
           this.isAnimated = oldValue
         }, 1000)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
