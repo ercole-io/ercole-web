@@ -26,8 +26,9 @@
       <footer class="card-footer">
         <b-button
           @click="inspectAgents"
-          type="is-small"
-          class="is-radiusless has-background-primary has-text-white-bis has-text-weight-bold"
+          type="is-ercole-green"
+          size="is-small"
+          class="is-radiusless has-text-weight-bold"
           expanded
           data-inspect
         >
@@ -45,11 +46,11 @@ import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   components: {
-    GhostLoading
+    GhostLoading,
   },
   data() {
     return {
-      loading: true
+      loading: true,
     }
   },
   beforeMount() {
@@ -63,17 +64,17 @@ export default {
       this.SET_ALERTS_PARAMS({
         category: 'AGENT',
         severity: null,
-        hostname: null
+        hostname: null,
       })
       this.$router.push('/alerts')
-    }
+    },
   },
   computed: {
     ...mapGetters(['getFilteredAgents']),
     stoppedAgents() {
       return this.getFilteredAgents('NO_DATA', 'AGENT').length
-    }
-  }
+    },
+  },
 }
 </script>
 

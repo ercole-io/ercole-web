@@ -26,7 +26,11 @@ $blue:         hsl(217, 71%,  53%) !default;
 $purple:       hsl(271, 100%, 71%) !default;
 $red:          hsl(348, 100%, 61%) !default;
 
-$custom-turquoise: #679189 !default;
+// Ercole Custom Colors
+$ercole-blue: #101336;
+$ercole-blue-invert: findColorInvert($ercole-blue);
+$ercole-green: #14E1A0;
+$ercole-green-invert: findColorInvert($ercole-green);
 
 // Typography
 
@@ -74,10 +78,9 @@ $speed: 86ms !default;
 
 $variable-columns: true !default;
 
-
 // The default Bulma derived variables are declared below
 
-$primary: $custom-turquoise !default;
+$primary: #2bad84 !default;
 
 $info: $cyan !default;
 $success: $green !default;
@@ -92,13 +95,13 @@ $dark: $grey-darker !default;
 $orange-invert: findColorInvert($orange) !default;
 $yellow-invert: findColorInvert($yellow) !default;
 $green-invert: findColorInvert($green) !default;
-$custom-turquoise-invert: findColorInvert($custom-turquoise) !default;
+$primary-invert: findColorInvert($primary) !default;
 $cyan-invert: findColorInvert($cyan) !default;
 $blue-invert: findColorInvert($blue) !default;
 $purple-invert: findColorInvert($purple) !default;
 $red-invert: findColorInvert($red) !default;
 
-$primary-invert: $custom-turquoise-invert !default;
+$primary-invert: $primary-invert !default;
 $info-invert: $cyan-invert !default;
 $success-invert: $green-invert !default;
 $warning-invert: $yellow-invert !default;
@@ -130,12 +133,12 @@ $pre-background: $background !default;
 
 // Link colors
 
-$link: $custom-turquoise !default;
-$link-invert: $custom-turquoise-invert !default;
+$link: $primary !default;
+$link-invert: $primary-invert !default;
 $link-visited: $purple !default;
 
-$link-hover: $grey-darker !default;
-$link-hover-border: $grey-light !default;
+$link-hover: $grey-light !default;
+$link-hover-border: $grey-lighter !default;
 
 $link-focus: $grey-darker !default;
 $link-focus-border: $blue !default;
