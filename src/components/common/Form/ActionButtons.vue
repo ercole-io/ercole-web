@@ -26,20 +26,20 @@ export default {
   props: {
     applyText: {
       type: String,
-      default: 'Apply'
+      default: 'Apply',
     },
     cancelText: {
       type: String,
-      default: 'Reset'
+      default: 'Reset',
     },
     isDisabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isFixed: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   methods: {
     Apply() {
@@ -47,8 +47,8 @@ export default {
     },
     reset() {
       bus.$emit('onResetAction')
-    }
-  }
+    },
+  },
 }
 </script>
 

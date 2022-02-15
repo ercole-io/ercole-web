@@ -15,25 +15,26 @@ export default {
   props: {
     title: {
       type: String,
-      default: null
+      default: null,
     },
     border: {
       type: Boolean,
-      default: false
+      default: false,
     },
     mbottom: {
       type: Boolean,
-      default: true
+      default: true,
     },
     bgcolor: {
       type: String,
-      default: '#ffffff'
-    }
-  }
+      default: '#ffffff',
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/_variables';
 .box-content {
   padding: 0 0.5rem;
   height: 100%;
@@ -53,6 +54,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   position: relative;
+  color: $ercole-blue;
 }
 
 .border-bottom {

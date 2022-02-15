@@ -92,7 +92,7 @@
     padding: .5em .75em;
     margin: 0 .25em;
     line-height: 1.25;
-    color: #363636;
+    color: $ercole-blue;
     background-color: #fff;
     border: 1px solid #dee2e6;
     border-radius: 4px;
@@ -134,9 +134,9 @@
  
   .page-item.active .page-link {
     z-index: 1;
-    color: #fff;
-    background-color: #679189;
-    border-color: #679189
+    color: $ercole-blue;
+    background-color: $ercole-green;
+    border-color: $ercole-green
   }
  
   .page-item.disabled .page-link {
