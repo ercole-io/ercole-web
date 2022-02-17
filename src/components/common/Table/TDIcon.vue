@@ -4,7 +4,7 @@
       :custom-size="size"
       :icon="icon"
       :type="type"
-      style="vertical-align: middle;"
+      style="vertical-align: middle"
     />
   </td>
 </template>
@@ -35,8 +35,8 @@ export default {
     },
     size() {
       return this.bindIncon[3] ? this.bindIncon[3] : 'fa-lg'
-    }
-  }
+    },
+  },
 }
 </script>
 
