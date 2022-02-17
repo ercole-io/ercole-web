@@ -59,7 +59,7 @@
       <BoxContent>
         <div class="is-flex" style="justify-content: space-around">
           <p class="is-size-7 has-text-centered">
-            CPU <br />
+            Cores <br />
             <span class="is-size-5 has-text-weight-medium">
               {{ getCurrentCluster.cpu || '-' }}
             </span>
