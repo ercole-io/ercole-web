@@ -4,8 +4,8 @@ export default {
   props: {
     value: {
       type: [String, Number, Array, Boolean],
-      default: null
-    }
+      default: null,
+    },
   },
   methods: {
     options(val, type, placement) {
@@ -15,8 +15,8 @@ export default {
         classes: ['info'],
         hideOnTargetClick: true,
         trigger: 'hover',
-        placement: placement
+        placement: placement,
       }
-    }
-  }
+    },
+  },
 }
