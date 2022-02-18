@@ -71,9 +71,15 @@
           />
           <TdContent :value="rowData.scope.environment" />
           <TdArrayMore
+            v-if="rowData.scope.databases.length > 5"
+            :value="rowData.scope.databases"
+          />
+          <TdArrayMore
+            v-else
             :value="rowData.scope.databases"
             @click.native="handleClickedRow([rowData.scope])"
           />
+          <TdContent :value="rowData.scope.techType" />
           <TdContent :value="rowData.scope.techType" />
           <TdContent :value="rowData.scope.os" />
           <TdIcon
