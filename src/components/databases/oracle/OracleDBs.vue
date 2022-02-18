@@ -61,6 +61,11 @@
           @click.native="handleClickedRow([rowData.scope])"
         />
         <TdArrayMore
+          v-if="rowData.scope.services.length > 5"
+          :value="rowData.scope.services"
+        />
+        <TdArrayMore
+          v-else
           :value="rowData.scope.services"
           @click.native="handleClickedRow([rowData.scope])"
         />
