@@ -26,6 +26,7 @@ export const getters = {
         metric: val.metric,
         usedLicenses: val.usedLicenses,
         clusterLicenses: val.clusterLicenses,
+        fullPartNumber: val.fullPartNumber,
       })
     })
 

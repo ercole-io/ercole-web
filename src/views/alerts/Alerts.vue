@@ -129,7 +129,10 @@
         <td v-else></td>
         <TdContent :value="rowData.scope.alertCategory" />
         <TdContent :value="rowData.scope.date" dataType="date" />
-        <TdIcon :value="resolveIcon(rowData.scope.alertSeverity)" />
+        <TdIcon
+          :value="resolveIcon(rowData.scope.alertSeverity)"
+          @click.native="handleClickedRow([rowData.scope])"
+        />
         <HostLink
           v-if="rowData.scope.alertStatus !== 'DISMISSED'"
           :hostname="rowData.scope.hostname ? rowData.scope.hostname : '-'"

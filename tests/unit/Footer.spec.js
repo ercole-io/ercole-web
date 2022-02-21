@@ -13,7 +13,7 @@ describe('Footer.vue', () => {
   })
 
   it('will show plataform version text correctly', () => {
-    const text = 'Ercole 2.0 © 2020 Sorint.lab S.p.A.'
+    const text = `Ercole 2.0 © ${new Date().getFullYear()} Sorint.lab S.p.A.`
 
     const wrapper = mount(Footer)
 

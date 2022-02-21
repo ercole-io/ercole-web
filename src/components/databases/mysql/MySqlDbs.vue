@@ -44,7 +44,10 @@
         <TdContent :value="rowData.scope.engine" />
         <TdContent :value="rowData.scope.platform" />
         <TdContent :value="rowData.scope.version" />
-        <TdIcon :value="rowData.scope.highAvailability" />
+        <TdIcon
+          :value="rowData.scope.highAvailability"
+          @click.native="handleClickedRow([rowData.scope])"
+        />
       </template>
 
       <ExportButton
@@ -76,7 +79,7 @@ export default {
     TdContent,
     TdIcon,
     HostLink,
-    MySqlFilters
+    MySqlFilters,
   },
   data() {
     return {
@@ -91,13 +94,13 @@ export default {
         'engine',
         'platform',
         'version',
-        'highAvailability'
-      ]
+        'highAvailability',
+      ],
     }
   },
   computed: {
-    ...mapGetters(['getAllMysqlDbs'])
-  }
+    ...mapGetters(['getAllMysqlDbs']),
+  },
 }
 </script>
 

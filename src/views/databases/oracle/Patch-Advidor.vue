@@ -37,9 +37,18 @@
         <TdContent :value="rowData.scope.dbver" />
         <TdContent :value="rowData.scope.date" />
         <TdContent :value="rowData.scope.description" />
-        <TdIcon :value="rowData.scope.fourMonths" />
-        <TdIcon :value="rowData.scope.sixMonths" />
-        <TdIcon :value="rowData.scope.twelveMonths" />
+        <TdIcon
+          :value="rowData.scope.fourMonths"
+          @click.native="handleClickedRow([rowData.scope])"
+        />
+        <TdIcon
+          :value="rowData.scope.sixMonths"
+          @click.native="handleClickedRow([rowData.scope])"
+        />
+        <TdIcon
+          :value="rowData.scope.twelveMonths"
+          @click.native="handleClickedRow([rowData.scope])"
+        />
       </template>
 
       <ExportButton
@@ -71,7 +80,7 @@ export default {
     TdContent,
     TdIcon,
     HostLink,
-    PatchAdvisorFilters
+    PatchAdvisorFilters,
   },
   data() {
     return {
@@ -83,20 +92,20 @@ export default {
         'description',
         'fourMonthsText',
         'sixMonthsText',
-        'twelveMonthsText'
+        'twelveMonthsText',
       ],
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
     await this.getPatchAdvisor().then(() => (this.isMounted = true))
   },
   methods: {
-    ...mapActions(['getPatchAdvisor'])
+    ...mapActions(['getPatchAdvisor']),
   },
   computed: {
-    ...mapGetters(['getOraclePatchAdvisor'])
-  }
+    ...mapGetters(['getOraclePatchAdvisor']),
+  },
 }
 </script>
 

@@ -152,7 +152,7 @@ export const filterByKeys = (data, keys, selects) => {
             ? item[field][0].toUpperCase()
             : null
 
-        if (_.includes(selects, i.Field)) {
+        if (_.includes(selects, i.Field && _.isEmpty(item[field]))) {
           result = item[field].match(new RegExp('^' + i.Values[0] + '$'))
         } else {
           result =

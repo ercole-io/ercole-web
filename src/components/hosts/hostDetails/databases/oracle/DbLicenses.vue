@@ -22,6 +22,8 @@
           :db="dbName"
           :host="$route.params.hostname"
           :licenseID="rowData.scope.licenseTypeID"
+          :description="rowData.scope.description"
+          :metric="rowData.scope.metric"
           :status="!rowData.scope.ignored"
           page="host-details"
         />
