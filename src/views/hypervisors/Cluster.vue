@@ -27,7 +27,10 @@
         <TdContent :value="rowData.scope.virtualizationNode" />
         <HostLink :hostname="rowData.scope.hostname" />
         <TdContent :value="rowData.scope.name" />
-        <TdIcon :value="rowData.scope.cappedCPU" />
+        <TdIcon
+          :value="rowData.scope.cappedCPU"
+          @click.native="handleClickedRow([rowData.scope])"
+        />
       </template>
 
       <ExportButton
@@ -38,7 +41,7 @@
     </FullTable>
     <div slot="right">
       <BoxContent :title="`Cluster: ${clustername}`" border>
-        <div class="is-flex" style="justify-content: space-around;">
+        <div class="is-flex" style="justify-content: space-around">
           <p class="is-size-7 has-text-centered">
             {{ $t('views.hypervisors.type') }} <br />
             <span class="is-size-5 has-text-weight-medium">
@@ -54,9 +57,9 @@
         </div>
       </BoxContent>
       <BoxContent>
-        <div class="is-flex" style="justify-content: space-around;">
+        <div class="is-flex" style="justify-content: space-around">
           <p class="is-size-7 has-text-centered">
-            CPU <br />
+            Cores <br />
             <span class="is-size-5 has-text-weight-medium">
               {{ getCurrentCluster.cpu || '-' }}
             </span>
@@ -106,13 +109,13 @@ export default {
     TdContent,
     HostLink,
     TdIcon,
-    ClusterFilters
+    ClusterFilters,
   },
   data() {
     return {
       keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU'],
       isMounted: false,
-      chartHeight: 100
+      chartHeight: 100,
     }
   },
   async beforeMount() {
@@ -122,15 +125,15 @@ export default {
     bus.$emit('dynamicTitle', this.clustername)
   },
   methods: {
-    ...mapActions(['getClusterByName'])
+    ...mapActions(['getClusterByName']),
   },
   computed: {
     ...mapGetters([
       'getClusterChartData',
       'getCurrentCluster',
-      'getCurrentClusterVms'
-    ])
-  }
+      'getCurrentClusterVms',
+    ]),
+  },
 }
 </script>
 

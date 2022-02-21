@@ -1,5 +1,5 @@
 <template>
-  <td style="min-width: 0;" v-tooltip="options(fileName)">
+  <td style="min-width: 0" v-tooltip="options(fileName)">
     <span class="is-block has-text-centered" @click="callAction">
       <b-icon :type="iconSet[0]" :pack="iconSet[1]" :icon="iconSet[2]" />
     </span>
@@ -19,16 +19,16 @@ export default {
   props: {
     fileName: {
       type: String,
-      default: ''
+      default: '',
     },
     link: {
       type: String,
-      required: true
+      required: true,
     },
     iconSet: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     callAction() {
@@ -43,31 +43,31 @@ export default {
         props: {
           msgTxt: this.$i18n.t('common.general.wait'),
           btText: this.$i18n.t('common.general.cancelRequest'),
-          downloadType: `Downloading ${this.fileName}`
+          downloadType: `Downloading ${this.fileName}`,
         },
-        canCancel: false
+        canCancel: false,
       })
 
       axiosNoLoading
         .get(this.link, {
           cancelToken: request.token,
           responseType: 'blob',
-          onDownloadProgress: progressEvent => {
+          onDownloadProgress: (progressEvent) => {
             let currentProgress = Math.round(
               (progressEvent.loaded * 100) / progressEvent.total
             )
 
             bus.$emit('updateDownloadPerc', currentProgress)
-          }
+          },
         })
-        .then(res => {
+        .then((res) => {
           saveAs(res.data, this.fileName)
         })
         .then(() => {
           bus.$emit('callCloseModal')
         })
-    }
-  }
+    },
+  },
 }
 </script>
 
