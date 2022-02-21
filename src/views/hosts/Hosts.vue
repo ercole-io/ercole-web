@@ -17,7 +17,7 @@
         @clickedRow="handleClickedRow"
         isClickable
       >
-        <div
+        <!-- <div
           slot="customTopHeader"
           class="is-flex is-justify-content-flex-end px-3"
           style="width: 100%"
@@ -30,7 +30,7 @@
             @click="updateHostData"
             v-tooltip="options('Update Host Data', null, 'auto')"
           />
-        </div>
+        </div> -->
 
         <DynamicHeading
           slot="headData"
@@ -94,7 +94,6 @@
             :value="rowData.scope.databases"
             @click.native="handleClickedRow([rowData.scope])"
           />
-          <TdContent :value="rowData.scope.techType" />
           <TdContent :value="rowData.scope.techType" />
           <TdContent :value="rowData.scope.os" />
           <TdIcon
