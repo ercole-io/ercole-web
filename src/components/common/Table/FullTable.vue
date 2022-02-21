@@ -29,7 +29,7 @@
         :selectionMode="modeSelection"
         :selectedClass="classSelection"
         class="vTable-custom"
-        style="margin-bottom: 10px;"
+        style="margin-bottom: 10px"
       >
         <thead slot="head">
           <slot name="customHeadData" />
@@ -109,48 +109,48 @@ export default {
   props: {
     placeholder: {
       type: String,
-      default: 'Search'
+      default: 'Search',
     },
     keys: {
       type: [Array, Function],
-      required: true
+      required: true,
     },
     tableData: {
       type: Array,
-      required: true
+      required: true,
     },
     isClickable: {
       type: Boolean,
-      default: false
+      default: false,
     },
     modeSelection: {
       type: String,
-      default: 'single'
+      default: 'single',
     },
     classSelection: {
       type: String,
-      default: ''
+      default: '',
     },
     hideSearch: {
       type: Boolean,
-      default: false
+      default: false,
     },
     hidePerpage: {
       type: Boolean,
-      default: false
+      default: false,
     },
     hidePagination: {
       type: Boolean,
-      default: false
+      default: false,
     },
     hideTopTable: {
       type: Boolean,
-      default: false
+      default: false,
     },
     urlSearchParam: {
       type: String,
-      required: false
-    }
+      required: false,
+    },
   },
   components: {
     TopTable,
@@ -159,7 +159,7 @@ export default {
     FilteredResults,
     ShowPerPage,
     NoContent,
-    SearchInput
+    SearchInput,
   },
   data() {
     return {
@@ -168,9 +168,9 @@ export default {
       filters: {
         search: {
           value: '',
-          keys: this.keys
-        }
-      }
+          keys: this.keys,
+        },
+      },
     }
   },
   methods: {
@@ -179,7 +179,7 @@ export default {
       return value === 'noData'
         ? (this.filteredData = 0)
         : (this.filteredData = value.length)
-    }
+    },
   },
   computed: {
     total() {
@@ -191,7 +191,7 @@ export default {
       } else {
         return `${i18n.t('common.table.simpleSearch')}`
       }
-    }
+    },
   },
   watch: {
     selectedRows() {
@@ -210,8 +210,8 @@ export default {
       if (value) {
         this.$emit('isPageChanged')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

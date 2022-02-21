@@ -30,14 +30,17 @@
         <TdIcon
           :value="rowData.scope.archivelog"
           :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityDB }"
+          @click.native="handleClickedRow([rowData.scope])"
         />
         <TdIcon
           :value="rowData.scope.disasterRecovery"
           :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityDB }"
+          @click.native="handleClickedRow([rowData.scope])"
         />
         <TdIcon
           :value="rowData.scope.highAvailability"
           :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityDB }"
+          @click.native="handleClickedRow([rowData.scope])"
         />
         <TdContent :value="rowData.scope.type" />
         <TdContent :value="rowData.scope.version" />
@@ -100,18 +103,18 @@ export default {
     DynamicHeading,
     DbCharts,
     DbTotalMemorySize,
-    DbTotalSegmentSize
+    DbTotalSegmentSize,
   },
   data() {
     return {
       databasesHead: databasesHead,
-      databasesMoreInfo: databasesMoreInfo
+      databasesMoreInfo: databasesMoreInfo,
     }
   },
   computed: {
     ...mapGetters(['getAllDatabases']),
-    ...mapState(['moreInfoToggle'])
-  }
+    ...mapState(['moreInfoToggle']),
+  },
 }
 </script>
 

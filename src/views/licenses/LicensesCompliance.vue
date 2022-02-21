@@ -52,15 +52,20 @@
         <TdContent :value="rowData.scope.purchased" />
         <TdContent :value="rowData.scope.consumed" />
         <TdContent :value="rowData.scope.covered" />
-        <td>
-          <b-progress
-            format="percent"
-            :type="rowData.scope.complianceStroke"
-            :value="rowData.scope.compliance"
-            show-value
-          />
-        </td>
-        <TdIcon :value="rowData.scope.unlimited" />
+        <TdContent :value="roundPerc(rowData.scope.compliance)" isSlot>
+          <a @click="handleClickedRow([rowData.scope])">
+            <b-progress
+              format="percent"
+              :type="rowData.scope.complianceStroke"
+              :value="rowData.scope.compliance"
+              show-value
+            />
+          </a>
+        </TdContent>
+        <TdIcon
+          :value="rowData.scope.unlimited"
+          @click.native="handleClickedRow([rowData.scope])"
+        />
       </template>
 
       <ExportButton
@@ -73,6 +78,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapActions, mapGetters } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -90,7 +96,7 @@ export default {
     TdContent,
     TdIcon,
     LicensesComplianceFilters,
-    ExportButton
+    ExportButton,
   },
   data() {
     return {
@@ -103,9 +109,9 @@ export default {
         'compliance',
         'unlimited',
         'purchased',
-        'available'
+        'available',
       ],
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
@@ -118,15 +124,18 @@ export default {
         this.$router.push({
           name: 'licenses-used',
           params: {
-            partNumber: value[0].licenseTypeID
-          }
+            partNumber: value[0].licenseTypeID,
+          },
         })
       }
-    }
+    },
+    roundPerc(value) {
+      return `${_.round(value, 2)}%`
+    },
   },
   computed: {
-    ...mapGetters(['getLicensesCompliance'])
-  }
+    ...mapGetters(['getLicensesCompliance']),
+  },
 }
 </script>
 
