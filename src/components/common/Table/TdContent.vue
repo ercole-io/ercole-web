@@ -1,18 +1,30 @@
 <template>
-  <td v-tooltip="options(setValue, dataType, tooltipPlace)">
-    <template v-if="link">
-      <a
-        @click.left="link($event)"
-        @click.middle="link($event)"
-        @click.right="link($event)"
-      >
-        <span v-html="highlight(setValue) || '-'" />
-      </a>
-    </template>
-    <template v-if="!link">
-      <span v-if="!dataType" v-html="highlight(setValue) || '-'" />
-      <span v-if="dataType" v-html="highlight(formatDate(setValue)) || '-'" />
-    </template>
+  <td
+    v-if="link && !isSlot"
+    v-tooltip="options(setValue, dataType, tooltipPlace)"
+  >
+    <a
+      @click.left="link($event)"
+      @click.middle="link($event)"
+      @click.right="link($event)"
+      v-html="setHighlight"
+    />
+  </td>
+
+  <td
+    v-else-if="!link && !dataType && !isSlot"
+    v-tooltip="options(setValue, dataType, tooltipPlace)"
+    v-html="setHighlight"
+  />
+
+  <td
+    v-else-if="!link && dataType && !isSlot"
+    v-tooltip="options(setValue, dataType, tooltipPlace)"
+    v-html="setHighlightDate"
+  />
+
+  <td v-else-if="isSlot" v-tooltip="options(setValue, dataType, tooltipPlace)">
+    <slot />
   </td>
 </template>
 
@@ -33,12 +45,11 @@ export default {
     },
     tooltipPlace: {
       type: String,
-      default: 'bottom',
+      default: 'auto',
     },
-  },
-  methods: {
-    formatDate(date) {
-      return formatDateTime(date)
+    isSlot: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
@@ -48,6 +59,12 @@ export default {
       } else {
         return this.$sanitize(this.value) || '-'
       }
+    },
+    setHighlight() {
+      return this.highlight(this.setValue) || '-'
+    },
+    setHighlightDate() {
+      return this.highlight(formatDateTime(this.setValue)) || '-'
     },
   },
 }
