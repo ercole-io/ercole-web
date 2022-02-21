@@ -31,14 +31,17 @@
         <TdIcon
           :value="rowData.scope.archivelog"
           :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
+          @click.native="handleClickedRow([rowData.scope])"
         />
         <TdIcon
           :value="rowData.scope.dataguard"
           :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
+          @click.native="handleClickedRow([rowData.scope])"
         />
         <TdIcon
           :value="rowData.scope.ha"
           :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
+          @click.native="handleClickedRow([rowData.scope])"
         />
         <TdContent
           :value="rowData.scope.datafileSize | formatNumber('0.00')"
@@ -53,8 +56,19 @@
           :class="{ 'is-hidden': moreInfoToggle.hiddenCharset }"
         />
         <TdContent :value="rowData.scope.version" />
-        <TdIcon :value="rowData.scope.isCDB" />
-        <TdArrayMore :value="rowData.scope.services" />
+        <TdIcon
+          :value="rowData.scope.isCDB"
+          @click.native="handleClickedRow([rowData.scope])"
+        />
+        <TdArrayMore
+          v-if="rowData.scope.services.length > 5"
+          :value="rowData.scope.services"
+        />
+        <TdArrayMore
+          v-else
+          :value="rowData.scope.services"
+          @click.native="handleClickedRow([rowData.scope])"
+        />
         <TdContent :value="rowData.scope.work | formatNumber('0')" />
         <TdContent :value="rowData.scope.cpuCount" />
         <TdContent :value="rowData.scope.blockSize" />
