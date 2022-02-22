@@ -7,7 +7,7 @@
       :clickedRow="() => []"
     >
       <template slot="headData">
-        <th colspan="2" style="text-align: center !important;">
+        <th colspan="2" style="text-align: center !important">
           {{ $t('common.collumns.actions') }}
         </th>
         <v-th sortKey="type">
@@ -27,7 +27,7 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <td style="min-width: 0;">
+        <td style="min-width: 0">
           <b-icon
             v-tooltip="options($t('common.general.edit'))"
             type="is-info"
@@ -37,7 +37,7 @@
             @click.native="editAgreement(rowData.scope)"
           />
         </td>
-        <td style="min-width: 0;">
+        <td style="min-width: 0">
           <b-icon
             v-tooltip="options($t('common.general.delete'))"
             type="is-danger"
@@ -60,7 +60,7 @@
         <td>
           <b-icon
             v-tooltip="options('Clusters')"
-            type="is-link"
+            type="is-custom-primary"
             class="hosts-icon"
             pack="fas"
             icon="server"
@@ -78,7 +78,7 @@
         <td>
           <b-icon
             v-tooltip="options('Hosts')"
-            type="is-link"
+            type="is-custom-primary"
             class="hosts-icon"
             pack="fas"
             icon="server"
@@ -114,11 +114,11 @@ export default {
   components: {
     FullTable,
     TdContent,
-    ExportButton
+    ExportButton,
   },
   data() {
     return {
-      keys: ['type', 'numberOfLicenses', 'clusters', 'hosts']
+      keys: ['type', 'numberOfLicenses', 'clusters', 'hosts'],
     }
   },
   methods: {
@@ -132,11 +132,11 @@ export default {
         props: {
           agreementType: type,
           agreementData: data,
-          agreementNumber: agreeID
-        }
+          agreementNumber: agreeID,
+        },
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

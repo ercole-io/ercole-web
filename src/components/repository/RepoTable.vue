@@ -32,7 +32,7 @@
       <TdAction
         :fileName="rowData.scope.Filename"
         :link="rowData.scope.Download"
-        :iconSet="['is-link', 'fas', 'download']"
+        :iconSet="['is-custom-primary', 'fas', 'download']"
       />
       <TdContent :value="rowData.scope.Name" />
       <TdContent :value="rowData.scope.Version" />
@@ -59,7 +59,7 @@ export default {
     FullTable,
     TdContent,
     TdIcon,
-    TdAction
+    TdAction,
   },
   data() {
     return {
@@ -73,13 +73,13 @@ export default {
         'OperatingSystemFamily',
         'OperatingSystem',
         'Arch',
-        'Download'
-      ]
+        'Download',
+      ],
     }
   },
   computed: {
-    ...mapGetters(['getRepository'])
-  }
+    ...mapGetters(['getRepository']),
+  },
 }
 </script>
 

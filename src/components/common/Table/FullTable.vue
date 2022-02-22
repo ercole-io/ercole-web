@@ -33,7 +33,7 @@
       >
         <thead slot="head">
           <slot name="customHeadData" />
-          <tr class="has-background-grey-lighter">
+          <tr>
             <slot name="headData" />
           </tr>
           <slot name="subCustomHeadData" />
@@ -216,6 +216,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/_variables.scss';
+
 .table-info {
   background-color: rgba(0, 0, 0, 0.075);
 }

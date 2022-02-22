@@ -7,7 +7,7 @@
     </div>
     <div class="column">
       <b-button
-        type="is-primary"
+        type="is-custom-primary"
         size="is-small"
         native-type="submit"
         :disabled="isDisabled"

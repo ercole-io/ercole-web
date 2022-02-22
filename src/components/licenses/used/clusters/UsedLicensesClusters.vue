@@ -36,7 +36,10 @@
         <TdContent :value="rowData.scope.cluster" />
         <!-- <TdContent :value="rowData.scope.hostCount" /> -->
         <td v-tooltip.bottom="options(rowData.scope.hostCount)">
-          <a @click.prevent="openModal(rowData.scope)" class="is-block">
+          <a
+            @click.prevent="openModal(rowData.scope)"
+            class="is-block cluster-link"
+          >
             <span v-html="highlight(rowData.scope.hostCount)" />
           </a>
         </td>
@@ -124,4 +127,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
+
+.cluster-link {
+  color: $custom-primary;
+
+  &:hover {
+    color: $ercole-blue;
+  }
+}
+</style>

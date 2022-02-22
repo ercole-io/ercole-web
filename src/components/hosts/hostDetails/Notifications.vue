@@ -1,10 +1,11 @@
 <template>
-  <span class="has-text-weight-medium	is-size-7">
+  <span class="has-text-weight-medium is-size-7">
     {{ currentHostNotifications.total }}
     {{ $t('views.hostDetails.notifications') }}
     <a
       v-if="currentHostNotifications.agents > 0"
       @click="redirectToAlerts(currentHostNotifications.hostname, 'AGENT')"
+      class="is-active"
     >
       <span class="has-text-weight-light">
         {{ $t('views.hostDetails.agents') }}:
@@ -21,6 +22,7 @@
     <a
       v-if="currentHostNotifications.licenses > 0"
       @click="redirectToAlerts(currentHostNotifications.hostname, 'LICENSE')"
+      class="is-active"
     >
       <span class="has-text-weight-light">
         {{ $t('views.hostDetails.licenses') }}:
@@ -37,6 +39,7 @@
     <a
       v-if="currentHostNotifications.engine > 0"
       @click="redirectToAlerts(currentHostNotifications.hostname, 'ENGINE')"
+      class="is-active"
     >
       <span class="has-text-weight-light">
         {{ $t('views.hostDetails.engine') }}:
@@ -61,15 +64,24 @@ export default {
       this.$store.commit('SET_ALERTS_PARAMS', {
         category: category,
         severity: null,
-        hostname: hostname
+        hostname: hostname,
       })
       this.$router.push('/alerts')
-    }
+    },
   },
   computed: {
-    ...mapGetters(['currentHostNotifications'])
-  }
+    ...mapGetters(['currentHostNotifications']),
+  },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
+.is-active {
+  color: $custom-primary;
+
+  &:hover {
+    color: $ercole-blue;
+  }
+}
+</style>

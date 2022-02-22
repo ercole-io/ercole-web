@@ -137,7 +137,7 @@ export default {
 <style lang="scss">
 @import '@/assets/scss/_variables';
 
-$primary-color: $primary !default;
+$primary-color: $custom-primary !default;
 $base-bg: $ercole-blue !default;
 $icon-bg: $ercole-blue !default;
 $item-font-size: 14px !default;
