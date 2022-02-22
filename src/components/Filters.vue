@@ -179,7 +179,7 @@
             @click="applyFilters"
             class="filters-button"
             size="is-small"
-            type="is-primary"
+            type="is-custom-primary"
           >
             {{ $t('common.forms.apply') }}
           </b-button>

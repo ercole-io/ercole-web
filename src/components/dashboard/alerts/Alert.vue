@@ -88,6 +88,7 @@
                 <a
                   @click="descriptionAlert(getFirst)"
                   v-if="!loading && getTotals.total"
+                  class="full-description"
                 >
                   {{ $t('common.general.fullDesc') }}
                 </a>
@@ -247,6 +248,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
+
 .alert-card {
   padding: 0;
   margin-bottom: 1.5em;
@@ -290,6 +293,14 @@ export default {
       background-color: #c1c1c1;
       border: none;
     }
+  }
+}
+
+.full-description {
+  color: $custom-primary;
+
+  &:hover {
+    color: $ercole-blue;
   }
 }
 

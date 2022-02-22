@@ -6,7 +6,7 @@
         password: password,
       })
     "
-    class="login-form has-background-grey-lighter"
+    class="login-form"
   >
     <b-field
       label-for="username"
@@ -53,7 +53,7 @@
       </template>
     </b-field>
     <b-button
-      type="is-ercole-green"
+      type="is-ercole-blue"
       native-type="submit"
       :disabled="$v.$invalid"
       expanded
@@ -104,6 +104,7 @@ export default {
   padding: 3rem;
   margin: 2rem;
   border-radius: 4px;
+  background-color: #14e1a0;
 
   .notification {
     font-size: 14px;
