@@ -21,7 +21,8 @@ $addColors: (
   // "linkedin": ($linkedin, $linkedin-invert),
   // "github": ($github, $github-invert),
   "ercole-blue": ($ercole-blue, $ercole-blue-invert),
-  "ercole-green": ($ercole-green, $ercole-green-invert)
+  "ercole-green": ($ercole-green, $ercole-green-invert),
+  "custom-primary": ($custom-primary, $custom-primary-invert)
 );
 $colors: map-merge($colors, $addColors);
 

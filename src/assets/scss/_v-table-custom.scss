@@ -11,7 +11,7 @@
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  background-color: #dbdbdb;
+  background-color: $ercole-blue;
 }
 
 .vTable-custom, .table {
@@ -23,6 +23,8 @@
         text-align: center !important;
         border-width: 0;
         z-index: 1;
+        color: $white;
+        font-weight: normal;
 
         &:first-child {
           text-align: left !important;
@@ -63,6 +65,8 @@
   width: 1.28571429em;
   display: inline-block;
   text-align: center;
+  font-weight: bold;
+
 }
 
 .vt-sortable:before {

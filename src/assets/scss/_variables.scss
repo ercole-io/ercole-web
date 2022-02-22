@@ -31,6 +31,8 @@ $ercole-blue: #101336;
 $ercole-blue-invert: findColorInvert($ercole-blue);
 $ercole-green: #14E1A0;
 $ercole-green-invert: findColorInvert($ercole-green);
+$custom-primary: #2bad84;
+$custom-primary-invert: findColorInvert($custom-primary);
 
 // Typography
 
@@ -79,8 +81,7 @@ $speed: 86ms !default;
 $variable-columns: true !default;
 
 // The default Bulma derived variables are declared below
-
-$primary: #2bad84 !default;
+$primary: #14E1A0  !default;
 
 $info: $cyan !default;
 $success: $green !default;

@@ -8,6 +8,7 @@
       @click.middle="link($event)"
       @click.right="link($event)"
       v-html="setHighlight"
+      class="hostlink"
     />
   </td>
 
@@ -70,4 +71,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
+
+.hostlink {
+  color: $custom-primary;
+
+  &:hover {
+    color: $ercole-blue;
+  }
+}
+</style>

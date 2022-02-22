@@ -15,6 +15,15 @@
 }
 
 // custom ul tabs
+.tabs.is-toggle li.is-active a {
+  color: $ercole-blue;
+  font-weight: bold;
+}
+
+.tabs li.is-active a {
+  color: $custom-primary;
+}
+
 .b-tabs .tab-content {
   overflow: hidden;
 }
@@ -187,5 +196,20 @@ ul.pagination-list {
 
   .dropdown-item {
     display: block !important;
+  }
+}
+
+.login-form {
+  .input {
+    border: 2px solid #48c78e;
+    color: #2bad84
+  }
+
+  .control.has-icons-left .icon, .control.has-icons-right .icon {
+    color: #48c78e
+  }
+
+  .control.has-icons-left .input:focus ~ .icon, .control.has-icons-left .select:focus ~ .icon, .control.has-icons-right .input:focus ~ .icon, .control.has-icons-right .select:focus ~ .icon {
+    color: #2bad84
   }
 }
