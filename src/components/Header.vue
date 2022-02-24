@@ -19,9 +19,9 @@
         </p>
       </b-field> -->
 
-      <b-navbar-item tag="div">
+      <!-- <b-navbar-item tag="div">
         <LocaleSwitcher />
-      </b-navbar-item>
+      </b-navbar-item> -->
 
       <b-navbar-dropdown
         :label="`${username}, ${userRole}`"
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
+// import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 import { capitalize } from '@/helpers/helpers.js'
 import { mapActions } from 'vuex'
 // import { SnackbarProgrammatic as Snackbar } from 'buefy'
@@ -50,7 +50,7 @@ import ErcoleLogo from '@/components/common/ErcoleLogo.vue'
 export default {
   components: {
     ErcoleLogo,
-    LocaleSwitcher,
+    // LocaleSwitcher,
   },
   // data() {
   //   return {
