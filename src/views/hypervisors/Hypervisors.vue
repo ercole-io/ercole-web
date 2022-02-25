@@ -15,6 +15,7 @@
       isClickable
     >
       <template slot="headData">
+        <v-th sortKey="name">VCenter</v-th>
         <v-th sortKey="name">{{ $t('common.collumns.clusterName') }}</v-th>
         <v-th sortKey="type">{{ $t('common.collumns.type') }}</v-th>
         <v-th sortKey="cpu">{{ $t('common.collumns.cores') }}</v-th>
@@ -29,6 +30,7 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
+        <TdContent :value="rowData.scope.fetchEndpoint" />
         <TdContent :value="rowData.scope.name" />
         <TdContent :value="rowData.scope.type" />
         <TdContent :value="rowData.scope.cpu" />
@@ -46,7 +48,7 @@
     </FullTable>
     <div slot="right">
       <BoxContent title="Cluster" border>
-        <div class="is-flex" style="justify-content: space-around;">
+        <div class="is-flex" style="justify-content: space-around">
           <p class="is-size-7 has-text-centered">
             {{ $t('views.hypervisors.with') }} Ercole <br />
             <span class="is-size-5 has-text-weight-medium">
@@ -94,7 +96,7 @@ export default {
     ExportButton,
     ColumnChart,
     TdContent,
-    HypervisorsFilters
+    HypervisorsFilters,
   },
   data() {
     return {
@@ -105,9 +107,9 @@ export default {
         'sockets',
         'virtualizationNodes',
         'vmsCount',
-        'vmsErcoleAgentCount'
+        'vmsErcoleAgentCount',
       ],
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
@@ -120,18 +122,18 @@ export default {
         const selectedRow = $event[0].name
         this.$router.push({
           name: 'cluster-details',
-          params: { clustername: selectedRow }
+          params: { clustername: selectedRow },
         })
       }
-    }
+    },
   },
   computed: {
     ...mapGetters([
       'getErcoleClusterCount',
       'getVirtualizationChartData',
-      'getHypervisors'
-    ])
-  }
+      'getHypervisors',
+    ]),
+  },
 }
 </script>
 
