@@ -1,6 +1,47 @@
 <template>
   <HbuttonScroll>
     <div class="technologies">
+      <div class="technologies-list">
+        <div class="image">
+          <GhostLoading :isLoading="loading" setHeight="30" setWidth="30">
+            <img
+              src="@/assets/images/ercole-logo-no-text.png"
+              v-if="!loading"
+            />
+          </GhostLoading>
+        </div>
+
+        <div class="tech-name">
+          <GhostLoading :isLoading="loading" setWidth="100">
+            <span v-if="!loading">{{ getTotalTarget.extra.name }}</span>
+          </GhostLoading>
+        </div>
+
+        <div class="agents">
+          <GhostLoading :isLoading="loading" setHeight="15" setWidth="15">
+            <span v-if="!loading">{{ getTotalTarget.agents }}</span>
+          </GhostLoading>
+        </div>
+
+        <div class="progress">
+          <GhostLoading
+            :isLoading="loading"
+            setHeight="50"
+            setWidth="50"
+            isCircle
+          >
+            <Progress
+              :radius="20"
+              :value="getTotalTarget.perc"
+              :strokeColor="getTotalTarget.extra.color"
+              :strokeWidth="5"
+              :transitionDuration="2000"
+              v-if="!loading"
+            />
+          </GhostLoading>
+        </div>
+      </div>
+
       <div
         class="technologies-list"
         v-for="(tech, i) in getTech"
@@ -60,11 +101,11 @@ export default {
   components: {
     Progress,
     HbuttonScroll,
-    GhostLoading
+    GhostLoading,
   },
   data() {
     return {
-      loading: true
+      loading: true,
     }
   },
   beforeMount() {
@@ -73,11 +114,11 @@ export default {
     })
   },
   computed: {
-    ...mapGetters(['getTechnologies']),
+    ...mapGetters(['getTotalTarget', 'getTechnologies']),
     getTech() {
       return this.loading ? 5 : this.getTechnologies
-    }
-  }
+    },
+  },
 }
 </script>
 
