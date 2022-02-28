@@ -18,7 +18,7 @@
         <v-th sortKey="licenseTypeID">
           {{ $t('common.collumns.partNumber') }}
         </v-th>
-        <v-th sortKey="itemDescription">
+        <v-th sortKey="itemDescription" defaultSort="asc">
           {{ $t('common.collumns.description') }}
         </v-th>
         <v-th sortKey="metric">
