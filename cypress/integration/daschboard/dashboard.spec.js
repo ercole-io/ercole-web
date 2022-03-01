@@ -7,45 +7,43 @@ describe('Dashboard Suite', () => {
     cy.ercoleLogin()
   })
 
-  context('Total Targets Box', () => {
+  context('Technologies Box', () => {
+    beforeEach('Dashboard technologies request', () => {
+      onDashboardLoad.requestDashboard()
+    })
+
     it('box must gave the correct name', () => {
-      cy.get('[data-cy="total-targets"]')
+      cy.get('[data-cy="technologies"]')
         .find('h2')
         .then((text) => {
-          expect(text).contain('Total Targets')
+          expect(text).contain('Technologies')
         })
     })
 
-    it('will check box contents texts', () => {
-      cy.get('[data-cy="agents-discovered"]').should(
-        'contain',
-        'Agents discovered'
-      )
-
-      cy.get('[data-cy="perc-compliance"]').should(
-        'contain',
-        'Percentage of compliance'
-      )
+    it('first technologie must have ercole logo', () => {
+      cy.get('[data-cy="technologies"]')
+        .find('.technologies-list')
+        .first()
+        .find('img')
+        .invoke('attr', 'src')
+        .should('contain', 'ercole-logo-no-text')
     })
 
-    it('will check box contents values', () => {
-      onDashboardLoad.requestDashboard()
+    it('first technologie must have ercole name', () => {
+      cy.get('[data-cy="technologies"]')
+        .find('.technologies-list')
+        .first()
+        .find('.tech-name span')
+        .should('contain', 'Ercole')
+    })
 
-      cy.fixture('dashboard').then((file) => {
-        cy.get('[data-cy="agents-discovered-value"]')
-          .find('div')
-          .should('contain', file.technologies.total.hostsCount)
-
-        cy.get('[data-cy="perc-compliance-value"]')
-          .find('[class="percent__int"]')
-          .should(
-            'contain',
-            Math.round(file.technologies.total.compliance * 100)
-          )
-
-        cy.get('[data-cy="perc-compliance-value"]')
-          .find('[class="percent_sign"]')
-          .should('contain', '%')
+    it('will render the exact number of technologies', () => {
+      cy.get('@dashboard').then((techs) => {
+        const techsCount = techs.response.body.technologies.technologies.length
+        cy.get('[data-cy="technologies"]')
+          .find('.technologies')
+          .find('.technologies-list')
+          .should('have.length', techsCount + 1)
       })
     })
   })
@@ -287,7 +285,7 @@ describe('Dashboard Suite', () => {
         })
     })
 
-    it.only('will correctly mark alerts as read', () => {
+    it('will correctly mark alerts as read', () => {
       let total
       cy.get('[data-cy="ercole-engine-crit-value"]')
         .invoke('text')

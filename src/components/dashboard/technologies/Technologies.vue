@@ -4,6 +4,7 @@
     border
     hasShadow
     :mbottom="false"
+    data-cy="technologies"
   >
     <Technologie />
   </BoxContent>
