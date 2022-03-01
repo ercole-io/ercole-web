@@ -4,7 +4,10 @@
       {{ title }}
       <slot name="customTitle" />
     </h2>
-    <article class="box-content" :class="{ 'bottom-space': mbottom }">
+    <article
+      class="box-content"
+      :class="{ 'bottom-space': mbottom, 'card card-custom': hasShadow }"
+    >
       <slot />
     </article>
   </section>
@@ -15,21 +18,25 @@ export default {
   props: {
     title: {
       type: String,
-      default: null
+      default: null,
     },
     border: {
       type: Boolean,
-      default: false
+      default: false,
     },
     mbottom: {
       type: Boolean,
-      default: true
+      default: true,
     },
     bgcolor: {
       type: String,
-      default: '#ffffff'
-    }
-  }
+      default: '#ffffff',
+    },
+    hasShadow: {
+      type: Boolean,
+      default: false,
+    },
+  },
 }
 </script>
 
@@ -59,5 +66,9 @@ export default {
   border-bottom: 1px solid #ccc;
   padding-bottom: 5px;
   margin-bottom: 15px;
+}
+
+.card-custom {
+  padding: 20px 0;
 }
 </style>

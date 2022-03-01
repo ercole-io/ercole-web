@@ -12,7 +12,7 @@ function loadLocaleMessages() {
     /[A-Za-z0-9-_,\s]+\.json$/i
   )
   const messages = {}
-  locales.keys().forEach(key => {
+  locales.keys().forEach((key) => {
     const matched = key.match(/([A-Za-z0-9-_]+)\./i)
     if (matched && matched.length > 1) {
       const locale = matched[1]
@@ -22,23 +22,25 @@ function loadLocaleMessages() {
   return messages
 }
 
-function getStartingLocale() {
-  const browserLocale = getBrowserLocale({ countryCodeOnly: true })
+// function getStartingLocale() {
+//   const browserLocale = getBrowserLocale({ countryCodeOnly: true })
 
-  if (!localStorage.getItem('lang')) {
-    localStorage.setItem('lang', browserLocale)
-  }
+//   if (!localStorage.getItem('lang')) {
+//     localStorage.setItem('lang', browserLocale)
+//   }
 
-  if (supportedLocalesInclude(browserLocale)) {
-    return browserLocale
-  } else {
-    return process.env.VUE_APP_I18N_LOCALE || 'en'
-  }
-}
+//   if (supportedLocalesInclude(browserLocale)) {
+//     return browserLocale
+//   } else {
+//     return process.env.VUE_APP_I18N_LOCALE || 'en'
+//   }
+// }
 
 export default new VueI18n({
-  locale: getStartingLocale(),
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
+  // locale: getStartingLocale(),
+  // fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
+  locale: 'en',
+  fallbackLocale: 'en',
   messages: loadLocaleMessages(),
-  silentTranslationWarn: true
+  silentTranslationWarn: true,
 })

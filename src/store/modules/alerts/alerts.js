@@ -118,11 +118,11 @@ export const mutations = {
     state.alerts.LICENSE = _.groupBy(state.alerts.LICENSE, 'alertSeverity')
 
     _.forEach(state.alerts.ENGINE, (value, key) => {
-      state.alerts.ENGINE[key] = _.orderBy(value, ['date'], ['asc'])
+      state.alerts.ENGINE[key] = _.orderBy(value, ['date'], ['desc'])
     })
 
     _.forEach(state.alerts.LICENSE, (value, key) => {
-      state.alerts.LICENSE[key] = _.orderBy(value, ['date'], ['asc'])
+      state.alerts.LICENSE[key] = _.orderBy(value, ['date'], ['desc'])
     })
   },
   MARK_AS_READ_DASH: (state, payload) => {

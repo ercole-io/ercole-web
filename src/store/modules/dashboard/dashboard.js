@@ -30,11 +30,17 @@ export const state = () => ({
 
 export const getters = {
   getTotalTarget: (state) => {
-    return {
-      agentsDiscovered: state.totalTarget.hostsCount,
-      percCompliance: Math.round(state.totalTarget.compliance * 100),
-      moneyMissing: state.totalTarget.unpaidDues,
+    const ercoleAgent = {
+      id: 'ercoleAgent',
+      agents: state.totalTarget.hostsCount,
+      perc: Math.round(state.totalTarget.compliance * 100),
+      extra: {
+        color: '#101336',
+        name: 'Ercole',
+      },
     }
+
+    return ercoleAgent
   },
   getTechnologies: (state, getters) => {
     const tech = state.techDash
@@ -44,10 +50,11 @@ export const getters = {
         id: value.product,
         agents: value.hostsCount,
         perc: value.compliance * 100,
-        money: value.unpaidDues,
+        // money: value.unpaidDues,
         extra: getExtraTechInfo(value.product, getters.getAllTechnologies),
       })
     })
+
     return techArray
   },
   getChartLicenseHistory: (state) => {

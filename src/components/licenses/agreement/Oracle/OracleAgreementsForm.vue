@@ -231,6 +231,7 @@
         @typing="getAutocompleteData($event, 'hostTags', hostAssociatedList)"
         custom-class="is-small"
         open-on-focus
+        :disabled="ula"
       >
         <template slot-scope="props">
           {{ props.option }}
@@ -490,6 +491,7 @@ export default {
         this.oracleForm.licenseNumber = ''
         this.oracleForm.basket = true
         this.oracleForm.restricted = false
+        this.oracleForm.hostAssociated = []
       }
     },
     restricted(val) {

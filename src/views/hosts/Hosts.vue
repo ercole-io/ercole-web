@@ -17,6 +17,21 @@
         @clickedRow="handleClickedRow"
         isClickable
       >
+        <div
+          slot="customTopHeader"
+          class="is-flex is-justify-content-flex-end px-3"
+          style="width: 100%"
+        >
+          <b-button
+            type="is-primary"
+            icon-right="sync-alt"
+            icon-pack="fas"
+            size="is-small"
+            @click="updateHostData"
+            v-tooltip="options('Update Host Data', null, 'auto')"
+          />
+        </div>
+
         <DynamicHeading
           slot="headData"
           v-for="head in hostsHead"
@@ -80,7 +95,6 @@
             @click.native="handleClickedRow([rowData.scope])"
           />
           <TdContent :value="rowData.scope.techType" />
-          <TdContent :value="rowData.scope.techType" />
           <TdContent :value="rowData.scope.os" />
           <TdIcon
             :value="rowData.scope.iconCluster"
@@ -125,9 +139,10 @@ import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
 import formatDate from '@/filters/formatDate.js'
 import hostsHead from '@/views/hosts/hosts-head.json'
 import hostsMoreInfo from '@/views/hosts/hosts-more-info.json'
+import TooltipMixin from '@/mixins/tooltipMixin.js'
 
 export default {
-  mixins: [localFiltersMixin, hostnameLinkRow, getHeadKeys],
+  mixins: [localFiltersMixin, hostnameLinkRow, getHeadKeys, TooltipMixin],
   components: {
     ToggleColumns,
     BoxContent,
@@ -152,11 +167,17 @@ export default {
     if (this.getAllHosts.length > 0) {
       this.isMounted = true
     } else {
-      await this.getHosts().then(() => (this.isMounted = true))
+      await this.getHostData()
     }
   },
   methods: {
     ...mapActions(['getHosts']),
+    getHostData() {
+      this.getHosts().then(() => (this.isMounted = true))
+    },
+    updateHostData() {
+      this.getHostData()
+    },
     formatDate(date) {
       return formatDate(date)
     },

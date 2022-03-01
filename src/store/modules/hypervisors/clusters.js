@@ -7,25 +7,25 @@ import { returnTechTypePrettyName } from '@/helpers/helpers.js'
 export const state = () => ({
   clusters: [],
   currentCluster: {},
-  currentClusterVms: []
+  currentClusterVms: [],
 })
 
 export const getters = {
   getHypervisors: (state, getters) => {
     return getters.filteredOrNot(state.clusters)
   },
-  getCurrentCluster: state => {
+  getCurrentCluster: (state) => {
     return state.currentCluster
   },
   getCurrentClusterVms: (state, getters) => {
     return getters.filteredOrNot(state.currentClusterVms)
   },
-  getErcoleClusterCount: state => {
+  getErcoleClusterCount: (state) => {
     const ercoleClusterCount = {
       withErcole: 0,
-      withoutErcole: 0
+      withoutErcole: 0,
     }
-    _.map(state.clusters, item => {
+    _.map(state.clusters, (item) => {
       const { vmsErcoleAgentCount } = item
       if (vmsErcoleAgentCount > 0) {
         ercoleClusterCount.withErcole += 1
@@ -35,31 +35,31 @@ export const getters = {
     })
     return ercoleClusterCount
   },
-  getClusterChartData: state => {
+  getClusterChartData: (state) => {
     const allVms = state.currentCluster.virtualizationNodesStats
     const withErcole = []
     const withoutErcole = []
     const finalData = []
 
-    _.map(allVms, item => {
+    _.map(allVms, (item) => {
       withErcole.push([
         item.virtualizationNode,
-        item.totalVMsWithErcoleAgentCount
+        item.totalVMsWithErcoleAgentCount,
       ])
       withoutErcole.push([
         item.virtualizationNode,
-        item.totalVMsWithoutErcoleAgentCount
+        item.totalVMsWithoutErcoleAgentCount,
       ])
     })
 
     finalData.push(
       {
         name: 'With Ercole',
-        data: withErcole
+        data: withErcole,
       },
       {
         name: 'Without Ercole',
-        data: withoutErcole
+        data: withoutErcole,
       }
     )
     return finalData
@@ -70,11 +70,11 @@ export const getters = {
     const colors = []
 
     _.map(data, (value, key) => {
-      _.find(getters.getAllTechnologies, prod => {
+      _.find(getters.getAllTechnologies, (prod) => {
         if (prod.prettyName === key) {
           finalData.push({
             name: prod.prettyName,
-            data: [['', value.length]]
+            data: [['', value.length]],
           })
           colors.push(prod.color)
         }
@@ -82,16 +82,16 @@ export const getters = {
     })
 
     return { finalData, colors }
-  }
+  },
 }
 
 export const mutations = {
   SET_CLUSTERS: (state, payload) => {
     const clusters = []
-    _.map(payload, val => {
+    _.map(payload, (val) => {
       clusters.push({
         ...val,
-        type: returnTechTypePrettyName(val.type)
+        type: returnTechTypePrettyName(val.type),
       })
     })
     state.clusters = clusters
@@ -99,7 +99,7 @@ export const mutations = {
   SET_CURRENT_CLUSTER: (state, payload) => {
     state.currentCluster = payload
     state.currentClusterVms = payload.vms
-  }
+  },
 }
 
 export const actions = {
@@ -107,17 +107,17 @@ export const actions = {
     const params = {
       'older-than': getters.getActiveFilters.date,
       environment: getters.getActiveFilters.environment,
-      location: getters.getActiveFilters.location
+      location: getters.getActiveFilters.location,
     }
 
     let clustersData
     if (router.currentRoute.name === 'hypervisors') {
       clustersData = await axiosDefault.get('/hosts/clusters', {
-        params: params
+        params: params,
       })
     } else {
       clustersData = await axiosNoLoading.get('/hosts/clusters', {
-        params: params
+        params: params,
       })
     }
 
@@ -130,12 +130,12 @@ export const actions = {
       `/hosts/clusters/${clustername}`,
       {
         params: {
-          'older-than': getters.getActiveFilters.date
-        }
+          'older-than': getters.getActiveFilters.date,
+        },
       }
     )
 
     const response = await clusterByName.data
     commit('SET_CURRENT_CLUSTER', response)
-  }
+  },
 }
