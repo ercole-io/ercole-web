@@ -1,9 +1,9 @@
 <template>
   <b-tabs type="is-toggle" size="is-small" expanded destroy-on-hide>
-    <b-tab-item :label="$t('views.dashboard.licensesX')">
+    <b-tab-item :label="$t('views.dashboard.licensesX')" data-cy="licenses-tab">
       <LicensesChart />
     </b-tab-item>
-    <b-tab-item label="Core Hosts">
+    <b-tab-item label="Core Hosts" data-cy="corehosts-tab">
       <CoreHostsChart />
     </b-tab-item>
   </b-tabs>
@@ -16,8 +16,8 @@ import CoreHostsChart from '@/components/dashboard/CoreHostsChart.vue'
 export default {
   components: {
     LicensesChart,
-    CoreHostsChart
-  }
+    CoreHostsChart,
+  },
 }
 </script>
 

@@ -19,6 +19,17 @@ export class Dashboard {
     }).as('alerts')
     cy.wait('@alerts').its('response.statusCode').should('eq', 200)
   }
+
+  requestLicensesHistory() {
+    cy.intercept(
+      'GET',
+      `${Cypress.env('chartUrl')}/technologies/all/license-history`,
+      {
+        fixture: 'license-history.json',
+      }
+    ).as('history')
+    cy.wait('@history').its('response.statusCode').should('eq', 200)
+  }
 }
 
 export const onDashboardLoad = new Dashboard()

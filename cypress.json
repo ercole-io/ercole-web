@@ -10,7 +10,8 @@
   "env": {
     "username": "ercole",
     "password": "P4pp1n14ll011!",
-    "apiUrl": "https://dev.ercole.io/api/"
+    "apiUrl": "https://dev.ercole.io/api/",
+    "chartUrl": "https://dev.ercole.io/chart/"
   },
   "testFiles": "**/*.spec.js",
   "componentFolder": "src"
