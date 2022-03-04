@@ -1,5 +1,12 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
+    <CustomField label="VCenter">
+      <CustomSelect
+        v-model="filters.fetchEndpoint"
+        :options="filteredfetchEndpoint"
+      />
+    </CustomField>
+
     <CustomField :label="$t('common.fields.clusterName')">
       <CustomAutocomplete
         v-model="filters.name"
@@ -59,16 +66,16 @@ export default {
   data() {
     return {
       autocompletes: ['name', 'virtualizationNodes'],
-      selects: ['type'],
-      sliders: ['cpu', 'sockets', 'vmsCount', 'vmsErcoleAgentCount']
+      selects: ['fetchEndpoint', 'type'],
+      sliders: ['cpu', 'sockets', 'vmsCount', 'vmsErcoleAgentCount'],
     }
   },
   created() {
     this.fullData = this.getHypervisors
   },
   computed: {
-    ...mapGetters(['getHypervisors'])
-  }
+    ...mapGetters(['getHypervisors']),
+  },
 }
 </script>
 
