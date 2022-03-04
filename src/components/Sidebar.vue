@@ -56,21 +56,25 @@ export default {
                   title: this.$i18n.t('menu.dbList'),
                   href: { name: 'oracle' },
                   icon: 'fas fa-database',
+                  class: 'menu-third-level',
                 },
                 {
                   href: { name: 'addm' },
                   title: this.$i18n.t('menu.addm'),
                   icon: 'fas fa-heartbeat',
+                  class: 'menu-third-level',
                 },
                 {
                   href: { name: 'segment-advisor' },
                   title: this.$i18n.t('menu.segAdvisor'),
                   icon: 'fas fa-columns',
+                  class: 'menu-third-level',
                 },
                 {
                   href: { name: 'patch-advisor' },
                   title: this.$i18n.t('menu.patAdvisor'),
                   icon: 'fas fa-band-aid',
+                  class: 'menu-third-level',
                 },
               ],
             },
@@ -82,6 +86,7 @@ export default {
                   title: this.$i18n.t('menu.dbList'),
                   href: { name: 'mysql' },
                   icon: 'fas fa-database',
+                  class: 'menu-third-level',
                 },
               ],
             },
@@ -177,5 +182,9 @@ $icon-width: 20px !default;
       }
     }
   }
+}
+
+.menu-third-level {
+  background-color: #232963;
 }
 </style>
