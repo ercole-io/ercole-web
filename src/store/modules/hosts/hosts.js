@@ -78,9 +78,9 @@ const formatPlatform = (platform) => {
 }
 
 const formatVersion = (agentVersion) => {
-  if (agentVersion !== 'latest') {
+  if (agentVersion) {
     let version = _.split(agentVersion, '.')
-    if (version[1].length === 1) {
+    if (version.length > 2 && version[1].length === 1) {
       version[1] = `0${version[1]}`
     }
     version = _.join(version, '.')

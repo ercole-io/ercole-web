@@ -49,10 +49,7 @@
             <div class="column">
               <GhostLoading :isLoading="loading">
                 <p v-if="!loading && getTotals.total">
-                  <span
-                    class="has-text-weight-semibold"
-                    v-if="hasFlag === 'LICENSE'"
-                  >
+                  <span class="has-text-weight-semibold">
                     {{ $t('views.dashboard.from') }}
                   </span>
 
