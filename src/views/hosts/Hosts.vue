@@ -3,7 +3,6 @@
     getPage="hosts"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
-    v-if="isMounted"
   >
     <div slot="left">
       <MoreInfoButtons :buttonItems="hostsMoreInfo" />
@@ -16,6 +15,7 @@
         :tableData="getAllHosts"
         @clickedRow="handleClickedRow"
         isClickable
+        :isLoadingTable="!isLoaded"
       >
         <div
           slot="customTopHeader"
@@ -158,14 +158,14 @@ export default {
   },
   data() {
     return {
-      isMounted: false,
+      isLoaded: false,
       hostsHead: hostsHead,
       hostsMoreInfo: hostsMoreInfo,
     }
   },
   async beforeMount() {
     if (this.getAllHosts.length > 0) {
-      this.isMounted = true
+      this.isLoaded = true
     } else {
       await this.getHostData()
     }
@@ -173,9 +173,10 @@ export default {
   methods: {
     ...mapActions(['getHosts']),
     getHostData() {
-      this.getHosts().then(() => (this.isMounted = true))
+      this.getHosts().then(() => (this.isLoaded = true))
     },
     updateHostData() {
+      this.isLoaded = false
       this.getHostData()
     },
     formatDate(date) {
