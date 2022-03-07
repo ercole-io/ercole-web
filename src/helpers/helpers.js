@@ -83,7 +83,7 @@ const mapClusterType = (clustType) => {
     case 'hacmp':
       return 'HACMP'
     case 'oracleClusterware':
-      return 'Cluster Ware'
+      return 'Clusterware'
     case 'sunCluster':
       return 'Sun Cluster'
     case 'veritasClusterServer':
