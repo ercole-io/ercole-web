@@ -1,5 +1,5 @@
 <template>
-  <section v-if="isMounted">
+  <section>
     <b-tabs size="is-small" type="is-boxed" class="block" @input="onTabChange">
       <b-tab-item label="Databases">
         <UsedLicensesDbs :partNumber="partNumber" />
@@ -16,7 +16,6 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions } from 'vuex'
 import UsedLicensesDbs from '@/components/licenses/used/databases/UsedLicensesDbs.vue'
 import UsedLicensesHost from '@/components/licenses/used/hosts/UsedLicensesHost.vue'
 import UsedLicensesClusters from '@/components/licenses/used/clusters/UsedLicensesClusters.vue'
@@ -25,35 +24,19 @@ export default {
   components: {
     UsedLicensesDbs,
     UsedLicensesHost,
-    UsedLicensesClusters
+    UsedLicensesClusters,
   },
   props: {
     partNumber: {
       type: String,
-      required: false
-    }
-  },
-  data() {
-    return {
-      isMounted: false
-    }
-  },
-  async beforeMount() {
-    await this.getLicensesCluster()
-    await this.getLicensesPerHost()
-
-    await this.getLicensesList().then(() => (this.isMounted = true))
+      required: false,
+    },
   },
   methods: {
-    ...mapActions([
-      'getLicensesList',
-      'getLicensesPerHost',
-      'getLicensesCluster'
-    ]),
     onTabChange() {
       bus.$emit('onUsedTabChange')
-    }
-  }
+    },
+  },
 }
 </script>
 

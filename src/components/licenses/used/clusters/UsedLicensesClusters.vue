@@ -12,6 +12,7 @@
       :urlSearchParam="partNumber"
       :keys="keys"
       :tableData="getUsedLicensesByCluster"
+      :isLoadingTable="!isLoaded"
     >
       <template slot="headData">
         <v-th sortKey="cluster">
@@ -56,7 +57,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -98,12 +99,14 @@ export default {
         'usedLicenses',
         'hostCount',
       ],
+      isLoaded: false,
     }
   },
-  mounted() {
-    this.getUsedLicensesByCluster
+  async beforeMount() {
+    await this.getLicensesCluster().then(() => (this.isLoaded = true))
   },
   methods: {
+    ...mapActions(['getLicensesCluster']),
     openModal(info) {
       this.$buefy.modal.open({
         component: UsedLicensesClustersModal,
