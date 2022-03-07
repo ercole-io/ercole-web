@@ -14,6 +14,7 @@
       :tableData="getUsedLicensesByHost"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="!isLoaded"
     >
       <template slot="headData">
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
@@ -59,7 +60,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -104,12 +105,14 @@ export default {
         'usedLicenses',
         'clusterLicenses',
       ],
+      isLoaded: false,
     }
   },
-  mounted() {
-    this.getUsedLicensesByHost
+  async beforeMount() {
+    await this.getLicensesPerHost().then(() => (this.isLoaded = true))
   },
   methods: {
+    ...mapActions(['getLicensesPerHost']),
     openModal(info) {
       this.$buefy.modal.open({
         component: UsedLicensesHostModal,

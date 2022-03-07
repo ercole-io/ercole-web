@@ -13,6 +13,7 @@
       :tableData="getUsedLicensesByDbs"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="!isLoaded"
     >
       <template slot="headData">
         <v-th sortKey="ignore" class="has-text-centered">Ignore License</v-th>
@@ -62,7 +63,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -102,10 +103,17 @@ export default {
         'clusterLicenses',
         'ignore',
       ],
+      isLoaded: false,
     }
   },
+  async beforeMount() {
+    await this.getLicensesList().then(() => (this.isLoaded = true))
+  },
+  methods: {
+    ...mapActions(['getLicensesList']),
+  },
   computed: {
-    ...mapGetters(['getUsedLicensesByDbs']),
+    ...mapGetters(['loadingStatus', 'getUsedLicensesByDbs']),
   },
 }
 </script>
