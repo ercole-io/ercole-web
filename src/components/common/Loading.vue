@@ -1,8 +1,8 @@
 <template>
   <b-loading
-    :is-full-page="false"
+    :is-full-page="isFullPage"
     :active.sync="isLoading"
-    :can-cancel="false"
+    :can-cancel="canCancel"
   />
 </template>
 
@@ -10,6 +10,14 @@
 export default {
   props: {
     isLoading: {
+      type: Boolean,
+      default: false,
+    },
+    isFullPage: {
+      type: Boolean,
+      default: false,
+    },
+    canCancel: {
       type: Boolean,
       default: false,
     },
