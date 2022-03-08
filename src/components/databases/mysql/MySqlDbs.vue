@@ -12,6 +12,7 @@
       :tableData="getAllMysqlDbs"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="name">{{ $t('common.collumns.name') }}</v-th>
@@ -99,7 +100,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getAllMysqlDbs']),
+    ...mapGetters(['getAllMysqlDbs', 'loadingTableStatus']),
   },
 }
 </script>

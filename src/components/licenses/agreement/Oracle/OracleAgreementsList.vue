@@ -4,6 +4,7 @@
     :keys="keys"
     :tableData="returnLicensesAgreement('oracle')"
     :clickedRow="() => []"
+    :isLoadingTable="false"
   >
     <template slot="headData">
       <th colspan="4" style="text-align: center !important">

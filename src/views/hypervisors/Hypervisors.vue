@@ -13,6 +13,7 @@
       :tableData="getHypervisors"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="name">VCenter</v-th>
@@ -132,6 +133,7 @@ export default {
       'getErcoleClusterCount',
       'getVirtualizationChartData',
       'getHypervisors',
+      'loadingTableStatus',
     ]),
   },
 }

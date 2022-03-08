@@ -14,7 +14,7 @@
       :tableData="getUsedLicensesByHost"
       @clickedRow="handleClickedRow"
       isClickable
-      :isLoadingTable="!isLoaded"
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
@@ -105,14 +105,14 @@ export default {
         'usedLicenses',
         'clusterLicenses',
       ],
-      isLoaded: false,
     }
   },
   async beforeMount() {
-    await this.getLicensesPerHost().then(() => (this.isLoaded = true))
+    this.onLoadingTable()
+    await this.getLicensesPerHost().then(() => this.offLoadingTable())
   },
   methods: {
-    ...mapActions(['getLicensesPerHost']),
+    ...mapActions(['getLicensesPerHost', 'onLoadingTable', 'offLoadingTable']),
     openModal(info) {
       this.$buefy.modal.open({
         component: UsedLicensesHostModal,
@@ -130,7 +130,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByHost']),
+    ...mapGetters(['getUsedLicensesByHost', 'loadingTableStatus']),
   },
 }
 </script>
