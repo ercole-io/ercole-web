@@ -258,6 +258,8 @@ export default {
       'getEngineeredSystems',
       'getMysqlDbs',
       'getComplianceList',
+      'getLicensesPerHost',
+      'getLicensesCluster',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS']),
     // getFilteredTags(text) {
@@ -341,6 +343,8 @@ export default {
           break
         case 'licenses-used':
           this.getLicensesList()
+          this.getLicensesPerHost()
+          this.getLicensesCluster()
           break
         case 'engineered-systems':
           this.getEngineeredSystems()
