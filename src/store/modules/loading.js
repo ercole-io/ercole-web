@@ -1,20 +1,20 @@
 export const state = () => {
   return {
-    isLoading: false
+    isLoading: false,
   }
 }
 
 export const getters = {
-  loadingStatus: state => state.isLoading
+  loadingStatus: (state) => state.isLoading,
 }
 
 export const mutations = {
-  LOADING_ON: state => {
+  LOADING_ON: (state) => {
     state.isLoading = true
   },
-  LOADING_OFF: state => {
+  LOADING_OFF: (state) => {
     state.isLoading = false
-  }
+  },
 }
 
 export const actions = {
@@ -23,5 +23,5 @@ export const actions = {
   },
   offLoading({ commit }) {
     commit('LOADING_OFF')
-  }
+  },
 }
