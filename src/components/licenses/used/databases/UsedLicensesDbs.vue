@@ -113,7 +113,7 @@ export default {
     ...mapActions(['getLicensesList']),
   },
   computed: {
-    ...mapGetters(['loadingStatus', 'getUsedLicensesByDbs']),
+    ...mapGetters(['getUsedLicensesByDbs']),
   },
 }
 </script>
