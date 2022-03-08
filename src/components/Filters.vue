@@ -180,6 +180,7 @@
             class="filters-button"
             size="is-small"
             type="is-primary"
+            :disabled="!disableButtons"
           >
             {{ $t('common.forms.apply') }}
           </b-button>
@@ -189,6 +190,7 @@
             class="filters-button"
             size="is-small"
             type="is-danger"
+            :disabled="!disableButtons"
           >
             {{ $t('common.forms.reset') }}
           </b-button>
@@ -244,6 +246,8 @@ export default {
   },
   methods: {
     ...mapActions([
+      'onLoadingTable',
+      'offLoadingTable',
       'getHosts',
       'getHostByName',
       'getDatabases',
@@ -289,6 +293,7 @@ export default {
         active: this.glFilters,
         status: true,
       })
+
       this.reloadPage(this.$route.name)
     },
     resetFilters() {
@@ -305,55 +310,62 @@ export default {
     },
     reloadPage(name) {
       const params = this.$route.params
+      this.onLoadingTable()
 
       switch (name) {
         case 'hosts':
-          this.getHosts().catch((err) => {
-            if (err) {
-              this.resetFilters()
-            }
-          })
+          this.getHosts()
+            .then(() => this.offLoadingTable())
+            .catch((err) => {
+              if (err) {
+                this.resetFilters()
+              }
+            })
           break
         case 'hosts-details':
           this.getHostByName(params.hostname)
           break
         case 'databases':
-          this.getDatabases()
+          this.getDatabases().then(() => this.offLoadingTable())
           break
         case 'oracle':
-          this.getOracleDbs()
+          this.getOracleDbs().then(() => this.offLoadingTable())
           break
         case 'addm':
-          this.getAddms()
+          this.getAddms().then(() => this.offLoadingTable())
           break
         case 'segment-advisor':
-          this.getSegmentAdvisor()
+          this.getSegmentAdvisor().then(() => this.offLoadingTable())
           break
         case 'patch-advisor':
-          this.getPatchAdvisor()
+          this.getPatchAdvisor().then(() => this.offLoadingTable())
           break
         case 'hypervisors':
-          this.getClusters()
+          this.getClusters().then(() => this.offLoadingTable())
           break
         case 'cluster-details':
-          this.getClusterByName(params.clustername)
+          this.getClusterByName(params.clustername).then(() =>
+            this.offLoadingTable()
+          )
           break
         case 'alerts':
-          this.getAlertsData({ status: this.alertStatus })
+          this.getAlertsData({ status: this.alertStatus }).then(() =>
+            this.offLoadingTable()
+          )
           break
         case 'licenses-used':
-          this.getLicensesList()
-          this.getLicensesPerHost()
-          this.getLicensesCluster()
+          this.getLicensesList().then(() => this.offLoadingTable())
+          this.getLicensesPerHost().then(() => this.offLoadingTable())
+          this.getLicensesCluster().then(() => this.offLoadingTable())
           break
         case 'engineered-systems':
-          this.getEngineeredSystems()
+          this.getEngineeredSystems().then(() => this.offLoadingTable())
           break
         case 'mysql':
-          this.getMysqlDbs()
+          this.getMysqlDbs().then(() => this.offLoadingTable())
           break
         case 'licenses-compliance':
-          this.getComplianceList()
+          this.getComplianceList().then(() => this.offLoadingTable())
           break
         default:
           return
@@ -366,6 +378,17 @@ export default {
   computed: {
     ...mapState(['globalFilters']),
     ...mapGetters(['getActiveFilters']),
+    disableButtons() {
+      if (
+        this.glFilters.location ||
+        this.glFilters.environment ||
+        this.glFilters.date
+      ) {
+        return true
+      } else {
+        return false
+      }
+    },
     notShowing() {
       return (
         this.$route.name !== 'licenses-agreement' &&

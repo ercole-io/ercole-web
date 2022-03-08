@@ -13,6 +13,7 @@
       :tableData="getOracleAddms"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="benefit" defaultSort="desc">{{
@@ -85,7 +86,7 @@ export default {
     ...mapActions(['getAddms']),
   },
   computed: {
-    ...mapGetters(['getOracleAddms']),
+    ...mapGetters(['getOracleAddms', 'loadingTableStatus']),
   },
 }
 </script>

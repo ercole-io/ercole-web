@@ -13,7 +13,7 @@
       :tableData="getUsedLicensesByDbs"
       @clickedRow="handleClickedRow"
       isClickable
-      :isLoadingTable="!isLoaded"
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="ignore" class="has-text-centered">Ignore License</v-th>
@@ -103,17 +103,17 @@ export default {
         'clusterLicenses',
         'ignore',
       ],
-      isLoaded: false,
     }
   },
   async beforeMount() {
-    await this.getLicensesList().then(() => (this.isLoaded = true))
+    this.onLoadingTable()
+    await this.getLicensesList().then(() => this.offLoadingTable())
   },
   methods: {
-    ...mapActions(['getLicensesList']),
+    ...mapActions(['getLicensesList', 'onLoadingTable', 'offLoadingTable']),
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByDbs']),
+    ...mapGetters(['getUsedLicensesByDbs', 'loadingTableStatus']),
   },
 }
 </script>

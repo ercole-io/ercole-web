@@ -12,7 +12,7 @@
       :urlSearchParam="partNumber"
       :keys="keys"
       :tableData="getUsedLicensesByCluster"
-      :isLoadingTable="!isLoaded"
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="cluster">
@@ -99,14 +99,14 @@ export default {
         'usedLicenses',
         'hostCount',
       ],
-      isLoaded: false,
     }
   },
   async beforeMount() {
-    await this.getLicensesCluster().then(() => (this.isLoaded = true))
+    this.onLoadingTable()
+    await this.getLicensesCluster().then(() => this.offLoadingTable())
   },
   methods: {
-    ...mapActions(['getLicensesCluster']),
+    ...mapActions(['getLicensesCluster', 'onLoadingTable', 'offLoadingTable']),
     openModal(info) {
       this.$buefy.modal.open({
         component: UsedLicensesClustersModal,
@@ -122,7 +122,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByCluster']),
+    ...mapGetters(['getUsedLicensesByCluster', 'loadingTableStatus']),
   },
 }
 </script>

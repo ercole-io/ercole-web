@@ -13,6 +13,7 @@
       :tableData="getOracleSegmentAdvisor"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="reclaimable">{{ $t('common.fields.reclaimable') }}</v-th>
@@ -95,7 +96,7 @@ export default {
     HostLink,
     SegnmentAdvisorsFilters,
     PieChart,
-    BoxContent
+    BoxContent,
   },
   data() {
     return {
@@ -109,20 +110,24 @@ export default {
         'segmentName',
         'segmentType',
         'partitionName',
-        'recommendation'
+        'recommendation',
       ],
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
     await this.getSegmentAdvisor().then(() => (this.isMounted = true))
   },
   methods: {
-    ...mapActions(['getSegmentAdvisor'])
+    ...mapActions(['getSegmentAdvisor']),
   },
   computed: {
-    ...mapGetters(['getOracleSegmentAdvisor', 'top10reclaimableChart'])
-  }
+    ...mapGetters([
+      'getOracleSegmentAdvisor',
+      'top10reclaimableChart',
+      'loadingTableStatus',
+    ]),
+  },
 }
 </script>
 
