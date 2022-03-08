@@ -38,9 +38,16 @@ export const mutations = {
 }
 
 export const actions = {
-  async getComplianceList({ commit }) {
+  async getComplianceList({ commit, getters }) {
     const complianceList = await axiosDefault.get(
-      '/hosts/technologies/all/databases/licenses-compliance'
+      '/hosts/technologies/all/databases/licenses-compliance',
+      {
+        params: {
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location,
+        },
+      }
     )
     const response = await complianceList.data.licensesCompliance
 
