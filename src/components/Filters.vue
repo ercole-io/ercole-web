@@ -164,7 +164,7 @@
             :date-formatter="formatDate"
             size="is-small"
             :placeholder="`${$t('common.forms.select')} ${$t(
-              'common.globalFilters.environmentPH'
+              'common.globalFilters.date'
             )}`"
             icon="calendar-today"
             trap-focus
