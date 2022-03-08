@@ -6,14 +6,15 @@
     hideSearch
     hidePerpage
     hidePagination
+    :isLoadingTable="loadingTableStatus"
   >
     <template slot="headData">
-      <th style="width: 30%; visibility: hidden;"></th>
-      <th style="width: 20%; visibility: hidden;"></th>
-      <th style="width: 10%; visibility: hidden;"></th>
-      <th style="width: 10%; visibility: hidden;"></th>
-      <th style="width: 25%; visibility: hidden;"></th>
-      <th style="width: 25%; visibility: hidden;"></th>
+      <th style="width: 30%; visibility: hidden"></th>
+      <th style="width: 20%; visibility: hidden"></th>
+      <th style="width: 10%; visibility: hidden"></th>
+      <th style="width: 10%; visibility: hidden"></th>
+      <th style="width: 25%; visibility: hidden"></th>
+      <th style="width: 25%; visibility: hidden"></th>
     </template>
 
     <template slot="subCustomHeadData">
@@ -27,10 +28,9 @@
       <TdContent :value="rowData.scope.memory" />
       <TdContent :value="rowData.scope.swVersion" />
       <TdContent
-        :value="
-          `${rowData.scope.totalPowerSupply || '-'}     ${rowData.scope
-            .tempActual || '-'}`
-        "
+        :value="`${rowData.scope.totalPowerSupply || '-'}     ${
+          rowData.scope.tempActual || '-'
+        }`"
       />
     </template>
   </FullTable>
@@ -39,23 +39,27 @@
 <script>
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
     data: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   components: {
     FullTable,
-    TdContent
+    TdContent,
   },
   data() {
     return {
-      keys: []
+      keys: [],
     }
-  }
+  },
+  computed: {
+    ...mapGetters(['loadingTableStatus']),
+  },
 }
 </script>
 

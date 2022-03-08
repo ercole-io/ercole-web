@@ -65,7 +65,7 @@
           </template>
           <template v-if="isLoadingTable">
             <tr>
-              <td style="height: 350px" colspan="50">
+              <td style="height: 250px" colspan="50">
                 <Loading :isLoading="isLoadingTable" />
               </td>
             </tr>
@@ -160,7 +160,7 @@ export default {
     },
     isLoadingTable: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   components: {

@@ -13,6 +13,7 @@
       :tableData="getLicensesCompliance"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="licenseTypeID">
@@ -134,7 +135,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getLicensesCompliance']),
+    ...mapGetters(['getLicensesCompliance', 'loadingTableStatus']),
   },
 }
 </script>
