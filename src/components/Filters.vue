@@ -257,6 +257,7 @@ export default {
       'getLicensesList',
       'getEngineeredSystems',
       'getMysqlDbs',
+      'getComplianceList',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS']),
     // getFilteredTags(text) {
@@ -347,6 +348,9 @@ export default {
         case 'mysql':
           this.getMysqlDbs()
           break
+        case 'licenses-compliance':
+          this.getComplianceList()
+          break
         default:
           return
       }
@@ -362,7 +366,6 @@ export default {
       return (
         this.$route.name !== 'licenses-agreement' &&
         this.$route.name !== 'dashboard' &&
-        this.$route.name !== 'licenses-compliance' &&
         this.$route.name !== 'repository'
       )
     },
