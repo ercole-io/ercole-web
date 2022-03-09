@@ -113,11 +113,10 @@ export default {
         'purchased',
         'available',
       ],
-      isMounted: false,
     }
   },
   async beforeMount() {
-    await this.getComplianceList().then(() => (this.isMounted = true))
+    await this.getComplianceList()
   },
   methods: {
     ...mapActions(['getComplianceList']),
