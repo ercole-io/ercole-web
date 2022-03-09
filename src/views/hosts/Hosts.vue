@@ -4,7 +4,13 @@
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
   >
-    <div slot="left">
+    <GhostLoading
+      slot="left"
+      :isLoading="loadingTableStatus"
+      setHeight="400"
+      setWidth="280"
+    />
+    <div slot="left" v-if="!loadingTableStatus">
       <MoreInfoButtons :buttonItems="hostsMoreInfo" />
       <HostsFilters />
     </div>
@@ -139,6 +145,7 @@ import formatDate from '@/filters/formatDate.js'
 import hostsHead from '@/views/hosts/hosts-head.json'
 import hostsMoreInfo from '@/views/hosts/hosts-more-info.json'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [localFiltersMixin, hostnameLinkRow, getHeadKeys, TooltipMixin],
@@ -154,6 +161,7 @@ export default {
     HostLink,
     DynamicHeading,
     MoreInfoButtons,
+    GhostLoading,
   },
   data() {
     return {
