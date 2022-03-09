@@ -7,6 +7,7 @@
       hidePerpage
       hidePagination
       hideTopTable
+      :isLoadingTable="false"
     >
       <template slot="headData">
         <v-th sortKey="action">Action</v-th>
@@ -33,18 +34,18 @@ export default {
   props: {
     addms: {
       type: Array,
-      default: null
-    }
+      default: null,
+    },
   },
   components: {
     FullTable,
-    TdContent
+    TdContent,
   },
   data() {
     return {
-      keys: ['action', 'benefit', 'finding', 'recommendation']
+      keys: ['action', 'benefit', 'finding', 'recommendation'],
     }
-  }
+  },
 }
 </script>
 
