@@ -3,9 +3,9 @@
     getPage="licensesCompliance"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
-    v-if="isMounted"
   >
-    <LicensesComplianceFilters slot="left" />
+    <LicensesComplianceFilters slot="left" v-if="isMounted" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.licCompliance')"
