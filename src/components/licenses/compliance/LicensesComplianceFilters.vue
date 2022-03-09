@@ -72,14 +72,7 @@ export default {
   data() {
     return {
       autocompletes: ['fullPartNumber', 'metric'],
-      sliders: [
-        'consumed',
-        'covered',
-        'compliance',
-        'licenseAvailable',
-        'purchased',
-        'available',
-      ],
+      sliders: ['consumed', 'covered', 'compliance', 'purchased', 'available'],
       filters: {
         unlimited: '',
       },
