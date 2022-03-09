@@ -1,5 +1,6 @@
 import axiosDefault from '@/axios/axios-default.js'
 import _ from 'lodash'
+import { setFullPartNumber } from '@/helpers/helpers.js'
 
 const showStrokeColor = (value) => {
   if (value < 100 && value >= 80) {
@@ -26,14 +27,14 @@ export const getters = {
         complianceStroke: showStrokeColor(val.compliance * 100),
       })
     })
-
+    console.log(compliance)
     return getters.filteredOrNot(compliance)
   },
 }
 
 export const mutations = {
   SET_COMPLIANCE_LIST: (state, payload) => {
-    state.complianceList = payload
+    state.complianceList = setFullPartNumber(payload)
   },
 }
 
