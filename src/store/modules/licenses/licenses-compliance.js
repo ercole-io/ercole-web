@@ -27,7 +27,7 @@ export const getters = {
         complianceStroke: showStrokeColor(val.compliance * 100),
       })
     })
-    console.log(compliance)
+
     return getters.filteredOrNot(compliance)
   },
 }
