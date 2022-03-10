@@ -32,7 +32,7 @@
                       getFirst.severity
                     )
                   "
-                  type="is-ercole-green"
+                  type="is-ercole-blue"
                   size="is-small"
                   icon-pack="fas"
                   icon-left="check-circle"
@@ -106,7 +106,7 @@
           @click="handleAlertClick(hasFlag, 'INFO')"
           :disabled="getTotals.info === 0"
           :type="{
-            'is-info': getTotals.info !== 0,
+            'is-light-blue': getTotals.info !== 0,
             'inverted-alert info': getTotals.info === 0,
           }"
           size="is-small"
@@ -122,7 +122,7 @@
           @click="handleAlertClick(hasFlag, 'WARNING')"
           :disabled="getTotals.warn === 0"
           :type="{
-            'is-warning': getTotals.warn !== 0,
+            'is-light-warning': getTotals.warn !== 0,
             'inverted-alert warning': getTotals.warn === 0,
           }"
           size="is-small"
@@ -138,7 +138,7 @@
           @click="handleAlertClick(hasFlag, 'CRITICAL')"
           :disabled="getTotals.crit === 0"
           :type="{
-            'is-danger': getTotals.crit !== 0,
+            'is-light-danger': getTotals.crit !== 0,
             'inverted-alert danger': getTotals.crit === 0,
           }"
           size="is-small"

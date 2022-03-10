@@ -81,7 +81,7 @@ $speed: 86ms !default;
 $variable-columns: true !default;
 
 // The default Bulma derived variables are declared below
-$primary: #14E1A0  !default;
+$primary: $custom-primary  !default;
 
 $info: $cyan !default;
 $success: $green !default;
@@ -156,3 +156,13 @@ $size-small: $size-7 !default;
 $size-normal: $size-6 !default;
 $size-medium: $size-5 !default;
 $size-large: $size-4 !default;
+
+// Custom colors
+$light-blue: rgba($info, .7);
+$light-blue-invert: rgba($white, 1);
+
+$light-warning: rgba($warning, .7);
+$light-warning-invert: rgba($dark, 1);
+
+$light-danger: rgba($danger, .7);
+$light-danger-invert: rgba($white, 1);

@@ -1,6 +1,6 @@
 <template>
   <b-button
-    type="is-primary"
+    type="is-ercole-blue"
     size="is-small"
     @click="toggleDbFilters"
     class="ml-1 has-text-weight-bold"

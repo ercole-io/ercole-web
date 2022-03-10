@@ -16,8 +16,15 @@
 
 // custom ul tabs
 .tabs.is-toggle li.is-active a {
-  color: $ercole-blue;
+  background-color: $ercole-blue !important;
+  color: $white;
+  border-color: #dbdbdb;
   font-weight: bold;
+}
+
+.tabs.is-toggle a:hover {
+  background-color: $custom-primary !important;
+  color: $white !important;
 }
 
 .tabs li.is-active a {
@@ -132,6 +139,10 @@ ul.pagination-list {
   height: 100% !important;
 }
 
+.vsm--toggle-btn > span > span {
+  font-size: 1rem;;
+}
+
 .b-sidebar {
   .sidebar-content {
     width: 350px;
@@ -200,10 +211,10 @@ ul.pagination-list {
 }
 
 .login-form {
-  .input {
-    border: 2px solid #48c78e;
-    color: #2bad84
-  }
+  // .input {
+  //   border: 2px solid #48c78e;
+  //   color: #2bad84
+  // }
 
   .control.has-icons-left .icon, .control.has-icons-right .icon {
     color: #48c78e
@@ -212,4 +223,33 @@ ul.pagination-list {
   .control.has-icons-left .input:focus ~ .icon, .control.has-icons-left .select:focus ~ .icon, .control.has-icons-right .input:focus ~ .icon, .control.has-icons-right .select:focus ~ .icon {
     color: #2bad84
   }
+}
+
+// custom colors button hover
+.button.is-light-blue:hover {
+  background-color: rgba($info, 0.1);
+  border-color: transparent;
+  color: rgba($dark, 0.9);
+}
+
+.button.is-light-warning:hover {
+  background-color: rgba($warning, 0.1);
+  border-color: transparent;
+  color: rgba($dark, 0.9);
+}
+
+.button.is-light-danger:hover {
+  background-color: rgba($danger, 0.1);
+  border-color: transparent;
+  color: rgba($dark, 0.9);
+}
+
+.button.is-ercole-blue:hover {
+  background-color: $custom-primary;
+  border-color: transparent;
+  color: $white;
+}
+
+.navbar-item img {
+  max-height: 2rem;
 }

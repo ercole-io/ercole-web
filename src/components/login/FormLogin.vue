@@ -6,7 +6,7 @@
         password: password,
       })
     "
-    class="login-form"
+    class="login-form has-background-grey-lighter"
   >
     <b-field
       label-for="username"
@@ -104,7 +104,7 @@ export default {
   padding: 3rem;
   margin: 2rem;
   border-radius: 4px;
-  background-color: #14e1a0;
+  // background-color: #14e1a0;
 
   .notification {
     font-size: 14px;

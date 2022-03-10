@@ -82,7 +82,7 @@
       <GhostLoading :isLoading="loading" setHeight="30" setWidth="30">
         <b-button
           size="is-small"
-          type="is-primary"
+          type="is-ercole-blue"
           icon-right="delete"
           @click="getCurrentMonthDates"
         />
