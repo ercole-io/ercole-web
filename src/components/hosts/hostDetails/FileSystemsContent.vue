@@ -4,7 +4,7 @@
     contentSize="1"
     contentPadding="1rem"
   >
-    <FullTable :tableData="fileSysData" :keys="keys">
+    <FullTable :tableData="fileSysData" :keys="keys" :isLoadingTable="false">
       <template slot="headData">
         <v-th sortKey="filesystem">FileSys</v-th>
         <v-th sortKey="type">FsType</v-th>
@@ -36,13 +36,13 @@ export default {
   props: {
     fileSysData: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   components: {
     Card,
     FullTable,
-    TdContent
+    TdContent,
   },
   data() {
     return {
@@ -52,15 +52,15 @@ export default {
         'mountedOn',
         'size',
         'availableSpace',
-        'usedSpace'
-      ]
+        'usedSpace',
+      ],
     }
   },
   methods: {
     multi(val) {
       return _.multiply(Number(val), 1024)
-    }
-  }
+    },
+  },
 }
 </script>
 
