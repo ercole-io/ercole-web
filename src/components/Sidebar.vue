@@ -164,7 +164,7 @@ $icon-width: 20px !default;
     margin-right: 0 !important;
 
     > .vsm--list {
-      margin-top: 56px;
+      margin-top: 4rem;
     }
   }
 
@@ -172,7 +172,7 @@ $icon-width: 20px !default;
     position: absolute;
     top: 0;
     left: 0;
-    height: 56px;
+    height: 4rem;
     width: 50px;
 
     > span {

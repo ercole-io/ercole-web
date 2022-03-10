@@ -385,6 +385,7 @@ export default {
   width: 100%;
   z-index: 50;
   border-bottom: 1px solid #ccc;
+  margin-top: 12px;
 
   .filters-form {
     display: flex;

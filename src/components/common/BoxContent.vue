@@ -7,6 +7,7 @@
     <article
       class="box-content"
       :class="{ 'bottom-space': mbottom, 'card card-custom': hasShadow }"
+      :style="customStyle"
     >
       <slot />
     </article>
@@ -36,6 +37,10 @@ export default {
     hasShadow: {
       type: Boolean,
       default: false,
+    },
+    customStyle: {
+      type: String,
+      default: '',
     },
   },
 }

@@ -3,7 +3,7 @@
     <b-button
       :label="$t('views.hostDetails.fileSystems')"
       @click="isModalActive = true"
-      type="is-custom-primary"
+      type="is-ercole-blue"
       icon-pack="fas"
       icon-left="receipt"
       size="is-small"

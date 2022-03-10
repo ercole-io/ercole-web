@@ -103,6 +103,7 @@ export default {
 .navbar-custom {
   z-index: 54;
   margin-left: 50px;
+  height: 4rem;
 }
 
 .ercole-logo {

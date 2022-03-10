@@ -6,14 +6,14 @@ export default {
       currentPage: 1,
       totalPages: 0,
       perPage: 20,
-      maxPageLinks: 5
+      maxPageLinks: 5,
     }
   },
   beforeMount() {
     this.checkPerPage()
   },
   mounted() {
-    bus.$on('changePerPage', value => {
+    bus.$on('changePerPage', (value) => {
       this.perPage = Number(value)
     })
   },
@@ -34,22 +34,20 @@ export default {
           this.perPage = Number(storagePerPage)
         }
       } else {
-        localStorage.setItem('perPage', 20)
-        this.perPage = 20
+        localStorage.setItem('perPage', 25)
+        this.perPage = 25
       }
-    }
+    },
   },
   computed: {
     checkStorage() {
       let storagePerPage = Number(localStorage.getItem('perPage'))
       return (
-        storagePerPage === 5 ||
-        storagePerPage === 10 ||
-        storagePerPage === 15 ||
-        storagePerPage === 20 ||
         storagePerPage === 25 ||
-        storagePerPage === 50
+        storagePerPage === 50 ||
+        storagePerPage === 100 ||
+        storagePerPage === 200
       )
-    }
-  }
+    },
+  },
 }
