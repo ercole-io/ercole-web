@@ -1,6 +1,6 @@
 <template>
   <b-button
-    type="is-ercole-green"
+    type="is-ercole-blue"
     size="is-small"
     @click="exportData()"
     data-export-button

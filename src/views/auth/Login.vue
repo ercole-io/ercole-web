@@ -36,7 +36,7 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #101336;
+  background-color: #101336 !important;
 
   .logo {
     text-align: center;

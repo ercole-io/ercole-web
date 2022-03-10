@@ -26,7 +26,7 @@
       <footer class="card-footer">
         <b-button
           @click="inspectAgents"
-          type="is-ercole-green"
+          type="is-ercole-blue"
           size="is-small"
           class="is-radiusless has-text-weight-bold"
           expanded

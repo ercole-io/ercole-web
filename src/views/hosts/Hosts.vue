@@ -23,7 +23,7 @@
           style="width: 100%"
         >
           <b-button
-            type="is-primary"
+            type="is-ercole-blue"
             icon-right="sync-alt"
             icon-pack="fas"
             size="is-small"
