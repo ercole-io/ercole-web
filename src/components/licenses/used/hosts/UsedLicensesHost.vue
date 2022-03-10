@@ -4,13 +4,7 @@
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
   >
-    <GhostLoading
-      slot="left"
-      :isLoading="loadingTableStatus"
-      setHeight="400"
-      setWidth="280"
-    />
-    <UsedLicensesHostFilters slot="left" v-if="!loadingTableStatus" />
+    <UsedLicensesHostFilters slot="left" />
 
     <FullTable
       slot="center"
@@ -78,7 +72,6 @@ import UsedLicensesHostModal from '@/components/licenses/used/hosts/UsedLicenses
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import ExportButton from '@/components/common/ExportButton.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [
@@ -94,7 +87,6 @@ export default {
     HostLink,
     UsedLicensesHostFilters,
     ExportButton,
-    GhostLoading,
   },
   props: {
     partNumber: {
