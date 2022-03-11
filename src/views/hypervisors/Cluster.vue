@@ -24,7 +24,10 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.virtualizationNode" />
+        <TdContent
+          :value="rowData.scope.virtualizationNode"
+          class="first-col"
+        />
         <HostLink :hostname="rowData.scope.hostname" />
         <TdContent :value="rowData.scope.name" />
         <TdIcon

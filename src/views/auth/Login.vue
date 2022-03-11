@@ -43,7 +43,7 @@ export default {
     margin-bottom: 1.5rem;
 
     img {
-      width: 20rem;
+      width: 25rem;
     }
   }
 }

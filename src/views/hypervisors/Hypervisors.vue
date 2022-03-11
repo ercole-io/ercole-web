@@ -30,7 +30,7 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.fetchEndpoint" />
+        <TdContent :value="rowData.scope.fetchEndpoint" class="first-col" />
         <TdContent :value="rowData.scope.name" />
         <TdContent :value="rowData.scope.type" />
         <TdContent :value="rowData.scope.cpu" />

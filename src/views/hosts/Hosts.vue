@@ -40,7 +40,7 @@
         />
 
         <template slot="bodyData" slot-scope="rowData">
-          <HostLink :hostname="rowData.scope.hostname" />
+          <HostLink :hostname="rowData.scope.hostname" class="first-col" />
           <TdContent
             :value="rowData.scope.platform"
             :class="{ 'is-hidden': moreInfoToggle.hiddenVirtual }"

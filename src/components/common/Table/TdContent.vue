@@ -2,13 +2,13 @@
   <td
     v-if="link && !isSlot"
     v-tooltip="options(setValue, dataType, tooltipPlace)"
+    :class="setHighlight === '-' ? 'has-text-centered' : ''"
   >
     <a
       @click.left="link($event)"
       @click.middle="link($event)"
       @click.right="link($event)"
       v-html="setHighlight"
-      class="hostlink"
     />
   </td>
 
@@ -16,12 +16,14 @@
     v-else-if="!link && !dataType && !isSlot"
     v-tooltip="options(setValue, dataType, tooltipPlace)"
     v-html="setHighlight"
+    :class="setHighlight === '-' ? 'has-text-centered' : ''"
   />
 
   <td
     v-else-if="!link && dataType && !isSlot"
     v-tooltip="options(setValue, dataType, tooltipPlace)"
     v-html="setHighlightDate"
+    :class="setHighlightDate === '-' ? 'has-text-centered' : ''"
   />
 
   <td v-else-if="isSlot" v-tooltip="options(setValue, dataType, tooltipPlace)">
@@ -71,14 +73,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '@/assets/scss/_variables.scss';
-
-.hostlink {
-  color: $custom-primary;
-
-  &:hover {
-    color: $ercole-blue;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
