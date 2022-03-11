@@ -57,13 +57,13 @@
 
         &:first-child {
           text-align: left;
-          // background-color: hsl(207, 80%, 90%);
-          background-color: rgba(#101336, 0.8);
-          color: $white;
+        }
 
+        &:hover {
           a {
-            color: $white;
+            color: $ercole-blue;
           }
+          
         }
       }
 
@@ -71,6 +71,24 @@
         background-color: rgba(0,0,0,.075);
       }
     }
+  }
+}
+
+.first-col {
+  background-color: rgba(#101336, 0.8);
+  color: $white;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+    color: $ercole-blue !important;
+    
+    a {
+      color: $ercole-blue !important;
+    }
+  }
+
+  a {
+    color: $white !important;
   }
 }
 
