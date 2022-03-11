@@ -1,38 +1,27 @@
 .custom-multi-select {
   height: inherit !important;
+  margin-right: 8px;
 
   .btn-select {
     border-radius: 2px;
-    text-rendering: auto !important;
-    cursor: pointer;
-    font-size: 1em;
-    max-width: 100%;
-    outline: none;
+    font-size: 12px;
     background-color: white;
     color: #363636;
-    -webkit-appearance: none;
-    align-items: center;
     border: 1px solid #dbdbdb;
     box-shadow: none;
-    height: 30px;
-    justify-content: flex-start;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     line-height: 18px;
-    padding-bottom: calc(0.5em - 1px);
-    padding-left: calc(0.75em - 1px);
-    padding-top: calc(0.5em - 1px);
-    padding-right: calc(3em - 1px);
-    position: relative;
-    margin: 0;
-    font-size: 12px;
+    height: 30px;
+    width: 160px;
+    margin-right: 8px;
+    cursor: pointer;
 
     &:focus {
       border-color: #679189;
       box-shadow: 0 0 0 0.125em #67918940;
     }
-  }
-
-  .caret {
-    display: none;
   }
   
   .vertical {
