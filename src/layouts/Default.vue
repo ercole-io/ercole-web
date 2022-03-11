@@ -30,18 +30,18 @@ export default {
     appSidebar: SidebarMenu,
     appMain: Main,
     appBreadcrumb: Breadcrumb,
-    appFooter: Footer
+    appFooter: Footer,
   },
   data() {
     return {
-      isCollapsedSidebar: true
+      isCollapsedSidebar: true,
     }
   },
   methods: {
     handleCollapsedSidebar(value) {
       this.isCollapsedSidebar = value
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -63,6 +63,7 @@ export default {
 
 .layout {
   padding: 0;
+  margin-top: 12px;
 
   &.withFilters {
     padding-top: 72px;

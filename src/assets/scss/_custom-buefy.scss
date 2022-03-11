@@ -227,21 +227,21 @@ ul.pagination-list {
 
 // custom colors button hover
 .button.is-light-blue:hover {
-  background-color: rgba($info, 0.1);
+  background-color: rgba($info, 1);
   border-color: transparent;
-  color: rgba($dark, 0.9);
+  color: rgba($white, 1);
 }
 
 .button.is-light-warning:hover {
-  background-color: rgba($warning, 0.1);
+  background-color: rgba($warning, 1);
   border-color: transparent;
-  color: rgba($dark, 0.9);
+  color: rgba($dark, 1);
 }
 
 .button.is-light-danger:hover {
-  background-color: rgba($danger, 0.1);
+  background-color: rgba($danger, 1);
   border-color: transparent;
-  color: rgba($dark, 0.9);
+  color: rgba($white, 1);
 }
 
 .button.is-ercole-blue:hover {

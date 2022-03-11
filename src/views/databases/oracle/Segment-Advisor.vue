@@ -36,6 +36,7 @@
       <template slot="bodyData" slot-scope="rowData">
         <TdContent
           :value="rowData.scope.reclaimable | formatNumber('0.00', 'GB')"
+          class="first-col"
         />
         <TdContent
           :value="rowData.scope.segmentsSize | formatNumber('0.00', 'GB')"
@@ -95,7 +96,7 @@ export default {
     HostLink,
     SegnmentAdvisorsFilters,
     PieChart,
-    BoxContent
+    BoxContent,
   },
   data() {
     return {
@@ -109,20 +110,20 @@ export default {
         'segmentName',
         'segmentType',
         'partitionName',
-        'recommendation'
+        'recommendation',
       ],
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
     await this.getSegmentAdvisor().then(() => (this.isMounted = true))
   },
   methods: {
-    ...mapActions(['getSegmentAdvisor'])
+    ...mapActions(['getSegmentAdvisor']),
   },
   computed: {
-    ...mapGetters(['getOracleSegmentAdvisor', 'top10reclaimableChart'])
-  }
+    ...mapGetters(['getOracleSegmentAdvisor', 'top10reclaimableChart']),
+  },
 }
 </script>
 

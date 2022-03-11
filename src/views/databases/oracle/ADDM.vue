@@ -26,7 +26,7 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.benefit" />
+        <TdContent :value="rowData.scope.benefit" class="first-col" />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
         <TdContent :value="rowData.scope.dbname" />
         <TdContent :value="rowData.scope.finding" />
@@ -61,7 +61,7 @@ export default {
     ExportButton,
     TdContent,
     HostLink,
-    AddmFilters
+    AddmFilters,
   },
   data() {
     return {
@@ -71,20 +71,20 @@ export default {
         'dbname',
         'finding',
         'recommendation',
-        'action'
+        'action',
       ],
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
     await this.getAddms().then(() => (this.isMounted = true))
   },
   methods: {
-    ...mapActions(['getAddms'])
+    ...mapActions(['getAddms']),
   },
   computed: {
-    ...mapGetters(['getOracleAddms'])
-  }
+    ...mapGetters(['getOracleAddms']),
+  },
 }
 </script>
 
