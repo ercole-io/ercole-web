@@ -6,7 +6,7 @@
         password: password,
       })
     "
-    class="login-form has-background-grey-lighter"
+    class="login-form"
   >
     <b-field
       label-for="username"
@@ -24,7 +24,7 @@
         data-username
       />
       <template #message>
-        <div v-if="!$v.username.required && $v.username.$error">
+        <div v-if="!$v.username.required && $v.username.$error" class="error">
           {{ required($t('common.fields.username')) }}
         </div>
       </template>
@@ -47,7 +47,7 @@
         data-password
       />
       <template #message>
-        <div v-if="!$v.password.required && $v.password.$error">
+        <div v-if="!$v.password.required && $v.password.$error" class="error">
           {{ required($t('common.fields.password')) }}
         </div>
       </template>
@@ -100,11 +100,26 @@ export default {
 
 <style lang="scss" scoped>
 .login-form {
-  width: 400px;
+  width: 500px;
   padding: 3rem;
   margin: 2rem;
   border-radius: 4px;
-  // background-color: #14e1a0;
+  background-color: transparent;
+
+  button[disabled] {
+    opacity: 0.8;
+  }
+
+  .error {
+    font-size: 14px;
+    padding: 2px 5px;
+    opacity: 0.9;
+    border-radius: 4px;
+    font-weight: bold;
+    text-shadow: 2px 0 40px #fff, -2px 0 40px #fff, 0 2px 40px #fff,
+      0 -2px 40px #fff, 1px 1px 5px #fff, -1px -1px 5px #fff, 1px -1px 5px #fff,
+      -1px 1px 5px #fff;
+  }
 
   .notification {
     font-size: 14px;
