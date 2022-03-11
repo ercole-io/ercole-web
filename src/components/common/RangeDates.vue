@@ -88,9 +88,6 @@ export default {
   display: flex;
   justify-content: flex-end;
   flex-direction: row;
-  margin-right: -3px;
-  margin-top: -10px;
-  margin-bottom: -15px;
 
   .range-dates-field {
     width: 100%;
