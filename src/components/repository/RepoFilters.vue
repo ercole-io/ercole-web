@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply" setMinHeight="558">
     <CustomField :label="$t('common.fields.repoName')">
       <CustomSelect v-model="filters.Name" :options="filteredName" />
     </CustomField>
@@ -67,12 +67,12 @@ export default {
         'OperatingSystem',
         'OperatingSystemFamily',
         'Repository',
-        'Version'
+        'Version',
       ],
       filters: {
-        Installed: ''
+        Installed: '',
       },
-      startDate: null
+      startDate: null,
     }
   },
   created() {
@@ -82,23 +82,23 @@ export default {
     resetFilters() {
       this.filters = {
         Installed: '',
-        ReleaseDate: null
+        ReleaseDate: null,
       }
       this.startDate = null
-    }
+    },
   },
   computed: {
-    ...mapGetters(['getRepository'])
+    ...mapGetters(['getRepository']),
   },
   watch: {
     startDate(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.filters = {
-          ReleaseDate: moment(this.startDate).format('DD/MM/YYYY')
+          ReleaseDate: moment(this.startDate).format('DD/MM/YYYY'),
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

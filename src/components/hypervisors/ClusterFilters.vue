@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply" setMinHeight="558">
     <CustomField :label="$t('common.fields.physicalHost')">
       <CustomAutocomplete
         v-model="filters.virtualizationNode"
@@ -40,8 +40,8 @@ export default {
     return {
       autocompletes: ['virtualizationNode', 'hostname', 'name'],
       filters: {
-        cappedCPU: ''
-      }
+        cappedCPU: '',
+      },
     }
   },
   created() {
@@ -50,13 +50,13 @@ export default {
   methods: {
     resetFilters() {
       this.filters = {
-        cappedCPU: ''
+        cappedCPU: '',
       }
-    }
+    },
   },
   computed: {
-    ...mapGetters(['getCurrentClusterVms'])
-  }
+    ...mapGetters(['getCurrentClusterVms']),
+  },
 }
 </script>
 

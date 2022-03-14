@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply" setMinHeight="558">
     <CustomField :label="$t('common.fields.hostname')">
       <CustomAutocomplete
         v-model="filters.hostname"
@@ -54,8 +54,8 @@ export default {
       filters: {
         fourMonths: '',
         sixMonths: '',
-        twelveMonths: ''
-      }
+        twelveMonths: '',
+      },
     }
   },
   created() {
@@ -66,13 +66,13 @@ export default {
       this.filters = {
         fourMonths: '',
         sixMonths: '',
-        twelveMonths: ''
+        twelveMonths: '',
       }
-    }
+    },
   },
   computed: {
-    ...mapGetters(['getOraclePatchAdvisor'])
-  }
+    ...mapGetters(['getOraclePatchAdvisor']),
+  },
 }
 </script>
 

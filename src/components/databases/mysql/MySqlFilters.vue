@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply" setMinHeight="558">
     <CustomField :label="$t('common.fields.name')">
       <CustomAutocomplete
         v-model="filters.name"
@@ -83,12 +83,12 @@ export default {
         'edition',
         'engine',
         'platform',
-        'version'
+        'version',
       ],
       sliders: ['bufferPoolSize'],
       filters: {
-        highAvailability: ''
-      }
+        highAvailability: '',
+      },
     }
   },
   created() {
@@ -97,13 +97,13 @@ export default {
   methods: {
     resetFilters() {
       this.filters = {
-        highAvailability: ''
+        highAvailability: '',
       }
-    }
+    },
   },
   computed: {
-    ...mapGetters(['getAllMysqlDbs'])
-  }
+    ...mapGetters(['getAllMysqlDbs']),
+  },
 }
 </script>
 
