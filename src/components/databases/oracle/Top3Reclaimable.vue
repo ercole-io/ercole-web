@@ -3,14 +3,14 @@
     :title="$t('views.databases.topReclaimable', ['3'])"
     border
     :mbottom="false"
-    class="mt-5 mb-5"
+    class="mb-5"
   >
     <!-- <Top10Link slot="customTitle" /> -->
     <SimpleTable
       :theadData="[
         '',
         $t('common.collumns.hostname'),
-        $t('common.collumns.threadUnused')
+        $t('common.collumns.threadUnused'),
       ]"
     >
       <template slot="tbodyContent">
@@ -39,12 +39,12 @@ export default {
     SimpleTable,
     TdStarIcon,
     HostLink,
-    TdContent
+    TdContent,
     // Top10Link
   },
   computed: {
-    ...mapGetters(['getTop3UnusedIR'])
-  }
+    ...mapGetters(['getTop3UnusedIR']),
+  },
 }
 </script>
 

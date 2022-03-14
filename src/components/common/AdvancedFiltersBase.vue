@@ -1,7 +1,14 @@
 <template>
   <BoxContent :title="title" border :mbottom="false">
-    <div class="static-filters scrollbar-x" id="style-1">
-      <form @submit.prevent="submitAction">
+    <div
+      class="static-filters scrollbar-x"
+      id="style-1"
+      :style="`min-height: ${setMinHeight}px;`"
+    >
+      <form
+        @submit.prevent="submitAction"
+        :style="`min-height: ${setMinHeight}px;`"
+      >
         <slot />
         <ActionButtons
           :applyText="apply"
@@ -22,32 +29,36 @@ export default {
   props: {
     filterTitle: {
       type: String,
-      required: false
+      required: false,
     },
     submitAction: {
       type: Function,
-      required: true
+      required: true,
     },
     applyText: {
       type: String,
-      required: false
+      required: false,
     },
     cancelText: {
       type: String,
-      required: false
+      required: false,
     },
     isDisabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isFixed: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
+    setMinHeight: {
+      type: String,
+      default: null,
+    },
   },
   components: {
     BoxContent,
-    ActionButtons
+    ActionButtons,
   },
   computed: {
     title() {
@@ -64,8 +75,8 @@ export default {
       return this.cancelText
         ? this.cancelText
         : this.$i18n.t('common.forms.reset')
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -73,13 +84,12 @@ export default {
 .static-filters {
   background-color: #f5f5f5;
   overflow: auto;
-  min-height: 600px;
+  max-height: 500px;
   position: relative;
 
   form {
     padding: 25px 20px;
-    // min-height: calc(100vh - 250px);
-    height: 600px;
+    max-height: 500px;
   }
 }
 </style>

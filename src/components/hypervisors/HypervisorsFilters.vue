@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply" setMinHeight="558">
     <CustomField label="VCenter">
       <CustomSelect
         v-model="filters.fetchEndpoint"

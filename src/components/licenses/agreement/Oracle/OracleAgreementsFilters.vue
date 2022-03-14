@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply" setMinHeight="558">
     <CustomField :label="$t('common.fields.agreeNumber')">
       <CustomAutocomplete
         v-model="filters.agreementID"
@@ -98,7 +98,7 @@ import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutoc
 export default {
   mixins: [localFiltersMixin],
   components: {
-    CustomSelectAutocomplete
+    CustomSelectAutocomplete,
   },
   data() {
     return {
@@ -107,20 +107,20 @@ export default {
         'csi',
         'referenceNumber',
         'fullPartNumber',
-        'metric'
+        'metric',
       ],
       selects: ['referenceNumber'],
       sliders: [
         'licensesPerCore',
         'licensesPerUser',
         'availableLicensesPerCore',
-        'availableLicensesPerUser'
+        'availableLicensesPerUser',
       ],
       filters: {
         unlimited: '',
         basket: '',
-        restricted: ''
-      }
+        restricted: '',
+      },
     }
   },
   created() {
@@ -133,16 +133,16 @@ export default {
       this.filters = {
         unlimited: '',
         basket: '',
-        restricted: ''
+        restricted: '',
       }
-    }
+    },
   },
   computed: {
     ...mapGetters(['returnLicensesAgreement']),
     toggleReferenceNumber() {
       return _.some(this.returnLicensesAgreement('oracle'), 'referenceNumber')
-    }
-  }
+    },
+  },
 }
 </script>
 

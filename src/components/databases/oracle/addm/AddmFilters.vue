@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply" setMinHeight="558">
     <CustomField :label="$t('common.fields.perfImpact')">
       <CustomSlider
         v-model="filters.benefit"
@@ -55,15 +55,15 @@ export default {
     return {
       autocompletes: ['hostname', 'dbname', 'action'],
       selects: ['finding', 'recommendation'],
-      sliders: ['benefit']
+      sliders: ['benefit'],
     }
   },
   created() {
     this.fullData = this.getOracleAddms
   },
   computed: {
-    ...mapGetters(['getOracleAddms'])
-  }
+    ...mapGetters(['getOracleAddms']),
+  },
 }
 </script>
 
