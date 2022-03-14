@@ -2,6 +2,10 @@
   <div>
     <BoxContent
       :title="`${$t('views.hostDetails.databases')} (${countDatabases})`"
+      border
+      hasShadow
+      mbottom="false"
+      customStyle="padding: 0"
     >
       <SearchInput
         :searchPlaceholder="$t('views.hostDetails.searchBy')"
@@ -54,8 +58,8 @@ export default {
     HbuttonScroll,
     MysqlDatabases,
     NoContent,
-    AdvancedFiltersButton
-  }
+    AdvancedFiltersButton,
+  },
 }
 </script>
 

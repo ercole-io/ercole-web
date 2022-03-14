@@ -1,10 +1,16 @@
 <template>
   <BoxContent
     :title="`${$t('views.hostDetails.cpuUsage')} (${dbSelected}/${dbTotal})`"
+    border
+    hasShadow
+    mbottom="false"
+    customStyle="padding: 0"
+    customStyleTitle="height: 40px;"
     v-if="showChart"
   >
     <div
       class="is-flex is-flex-direction-row is-justify-content-space-between is-align-content-flex-start"
+      style="padding: 0 10px"
     >
       <SearchableMultiSelect
         :selected="selectedDatabases"
@@ -70,7 +76,7 @@ export default {
 
 <style lang="scss" scoped>
 .chart-space {
-  padding-top: 22px;
+  padding-top: 10px;
 }
 
 .selected-text {
