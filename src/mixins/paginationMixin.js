@@ -5,7 +5,7 @@ export default {
     return {
       currentPage: 1,
       totalPages: 0,
-      perPage: 20,
+      perPage: 25,
       maxPageLinks: 5,
     }
   },
