@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply" setMinHeight="558">
     <CustomField :label="$t('common.fields.fullAgreement')">
       <CustomSelectAutocomplete
         v-model="filters.fullPartNumber"
@@ -67,7 +67,7 @@ import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutoc
 export default {
   mixins: [localFiltersMixin],
   components: {
-    CustomSelectAutocomplete
+    CustomSelectAutocomplete,
   },
   data() {
     return {
@@ -78,11 +78,11 @@ export default {
         'compliance',
         'licenseAvailable',
         'purchased',
-        'available'
+        'available',
       ],
       filters: {
-        unlimited: ''
-      }
+        unlimited: '',
+      },
     }
   },
   created() {
@@ -91,13 +91,13 @@ export default {
   methods: {
     resetFilters() {
       this.filters = {
-        unlimited: ''
+        unlimited: '',
       }
-    }
+    },
   },
   computed: {
-    ...mapGetters(['getLicensesCompliance'])
-  }
+    ...mapGetters(['getLicensesCompliance']),
+  },
 }
 </script>
 

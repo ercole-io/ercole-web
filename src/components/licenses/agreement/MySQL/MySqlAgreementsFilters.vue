@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply" setMinHeight="558">
     <CustomField :label="$t('common.fields.type')">
       <CustomSelect v-model="filters.type" :options="filteredtype" />
     </CustomField>
@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       autocompletes: ['agreementID', 'csi', 'numberOfLicenses'],
-      selects: ['type']
+      selects: ['type'],
     }
   },
   created() {
@@ -49,8 +49,8 @@ export default {
     bus.$on('onTabChange', () => this.reset())
   },
   computed: {
-    ...mapGetters(['returnLicensesAgreement'])
-  }
+    ...mapGetters(['returnLicensesAgreement']),
+  },
 }
 </script>
 

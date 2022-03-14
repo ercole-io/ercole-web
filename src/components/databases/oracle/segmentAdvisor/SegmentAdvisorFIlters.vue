@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="apply" setMinHeight="558">
     <CustomField :label="$t('common.collumns.reclaimable')">
       <CustomSlider
         v-model="filters.reclaimable"
@@ -82,18 +82,18 @@ export default {
         'dbname',
         'segmentOwner',
         'segmentName',
-        'recommendation'
+        'recommendation',
       ],
       selects: ['segmentType'],
-      sliders: ['reclaimable', 'segmentsSize', 'retrieve']
+      sliders: ['reclaimable', 'segmentsSize', 'retrieve'],
     }
   },
   created() {
     this.fullData = this.getOracleSegmentAdvisor
   },
   computed: {
-    ...mapGetters(['getOracleSegmentAdvisor'])
-  }
+    ...mapGetters(['getOracleSegmentAdvisor']),
+  },
 }
 </script>
 
