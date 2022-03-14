@@ -17,7 +17,7 @@
       />
     </TopTable>
 
-    <div class="table-container scrollbar-x" id="style-1">
+    <div class="table-container">
       <v-table
         :data="total"
         :filters="filters"

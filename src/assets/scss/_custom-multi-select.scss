@@ -220,9 +220,6 @@
     max-height: 150px;
     height: 100%;
     overflow-y: auto;
-
-    @extend .scrollbar-y;
-    @extend #style-1
   }
   
   .margin-left-20 {

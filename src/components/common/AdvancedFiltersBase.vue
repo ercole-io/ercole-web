@@ -2,8 +2,6 @@
   <BoxContent :title="title" border :mbottom="false">
     <form
       @submit.prevent="submitAction"
-      class="scrollbar-x"
-      id="style-1"
       :style="`min-height: ${setMinHeight}px;`"
     >
       <slot />
