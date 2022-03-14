@@ -14,7 +14,7 @@
       <option value="100" v-if="totalItems > 100">
         100 {{ $t('common.table.perPage') }}
       </option>
-      <option value="20" v-if="totalItems > 200">
+      <option value="200" v-if="totalItems > 200">
         200 {{ $t('common.table.perPage') }}
       </option>
       <option :value="totalItems">
