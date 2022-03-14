@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply" setMinHeight="558">
+  <AdvancedFiltersBase :submitAction="apply" setMinHeight="560">
     <CustomField :label="$t('common.fields.repoName')">
       <CustomSelect v-model="filters.Name" :options="filteredName" />
     </CustomField>

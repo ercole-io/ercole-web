@@ -1,23 +1,20 @@
 <template>
   <BoxContent :title="title" border :mbottom="false">
-    <div
-      class="static-filters scrollbar-x"
+    <form
+      @submit.prevent="submitAction"
+      class="scrollbar-x"
       id="style-1"
       :style="`min-height: ${setMinHeight}px;`"
     >
-      <form
-        @submit.prevent="submitAction"
-        :style="`min-height: ${setMinHeight}px;`"
-      >
-        <slot />
-        <ActionButtons
-          :applyText="apply"
-          :cancelText="reset"
-          :isDisabled="isDisabled"
-          :isFixed="isFixed"
-        />
-      </form>
-    </div>
+      <slot />
+      <ActionButtons
+        :applyText="apply"
+        :cancelText="reset"
+        :isDisabled="isDisabled"
+        :isFixed="isFixed"
+        :class="verifySetMinHeight"
+      />
+    </form>
   </BoxContent>
 </template>
 
@@ -81,15 +78,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.static-filters {
+form {
   background-color: #f5f5f5;
   overflow: auto;
-  max-height: 500px;
+  max-height: 499px;
   position: relative;
-
-  form {
-    padding: 25px 20px;
-    max-height: 500px;
-  }
+  padding: 20px 20px 0 20px;
 }
 </style>

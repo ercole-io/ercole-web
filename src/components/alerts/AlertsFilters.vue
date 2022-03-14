@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply" setMinHeight="558">
+  <AdvancedFiltersBase :submitAction="apply" setMinHeight="560">
     <CustomField :label="$t('common.fields.status')">
       <CustomSelect v-model="alertStatus" :hasReset="false" fixedOptions>
         <option value="NEW">NEW</option>
