@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply" setMinHeight="558">
+  <AdvancedFiltersBase :submitAction="apply" setMinHeight="560">
     <CustomField :label="$t('common.fields.name')">
       <CustomAutocomplete
         v-model="filters.name"
