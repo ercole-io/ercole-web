@@ -4,7 +4,7 @@
       :title="`${$t('views.hostDetails.databases')} (${countDatabases})`"
       border
       hasShadow
-      mbottom="false"
+      :mbottom="false"
       customStyle="padding: 0"
     >
       <SearchInput
