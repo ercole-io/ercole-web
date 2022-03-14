@@ -8,7 +8,7 @@
     position="fixed"
     :open.sync="isOpenFilters"
   >
-    <div class="has-background-light drawer-wrapper scrollbar-y" id="style-1">
+    <div class="has-background-light drawer-wrapper">
       <b-button
         size="is-small"
         type="is-dark"
@@ -31,11 +31,11 @@ import { bus } from '@/helpers/eventBus.js'
 export default {
   data() {
     return {
-      isOpenFilters: false
+      isOpenFilters: false,
     }
   },
   created() {
-    bus.$on('openFilters', val => {
+    bus.$on('openFilters', (val) => {
       if (!this.isOpenFilters && !val) {
         this.isOpenFilters = true
       } else {
@@ -53,8 +53,8 @@ export default {
       this.isOpenFilters = false
       bus.$emit('closeFilters', this.isOpenFilters)
       this.SET_OPEN_FILTERS(this.isOpenFilters)
-    }
-  }
+    },
+  },
 }
 </script>
 
