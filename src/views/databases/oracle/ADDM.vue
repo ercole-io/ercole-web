@@ -14,6 +14,7 @@
       @clickedRow="handleClickedRow"
       isClickable
       :isLoadingTable="loadingTableStatus"
+      class="ADDM-table-view"
     >
       <template slot="headData">
         <v-th sortKey="benefit" defaultSort="desc">{{
