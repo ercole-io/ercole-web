@@ -1,6 +1,11 @@
 <template>
   <section :style="{ 'background-color': bgcolor }">
-    <h2 class="sub-title" v-if="title" :class="{ 'border-bottom': border }">
+    <h2
+      class="sub-title"
+      v-if="title"
+      :class="{ 'border-bottom': border }"
+      :style="customStyleTitle"
+    >
       {{ title }}
       <slot name="customTitle" />
     </h2>
@@ -39,6 +44,10 @@ export default {
       default: false,
     },
     customStyle: {
+      type: String,
+      default: '',
+    },
+    customStyleTitle: {
       type: String,
       default: '',
     },
