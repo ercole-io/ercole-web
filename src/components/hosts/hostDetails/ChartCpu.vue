@@ -3,7 +3,7 @@
     :title="`${$t('views.hostDetails.cpuUsage')} (${dbSelected}/${dbTotal})`"
     border
     hasShadow
-    mbottom="false"
+    :mbottom="false"
     customStyle="padding: 0"
     customStyleTitle="height: 40px;"
     v-if="showChart"
