@@ -53,7 +53,7 @@
       </template>
     </b-field>
     <b-button
-      type="is-ercole-blue"
+      type="is-custom-primary"
       native-type="submit"
       :disabled="$v.$invalid"
       expanded
@@ -107,7 +107,7 @@ export default {
   background-color: transparent;
 
   button[disabled] {
-    opacity: 0.8;
+    opacity: 1;
   }
 
   .error {
