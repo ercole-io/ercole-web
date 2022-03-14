@@ -12,7 +12,6 @@
         :cancelText="reset"
         :isDisabled="isDisabled"
         :isFixed="isFixed"
-        :class="verifySetMinHeight"
       />
     </form>
   </BoxContent>
@@ -82,7 +81,8 @@ form {
   background-color: #f5f5f5;
   overflow: auto;
   max-height: 499px;
+  min-height: 119px;
   position: relative;
-  padding: 20px 20px 0 20px;
+  padding: 10px 15px 0 15px;
 }
 </style>
