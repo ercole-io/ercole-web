@@ -14,7 +14,6 @@
       @clickedRow="handleClickedRow"
       isClickable
       :isLoadingTable="loadingTableStatus"
-      class="ADDM-table-view"
     >
       <template slot="headData">
         <v-th sortKey="benefit" defaultSort="desc">{{
@@ -30,12 +29,12 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.benefit" />
+        <TdContent :value="rowData.scope.benefit" class="findingColumn" />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
         <TdContent :value="rowData.scope.dbname" />
-        <TdContent :value="rowData.scope.finding" />
+        <TdContent :value="rowData.scope.finding"/>
         <TdContent :value="rowData.scope.recommendation" />
-        <TdContent :value="rowData.scope.action" />
+        <TdContent :value="rowData.scope.action" class="actionColumn" />
       </template>
 
       <ExportButton
@@ -92,4 +91,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.findingColumn{
+  width: 10%;
+}
+.actionColumn{
+  width: 50%;
+}
+</style>
