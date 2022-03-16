@@ -17,10 +17,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import ActionButtons from '@/components/common/Form/ActionButtons.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
-import { mapGetters } from 'vuex'
 
 export default {
   props: {

@@ -1,4 +1,3 @@
-import axiosDefault from '@/axios/axios-default'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import { mountDatabasesChart } from '@/helpers/databasesCharts.js'
 import { returnTechTypePrettyName } from '@/helpers/helpers.js'
@@ -36,9 +35,10 @@ export const mutations = {
 
 export const actions = {
   async getDatabases({ commit, dispatch, getters }) {
+    dispatch('onLoadingTable')
     dispatch('getDatabasesStats')
 
-    const databases = await axiosDefault.get(
+    const databases = await axiosNoLoading.get(
       '/hosts/technologies/all/databases',
       {
         params: {
@@ -49,9 +49,14 @@ export const actions = {
       }
     )
     const response = await databases.data.databases
-    commit('SET_DATABASES', response)
+    if (response) {
+      dispatch('offLoadingTable')
+      commit('SET_DATABASES', response)
+    }
   },
-  async getDatabasesStats({ commit, getters }) {
+  async getDatabasesStats({ commit, dispatch, getters }) {
+    dispatch('onLoadingTable')
+
     const stats = await axiosNoLoading.get(
       '/hosts/technologies/all/databases/statistics',
       {
@@ -63,6 +68,9 @@ export const actions = {
       }
     )
     const response = await stats.data
-    commit('SET_DB_STATS', response)
+    if (response) {
+      dispatch('offLoadingTable')
+      commit('SET_DB_STATS', response)
+    }
   },
 }
