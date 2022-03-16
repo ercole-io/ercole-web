@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import axiosDefault from '@/axios/axios-default.js'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 import { setFullPartNumber } from '@/helpers/helpers.js'
 
 export const state = () => ({
@@ -69,7 +69,7 @@ export const mutations = {
 
 export const actions = {
   async getLicensesList({ commit, getters }) {
-    const licensesList = await axiosDefault.get(
+    const licensesList = await axiosNoLoading.get(
       '/hosts/technologies/all/databases/licenses-used',
       {
         params: {
@@ -91,7 +91,7 @@ export const actions = {
     commit('SET_LICENSE_DATABASES', response)
   },
   async getLicensesPerHost({ commit, getters }) {
-    const licensePerHost = await axiosDefault.get(
+    const licensePerHost = await axiosNoLoading.get(
       '/hosts/technologies/all/databases/licenses-used-per-host',
       {
         params: {
@@ -105,7 +105,7 @@ export const actions = {
     commit('SET_LICENSES_HOST', response)
   },
   async getLicensesCluster({ commit, getters }) {
-    const licensesCluster = await axiosDefault.get(
+    const licensesCluster = await axiosNoLoading.get(
       '/hosts/technologies/all/databases/licenses-used-per-cluster',
       {
         params: {

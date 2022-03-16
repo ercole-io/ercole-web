@@ -13,6 +13,7 @@
       :tableData="getOracleSegmentAdvisor"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="reclaimable">{{ $t('common.fields.reclaimable') }}</v-th>
@@ -122,7 +123,11 @@ export default {
     ...mapActions(['getSegmentAdvisor']),
   },
   computed: {
-    ...mapGetters(['getOracleSegmentAdvisor', 'top10reclaimableChart']),
+    ...mapGetters([
+      'getOracleSegmentAdvisor',
+      'top10reclaimableChart',
+      'loadingTableStatus',
+    ]),
   },
 }
 </script>

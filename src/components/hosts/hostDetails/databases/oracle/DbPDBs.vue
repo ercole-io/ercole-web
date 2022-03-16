@@ -41,6 +41,7 @@
               hidePerpage
               hidePagination
               hideTopTable
+              :isLoadingTable="false"
             >
               <template slot="headData">
                 <v-th sortKey="user">User</v-th>
@@ -69,6 +70,7 @@
               hidePerpage
               hidePagination
               hideTopTable
+              :isLoadingTable="false"
             >
               <template slot="headData">
                 <v-th sortKey="name">Name</v-th>

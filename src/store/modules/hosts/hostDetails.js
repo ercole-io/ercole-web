@@ -376,7 +376,9 @@ export const mutations = {
 }
 
 export const actions = {
-  async getHostByName({ commit, getters }, hostname) {
+  async getHostByName({ commit, getters, dispatch }, hostname) {
+    dispatch('getLicensesByHostName', hostname)
+
     const hostByName = await axiosDefault.get(`/hosts/${hostname}`, {
       params: {
         'older-than': getters.getActiveFilters.date,
