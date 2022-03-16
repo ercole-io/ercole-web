@@ -94,9 +94,7 @@ export default {
       .then(() => {
         this.isMounted = true
       })
-      .then(() => {
-        this.getLicensesByHostName(this.hostname)
-      })
+
     bus.$emit('dynamicTitle', this.hostname)
     bus.$on('isDbFiltersOpen', (val) => {
       this.showDbFilters = val

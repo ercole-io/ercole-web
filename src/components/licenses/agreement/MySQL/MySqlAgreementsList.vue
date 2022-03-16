@@ -5,6 +5,7 @@
       :keys="keys"
       :tableData="returnLicensesAgreement('mysql')"
       :clickedRow="() => []"
+      :isLoadingTable="false"
     >
       <template slot="headData">
         <th colspan="2" style="text-align: center !important">

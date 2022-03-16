@@ -1,5 +1,6 @@
 import axiosDefault from '@/axios/axios-default.js'
 import _ from 'lodash'
+import { setFullPartNumber } from '@/helpers/helpers.js'
 
 const showStrokeColor = (value) => {
   if (value < 100 && value >= 80) {
@@ -33,14 +34,21 @@ export const getters = {
 
 export const mutations = {
   SET_COMPLIANCE_LIST: (state, payload) => {
-    state.complianceList = payload
+    state.complianceList = setFullPartNumber(payload)
   },
 }
 
 export const actions = {
-  async getComplianceList({ commit }) {
+  async getComplianceList({ commit, getters }) {
     const complianceList = await axiosDefault.get(
-      '/hosts/technologies/all/databases/licenses-compliance'
+      '/hosts/technologies/all/databases/licenses-compliance',
+      {
+        params: {
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location,
+        },
+      }
     )
     const response = await complianceList.data.licensesCompliance
 

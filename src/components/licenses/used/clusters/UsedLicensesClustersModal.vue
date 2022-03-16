@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card" style="width: 500px;">
+  <div class="modal-card" style="width: 500px">
     <b-loading
       :is-full-page="false"
       v-model="isLoading"
@@ -28,6 +28,7 @@
         :keys="['hostname']"
         :tableData="returnHosts"
         :clickedRow="() => []"
+        :isLoadingTable="false"
       >
         <template slot="headData">
           <v-th sortKey="hostname" style="width: 100%">Hostname</v-th>
@@ -53,26 +54,26 @@ export default {
   mixins: [TooltipMixin],
   components: {
     FullTable,
-    TdContent
+    TdContent,
   },
   props: {
     hosts: {
       type: [Array, Object],
-      required: true
+      required: true,
     },
-    licenseInfo: {}
+    licenseInfo: {},
   },
   data() {
     return {
-      isLoading: false
+      isLoading: false,
     }
   },
   computed: {
     returnHosts() {
       const hostnames = []
-      _.map(this.hosts, host => {
+      _.map(this.hosts, (host) => {
         hostnames.push({
-          hostname: host
+          hostname: host,
         })
       })
       return hostnames
@@ -82,8 +83,8 @@ export default {
     },
     placeholder() {
       return i18n.t('menu.hosts')
-    }
-  }
+    },
+  },
 }
 </script>
 

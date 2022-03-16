@@ -26,6 +26,7 @@
       @isPageChanged="handleClearAllSelections"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="customTopHeader">
         <div
@@ -299,7 +300,7 @@ export default {
   },
   computed: {
     ...mapState(['alerts']),
-    ...mapGetters(['getAlerts', 'showCheckbox']),
+    ...mapGetters(['getAlerts', 'showCheckbox', 'loadingTableStatus']),
   },
   watch: {
     selectedRows(value) {

@@ -3,6 +3,7 @@
     :placeholder="$t('menu.repository')"
     :keys="keys"
     :tableData="getRepository"
+    :isLoadingTable="false"
   >
     <template slot="headData">
       <v-th sortKey="Download">Copy Path</v-th>
