@@ -5,22 +5,28 @@
     :mbottom="false"
     class="mt-5 mb-5"
   >
-    <!-- <Top10Link slot="customTitle" /> -->
-    <SimpleTable
-      :theadData="[
-        '',
-        $t('common.collumns.hostname'),
-        $t('common.collumns.threadUnused')
-      ]"
+    <GhostLoading
+      :isLoading="loadingTableStatus"
+      setWidth="276"
+      setHeight="190"
     >
-      <template slot="tbodyContent">
-        <tr v-for="(reclaimable, index) in getTop3UnusedIR" :key="index">
-          <TdStarIcon :position="index" />
-          <HostLink :hostname="[reclaimable.hostname, reclaimable.dbname]" />
-          <TdContent :value="reclaimable.unused | formatNumber('0.00')" />
-        </tr>
-      </template>
-    </SimpleTable>
+      <!-- <Top10Link slot="customTitle" /> -->
+      <SimpleTable
+        :theadData="[
+          '',
+          $t('common.collumns.hostname'),
+          $t('common.collumns.threadUnused'),
+        ]"
+      >
+        <template slot="tbodyContent">
+          <tr v-for="(reclaimable, index) in getTop3UnusedIR" :key="index">
+            <TdStarIcon :position="index" />
+            <HostLink :hostname="[reclaimable.hostname, reclaimable.dbname]" />
+            <TdContent :value="reclaimable.unused | formatNumber('0.00')" />
+          </tr>
+        </template>
+      </SimpleTable>
+    </GhostLoading>
   </BoxContent>
 </template>
 
@@ -31,6 +37,7 @@ import SimpleTable from '@/components/common/Table/SimpleTable.vue'
 import TdStarIcon from '@/components/common/Table/TdStarIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 // import Top10Link from '@/components/databases/oracle/Top10Link.vue'
 
 export default {
@@ -39,12 +46,13 @@ export default {
     SimpleTable,
     TdStarIcon,
     HostLink,
-    TdContent
+    TdContent,
+    GhostLoading,
     // Top10Link
   },
   computed: {
-    ...mapGetters(['getTop3UnusedIR'])
-  }
+    ...mapGetters(['getTop3UnusedIR', 'loadingTableStatus']),
+  },
 }
 </script>
 
