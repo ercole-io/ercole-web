@@ -65,7 +65,11 @@ Chartkick.options = {
 Vue.use(SmartTable)
 Vue.use(Vuelidate)
 Vue.use(VTooltip, {
-  defaultHtml: false,
+  defaultHtml: true,
+  autoHide: false,
+  defaultHideOnTargetClick: true,
+  defaultClass: 'info',
+  defaultTrigger: 'hover focus',
 })
 Vue.use(ClickCopy)
 Vue.use(vueFilterPrettyBytes)
