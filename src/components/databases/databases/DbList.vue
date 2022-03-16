@@ -6,6 +6,7 @@
   >
     <div slot="left">
       <MoreInfoButtons :buttonItems="databasesMoreInfo" />
+
       <DbFilters />
     </div>
 
