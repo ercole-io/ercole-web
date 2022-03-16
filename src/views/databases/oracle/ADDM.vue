@@ -32,7 +32,7 @@
         <TdContent :value="rowData.scope.benefit" class="findingColumn" />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
         <TdContent :value="rowData.scope.dbname" />
-        <TdContent :value="rowData.scope.finding"/>
+        <TdContent :value="rowData.scope.finding" />
         <TdContent :value="rowData.scope.recommendation" />
         <TdContent :value="rowData.scope.action" class="actionColumn" />
       </template>
@@ -80,7 +80,10 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getAddms().then(() => (this.isMounted = true))
+    await this.getAddms()
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getAddms']),
@@ -92,10 +95,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.findingColumn{
+.findingColumn {
   width: 10%;
 }
-.actionColumn{
+.actionColumn {
   width: 50%;
 }
 </style>
