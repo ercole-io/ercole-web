@@ -13,6 +13,7 @@
       :tableData="getCurrentClusterVms"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="virtualizationNode">{{
@@ -135,6 +136,7 @@ export default {
       'getClusterChartData',
       'getCurrentCluster',
       'getCurrentClusterVms',
+      'loadingTableStatus',
     ]),
   },
 }

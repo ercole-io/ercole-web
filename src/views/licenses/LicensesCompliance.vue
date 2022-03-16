@@ -6,6 +6,7 @@
     v-if="isMounted"
   >
     <LicensesComplianceFilters slot="left" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.licCompliance')"
@@ -13,6 +14,7 @@
       :tableData="getLicensesCompliance"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="licenseTypeID">
@@ -134,7 +136,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getLicensesCompliance']),
+    ...mapGetters(['getLicensesCompliance', 'loadingTableStatus']),
   },
 }
 </script>

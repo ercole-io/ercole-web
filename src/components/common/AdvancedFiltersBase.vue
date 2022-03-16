@@ -1,23 +1,27 @@
 <template>
   <BoxContent :title="title" border :mbottom="false">
-    <form
-      @submit.prevent="submitAction"
-      :style="`min-height: ${setMinHeight}px;`"
-    >
-      <slot />
-      <ActionButtons
-        :applyText="apply"
-        :cancelText="reset"
-        :isDisabled="isDisabled"
-        :isFixed="isFixed"
-      />
-    </form>
+    <GhostLoading :isLoading="loadingTableStatus" setHeight="500">
+      <form
+        @submit.prevent="submitAction"
+        :style="`min-height: ${setMinHeight}px;`"
+      >
+        <slot />
+        <ActionButtons
+          :applyText="apply"
+          :cancelText="reset"
+          :isDisabled="isDisabled"
+          :isFixed="isFixed"
+        />
+      </form>
+    </GhostLoading>
   </BoxContent>
 </template>
 
 <script>
 import BoxContent from '@/components/common/BoxContent.vue'
 import ActionButtons from '@/components/common/Form/ActionButtons.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -53,8 +57,10 @@ export default {
   components: {
     BoxContent,
     ActionButtons,
+    GhostLoading,
   },
   computed: {
+    ...mapGetters(['loadingTableStatus']),
     title() {
       return this.filterTitle
         ? this.filterTitle

@@ -13,6 +13,7 @@
       :tableData="getOraclePatchAdvisor"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
@@ -107,7 +108,7 @@ export default {
     ...mapActions(['getPatchAdvisor']),
   },
   computed: {
-    ...mapGetters(['getOraclePatchAdvisor']),
+    ...mapGetters(['getOraclePatchAdvisor', 'loadingTableStatus']),
   },
 }
 </script>

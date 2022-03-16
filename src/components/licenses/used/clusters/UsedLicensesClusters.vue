@@ -12,6 +12,7 @@
       :urlSearchParam="partNumber"
       :keys="keys"
       :tableData="getUsedLicensesByCluster"
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="cluster">
@@ -103,9 +104,6 @@ export default {
       ],
     }
   },
-  mounted() {
-    this.getUsedLicensesByCluster
-  },
   methods: {
     openModal(info) {
       this.$buefy.modal.open({
@@ -122,7 +120,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByCluster']),
+    ...mapGetters(['getUsedLicensesByCluster', 'loadingTableStatus']),
   },
 }
 </script>

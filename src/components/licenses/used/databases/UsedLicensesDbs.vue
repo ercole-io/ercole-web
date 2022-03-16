@@ -5,6 +5,7 @@
     :centerCol="9"
   >
     <UsedLicensesDbsFilters slot="left" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.licUsed')"
@@ -13,6 +14,7 @@
       :tableData="getUsedLicensesByDbs"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="ignore" class="has-text-centered">Ignore License</v-th>
@@ -105,7 +107,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByDbs']),
+    ...mapGetters(['getUsedLicensesByDbs', 'loadingTableStatus']),
   },
 }
 </script>

@@ -14,6 +14,7 @@
       :tableData="getUsedLicensesByHost"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
@@ -106,9 +107,6 @@ export default {
       ],
     }
   },
-  mounted() {
-    this.getUsedLicensesByHost
-  },
   methods: {
     openModal(info) {
       this.$buefy.modal.open({
@@ -127,7 +125,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByHost']),
+    ...mapGetters(['getUsedLicensesByHost', 'loadingTableStatus']),
   },
 }
 </script>
