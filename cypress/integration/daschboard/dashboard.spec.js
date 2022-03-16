@@ -23,7 +23,7 @@ describe('Dashboard Suite', () => {
       cy.get('[data-cy="licenses-tab"]').should('be.visible')
     })
 
-    it.only('will select a diferent license and dates and then reset to default', () => {
+    it('will select a diferent license and dates and then reset to default', () => {
       cy.get('@history').then((hist) => {
         const toSelect =
           hist.response.body.licenseComplianceHistory[5].licenseTypeID
