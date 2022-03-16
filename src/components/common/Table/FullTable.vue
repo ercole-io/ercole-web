@@ -29,7 +29,6 @@
         :selectionMode="modeSelection"
         :selectedClass="classSelection"
         class="vTable-custom"
-        style="margin-bottom: 10px"
       >
         <thead slot="head">
           <slot name="customHeadData" />
