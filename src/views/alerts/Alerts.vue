@@ -143,7 +143,6 @@
 
         <TdContent
           :value="rowData.scope.description"
-          tooltipPlace="left"
           v-if="rowData.scope.description.length < 100"
         />
         <td v-if="rowData.scope.description.length > 100">
