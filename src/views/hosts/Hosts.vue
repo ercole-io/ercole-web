@@ -3,10 +3,10 @@
     getPage="hosts"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
-    v-if="isMounted"
   >
     <div slot="left">
       <MoreInfoButtons :buttonItems="hostsMoreInfo" />
+
       <HostsFilters />
     </div>
     <BoxContent slot="center" :mbottom="false">
@@ -16,6 +16,7 @@
         :tableData="getAllHosts"
         @clickedRow="handleClickedRow"
         isClickable
+        :isLoadingTable="loadingTableStatus"
       >
         <div
           slot="customTopHeader"
@@ -27,7 +28,7 @@
             icon-right="sync-alt"
             icon-pack="fas"
             size="is-small"
-            @click="updateHostData"
+            @click="getHostData"
             v-tooltip="options('Update Host Data', null, 'auto')"
           />
         </div>
@@ -120,7 +121,6 @@
 </template>
 
 <script>
-//
 import { mapGetters, mapActions, mapState } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
@@ -158,32 +158,29 @@ export default {
   },
   data() {
     return {
-      isMounted: false,
       hostsHead: hostsHead,
       hostsMoreInfo: hostsMoreInfo,
     }
   },
-  async beforeMount() {
+  beforeMount() {
     if (this.getAllHosts.length > 0) {
-      this.isMounted = true
+      this.offLoadingTable()
     } else {
-      await this.getHostData()
+      this.getHostData()
     }
   },
   methods: {
-    ...mapActions(['getHosts']),
+    ...mapActions(['getHosts', 'offLoadingTable', 'onLoadingTable']),
     getHostData() {
-      this.getHosts().then(() => (this.isMounted = true))
-    },
-    updateHostData() {
-      this.getHostData()
+      this.onLoadingTable()
+      this.getHosts().then(() => this.offLoadingTable())
     },
     formatDate(date) {
       return formatDate(date)
     },
   },
   computed: {
-    ...mapGetters(['getAllHosts']),
+    ...mapGetters(['getAllHosts', 'loadingTableStatus']),
     ...mapState(['moreInfoToggle']),
   },
 }

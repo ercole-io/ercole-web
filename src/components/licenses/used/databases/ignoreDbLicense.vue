@@ -1,5 +1,5 @@
 <template>
-  <td class="has-text-centered">
+  <td class="has-text-centered p-0">
     <b-button
       type="is-ghost"
       size="is-small"

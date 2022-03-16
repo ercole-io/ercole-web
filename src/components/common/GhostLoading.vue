@@ -18,27 +18,29 @@ export default {
   props: {
     setElement: {
       type: String,
-      default: 'div'
+      default: 'div',
     },
     isLoading: {
       type: Boolean,
-      default: true
+      default: true,
     },
     isCircle: {
       type: Boolean,
-      default: false
+      default: false,
     },
     setWidth: {
-      type: [String, Number]
+      type: [String, Number],
+      default: '100%',
     },
     setHeight: {
-      type: [String, Number]
+      type: [String, Number],
+      default: '100%',
     },
     setSize: {
       type: String,
-      default: 'is-small'
-    }
-  }
+      default: 'is-small',
+    },
+  },
 }
 </script>
 

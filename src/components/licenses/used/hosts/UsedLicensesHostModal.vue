@@ -29,6 +29,7 @@
         :keys="['dbname']"
         :tableData="returnDatabases"
         :clickedRow="() => []"
+        :isLoadingTable="false"
       >
         <template slot="headData">
           <v-th sortKey="dbname" style="width: 100%">Database Name</v-th>

@@ -16,6 +16,7 @@
       :tableData="getAllDatabases"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <DynamicHeading
         slot="headData"
@@ -112,7 +113,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getAllDatabases']),
+    ...mapGetters(['getAllDatabases', 'loadingTableStatus']),
     ...mapState(['moreInfoToggle']),
   },
 }

@@ -6,7 +6,7 @@
     icon-right-clickable
     @icon-right-click="onClear"
     size="is-small"
-    style="height: 30px; margin-left: auto;"
+    style="height: 30px; margin-left: auto"
     :placeholder="searchPlaceholder"
     @blur="onBlur"
     v-model="searchTherm"
@@ -20,33 +20,39 @@ export default {
   props: {
     value: {
       type: String,
-      default: ''
+      default: '',
     },
     searchPlaceholder: {
       type: String,
-      default: 'Search'
+      default: 'Search',
     },
     urlParam: {
       type: String,
       default: '',
-      required: false
+      required: false,
     },
     onBlur: {
       type: Function,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   data() {
     return {
-      searchTherm: ''
+      searchTherm: '',
     }
   },
   mounted() {
     this.searchTherm = this.urlParam
     this.emitSearchTherm(this.searchTherm)
 
-    bus.$on('sendSearchVal', val => {
+    bus.$on('sendSearchVal', (val) => {
       this.searchTherm = val
+    })
+
+    bus.$on('changePerPage', () => {
+      setTimeout(() => {
+        this.emitSearchTherm(this.searchTherm)
+      }, 10)
     })
   },
   methods: {
@@ -57,7 +63,7 @@ export default {
     onClear() {
       this.searchTherm = ''
       this.emitSearchTherm(this.searchTherm)
-    }
+    },
   },
   watch: {
     searchTherm(value) {
@@ -66,8 +72,8 @@ export default {
       } else {
         this.emitSearchTherm('')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -7,6 +7,7 @@
       hidePerpage
       hidePagination
       hideTopTable
+      :isLoadingTable="false"
     >
       <template slot="headData">
         <v-th sortKey="ignored">Ignore License</v-th>

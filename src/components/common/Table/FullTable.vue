@@ -38,32 +38,38 @@
           </tr>
           <slot name="subCustomHeadData" />
         </thead>
-        <tbody
-          slot="body"
-          slot-scope="{ displayData }"
-          v-if="displayData.length > 0"
-        >
-          <span style="display: none">
-            {{ getDataLength(displayData) }}
-          </span>
-          <v-tr
-            v-for="(row, index) in displayData"
-            :key="index"
-            :row="row"
-            :class="{ 'table-info': row.isChecked }"
-          >
-            <slot name="bodyData" :scope="row" />
-          </v-tr>
-        </tbody>
-        <tbody v-else>
-          <tr>
-            <td style="height: 200px" colspan="50">
-              <span style="display: none">
-                {{ getDataLength('noData') }}
-              </span>
-              <NoContent noContentText="No Data Results" />
-            </td>
-          </tr>
+
+        <tbody slot="body" slot-scope="{ displayData }" class="is-relative">
+          <template v-if="!isLoadingTable && displayData.length > 0">
+            <span style="display: none">
+              {{ getDataLength(displayData) }}
+            </span>
+            <v-tr
+              v-for="(row, index) in displayData"
+              :key="index"
+              :row="row"
+              :class="{ 'table-info': row.isChecked }"
+            >
+              <slot name="bodyData" :scope="row" />
+            </v-tr>
+          </template>
+          <template v-if="!isLoadingTable && displayData.length <= 0">
+            <tr>
+              <td style="height: 250px" colspan="50">
+                <span style="display: none">
+                  {{ getDataLength('noData') }}
+                </span>
+                <NoContent noContentText="No Data Results" />
+              </td>
+            </tr>
+          </template>
+          <template v-if="isLoadingTable">
+            <tr>
+              <td style="height: 250px" colspan="50">
+                <Loading :isLoading="isLoadingTable" />
+              </td>
+            </tr>
+          </template>
         </tbody>
       </v-table>
     </div>
@@ -103,6 +109,7 @@ import FilteredResults from '@/components/common/Table/FilteredResults.vue'
 import ShowPerPage from '@/components/common/Table/ShowPerPage.vue'
 import NoContent from '@/components/common/NoContent.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
+import Loading from '@/components/common/Loading.vue'
 import i18n from '@/i18n.js'
 
 export default {
@@ -152,6 +159,10 @@ export default {
       type: String,
       required: false,
     },
+    isLoadingTable: {
+      type: Boolean,
+      default: true,
+    },
   },
   components: {
     TopTable,
@@ -161,6 +172,7 @@ export default {
     ShowPerPage,
     NoContent,
     SearchInput,
+    Loading,
   },
   data() {
     return {

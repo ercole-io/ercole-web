@@ -1,6 +1,12 @@
 <template>
-  <section v-if="isMounted">
-    <b-tabs size="is-small" type="is-boxed" class="block" @input="onTabChange">
+  <section>
+    <b-tabs
+      size="is-small"
+      type="is-boxed"
+      class="block"
+      destroy-on-hide
+      @input="onTabChange"
+    >
       <b-tab-item label="Databases">
         <UsedLicensesDbs :partNumber="partNumber" />
       </b-tab-item>
@@ -25,35 +31,34 @@ export default {
   components: {
     UsedLicensesDbs,
     UsedLicensesHost,
-    UsedLicensesClusters
+    UsedLicensesClusters,
   },
   props: {
     partNumber: {
       type: String,
-      required: false
-    }
-  },
-  data() {
-    return {
-      isMounted: false
-    }
+      required: false,
+    },
   },
   async beforeMount() {
-    await this.getLicensesCluster()
-    await this.getLicensesPerHost()
-
-    await this.getLicensesList().then(() => (this.isMounted = true))
+    this.onLoadingTable()
+    await this.getLicensesList().then(() => this.offLoadingTable())
+    this.onLoadingTable()
+    await this.getLicensesPerHost().then(() => this.offLoadingTable())
+    this.onLoadingTable()
+    await this.getLicensesCluster().then(() => this.offLoadingTable())
   },
   methods: {
     ...mapActions([
       'getLicensesList',
       'getLicensesPerHost',
-      'getLicensesCluster'
+      'getLicensesCluster',
+      'onLoadingTable',
+      'offLoadingTable',
     ]),
     onTabChange() {
       bus.$emit('onUsedTabChange')
-    }
-  }
+    },
+  },
 }
 </script>
 

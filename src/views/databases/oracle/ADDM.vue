@@ -13,9 +13,12 @@
       :tableData="getOracleAddms"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
-        <v-th sortKey="benefit">{{ $t('common.collumns.perfImpact') }}</v-th>
+        <v-th sortKey="benefit" defaultSort="desc">{{
+          $t('common.collumns.perfImpact')
+        }}</v-th>
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
         <v-th sortKey="dbname">{{ $t('common.collumns.databases') }}</v-th>
         <v-th sortKey="finding">{{ $t('common.collumns.finding') }}</v-th>
@@ -26,12 +29,12 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.benefit" />
+        <TdContent :value="rowData.scope.benefit" class="findingColumn" />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
         <TdContent :value="rowData.scope.dbname" />
-        <TdContent :value="rowData.scope.finding" />
+        <TdContent :value="rowData.scope.finding"/>
         <TdContent :value="rowData.scope.recommendation" />
-        <TdContent :value="rowData.scope.action" />
+        <TdContent :value="rowData.scope.action" class="actionColumn" />
       </template>
 
       <ExportButton
@@ -61,7 +64,7 @@ export default {
     ExportButton,
     TdContent,
     HostLink,
-    AddmFilters
+    AddmFilters,
   },
   data() {
     return {
@@ -71,21 +74,28 @@ export default {
         'dbname',
         'finding',
         'recommendation',
-        'action'
+        'action',
       ],
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
     await this.getAddms().then(() => (this.isMounted = true))
   },
   methods: {
-    ...mapActions(['getAddms'])
+    ...mapActions(['getAddms']),
   },
   computed: {
-    ...mapGetters(['getOracleAddms'])
-  }
+    ...mapGetters(['getOracleAddms', 'loadingTableStatus']),
+  },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.findingColumn{
+  width: 10%;
+}
+.actionColumn{
+  width: 50%;
+}
+</style>

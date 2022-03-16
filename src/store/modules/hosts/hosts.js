@@ -1,4 +1,4 @@
-import axiosDefault from '@/axios/axios-default'
+// import axiosDefault from '@/axios/axios-default'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
 import { mapClustStatus } from '@/helpers/helpers.js'
@@ -55,7 +55,7 @@ export const actions = {
 
     let hostsData
     if (router.currentRoute.name === 'hosts') {
-      hostsData = await axiosDefault.get('/hosts?mode=summary', {
+      hostsData = await axiosNoLoading.get('/hosts?mode=summary', {
         params: params,
       })
     } else {

@@ -67,22 +67,15 @@ import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutoc
 export default {
   mixins: [localFiltersMixin],
   components: {
-    CustomSelectAutocomplete
+    CustomSelectAutocomplete,
   },
   data() {
     return {
       autocompletes: ['fullPartNumber', 'metric'],
-      sliders: [
-        'consumed',
-        'covered',
-        'compliance',
-        'licenseAvailable',
-        'purchased',
-        'available'
-      ],
+      sliders: ['consumed', 'covered', 'compliance', 'purchased', 'available'],
       filters: {
-        unlimited: ''
-      }
+        unlimited: '',
+      },
     }
   },
   created() {
@@ -91,13 +84,13 @@ export default {
   methods: {
     resetFilters() {
       this.filters = {
-        unlimited: ''
+        unlimited: '',
       }
-    }
+    },
   },
   computed: {
-    ...mapGetters(['getLicensesCompliance'])
-  }
+    ...mapGetters(['getLicensesCompliance']),
+  },
 }
 </script>
 

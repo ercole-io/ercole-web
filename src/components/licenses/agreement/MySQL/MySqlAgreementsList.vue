@@ -5,9 +5,10 @@
       :keys="keys"
       :tableData="returnLicensesAgreement('mysql')"
       :clickedRow="() => []"
+      :isLoadingTable="false"
     >
       <template slot="headData">
-        <th colspan="2" style="text-align: center !important;">
+        <th colspan="2" style="text-align: center !important">
           {{ $t('common.collumns.actions') }}
         </th>
         <v-th sortKey="type">
@@ -27,7 +28,7 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <td style="min-width: 0;">
+        <td style="min-width: 0">
           <b-icon
             v-tooltip="options($t('common.general.edit'))"
             type="is-info"
@@ -37,7 +38,7 @@
             @click.native="editAgreement(rowData.scope)"
           />
         </td>
-        <td style="min-width: 0;">
+        <td style="min-width: 0">
           <b-icon
             v-tooltip="options($t('common.general.delete'))"
             type="is-danger"
@@ -114,11 +115,11 @@ export default {
   components: {
     FullTable,
     TdContent,
-    ExportButton
+    ExportButton,
   },
   data() {
     return {
-      keys: ['type', 'numberOfLicenses', 'clusters', 'hosts']
+      keys: ['type', 'numberOfLicenses', 'clusters', 'hosts'],
     }
   },
   methods: {
@@ -132,11 +133,11 @@ export default {
         props: {
           agreementType: type,
           agreementData: data,
-          agreementNumber: agreeID
-        }
+          agreementNumber: agreeID,
+        },
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

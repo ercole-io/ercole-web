@@ -7,6 +7,7 @@
       hidePerpage
       hidePagination
       hideTopTable
+      :isLoadingTable="false"
     >
       <template slot="headData">
         <v-th sortKey="weekDays">Days of the Week</v-th>
@@ -36,19 +37,19 @@ export default {
   components: {
     FullTable,
     TdContent,
-    TdArray
+    TdArray,
   },
   props: {
     backups: {
       type: Array,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
     return {
-      keys: ['weekDays', 'hour', 'backupType', 'avgBckSize', 'retention']
+      keys: ['weekDays', 'hour', 'backupType', 'avgBckSize', 'retention'],
     }
-  }
+  },
 }
 </script>
 

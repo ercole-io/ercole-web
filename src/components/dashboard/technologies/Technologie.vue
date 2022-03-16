@@ -3,7 +3,7 @@
     <div class="technologies">
       <div class="technologies-list">
         <div class="image">
-          <GhostLoading :isLoading="loading" setHeight="30" setWidth="30">
+          <GhostLoading :isLoading="loading" setHeight="40" setWidth="40">
             <img
               src="@/assets/images/ercole-logo-no-text.png"
               v-if="!loading"
@@ -26,15 +26,15 @@
         <div class="progress">
           <GhostLoading
             :isLoading="loading"
-            setHeight="50"
-            setWidth="50"
+            setHeight="70"
+            setWidth="70"
             isCircle
           >
             <Progress
-              :radius="20"
+              :radius="25"
               :value="getTotalTarget.perc"
               :strokeColor="getTotalTarget.extra.color"
-              :strokeWidth="5"
+              :strokeWidth="7"
               :transitionDuration="2000"
               v-if="!loading"
             />
@@ -48,7 +48,7 @@
         :key="tech.id || i"
       >
         <div class="image">
-          <GhostLoading :isLoading="loading" setHeight="30" setWidth="30">
+          <GhostLoading :isLoading="loading" setHeight="40" setWidth="40">
             <img
               v-bind:src="`data:image/jpeg;base64,${tech.extra.logo}`"
               v-if="!loading"
@@ -71,15 +71,15 @@
         <div class="progress">
           <GhostLoading
             :isLoading="loading"
-            setHeight="50"
-            setWidth="50"
+            setHeight="70"
+            setWidth="70"
             isCircle
           >
             <Progress
-              :radius="20"
+              :radius="25"
               :value="tech.perc"
               :strokeColor="tech.extra.color"
-              :strokeWidth="5"
+              :strokeWidth="7"
               :transitionDuration="2000"
               v-if="!loading"
             />
@@ -125,8 +125,8 @@ export default {
 <style lang="scss" scoped>
 .technologies {
   display: flex;
-  max-width: 625px;
-  width: 0;
+  max-width: 100%;
+  justify-content: space-between;
 }
 .technologies-list {
   display: flex;
@@ -134,17 +134,17 @@ export default {
   justify-content: flex-end;
   align-items: center;
   padding: 0 3px;
-  min-width: 120px;
+  min-width: 150px;
 
   .image {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     margin: 0 auto;
     display: block;
   }
 
   .tech-name {
-    font-size: 0.75em;
+    font-size: 0.85em;
     font-weight: 500;
     padding: 10px 0;
   }
@@ -153,12 +153,13 @@ export default {
     border-width: 0;
     padding-bottom: 4px;
     list-style: none;
-    font-size: 0.9em;
+    font-size: 1em;
   }
 
   .progress {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
+    text-align: center;
   }
 }
 </style>

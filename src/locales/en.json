@@ -59,7 +59,7 @@
       "agents": "Agents",
       "licenses": "Licenses",
       "engine": "Engine",
-      "cpuUsage": "CPU Usage",
+      "cpuUsage": "Daily Average CPU Time",
       "searchBy": "Search by DB name",
       "search": "Search",
       "compareDb": "Compare Databases",

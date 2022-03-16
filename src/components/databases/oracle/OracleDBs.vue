@@ -16,6 +16,7 @@
       :tableData="getAllOracleDBs"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <DynamicHeading
         slot="headData"
@@ -158,7 +159,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getAllOracleDBs']),
+    ...mapGetters(['getAllOracleDBs', 'loadingTableStatus']),
     ...mapState(['moreInfoToggle']),
   },
 }

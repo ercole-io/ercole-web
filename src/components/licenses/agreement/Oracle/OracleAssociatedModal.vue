@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card" style="width: auto;">
+  <div class="modal-card" style="width: auto">
     <b-loading
       :is-full-page="false"
       v-model="isLoading"
@@ -17,6 +17,7 @@
         :keys="keys"
         :tableData="hostsData"
         :clickedRow="() => []"
+        :isLoadingTable="false"
       >
         <template slot="headData">
           <v-th sortKey="hostname">{{ headData[0] }}</v-th>
@@ -32,7 +33,7 @@
             :class="{
               'has-background-danger-light':
                 rowData.scope.totalCoveredLicensesCount <
-                rowData.scope.consumedLicensesCount
+                rowData.scope.consumedLicensesCount,
             }"
           />
           <TdContent
@@ -40,7 +41,7 @@
             :class="{
               'has-background-danger-light':
                 rowData.scope.totalCoveredLicensesCount <
-                rowData.scope.consumedLicensesCount
+                rowData.scope.consumedLicensesCount,
             }"
           />
           <TdContent
@@ -48,7 +49,7 @@
             :class="{
               'has-background-danger-light':
                 rowData.scope.totalCoveredLicensesCount <
-                rowData.scope.consumedLicensesCount
+                rowData.scope.consumedLicensesCount,
             }"
           />
           <TdContent
@@ -56,14 +57,14 @@
             :class="{
               'has-background-danger-light':
                 rowData.scope.totalCoveredLicensesCount <
-                rowData.scope.consumedLicensesCount
+                rowData.scope.consumedLicensesCount,
             }"
           />
           <td
             :class="{
               'has-background-danger-light':
                 rowData.scope.totalCoveredLicensesCount <
-                rowData.scope.consumedLicensesCount
+                rowData.scope.consumedLicensesCount,
             }"
           >
             <b-icon
@@ -97,13 +98,13 @@ export default {
   components: {
     FullTable,
     HostLink,
-    TdContent
+    TdContent,
   },
   props: {
     data: {
       type: [Array, Object],
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
@@ -111,9 +112,9 @@ export default {
         'hostname',
         'coveredLicensesCount',
         'consumedLicensesCount',
-        'totalCoveredLicensesCount'
+        'totalCoveredLicensesCount',
       ],
-      isLoading: false
+      isLoading: false,
     }
   },
   methods: {
@@ -125,7 +126,7 @@ export default {
           `/agreements/oracle/database/${this.licenseID}/hosts/${hostname}`
         )
         .then(() => {
-          this.data.hosts = _.filter(this.data.hosts, val => {
+          this.data.hosts = _.filter(this.data.hosts, (val) => {
             if (val.hostname !== hostname) {
               return val
             }
@@ -134,7 +135,7 @@ export default {
         .then(() => {
           this.isLoading = false
         })
-    }
+    },
   },
   computed: {
     hostsData() {
@@ -158,13 +159,13 @@ export default {
         i18n.t('common.collumns.usedLicenses'),
         i18n.t('common.collumns.agreeCovered'),
         i18n.t('common.collumns.agreeCoveredAll'),
-        i18n.t('common.collumns.actions')
+        i18n.t('common.collumns.actions'),
       ]
     },
     delButton() {
       return i18n.t('common.general.delete')
-    }
-  }
+    },
+  },
 }
 </script>
 

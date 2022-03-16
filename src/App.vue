@@ -2,7 +2,7 @@
   <div id="app">
     <component :is="layout">
       <Suspense>
-        <b-loading :active.sync="loadingStatus" />
+        <Loading :isLoading="loadingStatus" :isFullPage="true" />
         <router-view
           v-if="isConfigLoaded"
           v-show="!loadingStatus"
@@ -15,9 +15,13 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import Loading from '@/components/common/Loading.vue'
 const default_layout = 'default'
 
 export default {
+  components: {
+    Loading,
+  },
   created() {
     this.fetchConfig().then(this.tryAutoLogin).then(this.offLoading)
   },

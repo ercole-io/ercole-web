@@ -4,7 +4,7 @@ import store from '@/store/index.js'
 
 const defaultInstance = axios.create()
 
-defaultInstance.interceptors.request.use(config => {
+defaultInstance.interceptors.request.use((config) => {
   config.baseURL = store.getters.getAPIServiceBaseURL
 
   const token = localStorage.getItem('token')
@@ -14,7 +14,7 @@ defaultInstance.interceptors.request.use(config => {
   return config
 })
 
-defaultInstance.interceptors.response.use(response => {
+defaultInstance.interceptors.response.use((response) => {
   store.dispatch('offLoading')
   return response
 }, errorResponseHandler)

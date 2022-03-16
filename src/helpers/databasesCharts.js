@@ -45,13 +45,15 @@ const chartBySeries = (data, type, title) => {
     seriesData.push({ name: key, value: value.length })
   })
 
-  if (seriesData[0].name === 'true' || seriesData[0].name === 'false') {
-    seriesData = _.orderBy(seriesData, ['name'], ['desc'])
-  } else {
-    seriesData = _.orderBy(seriesData, ['value'], ['desc'])
+  if (seriesData && seriesData[0]) {
+    if (seriesData[0].name === 'true' || seriesData[0].name === 'false') {
+      seriesData = _.orderBy(seriesData, ['name'], ['desc'])
+    } else {
+      seriesData = _.orderBy(seriesData, ['value'], ['desc'])
+    }
   }
 
-  _.map(seriesData, item => {
+  _.map(seriesData, (item) => {
     let name = ''
     if (item.name === 'true') {
       name = 'Yes'
@@ -63,7 +65,7 @@ const chartBySeries = (data, type, title) => {
 
     seriesFinal.push({
       name: name,
-      data: [[title, item.value]]
+      data: [[title, item.value]],
     })
   })
 
