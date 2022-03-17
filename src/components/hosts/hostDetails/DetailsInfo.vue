@@ -20,11 +20,11 @@ import CardList from '@/components/common/CardList.vue'
 export default {
   components: {
     Card,
-    CardList
+    CardList,
   },
   computed: {
-    ...mapGetters(['currentHostInfo'])
-  }
+    ...mapGetters(['currentHostInfo']),
+  },
 }
 </script>
 
