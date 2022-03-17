@@ -8,19 +8,22 @@ import Repositories from '@/components/repository/Repositories.vue'
 
 export default {
   components: {
-    Repositories
+    Repositories,
   },
   data() {
     return {
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
-    await this.requestRepository().then(() => (this.isMounted = true))
+    await this.requestRepository()
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
-    ...mapActions(['requestRepository'])
-  }
+    ...mapActions(['requestRepository']),
+  },
 }
 </script>
 
