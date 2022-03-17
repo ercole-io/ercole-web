@@ -3,7 +3,7 @@
     :placeholder="$t('menu.repository')"
     :keys="keys"
     :tableData="getRepository"
-    :isLoadingTable="false"
+    :isLoadingTable="loadingTableStatus"
   >
     <template slot="headData">
       <v-th sortKey="Download">Copy Path</v-th>
@@ -79,7 +79,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getRepository']),
+    ...mapGetters(['getRepository', 'loadingTableStatus']),
   },
 }
 </script>
