@@ -225,9 +225,10 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getAlertsData({ status: this.alertStatus }).then(
-      () => (this.isMounted = true)
-    )
+    await this.getAlertsData({ status: this.alertStatus })
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),
