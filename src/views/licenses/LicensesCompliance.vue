@@ -117,7 +117,10 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getComplianceList().then(() => (this.isMounted = true))
+    await this.getComplianceList()
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getComplianceList']),
