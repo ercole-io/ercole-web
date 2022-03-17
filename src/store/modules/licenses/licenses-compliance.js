@@ -1,4 +1,4 @@
-import axiosDefault from '@/axios/axios-default.js'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
 import { setFullPartNumber } from '@/helpers/helpers.js'
 
@@ -39,8 +39,10 @@ export const mutations = {
 }
 
 export const actions = {
-  async getComplianceList({ commit, getters }) {
-    const complianceList = await axiosDefault.get(
+  async getComplianceList({ commit, dispatch, getters }) {
+    dispatch('onLoadingTable')
+
+    const complianceList = await axiosNoLoading.get(
       '/hosts/technologies/all/databases/licenses-compliance',
       {
         params: {
@@ -51,7 +53,9 @@ export const actions = {
       }
     )
     const response = await complianceList.data.licensesCompliance
-
-    commit('SET_COMPLIANCE_LIST', response)
+    if (response) {
+      dispatch('offLoadingTable')
+      commit('SET_COMPLIANCE_LIST', response)
+    }
   },
 }
