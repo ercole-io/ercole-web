@@ -2,21 +2,62 @@
   <section v-if="isMounted">
     <div class="columns">
       <div class="column is-8">
-        <Notifications />
+        <GhostLoading
+          :isLoading="loadingTableStatus"
+          setHeight="30"
+          setWidth="360"
+        >
+          <Notifications />
+        </GhostLoading>
       </div>
+
       <div class="column is-4">
         <div class="buttons is-justify-content-flex-end">
-          <FileSystems />
-          <DismissHost />
+          <GhostLoading
+            :isLoading="loadingTableStatus"
+            setHeight="30"
+            setWidth="107"
+            class="ml-2"
+          >
+            <FileSystems />
+          </GhostLoading>
+
+          <GhostLoading
+            :isLoading="loadingTableStatus"
+            setHeight="30"
+            setWidth="109"
+            class="ml-2"
+          >
+            <DismissHost />
+          </GhostLoading>
         </div>
       </div>
     </div>
 
     <!-- <HostTags /> -->
 
-    <DetailsInfo />
+    <div class="columns" v-if="loadingTableStatus">
+      <div class="column is-one-fifth" v-for="i in 5" :key="i">
+        <GhostLoading :isLoading="loadingTableStatus" setHeight="180" />
+      </div>
+    </div>
+    <DetailsInfo v-if="!loadingTableStatus" />
 
-    <div class="columns" v-if="currentHostType">
+    <div class="columns" v-if="loadingTableStatus">
+      <div
+        class="column"
+        :class="{
+          'is-8': currentHostType === 'oracle',
+          'is-12': currentHostType === 'mysql',
+        }"
+      >
+        <GhostLoading :isLoading="loadingTableStatus" setHeight="390" />
+      </div>
+      <div class="column is-4">
+        <GhostLoading :isLoading="loadingTableStatus" setHeight="390" />
+      </div>
+    </div>
+    <div class="columns" v-if="!loadingTableStatus">
       <div
         class="column"
         :class="{
@@ -56,6 +97,7 @@ import DetailsInfo from '@/components/hosts/hostDetails/DetailsInfo.vue'
 import Databases from '@/components/hosts/hostDetails/databases/Databases.vue'
 import ChartCpu from '@/components/hosts/hostDetails/ChartCpu.vue'
 import DatabasesFilters from '@/components/hosts/hostDetails/databases/DatabasesFilters.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   props: {
@@ -79,6 +121,7 @@ export default {
     Databases,
     ChartCpu,
     DatabasesFilters,
+    GhostLoading,
   },
   data() {
     return {
@@ -86,26 +129,31 @@ export default {
       showDbFilters: false,
     }
   },
-  async beforeMount() {
-    await this.getHostByName(this.hostname)
-      .then(() => {
-        this.SET_ACTIVE_DB(this.dbname)
-      })
-      .then(() => {
-        this.isMounted = true
-      })
+  beforeMount() {
+    this.getHostByName(this.hostname).then(() => {
+      this.SET_ACTIVE_DB(this.dbname)
+    })
+    this.getAgreementParts()
+    this.getLicensesByHostName(this.hostname)
 
     bus.$emit('dynamicTitle', this.hostname)
     bus.$on('isDbFiltersOpen', (val) => {
       this.showDbFilters = val
     })
   },
+  mounted() {
+    this.isMounted = true
+  },
   methods: {
-    ...mapActions(['getHostByName', 'getLicensesByHostName']),
+    ...mapActions([
+      'getHostByName',
+      'getLicensesByHostName',
+      'getAgreementParts',
+    ]),
     ...mapMutations(['SET_ACTIVE_DB']),
   },
   computed: {
-    ...mapGetters(['currentHostType', 'currentHostDBs']),
+    ...mapGetters(['currentHostType', 'currentHostDBs', 'loadingTableStatus']),
   },
 }
 </script>
