@@ -14,7 +14,7 @@
       :tableData="getUsedLicensesByHost"
       @clickedRow="handleClickedRow"
       isClickable
-      :isLoadingTable="loadingTableStatus"
+      :isLoadingTable="licensesUsed.hostsLoading"
     >
       <template slot="headData">
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -125,7 +125,8 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByHost', 'loadingTableStatus']),
+    ...mapState(['licensesUsed']),
+    ...mapGetters(['getUsedLicensesByHost']),
   },
 }
 </script>
