@@ -40,15 +40,15 @@ export default {
     },
   },
   beforeMount() {
-    this.getLicensesList()
-    this.getLicensesPerHost()
-    this.getLicensesCluster()
+    this.getLicensesDatabases()
+    this.getLicensesHosts()
+    this.getLicensesClusters()
   },
   methods: {
     ...mapActions([
-      'getLicensesList',
-      'getLicensesPerHost',
-      'getLicensesCluster',
+      'getLicensesDatabases',
+      'getLicensesHosts',
+      'getLicensesClusters',
     ]),
     onTabChange() {
       bus.$emit('onUsedTabChange')

@@ -366,11 +366,11 @@ export default {
       this.editAgreement(data)
     })
 
-    await this.getLicensesPerHost()
+    await this.getLicensesHosts()
     this.licensesUsed = await this.getUsedLicensesByHost
   },
   methods: {
-    ...mapActions(['getLicensesPerHost']),
+    ...mapActions(['getLicensesHosts']),
     ...mapMutations(['CREATE_AGREEMENT']),
     getHostAssociatedList(e) {
       this.hostAssociatedList = []

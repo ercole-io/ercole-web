@@ -6,6 +6,9 @@ export const state = () => ({
   dbsLicensesUsed: [],
   hostsLicensesUsed: [],
   clustersLicensesUsed: [],
+  databasesLoading: false,
+  hostsLoading: false,
+  clustersLoading: false,
 })
 
 export const getters = {
@@ -65,12 +68,21 @@ export const mutations = {
       }
     })
   },
+  ON_LOADING_DATABASES: (state, payload) => {
+    state.databasesLoading = payload
+  },
+  ON_LOADING_HOSTS: (state, payload) => {
+    state.hostsLoading = payload
+  },
+  ON_LOADING_CLUSTERS: (state, payload) => {
+    state.clustersLoading = payload
+  },
 }
 
 export const actions = {
-  async getLicensesList({ commit, dispatch, getters }) {
-    dispatch('onLoadingTable')
-    const licensesList = await axiosNoLoading.get(
+  async getLicensesDatabases({ commit, getters }) {
+    commit('ON_LOADING_DATABASES', true)
+    const licensesUsedDatabases = await axiosNoLoading.get(
       '/hosts/technologies/all/databases/licenses-used',
       {
         params: {
@@ -80,22 +92,22 @@ export const actions = {
         },
       }
     )
-    let response = await licensesList.data.usedLicenses
+    let response = await licensesUsedDatabases.data.usedLicenses
+    response = _.map(response, (val) => {
+      return {
+        ...val,
+        ignore: false,
+      }
+    })
 
     if (response) {
-      response = _.map(response, (val) => {
-        return {
-          ...val,
-          ignore: false,
-        }
-      })
       commit('SET_LICENSE_DATABASES', response)
-      dispatch('offLoadingTable')
+      commit('ON_LOADING_DATABASES', false)
     }
   },
-  async getLicensesPerHost({ commit, dispatch, getters }) {
-    dispatch('onLoadingTable')
-    const licensePerHost = await axiosNoLoading.get(
+  async getLicensesHosts({ commit, getters }) {
+    commit('ON_LOADING_HOSTS', true)
+    const licenseUsedHosts = await axiosNoLoading.get(
       '/hosts/technologies/all/databases/licenses-used-per-host',
       {
         params: {
@@ -105,16 +117,15 @@ export const actions = {
         },
       }
     )
-    const response = await licensePerHost.data.usedLicenses
+    const response = await licenseUsedHosts.data.usedLicenses
     if (response) {
       commit('SET_LICENSES_HOST', response)
-      dispatch('offLoadingTable')
+      commit('ON_LOADING_HOSTS', false)
     }
   },
-  async getLicensesCluster({ commit, dispatch, getters }) {
-    dispatch('onLoadingTable')
-
-    const licensesCluster = await axiosNoLoading.get(
+  async getLicensesClusters({ commit, getters }) {
+    commit('ON_LOADING_CLUSTERS', true)
+    const licensesUsedCluster = await axiosNoLoading.get(
       '/hosts/technologies/all/databases/licenses-used-per-cluster',
       {
         params: {
@@ -124,10 +135,10 @@ export const actions = {
         },
       }
     )
-    const response = await licensesCluster.data.usedLicensesPerCluster
+    const response = await licensesUsedCluster.data.usedLicensesPerCluster
     if (response) {
       commit('SET_LICENSES_CLUSTER', response)
-      dispatch('offLoadingTable')
+      commit('ON_LOADING_CLUSTERS', false)
     }
   },
 }

@@ -1,6 +1,6 @@
 <template>
   <BoxContent :title="title" border :mbottom="false">
-    <GhostLoading :isLoading="loadingTableStatus" setHeight="500">
+    <GhostLoading :isLoading="loading" setHeight="500">
       <div class="static-filters scrollbar-x" id="style-1">
         <form @submit.prevent="submitAction">
           <slot />
@@ -48,6 +48,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    loadingStatus: {
+      type: Boolean,
+      required: false,
+    },
   },
   components: {
     BoxContent,
@@ -70,6 +74,13 @@ export default {
       return this.cancelText
         ? this.cancelText
         : this.$i18n.t('common.forms.reset')
+    },
+    loading() {
+      if (this.loadingTableStatus) {
+        return this.loadingTableStatus
+      } else {
+        return this.loadingStatus
+      }
     },
   },
 }

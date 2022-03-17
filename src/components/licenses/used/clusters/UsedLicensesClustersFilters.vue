@@ -1,5 +1,8 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply">
+  <AdvancedFiltersBase
+    :submitAction="apply"
+    :loadingStatus="licensesUsed.clustersLoading"
+  >
     <CustomField :label="$t('common.fields.cluster')">
       <CustomAutocomplete
         v-model="filters.cluster"
@@ -45,7 +48,7 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutocomplete.vue'
 
@@ -66,6 +69,7 @@ export default {
     bus.$on('onUsedTabChange', () => this.reset(this.resetFilters))
   },
   computed: {
+    ...mapState(['licensesUsed']),
     ...mapGetters(['getUsedLicensesByCluster']),
   },
 }
