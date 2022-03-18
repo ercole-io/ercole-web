@@ -46,41 +46,67 @@
     <div slot="right">
       <BoxContent :title="`Cluster: ${clustername}`" border>
         <div class="is-flex" style="justify-content: space-around">
-          <p class="is-size-7 has-text-centered">
-            {{ $t('views.hypervisors.type') }} <br />
-            <span class="is-size-5 has-text-weight-medium">
-              {{ getTechTypePrettyName(getCurrentCluster.type) || '-' }}
-            </span>
-          </p>
-          <p class="is-size-7 has-text-centered">
-            {{ $t('views.hypervisors.physicalHost') }} <br />
-            <span class="is-size-5 has-text-weight-medium">
-              {{ getCurrentCluster.virtualizationNodesCount || '-' }}
-            </span>
-          </p>
+          <GhostLoading
+            :isLoading="loadingTableStatus"
+            setWidth="62"
+            setHeight="48"
+          >
+            <p class="is-size-7 has-text-centered">
+              {{ $t('views.hypervisors.type') }} <br />
+              <span class="is-size-5 has-text-weight-medium">
+                {{ getTechTypePrettyName(getCurrentCluster.type) || '-' }}
+              </span>
+            </p>
+          </GhostLoading>
+          <GhostLoading
+            :isLoading="loadingTableStatus"
+            setWidth="62"
+            setHeight="48"
+          >
+            <p class="is-size-7 has-text-centered">
+              {{ $t('views.hypervisors.physicalHost') }} <br />
+              <span class="is-size-5 has-text-weight-medium">
+                {{ getCurrentCluster.virtualizationNodesCount || '-' }}
+              </span>
+            </p>
+          </GhostLoading>
         </div>
       </BoxContent>
       <BoxContent>
         <div class="is-flex" style="justify-content: space-around">
-          <p class="is-size-7 has-text-centered">
-            Cores <br />
-            <span class="is-size-5 has-text-weight-medium">
-              {{ getCurrentCluster.cpu || '-' }}
-            </span>
-          </p>
-          <p class="is-size-7 has-text-centered">
-            Sockets <br />
-            <span class="is-size-5 has-text-weight-medium">
-              {{ getCurrentCluster.sockets || '-' }}
-            </span>
-          </p>
+          <GhostLoading
+            :isLoading="loadingTableStatus"
+            setWidth="62"
+            setHeight="48"
+          >
+            <p class="is-size-7 has-text-centered">
+              Cores <br />
+              <span class="is-size-5 has-text-weight-medium">
+                {{ getCurrentCluster.cpu || '-' }}
+              </span>
+            </p>
+          </GhostLoading>
+          <GhostLoading
+            :isLoading="loadingTableStatus"
+            setWidth="62"
+            setHeight="48"
+          >
+            <p class="is-size-7 has-text-centered">
+              Sockets <br />
+              <span class="is-size-5 has-text-weight-medium">
+                {{ getCurrentCluster.sockets || '-' }}
+              </span>
+            </p>
+          </GhostLoading>
         </div>
       </BoxContent>
-      <BarChart
-        chartId="barChart"
-        :barChartData="getClusterChartData"
-        stacked
-      />
+      <GhostLoading :isLoading="loadingTableStatus" setHeight="300">
+        <BarChart
+          chartId="barChart"
+          :barChartData="getClusterChartData"
+          stacked
+        />
+      </GhostLoading>
     </div>
   </ToggleColumns>
 </template>
@@ -100,6 +126,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import ClusterFilters from '@/components/hypervisors/ClusterFilters.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [techTypePrettyName, localFiltersMixin, hostnameLinkRow],
@@ -114,6 +141,7 @@ export default {
     HostLink,
     TdIcon,
     ClusterFilters,
+    GhostLoading,
   },
   data() {
     return {
@@ -123,10 +151,11 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getClusterByName(this.clustername).then(
-      () => (this.isMounted = true)
-    )
+    await this.getClusterByName(this.clustername)
     bus.$emit('dynamicTitle', this.clustername)
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getClusterByName']),

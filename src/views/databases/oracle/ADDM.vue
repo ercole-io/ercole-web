@@ -83,7 +83,10 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getAddms().then(() => (this.isMounted = true))
+    await this.getAddms()
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getAddms']),

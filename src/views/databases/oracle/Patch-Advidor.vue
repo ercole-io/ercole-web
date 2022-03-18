@@ -102,7 +102,10 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getPatchAdvisor().then(() => (this.isMounted = true))
+    await this.getPatchAdvisor()
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getPatchAdvisor']),

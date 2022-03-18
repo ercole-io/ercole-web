@@ -39,21 +39,16 @@ export default {
       required: false,
     },
   },
-  async beforeMount() {
-    this.onLoadingTable()
-    await this.getLicensesList().then(() => this.offLoadingTable())
-    this.onLoadingTable()
-    await this.getLicensesPerHost().then(() => this.offLoadingTable())
-    this.onLoadingTable()
-    await this.getLicensesCluster().then(() => this.offLoadingTable())
+  beforeMount() {
+    this.getLicensesDatabases()
+    this.getLicensesHosts()
+    this.getLicensesClusters()
   },
   methods: {
     ...mapActions([
-      'getLicensesList',
-      'getLicensesPerHost',
-      'getLicensesCluster',
-      'onLoadingTable',
-      'offLoadingTable',
+      'getLicensesDatabases',
+      'getLicensesHosts',
+      'getLicensesClusters',
     ]),
     onTabChange() {
       bus.$emit('onUsedTabChange')

@@ -4,7 +4,10 @@
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
   >
-    <UsedLicensesClustersFilters slot="left" />
+    <UsedLicensesClustersFilters
+      slot="left"
+      :loadingStatus="licensesUsed.clustersLoading"
+    />
 
     <FullTable
       slot="center"
@@ -12,7 +15,7 @@
       :urlSearchParam="partNumber"
       :keys="keys"
       :tableData="getUsedLicensesByCluster"
-      :isLoadingTable="loadingTableStatus"
+      :isLoadingTable="licensesUsed.clustersLoading"
     >
       <template slot="headData">
         <v-th sortKey="cluster">
@@ -60,7 +63,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -120,7 +123,8 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByCluster', 'loadingTableStatus']),
+    ...mapState(['licensesUsed']),
+    ...mapGetters(['getUsedLicensesByCluster']),
   },
 }
 </script>

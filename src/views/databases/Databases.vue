@@ -8,19 +8,22 @@ import DbList from '@/components/databases/databases/DbList.vue'
 
 export default {
   components: {
-    DbList
+    DbList,
   },
   data() {
     return {
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
-    await this.getDatabases().then(() => (this.isMounted = true))
+    await this.getDatabases()
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
-    ...mapActions(['getDatabases'])
-  }
+    ...mapActions(['getDatabases']),
+  },
 }
 </script>
 
