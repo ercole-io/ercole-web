@@ -8,19 +8,30 @@ import OracleDBs from '@/components/databases/oracle/OracleDBs.vue'
 
 export default {
   components: {
-    OracleDBs
+    OracleDBs,
   },
   data() {
     return {
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
-    await this.getOracleDbs().then(() => (this.isMounted = true))
+    await this.getOracleDbs()
+    await this.getTopWorkload()
+    await this.getTopUnusedIR()
+    await this.getOracleStatistics()
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
-    ...mapActions(['getOracleDbs'])
-  }
+    ...mapActions([
+      'getOracleDbs',
+      'getTopWorkload',
+      'getTopUnusedIR',
+      'getOracleStatistics',
+    ]),
+  },
 }
 </script>
 

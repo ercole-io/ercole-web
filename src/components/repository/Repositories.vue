@@ -18,8 +18,8 @@ export default {
   components: {
     ToggleColumns,
     RepoTable,
-    RepoFilters
-  }
+    RepoFilters,
+  },
 }
 </script>
 

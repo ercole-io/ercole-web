@@ -23,21 +23,22 @@ export default {
     ToggleColumns,
     MySqlAgreementsList,
     MySqlAgreementsForm,
-    MySqlAgreementsFilters
+    MySqlAgreementsFilters,
   },
   data() {
     return {
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
-    await this.getLicensesAgreement('mysql').then(() => {
-      this.isMounted = true
-    })
+    await this.getLicensesAgreement('mysql')
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
-    ...mapActions(['getLicensesAgreement'])
-  }
+    ...mapActions(['getLicensesAgreement']),
+  },
 }
 </script>
 
