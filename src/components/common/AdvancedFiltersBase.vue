@@ -1,6 +1,6 @@
 <template>
   <BoxContent :title="title" border :mbottom="false">
-    <GhostLoading :isLoading="loadingTableStatus" setHeight="500">
+    <GhostLoading :isLoading="loading" setHeight="500">
       <form
         @submit.prevent="submitAction"
         :style="`min-height: ${setMinHeight}px;`"
@@ -18,10 +18,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import ActionButtons from '@/components/common/Form/ActionButtons.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
-import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -53,6 +53,10 @@ export default {
       type: String,
       default: null,
     },
+    loadingStatus: {
+      type: Boolean,
+      required: false,
+    },
   },
   components: {
     BoxContent,
@@ -75,6 +79,13 @@ export default {
       return this.cancelText
         ? this.cancelText
         : this.$i18n.t('common.forms.reset')
+    },
+    loading() {
+      if (this.loadingTableStatus) {
+        return this.loadingTableStatus
+      } else {
+        return this.loadingStatus
+      }
     },
   },
 }

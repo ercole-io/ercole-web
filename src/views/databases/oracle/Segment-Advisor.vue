@@ -117,7 +117,10 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getSegmentAdvisor().then(() => (this.isMounted = true))
+    await this.getSegmentAdvisor()
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getSegmentAdvisor']),

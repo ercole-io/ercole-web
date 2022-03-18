@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import moment from 'moment'
-import axiosDefault from '@/axios/axios-default'
+// import axiosDefault from '@/axios/axios-default'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 import {
   mapClustStatus,
   returnAlertsByTypeDate,
@@ -376,10 +377,9 @@ export const mutations = {
 }
 
 export const actions = {
-  async getHostByName({ commit, getters, dispatch }, hostname) {
-    dispatch('getLicensesByHostName', hostname)
-
-    const hostByName = await axiosDefault.get(`/hosts/${hostname}`, {
+  async getHostByName({ commit, dispatch, getters }, hostname) {
+    dispatch('onLoadingTable')
+    const hostByName = await axiosNoLoading.get(`/hosts/${hostname}`, {
       params: {
         'older-than': getters.getActiveFilters.date,
       },
@@ -387,9 +387,12 @@ export const actions = {
 
     const response = await hostByName.data
     commit('SET_CURRENT_HOST', response)
+    if (response) {
+      dispatch('offLoadingTable')
+    }
   },
   async getLicensesByHostName({ commit }, hostname) {
-    const dbsLicenses = await axiosDefault.get(
+    const dbsLicenses = await axiosNoLoading.get(
       `/hosts/${hostname}/technologies/all/databases/licenses-used`
     )
     const dbsLicensesResponse = await dbsLicenses.data.usedLicenses

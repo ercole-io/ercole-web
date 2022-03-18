@@ -8,19 +8,22 @@ import MySqlDbs from '@/components/databases/mysql/MySqlDbs.vue'
 
 export default {
   components: {
-    MySqlDbs
+    MySqlDbs,
   },
   data() {
     return {
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
-    await this.getMysqlDbs().then(() => (this.isMounted = true))
+    await this.getMysqlDbs()
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
-    ...mapActions(['getMysqlDbs'])
-  }
+    ...mapActions(['getMysqlDbs']),
+  },
 }
 </script>
 

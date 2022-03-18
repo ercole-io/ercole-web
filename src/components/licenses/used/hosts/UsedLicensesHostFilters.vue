@@ -1,5 +1,9 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply" setMinHeight="560">
+  <AdvancedFiltersBase
+    :submitAction="apply"
+    :loadingStatus="licensesUsed.hostsLoading"
+    setMinHeight="560"
+  >
     <Collapse :collapses="collapses">
       <template slot="General">
         <CustomField :label="$t('common.fields.hostname')">
@@ -55,7 +59,7 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutocomplete.vue'
 import Collapse from '@/components/common/Collapse.vue'
@@ -79,6 +83,7 @@ export default {
     bus.$on('onUsedTabChange', () => this.reset(this.resetFilters))
   },
   computed: {
+    ...mapState(['licensesUsed']),
     ...mapGetters(['getUsedLicensesByHost']),
   },
 }

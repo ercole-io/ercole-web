@@ -23,25 +23,23 @@ export default {
     ToggleColumns,
     OracleAgreementsList,
     OracleAgreementsForm,
-    OracleAgreementsFilters
+    OracleAgreementsFilters,
   },
   data() {
     return {
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
     await this.getLicensesAgreement('oracle')
-      .then(() => {
-        this.getAgreementParts()
-      })
-      .then(() => {
-        this.isMounted = true
-      })
+    await this.getAgreementParts()
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
-    ...mapActions(['getLicensesAgreement', 'getAgreementParts'])
-  }
+    ...mapActions(['getLicensesAgreement', 'getAgreementParts']),
+  },
 }
 </script>
 

@@ -14,7 +14,7 @@
       :tableData="getUsedLicensesByDbs"
       @clickedRow="handleClickedRow"
       isClickable
-      :isLoadingTable="loadingTableStatus"
+      :isLoadingTable="licensesUsed.databasesLoading"
     >
       <template slot="headData">
         <v-th sortKey="ignore" class="has-text-centered">Ignore License</v-th>
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -107,7 +107,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByDbs', 'loadingTableStatus']),
+    ...mapState(['licensesUsed']),
+    ...mapGetters(['getUsedLicensesByDbs']),
   },
 }
 </script>
