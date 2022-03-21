@@ -5,7 +5,14 @@
     :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
   >
-    <SegnmentAdvisorsFilters slot="left" />
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <SegnmentAdvisorsFilters v-if="!loadingTableStatus" slot="left" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.segAdvisor')"
@@ -85,6 +92,7 @@ import HostLink from '@/components/common/Table/HostLink.vue'
 import SegnmentAdvisorsFilters from '@/components/databases/oracle/segmentAdvisor/SegmentAdvisorFIlters.vue'
 import PieChart from '@/components/common/charts/PieChart.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -97,6 +105,7 @@ export default {
     SegnmentAdvisorsFilters,
     PieChart,
     BoxContent,
+    GhostLoading,
   },
   data() {
     return {

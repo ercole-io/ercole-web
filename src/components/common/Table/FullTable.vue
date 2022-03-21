@@ -5,15 +5,19 @@
         :totalItems="total.length"
         v-if="!hidePerpage"
         class="mb-0"
+        style="min-width: 135px"
       />
 
-      <slot name="customTopHeader" />
+      <div class="is-flex is-justify-content-flex-end" style="width: 100%">
+        <slot name="customTopHeader" />
+      </div>
 
       <SearchInput
         :searchPlaceholder="setPlaceholder"
         v-model="filters.search.value"
         :urlParam="urlSearchParam"
         v-show="!hideSearch"
+        style="min-width: 170px; max-width: 170px"
       />
     </TopTable>
 

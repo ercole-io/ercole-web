@@ -5,7 +5,14 @@
     :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
   >
-    <ClusterFilters slot="left" />
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <ClusterFilters v-if="!loadingTableStatus" slot="left" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.clusters')"

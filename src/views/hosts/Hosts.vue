@@ -5,11 +5,14 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <div slot="left">
-      <MoreInfoButtons :buttonItems="hostsMoreInfo" />
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <HostsFilters v-if="!loadingTableStatus" slot="left" />
 
-      <HostsFilters />
-    </div>
     <BoxContent slot="center" :mbottom="false">
       <FullTable
         :placeholder="$t('menu.hosts')"
@@ -19,20 +22,18 @@
         isClickable
         :isLoadingTable="loadingTableStatus"
       >
-        <div
+        <MoreInfoButtons :buttonItems="hostsMoreInfo" slot="customTopHeader" />
+
+        <b-button
+          type="is-primary"
+          icon-right="sync-alt"
+          icon-pack="fas"
+          size="is-small"
+          @click="getHostData"
+          v-tooltip="options('Update Host Data', null, 'auto')"
           slot="customTopHeader"
-          class="is-flex is-justify-content-flex-end px-3"
-          style="width: 100%"
-        >
-          <b-button
-            type="is-primary"
-            icon-right="sync-alt"
-            icon-pack="fas"
-            size="is-small"
-            @click="getHostData"
-            v-tooltip="options('Update Host Data', null, 'auto')"
-          />
-        </div>
+          class="mr-2"
+        />
 
         <DynamicHeading
           slot="headData"
@@ -141,6 +142,7 @@ import formatDate from '@/filters/formatDate.js'
 import hostsHead from '@/views/hosts/hosts-head.json'
 import hostsMoreInfo from '@/views/hosts/hosts-more-info.json'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [localFiltersMixin, hostnameLinkRow, getHeadKeys, TooltipMixin],
@@ -156,6 +158,7 @@ export default {
     HostLink,
     DynamicHeading,
     MoreInfoButtons,
+    GhostLoading,
   },
   data() {
     return {

@@ -48,34 +48,34 @@ export default {
   props: {
     leftCol: {
       type: Number,
-      default: 3
+      default: 3,
     },
     centerCol: {
       type: Number,
-      default: 6
+      default: 6,
     },
     rightCol: {
       type: Number,
-      default: 3
+      default: 3,
     },
     leftButton: {
-      type: String
+      type: String,
     },
     rightButton: {
-      type: String
+      type: String,
     },
     getPage: {
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {
       toggleLeft: true,
-      toggleRight: true
+      toggleRight: true,
     }
   },
   created() {
-    bus.$on('onToggleEdit', val => {
+    bus.$on('onToggleEdit', (val) => {
       this.toggleRight = val
     })
 
@@ -88,9 +88,9 @@ export default {
       this[`toggle${side}`] = !this[`toggle${side}`]
       this.SET_HIDDEN_COLS({
         name: this.getPage,
-        values: [this.toggleLeft, this.toggleRight]
+        values: [this.toggleLeft, this.toggleRight],
       })
-    }
+    },
   },
   computed: {
     ...mapGetters(['getColumnsStatus']),
@@ -130,8 +130,8 @@ export default {
     },
     dynamicFlexClass() {
       return !this.leftButton
-        ? 'is-justify-content-flex-end'
-        : 'is-justify-content-space-between'
+        ? 'is-justify-content-flex-end is-align-items-center'
+        : 'is-justify-content-space-between is-align-items-center'
     },
     leftBtIcon() {
       return this.toggleLeft ? 'chevron-left' : 'chevron-right'
@@ -148,8 +148,8 @@ export default {
       return this.toggleRight
         ? this.$i18n.t('common.forms.hide', [this.rightButton])
         : this.$i18n.t('common.forms.show', [this.rightButton])
-    }
-  }
+    },
+  },
 }
 </script>
 
