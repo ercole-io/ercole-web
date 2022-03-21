@@ -4,10 +4,13 @@
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('common.general.sideInfo')"
   >
-    <div slot="left">
-      <MoreInfoButtons :buttonItems="oraclesMoreInfo" />
-      <OracleFilters />
-    </div>
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <OracleFilters v-if="!loadingTableStatus" slot="left" />
 
     <FullTable
       slot="center"
@@ -18,6 +21,8 @@
       isClickable
       :isLoadingTable="loadingTableStatus"
     >
+      <MoreInfoButtons :buttonItems="oraclesMoreInfo" slot="customTopHeader" />
+
       <DynamicHeading
         slot="headData"
         v-for="head in oracleHead"
@@ -130,6 +135,7 @@ import OracleCharts from '@/components/databases/oracle/OracleCharts.vue'
 import OracleCpu from '@/components/databases/oracle/OracleCpu.vue'
 import OracleMemory from '@/components/databases/oracle/OracleMemory.vue'
 import OracleStorage from '@/components/databases/oracle/OracleStorage.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [hostnameLinkRow, getHeadKeys],
@@ -151,6 +157,7 @@ export default {
     OracleCpu,
     OracleMemory,
     OracleStorage,
+    GhostLoading,
   },
   data() {
     return {

@@ -55,15 +55,15 @@ export default {
     return {
       autocompletes: ['hostname', 'dbname', 'action'],
       selects: ['finding', 'recommendation'],
-      sliders: ['benefit']
+      sliders: ['benefit'],
     }
   },
   created() {
     this.fullData = this.getOracleAddms
   },
   computed: {
-    ...mapGetters(['getOracleAddms'])
-  }
+    ...mapGetters(['getOracleAddms']),
+  },
 }
 </script>
 

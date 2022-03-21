@@ -4,11 +4,13 @@
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('common.general.sideInfo')"
   >
-    <div slot="left">
-      <MoreInfoButtons :buttonItems="databasesMoreInfo" />
-
-      <DbFilters />
-    </div>
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <DbFilters v-if="!loadingTableStatus" slot="left" />
 
     <FullTable
       slot="center"
@@ -19,6 +21,11 @@
       isClickable
       :isLoadingTable="loadingTableStatus"
     >
+      <MoreInfoButtons
+        :buttonItems="databasesMoreInfo"
+        slot="customTopHeader"
+      />
+
       <DynamicHeading
         slot="headData"
         v-for="head in databasesHead"
@@ -90,6 +97,7 @@ import databasesHead from '@/components/databases/databases/databases-head.json'
 import DbCharts from '@/components/databases/databases/DbCharts.vue'
 import DbTotalMemorySize from '@/components/databases/databases/DbTotalMemorySize.vue'
 import DbTotalSegmentSize from '@/components/databases/databases/DbTotalSegmentSize.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [hostnameLinkRow, getHeadKeys],
@@ -106,6 +114,7 @@ export default {
     DbCharts,
     DbTotalMemorySize,
     DbTotalSegmentSize,
+    GhostLoading,
   },
   data() {
     return {

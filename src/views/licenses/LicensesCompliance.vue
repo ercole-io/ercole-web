@@ -5,7 +5,13 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <LicensesComplianceFilters slot="left" />
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <LicensesComplianceFilters v-if="!loadingTableStatus" slot="left" />
 
     <FullTable
       slot="center"
@@ -89,6 +95,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import LicensesComplianceFilters from '@/components/licenses/compliance/LicensesComplianceFilters.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [paginationMixin],
@@ -99,6 +106,7 @@ export default {
     TdIcon,
     LicensesComplianceFilters,
     ExportButton,
+    GhostLoading,
   },
   data() {
     return {

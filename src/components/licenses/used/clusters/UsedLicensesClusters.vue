@@ -4,9 +4,15 @@
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
   >
-    <UsedLicensesClustersFilters
+    <GhostLoading
+      v-if="licensesUsed.clustersLoading"
+      :isLoading="licensesUsed.clustersLoading"
+      setHeight="640"
       slot="left"
-      :loadingStatus="licensesUsed.clustersLoading"
+    />
+    <UsedLicensesClustersFilters
+      v-if="!licensesUsed.clustersLoading"
+      slot="left"
     />
 
     <FullTable
@@ -71,6 +77,7 @@ import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import ExportButton from '@/components/common/ExportButton.vue'
 import UsedLicensesClustersModal from '@/components/licenses/used/clusters/UsedLicensesClustersModal.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [
@@ -85,6 +92,7 @@ export default {
     TdContent,
     UsedLicensesClustersFilters,
     ExportButton,
+    GhostLoading,
   },
   props: {
     partNumber: {
