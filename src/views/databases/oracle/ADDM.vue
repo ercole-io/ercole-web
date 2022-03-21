@@ -5,7 +5,14 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <AddmFilters slot="left" />
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <AddmFilters v-if="!loadingTableStatus" slot="left" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.addm')"
@@ -55,6 +62,7 @@ import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import AddmFilters from '@/components/databases/oracle/addm/AddmFilters.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -65,6 +73,7 @@ export default {
     TdContent,
     HostLink,
     AddmFilters,
+    GhostLoading,
   },
   data() {
     return {
@@ -79,7 +88,7 @@ export default {
       isMounted: false,
     }
   },
-  async beforeMount() {
+  async created() {
     await this.getAddms()
   },
   mounted() {

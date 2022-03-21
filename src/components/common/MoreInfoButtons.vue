@@ -1,5 +1,8 @@
 <template>
-  <ButtonGroup :groupTitle="`${$t('common.general.moreInfo')}`">
+  <ButtonGroup
+    :groupTitle="`${$t('common.general.moreInfo')}:`"
+    class="moreInfo"
+  >
     <template v-for="(button, i) in buttonItems">
       <GhostLoading
         :isLoading="loadingTableStatus"
@@ -67,4 +70,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.moreInfo {
+  margin-left: auto;
+}
+</style>

@@ -11,7 +11,15 @@
       v-model="isLoading"
       :can-cancel="false"
     />
-    <AlertsFilters slot="left" />
+
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <AlertsFilters v-if="!loadingTableStatus" slot="left" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.alerts')"
@@ -184,6 +192,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import AlertsFilters from '@/components/alerts/AlertsFilters.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
   _.map(list, (val) => {
@@ -204,6 +213,7 @@ export default {
     TdIcon,
     HostLink,
     AlertsFilters,
+    GhostLoading,
   },
   data() {
     return {
