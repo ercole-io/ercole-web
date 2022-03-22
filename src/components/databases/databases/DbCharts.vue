@@ -1,5 +1,5 @@
 <template>
-  <GhostLoading :isLoading="loadingTableStatus" setHeight="500">
+  <GhostLoading :isLoading="loadingTableStatus" setHeight="435">
     <BarChart
       :chartId="id"
       :barChartData="getDatabasesCharts"

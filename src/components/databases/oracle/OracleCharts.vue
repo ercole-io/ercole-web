@@ -1,9 +1,9 @@
 <template>
-  <GhostLoading :isLoading="loadingTableStatus" setWidth="292" setHeight="250">
+  <GhostLoading :isLoading="loadingTableStatus" setHeight="385">
     <BarChart
       chartId="oracleCharts"
       :barChartData="getOracleChartsData"
-      chartHeight="250px"
+      chartHeight="385px"
       stacked
       :legend="false"
       :xAxesConfig="[true, 'top']"
