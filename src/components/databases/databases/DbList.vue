@@ -65,7 +65,7 @@
       <DbTotalSegmentSize class="mb-4" />
       <DbCharts
         id="databasesChart"
-        chartHeight="500px"
+        chartHeight="435px"
         :xAxesConfig="[true, 'top']"
       />
     </div>

@@ -4,11 +4,7 @@
     border
     :mbottom="false"
   >
-    <GhostLoading
-      :isLoading="loadingTableStatus"
-      setWidth="276"
-      setHeight="190"
-    >
+    <GhostLoading :isLoading="loadingTableStatus" setHeight="190">
       <!-- <Top10Link slot="customTitle" /> -->
       <SimpleTable
         :theadData="[
