@@ -6,11 +6,7 @@
     class="mb-5"
   >
     <!-- <Top10Link slot="customTitle" /> -->
-    <GhostLoading
-      :isLoading="loadingTableStatus"
-      setWidth="276"
-      setHeight="190"
-    >
+    <GhostLoading :isLoading="loadingTableStatus" setHeight="190">
       <!-- <Top10Link slot="customTitle" /> -->
       <SimpleTable
         :theadData="[
