@@ -69,20 +69,18 @@ export const mutations = {
 }
 
 export const actions = {
-  async getLicensesAgreement({ commit, dispatch }, type, noLoading = null) {
-    let agreementList = null
-
-    if (noLoading) {
-      agreementList = await axiosNoLoading.get(`/agreements/${type}/database`)
-    } else {
-      dispatch('onLoadingTable')
-      agreementList = await axiosNoLoading.get(`/agreements/${type}/database`)
-    }
-
+  async getLicensesAgreement({ commit, dispatch }, type) {
+    dispatch('onLoadingTable')
+    let agreementList = await axiosNoLoading.get(`/agreements/${type}/database`)
     const response = await agreementList.data.agreements
     if (response) {
-      dispatch('offLoadingTable')
-      commit('SET_AGREEMENTS', { res: response, type: type })
+      if (type === 'mysql') {
+        dispatch('onLoadingTable')
+        commit('SET_AGREEMENTS', { res: response, type: type })
+      } else {
+        commit('SET_AGREEMENTS', { res: response, type: type })
+        dispatch('offLoadingTable')
+      }
     }
   },
   async createLicenseAgreement({ commit, dispatch }, payload) {
@@ -93,10 +91,10 @@ export const actions = {
       payload.body
     )
     let response = await create.data
+    response = { ...response, mode: payload.type }
     if (response) {
-      response = { ...response, mode: payload.type }
-      dispatch('offLoadingTable')
       commit('CREATE_AGREEMENT', response)
+      dispatch('offLoadingTable')
     }
   },
   async updateLicenseAgreement({ commit, dispatch }, payload) {
@@ -120,10 +118,10 @@ export const actions = {
         })
     }
 
+    data = { ...data, mode: payload.type }
     if (data) {
-      data = { ...data, mode: payload.type }
-      dispatch('offLoadingTable')
       commit('UPDATE_AGREEMENTS', data)
+      dispatch('offLoadingTable')
     }
   },
   async deleteLicenseAgreement({ dispatch }, payload) {
