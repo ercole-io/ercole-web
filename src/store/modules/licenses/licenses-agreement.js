@@ -79,8 +79,8 @@ export const actions = {
         dispatch('onLoadingTable')
         commit('SET_AGREEMENTS', { res: response, type: type })
       } else {
-        dispatch('offLoadingTable')
         commit('SET_AGREEMENTS', { res: response, type: type })
+        dispatch('offLoadingTable')
       }
     }
   },
