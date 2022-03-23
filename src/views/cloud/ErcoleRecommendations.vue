@@ -5,22 +5,31 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <ErcoleRecommendationsFilters slot="left" />
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <ErcoleRecommendationsFilters v-if="!loadingTableStatus" slot="left" />
+
     <ErcoleRecommendationsList slot="center" />
   </ToggleColumns>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import ErcoleRecommendationsFilters from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsFilters.vue'
 import ErcoleRecommendationsList from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsList.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   components: {
     ToggleColumns,
     ErcoleRecommendationsFilters,
     ErcoleRecommendationsList,
+    GhostLoading,
   },
   data() {
     return {
@@ -28,9 +37,7 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getRrcoleRecommendations().then(() => {
-      this.isMounted = true
-    })
+    await this.getRrcoleRecommendations()
 
     // await this.getLoadBalancersData().then(() => {
     //   this.getInstancesIdleData().then(() => {
@@ -40,6 +47,9 @@ export default {
     //   })
     // })
   },
+  mounted() {
+    this.isMounted = true
+  },
   methods: {
     ...mapActions([
       'getRrcoleRecommendations',
@@ -47,6 +57,9 @@ export default {
       // 'getInstancesIdleData',
       // 'getBlockStorageData',
     ]),
+  },
+  computed: {
+    ...mapGetters(['loadingTableStatus']),
   },
 }
 </script>

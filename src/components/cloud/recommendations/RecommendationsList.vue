@@ -3,8 +3,9 @@
     placeholder="Cloud Recommendations"
     :keys="getHeadKeys(recommendationHead)"
     :tableData="getRecommendations"
+    :isLoadingTable="loadingTableStatus"
   >
-    <template slot="customTopHeader">
+    <!-- <template slot="customTopHeader">
       <b-notification
         v-if="getRecommendations.length <= 0"
         type="is-warning is-light"
@@ -23,7 +24,7 @@
       >
         {{ getErrActiveProfile }}
       </b-notification>
-    </template>
+    </template> -->
 
     <DynamicHeading
       slot="headData"
@@ -70,20 +71,24 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getRecommendations', 'getOciActiveProfileError']),
-    getErrActiveProfile() {
-      const number = Number(this.getOciActiveProfileError) > 1 ? 2 : 1
+    ...mapGetters([
+      'getRecommendations',
+      // 'getOciActiveProfileError',
+      'loadingTableStatus',
+    ]),
+    // getErrActiveProfile() {
+    //   const number = Number(this.getOciActiveProfileError) > 1 ? 2 : 1
 
-      if (number > 1) {
-        return this.$i18n.t('views.cloud.moreErrActiveProfile', {
-          n: this.getOciActiveProfileError,
-        })
-      } else {
-        return this.$i18n.t('views.cloud.oneErrActiveProfile', {
-          n: this.getOciActiveProfileError,
-        })
-      }
-    },
+    //   if (number > 1) {
+    //     return this.$i18n.t('views.cloud.moreErrActiveProfile', {
+    //       n: this.getOciActiveProfileError,
+    //     })
+    //   } else {
+    //     return this.$i18n.t('views.cloud.oneErrActiveProfile', {
+    //       n: this.getOciActiveProfileError,
+    //     })
+    //   }
+    // },
   },
 }
 </script>

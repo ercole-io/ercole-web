@@ -3,8 +3,9 @@
     placeholder="Cloud Recommendations"
     :keys="getHeadKeys(ErcoleRecommendationsHead)"
     :tableData="getMergedData"
+    :isLoadingTable="loadingTableStatus"
   >
-    <template slot="customTopHeader">
+    <!-- <template slot="customTopHeader">
       <b-notification
         v-if="getMergedData.length <= 0"
         type="is-warning is-light"
@@ -23,7 +24,7 @@
       >
         {{ getErrActiveProfile }}
       </b-notification>
-    </template>
+    </template> -->
 
     <DynamicHeading
       slot="headData"
@@ -66,20 +67,24 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getMergedData', 'getOciActiveProfileError']),
-    getErrActiveProfile() {
-      const number = Number(this.getOciActiveProfileError) > 1 ? 2 : 1
+    ...mapGetters([
+      'getMergedData',
+      // 'getOciActiveProfileError',
+      'loadingTableStatus',
+    ]),
+    // getErrActiveProfile() {
+    //   const number = Number(this.getOciActiveProfileError) > 1 ? 2 : 1
 
-      if (number > 1) {
-        return this.$i18n.t('views.cloud.moreErrActiveProfile', {
-          n: this.getOciActiveProfileError,
-        })
-      } else {
-        return this.$i18n.t('views.cloud.oneErrActiveProfile', {
-          n: this.getOciActiveProfileError,
-        })
-      }
-    },
+    //   if (number > 1) {
+    //     return this.$i18n.t('views.cloud.moreErrActiveProfile', {
+    //       n: this.getOciActiveProfileError,
+    //     })
+    //   } else {
+    //     return this.$i18n.t('views.cloud.oneErrActiveProfile', {
+    //       n: this.getOciActiveProfileError,
+    //     })
+    //   }
+    // },
   },
 }
 </script>

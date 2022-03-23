@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import axiosOci from '@/axios/axios-oci'
+import axiosOciNoLoading from '@/axios/axios-oci-no-loading.js'
 
 export const state = () => ({
   recommendations: [],
@@ -33,12 +33,13 @@ export const mutations = {
 }
 
 export const actions = {
-  async getRecommendationsData({ commit, getters }) {
+  async getRecommendationsData({ commit, dispatch, getters }) {
+    dispatch('onLoadingTable')
     let response = null
     let error = null
 
     if (getters.getOciActiveProfiles.length > 0) {
-      const recommendations = await axiosOci.get(
+      const recommendations = await axiosOciNoLoading.get(
         `/oracle-cloud/recommendations/${getters.getOciActiveProfiles}`
       )
       response = await recommendations.data.recommendations
@@ -47,7 +48,10 @@ export const actions = {
       ;(response = []), (error = '')
     }
 
-    commit('SET_RECOMMENDATIONS', response)
-    commit('SET_OCI_ACTIVE_PROFILE_ERROR', error)
+    if (response) {
+      commit('SET_RECOMMENDATIONS', response)
+      commit('SET_OCI_ACTIVE_PROFILE_ERROR', error)
+      dispatch('offLoadingTable')
+    }
   },
 }
