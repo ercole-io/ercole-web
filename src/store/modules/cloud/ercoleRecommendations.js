@@ -51,6 +51,7 @@ export const actions = {
         await axiosOciNoLoading.get(setUrl('old-snapshot')),
         await axiosOciNoLoading.get(setUrl('unused-storage')),
         await axiosOciNoLoading.get(setUrl('instance-rightsizing')),
+        await axiosOciNoLoading.get(setUrl('sis-rightsizing')),
       ])
       .then(
         axios.spread(
@@ -60,7 +61,8 @@ export const actions = {
             blockstorage,
             oldsnapshot,
             unusedstorage,
-            instancerightsizing
+            instancerightsizing,
+            sisRightsizing
           ) => {
             commit('SET_ERCOLE_RECOMMENDATIONS', {
               loadbalancers: loadbalancers.data.recommendations,
@@ -69,6 +71,7 @@ export const actions = {
               oldsnapshot: oldsnapshot.data.recommendations,
               unusedstorage: unusedstorage.data.recommendations,
               instancerightsizing: instancerightsizing.data.recommendations,
+              sisRightsizing: sisRightsizing.data.recommendations,
             })
             dispatch('offLoadingTable')
           }
