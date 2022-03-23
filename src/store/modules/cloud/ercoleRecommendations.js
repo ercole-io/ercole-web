@@ -1,6 +1,6 @@
-import axios from 'axios'
-import axiosOci from '@/axios/axios-oci'
 import _ from 'lodash'
+import axios from 'axios'
+import axiosOciNoLoading from '@/axios/axios-oci-no-loading.js'
 
 export const state = () => ({
   loadBalancers: [],
@@ -37,19 +37,20 @@ export const mutations = {
 }
 
 export const actions = {
-  async getRrcoleRecommendations({ commit, getters }) {
+  async getRrcoleRecommendations({ commit, dispatch, getters }) {
+    dispatch('onLoadingTable')
     const setUrl = (name) => {
       return `/oracle-cloud/${name}/${getters.getOciActiveProfiles}`
     }
 
     axios
       .all([
-        await axiosOci.get(setUrl('load-balancers')),
-        await axiosOci.get(setUrl('instances-idle')),
-        await axiosOci.get(setUrl('block-storage')),
-        await axiosOci.get(setUrl('old-snapshot')),
-        await axiosOci.get(setUrl('unused-storage')),
-        await axiosOci.get(setUrl('instance-rightsizing')),
+        await axiosOciNoLoading.get(setUrl('load-balancers')),
+        await axiosOciNoLoading.get(setUrl('instances-idle')),
+        await axiosOciNoLoading.get(setUrl('block-storage')),
+        await axiosOciNoLoading.get(setUrl('old-snapshot')),
+        await axiosOciNoLoading.get(setUrl('unused-storage')),
+        await axiosOciNoLoading.get(setUrl('instance-rightsizing')),
       ])
       .then(
         axios.spread(
@@ -69,6 +70,7 @@ export const actions = {
               unusedstorage: unusedstorage.data.recommendations,
               instancerightsizing: instancerightsizing.data.recommendations,
             })
+            dispatch('offLoadingTable')
           }
         )
       )
