@@ -1,0 +1,92 @@
+<template>
+  <FullTable
+    placeholder="Cloud Recommendations"
+    :keys="getHeadKeys(ErcoleRecommendationsHead)"
+    :tableData="getMergedData"
+    :isLoadingTable="loadingTableStatus"
+  >
+    <!-- <template slot="customTopHeader">
+      <b-notification
+        v-if="getMergedData.length <= 0"
+        type="is-warning is-light"
+        aria-close-label="Close notification"
+        role="alert"
+      >
+        {{ $t('views.cloud.noActiveProfile') }}
+      </b-notification>
+
+      <b-notification
+        v-if="getOciActiveProfileError"
+        type="is-warning is-light"
+        aria-close-label="Close notification"
+        role="alert"
+        style="margin: 0 auto"
+      >
+        {{ getErrActiveProfile }}
+      </b-notification>
+    </template> -->
+
+    <DynamicHeading
+      slot="headData"
+      v-for="head in ErcoleRecommendationsHead"
+      :key="head.sort"
+      :data="head"
+    />
+
+    <template slot="bodyData" slot-scope="rowData">
+      <TdContent :value="rowData.scope.objectType" />
+      <TdContent :value="rowData.scope.compartmentName" />
+      <TdContent :value="rowData.scope.name" />
+      <TdContent :value="rowData.scope.resourceID" />
+    </template>
+
+    <ExportButton slot="export" url="" expName="cloudRecommendations" />
+  </FullTable>
+</template>
+
+<script>
+import { mapGetters } from 'vuex'
+import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
+import FullTable from '@/components/common/Table/FullTable.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
+import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
+import ErcoleRecommendationsHead from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsHead.json'
+
+export default {
+  mixins: [getHeadKeys],
+  components: {
+    FullTable,
+    TdContent,
+    ExportButton,
+    DynamicHeading,
+  },
+  data() {
+    return {
+      ErcoleRecommendationsHead: ErcoleRecommendationsHead,
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'getMergedData',
+      // 'getOciActiveProfileError',
+      'loadingTableStatus',
+    ]),
+    // getErrActiveProfile() {
+    //   const number = Number(this.getOciActiveProfileError) > 1 ? 2 : 1
+
+    //   if (number > 1) {
+    //     return this.$i18n.t('views.cloud.moreErrActiveProfile', {
+    //       n: this.getOciActiveProfileError,
+    //     })
+    //   } else {
+    //     return this.$i18n.t('views.cloud.oneErrActiveProfile', {
+    //       n: this.getOciActiveProfileError,
+    //     })
+    //   }
+    // },
+  },
+}
+</script>
+
+<style lang="scss" scoped></style>

@@ -10,6 +10,7 @@ export const getters = {
   isConfigLoaded: state => state.config !== null,
   getAPIServiceBaseURL: state => state.config.APIServiceBaseUrl,
   getChartServiceBaseUrl: state => state.config.ChartServiceBaseUrl,
+  getOracleCloudInfraUrl: state => state.config.OracleCloudInfra,
   getRepoServiceBaseUrl: state => state.config.RepoServiceUrl
 }
 
