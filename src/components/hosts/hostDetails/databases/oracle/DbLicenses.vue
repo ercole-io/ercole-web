@@ -1,20 +1,21 @@
 <template>
-  <b-tab-item label="Licenses" v-if="licenses.length > 0">
+  <b-tab-item label="Licenses" v-if="dbLicenses.length > 0">
     <FullTable
-      :tableData="licenses"
+      :tableData="dbLicenses"
       :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
       hideTopTable
+      :isLoadingTable="false"
     >
       <template slot="headData">
         <v-th sortKey="ignored">Ignore License</v-th>
-        <v-th sortKey="name">Name</v-th>
-        <v-th sortKey="count">Number</v-th>
         <v-th sortKey="licenseTypeID">Part Number</v-th>
         <v-th sortKey="description">Description</v-th>
         <v-th sortKey="metric">Metric</v-th>
+        <v-th sortKey="usedLicenses">Used Licenses</v-th>
+        <v-th sortKey="clusterLicenses">Cluster Licenses</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
@@ -27,11 +28,11 @@
           :status="!rowData.scope.ignored"
           page="host-details"
         />
-        <TdContent :value="rowData.scope.name" />
-        <TdContent :value="rowData.scope.count" />
         <TdContent :value="rowData.scope.licenseTypeID" />
         <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.metric" />
+        <TdContent :value="rowData.scope.usedLicenses" />
+        <TdContent :value="rowData.scope.clusterLicenses" />
       </template>
     </FullTable>
   </b-tab-item>
@@ -41,6 +42,7 @@
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import ignoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -62,13 +64,19 @@ export default {
     return {
       keys: [
         'ignored',
-        'name',
-        'count',
         'licenseTypeID',
         'description',
         'metric',
+        'usedLicenses',
+        'clusterLicenses',
       ],
     }
+  },
+  computed: {
+    ...mapGetters(['getCurrentHostDbLicenses']),
+    dbLicenses() {
+      return this.getCurrentHostDbLicenses(this.dbName)
+    },
   },
 }
 </script>

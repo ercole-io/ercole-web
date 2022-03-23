@@ -1,6 +1,5 @@
-import { _ } from 'core-js'
-import moment from 'moment'
-import axiosDefault from '@/axios/axios-default'
+import _ from 'lodash'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 import formatDate from '@/filters/formatDate.js'
 
 export const state = () => ({
@@ -35,8 +34,10 @@ export const mutations = {
 }
 
 export const actions = {
-  async getPatchAdvisor({ commit, getters }) {
-    const patchAdvisor = await axiosDefault.get(
+  async getPatchAdvisor({ commit, dispatch, getters }) {
+    dispatch('onLoadingTable')
+
+    const patchAdvisor = await axiosNoLoading.get(
       '/hosts/technologies/oracle/databases/patch-advisors',
       {
         params: {
@@ -47,6 +48,9 @@ export const actions = {
       }
     )
     const response = await patchAdvisor.data.content
-    commit('SET_PATCH_ADVISOR', response)
+    if (response) {
+      dispatch('offLoadingTable')
+      commit('SET_PATCH_ADVISOR', response)
+    }
   },
 }

@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import moment from 'moment'
-import axiosDefault from '@/axios/axios-default'
+// import axiosDefault from '@/axios/axios-default'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 import {
   mapClustStatus,
   returnAlertsByTypeDate,
@@ -10,7 +11,7 @@ import {
 import { mapDatabases } from '@/helpers/databasesMap.js'
 import formatDateTime from '@/filters/formatDateTime.js'
 import formatDate from '@/filters/formatDate.js'
-import store from '@/store/index.js'
+// import store from '@/store/index.js'
 import { ModalProgrammatic as Modal } from 'buefy'
 import ClusterNamesModal from '@/components/hosts/hostDetails/ClusterNamesModal.vue'
 
@@ -21,6 +22,7 @@ export const state = () => ({
   currentHost: {},
   currentHostActiveDB: '',
   dbFiltersSelected: ['name'],
+  currentHostDbLicenses: [],
 })
 
 const info = [
@@ -348,6 +350,15 @@ export const getters = {
       return _.includes(state.dbFiltersSelected, item)
     }
   },
+  getCurrentHostDbLicenses: (state) => (db) => {
+    const usedLicensesByDb = []
+    _.map(state.currentHostDbLicenses, (val) => {
+      if (val.dbName === db) {
+        usedLicensesByDb.push(val)
+      }
+    })
+    return usedLicensesByDb
+  },
 }
 
 export const mutations = {
@@ -360,17 +371,32 @@ export const mutations = {
   SET_DATABASES_FILTERS: (state, payload) => {
     state.dbFiltersSelected = payload
   },
+  SET_HOST_DB_LICENSES: (state, payload) => {
+    state.currentHostDbLicenses = payload
+  },
 }
 
 export const actions = {
-  async getHostByName({ commit, getters }, hostname) {
-    const hostByName = await axiosDefault.get(`/hosts/${hostname}`, {
+  async getHostByName({ commit, dispatch, getters }, hostname) {
+    dispatch('onLoadingTable')
+    const hostByName = await axiosNoLoading.get(`/hosts/${hostname}`, {
       params: {
         'older-than': getters.getActiveFilters.date,
       },
     })
+
     const response = await hostByName.data
     commit('SET_CURRENT_HOST', response)
+    if (response) {
+      dispatch('offLoadingTable')
+    }
+  },
+  async getLicensesByHostName({ commit }, hostname) {
+    const dbsLicenses = await axiosNoLoading.get(
+      `/hosts/${hostname}/technologies/all/databases/licenses-used`
+    )
+    const dbsLicensesResponse = await dbsLicenses.data.usedLicenses
+    commit('SET_HOST_DB_LICENSES', dbsLicensesResponse)
   },
 }
 
@@ -484,7 +510,6 @@ const mapOracleDatabase = (data) => {
       platform: item.platform,
       version: item.version,
       pdbs: resolvePdbs([...item.pdbs]),
-      licenses: resolveLicenses([...item.licenses]),
       options: resolveOptions([...item.featureUsageStats]),
       tablespaces: [...item.tablespaces],
       schemas: [...item.schemas],
@@ -542,25 +567,6 @@ const resolveServices = (services) => {
     })
   })
   return filteredServices
-}
-
-const resolveLicenses = (licences) => {
-  let filteredLicenses = []
-  _.filter(licences, (val) => {
-    let licenseComplement = store.getters.returnMetricAndDescription(
-      val.licenseTypeID
-    )
-
-    if (val.count > 0) {
-      filteredLicenses.push({
-        ...val,
-        description: licenseComplement.description,
-        metric: licenseComplement.metric,
-      })
-    }
-  })
-
-  return filteredLicenses
 }
 
 const genericResolve = (data) => {

@@ -7,6 +7,7 @@
       hidePerpage
       hidePagination
       hideTopTable
+      :isLoadingTable="false"
     >
       <template slot="headData">
         <v-th sortKey="date">Date</v-th>
@@ -29,18 +30,18 @@ export default {
   props: {
     psus: {
       type: Array,
-      default: null
-    }
+      default: null,
+    },
   },
   components: {
     FullTable,
-    TdContent
+    TdContent,
   },
   data() {
     return {
-      keys: ['date', 'description']
+      keys: ['date', 'description'],
     }
-  }
+  },
 }
 </script>
 

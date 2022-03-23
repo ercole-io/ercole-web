@@ -3,6 +3,7 @@
     :placeholder="$t('menu.repository')"
     :keys="keys"
     :tableData="getRepository"
+    :isLoadingTable="loadingTableStatus"
   >
     <template slot="headData">
       <v-th sortKey="Download">Copy Path</v-th>
@@ -59,7 +60,7 @@ export default {
     FullTable,
     TdContent,
     TdIcon,
-    TdAction
+    TdAction,
   },
   data() {
     return {
@@ -73,13 +74,13 @@ export default {
         'OperatingSystemFamily',
         'OperatingSystem',
         'Arch',
-        'Download'
-      ]
+        'Download',
+      ],
     }
   },
   computed: {
-    ...mapGetters(['getRepository'])
-  }
+    ...mapGetters(['getRepository', 'loadingTableStatus']),
+  },
 }
 </script>
 

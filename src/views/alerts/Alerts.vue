@@ -11,7 +11,15 @@
       v-model="isLoading"
       :can-cancel="false"
     />
-    <AlertsFilters slot="left" />
+
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <AlertsFilters v-if="!loadingTableStatus" slot="left" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.alerts')"
@@ -26,6 +34,7 @@
       @isPageChanged="handleClearAllSelections"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="customTopHeader">
         <div
@@ -142,7 +151,6 @@
 
         <TdContent
           :value="rowData.scope.description"
-          tooltipPlace="left"
           v-if="rowData.scope.description.length < 100"
         />
         <td v-if="rowData.scope.description.length > 100">
@@ -184,6 +192,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import AlertsFilters from '@/components/alerts/AlertsFilters.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
   _.map(list, (val) => {
@@ -204,6 +213,7 @@ export default {
     TdIcon,
     HostLink,
     AlertsFilters,
+    GhostLoading,
   },
   data() {
     return {
@@ -225,9 +235,10 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getAlertsData({ status: this.alertStatus }).then(
-      () => (this.isMounted = true)
-    )
+    await this.getAlertsData({ status: this.alertStatus })
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),
@@ -299,7 +310,7 @@ export default {
   },
   computed: {
     ...mapState(['alerts']),
-    ...mapGetters(['getAlerts', 'showCheckbox']),
+    ...mapGetters(['getAlerts', 'showCheckbox', 'loadingTableStatus']),
   },
   watch: {
     selectedRows(value) {

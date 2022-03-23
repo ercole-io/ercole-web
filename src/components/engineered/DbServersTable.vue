@@ -6,6 +6,7 @@
     hideSearch
     hidePerpage
     hidePagination
+    :isLoadingTable="loadingTableStatus"
   >
     <template slot="headData">
       <th style="width: 30%">{{ $t('common.collumns.hostname') }}</th>
@@ -27,10 +28,9 @@
       <TdContent :value="rowData.scope.memory" />
       <TdContent :value="rowData.scope.swVersion" />
       <TdContent
-        :value="
-          `${rowData.scope.totalPowerSupply || '-'}     ${rowData.scope
-            .tempActual || '-'}`
-        "
+        :value="`${rowData.scope.totalPowerSupply || '-'}     ${
+          rowData.scope.tempActual || '-'
+        }`"
       />
     </template>
   </FullTable>
@@ -39,23 +39,27 @@
 <script>
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
     data: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
-      keys: []
+      keys: [],
     }
   },
   components: {
     FullTable,
-    TdContent
-  }
+    TdContent,
+  },
+  computed: {
+    ...mapGetters(['loadingTableStatus']),
+  },
 }
 </script>
 

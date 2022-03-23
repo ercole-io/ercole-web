@@ -5,7 +5,14 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <LicensesComplianceFilters slot="left" />
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <LicensesComplianceFilters v-if="!loadingTableStatus" slot="left" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.licCompliance')"
@@ -13,12 +20,13 @@
       :tableData="getLicensesCompliance"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="licenseTypeID">
           {{ $t('common.collumns.partNumber') }}
         </v-th>
-        <v-th sortKey="itemDescription">
+        <v-th sortKey="itemDescription" defaultSort="asc">
           {{ $t('common.collumns.description') }}
         </v-th>
         <v-th sortKey="metric">
@@ -87,6 +95,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import LicensesComplianceFilters from '@/components/licenses/compliance/LicensesComplianceFilters.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [paginationMixin],
@@ -97,6 +106,7 @@ export default {
     TdIcon,
     LicensesComplianceFilters,
     ExportButton,
+    GhostLoading,
   },
   data() {
     return {
@@ -115,7 +125,10 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getComplianceList().then(() => (this.isMounted = true))
+    await this.getComplianceList()
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getComplianceList']),
@@ -134,7 +147,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getLicensesCompliance']),
+    ...mapGetters(['getLicensesCompliance', 'loadingTableStatus']),
   },
 }
 </script>
