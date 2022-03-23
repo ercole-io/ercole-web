@@ -4,12 +4,13 @@
     placeholder="Profile"
     :keys="keys"
     :tableData="getOciProfiles"
+    :isLoadingTable="loadingTableStatus"
   >
     <template slot="headData">
-      <th style="text-align: center !important;">
+      <th style="text-align: center !important">
         {{ $t('common.collumns.activeProfiles') }}
       </th>
-      <th colspan="2" style="text-align: center !important;">
+      <th colspan="2" style="text-align: center !important">
         {{ $t('common.collumns.actions') }}
       </th>
       <v-th sortKey="profile">
@@ -30,13 +31,13 @@
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
-      <td style="min-width: 0; text-align: center !important;">
+      <td style="min-width: 0; text-align: center !important">
         <b-checkbox
           v-model="activeOciProfiles"
           :native-value="rowData.scope.id"
         />
       </td>
-      <td style="min-width: 0;">
+      <td style="min-width: 0">
         <b-icon
           v-tooltip="options($t('common.general.edit'))"
           type="is-info"
@@ -46,7 +47,7 @@
           @click.native="editProfile(rowData.scope)"
         />
       </td>
-      <td style="min-width: 0;">
+      <td style="min-width: 0">
         <b-icon
           v-tooltip="options($t('common.general.delete'))"
           type="is-danger"
@@ -77,7 +78,7 @@ export default {
   mixins: [TooltipMixin],
   components: {
     FullTable,
-    TdContent
+    TdContent,
   },
   data() {
     return {
@@ -87,9 +88,9 @@ export default {
         'userOCID',
         'keyFingerprint',
         'region',
-        'privateKey'
+        'privateKey',
       ],
-      activeOciProfiles: []
+      activeOciProfiles: [],
     }
   },
   beforeMount() {
@@ -108,7 +109,7 @@ export default {
         this.$buefy.dialog.confirm({
           title: this.$i18n.t('views.cloud.deleteTitle'),
           message: this.$i18n.t('views.cloud.deleteCheck', {
-            profile: profile
+            profile: profile,
           }),
           confirmText: this.$i18n.t('common.general.yes'),
           type: 'is-danger',
@@ -117,29 +118,33 @@ export default {
             this.removeProfile(id).then(() => {
               this.$buefy.toast.open({
                 message: this.$i18n.t('views.cloud.deleteSuccess', {
-                  profile: profile
+                  profile: profile,
                 }),
                 type: 'is-success',
                 duration: 5000,
-                position: 'is-bottom'
+                position: 'is-bottom',
               })
             })
           },
-          cancelText: this.$i18n.t('common.general.no')
+          cancelText: this.$i18n.t('common.general.no'),
         })
       }
-    }
+    },
   },
   computed: {
-    ...mapGetters(['getOciProfiles', 'getOciActiveProfiles'])
+    ...mapGetters([
+      'getOciProfiles',
+      'getOciActiveProfiles',
+      'loadingTableStatus',
+    ]),
   },
   watch: {
     activeOciProfiles(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.SET_OCI_ACTIVE_PROFILE(newValue)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
