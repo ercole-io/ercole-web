@@ -16,6 +16,7 @@
 
 <script>
 import { SidebarMenu } from 'vue-sidebar-menu'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -27,6 +28,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['getOciActiveProfiles']),
     menu() {
       return [
         {
@@ -125,6 +127,29 @@ export default {
               href: { name: 'licenses-used' },
               title: this.$i18n.t('menu.licUsed'),
               icon: 'fas fa-cog',
+            },
+          ],
+        },
+        {
+          title: this.$i18n.t('menu.cloudAdvisor'),
+          icon: 'fas fa-cloud',
+          child: [
+            {
+              href: { name: 'profile-configurations' },
+              title: this.$i18n.t('menu.profileConfig'),
+              icon: 'fas fa-cog',
+            },
+            {
+              href: { name: 'cloud-recommendations' },
+              title: this.$i18n.t('menu.recommendations'),
+              icon: 'fas fa-cog',
+              disabled: this.getOciActiveProfiles.length <= 0,
+            },
+            {
+              href: { name: 'ercole-recommendations' },
+              title: this.$i18n.t('menu.ercoleRecommendations'),
+              icon: 'fas fa-cog',
+              disabled: this.getOciActiveProfiles.length <= 0,
             },
           ],
         },

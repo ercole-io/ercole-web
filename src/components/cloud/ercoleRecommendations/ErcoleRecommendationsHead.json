@@ -1,0 +1,18 @@
+[
+  {
+    "sort": "objectType",
+    "langKey": "common.collumns.type"
+  },
+  { 
+    "sort": "compartmentName", 
+    "langKey": "common.collumns.compartmentName" 
+  },
+  {
+    "sort": "name",
+    "langKey": "common.collumns.repoName"
+  },
+  { 
+    "sort": "resourceID", 
+    "langKey": "common.collumns.resourceID" 
+  }
+]
