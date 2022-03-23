@@ -4,7 +4,14 @@
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
   >
-    <MySqlFilters slot="left" />
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <MySqlFilters v-if="!loadingTableStatus" slot="left" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.mysql')"
@@ -70,6 +77,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import MySqlFilters from '@/components/databases/mysql/MySqlFilters.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -81,6 +89,7 @@ export default {
     TdIcon,
     HostLink,
     MySqlFilters,
+    GhostLoading,
   },
   data() {
     return {

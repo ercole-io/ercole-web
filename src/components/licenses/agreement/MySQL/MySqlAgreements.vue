@@ -5,18 +5,33 @@
     :rightButton="$t('views.licenses.agreeForm')"
     v-if="isMounted"
   >
-    <MySqlAgreementsFilters slot="left" />
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <MySqlAgreementsFilters v-if="!loadingTableStatus" slot="left" />
+
     <MySqlAgreementsList slot="center" />
-    <MySqlAgreementsForm slot="right" />
+
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="right"
+    />
+    <MySqlAgreementsForm v-if="!loadingTableStatus" slot="right" />
   </ToggleColumns>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import MySqlAgreementsList from '@/components/licenses/agreement/MySQL/MySqlAgreementsList.vue'
 import MySqlAgreementsForm from '@/components/licenses/agreement/MySQL/MySqlAgreementsForm.vue'
 import MySqlAgreementsFilters from '@/components/licenses/agreement/MySQL/MySqlAgreementsFilters.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   components: {
@@ -24,6 +39,7 @@ export default {
     MySqlAgreementsList,
     MySqlAgreementsForm,
     MySqlAgreementsFilters,
+    GhostLoading,
   },
   data() {
     return {
@@ -38,6 +54,9 @@ export default {
   },
   methods: {
     ...mapActions(['getLicensesAgreement']),
+  },
+  computed: {
+    ...mapGetters(['loadingTableStatus']),
   },
 }
 </script>
