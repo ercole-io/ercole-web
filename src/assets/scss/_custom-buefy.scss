@@ -252,4 +252,25 @@ ul.pagination-list {
 
 .navbar-item img {
   max-height: 2rem;
+
+  .notification.is-warning.is-light {
+    margin-bottom: 0;
+    padding: 0.20rem 2.5rem 0.20rem 1rem;
+
+    > .delete {
+      top: 0.3rem;
+    }
+  }
+}
+
+// menu 
+.v-sidebar-menu {
+  * {
+    max-width: 270px !important;
+  }
+
+  .vsm--link {
+    font-size: 13px !important;
+    padding: 12px 15px !important;
+  }
 }
