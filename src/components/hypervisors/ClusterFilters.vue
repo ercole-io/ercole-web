@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply" setMinHeight="560">
+  <AdvancedFiltersBase :submitAction="apply">
     <Collapse :collapses="collapses">
       <template slot="General">
         <CustomField :label="$t('common.fields.physicalHost')">

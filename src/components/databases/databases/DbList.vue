@@ -3,6 +3,7 @@
     getPage="databases"
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('common.general.sideInfo')"
+    v-if="isMounted"
   >
     <GhostLoading
       v-if="loadingTableStatus"
@@ -72,7 +73,7 @@
       <DbTotalSegmentSize class="mb-4" />
       <DbCharts
         id="databasesChart"
-        chartHeight="435px"
+        chartHeight="468px"
         :xAxesConfig="[true, 'top']"
       />
     </div>
@@ -120,7 +121,11 @@ export default {
     return {
       databasesHead: databasesHead,
       databasesMoreInfo: databasesMoreInfo,
+      isMounted: false,
     }
+  },
+  mounted() {
+    this.isMounted = true
   },
   computed: {
     ...mapGetters(['getAllDatabases', 'loadingTableStatus']),
