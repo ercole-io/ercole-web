@@ -1,5 +1,5 @@
 <template>
-  <OracleDBs v-if="isMounted" />
+  <OracleDBs />
 </template>
 
 <script>
@@ -10,19 +10,11 @@ export default {
   components: {
     OracleDBs,
   },
-  data() {
-    return {
-      isMounted: false,
-    }
-  },
   async beforeMount() {
     await this.getOracleDbs()
     await this.getTopWorkload()
     await this.getTopUnusedIR()
     await this.getOracleStatistics()
-  },
-  mounted() {
-    this.isMounted = true
   },
   methods: {
     ...mapActions([

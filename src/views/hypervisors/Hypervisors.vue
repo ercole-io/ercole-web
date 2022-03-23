@@ -84,12 +84,13 @@
         </div>
       </BoxContent>
       <BoxContent :title="$t('views.hypervisors.typeVirt')" border>
-        <GhostLoading :isLoading="loadingTableStatus" setHeight="300">
+        <GhostLoading :isLoading="loadingTableStatus" setHeight="460">
           <ColumnChart
             chartId="columnChart"
             :columnChartData="getVirtualizationChartData.finalData"
             :colors="getVirtualizationChartData.colors"
             stacked
+            chartHeight="460px"
           />
         </GhostLoading>
       </BoxContent>

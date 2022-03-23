@@ -1,5 +1,5 @@
 <template>
-  <DbList v-if="isMounted" />
+  <DbList />
 </template>
 
 <script>
@@ -10,16 +10,8 @@ export default {
   components: {
     DbList,
   },
-  data() {
-    return {
-      isMounted: false,
-    }
-  },
   async beforeMount() {
     await this.getDatabases()
-  },
-  mounted() {
-    this.isMounted = true
   },
   methods: {
     ...mapActions(['getDatabases']),

@@ -174,14 +174,14 @@ export const actions = {
     })
 
     const response = await alertsData.data
+    _.map(response, (val) => {
+      if (val.alertCategory !== 'AGENT') {
+        val.isChecked = false
+      }
+    })
     if (response) {
-      _.map(response, (val) => {
-        if (val.alertCategory !== 'AGENT') {
-          val.isChecked = false
-        }
-      })
-      dispatch('offLoadingTable')
       commit('SET_ALERTS', response)
+      dispatch('offLoadingTable')
     }
   },
   async markAsRead({ commit }, payload) {
@@ -205,7 +205,9 @@ export const actions = {
 }
 
 const organizeAlertsByFlag = (flag) => {
-  return _.concat(flag.INFO || [], flag.WARNING || [], flag.CRITICAL || [])
+  if (flag) {
+    return _.concat(flag.INFO || [], flag.WARNING || [], flag.CRITICAL || [])
+  }
 }
 
 const organizeAlertByFirst = (alert) => {
