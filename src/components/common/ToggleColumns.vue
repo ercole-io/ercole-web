@@ -131,8 +131,8 @@ export default {
     },
     dynamicFlexClass() {
       return !this.leftButton
-        ? 'is-justify-content-flex-end'
-        : 'is-justify-content-space-between'
+        ? 'is-justify-content-flex-end is-align-items-center'
+        : 'is-justify-content-space-between is-align-items-center'
     },
     leftBtIcon() {
       return this.toggleLeft ? 'chevron-left' : 'chevron-right'
