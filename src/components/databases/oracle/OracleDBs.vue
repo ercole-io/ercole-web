@@ -3,6 +3,7 @@
     getPage="databasesOracle"
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('common.general.sideInfo')"
+    v-if="isMounted"
   >
     <GhostLoading
       v-if="loadingTableStatus"
@@ -166,7 +167,11 @@ export default {
     return {
       oraclesMoreInfo: oraclesMoreInfo,
       oracleHead: oracleHead,
+      isMounted: false,
     }
+  },
+  mounted() {
+    this.isMounted = true
   },
   computed: {
     ...mapGetters(['getAllOracleDBs', 'loadingTableStatus']),

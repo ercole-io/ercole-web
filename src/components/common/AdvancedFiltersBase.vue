@@ -1,7 +1,10 @@
 <template>
   <BoxContent :title="title" border :mbottom="false">
-    <div class="static-filters scrollbar-x" id="style-1">
-      <form @submit.prevent="submitAction">
+    <div class="static-filters scrollbar-x">
+      <form
+        @submit.prevent="submitAction"
+        :style="`min-height: ${setMinHeight}px`"
+      >
         <slot />
         <ActionButtons
           :applyText="apply"
@@ -46,7 +49,7 @@ export default {
     },
     setMinHeight: {
       type: String,
-      default: null,
+      default: '610',
     },
   },
   components: {
@@ -77,8 +80,7 @@ export default {
 form {
   background-color: #f5f5f5;
   overflow: auto;
-  max-height: 499px;
-  min-height: 119px;
+  height: 500px;
   position: relative;
   padding: 10px 15px 0 15px;
 }

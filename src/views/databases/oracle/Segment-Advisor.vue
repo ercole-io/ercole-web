@@ -73,11 +73,13 @@
       border
       slot="right"
     >
-      <PieChart
-        chartId="top10reclaimable"
-        :pieChartData="top10reclaimableChart"
-        setSuffix=" GB"
-      />
+      <GhostLoading :isLoading="loadingTableStatus" setHeight="297">
+        <PieChart
+          chartId="top10reclaimable"
+          :pieChartData="top10reclaimableChart"
+          setSuffix=" GB"
+        />
+      </GhostLoading>
     </BoxContent>
   </ToggleColumns>
 </template>

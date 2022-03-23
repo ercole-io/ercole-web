@@ -1,9 +1,5 @@
 <template>
-  <AdvancedFiltersBase
-    :submitAction="apply"
-    :loadingStatus="licensesUsed.databasesLoading"
-    setMinHeight="560"
-  >
+  <AdvancedFiltersBase :submitAction="apply">
     <Collapse :collapses="collapses">
       <template slot="General">
         <CustomField :label="$t('common.fields.hostname')">

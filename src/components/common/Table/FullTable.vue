@@ -58,7 +58,7 @@
           </template>
           <template v-if="!isLoadingTable && displayData.length <= 0">
             <tr>
-              <td style="height: 250px" colspan="50">
+              <td style="height: 510px" colspan="50">
                 <span style="display: none">
                   {{ getDataLength('noData') }}
                 </span>
@@ -68,7 +68,7 @@
           </template>
           <template v-if="isLoadingTable">
             <tr>
-              <td style="height: 250px" colspan="50">
+              <td style="height: 510px" colspan="50">
                 <Loading :isLoading="isLoadingTable" />
               </td>
             </tr>

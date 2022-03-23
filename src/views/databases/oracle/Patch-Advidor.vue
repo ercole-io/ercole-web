@@ -11,7 +11,7 @@
       setHeight="640"
       slot="left"
     />
-    <PatchAdvisorFilters slot="left" />
+    <PatchAdvisorFilters v-if="!loadingTableStatus" slot="left" />
 
     <FullTable
       slot="center"
