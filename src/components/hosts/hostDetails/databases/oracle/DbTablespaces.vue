@@ -7,6 +7,7 @@
       hidePerpage
       hidePagination
       hideTopTable
+      :isLoadingTable="false"
     >
       <template slot="headData">
         <v-th sortKey="name">Name</v-th>
@@ -37,18 +38,18 @@ export default {
   props: {
     tablespaces: {
       type: Array,
-      default: null
-    }
+      default: null,
+    },
   },
   components: {
     FullTable,
-    TdContent
+    TdContent,
   },
   data() {
     return {
-      keys: ['name', 'status', 'used', 'usedPerc', 'total', 'maxSize']
+      keys: ['name', 'status', 'used', 'usedPerc', 'total', 'maxSize'],
     }
-  }
+  },
 }
 </script>
 

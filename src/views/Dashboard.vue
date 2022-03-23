@@ -3,10 +3,7 @@
     <div class="columns">
       <div class="column is-9">
         <div class="columns">
-          <div class="column is-4">
-            <TotalTargets />
-          </div>
-          <div class="column is-8">
+          <div class="column is-12">
             <Technologies />
           </div>
         </div>
@@ -30,14 +27,12 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions } from 'vuex'
-import TotalTargets from '@/components/dashboard/TotalTargets.vue'
 import Technologies from '@/components/dashboard/technologies/Technologies.vue'
 import DashboardTabs from '@/components/dashboard/DashboardTabs.vue'
 import Alerts from '@/components/dashboard/alerts/Alerts.vue'
 
 export default {
   components: {
-    TotalTargets,
     Technologies,
     DashboardTabs,
     Alerts,

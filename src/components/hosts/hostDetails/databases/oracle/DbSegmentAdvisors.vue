@@ -7,6 +7,7 @@
       hidePerpage
       hidePagination
       hideTopTable
+      :isLoadingTable="false"
     >
       <template slot="headData">
         <v-th sortKey="reclaimable">Reclaimable</v-th>
@@ -37,12 +38,12 @@ export default {
   props: {
     segmentAdvisors: {
       type: Array,
-      default: null
-    }
+      default: null,
+    },
   },
   components: {
     FullTable,
-    TdContent
+    TdContent,
   },
   data() {
     return {
@@ -52,10 +53,10 @@ export default {
         'segmentOwner',
         'segmentType',
         'partitionName',
-        'recommendation'
-      ]
+        'recommendation',
+      ],
     }
-  }
+  },
 }
 </script>
 

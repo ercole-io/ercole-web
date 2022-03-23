@@ -1,8 +1,8 @@
-import axiosDefault from '@/axios/axios-default.js'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
 import { setFullPartNumber } from '@/helpers/helpers.js'
 
-const showStrokeColor = value => {
+const showStrokeColor = (value) => {
   if (value < 100 && value >= 80) {
     return 'is-warning'
   } else if (value < 80) {
@@ -13,39 +13,49 @@ const showStrokeColor = value => {
 }
 
 export const state = () => ({
-  complianceList: []
+  complianceList: [],
 })
 
 export const getters = {
   getLicensesCompliance: (state, getters) => {
-    return getters.filteredOrNot(state.complianceList)
-  }
+    const compliance = []
+
+    _.map(state.complianceList, (val) => {
+      compliance.push({
+        ...val,
+        compliance: val.compliance * 100,
+        complianceStroke: showStrokeColor(val.compliance * 100),
+      })
+    })
+
+    return getters.filteredOrNot(compliance)
+  },
 }
 
 export const mutations = {
   SET_COMPLIANCE_LIST: (state, payload) => {
-    const newPayload = []
-
-    _.map(payload, val => {
-      newPayload.push({
-        ...val,
-        compliance: val.compliance * 100,
-        complianceStroke: showStrokeColor(val.compliance * 100),
-        licenseAvailable: _.random(0, 10)
-      })
-    })
-
-    state.complianceList = setFullPartNumber(newPayload)
-  }
+    state.complianceList = setFullPartNumber(payload)
+  },
 }
 
 export const actions = {
-  async getComplianceList({ commit }) {
-    const complianceList = await axiosDefault.get(
-      '/hosts/technologies/all/databases/licenses-compliance'
+  async getComplianceList({ commit, dispatch, getters }) {
+    dispatch('onLoadingTable')
+
+    const complianceList = await axiosNoLoading.get(
+      '/hosts/technologies/all/databases/licenses-compliance',
+      {
+        params: {
+          'older-than': getters.getActiveFilters.date,
+          environment: getters.getActiveFilters.environment,
+          location: getters.getActiveFilters.location,
+        },
+      }
     )
     const response = await complianceList.data.licensesCompliance
-
-    commit('SET_COMPLIANCE_LIST', response)
-  }
+    if (response) {
+      dispatch('offLoadingTable')
+      commit('SET_COMPLIANCE_LIST', response)
+    }
+  },
 }

@@ -39,16 +39,16 @@ export default {
   props: {
     totalItems: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     changePerPage(e) {
       let eventVal = e.target.value
       bus.$emit('changePerPage', eventVal)
       localStorage.setItem('perPage', eventVal)
-    }
-  }
+    },
+  },
 }
 </script>
 

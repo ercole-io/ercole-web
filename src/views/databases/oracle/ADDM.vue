@@ -5,7 +5,14 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <AddmFilters slot="left" />
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <AddmFilters v-if="!loadingTableStatus" slot="left" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.addm')"
@@ -13,9 +20,12 @@
       :tableData="getOracleAddms"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
-        <v-th sortKey="benefit">{{ $t('common.collumns.perfImpact') }}</v-th>
+        <v-th sortKey="benefit" defaultSort="desc">{{
+          $t('common.collumns.perfImpact')
+        }}</v-th>
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
         <v-th sortKey="dbname">{{ $t('common.collumns.databases') }}</v-th>
         <v-th sortKey="finding">{{ $t('common.collumns.finding') }}</v-th>
@@ -26,12 +36,12 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.benefit" />
+        <TdContent :value="rowData.scope.benefit" class="findingColumn" />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
         <TdContent :value="rowData.scope.dbname" />
         <TdContent :value="rowData.scope.finding" />
         <TdContent :value="rowData.scope.recommendation" />
-        <TdContent :value="rowData.scope.action" />
+        <TdContent :value="rowData.scope.action" class="actionColumn" />
       </template>
 
       <ExportButton
@@ -52,6 +62,7 @@ import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import AddmFilters from '@/components/databases/oracle/addm/AddmFilters.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -61,7 +72,8 @@ export default {
     ExportButton,
     TdContent,
     HostLink,
-    AddmFilters
+    AddmFilters,
+    GhostLoading,
   },
   data() {
     return {
@@ -71,21 +83,31 @@ export default {
         'dbname',
         'finding',
         'recommendation',
-        'action'
+        'action',
       ],
-      isMounted: false
+      isMounted: false,
     }
   },
-  async beforeMount() {
-    await this.getAddms().then(() => (this.isMounted = true))
+  async created() {
+    await this.getAddms()
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
-    ...mapActions(['getAddms'])
+    ...mapActions(['getAddms']),
   },
   computed: {
-    ...mapGetters(['getOracleAddms'])
-  }
+    ...mapGetters(['getOracleAddms', 'loadingTableStatus']),
+  },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.findingColumn {
+  width: 10%;
+}
+.actionColumn {
+  width: 50%;
+}
+</style>

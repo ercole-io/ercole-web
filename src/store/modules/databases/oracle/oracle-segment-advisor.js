@@ -1,8 +1,8 @@
 import _ from 'lodash'
-import axiosDefault from '@/axios/axios-default.js'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 
 export const state = () => ({
-  segmentAdvisor: []
+  segmentAdvisor: [],
 })
 
 export const getters = {
@@ -17,7 +17,7 @@ export const getters = {
     _.map(agregateData, (v, k) => {
       organizeData.push({
         dbname: k,
-        reclaimable: _.floor(_.sumBy(v, 'reclaimable'), 2)
+        reclaimable: _.floor(_.sumBy(v, 'reclaimable'), 2),
       })
     })
 
@@ -26,37 +26,42 @@ export const getters = {
       10
     )
 
-    _.map(top10data, val => {
+    _.map(top10data, (val) => {
       top10result.push([val.dbname, _.floor(val.reclaimable, 1)])
     })
 
     return top10result
-  }
+  },
 }
 
 export const mutations = {
   SET_SEGMENT_ADVISOR: (state, payload) => {
     const newPayload = []
-    _.forEach(payload, val => {
+    _.forEach(payload, (val) => {
       newPayload.push({ ...val, retrieve: val.retrieve * 100 })
     })
     state.segmentAdvisor = newPayload
-  }
+  },
 }
 
 export const actions = {
-  async getSegmentAdvisor({ commit, getters }) {
-    const segmentAdvisor = await axiosDefault.get(
+  async getSegmentAdvisor({ commit, dispatch, getters }) {
+    dispatch('onLoadingTable')
+
+    const segmentAdvisor = await axiosNoLoading.get(
       '/hosts/technologies/oracle/databases/segment-advisors',
       {
         params: {
           'older-than': getters.getActiveFilters.date,
           environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location
-        }
+          location: getters.getActiveFilters.location,
+        },
       }
     )
     const response = await segmentAdvisor.data.segmentAdvisors
-    commit('SET_SEGMENT_ADVISOR', response)
-  }
+    if (response) {
+      dispatch('offLoadingTable')
+      commit('SET_SEGMENT_ADVISOR', response)
+    }
+  },
 }

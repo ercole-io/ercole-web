@@ -1,9 +1,7 @@
-import axiosDefault from '@/axios/axios-default.js'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import { returnAlertsByTypeDate, filterByKeys } from '@/helpers/helpers.js'
 import moment from 'moment'
 import _ from 'lodash'
-import router from '@/router'
 
 const startDate = moment().subtract(1, 'week').format('YYYY-MM-DD')
 const endDate = moment().add(1, 'days').format('YYYY-MM-DD')
@@ -118,11 +116,11 @@ export const mutations = {
     state.alerts.LICENSE = _.groupBy(state.alerts.LICENSE, 'alertSeverity')
 
     _.forEach(state.alerts.ENGINE, (value, key) => {
-      state.alerts.ENGINE[key] = _.orderBy(value, ['date'], ['asc'])
+      state.alerts.ENGINE[key] = _.orderBy(value, ['date'], ['desc'])
     })
 
     _.forEach(state.alerts.LICENSE, (value, key) => {
-      state.alerts.LICENSE[key] = _.orderBy(value, ['date'], ['asc'])
+      state.alerts.LICENSE[key] = _.orderBy(value, ['date'], ['desc'])
     })
   },
   MARK_AS_READ_DASH: (state, payload) => {
@@ -160,7 +158,9 @@ export const mutations = {
 }
 
 export const actions = {
-  async getAlertsData({ commit, getters }, data) {
+  async getAlertsData({ commit, dispatch, getters }, data) {
+    dispatch('onLoadingTable')
+
     const params = {
       status: data.status,
       from: data.startDate,
@@ -169,25 +169,20 @@ export const actions = {
       location: getters.getActiveFilters.location,
     }
 
-    let alertsData
-    if (router.currentRoute.name === 'alerts') {
-      alertsData = await axiosDefault.get('/alerts', {
-        params: params,
-      })
-    } else {
-      alertsData = await axiosNoLoading.get('/alerts', {
-        params: params,
-      })
-    }
-
-    const response = await alertsData.data
-    _.map(response, (val) => {
-      if (val.alertCategory !== 'AGENT') {
-        val.isChecked = false
-      }
+    const alertsData = await axiosNoLoading.get('/alerts', {
+      params: params,
     })
 
-    commit('SET_ALERTS', response)
+    const response = await alertsData.data
+    if (response) {
+      _.map(response, (val) => {
+        if (val.alertCategory !== 'AGENT') {
+          val.isChecked = false
+        }
+      })
+      dispatch('offLoadingTable')
+      commit('SET_ALERTS', response)
+    }
   },
   async markAsRead({ commit }, payload) {
     const deleteAlert = await axiosNoLoading.post(`/alerts/ack`, {

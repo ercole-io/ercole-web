@@ -5,7 +5,14 @@
     :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
   >
-    <SegnmentAdvisorsFilters slot="left" />
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <SegnmentAdvisorsFilters v-if="!loadingTableStatus" slot="left" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.segAdvisor')"
@@ -13,6 +20,7 @@
       :tableData="getOracleSegmentAdvisor"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="reclaimable">{{ $t('common.fields.reclaimable') }}</v-th>
@@ -84,6 +92,7 @@ import HostLink from '@/components/common/Table/HostLink.vue'
 import SegnmentAdvisorsFilters from '@/components/databases/oracle/segmentAdvisor/SegmentAdvisorFIlters.vue'
 import PieChart from '@/components/common/charts/PieChart.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -95,7 +104,8 @@ export default {
     HostLink,
     SegnmentAdvisorsFilters,
     PieChart,
-    BoxContent
+    BoxContent,
+    GhostLoading,
   },
   data() {
     return {
@@ -109,20 +119,27 @@ export default {
         'segmentName',
         'segmentType',
         'partitionName',
-        'recommendation'
+        'recommendation',
       ],
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
-    await this.getSegmentAdvisor().then(() => (this.isMounted = true))
+    await this.getSegmentAdvisor()
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
-    ...mapActions(['getSegmentAdvisor'])
+    ...mapActions(['getSegmentAdvisor']),
   },
   computed: {
-    ...mapGetters(['getOracleSegmentAdvisor', 'top10reclaimableChart'])
-  }
+    ...mapGetters([
+      'getOracleSegmentAdvisor',
+      'top10reclaimableChart',
+      'loadingTableStatus',
+    ]),
+  },
 }
 </script>
 

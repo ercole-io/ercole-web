@@ -4,6 +4,7 @@
     :keys="keys"
     :tableData="returnLicensesAgreement('oracle')"
     :clickedRow="() => []"
+    :isLoadingTable="loadingTableStatus"
   >
     <template slot="headData">
       <th colspan="4" style="text-align: center !important">
@@ -131,6 +132,7 @@
 <script>
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
+import { mapGetters } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import LicensesAgreementMixin from '@/mixins/licensesAgreement.js'
 import OracleAssociatedModal from '@/components/licenses/agreement/Oracle/OracleAssociatedModal.vue'
@@ -184,6 +186,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['loadingTableStatus']),
     toggleReferenceNumber() {
       return _.some(this.returnLicensesAgreement('oracle'), 'referenceNumber')
     },

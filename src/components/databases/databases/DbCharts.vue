@@ -1,38 +1,42 @@
 <template>
-  <BarChart
-    :chartId="id"
-    :barChartData="getDatabasesCharts"
-    :chartHeight="chartHeight"
-    stacked
-    :legend="false"
-    :xAxesConfig="xAxesConfig"
-    :barThickness="70"
-  />
+  <GhostLoading :isLoading="loadingTableStatus" setHeight="500">
+    <BarChart
+      :chartId="id"
+      :barChartData="getDatabasesCharts"
+      :chartHeight="chartHeight"
+      stacked
+      :legend="false"
+      :xAxesConfig="xAxesConfig"
+      :barThickness="70"
+    />
+  </GhostLoading>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import BarChart from '@/components/common/charts/BarChart.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   props: {
     id: {
       type: String,
-      required: true
+      required: true,
     },
     xAxesConfig: {
-      type: Array
+      type: Array,
     },
     chartHeight: {
-      type: String
-    }
+      type: String,
+    },
   },
   components: {
-    BarChart
+    BarChart,
+    GhostLoading,
   },
   computed: {
-    ...mapGetters(['getDatabasesCharts'])
-  }
+    ...mapGetters(['getDatabasesCharts', 'loadingTableStatus']),
+  },
 }
 </script>
 

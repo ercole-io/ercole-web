@@ -1,8 +1,6 @@
-import axiosDefault from '@/axios/axios-default'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
 import { mapClustStatus } from '@/helpers/helpers.js'
-import router from '@/router'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 
 export const state = () => ({
   hosts: [],
@@ -46,27 +44,26 @@ export const mutations = {
 }
 
 export const actions = {
-  async getHosts({ commit, getters }, olderThan = null) {
+  async getHosts({ commit, dispatch, getters }, olderThan = null) {
+    dispatch('onLoadingTable')
+
     const params = {
       'older-than': getters.getActiveFilters.date || olderThan,
       environment: getters.getActiveFilters.environment,
       location: getters.getActiveFilters.location,
     }
 
-    let hostsData
-    if (router.currentRoute.name === 'hosts') {
-      hostsData = await axiosDefault.get('/hosts?mode=summary', {
-        params: params,
-      })
-    } else {
-      hostsData = await axiosNoLoading.get('/hosts?mode=summary', {
-        params: params,
-      })
-    }
+    const hostsData = await axiosNoLoading.get('/hosts?mode=summary', {
+      params: params,
+    })
 
     const response = await hostsData.data.hosts
-    commit('SET_HOSTS', response)
-    commit('SET_HOSTNAMES', response)
+
+    if (response) {
+      dispatch('offLoadingTable')
+      commit('SET_HOSTS', response)
+      commit('SET_HOSTNAMES', response)
+    }
   },
 }
 
@@ -78,9 +75,9 @@ const formatPlatform = (platform) => {
 }
 
 const formatVersion = (agentVersion) => {
-  if (agentVersion !== 'latest') {
+  if (agentVersion) {
     let version = _.split(agentVersion, '.')
-    if (version[1].length === 1) {
+    if (version.length > 2 && version[1].length === 1) {
       version[1] = `0${version[1]}`
     }
     version = _.join(version, '.')
