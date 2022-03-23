@@ -5,7 +5,14 @@
     :centerCol="9"
     v-if="isMounted"
   >
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
     <PatchAdvisorFilters slot="left" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.patAdvisor')"
@@ -74,6 +81,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import PatchAdvisorFilters from '@/components/databases/oracle/patchAdvisor/PatchAdvisorFilters.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -85,6 +93,7 @@ export default {
     TdIcon,
     HostLink,
     PatchAdvisorFilters,
+    GhostLoading,
   },
   data() {
     return {

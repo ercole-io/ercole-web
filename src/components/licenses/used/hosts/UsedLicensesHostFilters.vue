@@ -59,7 +59,7 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutocomplete.vue'
 import Collapse from '@/components/common/Collapse.vue'
@@ -83,7 +83,6 @@ export default {
     bus.$on('onUsedTabChange', () => this.reset(this.resetFilters))
   },
   computed: {
-    ...mapState(['licensesUsed']),
     ...mapGetters(['getUsedLicensesByHost']),
   },
 }

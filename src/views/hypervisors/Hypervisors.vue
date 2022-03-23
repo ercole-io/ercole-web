@@ -5,7 +5,14 @@
     :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
   >
-    <HypervisorsFilters slot="left" />
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <HypervisorsFilters v-if="!loadingTableStatus" slot="left" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.hypervisors')"
