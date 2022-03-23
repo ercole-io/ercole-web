@@ -34,7 +34,7 @@
     />
 
     <template slot="bodyData" slot-scope="rowData">
-      <TdContent :value="rowData.scope.type" />
+      <TdContent :value="rowData.scope.objectType" />
       <TdContent :value="rowData.scope.compartmentName" />
       <TdContent :value="rowData.scope.name" />
       <TdContent :value="rowData.scope.resourceID" />
