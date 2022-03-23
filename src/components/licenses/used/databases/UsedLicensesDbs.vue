@@ -4,7 +4,14 @@
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
   >
-    <UsedLicensesDbsFilters slot="left" />
+    <GhostLoading
+      v-if="licensesUsed.databasesLoading"
+      :isLoading="licensesUsed.databasesLoading"
+      setHeight="640"
+      slot="left"
+    />
+    <UsedLicensesDbsFilters v-if="!licensesUsed.databasesLoading" slot="left" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.licUsed')"
@@ -13,6 +20,7 @@
       :tableData="getUsedLicensesByDbs"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="licensesUsed.databasesLoading"
     >
       <template slot="headData">
         <v-th sortKey="ignore" class="has-text-centered">Ignore License</v-th>
@@ -62,7 +70,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -72,6 +80,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import UsedLicensesDbsFilters from '@/components/licenses/used/databases/UsedLicensesDbsFilters.vue'
 import ignoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [paginationMixin, hostnameLinkRow],
@@ -89,6 +98,7 @@ export default {
     HostLink,
     UsedLicensesDbsFilters,
     ignoreDbLicense,
+    GhostLoading,
   },
   data() {
     return {
@@ -105,7 +115,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByDbs']),
+    ...mapState(['licensesUsed']),
+    ...mapGetters(['getUsedLicensesByDbs', 'loadingTableStatus']),
   },
 }
 </script>

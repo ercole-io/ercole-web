@@ -4,7 +4,16 @@
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
   >
-    <UsedLicensesClustersFilters slot="left" />
+    <GhostLoading
+      v-if="licensesUsed.clustersLoading"
+      :isLoading="licensesUsed.clustersLoading"
+      setHeight="640"
+      slot="left"
+    />
+    <UsedLicensesClustersFilters
+      v-if="!licensesUsed.clustersLoading"
+      slot="left"
+    />
 
     <FullTable
       slot="center"
@@ -12,6 +21,7 @@
       :urlSearchParam="partNumber"
       :keys="keys"
       :tableData="getUsedLicensesByCluster"
+      :isLoadingTable="licensesUsed.clustersLoading"
     >
       <template slot="headData">
         <v-th sortKey="cluster">
@@ -56,7 +66,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -67,6 +77,7 @@ import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import ExportButton from '@/components/common/ExportButton.vue'
 import UsedLicensesClustersModal from '@/components/licenses/used/clusters/UsedLicensesClustersModal.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [
@@ -81,6 +92,7 @@ export default {
     TdContent,
     UsedLicensesClustersFilters,
     ExportButton,
+    GhostLoading,
   },
   props: {
     partNumber: {
@@ -100,9 +112,6 @@ export default {
       ],
     }
   },
-  mounted() {
-    this.getUsedLicensesByCluster
-  },
   methods: {
     openModal(info) {
       this.$buefy.modal.open({
@@ -119,6 +128,7 @@ export default {
     },
   },
   computed: {
+    ...mapState(['licensesUsed']),
     ...mapGetters(['getUsedLicensesByCluster']),
   },
 }

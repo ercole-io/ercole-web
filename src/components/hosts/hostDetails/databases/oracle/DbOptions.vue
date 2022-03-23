@@ -7,6 +7,7 @@
       hidePerpage
       hidePagination
       hideTopTable
+      :isLoadingTable="false"
     >
       <template slot="headData">
         <v-th sortKey="firstUsageDate">First</v-th>
@@ -40,13 +41,13 @@ export default {
   props: {
     options: {
       type: Array,
-      default: Array
-    }
+      default: Array,
+    },
   },
   components: {
     FullTable,
     TdContent,
-    TdIcon
+    TdIcon,
   },
   data() {
     return {
@@ -57,10 +58,10 @@ export default {
         'currentlyUsed',
         'extraFeatureInfo',
         'feature',
-        'firstUsageDate'
-      ]
+        'firstUsageDate',
+      ],
     }
-  }
+  },
 }
 </script>
 

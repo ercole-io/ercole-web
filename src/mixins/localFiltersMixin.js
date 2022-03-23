@@ -31,10 +31,8 @@ export default {
       filters: {},
     }
   },
-  created() {
-    bus.$on('onResetAction', () => this.reset(this.resetFilters))
-  },
   beforeMount() {
+    bus.$on('onResetAction', () => this.reset(this.resetFilters))
     this.setAutocompletes()
     this.setSelects()
     this.setSliders()
@@ -55,9 +53,9 @@ export default {
         showCheckbox: [],
       })
       this.filters = {}
-
       cb()
-
+      this.setAutocompletes()
+      this.setSelects()
       this.setSliders()
     },
 

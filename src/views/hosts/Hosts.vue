@@ -5,10 +5,14 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <div slot="left">
-      <MoreInfoButtons :buttonItems="hostsMoreInfo" />
-      <HostsFilters />
-    </div>
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <HostsFilters v-if="!loadingTableStatus" slot="left" />
+
     <BoxContent slot="center" :mbottom="false">
       <FullTable
         :placeholder="$t('menu.hosts')"
@@ -16,7 +20,21 @@
         :tableData="getAllHosts"
         @clickedRow="handleClickedRow"
         isClickable
+        :isLoadingTable="loadingTableStatus"
       >
+        <MoreInfoButtons :buttonItems="hostsMoreInfo" slot="customTopHeader" />
+
+        <b-button
+          type="is-primary"
+          icon-right="sync-alt"
+          icon-pack="fas"
+          size="is-small"
+          @click="getHostData"
+          v-tooltip="options('Update Host Data', null, 'auto')"
+          slot="customTopHeader"
+          class="mr-2"
+        />
+
         <DynamicHeading
           slot="headData"
           v-for="head in hostsHead"
@@ -80,7 +98,6 @@
             @click.native="handleClickedRow([rowData.scope])"
           />
           <TdContent :value="rowData.scope.techType" />
-          <TdContent :value="rowData.scope.techType" />
           <TdContent :value="rowData.scope.os" />
           <TdIcon
             :value="rowData.scope.iconCluster"
@@ -106,7 +123,6 @@
 </template>
 
 <script>
-//
 import { mapGetters, mapActions, mapState } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
@@ -125,9 +141,11 @@ import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
 import formatDate from '@/filters/formatDate.js'
 import hostsHead from '@/views/hosts/hosts-head.json'
 import hostsMoreInfo from '@/views/hosts/hosts-more-info.json'
+import TooltipMixin from '@/mixins/tooltipMixin.js'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
-  mixins: [localFiltersMixin, hostnameLinkRow, getHeadKeys],
+  mixins: [localFiltersMixin, hostnameLinkRow, getHeadKeys, TooltipMixin],
   components: {
     ToggleColumns,
     BoxContent,
@@ -140,29 +158,32 @@ export default {
     HostLink,
     DynamicHeading,
     MoreInfoButtons,
+    GhostLoading,
   },
   data() {
     return {
-      isMounted: false,
       hostsHead: hostsHead,
       hostsMoreInfo: hostsMoreInfo,
+      isMounted: false,
     }
   },
-  async beforeMount() {
-    if (this.getAllHosts.length > 0) {
-      this.isMounted = true
-    } else {
-      await this.getHosts().then(() => (this.isMounted = true))
-    }
+  beforeMount() {
+    this.getHostData()
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getHosts']),
+    getHostData() {
+      this.getHosts()
+    },
     formatDate(date) {
       return formatDate(date)
     },
   },
   computed: {
-    ...mapGetters(['getAllHosts']),
+    ...mapGetters(['getAllHosts', 'loadingTableStatus']),
     ...mapState(['moreInfoToggle']),
   },
 }

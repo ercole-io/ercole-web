@@ -5,7 +5,14 @@
     :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
   >
-    <HypervisorsFilters slot="left" />
+    <GhostLoading
+      v-if="loadingTableStatus"
+      :isLoading="loadingTableStatus"
+      setHeight="640"
+      slot="left"
+    />
+    <HypervisorsFilters v-if="!loadingTableStatus" slot="left" />
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.hypervisors')"
@@ -13,8 +20,10 @@
       :tableData="getHypervisors"
       @clickedRow="handleClickedRow"
       isClickable
+      :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
+        <v-th sortKey="name">VCenter</v-th>
         <v-th sortKey="name">{{ $t('common.collumns.clusterName') }}</v-th>
         <v-th sortKey="type">{{ $t('common.collumns.type') }}</v-th>
         <v-th sortKey="cpu">{{ $t('common.collumns.cores') }}</v-th>
@@ -29,6 +38,7 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
+        <TdContent :value="rowData.scope.fetchEndpoint" />
         <TdContent :value="rowData.scope.name" />
         <TdContent :value="rowData.scope.type" />
         <TdContent :value="rowData.scope.cpu" />
@@ -46,28 +56,42 @@
     </FullTable>
     <div slot="right">
       <BoxContent title="Cluster" border>
-        <div class="is-flex" style="justify-content: space-around;">
-          <p class="is-size-7 has-text-centered">
-            {{ $t('views.hypervisors.with') }} Ercole <br />
-            <span class="is-size-5 has-text-weight-medium">
-              {{ getErcoleClusterCount.withErcole }}
-            </span>
-          </p>
-          <p class="is-size-7 has-text-centered">
-            {{ $t('views.hypervisors.without') }} Ercole <br />
-            <span class="is-size-5 has-text-weight-medium">
-              {{ getErcoleClusterCount.withoutErcole }}
-            </span>
-          </p>
+        <div class="is-flex" style="justify-content: space-around">
+          <GhostLoading
+            :isLoading="loadingTableStatus"
+            setWidth="62"
+            setHeight="48"
+          >
+            <p class="is-size-7 has-text-centered">
+              {{ $t('views.hypervisors.with') }} Ercole <br />
+              <span class="is-size-5 has-text-weight-medium">
+                {{ getErcoleClusterCount.withErcole }}
+              </span>
+            </p>
+          </GhostLoading>
+          <GhostLoading
+            :isLoading="loadingTableStatus"
+            setWidth="62"
+            setHeight="48"
+          >
+            <p class="is-size-7 has-text-centered">
+              {{ $t('views.hypervisors.without') }} Ercole <br />
+              <span class="is-size-5 has-text-weight-medium">
+                {{ getErcoleClusterCount.withoutErcole }}
+              </span>
+            </p>
+          </GhostLoading>
         </div>
       </BoxContent>
       <BoxContent :title="$t('views.hypervisors.typeVirt')" border>
-        <ColumnChart
-          chartId="columnChart"
-          :columnChartData="getVirtualizationChartData.finalData"
-          :colors="getVirtualizationChartData.colors"
-          stacked
-        />
+        <GhostLoading :isLoading="loadingTableStatus" setHeight="300">
+          <ColumnChart
+            chartId="columnChart"
+            :columnChartData="getVirtualizationChartData.finalData"
+            :colors="getVirtualizationChartData.colors"
+            stacked
+          />
+        </GhostLoading>
       </BoxContent>
     </div>
   </ToggleColumns>
@@ -84,6 +108,7 @@ import ExportButton from '@/components/common/ExportButton.vue'
 import ColumnChart from '@/components/common/charts/ColumnChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HypervisorsFilters from '@/components/hypervisors/HypervisorsFilters.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [techTypePrettyName, localFiltersMixin],
@@ -94,7 +119,8 @@ export default {
     ExportButton,
     ColumnChart,
     TdContent,
-    HypervisorsFilters
+    HypervisorsFilters,
+    GhostLoading,
   },
   data() {
     return {
@@ -105,13 +131,16 @@ export default {
         'sockets',
         'virtualizationNodes',
         'vmsCount',
-        'vmsErcoleAgentCount'
+        'vmsErcoleAgentCount',
       ],
-      isMounted: false
+      isMounted: false,
     }
   },
   async beforeMount() {
-    await this.getClusters().then(() => (this.isMounted = true))
+    await this.getClusters()
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getClusters']),
@@ -120,18 +149,19 @@ export default {
         const selectedRow = $event[0].name
         this.$router.push({
           name: 'cluster-details',
-          params: { clustername: selectedRow }
+          params: { clustername: selectedRow },
         })
       }
-    }
+    },
   },
   computed: {
     ...mapGetters([
       'getErcoleClusterCount',
       'getVirtualizationChartData',
-      'getHypervisors'
-    ])
-  }
+      'getHypervisors',
+      'loadingTableStatus',
+    ]),
+  },
 }
 </script>
 

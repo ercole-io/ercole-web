@@ -1,15 +1,14 @@
 import _ from 'lodash'
-import axiosDefault from '@/axios/axios-default.js'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import { setFullPartNumber } from '@/helpers/helpers.js'
 
 export const state = () => ({
   oracleAgreements: [],
-  mysqlAgreements: []
+  mysqlAgreements: [],
 })
 
 export const getters = {
-  returnLicensesAgreement: (state, getters) => type => {
+  returnLicensesAgreement: (state, getters) => (type) => {
     return getters.filteredOrNot(state[type + 'Agreements'])
   },
   // getLicenseAgreementHostAssociated: state => id => {
@@ -19,30 +18,30 @@ export const getters = {
   //   const hostsAssociated = findHostAssociated.hosts
   //   return hostsAssociated
   // },
-  returnAgreeNumbers: state => {
+  returnAgreeNumbers: (state) => {
     const agreeNumbers = []
 
-    _.map(state.oracleAgreements, val => {
+    _.map(state.oracleAgreements, (val) => {
       agreeNumbers.push(val.agreementID)
     })
     return agreeNumbers
   },
-  returnCsiNumbers: state => {
+  returnCsiNumbers: (state) => {
     const csiNumbers = []
 
-    _.map(state.oracleAgreements, val => {
+    _.map(state.oracleAgreements, (val) => {
       csiNumbers.push(val.csi)
     })
     return csiNumbers
   },
-  returnReferenceNumbers: state => {
+  returnReferenceNumbers: (state) => {
     const referenceNumbers = []
 
-    _.map(state.oracleAgreements, val => {
+    _.map(state.oracleAgreements, (val) => {
       referenceNumbers.push(val.referenceNumber)
     })
     return referenceNumbers
-  }
+  },
 }
 
 export const mutations = {
@@ -56,68 +55,85 @@ export const mutations = {
   UPDATE_AGREEMENTS: (state, payload) => {
     const item = _.find(
       state[payload.mode + 'Agreements'],
-      val => val.id === payload.id
+      (val) => val.id === payload.id
     )
     Object.assign(item, payload)
   },
   DELETE_AGREEMENT: (state, payload) => {
     const index = _.findIndex(
       state[payload.type + 'Agreements'],
-      val => val.id === payload.id
+      (val) => val.id === payload.id
     )
     state[payload.type + 'Agreements'].splice(index, 1)
-  }
+  },
 }
 
 export const actions = {
-  async getLicensesAgreement({ commit }, type, noLoading = null) {
+  async getLicensesAgreement({ commit, dispatch }, type, noLoading = null) {
     let agreementList = null
 
     if (noLoading) {
       agreementList = await axiosNoLoading.get(`/agreements/${type}/database`)
     } else {
-      agreementList = await axiosDefault.get(`/agreements/${type}/database`)
+      dispatch('onLoadingTable')
+      agreementList = await axiosNoLoading.get(`/agreements/${type}/database`)
     }
 
     const response = await agreementList.data.agreements
-
-    commit('SET_AGREEMENTS', { res: response, type: type })
+    if (response) {
+      dispatch('offLoadingTable')
+      commit('SET_AGREEMENTS', { res: response, type: type })
+    }
   },
-  async createLicenseAgreement({ commit }, payload) {
-    const create = await axiosDefault.post(
+  async createLicenseAgreement({ commit, dispatch }, payload) {
+    dispatch('onLoadingTable')
+
+    const create = await axiosNoLoading.post(
       `/agreements/${payload.type}/database`,
       payload.body
     )
     let response = await create.data
-    response = { ...response, mode: payload.type }
-
-    commit('CREATE_AGREEMENT', response)
+    if (response) {
+      response = { ...response, mode: payload.type }
+      dispatch('offLoadingTable')
+      commit('CREATE_AGREEMENT', response)
+    }
   },
-  async updateLicenseAgreement({ commit }, payload) {
+  async updateLicenseAgreement({ commit, dispatch }, payload) {
+    dispatch('onLoadingTable')
+
     let data
     if (payload.type === 'mysql') {
-      await axiosDefault
+      await axiosNoLoading
         .put(
           `/agreements/${payload.type}/database/${payload.body.id}`,
           payload.body
         )
-        .then(res => {
+        .then((res) => {
           data = res.data
         })
     } else if (payload.type === 'oracle') {
-      await axiosDefault
+      await axiosNoLoading
         .put(`/agreements/${payload.type}/database`, payload.body)
-        .then(res => {
+        .then((res) => {
           data = res.data
         })
     }
 
-    data = { ...data, mode: payload.type }
-    commit('UPDATE_AGREEMENTS', data)
+    if (data) {
+      data = { ...data, mode: payload.type }
+      dispatch('offLoadingTable')
+      commit('UPDATE_AGREEMENTS', data)
+    }
   },
-  async deleteLicenseAgreement(context, payload) {
-    await axiosDefault.delete(
+  async deleteLicenseAgreement({ dispatch }, payload) {
+    dispatch('onLoadingTable')
+    const delAgreement = await axiosNoLoading.delete(
       `/agreements/${payload.type}/database/${payload.id}`
     )
-  }
+    const response = await delAgreement
+    if (response.status === 200) {
+      dispatch('offLoadingTable')
+    }
+  },
 }

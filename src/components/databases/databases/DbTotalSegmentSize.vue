@@ -4,25 +4,30 @@
     border
     :mbottom="false"
   >
-    <CardStats
-      :cardStatValue="databases.stats['total-segments-size'] | prettyBytes"
-    />
+    <GhostLoading :isLoading="loadingTableStatus" setHeight="30">
+      <CardStats
+        :cardStatValue="databases.stats['total-segments-size'] | prettyBytes"
+      />
+    </GhostLoading>
   </BoxContent>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import CardStats from '@/components/common/CardStats.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   components: {
     BoxContent,
-    CardStats
+    CardStats,
+    GhostLoading,
   },
   computed: {
-    ...mapState(['databases'])
-  }
+    ...mapGetters(['loadingTableStatus']),
+    ...mapState(['databases']),
+  },
 }
 </script>
 

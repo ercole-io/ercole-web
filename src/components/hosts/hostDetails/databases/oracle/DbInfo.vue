@@ -50,12 +50,12 @@ export default {
   props: {
     dbInfo: {
       type: Object,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   components: {
     Card,
-    CardListHighlight
+    CardListHighlight,
   },
   computed: {
     details() {
@@ -68,11 +68,11 @@ export default {
         {
           name: 'Archive Log',
           value: this.dbInfo.archivelog,
-          hasIcon: true
+          hasIcon: true,
         },
         { name: 'Block Size', value: this.dbInfo.blockSize },
         { name: 'Charset', value: this.dbInfo.charset },
-        { name: 'N Charset', value: this.dbInfo.nCharset }
+        { name: 'N Charset', value: this.dbInfo.nCharset },
       ]
     },
     memory() {
@@ -80,31 +80,31 @@ export default {
         { name: 'Memory Target', value: this.dbInfo.memoryTarget },
         { name: 'PGA Target (GB)', value: this.dbInfo.pgaTarget },
         { name: 'SGA MaxSize (GB)', value: this.dbInfo.sgaMaxSize },
-        { name: 'SGA Target (GB)', value: this.dbInfo.sgaTarget }
+        { name: 'SGA Target (GB)', value: this.dbInfo.sgaTarget },
       ]
     },
     resource() {
       return [
         { name: 'Db Time', value: this.dbInfo.dbTime },
         { name: 'Elapsed', value: this.dbInfo.elapsed },
-        { name: 'Thread Used', value: this.dbInfo.work },
-        { name: 'CPU Count', value: this.dbInfo.cpuCount }
+        { name: 'DB time / Elapsed (min. 1)', value: this.dbInfo.work },
+        { name: 'CPU Count', value: this.dbInfo.cpuCount },
       ]
     },
     space() {
       return [
         {
           name: 'Allocable (GB)',
-          value: this.dbInfo.allocable
+          value: this.dbInfo.allocable,
         },
         {
           name: 'DataFile Size (GB)',
-          value: this.dbInfo.datafileSize
+          value: this.dbInfo.datafileSize,
         },
         {
           name: 'Segments Size (GB)',
-          value: this.dbInfo.segmentsSize
-        }
+          value: this.dbInfo.segmentsSize,
+        },
       ]
     },
     additional() {
@@ -112,10 +112,10 @@ export default {
         { name: 'ASM', value: this.dbInfo.asm, hasIcon: true },
         { name: 'Data Guard', value: this.dbInfo.dataguard, hasIcon: true },
         { name: 'Platform', value: this.dbInfo.platform },
-        { name: 'Version', value: this.dbInfo.version }
+        { name: 'Version', value: this.dbInfo.version },
       ]
-    }
-  }
+    },
+  },
 }
 </script>
 
