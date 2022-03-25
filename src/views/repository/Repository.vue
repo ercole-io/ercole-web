@@ -1,28 +1,26 @@
 <template>
-  <Repositories v-if="isMounted" />
+  <Repositories />
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { bus } from '@/helpers/eventBus.js'
+import { mapActions, mapGetters } from 'vuex'
 import Repositories from '@/components/repository/Repositories.vue'
 
 export default {
   components: {
     Repositories,
   },
-  data() {
-    return {
-      isMounted: false,
-    }
-  },
   async beforeMount() {
-    await this.requestRepository()
-  },
-  mounted() {
-    this.isMounted = true
+    await this.requestRepository().then(() => {
+      bus.$emit('data', this.getRepository)
+    })
   },
   methods: {
     ...mapActions(['requestRepository']),
+  },
+  computed: {
+    ...mapGetters(['getRepository', 'loadingTableStatus']),
   },
 }
 </script>

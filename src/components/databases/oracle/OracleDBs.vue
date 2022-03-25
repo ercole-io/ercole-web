@@ -3,14 +3,11 @@
     getPage="databasesOracle"
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('common.general.sideInfo')"
+    v-if="isMounted"
   >
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="left"
-    />
-    <OracleFilters v-if="!loadingTableStatus" slot="left" />
+    <OracleFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </OracleFilters>
 
     <FullTable
       slot="center"
@@ -135,7 +132,7 @@ import OracleCharts from '@/components/databases/oracle/OracleCharts.vue'
 import OracleCpu from '@/components/databases/oracle/OracleCpu.vue'
 import OracleMemory from '@/components/databases/oracle/OracleMemory.vue'
 import OracleStorage from '@/components/databases/oracle/OracleStorage.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [hostnameLinkRow, getHeadKeys],
@@ -157,13 +154,17 @@ export default {
     OracleCpu,
     OracleMemory,
     OracleStorage,
-    GhostLoading,
+    Loading,
   },
   data() {
     return {
       oraclesMoreInfo: oraclesMoreInfo,
       oracleHead: oracleHead,
+      isMounted: false,
     }
+  },
+  mounted() {
+    this.isMounted = true
   },
   computed: {
     ...mapGetters(['getAllOracleDBs', 'loadingTableStatus']),
