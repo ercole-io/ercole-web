@@ -40,6 +40,8 @@
         :steps="1"
       />
     </CustomField>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
@@ -61,9 +63,12 @@ export default {
     }
   },
   created() {
-    this.fullData = this.getUsedLicensesByCluster
-
-    bus.$on('onUsedTabChange', () => this.reset(this.resetFilters))
+    bus.$on('onUsedTabChange', (value) => {
+      if (value === 2) {
+        bus.$emit('data', this.getUsedLicensesByCluster)
+        this.reset(this.resetFilters)
+      }
+    })
   },
   computed: {
     ...mapGetters(['getUsedLicensesByCluster']),

@@ -64,11 +64,12 @@
     <CustomField :label="$t('common.fields.highAvail')">
       <CustomRadio v-model="filters.highAvailability" />
     </CustomField>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 
 export default {
@@ -83,27 +84,21 @@ export default {
         'edition',
         'engine',
         'platform',
-        'version'
+        'version',
       ],
       sliders: ['bufferPoolSize'],
       filters: {
-        highAvailability: ''
-      }
+        highAvailability: '',
+      },
     }
-  },
-  created() {
-    this.fullData = this.getAllMysqlDbs
   },
   methods: {
     resetFilters() {
       this.filters = {
-        highAvailability: ''
+        highAvailability: '',
       }
-    }
+    },
   },
-  computed: {
-    ...mapGetters(['getAllMysqlDbs'])
-  }
 }
 </script>
 

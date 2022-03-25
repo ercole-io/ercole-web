@@ -3,14 +3,11 @@
     getPage="databases"
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('common.general.sideInfo')"
+    v-if="isMounted"
   >
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="left"
-    />
-    <DbFilters v-if="!loadingTableStatus" slot="left" />
+    <DbFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </DbFilters>
 
     <FullTable
       slot="center"
@@ -97,7 +94,7 @@ import databasesHead from '@/components/databases/databases/databases-head.json'
 import DbCharts from '@/components/databases/databases/DbCharts.vue'
 import DbTotalMemorySize from '@/components/databases/databases/DbTotalMemorySize.vue'
 import DbTotalSegmentSize from '@/components/databases/databases/DbTotalSegmentSize.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [hostnameLinkRow, getHeadKeys],
@@ -114,16 +111,20 @@ export default {
     DbCharts,
     DbTotalMemorySize,
     DbTotalSegmentSize,
-    GhostLoading,
+    Loading,
   },
   data() {
     return {
       databasesHead: databasesHead,
       databasesMoreInfo: databasesMoreInfo,
+      isMounted: false,
     }
   },
+  mounted() {
+    this.isMounted = true
+  },
   computed: {
-    ...mapGetters(['getAllDatabases', 'loadingTableStatus']),
+    ...mapGetters(['loadingTableStatus', 'getAllDatabases']),
     ...mapState(['moreInfoToggle']),
   },
 }

@@ -27,11 +27,12 @@
     <CustomField :label="$t('common.fields.cappedCpu')">
       <CustomRadio v-model="filters.cappedCPU" />
     </CustomField>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 
 export default {
@@ -40,23 +41,17 @@ export default {
     return {
       autocompletes: ['virtualizationNode', 'hostname', 'name'],
       filters: {
-        cappedCPU: ''
-      }
+        cappedCPU: '',
+      },
     }
-  },
-  created() {
-    this.fullData = this.getCurrentClusterVms
   },
   methods: {
     resetFilters() {
       this.filters = {
-        cappedCPU: ''
+        cappedCPU: '',
       }
-    }
+    },
   },
-  computed: {
-    ...mapGetters(['getCurrentClusterVms'])
-  }
 }
 </script>
 

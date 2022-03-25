@@ -5,13 +5,9 @@
     :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
   >
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="left"
-    />
-    <ClusterFilters v-if="!loadingTableStatus" slot="left" />
+    <ClusterFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </ClusterFilters>
 
     <FullTable
       slot="center"
@@ -131,6 +127,7 @@ import HostLink from '@/components/common/Table/HostLink.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import ClusterFilters from '@/components/hypervisors/ClusterFilters.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [techTypePrettyName, localFiltersMixin, hostnameLinkRow],
@@ -146,6 +143,7 @@ export default {
     TdIcon,
     ClusterFilters,
     GhostLoading,
+    Loading,
   },
   data() {
     return {
@@ -155,7 +153,9 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getClusterByName(this.clustername)
+    await this.getClusterByName(this.clustername).then(() => {
+      bus.$emit('data', this.getCurrentClusterVms)
+    })
     bus.$emit('dynamicTitle', this.clustername)
   },
   mounted() {

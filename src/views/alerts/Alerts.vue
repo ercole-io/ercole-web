@@ -12,13 +12,9 @@
       :can-cancel="false"
     />
 
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="left"
-    />
-    <AlertsFilters v-if="!loadingTableStatus" slot="left" />
+    <AlertsFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </AlertsFilters>
 
     <FullTable
       slot="center"
@@ -192,7 +188,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import AlertsFilters from '@/components/alerts/AlertsFilters.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
   _.map(list, (val) => {
@@ -213,7 +209,7 @@ export default {
     TdIcon,
     HostLink,
     AlertsFilters,
-    GhostLoading,
+    Loading,
   },
   data() {
     return {
@@ -235,7 +231,9 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getAlertsData({ status: this.alertStatus })
+    await this.getAlertsData({ status: this.alertStatus }).then(() => {
+      bus.$emit('data', this.getAlerts)
+    })
   },
   mounted() {
     this.isMounted = true

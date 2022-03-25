@@ -46,6 +46,8 @@
         :ticks="[minclusterLicenses, maxclusterLicenses]"
       />
     </CustomField>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
@@ -67,9 +69,12 @@ export default {
     }
   },
   created() {
-    this.fullData = this.getUsedLicensesByHost
-
-    bus.$on('onUsedTabChange', () => this.reset(this.resetFilters))
+    bus.$on('onUsedTabChange', (value) => {
+      if (value === 1) {
+        bus.$emit('data', this.getUsedLicensesByHost)
+        this.reset(this.resetFilters)
+      }
+    })
   },
   computed: {
     ...mapGetters(['getUsedLicensesByHost']),

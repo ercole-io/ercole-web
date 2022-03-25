@@ -85,6 +85,8 @@
     <CustomField :label="$t('common.fields.restricted')">
       <CustomRadio v-model="filters.restricted" />
     </CustomField>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
@@ -98,7 +100,7 @@ import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutoc
 export default {
   mixins: [localFiltersMixin],
   components: {
-    CustomSelectAutocomplete
+    CustomSelectAutocomplete,
   },
   data() {
     return {
@@ -107,42 +109,43 @@ export default {
         'csi',
         'referenceNumber',
         'fullPartNumber',
-        'metric'
+        'metric',
       ],
       selects: ['referenceNumber'],
       sliders: [
         'licensesPerCore',
         'licensesPerUser',
         'availableLicensesPerCore',
-        'availableLicensesPerUser'
+        'availableLicensesPerUser',
       ],
       filters: {
         unlimited: '',
         basket: '',
-        restricted: ''
-      }
+        restricted: '',
+      },
     }
   },
   created() {
-    this.fullData = this.returnLicensesAgreement('oracle')
-
-    bus.$on('onTabChange', () => this.reset(this.resetFilters))
+    bus.$on('onTabChange', () => {
+      this.reset(this.resetFilters)
+      bus.$emit('data', this.returnLicensesAgreement('oracle'))
+    })
   },
   methods: {
     resetFilters() {
       this.filters = {
         unlimited: '',
         basket: '',
-        restricted: ''
+        restricted: '',
       }
-    }
+    },
   },
   computed: {
     ...mapGetters(['returnLicensesAgreement']),
     toggleReferenceNumber() {
       return _.some(this.returnLicensesAgreement('oracle'), 'referenceNumber')
-    }
-  }
+    },
+  },
 }
 </script>
 

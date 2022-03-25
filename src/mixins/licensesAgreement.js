@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { bus } from '@/helpers/eventBus.js'
 import { mapState, mapGetters, mapActions } from 'vuex'
 import { simpleAutocompleteData } from '@/helpers/helpers.js'
 
@@ -43,9 +44,13 @@ export default {
             type: type,
             id: id,
           }
-          this.deleteLicenseAgreement(payload).then(() => {
-            this.$store.commit('DELETE_AGREEMENT', payload)
-          })
+          this.deleteLicenseAgreement(payload)
+            .then(() => {
+              this.$store.commit('DELETE_AGREEMENT', payload)
+            })
+            .then(() => {
+              bus.$emit('data', this.returnLicensesAgreement(type))
+            })
         },
       })
     },

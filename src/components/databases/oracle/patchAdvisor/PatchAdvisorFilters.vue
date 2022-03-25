@@ -38,11 +38,12 @@
     <CustomField :label="$t('common.fields.months', ['12'])">
       <CustomRadio v-model="filters.twelveMonths" />
     </CustomField>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 
 export default {
@@ -54,25 +55,19 @@ export default {
       filters: {
         fourMonths: '',
         sixMonths: '',
-        twelveMonths: ''
-      }
+        twelveMonths: '',
+      },
     }
-  },
-  created() {
-    this.fullData = this.getOraclePatchAdvisor
   },
   methods: {
     resetFilters() {
       this.filters = {
         fourMonths: '',
         sixMonths: '',
-        twelveMonths: ''
+        twelveMonths: '',
       }
-    }
+    },
   },
-  computed: {
-    ...mapGetters(['getOraclePatchAdvisor'])
-  }
 }
 </script>
 

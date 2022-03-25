@@ -122,11 +122,12 @@
         :filterMethod="setAutocompletes"
       />
     </CustomField>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 
 export default {
@@ -158,9 +159,6 @@ export default {
       },
     }
   },
-  created() {
-    this.fullData = this.getAllOracleDBs
-  },
   methods: {
     resetFilters() {
       this.filters = {
@@ -170,9 +168,6 @@ export default {
         isCDB: '',
       }
     },
-  },
-  computed: {
-    ...mapGetters(['getAllOracleDBs']),
   },
 }
 </script>
