@@ -70,13 +70,15 @@
         :filterMethod="setAutocompletes"
       />
     </CustomField>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { formatDatepickerDate } from '@/helpers/helpers.js'
-import { mapGetters, mapActions, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import formatDate from '@/filters/formatDate.js'
 
@@ -96,8 +98,6 @@ export default {
     }
   },
   created() {
-    this.fullData = this.getAlerts
-
     this.filters = {
       alertCategory: this.alerts.params.category,
       alertSeverity: this.alerts.params.severity,
@@ -141,7 +141,6 @@ export default {
   },
   computed: {
     ...mapState(['alerts']),
-    ...mapGetters(['getAlerts']),
   },
   watch: {
     alertStatus(newValue, oldValue) {

@@ -78,11 +78,12 @@
     <CustomField :label="$t('common.fields.highAvail')">
       <CustomRadio v-model="filters.highAvailability" />
     </CustomField>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 
 export default {
@@ -95,25 +96,19 @@ export default {
       filters: {
         archivelog: '',
         disasterRecovery: '',
-        highAvailability: ''
-      }
+        highAvailability: '',
+      },
     }
-  },
-  created() {
-    this.fullData = this.getAllDatabases
   },
   methods: {
     resetFilters() {
       this.filters = {
         archivelog: '',
         disasterRecovery: '',
-        highAvailability: ''
+        highAvailability: '',
       }
-    }
+    },
   },
-  computed: {
-    ...mapGetters(['getAllDatabases'])
-  }
 }
 </script>
 

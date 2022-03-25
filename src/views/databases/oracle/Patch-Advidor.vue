@@ -5,13 +5,9 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="left"
-    />
-    <PatchAdvisorFilters slot="left" />
+    <PatchAdvisorFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </PatchAdvisorFilters>
 
     <FullTable
       slot="center"
@@ -69,6 +65,7 @@
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -78,7 +75,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import PatchAdvisorFilters from '@/components/databases/oracle/patchAdvisor/PatchAdvisorFilters.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -90,7 +87,7 @@ export default {
     TdIcon,
     HostLink,
     PatchAdvisorFilters,
-    GhostLoading,
+    Loading,
   },
   data() {
     return {
@@ -108,7 +105,9 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getPatchAdvisor()
+    await this.getPatchAdvisor().then(() => {
+      bus.$emit('data', this.getOraclePatchAdvisor)
+    })
   },
   mounted() {
     this.isMounted = true

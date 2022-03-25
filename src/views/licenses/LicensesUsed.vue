@@ -4,7 +4,7 @@
       size="is-small"
       type="is-boxed"
       class="block"
-      destroy-on-hide
+      v-model="activeTab"
       @input="onTabChange"
     >
       <b-tab-item label="Databases">
@@ -22,7 +22,6 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions } from 'vuex'
 import UsedLicensesDbs from '@/components/licenses/used/databases/UsedLicensesDbs.vue'
 import UsedLicensesHost from '@/components/licenses/used/hosts/UsedLicensesHost.vue'
 import UsedLicensesClusters from '@/components/licenses/used/clusters/UsedLicensesClusters.vue'
@@ -39,19 +38,14 @@ export default {
       required: false,
     },
   },
-  beforeMount() {
-    this.getLicensesDatabases()
-    this.getLicensesHosts()
-    this.getLicensesClusters()
+  data() {
+    return {
+      activeTab: 0,
+    }
   },
   methods: {
-    ...mapActions([
-      'getLicensesDatabases',
-      'getLicensesHosts',
-      'getLicensesClusters',
-    ]),
-    onTabChange() {
-      bus.$emit('onUsedTabChange')
+    onTabChange(value) {
+      bus.$emit('onUsedTabChange', value)
     },
   },
 }

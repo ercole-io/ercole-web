@@ -120,11 +120,13 @@
         <CustomSelect v-model="filters.version" :options="filteredversion" />
       </CustomField>
     </Collapse>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
 
@@ -152,9 +154,6 @@ export default {
       startDate: null,
     }
   },
-  created() {
-    this.fullData = this.getAllHosts
-  },
   methods: {
     ...mapActions(['getHosts']),
     resetFilters() {
@@ -163,9 +162,6 @@ export default {
       }
       this.startDate = null
     },
-  },
-  computed: {
-    ...mapGetters(['getAllHosts']),
   },
   watch: {
     startDate(newValue, oldValue) {

@@ -3,14 +3,11 @@
     getPage="databasesMysql"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
+    v-if="isMounted"
   >
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="left"
-    />
-    <MySqlFilters v-if="!loadingTableStatus" slot="left" />
+    <MySqlFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </MySqlFilters>
 
     <FullTable
       slot="center"
@@ -77,7 +74,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import MySqlFilters from '@/components/databases/mysql/MySqlFilters.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -89,7 +86,7 @@ export default {
     TdIcon,
     HostLink,
     MySqlFilters,
-    GhostLoading,
+    Loading,
   },
   data() {
     return {
@@ -106,7 +103,11 @@ export default {
         'version',
         'highAvailability',
       ],
+      isMounted: false,
     }
+  },
+  mounted() {
+    this.isMounted = true
   },
   computed: {
     ...mapGetters(['getAllMysqlDbs', 'loadingTableStatus']),

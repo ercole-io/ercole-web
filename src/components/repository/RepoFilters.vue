@@ -48,12 +48,13 @@
     <CustomField :label="$t('common.fields.version')">
       <CustomSelect v-model="filters.Version" :options="filteredVersion" />
     </CustomField>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
 import moment from 'moment'
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 
 export default {
@@ -67,38 +68,32 @@ export default {
         'OperatingSystem',
         'OperatingSystemFamily',
         'Repository',
-        'Version'
+        'Version',
       ],
       filters: {
-        Installed: ''
+        Installed: '',
       },
-      startDate: null
+      startDate: null,
     }
-  },
-  created() {
-    this.fullData = this.getRepository
   },
   methods: {
     resetFilters() {
       this.filters = {
         Installed: '',
-        ReleaseDate: null
+        ReleaseDate: null,
       }
       this.startDate = null
-    }
-  },
-  computed: {
-    ...mapGetters(['getRepository'])
+    },
   },
   watch: {
     startDate(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.filters = {
-          ReleaseDate: moment(this.startDate).format('DD/MM/YYYY')
+          ReleaseDate: moment(this.startDate).format('DD/MM/YYYY'),
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -66,11 +66,12 @@
         :filterMethod="setAutocompletes"
       />
     </CustomField>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 
 export default {
@@ -82,18 +83,12 @@ export default {
         'dbname',
         'segmentOwner',
         'segmentName',
-        'recommendation'
+        'recommendation',
       ],
       selects: ['segmentType'],
-      sliders: ['reclaimable', 'segmentsSize', 'retrieve']
+      sliders: ['reclaimable', 'segmentsSize', 'retrieve'],
     }
   },
-  created() {
-    this.fullData = this.getOracleSegmentAdvisor
-  },
-  computed: {
-    ...mapGetters(['getOracleSegmentAdvisor'])
-  }
 }
 </script>
 

@@ -27,30 +27,33 @@
         :filterMethod="setAutocompletes"
       />
     </CustomField>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
+import { mapGetters } from 'vuex'
 
 export default {
   mixins: [localFiltersMixin],
   data() {
     return {
       autocompletes: ['agreementID', 'csi', 'numberOfLicenses'],
-      selects: ['type']
+      selects: ['type'],
     }
   },
   created() {
-    this.fullData = this.returnLicensesAgreement('mysql')
-
-    bus.$on('onTabChange', () => this.reset())
+    bus.$on('onTabChange', () => {
+      this.reset()
+      bus.$emit('data', this.returnLicensesAgreement('mysql'))
+    })
   },
   computed: {
-    ...mapGetters(['returnLicensesAgreement'])
-  }
+    ...mapGetters(['returnLicensesAgreement']),
+  },
 }
 </script>
 

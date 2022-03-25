@@ -54,11 +54,12 @@
         :steps="1"
       />
     </CustomField>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 
 export default {
@@ -69,12 +70,6 @@ export default {
       selects: ['fetchEndpoint', 'type'],
       sliders: ['cpu', 'sockets', 'vmsCount', 'vmsErcoleAgentCount'],
     }
-  },
-  created() {
-    this.fullData = this.getHypervisors
-  },
-  computed: {
-    ...mapGetters(['getHypervisors']),
   },
 }
 </script>

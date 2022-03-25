@@ -3,14 +3,11 @@
     getPage="licensesUsedHosts"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
+    v-if="isMounted"
   >
-    <GhostLoading
-      v-if="licensesUsed.hostsLoading"
-      :isLoading="licensesUsed.hostsLoading"
-      setHeight="640"
-      slot="left"
-    />
-    <UsedLicensesHostFilters v-if="!licensesUsed.hostsLoading" slot="left" />
+    <UsedLicensesHostFilters slot="left">
+      <Loading :isLoading="licensesUsed.hostsLoading" />
+    </UsedLicensesHostFilters>
 
     <FullTable
       slot="center"
@@ -66,7 +63,8 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { bus } from '@/helpers/eventBus.js'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -78,7 +76,7 @@ import UsedLicensesHostModal from '@/components/licenses/used/hosts/UsedLicenses
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import ExportButton from '@/components/common/ExportButton.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [
@@ -94,7 +92,7 @@ export default {
     HostLink,
     UsedLicensesHostFilters,
     ExportButton,
-    GhostLoading,
+    Loading,
   },
   props: {
     partNumber: {
@@ -113,9 +111,19 @@ export default {
         'usedLicenses',
         'clusterLicenses',
       ],
+      isMounted: false,
     }
   },
+  async beforeMount() {
+    await this.getLicensesHosts().then(() => {
+      bus.$emit('data', this.getUsedLicensesByHost)
+    })
+  },
+  mounted() {
+    this.isMounted = true
+  },
   methods: {
+    ...mapActions(['getLicensesHosts']),
     openModal(info) {
       this.$buefy.modal.open({
         component: UsedLicensesHostModal,
