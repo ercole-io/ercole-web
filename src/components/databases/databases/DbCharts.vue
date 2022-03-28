@@ -1,9 +1,9 @@
 <template>
-  <GhostLoading :isLoading="loadingTableStatus" setHeight="468">
+  <GhostLoading :isLoading="loadingTableStatus" setHeight="490">
     <BarChart
       :chartId="id"
       :barChartData="getDatabasesCharts"
-      :chartHeight="chartHeight"
+      chartHeight="490px"
       stacked
       :legend="false"
       :xAxesConfig="xAxesConfig"

@@ -93,6 +93,7 @@ import SegnmentAdvisorsFilters from '@/components/databases/oracle/segmentAdviso
 import PieChart from '@/components/common/charts/PieChart.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import Loading from '@/components/common/Loading.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -106,6 +107,7 @@ export default {
     PieChart,
     BoxContent,
     Loading,
+    GhostLoading,
   },
   data() {
     return {

@@ -36,11 +36,12 @@
         </CustomField>
       </template>
     </Collapse>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
 
@@ -55,12 +56,6 @@ export default {
       autocompletes: ['profile'],
       selects: ['tenancyOCID', 'userOCID', 'keyFingerprint', 'region'],
     }
-  },
-  created() {
-    this.fullData = this.getOciProfiles
-  },
-  computed: {
-    ...mapGetters(['getOciProfiles']),
   },
 }
 </script>

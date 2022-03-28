@@ -5,33 +5,26 @@
     rightButton="Add Profile"
     v-if="isMounted"
   >
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="left"
-    />
-    <ProfileConfigFilters v-if="!loadingTableStatus" slot="left" />
+    <ProfileConfigFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </ProfileConfigFilters>
 
     <ProfileConfigList slot="center" />
 
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="right"
-    />
-    <ProfileConfigForm v-if="!loadingTableStatus" slot="right" />
+    <ProfileConfigForm slot="right">
+      <Loading :isLoading="loadingTableStatus" />
+    </ProfileConfigForm>
   </ToggleColumns>
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import ProfileConfigList from '@/components/cloud/profileConfig/ProfileList.vue'
 import ProfileConfigForm from '@/components/cloud/profileConfig/ProfileForm.vue'
 import ProfileConfigFilters from '@/components/cloud/profileConfig/ProfileFilters.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   components: {
@@ -39,7 +32,7 @@ export default {
     ProfileConfigList,
     ProfileConfigForm,
     ProfileConfigFilters,
-    GhostLoading,
+    Loading,
   },
   data() {
     return {
@@ -47,7 +40,9 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getProfiles()
+    await this.getProfiles().then(() => {
+      bus.$emit('data', this.getOciProfiles)
+    })
   },
   mounted() {
     this.isMounted = true
@@ -56,7 +51,7 @@ export default {
     ...mapActions(['getProfiles']),
   },
   computed: {
-    ...mapGetters(['loadingTableStatus']),
+    ...mapGetters(['getOciProfiles', 'loadingTableStatus']),
   },
 }
 </script>

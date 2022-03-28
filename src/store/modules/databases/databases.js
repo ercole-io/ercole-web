@@ -54,9 +54,7 @@ export const actions = {
       commit('SET_DATABASES', response)
     }
   },
-  async getDatabasesStats({ commit, dispatch, getters }) {
-    dispatch('onLoadingTable')
-
+  async getDatabasesStats({ commit, getters }) {
     const stats = await axiosNoLoading.get(
       '/hosts/technologies/all/databases/statistics',
       {
@@ -69,7 +67,6 @@ export const actions = {
     )
     const response = await stats.data
     if (response) {
-      dispatch('offLoadingTable')
       commit('SET_DB_STATS', response)
     }
   },

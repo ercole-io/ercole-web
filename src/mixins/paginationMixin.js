@@ -27,6 +27,11 @@ export default {
     checkPerPage() {
       let storagePerPage = Number(localStorage.getItem('perPage'))
 
+      if (!this.checkStorage) {
+        localStorage.setItem('perPage', 25)
+        this.perPage = 25
+      }
+
       if (storagePerPage) {
         if (this.totalItems < storagePerPage) {
           this.perPage = Number(this.totalItems)
