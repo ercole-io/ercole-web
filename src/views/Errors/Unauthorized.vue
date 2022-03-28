@@ -6,7 +6,7 @@
   >
     <b-button
       slot="actions"
-      type="is-link is-light"
+      type="is-ercole-blue"
       size="is-medium"
       @click="logout"
     >
@@ -21,11 +21,11 @@ import ErrorCode from '@/components/common/ErrorCode.vue'
 
 export default {
   components: {
-    ErrorCode
+    ErrorCode,
   },
   data() {
     return {
-      countDown: 5
+      countDown: 5,
     }
   },
   created() {
@@ -42,8 +42,8 @@ export default {
       } else {
         this.logout()
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
