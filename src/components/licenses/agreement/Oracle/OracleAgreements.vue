@@ -5,33 +5,26 @@
     :rightButton="$t('views.licenses.agreeForm')"
     v-if="isMounted"
   >
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="left"
-    />
-    <OracleAgreementsFilters v-if="!loadingTableStatus" slot="left" />
+    <OracleAgreementsFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </OracleAgreementsFilters>
 
     <OracleAgreementsList slot="center" />
 
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="right"
-    />
-    <OracleAgreementsForm v-if="!loadingTableStatus" slot="right" />
+    <OracleAgreementsForm slot="right">
+      <Loading :isLoading="loadingTableStatus" />
+    </OracleAgreementsForm>
   </ToggleColumns>
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import OracleAgreementsList from '@/components/licenses/agreement/Oracle/OracleAgreementsList.vue'
 import OracleAgreementsForm from '@/components/licenses/agreement/Oracle/OracleAgreementsForm.vue'
 import OracleAgreementsFilters from '@/components/licenses/agreement/Oracle/OracleAgreementsFilters.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   components: {
@@ -39,7 +32,7 @@ export default {
     OracleAgreementsList,
     OracleAgreementsForm,
     OracleAgreementsFilters,
-    GhostLoading,
+    Loading,
   },
   data() {
     return {
@@ -47,8 +40,10 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getLicensesAgreement('oracle')
     await this.getAgreementParts()
+    await this.getLicensesAgreement('oracle').then(() => {
+      bus.$emit('data', this.returnLicensesAgreement('oracle'))
+    })
   },
   mounted() {
     this.isMounted = true
@@ -57,7 +52,7 @@ export default {
     ...mapActions(['getLicensesAgreement', 'getAgreementParts']),
   },
   computed: {
-    ...mapGetters(['loadingTableStatus']),
+    ...mapGetters(['returnLicensesAgreement', 'loadingTableStatus']),
   },
 }
 </script>

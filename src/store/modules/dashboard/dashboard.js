@@ -125,9 +125,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async getDashboardData({ commit, dispatch }) {
-    dispatch('getGlobalFiltersData') // Load Gloabl Filters Selectable Data
-
+  async getDashboardData({ commit }) {
     const dashData = await axiosNoLoading.get('/frontend/dashboard')
     const dashResponse = await dashData.data
     commit('SET_DASHBOARD_DATA', dashResponse)
@@ -137,13 +135,11 @@ export const actions = {
       '/technologies/all/license-history'
     )
     const response = await licenseHistory.data.licenseComplianceHistory
-
     commit('SET_LICENSE_HISTORY', response)
   },
   async getCoreHosts({ commit }) {
     const hostsCore = await axiosChartNoLoading.get('/hosts/cores')
     const response = await hostsCore.data.coresHistory
-
     commit('SET_CORE_HOSTS', response)
   },
 }

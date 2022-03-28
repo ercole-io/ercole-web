@@ -5,13 +5,9 @@
     :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
   >
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="left"
-    />
-    <SegnmentAdvisorsFilters v-if="!loadingTableStatus" slot="left" />
+    <SegnmentAdvisorsFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </SegnmentAdvisorsFilters>
 
     <FullTable
       slot="center"
@@ -85,6 +81,7 @@
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -95,7 +92,7 @@ import HostLink from '@/components/common/Table/HostLink.vue'
 import SegnmentAdvisorsFilters from '@/components/databases/oracle/segmentAdvisor/SegmentAdvisorFIlters.vue'
 import PieChart from '@/components/common/charts/PieChart.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -108,7 +105,7 @@ export default {
     SegnmentAdvisorsFilters,
     PieChart,
     BoxContent,
-    GhostLoading,
+    Loading,
   },
   data() {
     return {
@@ -128,7 +125,9 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getSegmentAdvisor()
+    await this.getSegmentAdvisor().then(() => {
+      bus.$emit('data', this.getOracleSegmentAdvisor)
+    })
   },
   mounted() {
     this.isMounted = true

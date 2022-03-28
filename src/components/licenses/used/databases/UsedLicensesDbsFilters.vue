@@ -50,6 +50,8 @@
         </CustomField>
       </template>
     </Collapse>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
@@ -74,9 +76,12 @@ export default {
     }
   },
   created() {
-    this.fullData = this.getUsedLicensesByDbs
-
-    bus.$on('onUsedTabChange', () => this.reset(this.resetFilters))
+    bus.$on('onUsedTabChange', (value) => {
+      if (value === 0) {
+        bus.$emit('data', this.getUsedLicensesByDbs)
+        this.reset(this.resetFilters)
+      }
+    })
   },
   computed: {
     ...mapGetters(['getUsedLicensesByDbs']),

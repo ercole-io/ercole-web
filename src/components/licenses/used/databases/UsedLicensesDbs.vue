@@ -4,13 +4,9 @@
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
   >
-    <GhostLoading
-      v-if="licensesUsed.databasesLoading"
-      :isLoading="licensesUsed.databasesLoading"
-      setHeight="640"
-      slot="left"
-    />
-    <UsedLicensesDbsFilters v-if="!licensesUsed.databasesLoading" slot="left" />
+    <UsedLicensesDbsFilters slot="left">
+      <Loading :isLoading="licensesUsed.databasesLoading" />
+    </UsedLicensesDbsFilters>
 
     <FullTable
       slot="center"
@@ -70,7 +66,8 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { bus } from '@/helpers/eventBus.js'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -80,7 +77,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import UsedLicensesDbsFilters from '@/components/licenses/used/databases/UsedLicensesDbsFilters.vue'
 import ignoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [paginationMixin, hostnameLinkRow],
@@ -98,7 +95,7 @@ export default {
     HostLink,
     UsedLicensesDbsFilters,
     ignoreDbLicense,
-    GhostLoading,
+    Loading,
   },
   data() {
     return {
@@ -114,9 +111,17 @@ export default {
       ],
     }
   },
+  async beforeMount() {
+    await this.getLicensesDatabases().then(() => {
+      bus.$emit('data', this.getUsedLicensesByDbs)
+    })
+  },
+  methods: {
+    ...mapActions(['getLicensesDatabases']),
+  },
   computed: {
     ...mapState(['licensesUsed']),
-    ...mapGetters(['getUsedLicensesByDbs', 'loadingTableStatus']),
+    ...mapGetters(['getUsedLicensesByDbs']),
   },
 }
 </script>

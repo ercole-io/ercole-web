@@ -70,11 +70,12 @@
         </CustomField>
       </template>
     </Collapse>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
 
@@ -96,12 +97,6 @@ export default {
       selects: ['segmentType'],
       sliders: ['reclaimable', 'segmentsSize', 'retrieve'],
     }
-  },
-  created() {
-    this.fullData = this.getOracleSegmentAdvisor
-  },
-  computed: {
-    ...mapGetters(['getOracleSegmentAdvisor']),
   },
 }
 </script>

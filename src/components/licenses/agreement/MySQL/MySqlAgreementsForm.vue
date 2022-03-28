@@ -212,6 +212,8 @@
         <template slot="empty"> There are no clusternames </template>
       </b-taginput>
     </b-field>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
@@ -222,6 +224,7 @@ import toUpper from '@/filters/toUpper.js'
 import toLower from '@/filters/toLower.js'
 import LicensesAgreementMixin from '@/mixins/licensesAgreement.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   mixins: [LicensesAgreementMixin],
@@ -272,17 +275,25 @@ export default {
         this.createLicenseAgreement({
           body: mysqlAgreementData,
           type: 'mysql',
-        }).then(() => {
-          this.mysqlForm = { licenseID: '' }
         })
+          .then(() => {
+            this.mysqlForm = { licenseID: '' }
+          })
+          .then(() => {
+            bus.$emit('data', this.returnLicensesAgreement('mysql'))
+          })
       } else {
         mysqlAgreementData.id = this.mysqlForm.licenseID
         this.updateLicenseAgreement({
           body: mysqlAgreementData,
           type: 'mysql',
-        }).then(() => {
-          this.mysqlForm = { licenseID: '' }
         })
+          .then(() => {
+            this.mysqlForm = { licenseID: '' }
+          })
+          .then(() => {
+            bus.$emit('data', this.returnLicensesAgreement('mysql'))
+          })
       }
     },
     editAgreement(data) {
@@ -296,6 +307,9 @@ export default {
         agreeClusters: data.clusters,
       }
     },
+  },
+  computed: {
+    ...mapGetters(['returnLicensesAgreement']),
   },
 }
 </script>
