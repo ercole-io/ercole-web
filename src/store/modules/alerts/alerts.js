@@ -193,13 +193,15 @@ export const actions = {
       commit('MARK_AS_READ_DASH', payload)
     }
   },
-  async markAsReadAlertsPage({ commit }, payload) {
+  async markAsReadAlertsPage({ commit, dispatch }, payload) {
+    dispatch('onLoadingTable')
     const deleteAlert = await axiosNoLoading.post(`/alerts/ack`, {
       ids: payload.idList,
     })
     const response = await deleteAlert
     if (response) {
       commit('MARK_AS_READ_ALERTS_PAGE', payload)
+      dispatch('offLoadingTable')
     }
   },
 }

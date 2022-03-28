@@ -3,17 +3,11 @@
     getPage="licensesUsedClusters"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
+    v-if="isMounted"
   >
-    <GhostLoading
-      v-if="licensesUsed.clustersLoading"
-      :isLoading="licensesUsed.clustersLoading"
-      setHeight="640"
-      slot="left"
-    />
-    <UsedLicensesClustersFilters
-      v-if="!licensesUsed.clustersLoading"
-      slot="left"
-    />
+    <UsedLicensesClustersFilters slot="left">
+      <Loading :isLoading="licensesUsed.clustersLoading" />
+    </UsedLicensesClustersFilters>
 
     <FullTable
       slot="center"
@@ -69,7 +63,8 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { bus } from '@/helpers/eventBus.js'
+import { mapGetters, mapState, mapActions } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -80,7 +75,7 @@ import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import ExportButton from '@/components/common/ExportButton.vue'
 import UsedLicensesClustersModal from '@/components/licenses/used/clusters/UsedLicensesClustersModal.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [
@@ -95,7 +90,7 @@ export default {
     TdContent,
     UsedLicensesClustersFilters,
     ExportButton,
-    GhostLoading,
+    Loading,
   },
   props: {
     partNumber: {
@@ -113,9 +108,19 @@ export default {
         'usedLicenses',
         'hostCount',
       ],
+      isMounted: true,
     }
   },
+  beforeMount() {
+    this.getLicensesClusters().then(() => {
+      bus.$emit('data', this.getUsedLicensesByCluster)
+    })
+  },
+  mounted() {
+    this.isMounted = true
+  },
   methods: {
+    ...mapActions(['getLicensesClusters']),
     openModal(info) {
       this.$buefy.modal.open({
         component: UsedLicensesClustersModal,

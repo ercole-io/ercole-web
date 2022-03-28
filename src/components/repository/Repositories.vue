@@ -3,14 +3,11 @@
     getPage="repository"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
+    v-if="isMounted"
   >
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="left"
-    />
-    <RepoFilters v-if="!loadingTableStatus" slot="left" />
+    <RepoFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </RepoFilters>
 
     <RepoTable slot="center" />
   </ToggleColumns>
@@ -21,14 +18,22 @@ import { mapGetters } from 'vuex'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import RepoTable from '@/components/repository/RepoTable.vue'
 import RepoFilters from '@/components/repository/RepoFilters.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   components: {
     ToggleColumns,
     RepoTable,
     RepoFilters,
-    GhostLoading,
+    Loading,
+  },
+  data() {
+    return {
+      isMounted: false,
+    }
+  },
+  mounted() {
+    this.isMounted = true
   },
   computed: {
     ...mapGetters(['loadingTableStatus']),

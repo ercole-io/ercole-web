@@ -5,13 +5,9 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="left"
-    />
-    <LicensesComplianceFilters v-if="!loadingTableStatus" slot="left" />
+    <LicensesComplianceFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </LicensesComplianceFilters>
 
     <FullTable
       slot="center"
@@ -87,6 +83,7 @@
 
 <script>
 import _ from 'lodash'
+import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -95,7 +92,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import LicensesComplianceFilters from '@/components/licenses/compliance/LicensesComplianceFilters.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [paginationMixin],
@@ -106,7 +103,7 @@ export default {
     TdIcon,
     LicensesComplianceFilters,
     ExportButton,
-    GhostLoading,
+    Loading,
   },
   data() {
     return {
@@ -125,7 +122,9 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getComplianceList()
+    await this.getComplianceList().then(() => {
+      bus.$emit('data', this.getLicensesCompliance)
+    })
   },
   mounted() {
     this.isMounted = true
