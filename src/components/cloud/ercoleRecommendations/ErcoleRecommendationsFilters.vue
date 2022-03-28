@@ -31,11 +31,12 @@
         </CustomField>
       </template>
     </Collapse>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
 
@@ -50,12 +51,6 @@ export default {
       autocompletes: ['name', 'compartmentName', 'resourceID'],
       selects: ['type'],
     }
-  },
-  created() {
-    this.fullData = this.getMergedData
-  },
-  computed: {
-    ...mapGetters(['getMergedData']),
   },
 }
 </script>

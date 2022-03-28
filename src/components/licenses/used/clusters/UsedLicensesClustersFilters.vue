@@ -71,9 +71,9 @@ export default {
   },
   created() {
     bus.$on('onUsedTabChange', (value) => {
+      this.reset(this.resetFilters)
       if (value === 2) {
         bus.$emit('data', this.getUsedLicensesByCluster)
-        this.reset(this.resetFilters)
       }
     })
   },

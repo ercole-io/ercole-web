@@ -5,31 +5,28 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="left"
-    />
-    <RecommendationsFilters v-if="!loadingTableStatus" slot="left" />
+    <RecommendationsFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </RecommendationsFilters>
 
     <RecommendationsList slot="center" />
   </ToggleColumns>
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import RecommendationsList from '@/components/cloud/recommendations/RecommendationsList.vue'
 import RecommendationsFilters from '@/components/cloud/recommendations/RecommendationsFilters.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   components: {
     ToggleColumns,
     RecommendationsList,
     RecommendationsFilters,
-    GhostLoading,
+    Loading,
   },
   data() {
     return {
@@ -37,7 +34,9 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getRecommendationsData()
+    await this.getRecommendationsData().then(() => {
+      bus.$emit('data', this.getRecommendations)
+    })
   },
   mounted() {
     this.isMounted = true
@@ -46,7 +45,7 @@ export default {
     ...mapActions(['getRecommendationsData']),
   },
   computed: {
-    ...mapGetters(['loadingTableStatus']),
+    ...mapGetters(['getRecommendations', 'loadingTableStatus']),
   },
 }
 </script>

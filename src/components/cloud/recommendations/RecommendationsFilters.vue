@@ -46,11 +46,12 @@
         </CustomField>
       </template>
     </Collapse>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
 
@@ -66,12 +67,6 @@ export default {
       sliders: ['pending', 'costSaving'],
       selects: ['status', 'importance'],
     }
-  },
-  created() {
-    this.fullData = this.getRecommendations
-  },
-  computed: {
-    ...mapGetters(['getRecommendations']),
   },
 }
 </script>

@@ -67,11 +67,7 @@
     <div slot="right">
       <DbTotalMemorySize class="mb-4" />
       <DbTotalSegmentSize class="mb-4" />
-      <DbCharts
-        id="databasesChart"
-        chartHeight="468px"
-        :xAxesConfig="[true, 'top']"
-      />
+      <DbCharts id="databasesChart" :xAxesConfig="[true, 'top']" />
     </div>
   </ToggleColumns>
 </template>

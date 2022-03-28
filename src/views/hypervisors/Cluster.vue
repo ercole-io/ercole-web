@@ -103,12 +103,12 @@
           </GhostLoading>
         </div>
       </BoxContent>
-      <GhostLoading :isLoading="loadingTableStatus" setHeight="455">
+      <GhostLoading :isLoading="loadingTableStatus" setHeight="485">
         <BarChart
           chartId="barChart"
           :barChartData="getClusterChartData"
           stacked
-          chartHeight="455px"
+          chartHeight="485px"
         />
       </GhostLoading>
     </div>
