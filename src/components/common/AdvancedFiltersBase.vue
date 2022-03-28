@@ -5,12 +5,14 @@
         @submit.prevent="submitAction"
         :style="`min-height: ${setMinHeight}px`"
       >
-        <slot />
+        <div :style="`min-height: ${setMinHeight - 54}px`">
+          <slot />
+        </div>
+
         <ActionButtons
           :applyText="apply"
           :cancelText="reset"
           :isDisabled="isDisabled"
-          :isFixed="isFixed"
         />
       </form>
     </div>
@@ -42,10 +44,6 @@ export default {
     isDisabled: {
       type: Boolean,
       default: false,
-    },
-    isFixed: {
-      type: Boolean,
-      default: true,
     },
     setMinHeight: {
       type: String,
@@ -80,7 +78,7 @@ export default {
 form {
   background-color: #f5f5f5;
   overflow: auto;
-  height: 500px;
+  height: 0;
   position: relative;
   padding: 10px 15px 0 15px;
 }

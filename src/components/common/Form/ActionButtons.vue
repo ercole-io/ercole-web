@@ -1,5 +1,5 @@
 <template>
-  <div class="columns" :class="{ 'fixed-buttons': isFixed }">
+  <div class="columns sticky-buttons">
     <div class="column">
       <b-button type="is-danger" size="is-small" @click="reset" expanded>
         {{ cancelText }}
@@ -36,10 +36,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    isFixed: {
-      type: Boolean,
-      default: true,
-    },
   },
   methods: {
     Apply() {
@@ -53,12 +49,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.fixed-buttons {
+.sticky-buttons {
   background-color: #f5f5f5;
   position: sticky;
   position: -webkit-sticky;
   bottom: 0;
   z-index: 10;
-  margin-top: 10px;
 }
 </style>
