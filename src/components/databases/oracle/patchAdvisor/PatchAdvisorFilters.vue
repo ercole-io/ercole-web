@@ -42,11 +42,12 @@
         </CustomField>
       </template>
     </Collapse>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
 
@@ -67,9 +68,6 @@ export default {
       },
     }
   },
-  created() {
-    this.fullData = this.getOraclePatchAdvisor
-  },
   methods: {
     resetFilters() {
       this.filters = {
@@ -78,9 +76,6 @@ export default {
         twelveMonths: '',
       }
     },
-  },
-  computed: {
-    ...mapGetters(['getOraclePatchAdvisor']),
   },
 }
 </script>

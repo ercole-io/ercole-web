@@ -60,11 +60,12 @@
         </CustomField>
       </template>
     </Collapse>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutocomplete.vue'
 import Collapse from '@/components/common/Collapse.vue'
@@ -85,18 +86,12 @@ export default {
       },
     }
   },
-  created() {
-    this.fullData = this.getLicensesCompliance
-  },
   methods: {
     resetFilters() {
       this.filters = {
         unlimited: '',
       }
     },
-  },
-  computed: {
-    ...mapGetters(['getLicensesCompliance']),
   },
 }
 </script>

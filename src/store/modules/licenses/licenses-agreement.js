@@ -133,7 +133,7 @@ export const actions = {
       `/agreements/${payload.type}/database/${payload.id}`
     )
     const response = await delAgreement
-    if (response.status === 200) {
+    if (response.status === 204) {
       dispatch('offLoadingTable')
     }
   },

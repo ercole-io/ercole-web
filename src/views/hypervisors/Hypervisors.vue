@@ -5,13 +5,9 @@
     :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
   >
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="left"
-    />
-    <HypervisorsFilters v-if="!loadingTableStatus" slot="left" />
+    <HypervisorsFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </HypervisorsFilters>
 
     <FullTable
       slot="center"
@@ -99,6 +95,7 @@
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import techTypePrettyName from '@/mixins/techTypePrettyName.js'
 import { mapActions, mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
@@ -110,6 +107,7 @@ import ColumnChart from '@/components/common/charts/ColumnChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HypervisorsFilters from '@/components/hypervisors/HypervisorsFilters.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [techTypePrettyName, localFiltersMixin],
@@ -122,6 +120,7 @@ export default {
     TdContent,
     HypervisorsFilters,
     GhostLoading,
+    Loading,
   },
   data() {
     return {
@@ -138,7 +137,9 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getClusters()
+    await this.getClusters().then(() => {
+      bus.$emit('data', this.getHypervisors)
+    })
   },
   mounted() {
     this.isMounted = true

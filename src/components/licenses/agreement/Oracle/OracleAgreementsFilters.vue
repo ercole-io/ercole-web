@@ -89,6 +89,8 @@
         </CustomField>
       </template>
     </Collapse>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
@@ -131,9 +133,10 @@ export default {
     }
   },
   created() {
-    this.fullData = this.returnLicensesAgreement('oracle')
-
-    bus.$on('onTabChange', () => this.reset(this.resetFilters))
+    bus.$on('onTabChange', () => {
+      this.reset(this.resetFilters)
+      bus.$emit('data', this.returnLicensesAgreement('oracle'))
+    })
   },
   methods: {
     resetFilters() {

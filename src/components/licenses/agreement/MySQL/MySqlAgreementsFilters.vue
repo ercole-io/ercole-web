@@ -31,6 +31,8 @@
         </CustomField>
       </template>
     </Collapse>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
@@ -53,9 +55,10 @@ export default {
     }
   },
   created() {
-    this.fullData = this.returnLicensesAgreement('mysql')
-
-    bus.$on('onTabChange', () => this.reset())
+    bus.$on('onTabChange', () => {
+      this.reset()
+      bus.$emit('data', this.returnLicensesAgreement('mysql'))
+    })
   },
   computed: {
     ...mapGetters(['returnLicensesAgreement']),

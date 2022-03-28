@@ -31,11 +31,12 @@
         </CustomField>
       </template>
     </Collapse>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
 
@@ -53,18 +54,12 @@ export default {
       },
     }
   },
-  created() {
-    this.fullData = this.getCurrentClusterVms
-  },
   methods: {
     resetFilters() {
       this.filters = {
         cappedCPU: '',
       }
     },
-  },
-  computed: {
-    ...mapGetters(['getCurrentClusterVms']),
   },
 }
 </script>

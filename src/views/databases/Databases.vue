@@ -3,7 +3,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { bus } from '@/helpers/eventBus.js'
+import { mapActions, mapGetters } from 'vuex'
 import DbList from '@/components/databases/databases/DbList.vue'
 
 export default {
@@ -11,10 +12,15 @@ export default {
     DbList,
   },
   async beforeMount() {
-    await this.getDatabases()
+    await this.getDatabases().then(() => {
+      bus.$emit('data', this.getAllDatabases)
+    })
   },
   methods: {
     ...mapActions(['getDatabases']),
+  },
+  computed: {
+    ...mapGetters(['getAllDatabases']),
   },
 }
 </script>

@@ -300,6 +300,8 @@
         </b-radio>
       </div>
     </b-field>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
@@ -400,17 +402,21 @@ export default {
         this.createLicenseAgreement({
           body: oracleAgreementData,
           type: 'oracle',
-        }).then(() => {
-          this.sussessToastMsg(this.oracleForm.agreeNumber, 'created')
         })
+          .then(() => {
+            this.sussessToastMsg(this.oracleForm.agreeNumber, 'created')
+          })
+          .then(() => bus.$emit('data', this.returnLicensesAgreement('oracle')))
       } else {
         oracleAgreementData.id = this.oracleForm.licenseID
         this.updateLicenseAgreement({
           body: oracleAgreementData,
           type: 'oracle',
-        }).then(() => {
-          this.sussessToastMsg(this.oracleForm.agreeNumber, 'modified')
         })
+          .then(() => {
+            this.sussessToastMsg(this.oracleForm.agreeNumber, 'modified')
+          })
+          .then(() => bus.$emit('data', this.returnLicensesAgreement('oracle')))
       }
     },
     cancelAddLicense() {
@@ -460,10 +466,6 @@ export default {
         return host.hostname
       })
     },
-    // getEvent(e) {
-    //   console.log(e)
-    //   this.getAutocompleteData(e, Object.keys(this.$refs)[0])
-    // },
     sussessToastMsg(agreeNumber, text) {
       this.$buefy.toast.open({
         message: `The Agreement Number <b>${agreeNumber}</b> was successfully ${text}!`,

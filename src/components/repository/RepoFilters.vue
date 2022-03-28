@@ -52,12 +52,13 @@
         </CustomField>
       </template>
     </Collapse>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
 <script>
 import moment from 'moment'
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
 
@@ -84,9 +85,6 @@ export default {
       startDate: null,
     }
   },
-  created() {
-    this.fullData = this.getRepository
-  },
   methods: {
     resetFilters() {
       this.filters = {
@@ -95,9 +93,6 @@ export default {
       }
       this.startDate = null
     },
-  },
-  computed: {
-    ...mapGetters(['getRepository']),
   },
   watch: {
     startDate(newValue, oldValue) {

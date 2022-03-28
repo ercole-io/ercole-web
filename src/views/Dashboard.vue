@@ -42,22 +42,23 @@ export default {
       setInterval: null,
     }
   },
-  async beforeMount() {
-    await this.getTechnologiesData().then(() => {
-      this.getDashboardData()
-        .then(() => {
-          this.getHosts() // Pre Load Hosts to cache info and save hostnames on vuex-persisted
-          this.getClusters() // Pre load clusters to save clusternames on vuex-persisted
-        })
-        .then(() => {
-          bus.$emit('loadDashboardComplete')
-        })
-        .then(() => {
-          bus.$emit('loadTechComplete')
-        })
-    })
+  beforeMount() {
+    this.getDashboardData()
+      .then(() => {
+        bus.$emit('loadDashboardComplete')
+      })
+      .then(() => {
+        bus.$emit('loadTechComplete')
+      })
+    this.getTechnologiesData()
 
-    this.setInterval = await setInterval(() => {
+    this.getGlobalFiltersLocations()
+    this.getGlobalFiltersEnvironments()
+
+    this.getHosts() // Pre Load Hosts to cache info and save hostnames on vuex-persisted
+    this.getClusters() // Pre load clusters to save clusternames on vuex-persisted
+
+    this.setInterval = setInterval(() => {
       this.getHosts() // Update hosts automatically each 5 minutes
     }, 300000)
   },
@@ -67,6 +68,8 @@ export default {
       'getHosts',
       'getClusters',
       'getTechnologiesData',
+      'getGlobalFiltersLocations',
+      'getGlobalFiltersEnvironments',
     ]),
   },
   beforeDestroy() {

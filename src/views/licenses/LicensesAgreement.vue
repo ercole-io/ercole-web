@@ -19,13 +19,13 @@ import MySqlAgreements from '@/components/licenses/agreement/MySQL/MySqlAgreemen
 export default {
   components: {
     OracleAgreements,
-    MySqlAgreements
+    MySqlAgreements,
   },
   methods: {
     onTabChange() {
       bus.$emit('onTabChange')
-    }
-  }
+    },
+  },
 }
 </script>
 
