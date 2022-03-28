@@ -11,7 +11,7 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.profileForm.profile.$error
+        'is-danger': $v.profileForm.profile.$error,
       }"
     >
       <b-input
@@ -37,7 +37,7 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.profileForm.tenancyOCID.$error
+        'is-danger': $v.profileForm.tenancyOCID.$error,
       }"
     >
       <b-input
@@ -51,7 +51,7 @@
         <div
           v-if="
             !$v.profileForm.tenancyOCID.required &&
-              $v.profileForm.tenancyOCID.$error
+            $v.profileForm.tenancyOCID.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
@@ -64,7 +64,7 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.profileForm.userOCID.$error
+        'is-danger': $v.profileForm.userOCID.$error,
       }"
     >
       <b-input
@@ -90,7 +90,7 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.profileForm.keyFingerprint.$error
+        'is-danger': $v.profileForm.keyFingerprint.$error,
       }"
     >
       <b-input
@@ -104,7 +104,7 @@
         <div
           v-if="
             !$v.profileForm.keyFingerprint.required &&
-              $v.profileForm.keyFingerprint.$error
+            $v.profileForm.keyFingerprint.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
@@ -117,7 +117,7 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.profileForm.region.$error
+        'is-danger': $v.profileForm.region.$error,
       }"
     >
       <b-input
@@ -145,7 +145,7 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.profileForm.privateKey.$error
+        'is-danger': $v.profileForm.privateKey.$error,
       }"
     >
       <b-input
@@ -159,13 +159,15 @@
         <div
           v-if="
             !$v.profileForm.privateKey.required &&
-              $v.profileForm.privateKey.$error
+            $v.profileForm.privateKey.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
         </div>
       </template>
     </b-field>
+
+    <slot />
   </AdvancedFiltersBase>
 </template>
 
@@ -177,24 +179,24 @@ import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 
 export default {
   components: {
-    AdvancedFiltersBase
+    AdvancedFiltersBase,
   },
   validations() {
     return {
-      profileForm: this.validationFormFields
+      profileForm: this.validationFormFields,
     }
   },
   data() {
     return {
       profileForm: {},
       isEditing: false,
-      editPrivateKey: false
+      editPrivateKey: false,
     }
   },
   beforeMount() {
     bus.$on('onResetAction', () => this.resetForm())
 
-    bus.$on('editProfile', data => {
+    bus.$on('editProfile', (data) => {
       bus.$emit('onToggleEdit', true)
       this.editProfile(data)
       this.isEditing = true
@@ -218,7 +220,7 @@ export default {
         tenancyOCID: data.tenancyOCID,
         userOCID: data.userOCID,
         keyFingerprint: data.keyFingerprint,
-        region: data.region
+        region: data.region,
       }
       this.isEditing = false
       this.editPrivateKey = false
@@ -227,7 +229,7 @@ export default {
       this.profileForm = {}
       this.isEditing = false
       this.editPrivateKey = false
-    }
+    },
   },
   computed: {
     validationFormFields() {
@@ -240,14 +242,14 @@ export default {
         privateKey: {
           required: requiredIf(() => {
             return !this.isEditing
-          })
-        }
+          }),
+        },
       }
     },
     showRequiredSymble() {
       return this.isEditing ? '' : '*'
-    }
-  }
+    },
+  },
 }
 </script>
 

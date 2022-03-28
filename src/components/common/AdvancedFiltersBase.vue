@@ -49,7 +49,7 @@ export default {
     },
     setMinHeight: {
       type: String,
-      default: '610',
+      default: '619',
     },
   },
   components: {

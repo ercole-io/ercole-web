@@ -5,31 +5,28 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <GhostLoading
-      v-if="loadingTableStatus"
-      :isLoading="loadingTableStatus"
-      setHeight="640"
-      slot="left"
-    />
-    <ErcoleRecommendationsFilters v-if="!loadingTableStatus" slot="left" />
+    <ErcoleRecommendationsFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </ErcoleRecommendationsFilters>
 
     <ErcoleRecommendationsList slot="center" />
   </ToggleColumns>
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import ErcoleRecommendationsFilters from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsFilters.vue'
 import ErcoleRecommendationsList from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsList.vue'
-import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   components: {
     ToggleColumns,
     ErcoleRecommendationsFilters,
     ErcoleRecommendationsList,
-    GhostLoading,
+    Loading,
   },
   data() {
     return {
@@ -37,29 +34,18 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getRrcoleRecommendations()
-
-    // await this.getLoadBalancersData().then(() => {
-    //   this.getInstancesIdleData().then(() => {
-    //     this.getBlockStorageData().then(() => {
-    //       this.isMounted = true
-    //     })
-    //   })
-    // })
+    await this.getRrcoleRecommendations().then(() => {
+      bus.$emit('data', this.getMergedData)
+    })
   },
   mounted() {
     this.isMounted = true
   },
   methods: {
-    ...mapActions([
-      'getRrcoleRecommendations',
-      // 'getLoadBalancersData',
-      // 'getInstancesIdleData',
-      // 'getBlockStorageData',
-    ]),
+    ...mapActions(['getRrcoleRecommendations']),
   },
   computed: {
-    ...mapGetters(['loadingTableStatus']),
+    ...mapGetters(['getMergedData', 'loadingTableStatus']),
   },
 }
 </script>
