@@ -5,26 +5,17 @@
     :tableData="getRecommendations"
     :isLoadingTable="loadingTableStatus"
   >
-    <!-- <template slot="customTopHeader">
-      <b-notification
-        v-if="getRecommendations.length <= 0"
-        type="is-warning is-light"
-        aria-close-label="Close notification"
-        role="alert"
-      >
-        {{ $t('views.cloud.noActiveProfile') }}
-      </b-notification>
-
+    <template slot="customTopHeader" v-if="!loadingTableStatus">
       <b-notification
         v-if="getOciActiveProfileError"
         type="is-warning is-light"
         aria-close-label="Close notification"
         role="alert"
-        style="margin: 0 auto"
+        style="margin: 0 auto; padding: 0.4rem 2.5rem 0.4rem 1rem"
       >
         {{ getErrActiveProfile }}
       </b-notification>
-    </template> -->
+    </template>
 
     <DynamicHeading
       slot="headData"
@@ -73,22 +64,22 @@ export default {
   computed: {
     ...mapGetters([
       'getRecommendations',
-      // 'getOciActiveProfileError',
+      'getOciActiveProfileError',
       'loadingTableStatus',
     ]),
-    // getErrActiveProfile() {
-    //   const number = Number(this.getOciActiveProfileError) > 1 ? 2 : 1
+    getErrActiveProfile() {
+      const number = Number(this.getOciActiveProfileError) > 1 ? 2 : 1
 
-    //   if (number > 1) {
-    //     return this.$i18n.t('views.cloud.moreErrActiveProfile', {
-    //       n: this.getOciActiveProfileError,
-    //     })
-    //   } else {
-    //     return this.$i18n.t('views.cloud.oneErrActiveProfile', {
-    //       n: this.getOciActiveProfileError,
-    //     })
-    //   }
-    // },
+      if (number > 1) {
+        return this.$i18n.t('views.cloud.moreErrActiveProfile', {
+          n: this.getOciActiveProfileError,
+        })
+      } else {
+        return this.$i18n.t('views.cloud.oneErrActiveProfile', {
+          n: this.getOciActiveProfileError,
+        })
+      }
+    },
   },
 }
 </script>

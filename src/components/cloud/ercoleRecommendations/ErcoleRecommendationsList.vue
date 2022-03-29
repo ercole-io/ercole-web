@@ -2,29 +2,20 @@
   <FullTable
     placeholder="Cloud Recommendations"
     :keys="getHeadKeys(ErcoleRecommendationsHead)"
-    :tableData="getMergedData"
+    :tableData="returnErcoleRecommendations"
     :isLoadingTable="loadingTableStatus"
   >
-    <!-- <template slot="customTopHeader">
-      <b-notification
-        v-if="getMergedData.length <= 0"
-        type="is-warning is-light"
-        aria-close-label="Close notification"
-        role="alert"
-      >
-        {{ $t('views.cloud.noActiveProfile') }}
-      </b-notification>
-
+    <template slot="customTopHeader" v-if="!loadingTableStatus">
       <b-notification
         v-if="getOciActiveProfileError"
         type="is-warning is-light"
         aria-close-label="Close notification"
         role="alert"
-        style="margin: 0 auto"
+        style="margin: 0 auto; padding: 0.4rem 2.5rem 0.4rem 1rem"
       >
         {{ getErrActiveProfile }}
       </b-notification>
-    </template> -->
+    </template>
 
     <DynamicHeading
       slot="headData"
@@ -34,10 +25,10 @@
     />
 
     <template slot="bodyData" slot-scope="rowData">
-      <TdContent :value="rowData.scope.objectType" />
+      <TdContent :value="rowData.scope.type" />
       <TdContent :value="rowData.scope.compartmentName" />
       <TdContent :value="rowData.scope.name" />
-      <TdContent :value="rowData.scope.resourceID" />
+      <TdContent :value="rowData.scope.objectType" />
     </template>
 
     <ExportButton slot="export" url="" expName="cloudRecommendations" />
@@ -68,23 +59,23 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getMergedData',
-      // 'getOciActiveProfileError',
+      'returnErcoleRecommendations',
+      'getOciActiveProfileError',
       'loadingTableStatus',
     ]),
-    // getErrActiveProfile() {
-    //   const number = Number(this.getOciActiveProfileError) > 1 ? 2 : 1
+    getErrActiveProfile() {
+      const number = Number(this.getOciActiveProfileError) > 1 ? 2 : 1
 
-    //   if (number > 1) {
-    //     return this.$i18n.t('views.cloud.moreErrActiveProfile', {
-    //       n: this.getOciActiveProfileError,
-    //     })
-    //   } else {
-    //     return this.$i18n.t('views.cloud.oneErrActiveProfile', {
-    //       n: this.getOciActiveProfileError,
-    //     })
-    //   }
-    // },
+      if (number > 1) {
+        return this.$i18n.t('views.cloud.moreErrActiveProfile', {
+          n: this.getOciActiveProfileError,
+        })
+      } else {
+        return this.$i18n.t('views.cloud.oneErrActiveProfile', {
+          n: this.getOciActiveProfileError,
+        })
+      }
+    },
   },
 }
 </script>
