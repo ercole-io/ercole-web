@@ -54,19 +54,10 @@ export default {
 
     this.getGlobalFiltersLocations()
     this.getGlobalFiltersEnvironments()
-
-    this.getHosts() // Pre Load Hosts to cache info and save hostnames on vuex-persisted
-    this.getClusters() // Pre load clusters to save clusternames on vuex-persisted
-
-    this.setInterval = setInterval(() => {
-      this.getHosts() // Update hosts automatically each 5 minutes
-    }, 300000)
   },
   methods: {
     ...mapActions([
       'getDashboardData',
-      'getHosts',
-      'getClusters',
       'getTechnologiesData',
       'getGlobalFiltersLocations',
       'getGlobalFiltersEnvironments',
