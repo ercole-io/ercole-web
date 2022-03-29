@@ -4,6 +4,8 @@
     :keys="getHeadKeys(ErcoleRecommendationsHead)"
     :tableData="returnErcoleRecommendations"
     :isLoadingTable="loadingTableStatus"
+    @clickedRow="handleClickedRow"
+    isClickable
   >
     <template slot="customTopHeader" v-if="!loadingTableStatus">
       <b-notification
@@ -42,6 +44,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
+import ErcoleRecommendationsModal from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsModal.vue'
 import ErcoleRecommendationsHead from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsHead.json'
 
 export default {
@@ -56,6 +59,20 @@ export default {
     return {
       ErcoleRecommendationsHead: ErcoleRecommendationsHead,
     }
+  },
+  methods: {
+    handleClickedRow(value) {
+      if (value[0]) {
+        this.$buefy.modal.open({
+          component: ErcoleRecommendationsModal,
+          hasModalCard: true,
+          props: {
+            modalTitle: value[0].name,
+            details: value[0].details,
+          },
+        })
+      }
+    },
   },
   computed: {
     ...mapGetters([
