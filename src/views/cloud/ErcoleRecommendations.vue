@@ -34,18 +34,18 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getRrcoleRecommendations().then(() => {
-      bus.$emit('data', this.getMergedData)
+    await this.getErcoleRecommendations().then(() => {
+      bus.$emit('data', this.returnErcoleRecommendations)
     })
   },
   mounted() {
     this.isMounted = true
   },
   methods: {
-    ...mapActions(['getRrcoleRecommendations']),
+    ...mapActions(['getErcoleRecommendations']),
   },
   computed: {
-    ...mapGetters(['getMergedData', 'loadingTableStatus']),
+    ...mapGetters(['returnErcoleRecommendations', 'loadingTableStatus']),
   },
 }
 </script>
