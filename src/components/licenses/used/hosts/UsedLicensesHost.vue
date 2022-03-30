@@ -42,7 +42,7 @@
       <template slot="bodyData" slot-scope="rowData">
         <HostLink :hostname="rowData.scope.hostname" />
         <td v-tooltip.bottom="options(rowData.scope.databases)">
-          <a @click.prevent="openModal(rowData.scope)" class="is-block">
+          <a @click.prevent="openModal(rowData.scope)" class="is-block db-link">
             <span v-html="highlight(rowData.scope.databases)" />
           </a>
         </td>
@@ -147,4 +147,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
+
+.db-link {
+  color: $custom-primary;
+
+  &:hover {
+    color: $ercole-blue;
+  }
+}
+</style>

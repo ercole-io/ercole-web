@@ -1,75 +1,82 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField :label="$t('common.fields.status')">
-      <CustomSelect v-model="alertStatus" :hasReset="false" fixedOptions>
-        <option value="NEW">NEW</option>
-        <option value="ACK">ACK</option>
-        <option value="DISMISSED">DISMISSED</option>
-        <option value="">All</option>
-      </CustomSelect>
-    </CustomField>
+    <Collapse :collapses="collapses">
+      <template slot="General">
+        <CustomField :label="$t('common.fields.status')">
+          <CustomSelect v-model="alertStatus" :hasReset="false" fixedOptions>
+            <option value="NEW">NEW</option>
+            <option value="ACK">ACK</option>
+            <option value="DISMISSED">DISMISSED</option>
+            <option value="">All</option>
+          </CustomSelect>
+        </CustomField>
 
-    <CustomField :label="$t('common.fields.type')">
-      <CustomSelect v-model="filters.alertCategory" fixedOptions>
-        <option value="AGENT">AGENT</option>
-        <option value="ENGINE">ENGINE</option>
-        <option value="LICENSE">LICENSE</option>
-      </CustomSelect>
-    </CustomField>
+        <CustomField :label="$t('common.fields.type')">
+          <CustomSelect v-model="filters.alertCategory" fixedOptions>
+            <option value="AGENT">AGENT</option>
+            <option value="ENGINE">ENGINE</option>
+            <option value="LICENSE">LICENSE</option>
+          </CustomSelect>
+        </CustomField>
 
-    <CustomField :label="$t('common.fields.date')">
-      <b-datepicker
-        v-model="startDate"
-        size="is-small"
-        placeholder="Start Date"
-        position="is-bottom-right"
-        icon="calendar-today"
-        :max-date="endDate ? endDate : new Date()"
-        :date-formatter="formatDate"
-        class="mr-1"
-        trap-focus
-      />
-      <b-datepicker
-        v-model="endDate"
-        size="is-small"
-        placeholder="End Date"
-        position="is-bottom-left"
-        icon="calendar-today"
-        :min-date="startDate"
-        :max-date="new Date()"
-        :date-formatter="formatDate"
-        class="ml-1"
-        trap-focus
-      />
-    </CustomField>
+        <CustomField :label="$t('common.fields.date')">
+          <b-datepicker
+            v-model="startDate"
+            size="is-small"
+            placeholder="Start Date"
+            position="is-bottom-right"
+            icon="calendar-today"
+            :max-date="endDate ? endDate : new Date()"
+            :date-formatter="formatDate"
+            class="mr-1"
+            trap-focus
+          />
+          <b-datepicker
+            v-model="endDate"
+            size="is-small"
+            placeholder="End Date"
+            position="is-bottom-left"
+            icon="calendar-today"
+            :min-date="startDate"
+            :max-date="new Date()"
+            :date-formatter="formatDate"
+            class="ml-1"
+            trap-focus
+          />
+        </CustomField>
 
-    <CustomField :label="$t('common.fields.severity')">
-      <CustomSelect v-model="filters.alertSeverity" fixedOptions>
-        <option value="INFO">INFO</option>
-        <option value="WARNING">WARNING</option>
-        <option value="CRITICAL">CRITICAL</option>
-      </CustomSelect>
-    </CustomField>
+        <CustomField :label="$t('common.fields.severity')">
+          <CustomSelect v-model="filters.alertSeverity" fixedOptions>
+            <option value="INFO">INFO</option>
+            <option value="WARNING">WARNING</option>
+            <option value="CRITICAL">CRITICAL</option>
+          </CustomSelect>
+        </CustomField>
 
-    <CustomField :label="$t('common.fields.hostname')">
-      <CustomAutocomplete
-        v-model="filters.hostname"
-        :filterResult="filteredhostname"
-        :filterMethod="setAutocompletes"
-      />
-    </CustomField>
+        <CustomField :label="$t('common.fields.hostname')">
+          <CustomAutocomplete
+            v-model="filters.hostname"
+            :filterResult="filteredhostname"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
 
-    <CustomField :label="$t('common.fields.code')">
-      <CustomSelect v-model="filters.alertCode" :options="filteredalertCode" />
-    </CustomField>
+        <CustomField :label="$t('common.fields.code')">
+          <CustomSelect
+            v-model="filters.alertCode"
+            :options="filteredalertCode"
+          />
+        </CustomField>
 
-    <CustomField :label="$t('common.fields.description')">
-      <CustomAutocomplete
-        v-model="filters.description"
-        :filterResult="filtereddescription"
-        :filterMethod="setAutocompletes"
-      />
-    </CustomField>
+        <CustomField :label="$t('common.fields.description')">
+          <CustomAutocomplete
+            v-model="filters.description"
+            :filterResult="filtereddescription"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
+      </template>
+    </Collapse>
 
     <slot />
   </AdvancedFiltersBase>
@@ -81,11 +88,16 @@ import { formatDatepickerDate } from '@/helpers/helpers.js'
 import { mapActions, mapState } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import formatDate from '@/filters/formatDate.js'
+import Collapse from '@/components/common/Collapse.vue'
 
 export default {
   mixins: [localFiltersMixin],
+  components: {
+    Collapse,
+  },
   data() {
     return {
+      collapses: ['General'],
       autocompletes: ['hostname', 'alertCode', 'description'],
       selects: ['alertCode'],
       alertStatus: 'NEW',

@@ -1,10 +1,10 @@
 <template>
   <b-button
-    type="is-primary"
+    type="is-ercole-blue"
     size="is-small"
     @click="exportData()"
     data-export-button
-    class="mb-0"
+    class="mb-0 has-text-weight-bold"
   >
     {{ exportText }}
   </b-button>

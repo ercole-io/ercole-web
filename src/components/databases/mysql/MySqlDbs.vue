@@ -39,7 +39,7 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.name" />
+        <TdContent :value="rowData.scope.name" class="first-col" />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
         <TdContent :value="rowData.scope.environment" />
         <TdContent :value="rowData.scope.charsetSystem" />

@@ -3,7 +3,7 @@
     <div class="range-dates mt-0 mb-4">
       <div class="mr-2">
         <GhostLoading :isLoading="loading" setHeight="30" setWidth="400">
-          <b-field style="min-width: 400px;">
+          <b-field style="min-width: 400px">
             <b-autocomplete
               v-model="selectedType"
               size="is-small"
@@ -82,7 +82,7 @@
       <GhostLoading :isLoading="loading" setHeight="30" setWidth="30">
         <b-button
           size="is-small"
-          type="is-primary"
+          type="is-ercole-blue"
           icon-right="delete"
           @click="getCurrentMonthDates"
         />
@@ -116,20 +116,20 @@ import GhostLoading from '@/components/common/GhostLoading.vue'
 import { simpleAutocompleteData } from '@/helpers/helpers.js'
 
 const matchType = (data, selected) => {
-  return _.find(data, type => {
+  return _.find(data, (type) => {
     return type.licenseTypeID === selected
   })
 }
 const mapLicenseType = (history, type, dateRange) => {
   const historyByType = []
 
-  _.map(history, value => {
+  _.map(history, (value) => {
     let date = moment(value.date).format('YYYY-MM-DD')
 
     if (date > dateRange[0] && date < dateRange[1]) {
       historyByType.push({
         date: date,
-        value: resolveType(type, value)
+        value: resolveType(type, value),
       })
     }
   })
@@ -151,7 +151,7 @@ export default {
   components: {
     LineChart,
     NoContent,
-    GhostLoading
+    GhostLoading,
   },
   data() {
     return {
@@ -161,7 +161,7 @@ export default {
       endDate: null,
       showChart: false,
       loading: true,
-      filteredChartLicenseHistory: []
+      filteredChartLicenseHistory: [],
     }
   },
   async beforeMount() {
@@ -182,12 +182,8 @@ export default {
         this.selectedType.split(' - ')[0]
       )
       const dateRange = [
-        moment(this.startDate)
-          .subtract(1, 'days')
-          .format('YYYY-MM-DD'),
-        moment(this.endDate)
-          .add(1, 'days')
-          .format('YYYY-MM-DD')
+        moment(this.startDate).subtract(1, 'days').format('YYYY-MM-DD'),
+        moment(this.endDate).add(1, 'days').format('YYYY-MM-DD'),
       ]
 
       const covered = mapLicenseType(findType.history, 'covered', dateRange)
@@ -221,15 +217,15 @@ export default {
       finalResult.push(
         {
           name: this.purchased,
-          data: purchased
+          data: purchased,
         },
         {
           name: this.covered,
-          data: covered
+          data: covered,
         },
         {
           name: this.consumed,
-          data: consumed
+          data: consumed,
         }
       )
       return finalResult
@@ -237,9 +233,7 @@ export default {
     getCurrentMonthDates() {
       const today = moment(new Date(), 'YYYY/MM/DD')
       this.startDate = new Date(
-        moment()
-          .subtract(31, 'days')
-          .format('YYYY-MM-DD')
+        moment().subtract(31, 'days').format('YYYY-MM-DD')
       )
       this.endDate = new Date(moment().format(`YYYY-MM-${today.format('DD')}`))
     },
@@ -248,29 +242,29 @@ export default {
     },
     getAutocompleteData(text, toFilter, data) {
       const values = simpleAutocompleteData(text, data)
-      this[`filtered${toFilter}`] = _.uniqBy(values, e => e)
+      this[`filtered${toFilter}`] = _.uniqBy(values, (e) => e)
     },
     getAutocompletePartNumber(text, toFilter, data) {
       const newData = []
-      _.map(data, val => {
+      _.map(data, (val) => {
         newData.push(val.full)
       })
 
       const values = simpleAutocompleteData(text, newData)
 
       const newValues = []
-      _.map(values, val => {
+      _.map(values, (val) => {
         const newVal = _.split(val, ' - ')
         newValues.push({
           licenseTypeID: newVal[0],
           itemDescription: newVal[1],
           metric: newVal[2],
-          full: `${newVal[0]} - ${newVal[1]} - ${newVal[2]}`
+          full: `${newVal[0]} - ${newVal[1]} - ${newVal[2]}`,
         })
       })
 
       this[`filtered${toFilter}`] = newValues
-    }
+    },
   },
   computed: {
     ...mapGetters(['getChartLicenseHistory']),
@@ -282,7 +276,7 @@ export default {
     },
     purchased() {
       return this.$i18n.t('views.dashboard.purchasedLicenses')
-    }
+    },
   },
   watch: {
     startDate(newValue) {
@@ -304,8 +298,8 @@ export default {
       if (newValue.split(' - ').length > 1) {
         this.mountLincenseChart()
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

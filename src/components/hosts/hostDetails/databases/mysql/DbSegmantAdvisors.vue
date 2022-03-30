@@ -7,6 +7,7 @@
       hidePerpage
       hidePagination
       hideTopTable
+      :isLoadingTable="false"
     >
       <template slot="headData">
         <v-th sortKey="tableName">Table Name</v-th>
@@ -39,13 +40,13 @@ export default {
   props: {
     segmentAdvisors: {
       type: Array,
-      default: null
-    }
+      default: null,
+    },
   },
   components: {
     FullTable,
-    TdContent
-  }
+    TdContent,
+  },
 }
 </script>
 

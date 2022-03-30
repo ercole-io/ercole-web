@@ -179,7 +179,7 @@
             @click="applyFilters"
             class="filters-button"
             size="is-small"
-            type="is-primary"
+            type="is-custom-primary"
             :disabled="!disableButtons"
           >
             {{ $t('common.forms.apply') }}
@@ -393,7 +393,10 @@ export default {
       return (
         this.$route.name !== 'licenses-agreement' &&
         this.$route.name !== 'dashboard' &&
-        this.$route.name !== 'repository'
+        this.$route.name !== 'repository' &&
+        this.$route.name !== 'cloud-recommendations' &&
+        this.$route.name !== 'profile-configurations' &&
+        this.$route.name !== 'ercole-recommendations'
       )
     },
   },

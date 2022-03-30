@@ -36,13 +36,18 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background-color: #101336 !important;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-image: url('../../assets/images/ercole_login_bg.png');
 
   .logo {
     text-align: center;
     margin-bottom: 1.5rem;
 
     img {
-      width: 20rem;
+      width: 25rem;
     }
   }
 }

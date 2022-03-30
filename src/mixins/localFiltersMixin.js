@@ -77,6 +77,15 @@ export default {
       filteredOperatingSystemFamily: [],
       filteredRepository: [],
       filteredVersion: [],
+      filteredprofile: [],
+      filteredtenancyOCID: [],
+      filtereduserOCID: [],
+      filteredkeyFingerprint: [],
+      filteredregion: [],
+      filteredtenOCID: [],
+      filteredimportance: [],
+      filteredcompartmentName: [],
+      filteredresourceID: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,
@@ -138,6 +147,10 @@ export default {
       maxdatabases: null,
       minhostCount: null,
       maxhostCount: null,
+      minpending: null,
+      maxpending: null,
+      mincostSaving: null,
+      maxcostSaving: null,
     }
   },
   beforeMount() {

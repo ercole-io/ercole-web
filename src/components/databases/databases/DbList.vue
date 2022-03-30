@@ -31,7 +31,7 @@
       />
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.name" />
+        <TdContent :value="rowData.scope.name" class="first-col" />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
         <TdIcon
           :value="rowData.scope.archivelog"
@@ -67,11 +67,7 @@
     <div slot="right">
       <DbTotalMemorySize class="mb-4" />
       <DbTotalSegmentSize class="mb-4" />
-      <DbCharts
-        id="databasesChart"
-        chartHeight="500px"
-        :xAxesConfig="[true, 'top']"
-      />
+      <DbCharts id="databasesChart" :xAxesConfig="[true, 'top']" />
     </div>
   </ToggleColumns>
 </template>

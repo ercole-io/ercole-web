@@ -28,7 +28,7 @@
       />
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.name" />
+        <TdContent :value="rowData.scope.name" class="first-col" />
         <TdContent :value="rowData.scope.uniqueName" />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
         <TdIcon
@@ -102,9 +102,12 @@
         <OracleStorage slot="storage" />
       </BaseLayoutColumns>
 
-      <Top3Workload slot="workload" />
-      <Top3Reclaimable slot="reclaimable" />
       <OracleCharts slot="charts" />
+    </div>
+
+    <div class="columns" slot="bottom">
+      <Top3Workload slot="workload" class="column is-6" />
+      <Top3Reclaimable slot="reclaimable" class="column is-6" />
     </div>
   </ToggleColumns>
 </template>

@@ -1,9 +1,9 @@
 <template>
   <b-button
-    type="is-primary"
+    type="is-ercole-blue"
     size="is-small"
     @click="toggleDbFilters"
-    class="ml-1"
+    class="ml-1 has-text-weight-bold"
   >
     Advanced Filters
     <span v-if="isFiltersOpened" />
@@ -16,7 +16,7 @@ import { bus } from '@/helpers/eventBus.js'
 export default {
   data() {
     return {
-      isFiltersOpened: false
+      isFiltersOpened: false,
     }
   },
   methods: {
@@ -25,8 +25,8 @@ export default {
         'isDbFiltersOpen',
         (this.isFiltersOpened = !this.isFiltersOpened)
       )
-    }
-  }
+    },
+  },
 }
 </script>
 

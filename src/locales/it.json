@@ -23,7 +23,11 @@
     "licAgreements": "Contratto di Licenza",
     "licCompliance": "Conformità di Licenze",
     "licUsed": "Licenze Utilizzate",
-    "repository": "Repository"
+    "cloudAdvisor": "Cloud Advisor",
+    "recommendations": "Raccomandazioni",
+    "profileConfig": "Configurazioni del Profilo",
+    "repository": "Repository",
+    "ercoleRecommendations": "Raccomandazioni Ercole"
   },
   "header": {
     "logout": "Disconnettersi"
@@ -113,6 +117,15 @@
       "showAll": "Mostra tutto",
       "descModalTitle": "Descrizione dell'Avviso"
     },
+    "cloud": {
+      "cannotDelete": "Non puoi eliminare un profilo attivo!",
+      "deleteTitle": "Elimina Profilo",
+      "deleteCheck": "Sei sicuro di voler eliminare il profilo <b>{profile}</b>?",
+      "deleteSuccess": "Il profilo {profile} è stato eliminato con successo!",
+      "noActiveProfile": "Al momento non ci sono profili attivi! Vai alla pagina delle configurazioni del profilo per attivare!",
+      "oneErrActiveProfile": "{n} profilo non funziona correttamente, controlla la pagina di configurazione del profilo!",
+      "moreErrActiveProfile": "Ci sono {n} profili che non funzionano correttamente, controlla la pagina di configurazione del profilo!"
+    },
     "hosts": {
       "addExportParams": "Aggiungi Parametri di Esportazione"
     }
@@ -123,7 +136,7 @@
       "exportData": "Esportare i dati",
       "exportLms": "Esportare LMS Audit File",
       "inProgress": "in Corso",
-      "wait": "Questo potrebbe richiedere un pò di tempo, per favore aspetta ...",
+      "wait": "Questo potrebbe richiedere un pò di tempo, per favore aspetta...",
       "cancelRequest": "Annulla Richiesta",
       "yes": "Sì",
       "no": "No",
@@ -248,8 +261,19 @@
       "installed": "Installato",
       "releaseDate": "Data di Rilascio",
       "licAvailable": "Licenza Disponibile",
+      "tenancy": "Tenancy OCID",
+      "pending": "In Attesa",
+      "estimateSaving": "Risparmio Stimato / Mese",
+      "importance": "Importanza",
+      "profileName": "Nome Profilo",
+      "userOCID": "Utente OCID",
+      "keyFingerprint": "Key Fingerprint",
+      "region": "Regione",
+      "privateKey": "Chiave Privata",
       "clusterLicenses": "Licenze Cluster",
       "purchased": "Acquistato",
+      "compartmentName": "Compartment Name",
+      "resourceID": "Resource ID",
       "pluggable": "Collegabile",
       "services": "Servizi"
     },
@@ -350,6 +374,10 @@
       "usedLicenses": "Licenze Usate",
       "agreeCovered": "Coperto da questo accordo",
       "agreeCoveredAll": "Coperto da tutti gli accordi",
+      "cloudInfra": "Infrastruttura Cloud",
+      "pending": "In Attesa",
+      "estimateSaving": "Risparmio Stimato / Mese",
+      "importance": "Importanza",
       "repoName": "Nome",
       "filename": "Nome del File",
       "arch": "Architettura",
@@ -358,8 +386,17 @@
       "repository": "Repository",
       "installed": "Installato",
       "licAvailable": "Licenza Disponibile",
+      "tenancy": "Tenancy OCID",
+      "activeProfiles": "Profili Attivi",
+      "profileName": "Nome Profilo",
+      "userOCID": "Utente OCID",
+      "keyFingerprint": "Key Fingerprint",
+      "region": "Regione",
+      "privateKey": "Chiave Privata",
       "clusterLicenses": "Licenze Cluster",
       "purchased": "Acquistato",
+      "compartmentName": "Compartment Name",
+      "resourceID": "Resource ID",
       "pluggable": "Collegabile",
       "services": "Servizi"
     },

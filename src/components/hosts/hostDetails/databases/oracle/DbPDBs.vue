@@ -1,6 +1,6 @@
 <template>
   <b-tab-item label="Pluggable DBs" v-if="pdbs.length > 0">
-    <Collapse
+    <b-collapse
       v-for="pdb in pdbs"
       :key="pdb.pdbName"
       :title="pdb.pdbName"
@@ -93,18 +93,16 @@
           </section>
         </b-tab-item>
       </b-tabs>
-    </Collapse>
+    </b-collapse>
   </b-tab-item>
 </template>
 
 <script>
-import Collapse from '@/components/common/Collapse.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
   components: {
-    Collapse,
     FullTable,
     TdContent,
   },

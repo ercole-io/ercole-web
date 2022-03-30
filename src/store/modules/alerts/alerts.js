@@ -174,14 +174,14 @@ export const actions = {
     })
 
     const response = await alertsData.data
+    _.map(response, (val) => {
+      if (val.alertCategory !== 'AGENT') {
+        val.isChecked = false
+      }
+    })
     if (response) {
-      _.map(response, (val) => {
-        if (val.alertCategory !== 'AGENT') {
-          val.isChecked = false
-        }
-      })
-      dispatch('offLoadingTable')
       commit('SET_ALERTS', response)
+      dispatch('offLoadingTable')
     }
   },
   async markAsRead({ commit }, payload) {

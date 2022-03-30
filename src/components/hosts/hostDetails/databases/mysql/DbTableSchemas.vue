@@ -7,6 +7,7 @@
       hidePerpage
       hidePagination
       hideTopTable
+      :isLoadingTable="false"
     >
       <template slot="headData">
         <v-th sortKey="name">Name</v-th>
@@ -31,13 +32,13 @@ export default {
   props: {
     tableSchemas: {
       type: Array,
-      default: null
-    }
+      default: null,
+    },
   },
   components: {
     FullTable,
-    TdContent
-  }
+    TdContent,
+  },
 }
 </script>
 

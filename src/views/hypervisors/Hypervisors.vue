@@ -34,7 +34,7 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.fetchEndpoint" />
+        <TdContent :value="rowData.scope.fetchEndpoint" class="first-col" />
         <TdContent :value="rowData.scope.name" />
         <TdContent :value="rowData.scope.type" />
         <TdContent :value="rowData.scope.cpu" />
@@ -80,12 +80,13 @@
         </div>
       </BoxContent>
       <BoxContent :title="$t('views.hypervisors.typeVirt')" border>
-        <GhostLoading :isLoading="loadingTableStatus" setHeight="300">
+        <GhostLoading :isLoading="loadingTableStatus" setHeight="510">
           <ColumnChart
             chartId="columnChart"
             :columnChartData="getVirtualizationChartData.finalData"
             :colors="getVirtualizationChartData.colors"
             stacked
+            chartHeight="510px"
           />
         </GhostLoading>
       </BoxContent>

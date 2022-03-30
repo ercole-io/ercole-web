@@ -1,13 +1,18 @@
 <template>
   <BoxContent :title="title" border :mbottom="false">
-    <div class="static-filters scrollbar-x" id="style-1">
-      <form @submit.prevent="submitAction">
-        <slot />
+    <div class="static-filters scrollbar-x">
+      <form
+        @submit.prevent="submitAction"
+        :style="`min-height: ${setMinHeight}px`"
+      >
+        <div :style="`min-height: ${setMinHeight - 54}px`">
+          <slot />
+        </div>
+
         <ActionButtons
           :applyText="apply"
           :cancelText="reset"
           :isDisabled="isDisabled"
-          :isFixed="isFixed"
         />
       </form>
     </div>
@@ -40,9 +45,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    isFixed: {
-      type: Boolean,
-      default: true,
+    setMinHeight: {
+      type: String,
+      default: '619',
     },
   },
   components: {
@@ -70,16 +75,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.static-filters {
+form {
   background-color: #f5f5f5;
   overflow: auto;
-  min-height: 600px;
+  height: 0;
   position: relative;
-
-  form {
-    padding: 25px 20px;
-    // min-height: calc(100vh - 250px);
-    height: 600px;
-  }
+  padding: 10px 15px 0 15px;
 }
 </style>
