@@ -28,7 +28,10 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.virtualizationNode" />
+        <TdContent
+          :value="rowData.scope.virtualizationNode"
+          class="first-col"
+        />
         <HostLink :hostname="rowData.scope.hostname" />
         <TdContent :value="rowData.scope.name" />
         <TdIcon
@@ -100,11 +103,12 @@
           </GhostLoading>
         </div>
       </BoxContent>
-      <GhostLoading :isLoading="loadingTableStatus" setHeight="300">
+      <GhostLoading :isLoading="loadingTableStatus" setHeight="485">
         <BarChart
           chartId="barChart"
           :barChartData="getClusterChartData"
           stacked
+          chartHeight="485px"
         />
       </GhostLoading>
     </div>

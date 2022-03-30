@@ -3,13 +3,10 @@
     :title="$t('views.databases.topReclaimable', ['3'])"
     border
     :mbottom="false"
-    class="mt-5 mb-5"
+    class="mb-5"
   >
-    <GhostLoading
-      :isLoading="loadingTableStatus"
-      setWidth="276"
-      setHeight="190"
-    >
+    <!-- <Top10Link slot="customTitle" /> -->
+    <GhostLoading :isLoading="loadingTableStatus" setHeight="190">
       <!-- <Top10Link slot="customTitle" /> -->
       <SimpleTable
         :theadData="[

@@ -21,7 +21,7 @@
       />
     </TopTable>
 
-    <div class="table-container scrollbar-x" id="style-1">
+    <div class="table-container">
       <v-table
         :data="total"
         :filters="filters"
@@ -36,7 +36,7 @@
       >
         <thead slot="head">
           <slot name="customHeadData" />
-          <tr class="has-background-grey-lighter">
+          <tr>
             <slot name="headData" />
           </tr>
           <slot name="subCustomHeadData" />
@@ -58,7 +58,7 @@
           </template>
           <template v-if="!isLoadingTable && displayData.length <= 0">
             <tr>
-              <td style="height: 250px" colspan="50">
+              <td style="height: 510px" colspan="50">
                 <span style="display: none">
                   {{ getDataLength('noData') }}
                 </span>
@@ -68,7 +68,7 @@
           </template>
           <template v-if="isLoadingTable">
             <tr>
-              <td style="height: 250px" colspan="50">
+              <td style="height: 510px" colspan="50">
                 <Loading :isLoading="isLoadingTable" />
               </td>
             </tr>
@@ -231,6 +231,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/_variables.scss';
+
 .table-info {
   background-color: rgba(0, 0, 0, 0.075);
 }

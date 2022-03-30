@@ -1,12 +1,18 @@
 <template>
   <section :style="{ 'background-color': bgcolor }">
-    <h2 class="sub-title" v-if="title" :class="{ 'border-bottom': border }">
+    <h2
+      class="sub-title"
+      v-if="title"
+      :class="{ 'border-bottom': border }"
+      :style="customStyleTitle"
+    >
       {{ title }}
       <slot name="customTitle" />
     </h2>
     <article
       class="box-content"
       :class="{ 'bottom-space': mbottom, 'card card-custom': hasShadow }"
+      :style="customStyle"
     >
       <slot />
     </article>
@@ -32,15 +38,25 @@ export default {
       type: String,
       default: '#ffffff',
     },
+
     hasShadow: {
       type: Boolean,
       default: false,
+    },
+    customStyle: {
+      type: String,
+      default: '',
+    },
+    customStyleTitle: {
+      type: String,
+      default: '',
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/_variables';
 .box-content {
   padding: 0 0.5rem;
   height: 100%;
@@ -60,6 +76,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   position: relative;
+  color: $ercole-blue;
 }
 
 .border-bottom {

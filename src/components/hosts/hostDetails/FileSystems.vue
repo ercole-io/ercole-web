@@ -3,7 +3,7 @@
     <b-button
       :label="$t('views.hostDetails.fileSystems')"
       @click="isModalActive = true"
-      type="is-primary"
+      type="is-ercole-blue"
       icon-pack="fas"
       icon-left="receipt"
       size="is-small"
@@ -22,16 +22,16 @@ import FileSystemsContent from '@/components/hosts/hostDetails/FileSystemsConten
 
 export default {
   components: {
-    FileSystemsContent
+    FileSystemsContent,
   },
   data() {
     return {
-      isModalActive: false
+      isModalActive: false,
     }
   },
   computed: {
-    ...mapGetters(['currentHostFileSystems'])
-  }
+    ...mapGetters(['currentHostFileSystems']),
+  },
 }
 </script>
 

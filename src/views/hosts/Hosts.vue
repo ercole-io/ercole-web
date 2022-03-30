@@ -21,7 +21,7 @@
       <MoreInfoButtons :buttonItems="hostsMoreInfo" slot="customTopHeader" />
 
       <b-button
-        type="is-primary"
+        type="is-ercole-blue"
         icon-right="sync-alt"
         icon-pack="fas"
         size="is-small"
@@ -39,7 +39,7 @@
       />
 
       <template slot="bodyData" slot-scope="rowData">
-        <HostLink :hostname="rowData.scope.hostname" />
+        <HostLink :hostname="rowData.scope.hostname" class="first-col" />
         <TdContent
           :value="rowData.scope.platform"
           :class="{ 'is-hidden': moreInfoToggle.hiddenVirtual }"

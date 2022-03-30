@@ -4,7 +4,7 @@
     :codeText="$t('common.errors.404')"
     :codeDesc="$t('common.errors.404msg')"
   >
-    <b-button type="is-primary" @click="$router.go(-1)" slot="actions">
+    <b-button type="is-ercole-blue" @click="$router.go(-1)" slot="actions">
       {{ $t('common.general.goBack') }}
     </b-button>
   </ErrorCode>
@@ -15,8 +15,8 @@ import ErrorCode from '@/components/common/ErrorCode.vue'
 
 export default {
   components: {
-    ErrorCode
-  }
+    ErrorCode,
+  },
 }
 </script>
 

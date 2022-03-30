@@ -72,6 +72,7 @@ export const actions = {
   async getLicensesAgreement({ commit, dispatch }, type) {
     dispatch('onLoadingTable')
     let agreementList = await axiosNoLoading.get(`/agreements/${type}/database`)
+
     const response = await agreementList.data.agreements
     if (response) {
       if (type === 'mysql') {
@@ -92,6 +93,7 @@ export const actions = {
     )
     let response = await create.data
     response = { ...response, mode: payload.type }
+
     if (response) {
       commit('CREATE_AGREEMENT', response)
       dispatch('offLoadingTable')
@@ -119,6 +121,7 @@ export const actions = {
     }
 
     data = { ...data, mode: payload.type }
+
     if (data) {
       commit('UPDATE_AGREEMENTS', data)
       dispatch('offLoadingTable')

@@ -28,7 +28,7 @@
     <b-button
       class="ml-1"
       size="is-small"
-      type="is-primary"
+      type="is-ercole-blue"
       icon-right="delete"
       @click="getCurrentMonthDates"
     />
@@ -43,16 +43,16 @@ export default {
   props: {
     setRange: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
     totalRange: {
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {
       startDate: null,
-      endDate: null
+      endDate: null,
     }
   },
   beforeMount() {
@@ -63,9 +63,7 @@ export default {
       const today = moment(new Date(), 'YYYY/MM/DD')
       if (this.totalRange) {
         this.startDate = new Date(
-          moment()
-            .subtract(this.totalRange, 'days')
-            .format('YYYY-MM-DD')
+          moment().subtract(this.totalRange, 'days').format('YYYY-MM-DD')
         )
       } else {
         this.startDate = new Date(moment().format('YYYY-MM-01'))
@@ -77,11 +75,11 @@ export default {
     },
     formatDate(date) {
       return formatDate(date)
-    }
+    },
   },
   beforeDestroy() {
     this.getCurrentMonthDates()
-  }
+  },
 }
 </script>
 
@@ -90,9 +88,6 @@ export default {
   display: flex;
   justify-content: flex-end;
   flex-direction: row;
-  margin-right: -3px;
-  margin-top: -10px;
-  margin-bottom: -15px;
 
   .range-dates-field {
     width: 100%;

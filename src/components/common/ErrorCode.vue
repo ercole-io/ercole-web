@@ -14,17 +14,17 @@ export default {
   props: {
     code: {
       type: String,
-      required: true
+      required: true,
     },
     codeText: {
       type: String,
-      required: true
+      required: true,
     },
     codeDesc: {
       type: String,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 }
 </script>
 
