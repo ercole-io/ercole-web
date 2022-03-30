@@ -6,12 +6,12 @@ describe('BoxContent.vue', () => {
   beforeEach(() => {
     wrapper = mount(BoxContent, {
       propsData: {
-        title: 'Test Title'
+        title: 'Test Title',
       },
       slots: {
         default: '<div>Test Default Content</div>',
-        customTitle: '<div>Custom Information</div>'
-      }
+        customTitle: '<div>Custom Information</div>',
+      },
     })
   })
 
@@ -19,9 +19,9 @@ describe('BoxContent.vue', () => {
     wrapper.destroy()
   })
 
-  it('is a Vue instance', () => {
-    expect(wrapper.isVueInstance()).toBe(true)
-  })
+  // it('is a Vue instance', () => {
+  //   expect(wrapper.isVueInstance()).toBe(true)
+  // })
 
   it('verify if component exists', () => {
     expect(wrapper.exists()).toBe(true)
