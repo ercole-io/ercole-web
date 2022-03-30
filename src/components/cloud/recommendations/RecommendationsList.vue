@@ -5,9 +5,11 @@
     :tableData="getRecommendations"
     :isLoadingTable="loadingTableStatus"
   >
-    <template slot="customTopHeader" v-if="!loadingTableStatus">
+    <template
+      slot="customTopHeader"
+      v-if="getOciActiveProfileError && !loadingTableStatus"
+    >
       <b-notification
-        v-if="getOciActiveProfileError"
         type="is-warning is-light"
         aria-close-label="Close notification"
         role="alert"
