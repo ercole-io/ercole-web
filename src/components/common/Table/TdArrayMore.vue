@@ -17,7 +17,7 @@
           @click="show()"
           icon-right="minus"
           icon-pack="fas"
-          :disabled="limit === defaultSize"
+          :disabled="limit < defaultSize"
           outlined
         />
       </div>
@@ -25,7 +25,7 @@
         <li
           v-for="(val, index) in value"
           :key="index"
-          :class="index > limit && index > 5 ? 'hidden' : ''"
+          :class="index > limit ? 'hidden' : ''"
         >
           <span v-html="highlight(val) || '-'"></span>
         </li>
@@ -43,7 +43,7 @@ export default {
   mixins: [HighlightSearchMixin, TooltipMixin],
   data() {
     return {
-      limit: 5,
+      limit: 4,
       defaultSize: 5,
       valueSize: null,
     }

@@ -23,7 +23,11 @@
     "licAgreements": "Licenses Agreement",
     "licCompliance": "Licenses Compliance",
     "licUsed": "Licenses Used",
-    "repository": "Repository"
+    "cloudAdvisor": "Cloud Advisor",
+    "recommendations": "Recommendations",
+    "profileConfig": "Profile Configurations",
+    "repository": "Repository",
+    "ercoleRecommendations": "Ercole Recommendations"
   },
   "header": {
     "logout": "Logout"
@@ -112,6 +116,15 @@
       "clearAll": "Clear select all?",
       "showAll": "Show All",
       "descModalTitle": "Alert Description"
+    },
+    "cloud": {
+      "cannotDelete": "You can not delete an active profile!",
+      "deleteTitle": "Profile Delete",
+      "deleteCheck": "Are you sure you want to delete the profile <b>{profile}</b>?",
+      "deleteSuccess": "The profile {profile} was successfully deleted!",
+      "noActiveProfile": "There are currently no active profiles! Go to profile configurations page to activate!",
+      "oneErrActiveProfile": "There is {n} profile not working properly, please check profile configuration page!",
+      "moreErrActiveProfile": "There are {n} profiles not working properly, please check profile configuration page!"
     },
     "hosts": {
       "addExportParams": "Add Export Params"
@@ -248,8 +261,19 @@
       "installed": "Installed",
       "releaseDate": "Release Date",
       "licAvailable": "License Available",
+      "tenancy": "Tenancy OCID",
+      "pending": "Pending",
+      "estimateSaving": "Estimated Savings / Month",
+      "importance": "Importance",
+      "profileName": "Profile Name",
+      "userOCID": "User OCID",
+      "keyFingerprint": "Key Fingerprint",
+      "region": "Region",
+      "privateKey": "Private Key",
       "clusterLicenses": "Cluster Licenses",
       "purchased": "Purchased",
+      "compartmentName": "Compartment Name",
+      "resourceID": "Resource ID",
       "pluggable": "Pluggable",
       "services": "Services"
     },
@@ -350,6 +374,10 @@
       "usedLicenses": "Used Licenses",
       "agreeCovered": "Covered by this agreement",
       "agreeCoveredAll": "Covered by all agreements",
+      "cloudInfra": "Cloud Infrastructure",
+      "pending": "Pending",
+      "estimateSaving": "Estimated Savings / Month",
+      "importance": "Importance",
       "repoName": "Name",
       "filename": "Filename",
       "arch": "Architecture",
@@ -358,8 +386,17 @@
       "repository": "Repository",
       "installed": "Installed",
       "licAvailable": "License Available",
+      "tenancy": "Tenancy OCID",
+      "activeProfiles": "Active Profiles",
+      "profileName": "Profile Name",
+      "userOCID": "User OCID",
+      "keyFingerprint": "Key Fingerprint",
+      "region": "Region",
+      "privateKey": "Private Key",
       "clusterLicenses": "Cluster Licenses",
       "purchased": "Purchased",
+      "compartmentName": "Compartment Name",
+      "resourceID": "Resource ID",
       "pluggable": "Pluggable",
       "services": "Services"
     },

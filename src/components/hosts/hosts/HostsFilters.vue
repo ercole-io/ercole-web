@@ -1,124 +1,142 @@
 <template>
   <AdvancedFiltersBase :submitAction="apply">
-    <CustomField :label="$t('common.fields.hostname')">
-      <CustomAutocomplete
-        v-model="filters.hostname"
-        :filterResult="filteredhostname"
-        :filterMethod="setAutocompletes"
-      />
-    </CustomField>
+    <Collapse :collapses="collapses">
+      <template slot="General">
+        <CustomField :label="$t('common.fields.hostname')">
+          <CustomAutocomplete
+            v-model="filters.hostname"
+            :filterResult="filteredhostname"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
 
-    <CustomField :label="$t('common.fields.env')">
-      <CustomSelect
-        v-model="filters.environment"
-        :options="filteredenvironment"
-      />
-    </CustomField>
+        <CustomField :label="$t('common.fields.hostname')">
+          <CustomAutocomplete
+            v-model="filters.hostname"
+            :filterResult="filteredhostname"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
 
-    <CustomField :label="$t('common.fields.dbs')">
-      <CustomAutocomplete
-        v-model="filters.databases"
-        :filterResult="filtereddatabases"
-        :filterMethod="setAutocompletes"
-      />
-    </CustomField>
+        <CustomField :label="$t('common.fields.env')">
+          <CustomSelect
+            v-model="filters.environment"
+            :options="filteredenvironment"
+          />
+        </CustomField>
 
-    <CustomField :label="$t('common.fields.tech')">
-      <CustomSelect v-model="filters.techType" :options="filteredtechType" />
-    </CustomField>
+        <CustomField :label="$t('common.fields.dbs')">
+          <CustomAutocomplete
+            v-model="filters.databases"
+            :filterResult="filtereddatabases"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
 
-    <CustomField :label="$t('common.fields.os')">
-      <CustomAutocomplete
-        v-model="filters.os"
-        :filterResult="filteredos"
-        :filterMethod="setAutocompletes"
-      />
-    </CustomField>
+        <CustomField :label="$t('common.fields.tech')">
+          <CustomSelect
+            v-model="filters.techType"
+            :options="filteredtechType"
+          />
+        </CustomField>
 
-    <CustomField :label="$t('common.fields.clust')">
-      <CustomRadio v-model="filters.iconCluster" />
-    </CustomField>
+        <CustomField :label="$t('common.fields.os')">
+          <CustomAutocomplete
+            v-model="filters.os"
+            :filterResult="filteredos"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
 
-    <CustomField :label="$t('common.fields.kernel')">
-      <CustomAutocomplete
-        v-model="filters.kernel"
-        :filterResult="filteredkernel"
-        :filterMethod="setAutocompletes"
-      />
-    </CustomField>
+        <CustomField :label="$t('common.fields.clust')">
+          <CustomRadio v-model="filters.iconCluster" />
+        </CustomField>
 
-    <CustomField :label="$t('common.fields.memory')">
-      <CustomSlider
-        v-model="filters.memorytotal"
-        :ticks="[minmemorytotal, maxmemorytotal]"
-      />
-    </CustomField>
+        <CustomField :label="$t('common.fields.kernel')">
+          <CustomAutocomplete
+            v-model="filters.kernel"
+            :filterResult="filteredkernel"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
 
-    <CustomField :label="$t('common.fields.swap')">
-      <CustomSlider
-        v-model="filters.swaptotal"
-        :ticks="[minswaptotal, maxswaptotal]"
-      />
-    </CustomField>
+        <CustomField :label="$t('common.fields.memory')">
+          <CustomSlider
+            v-model="filters.memorytotal"
+            :ticks="[minmemorytotal, maxmemorytotal]"
+          />
+        </CustomField>
 
-    <CustomField :label="$t('common.fields.updated')">
-      <CustomDatepicker v-model="startDate" />
-    </CustomField>
+        <CustomField :label="$t('common.fields.swap')">
+          <CustomSlider
+            v-model="filters.swaptotal"
+            :ticks="[minswaptotal, maxswaptotal]"
+          />
+        </CustomField>
 
-    <Collapse :title="$t('common.fields.virtual')" id="virtual" padding margin>
-      <CustomField :label="$t('common.fields.platform')">
-        <CustomSelect v-model="filters.platform" :options="filteredplatform" />
-      </CustomField>
+        <CustomField :label="$t('common.fields.updated')">
+          <CustomDatepicker v-model="startDate" />
+        </CustomField>
+      </template>
 
-      <CustomField :label="$t('common.fields.cluster')">
-        <CustomAutocomplete
-          v-model="filters.cluster"
-          :filterResult="filteredcluster"
-          :filterMethod="setAutocompletes"
-        />
-      </CustomField>
+      <template slot="Virtual">
+        <CustomField :label="$t('common.fields.platform')">
+          <CustomSelect
+            v-model="filters.platform"
+            :options="filteredplatform"
+          />
+        </CustomField>
 
-      <CustomField :label="$t('common.fields.node')">
-        <CustomAutocomplete
-          v-model="filters.virtNode"
-          :filterResult="filteredvirtNode"
-          :filterMethod="setAutocompletes"
-        />
-      </CustomField>
-    </Collapse>
+        <CustomField :label="$t('common.fields.cluster')">
+          <CustomAutocomplete
+            v-model="filters.cluster"
+            :filterResult="filteredcluster"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
 
-    <Collapse :title="$t('common.fields.cpu')" id="cpu" padding margin>
-      <CustomField :label="$t('common.fields.procModel')">
-        <CustomAutocomplete
-          v-model="filters.model"
-          :filterResult="filteredmodel"
-          :filterMethod="setAutocompletes"
-        />
-      </CustomField>
+        <CustomField :label="$t('common.fields.node')">
+          <CustomAutocomplete
+            v-model="filters.virtNode"
+            :filterResult="filteredvirtNode"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
+      </template>
 
-      <CustomField :label="$t('common.fields.threads')">
-        <CustomSlider
-          v-model="filters.threads"
-          :ticks="[minthreads, maxthreads]"
-        />
-      </CustomField>
+      <template slot="CPU">
+        <CustomField :label="$t('common.fields.procModel')">
+          <CustomAutocomplete
+            v-model="filters.model"
+            :filterResult="filteredmodel"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
 
-      <CustomField :label="$t('common.fields.cores')">
-        <CustomSlider v-model="filters.cores" :ticks="[mincores, maxcores]" />
-      </CustomField>
+        <CustomField :label="$t('common.fields.threads')">
+          <CustomSlider
+            v-model="filters.threads"
+            :ticks="[minthreads, maxthreads]"
+          />
+        </CustomField>
 
-      <CustomField :label="$t('common.fields.socket')">
-        <CustomSlider
-          v-model="filters.socket"
-          :ticks="[minsocket, maxsocket]"
-        />
-      </CustomField>
-    </Collapse>
+        <CustomField :label="$t('common.fields.cores')">
+          <CustomSlider v-model="filters.cores" :ticks="[mincores, maxcores]" />
+        </CustomField>
 
-    <Collapse :title="$t('common.fields.agent')" id="agent" padding margin>
-      <CustomField :label="$t('common.fields.version')">
-        <CustomSelect v-model="filters.version" :options="filteredversion" />
-      </CustomField>
+        <CustomField :label="$t('common.fields.socket')">
+          <CustomSlider
+            v-model="filters.socket"
+            :ticks="[minsocket, maxsocket]"
+          />
+        </CustomField>
+      </template>
+
+      <template slot="Agent">
+        <CustomField :label="$t('common.fields.version')">
+          <CustomSelect v-model="filters.version" :options="filteredversion" />
+        </CustomField>
+      </template>
     </Collapse>
 
     <slot />
@@ -137,6 +155,7 @@ export default {
   },
   data() {
     return {
+      collapses: ['General', 'Virtual', 'CPU', 'Agent'],
       autocompletes: [
         'hostname',
         'databases',

@@ -9,9 +9,9 @@ export default {
   props: {
     noContentText: {
       type: String,
-      default: 'There are no content to show'
-    }
-  }
+      default: 'There are no content to show',
+    },
+  },
 }
 </script>
 

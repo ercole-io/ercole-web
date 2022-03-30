@@ -13,9 +13,19 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['getErrMsg'])
-  }
+    ...mapGetters(['getErrMsg']),
+  },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+P {
+  font-size: 1.1rem !important;
+  opacity: 0.9;
+  border-radius: 4px;
+  font-weight: bold;
+  text-shadow: 2px 0 40px #fff, -2px 0 40px #fff, 0 2px 40px #fff,
+    0 -2px 40px #fff, 1px 1px 5px #fff, -1px -1px 5px #fff, 1px -1px 5px #fff,
+    -1px 1px 5px #fff;
+}
+</style>

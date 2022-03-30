@@ -5,20 +5,27 @@
 @import "variables";
 
 // 2. Setup your Custom Colors
-$linkedin: #0077b5;
-$linkedin-invert: findColorInvert($linkedin);
-$twitter: #55acee;
-$twitter-invert: findColorInvert($twitter);
-$github: #333;
-$github-invert: findColorInvert($github);
+// $linkedin: #0077b5;
+// $linkedin-invert: findColorInvert($linkedin);
+// $twitter: #55acee;
+// $twitter-invert: findColorInvert($twitter);
+// $github: #333;
+// $github-invert: findColorInvert($github);
+
 
 @import "~bulma/sass/utilities/derived-variables";
 
 // 3. Add new color variables to the color map.
 $addColors: (
-  "twitter":($twitter, $twitter-invert),
-  "linkedin": ($linkedin, $linkedin-invert),
-  "github": ($github, $github-invert)
+  // "twitter":($twitter, $twitter-invert),
+  // "linkedin": ($linkedin, $linkedin-invert),
+  // "github": ($github, $github-invert),
+  "ercole-blue": ($ercole-blue, $ercole-blue-invert),
+  "ercole-green": ($ercole-green, $ercole-green-invert),
+  "custom-primary": ($custom-primary, $custom-primary-invert),
+  "light-blue": ($light-blue, $light-blue-invert),
+  "light-warning": ($light-warning, $light-warning-invert),
+  "light-danger": ($light-danger, $light-danger-invert)
 );
 $colors: map-merge($colors, $addColors);
 

@@ -55,7 +55,7 @@
       <td style="min-width: 0">
         <b-icon
           v-tooltip="options('Hosts')"
-          type="is-link"
+          type="is-custom-primary"
           class="hosts-icon"
           pack="fas"
           icon="server"

@@ -1,5 +1,5 @@
 <template>
-  <div class="columns" :class="{ 'fixed-buttons': isFixed }">
+  <div class="columns sticky-buttons">
     <div class="column">
       <b-button type="is-danger" size="is-small" @click="reset" expanded>
         {{ cancelText }}
@@ -7,7 +7,7 @@
     </div>
     <div class="column">
       <b-button
-        type="is-primary"
+        type="is-custom-primary"
         size="is-small"
         native-type="submit"
         :disabled="isDisabled"
@@ -26,20 +26,16 @@ export default {
   props: {
     applyText: {
       type: String,
-      default: 'Apply'
+      default: 'Apply',
     },
     cancelText: {
       type: String,
-      default: 'Reset'
+      default: 'Reset',
     },
     isDisabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
-    isFixed: {
-      type: Boolean,
-      default: true
-    }
   },
   methods: {
     Apply() {
@@ -47,22 +43,17 @@ export default {
     },
     reset() {
       bus.$emit('onResetAction')
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-.fixed-buttons {
-  // border: 1px solid red;
+.sticky-buttons {
   background-color: #f5f5f5;
-  position: -webkit-sticky;
   position: sticky;
+  position: -webkit-sticky;
   bottom: 0;
-  left: 0;
-  padding: 25px 0;
-  margin-top: 5px;
   z-index: 10;
-  width: inherit;
 }
 </style>

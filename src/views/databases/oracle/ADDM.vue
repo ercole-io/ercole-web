@@ -32,7 +32,10 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.benefit" class="findingColumn" />
+        <TdContent
+          :value="rowData.scope.benefit"
+          class="first-col findingColumn"
+        />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
         <TdContent :value="rowData.scope.dbname" />
         <TdContent :value="rowData.scope.finding" />

@@ -18,42 +18,42 @@ export default {
   props: {
     chartId: {
       type: String,
-      required: true
+      required: true,
     },
     barChartData: {
       type: Array || Object,
-      required: true
+      required: true,
     },
     stacked: {
       type: Boolean,
-      default: false
+      default: false,
     },
     legend: {
       type: [Boolean, String],
-      default: 'bottom'
+      default: 'bottom',
     },
     colors: {
-      type: Array
+      type: Array,
     },
     chartHeight: {
       type: String,
-      default: '300px'
+      default: '300px',
     },
     xAxesConfig: {
       type: Array,
-      default: () => [true, 'bottom']
+      default: () => [true, 'bottom'],
     },
     barThickness: {
       type: Number,
-      default: 30
-    }
+      default: 20,
+    },
   },
   computed: {
     dataset() {
       return {
         barThickness: this.barThickness,
         maxBarThickness: 100,
-        borderColor: []
+        borderColor: [],
         // minBarLength: 10,
       }
     },
@@ -67,7 +67,7 @@ export default {
               position: this.xAxesConfig[1],
               // offset: true
               ticks: {
-                autoSkip: false
+                autoSkip: false,
                 // maxRotation: 0,
                 // minRotation: 0,
               },
@@ -75,9 +75,9 @@ export default {
                 color: '#999',
                 drawOnChartArea: true,
                 // drawBorder: true
-                lineWidth: 0.5
-              }
-            }
+                lineWidth: 0.5,
+              },
+            },
           ],
           yAxes: [
             {
@@ -91,28 +91,28 @@ export default {
                 fontSize: 11,
                 fontStyle: 'bold',
                 // lineHeight: 0.5,
-                callback: value => {
+                callback: (value) => {
                   // value, index, values
                   return value
-                }
-              }
-            }
-          ]
+                },
+              },
+            },
+          ],
         },
         tooltips: {
           displayColors: true,
           intersect: true,
-          mode: 'point'
+          mode: 'point',
           // callbacks: {
           //   label: tooltipItems => {
           //     console.log(tooltipItems)
           //     return tooltipItems
           //   }
           // }
-        }
+        },
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

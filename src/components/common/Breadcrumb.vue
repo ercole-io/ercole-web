@@ -42,24 +42,26 @@ import FastChange from '@/components/common/FastChange.vue'
 export default {
   mixins: [dynamicTitle, tooltipMixin],
   components: {
-    FastChange
+    FastChange,
   },
   methods: {
     routeTo(route) {
       if (this.breadcrumbList[route].link) {
         this.$router.push(this.breadcrumbList[route].link)
       }
-    }
+    },
   },
   computed: {
     breadcrumbList() {
       return this.$route.meta.breadcrumb
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
+
 .breadcrumb {
   margin: 0;
   padding: 10px 20px 8px 20px;
@@ -67,6 +69,14 @@ export default {
   min-height: 43px;
   display: flex;
   align-items: center;
+
+  a {
+    color: $custom-primary;
+
+    &:hover {
+      color: $ercole-blue;
+    }
+  }
 
   li + li::before {
     font-size: 11px;

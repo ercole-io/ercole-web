@@ -37,6 +37,7 @@
         <slot name="right" />
       </div>
     </div>
+    <slot name="bottom" />
   </div>
 </template>
 

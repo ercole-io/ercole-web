@@ -40,6 +40,7 @@
       <template slot="bodyData" slot-scope="rowData">
         <TdContent
           :value="rowData.scope.reclaimable | formatNumber('0.00', 'GB')"
+          class="first-col"
         />
         <TdContent
           :value="rowData.scope.segmentsSize | formatNumber('0.00', 'GB')"
@@ -68,11 +69,13 @@
       border
       slot="right"
     >
-      <PieChart
-        chartId="top10reclaimable"
-        :pieChartData="top10reclaimableChart"
-        setSuffix=" GB"
-      />
+      <GhostLoading :isLoading="loadingTableStatus" setHeight="297">
+        <PieChart
+          chartId="top10reclaimable"
+          :pieChartData="top10reclaimableChart"
+          setSuffix=" GB"
+        />
+      </GhostLoading>
     </BoxContent>
   </ToggleColumns>
 </template>
@@ -90,6 +93,7 @@ import SegnmentAdvisorsFilters from '@/components/databases/oracle/segmentAdviso
 import PieChart from '@/components/common/charts/PieChart.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import Loading from '@/components/common/Loading.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -103,6 +107,7 @@ export default {
     PieChart,
     BoxContent,
     Loading,
+    GhostLoading,
   },
   data() {
     return {
