@@ -17,9 +17,9 @@ afterEach(() => {
 })
 
 describe('LoginForm.vue', () => {
-  it('is a Vue instance', () => {
-    expect(wrapper.isVueInstance()).toBe(true)
-  })
+  // it('is a Vue instance', () => {
+  //   expect(wrapper.isVueInstance()).toBe(true)
+  // })
 
   it('verify if component exists', () => {
     expect(wrapper.exists()).toBe(true)
@@ -29,13 +29,13 @@ describe('LoginForm.vue', () => {
     const mockStore = { dispatch: jest.fn() }
     const data = {
       username: 'test',
-      password: 'test'
+      password: 'test',
     }
     wrapper = shallowMount(Form, {
       mocks: {
         $store: mockStore,
-        $t
-      }
+        $t,
+      },
     })
 
     wrapper.setData(data)
@@ -49,7 +49,7 @@ describe('LoginForm.vue', () => {
   it('will verify button is disabled if fields are empty', async () => {
     const data = {
       username: '',
-      password: ''
+      password: '',
     }
 
     wrapper.setData(data)
