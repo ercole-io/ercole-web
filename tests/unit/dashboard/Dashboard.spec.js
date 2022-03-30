@@ -11,20 +11,22 @@ beforeEach(() => {
   actions = {
     getDashboardData: jest.fn().mockName('getDashboardData'),
     getTechnologiesData: jest.fn().mockName('getTechnologiesData'),
-    getHosts: jest.fn().mockName('getHosts'),
-    getClusters: jest.fn().mockName('getClusters')
+    getGlobalFiltersLocations: jest.fn().mockName('getGlobalFiltersLocations'),
+    getGlobalFiltersEnvironments: jest
+      .fn()
+      .mockName('getGlobalFiltersEnvironments'),
   }
 
   store = new Vuex.Store({
-    actions
+    actions,
   })
 })
 
 describe('Dashboard.vue', () => {
-  it('is a Vue instance', () => {
-    const wrapper = shallowMount(Dashboard, { localVue, store })
-    expect(wrapper.isVueInstance()).toBe(true)
-  })
+  // it('is a Vue instance', () => {
+  //   const wrapper = shallowMount(Dashboard, { localVue, store })
+  //   expect(wrapper.isVueInstance()).toBe(true)
+  // })
 
   it('verify if component exists', () => {
     const wrapper = shallowMount(Dashboard, { localVue, store })
