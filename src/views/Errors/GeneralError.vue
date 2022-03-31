@@ -1,9 +1,5 @@
 <template>
-  <ErrorCode
-    code="404"
-    :codeText="$t('common.errors.404')"
-    :codeDesc="$t('common.errors.404msg')"
-  >
+  <ErrorCode code=" " codeText="Error" codeDesc="Some error has occurred!">
     <div class="buttons" slot="actions">
       <b-button type="is-ercole-blue" @click="$router.go(-1)">
         {{ $t('common.general.goBack') }}

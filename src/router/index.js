@@ -81,6 +81,9 @@ const Unauthorized = lazy(() =>
 const NotFound = lazy(() =>
   import(/* webpackPreload: true */ '@/views/Errors/NotFound.vue')
 )
+const GeneralError = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/Errors/GeneralError.vue')
+)
 // const CloudRecommendations = lazy(() =>
 //   import(/* webpackPreload: true */ '@/views/cloud/Recommendations.vue')
 // )
@@ -437,6 +440,15 @@ const routes = [
     component: NotFound,
     meta: {
       title: `${title}404 Page Not Found`,
+      layout: 'error',
+    },
+  },
+  {
+    path: '/error',
+    name: 'error',
+    component: GeneralError,
+    meta: {
+      title: `Error`,
       layout: 'error',
     },
   },

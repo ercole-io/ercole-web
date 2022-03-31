@@ -99,6 +99,7 @@ export const actions = {
     dispatch('offLoading')
     commit('LOGOUT')
     commit('SET_DEFAULT_COLS')
+    commit('SET_OCI_ACTIVE_PROFILE', [])
     helpers.clearLocalStorageAuth()
     router.push('/login')
   },
