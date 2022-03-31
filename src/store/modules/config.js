@@ -2,35 +2,35 @@ import axiosNoauth from '@/axios/axios-noauth.js'
 
 export const state = () => {
   return {
-    config: null
+    config: null,
   }
 }
 
 export const getters = {
-  isConfigLoaded: state => state.config !== null,
-  getAPIServiceBaseURL: state => state.config.APIServiceBaseUrl,
-  getChartServiceBaseUrl: state => state.config.ChartServiceBaseUrl,
-  getOracleCloudInfraUrl: state => state.config.OracleCloudInfra,
-  getRepoServiceBaseUrl: state => state.config.RepoServiceUrl
+  isConfigLoaded: (state) => state.config !== null,
+  getAPIServiceBaseURL: (state) => state.config.APIServiceBaseUrl,
+  getChartServiceBaseUrl: (state) => state.config.ChartServiceBaseUrl,
+  getOracleCloudInfraUrl: (state) => state.config.ThunderServiceBaseUrl,
+  getRepoServiceBaseUrl: (state) => state.config.RepoServiceUrl,
 }
 
 export const mutations = {
   FETCHED_CONFIG: (state, payload) => {
     state.config = payload
-  }
+  },
 }
 
 export const actions = {
   fetchConfig({ commit, dispatch }) {
     return axiosNoauth
       .get('/config.json')
-      .then(res => {
+      .then((res) => {
         commit('FETCHED_CONFIG', res.data)
       })
-      .catch(err => {
+      .catch((err) => {
         const errorMessage = err.response.data.ErrorDescription
         commit('FETCHED_CONFIG', {})
         dispatch('setErrMsg', errorMessage)
       })
-  }
+  },
 }

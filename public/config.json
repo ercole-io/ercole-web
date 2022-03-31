@@ -1,6 +1,6 @@
 {
   "APIServiceBaseUrl": "http://example-domain/main-api",
   "ChartServiceBaseUrl": "http://example-domain/chart-api",
-  "OracleCloudInfra": "http://example-domain/cloud-api",
+  "ThunderServiceBaseUrl": "http://example-domain/cloud-api",
   "RepoServiceUrl": "http://example-domain/repo-api"
 }
