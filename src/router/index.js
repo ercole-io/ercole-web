@@ -81,9 +81,9 @@ const Unauthorized = lazy(() =>
 const NotFound = lazy(() =>
   import(/* webpackPreload: true */ '@/views/Errors/NotFound.vue')
 )
-const CloudRecommendations = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/cloud/Recommendations.vue')
-)
+// const CloudRecommendations = lazy(() =>
+//   import(/* webpackPreload: true */ '@/views/cloud/Recommendations.vue')
+// )
 const ProfileConfigurations = lazy(() =>
   import(/* webpackPreload: true */ '@/views/cloud/ProfileConfigurations.vue')
 )
@@ -361,16 +361,16 @@ const routes = [
     },
     beforeEnter: verifyAuth,
   },
-  {
-    path: '/cloud-recommendations',
-    name: 'cloud-recommendations',
-    component: CloudRecommendations,
-    meta: {
-      label: i18n.t('menu.recommendations'),
-      title: `${title}${i18n.t('menu.recommendations')}`,
-      breadcrumb: [{ name: i18n.t('menu.recommendations') }],
-    },
-  },
+  // {
+  //   path: '/cloud-recommendations',
+  //   name: 'cloud-recommendations',
+  //   component: CloudRecommendations,
+  //   meta: {
+  //     label: i18n.t('menu.recommendations'),
+  //     title: `${title}${i18n.t('menu.recommendations')}`,
+  //     breadcrumb: [{ name: i18n.t('menu.recommendations') }],
+  //   },
+  // },
   {
     path: '/profile-configurations',
     name: 'profile-configurations',
@@ -382,13 +382,13 @@ const routes = [
     },
   },
   {
-    path: '/ercole-recommendations',
-    name: 'ercole-recommendations',
+    path: '/recommendations',
+    name: 'recommendations',
     component: ErcoleRecommendations,
     meta: {
-      label: i18n.t('menu.ercoleRecommendations'),
-      title: `${title}${i18n.t('menu.ercoleRecommendations')}`,
-      breadcrumb: [{ name: i18n.t('menu.ercoleRecommendations') }],
+      label: i18n.t('menu.recommendations'),
+      title: `${title}${i18n.t('menu.recommendations')}`,
+      breadcrumb: [{ name: i18n.t('menu.recommendations') }],
     },
   },
   {
