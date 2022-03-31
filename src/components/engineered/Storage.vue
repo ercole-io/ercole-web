@@ -1,22 +1,27 @@
 <template>
   <BoxContent :title="$t('views.engSystems.storage')" border :mbottom="false">
-    <p class="is-size-7">
-      {{ engineeredSystems.storage | formatNumber('0.00', '%') }}
-    </p>
+    <GhostLoading :isLoading="loadingTableStatus" setHeight="18">
+      <p class="is-size-7">
+        {{ engineeredSystems.storage | formatNumber('0.00', '%') }}
+      </p>
+    </GhostLoading>
   </BoxContent>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   components: {
-    BoxContent
+    BoxContent,
+    GhostLoading,
   },
   computed: {
-    ...mapState(['engineeredSystems'])
-  }
+    ...mapState(['engineeredSystems']),
+    ...mapGetters(['loadingTableStatus']),
+  },
 }
 </script>
 

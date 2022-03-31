@@ -73,14 +73,14 @@ export const mutations = {
 
 export const actions = {
   async getEngineeredSystems({ commit, getters, dispatch }, olderThan = null) {
+    dispatch('onLoadingTable')
+
     const url = '/hosts/technologies/oracle/exadata'
     let params = {
       'older-than': getters.getActiveFilters.date || olderThan,
       environment: getters.getActiveFilters.environment,
       location: getters.getActiveFilters.location,
     }
-
-    dispatch('onLoading')
 
     axios
       .all([
@@ -114,7 +114,7 @@ export const actions = {
         )
       )
       .then(() => {
-        dispatch('offLoading')
+        dispatch('offLoadingTable')
       })
   },
 }
