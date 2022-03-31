@@ -40,7 +40,7 @@ export default {
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
-  background-image: url('../../assets/images/ercole_login_bg.png');
+  background-image: url('../../assets/images/ercole_login_bg_opt.png');
 
   .logo {
     text-align: center;
