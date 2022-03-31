@@ -10,6 +10,7 @@
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
+    "@vue/vue2-jest": "^27.0.0-alpha.4",
     "animate.css": "^4.1.1",
     "axios": "^0.24.0",
     "babel-plugin-transform-require-context": "^0.1.1",
@@ -20,6 +21,7 @@
     "easy-circular-progress": "^1.0.4",
     "file-saver": "^2.0.5",
     "flush-promises": "^1.0.2",
+    "jest": "^27.5.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "numeral": "^2.0.6",
@@ -43,7 +45,7 @@
     "@vue/cli-plugin-babel": "~4.5.15",
     "@vue/cli-plugin-eslint": "~4.3.0",
     "@vue/cli-plugin-router": "~4.5.15",
-    "@vue/cli-plugin-unit-jest": "~4.5.15",
+    "@vue/cli-plugin-unit-jest": "^5.0.3",
     "@vue/cli-plugin-vuex": "~4.5.15",
     "@vue/cli-service": "~4.5.15",
     "@vue/eslint-config-prettier": "^6.0.0",
