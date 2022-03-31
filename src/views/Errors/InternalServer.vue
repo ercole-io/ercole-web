@@ -4,9 +4,14 @@
     :codeText="$t('common.errors.500')"
     :codeDesc="$t('common.errors.500msg')"
   >
-    <b-button type="is-ercole-blue" @click="$router.go(-1)" slot="actions">
-      {{ $t('common.general.goBack') }}
-    </b-button>
+    <div class="buttons" slot="actions">
+      <b-button type="is-ercole-blue" @click="$router.go(-1)">
+        {{ $t('common.general.goBack') }}
+      </b-button>
+      <b-button type="is-ercole-blue">
+        <router-link to="/" class="routerLink">Dashboard</router-link>
+      </b-button>
+    </div>
   </ErrorCode>
 </template>
 
@@ -20,4 +25,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.routerLink {
+  color: white;
+}
+</style>
