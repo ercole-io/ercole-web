@@ -57,7 +57,7 @@
         <GhostLoading :isLoading="loadingTableStatus" setHeight="390" />
       </div>
     </div>
-    <div class="columns" v-if="!loadingTableStatus">
+    <div class="columns" v-if="!loadingTableStatus && currentHostType">
       <div
         class="column"
         :class="{
