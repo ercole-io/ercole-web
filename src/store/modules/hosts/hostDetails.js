@@ -264,6 +264,8 @@ export const getters = {
           return []
         }
       }
+    } else {
+      return null
     }
   },
   currentHostDBsInfo: (state, getters) => {
