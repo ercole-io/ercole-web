@@ -35,7 +35,7 @@
       <TdContent :value="rowData.scope.objectType" />
     </template>
 
-    <ExportButton slot="export" url="" expName="cloudRecommendations" />
+    <!-- <ExportButton slot="export" url="" expName="cloudRecommendations" /> -->
   </FullTable>
 </template>
 
@@ -44,7 +44,7 @@ import { mapGetters } from 'vuex'
 import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
-import ExportButton from '@/components/common/ExportButton.vue'
+// import ExportButton from '@/components/common/ExportButton.vue'
 import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
 import ErcoleRecommendationsModal from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsModal.vue'
 import ErcoleRecommendationsHead from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsHead.json'
@@ -54,7 +54,7 @@ export default {
   components: {
     FullTable,
     TdContent,
-    ExportButton,
+    // ExportButton,
     DynamicHeading,
   },
   data() {
