@@ -52,9 +52,13 @@
         <TdContent :value="rowData.scope.version" />
         <TdContent :value="rowData.scope.environment" />
         <TdContent :value="rowData.scope.charset" />
-        <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
-        <TdContent :value="rowData.scope.datafileSize | formatNumber('0.00')" />
-        <TdContent :value="rowData.scope.segmentSize | formatNumber('0.00')" />
+        <TdContent :value="rowData.scope.memory | formatNumber('0.00', '')" />
+        <TdContent
+          :value="rowData.scope.datafileSize | formatNumber('0.00', '')"
+        />
+        <TdContent
+          :value="rowData.scope.segmentSize | formatNumber('0.00', '')"
+        />
       </template>
 
       <ExportButton
