@@ -32,11 +32,21 @@ export const mutations = {
 export const actions = {
   async requestRepository({ commit, dispatch }) {
     dispatch('onLoadingTable')
-    const repositoryData = await axiosRepoServiceNoLoading.get('/index.json')
-    const response = await repositoryData.data
-    if (response) {
+
+    let repositoryData
+    let response
+
+    try {
+      repositoryData = await axiosRepoServiceNoLoading.get('/index.json')
+      response = await repositoryData.data
+
+      if (response) {
+        dispatch('offLoadingTable')
+        commit('SET_REPO_DATA', response)
+      }
+    } catch {
       dispatch('offLoadingTable')
-      commit('SET_REPO_DATA', response)
+      commit('SET_REPO_DATA', [])
     }
   },
 }
