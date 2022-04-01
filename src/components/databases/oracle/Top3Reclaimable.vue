@@ -19,7 +19,7 @@
           <tr v-for="(reclaimable, index) in getTop3UnusedIR" :key="index">
             <TdStarIcon :position="index" />
             <HostLink :hostname="[reclaimable.hostname, reclaimable.dbname]" />
-            <TdContent :value="reclaimable.unused | formatNumber('0.00')" />
+            <TdContent :value="reclaimable.unused | formatNumber('0.00', '')" />
           </tr>
         </template>
       </SimpleTable>

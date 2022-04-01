@@ -6,7 +6,9 @@
   >
     <GhostLoading :isLoading="loadingTableStatus" setHeight="30">
       <CardStats
-        :cardStatValue="databases.stats['total-memory-size'] | prettyBytes"
+        :cardStatValue="
+          databases.stats['total-memory-size'] | prettyBytes(1, true)
+        "
       />
     </GhostLoading>
   </BoxContent>
