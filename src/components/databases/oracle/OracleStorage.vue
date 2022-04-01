@@ -8,7 +8,7 @@
       >
         <CardStats
           :cardStatTitle="$t('views.databases.totalSegment')"
-          :cardStatValue="totalSegmentSize | prettyBytes"
+          :cardStatValue="totalSegmentSize | prettyBytes(1, true)"
         />
       </GhostLoading>
 
@@ -19,7 +19,7 @@
       >
         <CardStats
           :cardStatTitle="$t('views.databases.totalDatafile')"
-          :cardStatValue="totalDatafileSize | prettyBytes"
+          :cardStatValue="totalDatafileSize | prettyBytes(1, true)"
         />
       </GhostLoading>
     </div>

@@ -47,11 +47,11 @@
           @click.native="handleClickedRow([rowData.scope])"
         />
         <TdContent
-          :value="rowData.scope.datafileSize | formatNumber('0.00')"
+          :value="rowData.scope.datafileSize | formatNumber('0.00', '')"
           :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
         />
         <TdContent
-          :value="rowData.scope.segmentsSize | formatNumber('0.00')"
+          :value="rowData.scope.segmentsSize | formatNumber('0.00', '')"
           :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
         />
         <TdContent
@@ -72,11 +72,11 @@
           :value="rowData.scope.services"
           @click.native="handleClickedRow([rowData.scope])"
         />
-        <TdContent :value="rowData.scope.work | formatNumber('0')" />
+        <TdContent :value="rowData.scope.work | formatNumber('0', '')" />
         <TdContent :value="rowData.scope.cpuCount" />
         <TdContent :value="rowData.scope.blockSize" />
         <TdContent :value="rowData.scope.status" />
-        <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
+        <TdContent :value="rowData.scope.memory | formatNumber('0.00', '')" />
         <TdContent :value="rowData.scope.environment" />
       </template>
 

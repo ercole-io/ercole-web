@@ -3,7 +3,7 @@
     <GhostLoading :isLoading="loadingTableStatus" setWidth="118" setHeight="48">
       <CardStats
         :cardStatTitle="$t('views.databases.totalMemory')"
-        :cardStatValue="totalMemory | prettyBytes"
+        :cardStatValue="totalMemory | prettyBytes(1, true)"
       />
     </GhostLoading>
   </BoxContent>
