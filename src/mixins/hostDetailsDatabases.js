@@ -24,16 +24,15 @@ export default {
       } else {
         this.isActive = this.currentHostActiveDbIndex(dbs)
       }
-
-      setTimeout(() => {
-        this.onChange(this.isActive)
-      }, 500)
     })
   },
   methods: {
     onChange(index) {
       bus.$emit('cpuChartSelected', [
-        { name: this.currentDBs[index].name, id: this.currentDBs[index].dbID },
+        {
+          name: this.currentDBs[index].name,
+          id: this.currentDBs[index].dbID,
+        },
       ])
       bus.$emit('selectedData', [this.currentDBs[index].dbID])
     },

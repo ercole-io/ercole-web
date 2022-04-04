@@ -6,6 +6,7 @@
     @input="onChange"
     destroy-on-hide
     animated
+    v-if="showDatabases"
   >
     <template v-for="(dbs, i) in currentDBs">
       <b-tab-item :key="i" :label="dbs.name">
@@ -17,10 +18,6 @@
           destroy-on-hide
         >
           <DbInfo :dbInfo="dbs" v-if="getCheckedFilters('info')" />
-          <!-- <DbTags
-              :dbName="dbs.name"
-              :tags="['Albino', 'Milano', 'Como', 'Torino']"
-            /> -->
           <DbPDBs :pdbs="dbs.pdbs" v-if="getCheckedFilters('pdbs')" />
           <DbLicenses
             :licenses="dbs.licenses"
@@ -69,25 +66,25 @@
 </template>
 
 <script>
+import hostDatabasesFilters from '@/mixins/hostDatabasesFilters.js'
 import hostDetailsDatabasesMixins from '@/mixins/hostDetailsDatabases.js'
-import DbInfo from '@/components/hosts/hostDetails/databases/oracle/DbInfo.vue'
-import DbTablespaces from '@/components/hosts/hostDetails/databases/oracle/DbTablespaces.vue'
-import DbSchemas from '@/components/hosts/hostDetails/databases/oracle/DbSchemas.vue'
-import DbPatches from '@/components/hosts/hostDetails/databases/oracle/DbPatches.vue'
-import DbPSUs from '@/components/hosts/hostDetails/databases/oracle/DbPSUs.vue'
-import DbADDMs from '@/components/hosts/hostDetails/databases/oracle/DbADDMs.vue'
-import DbSegmentAdvisors from '@/components/hosts/hostDetails/databases/oracle/DbSegmentAdvisors.vue'
-import DbBackups from '@/components/hosts/hostDetails/databases/oracle/DbBackups.vue'
-import DbServices from '@/components/hosts/hostDetails/databases/oracle/DbServices.vue'
-import DbGrowth from '@/components/hosts/hostDetails/databases/oracle/DbGrowth.vue'
-import DbOptions from '@/components/hosts/hostDetails/databases/oracle/DbOptions.vue'
-import DbLicenses from '@/components/hosts/hostDetails/databases/oracle/DbLicenses.vue'
-// import DbTags from '@/components/hosts/hostDetails/databases/oracle/DbTags.vue'
-import DbPDBs from '@/components/hosts/hostDetails/databases/oracle/DbPDBs.vue'
+import DbInfo from '@/components/hosts/hostDetails/oracle/databases/DbInfo.vue'
+import DbTablespaces from '@/components/hosts/hostDetails/oracle/databases/DbTablespaces.vue'
+import DbSchemas from '@/components/hosts/hostDetails/oracle/databases/DbSchemas.vue'
+import DbPatches from '@/components/hosts/hostDetails/oracle/databases/DbPatches.vue'
+import DbPSUs from '@/components/hosts/hostDetails/oracle/databases/DbPSUs.vue'
+import DbADDMs from '@/components/hosts/hostDetails/oracle/databases/DbADDMs.vue'
+import DbSegmentAdvisors from '@/components/hosts/hostDetails/oracle/databases/DbSegmentAdvisors.vue'
+import DbBackups from '@/components/hosts/hostDetails/oracle/databases/DbBackups.vue'
+import DbServices from '@/components/hosts/hostDetails/oracle/databases/DbServices.vue'
+import DbGrowth from '@/components/hosts/hostDetails/oracle/databases/DbGrowth.vue'
+import DbOptions from '@/components/hosts/hostDetails/oracle/databases/DbOptions.vue'
+import DbLicenses from '@/components/hosts/hostDetails/oracle/databases/DbLicenses.vue'
+import DbPDBs from '@/components/hosts/hostDetails/oracle/databases/DbPDBs.vue'
 import { mapGetters } from 'vuex'
 
 export default {
-  mixins: [hostDetailsDatabasesMixins],
+  mixins: [hostDatabasesFilters, hostDetailsDatabasesMixins],
   components: {
     DbInfo,
     DbTablespaces,
@@ -101,7 +98,6 @@ export default {
     DbGrowth,
     DbOptions,
     DbLicenses,
-    // DbTags,
     DbPDBs,
   },
   computed: {

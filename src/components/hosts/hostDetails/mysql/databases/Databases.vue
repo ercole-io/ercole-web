@@ -21,10 +21,10 @@
 
 <script>
 import hostDetailsDatabasesMixins from '@/mixins/hostDetailsDatabases.js'
-import DbInfo from '@/components/hosts/hostDetails/databases/mysql/DbInfo.vue'
-import DbDatabases from '@/components/hosts/hostDetails/databases/mysql/DbDatabases.vue'
-import DbSegmantAdvisors from '@/components/hosts/hostDetails/databases/mysql/DbSegmantAdvisors.vue'
-import DbTableSchemas from '@/components/hosts/hostDetails/databases/mysql/DbTableSchemas.vue'
+import DbInfo from '@/components/hosts/hostDetails/mysql/databases/DbInfo.vue'
+import DbDatabases from '@/components/hosts/hostDetails/mysql/databases/DbDatabases.vue'
+import DbSegmantAdvisors from '@/components/hosts/hostDetails/mysql/databases/DbSegmantAdvisors.vue'
+import DbTableSchemas from '@/components/hosts/hostDetails/mysql/databases/DbTableSchemas.vue'
 
 export default {
   mixins: [hostDetailsDatabasesMixins],
@@ -32,8 +32,8 @@ export default {
     DbInfo,
     DbDatabases,
     DbSegmantAdvisors,
-    DbTableSchemas
-  }
+    DbTableSchemas,
+  },
 }
 </script>
 
