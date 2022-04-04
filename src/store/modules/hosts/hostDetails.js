@@ -219,18 +219,15 @@ export const getters = {
     const databases = state.currentHost.features
 
     if (databases) {
-      if (databases.oracle && databases.oracle.database.databases) {
+      if (databases.oracle) {
         return 'oracle'
-      } else if (databases.mysql && databases.mysql.instances) {
+      } else if (databases.mysql) {
         return 'mysql'
-      } else if (
-        databases.microsoft &&
-        databases.microsoft.sqlServer.instances
-      ) {
+      } else if (databases.microsoft) {
         return 'microsoft'
+      } else {
+        return null
       }
-    } else {
-      return null
     }
   },
   currentHostActiveDB: (state) => {
@@ -258,8 +255,8 @@ export const getters = {
           return []
         }
       } else if (databases.microsoft) {
-        if (databases.microsoft.sqlServer.instances) {
-          return databases.microsoft.sqlServer.instances
+        if (databases.microsoft.sqlServer.instances[0].databases) {
+          return databases.microsoft.sqlServer.instances[0].databases
         } else {
           return []
         }

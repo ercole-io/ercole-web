@@ -30,6 +30,11 @@
         v-else-if="showDatabases && isMysql"
       />
 
+      <MicrosoftDatabases
+        :currentDBs="currentHostFiltered(searchDb)"
+        v-else-if="showDatabases && isMicrosoft"
+      />
+
       <NoContent
         v-else
         :noContentText="$t('views.hostDetails.noDatabaseHost')"
@@ -46,6 +51,7 @@ import SearchInput from '@/components/common/SearchInput.vue'
 import HbuttonScroll from '@/components/HbuttonScroll.vue'
 import OracleDatabases from '@/components/hosts/hostDetails/databases/oracle/OracleDatabases.vue'
 import MysqlDatabases from '@/components/hosts/hostDetails/databases/mysql/MysqlDatabases.vue'
+import MicrosoftDatabases from '@/components/hosts/hostDetails/databases/microsoft/MicrosoftDatabases.vue'
 import NoContent from '@/components/common/NoContent.vue'
 import AdvancedFiltersButton from '@/components/hosts/hostDetails/databases/DatabasesFiltersButton.vue'
 
@@ -54,9 +60,10 @@ export default {
   components: {
     BoxContent,
     OracleDatabases,
+    MysqlDatabases,
+    MicrosoftDatabases,
     SearchInput,
     HbuttonScroll,
-    MysqlDatabases,
     NoContent,
     AdvancedFiltersButton,
   },

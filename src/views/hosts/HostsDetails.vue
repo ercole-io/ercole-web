@@ -63,16 +63,23 @@
         :class="{
           'is-8': currentHostType === 'oracle',
           'is-12': currentHostType === 'mysql',
+          'is-12': currentHostType === 'microsoft',
         }"
       >
         <Databases
           v-if="
             currentHostDBs.length > 0 &&
-            (currentHostType === 'oracle' || currentHostType === 'mysql')
+            (currentHostType === 'oracle' ||
+              currentHostType === 'mysql' ||
+              currentHostType === 'microsoft')
           "
         />
       </div>
-      <div class="column is-4">
+      <div
+        :class="{
+          'is-4': currentHostType === 'oracle',
+        }"
+      >
         <ChartCpu
           v-show="
             currentHostDBs.length > 0 &&
