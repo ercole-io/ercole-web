@@ -10,9 +10,9 @@
       <b-tab-item :key="i" :label="dbs.name">
         <b-tabs size="is-small" type="is-toggle" vertical :animated="true">
           <DbInfo :dbInfo="dbs" />
-          <DbDatabases :databases="dbs.databases" />
+          <!-- <DbDatabases :databases="dbs.databases" />
           <DbSegmantAdvisors :segmentAdvisors="dbs.segmentAdvisors" />
-          <DbTableSchemas :tableSchemas="dbs.tableSchemas" />
+          <DbTableSchemas :tableSchemas="dbs.tableSchemas" /> -->
         </b-tabs>
       </b-tab-item>
     </template>
@@ -21,18 +21,18 @@
 
 <script>
 import hostDetailsDatabasesMixins from '@/mixins/hostDetailsDatabases.js'
-import DbInfo from '@/components/hosts/hostDetails/databases/mysql/DbInfo.vue'
-import DbDatabases from '@/components/hosts/hostDetails/databases/mysql/DbDatabases.vue'
-import DbSegmantAdvisors from '@/components/hosts/hostDetails/databases/mysql/DbSegmantAdvisors.vue'
-import DbTableSchemas from '@/components/hosts/hostDetails/databases/mysql/DbTableSchemas.vue'
+import DbInfo from '@/components/hosts/hostDetails/mysql/databases/DbInfo.vue'
+// import DbDatabases from '@/components/hosts/hostDetails/mysql/databases/DbDatabases.vue'
+// import DbSegmantAdvisors from '@/components/hosts/hostDetails/mysql/databases/DbSegmantAdvisors.vue'
+// import DbTableSchemas from '@/components/hosts/hostDetails/mysql/databases/DbTableSchemas.vue'
 
 export default {
   mixins: [hostDetailsDatabasesMixins],
   components: {
     DbInfo,
-    DbDatabases,
-    DbSegmantAdvisors,
-    DbTableSchemas,
+    // DbDatabases,
+    // DbSegmantAdvisors,
+    // DbTableSchemas,
   },
 }
 </script>

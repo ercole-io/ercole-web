@@ -95,13 +95,13 @@ export default {
   props: {
     dbInfo: {
       type: Object,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   methods: {
     bindIcon(value) {
       return mapBooleanIcon(value)
-    }
+    },
   },
   computed: {
     info() {
@@ -120,10 +120,10 @@ export default {
         charsetServer: this.dbInfo.charsetServer,
         charsetSystem: this.dbInfo.charsetSystem,
         pageSize: this.dbInfo.pageSize,
-        version: this.dbInfo.version
+        version: this.dbInfo.version,
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
