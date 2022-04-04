@@ -40,7 +40,7 @@ export const actions = {
       repositoryData = await axiosRepoServiceNoLoading.get('/index.json')
       response = await repositoryData.data
 
-      if (response && response.length > 0) {
+      if (_.isArray(response)) {
         dispatch('offLoadingTable')
         commit('SET_REPO_DATA', response)
       } else {
