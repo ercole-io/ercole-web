@@ -41,5 +41,8 @@ export default {
     isMysql() {
       return this.currentHostType === 'mysql'
     },
+    isMicrosoft() {
+      return this.currentHostType === 'microsoft'
+    },
   },
 }
