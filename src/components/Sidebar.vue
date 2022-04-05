@@ -114,7 +114,7 @@ export default {
           icon: 'fas fa-dollar-sign',
           child: [
             {
-              href: { name: 'licenses-agreement' },
+              href: { name: 'licenses-contract' },
               title: this.$i18n.t('menu.licAgreements'),
               icon: 'fas fa-cog',
             },
