@@ -2,17 +2,19 @@
   <b-tabs
     size="is-small"
     type="is-boxed"
-    :animated="true"
     v-model="isActive"
     @input="onChange"
+    destroy-on-hide
+    animated
+    v-if="showDatabases"
   >
     <template v-for="(dbs, i) in currentDBs">
       <b-tab-item :key="i" :label="dbs.name">
         <b-tabs size="is-small" type="is-toggle" vertical :animated="true">
           <DbInfo :dbInfo="dbs" />
-          <!-- <DbDatabases :databases="dbs.databases" />
-          <DbSegmantAdvisors :segmentAdvisors="dbs.segmentAdvisors" />
-          <DbTableSchemas :tableSchemas="dbs.tableSchemas" /> -->
+          <DbBackups :backups="dbs.backups" />
+          <DbTablespaces :tablespaces="dbs.tablespaces" />
+          <DbSchemas :schemas="dbs.schemas" />
         </b-tabs>
       </b-tab-item>
     </template>
@@ -20,19 +22,20 @@
 </template>
 
 <script>
+import hostDatabasesFilters from '@/mixins/hostDatabasesFilters.js'
 import hostDetailsDatabasesMixins from '@/mixins/hostDetailsDatabases.js'
-import DbInfo from '@/components/hosts/hostDetails/mysql/databases/DbInfo.vue'
-// import DbDatabases from '@/components/hosts/hostDetails/mysql/databases/DbDatabases.vue'
-// import DbSegmantAdvisors from '@/components/hosts/hostDetails/mysql/databases/DbSegmantAdvisors.vue'
-// import DbTableSchemas from '@/components/hosts/hostDetails/mysql/databases/DbTableSchemas.vue'
+import DbInfo from '@/components/hosts/hostDetails/microsoft/databases/DbInfo.vue'
+import DbBackups from '@/components/hosts/hostDetails/microsoft/databases/DbBackups.vue'
+import DbTablespaces from '@/components/hosts/hostDetails/microsoft/databases/DbTablespaces.vue'
+import DbSchemas from '@/components/hosts/hostDetails/microsoft/databases/DbSchemas.vue'
 
 export default {
-  mixins: [hostDetailsDatabasesMixins],
+  mixins: [hostDatabasesFilters, hostDetailsDatabasesMixins],
   components: {
     DbInfo,
-    // DbDatabases,
-    // DbSegmantAdvisors,
-    // DbTableSchemas,
+    DbBackups,
+    DbTablespaces,
+    DbSchemas,
   },
 }
 </script>
