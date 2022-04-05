@@ -250,7 +250,7 @@ export const getters = {
         }
       } else if (databases.mysql) {
         if (databases.mysql.instances) {
-          return databases.mysql.instances
+          return mapMySqlDatabase(databases.mysql.instances)
         } else {
           return []
         }
@@ -581,6 +581,34 @@ const genericResolve = (data) => {
     })
   })
   return filteredData
+}
+
+// MySql Database
+const mapMySqlDatabase = (data) => {
+  const newData = []
+  _.map(data, (item) => {
+    newData.push({
+      name: item.name,
+      platform: item.platform,
+      edition: item.edition,
+      engine: item.engine,
+      architecture: item.architecture,
+      sortBufferSize: item.sortBufferSize,
+      logBufferSize: item.logBufferSize,
+      bufferPoolSize: item.bufferPoolSize,
+      readOnly: item.readOnly,
+      redoLogEnabled: item.redoLogEnabled,
+      threadsConcurrency: item.threadsConcurrency,
+      charsetServer: item.charsetServer,
+      charsetSystem: item.charsetSystem,
+      pageSize: item.pageSize,
+      version: item.version,
+      databases: [...item.databases],
+      segmentAdvisors: [...item.segmentAdvisors],
+      tableSchemas: [...item.tableSchemas],
+    })
+  })
+  return newData
 }
 
 // Microsoft Databases
