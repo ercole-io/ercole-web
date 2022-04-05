@@ -277,8 +277,8 @@ const routes = [
     beforeEnter: verifyAuth,
   },
   {
-    path: '/licenses/agreement',
-    name: 'licenses-agreement',
+    path: '/licenses/contract',
+    name: 'licenses-contract',
     component: LicensesAgreement,
     meta: {
       label: i18n.t('menu.licAgreements'),
