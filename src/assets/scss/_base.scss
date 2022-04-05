@@ -45,3 +45,10 @@
 input[readonly] {
   cursor: pointer;
 }
+
+.line-through {
+  text-decoration: line-through;
+  text-decoration-color: black;
+  text-decoration-thickness: 2px;
+  color: #999;
+}
