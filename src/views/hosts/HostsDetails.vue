@@ -15,7 +15,7 @@
 
     <DetailsInfo />
 
-    <Databases />
+    <DatabasesMain />
   </section>
 </template>
 
@@ -26,7 +26,7 @@ import Notifications from '@/components/hosts/hostDetails/Notifications.vue'
 import FileSystems from '@/components/hosts/hostDetails/FileSystems.vue'
 import DismissHost from '@/components/hosts/hostDetails/DismissHost.vue'
 import DetailsInfo from '@/components/hosts/hostDetails/DetailsInfo.vue'
-import Databases from '@/components/hosts/hostDetails/Databases.vue'
+import DatabasesMain from '@/components/hosts/hostDetails/DatabasesMain.vue'
 
 export default {
   props: {
@@ -46,7 +46,7 @@ export default {
     FileSystems,
     DismissHost,
     DetailsInfo,
-    Databases,
+    DatabasesMain,
   },
   data() {
     return {
@@ -54,11 +54,11 @@ export default {
     }
   },
   beforeMount() {
-    this.getHostByName(this.hostname).then(() => {
-      this.SET_ACTIVE_DB(this.dbname)
-    })
+    this.getHostByName(this.hostname)
     this.getAgreementParts()
     this.getLicensesByHostName(this.hostname)
+
+    this.SET_ACTIVE_DB(this.dbname)
 
     bus.$emit('dynamicTitle', this.hostname)
   },

@@ -1,23 +1,20 @@
 <template>
   <GhostLoading :isLoading="loadingTableStatus" setHeight="390">
-    <div class="columns" v-if="isOracle">
-      <div class="column is-8">
+    <div class="columns">
+      <div class="column is-8" v-if="isOracle">
         <OracleDatabases />
       </div>
-      <div class="column is-4">
+
+      <div class="column is-4" v-if="isOracle">
         <ChartCpu v-show="currentHostDBs.length > 0 && !showDbFilters" />
         <DatabasesFilters v-show="showDbFilters" />
       </div>
-    </div>
 
-    <div class="columns" v-if="isMysql">
-      <div class="column is-12">
+      <div class="column is-12" v-if="isMysql">
         <MysqlDatabases />
       </div>
-    </div>
 
-    <div class="columns" v-if="isMicrosoft">
-      <div class="column is-12">
+      <div class="column is-12" v-if="isMicrosoft">
         <MicrosoftDatabases />
       </div>
     </div>
