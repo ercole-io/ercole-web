@@ -52,6 +52,8 @@ export const actions = {
         commit('LOGIN_SUCCESS')
         helpers.setLocalStorageAuth(payload)
         dispatch('setErrMsg', null)
+        dispatch('getHosts')
+        dispatch('getClusters')
       })
       .then(() => {
         const historyPage = localStorage.getItem('historyPage')
