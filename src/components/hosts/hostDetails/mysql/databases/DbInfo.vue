@@ -8,27 +8,27 @@
               <li>Database Details</li>
               <li>
                 <span>Db Name</span>
-                <span>{{ info.name }}</span>
+                <span>{{ dbInfo.name }}</span>
               </li>
               <li>
                 <span>Version</span>
-                <span>{{ info.version }}</span>
+                <span>{{ dbInfo.version }}</span>
               </li>
               <li>
                 <span>Platform</span>
-                <span>{{ info.platform }}</span>
+                <span>{{ dbInfo.platform }}</span>
               </li>
               <li>
                 <span>Architecture</span>
-                <span>{{ info.architecture }}</span>
+                <span>{{ dbInfo.architecture }}</span>
               </li>
               <li>
                 <span>Edition</span>
-                <span>{{ info.edition }}</span>
+                <span>{{ dbInfo.edition }}</span>
               </li>
               <li>
                 <span>Engine</span>
-                <span>{{ info.engine }}</span>
+                <span>{{ dbInfo.engine }}</span>
               </li>
             </ul>
           </div>
@@ -37,15 +37,15 @@
               <li>Memory</li>
               <li>
                 <span>Sort Buffer Size</span>
-                <span>{{ info.sortBufferSize }}</span>
+                <span>{{ dbInfo.sortBufferSize }}</span>
               </li>
               <li>
                 <span>Log Buffer Size</span>
-                <span>{{ info.logBufferSize }}</span>
+                <span>{{ dbInfo.logBufferSize }}</span>
               </li>
               <li>
                 <span>Pool Buffer Size</span>
-                <span>{{ info.bufferPoolSize }}</span>
+                <span>{{ dbInfo.bufferPoolSize }}</span>
               </li>
             </ul>
           </div>
@@ -56,29 +56,29 @@
                 <span>Read Only</span>
                 <b-icon
                   size="is-small"
-                  :icon="bindIcon(info.readOnly)[0]"
-                  :type="bindIcon(info.readOnly)[1]"
+                  :icon="bindIcon(dbInfo.readOnly)[0]"
+                  :type="bindIcon(dbInfo.readOnly)[1]"
                 />
               </li>
               <li>
                 <span>Read Only Log Enabled</span>
-                <span>{{ info.redoLogEnabled }}</span>
+                <span>{{ dbInfo.redoLogEnabled }}</span>
               </li>
               <li>
                 <span>Threads Concurrency</span>
-                <span>{{ info.threadsConcurrency }}</span>
+                <span>{{ dbInfo.threadsConcurrency }}</span>
               </li>
               <li>
                 <span>Server Charset</span>
-                <span>{{ info.charsetServer }}</span>
+                <span>{{ dbInfo.charsetServer }}</span>
               </li>
               <li>
                 <span>System Charset</span>
-                <span>{{ info.charsetSystem }}</span>
+                <span>{{ dbInfo.charsetSystem }}</span>
               </li>
               <li>
                 <span>Page Size</span>
-                <span>{{ info.pageSize }}</span>
+                <span>{{ dbInfo.pageSize }}</span>
               </li>
             </ul>
           </div>
@@ -95,35 +95,14 @@ export default {
   props: {
     dbInfo: {
       type: Object,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   methods: {
     bindIcon(value) {
       return mapBooleanIcon(value)
-    }
+    },
   },
-  computed: {
-    info() {
-      return {
-        name: this.dbInfo.name,
-        platform: this.dbInfo.platform,
-        edition: this.dbInfo.edition,
-        engine: this.dbInfo.engine,
-        architecture: this.dbInfo.architecture,
-        sortBufferSize: this.dbInfo.sortBufferSize,
-        logBufferSize: this.dbInfo.logBufferSize,
-        bufferPoolSize: this.dbInfo.bufferPoolSize,
-        readOnly: this.dbInfo.readOnly,
-        redoLogEnabled: this.dbInfo.redoLogEnabled,
-        threadsConcurrency: this.dbInfo.threadsConcurrency,
-        charsetServer: this.dbInfo.charsetServer,
-        charsetSystem: this.dbInfo.charsetSystem,
-        pageSize: this.dbInfo.pageSize,
-        version: this.dbInfo.version
-      }
-    }
-  }
 }
 </script>
 

@@ -219,18 +219,15 @@ export const getters = {
     const databases = state.currentHost.features
 
     if (databases) {
-      if (databases.oracle && databases.oracle.database.databases) {
+      if (databases.oracle) {
         return 'oracle'
-      } else if (databases.mysql && databases.mysql.instances) {
+      } else if (databases.mysql) {
         return 'mysql'
-      } else if (
-        databases.microsoft &&
-        databases.microsoft.sqlServer.instances
-      ) {
+      } else if (databases.microsoft) {
         return 'microsoft'
+      } else {
+        return null
       }
-    } else {
-      return null
     }
   },
   currentHostActiveDB: (state) => {
@@ -253,13 +250,15 @@ export const getters = {
         }
       } else if (databases.mysql) {
         if (databases.mysql.instances) {
-          return databases.mysql.instances
+          return mapMySqlDatabase(databases.mysql.instances)
         } else {
           return []
         }
       } else if (databases.microsoft) {
-        if (databases.microsoft.sqlServer.instances) {
-          return databases.microsoft.sqlServer.instances
+        if (databases.microsoft.sqlServer.instances[0].databases) {
+          return mapMicrosoftDatabase(
+            databases.microsoft.sqlServer.instances[0].databases
+          )
         } else {
           return []
         }
@@ -402,6 +401,7 @@ export const actions = {
   },
 }
 
+// Oracle Chart
 const mountTotalDailyUsage = (data, rangeDates) => {
   const totalDailyData = []
   let resultTotalDaily = {}
@@ -483,6 +483,7 @@ const mountCpuUsageChart = (history, selected, dbs, rangeDates) => {
   return finalResult
 }
 
+// Oracle Databases
 const mapOracleDatabase = (data) => {
   const newData = []
   _.map(data, (item) => {
@@ -580,4 +581,58 @@ const genericResolve = (data) => {
     })
   })
   return filteredData
+}
+
+// MySql Database
+const mapMySqlDatabase = (data) => {
+  const newData = []
+  _.map(data, (item) => {
+    newData.push({
+      name: item.name,
+      platform: item.platform,
+      edition: item.edition,
+      engine: item.engine,
+      architecture: item.architecture,
+      sortBufferSize: item.sortBufferSize,
+      logBufferSize: item.logBufferSize,
+      bufferPoolSize: item.bufferPoolSize,
+      readOnly: item.readOnly,
+      redoLogEnabled: item.redoLogEnabled,
+      threadsConcurrency: item.threadsConcurrency,
+      charsetServer: item.charsetServer,
+      charsetSystem: item.charsetSystem,
+      pageSize: item.pageSize,
+      version: item.version,
+      databases: [...item.databases],
+      segmentAdvisors: [...item.segmentAdvisors],
+      tableSchemas: [...item.tableSchemas],
+    })
+  })
+  return newData
+}
+
+// Microsoft Databases
+const mapMicrosoftDatabase = (data) => {
+  const newData = []
+  _.map(data, (item) => {
+    newData.push({
+      name: item.name,
+      affinityMask: item.affinityMask,
+      alloc: item.alloc,
+      blockSize: item.blockSize,
+      collationName: item.collationName,
+      ctp: item.ctp,
+      databaseID: item.databaseID,
+      maxDop: item.maxDop,
+      maxServerMemory: item.maxServerMemory,
+      minServerMemory: item.minServerMemory,
+      recoveryModel: item.recoveryModel,
+      schedulersCount: item.schedulersCount,
+      status: item.status,
+      backups: [...item.backups],
+      tablespaces: [...item.tablespaces],
+      schemas: [...item.schemas],
+    })
+  })
+  return newData
 }
