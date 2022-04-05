@@ -26,15 +26,21 @@ export default {
       }
     })
   },
+  mounted() {
+    setTimeout(() => {
+      this.onChange(this.isActive)
+    }, 1)
+  },
   methods: {
     onChange(index) {
-      bus.$emit('cpuChartSelected', [
-        {
-          name: this.currentDBs[index].name,
-          id: this.currentDBs[index].dbID,
-        },
-      ])
-      bus.$emit('selectedData', [this.currentDBs[index].dbID])
+      if (this.currentDBs[index]) {
+        bus.$emit('cpuChartSelected', [
+          {
+            name: this.currentDBs[index].name,
+            id: this.currentDBs[index].dbID,
+          },
+        ])
+      }
     },
   },
   computed: {

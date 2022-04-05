@@ -256,7 +256,9 @@ export const getters = {
         }
       } else if (databases.microsoft) {
         if (databases.microsoft.sqlServer.instances[0].databases) {
-          return databases.microsoft.sqlServer.instances[0].databases
+          return mapMicrosoftDatabase(
+            databases.microsoft.sqlServer.instances[0].databases
+          )
         } else {
           return []
         }
@@ -577,4 +579,30 @@ const genericResolve = (data) => {
     })
   })
   return filteredData
+}
+
+const mapMicrosoftDatabase = (data) => {
+  const newData = []
+  _.map(data, (item) => {
+    console.log(item)
+    newData.push({
+      name: item.name,
+      affinityMask: item.affinityMask,
+      alloc: item.alloc,
+      blockSize: item.blockSize,
+      collationName: item.collationName,
+      ctp: item.ctp,
+      databaseID: item.databaseID,
+      maxDop: item.maxDop,
+      maxServerMemory: item.maxServerMemory,
+      minServerMemory: item.minServerMemory,
+      recoveryModel: item.recoveryModel,
+      schedulersCount: item.schedulersCount,
+      status: item.status,
+      backups: [...item.backups],
+      tablespaces: [...item.tablespaces],
+      schemas: [...item.schemas],
+    })
+  })
+  return newData
 }
