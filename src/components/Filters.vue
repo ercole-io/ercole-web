@@ -391,7 +391,7 @@ export default {
     },
     notShowing() {
       return (
-        this.$route.name !== 'licenses-agreement' &&
+        this.$route.name !== 'licenses-contract' &&
         this.$route.name !== 'dashboard' &&
         this.$route.name !== 'repository' &&
         this.$route.name !== 'cloud-recommendations' &&
