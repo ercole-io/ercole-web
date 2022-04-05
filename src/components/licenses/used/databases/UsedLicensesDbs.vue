@@ -19,7 +19,7 @@
       :isLoadingTable="licensesUsed.databasesLoading"
     >
       <template slot="headData">
-        <v-th sortKey="ignore" class="has-text-centered">Ignore License</v-th>
+        <v-th sortKey="ignored" class="has-text-centered">Ignore License</v-th>
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
         <v-th sortKey="dbName">{{ $t('common.collumns.name') }}</v-th>
         <v-th sortKey="licenseTypeID">
@@ -110,7 +110,7 @@ export default {
         'description',
         'metric',
         'clusterLicenses',
-        'ignore',
+        'ignored',
       ],
     }
   },
