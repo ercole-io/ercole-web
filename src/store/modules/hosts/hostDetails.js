@@ -401,6 +401,7 @@ export const actions = {
   },
 }
 
+// Oracle Chart
 const mountTotalDailyUsage = (data, rangeDates) => {
   const totalDailyData = []
   let resultTotalDaily = {}
@@ -482,6 +483,7 @@ const mountCpuUsageChart = (history, selected, dbs, rangeDates) => {
   return finalResult
 }
 
+// Oracle Databases
 const mapOracleDatabase = (data) => {
   const newData = []
   _.map(data, (item) => {
@@ -581,10 +583,10 @@ const genericResolve = (data) => {
   return filteredData
 }
 
+// Microsoft Databases
 const mapMicrosoftDatabase = (data) => {
   const newData = []
   _.map(data, (item) => {
-    console.log(item)
     newData.push({
       name: item.name,
       affinityMask: item.affinityMask,
