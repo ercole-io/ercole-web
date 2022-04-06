@@ -13,7 +13,7 @@
     />
 
     <AlertsFilters slot="left">
-      <Loading :isLoading="loadingTableStatus" />
+      <Loading :isLoading="loadingTableStatus" v-if="firstLoad" />
     </AlertsFilters>
 
     <FullTable
@@ -83,6 +83,8 @@
             {{ $t('views.alerts.showAll') }}
           </b-button>
         </div>
+
+        <RefreshButton tooltipMsg="Update Alerts Data" />
       </template>
 
       <template slot="headData">
@@ -189,6 +191,7 @@ import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import AlertsFilters from '@/components/alerts/AlertsFilters.vue'
 import Loading from '@/components/common/Loading.vue'
+import RefreshButton from '@/components/common/RefreshButton.vue'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
   _.map(list, (val) => {
@@ -210,6 +213,7 @@ export default {
     HostLink,
     AlertsFilters,
     Loading,
+    RefreshButton,
   },
   data() {
     return {
@@ -228,11 +232,13 @@ export default {
       isLoading: false,
       isMounted: false,
       alertStatus: 'NEW',
+      firstLoad: true,
     }
   },
   async beforeMount() {
     await this.getAlertsData({ status: this.alertStatus }).then(() => {
       bus.$emit('data', this.getAlerts)
+      this.firstLoad = false
     })
   },
   mounted() {
