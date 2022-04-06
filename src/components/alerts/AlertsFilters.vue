@@ -117,6 +117,11 @@ export default {
     }
     this.apply()
   },
+  beforeMount() {
+    bus.$on('refreshPageData', () => {
+      this.applyApiParams()
+    })
+  },
   methods: {
     ...mapActions(['getAlertsData']),
     applyApiParams() {

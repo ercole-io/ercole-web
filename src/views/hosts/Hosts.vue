@@ -20,16 +20,7 @@
     >
       <MoreInfoButtons :buttonItems="hostsMoreInfo" slot="customTopHeader" />
 
-      <b-button
-        type="is-ercole-blue"
-        icon-right="sync-alt"
-        icon-pack="fas"
-        size="is-small"
-        @click="getHostData"
-        v-tooltip="options('Update Host Data', null, 'auto')"
-        slot="customTopHeader"
-        class="mr-2"
-      />
+      <RefreshButton tooltipMsg="Update Host Data" slot="customTopHeader" />
 
       <DynamicHeading
         slot="headData"
@@ -138,6 +129,7 @@ import hostsHead from '@/views/hosts/hosts-head.json'
 import hostsMoreInfo from '@/views/hosts/hosts-more-info.json'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import Loading from '@/components/common/Loading.vue'
+import RefreshButton from '@/components/common/RefreshButton.vue'
 
 export default {
   mixins: [localFiltersMixin, hostnameLinkRow, getHeadKeys, TooltipMixin],
@@ -153,6 +145,7 @@ export default {
     DynamicHeading,
     MoreInfoButtons,
     Loading,
+    RefreshButton,
   },
   data() {
     return {
@@ -166,6 +159,10 @@ export default {
     await this.getHosts().then(() => {
       bus.$emit('data', this.getAllHosts)
       this.firstLoad = false
+    })
+
+    bus.$on('refreshPageData', () => {
+      this.getHostData()
     })
   },
   mounted() {
