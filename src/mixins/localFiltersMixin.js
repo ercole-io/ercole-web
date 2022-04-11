@@ -157,9 +157,6 @@ export default {
     bus.$on('onResetAction', () => this.reset(this.resetFilters))
     bus.$on('data', (data) => {
       this.fullData = data
-      this.setAutocompletes()
-      this.setSelects()
-      this.setSliders()
     })
   },
   methods: {
@@ -223,6 +220,15 @@ export default {
     },
     clearFilteredResult(numbers) {
       return _.without(numbers, undefined, null, '')
+    },
+  },
+  watch: {
+    fullData(data) {
+      if (data.length > 0) {
+        this.setAutocompletes()
+        this.setSelects()
+        this.setSliders()
+      }
     },
   },
   beforeDestroy() {
