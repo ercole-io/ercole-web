@@ -15,29 +15,24 @@
                 <span>{{ dbInfo.databaseID }}</span>
               </li>
               <li>
-                <span>Collation Name</span>
-                <span>{{ dbInfo.collationName }}</span>
-              </li>
-              <li>
                 <span>Status</span>
                 <span>{{ dbInfo.status }}</span>
               </li>
               <li>
-                <span>Recovery Model</span>
-                <span>{{ dbInfo.recoveryModel }}</span>
-              </li>
-            </ul>
-          </div>
-          <div class="column">
-            <ul class="db-info">
-              <li>Memory</li>
-              <li>
-                <span>Max Server Memory</span>
-                <span>{{ dbInfo.maxServerMemory }}</span>
+                <span>State Description</span>
+                <span>{{ dbInfo.stateDesc }}</span>
               </li>
               <li>
-                <span>Min Server Memory</span>
-                <span>{{ dbInfo.minServerMemory }}</span>
+                <span>Platform</span>
+                <span>{{ dbInfo.platform }}</span>
+              </li>
+              <li>
+                <span>Collation Name</span>
+                <span>{{ dbInfo.collationName }}</span>
+              </li>
+              <li>
+                <span>Version</span>
+                <span>{{ dbInfo.version }}</span>
               </li>
             </ul>
           </div>
@@ -45,28 +40,28 @@
             <ul class="db-info">
               <li>Additional Info</li>
               <li>
-                <span>Affinity Mask</span>
-                <span>{{ dbInfo.affinityMask }}</span>
+                <span>Display Name</span>
+                <span>{{ dbInfo.displayName }}</span>
               </li>
               <li>
-                <span>Allocation</span>
-                <span>{{ dbInfo.alloc }}</span>
+                <span>Server Name</span>
+                <span>{{ dbInfo.serverName }}</span>
               </li>
               <li>
-                <span>Block Size</span>
-                <span>{{ dbInfo.blockSize }}</span>
+                <span>Edition</span>
+                <span>{{ dbInfo.edition }}</span>
               </li>
               <li>
-                <span>CTP</span>
-                <span>{{ dbInfo.ctp }}</span>
+                <span>Edition Type</span>
+                <span>{{ dbInfo.editionType }}</span>
               </li>
               <li>
-                <span>Max Dop</span>
-                <span>{{ dbInfo.maxDop }}</span>
+                <span>Product Code</span>
+                <span>{{ dbInfo.productCode }}</span>
               </li>
               <li>
-                <span>Schedulers Count</span>
-                <span>{{ dbInfo.schedulersCount }}</span>
+                <span>Licensing Info</span>
+                <span>{{ dbInfo.licensingInfo }}</span>
               </li>
             </ul>
           </div>
@@ -91,27 +86,6 @@ export default {
       return mapBooleanIcon(value)
     },
   },
-  // computed: {
-  //   info() {
-  //     return {
-  //       name: this.dbInfo.name,
-  //       platform: this.dbInfo.platform,
-  //       edition: this.dbInfo.edition,
-  //       engine: this.dbInfo.engine,
-  //       architecture: this.dbInfo.architecture,
-  //       sortBufferSize: this.dbInfo.sortBufferSize,
-  //       logBufferSize: this.dbInfo.logBufferSize,
-  //       bufferPoolSize: this.dbInfo.bufferPoolSize,
-  //       readOnly: this.dbInfo.readOnly,
-  //       redoLogEnabled: this.dbInfo.redoLogEnabled,
-  //       threadsConcurrency: this.dbInfo.threadsConcurrency,
-  //       charsetServer: this.dbInfo.charsetServer,
-  //       charsetSystem: this.dbInfo.charsetSystem,
-  //       pageSize: this.dbInfo.pageSize,
-  //       version: this.dbInfo.version,
-  //     }
-  //   },
-  // },
 }
 </script>
 

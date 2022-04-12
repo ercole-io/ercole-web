@@ -1,13 +1,28 @@
 <template>
   <b-tab-item label="Pluggable DBs" v-if="pdbs.length > 0">
     <b-collapse
-      v-for="pdb in pdbs"
-      :key="pdb.pdbName"
-      :title="pdb.pdbName"
-      :id="pdb.pdbName"
-      class="mt-2"
+      v-for="(pdb, i) in pdbs"
+      :key="i"
+      :id="i"
+      animation="slide"
+      class="card mt-2 mb-4"
+      :open="false"
     >
-      <b-tabs size="is-small" position="is-centered" class="block">
+      <template #trigger="props">
+        <div
+          class="panel-heading card-header py-0 px-0 is-size-6"
+          role="button"
+          aria-controls="contentIdForA11y2"
+        >
+          <p class="card-header-title mb-0">
+            {{ pdb.pdbName }}
+          </p>
+          <a class="card-header-icon py-2 px-2">
+            <b-icon :icon="props.open ? 'menu-up' : 'menu-down'"> </b-icon>
+          </a>
+        </div>
+      </template>
+      <b-tabs size="is-small" position="is-centered" class="block mr-0 p-3">
         <b-tab-item label="Status">
           <p class="py-3">
             Status:
