@@ -2,7 +2,7 @@
   <FullTable
     :placeholder="$t('menu.licAgreements')"
     :keys="keys"
-    :tableData="returnLicensesAgreement('oracle')"
+    :tableData="returnLicensesContracts('oracle')"
     :clickedRow="() => []"
     :isLoadingTable="loadingTableStatus"
   >
@@ -10,7 +10,7 @@
       <th colspan="4" style="text-align: center !important">
         {{ $t('common.collumns.actions') }}
       </th>
-      <v-th sortKey="agreementID">
+      <v-th sortKey="contractID">
         {{ $t('common.collumns.agreeNumber') }}
       </v-th>
       <v-th sortKey="licenseTypeID">
@@ -85,7 +85,7 @@
             deleteAgreement(
               'oracle',
               rowData.scope.id,
-              rowData.scope.agreementID
+              rowData.scope.contractID
             )
           "
         />
@@ -100,7 +100,7 @@
           @click.native="cloneAgreement(rowData.scope)"
         />
       </td>
-      <TdContent :value="rowData.scope.agreementID" />
+      <TdContent :value="rowData.scope.contractID" />
       <TdContent :value="rowData.scope.licenseTypeID" />
       <TdContent
         :value="rowData.scope.itemDescription"
@@ -134,15 +134,15 @@ import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
-import LicensesAgreementMixin from '@/mixins/licensesAgreement.js'
-import OracleAssociatedModal from '@/components/licenses/agreement/Oracle/OracleAssociatedModal.vue'
+import LicensesContractsMixin from '@/mixins/licensesContracts.js'
+import OracleAssociatedModal from '@/components/licenses/contracts/Oracle/OracleAssociatedModal.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
-  mixins: [TooltipMixin, LicensesAgreementMixin],
+  mixins: [TooltipMixin, LicensesContractsMixin],
   components: {
     FullTable,
     TdContent,
@@ -152,7 +152,7 @@ export default {
   data() {
     return {
       keys: [
-        'agreementID',
+        'contractID',
         'licenseTypeID',
         'itemDescription',
         'metric',
@@ -188,7 +188,7 @@ export default {
   computed: {
     ...mapGetters(['loadingTableStatus']),
     toggleReferenceNumber() {
-      return _.some(this.returnLicensesAgreement('oracle'), 'referenceNumber')
+      return _.some(this.returnLicensesContracts('oracle'), 'referenceNumber')
     },
   },
 }

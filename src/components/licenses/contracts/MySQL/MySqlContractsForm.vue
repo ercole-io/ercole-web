@@ -222,12 +222,12 @@ import { bus } from '@/helpers/eventBus.js'
 import { required, numeric } from 'vuelidate/lib/validators'
 import toUpper from '@/filters/toUpper.js'
 import toLower from '@/filters/toLower.js'
-import LicensesAgreementMixin from '@/mixins/licensesAgreement.js'
+import LicensesContractsMixin from '@/mixins/licensesContracts.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import { mapGetters } from 'vuex'
 
 export default {
-  mixins: [LicensesAgreementMixin],
+  mixins: [LicensesContractsMixin],
   components: {
     AdvancedFiltersBase,
   },
@@ -272,7 +272,7 @@ export default {
             : [],
       }
       if (!this.mysqlForm.licenseID) {
-        this.createLicenseAgreement({
+        this.createLicenseContract({
           body: mysqlAgreementData,
           type: 'mysql',
         })
@@ -280,11 +280,11 @@ export default {
             this.mysqlForm = { licenseID: '' }
           })
           .then(() => {
-            bus.$emit('data', this.returnLicensesAgreement('mysql'))
+            bus.$emit('data', this.returnLicensesContracts('mysql'))
           })
       } else {
         mysqlAgreementData.id = this.mysqlForm.licenseID
-        this.updateLicenseAgreement({
+        this.updateLicenseContract({
           body: mysqlAgreementData,
           type: 'mysql',
         })
@@ -292,7 +292,7 @@ export default {
             this.mysqlForm = { licenseID: '' }
           })
           .then(() => {
-            bus.$emit('data', this.returnLicensesAgreement('mysql'))
+            bus.$emit('data', this.returnLicensesContracts('mysql'))
           })
       }
     },
@@ -309,7 +309,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['returnLicensesAgreement']),
+    ...mapGetters(['returnLicensesContracts']),
   },
 }
 </script>

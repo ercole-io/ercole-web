@@ -45,8 +45,8 @@ const MySQL = lazy(() =>
 const Middleware = lazy(() =>
   import(/* webpackPreload: true */ '@/views/middleware/Middleware.vue')
 )
-const LicensesAgreement = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/licenses/LicensesAgreement.vue')
+const LicensesContracts = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/licenses/LicensesContracts.vue')
 )
 const LicensesCompliance = lazy(() =>
   import(/* webpackPreload: true */ '@/views/licenses/LicensesCompliance.vue')
@@ -279,7 +279,7 @@ const routes = [
   {
     path: '/licenses/contract',
     name: 'licenses-contract',
-    component: LicensesAgreement,
+    component: LicensesContracts,
     meta: {
       label: i18n.t('menu.licAgreements'),
       title: `${title}${i18n.t('menu.licAgreements')}`,

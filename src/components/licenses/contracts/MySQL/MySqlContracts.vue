@@ -5,15 +5,15 @@
     :rightButton="$t('views.licenses.agreeForm')"
     v-if="isMounted"
   >
-    <MySqlAgreementsFilters slot="left">
+    <MySqlContractsFilters slot="left">
       <Loading :isLoading="loadingTableStatus" />
-    </MySqlAgreementsFilters>
+    </MySqlContractsFilters>
 
-    <MySqlAgreementsList slot="center" />
+    <MySqlContractsList slot="center" />
 
-    <MySqlAgreementsForm slot="right">
+    <MySqlContractsForm slot="right">
       <Loading :isLoading="loadingTableStatus" />
-    </MySqlAgreementsForm>
+    </MySqlContractsForm>
   </ToggleColumns>
 </template>
 
@@ -21,17 +21,17 @@
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
-import MySqlAgreementsList from '@/components/licenses/agreement/MySQL/MySqlAgreementsList.vue'
-import MySqlAgreementsForm from '@/components/licenses/agreement/MySQL/MySqlAgreementsForm.vue'
-import MySqlAgreementsFilters from '@/components/licenses/agreement/MySQL/MySqlAgreementsFilters.vue'
+import MySqlContractsList from '@/components/licenses/contracts/MySQL/MySqlContractsList.vue'
+import MySqlContractsForm from '@/components/licenses/contracts/MySQL/MySqlContractsForm.vue'
+import MySqlContractsFilters from '@/components/licenses/contracts/MySQL/MySqlContractsFilters.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
   components: {
     ToggleColumns,
-    MySqlAgreementsList,
-    MySqlAgreementsForm,
-    MySqlAgreementsFilters,
+    MySqlContractsList,
+    MySqlContractsForm,
+    MySqlContractsFilters,
     Loading,
   },
   data() {
@@ -40,18 +40,18 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getLicensesAgreement('mysql').then(() => {
-      bus.$emit('data', this.returnLicensesAgreement('mysql'))
+    await this.getLicensesContracts('mysql').then(() => {
+      bus.$emit('data', this.returnLicensesContracts('mysql'))
     })
   },
   mounted() {
     this.isMounted = true
   },
   methods: {
-    ...mapActions(['getLicensesAgreement']),
+    ...mapActions(['getLicensesContracts']),
   },
   computed: {
-    ...mapGetters(['returnLicensesAgreement', 'loadingTableStatus']),
+    ...mapGetters(['returnLicensesContracts', 'loadingTableStatus']),
   },
 }
 </script>

@@ -4,8 +4,8 @@
       <template slot="General">
         <CustomField :label="$t('common.fields.agreeNumber')">
           <CustomAutocomplete
-            v-model="filters.agreementID"
-            :filterResult="filteredagreementID"
+            v-model="filters.contractID"
+            :filterResult="filteredcontractID"
             :filterMethod="setAutocompletes"
           />
         </CustomField>
@@ -112,7 +112,7 @@ export default {
     return {
       collapses: ['General'],
       autocompletes: [
-        'agreementID',
+        'contractID',
         'csi',
         'referenceNumber',
         'fullPartNumber',
@@ -135,7 +135,7 @@ export default {
   created() {
     bus.$on('onTabChange', () => {
       this.reset(this.resetFilters)
-      bus.$emit('data', this.returnLicensesAgreement('oracle'))
+      bus.$emit('data', this.returnLicensesContracts('oracle'))
     })
   },
   methods: {
@@ -148,9 +148,9 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['returnLicensesAgreement']),
+    ...mapGetters(['returnLicensesContracts']),
     toggleReferenceNumber() {
-      return _.some(this.returnLicensesAgreement('oracle'), 'referenceNumber')
+      return _.some(this.returnLicensesContracts('oracle'), 'referenceNumber')
     },
   },
 }
