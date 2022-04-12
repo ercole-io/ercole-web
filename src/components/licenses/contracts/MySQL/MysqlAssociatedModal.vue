@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card" style="width: auto;">
+  <div class="modal-card" style="width: auto">
     <header class="modal-card-head">
       <p class="modal-card-title">
         {{ agreementType }} Associated <br />
@@ -24,21 +24,21 @@ import HostLink from '@/components/common/Table/HostLink.vue'
 export default {
   mixins: [TooltipMixin],
   components: {
-    HostLink
+    HostLink,
   },
   props: {
     agreementType: {
       type: String,
-      required: true
+      required: true,
     },
     agreementData: {
       type: Array,
-      required: true
+      required: true,
     },
     agreementNumber: {
-      type: [Number, String]
-    }
-  }
+      type: [Number, String],
+    },
+  },
 }
 </script>
 

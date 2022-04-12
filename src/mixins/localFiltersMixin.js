@@ -63,7 +63,7 @@ export default {
       filteredsockets: [],
       filteredvirtualizationNodes: [],
       filteredalertCode: [],
-      filteredagreementID: [],
+      filteredcontractID: [],
       filteredfullPartNumber: [],
       filteredmetric: [],
       filteredcsi: [],

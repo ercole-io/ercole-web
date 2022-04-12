@@ -12,7 +12,7 @@ import * as hostnames from './modules/hostnames'
 import * as hostDetails from './modules/hosts/hostDetails'
 import * as alerts from './modules/alerts/alerts'
 import * as licensesUsed from './modules/licenses/licenses-used'
-import * as licensesAgreement from './modules/licenses/licenses-agreement'
+import * as licensesContracts from './modules/licenses/licenses-contracts'
 import * as licensesCompliance from './modules/licenses/licenses-compliance'
 import * as clusters from './modules/hypervisors/clusters'
 import * as clusternames from './modules/clusternames.js'
@@ -26,7 +26,7 @@ import * as mysql from './modules/databases/mysql/mysql'
 import * as globalFilters from './modules/global-filters'
 import * as localFilters from './modules/local-filters'
 import * as engineeredSystems from './modules/engineered-systems/engineered-systems'
-import * as agreementParts from './modules/agreement-parts'
+import * as LicensesTypes from './modules/licenses-types'
 import * as rangeDates from './modules/range-dates'
 import * as moreInfoToggle from '@/store/modules/more-info-toggle.js'
 import * as columnToggle from '@/store/modules/columns-toggle.js'
@@ -51,7 +51,7 @@ export default new Vuex.Store({
     hostDetails,
     alerts,
     licensesUsed,
-    licensesAgreement,
+    licensesContracts,
     licensesCompliance,
     clusters,
     clusternames,
@@ -65,7 +65,7 @@ export default new Vuex.Store({
     globalFilters,
     localFilters,
     engineeredSystems,
-    agreementParts,
+    LicensesTypes,
     rangeDates,
     moreInfoToggle,
     columnToggle,

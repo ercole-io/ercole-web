@@ -2,7 +2,7 @@
   <FullTable
     :placeholder="$t('menu.licAgreements')"
     :keys="keys"
-    :tableData="returnLicensesAgreement('mysql')"
+    :tableData="returnLicensesContracts('mysql')"
     :clickedRow="() => []"
     :isLoadingTable="loadingTableStatus"
   >
@@ -13,7 +13,7 @@
       <v-th sortKey="type">
         {{ $t('common.collumns.type') }}
       </v-th>
-      <v-th sortKey="agreementID">
+      <v-th sortKey="contractID">
         {{ $t('common.collumns.agreeNumber') }}
       </v-th>
       <v-th sortKey="csi">
@@ -45,16 +45,12 @@
           pack="fas"
           icon="trash-alt"
           @click.native="
-            deleteAgreement(
-              'mysql',
-              rowData.scope.id,
-              rowData.scope.agreementID
-            )
+            deleteAgreement('mysql', rowData.scope.id, rowData.scope.contractID)
           "
         />
       </td>
       <TdContent :value="rowData.scope.type | toLower" />
-      <TdContent :value="rowData.scope.agreementID" />
+      <TdContent :value="rowData.scope.contractID" />
       <TdContent :value="rowData.scope.csi" />
       <TdContent :value="rowData.scope.numberOfLicenses" />
       <td>
@@ -68,7 +64,7 @@
             openModal(
               'Clusters',
               rowData.scope.clusters,
-              rowData.scope.agreementID
+              rowData.scope.contractID
             )
           "
           v-if="rowData.scope.clusters && rowData.scope.clusters.length > 0"
@@ -83,7 +79,7 @@
           pack="fas"
           icon="server"
           @click.native="
-            openModal('Hosts', rowData.scope.hosts, rowData.scope.agreementID)
+            openModal('Hosts', rowData.scope.hosts, rowData.scope.contractID)
           "
           v-if="rowData.scope.hosts && rowData.scope.hosts.length > 0"
         />
@@ -103,14 +99,14 @@
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
-import LicensesAgreementMixin from '@/mixins/licensesAgreement.js'
-import MysqlAssociatedModal from '@/components/licenses/agreement/MySQL/MysqlAssociatedModal.vue'
+import LicensesContractsMixin from '@/mixins/licensesContracts.js'
+import MysqlAssociatedModal from '@/components/licenses/contracts/MySQL/MysqlAssociatedModal.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
-  mixins: [TooltipMixin, LicensesAgreementMixin],
+  mixins: [TooltipMixin, LicensesContractsMixin],
   components: {
     FullTable,
     TdContent,
@@ -124,7 +120,7 @@ export default {
         'clusters',
         'hosts',
         'csi',
-        'agreementID',
+        'contractID',
       ],
     }
   },

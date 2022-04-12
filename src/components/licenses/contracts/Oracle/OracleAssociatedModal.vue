@@ -118,7 +118,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getLicensesAgreement']),
+    ...mapActions(['getLicensesContracts']),
     deleteHostAssociated(hostname) {
       this.isLoading = true
       axiosNoLoading

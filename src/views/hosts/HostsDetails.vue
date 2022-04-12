@@ -55,7 +55,7 @@ export default {
   },
   beforeMount() {
     this.getHostByName(this.hostname)
-    this.getAgreementParts()
+    this.getLicensesTypes()
     this.getLicensesByHostName(this.hostname)
 
     this.SET_ACTIVE_DB(this.dbname)
@@ -69,7 +69,7 @@ export default {
     ...mapActions([
       'getHostByName',
       'getLicensesByHostName',
-      'getAgreementParts',
+      'getLicensesTypes',
     ]),
     ...mapMutations(['SET_ACTIVE_DB']),
   },
