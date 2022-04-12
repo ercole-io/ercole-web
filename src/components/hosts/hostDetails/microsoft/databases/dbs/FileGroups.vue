@@ -1,7 +1,7 @@
 <template>
-  <b-tab-item label="Tablespaces" v-if="tablespaces.length > 0">
+  <section class="wrap-table py-3">
     <FullTable
-      :tableData="tablespaces"
+      :tableData="fileGroups"
       :keys="[]"
       hideSearch
       hidePerpage
@@ -20,16 +20,16 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.alloc" />
+        <TdContent :value="rowData.scope.alloc | prettyBytes(1, true)" />
         <TdContent :value="rowData.scope.fileType" />
         <TdContent :value="rowData.scope.filename" />
         <TdContent :value="rowData.scope.growth" />
         <TdContent :value="rowData.scope.growthUnit" />
         <TdContent :value="rowData.scope.status" />
-        <TdContent :value="rowData.scope.used" />
+        <TdContent :value="rowData.scope.used | prettyBytes(1, true)" />
       </template>
     </FullTable>
-  </b-tab-item>
+  </section>
 </template>
 
 <script>
@@ -38,7 +38,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
   props: {
-    tablespaces: {
+    fileGroups: {
       type: Array,
       default: null,
     },
