@@ -132,13 +132,22 @@ export default {
   methods: {
     ...mapActions(['getComplianceList']),
     handleClickedRow(value) {
-      if (value.length > 0) {
+      if (value.length > 0 && value[0].licenseTypeID) {
         this.$router.push({
           name: 'licenses-used',
           params: {
             partNumber: value[0].licenseTypeID,
           },
         })
+      } else if (value.length > 0 && value[0].licenseTypeID === '') {
+        this.$router.push({
+          name: 'licenses-used',
+          params: {
+            partNumber: 'mysql',
+          },
+        })
+      } else {
+        return
       }
     },
     roundPerc(value) {
