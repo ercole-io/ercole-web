@@ -255,10 +255,8 @@ export const getters = {
           return []
         }
       } else if (databases.microsoft) {
-        if (databases.microsoft.sqlServer.instances[0].databases) {
-          return mapMicrosoftDatabase(
-            databases.microsoft.sqlServer.instances[0].databases
-          )
+        if (databases.microsoft.sqlServer.instances) {
+          return mapMicrosoftDatabase(databases.microsoft.sqlServer.instances)
         } else {
           return []
         }
@@ -530,6 +528,7 @@ const mapOracleDatabase = (data) => {
 
 const resolvePdbs = (pdbs) => {
   let filteredPdbs = []
+
   _.filter(pdbs, (val) => {
     if (val) {
       filteredPdbs.push({
@@ -617,21 +616,22 @@ const mapMicrosoftDatabase = (data) => {
   _.map(data, (item) => {
     newData.push({
       name: item.name,
-      affinityMask: item.affinityMask,
-      alloc: item.alloc,
-      blockSize: item.blockSize,
-      collationName: item.collationName,
-      ctp: item.ctp,
-      databaseID: item.databaseID,
-      maxDop: item.maxDop,
-      maxServerMemory: item.maxServerMemory,
-      minServerMemory: item.minServerMemory,
-      recoveryModel: item.recoveryModel,
-      schedulersCount: item.schedulersCount,
-      status: item.status,
-      backups: [...item.backups],
-      tablespaces: [...item.tablespaces],
-      schemas: [...item.schemas],
+      info: {
+        name: item.name,
+        collationName: item.collationName,
+        databaseID: item.databaseID,
+        displayName: item.displayName,
+        edition: item.edition,
+        editionType: item.editionType,
+        licensingInfo: item.licensingInfo,
+        platform: item.platform,
+        productCode: item.productCode,
+        serverName: item.serverName,
+        status: item.status,
+        version: item.version,
+        stateDesc: item.stateDesc,
+      },
+      databases: [...item.databases],
     })
   })
   return newData
