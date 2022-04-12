@@ -9,7 +9,7 @@ export default {
       filteredclusterTags: [],
       filteredhostTagsOracle: [],
       filteredhostTags: [],
-      filteredagreeNumber: [],
+      filteredcontractID: [],
       filteredcsi: [],
       filteredreferenceNumber: [],
       filteredpartNumber: [],
@@ -18,19 +18,19 @@ export default {
   beforeMount() {
     this.filteredclusterTags = this.clusternames.clusternames
     this.filteredhostTags = this.hostnames.hostnames
-    this.filteredagreeNumber = this.returnAgreeNumbers
+    this.filteredcontractID = this.returnContractIDs
     this.filteredcsi = this.returnCsiNumbers
     this.filteredreferenceNumber = this.returnReferenceNumbers
     setTimeout(() => {
-      this.filteredpartNumber = this.returnAgreementParts
+      this.filteredpartNumber = this.returnLicensesTypes
     }, 1000)
   },
   methods: {
     ...mapActions([
-      'getLicensesAgreement',
-      'createLicenseAgreement',
-      'updateLicenseAgreement',
-      'deleteLicenseAgreement',
+      'getLicensesContracts',
+      'createLicenseContract',
+      'updateLicenseContract',
+      'deleteLicenseContract',
     ]),
     deleteAgreement(type, id, agreeNumber = ' - ') {
       this.$buefy.dialog.confirm({
@@ -44,12 +44,12 @@ export default {
             type: type,
             id: id,
           }
-          this.deleteLicenseAgreement(payload)
+          this.deleteLicenseContract(payload)
             .then(() => {
               this.$store.commit('DELETE_AGREEMENT', payload)
             })
             .then(() => {
-              bus.$emit('data', this.returnLicensesAgreement(type))
+              bus.$emit('data', this.returnLicensesContracts(type))
             })
         },
       })
@@ -83,9 +83,9 @@ export default {
   computed: {
     ...mapState(['hostnames', 'clusternames']),
     ...mapGetters([
-      'returnAgreementParts',
-      'returnLicensesAgreement',
-      'returnAgreeNumbers',
+      'returnLicensesTypes',
+      'returnLicensesContracts',
+      'returnContractIDs',
       'returnCsiNumbers',
       'returnReferenceNumbers',
     ]),

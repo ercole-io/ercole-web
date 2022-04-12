@@ -12,19 +12,19 @@
       :label="`${$t('common.fields.agreeNumber')} *`"
       custom-class="is-small"
       :type="{
-        'is-danger': $v.oracleForm.agreeNumber.$error,
+        'is-danger': $v.oracleForm.contractID.$error,
       }"
     >
       <b-autocomplete
-        v-model="oracleForm.agreeNumber"
+        v-model="oracleForm.contractID"
         size="is-small"
         type="number"
         icon="magnify"
-        :data="filteredagreeNumber"
-        @typing="getAutocompleteData($event, 'agreeNumber', returnAgreeNumbers)"
+        :data="filteredcontractID"
+        @typing="getAutocompleteData($event, 'contractID', returnContractIDs)"
         clearable
-        @blur="$v.oracleForm.agreeNumber.$touch()"
-        @input="$v.oracleForm.agreeNumber.$touch()"
+        @blur="$v.oracleForm.contractID.$touch()"
+        @input="$v.oracleForm.contractID.$touch()"
       >
         <template slot="empty">
           {{ $i18n.t('common.validations.noResults') }}
@@ -33,16 +33,15 @@
       <template #message>
         <div
           v-if="
-            !$v.oracleForm.agreeNumber.required &&
-            $v.oracleForm.agreeNumber.$error
+            !$v.oracleForm.contractID.required &&
+            $v.oracleForm.contractID.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
         </div>
         <div
           v-if="
-            !$v.oracleForm.agreeNumber.numeric &&
-            $v.oracleForm.agreeNumber.$error
+            !$v.oracleForm.contractID.numeric && $v.oracleForm.contractID.$error
           "
         >
           {{ $i18n.t('common.validations.onlyNumbers') }}
@@ -65,9 +64,9 @@
         field="full"
         :data="filteredpartNumber"
         @typing="
-          getAutocompletePartNumber($event, 'partNumber', returnAgreementParts)
+          getAutocompletePartNumber($event, 'partNumber', returnLicensesTypes)
         "
-        @focus="() => (filteredpartNumber = returnAgreementParts)"
+        @focus="() => (filteredpartNumber = returnLicensesTypes)"
         @blur="$v.oracleForm.partNumber.$touch()"
         @input="$v.oracleForm.partNumber.$touch()"
         @select="getHostAssociatedList"
@@ -101,7 +100,7 @@
         expanded
       >
         <option
-          v-for="(part, index) in returnAgreementParts"
+          v-for="(part, index) in returnLicensesTypes"
           :key="index"
           :value="part.agreeParts"
         >
@@ -316,17 +315,17 @@ import {
   decimal,
 } from 'vuelidate/lib/validators'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
-import LicensesAgreementMixin from '@/mixins/licensesAgreement.js'
+import LicensesContractsMixin from '@/mixins/licensesContracts.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 
 export default {
-  mixins: [TooltipMixin, LicensesAgreementMixin],
+  mixins: [TooltipMixin, LicensesContractsMixin],
   components: {
     AdvancedFiltersBase,
   },
   validations: {
     oracleForm: {
-      agreeNumber: { required, numeric },
+      contractID: { required, numeric },
       partNumber: { required },
       csi: { required },
       licenseNumber: {
@@ -341,7 +340,7 @@ export default {
     return {
       oracleForm: {
         licenseID: '',
-        agreeNumber: '',
+        contractID: '',
         partNumber: '',
         csi: '',
         referenceNumber: '',
@@ -388,7 +387,7 @@ export default {
     },
     addUpdateAgreement() {
       const oracleAgreementData = {
-        agreementID: this.oracleForm.agreeNumber,
+        agreementID: this.oracleForm.contractID,
         csi: this.oracleForm.csi,
         referenceNumber: this.oracleForm.referenceNumber,
         unlimited: this.oracleForm.ula,
@@ -399,30 +398,30 @@ export default {
         restricted: this.oracleForm.restricted,
       }
       if (!this.oracleForm.licenseID) {
-        this.createLicenseAgreement({
+        this.createLicenseContract({
           body: oracleAgreementData,
           type: 'oracle',
         })
           .then(() => {
-            this.sussessToastMsg(this.oracleForm.agreeNumber, 'created')
+            this.sussessToastMsg(this.oracleForm.contractID, 'created')
           })
-          .then(() => bus.$emit('data', this.returnLicensesAgreement('oracle')))
+          .then(() => bus.$emit('data', this.returnLicensesContracts('oracle')))
       } else {
         oracleAgreementData.id = this.oracleForm.licenseID
-        this.updateLicenseAgreement({
+        this.updateLicenseContract({
           body: oracleAgreementData,
           type: 'oracle',
         })
           .then(() => {
-            this.sussessToastMsg(this.oracleForm.agreeNumber, 'modified')
+            this.sussessToastMsg(this.oracleForm.contractID, 'modified')
           })
-          .then(() => bus.$emit('data', this.returnLicensesAgreement('oracle')))
+          .then(() => bus.$emit('data', this.returnLicensesContracts('oracle')))
       }
     },
     cancelAddLicense() {
       this.oracleForm = {
         licenseID: '',
-        agreeNumber: '',
+        contractID: '',
         partNumber: '',
         csi: '',
         referenceNumber: '',
@@ -442,7 +441,7 @@ export default {
       })
       this.oracleForm = {
         licenseID: data.id,
-        agreeNumber: data.agreementID,
+        contractID: data.agreementID,
         csi: data.csi,
         partNumber: `${data.licenseTypeID} - ${data.itemDescription} - ${data.metric}`,
         referenceNumber: data.referenceNumber,
@@ -466,9 +465,9 @@ export default {
         return host.hostname
       })
     },
-    sussessToastMsg(agreeNumber, text) {
+    sussessToastMsg(contractID, text) {
       this.$buefy.toast.open({
-        message: `The Agreement Number <b>${agreeNumber}</b> was successfully ${text}!`,
+        message: `The Agreement Number <b>${contractID}</b> was successfully ${text}!`,
         type: 'is-success',
         duration: 5000,
         position: 'is-bottom',

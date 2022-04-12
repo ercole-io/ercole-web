@@ -3,33 +3,33 @@ import axiosNoLoading from '@/axios/axios-no-loading.js'
 import { setFullPartNumber } from '@/helpers/helpers.js'
 
 export const state = () => ({
-  oracleAgreements: [],
-  mysqlAgreements: [],
+  oracleContracts: [],
+  mysqlContracts: [],
 })
 
 export const getters = {
-  returnLicensesAgreement: (state, getters) => (type) => {
-    return getters.filteredOrNot(state[type + 'Agreements'])
+  returnLicensesContracts: (state, getters) => (type) => {
+    return getters.filteredOrNot(state[type + 'Contracts'])
   },
   // getLicenseAgreementHostAssociated: state => id => {
-  //   const findHostAssociated = _.find(state.oracleAgreements, val => {
+  //   const findHostAssociated = _.find(state.oracleContracts, val => {
   //     return val.id === id
   //   })
   //   const hostsAssociated = findHostAssociated.hosts
   //   return hostsAssociated
   // },
-  returnAgreeNumbers: (state) => {
-    const agreeNumbers = []
+  returnContractIDs: (state) => {
+    const contractNumbers = []
 
-    _.map(state.oracleAgreements, (val) => {
-      agreeNumbers.push(val.agreementID)
+    _.map(state.oracleContracts, (val) => {
+      contractNumbers.push(val.contractID)
     })
-    return agreeNumbers
+    return contractNumbers
   },
   returnCsiNumbers: (state) => {
     const csiNumbers = []
 
-    _.map(state.oracleAgreements, (val) => {
+    _.map(state.oracleContracts, (val) => {
       csiNumbers.push(val.csi)
     })
     return csiNumbers
@@ -37,7 +37,7 @@ export const getters = {
   returnReferenceNumbers: (state) => {
     const referenceNumbers = []
 
-    _.map(state.oracleAgreements, (val) => {
+    _.map(state.oracleContracts, (val) => {
       referenceNumbers.push(val.referenceNumber)
     })
     return referenceNumbers
@@ -45,68 +45,68 @@ export const getters = {
 }
 
 export const mutations = {
-  SET_AGREEMENTS: (state, payload) => {
-    state[payload.type + 'Agreements'] =
+  SET_CONTRACTS: (state, payload) => {
+    state[payload.type + 'Contracts'] =
       payload.type === 'oracle' ? setFullPartNumber(payload.res) : payload.res
   },
-  CREATE_AGREEMENT: (state, payload) => {
-    state[payload.mode + 'Agreements'].unshift(payload)
+  CREATE_CONTRACT: (state, payload) => {
+    state[payload.mode + 'Contracts'].unshift(payload)
   },
-  UPDATE_AGREEMENTS: (state, payload) => {
+  UPDATE_CONTRACT: (state, payload) => {
     const item = _.find(
-      state[payload.mode + 'Agreements'],
+      state[payload.mode + 'Contracts'],
       (val) => val.id === payload.id
     )
     Object.assign(item, payload)
   },
   DELETE_AGREEMENT: (state, payload) => {
     const index = _.findIndex(
-      state[payload.type + 'Agreements'],
+      state[payload.type + 'Contracts'],
       (val) => val.id === payload.id
     )
-    state[payload.type + 'Agreements'].splice(index, 1)
+    state[payload.type + 'Contracts'].splice(index, 1)
   },
 }
 
 export const actions = {
-  async getLicensesAgreement({ commit, dispatch }, type) {
+  async getLicensesContracts({ commit, dispatch }, type) {
     dispatch('onLoadingTable')
-    let agreementList = await axiosNoLoading.get(`/agreements/${type}/database`)
+    let contractList = await axiosNoLoading.get(`/contracts/${type}/database`)
 
-    const response = await agreementList.data.agreements
+    const response = await contractList.data.contracts
     if (response) {
       if (type === 'mysql') {
         dispatch('onLoadingTable')
-        commit('SET_AGREEMENTS', { res: response, type: type })
+        commit('SET_CONTRACTS', { res: response, type: type })
       } else {
-        commit('SET_AGREEMENTS', { res: response, type: type })
+        commit('SET_CONTRACTS', { res: response, type: type })
         dispatch('offLoadingTable')
       }
     }
   },
-  async createLicenseAgreement({ commit, dispatch }, payload) {
+  async createLicenseContract({ commit, dispatch }, payload) {
     dispatch('onLoadingTable')
 
     const create = await axiosNoLoading.post(
-      `/agreements/${payload.type}/database`,
+      `/contracts/${payload.type}/database`,
       payload.body
     )
     let response = await create.data
     response = { ...response, mode: payload.type }
 
     if (response) {
-      commit('CREATE_AGREEMENT', response)
+      commit('CREATE_CONTRACT', response)
       dispatch('offLoadingTable')
     }
   },
-  async updateLicenseAgreement({ commit, dispatch }, payload) {
+  async updateLicenseContract({ commit, dispatch }, payload) {
     dispatch('onLoadingTable')
 
     let data
     if (payload.type === 'mysql') {
       await axiosNoLoading
         .put(
-          `/agreements/${payload.type}/database/${payload.body.id}`,
+          `/contracts/${payload.type}/database/${payload.body.id}`,
           payload.body
         )
         .then((res) => {
@@ -114,7 +114,7 @@ export const actions = {
         })
     } else if (payload.type === 'oracle') {
       await axiosNoLoading
-        .put(`/agreements/${payload.type}/database`, payload.body)
+        .put(`/contracts/${payload.type}/database`, payload.body)
         .then((res) => {
           data = res.data
         })
@@ -123,16 +123,16 @@ export const actions = {
     data = { ...data, mode: payload.type }
 
     if (data) {
-      commit('UPDATE_AGREEMENTS', data)
+      commit('UPDATE_CONTRACT', data)
       dispatch('offLoadingTable')
     }
   },
-  async deleteLicenseAgreement({ dispatch }, payload) {
+  async deleteLicenseContract({ dispatch }, payload) {
     dispatch('onLoadingTable')
-    const delAgreement = await axiosNoLoading.delete(
-      `/agreements/${payload.type}/database/${payload.id}`
+    const deleteContract = await axiosNoLoading.delete(
+      `/contracts/${payload.type}/database/${payload.id}`
     )
-    const response = await delAgreement
+    const response = await deleteContract
     if (response.status === 204) {
       dispatch('offLoadingTable')
     }
