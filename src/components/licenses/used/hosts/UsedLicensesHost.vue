@@ -49,7 +49,10 @@
         <TdContent :value="rowData.scope.licenseTypeID" />
         <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.metric" />
-        <TdContent :value="rowData.scope.usedLicenses" />
+        <TdContent
+          :value="rowData.scope.usedLicenses"
+          :class="rowData.scope.clusterLicenses > 0 ? 'line-through' : ''"
+        />
         <TdContent :value="rowData.scope.clusterLicenses" />
       </template>
 
