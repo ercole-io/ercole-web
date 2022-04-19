@@ -29,10 +29,11 @@
     />
 
     <template slot="bodyData" slot-scope="rowData">
-      <TdContent :value="rowData.scope.type" />
+      <TdContent :value="rowData.scope.category" />
+      <TdContent :value="rowData.scope.objectType" />
+      <TdContent :value="rowData.scope.suggestion" />
       <TdContent :value="rowData.scope.compartmentName" />
       <TdContent :value="rowData.scope.name" />
-      <TdContent :value="rowData.scope.objectType" />
     </template>
 
     <!-- <ExportButton slot="export" url="" expName="cloudRecommendations" /> -->
