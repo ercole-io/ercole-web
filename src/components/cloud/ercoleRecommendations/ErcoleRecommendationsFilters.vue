@@ -2,8 +2,25 @@
   <AdvancedFiltersBase :submitAction="apply">
     <Collapse :collapses="collapses">
       <template slot="General">
-        <CustomField :label="$t('common.fields.type')">
-          <CustomSelect v-model="filters.type" :options="filteredtype" />
+        <CustomField :label="$t('common.fields.category')">
+          <CustomSelect
+            v-model="filters.category"
+            :options="filteredcategory"
+          />
+        </CustomField>
+
+        <CustomField label="Object Type">
+          <CustomSelect
+            v-model="filters.objectType"
+            :options="filteredobjectType"
+          />
+        </CustomField>
+
+        <CustomField label="Suggestion">
+          <CustomSelect
+            v-model="filters.suggestion"
+            :options="filteredsuggestion"
+          />
         </CustomField>
 
         <CustomField :label="$t('common.fields.compartmentName')">
@@ -18,14 +35,6 @@
           <CustomAutocomplete
             v-model="filters.name"
             :filterResult="filteredname"
-            :filterMethod="setAutocompletes"
-          />
-        </CustomField>
-
-        <CustomField :label="$t('common.fields.resourceID')">
-          <CustomAutocomplete
-            v-model="filters.resourceID"
-            :filterResult="filteredresourceID"
             :filterMethod="setAutocompletes"
           />
         </CustomField>
@@ -48,8 +57,8 @@ export default {
   data() {
     return {
       collapses: ['General'],
-      autocompletes: ['name', 'compartmentName', 'resourceID'],
-      selects: ['type'],
+      autocompletes: ['name', 'compartmentName'],
+      selects: ['category', 'suggestion', 'objectType'],
     }
   },
 }
