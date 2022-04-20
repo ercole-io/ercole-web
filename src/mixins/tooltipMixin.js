@@ -8,11 +8,11 @@ export default {
     },
   },
   methods: {
-    options(val, type) {
+    options(val, type = null, place = 'left' || 'right') {
       return {
         content:
           val !== '-' ? (type === 'date' ? formatDateTime(val) : val) : null,
-        placement: 'left' || 'right',
+        placement: place,
       }
     },
   },
