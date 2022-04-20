@@ -87,6 +87,9 @@ export default {
       filteredimportance: [],
       filteredcompartmentName: [],
       filteredresourceID: [],
+      filteredcategory: [],
+      filteredobjectType: [],
+      filteredsuggestion: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,
