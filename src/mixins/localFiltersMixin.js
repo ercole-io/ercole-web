@@ -62,6 +62,7 @@ export default {
       filteredfetchEndpoint: [],
       filteredsockets: [],
       filteredvirtualizationNodes: [],
+      filteredvirtualizationNode: [],
       filteredalertCode: [],
       filteredcontractID: [],
       filteredfullPartNumber: [],
