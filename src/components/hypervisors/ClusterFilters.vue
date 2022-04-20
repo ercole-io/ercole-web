@@ -29,6 +29,10 @@
         <CustomField :label="$t('common.fields.cappedCpu')">
           <CustomRadio v-model="filters.cappedCPU" />
         </CustomField>
+
+        <CustomField label="Ercole Installed?">
+          <CustomRadio v-model="filters.isErcoleInstalled" />
+        </CustomField>
       </template>
     </Collapse>
 
@@ -51,6 +55,7 @@ export default {
       autocompletes: ['virtualizationNode', 'hostname', 'name'],
       filters: {
         cappedCPU: '',
+        isErcoleInstalled: '',
       },
     }
   },
@@ -58,6 +63,7 @@ export default {
     resetFilters() {
       this.filters = {
         cappedCPU: '',
+        isErcoleInstalled: '',
       }
     },
   },

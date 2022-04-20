@@ -14,17 +14,18 @@
       :placeholder="$t('menu.clusters')"
       :keys="keys"
       :tableData="getCurrentClusterVms"
-      @clickedRow="handleClickedRow"
+      @clickedRow="checkIfErcoleIsInstalled"
       isClickable
       :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
-        <v-th sortKey="virtualizationNode">{{
-          $t('common.collumns.physicalHost')
-        }}</v-th>
+        <v-th sortKey="virtualizationNode">
+          {{ $t('common.collumns.physicalHost') }}
+        </v-th>
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
         <v-th sortKey="name">{{ $t('common.collumns.vmName') }}</v-th>
         <v-th sortKey="cappedCPU">{{ $t('common.collumns.cappedCpu') }}</v-th>
+        <v-th sortKey="isErcoleInstalled"> Ercole Installed? </v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
@@ -32,11 +33,19 @@
           :value="rowData.scope.virtualizationNode"
           class="first-col"
         />
-        <HostLink :hostname="rowData.scope.hostname" />
+        <HostLink
+          :hostname="rowData.scope.hostname"
+          v-if="rowData.scope.isErcoleInstalled"
+        />
+        <TdContent :value="rowData.scope.hostname" v-else />
         <TdContent :value="rowData.scope.name" />
         <TdIcon
           :value="rowData.scope.cappedCPU"
-          @click.native="handleClickedRow([rowData.scope])"
+          @click.native="checkIfErcoleIsInstalled([rowData.scope])"
+        />
+        <TdIcon
+          :value="rowData.scope.isErcoleInstalled"
+          @click.native="checkIfErcoleIsInstalled([rowData.scope])"
         />
       </template>
 
@@ -151,7 +160,13 @@ export default {
   },
   data() {
     return {
-      keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU'],
+      keys: [
+        'virtualizationNode',
+        'name',
+        'hostname',
+        'cappedCPU',
+        'isErcoleInstalled',
+      ],
       isMounted: false,
       chartHeight: 100,
     }
@@ -167,6 +182,13 @@ export default {
   },
   methods: {
     ...mapActions(['getClusterByName']),
+    checkIfErcoleIsInstalled(data) {
+      if (data[0] && data[0].isErcoleInstalled) {
+        this.handleClickedRow(data)
+      } else {
+        return null
+      }
+    },
   },
   computed: {
     ...mapGetters([
