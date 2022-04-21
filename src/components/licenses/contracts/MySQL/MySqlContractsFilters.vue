@@ -2,7 +2,7 @@
   <AdvancedFiltersBase :submitAction="apply">
     <Collapse :collapses="collapses">
       <template slot="General">
-        <CustomField :label="$t('common.fields.type')">
+        <CustomField label="Type">
           <CustomSelect v-model="filters.type" :options="filteredtype" />
         </CustomField>
 
@@ -54,10 +54,12 @@ export default {
       selects: ['type'],
     }
   },
-  created() {
-    bus.$on('onTabChange', () => {
-      this.reset()
-      bus.$emit('data', this.returnLicensesContracts('mysql'))
+  mounted() {
+    bus.$on('onTabChange', (value) => {
+      if (value === 1) {
+        this.reset()
+        bus.$emit('data', this.returnLicensesContracts('mysql'))
+      }
     })
   },
   computed: {

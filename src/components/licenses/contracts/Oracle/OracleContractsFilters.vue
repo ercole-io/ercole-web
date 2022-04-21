@@ -132,10 +132,12 @@ export default {
       },
     }
   },
-  created() {
-    bus.$on('onTabChange', () => {
-      this.reset(this.resetFilters)
-      bus.$emit('data', this.returnLicensesContracts('oracle'))
+  mounted() {
+    bus.$on('onTabChange', (value) => {
+      if (value === 0) {
+        this.reset(this.resetFilters)
+        bus.$emit('data', this.returnLicensesContracts('oracle'))
+      }
     })
   },
   methods: {
