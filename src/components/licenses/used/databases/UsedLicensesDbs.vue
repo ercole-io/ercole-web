@@ -69,8 +69,7 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -113,14 +112,6 @@ export default {
         'ignored',
       ],
     }
-  },
-  async beforeMount() {
-    await this.getLicensesDatabases().then(() => {
-      bus.$emit('data', this.getUsedLicensesByDbs)
-    })
-  },
-  methods: {
-    ...mapActions(['getLicensesDatabases']),
   },
   computed: {
     ...mapState(['licensesUsed']),

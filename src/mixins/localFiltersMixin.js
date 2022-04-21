@@ -159,6 +159,11 @@ export default {
   },
   beforeMount() {
     bus.$on('onResetAction', () => this.reset(this.resetFilters))
+    // bus.$on('data', (data) => {
+    //   this.fullData = data
+    // })
+  },
+  mounted() {
     bus.$on('data', (data) => {
       this.fullData = data
     })
@@ -228,8 +233,7 @@ export default {
   },
   watch: {
     fullData(data) {
-      if (data.length > 0) {
-        this.reset()
+      if (data) {
         this.setAutocompletes()
         this.setSelects()
         this.setSliders()
