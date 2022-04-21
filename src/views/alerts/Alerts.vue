@@ -96,9 +96,7 @@
             />
           </div>
         </th>
-        <v-th style="width: 10%" sortKey="alertCategory">
-          {{ $t('common.collumns.type') }}
-        </v-th>
+        <v-th style="width: 10%" sortKey="alertCategory"> Type </v-th>
         <v-th style="width: 10%" sortKey="date">
           {{ $t('common.collumns.date') }}
         </v-th>

@@ -229,6 +229,7 @@ export default {
   watch: {
     fullData(data) {
       if (data.length > 0) {
+        this.reset()
         this.setAutocompletes()
         this.setSelects()
         this.setSliders()

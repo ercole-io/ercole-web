@@ -1,6 +1,12 @@
 <template>
   <section>
-    <b-tabs size="is-small" type="is-boxed" class="block" @input="onTabChange">
+    <b-tabs
+      size="is-small"
+      type="is-boxed"
+      class="block"
+      v-model="activeTab"
+      @input="onTabChange"
+    >
       <b-tab-item label="Oracle">
         <OracleContracts />
       </b-tab-item>
@@ -21,9 +27,14 @@ export default {
     OracleContracts,
     MySqlContracts,
   },
+  data() {
+    return {
+      activeTab: 0,
+    }
+  },
   methods: {
-    onTabChange() {
-      bus.$emit('onTabChange')
+    onTabChange(value) {
+      bus.$emit('onTabChange', value)
     },
   },
 }
