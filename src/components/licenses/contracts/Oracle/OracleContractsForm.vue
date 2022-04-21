@@ -387,7 +387,7 @@ export default {
     },
     addUpdateAgreement() {
       const oracleAgreementData = {
-        agreementID: this.oracleForm.contractID,
+        contractID: this.oracleForm.contractID,
         csi: this.oracleForm.csi,
         referenceNumber: this.oracleForm.referenceNumber,
         unlimited: this.oracleForm.ula,
@@ -441,7 +441,7 @@ export default {
       })
       this.oracleForm = {
         licenseID: data.id,
-        contractID: data.agreementID,
+        contractID: data.contractID,
         csi: data.csi,
         partNumber: `${data.licenseTypeID} - ${data.itemDescription} - ${data.metric}`,
         referenceNumber: data.referenceNumber,
