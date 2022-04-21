@@ -14,12 +14,29 @@ export const state = () => ({
 export const getters = {
   getUsedLicensesByDbs: (state, getters) => {
     let cleanData = _.without(state.dbsLicensesUsed, undefined, null, '')
-    return getters.filteredOrNot(cleanData)
+    let licensesByDatabases = []
+
+    _.map(cleanData, (val) => {
+      licensesByDatabases.push({
+        hostname: val.hostname,
+        dbName: val.dbName,
+        licenseTypeID: val.licenseTypeID,
+        description: val.description,
+        metric: val.metric,
+        usedLicenses: val.usedLicenses,
+        clusterLicenses: val.clusterLicenses,
+        fullPartNumber: val.fullPartNumber,
+        ignored: val.ignored,
+      })
+    })
+
+    return getters.filteredOrNot(licensesByDatabases)
   },
   getUsedLicensesByHost: (state, getters) => {
+    let cleanData = _.without(state.hostsLicensesUsed, undefined, null, '')
     let licensesByHost = []
 
-    _.map(state.hostsLicensesUsed, (val) => {
+    _.map(cleanData, (val) => {
       licensesByHost.push({
         hostname: val.hostname,
         databases: val.databaseNames.length,
@@ -36,7 +53,8 @@ export const getters = {
     return getters.filteredOrNot(licensesByHost)
   },
   getUsedLicensesByCluster: (state, getters) => {
-    return getters.filteredOrNot(state.clustersLicensesUsed)
+    let cleanData = _.without(state.clustersLicensesUsed, undefined, null, '')
+    return getters.filteredOrNot(cleanData)
   },
 }
 

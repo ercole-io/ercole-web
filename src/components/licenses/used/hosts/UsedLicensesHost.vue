@@ -66,8 +66,7 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -117,16 +116,10 @@ export default {
       isMounted: false,
     }
   },
-  async beforeMount() {
-    await this.getLicensesHosts().then(() => {
-      bus.$emit('data', this.getUsedLicensesByHost)
-    })
-  },
   mounted() {
     this.isMounted = true
   },
   methods: {
-    ...mapActions(['getLicensesHosts']),
     openModal(info) {
       this.$buefy.modal.open({
         component: UsedLicensesHostModal,

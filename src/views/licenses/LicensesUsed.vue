@@ -22,6 +22,7 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
+import { mapActions } from 'vuex'
 import UsedLicensesDbs from '@/components/licenses/used/databases/UsedLicensesDbs.vue'
 import UsedLicensesHost from '@/components/licenses/used/hosts/UsedLicensesHost.vue'
 import UsedLicensesClusters from '@/components/licenses/used/clusters/UsedLicensesClusters.vue'
@@ -43,7 +44,19 @@ export default {
       activeTab: 0,
     }
   },
+  async beforeMount() {
+    await this.getLicensesDatabases()
+    await this.getLicensesHosts()
+    await this.getLicensesClusters()
+
+    this.onTabChange(this.activeTab)
+  },
   methods: {
+    ...mapActions([
+      'getLicensesDatabases',
+      'getLicensesClusters',
+      'getLicensesHosts',
+    ]),
     onTabChange(value) {
       bus.$emit('onUsedTabChange', value)
     },

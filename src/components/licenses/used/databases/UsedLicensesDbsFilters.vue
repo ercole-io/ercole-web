@@ -75,10 +75,10 @@ export default {
       sliders: ['usedLicenses', 'clusterLicenses'],
     }
   },
-  created() {
+  beforeMount() {
     bus.$on('onUsedTabChange', (value) => {
-      this.reset(this.resetFilters)
       if (value === 0) {
+        this.reset(this.resetFilters)
         bus.$emit('data', this.getUsedLicensesByDbs)
       }
     })
