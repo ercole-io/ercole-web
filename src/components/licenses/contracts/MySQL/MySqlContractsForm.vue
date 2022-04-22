@@ -7,7 +7,7 @@
     cancelText="Cancel"
   >
     <b-field
-      :label="`${$t('common.fields.type')} *`"
+      label="Type *"
       custom-class="is-small"
       :type="{
         'is-danger': $v.mysqlForm.agreeType.$error,
