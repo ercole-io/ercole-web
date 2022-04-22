@@ -10,9 +10,7 @@
       <th colspan="2" style="text-align: center !important">
         {{ $t('common.collumns.actions') }}
       </th>
-      <v-th sortKey="type">
-        {{ $t('common.collumns.type') }}
-      </v-th>
+      <v-th sortKey="type"> Type </v-th>
       <v-th sortKey="contractID">
         {{ $t('common.collumns.agreeNumber') }}
       </v-th>
