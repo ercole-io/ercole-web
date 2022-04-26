@@ -3,9 +3,11 @@
   "viewportHeight": 1080,
   "viewportWidth": 1920,
   "video": false,
+  "screenshotOnRunFailure": false,
+  "trashAssetsBeforeRuns": true,
   "retries": {
-    "runMode": 2,
-    "openMode": 0
+    "runMode": 4,
+    "openMode": 1
   },
   "env": {
     "username": "ercole",

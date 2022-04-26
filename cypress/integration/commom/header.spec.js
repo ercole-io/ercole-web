@@ -12,17 +12,17 @@ describe('Header Suite', () => {
     cy.url().should('contain', '/login')
   })
 
-  it.skip('will change app language to Italian', () => {
-    cy.get('[data-cy="locale-switcher"]').click()
-    cy.get('[data-cy="it"]').click()
-    cy.get('[data-cy="locale-switcher"]').click()
-    cy.get('[data-cy="it"]').should('contain', 'Italiano')
-  })
+  // it.skip('will change app language to Italian', () => {
+  //   cy.get('[data-cy="locale-switcher"]').click()
+  //   cy.get('[data-cy="it"]').click()
+  //   cy.get('[data-cy="locale-switcher"]').click()
+  //   cy.get('[data-cy="it"]').should('contain', 'Italiano')
+  // })
 
-  it.skip('will change app language to Portuguese', () => {
-    cy.get('[data-cy="locale-switcher"]').click()
-    cy.get('[data-cy="pt-br"]').click()
-    cy.get('[data-cy="locale-switcher"]').click()
-    cy.get('[data-cy="pt-br"]').should('contain', 'Português')
-  })
+  // it.skip('will change app language to Portuguese', () => {
+  //   cy.get('[data-cy="locale-switcher"]').click()
+  //   cy.get('[data-cy="pt-br"]').click()
+  //   cy.get('[data-cy="locale-switcher"]').click()
+  //   cy.get('[data-cy="pt-br"]').should('contain', 'Português')
+  // })
 })
