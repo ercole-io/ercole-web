@@ -1,4 +1,3 @@
-import axiosDefault from '@/axios/axios-default.js'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import { mountDatabasesChart } from '@/helpers/databasesCharts.js'
 import _ from 'lodash'
@@ -56,11 +55,9 @@ export const mutations = {
 
 export const actions = {
   async getOracleDbs({ commit, dispatch, getters }) {
-    dispatch('getTopWorkload')
-    dispatch('getTopUnusedIR')
-    dispatch('getOracleStatistics')
+    dispatch('onLoadingTable')
 
-    const oracleDbs = await axiosDefault.get(
+    const oracleDbs = await axiosNoLoading.get(
       '/hosts/technologies/oracle/databases',
       {
         params: {
@@ -70,10 +67,16 @@ export const actions = {
         },
       }
     )
+
     const response = await oracleDbs.data
-    commit('SET_ORACLE_DBS', response)
+    if (response) {
+      dispatch('offLoadingTable')
+      commit('SET_ORACLE_DBS', response)
+    }
   },
-  async getTopWorkload({ commit, getters }) {
+  async getTopWorkload({ commit, dispatch, getters }) {
+    dispatch('onLoadingTable')
+
     const topWorkload = await axiosNoLoading.get(
       '/hosts/technologies/oracle/databases/top-workload',
       {
@@ -85,9 +88,14 @@ export const actions = {
       }
     )
     const response = await topWorkload.data
-    commit('SET_TOP_WORLOAD', response)
+    if (response) {
+      dispatch('offLoadingTable')
+      commit('SET_TOP_WORLOAD', response)
+    }
   },
-  async getTopUnusedIR({ commit, getters }) {
+  async getTopUnusedIR({ commit, dispatch, getters }) {
+    dispatch('onLoadingTable')
+
     const topUnused = await axiosNoLoading.get(
       '/hosts/technologies/oracle/databases/top-unused-instance-resource',
       {
@@ -99,9 +107,14 @@ export const actions = {
       }
     )
     const response = await topUnused.data
-    commit('SET_TOP_UNUSEDIR', response)
+    if (response) {
+      dispatch('offLoadingTable')
+      commit('SET_TOP_UNUSEDIR', response)
+    }
   },
-  async getOracleStatistics({ commit, getters }) {
+  async getOracleStatistics({ commit, dispatch, getters }) {
+    dispatch('onLoadingTable')
+
     const stats = await axiosNoLoading.get(
       '/hosts/technologies/oracle/databases/statistics',
       {
@@ -114,6 +127,9 @@ export const actions = {
     )
 
     const response = await stats.data
-    commit('SET_ORACLE_STATISTICS', response)
+    if (response) {
+      dispatch('offLoadingTable')
+      commit('SET_ORACLE_STATISTICS', response)
+    }
   },
 }

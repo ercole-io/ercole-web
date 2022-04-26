@@ -8,17 +8,17 @@ describe('ErrorCode.vue', () => {
       propsData: {
         code: '000',
         codeText: 'Test Code Text',
-        codeDesc: 'Test Code Descroption'
+        codeDesc: 'Test Code Descroption',
       },
       slots: {
-        actions: '<div>Test Actions Content</div>'
-      }
+        actions: '<div>Test Actions Content</div>',
+      },
     })
   })
 
-  it('is a Vue instance', () => {
-    expect(wrapper.isVueInstance()).toBe(true)
-  })
+  // it('is a Vue instance', () => {
+  //   expect(wrapper.isVueInstance()).toBe(true)
+  // })
 
   it('verify if component exists', () => {
     expect(wrapper.exists()).toBe(true)

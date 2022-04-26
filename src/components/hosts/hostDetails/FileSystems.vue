@@ -1,37 +1,38 @@
 <template>
-  <div>
+  <GhostLoading :isLoading="loadingTableStatus" setHeight="30" setWidth="107">
     <b-button
       :label="$t('views.hostDetails.fileSystems')"
       @click="isModalActive = true"
-      type="is-primary"
+      type="is-ercole-blue"
       icon-pack="fas"
       icon-left="receipt"
       size="is-small"
-      class="ml-1 mr-0"
     />
 
     <b-modal :active.sync="isModalActive" :width="750" scroll="keep">
       <FileSystemsContent :fileSysData="currentHostFileSystems" />
     </b-modal>
-  </div>
+  </GhostLoading>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import FileSystemsContent from '@/components/hosts/hostDetails/FileSystemsContent.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   components: {
-    FileSystemsContent
+    FileSystemsContent,
+    GhostLoading,
   },
   data() {
     return {
-      isModalActive: false
+      isModalActive: false,
     }
   },
   computed: {
-    ...mapGetters(['currentHostFileSystems'])
-  }
+    ...mapGetters(['currentHostFileSystems', 'loadingTableStatus']),
+  },
 }
 </script>
 

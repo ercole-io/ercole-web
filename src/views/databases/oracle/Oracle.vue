@@ -1,26 +1,35 @@
 <template>
-  <OracleDBs v-if="isMounted" />
+  <OracleDBs />
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { bus } from '@/helpers/eventBus.js'
+import { mapActions, mapGetters } from 'vuex'
 import OracleDBs from '@/components/databases/oracle/OracleDBs.vue'
 
 export default {
   components: {
-    OracleDBs
-  },
-  data() {
-    return {
-      isMounted: false
-    }
+    OracleDBs,
   },
   async beforeMount() {
-    await this.getOracleDbs().then(() => (this.isMounted = true))
+    await this.getOracleDbs().then(() => {
+      bus.$emit('data', this.getAllOracleDBs)
+    })
+    await this.getTopWorkload()
+    await this.getTopUnusedIR()
+    await this.getOracleStatistics()
   },
   methods: {
-    ...mapActions(['getOracleDbs'])
-  }
+    ...mapActions([
+      'getOracleDbs',
+      'getTopWorkload',
+      'getTopUnusedIR',
+      'getOracleStatistics',
+    ]),
+  },
+  computed: {
+    ...mapGetters(['getAllOracleDBs']),
+  },
 }
 </script>
 

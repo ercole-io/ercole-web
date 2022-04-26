@@ -1,6 +1,6 @@
 .table-container {
   overflow: auto;
-  max-height: 550px;
+  max-height: 558px;
 }
 
 .vTable-custom {
@@ -11,7 +11,7 @@
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  background-color: #dbdbdb;
+  background-color: $ercole-blue;
 }
 
 .vTable-custom, .table {
@@ -23,6 +23,8 @@
         text-align: center !important;
         border-width: 0;
         z-index: 1;
+        color: $white;
+        font-weight: normal;
 
         &:first-child {
           text-align: left !important;
@@ -33,6 +35,14 @@
 
   tbody {
     tr {
+      &:nth-child(odd) {
+        background-color: $white;
+      }
+
+      &:nth-child(even) {
+        background-color: #F5f5f5;
+      }
+
       td {
         font-size: 0.7em;
         text-align: center;
@@ -48,6 +58,13 @@
         &:first-child {
           text-align: left;
         }
+
+        &:hover {
+          a {
+            color: $ercole-blue;
+          }
+          
+        }
       }
 
       &:hover {
@@ -57,12 +74,32 @@
   }
 }
 
+.first-col {
+  background-color: rgba(#101336, 0.8);
+  color: $white;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+    color: $ercole-blue !important;
+    
+    a {
+      color: $ercole-blue !important;
+    }
+  }
+
+  a {
+    color: $white !important;
+  }
+}
+
 .vt-sort:before {
   font-family: 'Font Awesome 5 Free';
   padding-right: 0.5em;
   width: 1.28571429em;
   display: inline-block;
   text-align: center;
+  font-weight: bold;
+
 }
 
 .vt-sortable:before {
@@ -92,7 +129,7 @@
     padding: .5em .75em;
     margin: 0 .25em;
     line-height: 1.25;
-    color: #363636;
+    color: $ercole-blue;
     background-color: #fff;
     border: 1px solid #dee2e6;
     border-radius: 4px;
@@ -134,9 +171,9 @@
  
   .page-item.active .page-link {
     z-index: 1;
-    color: #fff;
-    background-color: #679189;
-    border-color: #679189
+    color: $white;
+    background-color: $ercole-blue;
+    border-color: #dee2e6
   }
  
   .page-item.disabled .page-link {
@@ -145,5 +182,13 @@
     cursor: auto;
     background-color: #dbdbdb;
     border-color: #dbdbdb;
+  }
+
+  .page-link:hover {
+    z-index: 2;
+    color: $ercole-blue;
+    text-decoration: none;
+    background-color: $ercole-green;
+    border-color: #dee2e6;
   }
 }

@@ -15,13 +15,13 @@ export default {
   props: {
     cardStatTitle: {
       type: String,
-      required: false
+      required: false,
     },
     cardStatValue: {
       type: [String, Number],
-      default: '0'
-    }
-  }
+      default: '0',
+    },
+  },
 }
 </script>
 

@@ -1,7 +1,5 @@
-import axiosDefault from '@/axios/axios-default.js'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
-import router from '@/router'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 import { returnTechTypePrettyName } from '@/helpers/helpers.js'
 
 export const state = () => ({
@@ -103,30 +101,30 @@ export const mutations = {
 }
 
 export const actions = {
-  async getClusters({ commit, getters }) {
+  async getClusters({ commit, dispatch, getters }) {
+    dispatch('onLoadingTable')
+
     const params = {
       'older-than': getters.getActiveFilters.date,
       environment: getters.getActiveFilters.environment,
       location: getters.getActiveFilters.location,
     }
 
-    let clustersData
-    if (router.currentRoute.name === 'hypervisors') {
-      clustersData = await axiosDefault.get('/hosts/clusters', {
-        params: params,
-      })
-    } else {
-      clustersData = await axiosNoLoading.get('/hosts/clusters', {
-        params: params,
-      })
-    }
+    const clustersData = await axiosNoLoading.get('/hosts/clusters', {
+      params: params,
+    })
 
     const response = await clustersData.data
-    commit('SET_CLUSTERS', response)
-    commit('SET_CLUSTERNAMES', response)
+    if (response) {
+      dispatch('offLoadingTable')
+      commit('SET_CLUSTERS', response)
+      commit('SET_CLUSTERNAMES', response)
+    }
   },
-  async getClusterByName({ commit, getters }, clustername) {
-    const clusterByName = await axiosDefault.get(
+  async getClusterByName({ commit, dispatch, getters }, clustername) {
+    dispatch('onLoadingTable')
+
+    const clusterByName = await axiosNoLoading.get(
       `/hosts/clusters/${clustername}`,
       {
         params: {
@@ -136,6 +134,9 @@ export const actions = {
     )
 
     const response = await clusterByName.data
-    commit('SET_CURRENT_CLUSTER', response)
+    if (response) {
+      dispatch('offLoadingTable')
+      commit('SET_CURRENT_CLUSTER', response)
+    }
   },
 }

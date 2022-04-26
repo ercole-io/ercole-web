@@ -37,14 +37,14 @@ export default {
     Memory,
     Storage,
     Patching,
-    EngineeredTables
+    EngineeredTables,
   },
   async beforeMount() {
     await this.getEngineeredSystems()
   },
   methods: {
-    ...mapActions(['getEngineeredSystems'])
-  }
+    ...mapActions(['getEngineeredSystems']),
+  },
 }
 </script>
 

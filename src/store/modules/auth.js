@@ -52,6 +52,8 @@ export const actions = {
         commit('LOGIN_SUCCESS')
         helpers.setLocalStorageAuth(payload)
         dispatch('setErrMsg', null)
+        dispatch('getHosts')
+        dispatch('getClusters')
       })
       .then(() => {
         const historyPage = localStorage.getItem('historyPage')
@@ -98,6 +100,8 @@ export const actions = {
   logout({ commit, dispatch }) {
     dispatch('offLoading')
     commit('LOGOUT')
+    commit('SET_DEFAULT_COLS')
+    commit('SET_OCI_ACTIVE_PROFILE', [])
     helpers.clearLocalStorageAuth()
     router.push('/login')
   },

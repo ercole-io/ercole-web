@@ -1,7 +1,8 @@
 <template>
   <td
     v-if="link && !isSlot"
-    v-tooltip="options(setValue, dataType, tooltipPlace)"
+    v-tooltip="options(setValue, dataType)"
+    :class="setHighlight === '-' ? 'has-text-centered' : ''"
   >
     <a
       @click.left="link($event)"
@@ -13,17 +14,19 @@
 
   <td
     v-else-if="!link && !dataType && !isSlot"
-    v-tooltip="options(setValue, dataType, tooltipPlace)"
+    v-tooltip="options(setValue, dataType)"
     v-html="setHighlight"
+    :class="setHighlight === '-' ? 'has-text-centered' : ''"
   />
 
   <td
     v-else-if="!link && dataType && !isSlot"
-    v-tooltip="options(setValue, dataType, tooltipPlace)"
+    v-tooltip="options(setValue, dataType)"
     v-html="setHighlightDate"
+    :class="setHighlightDate === '-' ? 'has-text-centered' : ''"
   />
 
-  <td v-else-if="isSlot" v-tooltip="options(setValue, dataType, tooltipPlace)">
+  <td v-else-if="isSlot" v-tooltip="options(setValue, dataType)">
     <slot />
   </td>
 </template>
@@ -42,10 +45,6 @@ export default {
     dataType: {
       type: String,
       default: '',
-    },
-    tooltipPlace: {
-      type: String,
-      default: 'auto',
     },
     isSlot: {
       type: Boolean,

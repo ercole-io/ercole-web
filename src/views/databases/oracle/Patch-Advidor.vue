@@ -5,7 +5,10 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <PatchAdvisorFilters slot="left" />
+    <PatchAdvisorFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </PatchAdvisorFilters>
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.patAdvisor')"
@@ -33,7 +36,10 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
+        <HostLink
+          :hostname="[rowData.scope.hostname, rowData.scope.dbname]"
+          class="first-col"
+        />
         <TdContent :value="rowData.scope.dbname" />
         <TdContent :value="rowData.scope.dbver" />
         <TdContent :value="rowData.scope.date" />
@@ -62,6 +68,7 @@
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -71,6 +78,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import PatchAdvisorFilters from '@/components/databases/oracle/patchAdvisor/PatchAdvisorFilters.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -82,6 +90,7 @@ export default {
     TdIcon,
     HostLink,
     PatchAdvisorFilters,
+    Loading,
   },
   data() {
     return {
@@ -99,7 +108,12 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getPatchAdvisor().then(() => (this.isMounted = true))
+    await this.getPatchAdvisor().then(() => {
+      bus.$emit('data', this.getOraclePatchAdvisor)
+    })
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getPatchAdvisor']),

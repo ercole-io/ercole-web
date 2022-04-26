@@ -5,19 +5,23 @@
         :totalItems="total.length"
         v-if="!hidePerpage"
         class="mb-0"
+        style="min-width: 135px"
       />
 
-      <slot name="customTopHeader" />
+      <div class="is-flex is-justify-content-flex-end" style="width: 100%">
+        <slot name="customTopHeader" />
+      </div>
 
       <SearchInput
         :searchPlaceholder="setPlaceholder"
         v-model="filters.search.value"
         :urlParam="urlSearchParam"
         v-show="!hideSearch"
+        style="min-width: 170px; max-width: 170px"
       />
     </TopTable>
 
-    <div class="table-container scrollbar-x" id="style-1">
+    <div class="table-container">
       <v-table
         :data="total"
         :filters="filters"
@@ -29,11 +33,10 @@
         :selectionMode="modeSelection"
         :selectedClass="classSelection"
         class="vTable-custom"
-        style="margin-bottom: 10px"
       >
         <thead slot="head">
           <slot name="customHeadData" />
-          <tr class="has-background-grey-lighter">
+          <tr>
             <slot name="headData" />
           </tr>
           <slot name="subCustomHeadData" />
@@ -55,7 +58,7 @@
           </template>
           <template v-if="!isLoadingTable && displayData.length <= 0">
             <tr>
-              <td style="height: 250px" colspan="50">
+              <td style="height: 510px" colspan="50">
                 <span style="display: none">
                   {{ getDataLength('noData') }}
                 </span>
@@ -65,7 +68,7 @@
           </template>
           <template v-if="isLoadingTable">
             <tr>
-              <td style="height: 250px" colspan="50">
+              <td style="height: 510px" colspan="50">
                 <Loading :isLoading="isLoadingTable" />
               </td>
             </tr>
@@ -229,6 +232,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/_variables.scss';
+
 .table-info {
   background-color: rgba(0, 0, 0, 0.075);
 }

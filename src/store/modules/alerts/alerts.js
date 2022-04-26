@@ -1,9 +1,7 @@
-import axiosDefault from '@/axios/axios-default.js'
 import axiosNoLoading from '@/axios/axios-no-loading.js'
 import { returnAlertsByTypeDate, filterByKeys } from '@/helpers/helpers.js'
 import moment from 'moment'
 import _ from 'lodash'
-import router from '@/router'
 
 const startDate = moment().subtract(1, 'week').format('YYYY-MM-DD')
 const endDate = moment().add(1, 'days').format('YYYY-MM-DD')
@@ -160,7 +158,9 @@ export const mutations = {
 }
 
 export const actions = {
-  async getAlertsData({ commit, getters }, data) {
+  async getAlertsData({ commit, dispatch, getters }, data) {
+    dispatch('onLoadingTable')
+
     const params = {
       status: data.status,
       from: data.startDate,
@@ -169,16 +169,9 @@ export const actions = {
       location: getters.getActiveFilters.location,
     }
 
-    let alertsData
-    if (router.currentRoute.name === 'alerts') {
-      alertsData = await axiosDefault.get('/alerts', {
-        params: params,
-      })
-    } else {
-      alertsData = await axiosNoLoading.get('/alerts', {
-        params: params,
-      })
-    }
+    const alertsData = await axiosNoLoading.get('/alerts', {
+      params: params,
+    })
 
     const response = await alertsData.data
     _.map(response, (val) => {
@@ -186,8 +179,10 @@ export const actions = {
         val.isChecked = false
       }
     })
-
-    commit('SET_ALERTS', response)
+    if (response) {
+      commit('SET_ALERTS', response)
+      dispatch('offLoadingTable')
+    }
   },
   async markAsRead({ commit }, payload) {
     const deleteAlert = await axiosNoLoading.post(`/alerts/ack`, {
@@ -198,19 +193,23 @@ export const actions = {
       commit('MARK_AS_READ_DASH', payload)
     }
   },
-  async markAsReadAlertsPage({ commit }, payload) {
+  async markAsReadAlertsPage({ commit, dispatch }, payload) {
+    dispatch('onLoadingTable')
     const deleteAlert = await axiosNoLoading.post(`/alerts/ack`, {
       ids: payload.idList,
     })
     const response = await deleteAlert
     if (response) {
       commit('MARK_AS_READ_ALERTS_PAGE', payload)
+      dispatch('offLoadingTable')
     }
   },
 }
 
 const organizeAlertsByFlag = (flag) => {
-  return _.concat(flag.INFO || [], flag.WARNING || [], flag.CRITICAL || [])
+  if (flag) {
+    return _.concat(flag.INFO || [], flag.WARNING || [], flag.CRITICAL || [])
+  }
 }
 
 const organizeAlertByFirst = (alert) => {

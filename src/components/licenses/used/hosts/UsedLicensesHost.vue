@@ -3,8 +3,11 @@
     getPage="licensesUsedHosts"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
+    v-if="isMounted"
   >
-    <UsedLicensesHostFilters slot="left" />
+    <UsedLicensesHostFilters slot="left">
+      <Loading :isLoading="licensesUsed.hostsLoading" />
+    </UsedLicensesHostFilters>
 
     <FullTable
       slot="center"
@@ -14,7 +17,7 @@
       :tableData="getUsedLicensesByHost"
       @clickedRow="handleClickedRow"
       isClickable
-      :isLoadingTable="loadingTableStatus"
+      :isLoadingTable="licensesUsed.hostsLoading"
     >
       <template slot="headData">
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
@@ -39,14 +42,17 @@
       <template slot="bodyData" slot-scope="rowData">
         <HostLink :hostname="rowData.scope.hostname" />
         <td v-tooltip.bottom="options(rowData.scope.databases)">
-          <a @click.prevent="openModal(rowData.scope)" class="is-block">
+          <a @click.prevent="openModal(rowData.scope)" class="is-block db-link">
             <span v-html="highlight(rowData.scope.databases)" />
           </a>
         </td>
         <TdContent :value="rowData.scope.licenseTypeID" />
         <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.metric" />
-        <TdContent :value="rowData.scope.usedLicenses" />
+        <TdContent
+          :value="rowData.scope.usedLicenses"
+          :class="rowData.scope.clusterLicenses > 0 ? 'line-through' : ''"
+        />
         <TdContent :value="rowData.scope.clusterLicenses" />
       </template>
 
@@ -60,7 +66,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -72,6 +78,7 @@ import UsedLicensesHostModal from '@/components/licenses/used/hosts/UsedLicenses
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import ExportButton from '@/components/common/ExportButton.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [
@@ -87,6 +94,7 @@ export default {
     HostLink,
     UsedLicensesHostFilters,
     ExportButton,
+    Loading,
   },
   props: {
     partNumber: {
@@ -105,7 +113,11 @@ export default {
         'usedLicenses',
         'clusterLicenses',
       ],
+      isMounted: false,
     }
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     openModal(info) {
@@ -125,9 +137,20 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByHost', 'loadingTableStatus']),
+    ...mapState(['licensesUsed']),
+    ...mapGetters(['getUsedLicensesByHost']),
   },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
+
+.db-link {
+  color: $custom-primary;
+
+  &:hover {
+    color: $ercole-blue;
+  }
+}
+</style>

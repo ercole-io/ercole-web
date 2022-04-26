@@ -1,10 +1,10 @@
 import store from '../store/index.js'
 import router from '../router/index.js'
 
-const errorResponseHandler = error => {
-  if (error.config.errorHandle === false) {
-    return Promise.reject(error)
-  }
+const errorResponseHandler = (error) => {
+  // if (error.config.errorHandle === false) {
+
+  // }
 
   if (error.response) {
     store.dispatch('offLoading')
@@ -15,6 +15,8 @@ const errorResponseHandler = error => {
       router.push('/500')
     }
   }
+
+  return Promise.reject(error)
 }
 
 export default errorResponseHandler

@@ -29,15 +29,144 @@ export default {
     return {
       fullData: [],
       filters: {},
+      filteredhostname: [],
+      filtereddatabases: [],
+      filteredmodel: [],
+      filteredos: [],
+      filteredcluster: [],
+      filteredvirtNode: [],
+      filteredkernel: [],
+      filteredenvironment: [],
+      filteredtechType: [],
+      filteredplatform: [],
+      filteredversion: [],
+      filteredname: [],
+      filteredtype: [],
+      filteredcharset: [],
+      filteredservices: [],
+      filteredstatus: [],
+      filtereduniqueName: [],
+      filtereddbname: [],
+      filteredfinding: [],
+      filteredrecommendation: [],
+      filteredaction: [],
+      filteredsegmentOwner: [],
+      filteredsegmentName: [],
+      filteredsegmentType: [],
+      filtereddbver: [],
+      filtereddescription: [],
+      filteredcharsetSystem: [],
+      filteredarchitecture: [],
+      filterededition: [],
+      filteredengine: [],
+      filteredfetchEndpoint: [],
+      filteredsockets: [],
+      filteredvirtualizationNodes: [],
+      filteredvirtualizationNode: [],
+      filteredalertCode: [],
+      filteredcontractID: [],
+      filteredfullPartNumber: [],
+      filteredmetric: [],
+      filteredcsi: [],
+      filteredreferenceNumber: [],
+      filterednumberOfLicenses: [],
+      filtereddbName: [],
+      filteredName: [],
+      filteredFilename: [],
+      filteredArch: [],
+      filteredOperatingSystem: [],
+      filteredOperatingSystemFamily: [],
+      filteredRepository: [],
+      filteredVersion: [],
+      filteredprofile: [],
+      filteredtenancyOCID: [],
+      filtereduserOCID: [],
+      filteredkeyFingerprint: [],
+      filteredregion: [],
+      filteredtenOCID: [],
+      filteredimportance: [],
+      filteredcompartmentName: [],
+      filteredresourceID: [],
+      filteredcategory: [],
+      filteredobjectType: [],
+      filteredsuggestion: [],
+
+      minmemorytotal: null,
+      maxmemorytotal: null,
+      minswaptotal: null,
+      maxswaptotal: null,
+      minthreads: null,
+      maxthreads: null,
+      mincores: null,
+      maxcores: null,
+      minsocket: null,
+      maxsocket: null,
+      minmemory: null,
+      maxmemory: null,
+      minsegmentSize: null,
+      maxsegmentSize: null,
+      mindatafileSize: null,
+      maxdatafileSize: null,
+      minwork: null,
+      maxwork: null,
+      mincpuCount: null,
+      maxcpuCount: null,
+      minblockSize: null,
+      maxblockSize: null,
+      minsegmentsSize: null,
+      maxsegmentsSize: null,
+      minbenefit: null,
+      maxbenefit: null,
+      minreclaimable: null,
+      maxreclaimable: null,
+      minbufferPoolSize: null,
+      maxbufferPoolSize: null,
+      mincpu: null,
+      maxcpu: null,
+      minvmsCount: null,
+      maxvmsCount: null,
+      minvmsErcoleAgentCount: null,
+      maxvmsErcoleAgentCount: null,
+      minlicensesPerCore: null,
+      maxlicensesPerCore: null,
+      minlicensesPerUser: null,
+      maxlicensesPerUser: null,
+      minavailableLicensesPerCore: null,
+      maxavailableLicensesPerCore: null,
+      minavailableLicensesPerUser: null,
+      maxavailableLicensesPerUser: null,
+      minavailable: null,
+      maxavailable: null,
+      minpurchased: null,
+      maxpurchased: null,
+      minconsumed: null,
+      maxconsumed: null,
+      mincovered: null,
+      maxcovered: null,
+      minusedLicenses: null,
+      maxusedLicenses: null,
+      minclusterLicenses: null,
+      maxclusterLicenses: null,
+      mindatabases: null,
+      maxdatabases: null,
+      minhostCount: null,
+      maxhostCount: null,
+      minpending: null,
+      maxpending: null,
+      mincostSaving: null,
+      maxcostSaving: null,
     }
   },
-  created() {
-    bus.$on('onResetAction', () => this.reset(this.resetFilters))
-  },
   beforeMount() {
-    this.setAutocompletes()
-    this.setSelects()
-    this.setSliders()
+    bus.$on('onResetAction', () => this.reset(this.resetFilters))
+    // bus.$on('data', (data) => {
+    //   this.fullData = data
+    // })
+  },
+  mounted() {
+    bus.$on('data', (data) => {
+      this.fullData = data
+    })
   },
   methods: {
     apply() {
@@ -55,9 +184,9 @@ export default {
         showCheckbox: [],
       })
       this.filters = {}
-
       cb()
-
+      this.setAutocompletes()
+      this.setSelects()
       this.setSliders()
     },
 
@@ -100,6 +229,15 @@ export default {
     },
     clearFilteredResult(numbers) {
       return _.without(numbers, undefined, null, '')
+    },
+  },
+  watch: {
+    fullData(data) {
+      if (data) {
+        this.setAutocompletes()
+        this.setSelects()
+        this.setSliders()
+      }
     },
   },
   beforeDestroy() {

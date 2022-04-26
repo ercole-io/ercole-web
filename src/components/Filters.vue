@@ -179,7 +179,7 @@
             @click="applyFilters"
             class="filters-button"
             size="is-small"
-            type="is-primary"
+            type="is-custom-primary"
             :disabled="!disableButtons"
           >
             {{ $t('common.forms.apply') }}
@@ -258,12 +258,12 @@ export default {
       'getClusters',
       'getClusterByName',
       'getAlertsData',
-      'getLicensesList',
+      'getLicensesDatabases',
       'getEngineeredSystems',
       'getMysqlDbs',
       'getComplianceList',
-      'getLicensesPerHost',
-      'getLicensesCluster',
+      'getLicensesHosts',
+      'getLicensesClusters',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS']),
     // getFilteredTags(text) {
@@ -354,9 +354,9 @@ export default {
           )
           break
         case 'licenses-used':
-          this.getLicensesList().then(() => this.offLoadingTable())
-          this.getLicensesPerHost().then(() => this.offLoadingTable())
-          this.getLicensesCluster().then(() => this.offLoadingTable())
+          this.getLicensesDatabases().then(() => this.offLoadingTable())
+          this.getLicensesHosts().then(() => this.offLoadingTable())
+          this.getLicensesClusters().then(() => this.offLoadingTable())
           break
         case 'engineered-systems':
           this.getEngineeredSystems().then(() => this.offLoadingTable())
@@ -391,9 +391,12 @@ export default {
     },
     notShowing() {
       return (
-        this.$route.name !== 'licenses-agreement' &&
+        this.$route.name !== 'licenses-contract' &&
         this.$route.name !== 'dashboard' &&
-        this.$route.name !== 'repository'
+        this.$route.name !== 'repository' &&
+        this.$route.name !== 'cloud-recommendations' &&
+        this.$route.name !== 'profile-configurations' &&
+        this.$route.name !== 'ercole-recommendations'
       )
     },
   },

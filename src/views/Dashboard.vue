@@ -37,40 +37,26 @@ export default {
     DashboardTabs,
     Alerts,
   },
-  data() {
-    return {
-      setInterval: null,
-    }
-  },
-  async beforeMount() {
-    await this.getTechnologiesData() // List of technologies
+  beforeMount() {
+    this.getDashboardData()
+      .then(() => {
+        bus.$emit('loadDashboardComplete')
+      })
+      .then(() => {
+        bus.$emit('loadTechComplete')
+      })
+    this.getTechnologiesData()
 
-    await this.getDashboardData().then(() => {
-      bus.$emit('dashboardLoaded', false)
-    })
-    await this.getAlertsData({ status: 'NEW' }).then(() => {
-      bus.$emit('alertsLoaded', false)
-    })
-
-    this.getHosts() // Pre Load Hosts to cache info and save hostnames on vuex-persisted
-    this.getClusters() // Pre load clusters to save clusternames on vuex-persisted
-
-    this.setInterval = await setInterval(() => {
-      this.getHosts() // Update hosts automatically each 5 minutes
-      this.getClusters() // Update clusters automatically each 5 minutes
-    }, 300000)
+    this.getGlobalFiltersLocations()
+    this.getGlobalFiltersEnvironments()
   },
   methods: {
     ...mapActions([
       'getDashboardData',
-      'getHosts',
-      'getClusters',
       'getTechnologiesData',
-      'getAlertsData',
+      'getGlobalFiltersLocations',
+      'getGlobalFiltersEnvironments',
     ]),
-  },
-  beforeDestroy() {
-    clearInterval(this.setInterval)
   },
 }
 </script>

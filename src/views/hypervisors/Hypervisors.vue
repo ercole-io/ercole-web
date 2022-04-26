@@ -5,7 +5,10 @@
     :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
   >
-    <HypervisorsFilters slot="left" />
+    <HypervisorsFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </HypervisorsFilters>
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.hypervisors')"
@@ -31,7 +34,7 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.fetchEndpoint" />
+        <TdContent :value="rowData.scope.fetchEndpoint" class="first-col" />
         <TdContent :value="rowData.scope.name" />
         <TdContent :value="rowData.scope.type" />
         <TdContent :value="rowData.scope.cpu" />
@@ -50,33 +53,49 @@
     <div slot="right">
       <BoxContent title="Cluster" border>
         <div class="is-flex" style="justify-content: space-around">
-          <p class="is-size-7 has-text-centered">
-            {{ $t('views.hypervisors.with') }} Ercole <br />
-            <span class="is-size-5 has-text-weight-medium">
-              {{ getErcoleClusterCount.withErcole }}
-            </span>
-          </p>
-          <p class="is-size-7 has-text-centered">
-            {{ $t('views.hypervisors.without') }} Ercole <br />
-            <span class="is-size-5 has-text-weight-medium">
-              {{ getErcoleClusterCount.withoutErcole }}
-            </span>
-          </p>
+          <GhostLoading
+            :isLoading="loadingTableStatus"
+            setWidth="62"
+            setHeight="48"
+          >
+            <p class="is-size-7 has-text-centered">
+              {{ $t('views.hypervisors.with') }} Ercole <br />
+              <span class="is-size-5 has-text-weight-medium">
+                {{ getErcoleClusterCount.withErcole }}
+              </span>
+            </p>
+          </GhostLoading>
+          <GhostLoading
+            :isLoading="loadingTableStatus"
+            setWidth="62"
+            setHeight="48"
+          >
+            <p class="is-size-7 has-text-centered">
+              {{ $t('views.hypervisors.without') }} Ercole <br />
+              <span class="is-size-5 has-text-weight-medium">
+                {{ getErcoleClusterCount.withoutErcole }}
+              </span>
+            </p>
+          </GhostLoading>
         </div>
       </BoxContent>
       <BoxContent :title="$t('views.hypervisors.typeVirt')" border>
-        <ColumnChart
-          chartId="columnChart"
-          :columnChartData="getVirtualizationChartData.finalData"
-          :colors="getVirtualizationChartData.colors"
-          stacked
-        />
+        <GhostLoading :isLoading="loadingTableStatus" setHeight="510">
+          <ColumnChart
+            chartId="columnChart"
+            :columnChartData="getVirtualizationChartData.finalData"
+            :colors="getVirtualizationChartData.colors"
+            stacked
+            chartHeight="510px"
+          />
+        </GhostLoading>
       </BoxContent>
     </div>
   </ToggleColumns>
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import techTypePrettyName from '@/mixins/techTypePrettyName.js'
 import { mapActions, mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
@@ -87,6 +106,8 @@ import ExportButton from '@/components/common/ExportButton.vue'
 import ColumnChart from '@/components/common/charts/ColumnChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HypervisorsFilters from '@/components/hypervisors/HypervisorsFilters.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [techTypePrettyName, localFiltersMixin],
@@ -98,6 +119,8 @@ export default {
     ColumnChart,
     TdContent,
     HypervisorsFilters,
+    GhostLoading,
+    Loading,
   },
   data() {
     return {
@@ -114,7 +137,12 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getClusters().then(() => (this.isMounted = true))
+    await this.getClusters().then(() => {
+      bus.$emit('data', this.getHypervisors)
+    })
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getClusters']),

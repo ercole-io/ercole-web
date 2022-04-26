@@ -5,7 +5,10 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <AddmFilters slot="left" />
+    <AddmFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </AddmFilters>
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.addm')"
@@ -29,10 +32,13 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.benefit" class="findingColumn" />
+        <TdContent
+          :value="rowData.scope.benefit"
+          class="first-col findingColumn"
+        />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
         <TdContent :value="rowData.scope.dbname" />
-        <TdContent :value="rowData.scope.finding"/>
+        <TdContent :value="rowData.scope.finding" />
         <TdContent :value="rowData.scope.recommendation" />
         <TdContent :value="rowData.scope.action" class="actionColumn" />
       </template>
@@ -47,6 +53,7 @@
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -55,6 +62,7 @@ import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import AddmFilters from '@/components/databases/oracle/addm/AddmFilters.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -65,6 +73,7 @@ export default {
     TdContent,
     HostLink,
     AddmFilters,
+    Loading,
   },
   data() {
     return {
@@ -79,8 +88,13 @@ export default {
       isMounted: false,
     }
   },
-  async beforeMount() {
-    await this.getAddms().then(() => (this.isMounted = true))
+  async created() {
+    await this.getAddms().then(() => {
+      bus.$emit('data', this.getOracleAddms)
+    })
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getAddms']),
@@ -92,10 +106,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.findingColumn{
+.findingColumn {
   width: 10%;
 }
-.actionColumn{
+.actionColumn {
   width: 50%;
 }
 </style>

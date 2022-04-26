@@ -5,32 +5,47 @@
     :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
   >
-    <ClusterFilters slot="left" />
+    <ClusterFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </ClusterFilters>
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.clusters')"
       :keys="keys"
       :tableData="getCurrentClusterVms"
-      @clickedRow="handleClickedRow"
+      @clickedRow="checkIfErcoleIsInstalled"
       isClickable
       :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
-        <v-th sortKey="virtualizationNode">{{
-          $t('common.collumns.physicalHost')
-        }}</v-th>
+        <v-th sortKey="virtualizationNode">
+          {{ $t('common.collumns.physicalHost') }}
+        </v-th>
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
         <v-th sortKey="name">{{ $t('common.collumns.vmName') }}</v-th>
         <v-th sortKey="cappedCPU">{{ $t('common.collumns.cappedCpu') }}</v-th>
+        <v-th sortKey="isErcoleInstalled"> Ercole Installed? </v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.virtualizationNode" />
-        <HostLink :hostname="rowData.scope.hostname" />
+        <TdContent
+          :value="rowData.scope.virtualizationNode"
+          class="first-col"
+        />
+        <HostLink
+          :hostname="rowData.scope.hostname"
+          v-if="rowData.scope.isErcoleInstalled"
+        />
+        <TdContent :value="rowData.scope.hostname" v-else />
         <TdContent :value="rowData.scope.name" />
         <TdIcon
           :value="rowData.scope.cappedCPU"
-          @click.native="handleClickedRow([rowData.scope])"
+          @click.native="checkIfErcoleIsInstalled([rowData.scope])"
+        />
+        <TdIcon
+          :value="rowData.scope.isErcoleInstalled"
+          @click.native="checkIfErcoleIsInstalled([rowData.scope])"
         />
       </template>
 
@@ -43,41 +58,68 @@
     <div slot="right">
       <BoxContent :title="`Cluster: ${clustername}`" border>
         <div class="is-flex" style="justify-content: space-around">
-          <p class="is-size-7 has-text-centered">
-            {{ $t('views.hypervisors.type') }} <br />
-            <span class="is-size-5 has-text-weight-medium">
-              {{ getTechTypePrettyName(getCurrentCluster.type) || '-' }}
-            </span>
-          </p>
-          <p class="is-size-7 has-text-centered">
-            {{ $t('views.hypervisors.physicalHost') }} <br />
-            <span class="is-size-5 has-text-weight-medium">
-              {{ getCurrentCluster.virtualizationNodesCount || '-' }}
-            </span>
-          </p>
+          <GhostLoading
+            :isLoading="loadingTableStatus"
+            setWidth="62"
+            setHeight="48"
+          >
+            <p class="is-size-7 has-text-centered">
+              {{ $t('views.hypervisors.type') }} <br />
+              <span class="is-size-5 has-text-weight-medium">
+                {{ getTechTypePrettyName(getCurrentCluster.type) || '-' }}
+              </span>
+            </p>
+          </GhostLoading>
+          <GhostLoading
+            :isLoading="loadingTableStatus"
+            setWidth="62"
+            setHeight="48"
+          >
+            <p class="is-size-7 has-text-centered">
+              {{ $t('views.hypervisors.physicalHost') }} <br />
+              <span class="is-size-5 has-text-weight-medium">
+                {{ getCurrentCluster.virtualizationNodesCount || '-' }}
+              </span>
+            </p>
+          </GhostLoading>
         </div>
       </BoxContent>
       <BoxContent>
         <div class="is-flex" style="justify-content: space-around">
-          <p class="is-size-7 has-text-centered">
-            Cores <br />
-            <span class="is-size-5 has-text-weight-medium">
-              {{ getCurrentCluster.cpu || '-' }}
-            </span>
-          </p>
-          <p class="is-size-7 has-text-centered">
-            Sockets <br />
-            <span class="is-size-5 has-text-weight-medium">
-              {{ getCurrentCluster.sockets || '-' }}
-            </span>
-          </p>
+          <GhostLoading
+            :isLoading="loadingTableStatus"
+            setWidth="62"
+            setHeight="48"
+          >
+            <p class="is-size-7 has-text-centered">
+              Cores <br />
+              <span class="is-size-5 has-text-weight-medium">
+                {{ getCurrentCluster.cpu || '-' }}
+              </span>
+            </p>
+          </GhostLoading>
+          <GhostLoading
+            :isLoading="loadingTableStatus"
+            setWidth="62"
+            setHeight="48"
+          >
+            <p class="is-size-7 has-text-centered">
+              Sockets <br />
+              <span class="is-size-5 has-text-weight-medium">
+                {{ getCurrentCluster.sockets || '-' }}
+              </span>
+            </p>
+          </GhostLoading>
         </div>
       </BoxContent>
-      <BarChart
-        chartId="barChart"
-        :barChartData="getClusterChartData"
-        stacked
-      />
+      <GhostLoading :isLoading="loadingTableStatus" setHeight="485">
+        <BarChart
+          chartId="barChart"
+          :barChartData="getClusterChartData"
+          stacked
+          chartHeight="485px"
+        />
+      </GhostLoading>
     </div>
   </ToggleColumns>
 </template>
@@ -97,6 +139,8 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import ClusterFilters from '@/components/hypervisors/ClusterFilters.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [techTypePrettyName, localFiltersMixin, hostnameLinkRow],
@@ -111,22 +155,40 @@ export default {
     HostLink,
     TdIcon,
     ClusterFilters,
+    GhostLoading,
+    Loading,
   },
   data() {
     return {
-      keys: ['virtualizationNode', 'name', 'hostname', 'cappedCPU'],
+      keys: [
+        'virtualizationNode',
+        'name',
+        'hostname',
+        'cappedCPU',
+        'isErcoleInstalled',
+      ],
       isMounted: false,
       chartHeight: 100,
     }
   },
   async beforeMount() {
-    await this.getClusterByName(this.clustername).then(
-      () => (this.isMounted = true)
-    )
+    await this.getClusterByName(this.clustername).then(() => {
+      bus.$emit('data', this.getCurrentClusterVms)
+    })
     bus.$emit('dynamicTitle', this.clustername)
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getClusterByName']),
+    checkIfErcoleIsInstalled(data) {
+      if (data[0] && data[0].isErcoleInstalled) {
+        this.handleClickedRow(data)
+      } else {
+        return null
+      }
+    },
   },
   computed: {
     ...mapGetters([

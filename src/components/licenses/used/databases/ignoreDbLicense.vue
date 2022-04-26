@@ -23,7 +23,11 @@ import { mapActions } from 'vuex'
 export default {
   props: ['db', 'host', 'licenseID', 'description', 'metric', 'status', 'page'],
   methods: {
-    ...mapActions(['ignoreDatabaseLicense', 'getHostByName']),
+    ...mapActions([
+      'ignoreDatabaseLicense',
+      'getHostByName',
+      'getLicensesByHostName',
+    ]),
     ignoreLicense() {
       if (this.status) {
         this.ignoreLicenseDialog('ignoreDbLicense')
@@ -56,6 +60,7 @@ export default {
       }).then(() => {
         if (this.page === 'host-details') {
           this.getHostByName(this.host)
+          this.getLicensesByHostName(this.host)
         }
       })
     },

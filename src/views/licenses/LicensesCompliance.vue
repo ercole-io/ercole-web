@@ -5,7 +5,9 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <LicensesComplianceFilters slot="left" />
+    <LicensesComplianceFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </LicensesComplianceFilters>
 
     <FullTable
       slot="center"
@@ -81,6 +83,7 @@
 
 <script>
 import _ from 'lodash'
+import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -89,6 +92,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import LicensesComplianceFilters from '@/components/licenses/compliance/LicensesComplianceFilters.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [paginationMixin],
@@ -99,6 +103,7 @@ export default {
     TdIcon,
     LicensesComplianceFilters,
     ExportButton,
+    Loading,
   },
   data() {
     return {
@@ -117,18 +122,32 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getComplianceList().then(() => (this.isMounted = true))
+    await this.getComplianceList().then(() => {
+      bus.$emit('data', this.getLicensesCompliance)
+    })
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getComplianceList']),
     handleClickedRow(value) {
-      if (value.length > 0) {
+      if (value.length > 0 && value[0].licenseTypeID) {
         this.$router.push({
           name: 'licenses-used',
           params: {
             partNumber: value[0].licenseTypeID,
           },
         })
+      } else if (value.length > 0 && value[0].licenseTypeID === '') {
+        this.$router.push({
+          name: 'licenses-used',
+          params: {
+            partNumber: 'mysql',
+          },
+        })
+      } else {
+        return
       }
     },
     roundPerc(value) {

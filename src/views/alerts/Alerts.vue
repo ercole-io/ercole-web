@@ -11,7 +11,11 @@
       v-model="isLoading"
       :can-cancel="false"
     />
-    <AlertsFilters slot="left" />
+
+    <AlertsFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" v-if="firstLoad" />
+    </AlertsFilters>
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.alerts')"
@@ -79,6 +83,8 @@
             {{ $t('views.alerts.showAll') }}
           </b-button>
         </div>
+
+        <RefreshButton tooltipMsg="Update Alerts Data" />
       </template>
 
       <template slot="headData">
@@ -90,9 +96,7 @@
             />
           </div>
         </th>
-        <v-th style="width: 10%" sortKey="alertCategory">
-          {{ $t('common.collumns.type') }}
-        </v-th>
+        <v-th style="width: 10%" sortKey="alertCategory"> Type </v-th>
         <v-th style="width: 10%" sortKey="date">
           {{ $t('common.collumns.date') }}
         </v-th>
@@ -143,7 +147,6 @@
 
         <TdContent
           :value="rowData.scope.description"
-          tooltipPlace="left"
           v-if="rowData.scope.description.length < 100"
         />
         <td v-if="rowData.scope.description.length > 100">
@@ -185,6 +188,8 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import AlertsFilters from '@/components/alerts/AlertsFilters.vue'
+import Loading from '@/components/common/Loading.vue'
+import RefreshButton from '@/components/common/RefreshButton.vue'
 
 const checkOrUncheck = (list, status, handleSelectRows) => {
   _.map(list, (val) => {
@@ -205,6 +210,8 @@ export default {
     TdIcon,
     HostLink,
     AlertsFilters,
+    Loading,
+    RefreshButton,
   },
   data() {
     return {
@@ -223,12 +230,17 @@ export default {
       isLoading: false,
       isMounted: false,
       alertStatus: 'NEW',
+      firstLoad: true,
     }
   },
   async beforeMount() {
-    await this.getAlertsData({ status: this.alertStatus }).then(
-      () => (this.isMounted = true)
-    )
+    await this.getAlertsData({ status: this.alertStatus }).then(() => {
+      bus.$emit('data', this.getAlerts)
+      this.firstLoad = false
+    })
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),

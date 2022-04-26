@@ -3,8 +3,11 @@
     getPage="licensesUsedClusters"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
+    v-if="isMounted"
   >
-    <UsedLicensesClustersFilters slot="left" />
+    <UsedLicensesClustersFilters slot="left">
+      <Loading :isLoading="licensesUsed.clustersLoading" />
+    </UsedLicensesClustersFilters>
 
     <FullTable
       slot="center"
@@ -12,7 +15,7 @@
       :urlSearchParam="partNumber"
       :keys="keys"
       :tableData="getUsedLicensesByCluster"
-      :isLoadingTable="loadingTableStatus"
+      :isLoadingTable="licensesUsed.clustersLoading"
     >
       <template slot="headData">
         <v-th sortKey="cluster">
@@ -37,7 +40,10 @@
         <TdContent :value="rowData.scope.cluster" />
         <!-- <TdContent :value="rowData.scope.hostCount" /> -->
         <td v-tooltip.bottom="options(rowData.scope.hostCount)">
-          <a @click.prevent="openModal(rowData.scope)" class="is-block">
+          <a
+            @click.prevent="openModal(rowData.scope)"
+            class="is-block cluster-link"
+          >
             <span v-html="highlight(rowData.scope.hostCount)" />
           </a>
         </td>
@@ -57,7 +63,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -68,6 +74,7 @@ import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import ExportButton from '@/components/common/ExportButton.vue'
 import UsedLicensesClustersModal from '@/components/licenses/used/clusters/UsedLicensesClustersModal.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [
@@ -82,6 +89,7 @@ export default {
     TdContent,
     UsedLicensesClustersFilters,
     ExportButton,
+    Loading,
   },
   props: {
     partNumber: {
@@ -99,7 +107,11 @@ export default {
         'usedLicenses',
         'hostCount',
       ],
+      isMounted: true,
     }
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     openModal(info) {
@@ -117,9 +129,20 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByCluster', 'loadingTableStatus']),
+    ...mapState(['licensesUsed']),
+    ...mapGetters(['getUsedLicensesByCluster']),
   },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
+
+.cluster-link {
+  color: $custom-primary;
+
+  &:hover {
+    color: $ercole-blue;
+  }
+}
+</style>

@@ -1,5 +1,16 @@
 <template>
   <div>
+    <GhostLoading
+      :isLoading="loadingTableStatus"
+      setHeight="36"
+      class="mb-4"
+      v-if="loadingTableStatus"
+    />
+    <GhostLoading
+      :isLoading="loadingTableStatus"
+      setHeight="330"
+      v-if="loadingTableStatus"
+    />
     <BoxContent
       :title="data.hostname"
       border
@@ -14,11 +25,14 @@
       />
 
       <DbServers :data="data.dbServers" />
-
       <IBSwitch :data="data.ibSwitches" />
-
       <Storage :data="data.storageServers" />
     </BoxContent>
+
+    <NoContent
+      style="height: 370px; background-color: #eeeeee"
+      v-if="getEngSys.length === 0 && !loadingTableStatus"
+    />
   </div>
 </template>
 
@@ -29,6 +43,8 @@ import DbServers from '@/components/engineered/DbServersTable.vue'
 import IBSwitch from '@/components/engineered/IBSwitchTable.vue.vue'
 import Storage from '@/components/engineered/StorageTable.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
+import GhostLoading from '@/components/common/GhostLoading.vue'
+import NoContent from '@/components/common/NoContent.vue'
 
 export default {
   components: {
@@ -36,11 +52,13 @@ export default {
     DbServers,
     IBSwitch,
     Storage,
-    ExportButton
+    ExportButton,
+    GhostLoading,
+    NoContent,
   },
   computed: {
-    ...mapGetters(['getEngSys'])
-  }
+    ...mapGetters(['getEngSys', 'loadingTableStatus']),
+  },
 }
 </script>
 

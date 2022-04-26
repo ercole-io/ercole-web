@@ -3,7 +3,7 @@
     :placeholder="$t('menu.repository')"
     :keys="keys"
     :tableData="getRepository"
-    :isLoadingTable="false"
+    :isLoadingTable="loadingTableStatus"
   >
     <template slot="headData">
       <v-th sortKey="Download">Copy Path</v-th>
@@ -33,7 +33,7 @@
       <TdAction
         :fileName="rowData.scope.Filename"
         :link="rowData.scope.Download"
-        :iconSet="['is-link', 'fas', 'download']"
+        :iconSet="['is-custom-primary', 'fas', 'download']"
       />
       <TdContent :value="rowData.scope.Name" />
       <TdContent :value="rowData.scope.Version" />
@@ -79,7 +79,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getRepository']),
+    ...mapGetters(['getRepository', 'loadingTableStatus']),
   },
 }
 </script>

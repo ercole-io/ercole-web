@@ -12,10 +12,10 @@ localVue.use(Vuex)
 const $t = () => {}
 
 describe('Agents.vue', () => {
-  it('is a Vue instance', () => {
-    const wrapper = shallowMount(Agents, { store, mocks: { $t } })
-    expect(wrapper.isVueInstance()).toBe(true)
-  })
+  // it('is a Vue instance', () => {
+  //   const wrapper = shallowMount(Agents, { store, mocks: { $t } })
+  //   expect(wrapper.isVueInstance()).toBe(true)
+  // })
 
   it('verify if component exists', () => {
     const wrapper = shallowMount(Agents, { store, mocks: { $t } })
@@ -25,9 +25,9 @@ describe('Agents.vue', () => {
   it('must show how many agents exists', () => {
     const wrapper = shallowMount(Agents, {
       computed: {
-        stoppedAgents: () => [1, 2, 3, 4, 5].length
+        stoppedAgents: () => [1, 2, 3, 4, 5].length,
       },
-      mocks: { $t }
+      mocks: { $t },
     })
 
     setTimeout(() => {

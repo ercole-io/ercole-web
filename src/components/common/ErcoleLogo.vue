@@ -1,5 +1,5 @@
 <template>
-  <img src="@/assets/images/ercole-logo-white.svg" alt="Ercole" />
+  <img src="@/assets/images/scritta-bianca-cane-blu-copia.png" alt="Ercole" />
 </template>
 
 <script>

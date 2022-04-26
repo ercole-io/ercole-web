@@ -5,7 +5,7 @@
         <div class="image">
           <GhostLoading :isLoading="loading" setHeight="40" setWidth="40">
             <img
-              src="@/assets/images/ercole-logo-no-text.png"
+              src="@/assets/images/Cerchio-blu-cane-blu.png"
               v-if="!loading"
             />
           </GhostLoading>
@@ -109,8 +109,8 @@ export default {
     }
   },
   beforeMount() {
-    bus.$on('dashboardLoaded', (val) => {
-      this.loading = val
+    bus.$on('loadTechComplete', () => {
+      this.loading = false
     })
   },
   computed: {

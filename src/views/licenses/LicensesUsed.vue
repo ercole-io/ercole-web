@@ -4,7 +4,7 @@
       size="is-small"
       type="is-boxed"
       class="block"
-      destroy-on-hide
+      v-model="activeTab"
       @input="onTabChange"
     >
       <b-tab-item label="Databases">
@@ -39,24 +39,26 @@ export default {
       required: false,
     },
   },
+  data() {
+    return {
+      activeTab: 0,
+    }
+  },
   async beforeMount() {
-    this.onLoadingTable()
-    await this.getLicensesList().then(() => this.offLoadingTable())
-    this.onLoadingTable()
-    await this.getLicensesPerHost().then(() => this.offLoadingTable())
-    this.onLoadingTable()
-    await this.getLicensesCluster().then(() => this.offLoadingTable())
+    await this.getLicensesDatabases()
+    await this.getLicensesHosts()
+    await this.getLicensesClusters()
+
+    this.onTabChange(this.activeTab)
   },
   methods: {
     ...mapActions([
-      'getLicensesList',
-      'getLicensesPerHost',
-      'getLicensesCluster',
-      'onLoadingTable',
-      'offLoadingTable',
+      'getLicensesDatabases',
+      'getLicensesClusters',
+      'getLicensesHosts',
     ]),
-    onTabChange() {
-      bus.$emit('onUsedTabChange')
+    onTabChange(value) {
+      bus.$emit('onUsedTabChange', value)
     },
   },
 }

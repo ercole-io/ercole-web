@@ -4,7 +4,9 @@
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
   >
-    <UsedLicensesDbsFilters slot="left" />
+    <UsedLicensesDbsFilters slot="left">
+      <Loading :isLoading="licensesUsed.databasesLoading" />
+    </UsedLicensesDbsFilters>
 
     <FullTable
       slot="center"
@@ -14,10 +16,10 @@
       :tableData="getUsedLicensesByDbs"
       @clickedRow="handleClickedRow"
       isClickable
-      :isLoadingTable="loadingTableStatus"
+      :isLoadingTable="licensesUsed.databasesLoading"
     >
       <template slot="headData">
-        <v-th sortKey="ignore" class="has-text-centered">Ignore License</v-th>
+        <v-th sortKey="ignored" class="has-text-centered">Ignore License</v-th>
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
         <v-th sortKey="dbName">{{ $t('common.collumns.name') }}</v-th>
         <v-th sortKey="licenseTypeID">
@@ -50,7 +52,10 @@
         <TdContent :value="rowData.scope.licenseTypeID" />
         <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.metric" />
-        <TdContent :value="rowData.scope.usedLicenses" />
+        <TdContent
+          :value="rowData.scope.usedLicenses"
+          :class="rowData.scope.clusterLicenses > 0 ? 'line-through' : ''"
+        />
         <TdContent :value="rowData.scope.clusterLicenses" />
       </template>
 
@@ -64,7 +69,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -74,6 +79,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import UsedLicensesDbsFilters from '@/components/licenses/used/databases/UsedLicensesDbsFilters.vue'
 import ignoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [paginationMixin, hostnameLinkRow],
@@ -91,6 +97,7 @@ export default {
     HostLink,
     UsedLicensesDbsFilters,
     ignoreDbLicense,
+    Loading,
   },
   data() {
     return {
@@ -102,12 +109,13 @@ export default {
         'description',
         'metric',
         'clusterLicenses',
-        'ignore',
+        'ignored',
       ],
     }
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByDbs', 'loadingTableStatus']),
+    ...mapState(['licensesUsed']),
+    ...mapGetters(['getUsedLicensesByDbs']),
   },
 }
 </script>

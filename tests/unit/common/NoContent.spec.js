@@ -4,10 +4,10 @@ import NoContent from '@/components/common/NoContent.vue'
 describe('NoContent.vue', () => {
   let wrapper
 
-  it('is a Vue instance', () => {
-    wrapper = mount(NoContent)
-    expect(wrapper.isVueInstance()).toBe(true)
-  })
+  // it('is a Vue instance', () => {
+  //   wrapper = mount(NoContent)
+  //   expect(wrapper.isVueInstance()).toBe(true)
+  // })
 
   it('verify if component exists', () => {
     wrapper = mount(NoContent)
@@ -17,8 +17,8 @@ describe('NoContent.vue', () => {
   it('will show no content text when passed', () => {
     wrapper = mount(NoContent, {
       propsData: {
-        noContentText: 'Test no content text'
-      }
+        noContentText: 'Test no content text',
+      },
     })
 
     expect(wrapper.find('.no-content').text()).toBe('Test no content text')

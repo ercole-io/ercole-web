@@ -12,17 +12,19 @@ import ErcoleLogo from '@/components/common/ErcoleLogo.vue'
 
 export default {
   components: {
-    ErcoleLogo
-  }
+    ErcoleLogo,
+  },
 }
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/_variables';
+
 .error-header {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #363636;
+  background-color: $ercole-blue;
   height: 200px;
   padding: 30px;
 

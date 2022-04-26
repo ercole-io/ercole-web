@@ -3,8 +3,12 @@
     getPage="databasesMysql"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
+    v-if="isMounted"
   >
-    <MySqlFilters slot="left" />
+    <MySqlFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </MySqlFilters>
+
     <FullTable
       slot="center"
       :placeholder="$t('menu.mysql')"
@@ -35,7 +39,7 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.name" />
+        <TdContent :value="rowData.scope.name" class="first-col" />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
         <TdContent :value="rowData.scope.environment" />
         <TdContent :value="rowData.scope.charsetSystem" />
@@ -70,6 +74,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import MySqlFilters from '@/components/databases/mysql/MySqlFilters.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [hostnameLinkRow],
@@ -81,6 +86,7 @@ export default {
     TdIcon,
     HostLink,
     MySqlFilters,
+    Loading,
   },
   data() {
     return {
@@ -97,7 +103,11 @@ export default {
         'version',
         'highAvailability',
       ],
+      isMounted: false,
     }
+  },
+  mounted() {
+    this.isMounted = true
   },
   computed: {
     ...mapGetters(['getAllMysqlDbs', 'loadingTableStatus']),

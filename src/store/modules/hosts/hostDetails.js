@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import moment from 'moment'
-import axiosDefault from '@/axios/axios-default'
+// import axiosDefault from '@/axios/axios-default'
+import axiosNoLoading from '@/axios/axios-no-loading.js'
 import {
   mapClustStatus,
   returnAlertsByTypeDate,
@@ -218,18 +219,15 @@ export const getters = {
     const databases = state.currentHost.features
 
     if (databases) {
-      if (databases.oracle && databases.oracle.database.databases) {
+      if (databases.oracle) {
         return 'oracle'
-      } else if (databases.mysql && databases.mysql.instances) {
+      } else if (databases.mysql) {
         return 'mysql'
-      } else if (
-        databases.microsoft &&
-        databases.microsoft.sqlServer.instances
-      ) {
+      } else if (databases.microsoft) {
         return 'microsoft'
+      } else {
+        return null
       }
-    } else {
-      return null
     }
   },
   currentHostActiveDB: (state) => {
@@ -252,17 +250,19 @@ export const getters = {
         }
       } else if (databases.mysql) {
         if (databases.mysql.instances) {
-          return databases.mysql.instances
+          return mapMySqlDatabase(databases.mysql.instances)
         } else {
           return []
         }
       } else if (databases.microsoft) {
         if (databases.microsoft.sqlServer.instances) {
-          return databases.microsoft.sqlServer.instances
+          return mapMicrosoftDatabase(databases.microsoft.sqlServer.instances)
         } else {
           return []
         }
       }
+    } else {
+      return null
     }
   },
   currentHostDBsInfo: (state, getters) => {
@@ -376,10 +376,9 @@ export const mutations = {
 }
 
 export const actions = {
-  async getHostByName({ commit, getters, dispatch }, hostname) {
-    dispatch('getLicensesByHostName', hostname)
-
-    const hostByName = await axiosDefault.get(`/hosts/${hostname}`, {
+  async getHostByName({ commit, dispatch, getters }, hostname) {
+    dispatch('onLoadingTable')
+    const hostByName = await axiosNoLoading.get(`/hosts/${hostname}`, {
       params: {
         'older-than': getters.getActiveFilters.date,
       },
@@ -387,9 +386,12 @@ export const actions = {
 
     const response = await hostByName.data
     commit('SET_CURRENT_HOST', response)
+    if (response) {
+      dispatch('offLoadingTable')
+    }
   },
   async getLicensesByHostName({ commit }, hostname) {
-    const dbsLicenses = await axiosDefault.get(
+    const dbsLicenses = await axiosNoLoading.get(
       `/hosts/${hostname}/technologies/all/databases/licenses-used`
     )
     const dbsLicensesResponse = await dbsLicenses.data.usedLicenses
@@ -397,6 +399,7 @@ export const actions = {
   },
 }
 
+// Oracle Chart
 const mountTotalDailyUsage = (data, rangeDates) => {
   const totalDailyData = []
   let resultTotalDaily = {}
@@ -478,6 +481,7 @@ const mountCpuUsageChart = (history, selected, dbs, rangeDates) => {
   return finalResult
 }
 
+// Oracle Databases
 const mapOracleDatabase = (data) => {
   const newData = []
   _.map(data, (item) => {
@@ -524,6 +528,7 @@ const mapOracleDatabase = (data) => {
 
 const resolvePdbs = (pdbs) => {
   let filteredPdbs = []
+
   _.filter(pdbs, (val) => {
     if (val) {
       filteredPdbs.push({
@@ -575,4 +580,59 @@ const genericResolve = (data) => {
     })
   })
   return filteredData
+}
+
+// MySql Database
+const mapMySqlDatabase = (data) => {
+  const newData = []
+  _.map(data, (item) => {
+    newData.push({
+      name: item.name,
+      platform: item.platform,
+      edition: item.edition,
+      engine: item.engine,
+      architecture: item.architecture,
+      sortBufferSize: item.sortBufferSize,
+      logBufferSize: item.logBufferSize,
+      bufferPoolSize: item.bufferPoolSize,
+      readOnly: item.readOnly,
+      redoLogEnabled: item.redoLogEnabled,
+      threadsConcurrency: item.threadsConcurrency,
+      charsetServer: item.charsetServer,
+      charsetSystem: item.charsetSystem,
+      pageSize: item.pageSize,
+      version: item.version,
+      databases: [...item.databases],
+      segmentAdvisors: [...item.segmentAdvisors],
+      tableSchemas: [...item.tableSchemas],
+    })
+  })
+  return newData
+}
+
+// Microsoft Databases
+const mapMicrosoftDatabase = (data) => {
+  const newData = []
+  _.map(data, (item) => {
+    newData.push({
+      name: item.name,
+      info: {
+        name: item.name,
+        collationName: item.collationName,
+        databaseID: item.databaseID,
+        displayName: item.displayName,
+        edition: item.edition,
+        editionType: item.editionType,
+        licensingInfo: item.licensingInfo,
+        platform: item.platform,
+        productCode: item.productCode,
+        serverName: item.serverName,
+        status: item.status,
+        version: item.version,
+        stateDesc: item.stateDesc,
+      },
+      databases: [...item.databases],
+    })
+  })
+  return newData
 }

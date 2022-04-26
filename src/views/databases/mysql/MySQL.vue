@@ -1,26 +1,28 @@
 <template>
-  <MySqlDbs v-if="isMounted" />
+  <MySqlDbs />
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { bus } from '@/helpers/eventBus.js'
+import { mapActions, mapGetters } from 'vuex'
 import MySqlDbs from '@/components/databases/mysql/MySqlDbs.vue'
 
 export default {
   components: {
-    MySqlDbs
-  },
-  data() {
-    return {
-      isMounted: false
-    }
+    MySqlDbs,
   },
   async beforeMount() {
-    await this.getMysqlDbs().then(() => (this.isMounted = true))
+    await this.getMysqlDbs().then(() => {
+      bus.$emit('data', this.getAllMysqlDbs)
+    })
   },
+
   methods: {
-    ...mapActions(['getMysqlDbs'])
-  }
+    ...mapActions(['getMysqlDbs']),
+  },
+  computed: {
+    ...mapGetters(['getAllMysqlDbs']),
+  },
 }
 </script>
 

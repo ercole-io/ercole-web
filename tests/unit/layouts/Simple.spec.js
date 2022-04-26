@@ -11,9 +11,9 @@ afterEach(() => {
 })
 
 describe('Layout - Simple.vue', () => {
-  it('is a Vue instance', () => {
-    expect(wrapper.isVueInstance()).toBe(true)
-  })
+  // it('is a Vue instance', () => {
+  //   expect(wrapper.isVueInstance()).toBe(true)
+  // })
 
   it('verify if component exists', () => {
     expect(wrapper.exists()).toBe(true)

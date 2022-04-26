@@ -28,8 +28,9 @@
       <footer class="card-footer">
         <b-button
           @click="inspectAgents"
-          type="is-small"
-          class="is-radiusless has-background-primary has-text-white-bis has-text-weight-bold"
+          type="is-ercole-blue"
+          size="is-small"
+          class="is-radiusless has-text-weight-bold"
           expanded
           data-inspect
         >
@@ -55,8 +56,8 @@ export default {
     }
   },
   beforeMount() {
-    bus.$on('alertsLoaded', (val) => {
-      this.loading = val
+    bus.$on('loadAlertsComplete', () => {
+      this.loading = false
     })
   },
   methods: {

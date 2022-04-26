@@ -45,8 +45,8 @@ const MySQL = lazy(() =>
 const Middleware = lazy(() =>
   import(/* webpackPreload: true */ '@/views/middleware/Middleware.vue')
 )
-const LicensesAgreement = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/licenses/LicensesAgreement.vue')
+const LicensesContracts = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/licenses/LicensesContracts.vue')
 )
 const LicensesCompliance = lazy(() =>
   import(/* webpackPreload: true */ '@/views/licenses/LicensesCompliance.vue')
@@ -80,6 +80,18 @@ const Unauthorized = lazy(() =>
 )
 const NotFound = lazy(() =>
   import(/* webpackPreload: true */ '@/views/Errors/NotFound.vue')
+)
+const GeneralError = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/Errors/GeneralError.vue')
+)
+// const CloudRecommendations = lazy(() =>
+//   import(/* webpackPreload: true */ '@/views/cloud/Recommendations.vue')
+// )
+const ProfileConfigurations = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/cloud/ProfileConfigurations.vue')
+)
+const ErcoleRecommendations = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/cloud/ErcoleRecommendations.vue')
 )
 
 Vue.use(VueRouter)
@@ -265,9 +277,9 @@ const routes = [
     beforeEnter: verifyAuth,
   },
   {
-    path: '/licenses/agreement',
-    name: 'licenses-agreement',
-    component: LicensesAgreement,
+    path: '/licenses/contract',
+    name: 'licenses-contract',
+    component: LicensesContracts,
     meta: {
       label: i18n.t('menu.licAgreements'),
       title: `${title}${i18n.t('menu.licAgreements')}`,
@@ -352,6 +364,36 @@ const routes = [
     },
     beforeEnter: verifyAuth,
   },
+  // {
+  //   path: '/cloud-recommendations',
+  //   name: 'cloud-recommendations',
+  //   component: CloudRecommendations,
+  //   meta: {
+  //     label: i18n.t('menu.recommendations'),
+  //     title: `${title}${i18n.t('menu.recommendations')}`,
+  //     breadcrumb: [{ name: i18n.t('menu.recommendations') }],
+  //   },
+  // },
+  {
+    path: '/profile-configurations',
+    name: 'profile-configurations',
+    component: ProfileConfigurations,
+    meta: {
+      label: i18n.t('menu.profileConfig'),
+      title: `${title}${i18n.t('menu.profileConfig')}`,
+      breadcrumb: [{ name: i18n.t('menu.profileConfig') }],
+    },
+  },
+  {
+    path: '/recommendations',
+    name: 'recommendations',
+    component: ErcoleRecommendations,
+    meta: {
+      label: i18n.t('menu.recommendations'),
+      title: `${title}${i18n.t('menu.recommendations')}`,
+      breadcrumb: [{ name: i18n.t('menu.recommendations') }],
+    },
+  },
   {
     path: '/repository',
     name: 'repository',
@@ -398,6 +440,15 @@ const routes = [
     component: NotFound,
     meta: {
       title: `${title}404 Page Not Found`,
+      layout: 'error',
+    },
+  },
+  {
+    path: '/error',
+    name: 'error',
+    component: GeneralError,
+    meta: {
+      title: `Error`,
       layout: 'error',
     },
   },

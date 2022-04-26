@@ -1,64 +1,79 @@
 <template>
-  <b-collapse
-    class="card collapse-card"
-    animation="fade"
-    :aria-id="id"
-    :open="isOpen"
-  >
-    <div
-      slot="trigger"
-      slot-scope="props"
-      class="card-header collapse-header"
-      :class="{ 'extra-margin': margin }"
-      role="button"
-      :aria-controls="id"
+  <div>
+    <b-collapse
+      class="card collapse-card"
+      animation="slide"
+      v-for="(collapse, index) of collapses"
+      :aria-id="'collapse-' + index"
+      :key="index"
+      :open="status == index"
+      @open="status = index"
     >
-      <p class="card-header-title collapse-title">
-        {{ title }}
-      </p>
-      <a class="card-header-icon collapse-icon">
-        <b-icon :icon="props.open ? 'menu-up' : 'menu-down'"></b-icon>
-      </a>
-    </div>
-    <div
-      class="card-content collapse-content"
-      :class="{ 'extra-padding': padding }"
-    >
-      <div class="content">
-        <slot />
+      <template #trigger="props">
+        <div
+          class="card-header collapse-header"
+          role="button"
+          :aria-controls="'contentIdForA11y5-' + index"
+          :aria-expanded="props.open"
+        >
+          <p class="card-header-title collapse-title">
+            {{ collapse }}
+          </p>
+          <a class="card-header-icon collapse-icon">
+            <b-icon :icon="props.open ? 'menu-up' : 'menu-down'"></b-icon>
+          </a>
+        </div>
+      </template>
+      <div
+        class="card-content collapse-content"
+        :class="{ 'extra-padding': padding }"
+      >
+        <div class="content">
+          <slot :name="collapse" />
+        </div>
       </div>
-    </div>
-  </b-collapse>
+    </b-collapse>
+  </div>
 </template>
 
 <script>
 export default {
   props: {
     title: {
-      type: String
+      type: String,
     },
     id: {
-      type: String
+      type: String,
     },
     isOpen: {
       type: Boolean,
-      default: false
+      default: false,
     },
     padding: {
       type: Boolean,
-      default: false
+      default: false,
     },
     margin: {
       type: Boolean,
-      default: false
+      default: false,
+    },
+    collapses: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  data() {
+    return {
+      status: this.isOpen,
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .collapse-card {
   box-shadow: none;
+  margin-bottom: 15px;
 }
 
 .collapse-header {
@@ -79,7 +94,7 @@ export default {
   padding: 0;
 
   .content {
-    padding: 5px;
+    padding: 25px;
   }
 }
 

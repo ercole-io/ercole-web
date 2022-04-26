@@ -4,6 +4,7 @@
       <div class="column is-8">
         <Notifications />
       </div>
+
       <div class="column is-4">
         <div class="buttons is-justify-content-flex-end">
           <FileSystems />
@@ -12,36 +13,9 @@
       </div>
     </div>
 
-    <!-- <HostTags /> -->
-
     <DetailsInfo />
 
-    <div class="columns" v-if="currentHostType">
-      <div
-        class="column"
-        :class="{
-          'is-8': currentHostType === 'oracle',
-          'is-12': currentHostType === 'mysql',
-        }"
-      >
-        <Databases
-          v-if="
-            currentHostDBs.length > 0 &&
-            (currentHostType === 'oracle' || currentHostType === 'mysql')
-          "
-        />
-      </div>
-      <div class="column is-4">
-        <ChartCpu
-          v-show="
-            currentHostDBs.length > 0 &&
-            currentHostType === 'oracle' &&
-            !showDbFilters
-          "
-        />
-        <DatabasesFilters v-show="showDbFilters" />
-      </div>
-    </div>
+    <DatabasesMain />
   </section>
 </template>
 
@@ -51,11 +25,8 @@ import { mapActions, mapGetters, mapMutations } from 'vuex'
 import Notifications from '@/components/hosts/hostDetails/Notifications.vue'
 import FileSystems from '@/components/hosts/hostDetails/FileSystems.vue'
 import DismissHost from '@/components/hosts/hostDetails/DismissHost.vue'
-// import HostTags from '@/components/hosts/hostDetails/HostTags.vue'
 import DetailsInfo from '@/components/hosts/hostDetails/DetailsInfo.vue'
-import Databases from '@/components/hosts/hostDetails/databases/Databases.vue'
-import ChartCpu from '@/components/hosts/hostDetails/ChartCpu.vue'
-import DatabasesFilters from '@/components/hosts/hostDetails/databases/DatabasesFilters.vue'
+import DatabasesMain from '@/components/hosts/hostDetails/DatabasesMain.vue'
 
 export default {
   props: {
@@ -74,38 +45,31 @@ export default {
     Notifications,
     FileSystems,
     DismissHost,
-    // HostTags,
     DetailsInfo,
-    Databases,
-    ChartCpu,
-    DatabasesFilters,
+    DatabasesMain,
   },
   data() {
     return {
       isMounted: false,
-      showDbFilters: false,
     }
   },
-  async beforeMount() {
-    await this.getHostByName(this.hostname)
-      .then(() => {
-        this.SET_ACTIVE_DB(this.dbname)
-      })
-      .then(() => {
-        this.isMounted = true
-      })
+  beforeMount() {
+    this.getHostByName(this.hostname)
+    this.getLicensesByHostName(this.hostname)
+
+    this.SET_ACTIVE_DB(this.dbname)
 
     bus.$emit('dynamicTitle', this.hostname)
-    bus.$on('isDbFiltersOpen', (val) => {
-      this.showDbFilters = val
-    })
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapActions(['getHostByName', 'getLicensesByHostName']),
     ...mapMutations(['SET_ACTIVE_DB']),
   },
   computed: {
-    ...mapGetters(['currentHostType', 'currentHostDBs']),
+    ...mapGetters(['currentHostType']),
   },
 }
 </script>

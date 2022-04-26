@@ -3,11 +3,11 @@
     getPage="databasesOracle"
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('common.general.sideInfo')"
+    v-if="isMounted"
   >
-    <div slot="left">
-      <MoreInfoButtons :buttonItems="oraclesMoreInfo" />
-      <OracleFilters />
-    </div>
+    <OracleFilters slot="left">
+      <Loading :isLoading="loadingTableStatus" />
+    </OracleFilters>
 
     <FullTable
       slot="center"
@@ -18,6 +18,8 @@
       isClickable
       :isLoadingTable="loadingTableStatus"
     >
+      <MoreInfoButtons :buttonItems="oraclesMoreInfo" slot="customTopHeader" />
+
       <DynamicHeading
         slot="headData"
         v-for="head in oracleHead"
@@ -26,7 +28,7 @@
       />
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.name" />
+        <TdContent :value="rowData.scope.name" class="first-col" />
         <TdContent :value="rowData.scope.uniqueName" />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
         <TdIcon
@@ -45,11 +47,11 @@
           @click.native="handleClickedRow([rowData.scope])"
         />
         <TdContent
-          :value="rowData.scope.datafileSize | formatNumber('0.00')"
+          :value="rowData.scope.datafileSize | formatNumber('0.00', '')"
           :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
         />
         <TdContent
-          :value="rowData.scope.segmentsSize | formatNumber('0.00')"
+          :value="rowData.scope.segmentsSize | formatNumber('0.00', '')"
           :class="{ 'is-hidden': moreInfoToggle.hiddenSpaceUsed }"
         />
         <TdContent
@@ -70,11 +72,11 @@
           :value="rowData.scope.services"
           @click.native="handleClickedRow([rowData.scope])"
         />
-        <TdContent :value="rowData.scope.work | formatNumber('0')" />
+        <TdContent :value="rowData.scope.work | formatNumber('0', '')" />
         <TdContent :value="rowData.scope.cpuCount" />
         <TdContent :value="rowData.scope.blockSize" />
         <TdContent :value="rowData.scope.status" />
-        <TdContent :value="rowData.scope.memory | formatNumber('0.00')" />
+        <TdContent :value="rowData.scope.memory | formatNumber('0.00', '')" />
         <TdContent :value="rowData.scope.environment" />
       </template>
 
@@ -100,9 +102,12 @@
         <OracleStorage slot="storage" />
       </BaseLayoutColumns>
 
-      <Top3Workload slot="workload" />
-      <Top3Reclaimable slot="reclaimable" />
       <OracleCharts slot="charts" />
+    </div>
+
+    <div class="columns" slot="bottom">
+      <Top3Workload slot="workload" class="column is-6" />
+      <Top3Reclaimable slot="reclaimable" class="column is-6" />
     </div>
   </ToggleColumns>
 </template>
@@ -130,6 +135,7 @@ import OracleCharts from '@/components/databases/oracle/OracleCharts.vue'
 import OracleCpu from '@/components/databases/oracle/OracleCpu.vue'
 import OracleMemory from '@/components/databases/oracle/OracleMemory.vue'
 import OracleStorage from '@/components/databases/oracle/OracleStorage.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [hostnameLinkRow, getHeadKeys],
@@ -151,12 +157,17 @@ export default {
     OracleCpu,
     OracleMemory,
     OracleStorage,
+    Loading,
   },
   data() {
     return {
       oraclesMoreInfo: oraclesMoreInfo,
       oracleHead: oracleHead,
+      isMounted: false,
     }
+  },
+  mounted() {
+    this.isMounted = true
   },
   computed: {
     ...mapGetters(['getAllOracleDBs', 'loadingTableStatus']),
