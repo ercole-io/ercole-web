@@ -4,10 +4,10 @@ export default {
   methods: {
     getHeadKeys(heads) {
       const keys = []
-      _.map(heads, val => {
+      _.map(heads, (val) => {
         keys.push(val.sort)
       })
       return keys
-    }
-  }
+    },
+  },
 }

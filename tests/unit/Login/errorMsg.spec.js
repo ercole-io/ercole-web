@@ -5,8 +5,8 @@ describe('errorMsg.vue', () => {
   it('will display an error message when passed', () => {
     const wrapper = mount(ErrorMsg, {
       computed: {
-        getErrMsg: () => 'Error Message'
-      }
+        getErrMsg: () => 'Error Message',
+      },
     })
 
     expect(wrapper.find('[data-errormsg]').text()).toBe('Error Message')

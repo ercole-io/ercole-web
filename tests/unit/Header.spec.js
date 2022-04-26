@@ -23,10 +23,10 @@ const store = new Vuex.Store({
 const $t = () => {}
 
 describe('Header.vue', () => {
-  // it('is a Vue instance', () => {
-  //   const wrapper = shallowMount(Header, { mocks: { $t } })
-  //   expect(wrapper.isVueInstance()).toBe(true)
-  // })
+  it('is a Vue instance', () => {
+    const wrapper = shallowMount(Header, { mocks: { $t } })
+    expect(wrapper.isVueInstance()).toBe(true)
+  })
 
   it('verify if component exists', () => {
     const wrapper = shallowMount(Header, { mocks: { $t } })

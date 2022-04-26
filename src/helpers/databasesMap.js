@@ -5,25 +5,25 @@ export const mapDatabases = (dbs, query) => {
     switch (query) {
       case 'databases':
         if (dbs.mysql && dbs.mysql.instances.length > 0) {
-          return _.slice(_.map(dbs.mysql.instances, dbName => dbName.name))
+          return _.slice(_.map(dbs.mysql.instances, (dbName) => dbName.name))
         } else if (
           dbs.microsoft &&
           dbs.microsoft.sqlServer.instances.length > 0
         ) {
           return _.slice(
-            _.map(dbs.microsoft.sqlServer.instances, dbName => dbName.name)
+            _.map(dbs.microsoft.sqlServer.instances, (dbName) => dbName.name)
           )
         } else if (dbs.oracle) {
           if (dbs.oracle.database && dbs.oracle.database.databases.length > 0) {
             return _.slice(
-              _.map(dbs.oracle.database.databases, dbName => dbName.name)
+              _.map(dbs.oracle.database.databases, (dbName) => dbName.name)
             )
           } else if (
             dbs.oracle.exadata &&
             dbs.oracle.exadata.components.length > 0
           ) {
             return _.slice(
-              _.map(dbs.oracle.exadata.components, dbName => dbName.hostname)
+              _.map(dbs.oracle.exadata.components, (dbName) => dbName.hostname)
             )
           } else {
             return '-'

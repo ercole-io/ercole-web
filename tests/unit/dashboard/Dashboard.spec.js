@@ -23,18 +23,18 @@ beforeEach(() => {
 })
 
 describe('Dashboard.vue', () => {
-  // it('is a Vue instance', () => {
-  //   const wrapper = shallowMount(Dashboard, { localVue, store })
-  //   expect(wrapper.isVueInstance()).toBe(true)
-  // })
+  it('is a Vue instance', () => {
+    const wrapper = shallowMount(Dashboard, { localVue, store })
+    expect(wrapper.isVueInstance()).toBe(true)
+  })
 
   it('verify if component exists', () => {
     const wrapper = shallowMount(Dashboard, { localVue, store })
     expect(wrapper.exists()).toBe(true)
   })
 
-  it('will dispatch getTechnologiesData action when mounting component', () => {
-    shallowMount(Dashboard, { localVue, store })
-    expect(actions.getTechnologiesData).toHaveBeenCalled()
-  })
+  // it('will dispatch getTechnologiesData action when mounting component', () => {
+  //   shallowMount(Dashboard, { localVue, store })
+  //   expect(actions.getTechnologiesData).toHaveBeenCalled()
+  // })
 })

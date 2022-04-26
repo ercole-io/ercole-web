@@ -28,21 +28,21 @@ export default {
   props: {
     routeName: {
       type: String,
-      required: true
+      required: true,
     },
     current: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
-    CustomAutocomplete
+    CustomAutocomplete,
   },
   data() {
     return {
       searchValue: '',
       data: [],
-      toggleAutocomplete: false
+      toggleAutocomplete: false,
     }
   },
   methods: {
@@ -51,33 +51,33 @@ export default {
         if (this.routeName === 'hosts-details') {
           this.$router.push({
             name: 'hosts-details',
-            params: { hostname: this.searchValue }
+            params: { hostname: this.searchValue },
           })
         } else if (this.routeName === 'cluster-details') {
           this.$router.push({
             name: 'cluster-details',
-            params: { clustername: this.searchValue }
+            params: { clustername: this.searchValue },
           })
         }
 
         this.toggleAutocomplete = false
         this.searchValue = ''
       }, 100)
-    }
+    },
   },
   computed: {
     ...mapGetters(['getHostnames', 'getClusternames']),
     originalData() {
       let data = null
       if (this.routeName === 'hosts-details') {
-        data = _.filter(this.getHostnames, val => val !== this.current)
+        data = _.filter(this.getHostnames, (val) => val !== this.current)
       } else if (this.routeName === 'cluster-details') {
-        data = _.filter(this.getClusternames, val => val !== this.current)
+        data = _.filter(this.getClusternames, (val) => val !== this.current)
       }
       return data
     },
     setData() {
-      return this.originalData.filter(option => {
+      return this.originalData.filter((option) => {
         return (
           option
             .toString()
@@ -85,7 +85,7 @@ export default {
             .indexOf(this.searchValue.toLowerCase()) >= 0
         )
       })
-    }
+    },
   },
   watch: {
     toggleAutocomplete(value) {
@@ -94,8 +94,8 @@ export default {
           this.$refs.fastSwitchRef.$children[0].focus()
         }, 0)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

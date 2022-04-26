@@ -8,8 +8,8 @@ describe('Ercole Logo', () => {
         title: 'Title Test',
         border: true,
         mbottom: false,
-        bgcolor: '#000000'
-      }
+        bgcolor: '#000000',
+      },
     })
     expect(wrapper).toMatchSnapshot()
   })

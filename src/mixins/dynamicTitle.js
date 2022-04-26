@@ -3,22 +3,22 @@ import { bus } from '../helpers/eventBus.js'
 export default {
   data() {
     return {
-      title: ''
+      title: '',
     }
   },
   created() {
-    bus.$on('dynamicTitle', value => {
+    bus.$on('dynamicTitle', (value) => {
       this.title = value
     })
   },
   computed: {
     dynamicTitle() {
       return this.title
-    }
+    },
   },
   watch: {
     $route() {
       this.title = ''
-    }
-  }
+    },
+  },
 }

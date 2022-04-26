@@ -29,20 +29,20 @@ export default {
   props: {
     elemScroll: {
       type: String,
-      default: null
+      default: null,
     },
     height: {
       type: String,
-      default: null
+      default: null,
     },
     speed: {
       type: Number,
-      default: 50
-    }
+      default: 50,
+    },
   },
   data() {
     return {
-      isVisible: null
+      isVisible: null,
     }
   },
   beforeMount() {
@@ -75,8 +75,8 @@ export default {
       if (element) {
         this.isVisible = element.scrollWidth > element.clientWidth
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

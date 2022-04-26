@@ -13,8 +13,8 @@ export default {
   methods: {
     formatArrayToShow(val) {
       return val.toString().replace(/,\s*/g, '\n') || '-'
-    }
-  }
+    },
+  },
 }
 </script>
 

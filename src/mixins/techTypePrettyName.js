@@ -4,6 +4,6 @@ export default {
   methods: {
     getTechTypePrettyName(value) {
       return returnTechTypePrettyName(value)
-    }
-  }
+    },
+  },
 }

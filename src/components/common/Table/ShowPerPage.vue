@@ -10,12 +10,12 @@
 export default {
   props: {
     totalItems: {
-      type: Number
+      type: Number,
     },
     perPage: {
-      type: Number
-    }
-  }
+      type: Number,
+    },
+  },
 }
 </script>
 

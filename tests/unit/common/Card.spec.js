@@ -2,10 +2,10 @@ import { mount } from '@vue/test-utils'
 import Card from '@/components/common/Card.vue'
 
 describe('Card.vue', () => {
-  // it('is a Vue instance', () => {
-  //   const wrapper = mount(Card)
-  //   expect(wrapper.isVueInstance()).toBe(true)
-  // })
+  it('is a Vue instance', () => {
+    const wrapper = mount(Card)
+    expect(wrapper.isVueInstance()).toBe(true)
+  })
 
   it('verify if component exists', () => {
     const wrapper = mount(Card)

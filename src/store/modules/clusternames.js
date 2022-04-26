@@ -1,19 +1,19 @@
 import _ from 'lodash'
 
 export const state = () => ({
-  clusternames: []
+  clusternames: [],
 })
 
 export const getters = {
-  getClusternames: state => {
+  getClusternames: (state) => {
     return state.clusternames
-  }
+  },
 }
 
 export const mutations = {
   SET_CLUSTERNAMES: (state, payload) => {
-    state.clusternames = _.map(payload, cluster => {
+    state.clusternames = _.map(payload, (cluster) => {
       return cluster.name
     })
-  }
+  },
 }

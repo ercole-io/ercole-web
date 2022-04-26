@@ -36,25 +36,25 @@ export default {
     value: {},
     filterResult: {
       type: Array,
-      required: true
+      required: true,
     },
     field: {
       type: String,
-      required: true
+      required: true,
     },
     filterMethod: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
     appendToBody: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
     customFieldOptions(props) {
       return _.split(props, '-', 3)
-    }
+    },
   },
   computed: {
     inputVal: {
@@ -63,9 +63,9 @@ export default {
       },
       set(val) {
         this.$emit('input', val)
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>
 

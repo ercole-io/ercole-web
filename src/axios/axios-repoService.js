@@ -4,14 +4,14 @@ import store from '@/store/index.js'
 
 const repoServiceInstance = axios.create()
 
-repoServiceInstance.interceptors.request.use(config => {
+repoServiceInstance.interceptors.request.use((config) => {
   config.baseURL = store.getters.getRepoServiceBaseUrl
 
   store.dispatch('onLoading')
   return config
 })
 
-repoServiceInstance.interceptors.response.use(response => {
+repoServiceInstance.interceptors.response.use((response) => {
   store.dispatch('offLoading')
   return response
 }, errorResponseHandler)

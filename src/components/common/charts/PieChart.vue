@@ -14,20 +14,20 @@ export default {
   props: {
     chartId: {
       type: String,
-      required: true
+      required: true,
     },
     pieChartData: {
       type: Array || Object,
-      required: true
+      required: true,
     },
     setSuffix: {
-      type: String
+      type: String,
     },
     setLegend: {
       type: [Boolean, String],
-      default: 'bottom'
-    }
-  }
+      default: 'bottom',
+    },
+  },
 }
 </script>
 

@@ -8,9 +8,9 @@
 export default {
   props: {
     totalItems: {
-      type: Number
-    }
-  }
+      type: Number,
+    },
+  },
 }
 </script>
 

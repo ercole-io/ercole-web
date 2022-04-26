@@ -4,8 +4,8 @@
     :class="[
       {
         collapsed: isCollapsedSidebar,
-        withFilters: globalFilters.isFilterOpened
-      }
+        withFilters: globalFilters.isFilterOpened,
+      },
     ]"
   >
     <slot />
@@ -19,12 +19,12 @@ export default {
   props: {
     isCollapsedSidebar: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   computed: {
-    ...mapState(['globalFilters'])
-  }
+    ...mapState(['globalFilters']),
+  },
 }
 </script>
 

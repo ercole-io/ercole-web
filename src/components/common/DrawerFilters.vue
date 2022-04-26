@@ -14,13 +14,13 @@ export default {
   props: {
     title: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   components: {
     Drawer,
-    BoxContent
-  }
+    BoxContent,
+  },
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <a
     class="is-size-7 is-italic has-text-weight-normal has-text-dark"
-    style="text-decoration: underline;"
+    style="text-decoration: underline"
   >
     see the top 10 >>>
   </a>

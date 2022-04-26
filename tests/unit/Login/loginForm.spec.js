@@ -39,7 +39,7 @@ describe('LoginForm.vue', () => {
     })
 
     wrapper.setData(data)
-    wrapper.find('form').trigger('submit')
+    wrapper.get('form').trigger('submit')
 
     await wrapper.vm.$nextTick()
 

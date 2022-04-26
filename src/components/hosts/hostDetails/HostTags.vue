@@ -18,7 +18,7 @@ import Tags from '@/components/common/Tags.vue'
 export default {
   components: {
     BoxContent,
-    Tags
+    Tags,
   },
   methods: {
     handleAddTag(value) {
@@ -29,8 +29,8 @@ export default {
     },
     handleEditTag(value) {
       console.log('make api call to edit tag', value)
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -17,8 +17,8 @@ import { mapState } from 'vuex'
 export default {
   props: ['data'],
   computed: {
-    ...mapState(['moreInfoToggle'])
-  }
+    ...mapState(['moreInfoToggle']),
+  },
 }
 </script>
 

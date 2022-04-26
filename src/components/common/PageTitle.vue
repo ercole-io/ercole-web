@@ -17,8 +17,8 @@ export default {
   computed: {
     pageTitle() {
       return this.dynamicTitle ? this.dynamicTitle : this.$route.meta.label
-    }
-  }
+    },
+  },
 }
 </script>
 

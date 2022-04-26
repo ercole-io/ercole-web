@@ -6,7 +6,7 @@ export function getSupportedLocales() {
   for (const code of Object.keys(supportedLocales)) {
     annotatedLocales.push({
       code,
-      name: supportedLocales[code]
+      name: supportedLocales[code],
     })
   }
 

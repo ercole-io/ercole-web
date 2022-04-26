@@ -5,14 +5,14 @@
       :class="{
         gold: position === 0,
         silver: position === 1,
-        bronze: position === 2
+        bronze: position === 2,
       }"
-      style="position:relative"
+      style="position: relative"
     >
       <i class="fas fa-star" />
       <span
         class="is-size-7 has-text-grey-darker"
-        style="position: absolute; top: 5px;"
+        style="position: absolute; top: 5px"
       >
         {{ position + 1 }}
       </span>
@@ -25,9 +25,9 @@ export default {
   props: {
     position: {
       type: Number,
-      default: 0
-    }
-  }
+      default: 0,
+    },
+  },
 }
 </script>
 

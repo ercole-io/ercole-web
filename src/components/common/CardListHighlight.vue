@@ -18,7 +18,7 @@
             size="is-small"
             :icon="bindIncon(item.value)[0]"
             :type="bindIncon(item.value)[1]"
-            style="vertical-align: middle;"
+            style="vertical-align: middle"
           />
         </span>
       </div>
@@ -37,12 +37,12 @@ export default {
   props: {
     list: {
       type: Array,
-      required: true
+      required: true,
     },
     colSizes: {
       type: Array,
-      default: () => ['4', '8']
-    }
+      default: () => ['4', '8'],
+    },
   },
   methods: {
     bindIncon(value) {
@@ -50,8 +50,8 @@ export default {
     },
     toString(val) {
       return _.toString(val)
-    }
-  }
+    },
+  },
 }
 </script>
 

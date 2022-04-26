@@ -12,10 +12,10 @@ localVue.use(Vuex)
 const $t = () => {}
 
 describe('Agents.vue', () => {
-  // it('is a Vue instance', () => {
-  //   const wrapper = shallowMount(Agents, { store, mocks: { $t } })
-  //   expect(wrapper.isVueInstance()).toBe(true)
-  // })
+  it('is a Vue instance', () => {
+    const wrapper = shallowMount(Agents, { store, mocks: { $t } })
+    expect(wrapper.isVueInstance()).toBe(true)
+  })
 
   it('verify if component exists', () => {
     const wrapper = shallowMount(Agents, { store, mocks: { $t } })

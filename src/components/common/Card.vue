@@ -19,20 +19,20 @@ export default {
   props: {
     cardType: {
       type: String,
-      default: 'card'
+      default: 'card',
     },
     cardTitle: {
-      type: String
+      type: String,
     },
     contentSize: {
       type: String,
-      default: '1'
+      default: '1',
     },
     contentPadding: {
       type: String,
-      default: '0.5rem 0rem'
-    }
-  }
+      default: '0.5rem 0rem',
+    },
+  },
 }
 </script>
 

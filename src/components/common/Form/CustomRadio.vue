@@ -18,8 +18,8 @@ export default {
     value: {},
     options: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   computed: {
     radioVal: {
@@ -28,7 +28,7 @@ export default {
       },
       set(val) {
         this.$emit('input', val)
-      }
+      },
     },
     setOptions() {
       return this.options.length > 0 ? this.options : this.defaultOptions
@@ -37,19 +37,19 @@ export default {
       return [
         {
           text: this.$i18n.t('common.forms.yes'),
-          val: 'true'
+          val: 'true',
         },
         {
           text: this.$i18n.t('common.forms.no'),
-          val: 'false'
+          val: 'false',
         },
         {
           text: this.$i18n.t('common.forms.all'),
-          val: ''
-        }
+          val: '',
+        },
       ]
-    }
-  }
+    },
+  },
 }
 </script>
 

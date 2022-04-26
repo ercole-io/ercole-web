@@ -4,7 +4,7 @@ import store from '@/store/index.js'
 
 const chartInstance = axios.create()
 
-chartInstance.interceptors.request.use(config => {
+chartInstance.interceptors.request.use((config) => {
   config.baseURL = store.getters.getChartServiceBaseUrl
 
   const token = localStorage.getItem('token')
@@ -13,7 +13,7 @@ chartInstance.interceptors.request.use(config => {
   return config
 })
 
-chartInstance.interceptors.response.use(response => {
+chartInstance.interceptors.response.use((response) => {
   return response
 }, errorResponseHandler)
 

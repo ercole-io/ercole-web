@@ -37,20 +37,20 @@ export default {
   props: {
     value: {},
     ticks: {
-      type: Array
+      type: Array,
     },
     steps: {
       type: Number,
-      default: 0.01
+      default: 0.01,
     },
     marks: {
       type: Boolean,
-      default: false
+      default: false,
     },
     percent: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     sliderVal: {
@@ -59,15 +59,15 @@ export default {
       },
       set(val) {
         this.$emit('input', val)
-      }
+      },
     },
     minTick() {
       return _.first(this.ticks)
     },
     maxTick() {
       return _.last(this.ticks)
-    }
-  }
+    },
+  },
 }
 </script>
 

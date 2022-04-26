@@ -18,10 +18,10 @@ export default {
       type: Array,
       default: () => [
         { colsize: '3', slotName: 'col1' },
-        { colsize: '9', slotName: 'col2' }
-      ]
-    }
-  }
+        { colsize: '9', slotName: 'col2' },
+      ],
+    },
+  },
 }
 </script>
 
