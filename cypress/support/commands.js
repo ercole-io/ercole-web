@@ -25,21 +25,23 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('ercoleLogin', () => {
-  const userCred = {
-    username: Cypress.env('username'),
-    password: Cypress.env('password'),
-  }
+  const username = Cypress.env('username')
+  const password = Cypress.env('password')
 
-  cy.request('POST', `${Cypress.env('apiUrl')}user/login`, userCred)
-    .its('body')
-    .then((token) => {
-      cy.wrap(token).as('token')
+  cy.session(
+    [username, password],
+    () => {
+      cy.visit('/login')
+      cy.get('[data-username]').type(Cypress.env('username'))
+      cy.get('[data-password]').type(Cypress.env('password'))
+      cy.get('[data-submit]').click()
 
-      cy.visit('/', {
-        onBeforeLoad(win) {
-          win.localStorage.setItem('token', token)
-          win.localStorage.setItem('username', userCred.username)
-        },
-      })
-    })
+      cy.url().should('contain', '/dashboard')
+    },
+    {
+      validate() {
+        cy.request('/api/user').its('status').should('eq', 200)
+      },
+    }
+  )
 })

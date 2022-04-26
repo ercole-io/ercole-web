@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
+// import { bus } from '@/helpers/eventBus.js'
 import { mapActions } from 'vuex'
 import Technologies from '@/components/dashboard/technologies/Technologies.vue'
 import DashboardTabs from '@/components/dashboard/DashboardTabs.vue'
@@ -38,22 +38,11 @@ export default {
     Alerts,
   },
   beforeMount() {
-    this.getDashboardData()
-      .then(() => {
-        bus.$emit('loadDashboardComplete')
-      })
-      .then(() => {
-        bus.$emit('loadTechComplete')
-      })
-    this.getTechnologiesData()
-
     this.getGlobalFiltersLocations()
     this.getGlobalFiltersEnvironments()
   },
   methods: {
     ...mapActions([
-      'getDashboardData',
-      'getTechnologiesData',
       'getGlobalFiltersLocations',
       'getGlobalFiltersEnvironments',
     ]),

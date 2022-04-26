@@ -11,7 +11,7 @@
           </CustomSelect>
         </CustomField>
 
-        <CustomField :label="$t('common.fields.type')">
+        <CustomField label="Type">
           <CustomSelect
             v-model="filters.alertCategory"
             fixedOptions

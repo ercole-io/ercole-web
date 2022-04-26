@@ -91,8 +91,8 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
-import { mapGetters } from 'vuex'
+// import { bus } from '@/helpers/eventBus.js'
+import { mapActions, mapGetters } from 'vuex'
 import Progress from 'easy-circular-progress'
 import HbuttonScroll from '@/components/HbuttonScroll.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
@@ -108,10 +108,14 @@ export default {
       loading: true,
     }
   },
-  beforeMount() {
-    bus.$on('loadTechComplete', () => {
+  async beforeMount() {
+    await this.getDashboardData().then(() => {
       this.loading = false
     })
+    await this.getTechnologiesData()
+  },
+  methods: {
+    ...mapActions(['getDashboardData', 'getTechnologiesData']),
   },
   computed: {
     ...mapGetters(['getTotalTarget', 'getTechnologies']),

@@ -3,7 +3,7 @@
 describe('Header Suite', () => {
   beforeEach('login into Ercole App', () => {
     cy.ercoleLogin()
-    cy.wait(5000)
+    cy.visit('/dashboard')
   })
 
   it('will log out from ercole app', () => {

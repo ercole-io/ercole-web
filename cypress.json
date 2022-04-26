@@ -14,5 +14,6 @@
     "chartUrl": "https://dev.ercole.io/chart/"
   },
   "testFiles": "**/*.spec.js",
-  "componentFolder": "src"
+  "componentFolder": "src",
+  "experimentalSessionAndOrigin": true
 }
