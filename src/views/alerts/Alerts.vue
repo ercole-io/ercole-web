@@ -323,9 +323,6 @@ export default {
       }
     },
   },
-  beforeDestroy() {
-    this.removeParams()
-  },
 }
 </script>
 

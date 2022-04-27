@@ -157,13 +157,8 @@ export default {
       maxcostSaving: null,
     }
   },
-  beforeMount() {
-    bus.$on('onResetAction', () => this.reset(this.resetFilters))
-    // bus.$on('data', (data) => {
-    //   this.fullData = data
-    // })
-  },
   mounted() {
+    bus.$on('onResetAction', () => this.reset(this.resetFilters))
     bus.$on('data', (data) => {
       this.fullData = data
     })
@@ -241,7 +236,6 @@ export default {
     },
   },
   beforeDestroy() {
-    this.fullData = []
     this.reset()
   },
 }

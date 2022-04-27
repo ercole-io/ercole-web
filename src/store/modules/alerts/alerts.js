@@ -173,7 +173,8 @@ export const actions = {
       params: params,
     })
 
-    const response = await alertsData.data
+    let response = await alertsData.data
+
     _.map(response, (val) => {
       if (val.alertCategory !== 'AGENT') {
         val.isChecked = false

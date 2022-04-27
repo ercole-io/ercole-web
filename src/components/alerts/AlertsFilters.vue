@@ -11,7 +11,7 @@
           </CustomSelect>
         </CustomField>
 
-        <CustomField :label="$t('common.fields.type')">
+        <CustomField label="Type">
           <CustomSelect v-model="filters.alertCategory" fixedOptions>
             <option value="AGENT">AGENT</option>
             <option value="ENGINE">ENGINE</option>
@@ -109,15 +109,14 @@ export default {
       },
     }
   },
-  created() {
+  mounted() {
     this.filters = {
       alertCategory: this.alerts.params.category,
       alertSeverity: this.alerts.params.severity,
       hostname: this.alerts.params.hostname,
     }
     this.apply()
-  },
-  beforeMount() {
+
     bus.$on('refreshPageData', () => {
       this.applyApiParams()
     })
