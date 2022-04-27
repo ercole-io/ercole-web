@@ -5,7 +5,9 @@ import { onDashboardLoad } from '../../support/page_objects/dashboard'
 describe('Dashboard Suite', () => {
   beforeEach('login into Ercole App', () => {
     cy.ercoleLogin()
+    onDashboardLoad.requestAlerts()
     cy.visit('/dashboard')
+    cy.wait('@alerts')
   })
 
   context('Agents Box', () => {
@@ -29,7 +31,6 @@ describe('Dashboard Suite', () => {
     })
 
     it('will check if the button inpect works', () => {
-      onDashboardLoad.requestAlerts()
       cy.get('@alerts').then(() => {
         cy.get('[data-stoped-agents]')
           .invoke('text')

@@ -5,7 +5,9 @@ import { onDashboardLoad } from '../../support/page_objects/dashboard'
 describe('Dashboard Suite', () => {
   beforeEach('login into Ercole App', () => {
     cy.ercoleLogin()
+    onDashboardLoad.requestDashboard()
     cy.visit('/dashboard')
+    cy.wait('@dashboard')
   })
 
   context('Technologies Box', () => {
@@ -35,7 +37,6 @@ describe('Dashboard Suite', () => {
     })
 
     it('will render the exact number of technologies', () => {
-      onDashboardLoad.requestDashboard()
       cy.get('@dashboard').then((techs) => {
         const techsCount = techs.response.body.technologies.technologies.length
         cy.get('[data-cy="technologies"]')

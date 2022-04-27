@@ -1,13 +1,11 @@
 {
-  "baseUrl": "http://localhost:8080/",
+  "baseUrl": "http://localhost:8080",
   "viewportHeight": 1080,
   "viewportWidth": 1920,
   "video": false,
-  "screenshotOnRunFailure": false,
-  "trashAssetsBeforeRuns": true,
   "retries": {
     "runMode": 4,
-    "openMode": 1
+    "openMode": 0
   },
   "env": {
     "username": "ercole",

@@ -5,7 +5,9 @@ import { onDashboardLoad } from '../../support/page_objects/dashboard'
 describe('Dashboard Suite', () => {
   beforeEach('login into Ercole App', () => {
     cy.ercoleLogin()
+    onDashboardLoad.requestLicensesHistory()
     cy.visit('/dashboard')
+    cy.wait('@history')
   })
 
   context('Charts Box', () => {
@@ -21,8 +23,6 @@ describe('Dashboard Suite', () => {
     })
 
     it('will select a diferent license and dates and then reset to default', () => {
-      onDashboardLoad.requestLicensesHistory()
-
       cy.get('@history').then((hist) => {
         const toSelect =
           hist.response.body.licenseComplianceHistory[5].licenseTypeID

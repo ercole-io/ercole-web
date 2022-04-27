@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "cypress:e2e": "start-test serve http-get://localhost:8080 'yarn cypress:run'",
+    "cypress:e2e": "start-test serve http-get://localhost:8080 cypress:run",
     "cypress:open": "npx cypress open --browser chrome",
     "cypress:run": "npx cypress run --browser chrome",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"

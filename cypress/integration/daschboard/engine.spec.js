@@ -5,14 +5,12 @@ import { onDashboardLoad } from '../../support/page_objects/dashboard'
 describe('Dashboard Suite', () => {
   beforeEach('login into Ercole App', () => {
     cy.ercoleLogin()
+    onDashboardLoad.requestAlerts()
     cy.visit('/dashboard')
+    cy.wait('@alerts')
   })
 
   context('Ercole Engine Box', () => {
-    beforeEach('login into Ercole App', () => {
-      onDashboardLoad.requestAlerts()
-    })
-
     it('box must have the correct name', () => {
       cy.get('[data-cy="ercole-engine"]').then((text) => {
         expect(text).contain('Ercole Engine')

@@ -28,6 +28,7 @@ export const getters = {
 
 export const mutations = {
   SET_FILTERS: (state, payload) => {
+    console.log(payload)
     state.hasFilters = payload.status
     state.filters = payload.filters
     state.showCheckbox = payload.showCheckbox
