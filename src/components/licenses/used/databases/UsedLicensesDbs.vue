@@ -46,7 +46,9 @@
           :metric="rowData.scope.metric"
           :status="!rowData.scope.ignored"
           page="licenses-used"
+          v-if="rowData.scope.licenseTypeID"
         />
+        <TdContent value="" v-else />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbName]" />
         <TdContent :value="rowData.scope.dbName" />
         <TdContent :value="rowData.scope.licenseTypeID" />
