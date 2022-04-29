@@ -113,45 +113,6 @@
           </b-select>
         </b-field>
 
-        <!-- <b-field
-          label="Taglist"
-          class="filters-field"
-          custom-class="is-size-7"
-          horizontal
-        >
-          <b-taginput
-            size="is-small"
-            v-model="tags"
-            :data="filteredTags"
-            autocomplete
-            ref="taginput"
-            icon="label"
-            placeholder="Add a tag"
-            @typing="getFilteredTags"
-            expanded
-          >
-            <template slot-scope="props">
-              <strong>{{ props.option.id }}</strong
-              >: {{ props.option.name }}
-            </template>
-            <template slot="empty">
-              There are no items
-            </template>
-            <template slot="selected" slot-scope="props">
-              <b-tag
-                v-for="(tag, index) in props.tags"
-                :key="index"
-                type="is-primary"
-                :tabstop="false"
-                closable
-                @close="$refs.taginput.removeTag(index, $event)"
-              >
-                {{ tag.name }}
-              </b-tag>
-            </template>
-          </b-taginput>
-        </b-field> -->
-
         <b-field
           :label="$t('common.globalFilters.date')"
           class="filters-field"
@@ -201,29 +162,20 @@
 </template>
 
 <script>
+// import { bus } from '@/helpers/eventBus.js'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
-import formatDate from '@/filters/formatDate.js'
 import { formatDatepickerDate } from '@/helpers/helpers.js'
+import formatDate from '@/filters/formatDate.js'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
-import { bus } from '@/helpers/eventBus.js'
 
 export default {
   mixins: [tooltipMixin],
   data() {
     return {
-      // tagList: [
-      //   { id: 'a', name: 'Tag 1' },
-      //   { id: 'b', name: 'Tag 2' },
-      //   { id: 'c', name: 'Tag 3' },
-      //   { id: 'd', name: 'Tag 4' },
-      //   { id: 'e', name: 'Tag 5' }
-      // ],
-      // filteredTags: this.tagList,
-      // tags: [],
       isFiltersOpened: false,
       filterIcon: 'chevron-down',
       glFilters: {},
-      alertStatus: 'NEW',
+      // alertStatus: 'NEW',
     }
   },
   beforeMount() {
@@ -236,12 +188,8 @@ export default {
     }
     this.isFiltersOpened = this.globalFilters.isFilterOpened
 
-    bus.$on('alertStatus', (val) => {
-      this.alertStatus = val
-    })
-
-    // bus.$on('openFilters', () => {
-    //   this.isFiltersOpened = false
+    // bus.$on('alertStatus', (val) => {
+    //   this.alertStatus = val
     // })
   },
   methods: {
@@ -257,7 +205,7 @@ export default {
       'getPatchAdvisor',
       'getClusters',
       'getClusterByName',
-      'getAlertsData',
+      // 'getAlertsData',
       'getLicensesDatabases',
       'getEngineeredSystems',
       'getMysqlDbs',
@@ -266,16 +214,6 @@ export default {
       'getLicensesClusters',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS']),
-    // getFilteredTags(text) {
-    //   this.filteredTags = this.tagList.filter(option => {
-    //     return (
-    //       option.name
-    //         .toString()
-    //         .toLowerCase()
-    //         .indexOf(text.toLowerCase()) >= 0
-    //     )
-    //   })
-    // },
     expandFilters() {
       this.isFiltersOpened = !this.isFiltersOpened
       if (this.isFiltersOpened) {
@@ -348,11 +286,11 @@ export default {
             this.offLoadingTable()
           )
           break
-        case 'alerts':
-          this.getAlertsData({ status: this.alertStatus }).then(() =>
-            this.offLoadingTable()
-          )
-          break
+        // case 'alerts':
+        //   this.getAlertsData({ status: this.alertStatus }).then(() =>
+        //     this.offLoadingTable()
+        //   )
+        //   break
         case 'licenses-used':
           this.getLicensesDatabases().then(() => this.offLoadingTable())
           this.getLicensesHosts().then(() => this.offLoadingTable())
@@ -396,19 +334,11 @@ export default {
         this.$route.name !== 'repository' &&
         this.$route.name !== 'cloud-recommendations' &&
         this.$route.name !== 'profile-configurations' &&
-        this.$route.name !== 'ercole-recommendations'
+        this.$route.name !== 'ercole-recommendations' &&
+        this.$route.name !== 'alerts'
       )
     },
   },
-  // watch: {
-  //   isFiltersOpened(value) {
-  //     if (value) {
-  //       bus.$emit('isGlobalFilterOpened', true)
-  //     } else {
-  //       bus.$emit('isGlobalFilterOpened', false)
-  //     }
-  //   }
-  // }
 }
 </script>
 

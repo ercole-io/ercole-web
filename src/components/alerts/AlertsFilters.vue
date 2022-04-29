@@ -163,7 +163,7 @@ export default {
       if (newValue !== oldValue) {
         this.applyApiParams().then(() => {
           this.apply()
-          bus.$emit('alertStatus', newValue)
+          // bus.$emit('alertStatus', newValue)
         })
       }
     },

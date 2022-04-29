@@ -17,7 +17,7 @@
 
 <script>
 import Header from '@/components/Header.vue'
-import Filters from '@/components/Filters.vue'
+import Filters from '@/components/GlobalFilters.vue'
 import SidebarMenu from '@/components/Sidebar.vue'
 import Main from '@/components/Main.vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
