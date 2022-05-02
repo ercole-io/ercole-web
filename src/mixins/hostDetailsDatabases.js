@@ -1,5 +1,5 @@
 import { bus } from '@/helpers/eventBus.js'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   props: {
@@ -11,6 +11,7 @@ export default {
   data() {
     return {
       isActive: 0,
+      isActiveSub: 0,
     }
   },
   beforeMount() {
@@ -25,6 +26,11 @@ export default {
         this.isActive = this.currentHostActiveDbIndex(dbs)
       }
     })
+
+    if (this.getIgnoreLicenseDbTabActive) {
+      this.isActive = this.getIgnoreLicenseDbTabActive
+      this.isActiveSub = this.getLicensesSubTabActive
+    }
   },
   mounted() {
     setTimeout(() => {
@@ -32,7 +38,12 @@ export default {
     }, 1)
   },
   methods: {
+    ...mapMutations([
+      'SET_IGNORE_LICENSE_ACTIVE_DB_TAB',
+      'SET_LICENMSES_SUB_TAB_ACTIVE',
+    ]),
     onChange(index) {
+      this.SET_IGNORE_LICENSE_ACTIVE_DB_TAB(index)
       if (this.currentDBs[index]) {
         bus.$emit('cpuChartSelected', [
           {
@@ -42,8 +53,18 @@ export default {
         ])
       }
     },
+    onChangeSub(index) {
+      this.isActiveSub = index
+      this.SET_LICENMSES_SUB_TAB_ACTIVE(index)
+    },
   },
   computed: {
-    ...mapGetters(['currentHostActiveDB', 'currentHostActiveDbIndex']),
+    ...mapGetters([
+      'currentHostName',
+      'currentHostActiveDB',
+      'currentHostActiveDbIndex',
+      'getIgnoreLicenseDbTabActive',
+      'getLicensesSubTabActive',
+    ]),
   },
 }

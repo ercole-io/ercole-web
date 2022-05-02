@@ -13,6 +13,8 @@
         <b-tabs
           size="is-small"
           type="is-toggle"
+          v-model="isActiveSub"
+          @input="onChangeSub"
           vertical
           animated
           destroy-on-hide
@@ -102,6 +104,12 @@ export default {
   },
   computed: {
     ...mapGetters(['getCheckedFilters']),
+  },
+  watch: {
+    $route(to, from) {
+      console.log(to)
+      console.log(from)
+    },
   },
 }
 </script>
