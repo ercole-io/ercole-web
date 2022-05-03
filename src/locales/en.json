@@ -27,7 +27,8 @@
     "recommendations": "Recommendations",
     "profileConfig": "Profile Configurations",
     "repository": "Repository",
-    "ercoleRecommendations": "Ercole Recommendations"
+    "ercoleRecommendations": "Ercole Recommendations",
+    "microsoft": "Microsoft"
   },
   "header": {
     "logout": "Logout"
@@ -275,7 +276,9 @@
       "compartmentName": "Compartment Name",
       "resourceID": "Resource ID",
       "pluggable": "Pluggable",
-      "services": "Services"
+      "services": "Services",
+      "state": "State",
+      "collation": "Collation Name"
     },
     "table": {
       "perPage": "per page",
@@ -398,7 +401,9 @@
       "compartmentName": "Compartment Name",
       "resourceID": "Resource ID",
       "pluggable": "Pluggable",
-      "services": "Services"
+      "services": "Services",
+      "state": "State",
+      "collation": "Collation Name"
     },
     "charts": {
       "archivelog": "Archivelog Mode",

@@ -90,6 +90,8 @@ export default {
       filteredcategory: [],
       filteredobjectType: [],
       filteredsuggestion: [],
+      filteredstateDesc: [],
+      filteredcollationName: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,
