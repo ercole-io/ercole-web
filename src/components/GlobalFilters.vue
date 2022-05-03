@@ -212,6 +212,7 @@ export default {
       'getComplianceList',
       'getLicensesHosts',
       'getLicensesClusters',
+      'getMsSqlServerDbs',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS']),
     expandFilters() {
@@ -304,6 +305,9 @@ export default {
           break
         case 'licenses-compliance':
           this.getComplianceList().then(() => this.offLoadingTable())
+          break
+        case 'microsoft':
+          this.getMsSqlServerDbs().then(() => this.offLoadingTable())
           break
         default:
           return

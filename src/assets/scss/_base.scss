@@ -52,3 +52,30 @@ input[readonly] {
   text-decoration-thickness: 2px;
   color: #999;
 }
+
+.mysql-logo {
+  width: 30px;
+  height: 30px;
+  content: url('../../assets/images/technologies/mysql.jpeg');
+  background-color: #fff;
+  padding: 3px;
+  border-radius: 3px;
+}
+
+.oracle-logo {
+  width: 30px;
+  height: 30px;
+  content: url('../../assets/images/technologies/oracle.jpeg');
+  background-color: #fff;
+  padding: 3px;
+  border-radius: 3px;
+}
+
+.microsoft-logo {
+  width: 30px;
+  height: 30px;
+  content: url('../../assets/images/technologies/microsoft.jpeg');
+  background-color: #fff;
+  padding: 3px;
+  border-radius: 3px;
+}
