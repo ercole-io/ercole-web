@@ -48,11 +48,11 @@ export default {
             {
               title: this.$i18n.t('menu.allTechs'),
               href: { path: '/databases' },
-              icon: 'fas fa-cog',
+              icon: 'fas fa-server',
             },
             {
               title: this.$i18n.t('menu.oracle'),
-              icon: 'fas fa-cog',
+              icon: 'oracle-logo',
               child: [
                 {
                   title: this.$i18n.t('menu.dbList'),
@@ -82,11 +82,23 @@ export default {
             },
             {
               title: this.$i18n.t('menu.mysql'),
-              icon: 'fas fa-cog',
+              icon: 'mysql-logo',
               child: [
                 {
                   title: this.$i18n.t('menu.dbList'),
                   href: { name: 'mysql' },
+                  icon: 'fas fa-database',
+                  class: 'menu-third-level',
+                },
+              ],
+            },
+            {
+              title: this.$i18n.t('menu.microsoft'),
+              icon: 'microsoft-logo',
+              child: [
+                {
+                  title: this.$i18n.t('menu.dbList'),
+                  href: { name: 'microsoft' },
                   icon: 'fas fa-database',
                   class: 'menu-third-level',
                 },
