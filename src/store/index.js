@@ -23,6 +23,7 @@ import * as oracleSegmentAdvisor from './modules/databases/oracle/oracle-segment
 import * as oraclePatchAdvisor from './modules/databases/oracle/oracle-patch-advisor'
 import * as oracleAddm from './modules/databases/oracle/oracle-addm'
 import * as mysql from './modules/databases/mysql/mysql'
+import * as microsoft from './modules/databases/microsoft/microsoft.js'
 import * as globalFilters from './modules/global-filters'
 import * as localFilters from './modules/local-filters'
 import * as engineeredSystems from './modules/engineered-systems/engineered-systems'
@@ -62,6 +63,7 @@ export default new Vuex.Store({
     oraclePatchAdvisor,
     oracleAddm,
     mysql,
+    microsoft,
     globalFilters,
     localFilters,
     engineeredSystems,
