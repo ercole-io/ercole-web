@@ -42,6 +42,9 @@ const PatchAdvidor = lazy(() =>
 const MySQL = lazy(() =>
   import(/* webpackPreload: true */ '@/views/databases/mysql/MySQL.vue')
 )
+const MsSqlServer = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/databases/microsoft/Microsoft.vue')
+)
 const Middleware = lazy(() =>
   import(/* webpackPreload: true */ '@/views/middleware/Middleware.vue')
 )
@@ -257,6 +260,26 @@ const routes = [
               breadcrumb: [
                 { name: i18n.t('menu.databases'), link: '/databases' },
                 { name: i18n.t('menu.mysql') },
+              ],
+            },
+            beforeEnter: verifyAuth,
+          },
+        ],
+      },
+      {
+        path: '/microsoft',
+        component: EmptyRouterView,
+        children: [
+          {
+            path: '',
+            name: 'microsoft',
+            component: MsSqlServer,
+            meta: {
+              label: i18n.t('menu.microsoft'),
+              title: `${title}${i18n.t('menu.microsoft')}`,
+              breadcrumb: [
+                { name: i18n.t('menu.databases'), link: '/databases' },
+                { name: i18n.t('menu.microsoft') },
               ],
             },
             beforeEnter: verifyAuth,
