@@ -1,58 +1,10 @@
 <template>
-  <HbuttonScroll style="width: 90%; margin: 0 auto">
-    <div class="technologies">
-      <div class="technologies-list">
+  <BoxContent title="Cloud Objects" border hasShadow :mbottom="false">
+    <div class="cloud">
+      <div class="cloud-list" v-for="(tech, i) in getCloud" :key="tech.id || i">
         <div class="image">
-          <GhostLoading :isLoading="loading" setHeight="40" setWidth="40">
-            <img
-              src="@/assets/images/Cerchio-blu-cane-blu.png"
-              v-if="!loading"
-            />
-          </GhostLoading>
-        </div>
-
-        <div class="tech-name">
-          <GhostLoading :isLoading="loading" setWidth="100">
-            <span v-if="!loading">{{ getTotalTarget.extra.name }}</span>
-          </GhostLoading>
-        </div>
-
-        <div class="agents">
-          <GhostLoading :isLoading="loading" setHeight="15" setWidth="15">
-            <span v-if="!loading">{{ getTotalTarget.agents }}</span>
-          </GhostLoading>
-        </div>
-
-        <div class="progress">
-          <GhostLoading
-            :isLoading="loading"
-            setHeight="70"
-            setWidth="70"
-            isCircle
-          >
-            <Progress
-              :radius="25"
-              :value="getTotalTarget.perc"
-              :strokeColor="getTotalTarget.extra.color"
-              :strokeWidth="7"
-              :transitionDuration="2000"
-              v-if="!loading"
-            />
-          </GhostLoading>
-        </div>
-      </div>
-
-      <div
-        class="technologies-list"
-        v-for="(tech, i) in getTech"
-        :key="tech.id || i"
-      >
-        <div class="image">
-          <GhostLoading :isLoading="loading" setHeight="40" setWidth="40">
-            <img
-              v-bind:src="`data:image/jpeg;base64,${tech.extra.logo}`"
-              v-if="!loading"
-            />
+          <GhostLoading :isLoading="loading" setHeight="40" setWidth="100%">
+            <img :src="tech.extra.logo" v-if="!loading" />
           </GhostLoading>
         </div>
 
@@ -87,21 +39,21 @@
         </div>
       </div>
     </div>
-  </HbuttonScroll>
+  </BoxContent>
 </template>
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import Progress from 'easy-circular-progress'
-import HbuttonScroll from '@/components/HbuttonScroll.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
+import BoxContent from '@/components/common/BoxContent.vue'
 
 export default {
   components: {
     Progress,
-    HbuttonScroll,
     GhostLoading,
+    BoxContent,
   },
   data() {
     return {
@@ -114,21 +66,21 @@ export default {
     })
   },
   computed: {
-    ...mapGetters(['getTotalTarget', 'getTechnologies']),
-    getTech() {
-      return this.loading ? 5 : this.getTechnologies
+    ...mapGetters(['getCloudObjects']),
+    getCloud() {
+      return this.loading ? 3 : this.getCloudObjects
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.technologies {
+.cloud {
   display: flex;
   max-width: 100%;
   justify-content: space-between;
 }
-.technologies-list {
+.cloud-list {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -137,8 +89,8 @@ export default {
   min-width: 150px;
 
   .image {
-    width: 40px;
-    height: 40px;
+    width: 50%;
+    height: auto;
     margin: 0 auto;
     display: block;
   }
