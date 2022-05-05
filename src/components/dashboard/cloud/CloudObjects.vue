@@ -3,7 +3,7 @@
     <div class="cloud">
       <div class="cloud-list" v-for="(tech, i) in getCloud" :key="tech.id || i">
         <div class="image">
-          <GhostLoading :isLoading="loading" setHeight="40" setWidth="100%">
+          <GhostLoading :isLoading="loading" setHeight="62" setWidth="100%">
             <img :src="tech.extra.logo" v-if="!loading" />
           </GhostLoading>
         </div>
@@ -15,26 +15,15 @@
         </div>
 
         <div class="agents">
-          <GhostLoading :isLoading="loading" setHeight="15" setWidth="15">
-            <span v-if="!loading">{{ tech.agents }}</span>
-          </GhostLoading>
-        </div>
-
-        <div class="progress">
-          <GhostLoading
-            :isLoading="loading"
-            setHeight="70"
-            setWidth="70"
-            isCircle
-          >
-            <Progress
-              :radius="25"
-              :value="tech.perc"
-              :strokeColor="tech.extra.color"
-              :strokeWidth="7"
-              :transitionDuration="2000"
+          <GhostLoading :isLoading="loading" setHeight="40" setWidth="53">
+            <b-tag
+              size="is-large"
               v-if="!loading"
-            />
+              :style="{ 'background-color': tech.extra.color }"
+              style="color: #fff"
+            >
+              {{ tech.agents }}
+            </b-tag>
           </GhostLoading>
         </div>
       </div>
@@ -45,13 +34,11 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
-import Progress from 'easy-circular-progress'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 
 export default {
   components: {
-    Progress,
     GhostLoading,
     BoxContent,
   },
@@ -79,17 +66,18 @@ export default {
   display: flex;
   max-width: 100%;
   justify-content: space-between;
+  min-height: 178px;
 }
 .cloud-list {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   padding: 0 3px;
   min-width: 150px;
 
   .image {
-    width: 50%;
+    width: 80%;
     height: auto;
     margin: 0 auto;
     display: block;
@@ -98,20 +86,15 @@ export default {
   .tech-name {
     font-size: 0.85em;
     font-weight: 500;
-    padding: 10px 0;
   }
 
   .agents {
     border-width: 0;
     padding-bottom: 4px;
     list-style: none;
-    font-size: 1em;
-  }
-
-  .progress {
-    width: 70px;
-    height: 70px;
-    text-align: center;
+    font-size: 1.1em;
+    padding-top: 20px;
+    font-weight: bold;
   }
 }
 </style>
