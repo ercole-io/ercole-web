@@ -7,6 +7,7 @@ import {
   checkRangeDate,
   getKeyValuePair,
 } from '@/helpers/helpers.js'
+import oracleCloud from '@/store/modules/dashboard/oci-cloud.json'
 
 const getExtraTechInfo = (techName, techs) => {
   const tech = _.find(techs, (t) => {
@@ -26,6 +27,38 @@ export const state = () => ({
   techDash: {},
   licenceHistory: {},
   coreHosts: {},
+  cloudObjects: [
+    {
+      id: 'oracle',
+      agents: 0,
+      perc: 0,
+      extra: {
+        color: '#ff141d',
+        logo: require(`@/assets/images/cloud/oracle-cloud.png`),
+        name: 'Oracle Cloud',
+      },
+    },
+    {
+      id: 'microsoft',
+      agents: 0,
+      perc: 0,
+      extra: {
+        color: '#0089d6',
+        logo: require(`@/assets/images/cloud/microsoft-azure.png`),
+        name: 'Microsoft Azure',
+      },
+    },
+    {
+      id: 'amazon',
+      agents: 0,
+      perc: 0,
+      extra: {
+        color: '#252f3e',
+        logo: require(`@/assets/images/cloud/amazon-aws.png`),
+        name: 'Amazon AWS',
+      },
+    },
+  ],
 })
 
 export const getters = {
@@ -61,6 +94,38 @@ export const getters = {
     })
 
     return techArray
+  },
+  getCloudObjects: (state) => {
+    let oracleValues = []
+    let oraclePerc
+    let oracleSum
+
+    _.map(oracleCloud, (values) => {
+      _.map(values.objects, (obj) => {
+        const { objectNumber } = obj
+        oracleValues.push(objectNumber)
+      })
+    })
+
+    oracleSum = _.sum(oracleValues)
+    oraclePerc = ((oracleSum / oracleValues.length) * 100) / 10
+
+    const cloudObj = []
+    _.map(state.cloudObjects, (cloud) => {
+      if (cloud.id === 'oracle') {
+        cloudObj.push({
+          ...cloud,
+          agents: oracleSum,
+          perc: oraclePerc,
+        })
+      } else {
+        cloudObj.push({
+          ...cloud,
+        })
+      }
+    })
+
+    return cloudObj
   },
   getChartLicenseHistory: (state) => {
     let data = []

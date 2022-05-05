@@ -1,5 +1,5 @@
 <template>
-  <HbuttonScroll>
+  <HbuttonScroll style="width: 90%; margin: 0 auto">
     <div class="technologies">
       <div class="technologies-list">
         <div class="image">
