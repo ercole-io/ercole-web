@@ -62,7 +62,6 @@ export const actions = {
     if (response) {
       dispatch('offLoadingTable')
       commit('SET_HOSTS', response)
-      commit('SET_HOSTNAMES', response)
     }
   },
 }
