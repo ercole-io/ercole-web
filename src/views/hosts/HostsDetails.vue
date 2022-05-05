@@ -60,13 +60,24 @@ export default {
     this.SET_ACTIVE_DB(this.dbname)
 
     bus.$emit('dynamicTitle', this.hostname)
+
+    if (this.$route.name === 'hosts-details') {
+      this.getHostNames()
+    } else if (this.$route.name === 'cluster-details') {
+      this.getClusterNames()
+    }
   },
   mounted() {
     this.isMounted = true
   },
   methods: {
-    ...mapActions(['getHostByName', 'getLicensesByHostName']),
-    ...mapMutations(['SET_ACTIVE_DB']),
+    ...mapActions([
+      'getHostByName',
+      'getLicensesByHostName',
+      'getHostNames',
+      'getClusterNames',
+    ]),
+    ...mapMutations(['SET_ACTIVE_DB', 'SET_HOSTNAMES', 'SET_CLUSTERNAMES']),
   },
   computed: {
     ...mapGetters(['currentHostType']),

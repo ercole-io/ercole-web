@@ -92,18 +92,18 @@ export default {
                 },
               ],
             },
-            {
-              title: this.$i18n.t('menu.microsoft'),
-              icon: 'microsoft-logo',
-              child: [
-                {
-                  title: this.$i18n.t('menu.dbList'),
-                  href: { name: 'microsoft' },
-                  icon: 'fas fa-database',
-                  class: 'menu-third-level',
-                },
-              ],
-            },
+            // {
+            //   title: this.$i18n.t('menu.microsoft'),
+            //   icon: 'microsoft-logo',
+            //   child: [
+            //     {
+            //       title: this.$i18n.t('menu.dbList'),
+            //       href: { name: 'microsoft' },
+            //       icon: 'fas fa-database',
+            //       class: 'menu-third-level',
+            //     },
+            //   ],
+            // },
           ],
         },
         {
