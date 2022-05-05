@@ -118,7 +118,6 @@ export const actions = {
     if (response) {
       dispatch('offLoadingTable')
       commit('SET_CLUSTERS', response)
-      commit('SET_CLUSTERNAMES', response)
     }
   },
   async getClusterByName({ commit, dispatch, getters }, clustername) {

@@ -19,18 +19,16 @@ export default {
           params: { hostname: this.hostname[0], dbname: this.hostname[1] },
         })
       } else {
-        if (this.$store.getters.checkHostnameExists(this.getHostname)) {
-          if (this.getDbname !== '') {
-            routeRedirect = this.$router[method]({
-              name: 'hosts-details',
-              params: { hostname: this.getHostname, dbname: this.getDbname },
-            })
-          } else {
-            routeRedirect = this.$router[method]({
-              name: 'hosts-details',
-              params: { hostname: this.getHostname },
-            })
-          }
+        if (this.getDbname !== '') {
+          routeRedirect = this.$router[method]({
+            name: 'hosts-details',
+            params: { hostname: this.getHostname, dbname: this.getDbname },
+          })
+        } else if (this.getDbname) {
+          routeRedirect = this.$router[method]({
+            name: 'hosts-details',
+            params: { hostname: this.getHostname },
+          })
         } else {
           routeRedirect = this.$router[method]({ name: '404' })
         }
