@@ -24,7 +24,7 @@ export default {
             name: 'hosts-details',
             params: { hostname: this.getHostname, dbname: this.getDbname },
           })
-        } else if (this.getDbname) {
+        } else if (!this.getDbname) {
           routeRedirect = this.$router[method]({
             name: 'hosts-details',
             params: { hostname: this.getHostname },

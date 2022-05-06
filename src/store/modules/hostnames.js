@@ -9,12 +9,12 @@ export const getters = {
   getHostnames: (state) => {
     return state.hostnames
   },
-  checkHostnameExists: (state) => (hostname) => {
-    let result = _.some(state.hostnames, (name) => {
-      return name === hostname
-    })
-    return result
-  },
+  // checkHostnameExists: (state) => (hostname) => {
+  //   let result = _.some(state.hostnames, (name) => {
+  //     return name === hostname
+  //   })
+  //   return result
+  // },
 }
 
 export const mutations = {
