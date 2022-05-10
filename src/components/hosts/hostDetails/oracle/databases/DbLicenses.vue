@@ -26,6 +26,7 @@
           :description="rowData.scope.description"
           :metric="rowData.scope.metric"
           :status="!rowData.scope.ignored"
+          type="oracle"
           page="host-details"
         />
         <TdContent :value="rowData.scope.licenseTypeID" />
