@@ -19,6 +19,7 @@
         >
           <DbInfo :dbInfo="dbs.info" />
           <DbDatabases :databases="dbs.databases" />
+          <DbLicenses :databases="dbs.dbLicenses" :dbName="dbs.name" />
         </b-tabs>
       </b-tab-item>
     </template>
@@ -30,12 +31,14 @@ import hostDatabasesFilters from '@/mixins/hostDatabasesFilters.js'
 import hostDetailsDatabasesMixins from '@/mixins/hostDetailsDatabases.js'
 import DbInfo from '@/components/hosts/hostDetails/microsoft/databases/DbInfo.vue'
 import DbDatabases from '@/components/hosts/hostDetails/microsoft/databases/DbDatabases.vue'
+import DbLicenses from '@/components/hosts/hostDetails/microsoft/databases/DbLicenses.vue'
 
 export default {
   mixins: [hostDatabasesFilters, hostDetailsDatabasesMixins],
   components: {
     DbInfo,
     DbDatabases,
+    DbLicenses,
   },
 }
 </script>

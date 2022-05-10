@@ -45,6 +45,7 @@
           :description="rowData.scope.description"
           :metric="rowData.scope.metric"
           :status="!rowData.scope.ignored"
+          :type="findLicenseType(rowData.scope.description)"
           page="licenses-used"
           v-if="rowData.scope.licenseTypeID"
         />
@@ -71,6 +72,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapGetters, mapState } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
@@ -114,6 +116,17 @@ export default {
         'ignored',
       ],
     }
+  },
+  methods: {
+    findLicenseType(desc) {
+      if (_.includes(desc, 'Oracle')) {
+        return 'oracle'
+      } else if (_.includes(desc, 'SQL Server')) {
+        return 'microsoft'
+      } else {
+        return
+      }
+    },
   },
   computed: {
     ...mapState(['licensesUsed']),
