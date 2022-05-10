@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 import { setFullPartNumber } from '@/helpers/helpers.js'
 
 export const state = () => ({
@@ -11,13 +11,6 @@ export const getters = {
   returnLicensesContracts: (state, getters) => (type) => {
     return getters.filteredOrNot(state[type + 'Contracts'])
   },
-  // getLicenseAgreementHostAssociated: state => id => {
-  //   const findHostAssociated = _.find(state.oracleContracts, val => {
-  //     return val.id === id
-  //   })
-  //   const hostsAssociated = findHostAssociated.hosts
-  //   return hostsAssociated
-  // },
   returnContractIDs: (state) => {
     const contractNumbers = []
 
@@ -71,70 +64,78 @@ export const mutations = {
 export const actions = {
   async getLicensesContracts({ commit, dispatch }, type) {
     dispatch('onLoadingTable')
-    let contractList = await axiosNoLoading.get(`/contracts/${type}/database`)
 
-    const response = await contractList.data.contracts
-    if (response) {
+    const config = {
+      method: 'get',
+      url: `/contracts/${type}/database`,
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
       if (type === 'mysql') {
         dispatch('onLoadingTable')
-        commit('SET_CONTRACTS', { res: response, type: type })
+        commit('SET_CONTRACTS', { res: res.data.contracts, type: type })
       } else {
-        commit('SET_CONTRACTS', { res: response, type: type })
+        commit('SET_CONTRACTS', { res: res.data.contracts, type: type })
         dispatch('offLoadingTable')
       }
-    }
+    })
   },
   async createLicenseContract({ commit, dispatch }, payload) {
     dispatch('onLoadingTable')
 
-    const create = await axiosNoLoading.post(
-      `/contracts/${payload.type}/database`,
-      payload.body
-    )
-    let response = await create.data
-    response = { ...response, mode: payload.type }
-
-    if (response) {
-      commit('CREATE_CONTRACT', response)
-      dispatch('offLoadingTable')
+    const config = {
+      method: 'post',
+      url: `/contracts/${payload.type}/database`,
+      data: payload.body,
     }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      let response = res.data
+      response = { ...response, mode: payload.type }
+
+      if (response) {
+        commit('CREATE_CONTRACT', response)
+        dispatch('offLoadingTable')
+      }
+    })
   },
   async updateLicenseContract({ commit, dispatch }, payload) {
     dispatch('onLoadingTable')
 
-    let data
+    const oracleUrl = `/contracts/${payload.type}/database`
+    const mySqlUrl = `/contracts/${payload.type}/database/${payload.body.id}`
+
+    const config = {
+      method: 'put',
+      data: payload.body,
+    }
+
     if (payload.type === 'mysql') {
-      await axiosNoLoading
-        .put(
-          `/contracts/${payload.type}/database/${payload.body.id}`,
-          payload.body
-        )
-        .then((res) => {
-          data = res.data
-        })
+      config.url = mySqlUrl
     } else if (payload.type === 'oracle') {
-      await axiosNoLoading
-        .put(`/contracts/${payload.type}/database`, payload.body)
-        .then((res) => {
-          data = res.data
-        })
+      config.url = oracleUrl
     }
 
-    data = { ...data, mode: payload.type }
+    await axiosRequest('baseApi', config).then((res) => {
+      let response = res.data
+      response = { ...response, mode: payload.type }
 
-    if (data) {
-      commit('UPDATE_CONTRACT', data)
+      commit('UPDATE_CONTRACT', response)
       dispatch('offLoadingTable')
-    }
+    })
   },
   async deleteLicenseContract({ dispatch }, payload) {
     dispatch('onLoadingTable')
-    const deleteContract = await axiosNoLoading.delete(
-      `/contracts/${payload.type}/database/${payload.id}`
-    )
-    const response = await deleteContract
-    if (response.status === 204) {
-      dispatch('offLoadingTable')
+
+    const config = {
+      method: 'delete',
+      url: `/contracts/${payload.type}/database/${payload.id}`,
     }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      if (res.status === 200 || res.status === 204) {
+        dispatch('offLoadingTable')
+      }
+    })
   },
 }

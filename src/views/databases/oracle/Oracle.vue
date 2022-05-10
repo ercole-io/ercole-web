@@ -15,17 +15,9 @@ export default {
     await this.getOracleDbs().then(() => {
       bus.$emit('data', this.getAllOracleDBs)
     })
-    await this.getTopWorkload()
-    await this.getTopUnusedIR()
-    await this.getOracleStatistics()
   },
   methods: {
-    ...mapActions([
-      'getOracleDbs',
-      'getTopWorkload',
-      'getTopUnusedIR',
-      'getOracleStatistics',
-    ]),
+    ...mapActions(['getOracleDbs']),
   },
   computed: {
     ...mapGetters(['getAllOracleDBs']),

@@ -162,7 +162,6 @@
 </template>
 
 <script>
-// import { bus } from '@/helpers/eventBus.js'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { formatDatepickerDate } from '@/helpers/helpers.js'
 import formatDate from '@/filters/formatDate.js'
@@ -175,7 +174,6 @@ export default {
       isFiltersOpened: false,
       filterIcon: 'chevron-down',
       glFilters: {},
-      // alertStatus: 'NEW',
     }
   },
   beforeMount() {
@@ -187,10 +185,6 @@ export default {
         : null,
     }
     this.isFiltersOpened = this.globalFilters.isFilterOpened
-
-    // bus.$on('alertStatus', (val) => {
-    //   this.alertStatus = val
-    // })
   },
   methods: {
     ...mapActions([
@@ -205,7 +199,6 @@ export default {
       'getPatchAdvisor',
       'getClusters',
       'getClusterByName',
-      // 'getAlertsData',
       'getLicensesDatabases',
       'getEngineeredSystems',
       'getMysqlDbs',
@@ -287,11 +280,6 @@ export default {
             this.offLoadingTable()
           )
           break
-        // case 'alerts':
-        //   this.getAlertsData({ status: this.alertStatus }).then(() =>
-        //     this.offLoadingTable()
-        //   )
-        //   break
         case 'licenses-used':
           this.getLicensesDatabases().then(() => this.offLoadingTable())
           this.getLicensesHosts().then(() => this.offLoadingTable())

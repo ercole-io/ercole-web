@@ -375,6 +375,7 @@ export default {
     ...mapMutations(['CREATE_AGREEMENT']),
     getHostAssociatedList(e) {
       this.hostAssociatedList = []
+      console.log(this.licensesUsed)
       if (e) {
         _.map(this.licensesUsed, (item) => {
           if (e.id === item.licenseTypeID) {

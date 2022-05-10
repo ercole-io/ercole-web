@@ -87,9 +87,6 @@ const NotFound = lazy(() =>
 const GeneralError = lazy(() =>
   import(/* webpackPreload: true */ '@/views/Errors/GeneralError.vue')
 )
-// const CloudRecommendations = lazy(() =>
-//   import(/* webpackPreload: true */ '@/views/cloud/Recommendations.vue')
-// )
 const ProfileConfigurations = lazy(() =>
   import(/* webpackPreload: true */ '@/views/cloud/ProfileConfigurations.vue')
 )
@@ -387,16 +384,6 @@ const routes = [
     },
     beforeEnter: verifyAuth,
   },
-  // {
-  //   path: '/cloud-recommendations',
-  //   name: 'cloud-recommendations',
-  //   component: CloudRecommendations,
-  //   meta: {
-  //     label: i18n.t('menu.recommendations'),
-  //     title: `${title}${i18n.t('menu.recommendations')}`,
-  //     breadcrumb: [{ name: i18n.t('menu.recommendations') }],
-  //   },
-  // },
   {
     path: '/profile-configurations',
     name: 'profile-configurations',

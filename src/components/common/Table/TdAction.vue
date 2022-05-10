@@ -10,9 +10,9 @@
 import { bus } from '@/helpers/eventBus.js'
 import { saveAs } from 'file-saver'
 import axios from 'axios'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import DownloadingModal from '@/components/common/DownloadingModal.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   mixins: [TooltipMixin],
@@ -20,10 +20,6 @@ export default {
     fileName: {
       type: String,
       default: '',
-    },
-    link: {
-      type: String,
-      required: true,
     },
     iconSet: {
       type: Array,
@@ -35,6 +31,7 @@ export default {
       const request = axios.CancelToken.source()
       bus.$on('callCancelExport', () => {
         request.cancel()
+        bus.$emit('callCloseModal')
       })
 
       this.$buefy.modal.open({
@@ -43,30 +40,35 @@ export default {
         props: {
           msgTxt: this.$i18n.t('common.general.wait'),
           btText: this.$i18n.t('common.general.cancelRequest'),
-          downloadType: `Downloading ${this.fileName}`,
+          exportTitle: `Downloading ${this.fileName}`,
+          exportType: 'download',
         },
         canCancel: false,
       })
 
-      axiosNoLoading
-        .get(this.link, {
-          cancelToken: request.token,
-          responseType: 'blob',
-          onDownloadProgress: (progressEvent) => {
-            let currentProgress = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            )
-
-            bus.$emit('updateDownloadPerc', currentProgress)
-          },
-        })
-        .then((res) => {
-          saveAs(res.data, this.fileName)
-        })
-        .then(() => {
-          bus.$emit('callCloseModal')
-        })
+      setTimeout(() => {
+        axios
+          .get(`${this.getRepoServiceBaseUrl}/all/${this.fileName}`, {
+            cancelToken: request.token,
+            responseType: 'blob',
+            onDownloadProgress: (progressEvent) => {
+              let currentProgress = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+              )
+              bus.$emit('updateDownloadPerc', currentProgress)
+            },
+          })
+          .then((res) => {
+            saveAs(res.data, this.fileName)
+          })
+          .then(() => {
+            bus.$emit('callCloseModal')
+          })
+      }, 1000)
     },
+  },
+  computed: {
+    ...mapGetters(['getRepoServiceBaseUrl']),
   },
 }
 </script>

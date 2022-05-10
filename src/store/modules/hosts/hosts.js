@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { mapClustStatus } from '@/helpers/helpers.js'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
   hosts: [],
@@ -47,22 +47,20 @@ export const actions = {
   async getHosts({ commit, dispatch, getters }, olderThan = null) {
     dispatch('onLoadingTable')
 
-    const params = {
-      'older-than': getters.getActiveFilters.date || olderThan,
-      environment: getters.getActiveFilters.environment,
-      location: getters.getActiveFilters.location,
+    const config = {
+      method: 'get',
+      url: '/hosts?mode=summary',
+      params: {
+        'older-than': getters.getActiveFilters.date || olderThan,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
 
-    const hostsData = await axiosNoLoading.get('/hosts?mode=summary', {
-      params: params,
-    })
-
-    const response = await hostsData.data.hosts
-
-    if (response) {
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_HOSTS', res.data.hosts)
       dispatch('offLoadingTable')
-      commit('SET_HOSTS', response)
-    }
+    })
   },
 }
 

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
   segmentAdvisor: [],
@@ -48,20 +48,19 @@ export const actions = {
   async getSegmentAdvisor({ commit, dispatch, getters }) {
     dispatch('onLoadingTable')
 
-    const segmentAdvisor = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/segment-advisors',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location,
-        },
-      }
-    )
-    const response = await segmentAdvisor.data.segmentAdvisors
-    if (response) {
-      dispatch('offLoadingTable')
-      commit('SET_SEGMENT_ADVISOR', response)
+    const config = {
+      method: 'get',
+      url: '/hosts/technologies/oracle/databases/segment-advisors',
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      dispatch('offLoadingTable')
+      commit('SET_SEGMENT_ADVISOR', res.data.segmentAdvisors)
+    })
   },
 }

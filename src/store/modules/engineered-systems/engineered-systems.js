@@ -1,7 +1,9 @@
 import _ from 'lodash'
 import axios from 'axios'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 import i18n from '@/i18n.js'
+
+const url = '/hosts/technologies/oracle/exadata'
 
 export const state = () => ({
   engSys: {},
@@ -75,46 +77,39 @@ export const actions = {
   async getEngineeredSystems({ commit, getters, dispatch }, olderThan = null) {
     dispatch('onLoadingTable')
 
-    const url = '/hosts/technologies/oracle/exadata'
-    let params = {
-      'older-than': getters.getActiveFilters.date || olderThan,
-      environment: getters.getActiveFilters.environment,
-      location: getters.getActiveFilters.location,
-    }
+    const endPoints = [
+      url,
+      `${url}/total-memory-size`,
+      `${url}/total-cpu`,
+      `${url}/average-storage-usage`,
+      `${url}/patch-status?window-time=6`,
+      `${url}/patch-status?window-time=12`,
+    ]
 
-    axios
-      .all([
-        await axiosNoLoading.get(url, { params: params }),
-        await axiosNoLoading.get(`${url}/total-memory-size`, {
-          params: params,
-        }),
-        await axiosNoLoading.get(`${url}/total-cpu`, { params: params }),
-        await axiosNoLoading.get(`${url}/average-storage-usage`, {
-          params: params,
-        }),
-        await axiosNoLoading.get(`${url}/patch-status?window-time=6`, {
-          params: params,
-        }),
-        await axiosNoLoading.get(`${url}/patch-status?window-time=12`, {
-          params: params,
-        }),
-      ])
-      .then(
-        axios.spread(
-          (engSysRes, memoryRes, cpuRes, storageRes, patchRes6, patchRes12) => {
-            commit('SET_ENGINEERED_SYSTEMS', {
-              engSys: engSysRes.data,
-              memory: memoryRes.data,
-              cpu: cpuRes.data,
-              storage: storageRes.data,
-              patch6: patchRes6.data,
-              patch12: patchRes12.data,
-            })
-          }
-        )
+    await Promise.all(
+      endPoints.map((endpoint) =>
+        axiosRequest('baseApi', {
+          merthod: 'get',
+          url: endpoint,
+          params: {
+            'older-than': getters.getActiveFilters.date || olderThan,
+            environment: getters.getActiveFilters.environment,
+            location: getters.getActiveFilters.location,
+          },
+        })
       )
-      .then(() => {
+    ).then(
+      axios.spread((...allData) => {
+        commit('SET_ENGINEERED_SYSTEMS', {
+          engSys: allData[0].data,
+          memory: allData[1].data,
+          cpu: allData[2].data,
+          storage: allData[3].data,
+          patch6: allData[4].data,
+          patch12: allData[5].data,
+        })
         dispatch('offLoadingTable')
       })
+    )
   },
 }
