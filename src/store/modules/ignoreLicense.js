@@ -27,17 +27,21 @@ export const actions = {
   async ignoreDatabaseLicense({ commit, dispatch }, data) {
     dispatch('onLoading')
 
+    const oracleUrl = `/hosts/${data.hostname}/technologies/${data.type}/databases/${data.database}/licenses/${data.licenseID}/ignored/${data.status}`
+    const microsoftUrl = `/hosts/${data.hostname}/technologies/${data.type}/databases/${data.database}/ignored/${data.status}`
+
     const config = {
       method: 'put',
-      url: `/hosts/${data.hostname}/technologies/oracle/databases/${data.database}/licenses/${data.licenseID}/ignored/${data.status}`,
+      url: data.type === 'oracle' ? oracleUrl : microsoftUrl,
     }
+
     await axiosRequest('baseApi', config).then((res) => {
       if (res.status === 200) {
         if (data.page === 'licenses-used') {
           commit('SET_IGNORE_DB_LICENSE', data)
-          dispatch('offLoading')
         }
       }
+      dispatch('offLoading')
     })
   },
 }

@@ -10,7 +10,7 @@
       :isLoadingTable="false"
     >
       <template slot="headData">
-        <!-- <v-th sortKey="ignored">Ignore License</v-th> -->
+        <v-th sortKey="ignored">Ignore License</v-th>
         <v-th sortKey="licenseTypeID">Part Number</v-th>
         <v-th sortKey="description">Description</v-th>
         <v-th sortKey="metric">Metric</v-th>
@@ -19,16 +19,16 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <!-- <ignoreDbLicense
+        <ignoreDbLicense
           :db="dbName"
           :host="$route.params.hostname"
           :licenseID="rowData.scope.licenseTypeID"
           :description="rowData.scope.description"
           :metric="rowData.scope.metric"
           :status="!rowData.scope.ignored"
-          type="mysql"
+          type="microsoft"
           page="host-details"
-        /> -->
+        />
         <TdContent :value="rowData.scope.licenseTypeID" />
         <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.metric" />
@@ -46,7 +46,7 @@
 import { mapGetters } from 'vuex'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
-// import ignoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
+import ignoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
 
 export default {
   props: {
@@ -62,7 +62,7 @@ export default {
   components: {
     FullTable,
     TdContent,
-    // ignoreDbLicense,
+    ignoreDbLicense,
   },
   data() {
     return {
