@@ -259,7 +259,7 @@ export default {
     addUpdateAgreement() {
       const mysqlAgreementData = {
         type: toUpper(this.mysqlForm.agreeType),
-        agreementID: this.mysqlForm.agreeNumber,
+        contractID: this.mysqlForm.agreeNumber,
         csi: this.mysqlForm.agreeCsi,
         numberOfLicenses: Number(this.mysqlForm.agreeLicenses),
         clusters:
@@ -301,7 +301,7 @@ export default {
         licenseID: data.id,
         agreeType: toLower(data.type),
         agreeLicenses: data.numberOfLicenses,
-        agreeNumber: data.agreementID,
+        agreeNumber: data.contractID,
         agreeCsi: data.csi,
         agreeHosts: data.hosts,
         agreeClusters: data.clusters,

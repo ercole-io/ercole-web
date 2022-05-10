@@ -1,4 +1,4 @@
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
   locations: {},
@@ -36,13 +36,21 @@ export const mutations = {
 
 export const actions = {
   async getGlobalFiltersLocations({ commit }) {
-    const requestLocations = await axiosNoLoading.get('/hosts/locations')
-    const responseLocations = await requestLocations.data
-    commit('SET_LOCATIONS', responseLocations)
+    const config = {
+      method: 'get',
+      url: '/hosts/locations',
+    }
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_LOCATIONS', res.data)
+    })
   },
   async getGlobalFiltersEnvironments({ commit }) {
-    const requestEnvironment = await axiosNoLoading.get('/hosts/environments')
-    const responseEnvironment = await requestEnvironment.data
-    commit('SET_ENVIRONMENTS', responseEnvironment)
+    const config = {
+      method: 'get',
+      url: '/hosts/environments',
+    }
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_ENVIRONMENTS', res.data)
+    })
   },
 }

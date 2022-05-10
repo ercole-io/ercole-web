@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import axiosDefault from '@/axios/axios-default.js'
+import { axiosRequest } from '@/services/services.js'
 import { mapActions, mapGetters } from 'vuex'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
@@ -25,7 +25,7 @@ export default {
     GhostLoading,
   },
   methods: {
-    ...mapActions(['getHosts']),
+    ...mapActions(['getHosts', 'onLoading', 'offLoading']),
     deleteHost(hostname) {
       this.$buefy.dialog.confirm({
         title: this.$i18n.t('views.hostDetails.dismissHost'),
@@ -36,12 +36,17 @@ export default {
         type: 'is-danger',
         hasIcon: true,
         onConfirm: () => {
-          axiosDefault
-            .delete(`/hosts/${hostname}`)
+          this.onLoading()
+          const config = {
+            method: 'delete',
+            url: `/hosts/${hostname}`,
+          }
+          axiosRequest('baseApi', config)
             .then(() => {
               this.getHosts()
             })
             .then(() => {
+              this.offLoading()
               this.$router.push({ name: 'hosts' })
             })
             .then(() => {

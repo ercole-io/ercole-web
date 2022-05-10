@@ -1,6 +1,9 @@
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import axios from 'axios'
+import { axiosRequest } from '@/services/services.js'
 import { mountDatabasesChart } from '@/helpers/databasesCharts.js'
 import _ from 'lodash'
+
+const url = '/hosts/technologies/oracle/databases'
 
 export const state = () => ({
   oracleDbs: [],
@@ -57,79 +60,33 @@ export const actions = {
   async getOracleDbs({ commit, dispatch, getters }) {
     dispatch('onLoadingTable')
 
-    const oracleDbs = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location,
-        },
-      }
+    const endPoints = [
+      url,
+      `${url}/top-workload`,
+      `${url}/top-unused-instance-resource`,
+      `${url}/statistics`,
+    ]
+
+    await Promise.all(
+      endPoints.map((endpoint) =>
+        axiosRequest('baseApi', {
+          merthod: 'get',
+          url: endpoint,
+          params: {
+            'older-than': getters.getActiveFilters.date,
+            environment: getters.getActiveFilters.environment,
+            location: getters.getActiveFilters.location,
+          },
+        })
+      )
+    ).then(
+      axios.spread((...allData) => {
+        commit('SET_ORACLE_DBS', allData[0].data)
+        commit('SET_TOP_WORLOAD', allData[1].data)
+        commit('SET_TOP_UNUSEDIR', allData[2].data)
+        commit('SET_ORACLE_STATISTICS', allData[3].data)
+        dispatch('offLoadingTable')
+      })
     )
-
-    const response = await oracleDbs.data
-    if (response) {
-      dispatch('offLoadingTable')
-      commit('SET_ORACLE_DBS', response)
-    }
-  },
-  async getTopWorkload({ commit, dispatch, getters }) {
-    dispatch('onLoadingTable')
-
-    const topWorkload = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/top-workload',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location,
-        },
-      }
-    )
-    const response = await topWorkload.data
-    if (response) {
-      dispatch('offLoadingTable')
-      commit('SET_TOP_WORLOAD', response)
-    }
-  },
-  async getTopUnusedIR({ commit, dispatch, getters }) {
-    dispatch('onLoadingTable')
-
-    const topUnused = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/top-unused-instance-resource',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location,
-        },
-      }
-    )
-    const response = await topUnused.data
-    if (response) {
-      dispatch('offLoadingTable')
-      commit('SET_TOP_UNUSEDIR', response)
-    }
-  },
-  async getOracleStatistics({ commit, dispatch, getters }) {
-    dispatch('onLoadingTable')
-
-    const stats = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/statistics',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location,
-        },
-      }
-    )
-
-    const response = await stats.data
-    if (response) {
-      dispatch('offLoadingTable')
-      commit('SET_ORACLE_STATISTICS', response)
-    }
   },
 }

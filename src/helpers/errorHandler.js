@@ -2,10 +2,6 @@ import store from '../store/index.js'
 import router from '../router/index.js'
 
 const errorResponseHandler = (error) => {
-  // if (error.config.errorHandle === false) {
-
-  // }
-
   if (error.response) {
     store.dispatch('offLoading')
     if (error.response.status === 401) {

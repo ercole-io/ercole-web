@@ -1,6 +1,8 @@
 import _ from 'lodash'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 import { setFullPartNumber } from '@/helpers/helpers.js'
+
+const url = '/hosts/technologies/all/databases'
 
 export const state = () => ({
   dbsLicensesUsed: [],
@@ -100,63 +102,63 @@ export const mutations = {
 export const actions = {
   async getLicensesDatabases({ commit, getters }) {
     commit('ON_LOADING_DATABASES', true)
-    const licensesUsedDatabases = await axiosNoLoading.get(
-      '/hosts/technologies/all/databases/licenses-used',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location,
-        },
-      }
-    )
-    let response = await licensesUsedDatabases.data.usedLicenses
-    response = _.map(response, (val) => {
-      return {
-        ...val,
-        ignore: false,
-      }
-    })
 
-    if (response) {
+    const config = {
+      method: 'get',
+      url: `${url}/licenses-used`,
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      let response = res.data.usedLicenses
+      response = _.map(response, (val) => {
+        return {
+          ...val,
+          ignore: false,
+        }
+      })
       commit('SET_LICENSE_DATABASES', response)
       commit('ON_LOADING_DATABASES', false)
-    }
+    })
   },
   async getLicensesHosts({ commit, getters }) {
     commit('ON_LOADING_HOSTS', true)
-    const licenseUsedHosts = await axiosNoLoading.get(
-      '/hosts/technologies/all/databases/licenses-used-per-host',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location,
-        },
-      }
-    )
-    const response = await licenseUsedHosts.data.usedLicenses
-    if (response) {
-      commit('SET_LICENSES_HOST', response)
-      commit('ON_LOADING_HOSTS', false)
+
+    const config = {
+      method: 'get',
+      url: `${url}/licenses-used-per-host`,
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_LICENSES_HOST', res.data.usedLicenses)
+      commit('ON_LOADING_HOSTS', false)
+    })
   },
   async getLicensesClusters({ commit, getters }) {
     commit('ON_LOADING_CLUSTERS', true)
-    const licensesUsedCluster = await axiosNoLoading.get(
-      '/hosts/technologies/all/databases/licenses-used-per-cluster',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location,
-        },
-      }
-    )
-    const response = await licensesUsedCluster.data.usedLicensesPerCluster
-    if (response) {
-      commit('SET_LICENSES_CLUSTER', response)
-      commit('ON_LOADING_CLUSTERS', false)
+
+    const config = {
+      method: 'get',
+      url: `${url}/licenses-used-per-cluster`,
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_LICENSES_CLUSTER', res.data.usedLicensesPerCluster)
+      commit('ON_LOADING_CLUSTERS', false)
+    })
   },
 }

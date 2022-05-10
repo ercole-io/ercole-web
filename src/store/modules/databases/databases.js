@@ -1,7 +1,10 @@
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import axios from 'axios'
+import { axiosRequest } from '@/services/services.js'
 import { mountDatabasesChart } from '@/helpers/databasesCharts.js'
 import { returnTechTypePrettyName } from '@/helpers/helpers.js'
 import _ from 'lodash'
+
+const url = '/hosts/technologies/all/databases'
 
 export const state = () => ({
   databases: [],
@@ -36,38 +39,27 @@ export const mutations = {
 export const actions = {
   async getDatabases({ commit, dispatch, getters }) {
     dispatch('onLoadingTable')
-    dispatch('getDatabasesStats')
 
-    const databases = await axiosNoLoading.get(
-      '/hosts/technologies/all/databases',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location,
-        },
-      }
+    const endPoints = [url, `${url}/statistics`]
+
+    await Promise.all(
+      endPoints.map((endpoint) =>
+        axiosRequest('baseApi', {
+          merthod: 'get',
+          url: endpoint,
+          params: {
+            'older-than': getters.getActiveFilters.date,
+            environment: getters.getActiveFilters.environment,
+            location: getters.getActiveFilters.location,
+          },
+        })
+      )
+    ).then(
+      axios.spread((...allData) => {
+        commit('SET_DATABASES', allData[0].data.databases)
+        commit('SET_DB_STATS', allData[1].data)
+        dispatch('offLoadingTable')
+      })
     )
-    const response = await databases.data.databases
-    if (response) {
-      dispatch('offLoadingTable')
-      commit('SET_DATABASES', response)
-    }
-  },
-  async getDatabasesStats({ commit, getters }) {
-    const stats = await axiosNoLoading.get(
-      '/hosts/technologies/all/databases/statistics',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location,
-        },
-      }
-    )
-    const response = await stats.data
-    if (response) {
-      commit('SET_DB_STATS', response)
-    }
   },
 }

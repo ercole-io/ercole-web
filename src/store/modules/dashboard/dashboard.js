@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import moment from 'moment'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
-import axiosChartNoLoading from '@/axios/axios-chart-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 import {
   setRangeDateFormat,
   checkRangeDate,
@@ -191,20 +190,33 @@ export const mutations = {
 
 export const actions = {
   async getDashboardData({ commit }) {
-    const dashData = await axiosNoLoading.get('/frontend/dashboard')
-    const dashResponse = await dashData.data
-    commit('SET_DASHBOARD_DATA', dashResponse)
+    const config = {
+      method: 'get',
+      url: '/frontend/dashboard',
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_DASHBOARD_DATA', res.data)
+    })
   },
   async getLicenseHistory({ commit }) {
-    const licenseHistory = await axiosChartNoLoading.get(
-      '/technologies/all/license-history'
-    )
-    const response = await licenseHistory.data.licenseComplianceHistory
-    commit('SET_LICENSE_HISTORY', response)
+    const config = {
+      method: 'get',
+      url: '/technologies/all/license-history',
+    }
+
+    await axiosRequest('chartApi', config).then((res) => {
+      commit('SET_LICENSE_HISTORY', res.data.licenseComplianceHistory)
+    })
   },
   async getCoreHosts({ commit }) {
-    const hostsCore = await axiosChartNoLoading.get('/hosts/cores')
-    const response = await hostsCore.data.coresHistory
-    commit('SET_CORE_HOSTS', response)
+    const config = {
+      method: 'get',
+      url: '/hosts/cores',
+    }
+
+    await axiosRequest('chartApi', config).then((res) => {
+      commit('SET_CORE_HOSTS', res.data.coresHistory)
+    })
   },
 }

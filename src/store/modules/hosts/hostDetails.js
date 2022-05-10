@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import moment from 'moment'
-// import axiosDefault from '@/axios/axios-default'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 import {
   mapClustStatus,
   returnAlertsByTypeDate,
@@ -11,7 +10,6 @@ import {
 import { mapDatabases } from '@/helpers/databasesMap.js'
 import formatDateTime from '@/filters/formatDateTime.js'
 import formatDate from '@/filters/formatDate.js'
-// import store from '@/store/index.js'
 import { ModalProgrammatic as Modal } from 'buefy'
 import ClusterNamesModal from '@/components/hosts/hostDetails/ClusterNamesModal.vue'
 
@@ -378,24 +376,29 @@ export const mutations = {
 export const actions = {
   async getHostByName({ commit, dispatch, getters }, hostname) {
     dispatch('onLoadingTable')
-    const hostByName = await axiosNoLoading.get(`/hosts/${hostname}`, {
+
+    const config = {
+      method: 'get',
+      url: `/hosts/${hostname}`,
       params: {
         'older-than': getters.getActiveFilters.date,
       },
-    })
-
-    const response = await hostByName.data
-    commit('SET_CURRENT_HOST', response)
-    if (response) {
-      dispatch('offLoadingTable')
     }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_CURRENT_HOST', res.data)
+      dispatch('offLoadingTable')
+    })
   },
   async getLicensesByHostName({ commit }, hostname) {
-    const dbsLicenses = await axiosNoLoading.get(
-      `/hosts/${hostname}/technologies/all/databases/licenses-used`
-    )
-    const dbsLicensesResponse = await dbsLicenses.data.usedLicenses
-    commit('SET_HOST_DB_LICENSES', dbsLicensesResponse)
+    const config = {
+      method: 'get',
+      url: `/hosts/${hostname}/technologies/all/databases/licenses-used`,
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_HOST_DB_LICENSES', res.data.usedLicenses)
+    })
   },
 }
 

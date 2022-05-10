@@ -1,7 +1,7 @@
 <template>
-  <div class="modal-card" style="width: 400px">
+  <div class="modal-card" style="width: 450px">
     <header class="modal-card-head">
-      <p class="modal-card-title">{{ exportTitle }}</p>
+      <p class="modal-card-title is-size-5">{{ exportTitle }}</p>
     </header>
     <section class="modal-card-body">
       <b-button
@@ -78,7 +78,17 @@
 
       <div v-if="!isLms || isLmsRequest" style="align-items: flex-start">
         <p class="mb-2">{{ msgTxt }}</p>
-        <b-progress type="is-primary"></b-progress>
+        <b-progress
+          type="is-primary"
+          v-if="exportType !== 'download'"
+        ></b-progress>
+        <b-progress
+          type="is-primary"
+          :value="setDownloadPercent"
+          format="percent"
+          show-value
+          v-else
+        ></b-progress>
       </div>
     </section>
     <footer class="modal-card-foot is-justify-content-flex-end">
@@ -108,10 +118,11 @@
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import axios from 'axios'
 import moment from 'moment'
 import { saveAs } from 'file-saver'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 import CustomField from '@/components/common/Form/CustomField.vue'
 import formatDate from '@/filters/formatDate.js'
 import i18n from '@/i18n.js'
@@ -166,8 +177,16 @@ export default {
     }
   },
   mounted() {
-    if (!this.isLms) {
+    if (!this.isLms && this.exportType !== 'download') {
       this.exportRequest()
+    }
+    if (this.exportType === 'download') {
+      bus.$on('updateDownloadPerc', (val) => {
+        this.setDownloadPercent = val
+      })
+      bus.$on('callCloseModal', () => {
+        this.closeModal()
+      })
     }
   },
   methods: {
@@ -185,21 +204,23 @@ export default {
         this.lmsFilters.to = dateTo
       }
 
-      axiosNoLoading
-        .get(`/${this.exportUrl}`, {
-          headers: headers,
-          responseType: 'blob',
-          cancelToken: this.request.token,
-          params: this.lmsFilters,
-          onDownloadProgress: (progressEvent) => {
-            this.onDownloadProgress(progressEvent)
-          },
-        })
+      const config = {
+        method: 'get',
+        url: `/${this.exportUrl}`,
+        headers: headers,
+        responseType: 'blob',
+        cancelToken: this.request.token,
+        params: this.lmsFilters,
+        onDownloadProgress: (progressEvent) => {
+          this.onDownloadProgress(progressEvent)
+        },
+      }
+      axiosRequest('baseApi', config)
         .then((res) => {
           saveAs(res.data, `${this.exportName}-${date}.${extension}`)
         })
         .then(() => {
-          this.$emit('close')
+          this.closeModal()
         })
         .catch((err) => {
           if (err) {
@@ -213,13 +234,16 @@ export default {
       this.exportRequest()
     },
     CancelRequest() {
-      if (this.isLms) {
+      if (this.isLms && this.exportType !== 'download') {
         this.isClose = true
         this.isLmsRequest = false
-      } else {
+        this.request.cancel()
+      } else if (!this.isLms && this.exportType !== 'download') {
         this.closeModal()
+        this.request.cancel()
+      } else {
+        bus.$emit('callCancelExport')
       }
-      this.request.cancel()
     },
     closeModal() {
       this.$emit('close')

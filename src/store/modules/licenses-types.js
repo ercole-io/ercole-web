@@ -1,4 +1,4 @@
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 import _ from 'lodash'
 
 export const state = () => ({
@@ -46,11 +46,12 @@ export const mutations = {
 
 export const actions = {
   async getLicensesTypes({ commit }) {
-    const licensesTypes = await axiosNoLoading.get(
-      '/settings/oracle/database/license-types'
-    )
-    const response = await licensesTypes.data['license-types']
-
-    commit('SET_LICENSES_TYPES', response)
+    const config = {
+      method: 'get',
+      url: '/settings/oracle/database/license-types',
+    }
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_LICENSES_TYPES', res.data['license-types'])
+    })
   },
 }

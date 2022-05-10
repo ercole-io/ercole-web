@@ -1,5 +1,5 @@
-import axiosNoLoading from '@/axios/axios-no-loading.js'
 import _ from 'lodash'
+import { axiosRequest } from '@/services/services.js'
 import { setFullPartNumber } from '@/helpers/helpers.js'
 
 const showStrokeColor = (value) => {
@@ -42,20 +42,19 @@ export const actions = {
   async getComplianceList({ commit, dispatch, getters }) {
     dispatch('onLoadingTable')
 
-    const complianceList = await axiosNoLoading.get(
-      '/hosts/technologies/all/databases/licenses-compliance',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location,
-        },
-      }
-    )
-    const response = await complianceList.data.licensesCompliance
-    if (response) {
-      dispatch('offLoadingTable')
-      commit('SET_COMPLIANCE_LIST', response)
+    const config = {
+      method: 'get',
+      url: '/hosts/technologies/all/databases/licenses-compliance',
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_COMPLIANCE_LIST', res.data.licensesCompliance)
+      dispatch('offLoadingTable')
+    })
   },
 }

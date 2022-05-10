@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import axios from 'axios'
-import axiosOciNoLoading from '@/axios/axios-oci-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
   ercoleRecommendations: [],
@@ -37,7 +37,12 @@ export const actions = {
     ]
 
     await Promise.all(
-      endPoints.map((endpoint) => axiosOciNoLoading.get(endpoint))
+      endPoints.map((endpoint) =>
+        axiosRequest('thunderApi', {
+          merthod: 'get',
+          url: endpoint,
+        })
+      )
     ).then(
       axios.spread((...allData) => {
         const mergeData = []

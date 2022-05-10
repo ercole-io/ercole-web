@@ -19,6 +19,7 @@ const defaultState = () => ({
   'page-profileConfig': [false, true],
   'page-recommendations': [false, true],
   'page-ercoleRecommendations': [false, true],
+  'page-databasesMsSqlServer': [false, true],
 })
 
 export const state = defaultState()

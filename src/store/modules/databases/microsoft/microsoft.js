@@ -1,4 +1,4 @@
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
   msSqlServer: [],
@@ -20,20 +20,19 @@ export const actions = {
   async getMsSqlServerDbs({ commit, dispatch, getters }) {
     dispatch('onLoadingTable')
 
-    const msSqlServer = await axiosNoLoading.get(
-      '/hosts/technologies/microsoft/databases',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location,
-        },
-      }
-    )
-    const response = (await msSqlServer.data) || []
-    if (response) {
-      dispatch('offLoadingTable')
-      commit('SET_MS_SQL_SERVER_DBS', response)
+    const config = {
+      method: 'get',
+      url: '/hosts/technologies/microsoft/databases',
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      dispatch('offLoadingTable')
+      commit('SET_MS_SQL_SERVER_DBS', res.data)
+    })
   },
 }

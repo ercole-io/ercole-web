@@ -1,4 +1,4 @@
-import axiosNoauth from '@/axios/axios-noauth.js'
+import axiosConfig from '@/axios/axios-config.js'
 
 export const state = () => {
   return {
@@ -22,7 +22,7 @@ export const mutations = {
 
 export const actions = {
   fetchConfig({ commit, dispatch }) {
-    return axiosNoauth
+    return axiosConfig
       .get('/config.json')
       .then((res) => {
         commit('FETCHED_CONFIG', res.data)

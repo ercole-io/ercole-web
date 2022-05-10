@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 import { returnTechTypePrettyName } from '@/helpers/helpers.js'
 
 export const state = () => ({
@@ -104,38 +104,35 @@ export const actions = {
   async getClusters({ commit, dispatch, getters }) {
     dispatch('onLoadingTable')
 
-    const params = {
-      'older-than': getters.getActiveFilters.date,
-      environment: getters.getActiveFilters.environment,
-      location: getters.getActiveFilters.location,
+    const config = {
+      method: 'get',
+      url: '/hosts/clusters',
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
 
-    const clustersData = await axiosNoLoading.get('/hosts/clusters', {
-      params: params,
-    })
-
-    const response = await clustersData.data
-    if (response) {
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_CLUSTERS', res.data)
       dispatch('offLoadingTable')
-      commit('SET_CLUSTERS', response)
-    }
+    })
   },
   async getClusterByName({ commit, dispatch, getters }, clustername) {
     dispatch('onLoadingTable')
 
-    const clusterByName = await axiosNoLoading.get(
-      `/hosts/clusters/${clustername}`,
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-        },
-      }
-    )
-
-    const response = await clusterByName.data
-    if (response) {
-      dispatch('offLoadingTable')
-      commit('SET_CURRENT_CLUSTER', response)
+    const config = {
+      method: 'get',
+      url: `/hosts/clusters/${clustername}`,
+      params: {
+        'older-than': getters.getActiveFilters.date,
+      },
     }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_CURRENT_CLUSTER', res.data)
+      dispatch('offLoadingTable')
+    })
   },
 }
