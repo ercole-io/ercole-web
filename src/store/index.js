@@ -31,7 +31,6 @@ import * as LicensesTypes from './modules/licenses-types'
 import * as rangeDates from './modules/range-dates'
 import * as moreInfoToggle from '@/store/modules/more-info-toggle.js'
 import * as columnToggle from '@/store/modules/columns-toggle.js'
-import * as recommendations from '@/store/modules/cloud/recommendations.js'
 import * as profileConfig from '@/store/modules/cloud/profileConfig.js'
 import * as ercoleRecommendations from '@/store/modules/cloud/ercoleRecommendations.js'
 import * as activeProfiles from '@/store/modules/cloud/activeProfiles.js'
@@ -71,7 +70,6 @@ export default new Vuex.Store({
     rangeDates,
     moreInfoToggle,
     columnToggle,
-    recommendations,
     profileConfig,
     ercoleRecommendations,
     activeProfiles,

@@ -1,9 +1,8 @@
-import axiosAuth from '@/axios/axios-auth.js'
+import { axiosRequest } from '@/services/services.js'
 import router from '@/router/index.js'
 import * as helpers from '@/helpers/helpers.js'
 import moment from 'moment'
 import i18n from '@/i18n.js'
-import _ from 'lodash'
 
 export const state = () => {
   return {
@@ -25,18 +24,17 @@ export const mutations = {
 }
 
 export const actions = {
-  login({ commit, dispatch }, auth) {
-    return axiosAuth
-      .post(
-        '/login',
-        {
-          username: auth.username,
-          password: auth.password,
-        },
-        {
-          timeout: 15000,
-        }
-      )
+  async login({ commit, dispatch }, auth) {
+    const config = {
+      method: 'post',
+      url: '/user/login',
+      data: {
+        username: auth.username,
+        password: auth.password,
+      },
+    }
+
+    await axiosRequest('login', config, false)
       .then((res) => {
         const token = res.data
         const decodeToken = JSON.parse(atob(token.split('.')[1]))
@@ -66,19 +64,18 @@ export const actions = {
         dispatch('offLoading')
       })
       .catch((err) => {
-        if (err.code === 'ECONNABORTED' && err.message !== 'Unauthorized') {
+        dispatch('offLoading')
+        if (err && !err.response) {
           dispatch('setErrMsg', i18n.t(`common.validations.loginTimeout`))
-        } else if (_.includes(err, '401')) {
+        } else if (err.response && err.response.status === 401) {
           dispatch('setErrMsg', i18n.t(`common.validations.loginUnauthorized`))
-        } else if (_.includes(err, '422')) {
+        } else if (err.response && err.response.status === 422) {
           dispatch('setErrMsg', i18n.t(`common.validations.loginErr422`))
-        } else if (_.includes(err, '500')) {
+        } else if (err.response && err.response.status === 500) {
           dispatch('setErrMsg', i18n.t(`common.validations.loginErr500`))
         } else {
           dispatch('setErrMsg', i18n.t(`common.validations.loginErrGeneric`))
         }
-
-        dispatch('offLoading')
       })
   },
   tryAutoLogin({ commit }) {

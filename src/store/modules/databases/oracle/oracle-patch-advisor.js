@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 import formatDate from '@/filters/formatDate.js'
 
 export const state = () => ({
@@ -37,20 +37,19 @@ export const actions = {
   async getPatchAdvisor({ commit, dispatch, getters }) {
     dispatch('onLoadingTable')
 
-    const patchAdvisor = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/patch-advisors',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location,
-        },
-      }
-    )
-    const response = await patchAdvisor.data.content
-    if (response) {
-      dispatch('offLoadingTable')
-      commit('SET_PATCH_ADVISOR', response)
+    const config = {
+      method: 'get',
+      url: '/hosts/technologies/oracle/databases/patch-advisors',
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      dispatch('offLoadingTable')
+      commit('SET_PATCH_ADVISOR', res.data.content)
+    })
   },
 }

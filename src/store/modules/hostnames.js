@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
   hostnames: [],
@@ -27,12 +27,12 @@ export const mutations = {
 
 export const actions = {
   async getHostNames({ commit }) {
-    const hostsData = await axiosNoLoading.get('/hosts?mode=summary')
-
-    const response = await hostsData.data.hosts
-
-    if (response) {
-      commit('SET_HOSTNAMES', response)
+    const config = {
+      method: 'get',
+      url: '/hosts?mode=summary',
     }
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_HOSTNAMES', res.data.hosts)
+    })
   },
 }

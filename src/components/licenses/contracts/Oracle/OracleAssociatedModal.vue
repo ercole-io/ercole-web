@@ -86,7 +86,7 @@
 <script>
 import _ from 'lodash'
 import { mapActions } from 'vuex'
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
@@ -121,10 +121,12 @@ export default {
     ...mapActions(['getLicensesContracts']),
     deleteHostAssociated(hostname) {
       this.isLoading = true
-      axiosNoLoading
-        .delete(
-          `/agreements/oracle/database/${this.licenseID}/hosts/${hostname}`
-        )
+      const config = {
+        method: 'delete',
+        url: `/contracts/oracle/database/${this.licenseID}/hosts/${hostname}`,
+      }
+
+      axiosRequest('baseApi', config)
         .then(() => {
           this.data.hosts = _.filter(this.data.hosts, (val) => {
             if (val.hostname !== hostname) {
@@ -145,7 +147,7 @@ export default {
       return this.data.id
     },
     agreeNumber() {
-      return this.data.agreementID
+      return this.data.contractID
     },
     agreeNumberText() {
       return i18n.t('menu.licAgreements')

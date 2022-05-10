@@ -1,4 +1,4 @@
-import axiosDefault from '@/axios/axios-default.js'
+import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
   ignoreLicenseDbTabActive: 0,
@@ -24,16 +24,20 @@ export const mutations = {
 }
 
 export const actions = {
-  async ignoreDatabaseLicense({ commit }, data) {
-    const ignoreLicense = await axiosDefault.put(
-      `/hosts/${data.hostname}/technologies/oracle/databases/${data.database}/licenses/${data.licenseID}/ignored/${data.status}`
-    )
+  async ignoreDatabaseLicense({ commit, dispatch }, data) {
+    dispatch('onLoading')
 
-    const response = await ignoreLicense
-    if (response.status === 200) {
-      if (data.page === 'licenses-used') {
-        commit('SET_IGNORE_DB_LICENSE', data)
-      }
+    const config = {
+      method: 'put',
+      url: `/hosts/${data.hostname}/technologies/oracle/databases/${data.database}/licenses/${data.licenseID}/ignored/${data.status}`,
     }
+    await axiosRequest('baseApi', config).then((res) => {
+      if (res.status === 200) {
+        if (data.page === 'licenses-used') {
+          commit('SET_IGNORE_DB_LICENSE', data)
+          dispatch('offLoading')
+        }
+      }
+    })
   },
 }

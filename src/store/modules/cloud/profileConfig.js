@@ -1,5 +1,7 @@
 import _ from 'lodash'
-import axiosOciNoLoading from '@/axios/axios-oci-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
+
+const url = '/oracle-cloud/configurations'
 
 export const state = () => ({
   ociProfiles: [],
@@ -31,50 +33,56 @@ export const mutations = {
 export const actions = {
   async getProfiles({ commit, dispatch }) {
     dispatch('onLoadingTable')
-    const ociProfiles = await axiosOciNoLoading.get(
-      '/oracle-cloud/configurations'
-    )
-    const response = await ociProfiles.data
 
-    if (response) {
-      commit('SET_OCI_PROFILE', response)
-      dispatch('offLoadingTable')
+    const config = {
+      method: 'get',
+      url: url,
     }
+
+    await axiosRequest('thunderApi', config, false).then((res) => {
+      commit('SET_OCI_PROFILE', res.data)
+      dispatch('offLoadingTable')
+    })
   },
   async createProfile({ commit, dispatch }, payload) {
     dispatch('onLoadingTable')
-    const create = await axiosOciNoLoading.post(
-      '/oracle-cloud/configurations',
-      payload
-    )
-    const response = await create.data
-    if (response) {
-      commit('CREATE_OCI_PROFILE', response)
-      dispatch('offLoadingTable')
+
+    const config = {
+      method: 'post',
+      url: url,
+      data: payload,
     }
+
+    await axiosRequest('thunderApi', config, false).then((res) => {
+      commit('CREATE_OCI_PROFILE', res.data)
+      dispatch('offLoadingTable')
+    })
   },
   async updateProfile({ commit, dispatch }, payload) {
     dispatch('onLoadingTable')
-    const update = await axiosOciNoLoading.put(
-      `/oracle-cloud/configurations/${payload.id}`,
-      payload
-    )
-    const response = await update.data
-    if (response) {
-      commit('UPDATE_OCI_PROFILE', response)
-      dispatch('offLoadingTable')
+
+    const config = {
+      method: 'put',
+      url: `${url}/${payload.id}`,
+      data: payload,
     }
+
+    await axiosRequest('thunderApi', config, false).then((res) => {
+      commit('UPDATE_OCI_PROFILE', res.data)
+      dispatch('offLoadingTable')
+    })
   },
   async removeProfile({ commit, dispatch }, id) {
     dispatch('onLoadingTable')
-    const removeProfile = await axiosOciNoLoading.delete(
-      `/oracle-cloud/configurations/${id}`
-    )
 
-    const response = await removeProfile
-    if (response.status === 204) {
+    const config = {
+      method: 'delete',
+      url: `${url}/${id}`,
+    }
+
+    await axiosRequest('thunderApi', config, false).then(() => {
       commit('DELETE_OCI_PROFILE', id)
       dispatch('offLoadingTable')
-    }
+    })
   },
 }

@@ -1,4 +1,4 @@
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 import { returnAlertsByTypeDate, filterByKeys } from '@/helpers/helpers.js'
 import moment from 'moment'
 import _ from 'lodash'
@@ -169,41 +169,51 @@ export const actions = {
       location: getters.getActiveFilters.location,
     }
 
-    const alertsData = await axiosNoLoading.get('/alerts', {
+    const config = {
+      method: 'get',
+      url: '/alerts',
       params: params,
-    })
+    }
 
-    let response = await alertsData.data
-
-    _.map(response, (val) => {
-      if (val.alertCategory !== 'AGENT') {
-        val.isChecked = false
-      }
-    })
-    if (response) {
+    await axiosRequest('baseApi', config).then((res) => {
+      let response = res.data
+      _.map(response, (val) => {
+        if (val.alertCategory !== 'AGENT') {
+          val.isChecked = false
+        }
+      })
       commit('SET_ALERTS', response)
       dispatch('offLoadingTable')
-    }
+    })
   },
   async markAsRead({ commit }, payload) {
-    const deleteAlert = await axiosNoLoading.post(`/alerts/ack`, {
-      ids: [payload.id],
-    })
-    const response = await deleteAlert
-    if (response) {
-      commit('MARK_AS_READ_DASH', payload)
+    const config = {
+      method: 'post',
+      url: '/alerts/ack',
+      data: {
+        ids: [payload.id],
+      },
     }
+
+    await axiosRequest('baseApi', config).then(() => {
+      commit('MARK_AS_READ_DASH', payload)
+    })
   },
   async markAsReadAlertsPage({ commit, dispatch }, payload) {
     dispatch('onLoadingTable')
-    const deleteAlert = await axiosNoLoading.post(`/alerts/ack`, {
-      ids: payload.idList,
-    })
-    const response = await deleteAlert
-    if (response) {
+
+    const config = {
+      method: 'post',
+      url: '/alerts/ack',
+      data: {
+        ids: payload.idList,
+      },
+    }
+
+    await axiosRequest('baseApi', config).then(() => {
       commit('MARK_AS_READ_ALERTS_PAGE', payload)
       dispatch('offLoadingTable')
-    }
+    })
   },
 }
 

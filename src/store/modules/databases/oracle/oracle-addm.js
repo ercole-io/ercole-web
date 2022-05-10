@@ -1,4 +1,4 @@
-import axiosNoLoading from '@/axios/axios-no-loading.js'
+import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
   addms: [],
@@ -20,20 +20,19 @@ export const actions = {
   async getAddms({ commit, dispatch, getters }) {
     dispatch('onLoadingTable')
 
-    const addms = await axiosNoLoading.get(
-      '/hosts/technologies/oracle/databases/addms',
-      {
-        params: {
-          'older-than': getters.getActiveFilters.date,
-          environment: getters.getActiveFilters.environment,
-          location: getters.getActiveFilters.location,
-        },
-      }
-    )
-    const response = await addms.data
-    if (response) {
-      dispatch('offLoadingTable')
-      commit('SET_ADDMS', response)
+    const config = {
+      method: 'get',
+      url: '/hosts/technologies/oracle/databases/addms',
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      dispatch('offLoadingTable')
+      commit('SET_ADDMS', res.data)
+    })
   },
 }

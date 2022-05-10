@@ -151,12 +151,6 @@ export default {
               title: this.$i18n.t('menu.profileConfig'),
               icon: 'fas fa-cog',
             },
-            // {
-            //   href: { name: 'cloud-recommendations' },
-            //   title: this.$i18n.t('menu.recommendations'),
-            //   icon: 'fas fa-cog',
-            //   disabled: this.getOciActiveProfiles.length <= 0,
-            // },
             {
               href: { name: 'recommendations' },
               title: this.$i18n.t('menu.recommendations'),
