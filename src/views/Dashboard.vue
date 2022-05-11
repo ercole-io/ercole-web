@@ -42,11 +42,6 @@ export default {
     DashboardTabs,
     Alerts,
   },
-  data() {
-    return {
-      setInterval: null,
-    }
-  },
   beforeMount() {
     this.getDashboardData()
       .then(() => {
@@ -56,6 +51,7 @@ export default {
         bus.$emit('loadTechComplete')
       })
     this.getTechnologiesData()
+    this.getOracleCloudObjects()
 
     this.getGlobalFiltersLocations()
     this.getGlobalFiltersEnvironments()
@@ -66,10 +62,8 @@ export default {
       'getTechnologiesData',
       'getGlobalFiltersLocations',
       'getGlobalFiltersEnvironments',
+      'getOracleCloudObjects',
     ]),
-  },
-  beforeDestroy() {
-    clearInterval(this.setInterval)
   },
 }
 </script>
