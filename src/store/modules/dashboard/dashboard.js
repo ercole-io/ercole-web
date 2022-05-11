@@ -6,7 +6,6 @@ import {
   checkRangeDate,
   getKeyValuePair,
 } from '@/helpers/helpers.js'
-import oracleCloud from '@/store/modules/dashboard/oci-cloud.json'
 
 const getExtraTechInfo = (techName, techs) => {
   const tech = _.find(techs, (t) => {
@@ -26,6 +25,36 @@ export const state = () => ({
   techDash: {},
   licenceHistory: {},
   coreHosts: {},
+  oracleObjectsData: [],
+  oracleObjects: {
+    id: 'oracle',
+    agents: 0,
+    extra: {
+      color: '#ff141d',
+      logo: require(`@/assets/images/cloud/oracle-cloud.png`),
+      name: 'Oracle Cloud',
+    },
+  },
+  microsoftObjectsData: [],
+  microsoftObjects: {
+    id: 'microsoft',
+    agents: 0,
+    extra: {
+      color: '#0089d6',
+      logo: require(`@/assets/images/cloud/microsoft-azure.png`),
+      name: 'Microsoft Azure',
+    },
+  },
+  amazonObjectsData: [],
+  amazonObjects: {
+    id: 'amazon',
+    agents: 0,
+    extra: {
+      color: '#252f3e',
+      logo: require(`@/assets/images/cloud/amazon-aws.png`),
+      name: 'Amazon AWS',
+    },
+  },
   cloudObjects: [
     {
       id: 'oracle',
@@ -94,38 +123,6 @@ export const getters = {
 
     return techArray
   },
-  getCloudObjects: (state) => {
-    let oracleValues = []
-    let oraclePerc
-    let oracleSum
-
-    _.map(oracleCloud, (values) => {
-      _.map(values.objects, (obj) => {
-        const { objectNumber } = obj
-        oracleValues.push(objectNumber)
-      })
-    })
-
-    oracleSum = _.sum(oracleValues)
-    oraclePerc = ((oracleSum / oracleValues.length) * 100) / 10
-
-    const cloudObj = []
-    _.map(state.cloudObjects, (cloud) => {
-      if (cloud.id === 'oracle') {
-        cloudObj.push({
-          ...cloud,
-          agents: oracleSum,
-          perc: oraclePerc,
-        })
-      } else {
-        cloudObj.push({
-          ...cloud,
-        })
-      }
-    })
-
-    return cloudObj
-  },
   getChartLicenseHistory: (state) => {
     let data = []
     _.map(state.licenceHistory, (val) => {
@@ -173,6 +170,22 @@ export const getters = {
 
     return coreHostsData
   },
+  getCloudObjects: (state) => {
+    const oracle = calcCloudObjects(
+      state.oracleObjectsData,
+      state.oracleObjects
+    )
+    const microsoft = calcCloudObjects(
+      state.microsoftObjectsData,
+      state.microsoftObjects
+    )
+    const amazon = calcCloudObjects(
+      state.amazonObjectsData,
+      state.amazonObjects
+    )
+
+    return _.concat(oracle, microsoft, amazon)
+  },
 }
 
 export const mutations = {
@@ -185,6 +198,9 @@ export const mutations = {
   },
   SET_CORE_HOSTS: (state, payload) => {
     state.coreHosts = payload
+  },
+  SET_ORACLE_OCI_OBJECTS: (state, payload) => {
+    state.oracleObjectsData = payload
   },
 }
 
@@ -219,4 +235,33 @@ export const actions = {
       commit('SET_CORE_HOSTS', res.data.coresHistory)
     })
   },
+  async getOracleCloudObjects({ commit }) {
+    const config = {
+      method: 'get',
+      url: '/oracle-cloud/oci-objects',
+    }
+
+    await axiosRequest('thunderApi', config).then((res) => {
+      commit('SET_ORACLE_OCI_OBJECTS', res.data)
+    })
+  },
+}
+
+const calcCloudObjects = (data, objs) => {
+  let dataSumValues = []
+  let cloudObjects = []
+
+  _.map(data, (values) => {
+    _.map(values.objects, (obj) => {
+      const { objectNumber } = obj
+      dataSumValues.push(objectNumber)
+    })
+  })
+
+  dataSumValues = _.sum(dataSumValues)
+
+  cloudObjects.push({ ...objs })
+  cloudObjects[0].agents = dataSumValues
+
+  return cloudObjects
 }
