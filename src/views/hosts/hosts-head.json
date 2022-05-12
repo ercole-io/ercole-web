@@ -1,6 +1,7 @@
 [
   { "sort": "hostname", 
-    "langKey": "common.collumns.hostname" 
+    "langKey": "common.collumns.hostname",
+    "colspan": 2
   },
   {
     "sort": "platform",
@@ -51,7 +52,8 @@
     "sort": "updated",
     "group": "Agent",
     "class": "color-3", 
-    "langKey": "common.collumns.updated"
+    "langKey": "common.collumns.updated",
+    "colspan": 2
   },
   { "sort": "environment", 
     "langKey": "common.collumns.environment" 

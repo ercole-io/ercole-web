@@ -30,7 +30,22 @@
       />
 
       <template slot="bodyData" slot-scope="rowData">
-        <HostLink :hostname="rowData.scope.hostname" class="first-col" />
+        <td class="first-col" style="min-width: 0; padding-right: 0">
+          <b-icon
+            v-if="rowData.scope.obsolete"
+            size="is-medium"
+            custom-size="mdi-18px"
+            icon="alert"
+            type="is-warning"
+            @click.native="handleClickedRow([rowData.scope])"
+            v-tooltip="options(rowData.scope.obsoleteDiff)"
+          />
+        </td>
+        <TdContent
+          :value="rowData.scope.hostname"
+          class="first-col"
+          style="text-align: left; padding-left: 0"
+        />
         <TdContent
           :value="rowData.scope.platform"
           :class="{ 'is-hidden': moreInfoToggle.hiddenVirtual }"
@@ -68,11 +83,26 @@
           :class="{ 'is-hidden': moreInfoToggle.hiddenAgent }"
           class="border-left"
         />
+        <td
+          :class="{ 'is-hidden': moreInfoToggle.hiddenAgent }"
+          style="min-width: 0; padding-right: 0"
+        >
+          <b-icon
+            v-if="rowData.scope.obsolete"
+            size="is-medium"
+            custom-size="mdi-18px"
+            icon="alert"
+            type="is-warning"
+            @click.native="handleClickedRow([rowData.scope])"
+            v-tooltip="options(rowData.scope.obsoleteDiff)"
+          />
+        </td>
         <TdContent
           :value="rowData.scope.updated"
           dataType="date"
           :class="{ 'is-hidden': moreInfoToggle.hiddenAgent }"
           class="border-right"
+          style="text-align: left; padding-left: 0"
         />
         <TdContent :value="rowData.scope.environment" />
         <TdArrayMore
@@ -121,7 +151,6 @@ import TdIcon from '@/components/common/Table/TDIcon.vue'
 import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import HostsFilters from '@/components/hosts/hosts/HostsFilters.vue'
-import HostLink from '@/components/common/Table/HostLink.vue'
 import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
 import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
 import formatDate from '@/filters/formatDate.js'
@@ -141,7 +170,6 @@ export default {
     TdArrayMore,
     ExportButton,
     HostsFilters,
-    HostLink,
     DynamicHeading,
     MoreInfoButtons,
     Loading,

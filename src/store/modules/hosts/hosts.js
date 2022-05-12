@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import moment from 'moment'
 import { mapClustStatus } from '@/helpers/helpers.js'
 import { axiosRequest } from '@/services/services.js'
 
@@ -10,6 +11,11 @@ export const getters = {
   getAllHosts: (state, getters) => {
     let allHosts = []
     _.map(state.hosts, (host) => {
+      let time = moment(host.createdAt).format('YYYY-MM-DDTHH:mm')
+      let compareTime = moment().diff(time, 'seconds')
+      let fromNow = moment(time).fromNow()
+      const seconds = 86400 //24h in seconds
+
       allHosts.push({
         _id: host._id,
         hostname: host.hostname,
@@ -30,6 +36,8 @@ export const getters = {
         socket: host.info.cpuSockets,
         version: formatVersion(host.agentVersion),
         updated: host.createdAt,
+        obsolete: compareTime > seconds ? true : false,
+        obsoleteDiff: `Obsolete from ${fromNow}`,
       })
     })
 

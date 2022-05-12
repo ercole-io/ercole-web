@@ -1,5 +1,7 @@
 <template>
-  <TdContent :value="getHostname" :link="handleHostnameClick" />
+  <TdContent :value="getHostname" :link="handleHostnameClick">
+    <slot />
+  </TdContent>
 </template>
 
 <script>
