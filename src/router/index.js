@@ -301,9 +301,9 @@ const routes = [
     name: 'licenses-contract',
     component: LicensesContracts,
     meta: {
-      label: i18n.t('menu.licAgreements'),
-      title: `${title}${i18n.t('menu.licAgreements')}`,
-      breadcrumb: [{ name: i18n.t('menu.licAgreements') }],
+      label: i18n.t('menu.licContracts'),
+      title: `${title}${i18n.t('menu.licContracts')}`,
+      breadcrumb: [{ name: i18n.t('menu.licContracts') }],
     },
     beforeEnter: verifyAuth,
   },

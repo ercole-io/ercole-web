@@ -1,6 +1,6 @@
 const defaultState = () => ({
-  'page-mysqlAgreements': [false, true],
-  'page-oracleAgreements': [false, true],
+  'page-mysqlContracts': [false, true],
+  'page-oracleContracts': [false, true],
   'page-licensesCompliance': [false, true],
   'page-licensesUsedHosts': [false, true],
   'page-licensesUsedDbs': [false, true],

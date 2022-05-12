@@ -127,7 +127,7 @@ export default {
           child: [
             {
               href: { name: 'licenses-contract' },
-              title: this.$i18n.t('menu.licAgreements'),
+              title: this.$i18n.t('menu.licContracts'),
               icon: 'fas fa-cog',
             },
             {

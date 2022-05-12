@@ -150,7 +150,7 @@ export default {
       return this.data.contractID
     },
     agreeNumberText() {
-      return i18n.t('menu.licAgreements')
+      return i18n.t('menu.licContracts')
     },
     modalTitle() {
       return i18n.t('common.fields.hostsAssociated')

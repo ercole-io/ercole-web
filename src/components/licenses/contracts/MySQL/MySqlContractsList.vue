@@ -1,6 +1,6 @@
 <template>
   <FullTable
-    :placeholder="$t('menu.licAgreements')"
+    :placeholder="$t('menu.licContracts')"
     :keys="keys"
     :tableData="returnLicensesContracts('mysql')"
     :clickedRow="() => []"
@@ -87,8 +87,8 @@
 
     <ExportButton
       slot="export"
-      url="agreements/mysql/database"
-      expName="mysqlAgreements"
+      url="contracts/mysql/database"
+      expName="mysqlContracts"
     />
   </FullTable>
 </template>
