@@ -1,6 +1,6 @@
 <template>
   <FullTable
-    :placeholder="$t('menu.licAgreements')"
+    :placeholder="$t('menu.licContracts')"
     :keys="keys"
     :tableData="returnLicensesContracts('oracle')"
     :clickedRow="() => []"
@@ -123,8 +123,8 @@
 
     <ExportButton
       slot="export"
-      url="agreements/oracle/database"
-      expName="oracleAgreements"
+      url="contracts/oracle/database"
+      expName="oracleContracts"
     />
   </FullTable>
 </template>

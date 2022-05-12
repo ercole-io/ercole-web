@@ -1,6 +1,6 @@
 <template>
   <ToggleColumns
-    getPage="oracleAgreements"
+    getPage="oracleContracts"
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('views.licenses.agreeForm')"
     v-if="isMounted"
