@@ -3,7 +3,7 @@
     <div class="technologies">
       <div class="technologies-list">
         <div class="image">
-          <GhostLoading :isLoading="loading" setHeight="40" setWidth="40">
+          <GhostLoading :isLoading="loading" setHeight="60">
             <img
               src="@/assets/images/Cerchio-blu-cane-blu.png"
               v-if="!loading"
@@ -11,11 +11,11 @@
           </GhostLoading>
         </div>
 
-        <div class="tech-name">
+        <!-- <div class="tech-name">
           <GhostLoading :isLoading="loading" setWidth="100">
             <span v-if="!loading">{{ getTotalTarget.extra.name }}</span>
           </GhostLoading>
-        </div>
+        </div> -->
 
         <div class="agents">
           <GhostLoading :isLoading="loading" setHeight="15" setWidth="15">
@@ -48,7 +48,7 @@
         :key="tech.id || i"
       >
         <div class="image">
-          <GhostLoading :isLoading="loading" setHeight="40" setWidth="40">
+          <GhostLoading :isLoading="loading" setHeight="60">
             <img
               v-bind:src="`data:image/jpeg;base64,${tech.extra.logo}`"
               v-if="!loading"
@@ -56,11 +56,11 @@
           </GhostLoading>
         </div>
 
-        <div class="tech-name">
+        <!-- <div class="tech-name">
           <GhostLoading :isLoading="loading" setWidth="100">
             <span v-if="!loading">{{ tech.extra.name }}</span>
           </GhostLoading>
-        </div>
+        </div> -->
 
         <div class="agents">
           <GhostLoading :isLoading="loading" setHeight="15" setWidth="15">
@@ -134,13 +134,13 @@ export default {
   justify-content: flex-end;
   align-items: center;
   padding: 0 3px;
-  min-width: 150px;
+  min-width: 130px;
 
   .image {
-    width: 40px;
-    height: 40px;
+    width: 60px;
     margin: 0 auto;
     display: block;
+    padding: 10px 0;
   }
 
   .tech-name {
