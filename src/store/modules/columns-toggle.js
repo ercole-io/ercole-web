@@ -1,4 +1,5 @@
 const defaultState = () => ({
+  'page-microsoftContracts': [false, true],
   'page-mysqlContracts': [false, true],
   'page-oracleContracts': [false, true],
   'page-licensesCompliance': [false, true],
