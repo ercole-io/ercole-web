@@ -13,6 +13,9 @@
       <b-tab-item label="MySQL">
         <MySqlContracts />
       </b-tab-item>
+      <b-tab-item label="MsSqlServer">
+        <MsSqlServerContracts />
+      </b-tab-item>
     </b-tabs>
   </section>
 </template>
@@ -21,11 +24,13 @@
 import { bus } from '@/helpers/eventBus.js'
 import OracleContracts from '@/components/licenses/contracts/Oracle/OracleContracts.vue'
 import MySqlContracts from '@/components/licenses/contracts/MySQL/MySqlContracts.vue'
+import MsSqlServerContracts from '@/components/licenses/contracts/Microsoft/MsSqlServerContracts.vue'
 
 export default {
   components: {
     OracleContracts,
     MySqlContracts,
+    MsSqlServerContracts,
   },
   data() {
     return {
