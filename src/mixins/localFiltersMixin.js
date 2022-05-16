@@ -92,6 +92,7 @@ export default {
       filteredsuggestion: [],
       filteredstateDesc: [],
       filteredcollationName: [],
+      filteredlicensesNumber: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,
