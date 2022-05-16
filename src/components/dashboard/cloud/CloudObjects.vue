@@ -8,11 +8,11 @@
           </GhostLoading>
         </div>
 
-        <div class="tech-name">
+        <!-- <div class="tech-name">
           <GhostLoading :isLoading="loading" setWidth="100">
             <span v-if="!loading">{{ tech.extra.name }}</span>
           </GhostLoading>
-        </div>
+        </div> -->
 
         <div class="agents">
           <GhostLoading :isLoading="loading" setHeight="40" setWidth="53">
