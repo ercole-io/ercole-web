@@ -110,9 +110,22 @@ export const getters = {
   },
   getTechnologies: (state, getters) => {
     const tech = state.techDash
-    const techArray = []
+    let techArray = []
+    let order = 0
+
     _.map(tech, (value) => {
+      if (value.product === 'Oracle/Database') {
+        order = 1
+      } else if (value.product === 'Microsoft/SQLServer') {
+        order = 2
+      } else if (value.product === 'Oracle/MySQL') {
+        order = 3
+      } else {
+        order += 1
+      }
+
       techArray.push({
+        showOrder: order,
         id: value.product,
         agents: value.hostsCount,
         perc: value.compliance * 100,
@@ -121,7 +134,7 @@ export const getters = {
       })
     })
 
-    return techArray
+    return _.orderBy(techArray, ['showOrder'])
   },
   getChartLicenseHistory: (state) => {
     let data = []
