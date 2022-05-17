@@ -11,9 +11,10 @@
         {{ $t('common.collumns.actions') }}
       </th>
       <v-th sortKey="type"> Type </v-th>
-      <v-th sortKey="contractID">
-        {{ $t('common.collumns.agreeNumber') }}
-      </v-th>
+      <v-th sortKey="contractID"> Contract ID </v-th>
+      <v-th sortKey="licenseTypeID"> License Type </v-th>
+      <v-th sortKey="description"> Description </v-th>
+      <v-th sortKey="metric"> Edition - Version </v-th>
       <v-th sortKey="licensesNumber">
         {{ $t('common.collumns.numberLicenses') }}
       </v-th>
@@ -44,8 +45,11 @@
           "
         />
       </td>
-      <TdContent :value="rowData.scope.type | toLower" />
+      <TdContent :value="rowData.scope.type" />
       <TdContent :value="rowData.scope.contractID" />
+      <TdContent :value="rowData.scope.licenseTypeID" />
+      <TdContent :value="rowData.scope.description" />
+      <TdContent :value="rowData.scope.metric" />
       <TdContent :value="rowData.scope.licensesNumber" />
       <td>
         <b-icon
@@ -107,7 +111,16 @@ export default {
   },
   data() {
     return {
-      keys: ['clusters', 'contractID', 'hosts', 'licensesNumber', 'type'],
+      keys: [
+        'clusters',
+        'contractID',
+        'hosts',
+        'licensesNumber',
+        'type',
+        'licenseTypeID',
+        'description',
+        'metric',
+      ],
     }
   },
   methods: {
@@ -134,7 +147,7 @@ export default {
         props: {
           associatedType: type,
           contractData: data,
-          contractNumber: contractID,
+          contractID: contractID,
         },
       })
     },
