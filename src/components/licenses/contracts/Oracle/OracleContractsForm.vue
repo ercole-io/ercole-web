@@ -1,7 +1,7 @@
 <template>
   <AdvancedFiltersBase
     :filterTitle="$t('views.licenses.addAgreement')"
-    :submitAction="addUpdateAgreement"
+    :submitAction="createUpdateContract"
     :isDisabled="$v.$invalid"
     :applyText="
       oracleForm.licenseID ? $t('common.forms.update') : $t('common.forms.add')
@@ -21,7 +21,9 @@
         type="number"
         icon="magnify"
         :data="filteredcontractID"
-        @typing="getAutocompleteData($event, 'contractID', returnContractIDs)"
+        @typing="
+          getAutocompleteData($event, 'contractID', getOracleContractsIDs)
+        "
         clearable
         @blur="$v.oracleForm.contractID.$touch()"
         @input="$v.oracleForm.contractID.$touch()"
@@ -64,9 +66,13 @@
         field="full"
         :data="filteredpartNumber"
         @typing="
-          getAutocompletePartNumber($event, 'partNumber', returnLicensesTypes)
+          getAutocompletePartNumber(
+            $event,
+            'partNumber',
+            getOracleLicensesTypes
+          )
         "
-        @focus="() => (filteredpartNumber = returnLicensesTypes)"
+        @focus="() => (filteredpartNumber = getOracleLicensesTypes)"
         @blur="$v.oracleForm.partNumber.$touch()"
         @input="$v.oracleForm.partNumber.$touch()"
         @select="getHostAssociatedList"
@@ -100,7 +106,7 @@
         expanded
       >
         <option
-          v-for="(part, index) in returnLicensesTypes"
+          v-for="(part, index) in getOracleLicensesTypes"
           :key="index"
           :value="part.agreeParts"
         >
@@ -132,7 +138,7 @@
         type="text"
         icon="magnify"
         :data="filteredcsi"
-        @typing="getAutocompleteData($event, 'csi', returnCsiNumbers)"
+        @typing="getAutocompleteData($event, 'csi', getOracleCsiNumbers)"
         clearable
         @blur="$v.oracleForm.csi.$touch()"
         @input="$v.oracleForm.csi.$touch()"
@@ -159,7 +165,11 @@
         icon="magnify"
         :data="filteredreferenceNumber"
         @typing="
-          getAutocompleteData($event, 'referenceNumber', returnReferenceNumbers)
+          getAutocompleteData(
+            $event,
+            'referenceNumber',
+            getOracleReferenceNumbers
+          )
         "
         clearable
       >
@@ -307,7 +317,7 @@
 <script>
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import {
   required,
   requiredIf,
@@ -315,11 +325,11 @@ import {
   decimal,
 } from 'vuelidate/lib/validators'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
-import LicensesContractsMixin from '@/mixins/licensesContracts.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
+import { simpleAutocompleteData } from '@/helpers/helpers.js'
 
 export default {
-  mixins: [TooltipMixin, LicensesContractsMixin],
+  mixins: [TooltipMixin],
   components: {
     AdvancedFiltersBase,
   },
@@ -352,42 +362,47 @@ export default {
       },
       licensesUsed: [],
       hostAssociatedList: [],
+      filteredclusterTags: [],
+      filteredhostTagsOracle: [],
+      filteredhostTags: [],
+      filteredcontractID: [],
+      filteredcsi: [],
+      filteredreferenceNumber: [],
+      filteredpartNumber: [],
     }
   },
   async beforeMount() {
-    bus.$on('onResetAction', () => this.cancelAddLicense())
+    this.filteredclusterTags = this.clusternames.clusternames
+    this.filteredhostTags = this.hostnames.hostnames
+    this.filteredcontractID = this.getOracleContractsIDs
+    this.filteredcsi = this.getOracleCsiNumbers
+    this.filteredreferenceNumber = this.getOracleReferenceNumbers
+    setTimeout(() => {
+      this.filteredpartNumber = this.getOracleLicensesTypes
+    }, 1000)
 
-    bus.$on('editAgreementOracle', (data) => {
+    bus.$on('onResetAction', () => this.cancelCreateContract())
+
+    bus.$on('editOracleContract', (data) => {
       bus.$emit('onToggleEdit', true)
-      this.editAgreement(data)
+      this.editContract(data)
     })
 
-    bus.$on('cloneAgreementOracle', (data) => {
+    bus.$on('cloneOracleContract', (data) => {
       bus.$emit('onToggleEdit', true)
-      this.editAgreement(data)
+      this.editContract(data)
     })
 
     await this.getLicensesHosts()
     this.licensesUsed = await this.getUsedLicensesByHost
   },
   methods: {
-    ...mapActions(['getLicensesHosts']),
-    ...mapMutations(['CREATE_AGREEMENT']),
-    getHostAssociatedList(e) {
-      this.hostAssociatedList = []
-      console.log(this.licensesUsed)
-      if (e) {
-        _.map(this.licensesUsed, (item) => {
-          if (e.id === item.licenseTypeID) {
-            this.hostAssociatedList.push(item.hostname)
-          }
-        })
-      }
+    ...mapActions(['oracleContractsActions', 'getLicensesHosts']),
+    createUpdateContract() {
+      const action = this.oracleForm.licenseID ? 'put' : 'post'
+      const toastMsg = this.oracleForm.licenseID ? 'modified' : 'created'
 
-      this.filteredhostTagsOracle = this.hostAssociatedList
-    },
-    addUpdateAgreement() {
-      const oracleAgreementData = {
+      let oracleAgreementData = {
         contractID: this.oracleForm.contractID,
         csi: this.oracleForm.csi,
         referenceNumber: this.oracleForm.referenceNumber,
@@ -398,28 +413,20 @@ export default {
         licenseTypeID: this.oracleForm.partNumber.split(' - ')[0],
         restricted: this.oracleForm.restricted,
       }
-      if (!this.oracleForm.licenseID) {
-        this.createLicenseContract({
-          body: oracleAgreementData,
-          type: 'oracle',
-        })
-          .then(() => {
-            this.sussessToastMsg(this.oracleForm.contractID, 'created')
-          })
-          .then(() => bus.$emit('data', this.returnLicensesContracts('oracle')))
-      } else {
-        oracleAgreementData.id = this.oracleForm.licenseID
-        this.updateLicenseContract({
-          body: oracleAgreementData,
-          type: 'oracle',
-        })
-          .then(() => {
-            this.sussessToastMsg(this.oracleForm.contractID, 'modified')
-          })
-          .then(() => bus.$emit('data', this.returnLicensesContracts('oracle')))
+
+      if (action === 'put') {
+        oracleAgreementData['id'] = this.oracleForm.licenseID
       }
+
+      this.oracleContractsActions({
+        action: action,
+        body: oracleAgreementData,
+      }).then(() => {
+        this.oracleForm = {}
+        this.sussessToastMsg(this.oracleForm.contractID, toastMsg)
+      })
     },
-    cancelAddLicense() {
+    cancelCreateContract() {
       this.oracleForm = {
         licenseID: '',
         contractID: '',
@@ -433,7 +440,7 @@ export default {
         restricted: false,
       }
     },
-    editAgreement(data) {
+    editContract(data) {
       this.getHostAssociatedList({
         desc: data.itemDescription,
         full: `${data.licenseTypeID} - ${data.itemDescription} - ${data.metric}`,
@@ -458,6 +465,19 @@ export default {
         restricted: data.restricted,
       }
     },
+    getHostAssociatedList(e) {
+      this.hostAssociatedList = []
+
+      if (e) {
+        _.map(this.licensesUsed, (item) => {
+          if (e.id === item.licenseTypeID) {
+            this.hostAssociatedList.push(item.hostname)
+          }
+        })
+      }
+
+      this.filteredhostTagsOracle = this.hostAssociatedList
+    },
     checkArray(array) {
       return array.every((i) => typeof i === 'string')
     },
@@ -474,9 +494,41 @@ export default {
         position: 'is-bottom',
       })
     },
+    getAutocompleteData(text, toFilter, data) {
+      const values = simpleAutocompleteData(text, data)
+      this[`filtered${toFilter}`] = _.uniqBy(values, (e) => e)
+    },
+    getAutocompletePartNumber(text, toFilter, data) {
+      const newData = []
+      _.map(data, (val) => {
+        newData.push(val.full)
+      })
+
+      const values = simpleAutocompleteData(text, newData)
+
+      const newValues = []
+      _.map(values, (val) => {
+        const newVal = _.split(val, ' - ')
+        newValues.push({
+          id: newVal[0],
+          desc: newVal[1],
+          metric: newVal[2],
+          full: `${newVal[0]} - ${newVal[1]} - ${newVal[2]}`,
+        })
+      })
+
+      this[`filtered${toFilter}`] = newValues
+    },
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByHost']),
+    ...mapState(['hostnames', 'clusternames']),
+    ...mapGetters([
+      'getUsedLicensesByHost',
+      'getOracleContractsIDs',
+      'getOracleCsiNumbers',
+      'getOracleReferenceNumbers',
+      'getOracleLicensesTypes',
+    ]),
     ula() {
       return this.oracleForm.ula
     },

@@ -40,19 +40,21 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getLicensesTypes()
-    await this.getLicensesContracts('oracle').then(() => {
-      bus.$emit('data', this.returnLicensesContracts('oracle'))
-    })
+    await this.oracleContractsActions({ action: 'get', body: null }).then(
+      () => {
+        bus.$emit('data', this.getOracleContracts)
+      }
+    )
+    await this.oracleLicensesTypes()
   },
   mounted() {
     this.isMounted = true
   },
   methods: {
-    ...mapActions(['getLicensesContracts', 'getLicensesTypes']),
+    ...mapActions(['oracleContractsActions', 'oracleLicensesTypes']),
   },
   computed: {
-    ...mapGetters(['returnLicensesContracts', 'loadingTableStatus']),
+    ...mapGetters(['getOracleContracts', 'loadingTableStatus']),
   },
 }
 </script>
