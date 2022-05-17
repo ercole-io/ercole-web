@@ -2,7 +2,7 @@
   <FullTable
     :placeholder="$t('menu.licContracts')"
     :keys="keys"
-    :tableData="returnLicensesContracts('mysql')"
+    :tableData="getMysqlContracts"
     :clickedRow="() => []"
     :isLoadingTable="loadingTableStatus"
   >
@@ -32,7 +32,7 @@
           class="edit-icon"
           pack="fas"
           icon="edit"
-          @click.native="editAgreement(rowData.scope)"
+          @click.native="editMysqlContract(rowData.scope)"
         />
       </td>
       <td style="min-width: 0">
@@ -43,7 +43,7 @@
           pack="fas"
           icon="trash-alt"
           @click.native="
-            deleteAgreement('mysql', rowData.scope.id, rowData.scope.contractID)
+            deleteContract(rowData.scope.id, rowData.scope.contractID)
           "
         />
       </td>
@@ -95,16 +95,15 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
-import LicensesContractsMixin from '@/mixins/licensesContracts.js'
 import MysqlAssociatedModal from '@/components/licenses/contracts/MySQL/MysqlAssociatedModal.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
-  mixins: [TooltipMixin, LicensesContractsMixin],
+  mixins: [TooltipMixin],
   components: {
     FullTable,
     TdContent,
@@ -123,23 +122,36 @@ export default {
     }
   },
   methods: {
-    editAgreement(data) {
-      bus.$emit('editAgreementMysql', data)
+    ...mapActions(['mysqlContractsActions']),
+    deleteContract(id, contract) {
+      this.$buefy.dialog.confirm({
+        title: 'Delete Contract',
+        message: `Are you sure you want to <b>delete</b> the contract number <b>${contract}</b>? This action cannot be undone.`,
+        confirmText: 'Confirm',
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: () => {
+          this.mysqlContractsActions({ action: 'delete', id: id })
+        },
+      })
     },
-    openModal(type, data, agreeID = ' - ') {
+    editMysqlContract(data) {
+      bus.$emit('editMysqlContract', data)
+    },
+    openModal(type, data, contract) {
       this.$buefy.modal.open({
         component: MysqlAssociatedModal,
         hasModalCard: true,
         props: {
-          agreementType: type,
-          agreementData: data,
-          agreementNumber: agreeID,
+          contractType: type,
+          contractData: data,
+          contractID: contract,
         },
       })
     },
   },
   computed: {
-    ...mapGetters(['loadingTableStatus']),
+    ...mapGetters(['getMysqlContracts', 'loadingTableStatus']),
   },
 }
 </script>

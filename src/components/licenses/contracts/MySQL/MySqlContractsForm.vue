@@ -1,35 +1,31 @@
 <template>
   <AdvancedFiltersBase
-    filterTitle="Add or Modify an MySql Agreement"
-    :submitAction="addUpdateAgreement"
+    filterTitle="Add or Modify an MySql Contract"
+    :submitAction="createUpdateContract"
     :isDisabled="$v.$invalid"
-    :applyText="mysqlForm.licenseID ? 'Update Agreement' : 'Add Agreement'"
+    :applyText="mysqlForm.id ? 'Update Contract' : 'Add Contract'"
     cancelText="Cancel"
   >
     <b-field
       label="Type *"
       custom-class="is-small"
       :type="{
-        'is-danger': $v.mysqlForm.agreeType.$error,
+        'is-danger': $v.mysqlForm.type.$error,
       }"
     >
       <b-select
-        @blur="$v.mysqlForm.agreeType.$touch()"
-        @input="$v.mysqlForm.agreeType.$touch()"
+        @blur="$v.mysqlForm.type.$touch()"
+        @input="$v.mysqlForm.type.$touch()"
         size="is-small"
         placeholder="Select"
-        v-model="mysqlForm.agreeType"
+        v-model="mysqlForm.type"
         expanded
       >
         <option :value="cluster">{{ cluster }}</option>
         <option :value="host">{{ host }}</option>
       </b-select>
       <template #message>
-        <div
-          v-if="
-            !$v.mysqlForm.agreeType.required && $v.mysqlForm.agreeType.$error
-          "
-        >
+        <div v-if="!$v.mysqlForm.type.required && $v.mysqlForm.type.$error">
           {{ $i18n.t('common.validations.requiredAlt') }}
         </div>
       </template>
@@ -40,28 +36,27 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.mysqlForm.agreeNumber.$error,
+        'is-danger': $v.mysqlForm.contractID.$error,
       }"
     >
       <b-input
-        @blur="$v.mysqlForm.agreeNumber.$touch()"
-        @input="$v.mysqlForm.agreeNumber.$touch()"
+        @blur="$v.mysqlForm.contractID.$touch()"
+        @input="$v.mysqlForm.contractID.$touch()"
         size="is-small"
         type="number"
-        v-model="mysqlForm.agreeNumber"
+        v-model="mysqlForm.contractID"
       />
       <template #message>
         <div
           v-if="
-            !$v.mysqlForm.agreeNumber.required &&
-            $v.mysqlForm.agreeNumber.$error
+            !$v.mysqlForm.contractID.required && $v.mysqlForm.contractID.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
         </div>
         <div
           v-if="
-            !$v.mysqlForm.agreeNumber.numeric && $v.mysqlForm.agreeNumber.$error
+            !$v.mysqlForm.contractID.numeric && $v.mysqlForm.contractID.$error
           "
         >
           {{ $i18n.t('common.validations.onlyNumbers') }}
@@ -74,25 +69,21 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.mysqlForm.agreeCsi.$error,
+        'is-danger': $v.mysqlForm.csi.$error,
       }"
     >
       <b-input
-        @blur="$v.mysqlForm.agreeCsi.$touch()"
-        @input="$v.mysqlForm.agreeCsi.$touch()"
+        @blur="$v.mysqlForm.csi.$touch()"
+        @input="$v.mysqlForm.csi.$touch()"
         size="is-small"
         type="number"
-        v-model="mysqlForm.agreeCsi"
+        v-model="mysqlForm.csi"
       />
       <template #message>
-        <div
-          v-if="!$v.mysqlForm.agreeCsi.required && $v.mysqlForm.agreeCsi.$error"
-        >
+        <div v-if="!$v.mysqlForm.csi.required && $v.mysqlForm.csi.$error">
           {{ $i18n.t('common.validations.requiredAlt') }}
         </div>
-        <div
-          v-if="!$v.mysqlForm.agreeCsi.numeric && $v.mysqlForm.agreeCsi.$error"
-        >
+        <div v-if="!$v.mysqlForm.csi.numeric && $v.mysqlForm.csi.$error">
           {{ $i18n.t('common.validations.onlyNumbers') }}
         </div>
       </template>
@@ -103,29 +94,29 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.mysqlForm.agreeLicenses.$error,
+        'is-danger': $v.mysqlForm.numberOfLicenses.$error,
       }"
     >
       <b-input
-        @blur="$v.mysqlForm.agreeLicenses.$touch()"
-        @input="$v.mysqlForm.agreeLicenses.$touch()"
+        @blur="$v.mysqlForm.numberOfLicenses.$touch()"
+        @input="$v.mysqlForm.numberOfLicenses.$touch()"
         size="is-small"
         type="number"
-        v-model="mysqlForm.agreeLicenses"
+        v-model="mysqlForm.numberOfLicenses"
       />
       <template #message>
         <div
           v-if="
-            !$v.mysqlForm.agreeLicenses.required &&
-            $v.mysqlForm.agreeLicenses.$error
+            !$v.mysqlForm.numberOfLicenses.required &&
+            $v.mysqlForm.numberOfLicenses.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
         </div>
         <div
           v-if="
-            !$v.mysqlForm.agreeLicenses.numeric &&
-            $v.mysqlForm.agreeLicenses.$error
+            !$v.mysqlForm.numberOfLicenses.numeric &&
+            $v.mysqlForm.numberOfLicenses.$error
           "
         >
           {{ $i18n.t('common.validations.onlyNumbers') }}
@@ -136,10 +127,10 @@
     <b-field
       label="Hosts"
       custom-class="is-small"
-      v-if="mysqlForm.agreeType === host"
+      v-if="mysqlForm.type === host"
     >
       <b-taginput
-        v-model="mysqlForm.agreeHosts"
+        v-model="mysqlForm.hosts"
         :data="filteredhostTags"
         ref="hostTag"
         autocomplete
@@ -175,10 +166,10 @@
     <b-field
       label="Clusters"
       custom-class="is-small"
-      v-if="mysqlForm.agreeType === cluster"
+      v-if="mysqlForm.type === cluster"
     >
       <b-taginput
-        v-model="mysqlForm.agreeClusters"
+        v-model="mysqlForm.clusters"
         :data="filteredclusterTags"
         ref="clusterTag"
         autocomplete
@@ -218,98 +209,81 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { required, numeric } from 'vuelidate/lib/validators'
+import { mapGetters, mapState, mapActions } from 'vuex'
+import { simpleAutocompleteData } from '@/helpers/helpers.js'
 import toUpper from '@/filters/toUpper.js'
-import toLower from '@/filters/toLower.js'
-import LicensesContractsMixin from '@/mixins/licensesContracts.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
-import { mapGetters } from 'vuex'
 
 export default {
-  mixins: [LicensesContractsMixin],
   components: {
     AdvancedFiltersBase,
   },
   validations: {
     mysqlForm: {
-      agreeType: { required },
-      agreeLicenses: { required, numeric },
-      agreeNumber: { required, numeric },
-      agreeCsi: { required, numeric },
+      type: { required },
+      numberOfLicenses: { required, numeric },
+      contractID: { required, numeric },
+      csi: { required, numeric },
     },
   },
   data() {
     return {
       mysqlForm: {
-        licenseID: '',
+        hosts: [],
+        clusters: [],
       },
+      filteredclusterTags: [],
+      filteredhostTags: [],
       host: 'host',
       cluster: 'cluster',
     }
   },
   beforeMount() {
+    this.filteredclusterTags = this.clusternames.clusternames
+    this.filteredhostTags = this.hostnames.hostnames
+
     bus.$on('onResetAction', () => (this.mysqlForm = {}))
-    bus.$on('editAgreementMysql', (data) => {
+    bus.$on('editMysqlContract', (data) => {
       bus.$emit('onToggleEdit', true)
-      this.editAgreement(data)
+      this.editContract(data)
     })
   },
   methods: {
-    addUpdateAgreement() {
-      const mysqlAgreementData = {
-        type: toUpper(this.mysqlForm.agreeType),
-        contractID: this.mysqlForm.agreeNumber,
-        csi: this.mysqlForm.agreeCsi,
-        numberOfLicenses: Number(this.mysqlForm.agreeLicenses),
-        clusters:
-          this.mysqlForm.agreeType === this.cluster
-            ? this.mysqlForm.agreeClusters
-            : [],
-        hosts:
-          this.mysqlForm.agreeType === this.host
-            ? this.mysqlForm.agreeHosts
-            : [],
-      }
-      if (!this.mysqlForm.licenseID) {
-        this.createLicenseContract({
-          body: mysqlAgreementData,
-          type: 'mysql',
-        })
-          .then(() => {
-            this.mysqlForm = { licenseID: '' }
-          })
-          .then(() => {
-            bus.$emit('data', this.returnLicensesContracts('mysql'))
-          })
-      } else {
-        mysqlAgreementData.id = this.mysqlForm.licenseID
-        this.updateLicenseContract({
-          body: mysqlAgreementData,
-          type: 'mysql',
-        })
-          .then(() => {
-            this.mysqlForm = { licenseID: '' }
-          })
-          .then(() => {
-            bus.$emit('data', this.returnLicensesContracts('mysql'))
-          })
+    ...mapActions(['mysqlContractsActions']),
+    createUpdateContract() {
+      const action = this.mysqlForm.id ? 'put' : 'post'
+      this.mysqlForm.type = toUpper(this.mysqlForm.type)
+      this.mysqlForm.numberOfLicenses = Number(this.mysqlForm.numberOfLicenses)
+
+      this.mysqlContractsActions({
+        action: action,
+        body: this.mysqlForm,
+      }).then(() => {
+        this.mysqlForm = {}
+      })
+    },
+    editContract(data) {
+      this.mysqlForm = {
+        id: data.id,
+        type: data.type,
+        numberOfLicenses: data.numberOfLicenses,
+        contractID: data.contractID,
+        csi: data.csi,
+        hosts: data.type === 'host' ? data.hosts : [],
+        clusters: data.type === 'cluster' ? data.clusters : [],
       }
     },
-    editAgreement(data) {
-      this.mysqlForm = {
-        licenseID: data.id,
-        agreeType: toLower(data.type),
-        agreeLicenses: data.numberOfLicenses,
-        agreeNumber: data.contractID,
-        agreeCsi: data.csi,
-        agreeHosts: data.hosts,
-        agreeClusters: data.clusters,
-      }
+    getAutocompleteData(text, toFilter, data) {
+      const values = simpleAutocompleteData(text, data)
+      this[`filtered${toFilter}`] = _.uniqBy(values, (e) => e)
     },
   },
   computed: {
-    ...mapGetters(['returnLicensesContracts']),
+    ...mapState(['hostnames', 'clusternames']),
+    ...mapGetters(['getMysqlContracts']),
   },
 }
 </script>
