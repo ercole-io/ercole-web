@@ -4,7 +4,7 @@
       <p class="modal-card-title">
         {{ associatedType }} Associated <br />
         <span class="is-size-7">
-          MsSqlServer Contract Number: {{ contractNumber }}
+          MsSqlServer Contract ID: {{ contractID }}
         </span>
       </p>
     </header>
@@ -35,7 +35,7 @@ export default {
       type: Array,
       required: true,
     },
-    contractNumber: {
+    contractID: {
       type: [Number, String],
     },
   },
