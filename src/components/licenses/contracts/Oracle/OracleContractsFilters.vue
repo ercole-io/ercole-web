@@ -136,7 +136,7 @@ export default {
     bus.$on('onTabChange', (value) => {
       if (value === 0) {
         this.reset(this.resetFilters)
-        bus.$emit('data', this.returnLicensesContracts('oracle'))
+        bus.$emit('data', this.getOracleContracts)
       }
     })
   },
@@ -150,9 +150,9 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['returnLicensesContracts']),
+    ...mapGetters(['getOracleContracts']),
     toggleReferenceNumber() {
-      return _.some(this.returnLicensesContracts('oracle'), 'referenceNumber')
+      return _.some(this.getOracleContracts, 'referenceNumber')
     },
   },
 }
