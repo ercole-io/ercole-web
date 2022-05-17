@@ -6,7 +6,16 @@
           <CustomSelect v-model="filters.type" :options="filteredtype" />
         </CustomField>
 
-        <CustomField :label="$t('common.fields.agreeNumber')">
+        <CustomField label="Licenses Types">
+          <CustomSelectAutocomplete
+            v-model="filters.fullPartNumber"
+            :filterResult="filteredfullPartNumber"
+            :filterMethod="setAutocompletes"
+            field="fullPartNumber"
+          />
+        </CustomField>
+
+        <CustomField label="Contract ID">
           <CustomAutocomplete
             v-model="filters.contractID"
             :filterResult="filteredcontractID"
@@ -33,16 +42,18 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
+import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutocomplete.vue'
 
 export default {
   mixins: [localFiltersMixin],
   components: {
     Collapse,
+    CustomSelectAutocomplete,
   },
   data() {
     return {
       collapses: ['General'],
-      autocompletes: ['contractID', 'licensesNumber'],
+      autocompletes: ['contractID', 'licensesNumber', 'fullPartNumber'],
       selects: ['type'],
     }
   },

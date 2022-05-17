@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 import { setFullPartNumber } from '@/helpers/helpers.js'
+import toLower from '@/filters/toLower.js'
 
 export const state = () => ({
   microsoftContracts: [],
@@ -12,9 +13,10 @@ export const getters = {
     let contracts = []
     _.forEach(state.microsoftLicensesTypes, (type) => {
       _.map(state.microsoftContracts, (val) => {
-        if (type.id === val.type) {
+        if (type.id === val.licenseTypeID) {
           contracts.push({
             ...val,
+            type: toLower(val.type),
             licenseTypeID: type.id,
             description: type.itemDescription,
             metric: `${type.edition} - ${type.version}`,

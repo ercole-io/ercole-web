@@ -3,18 +3,43 @@
     filterTitle="Add or Modify an MsSqlServer Contract"
     :submitAction="createUpdateContract"
     :isDisabled="$v.$invalid"
-    :applyText="msSqlServer.id ? 'Update Agreement' : 'Add Agreement'"
+    :applyText="msSqlServer.id ? 'Update Contract' : 'Add Contract'"
     cancelText="Cancel"
   >
     <b-field
-      label="Licenses Types *"
+      label="Type *"
       custom-class="is-small"
       :type="{
         'is-danger': $v.msSqlServer.type.$error,
       }"
     >
-      <b-autocomplete
+      <b-select
+        @blur="$v.msSqlServer.type.$touch()"
+        @input="$v.msSqlServer.type.$touch()"
+        size="is-small"
+        placeholder="Select"
         v-model="msSqlServer.type"
+        expanded
+      >
+        <option :value="cluster">{{ cluster }}</option>
+        <option :value="host">{{ host }}</option>
+      </b-select>
+      <template #message>
+        <div v-if="!$v.msSqlServer.type.required && $v.msSqlServer.type.$error">
+          {{ $i18n.t('common.validations.requiredAlt') }}
+        </div>
+      </template>
+    </b-field>
+
+    <b-field
+      label="Licenses Types *"
+      custom-class="is-small"
+      :type="{
+        'is-danger': $v.msSqlServer.licenseTypeID.$error,
+      }"
+    >
+      <b-autocomplete
+        v-model="msSqlServer.licenseTypeID"
         size="is-small"
         type="text"
         icon="magnify"
@@ -28,8 +53,8 @@
           )
         "
         @focus="() => (filteredtype = getMicrosoftLicensesTypes)"
-        @blur="$v.msSqlServer.type.$touch()"
-        @input="$v.msSqlServer.type.$touch()"
+        @blur="$v.msSqlServer.licenseTypeID.$touch()"
+        @input="$v.msSqlServer.licenseTypeID.$touch()"
         open-on-focus
         clearable
       >
@@ -37,12 +62,14 @@
           <div class="media media-custom">
             <div class="media-content">
               <b>
-                {{ props.option.id }} - {{ props.option.edition }} -
-                {{ props.option.version }}
+                {{ props.option.id }}
               </b>
               <br />
               <small>
                 {{ props.option.desc }}
+                <br />
+                {{ props.option.edition }} -
+                {{ props.option.version }}
               </small>
             </div>
           </div>
@@ -52,14 +79,19 @@
         </template>
       </b-autocomplete>
       <template #message>
-        <div v-if="!$v.msSqlServer.type.required && $v.msSqlServer.type.$error">
+        <div
+          v-if="
+            !$v.msSqlServer.licenseTypeID.required &&
+            $v.msSqlServer.licenseTypeID.$error
+          "
+        >
           {{ $i18n.t('common.validations.requiredAlt') }}
         </div>
       </template>
     </b-field>
 
     <b-field
-      label="Contract Number *"
+      label="Contract ID *"
       custom-class="is-small"
       expanded
       :type="{
@@ -119,7 +151,11 @@
       </template>
     </b-field>
 
-    <b-field label="Hosts" custom-class="is-small">
+    <b-field
+      label="Hosts"
+      custom-class="is-small"
+      v-if="msSqlServer.type === host"
+    >
       <b-taginput
         v-model="msSqlServer.hosts"
         :data="filteredhostTags"
@@ -154,7 +190,11 @@
       </b-taginput>
     </b-field>
 
-    <b-field label="Clusters" custom-class="is-small">
+    <b-field
+      label="Clusters"
+      custom-class="is-small"
+      v-if="msSqlServer.type === cluster"
+    >
       <b-taginput
         v-model="msSqlServer.clusters"
         :data="filteredclusterTags"
@@ -210,6 +250,7 @@ export default {
   validations: {
     msSqlServer: {
       type: { required },
+      licenseTypeID: { required },
       contractID: { required },
       licensesNumber: { required, numeric },
     },
@@ -223,6 +264,8 @@ export default {
       filteredtype: [],
       filteredclusterTags: [],
       filteredhostTags: [],
+      host: 'host',
+      cluster: 'cluster',
     }
   },
   beforeMount() {
@@ -241,7 +284,10 @@ export default {
     createUpdateContract() {
       const action = this.msSqlServer.id ? 'put' : 'post'
       this.msSqlServer.licensesNumber = Number(this.msSqlServer.licensesNumber)
-      this.msSqlServer.type = _.split(this.msSqlServer.type, ' - ')[0]
+      this.msSqlServer.licenseTypeID = _.split(
+        this.msSqlServer.licenseTypeID,
+        ' - '
+      )[0]
 
       this.microsoftContractsActions({
         action: action,
@@ -253,11 +299,12 @@ export default {
     editContract(data) {
       this.msSqlServer = {
         id: data.id,
-        type: data.fullPartNumber,
+        type: data.type,
+        licenseTypeID: data.fullPartNumber,
         contractID: data.contractID,
         licensesNumber: data.licensesNumber,
-        hosts: data.hosts,
-        clusters: data.clusters,
+        hosts: data.type === 'host' ? data.hosts : [],
+        clusters: data.type === 'cluster' ? data.clusters : [],
       }
     },
     getAutocompleteLicensesTypes(text, toFilter, data) {
