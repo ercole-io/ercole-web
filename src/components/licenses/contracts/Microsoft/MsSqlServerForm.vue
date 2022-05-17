@@ -241,6 +241,7 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters, mapState } from 'vuex'
 import { required, numeric } from 'vuelidate/lib/validators'
 import { simpleAutocompleteData } from '@/helpers/helpers.js'
+import toUpper from '@/filters/toUpper.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 
 export default {
@@ -288,6 +289,7 @@ export default {
         this.msSqlServer.licenseTypeID,
         ' - '
       )[0]
+      this.msSqlServer.type = toUpper(this.msSqlServer.type)
 
       this.microsoftContractsActions({
         action: action,

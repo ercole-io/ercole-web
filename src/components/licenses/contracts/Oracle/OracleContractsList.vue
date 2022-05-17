@@ -2,7 +2,7 @@
   <FullTable
     :placeholder="$t('menu.licContracts')"
     :keys="keys"
-    :tableData="returnLicensesContracts('oracle')"
+    :tableData="getOracleContracts"
     :clickedRow="() => []"
     :isLoadingTable="loadingTableStatus"
   >
@@ -71,7 +71,7 @@
           class="edit-icon"
           pack="fas"
           icon="edit"
-          @click.native="editAgreement(rowData.scope)"
+          @click.native="editOracleContract(rowData.scope)"
         />
       </td>
       <td style="min-width: 0">
@@ -82,11 +82,7 @@
           pack="fas"
           icon="trash-alt"
           @click.native="
-            deleteAgreement(
-              'oracle',
-              rowData.scope.id,
-              rowData.scope.contractID
-            )
+            deleteContract(rowData.scope.id, rowData.scope.contractID)
           "
         />
       </td>
@@ -97,7 +93,7 @@
           class="edit-icon"
           pack="fas"
           icon="clone"
-          @click.native="cloneAgreement(rowData.scope)"
+          @click.native="cloneOracleContract(rowData.scope)"
         />
       </td>
       <TdContent :value="rowData.scope.contractID" />
@@ -132,9 +128,8 @@
 <script>
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
-import LicensesContractsMixin from '@/mixins/licensesContracts.js'
 import OracleAssociatedModal from '@/components/licenses/contracts/Oracle/OracleAssociatedModal.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -142,7 +137,7 @@ import TdIcon from '@/components/common/Table/TDIcon.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
-  mixins: [TooltipMixin, LicensesContractsMixin],
+  mixins: [TooltipMixin],
   components: {
     FullTable,
     TdContent,
@@ -169,11 +164,24 @@ export default {
     }
   },
   methods: {
-    editAgreement(data) {
-      bus.$emit('editAgreementOracle', data)
+    ...mapActions(['oracleContractsActions']),
+    deleteContract(id, contract) {
+      this.$buefy.dialog.confirm({
+        title: 'Delete Contract',
+        message: `Are you sure you want to <b>delete</b> the contract number <b>${contract}</b>? This action cannot be undone.`,
+        confirmText: 'Confirm',
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: () => {
+          this.oracleContractsActions({ action: 'delete', id: id })
+        },
+      })
     },
-    cloneAgreement(data) {
-      bus.$emit('cloneAgreementOracle', _.omit(data, ['id']))
+    editOracleContract(data) {
+      bus.$emit('editOracleContract', data)
+    },
+    cloneOracleContract(data) {
+      bus.$emit('cloneOracleContract', _.omit(data, ['id']))
     },
     openModal(data) {
       this.$buefy.modal.open({
@@ -186,9 +194,9 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['loadingTableStatus']),
+    ...mapGetters(['getOracleContracts', 'loadingTableStatus']),
     toggleReferenceNumber() {
-      return _.some(this.returnLicensesContracts('oracle'), 'referenceNumber')
+      return _.some(this.getOracleContracts, 'referenceNumber')
     },
   },
 }
