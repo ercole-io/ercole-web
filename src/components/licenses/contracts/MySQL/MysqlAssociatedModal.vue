@@ -2,14 +2,12 @@
   <div class="modal-card" style="width: auto">
     <header class="modal-card-head">
       <p class="modal-card-title">
-        {{ agreementType }} Associated <br />
-        <span class="is-size-7"
-          >MySql Agreement Number {{ agreementNumber }}</span
-        >
+        {{ contractType }} Associated <br />
+        <span class="is-size-7">MySql Contract Number: {{ contractID }}</span>
       </p>
     </header>
     <section class="modal-card-body">
-      <p v-for="(data, index) in agreementData" :key="index">
+      <p v-for="(data, index) in contractData" :key="index">
         <HostLink :hostname="data" />
       </p>
     </section>
@@ -27,15 +25,15 @@ export default {
     HostLink,
   },
   props: {
-    agreementType: {
+    contractType: {
       type: String,
       required: true,
     },
-    agreementData: {
+    contractData: {
       type: Array,
       required: true,
     },
-    agreementNumber: {
+    contractID: {
       type: [Number, String],
     },
   },
