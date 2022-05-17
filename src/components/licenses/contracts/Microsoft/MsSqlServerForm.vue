@@ -44,15 +44,15 @@
         type="text"
         icon="magnify"
         field="full"
-        :data="filteredtype"
+        :data="filteredlicenseTypeID"
         @typing="
           getAutocompleteLicensesTypes(
             $event,
-            'type',
+            'licenseTypeID',
             getMicrosoftLicensesTypes
           )
         "
-        @focus="() => (filteredtype = getMicrosoftLicensesTypes)"
+        @focus="() => (filteredlicenseTypeID = getMicrosoftLicensesTypes)"
         @blur="$v.msSqlServer.licenseTypeID.$touch()"
         @input="$v.msSqlServer.licenseTypeID.$touch()"
         open-on-focus
@@ -261,7 +261,7 @@ export default {
         hosts: [],
         clusters: [],
       },
-      filteredtype: [],
+      filteredlicenseTypeID: [],
       filteredclusterTags: [],
       filteredhostTags: [],
       host: 'host',
@@ -269,7 +269,7 @@ export default {
     }
   },
   beforeMount() {
-    this.filteredtype = this.getMicrosoftLicensesTypes
+    this.filteredlicenseTypeID = this.getMicrosoftLicensesTypes
     this.filteredclusterTags = this.clusternames.clusternames
     this.filteredhostTags = this.hostnames.hostnames
 

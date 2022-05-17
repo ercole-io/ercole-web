@@ -58,12 +58,12 @@ export default {
     bus.$on('onTabChange', (value) => {
       if (value === 1) {
         this.reset()
-        bus.$emit('data', this.returnLicensesContracts('mysql'))
+        bus.$emit('data', this.getMysqlContracts)
       }
     })
   },
   computed: {
-    ...mapGetters(['returnLicensesContracts']),
+    ...mapGetters(['getMysqlContracts']),
   },
 }
 </script>

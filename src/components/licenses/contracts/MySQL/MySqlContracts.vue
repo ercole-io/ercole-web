@@ -40,18 +40,18 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getLicensesContracts('mysql').then(() => {
-      bus.$emit('data', this.returnLicensesContracts('mysql'))
+    await this.mysqlContractsActions({ action: 'get', body: null }).then(() => {
+      bus.$emit('data', this.getMysqlContracts)
     })
   },
   mounted() {
     this.isMounted = true
   },
   methods: {
-    ...mapActions(['getLicensesContracts']),
+    ...mapActions(['mysqlContractsActions']),
   },
   computed: {
-    ...mapGetters(['returnLicensesContracts', 'loadingTableStatus']),
+    ...mapGetters(['getMysqlContracts', 'loadingTableStatus']),
   },
 }
 </script>
