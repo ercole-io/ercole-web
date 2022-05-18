@@ -8,21 +8,21 @@
     animated
     v-if="showDatabases"
   >
-    <template v-for="(dbs, i) in currentDBs">
-      <b-tab-item :key="i" :label="dbs.name">
-        <b-tabs
-          size="is-small"
-          type="is-toggle"
-          vertical
-          animated
-          destroy-on-hide
-        >
-          <DbInfo :dbInfo="dbs.info" />
-          <DbDatabases :databases="dbs.databases" />
-          <DbLicenses :databases="dbs.dbLicenses" :dbName="dbs.name" />
-        </b-tabs>
-      </b-tab-item>
-    </template>
+    <b-tab-item v-for="(dbs, i) in currentDBs" :key="i" :label="dbs.name">
+      <b-tabs
+        size="is-small"
+        type="is-toggle"
+        v-model="isActiveSub"
+        @input="onChangeSub"
+        vertical
+        animated
+        destroy-on-hide
+      >
+        <DbInfo :dbInfo="dbs.info" />
+        <DbDatabases :databases="dbs.databases" />
+        <DbLicenses :databases="dbs.dbLicenses" :dbName="dbs.name" />
+      </b-tabs>
+    </b-tab-item>
   </b-tabs>
 </template>
 
