@@ -6,17 +6,23 @@
     v-model="isActive"
     @input="onChange"
   >
-    <template v-for="(dbs, i) in currentDBs">
-      <b-tab-item :key="i" :label="dbs.name">
-        <b-tabs size="is-small" type="is-toggle" vertical :animated="true">
-          <DbInfo :dbInfo="dbs" />
-          <DbLicenses :databases="dbs.dbLicenses" :dbName="dbs.name" />
-          <DbDatabases :databases="dbs.databases" />
-          <DbSegmantAdvisors :segmentAdvisors="dbs.segmentAdvisors" />
-          <DbTableSchemas :tableSchemas="dbs.tableSchemas" />
-        </b-tabs>
-      </b-tab-item>
-    </template>
+    <b-tab-item v-for="(dbs, i) in currentDBs" :key="i" :label="dbs.name">
+      <b-tabs
+        size="is-small"
+        type="is-toggle"
+        v-model="isActiveSub"
+        @input="onChangeSub"
+        vertical
+        animated
+        destroy-on-hide
+      >
+        <DbInfo :dbInfo="dbs" />
+        <DbLicenses :databases="dbs.dbLicenses" :dbName="dbs.name" />
+        <DbDatabases :databases="dbs.databases" />
+        <DbSegmantAdvisors :segmentAdvisors="dbs.segmentAdvisors" />
+        <DbTableSchemas :tableSchemas="dbs.tableSchemas" />
+      </b-tabs>
+    </b-tab-item>
   </b-tabs>
 </template>
 
