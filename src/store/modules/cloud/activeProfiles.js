@@ -10,8 +10,11 @@ export const getters = {
     return state.ociActiveProfile
   },
   getOciActiveProfileError: (state) => {
-    const errNumber = _.slice(state.ociActiveProfileError)[0]
-    return errNumber ? errNumber : ''
+    let errNumber
+    if (_.includes(state.ociActiveProfileError, 'can not create client')) {
+      errNumber = _.slice(state.ociActiveProfileError)[0]
+    }
+    return errNumber
   },
 }
 
