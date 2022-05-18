@@ -8,62 +8,48 @@
     animated
     v-if="showDatabases"
   >
-    <template v-for="(dbs, i) in currentDBs">
-      <b-tab-item :key="i" :label="dbs.name">
-        <b-tabs
-          size="is-small"
-          type="is-toggle"
-          v-model="isActiveSub"
-          @input="onChangeSub"
-          vertical
-          animated
-          destroy-on-hide
-        >
-          <DbInfo :dbInfo="dbs" v-if="getCheckedFilters('info')" />
-          <DbPDBs :pdbs="dbs.pdbs" v-if="getCheckedFilters('pdbs')" />
-          <DbLicenses
-            :licenses="dbs.licenses"
-            :dbName="dbs.name"
-            v-if="getCheckedFilters('licenses')"
-          />
-          <DbOptions
-            :options="dbs.options"
-            v-if="getCheckedFilters('options')"
-          />
-          <DbTablespaces
-            :tablespaces="dbs.tablespaces"
-            v-if="getCheckedFilters('tablespaces')"
-          />
-          <DbSchemas
-            :schemas="dbs.schemas"
-            v-if="getCheckedFilters('schemas')"
-          />
-          <DbPatches
-            :patches="dbs.patches"
-            v-if="getCheckedFilters('patches')"
-          />
-          <DbPSUs :psus="dbs.psus" v-if="getCheckedFilters('psus')" />
-          <DbADDMs :addms="dbs.addms" v-if="getCheckedFilters('addms')" />
-          <DbSegmentAdvisors
-            :segmentAdvisors="dbs.segmentAdvisors"
-            v-if="getCheckedFilters('segmentAdvisors')"
-          />
-          <DbGrowth
-            :growth="dbs.dbGrowth"
-            :growthId="dbs.name"
-            v-if="getCheckedFilters('dbGrowth')"
-          />
-          <DbBackups
-            :backups="dbs.backups"
-            v-if="getCheckedFilters('backups')"
-          />
-          <DbServices
-            :services="dbs.services"
-            v-if="getCheckedFilters('services')"
-          />
-        </b-tabs>
-      </b-tab-item>
-    </template>
+    <b-tab-item v-for="(dbs, i) in currentDBs" :label="dbs.name" :key="i">
+      <b-tabs
+        size="is-small"
+        type="is-toggle"
+        v-model="isActiveSub"
+        @input="onChangeSub"
+        vertical
+        animated
+        destroy-on-hide
+      >
+        <DbInfo :dbInfo="dbs" v-if="getCheckedFilters('info')" />
+        <DbPDBs :pdbs="dbs.pdbs" v-if="getCheckedFilters('pdbs')" />
+        <DbLicenses
+          :licenses="dbs.licenses"
+          :dbName="dbs.name"
+          v-if="getCheckedFilters('licenses')"
+        />
+        <DbOptions :options="dbs.options" v-if="getCheckedFilters('options')" />
+        <DbTablespaces
+          :tablespaces="dbs.tablespaces"
+          v-if="getCheckedFilters('tablespaces')"
+        />
+        <DbSchemas :schemas="dbs.schemas" v-if="getCheckedFilters('schemas')" />
+        <DbPatches :patches="dbs.patches" v-if="getCheckedFilters('patches')" />
+        <DbPSUs :psus="dbs.psus" v-if="getCheckedFilters('psus')" />
+        <DbADDMs :addms="dbs.addms" v-if="getCheckedFilters('addms')" />
+        <DbSegmentAdvisors
+          :segmentAdvisors="dbs.segmentAdvisors"
+          v-if="getCheckedFilters('segmentAdvisors')"
+        />
+        <DbGrowth
+          :growth="dbs.dbGrowth"
+          :growthId="dbs.name"
+          v-if="getCheckedFilters('dbGrowth')"
+        />
+        <DbBackups :backups="dbs.backups" v-if="getCheckedFilters('backups')" />
+        <DbServices
+          :services="dbs.services"
+          v-if="getCheckedFilters('services')"
+        />
+      </b-tabs>
+    </b-tab-item>
   </b-tabs>
 </template>
 
@@ -104,12 +90,6 @@ export default {
   },
   computed: {
     ...mapGetters(['getCheckedFilters']),
-  },
-  watch: {
-    $route(to, from) {
-      console.log(to)
-      console.log(from)
-    },
   },
 }
 </script>
