@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -64,6 +64,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['SET_OCI_ACTIVE_PROFILE_ERROR']),
     handleClickedRow(value) {
       if (value[0]) {
         this.$buefy.modal.open({
@@ -96,6 +97,9 @@ export default {
         })
       }
     },
+  },
+  beforeDestroy() {
+    this.SET_OCI_ACTIVE_PROFILE_ERROR('')
   },
 }
 </script>
