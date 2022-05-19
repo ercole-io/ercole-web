@@ -49,7 +49,8 @@
           getAutocompleteLicensesTypes(
             $event,
             'licenseTypeID',
-            getMicrosoftLicensesTypes
+            getMicrosoftLicensesTypes,
+            'microsoft'
           )
         "
         @focus="() => (filteredlicenseTypeID = getMicrosoftLicensesTypes)"
@@ -238,13 +239,14 @@
 <script>
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { required, numeric } from 'vuelidate/lib/validators'
-import { simpleAutocompleteData } from '@/helpers/helpers.js'
 import toUpper from '@/filters/toUpper.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
+import ContractsMixin from '@/mixins/contracts/contracts-mixin.js'
 
 export default {
+  mixins: [ContractsMixin],
   components: {
     AdvancedFiltersBase,
   },
@@ -263,16 +265,12 @@ export default {
         clusters: [],
       },
       filteredlicenseTypeID: [],
-      filteredclusterTags: [],
-      filteredhostTags: [],
       host: 'host',
       cluster: 'cluster',
     }
   },
   beforeMount() {
     this.filteredlicenseTypeID = this.getMicrosoftLicensesTypes
-    this.filteredclusterTags = this.clusternames.clusternames
-    this.filteredhostTags = this.hostnames.hostnames
 
     bus.$on('onResetAction', () => (this.msSqlServer = {}))
     bus.$on('updateMicrosoftContract', (data) => {
@@ -284,18 +282,26 @@ export default {
     ...mapActions(['microsoftContractsActions']),
     createUpdateContract() {
       const action = this.msSqlServer.id ? 'put' : 'post'
+      const toastMsg = this.msSqlServer.id ? 'modified' : 'created'
+      const contractID = this.msSqlServer.contractID
+
       this.msSqlServer.licensesNumber = Number(this.msSqlServer.licensesNumber)
       this.msSqlServer.licenseTypeID = _.split(
         this.msSqlServer.licenseTypeID,
         ' - '
       )[0]
       this.msSqlServer.type = toUpper(this.msSqlServer.type)
+      this.msSqlServer.hosts =
+        this.msSqlServer.type === 'HOST' ? this.msSqlServer.hosts : []
+      this.msSqlServer.clusters =
+        this.msSqlServer.type === 'CLUSTER' ? this.msSqlServer.clusters : []
 
       this.microsoftContractsActions({
         action: action,
         body: this.msSqlServer,
       }).then(() => {
         this.msSqlServer = {}
+        this.sussessToastMsg(contractID, toastMsg)
       })
     },
     editContract(data) {
@@ -305,43 +311,13 @@ export default {
         licenseTypeID: data.fullPartNumber,
         contractID: data.contractID,
         licensesNumber: data.licensesNumber,
-        hosts: data.type === 'host' ? data.hosts : [],
-        clusters: data.type === 'cluster' ? data.clusters : [],
+        hosts: data.hosts,
+        clusters: data.clusters,
       }
-    },
-    getAutocompleteLicensesTypes(text, toFilter, data) {
-      // console.log(text, toFilter, data)
-      const newData = []
-      _.map(data, (val) => {
-        newData.push(val.full)
-      })
-
-      const values = simpleAutocompleteData(text, newData)
-
-      // console.log(values)
-
-      const newValues = []
-      _.map(values, (val) => {
-        const newVal = _.split(val, ' - ')
-        newValues.push({
-          id: newVal[0],
-          desc: newVal[1],
-          version: newVal[3],
-          edition: newVal[2],
-          full: `${newVal[0]} - ${newVal[1]} - ${newVal[2]} - ${newVal[3]}`,
-        })
-      })
-
-      this[`filtered${toFilter}`] = newValues
-    },
-    getAutocompleteData(text, toFilter, data) {
-      const values = simpleAutocompleteData(text, data)
-      this[`filtered${toFilter}`] = _.uniqBy(values, (e) => e)
     },
   },
   computed: {
-    ...mapState(['hostnames', 'clusternames']),
-    ...mapGetters(['getMicrosoftContracts', 'getMicrosoftLicensesTypes']),
+    ...mapGetters(['getMicrosoftLicensesTypes']),
   },
 }
 </script>
