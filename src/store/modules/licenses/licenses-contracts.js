@@ -1,141 +1,94 @@
-// import _ from 'lodash'
-// import { axiosRequest } from '@/services/services.js'
-// import { setFullPartNumber } from '@/helpers/helpers.js'
+import _ from 'lodash'
+import { axiosRequest } from '@/services/services.js'
+import { setFullPartNumber } from '@/helpers/helpers.js'
 
-// export const state = () => ({
-//   oracleContracts: [],
-//   mysqlContracts: [],
-// })
+export const state = () => ({
+  oracleContracts: [],
+  mysqlContracts: [],
+  microsoftContracts: [],
+})
 
-// export const getters = {
-//   returnLicensesContracts: (state, getters) => (type) => {
-//     return getters.filteredOrNot(state[type + 'Contracts'])
-//   },
-//   returnContractIDs: (state) => {
-//     const contractNumbers = []
+export const getters = {
+  getContracts: (state) => (type) => {
+    return state[`${type}Contracts`]
+  },
+}
 
-//     _.map(state.oracleContracts, (val) => {
-//       contractNumbers.push(val.contractID)
-//     })
-//     return contractNumbers
-//   },
-//   returnCsiNumbers: (state) => {
-//     const csiNumbers = []
+export const mutations = {
+  SET_LICENSES_CONTRACTS: (state, payload) => {
+    state[`${payload.type}Contracts`] =
+      payload.type !== 'microsoft'
+        ? setFullPartNumber(payload.data)
+        : payload.data
+  },
+  CREATE_LICENSES_CONTRACTS: (state, payload) => {
+    state[`${payload.type}Contracts`].unshift(payload.data)
+  },
+  UPDATE_LICENSES_CONTRACTS: (state, payload) => {
+    const item = _.find(
+      state[`${payload.type}Contracts`],
+      (val) => val.id === payload.data.id
+    )
+    Object.assign(item, payload.data)
+  },
+  DELETE_LICENSES_CONTRACTS: (state, payload) => {
+    const index = _.findIndex(
+      state[`${payload.type}Contracts`],
+      (val) => val.id === payload.data.id
+    )
+    state[`${payload.type}Contracts`].splice(index, 1)
+  },
+}
 
-//     _.map(state.oracleContracts, (val) => {
-//       csiNumbers.push(val.csi)
-//     })
-//     return csiNumbers
-//   },
-//   returnReferenceNumbers: (state) => {
-//     const referenceNumbers = []
+export const actions = {
+  async resolveContractsRequest({ commit, dispatch }, data) {
+    dispatch('onLoadingTable')
+    const type = data.type
+    const url = `/contracts/${type}/database`
+    const config = {
+      method: data.payload.action,
+      url: url,
+    }
 
-//     _.map(state.oracleContracts, (val) => {
-//       referenceNumbers.push(val.referenceNumber)
-//     })
-//     return referenceNumbers
-//   },
-// }
+    if (data.payload.action !== 'get' && data.payload.action !== 'delete') {
+      config.data = data.payload.body
+      if (data.payload.action === 'put' && data.type === 'mysql') {
+        config.url = `${url}/${data.payload.body.id}`
+      }
+    }
 
-// export const mutations = {
-//   SET_CONTRACTS: (state, payload) => {
-//     state[payload.type + 'Contracts'] =
-//       payload.type === 'oracle' ? setFullPartNumber(payload.res) : payload.res
-//   },
-//   CREATE_CONTRACT: (state, payload) => {
-//     state[payload.mode + 'Contracts'].unshift(payload)
-//   },
-//   UPDATE_CONTRACT: (state, payload) => {
-//     const item = _.find(
-//       state[payload.mode + 'Contracts'],
-//       (val) => val.id === payload.id
-//     )
-//     Object.assign(item, payload)
-//   },
-//   DELETE_AGREEMENT: (state, payload) => {
-//     const index = _.findIndex(
-//       state[payload.type + 'Contracts'],
-//       (val) => val.id === payload.id
-//     )
-//     state[payload.type + 'Contracts'].splice(index, 1)
-//   },
-// }
+    if (data.payload.action === 'delete') {
+      config.url = `${url}/${data.payload.id}`
+    }
 
-// export const actions = {
-//   async getLicensesContracts({ commit, dispatch }, type) {
-//     dispatch('onLoadingTable')
-
-//     const config = {
-//       method: 'get',
-//       url: `/contracts/${type}/database`,
-//     }
-
-//     await axiosRequest('baseApi', config).then((res) => {
-//       if (type === 'mysql') {
-//         dispatch('onLoadingTable')
-//         commit('SET_CONTRACTS', { res: res.data.contracts, type: type })
-//       } else {
-//         commit('SET_CONTRACTS', { res: res.data.contracts, type: type })
-//         dispatch('offLoadingTable')
-//       }
-//     })
-//   },
-//   async createLicenseContract({ commit, dispatch }, payload) {
-//     dispatch('onLoadingTable')
-
-//     const config = {
-//       method: 'post',
-//       url: `/contracts/${payload.type}/database`,
-//       data: payload.body,
-//     }
-
-//     await axiosRequest('baseApi', config).then((res) => {
-//       let response = res.data
-//       response = { ...response, mode: payload.type }
-
-//       if (response) {
-//         commit('CREATE_CONTRACT', response)
-//         dispatch('offLoadingTable')
-//       }
-//     })
-//   },
-//   async updateLicenseContract({ commit, dispatch }, payload) {
-//     dispatch('onLoadingTable')
-
-//     const oracleUrl = `/contracts/${payload.type}/database`
-//     const mySqlUrl = `/contracts/${payload.type}/database/${payload.body.id}`
-
-//     const config = {
-//       method: 'put',
-//       data: payload.body,
-//     }
-
-//     if (payload.type === 'mysql') {
-//       config.url = mySqlUrl
-//     } else if (payload.type === 'oracle') {
-//       config.url = oracleUrl
-//     }
-
-//     await axiosRequest('baseApi', config).then((res) => {
-//       let response = res.data
-//       response = { ...response, mode: payload.type }
-
-//       commit('UPDATE_CONTRACT', response)
-//       dispatch('offLoadingTable')
-//     })
-//   },
-//   async deleteLicenseContract({ dispatch }, payload) {
-//     dispatch('onLoadingTable')
-
-//     const config = {
-//       method: 'delete',
-//       url: `/contracts/${payload.type}/database/${payload.id}`,
-//     }
-
-//     await axiosRequest('baseApi', config).then((res) => {
-//       if (res.status === 200 || res.status === 204) {
-//         dispatch('offLoadingTable')
-//       }
-//     })
-//   },
-// }
+    await axiosRequest('baseApi', config)
+      .then((res) => {
+        if (config.method === 'post') {
+          commit('CREATE_LICENSES_CONTRACTS', {
+            data: res.data,
+            type: data.type,
+          })
+        } else if (config.method === 'put') {
+          commit('UPDATE_LICENSES_CONTRACTS', {
+            data: res.data,
+            type: data.type,
+          })
+        } else if (config.method === 'delete') {
+          if (res.status === 200 || res.status === 204) {
+            commit('DELETE_LICENSES_CONTRACTS', {
+              data: data.payload,
+              type: data.type,
+            })
+          }
+        } else {
+          commit('SET_LICENSES_CONTRACTS', {
+            data: res.data.contracts,
+            type: data.type,
+          })
+        }
+      })
+      .then(() => {
+        dispatch('offLoadingTable')
+      })
+  },
+}

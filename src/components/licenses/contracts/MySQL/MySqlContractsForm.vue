@@ -209,15 +209,15 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { required, numeric } from 'vuelidate/lib/validators'
-import { mapGetters, mapState, mapActions } from 'vuex'
-import { simpleAutocompleteData } from '@/helpers/helpers.js'
+import { mapActions } from 'vuex'
 import toUpper from '@/filters/toUpper.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
+import ContractsMixin from '@/mixins/contracts/contracts-mixin.js'
 
 export default {
+  mixins: [ContractsMixin],
   components: {
     AdvancedFiltersBase,
   },
@@ -235,16 +235,11 @@ export default {
         hosts: [],
         clusters: [],
       },
-      filteredclusterTags: [],
-      filteredhostTags: [],
       host: 'host',
       cluster: 'cluster',
     }
   },
   beforeMount() {
-    this.filteredclusterTags = this.clusternames.clusternames
-    this.filteredhostTags = this.hostnames.hostnames
-
     bus.$on('onResetAction', () => (this.mysqlForm = {}))
     bus.$on('editMysqlContract', (data) => {
       bus.$emit('onToggleEdit', true)
@@ -255,14 +250,22 @@ export default {
     ...mapActions(['mysqlContractsActions']),
     createUpdateContract() {
       const action = this.mysqlForm.id ? 'put' : 'post'
+      const toastMsg = this.mysqlForm.id ? 'modified' : 'created'
+      const contractID = this.mysqlForm.contractID
+
       this.mysqlForm.type = toUpper(this.mysqlForm.type)
       this.mysqlForm.numberOfLicenses = Number(this.mysqlForm.numberOfLicenses)
+      this.mysqlForm.hosts =
+        this.mysqlForm.type === 'HOST' ? this.mysqlForm.hosts : []
+      this.mysqlForm.clusters =
+        this.mysqlForm.type === 'CLUSTER' ? this.mysqlForm.clusters : []
 
       this.mysqlContractsActions({
         action: action,
         body: this.mysqlForm,
       }).then(() => {
         this.mysqlForm = {}
+        this.sussessToastMsg(contractID, toastMsg)
       })
     },
     editContract(data) {
@@ -272,18 +275,10 @@ export default {
         numberOfLicenses: data.numberOfLicenses,
         contractID: data.contractID,
         csi: data.csi,
-        hosts: data.type === 'host' ? data.hosts : [],
-        clusters: data.type === 'cluster' ? data.clusters : [],
+        hosts: data.hosts,
+        clusters: data.clusters,
       }
     },
-    getAutocompleteData(text, toFilter, data) {
-      const values = simpleAutocompleteData(text, data)
-      this[`filtered${toFilter}`] = _.uniqBy(values, (e) => e)
-    },
-  },
-  computed: {
-    ...mapState(['hostnames', 'clusternames']),
-    ...mapGetters(['getMysqlContracts']),
   },
 }
 </script>

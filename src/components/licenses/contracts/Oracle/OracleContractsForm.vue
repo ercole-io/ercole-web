@@ -66,10 +66,11 @@
         field="full"
         :data="filteredpartNumber"
         @typing="
-          getAutocompletePartNumber(
+          getAutocompleteLicensesTypes(
             $event,
             'partNumber',
-            getOracleLicensesTypes
+            getOracleLicensesTypes,
+            'oracle'
           )
         "
         @focus="() => (filteredpartNumber = getOracleLicensesTypes)"
@@ -97,22 +98,6 @@
         </template>
       </b-autocomplete>
 
-      <!-- <b-select
-        @blur="$v.oracleForm.partNumber.$touch()"
-        @input="$v.oracleForm.partNumber.$touch()"
-        size="is-small"
-        placeholder="Select"
-        v-model="oracleForm.partNumber"
-        expanded
-      >
-        <option
-          v-for="(part, index) in getOracleLicensesTypes"
-          :key="index"
-          :value="part.agreeParts"
-        >
-          {{ part.agreeParts }}
-        </option>
-      </b-select> -->
       <template #message>
         <div
           v-if="
@@ -317,7 +302,7 @@
 <script>
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import {
   required,
   requiredIf,
@@ -326,10 +311,10 @@ import {
 } from 'vuelidate/lib/validators'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
-import { simpleAutocompleteData } from '@/helpers/helpers.js'
+import ContractsMixin from '@/mixins/contracts/contracts-mixin.js'
 
 export default {
-  mixins: [TooltipMixin],
+  mixins: [TooltipMixin, ContractsMixin],
   components: {
     AdvancedFiltersBase,
   },
@@ -362,9 +347,7 @@ export default {
       },
       licensesUsed: [],
       hostAssociatedList: [],
-      filteredclusterTags: [],
       filteredhostTagsOracle: [],
-      filteredhostTags: [],
       filteredcontractID: [],
       filteredcsi: [],
       filteredreferenceNumber: [],
@@ -372,8 +355,6 @@ export default {
     }
   },
   async beforeMount() {
-    this.filteredclusterTags = this.clusternames.clusternames
-    this.filteredhostTags = this.hostnames.hostnames
     this.filteredcontractID = this.getOracleContractsIDs
     this.filteredcsi = this.getOracleCsiNumbers
     this.filteredreferenceNumber = this.getOracleReferenceNumbers
@@ -423,7 +404,7 @@ export default {
         body: oracleAgreementData,
       }).then(() => {
         this.oracleForm = {}
-        this.sussessToastMsg(this.oracleForm.contractID, toastMsg)
+        this.sussessToastMsg(oracleAgreementData.contractID, toastMsg)
       })
     },
     cancelCreateContract() {
@@ -486,42 +467,8 @@ export default {
         return host.hostname
       })
     },
-    sussessToastMsg(contractID, text) {
-      this.$buefy.toast.open({
-        message: `The Agreement Number <b>${contractID}</b> was successfully ${text}!`,
-        type: 'is-success',
-        duration: 5000,
-        position: 'is-bottom',
-      })
-    },
-    getAutocompleteData(text, toFilter, data) {
-      const values = simpleAutocompleteData(text, data)
-      this[`filtered${toFilter}`] = _.uniqBy(values, (e) => e)
-    },
-    getAutocompletePartNumber(text, toFilter, data) {
-      const newData = []
-      _.map(data, (val) => {
-        newData.push(val.full)
-      })
-
-      const values = simpleAutocompleteData(text, newData)
-
-      const newValues = []
-      _.map(values, (val) => {
-        const newVal = _.split(val, ' - ')
-        newValues.push({
-          id: newVal[0],
-          desc: newVal[1],
-          metric: newVal[2],
-          full: `${newVal[0]} - ${newVal[1]} - ${newVal[2]}`,
-        })
-      })
-
-      this[`filtered${toFilter}`] = newValues
-    },
   },
   computed: {
-    ...mapState(['hostnames', 'clusternames']),
     ...mapGetters([
       'getUsedLicensesByHost',
       'getOracleContractsIDs',
