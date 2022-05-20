@@ -14,6 +14,7 @@ const defaultState = () => ({
   'page-addm': [false, true],
   'page-patchAdvisor': [false, true],
   'page-segmentAdvisor': [false, true],
+  'page-dbGrants': [false, true],
   'page-databasesMysql': [false, true],
   'page-hosts': [false, true],
   'page-repository': [false, true],
