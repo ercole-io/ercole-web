@@ -20,11 +20,7 @@
       >
         <DbInfo :dbInfo="dbs" v-if="getCheckedFilters('info')" />
         <DbPDBs :pdbs="dbs.pdbs" v-if="getCheckedFilters('pdbs')" />
-        <DbLicenses
-          :licenses="dbs.licenses"
-          :dbName="dbs.name"
-          v-if="getCheckedFilters('licenses')"
-        />
+        <DbLicenses :dbName="dbs.name" v-if="getCheckedFilters('licenses')" />
         <DbOptions :options="dbs.options" v-if="getCheckedFilters('options')" />
         <DbTablespaces
           :tablespaces="dbs.tablespaces"
@@ -48,6 +44,7 @@
           :services="dbs.services"
           v-if="getCheckedFilters('services')"
         />
+        <DbGrants :dbName="dbs.name" v-if="getCheckedFilters('dbGrants')" />
       </b-tabs>
     </b-tab-item>
   </b-tabs>
@@ -69,6 +66,7 @@ import DbGrowth from '@/components/hosts/hostDetails/oracle/databases/DbGrowth.v
 import DbOptions from '@/components/hosts/hostDetails/oracle/databases/DbOptions.vue'
 import DbLicenses from '@/components/hosts/hostDetails/oracle/databases/DbLicenses.vue'
 import DbPDBs from '@/components/hosts/hostDetails/oracle/databases/DbPDBs.vue'
+import DbGrants from '@/components/hosts/hostDetails/oracle/databases/DbGrants.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -87,6 +85,7 @@ export default {
     DbOptions,
     DbLicenses,
     DbPDBs,
+    DbGrants,
   },
   computed: {
     ...mapGetters(['getCheckedFilters']),

@@ -327,7 +327,8 @@ export default {
         this.$route.name !== 'cloud-recommendations' &&
         this.$route.name !== 'profile-configurations' &&
         this.$route.name !== 'ercole-recommendations' &&
-        this.$route.name !== 'alerts'
+        this.$route.name !== 'alerts' &&
+        this.$route.name !== 'database-grants'
       )
     },
   },
