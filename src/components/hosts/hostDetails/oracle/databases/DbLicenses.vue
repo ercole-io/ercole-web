@@ -50,10 +50,6 @@ import { mapGetters } from 'vuex'
 
 export default {
   props: {
-    licenses: {
-      type: Array,
-      default: null,
-    },
     dbName: {
       type: String,
       required: true,

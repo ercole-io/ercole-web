@@ -21,6 +21,7 @@ export const state = () => ({
   currentHostActiveDB: '',
   dbFiltersSelected: ['name'],
   currentHostDbLicenses: [],
+  currentHostDbGrants: [],
 })
 
 const info = [
@@ -356,6 +357,15 @@ export const getters = {
     })
     return usedLicensesByDb
   },
+  getCurrentHostDbGrants: (state) => (db) => {
+    const dbGrants = []
+    _.map(state.currentHostDbGrants, (val) => {
+      if (val.dbName === db) {
+        dbGrants.push(val)
+      }
+    })
+    return dbGrants
+  },
 }
 
 export const mutations = {
@@ -370,6 +380,9 @@ export const mutations = {
   },
   SET_HOST_DB_LICENSES: (state, payload) => {
     state.currentHostDbLicenses = payload
+  },
+  SET_HOST_DB_GRANTS: (state, payload) => {
+    state.currentHostDbGrants = payload
   },
 }
 
@@ -398,6 +411,16 @@ export const actions = {
 
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_HOST_DB_LICENSES', res.data.usedLicenses)
+    })
+  },
+  async getDbGrantsByHostName({ commit }, hostname) {
+    const config = {
+      method: 'get',
+      url: `/hosts/${hostname}/technologies/all/databases/grant-dba`,
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_HOST_DB_GRANTS', res.data)
     })
   },
 }

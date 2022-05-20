@@ -93,6 +93,9 @@ export default {
       filteredstateDesc: [],
       filteredcollationName: [],
       filteredlicensesNumber: [],
+      filteredgrantee: [],
+      filteredadminOption: [],
+      filtereddefaultRole: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,
