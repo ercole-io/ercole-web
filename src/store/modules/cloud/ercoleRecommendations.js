@@ -45,16 +45,28 @@ export const actions = {
       )
     ).then(
       axios.spread((...allData) => {
-        const mergeData = []
-        _.map(allData, (data) => {
-          _.forEach(data.data.recommendations, (values) => {
-            mergeData.push(values)
-          })
-          if (data.data.error) {
-            commit('SET_OCI_ACTIVE_PROFILE_ERROR', data.data.error)
+        const recommendations = []
+        const errors = []
+        let profileError = ''
+
+        _.map(allData, (val) => {
+          if (val.data.error) {
+            if (_.includes(val.data.error, 'http status code:')) {
+              errors.push(val.data.error)
+            } else {
+              profileError = _.slice(val.data.error)[0]
+            }
           }
+
+          _.forEach(val.data.recommendations, (values) => {
+            recommendations.push(values)
+          })
         })
-        commit('SET_ERCOLE_RECOMMENDATIONS', mergeData)
+
+        commit('SET_ERCOLE_RECOMMENDATIONS', recommendations)
+        commit('SET_OCI_ACTIVE_PROFILE_ERRORS', profileError)
+        commit('SET_OCI_ACTIVE_PROFILE_GENERAL_ERRORS', errors)
+
         dispatch('offLoadingTable')
       })
     )
