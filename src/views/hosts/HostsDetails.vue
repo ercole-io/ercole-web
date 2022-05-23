@@ -74,6 +74,7 @@ export default {
   methods: {
     ...mapActions([
       'getHostByName',
+      'getDbGrantsByHostName',
       'getLicensesByHostName',
       'getHostNames',
       'getClusterNames',

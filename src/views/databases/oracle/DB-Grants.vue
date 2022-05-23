@@ -20,6 +20,7 @@
     >
       <template slot="headData">
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
+        <v-th sortKey="dbName">{{ $t('common.collumns.name') }}</v-th>
         <v-th sortKey="grantee">Grantee</v-th>
         <v-th sortKey="adminOption">Admin Option</v-th>
         <v-th sortKey="defaultRole">Default Role</v-th>
@@ -27,14 +28,21 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <HostLink :hostname="rowData.scope.hostname" class="first-col" />
+        <TdContent :value="rowData.scope.dbName" />
         <TdContent :value="rowData.scope.grantee" />
-        <TdContent :value="rowData.scope.adminOption" />
-        <TdContent :value="rowData.scope.defaultRole" />
+        <TdIcon
+          :value="rowData.scope.adminOption"
+          @click.native="handleClickedRow([rowData.scope])"
+        />
+        <TdIcon
+          :value="rowData.scope.defaultRole"
+          @click.native="handleClickedRow([rowData.scope])"
+        />
       </template>
 
       <ExportButton
         slot="export"
-        url="hosts/technologies/oracle/databases/grant-dba"
+        url="hosts/technologies/all/databases/grant-dba"
         expName="oracleDbGrants"
       />
     </FullTable>
@@ -50,6 +58,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
+import TdIcon from '@/components/common/Table/TDIcon.vue'
 import DbGrantsFilters from '@/components/databases/oracle/databaseGrants/DbGrantsFilters.vue'
 import Loading from '@/components/common/Loading.vue'
 
@@ -61,12 +70,13 @@ export default {
     ExportButton,
     TdContent,
     HostLink,
+    TdIcon,
     DbGrantsFilters,
     Loading,
   },
   data() {
     return {
-      keys: ['hostname', 'grantee', 'adminOption', 'defaultRole'],
+      keys: ['hostname', 'dbName', 'grantee', 'adminOption', 'defaultRole'],
       isMounted: false,
     }
   },

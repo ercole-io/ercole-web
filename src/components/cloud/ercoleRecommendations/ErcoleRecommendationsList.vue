@@ -7,18 +7,25 @@
     @clickedRow="handleClickedRow"
     isClickable
   >
-    <template
-      slot="customTopHeader"
-      v-if="getOciActiveProfileError && !loadingTableStatus"
-    >
+    <template slot="customTopHeader">
       <b-notification
+        v-if="getOciActiveProfileErrors && !loadingTableStatus"
         type="is-warning is-light"
-        aria-close-label="Close notification"
-        role="alert"
-        style="margin: 0 auto; padding: 0.4rem 2.5rem 0.4rem 1rem"
+        style="margin: 0 auto; padding: 0.1rem 1rem 0 1rem"
+        :closable="false"
       >
-        {{ getErrActiveProfile }}
+        {{ showProfileErrors }}
       </b-notification>
+      <b-button
+        v-if="showGeneralErrors && !loadingTableStatus"
+        size="is-small"
+        type="is-danger"
+        icon-right="exclamation"
+        icon-pack="fas"
+        class="mr-2"
+        @click="modalErrors"
+        v-tooltip="options('Recommendations Errors')"
+      />
     </template>
 
     <DynamicHeading
@@ -35,27 +42,25 @@
       <TdContent :value="rowData.scope.compartmentName" />
       <TdContent :value="rowData.scope.name" />
     </template>
-
-    <!-- <ExportButton slot="export" url="" expName="cloudRecommendations" /> -->
   </FullTable>
 </template>
 
 <script>
+import i18n from '@/i18n.js'
 import { mapGetters, mapMutations } from 'vuex'
 import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
-// import ExportButton from '@/components/common/ExportButton.vue'
 import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
 import ErcoleRecommendationsModal from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsModal.vue'
 import ErcoleRecommendationsHead from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsHead.json'
+import TooltipMixin from '@/mixins/tooltipMixin.js'
 
 export default {
-  mixins: [getHeadKeys],
+  mixins: [getHeadKeys, TooltipMixin],
   components: {
     FullTable,
     TdContent,
-    // ExportButton,
     DynamicHeading,
   },
   data() {
@@ -64,7 +69,10 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['SET_OCI_ACTIVE_PROFILE_ERROR']),
+    ...mapMutations([
+      'SET_OCI_ACTIVE_PROFILE_ERRORS',
+      'SET_OCI_ACTIVE_PROFILE_GENERAL_ERRORS',
+    ]),
     handleClickedRow(value) {
       if (value[0]) {
         this.$buefy.modal.open({
@@ -77,29 +85,45 @@ export default {
         })
       }
     },
+    modalErrors() {
+      this.$buefy.dialog.alert({
+        title: 'Recommendations Errors',
+        message: `<p style="white-space: pre;">${this.getOciActiveProfileGeneralErrors}</p>`,
+        type: 'is-danger',
+        confirmText: i18n.t('common.general.close'),
+        size: 'is-small',
+        hasIcon: true,
+        iconPack: 'mdi',
+      })
+    },
   },
   computed: {
     ...mapGetters([
       'returnErcoleRecommendations',
-      'getOciActiveProfileError',
+      'getOciActiveProfileErrors',
+      'getOciActiveProfileGeneralErrors',
       'loadingTableStatus',
     ]),
-    getErrActiveProfile() {
-      const number = Number(this.getOciActiveProfileError) > 1 ? 2 : 1
+    showProfileErrors() {
+      const number = Number(this.getOciActiveProfileErrors) > 1 ? 2 : 1
 
       if (number > 1) {
         return this.$i18n.t('views.cloud.moreErrActiveProfile', {
-          n: this.getOciActiveProfileError,
+          n: this.getOciActiveProfileErrors,
         })
       } else {
         return this.$i18n.t('views.cloud.oneErrActiveProfile', {
-          n: this.getOciActiveProfileError,
+          n: this.getOciActiveProfileErrors,
         })
       }
     },
+    showGeneralErrors() {
+      return this.getOciActiveProfileGeneralErrors.length > 0
+    },
   },
   beforeDestroy() {
-    this.SET_OCI_ACTIVE_PROFILE_ERROR('')
+    this.SET_OCI_ACTIVE_PROFILE_ERRORS('')
+    this.SET_OCI_ACTIVE_PROFILE_GENERAL_ERRORS([])
   },
 }
 </script>
