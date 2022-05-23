@@ -10,22 +10,24 @@
           />
         </CustomField>
 
+        <CustomField :label="$t('common.fields.name')">
+          <CustomAutocomplete
+            v-model="filters.dbName"
+            :filterResult="filtereddbName"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
+
         <CustomField label="Grantee">
           <CustomSelect v-model="filters.grantee" :options="filteredgrantee" />
         </CustomField>
 
         <CustomField label="Admin Option">
-          <CustomSelect
-            v-model="filters.adminOption"
-            :options="filteredadminOption"
-          />
+          <CustomRadio v-model="filters.adminOption" />
         </CustomField>
 
         <CustomField label="Default Role">
-          <CustomSelect
-            v-model="filters.defaultRole"
-            :options="filtereddefaultRole"
-          />
+          <CustomRadio v-model="filters.defaultRole" />
         </CustomField>
       </template>
     </Collapse>
@@ -46,9 +48,21 @@ export default {
   data() {
     return {
       collapses: ['General'],
-      autocompletes: ['hostname'],
-      selects: ['grantee', 'adminOption', 'defaultRole'],
+      autocompletes: ['hostname', 'dbName'],
+      selects: ['grantee'],
+      filters: {
+        adminOption: '',
+        defaultRole: '',
+      },
     }
+  },
+  methods: {
+    resetFilters() {
+      this.filters = {
+        adminOption: '',
+        defaultRole: '',
+      }
+    },
   },
 }
 </script>

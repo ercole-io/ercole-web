@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import axios from 'axios'
 import { axiosRequest } from '@/services/services.js'
+import toUpper from '@/filters/toUpper.js'
 
 export const state = () => ({
   ercoleRecommendations: [],
@@ -45,16 +46,38 @@ export const actions = {
       )
     ).then(
       axios.spread((...allData) => {
-        const mergeData = []
-        _.map(allData, (data) => {
-          _.forEach(data.data.recommendations, (values) => {
-            mergeData.push(values)
-          })
-          if (data.data.error) {
-            commit('SET_OCI_ACTIVE_PROFILE_ERROR', data.data.error)
+        const recommendations = []
+        const errors = []
+        let profileError = ''
+
+        _.map(allData, (val) => {
+          if (val.data.error) {
+            if (_.includes(val.data.error, 'http status code:')) {
+              const apiProfile = _.replace(
+                val.request.responseURL,
+                'https://dev.ercole.io/thunder/oracle-cloud/',
+                ''
+              )
+              const splitApiProfile = _.split(apiProfile, '/')
+              const url = toUpper(_.replace(splitApiProfile[0], /-/g, ' '))
+              const profile = _.replace(splitApiProfile[1], /,/g, ', ')
+              let err = `From: <b>${url}</b> - Profile ID: <b>${profile}</b> \n\t ${val.data.error}`
+
+              errors.push(err)
+            } else {
+              profileError = _.slice(val.data.error)[0]
+            }
           }
+
+          _.forEach(val.data.recommendations, (values) => {
+            recommendations.push(values)
+          })
         })
-        commit('SET_ERCOLE_RECOMMENDATIONS', mergeData)
+
+        commit('SET_ERCOLE_RECOMMENDATIONS', recommendations)
+        commit('SET_OCI_ACTIVE_PROFILE_ERRORS', profileError)
+        commit('SET_OCI_ACTIVE_PROFILE_GENERAL_ERRORS', errors)
+
         dispatch('offLoadingTable')
       })
     )

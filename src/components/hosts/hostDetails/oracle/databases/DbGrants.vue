@@ -17,39 +17,34 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <TdContent :value="rowData.scope.grantee" />
-        <TdContent :value="rowData.scope.adminOption" />
-        <TdContent :value="rowData.scope.defaultRole" />
+        <TdIcon :value="rowData.scope.adminOption" />
+        <TdIcon :value="rowData.scope.defaultRole" />
       </template>
     </FullTable>
   </b-tab-item>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import TdIcon from '@/components/common/Table/TDIcon.vue'
 
 export default {
   props: {
-    dbName: {
-      type: String,
-      required: true,
+    dbGrants: {
+      type: Array,
+      default: () => [],
     },
   },
   components: {
     FullTable,
     TdContent,
+    TdIcon,
   },
   data() {
     return {
       keys: ['grantee', 'adminOption', 'defaultRole'],
     }
-  },
-  computed: {
-    ...mapGetters(['getCurrentHostDbGrants']),
-    dbGrants() {
-      return this.getCurrentHostDbGrants(this.dbName)
-    },
   },
 }
 </script>

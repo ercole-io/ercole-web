@@ -1,7 +1,7 @@
 <template>
-  <b-tab-item label="Licenses" v-if="dbLicenses.length > 0">
+  <b-tab-item label="Licenses" v-if="licenses.length > 0">
     <FullTable
-      :tableData="dbLicenses"
+      :tableData="licenses"
       :keys="keys"
       hideSearch
       hidePerpage
@@ -20,7 +20,7 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <ignoreDbLicense
-          :db="dbName"
+          :db="rowData.scope.dbName"
           :host="$route.params.hostname"
           :licenseID="rowData.scope.licenseTypeID"
           :description="rowData.scope.description"
@@ -46,13 +46,12 @@
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import ignoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
-import { mapGetters } from 'vuex'
 
 export default {
   props: {
-    dbName: {
-      type: String,
-      required: true,
+    licenses: {
+      type: Array,
+      default: () => [],
     },
   },
   components: {
@@ -71,12 +70,6 @@ export default {
         'clusterLicenses',
       ],
     }
-  },
-  computed: {
-    ...mapGetters(['getCurrentHostDbLicenses']),
-    dbLicenses() {
-      return this.getCurrentHostDbLicenses(this.dbName)
-    },
   },
 }
 </script>

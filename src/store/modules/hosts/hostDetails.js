@@ -237,13 +237,18 @@ export const getters = {
       name: getters.currentHostActiveDB,
     })
   },
-  currentHostDBs: (state) => {
+  currentHostDBs: (state, getters) => {
     const databases = state.currentHost.features
 
     if (databases) {
       if (databases.oracle) {
         if (databases.oracle.database.databases) {
-          return mapOracleDatabase(databases.oracle.database.databases)
+          const oracleDatabases = databases.oracle.database.databases
+          const extraData = {
+            licenses: (dbName) => getters.getCurrentHostDbLicenses(dbName),
+            dbGrants: (dbName) => getters.getCurrentHostDbGrants(dbName),
+          }
+          return mapOracleDatabase(oracleDatabases, extraData)
         } else {
           return []
         }
@@ -358,12 +363,31 @@ export const getters = {
     return usedLicensesByDb
   },
   getCurrentHostDbGrants: (state) => (db) => {
+    const grantsByHost = state.currentHostDbGrants
+    const grantsByHostFormated = []
     const dbGrants = []
-    _.map(state.currentHostDbGrants, (val) => {
+
+    _.map(grantsByHost, (val) => {
+      const defaultRole =
+        val.oracleGrantDba.defaultRole === 'yes' ? true : false
+      const adminOption =
+        val.oracleGrantDba.adminOption === 'yes' ? true : false
+
+      grantsByHostFormated.push({
+        dbName: val.databasename,
+        hostname: val.hostname,
+        adminOption: adminOption,
+        defaultRole: defaultRole,
+        grantee: val.oracleGrantDba.grantee,
+      })
+    })
+
+    _.map(grantsByHostFormated, (val) => {
       if (val.dbName === db) {
         dbGrants.push(val)
       }
     })
+
     return dbGrants
   },
 }
@@ -508,7 +532,7 @@ const mountCpuUsageChart = (history, selected, dbs, rangeDates) => {
 }
 
 // Oracle Databases
-const mapOracleDatabase = (data) => {
+const mapOracleDatabase = (data, extraData) => {
   const newData = []
   _.map(data, (item) => {
     newData.push({
@@ -547,6 +571,8 @@ const mapOracleDatabase = (data) => {
       dbGrowth: [...item.changes],
       backups: [...item.backups],
       services: resolveServices([...item.services]),
+      licenses: mapExtraData(item.name, extraData.licenses(item.name)),
+      dbGrants: mapExtraData(item.name, extraData.dbGrants(item.name)),
     })
   })
   return newData
@@ -661,4 +687,15 @@ const mapMicrosoftDatabase = (data) => {
     })
   })
   return newData
+}
+
+// For all technologies
+const mapExtraData = (name, extraData) => {
+  const item = []
+  _.map(extraData, (val) => {
+    if (name === val.dbName) {
+      item.push({ ...val })
+    }
+  })
+  return item
 }
