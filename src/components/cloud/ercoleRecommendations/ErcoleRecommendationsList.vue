@@ -11,9 +11,8 @@
       <b-notification
         v-if="getOciActiveProfileErrors && !loadingTableStatus"
         type="is-warning is-light"
-        aria-close-label="Close notification"
-        role="alert"
-        style="margin: 0 auto; padding: 0 2.5rem 0 1rem"
+        style="margin: 0 auto; padding: 0.1rem 1rem 0 1rem"
+        :closable="false"
       >
         {{ showProfileErrors }}
       </b-notification>
@@ -25,6 +24,7 @@
         icon-pack="fas"
         class="mr-2"
         @click="modalErrors"
+        v-tooltip="options('Recommendations Errors')"
       />
     </template>
 
@@ -54,9 +54,10 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
 import ErcoleRecommendationsModal from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsModal.vue'
 import ErcoleRecommendationsHead from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsHead.json'
+import TooltipMixin from '@/mixins/tooltipMixin.js'
 
 export default {
-  mixins: [getHeadKeys],
+  mixins: [getHeadKeys, TooltipMixin],
   components: {
     FullTable,
     TdContent,

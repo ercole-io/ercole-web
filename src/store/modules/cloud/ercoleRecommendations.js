@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import axios from 'axios'
 import { axiosRequest } from '@/services/services.js'
+import toUpper from '@/filters/toUpper.js'
 
 export const state = () => ({
   ercoleRecommendations: [],
@@ -52,7 +53,17 @@ export const actions = {
         _.map(allData, (val) => {
           if (val.data.error) {
             if (_.includes(val.data.error, 'http status code:')) {
-              errors.push(val.data.error)
+              const apiProfile = _.replace(
+                val.request.responseURL,
+                'https://dev.ercole.io/thunder/oracle-cloud/',
+                ''
+              )
+              const splitApiProfile = _.split(apiProfile, '/')
+              const url = toUpper(_.replace(splitApiProfile[0], /-/g, ' '))
+              const profile = _.replace(splitApiProfile[1], /,/g, ', ')
+              let err = `From: <b>${url}</b> - Profile ID: <b>${profile}</b> \n\t ${val.data.error}`
+
+              errors.push(err)
             } else {
               profileError = _.slice(val.data.error)[0]
             }
