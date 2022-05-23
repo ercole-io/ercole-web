@@ -20,7 +20,14 @@
       >
         <DbInfo :dbInfo="dbs" v-if="getCheckedFilters('info')" />
         <DbPDBs :pdbs="dbs.pdbs" v-if="getCheckedFilters('pdbs')" />
-        <DbLicenses :dbName="dbs.name" v-if="getCheckedFilters('licenses')" />
+        <DbLicenses
+          :licenses="dbs.licenses"
+          v-if="getCheckedFilters('licenses')"
+        />
+        <DbGrants
+          :dbGrants="dbs.dbGrants"
+          v-if="getCheckedFilters('dbGrants')"
+        />
         <DbOptions :options="dbs.options" v-if="getCheckedFilters('options')" />
         <DbTablespaces
           :tablespaces="dbs.tablespaces"
@@ -44,7 +51,6 @@
           :services="dbs.services"
           v-if="getCheckedFilters('services')"
         />
-        <DbGrants :dbName="dbs.name" v-if="getCheckedFilters('dbGrants')" />
       </b-tabs>
     </b-tab-item>
   </b-tabs>

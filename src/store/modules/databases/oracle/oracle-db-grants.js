@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
@@ -6,7 +7,25 @@ export const state = () => ({
 
 export const getters = {
   getOracleDbGrants: (state, getters) => {
-    return getters.filteredOrNot(state.dbGrants)
+    const dbGrants = state.dbGrants
+    const grants = []
+
+    _.map(dbGrants, (val) => {
+      const defaultRole =
+        val.oracleGrantDba.defaultRole === 'yes' ? true : false
+      const adminOption =
+        val.oracleGrantDba.adminOption === 'yes' ? true : false
+
+      grants.push({
+        dbName: val.databasename,
+        hostname: val.hostname,
+        adminOption: adminOption,
+        defaultRole: defaultRole,
+        grantee: val.oracleGrantDba.grantee,
+      })
+    })
+
+    return getters.filteredOrNot(grants)
   },
 }
 
@@ -22,7 +41,7 @@ export const actions = {
 
     const config = {
       method: 'get',
-      url: '/hosts/technologies/oracle/databases/grant-dba',
+      url: '/hosts/technologies/all/databases/grant-dba',
     }
 
     await axiosRequest('baseApi', config).then((res) => {
