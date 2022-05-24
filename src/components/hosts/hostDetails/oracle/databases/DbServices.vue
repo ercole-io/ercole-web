@@ -25,7 +25,7 @@ export default {
   props: {
     services: {
       type: Array,
-      default: Array,
+      default: () => [],
     },
   },
   components: {

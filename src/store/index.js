@@ -39,6 +39,7 @@ import * as ignoreLicense from '@/store/modules/ignoreLicense.js'
 import * as microsoftContracts from '@/store/modules/licenses/contracts/microsoft.js'
 import * as mysqlContracts from '@/store/modules/licenses/contracts/mysql.js'
 import * as oracleContracts from '@/store/modules/licenses/contracts/oracle.js'
+import * as oracleDbGrants from '@/store/modules/databases/oracle/oracle-db-grants.js'
 
 Vue.use(Vuex)
 
@@ -81,6 +82,7 @@ export default new Vuex.Store({
     microsoftContracts,
     mysqlContracts,
     oracleContracts,
+    oracleDbGrants,
   },
   plugins: [
     createPersistedState({
