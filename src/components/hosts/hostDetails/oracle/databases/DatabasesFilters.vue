@@ -278,6 +278,11 @@ export default {
           level: 1,
         },
         {
+          name: 'DB Grants',
+          value: 'dbGrants',
+          level: 1,
+        },
+        {
           name: 'Options',
           value: 'options',
           level: 1,

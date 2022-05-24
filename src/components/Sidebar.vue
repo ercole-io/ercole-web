@@ -78,6 +78,12 @@ export default {
                   icon: 'fas fa-band-aid',
                   class: 'menu-third-level',
                 },
+                {
+                  href: { name: 'database-grants' },
+                  title: this.$i18n.t('menu.dbGrants'),
+                  icon: 'fas fa-asterisk',
+                  class: 'menu-third-level',
+                },
               ],
             },
             {

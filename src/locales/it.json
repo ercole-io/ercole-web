@@ -28,7 +28,8 @@
     "profileConfig": "Configurazioni del Profilo",
     "repository": "Repository",
     "ercoleRecommendations": "Raccomandazioni Ercole",
-    "microsoft": "Microsoft"
+    "microsoft": "Microsoft",
+    "dbGrants": "DB Grants"
   },
   "header": {
     "logout": "Disconnettersi"

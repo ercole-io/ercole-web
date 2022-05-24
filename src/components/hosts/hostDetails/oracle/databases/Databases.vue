@@ -22,8 +22,11 @@
         <DbPDBs :pdbs="dbs.pdbs" v-if="getCheckedFilters('pdbs')" />
         <DbLicenses
           :licenses="dbs.licenses"
-          :dbName="dbs.name"
           v-if="getCheckedFilters('licenses')"
+        />
+        <DbGrants
+          :dbGrants="dbs.dbGrants"
+          v-if="getCheckedFilters('dbGrants')"
         />
         <DbOptions :options="dbs.options" v-if="getCheckedFilters('options')" />
         <DbTablespaces
@@ -69,6 +72,7 @@ import DbGrowth from '@/components/hosts/hostDetails/oracle/databases/DbGrowth.v
 import DbOptions from '@/components/hosts/hostDetails/oracle/databases/DbOptions.vue'
 import DbLicenses from '@/components/hosts/hostDetails/oracle/databases/DbLicenses.vue'
 import DbPDBs from '@/components/hosts/hostDetails/oracle/databases/DbPDBs.vue'
+import DbGrants from '@/components/hosts/hostDetails/oracle/databases/DbGrants.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -87,6 +91,7 @@ export default {
     DbOptions,
     DbLicenses,
     DbPDBs,
+    DbGrants,
   },
   computed: {
     ...mapGetters(['getCheckedFilters']),

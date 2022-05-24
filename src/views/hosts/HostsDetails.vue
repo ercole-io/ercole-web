@@ -56,6 +56,7 @@ export default {
   beforeMount() {
     this.getHostByName(this.hostname)
     this.getLicensesByHostName(this.hostname)
+    this.getDbGrantsByHostName(this.hostname)
 
     this.SET_ACTIVE_DB(this.dbname)
 
@@ -73,6 +74,7 @@ export default {
   methods: {
     ...mapActions([
       'getHostByName',
+      'getDbGrantsByHostName',
       'getLicensesByHostName',
       'getHostNames',
       'getClusterNames',
