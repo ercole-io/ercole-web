@@ -10,7 +10,7 @@
     />
 
     <b-modal :active.sync="isModalActive" :width="750" scroll="keep">
-      <FileSystemsContent :fileSysData="currentHostFileSystems" />
+      <FileSystemsContent :fileSysData="hostFileSystems" />
     </b-modal>
   </GhostLoading>
 </template>
@@ -31,7 +31,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentHostFileSystems', 'loadingTableStatus']),
+    ...mapGetters(['hostFileSystems', 'loadingTableStatus']),
   },
 }
 </script>

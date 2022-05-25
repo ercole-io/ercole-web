@@ -7,7 +7,7 @@
   >
     <b-button
       type="is-danger is-small"
-      @click="deleteHost(currentHostName)"
+      @click="deleteHost(currentHost)"
       :label="`${$t('views.hostDetails.dismissHost')}`"
       icon-pack="fas"
       icon-left="trash"
@@ -63,7 +63,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['currentHostName', 'loadingTableStatus']),
+    ...mapGetters(['currentHost', 'loadingTableStatus']),
   },
 }
 </script>

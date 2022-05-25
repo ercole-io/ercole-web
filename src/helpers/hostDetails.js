@@ -1,0 +1,417 @@
+import _ from 'lodash'
+import moment from 'moment'
+import {
+  returnAlertsByTypeDate,
+  setRangeDateFormat,
+  checkRangeDate,
+} from '@/helpers/helpers.js'
+import { mapDatabases } from '@/helpers/databasesMap.js'
+import { mapClustStatus } from '@/helpers/helpers.js'
+import { ModalProgrammatic as Modal } from 'buefy'
+import formatDateTime from '@/filters/formatDateTime.js'
+import formatDate from '@/filters/formatDate.js'
+import ClusterNamesModal from '@/components/hosts/hostDetails/ClusterNamesModal.vue'
+
+const startDate = moment().subtract(1, 'week').format('YYYY-MM-DD')
+const endDate = moment().add(1, 'days').format('YYYY-MM-DD')
+
+// Notifications
+const getNotificationsByType = (notifications, type) => {
+  return returnAlertsByTypeDate(notifications, type, startDate, endDate).length
+}
+
+// Host Info
+const getHostInfo = (info, host) => {
+  const general = {
+    name: 'General Info',
+    data: [
+      {
+        name: 'Environment',
+        value: host.environment,
+      },
+      {
+        name: 'Technology',
+        value: mapDatabases(host.features, 'technology'),
+      },
+      {
+        name: 'Clust',
+        value: mapClustStatus(host.clusterMembershipStatus)[0],
+        hasIcon: true,
+      },
+      {
+        name: 'Cluster Type',
+        value: mapClustStatus(host.clusterMembershipStatus)[1],
+      },
+    ],
+  }
+
+  if (mapClustStatus(host.clusterMembershipStatus)[2]) {
+    general.data.push({
+      name: 'Cluster Nodes',
+      value: mapClustStatus(host.clusterMembershipStatus)[2],
+      hasLink: true,
+      link: () => {
+        Modal.open({
+          component: ClusterNamesModal,
+          hasModalCard: true,
+          props: {
+            clusterNames: host.clusterMembershipStatus.veritasClusterHostnames,
+          },
+        })
+      },
+    })
+  }
+
+  const osDetails = {
+    name: 'OS Details',
+    data: [
+      {
+        name: 'OS',
+        value: `${info.os} - ${info.osVersion}`,
+      },
+      {
+        name: 'Kernel',
+        value: `${info.kernel} - ${info.kernelVersion}`,
+      },
+      {
+        name: 'Memory',
+        value: info.memoryTotal,
+      },
+      {
+        name: 'Swap',
+        value: info.swapTotal,
+      },
+    ],
+  }
+  const virtual = {
+    name: 'Virtual',
+    data: [
+      {
+        name: 'Platform',
+        value:
+          info.hardwareAbstractionTechnology === 'PH'
+            ? 'Bare Metal'
+            : info.hardwareAbstractionTechnology,
+      },
+      {
+        name: 'Cluster',
+        value: host.cluster,
+      },
+      {
+        name: 'Node',
+        value: host.virtualizationNode,
+      },
+    ],
+  }
+  const cpu = {
+    name: 'CPU',
+    data: [
+      {
+        name: 'Model',
+        value: info.cpuModel,
+      },
+      {
+        name: 'Threads',
+        value: info.cpuThreads,
+      },
+      {
+        name: 'Cores',
+        value: info.cpuCores,
+      },
+      {
+        name: 'Socket',
+        value: info.cpuSockets,
+      },
+    ],
+  }
+  const agent = {
+    name: 'Agent',
+    data: [
+      {
+        name: 'Version',
+        value: host.agentVersion,
+      },
+      {
+        name: 'Last Update',
+        value: formatDateTime(host.createdAt),
+      },
+    ],
+  }
+  return _.concat(general, osDetails, virtual, cpu, agent)
+}
+
+// Host Type
+const getHostType = (databases) => {
+  if (databases) {
+    if (databases.oracle) {
+      return 'oracle'
+    } else if (databases.mysql) {
+      return 'mysql'
+    } else if (databases.microsoft) {
+      return 'microsoft'
+    } else {
+      return null
+    }
+  }
+}
+
+// Oracle Chart
+const mountTotalDailyUsage = (data, rangeDates) => {
+  const totalDailyData = []
+  let resultTotalDaily = {}
+
+  _.map(data, (item) => {
+    let date = setRangeDateFormat(item.createdAt)
+
+    if (checkRangeDate(date, rangeDates)) {
+      totalDailyData.push({
+        date: date,
+        value: item.totalDailyCPUUsage,
+      })
+    }
+  })
+
+  for (const prop in totalDailyData) {
+    resultTotalDaily[totalDailyData[prop].date] = totalDailyData[prop].value
+  }
+
+  return resultTotalDaily
+}
+
+const mountTotalDailyUsageDbs = (data, rangeDates) => {
+  let dailyDbData = []
+  let changed = []
+
+  _.map(data, (item) => {
+    const { name, dbID, dbGrowth } = item
+
+    _.map(dbGrowth, (data) => {
+      let date = setRangeDateFormat(data.updated)
+
+      if (checkRangeDate(date, rangeDates)) {
+        changed.push({
+          date: date,
+          value: data.dailyCPUUsage,
+        })
+      }
+    })
+
+    const changedResult = {}
+    for (const prop in changed) {
+      changedResult[changed[prop].date] = changed[prop].value
+    }
+
+    dailyDbData.push({
+      name: name,
+      id: dbID,
+      data: changedResult,
+    })
+  })
+  return dailyDbData
+}
+
+const matchSelectedDbs = (selected, dbs, rangeDates) => {
+  let selectedDbs = []
+  _.forEach(selected, (val) => {
+    return _.map(mountTotalDailyUsageDbs(dbs, rangeDates), (dbData) => {
+      if (dbData.id === val.id) {
+        selectedDbs.push(dbData)
+      }
+    })
+  })
+  return selectedDbs
+}
+
+const mountCpuUsageChart = (history, selected, dbs, rangeDates) => {
+  const finalResult = [
+    {
+      name: 'Total Daily CPU Usage',
+      data: mountTotalDailyUsage(history, rangeDates),
+    },
+  ]
+
+  _.forEach(matchSelectedDbs(selected, dbs, rangeDates), (item) => {
+    finalResult.push(item)
+  })
+
+  return finalResult
+}
+
+// Oracle Databases
+const mapOracleDatabase = (data, extraData) => {
+  const newData = []
+  _.map(data, (item) => {
+    newData.push({
+      name: item.name,
+      status: item.status,
+      role: item.role,
+      dbID: item.dbID,
+      uniqueName: item.uniqueName,
+      archivelog: item.archivelog,
+      blockSize: item.blockSize,
+      charset: item.charset,
+      nCharset: item.nCharset,
+      memoryTarget: item.memoryTarget,
+      pgaTarget: item.pgaTarget,
+      sgaMaxSize: item.sgaMaxSize,
+      sgaTarget: item.sgaTarget,
+      dbTime: item.dbTime,
+      elapsed: item.elapsed,
+      work: item.work,
+      cpuCount: item.cpuCount,
+      allocable: item.allocable,
+      datafileSize: item.datafileSize,
+      segmentsSize: item.segmentsSize,
+      asm: item.asm,
+      dataguard: item.dataguard,
+      platform: item.platform,
+      version: item.version,
+      pdbs: resolvePdbs([...item.pdbs]),
+      options: resolveOptions([...item.featureUsageStats]),
+      tablespaces: [...item.tablespaces],
+      schemas: [...item.schemas],
+      patches: genericResolve([...item.patches]),
+      psus: genericResolve([...item.psus]),
+      addms: [...item.addms],
+      segmentAdvisors: [...item.segmentAdvisors],
+      dbGrowth: [...item.changes],
+      backups: [...item.backups],
+      services: resolveServices([...item.services]),
+      licenses: mapExtraData(item.name, extraData.licenses(item.name)),
+      dbGrants: mapExtraData(item.name, extraData.dbGrants(item.name)),
+    })
+  })
+  return newData
+}
+
+const resolvePdbs = (pdbs) => {
+  let filteredPdbs = []
+
+  _.filter(pdbs, (val) => {
+    if (val) {
+      filteredPdbs.push({
+        pdbName: val.name,
+        pdbSchemas: val.schemas,
+        pdbService: val.services,
+        pdbStatus: val.status,
+        pdbTablespaces: val.tablespaces,
+      })
+    }
+  })
+
+  return filteredPdbs
+}
+
+const resolveOptions = (options) => {
+  let filteredOptions = []
+  _.filter(options, (val) => {
+    if (val) {
+      filteredOptions.push({
+        ...val,
+        lastUsageDate: formatDate(val.lastUsageDate),
+        firstUsageDate: formatDate(val.firstUsageDate),
+      })
+    }
+  })
+
+  return filteredOptions
+}
+
+const resolveServices = (services) => {
+  let filteredServices = []
+  _.filter(services, (val) => {
+    filteredServices.push({
+      name: val.name,
+      creationDate: formatDate(val.creationDate),
+      enabled: val.enabled,
+    })
+  })
+  return filteredServices
+}
+
+const genericResolve = (data) => {
+  let filteredData = []
+  _.filter(data, (val) => {
+    filteredData.push({
+      ...val,
+      date: formatDate(val.date),
+    })
+  })
+  return filteredData
+}
+
+// MySql Database
+const mapMySqlDatabase = (data) => {
+  const newData = []
+  _.map(data, (item) => {
+    newData.push({
+      name: item.name,
+      platform: item.platform,
+      edition: item.edition,
+      engine: item.engine,
+      architecture: item.architecture,
+      sortBufferSize: item.sortBufferSize,
+      logBufferSize: item.logBufferSize,
+      bufferPoolSize: item.bufferPoolSize,
+      readOnly: item.readOnly,
+      redoLogEnabled: item.redoLogEnabled,
+      threadsConcurrency: item.threadsConcurrency,
+      charsetServer: item.charsetServer,
+      charsetSystem: item.charsetSystem,
+      pageSize: item.pageSize,
+      version: item.version,
+      databases: [...item.databases],
+      segmentAdvisors: [...item.segmentAdvisors],
+      tableSchemas: [...item.tableSchemas],
+    })
+  })
+  return newData
+}
+
+// Microsoft Databases
+const mapMicrosoftDatabase = (data) => {
+  const newData = []
+  _.map(data, (item) => {
+    newData.push({
+      name: item.name,
+      info: {
+        name: item.name,
+        collationName: item.collationName,
+        databaseID: item.databaseID,
+        displayName: item.displayName,
+        edition: item.edition,
+        editionType: item.editionType,
+        licensingInfo: item.licensingInfo,
+        platform: item.platform,
+        productCode: item.productCode,
+        serverName: item.serverName,
+        status: item.status,
+        version: item.version,
+        stateDesc: item.stateDesc,
+      },
+      databases: [...item.databases],
+    })
+  })
+  return newData
+}
+
+// For all technologies
+const mapExtraData = (name, extraData) => {
+  const item = []
+  _.map(extraData, (val) => {
+    if (name === val.dbName) {
+      item.push({ ...val })
+    }
+  })
+  return item
+}
+
+export {
+  getNotificationsByType,
+  getHostInfo,
+  getHostType,
+  mountCpuUsageChart,
+  mapOracleDatabase,
+  mapMySqlDatabase,
+  mapMicrosoftDatabase,
+}

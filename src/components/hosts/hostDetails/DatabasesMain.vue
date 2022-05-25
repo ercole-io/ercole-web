@@ -34,6 +34,7 @@ import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [hostDatabasesFilters],
+  props: ['dbType'],
   components: {
     OracleDatabases,
     DatabasesFilters,
@@ -54,6 +55,15 @@ export default {
   },
   computed: {
     ...mapGetters(['currentHostDBs', 'loadingTableStatus']),
+    isOracle() {
+      return this.dbType === 'oracle'
+    },
+    isMysql() {
+      return this.dbType === 'mysql'
+    },
+    isMicrosoft() {
+      return this.dbType === 'microsoft'
+    },
   },
 }
 </script>
