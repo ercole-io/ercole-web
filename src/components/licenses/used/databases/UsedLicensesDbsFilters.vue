@@ -48,6 +48,14 @@
             :ticks="[minclusterLicenses, maxclusterLicenses]"
           />
         </CustomField>
+
+        <CustomField label="Ignore Comment">
+          <CustomAutocomplete
+            v-model="filters.ignoredComment"
+            :filterResult="filteredignoredComment"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
       </template>
     </Collapse>
 
@@ -71,7 +79,13 @@ export default {
   data() {
     return {
       collapses: ['General'],
-      autocompletes: ['hostname', 'dbName', 'fullPartNumber', 'metric'],
+      autocompletes: [
+        'hostname',
+        'dbName',
+        'fullPartNumber',
+        'metric',
+        'ignoredComment',
+      ],
       sliders: ['usedLicenses', 'clusterLicenses'],
     }
   },

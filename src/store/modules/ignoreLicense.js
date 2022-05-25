@@ -33,6 +33,9 @@ export const actions = {
     const config = {
       method: 'put',
       url: data.type === 'oracle' ? oracleUrl : microsoftUrl,
+      data: {
+        ignoredComment: data.comment,
+      },
     }
 
     await axiosRequest('baseApi', config).then((res) => {

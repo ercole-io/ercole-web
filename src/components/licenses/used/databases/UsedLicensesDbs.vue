@@ -20,6 +20,7 @@
     >
       <template slot="headData">
         <v-th sortKey="ignored" class="has-text-centered">Ignore License</v-th>
+        <v-th sortKey="ignoredComment">Ignore Comment</v-th>
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
         <v-th sortKey="dbName">{{ $t('common.collumns.name') }}</v-th>
         <v-th sortKey="licenseTypeID">
@@ -45,11 +46,13 @@
           :description="rowData.scope.description"
           :metric="rowData.scope.metric"
           :status="!rowData.scope.ignored"
+          :ignoreComment="rowData.scope.ignoredComment"
           :type="findLicenseType(rowData.scope.description)"
           page="licenses-used"
           v-if="rowData.scope.licenseTypeID"
         />
         <TdContent value="" v-else />
+        <TdContent :value="rowData.scope.ignoredComment" />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbName]" />
         <TdContent :value="rowData.scope.dbName" />
         <TdContent :value="rowData.scope.licenseTypeID" />
@@ -114,6 +117,7 @@ export default {
         'metric',
         'clusterLicenses',
         'ignored',
+        'ignoredComment',
       ],
     }
   },
