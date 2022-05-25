@@ -96,6 +96,7 @@ export default {
       filteredgrantee: [],
       filteredadminOption: [],
       filtereddefaultRole: [],
+      filteredignoredComment: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,

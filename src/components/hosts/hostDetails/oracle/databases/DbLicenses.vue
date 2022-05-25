@@ -11,6 +11,7 @@
     >
       <template slot="headData">
         <v-th sortKey="ignored">Ignore License</v-th>
+        <v-th sortKey="ignoredComment">Ignore Comment</v-th>
         <v-th sortKey="licenseTypeID">Part Number</v-th>
         <v-th sortKey="description">Description</v-th>
         <v-th sortKey="metric">Metric</v-th>
@@ -26,9 +27,11 @@
           :description="rowData.scope.description"
           :metric="rowData.scope.metric"
           :status="!rowData.scope.ignored"
+          :ignoreComment="rowData.scope.ignoredComment"
           type="oracle"
           page="host-details"
         />
+        <TdContent :value="rowData.scope.ignoredComment" />
         <TdContent :value="rowData.scope.licenseTypeID" />
         <TdContent :value="rowData.scope.description" />
         <TdContent :value="rowData.scope.metric" />
@@ -68,6 +71,7 @@ export default {
         'metric',
         'usedLicenses',
         'clusterLicenses',
+        'ignoredComment',
       ],
     }
   },
