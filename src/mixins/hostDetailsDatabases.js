@@ -60,7 +60,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentHostName',
+      'currentHost',
       'currentHostActiveDB',
       'currentHostActiveDbIndex',
       'getIgnoreLicenseDbTabActive',
