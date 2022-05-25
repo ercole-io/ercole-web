@@ -28,21 +28,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['currentHostType', 'currentHostFiltered', 'currentHostDBs']),
+    ...mapGetters(['currentHostFiltered', 'currentHostDBs']),
     countDatabases() {
       return this.currentHostFiltered(this.searchDb).length
     },
     showDatabases() {
       return this.currentHostFiltered(this.searchDb).length > 0
-    },
-    isOracle() {
-      return this.currentHostType === 'oracle'
-    },
-    isMysql() {
-      return this.currentHostType === 'mysql'
-    },
-    isMicrosoft() {
-      return this.currentHostType === 'microsoft'
     },
   },
 }

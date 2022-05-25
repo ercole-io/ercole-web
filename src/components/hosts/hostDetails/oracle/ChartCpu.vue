@@ -14,7 +14,7 @@
     >
       <SearchableMultiSelect
         :selected="selectedDatabases"
-        :dataOptions="currentHostDBsInfo"
+        :dataOptions="getOracleCpuUsageChartInfo"
         :placeholderName="$t('views.hostDetails.searchBy')"
         :btnLabelText="$t('views.hostDetails.compareDb')"
       />
@@ -58,7 +58,7 @@ export default {
     ...mapMutations(['SET_RANGE_DATES']),
   },
   computed: {
-    ...mapGetters(['getOracleCpuUsageChart', 'currentHostDBsInfo']),
+    ...mapGetters(['getOracleCpuUsageChart', 'getOracleCpuUsageChartInfo']),
     showChart() {
       return this.getOracleCpuUsageChart()
     },
@@ -66,8 +66,8 @@ export default {
       return this.selectedDatabases.length
     },
     dbTotal() {
-      return this.currentHostDBsInfo.length < 10
-        ? this.currentHostDBsInfo.length
+      return this.getOracleCpuUsageChartInfo.length < 10
+        ? this.getOracleCpuUsageChartInfo.length
         : '10'
     },
   },
