@@ -29,6 +29,7 @@ export const getters = {
         clusterLicenses: val.clusterLicenses,
         fullPartNumber: val.fullPartNumber,
         ignored: val.ignored,
+        ignoredComment: val.ignoredComment,
       })
     })
 
