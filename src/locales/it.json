@@ -29,7 +29,7 @@
     "repository": "Repository",
     "ercoleRecommendations": "Raccomandazioni Ercole",
     "microsoft": "Microsoft",
-    "dbGrants": "DB Grants"
+    "dbGrants": "DBA Role"
   },
   "header": {
     "logout": "Disconnettersi"
