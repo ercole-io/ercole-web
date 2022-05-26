@@ -243,8 +243,8 @@ const routes = [
                 beforeEnter: verifyAuth,
               },
               {
-                path: '/database-grants',
-                name: 'database-grants',
+                path: '/dba-role',
+                name: 'dba-role',
                 component: DatabaseGrants,
                 meta: {
                   label: `${i18n.t('menu.oracle')}: ${i18n.t(

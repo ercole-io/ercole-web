@@ -79,7 +79,7 @@ export default {
                   class: 'menu-third-level',
                 },
                 {
-                  href: { name: 'database-grants' },
+                  href: { name: 'dba-role' },
                   title: this.$i18n.t('menu.dbGrants'),
                   icon: 'fas fa-asterisk',
                   class: 'menu-third-level',
