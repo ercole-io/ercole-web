@@ -13,7 +13,7 @@
       <b-tab-item label="MySQL">
         <MySqlContracts />
       </b-tab-item>
-      <b-tab-item label="MsSqlServer">
+      <b-tab-item label="SQLServer">
         <MsSqlServerContracts />
       </b-tab-item>
     </b-tabs>

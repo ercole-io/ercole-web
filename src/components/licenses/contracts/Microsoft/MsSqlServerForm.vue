@@ -1,6 +1,6 @@
 <template>
   <AdvancedFiltersBase
-    filterTitle="Add or Modify an MsSqlServer Contract"
+    filterTitle="Add or Modify an SQLServer Contract"
     :submitAction="createUpdateContract"
     :isDisabled="$v.$invalid"
     :applyText="msSqlServer.id ? 'Update Contract' : 'Add Contract'"
