@@ -56,6 +56,7 @@
         @focus="() => (filteredlicenseTypeID = getMicrosoftLicensesTypes)"
         @blur="$v.msSqlServer.licenseTypeID.$touch()"
         @input="$v.msSqlServer.licenseTypeID.$touch()"
+        @select="getAssociatedList($event, 'host')"
         open-on-focus
         clearable
       >
@@ -164,7 +165,7 @@
         autocomplete
         icon="label"
         placeholder="Add a hostname"
-        @typing="getAutocompleteData($event, 'hostTags', hostnames.hostnames)"
+        @typing="getAutocompleteData($event, 'hostTags', filteredhostTags)"
         custom-class="is-small"
         :open-on-focus="true"
       >
@@ -279,7 +280,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['microsoftContractsActions']),
+    ...mapActions(['microsoftContractsActions', 'getLicensesHosts']),
     createUpdateContract() {
       const action = this.msSqlServer.id ? 'put' : 'post'
       const toastMsg = this.msSqlServer.id ? 'modified' : 'created'
@@ -305,13 +306,24 @@ export default {
       })
     },
     editContract(data) {
+      this.getAssociatedList(
+        {
+          full: `${data.licenseTypeID} - ${data.itemDescription} - ${data.metric}`,
+          licenseTypeID: data.licenseTypeID,
+          description: data.itemDescription,
+          metric: data.metric,
+        },
+        data.type
+      )
       this.msSqlServer = {
         id: data.id,
         type: data.type,
         licenseTypeID: data.fullPartNumber,
         contractID: data.contractID,
         licensesNumber: data.licensesNumber,
-        hosts: data.hosts,
+        hosts: this.checkArray(data.hosts)
+          ? data.hosts
+          : this.mapHostsAssociated(data.hosts),
         clusters: data.clusters,
       }
     },
