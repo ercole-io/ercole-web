@@ -90,9 +90,7 @@ export default new Vuex.Store({
       paths: [
         'auth',
         'technologies',
-        'hostnames',
         'globalFilters',
-        'clusternames',
         'moreInfoToggle',
         'columnToggle',
         'activeProfiles',

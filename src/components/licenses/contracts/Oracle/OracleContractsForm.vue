@@ -76,7 +76,7 @@
         @focus="() => (filteredpartNumber = getOracleLicensesTypes)"
         @blur="$v.oracleForm.partNumber.$touch()"
         @input="$v.oracleForm.partNumber.$touch()"
-        @select="getHostAssociatedList"
+        @select="getAssociatedList($event, 'host')"
         open-on-focus
         clearable
       >
@@ -217,12 +217,12 @@
     >
       <b-taginput
         v-model="oracleForm.hostAssociated"
-        :data="filteredhostTagsOracle"
+        :data="filteredhostTags"
         ref="hostTag"
         autocomplete
         icon="label"
         :placeholder="`${$t('common.forms.choose')} hostname`"
-        @typing="getAutocompleteData($event, 'hostTags', hostAssociatedList)"
+        @typing="getAutocompleteData($event, 'hostTags', filteredhostTags)"
         custom-class="is-small"
         open-on-focus
         :disabled="ula"
@@ -345,16 +345,13 @@ export default {
         basket: false,
         restricted: false,
       },
-      licensesUsed: [],
-      hostAssociatedList: [],
-      filteredhostTagsOracle: [],
       filteredcontractID: [],
       filteredcsi: [],
       filteredreferenceNumber: [],
       filteredpartNumber: [],
     }
   },
-  async beforeMount() {
+  beforeMount() {
     this.filteredcontractID = this.getOracleContractsIDs
     this.filteredcsi = this.getOracleCsiNumbers
     this.filteredreferenceNumber = this.getOracleReferenceNumbers
@@ -373,12 +370,9 @@ export default {
       bus.$emit('onToggleEdit', true)
       this.editContract(data)
     })
-
-    await this.getLicensesHosts()
-    this.licensesUsed = await this.getUsedLicensesByHost
   },
   methods: {
-    ...mapActions(['oracleContractsActions', 'getLicensesHosts']),
+    ...mapActions(['oracleContractsActions']),
     createUpdateContract() {
       const action = this.oracleForm.licenseID ? 'put' : 'post'
       const toastMsg = this.oracleForm.licenseID ? 'modified' : 'created'
@@ -422,12 +416,15 @@ export default {
       }
     },
     editContract(data) {
-      this.getHostAssociatedList({
-        desc: data.itemDescription,
-        full: `${data.licenseTypeID} - ${data.itemDescription} - ${data.metric}`,
-        id: data.licenseTypeID,
-        metric: data.metric,
-      })
+      this.getAssociatedList(
+        {
+          desc: data.itemDescription,
+          full: `${data.licenseTypeID} - ${data.itemDescription} - ${data.metric}`,
+          id: data.licenseTypeID,
+          metric: data.metric,
+        },
+        'host'
+      )
       this.oracleForm = {
         licenseID: data.id,
         contractID: data.contractID,
@@ -446,31 +443,9 @@ export default {
         restricted: data.restricted,
       }
     },
-    getHostAssociatedList(e) {
-      this.hostAssociatedList = []
-
-      if (e) {
-        _.map(this.licensesUsed, (item) => {
-          if (e.id === item.licenseTypeID) {
-            this.hostAssociatedList.push(item.hostname)
-          }
-        })
-      }
-
-      this.filteredhostTagsOracle = this.hostAssociatedList
-    },
-    checkArray(array) {
-      return array.every((i) => typeof i === 'string')
-    },
-    mapHostsAssociated(hostsAssociated) {
-      return _.map(hostsAssociated, (host) => {
-        return host.hostname
-      })
-    },
   },
   computed: {
     ...mapGetters([
-      'getUsedLicensesByHost',
       'getOracleContractsIDs',
       'getOracleCsiNumbers',
       'getOracleReferenceNumbers',
