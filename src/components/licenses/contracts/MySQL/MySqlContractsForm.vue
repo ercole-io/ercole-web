@@ -43,7 +43,6 @@
         @blur="$v.mysqlForm.contractID.$touch()"
         @input="$v.mysqlForm.contractID.$touch()"
         size="is-small"
-        type="number"
         v-model="mysqlForm.contractID"
       />
       <template #message>
@@ -53,13 +52,6 @@
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
-        </div>
-        <div
-          v-if="
-            !$v.mysqlForm.contractID.numeric && $v.mysqlForm.contractID.$error
-          "
-        >
-          {{ $i18n.t('common.validations.onlyNumbers') }}
         </div>
       </template>
     </b-field>
@@ -223,7 +215,7 @@ export default {
     mysqlForm: {
       type: { required },
       numberOfLicenses: { required, numeric },
-      contractID: { required, numeric },
+      contractID: { required },
       csi: { required, numeric },
     },
   },
