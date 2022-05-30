@@ -136,7 +136,7 @@
         autocomplete
         icon="label"
         placeholder="Add a hostname"
-        @typing="getAutocompleteData($event, 'hostTags', hostnames.hostnames)"
+        @typing="getAutocompleteData($event, 'hostTags', getHostnames)"
         custom-class="is-small"
         :open-on-focus="true"
       >
@@ -175,9 +175,7 @@
         autocomplete
         icon="label"
         placeholder="Add a clustername"
-        @typing="
-          getAutocompleteData($event, 'clusterTags', clusternames.clusternames)
-        "
+        @typing="getAutocompleteData($event, 'clusterTags', getClusternames)"
         custom-class="is-small"
         :open-on-focus="true"
       >
@@ -211,7 +209,7 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { required, numeric } from 'vuelidate/lib/validators'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import toUpper from '@/filters/toUpper.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import ContractsMixin from '@/mixins/contracts/contracts-mixin.js'
@@ -239,7 +237,12 @@ export default {
       cluster: 'cluster',
     }
   },
-  beforeMount() {
+  async beforeMount() {
+    await this.getHostNames()
+    await this.getClusterNames()
+    this.filteredhostTags = await this.getHostnames
+    this.filteredclusterTags = await this.getClusternames
+
     bus.$on('onResetAction', () => (this.mysqlForm = {}))
     bus.$on('editMysqlContract', (data) => {
       bus.$emit('onToggleEdit', true)
@@ -247,7 +250,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['mysqlContractsActions']),
+    ...mapActions(['mysqlContractsActions', 'getHostNames', 'getClusterNames']),
     createUpdateContract() {
       const action = this.mysqlForm.id ? 'put' : 'post'
       const toastMsg = this.mysqlForm.id ? 'modified' : 'created'
@@ -279,6 +282,9 @@ export default {
         clusters: data.clusters,
       }
     },
+  },
+  computed: {
+    ...mapGetters(['getHostnames', 'getClusternames']),
   },
 }
 </script>
