@@ -127,8 +127,8 @@ export default {
         return 'oracle'
       } else if (_.includes(desc, 'SQL Server')) {
         return 'microsoft'
-      } else {
-        return
+      } else if (_.includes(desc, 'MySQL')) {
+        return 'mysql'
       }
     },
   },
