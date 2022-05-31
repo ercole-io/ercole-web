@@ -12,6 +12,7 @@ import formatDateTime from '@/filters/formatDateTime.js'
 import formatDate from '@/filters/formatDate.js'
 import { ModalProgrammatic as Modal } from 'buefy'
 import ClusterNamesModal from '@/components/hosts/hostDetails/ClusterNamesModal.vue'
+import { removeDashFromMsDesc } from '@/helpers/licenses.js'
 
 const startDate = moment().subtract(1, 'week').format('YYYY-MM-DD')
 const endDate = moment().add(1, 'days').format('YYYY-MM-DD')
@@ -357,7 +358,10 @@ export const getters = {
     const usedLicensesByDb = []
     _.map(state.currentHostDbLicenses, (val) => {
       if (val.dbName === db) {
-        usedLicensesByDb.push(val)
+        usedLicensesByDb.push({
+          ...val,
+          description: removeDashFromMsDesc(val.description),
+        })
       }
     })
     return usedLicensesByDb

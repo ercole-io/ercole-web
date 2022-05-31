@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 import { setFullPartNumber } from '@/helpers/helpers.js'
+import { removeDashFromMsDesc } from '@/helpers/licenses.js'
 
 const showStrokeColor = (value) => {
   if (value < 100 && value >= 80) {
@@ -23,6 +24,7 @@ export const getters = {
     _.map(state.complianceList, (val) => {
       compliance.push({
         ...val,
+        itemDescription: removeDashFromMsDesc(val.itemDescription),
         compliance: val.compliance * 100,
         complianceStroke: showStrokeColor(val.compliance * 100),
       })

@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 import { setFullPartNumber } from '@/helpers/helpers.js'
+import { removeDashFromMsDesc } from '@/helpers/licenses.js'
 
 const url = '/hosts/technologies/all/databases'
 
@@ -23,7 +24,7 @@ export const getters = {
         hostname: val.hostname,
         dbName: val.dbName,
         licenseTypeID: val.licenseTypeID,
-        description: val.description,
+        description: removeDashFromMsDesc(val.description),
         metric: val.metric === 'HOST' ? 'Host' : val.metric,
         usedLicenses: val.usedLicenses,
         clusterLicenses: val.clusterLicenses,
@@ -45,7 +46,7 @@ export const getters = {
         databases: val.databaseNames.length,
         databasesNames: val.databaseNames,
         licenseTypeID: val.licenseTypeID,
-        description: val.description,
+        description: removeDashFromMsDesc(val.description),
         metric: val.metric === 'HOST' ? 'Host' : val.metric,
         usedLicenses: val.usedLicenses,
         clusterLicenses: val.clusterLicenses,
@@ -63,6 +64,7 @@ export const getters = {
       licensesByCluster.push({
         ...val,
         metric: val.metric === 'HOST' ? 'Host' : val.metric,
+        description: removeDashFromMsDesc(val.description),
       })
     })
 
@@ -124,14 +126,7 @@ export const actions = {
     }
 
     await axiosRequest('baseApi', config).then((res) => {
-      let response = res.data.usedLicenses
-      response = _.map(response, (val) => {
-        return {
-          ...val,
-          ignore: false,
-        }
-      })
-      commit('SET_LICENSE_DATABASES', response)
+      commit('SET_LICENSE_DATABASES', res.data.usedLicenses)
       commit('ON_LOADING_DATABASES', false)
     })
   },
