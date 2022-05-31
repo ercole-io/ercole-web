@@ -75,8 +75,8 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import { mapGetters, mapState } from 'vuex'
+import { findLicenseType } from '@/helpers/licenses.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -123,13 +123,7 @@ export default {
   },
   methods: {
     findLicenseType(desc) {
-      if (_.includes(desc, 'Oracle')) {
-        return 'oracle'
-      } else if (_.includes(desc, 'SQL Server')) {
-        return 'microsoft'
-      } else if (_.includes(desc, 'MySQL')) {
-        return 'mysql'
-      }
+      return findLicenseType(desc)
     },
   },
   computed: {
