@@ -15,8 +15,8 @@ export const state = () => ({
 
 export const getters = {
   getUsedLicensesByDbs: (state, getters) => {
-    let cleanData = _.without(state.dbsLicensesUsed, undefined, null, '')
-    let licensesByDatabases = []
+    const cleanData = _.without(state.dbsLicensesUsed, undefined, null, '')
+    const licensesByDatabases = []
 
     _.map(cleanData, (val) => {
       licensesByDatabases.push({
@@ -24,7 +24,7 @@ export const getters = {
         dbName: val.dbName,
         licenseTypeID: val.licenseTypeID,
         description: val.description,
-        metric: val.metric,
+        metric: val.metric === 'HOST' ? 'Host' : val.metric,
         usedLicenses: val.usedLicenses,
         clusterLicenses: val.clusterLicenses,
         fullPartNumber: val.fullPartNumber,
@@ -36,8 +36,8 @@ export const getters = {
     return getters.filteredOrNot(licensesByDatabases)
   },
   getUsedLicensesByHost: (state, getters) => {
-    let cleanData = _.without(state.hostsLicensesUsed, undefined, null, '')
-    let licensesByHost = []
+    const cleanData = _.without(state.hostsLicensesUsed, undefined, null, '')
+    const licensesByHost = []
 
     _.map(cleanData, (val) => {
       licensesByHost.push({
@@ -46,7 +46,7 @@ export const getters = {
         databasesNames: val.databaseNames,
         licenseTypeID: val.licenseTypeID,
         description: val.description,
-        metric: val.metric,
+        metric: val.metric === 'HOST' ? 'Host' : val.metric,
         usedLicenses: val.usedLicenses,
         clusterLicenses: val.clusterLicenses,
         fullPartNumber: val.fullPartNumber,
@@ -56,8 +56,17 @@ export const getters = {
     return getters.filteredOrNot(licensesByHost)
   },
   getUsedLicensesByCluster: (state, getters) => {
-    let cleanData = _.without(state.clustersLicensesUsed, undefined, null, '')
-    return getters.filteredOrNot(cleanData)
+    const cleanData = _.without(state.clustersLicensesUsed, undefined, null, '')
+    const licensesByCluster = []
+
+    _.map(cleanData, (val) => {
+      licensesByCluster.push({
+        ...val,
+        metric: val.metric === 'HOST' ? 'Host' : val.metric,
+      })
+    })
+
+    return getters.filteredOrNot(licensesByCluster)
   },
 }
 
