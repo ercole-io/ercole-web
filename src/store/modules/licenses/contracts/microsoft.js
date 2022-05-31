@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 import { setFullPartNumber } from '@/helpers/helpers.js'
+import { removeDashFromMsDesc } from '@/helpers/licenses.js'
 import toLower from '@/filters/toLower.js'
 
 export const state = () => ({
@@ -17,7 +18,7 @@ export const getters = {
             ...val,
             type: toLower(val.type),
             licenseTypeID: type.id,
-            description: type.itemDescription,
+            description: removeDashFromMsDesc(type.itemDescription),
             metric: `${type.edition} - ${type.version}`,
           })
         }
@@ -30,12 +31,13 @@ export const getters = {
     const licensesTypes = []
 
     _.map(state.microsoftLicensesTypes, (val) => {
+      const desc = removeDashFromMsDesc(val.itemDescription)
       licensesTypes.push({
         id: val.id,
-        desc: val.itemDescription,
+        desc: desc,
         version: val.version,
         edition: val.edition,
-        full: `${val.id} - ${val.itemDescription} - ${val.edition} - ${val.version}`,
+        full: `${val.id} - ${desc} - ${val.edition} - ${val.version}`,
       })
     })
 
