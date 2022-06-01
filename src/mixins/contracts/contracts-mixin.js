@@ -8,16 +8,13 @@ export default {
     return {
       filteredhostTags: [],
       filteredclusterTags: [],
-      licensesUsedByHost: [],
-      licensesUsedByCluster: [],
       currentTab: '',
+      selectedID: '',
     }
   },
   async beforeMount() {
     await this.getLicensesHosts()
-    this.licensesUsedByHost = this.getUsedLicensesByHost
     await this.getLicensesClusters()
-    this.licensesUsedByCluster = await this.getUsedLicensesByCluster
 
     bus.$on('onTabChange', (value) => (this.currentTab = value))
   },
@@ -68,48 +65,44 @@ export default {
       this[`filtered${toFilter}`] = newValues
     },
     getAssociatedList(e, type) {
-      let list = []
-      if (type === 'host') {
-        list = this.licensesUsedByHost
-      } else {
-        list = this.licensesUsedByCluster
-      }
-
       if (e && e.id) {
-        const hostsList = []
-        const clusterList = []
+        this.selectedID = e.id
+        let list = this.filteredAssociatedListByLicenseId(type)
 
-        _.map(list, (item) => {
-          if (e.id === item.licenseTypeID) {
-            if (type === 'host') {
-              hostsList.push(item.hostname)
-            } else {
-              clusterList.push(item.cluster)
-            }
-          }
-        })
-
-        if (!_.isEqual(this.filteredhostTags.sort(), hostsList.sort())) {
+        if (!_.isEqual(this[`filtered${type}Tags`].sort(), list.sort())) {
           if (this.currentTab === 2) {
             this.msSqlServer.hosts = []
+            this.msSqlServer.clusters = []
           } else if (this.currentTab === 1) {
             this.mysqlForm.hosts = []
+            this.mysqlForm.clusters = []
           } else {
             this.oracleForm.hostAssociated = []
           }
         }
 
-        if (!_.isEqual(this.filteredclusterTags.sort(), clusterList.sort())) {
-          if (this.currentTab === 2) {
-            this.msSqlServer.clusters = []
-          } else if (this.currentTab === 1) {
-            this.mysqlForm.clusters = []
+        this[`filtered${type}Tags`] = list
+      }
+    },
+    filteredAssociatedListByLicenseId(type) {
+      let list = []
+      const newList = []
+      if (type === 'host') {
+        list = this.getUsedLicensesByHost
+      } else {
+        list = this.getUsedLicensesByCluster
+      }
+
+      _.map(list, (item) => {
+        if (this.selectedID === item.licenseTypeID) {
+          if (type === 'host') {
+            newList.push(item.hostname)
+          } else {
+            newList.push(item.name)
           }
         }
-
-        this.filteredhostTags = hostsList
-        this.filteredclusterTags = clusterList
-      }
+      })
+      return newList
     },
     checkArray(array) {
       return array.every((i) => typeof i === 'string')
@@ -119,11 +112,24 @@ export default {
         return host.hostname
       })
     },
+    mapClustersAssociated(clustersAssociated) {
+      return _.map(clustersAssociated, (clust) => {
+        return clust.name
+      })
+    },
+    mapAssociated(data, type) {
+      if (this.checkArray(data)) {
+        return data
+      } else if (!this.checkArray(data)) {
+        if (type === 'host') {
+          return this.mapHostsAssociated(data)
+        } else {
+          return this.mapClustersAssociated(data)
+        }
+      }
+    },
   },
   computed: {
     ...mapGetters(['getUsedLicensesByHost', 'getUsedLicensesByCluster']),
-    returnFilteredhostTags() {
-      return this.filteredhostTags
-    },
   },
 }

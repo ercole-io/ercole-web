@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
+import { setFullPartNumber } from '@/helpers/helpers.js'
 import toLower from '@/filters/toLower.js'
 
 export const state = () => ({
@@ -8,28 +9,34 @@ export const state = () => ({
 
 export const getters = {
   getMysqlContracts: (state, getters) => {
-    const contracts = []
-    _.map(getters.getContracts('mysql'), (val) => {
-      contracts.push({ ...val, type: toLower(val.type) })
+    let contracts = []
+    _.forEach(state.mysqlLicensesTypes, (type) => {
+      _.map(getters.getContracts('mysql'), (val) => {
+        if (type.id === val.licenseTypeID) {
+          contracts.push({
+            ...val,
+            type: toLower(val.type),
+            licenseTypeID: type.id,
+            description: type.itemDescription,
+          })
+        }
+      })
     })
 
-    return getters.filteredOrNot(contracts)
+    return getters.filteredOrNot(setFullPartNumber(contracts))
   },
   getMysqlLicensesTypes: (state) => {
-    console.log(state.mysqlLicensesTypes)
-    // const licensesTypes = []
+    const licensesTypes = []
 
-    // _.map(state.microsoftLicensesTypes, (val) => {
-    //   licensesTypes.push({
-    //     id: val.id,
-    //     desc: val.itemDescription,
-    //     version: val.version,
-    //     edition: val.edition,
-    //     full: `${val.id} - ${val.itemDescription} - ${val.edition} - ${val.version}`,
-    //   })
-    // })
+    _.map(state.mysqlLicensesTypes, (val) => {
+      licensesTypes.push({
+        id: val.id,
+        desc: val.itemDescription,
+        full: `${val.id} - ${val.itemDescription}`,
+      })
+    })
 
-    // return licensesTypes
+    return licensesTypes
   },
 }
 
@@ -46,7 +53,7 @@ export const actions = {
       payload: payload,
     })
   },
-  async microsoftLicensesTypes({ commit }) {
+  async mysqlLicensesTypes({ commit }) {
     const config = {
       method: 'get',
       url: '/settings/mysql/database/license-types',
