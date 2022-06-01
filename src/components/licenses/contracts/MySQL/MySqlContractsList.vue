@@ -14,6 +14,8 @@
       <v-th sortKey="contractID">
         {{ $t('common.collumns.agreeNumber') }}
       </v-th>
+      <v-th sortKey="licenseTypeID"> License Type </v-th>
+      <v-th sortKey="description"> Description </v-th>
       <v-th sortKey="csi">
         {{ $t('common.collumns.csi') }}
       </v-th>
@@ -32,7 +34,7 @@
           class="edit-icon"
           pack="fas"
           icon="edit"
-          @click.native="editMysqlContract(rowData.scope)"
+          @click.native="updateMysqlContract(rowData.scope)"
         />
       </td>
       <td style="min-width: 0">
@@ -49,6 +51,8 @@
       </td>
       <TdContent :value="rowData.scope.type | toLower" />
       <TdContent :value="rowData.scope.contractID" />
+      <TdContent :value="rowData.scope.licenseTypeID" />
+      <TdContent :value="rowData.scope.description" />
       <TdContent :value="rowData.scope.csi" />
       <TdContent :value="rowData.scope.numberOfLicenses" />
       <td>
@@ -135,8 +139,8 @@ export default {
         },
       })
     },
-    editMysqlContract(data) {
-      bus.$emit('editMysqlContract', data)
+    updateMysqlContract(data) {
+      bus.$emit('updateMysqlContract', data)
     },
     openModal(type, data, contract) {
       this.$buefy.modal.open({

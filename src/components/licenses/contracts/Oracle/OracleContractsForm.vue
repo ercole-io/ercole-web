@@ -222,7 +222,13 @@
         autocomplete
         icon="label"
         :placeholder="`${$t('common.forms.choose')} hostname`"
-        @typing="getAutocompleteData($event, 'hostTags', filteredhostTags)"
+        @typing="
+          getAutocompleteData(
+            $event,
+            'hostTags',
+            filteredAssociatedListByLicenseId('host')
+          )
+        "
         custom-class="is-small"
         open-on-focus
         :disabled="ula"
@@ -436,9 +442,7 @@ export default {
           Number(data.licensesPerUser),
           Number(data.licensesPerCore),
         ]),
-        hostAssociated: this.checkArray(data.hosts)
-          ? data.hosts
-          : this.mapHostsAssociated(data.hosts),
+        hostAssociated: this.mapAssociated(data.hosts, 'host'),
         basket: data.basket,
         restricted: data.restricted,
       }
