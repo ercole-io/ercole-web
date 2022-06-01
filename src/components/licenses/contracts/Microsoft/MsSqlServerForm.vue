@@ -165,7 +165,13 @@
         autocomplete
         icon="label"
         placeholder="Add a hostname"
-        @typing="getAutocompleteData($event, 'hostTags', filteredhostTags)"
+        @typing="
+          getAutocompleteData(
+            $event,
+            'hostTags',
+            filteredAssociatedListByLicenseId('host')
+          )
+        "
         custom-class="is-small"
         :open-on-focus="true"
       >
@@ -205,7 +211,11 @@
         icon="label"
         placeholder="Add a clustername"
         @typing="
-          getAutocompleteData($event, 'clusterTags', clusternames.clusternames)
+          getAutocompleteData(
+            $event,
+            'clusterTags',
+            filteredAssociatedListByLicenseId('cluster')
+          )
         "
         custom-class="is-small"
         :open-on-focus="true"
@@ -265,9 +275,9 @@ export default {
         hosts: [],
         clusters: [],
       },
-      filteredlicenseTypeID: [],
       host: 'host',
       cluster: 'cluster',
+      filteredlicenseTypeID: [],
     }
   },
   beforeMount() {
@@ -280,7 +290,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['microsoftContractsActions', 'getLicensesHosts']),
+    ...mapActions(['microsoftContractsActions']),
     createUpdateContract() {
       const action = this.msSqlServer.id ? 'put' : 'post'
       const toastMsg = this.msSqlServer.id ? 'modified' : 'created'
@@ -321,10 +331,8 @@ export default {
         licenseTypeID: data.fullPartNumber,
         contractID: data.contractID,
         licensesNumber: data.licensesNumber,
-        hosts: this.checkArray(data.hosts)
-          ? data.hosts
-          : this.mapHostsAssociated(data.hosts),
-        clusters: data.clusters,
+        hosts: this.mapAssociated(data.hosts, 'host'),
+        clusters: this.mapAssociated(data.clusters, 'cluster'),
       }
     },
   },
