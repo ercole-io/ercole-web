@@ -20,6 +20,7 @@
     >
       <template slot="headData">
         <v-th sortKey="ignored" class="has-text-centered">Ignore License</v-th>
+        <v-th sortKey="ignoredComment">Ignore Comment</v-th>
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
         <v-th sortKey="dbName">{{ $t('common.collumns.name') }}</v-th>
         <v-th sortKey="licenseTypeID">
@@ -45,11 +46,13 @@
           :description="rowData.scope.description"
           :metric="rowData.scope.metric"
           :status="!rowData.scope.ignored"
+          :ignoreComment="rowData.scope.ignoredComment"
           :type="findLicenseType(rowData.scope.description)"
           page="licenses-used"
           v-if="rowData.scope.licenseTypeID"
         />
         <TdContent value="" v-else />
+        <TdContent :value="rowData.scope.ignoredComment" />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbName]" />
         <TdContent :value="rowData.scope.dbName" />
         <TdContent :value="rowData.scope.licenseTypeID" />
@@ -72,8 +75,8 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import { mapGetters, mapState } from 'vuex'
+import { findLicenseType } from '@/helpers/licenses.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -114,18 +117,13 @@ export default {
         'metric',
         'clusterLicenses',
         'ignored',
+        'ignoredComment',
       ],
     }
   },
   methods: {
     findLicenseType(desc) {
-      if (_.includes(desc, 'Oracle')) {
-        return 'oracle'
-      } else if (_.includes(desc, 'SQL Server')) {
-        return 'microsoft'
-      } else {
-        return
-      }
+      return findLicenseType(desc)
     },
   },
   computed: {

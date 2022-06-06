@@ -328,7 +328,7 @@ export default {
         this.$route.name !== 'profile-configurations' &&
         this.$route.name !== 'ercole-recommendations' &&
         this.$route.name !== 'alerts' &&
-        this.$route.name !== 'database-grants'
+        this.$route.name !== 'dba-role'
       )
     },
   },
