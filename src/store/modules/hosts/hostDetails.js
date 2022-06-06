@@ -10,6 +10,7 @@ import {
   mapMicrosoftDatabase,
   mountCpuUsageChart,
 } from '@/helpers/hostDetails.js'
+import { removeDashFromMsDesc } from '@/helpers/licenses.js'
 
 export const state = () => ({
   currentHost: {},
@@ -95,7 +96,10 @@ export const getters = {
     const usedLicensesByDb = []
     _.map(state.currentHostDbLicenses, (val) => {
       if (val.dbName === db) {
-        usedLicensesByDb.push(val)
+        usedLicensesByDb.push({
+          ...val,
+          description: removeDashFromMsDesc(val.description),
+        })
       }
     })
     return usedLicensesByDb

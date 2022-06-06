@@ -30,12 +30,14 @@ export default {
     'status',
     'page',
     'type',
+    'ignoreComment',
   ],
   methods: {
     ...mapActions([
       'ignoreDatabaseLicense',
       'getHostByName',
       'getLicensesByHostName',
+      'getLicensesDatabases',
     ]),
     ignoreLicense() {
       if (this.status) {
@@ -45,32 +47,42 @@ export default {
       }
     },
     ignoreLicenseDialog(message) {
-      this.$buefy.dialog.confirm({
+      this.$buefy.dialog.prompt({
         title: this.$i18n.t('views.licenses.ignoreLicense'),
         message: this.$i18n.t(`views.licenses.${message}`, {
           license: `${this.licenseID} - ${this.description} - ${this.metric}`,
           database: this.db,
           hostname: this.host,
         }),
-        confirmText: this.$i18n.t('common.general.yes'),
+        inputAttrs: {
+          placeholder: 'Leave an ignore comment!',
+          value: this.ignoreComment,
+          disabled: !this.status ? true : false,
+        },
         type: 'is-danger',
         hasIcon: true,
-        onConfirm: () => this.ignoreLicenseAction(),
+        onConfirm: (value) => this.ignoreLicenseAction(value),
+        confirmText: this.$i18n.t('common.general.yes'),
         cancelText: this.$i18n.t('common.general.no'),
       })
     },
-    ignoreLicenseAction() {
-      this.ignoreDatabaseLicense({
+    ignoreLicenseAction(message) {
+      const data = {
         database: this.db,
         hostname: this.host,
         licenseID: this.licenseID,
         status: this.status,
         page: this.page,
         type: this.type,
-      }).then(() => {
+        comment: this.status ? message : '',
+      }
+
+      this.ignoreDatabaseLicense(data).then(() => {
         if (this.page === 'host-details') {
           this.getHostByName(this.host)
           this.getLicensesByHostName(this.host)
+        } else {
+          this.getLicensesDatabases()
         }
       })
     },

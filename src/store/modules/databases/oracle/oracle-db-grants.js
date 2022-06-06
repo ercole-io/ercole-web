@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
+import toLower from '@/filters/toLower.js'
 
 export const state = () => ({
   dbGrants: [],
@@ -12,9 +13,9 @@ export const getters = {
 
     _.map(dbGrants, (val) => {
       const defaultRole =
-        val.oracleGrantDba.defaultRole === 'yes' ? true : false
+        toLower(val.oracleGrantDba.defaultRole) === 'yes' ? true : false
       const adminOption =
-        val.oracleGrantDba.adminOption === 'yes' ? true : false
+        toLower(val.oracleGrantDba.adminOption) === 'yes' ? true : false
 
       grants.push({
         dbName: val.databasename,

@@ -1,6 +1,6 @@
 <template>
   <AdvancedFiltersBase
-    filterTitle="Add or Modify an MsSqlServer Contract"
+    filterTitle="Add or Modify an SQLServer Contract"
     :submitAction="createUpdateContract"
     :isDisabled="$v.$invalid"
     :applyText="msSqlServer.id ? 'Update Contract' : 'Add Contract'"
@@ -56,6 +56,7 @@
         @focus="() => (filteredlicenseTypeID = getMicrosoftLicensesTypes)"
         @blur="$v.msSqlServer.licenseTypeID.$touch()"
         @input="$v.msSqlServer.licenseTypeID.$touch()"
+        @select="getAssociatedList($event, 'host')"
         open-on-focus
         clearable
       >
@@ -164,7 +165,13 @@
         autocomplete
         icon="label"
         placeholder="Add a hostname"
-        @typing="getAutocompleteData($event, 'hostTags', hostnames.hostnames)"
+        @typing="
+          getAutocompleteData(
+            $event,
+            'hostTags',
+            filteredAssociatedListByLicenseId('host')
+          )
+        "
         custom-class="is-small"
         :open-on-focus="true"
       >
@@ -204,7 +211,11 @@
         icon="label"
         placeholder="Add a clustername"
         @typing="
-          getAutocompleteData($event, 'clusterTags', clusternames.clusternames)
+          getAutocompleteData(
+            $event,
+            'clusterTags',
+            filteredAssociatedListByLicenseId('cluster')
+          )
         "
         custom-class="is-small"
         :open-on-focus="true"
@@ -264,9 +275,9 @@ export default {
         hosts: [],
         clusters: [],
       },
-      filteredlicenseTypeID: [],
       host: 'host',
       cluster: 'cluster',
+      filteredlicenseTypeID: [],
     }
   },
   beforeMount() {
@@ -305,14 +316,23 @@ export default {
       })
     },
     editContract(data) {
+      this.getAssociatedList(
+        {
+          full: `${data.licenseTypeID} - ${data.itemDescription} - ${data.metric}`,
+          licenseTypeID: data.licenseTypeID,
+          description: data.itemDescription,
+          metric: data.metric,
+        },
+        data.type
+      )
       this.msSqlServer = {
         id: data.id,
         type: data.type,
         licenseTypeID: data.fullPartNumber,
         contractID: data.contractID,
         licensesNumber: data.licensesNumber,
-        hosts: data.hosts,
-        clusters: data.clusters,
+        hosts: this.mapAssociated(data.hosts, 'host'),
+        clusters: this.mapAssociated(data.clusters, 'cluster'),
       }
     },
   },

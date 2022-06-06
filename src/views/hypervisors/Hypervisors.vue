@@ -21,7 +21,7 @@
       <template slot="headData">
         <v-th sortKey="name">VCenter</v-th>
         <v-th sortKey="name">{{ $t('common.collumns.clusterName') }}</v-th>
-        <v-th sortKey="type">{{ $t('common.collumns.type') }}</v-th>
+        <v-th sortKey="type">Type</v-th>
         <v-th sortKey="cpu">{{ $t('common.collumns.cores') }}</v-th>
         <v-th sortKey="sockets">{{ $t('common.collumns.socket') }}</v-th>
         <v-th sortKey="virtualizationNodes">{{

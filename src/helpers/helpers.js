@@ -259,10 +259,16 @@ export const setFullPartNumber = (data) => {
 
   _.map(data, (val) => {
     let full = ''
+    let id = val.licenseTypeID
     let description = val.description || val.itemDescription
+    let metric = val.metric
 
-    if (val.licenseTypeID && description && val.metric) {
-      full = `${val.licenseTypeID} - ${description} - ${val.metric}`
+    if (id && description) {
+      full = `${id} - ${description}`
+
+      if (metric) {
+        full = `${full} - ${metric}`
+      }
     }
 
     customData.push({

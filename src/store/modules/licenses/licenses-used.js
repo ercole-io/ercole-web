@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 import { setFullPartNumber } from '@/helpers/helpers.js'
+import { removeDashFromMsDesc } from '@/helpers/licenses.js'
 
 const url = '/hosts/technologies/all/databases'
 
@@ -15,28 +16,29 @@ export const state = () => ({
 
 export const getters = {
   getUsedLicensesByDbs: (state, getters) => {
-    let cleanData = _.without(state.dbsLicensesUsed, undefined, null, '')
-    let licensesByDatabases = []
+    const cleanData = _.without(state.dbsLicensesUsed, undefined, null, '')
+    const licensesByDatabases = []
 
     _.map(cleanData, (val) => {
       licensesByDatabases.push({
         hostname: val.hostname,
         dbName: val.dbName,
         licenseTypeID: val.licenseTypeID,
-        description: val.description,
-        metric: val.metric,
+        description: removeDashFromMsDesc(val.description),
+        metric: val.metric === 'HOST' ? 'Host' : val.metric,
         usedLicenses: val.usedLicenses,
         clusterLicenses: val.clusterLicenses,
         fullPartNumber: val.fullPartNumber,
         ignored: val.ignored,
+        ignoredComment: val.ignoredComment,
       })
     })
 
     return getters.filteredOrNot(licensesByDatabases)
   },
   getUsedLicensesByHost: (state, getters) => {
-    let cleanData = _.without(state.hostsLicensesUsed, undefined, null, '')
-    let licensesByHost = []
+    const cleanData = _.without(state.hostsLicensesUsed, undefined, null, '')
+    const licensesByHost = []
 
     _.map(cleanData, (val) => {
       licensesByHost.push({
@@ -44,8 +46,8 @@ export const getters = {
         databases: val.databaseNames.length,
         databasesNames: val.databaseNames,
         licenseTypeID: val.licenseTypeID,
-        description: val.description,
-        metric: val.metric,
+        description: removeDashFromMsDesc(val.description),
+        metric: val.metric === 'HOST' ? 'Host' : val.metric,
         usedLicenses: val.usedLicenses,
         clusterLicenses: val.clusterLicenses,
         fullPartNumber: val.fullPartNumber,
@@ -55,8 +57,18 @@ export const getters = {
     return getters.filteredOrNot(licensesByHost)
   },
   getUsedLicensesByCluster: (state, getters) => {
-    let cleanData = _.without(state.clustersLicensesUsed, undefined, null, '')
-    return getters.filteredOrNot(cleanData)
+    const cleanData = _.without(state.clustersLicensesUsed, undefined, null, '')
+    const licensesByCluster = []
+
+    _.map(cleanData, (val) => {
+      licensesByCluster.push({
+        ...val,
+        metric: val.metric === 'HOST' ? 'Host' : val.metric,
+        description: removeDashFromMsDesc(val.description),
+      })
+    })
+
+    return getters.filteredOrNot(licensesByCluster)
   },
 }
 
@@ -114,14 +126,7 @@ export const actions = {
     }
 
     await axiosRequest('baseApi', config).then((res) => {
-      let response = res.data.usedLicenses
-      response = _.map(response, (val) => {
-        return {
-          ...val,
-          ignore: false,
-        }
-      })
-      commit('SET_LICENSE_DATABASES', response)
+      commit('SET_LICENSE_DATABASES', res.data.usedLicenses)
       commit('ON_LOADING_DATABASES', false)
     })
   },

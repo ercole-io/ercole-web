@@ -1,5 +1,6 @@
 import _ from 'lodash'
-import { mapState } from 'vuex'
+import { bus } from '@/helpers/eventBus.js'
+import { mapActions, mapGetters } from 'vuex'
 import { simpleAutocompleteData } from '@/helpers/helpers.js'
 
 export default {
@@ -7,13 +8,18 @@ export default {
     return {
       filteredhostTags: [],
       filteredclusterTags: [],
+      currentTab: '',
+      selectedID: '',
     }
   },
-  beforeMount() {
-    this.filteredclusterTags = this.clusternames.clusternames
-    this.filteredhostTags = this.hostnames.hostnames
+  async beforeMount() {
+    await this.getLicensesHosts()
+    await this.getLicensesClusters()
+
+    bus.$on('onTabChange', (value) => (this.currentTab = value))
   },
   methods: {
+    ...mapActions(['getLicensesHosts', 'getLicensesClusters']),
     sussessToastMsg(contractID, text) {
       this.$buefy.toast.open({
         message: `The Contract Number <b>${contractID}</b> was successfully ${text}!`,
@@ -58,8 +64,72 @@ export default {
 
       this[`filtered${toFilter}`] = newValues
     },
+    getAssociatedList(e, type) {
+      if (e && e.id) {
+        this.selectedID = e.id
+        let list = this.filteredAssociatedListByLicenseId(type)
+
+        if (!_.isEqual(this[`filtered${type}Tags`].sort(), list.sort())) {
+          if (this.currentTab === 2) {
+            this.msSqlServer.hosts = []
+            this.msSqlServer.clusters = []
+          } else if (this.currentTab === 1) {
+            this.mysqlForm.hosts = []
+            this.mysqlForm.clusters = []
+          } else {
+            this.oracleForm.hostAssociated = []
+          }
+        }
+
+        this[`filtered${type}Tags`] = list
+      }
+    },
+    filteredAssociatedListByLicenseId(type) {
+      let list = []
+      const newList = []
+      if (type === 'host') {
+        list = this.getUsedLicensesByHost
+      } else {
+        list = this.getUsedLicensesByCluster
+      }
+
+      _.map(list, (item) => {
+        if (this.selectedID === item.licenseTypeID) {
+          if (type === 'host') {
+            newList.push(item.hostname)
+          } else {
+            newList.push(item.name)
+          }
+        }
+      })
+      return newList
+    },
+    checkArray(array) {
+      return array.every((i) => typeof i === 'string')
+    },
+    mapHostsAssociated(hostsAssociated) {
+      return _.map(hostsAssociated, (host) => {
+        return host.hostname
+      })
+    },
+    mapClustersAssociated(clustersAssociated) {
+      return _.map(clustersAssociated, (clust) => {
+        return clust.name
+      })
+    },
+    mapAssociated(data, type) {
+      if (this.checkArray(data)) {
+        return data
+      } else if (!this.checkArray(data)) {
+        if (type === 'host') {
+          return this.mapHostsAssociated(data)
+        } else {
+          return this.mapClustersAssociated(data)
+        }
+      }
+    },
   },
   computed: {
-    ...mapState(['hostnames', 'clusternames']),
+    ...mapGetters(['getUsedLicensesByHost', 'getUsedLicensesByCluster']),
   },
 }
