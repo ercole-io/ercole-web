@@ -43,12 +43,13 @@ export default {
     await this.mysqlContractsActions({ action: 'get', body: null }).then(() => {
       bus.$emit('data', this.getMysqlContracts)
     })
+    await this.mysqlLicensesTypes()
   },
   mounted() {
     this.isMounted = true
   },
   methods: {
-    ...mapActions(['mysqlContractsActions']),
+    ...mapActions(['mysqlContractsActions', 'mysqlLicensesTypes']),
   },
   computed: {
     ...mapGetters(['getMysqlContracts', 'loadingTableStatus']),

@@ -32,6 +32,64 @@
     </b-field>
 
     <b-field
+      label="Licenses Types *"
+      custom-class="is-small"
+      :type="{
+        'is-danger': $v.mysqlForm.licenseTypeID.$error,
+      }"
+    >
+      <b-autocomplete
+        v-model="mysqlForm.licenseTypeID"
+        size="is-small"
+        type="text"
+        icon="magnify"
+        field="full"
+        :data="filteredlicenseTypeID"
+        @typing="
+          getAutocompleteLicensesTypes(
+            $event,
+            'licenseTypeID',
+            getMysqlLicensesTypes,
+            'mysql'
+          )
+        "
+        @focus="() => (filteredlicenseTypeID = getMysqlLicensesTypes)"
+        @blur="$v.mysqlForm.licenseTypeID.$touch()"
+        @input="$v.mysqlForm.licenseTypeID.$touch()"
+        @select="getAssociatedList($event, 'host')"
+        open-on-focus
+        clearable
+      >
+        <template slot-scope="props">
+          <div class="media media-custom">
+            <div class="media-content">
+              <b>
+                {{ props.option.id }}
+              </b>
+              <br />
+              <small>
+                {{ props.option.desc }}
+              </small>
+            </div>
+          </div>
+        </template>
+        <template slot="empty">
+          {{ $i18n.t('common.validations.noResults') }}
+        </template>
+      </b-autocomplete>
+      <template #message>
+        <div
+          v-if="
+            !$v.mysqlForm.licenseTypeID.required &&
+            $v.mysqlForm.licenseTypeID.$error
+          "
+        >
+          {{ $i18n.t('common.validations.requiredAlt') }}
+        </div>
+      </template>
+    </b-field>
+
+    <b-field
       :label="`${$t('common.fields.agreeNumber')} *`"
       custom-class="is-small"
       expanded
@@ -43,7 +101,6 @@
         @blur="$v.mysqlForm.contractID.$touch()"
         @input="$v.mysqlForm.contractID.$touch()"
         size="is-small"
-        type="number"
         v-model="mysqlForm.contractID"
       />
       <template #message>
@@ -53,13 +110,6 @@
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
-        </div>
-        <div
-          v-if="
-            !$v.mysqlForm.contractID.numeric && $v.mysqlForm.contractID.$error
-          "
-        >
-          {{ $i18n.t('common.validations.onlyNumbers') }}
         </div>
       </template>
     </b-field>
@@ -136,7 +186,13 @@
         autocomplete
         icon="label"
         placeholder="Add a hostname"
-        @typing="getAutocompleteData($event, 'hostTags', hostnames.hostnames)"
+        @typing="
+          getAutocompleteData(
+            $event,
+            'hostTags',
+            filteredAssociatedListByLicenseId('host')
+          )
+        "
         custom-class="is-small"
         :open-on-focus="true"
       >
@@ -176,7 +232,11 @@
         icon="label"
         placeholder="Add a clustername"
         @typing="
-          getAutocompleteData($event, 'clusterTags', clusternames.clusternames)
+          getAutocompleteData(
+            $event,
+            'clusterTags',
+            filteredAssociatedListByLicenseId('cluster')
+          )
         "
         custom-class="is-small"
         :open-on-focus="true"
@@ -209,9 +269,10 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { required, numeric } from 'vuelidate/lib/validators'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import toUpper from '@/filters/toUpper.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import ContractsMixin from '@/mixins/contracts/contracts-mixin.js'
@@ -224,8 +285,9 @@ export default {
   validations: {
     mysqlForm: {
       type: { required },
+      licenseTypeID: { required },
       numberOfLicenses: { required, numeric },
-      contractID: { required, numeric },
+      contractID: { required },
       csi: { required, numeric },
     },
   },
@@ -237,11 +299,14 @@ export default {
       },
       host: 'host',
       cluster: 'cluster',
+      filteredlicenseTypeID: [],
     }
   },
-  beforeMount() {
+  async beforeMount() {
+    this.filteredlicenseTypeID = this.getMysqlLicensesTypes
+
     bus.$on('onResetAction', () => (this.mysqlForm = {}))
-    bus.$on('editMysqlContract', (data) => {
+    bus.$on('updateMysqlContract', (data) => {
       bus.$emit('onToggleEdit', true)
       this.editContract(data)
     })
@@ -254,6 +319,10 @@ export default {
       const contractID = this.mysqlForm.contractID
 
       this.mysqlForm.type = toUpper(this.mysqlForm.type)
+      this.mysqlForm.licenseTypeID = _.split(
+        this.mysqlForm.licenseTypeID,
+        ' - '
+      )[0]
       this.mysqlForm.numberOfLicenses = Number(this.mysqlForm.numberOfLicenses)
       this.mysqlForm.hosts =
         this.mysqlForm.type === 'HOST' ? this.mysqlForm.hosts : []
@@ -269,16 +338,28 @@ export default {
       })
     },
     editContract(data) {
+      this.getAssociatedList(
+        {
+          full: `${data.licenseTypeID} - ${data.itemDescription}`,
+          licenseTypeID: data.licenseTypeID,
+          description: data.itemDescription,
+        },
+        data.type
+      )
       this.mysqlForm = {
         id: data.id,
         type: data.type,
+        licenseTypeID: data.fullPartNumber,
         numberOfLicenses: data.numberOfLicenses,
         contractID: data.contractID,
         csi: data.csi,
-        hosts: data.hosts,
-        clusters: data.clusters,
+        hosts: this.mapAssociated(data.hosts, 'host'),
+        clusters: this.mapAssociated(data.clusters, 'cluster'),
       }
     },
+  },
+  computed: {
+    ...mapGetters(['getMysqlLicensesTypes']),
   },
 }
 </script>

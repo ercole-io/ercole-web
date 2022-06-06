@@ -17,9 +17,7 @@ export const getters = {
 export const mutations = {
   SET_LICENSES_CONTRACTS: (state, payload) => {
     state[`${payload.type}Contracts`] =
-      payload.type !== 'microsoft'
-        ? setFullPartNumber(payload.data)
-        : payload.data
+      payload.type === 'oracle' ? setFullPartNumber(payload.data) : payload.data
   },
   CREATE_LICENSES_CONTRACTS: (state, payload) => {
     state[`${payload.type}Contracts`].unshift(payload.data)
