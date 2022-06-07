@@ -41,8 +41,8 @@
             v-tooltip="options(rowData.scope.obsoleteDiff)"
           />
         </td>
-        <TdContent
-          :value="rowData.scope.hostname"
+        <HostLink
+          :hostname="rowData.scope.hostname"
           class="first-col"
           style="text-align: left; padding-left: 0"
         />
@@ -153,6 +153,7 @@ import ExportButton from '@/components/common/ExportButton.vue'
 import HostsFilters from '@/components/hosts/hosts/HostsFilters.vue'
 import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
 import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
+import HostLink from '@/components/common/Table/HostLink.vue'
 import formatDate from '@/filters/formatDate.js'
 import hostsHead from '@/views/hosts/hosts-head.json'
 import hostsMoreInfo from '@/views/hosts/hosts-more-info.json'
@@ -172,6 +173,7 @@ export default {
     HostsFilters,
     DynamicHeading,
     MoreInfoButtons,
+    HostLink,
     Loading,
     RefreshButton,
   },
