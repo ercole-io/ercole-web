@@ -155,6 +155,172 @@ const getHostType = (databases) => {
   }
 }
 
+// Map data from diferent api's
+const mapExtraData = (name, extraData) => {
+  const item = []
+  _.map(extraData, (val) => {
+    if (name === val.dbName) {
+      item.push({ ...val })
+    }
+  })
+  return item
+}
+
+// Map Host databases
+const mapHostDatabases = (data, extraData, type) => {
+  let newData = []
+  if (type === 'oracle') {
+    _.map(data, (item) => {
+      newData.push({
+        name: item.name,
+        status: item.status,
+        role: item.role,
+        dbID: item.dbID,
+        uniqueName: item.uniqueName,
+        archivelog: item.archivelog,
+        blockSize: item.blockSize,
+        charset: item.charset,
+        nCharset: item.nCharset,
+        memoryTarget: item.memoryTarget,
+        pgaTarget: item.pgaTarget,
+        sgaMaxSize: item.sgaMaxSize,
+        sgaTarget: item.sgaTarget,
+        dbTime: item.dbTime,
+        elapsed: item.elapsed,
+        work: item.work,
+        cpuCount: item.cpuCount,
+        allocable: item.allocable,
+        datafileSize: item.datafileSize,
+        segmentsSize: item.segmentsSize,
+        asm: item.asm,
+        dataguard: item.dataguard,
+        platform: item.platform,
+        version: item.version,
+        pdbs: resolvePdbs([...item.pdbs]),
+        options: resolveOptions([...item.featureUsageStats]),
+        tablespaces: [...item.tablespaces],
+        schemas: [...item.schemas],
+        patches: genericResolve([...item.patches]),
+        psus: genericResolve([...item.psus]),
+        addms: [...item.addms],
+        segmentAdvisors: [...item.segmentAdvisors],
+        dbGrowth: [...item.changes],
+        backups: [...item.backups],
+        services: resolveServices([...item.services]),
+        licenses: mapExtraData(item.name, extraData.licenses(item.name)),
+        dbGrants: mapExtraData(item.name, extraData.dbGrants(item.name)),
+      })
+    })
+  } else if (type === 'mysql') {
+    _.map(data, (item) => {
+      newData.push({
+        name: item.name,
+        platform: item.platform,
+        edition: item.edition,
+        engine: item.engine,
+        architecture: item.architecture,
+        sortBufferSize: item.sortBufferSize,
+        logBufferSize: item.logBufferSize,
+        bufferPoolSize: item.bufferPoolSize,
+        readOnly: item.readOnly,
+        redoLogEnabled: item.redoLogEnabled,
+        threadsConcurrency: item.threadsConcurrency,
+        charsetServer: item.charsetServer,
+        charsetSystem: item.charsetSystem,
+        pageSize: item.pageSize,
+        version: item.version,
+        databases: [...item.databases],
+        segmentAdvisors: [...item.segmentAdvisors],
+        tableSchemas: [...item.tableSchemas],
+        licenses: mapExtraData(item.name, extraData.licenses(item.name)),
+        dbGrants: mapExtraData(item.name, extraData.dbGrants(item.name)),
+      })
+    })
+  } else if (type === 'microsoft') {
+    _.map(data, (item) => {
+      newData.push({
+        name: item.name,
+        info: {
+          name: item.name,
+          collationName: item.collationName,
+          databaseID: item.databaseID,
+          displayName: item.displayName,
+          edition: item.edition,
+          editionType: item.editionType,
+          licensingInfo: item.licensingInfo,
+          platform: item.platform,
+          productCode: item.productCode,
+          serverName: item.serverName,
+          status: item.status,
+          version: item.version,
+          stateDesc: item.stateDesc,
+        },
+        databases: [...item.databases],
+        licenses: mapExtraData(item.name, extraData.licenses(item.name)),
+        dbGrants: mapExtraData(item.name, extraData.dbGrants(item.name)),
+      })
+    })
+  }
+  return newData
+}
+
+// Oracle Databases
+const resolvePdbs = (pdbs) => {
+  let filteredPdbs = []
+
+  _.filter(pdbs, (val) => {
+    if (val) {
+      filteredPdbs.push({
+        pdbName: val.name,
+        pdbSchemas: val.schemas,
+        pdbService: val.services,
+        pdbStatus: val.status,
+        pdbTablespaces: val.tablespaces,
+      })
+    }
+  })
+
+  return filteredPdbs
+}
+
+const resolveOptions = (options) => {
+  let filteredOptions = []
+  _.filter(options, (val) => {
+    if (val) {
+      filteredOptions.push({
+        ...val,
+        lastUsageDate: formatDate(val.lastUsageDate),
+        firstUsageDate: formatDate(val.firstUsageDate),
+      })
+    }
+  })
+
+  return filteredOptions
+}
+
+const resolveServices = (services) => {
+  let filteredServices = []
+  _.filter(services, (val) => {
+    filteredServices.push({
+      name: val.name,
+      creationDate: formatDate(val.creationDate),
+      enabled: val.enabled,
+    })
+  })
+  return filteredServices
+}
+
+const genericResolve = (data) => {
+  let filteredData = []
+  _.filter(data, (val) => {
+    filteredData.push({
+      ...val,
+      date: formatDate(val.date),
+    })
+  })
+  return filteredData
+}
+
 // Oracle Chart
 const mountTotalDailyUsage = (data, rangeDates) => {
   const totalDailyData = []
@@ -237,181 +403,10 @@ const mountCpuUsageChart = (history, selected, dbs, rangeDates) => {
   return finalResult
 }
 
-// Oracle Databases
-const mapOracleDatabase = (data, extraData) => {
-  const newData = []
-  _.map(data, (item) => {
-    newData.push({
-      name: item.name,
-      status: item.status,
-      role: item.role,
-      dbID: item.dbID,
-      uniqueName: item.uniqueName,
-      archivelog: item.archivelog,
-      blockSize: item.blockSize,
-      charset: item.charset,
-      nCharset: item.nCharset,
-      memoryTarget: item.memoryTarget,
-      pgaTarget: item.pgaTarget,
-      sgaMaxSize: item.sgaMaxSize,
-      sgaTarget: item.sgaTarget,
-      dbTime: item.dbTime,
-      elapsed: item.elapsed,
-      work: item.work,
-      cpuCount: item.cpuCount,
-      allocable: item.allocable,
-      datafileSize: item.datafileSize,
-      segmentsSize: item.segmentsSize,
-      asm: item.asm,
-      dataguard: item.dataguard,
-      platform: item.platform,
-      version: item.version,
-      pdbs: resolvePdbs([...item.pdbs]),
-      options: resolveOptions([...item.featureUsageStats]),
-      tablespaces: [...item.tablespaces],
-      schemas: [...item.schemas],
-      patches: genericResolve([...item.patches]),
-      psus: genericResolve([...item.psus]),
-      addms: [...item.addms],
-      segmentAdvisors: [...item.segmentAdvisors],
-      dbGrowth: [...item.changes],
-      backups: [...item.backups],
-      services: resolveServices([...item.services]),
-      licenses: mapExtraData(item.name, extraData.licenses(item.name)),
-      dbGrants: mapExtraData(item.name, extraData.dbGrants(item.name)),
-    })
-  })
-  return newData
-}
-
-const resolvePdbs = (pdbs) => {
-  let filteredPdbs = []
-
-  _.filter(pdbs, (val) => {
-    if (val) {
-      filteredPdbs.push({
-        pdbName: val.name,
-        pdbSchemas: val.schemas,
-        pdbService: val.services,
-        pdbStatus: val.status,
-        pdbTablespaces: val.tablespaces,
-      })
-    }
-  })
-
-  return filteredPdbs
-}
-
-const resolveOptions = (options) => {
-  let filteredOptions = []
-  _.filter(options, (val) => {
-    if (val) {
-      filteredOptions.push({
-        ...val,
-        lastUsageDate: formatDate(val.lastUsageDate),
-        firstUsageDate: formatDate(val.firstUsageDate),
-      })
-    }
-  })
-
-  return filteredOptions
-}
-
-const resolveServices = (services) => {
-  let filteredServices = []
-  _.filter(services, (val) => {
-    filteredServices.push({
-      name: val.name,
-      creationDate: formatDate(val.creationDate),
-      enabled: val.enabled,
-    })
-  })
-  return filteredServices
-}
-
-const genericResolve = (data) => {
-  let filteredData = []
-  _.filter(data, (val) => {
-    filteredData.push({
-      ...val,
-      date: formatDate(val.date),
-    })
-  })
-  return filteredData
-}
-
-// MySql Database
-const mapMySqlDatabase = (data) => {
-  const newData = []
-  _.map(data, (item) => {
-    newData.push({
-      name: item.name,
-      platform: item.platform,
-      edition: item.edition,
-      engine: item.engine,
-      architecture: item.architecture,
-      sortBufferSize: item.sortBufferSize,
-      logBufferSize: item.logBufferSize,
-      bufferPoolSize: item.bufferPoolSize,
-      readOnly: item.readOnly,
-      redoLogEnabled: item.redoLogEnabled,
-      threadsConcurrency: item.threadsConcurrency,
-      charsetServer: item.charsetServer,
-      charsetSystem: item.charsetSystem,
-      pageSize: item.pageSize,
-      version: item.version,
-      databases: [...item.databases],
-      segmentAdvisors: [...item.segmentAdvisors],
-      tableSchemas: [...item.tableSchemas],
-    })
-  })
-  return newData
-}
-
-// Microsoft Databases
-const mapMicrosoftDatabase = (data) => {
-  const newData = []
-  _.map(data, (item) => {
-    newData.push({
-      name: item.name,
-      info: {
-        name: item.name,
-        collationName: item.collationName,
-        databaseID: item.databaseID,
-        displayName: item.displayName,
-        edition: item.edition,
-        editionType: item.editionType,
-        licensingInfo: item.licensingInfo,
-        platform: item.platform,
-        productCode: item.productCode,
-        serverName: item.serverName,
-        status: item.status,
-        version: item.version,
-        stateDesc: item.stateDesc,
-      },
-      databases: [...item.databases],
-    })
-  })
-  return newData
-}
-
-// For all technologies
-const mapExtraData = (name, extraData) => {
-  const item = []
-  _.map(extraData, (val) => {
-    if (name === val.dbName) {
-      item.push({ ...val })
-    }
-  })
-  return item
-}
-
 export {
   getNotificationsByType,
   getHostInfo,
   getHostType,
   mountCpuUsageChart,
-  mapOracleDatabase,
-  mapMySqlDatabase,
-  mapMicrosoftDatabase,
+  mapHostDatabases,
 }

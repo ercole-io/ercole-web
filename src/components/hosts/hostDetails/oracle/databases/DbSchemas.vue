@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="Schemas" v-if="schemas.length > 0">
+  <b-tab-item label="Schemas" v-if="schemas && schemas.length > 0">
     <FullTable
       :tableData="schemas"
       :keys="keys"
