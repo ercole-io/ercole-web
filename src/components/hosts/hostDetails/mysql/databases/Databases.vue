@@ -17,7 +17,7 @@
         destroy-on-hide
       >
         <DbInfo :dbInfo="dbs" />
-        <DbLicenses :databases="dbs.dbLicenses" :dbName="dbs.name" />
+        <DbLicenses :licenses="dbs.licenses" />
         <DbDatabases :databases="dbs.databases" />
         <DbSegmantAdvisors :segmentAdvisors="dbs.segmentAdvisors" />
         <DbTableSchemas :tableSchemas="dbs.tableSchemas" />

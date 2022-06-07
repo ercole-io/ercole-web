@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="PSU" v-if="psus.length > 0">
+  <b-tab-item label="PSU" v-if="psus && psus.length > 0">
     <FullTable
       :tableData="psus"
       :keys="keys"

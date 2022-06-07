@@ -36,7 +36,6 @@ export default {
     ...mapActions([
       'ignoreDatabaseLicense',
       'getHostByName',
-      'getLicensesByHostName',
       'getLicensesDatabases',
     ]),
     ignoreLicense() {
@@ -80,7 +79,6 @@ export default {
       this.ignoreDatabaseLicense(data).then(() => {
         if (this.page === 'host-details') {
           this.getHostByName(this.host)
-          this.getLicensesByHostName(this.host)
         } else {
           this.getLicensesDatabases()
         }
