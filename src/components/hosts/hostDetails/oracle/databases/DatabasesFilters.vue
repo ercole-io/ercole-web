@@ -24,7 +24,6 @@
           v-model="selectedKeys"
           :native-value="opt.value"
           :disabled="opt.disabled"
-          @change.native="getChecked($event, opt.value)"
         >
           {{ opt.name }}
         </b-checkbox>
@@ -35,7 +34,6 @@
           size="is-small"
           v-model="selectedKeys"
           :native-value="opt.value"
-          @change.native="getChecked($event, opt.value)"
           style="min-width: 50%"
           class="px-5"
         >
@@ -57,7 +55,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import { mapMutations, mapState } from 'vuex'
 import hostDatabasesFilters from '@/mixins/hostDatabasesFilters.js'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -96,40 +93,16 @@ export default {
         'platform',
         'version',
       ],
-      selectedKeys: [],
+      selectedKeys: ['name'],
     }
   },
   beforeMount() {
-    this.selectedKeys = this.hostDetails.dbFiltersSelected
+    this.SET_DATABASES_FILTERS(this.selectedKeys)
   },
   methods: {
     ...mapMutations(['SET_DATABASES_FILTERS']),
     resetFilters() {
       this.selectedKeys = ['name']
-      this.SET_DATABASES_FILTERS(this.selectedKeys)
-    },
-    getChecked(e, value) {
-      const checked = e.target.checked
-      if (value === 'info' && checked) {
-        _.map(this.info, (item) => {
-          this.selectedKeys.push(item)
-        })
-      } else {
-        if (value === 'info' && !checked) {
-          this.selectedKeys = this.selectedKeys.filter(
-            (item) => !this.info.includes(item)
-          )
-        }
-      }
-
-      if (this.selectedKeys.length === 0) {
-        this.resetFilters()
-      }
-
-      this.selectedKeys = _.uniqBy(this.selectedKeys, (el) => {
-        return el
-      })
-
       this.SET_DATABASES_FILTERS(this.selectedKeys)
     },
   },
@@ -336,10 +309,8 @@ export default {
     },
   },
   watch: {
-    selectedKeys(selection) {
-      if (selection.length === 0) {
-        this.selectedKeys = ['name']
-      }
+    selectedKeys() {
+      this.SET_DATABASES_FILTERS(this.selectedKeys)
     },
   },
 }

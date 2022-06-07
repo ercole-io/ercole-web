@@ -20,7 +20,7 @@
       >
         <DbInfo :dbInfo="dbs.info" />
         <DbDatabases :databases="dbs.databases" />
-        <DbLicenses :databases="dbs.dbLicenses" :dbName="dbs.name" />
+        <DbLicenses :licenses="dbs.licenses" />
       </b-tabs>
     </b-tab-item>
   </b-tabs>

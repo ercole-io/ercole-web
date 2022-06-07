@@ -5,10 +5,8 @@ import {
   getNotificationsByType,
   getHostInfo,
   getHostType,
-  mapOracleDatabase,
-  mapMySqlDatabase,
-  mapMicrosoftDatabase,
   mountCpuUsageChart,
+  mapHostDatabases,
 } from '@/helpers/hostDetails.js'
 import { removeDashFromMsDesc } from '@/helpers/licenses.js'
 
@@ -19,34 +17,34 @@ export const state = () => ({
   currentHostDatabases: [],
   currentHostDbLicenses: [],
   currentHostDbGrants: [],
-  dbFiltersSelected: ['name'],
+  selectedDbFilters: [],
 })
 
-const info = [
-  'status',
-  'role',
-  'dbID',
-  'uniqueName',
-  'archiveLog',
-  'blockSize',
-  'charset',
-  'nCharset',
-  'memoryTarget',
-  'pgaTarget',
-  'sgaMaxSize',
-  'sgaTarget',
-  'dbTime',
-  'elapsed',
-  'work',
-  'cpuCount',
-  'allocable',
-  'datafileSize',
-  'segmentsSize',
-  'asm',
-  'dataguard',
-  'platform',
-  'version',
-]
+// const info = [
+//   'status',
+//   'role',
+//   'dbID',
+//   'uniqueName',
+//   'archiveLog',
+//   'blockSize',
+//   'charset',
+//   'nCharset',
+//   'memoryTarget',
+//   'pgaTarget',
+//   'sgaMaxSize',
+//   'sgaTarget',
+//   'dbTime',
+//   'elapsed',
+//   'work',
+//   'cpuCount',
+//   'allocable',
+//   'datafileSize',
+//   'segmentsSize',
+//   'asm',
+//   'dataguard',
+//   'platform',
+//   'version',
+// ]
 
 export const getters = {
   // general
@@ -132,61 +130,77 @@ export const getters = {
 
     return dbGrants
   },
+  checkedAdvancedFilters: (state) => {
+    return state.selectedDbFilters
+  },
   currentHostFiltered: (state, getters) => (search) => {
     const databases = getters.currentHostDBs
-    let keys = state.dbFiltersSelected
+    let keys = getters.checkedAdvancedFilters
+    const filteredDatabasesByKeys = []
 
-    const filterSubChildArray = (subChildArray) => {
-      return _.filter(subChildArray, (value) => {
-        return _.some(value, (result) => {
-          return (
-            _.includes(_.toLower(result).toString(), _.toLower(search)) ||
-            _.includes(result, search)
-          )
-        })
-      })
-    }
-
-    const filterChildArray = (childArray) => {
-      return _.filter(childArray, (value) => {
-        return _.some(value, (result) => {
-          return _.includes(_.toLower(result).toString(), _.toLower(search)) ||
-            _.includes(result, search) ||
-            filterSubChildArray(result).length > 0
-            ? childArray
-            : null
-        })
-      })
-    }
-
-    const filterDatabases = _.filter(databases, (db) => {
-      return _.some(keys, (key) => {
-        return _.includes(_.toLower(db[key]).toString(), _.toLower(search)) ||
-          _.includes(db[key], search) ||
-          filterChildArray(db[key]).length > 0
-          ? db
-          : null
+    _.map(databases, (db) => {
+      _.some(keys, (key) => {
+        if (!_.isEmpty(Object.values(db[key]))) {
+          filteredDatabasesByKeys.push({
+            name: db['name'],
+            [key]: Object.values(db[key]),
+          })
+        }
       })
     })
+    console.log(filteredDatabasesByKeys)
+    // const filterSubChildArray = (subChildArray) => {
+    //   return _.filter(subChildArray, (value) => {
+    //     return _.some(value, (result) => {
+    //       return (
+    //         _.includes(_.toLower(result).toString(), _.toLower(search)) ||
+    //         _.includes(result, search)
+    //       )
+    //     })
+    //   })
+    // }
 
-    return filterDatabases
-  },
-  getCheckedFilters: (state) => (item) => {
-    const checkInfo = _.map(info, (val) => {
-      return _.includes(state.dbFiltersSelected, val)
-    })
+    // const filterChildArray = (childArray) => {
+    //   return _.filter(childArray, (value) => {
+    //     return _.some(value, (result) => {
+    //       return _.includes(_.toLower(result).toString(), _.toLower(search)) ||
+    //         _.includes(result, search) ||
+    //         filterSubChildArray(result).length > 0
+    //         ? childArray
+    //         : null
+    //     })
+    //   })
+    // }
 
-    if (
-      state.dbFiltersSelected.length === 1 &&
-      state.dbFiltersSelected[0] === 'name'
-    ) {
-      return true
-    } else if (_.includes(checkInfo, true) && item === 'info') {
-      return true
-    } else {
-      return _.includes(state.dbFiltersSelected, item)
-    }
+    // const filterDatabases = _.filter(databases, (db) => {
+    //   return _.some(keys, (key) => {
+    //     return _.includes(_.toLower(db[key]).toString(), _.toLower(search)) ||
+    //       _.includes(db[key], search) ||
+    //       filterChildArray(db[key]).length > 0
+    //       ? db
+    //       : null
+    //   })
+    // })
+
+    return filteredDatabasesByKeys
   },
+  // getCheckedFilters: (state) => (item) => {
+  //   console.log(item)
+  //   const checkInfo = _.map(info, (val) => {
+  //     return _.includes(state.dbFiltersSelected, val)
+  //   })
+
+  //   if (
+  //     state.dbFiltersSelected.length === 1 &&
+  //     state.dbFiltersSelected[0] === 'name'
+  //   ) {
+  //     return true
+  //   } else if (_.includes(checkInfo, true) && item === 'info') {
+  //     return true
+  //   } else {
+  //     return _.includes(state.dbFiltersSelected, item)
+  //   }
+  // },
   // Oracle Chart
   getOracleCpuUsageChart: (state, getters) => (selected) => {
     const dailyDbState = getters.currentHostDBs
@@ -239,7 +253,7 @@ export const mutations = {
     state.currentHostDbGrants = payload
   },
   SET_DATABASES_FILTERS: (state, payload) => {
-    state.dbFiltersSelected = payload
+    state.selectedDbFilters = payload
   },
 }
 
@@ -275,27 +289,27 @@ export const actions = {
       )
       .then((databases) => {
         if (databases) {
-          if (getters.currentHostType === 'oracle') {
-            const extraData = {
-              licenses: (dbName) => getters.getCurrentHostDbLicenses(dbName),
-              dbGrants: (dbName) => getters.getCurrentHostDbGrants(dbName),
-            }
-            const oracle = mapOracleDatabase(
-              databases.oracle.database.databases,
-              extraData
-            )
-            commit('SET_CURRENT_HOST_DATABASES', oracle)
-          } else if (getters.currentHostType === 'mysql') {
-            const mysql = mapMySqlDatabase(databases.mysql.instances)
-            commit('SET_CURRENT_HOST_DATABASES', mysql)
-          } else if (getters.currentHostType === 'microsoft') {
-            const microsoft = mapMicrosoftDatabase(
-              databases.microsoft.sqlServer.instances
-            )
-            commit('SET_CURRENT_HOST_DATABASES', microsoft)
-          } else {
-            commit('SET_CURRENT_HOST_DATABASES', [])
+          const extraData = {
+            licenses: (dbName) => getters.getCurrentHostDbLicenses(dbName),
+            dbGrants: (dbName) => getters.getCurrentHostDbGrants(dbName),
           }
+
+          const type = getters.currentHostType
+          let hostDatabases = []
+
+          if (type === 'oracle') {
+            const oracle = databases.oracle.database.databases
+            hostDatabases = mapHostDatabases(oracle, extraData, type)
+          } else if (type === 'mysql') {
+            const mysql = databases.mysql.instances
+            hostDatabases = mapHostDatabases(mysql, extraData, type)
+          } else if (type === 'microsoft') {
+            const microsoft = databases.microsoft.sqlServer.instances
+            hostDatabases = mapHostDatabases(microsoft, extraData, type)
+          }
+          commit('SET_CURRENT_HOST_DATABASES', hostDatabases)
+        } else {
+          commit('SET_CURRENT_HOST_DATABASES', [])
         }
       })
       .then(() => dispatch('offLoadingTable'))

@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="Services" v-if="services.length > 0">
+  <b-tab-item label="Services" v-if="services && services.length > 0">
     <FullTable :tableData="services" :keys="keys" :isLoadingTable="false">
       <template slot="headData">
         <v-th sortKey="name">Name</v-th>
