@@ -21,6 +21,7 @@
         <DbDatabases :databases="dbs.databases" />
         <DbSegmantAdvisors :segmentAdvisors="dbs.segmentAdvisors" />
         <DbTableSchemas :tableSchemas="dbs.tableSchemas" />
+        <DbGrowth :growth="dbs.dbGrowth" :growthId="dbs.name" />
       </b-tabs>
     </b-tab-item>
   </b-tabs>
@@ -33,6 +34,7 @@ import DbDatabases from '@/components/hosts/hostDetails/mysql/databases/DbDataba
 import DbSegmantAdvisors from '@/components/hosts/hostDetails/mysql/databases/DbSegmantAdvisors.vue'
 import DbTableSchemas from '@/components/hosts/hostDetails/mysql/databases/DbTableSchemas.vue'
 import DbLicenses from '@/components/hosts/hostDetails/mysql/databases/DbLicenses.vue'
+import DbGrowth from '@/components/hosts/hostDetails/mysql/databases/DbGrowth.vue'
 
 export default {
   mixins: [hostDetailsDatabasesMixins],
@@ -42,6 +44,7 @@ export default {
     DbSegmantAdvisors,
     DbTableSchemas,
     DbLicenses,
+    DbGrowth,
   },
 }
 </script>
