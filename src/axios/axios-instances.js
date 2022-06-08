@@ -24,6 +24,7 @@ export default (name, auth) => {
     options.baseURL = repoApi
   } else if (name === 'thunderApi') {
     options.baseURL = thunderApi
+    options.timeout = 300000
   }
 
   const instance = axios.create(options)
