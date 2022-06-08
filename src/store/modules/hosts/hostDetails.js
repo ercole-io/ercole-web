@@ -661,6 +661,7 @@ const mapMySqlDatabase = (data) => {
       databases: [...item.databases],
       segmentAdvisors: [...item.segmentAdvisors],
       tableSchemas: [...item.tableSchemas],
+      dbGrowth: [...item.changes],
     })
   })
   return newData
