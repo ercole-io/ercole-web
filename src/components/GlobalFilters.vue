@@ -206,6 +206,7 @@ export default {
       'getLicensesHosts',
       'getLicensesClusters',
       'getMsSqlServerDbs',
+      'getPostgreSqlDbs',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS']),
     expandFilters() {
@@ -296,6 +297,9 @@ export default {
           break
         case 'microsoft':
           this.getMsSqlServerDbs().then(() => this.offLoadingTable())
+          break
+        case 'postgresql':
+          this.getPostgreSqlDbs().then(() => this.offLoadingTable())
           break
         default:
           return
