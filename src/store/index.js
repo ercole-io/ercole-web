@@ -24,6 +24,7 @@ import * as oraclePatchAdvisor from './modules/databases/oracle/oracle-patch-adv
 import * as oracleAddm from './modules/databases/oracle/oracle-addm'
 import * as mysql from './modules/databases/mysql/mysql'
 import * as microsoft from './modules/databases/microsoft/microsoft.js'
+import * as postgresql from '@/store/modules/databases/postgresql/postgresql.js'
 import * as globalFilters from './modules/global-filters'
 import * as localFilters from './modules/local-filters'
 import * as engineeredSystems from './modules/engineered-systems/engineered-systems'
@@ -67,6 +68,7 @@ export default new Vuex.Store({
     oracleAddm,
     mysql,
     microsoft,
+    postgresql,
     globalFilters,
     localFilters,
     engineeredSystems,

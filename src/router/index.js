@@ -48,6 +48,11 @@ const MySQL = lazy(() =>
 const MsSqlServer = lazy(() =>
   import(/* webpackPreload: true */ '@/views/databases/microsoft/Microsoft.vue')
 )
+const PostgreSql = lazy(() =>
+  import(
+    /* webpackPreload: true */ '@/views/databases/postgresql/PostgreSql.vue'
+  )
+)
 const Middleware = lazy(() =>
   import(/* webpackPreload: true */ '@/views/middleware/Middleware.vue')
 )
@@ -299,6 +304,26 @@ const routes = [
               breadcrumb: [
                 { name: i18n.t('menu.databases'), link: '/databases' },
                 { name: i18n.t('menu.microsoft') },
+              ],
+            },
+            beforeEnter: verifyAuth,
+          },
+        ],
+      },
+      {
+        path: '/postgresql',
+        component: EmptyRouterView,
+        children: [
+          {
+            path: '',
+            name: 'postgresql',
+            component: PostgreSql,
+            meta: {
+              label: i18n.t('menu.postgresql'),
+              title: `${title}${i18n.t('menu.postgresql')}`,
+              breadcrumb: [
+                { name: i18n.t('menu.databases'), link: '/databases' },
+                { name: i18n.t('menu.postgresql') },
               ],
             },
             beforeEnter: verifyAuth,
