@@ -13,6 +13,13 @@ export const mapDatabases = (dbs, query) => {
           return _.slice(
             _.map(dbs.microsoft.sqlServer.instances, (dbName) => dbName.name)
           )
+        } else if (
+          dbs.postgresql.instances &&
+          dbs.postgresql.instances.length > 0
+        ) {
+          return _.slice(
+            _.map(dbs.postgresql.instances, (dbName) => dbName.hostname)
+          )
         } else if (dbs.oracle) {
           if (dbs.oracle.database && dbs.oracle.database.databases.length > 0) {
             return _.slice(
@@ -36,6 +43,8 @@ export const mapDatabases = (dbs, query) => {
           return 'MySql Server'
         } else if (dbs.microsoft) {
           return 'Microsoft SQL Server'
+        } else if (dbs.postgresql.instances) {
+          return 'PostgreSql'
         } else if (dbs.oracle) {
           if (dbs.oracle.database) {
             return 'Oracle Database'

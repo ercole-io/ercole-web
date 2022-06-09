@@ -225,6 +225,8 @@ export const getters = {
         return 'mysql'
       } else if (databases.microsoft) {
         return 'microsoft'
+      } else if (databases.postgresql) {
+        return 'postgresql'
       } else {
         return null
       }
@@ -262,6 +264,12 @@ export const getters = {
       } else if (databases.microsoft) {
         if (databases.microsoft.sqlServer.instances) {
           return mapMicrosoftDatabase(databases.microsoft.sqlServer.instances)
+        } else {
+          return []
+        }
+      } else if (databases.postgresql) {
+        if (databases.postgresql.instances) {
+          return mapPostgresqlDatabase(databases.postgresql.instances)
         } else {
           return []
         }
@@ -638,7 +646,7 @@ const genericResolve = (data) => {
   return filteredData
 }
 
-// MySql Database
+// MySql Databases
 const mapMySqlDatabase = (data) => {
   const newData = []
   _.map(data, (item) => {
@@ -687,6 +695,35 @@ const mapMicrosoftDatabase = (data) => {
         status: item.status,
         version: item.version,
         stateDesc: item.stateDesc,
+      },
+      databases: [...item.databases],
+    })
+  })
+  return newData
+}
+
+// PostgreSql Databases
+const mapPostgresqlDatabase = (data) => {
+  const newData = []
+  _.map(data, (item) => {
+    newData.push({
+      name: item.name,
+      info: {
+        name: item.name,
+        archiverWorking: item.archiverWorking,
+        charset: item.charset,
+        dbNum: item.dbNum,
+        instanceSize: item.instanceSize,
+        isinreplica: item.isinreplica,
+        ismaster: item.ismaster,
+        isslave: item.isslave,
+        maxConnections: item.maxConnections,
+        port: item.port,
+        slavesNum: item.slavesNum,
+        tblspNum: item.tblspNum,
+        trustHbaEntries: item.trustHbaEntries,
+        usersNum: item.usersNum,
+        setting: { ...item.setting },
       },
       databases: [...item.databases],
     })
