@@ -44,5 +44,8 @@ export default {
     isMicrosoft() {
       return this.currentHostType === 'microsoft'
     },
+    isPostgresql() {
+      return this.currentHostType === 'postgresql'
+    },
   },
 }
