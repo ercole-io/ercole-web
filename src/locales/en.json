@@ -29,7 +29,8 @@
     "repository": "Repository",
     "ercoleRecommendations": "Ercole Recommendations",
     "microsoft": "Microsoft",
-    "dbGrants": "DBA Role"
+    "dbGrants": "DBA Role",
+    "postgresql": "PostgreSql"
   },
   "header": {
     "logout": "Logout"

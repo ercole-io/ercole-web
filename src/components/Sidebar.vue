@@ -110,6 +110,18 @@ export default {
                 },
               ],
             },
+            {
+              title: this.$i18n.t('menu.postgresql'),
+              icon: 'postgresql-logo',
+              child: [
+                {
+                  title: this.$i18n.t('menu.dbList'),
+                  href: { name: 'postgresql' },
+                  icon: 'fas fa-database',
+                  class: 'menu-third-level',
+                },
+              ],
+            },
           ],
         },
         {
