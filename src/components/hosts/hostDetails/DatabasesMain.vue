@@ -17,6 +17,10 @@
       <div class="column is-12" v-if="isMicrosoft">
         <MicrosoftDatabases />
       </div>
+
+      <div class="column is-12" v-if="isPostgresql">
+        <PostgresqlDatabases />
+      </div>
     </div>
   </GhostLoading>
 </template>
@@ -30,6 +34,7 @@ import DatabasesFilters from '@/components/hosts/hostDetails/oracle/databases/Da
 import ChartCpu from '@/components/hosts/hostDetails/oracle/ChartCpu.vue'
 import MysqlDatabases from '@/components/hosts/hostDetails/mysql/MysqlDatabases.vue'
 import MicrosoftDatabases from '@/components/hosts/hostDetails/microsoft/MicrosoftDatabases.vue'
+import PostgresqlDatabases from '@/components/hosts/hostDetails/postgresql/PostgresqlDatabases.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
@@ -40,6 +45,7 @@ export default {
     ChartCpu,
     MysqlDatabases,
     MicrosoftDatabases,
+    PostgresqlDatabases,
     GhostLoading,
   },
   data() {
