@@ -6,6 +6,7 @@ import {
   checkRangeDate,
   getKeyValuePair,
 } from '@/helpers/helpers.js'
+import { removeDashFromMsDesc } from '@/helpers/licenses.js'
 
 const getExtraTechInfo = (techName, techs) => {
   const tech = _.find(techs, (t) => {
@@ -145,7 +146,11 @@ export const getters = {
         val.itemDescription !== '' ||
         val.metric !== ''
       ) {
-        data.push({ ...val, full: full })
+        data.push({
+          ...val,
+          itemDescription: removeDashFromMsDesc(val.itemDescription),
+          full: full,
+        })
       }
     })
 
