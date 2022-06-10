@@ -24,7 +24,7 @@
   },
   {
     "sort": "type",
-    "langKey": "common.collumns.type"
+    "langKey": "Type"
   },
   { "sort": "version", 
     "langKey": "common.collumns.version" 

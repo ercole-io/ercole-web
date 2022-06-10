@@ -70,7 +70,7 @@ export default {
   computed: {
     ...mapState(['rangeDates']),
     mountDbGrowthChart() {
-      return [{ name: 'Allocable Size', data: this.calcAllocatedSize() }]
+      return [{ name: 'Allocation Size', data: this.calcAllocatedSize() }]
     },
   },
 }
