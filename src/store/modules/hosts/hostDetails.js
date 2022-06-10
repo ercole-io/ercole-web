@@ -7,7 +7,6 @@ import {
   setRangeDateFormat,
   checkRangeDate,
 } from '@/helpers/helpers.js'
-import { mapDatabases } from '@/helpers/databasesMap.js'
 import formatDateTime from '@/filters/formatDateTime.js'
 import formatDate from '@/filters/formatDate.js'
 import { ModalProgrammatic as Modal } from 'buefy'
@@ -106,7 +105,7 @@ export const getters = {
         },
         {
           name: 'Technology',
-          value: mapDatabases(current.features, 'technology'),
+          value: current.technology,
         },
         {
           name: 'Clust',
