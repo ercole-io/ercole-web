@@ -6,7 +6,7 @@ export default {
       query: '',
     }
   },
-  created() {
+  mounted() {
     bus.$on('searchTerm', (val) => {
       this.query = val
     })

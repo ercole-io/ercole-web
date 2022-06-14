@@ -55,7 +55,6 @@ import DbOptions from '@/components/hosts/hostDetails/oracle/databases/DbOptions
 import DbLicenses from '@/components/hosts/hostDetails/oracle/databases/DbLicenses.vue'
 import DbPDBs from '@/components/hosts/hostDetails/oracle/databases/DbPDBs.vue'
 import DbGrants from '@/components/hosts/hostDetails/oracle/databases/DbGrants.vue'
-// import { mapGetters } from 'vuex'
 
 export default {
   mixins: [hostDatabasesFilters, hostDetailsDatabasesMixins],
@@ -75,9 +74,6 @@ export default {
     DbPDBs,
     DbGrants,
   },
-  // computed: {
-  //   ...mapGetters(['getCheckedFilters']),
-  // },
 }
 </script>
 
