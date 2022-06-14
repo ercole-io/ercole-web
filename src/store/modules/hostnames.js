@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
@@ -13,9 +12,7 @@ export const getters = {
 
 export const mutations = {
   SET_HOSTNAMES: (state, payload) => {
-    state.hostnames = _.map(payload, (host) => {
-      return host.hostname
-    })
+    state.hostnames = payload
   },
 }
 
@@ -23,10 +20,10 @@ export const actions = {
   async getHostNames({ commit }) {
     const config = {
       method: 'get',
-      url: '/hosts?mode=summary',
+      url: '/hosts?mode=hostnames',
     }
     await axiosRequest('baseApi', config).then((res) => {
-      commit('SET_HOSTNAMES', res.data.hosts)
+      commit('SET_HOSTNAMES', res.data)
     })
   },
 }
