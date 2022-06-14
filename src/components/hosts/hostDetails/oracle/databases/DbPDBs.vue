@@ -29,25 +29,10 @@
             <span class="has-text-weight-medium">{{ pdb.pdbStatus }}</span>
           </p>
         </b-tab-item>
-        <!-- <b-tab-item label="Services" v-if="pdb.pdbServices.length > 0">
-          <section class="wrap-table py-3">
-            <FullTable
-              :tableData="pdb.pdbServices"
-              :keys="[]"
-              hideSearch
-              hidePerpage
-              hidePagination
-              hideTopTable
-            >
-              <template slot="headData"> </template>
-
-              <template slot="bodyData" slot-scope="rowData">
-                {{ rowData.scope }}
-              </template>
-            </FullTable>
-          </section>
-        </b-tab-item> -->
-        <b-tab-item label="Schemas" v-if="pdb.pdbSchemas.length > 0">
+        <b-tab-item
+          label="Schemas"
+          v-if="pdb.pdbSchemas && pdb.pdbSchemas.length > 0"
+        >
           <section class="wrap-table py-3">
             <FullTable
               :tableData="pdb.pdbSchemas"
@@ -76,7 +61,10 @@
             </FullTable>
           </section>
         </b-tab-item>
-        <b-tab-item label="Tablespaces" v-if="pdb.pdbTablespaces.length > 0">
+        <b-tab-item
+          label="Tablespaces"
+          v-if="pdb.pdbTablespaces && pdb.pdbTablespaces.length > 0"
+        >
           <section class="wrap-table py-3">
             <FullTable
               :tableData="pdb.pdbTablespaces"
@@ -107,6 +95,34 @@
             </FullTable>
           </section>
         </b-tab-item>
+        <b-tab-item
+          label="Grant Role"
+          v-if="pdb.pdbGrantDba && pdb.pdbGrantDba.length > 0"
+        >
+          <section class="wrap-table py-3">
+            <FullTable
+              :tableData="pdb.pdbGrantDba"
+              :keys="['adminOption', 'defaultRole', 'grantee']"
+              hideSearch
+              hidePerpage
+              hidePagination
+              hideTopTable
+              :isLoadingTable="false"
+            >
+              <template slot="headData">
+                <v-th sortKey="grantee">Grantee</v-th>
+                <v-th sortKey="adminOption">Admin Option</v-th>
+                <v-th sortKey="defaultRole">Default Role</v-th>
+              </template>
+
+              <template slot="bodyData" slot-scope="rowData">
+                <TdContent :value="rowData.scope.grantee" />
+                <TdIcon :value="rowData.scope.adminOption" />
+                <TdIcon :value="rowData.scope.defaultRole" />
+              </template>
+            </FullTable>
+          </section>
+        </b-tab-item>
       </b-tabs>
     </b-collapse>
   </b-tab-item>
@@ -115,11 +131,13 @@
 <script>
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import TdIcon from '@/components/common/Table/TDIcon.vue'
 
 export default {
   components: {
     FullTable,
     TdContent,
+    TdIcon,
   },
   props: {
     pdbs: {
