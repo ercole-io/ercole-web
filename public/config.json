@@ -2,5 +2,5 @@
   "APIServiceBaseUrl": "http://example-domain/main-api",
   "ChartServiceBaseUrl": "http://example-domain/chart-api",
   "ThunderServiceBaseUrl": "http://example-domain/cloud-api",
-  "RepoServiceUrl": "http://example-domain/repo-api"
+  "RepoServiceBaseUrl": "http://example-domain/repo-api"
 }
