@@ -19,10 +19,7 @@
 
     <HbuttonScroll height="30" elemScroll="tabs" />
 
-    <Databases
-      :currentDBs="currentHostFiltered(searchDb)"
-      v-if="showDatabases"
-    />
+    <Databases :currentDBs="currentHostFiltered" v-if="showDatabases" />
 
     <NoContent
       v-else

@@ -24,6 +24,7 @@
           v-model="selectedKeys"
           :native-value="opt.value"
           :disabled="opt.disabled"
+          @change.native="onFilterClick($event)"
         >
           {{ opt.name }}
         </b-checkbox>
@@ -36,6 +37,7 @@
           :native-value="opt.value"
           style="min-width: 50%"
           class="px-5"
+          @change.native="onFilterClick($event)"
         >
           {{ opt.name }}
         </b-checkbox>
@@ -56,6 +58,7 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex'
+import { filterOptionsOracle } from '@/helpers/hostDetails.js'
 import hostDatabasesFilters from '@/mixins/hostDatabasesFilters.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
@@ -68,249 +71,77 @@ export default {
   },
   data() {
     return {
-      info: [
-        'status',
-        'role',
-        'dbID',
-        'uniqueName',
-        'archiveLog',
-        'blockSize',
-        'charset',
-        'nCharset',
-        'memoryTarget',
-        'pgaTarget',
-        'sgaMaxSize',
-        'sgaTarget',
-        'dbTime',
-        'elapsed',
-        'work',
-        'cpuCount',
-        'allocable',
-        'datafileSize',
-        'segmentsSize',
-        'asm',
-        'dataguard',
-        'platform',
-        'version',
-      ],
-      selectedKeys: ['name'],
+      selectedKeys: [],
     }
   },
   beforeMount() {
-    this.SET_DATABASES_FILTERS(this.selectedKeys)
+    this.selectedKeys = this.hostDetails.selectedKeys
   },
   methods: {
-    ...mapMutations(['SET_DATABASES_FILTERS']),
+    ...mapMutations(['SET_SELECTED_KEYS']),
     resetFilters() {
-      this.selectedKeys = ['name']
-      this.SET_DATABASES_FILTERS(this.selectedKeys)
+      this.SET_SELECTED_KEYS(this.hostDetails.selectedKeys)
+    },
+    onFilterClick(e) {
+      const clickedOption = filterOptionsOracle.find(
+        (item) => item.value === e.target.value
+      )
+
+      if (clickedOption.group) {
+        const group = filterOptionsOracle.filter(
+          (item) => item.group === clickedOption.group
+        )
+
+        const groupParent = group.find((item) => item.level === 1).value
+
+        const subGroup = group
+          .filter((item) => item.level === 2)
+          .map((item) => item.value)
+
+        if (clickedOption.level === 1) {
+          if (e.target.checked) {
+            const selectedKeysSet = new Set([...this.selectedKeys, ...subGroup])
+            this.selectedKeys = [...selectedKeysSet]
+          } else {
+            this.selectedKeys = this.selectedKeys.filter(
+              (item) => !subGroup.includes(item)
+            )
+          }
+        }
+
+        if (clickedOption.level === 2) {
+          const selectedSubGroup =
+            this.selectedKeys.filter((item) => subGroup.includes(item))
+              .length === subGroup.length
+
+          if (e.target.checked && selectedSubGroup) {
+            const selectedKeysSet = new Set([...this.selectedKeys, groupParent])
+            this.selectedKeys = [...selectedKeysSet]
+          } else if (!e.target.checked) {
+            this.selectedKeys = this.selectedKeys.filter(
+              (item) => item !== groupParent
+            )
+          }
+        }
+      }
+
+      if (!this.selectedKeys.length) {
+        this.selectedKeys = ['name']
+      }
     },
   },
   computed: {
     ...mapState(['hostDetails']),
     filterOptions() {
-      return [
-        {
-          name: 'Database Name',
-          value: 'name',
-          disabled: this.isDisabled,
-          level: 1,
-        },
-        {
-          name: 'Info',
-          value: 'info',
-          level: 1,
-        },
-        {
-          name: 'Status',
-          value: 'status',
-          level: 2,
-          group: 'info',
-        },
-        {
-          name: 'Role',
-          value: 'role',
-          level: 2,
-          group: 'info',
-        },
-        {
-          name: 'Db ID',
-          value: 'dbID',
-          level: 2,
-          group: 'info',
-        },
-        {
-          name: 'Unique Name',
-          value: 'uniqueName',
-          level: 2,
-          group: 'info',
-        },
-        {
-          name: 'ArchiveLog',
-          value: 'archiveLog',
-          level: 2,
-        },
-        {
-          name: 'Block Size',
-          value: 'blockSize',
-          level: 2,
-        },
-        {
-          name: 'Charset',
-          value: 'charset',
-          level: 2,
-        },
-        {
-          name: 'N Charset',
-          value: 'nCharset',
-          level: 2,
-        },
-        {
-          name: 'Memory Target',
-          value: 'memoryTarget',
-          level: 2,
-        },
-        {
-          name: 'PGA Target',
-          value: 'pgaTarget',
-          level: 2,
-        },
-        {
-          name: 'SGA MaxSize',
-          value: 'sgaMaxSize',
-          level: 2,
-        },
-        {
-          name: 'SGA Target',
-          value: 'sgaTarget',
-          level: 2,
-        },
-        {
-          name: 'Db Time',
-          value: 'dbTime',
-          level: 2,
-        },
-        {
-          name: 'Elapsed',
-          value: 'elapsed',
-          level: 2,
-        },
-        {
-          name: 'Thread Used',
-          value: 'work',
-          level: 2,
-        },
-        {
-          name: 'CPU Count',
-          value: 'cpuCount',
-          level: 2,
-        },
-        {
-          name: 'Allocable',
-          value: 'allocable',
-          level: 2,
-        },
-        {
-          name: 'DataFile Size',
-          value: 'datafileSize',
-          level: 2,
-        },
-        {
-          name: 'Segments Size',
-          value: 'segmentsSize',
-          level: 2,
-        },
-        {
-          name: 'ASM',
-          value: 'asm',
-          level: 2,
-        },
-        {
-          name: 'Data Guard',
-          value: 'dataguard',
-          level: 2,
-        },
-        {
-          name: 'Platform',
-          value: 'platform',
-          level: 2,
-        },
-        {
-          name: 'Version',
-          value: 'version',
-          level: 2,
-        },
-        {
-          name: 'Pluggable DBs',
-          value: 'pdbs',
-          level: 1,
-        },
-        {
-          name: 'Licenses',
-          value: 'licenses',
-          level: 1,
-        },
-        {
-          name: 'DB Grants',
-          value: 'dbGrants',
-          level: 1,
-        },
-        {
-          name: 'Options',
-          value: 'options',
-          level: 1,
-        },
-        {
-          name: 'Tablespaces',
-          value: 'tablespaces',
-          level: 1,
-        },
-        {
-          name: 'Schemas',
-          value: 'schemas',
-          level: 1,
-        },
-        {
-          name: 'Patches',
-          value: 'patches',
-          level: 1,
-        },
-        {
-          name: 'PSU',
-          value: 'psus',
-          level: 1,
-        },
-        {
-          name: 'ADDM',
-          value: 'addms',
-          level: 1,
-        },
-        {
-          name: 'Segment Advisors',
-          value: 'segmentAdvisors',
-          level: 1,
-        },
-        {
-          name: 'Backups',
-          value: 'backups',
-          level: 1,
-        },
-        {
-          name: 'Services',
-          value: 'services',
-          level: 1,
-        },
-      ]
-    },
-    isDisabled() {
-      return this.selectedKeys.length === 1 && this.selectedKeys[0] === 'name'
-        ? true
-        : false
+      return filterOptionsOracle.map((opt) => ({
+        ...opt,
+        disabled: opt.disabled ? opt.disabled(this.selectedKeys) : false,
+      }))
     },
   },
   watch: {
     selectedKeys() {
-      this.SET_DATABASES_FILTERS(this.selectedKeys)
+      this.SET_SELECTED_KEYS(this.selectedKeys)
     },
   },
 }
