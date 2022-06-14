@@ -12,6 +12,7 @@ import formatDate from '@/filters/formatDate.js'
 import { ModalProgrammatic as Modal } from 'buefy'
 import ClusterNamesModal from '@/components/hosts/hostDetails/ClusterNamesModal.vue'
 import { removeDashFromMsDesc } from '@/helpers/licenses.js'
+import toLower from '@/filters/toLower.js'
 
 const startDate = moment().subtract(1, 'week').format('YYYY-MM-DD')
 const endDate = moment().add(1, 'days').format('YYYY-MM-DD')
@@ -590,16 +591,29 @@ const mapOracleDatabase = (data, extraData) => {
 }
 
 const resolvePdbs = (pdbs) => {
-  let filteredPdbs = []
+  const filteredPdbs = []
+  const grants = []
 
   _.filter(pdbs, (val) => {
     if (val) {
+      _.map(val.grantDba, (grant) => {
+        const defaultRole = toLower(grant.defaultRole) === 'yes' ? true : false
+        const adminOption = toLower(grant.adminOption) === 'yes' ? true : false
+
+        grants.push({
+          adminOption: adminOption,
+          defaultRole: defaultRole,
+          grantee: grant.grantee,
+        })
+      })
+
       filteredPdbs.push({
         pdbName: val.name,
         pdbSchemas: val.schemas,
         pdbService: val.services,
         pdbStatus: val.status,
         pdbTablespaces: val.tablespaces,
+        pdbGrantDba: grants,
       })
     }
   })
