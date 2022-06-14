@@ -1,7 +1,6 @@
 import { axiosRequest } from '@/services/services.js'
 import router from '@/router/index.js'
 import * as helpers from '@/helpers/helpers.js'
-import moment from 'moment'
 import i18n from '@/i18n.js'
 
 export const state = () => {
@@ -78,22 +77,22 @@ export const actions = {
         }
       })
   },
-  tryAutoLogin({ commit }) {
-    const token = localStorage.getItem('token')
-    if (!token) {
-      commit('LOGOUT')
-    }
+  // tryAutoLogin({ commit }) {
+  //   const token = localStorage.getItem('token')
+  //   if (!token) {
+  //     commit('LOGOUT')
+  //   }
 
-    const tokenExp = localStorage.getItem('expiration')
-    const expiration = moment(tokenExp).format()
-    const now = moment(new Date()).format()
+  //   const tokenExp = localStorage.getItem('expiration')
+  //   const expiration = moment(tokenExp).format()
+  //   const now = moment(new Date()).format()
 
-    if (now >= expiration) {
-      commit('LOGOUT')
-    }
+  //   if (now >= expiration) {
+  //     commit('LOGOUT')
+  //   }
 
-    commit('LOGIN_SUCCESS')
-  },
+  //   commit('LOGIN_SUCCESS')
+  // },
   logout({ commit, dispatch }) {
     dispatch('offLoading')
     commit('LOGOUT')
