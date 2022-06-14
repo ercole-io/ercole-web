@@ -172,6 +172,7 @@ const mapHostDatabases = (data, extraData, type) => {
   if (type === 'oracle') {
     _.map(data, (item) => {
       newData.push({
+        id: item.dbID,
         name: item.name,
         status: item.status,
         role: item.role,
@@ -264,7 +265,251 @@ const mapHostDatabases = (data, extraData, type) => {
   return newData
 }
 
+const stringContains = (str, srch) => {
+  return str.toString().toUpperCase().includes(srch.toString().toUpperCase())
+}
+
 // Oracle Databases
+const filterOptionsOracle = [
+  {
+    name: 'Database Name',
+    value: 'name',
+    disabled: (selectedKeys) => {
+      return selectedKeys.length === 1 && selectedKeys.includes('name')
+        ? true
+        : false
+    },
+    level: 1,
+    filter: (db, search) => {
+      return stringContains(db.name, search)
+    },
+  },
+  {
+    name: 'Info',
+    value: 'info',
+    level: 1,
+    group: 'info',
+  },
+  {
+    name: 'Status',
+    value: 'status',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'Role',
+    value: 'role',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'Db ID',
+    value: 'dbID',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'Unique Name',
+    value: 'uniqueName',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'ArchiveLog',
+    value: 'archiveLog',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'Block Size',
+    value: 'blockSize',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'Charset',
+    value: 'charset',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'N Charset',
+    value: 'nCharset',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'Memory Target',
+    value: 'memoryTarget',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'PGA Target',
+    value: 'pgaTarget',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'SGA MaxSize',
+    value: 'sgaMaxSize',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'SGA Target',
+    value: 'sgaTarget',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'Db Time',
+    value: 'dbTime',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'Elapsed',
+    value: 'elapsed',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'Thread Used',
+    value: 'work',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'CPU Count',
+    value: 'cpuCount',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'Allocable',
+    value: 'allocable',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'DataFile Size',
+    value: 'datafileSize',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'Segments Size',
+    value: 'segmentsSize',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'ASM',
+    value: 'asm',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'Data Guard',
+    value: 'dataguard',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'Platform',
+    value: 'platform',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'Version',
+    value: 'version',
+    level: 2,
+    group: 'info',
+  },
+  {
+    name: 'Pluggable DBs',
+    value: 'pdbs',
+    level: 1,
+    filter: (db, search) => {
+      // {
+      //   pdbName: val.name,
+      //   pdbSchemas: val.schemas,
+      //   pdbService: val.services,
+      //   pdbStatus: val.status,
+      //   pdbTablespaces: val.tablespaces,
+      // }
+
+      return (
+        db.pdbs.filter((pdb) => {
+          const searchName = stringContains(pdb.pdbName, search)
+          const searchSchemas = pdb.pdbSchemas.filter((schema) =>
+            stringContains(schema.user, search)
+          )
+
+          return searchName || searchSchemas
+        }).length > 0
+      )
+    },
+  },
+  {
+    name: 'Licenses',
+    value: 'licenses',
+    level: 1,
+  },
+  {
+    name: 'DB Grants',
+    value: 'dbGrants',
+    level: 1,
+  },
+  {
+    name: 'Options',
+    value: 'options',
+    level: 1,
+  },
+  {
+    name: 'Tablespaces',
+    value: 'tablespaces',
+    level: 1,
+  },
+  {
+    name: 'Schemas',
+    value: 'schemas',
+    level: 1,
+  },
+  {
+    name: 'Patches',
+    value: 'patches',
+    level: 1,
+  },
+  {
+    name: 'PSU',
+    value: 'psus',
+    level: 1,
+  },
+  {
+    name: 'ADDM',
+    value: 'addms',
+    level: 1,
+  },
+  {
+    name: 'Segment Advisors',
+    value: 'segmentAdvisors',
+    level: 1,
+  },
+  {
+    name: 'Backups',
+    value: 'backups',
+    level: 1,
+  },
+  {
+    name: 'Services',
+    value: 'services',
+    level: 1,
+  },
+]
+
 const resolvePdbs = (pdbs) => {
   let filteredPdbs = []
 
@@ -409,4 +654,5 @@ export {
   getHostType,
   mountCpuUsageChart,
   mapHostDatabases,
+  filterOptionsOracle,
 }

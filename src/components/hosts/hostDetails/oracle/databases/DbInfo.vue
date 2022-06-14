@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="Info">
+  <b-tab-item label="Info" v-if="hasInfo">
     <div class="columns">
       <div class="column is-4">
         <Card cardTitle="DB Details" cardType="custom">
@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { filterOptionsOracle } from '@/helpers/hostDetails.js'
 import Card from '@/components/common/Card.vue'
 import CardListHighlight from '@/components/common/CardListHighlight.vue'
 
@@ -58,6 +60,7 @@ export default {
     CardListHighlight,
   },
   computed: {
+    ...mapState(['hostDetails']),
     details() {
       return [
         { name: 'Status', value: this.dbInfo.status },
@@ -114,6 +117,17 @@ export default {
         { name: 'Platform', value: this.dbInfo.platform },
         { name: 'Version', value: this.dbInfo.version },
       ]
+    },
+    hasInfo() {
+      return (
+        (this.hostDetails.selectedKeys.length === 1 &&
+          this.hostDetails.selectedKeys.includes('name')) ||
+        filterOptionsOracle.filter(
+          (opt) =>
+            this.hostDetails.selectedKeys.includes(opt.value) &&
+            opt.group === 'info'
+        ).length > 0
+      )
     },
   },
 }

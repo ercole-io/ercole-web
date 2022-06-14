@@ -7,6 +7,7 @@ import {
   getHostType,
   mountCpuUsageChart,
   mapHostDatabases,
+  filterOptionsOracle,
 } from '@/helpers/hostDetails.js'
 import { removeDashFromMsDesc } from '@/helpers/licenses.js'
 
@@ -17,7 +18,8 @@ export const state = () => ({
   currentHostDatabases: [],
   currentHostDbLicenses: [],
   currentHostDbGrants: [],
-  selectedDbFilters: [],
+  selectedKeys: ['name'],
+  searchTermDB: '',
 })
 
 // const info = [
@@ -130,77 +132,42 @@ export const getters = {
 
     return dbGrants
   },
-  checkedAdvancedFilters: (state) => {
-    return state.selectedDbFilters
-  },
-  currentHostFiltered: (state, getters) => (search) => {
+  currentHostFiltered: (state, getters) => {
     const databases = getters.currentHostDBs
-    let keys = getters.checkedAdvancedFilters
-    const filteredDatabasesByKeys = []
+    const selectedKeys = [...state.selectedKeys]
+    const search = state.searchTermDB
 
-    _.map(databases, (db) => {
-      _.some(keys, (key) => {
-        if (!_.isEmpty(Object.values(db[key]))) {
-          filteredDatabasesByKeys.push({
-            name: db['name'],
-            [key]: Object.values(db[key]),
-          })
-        }
+    let data
+    if (selectedKeys.length === 1 && selectedKeys[0] === 'name') {
+      data = databases
+    } else {
+      selectedKeys.push('name')
+
+      data = databases.map((db) => {
+        const keys = Object.keys(db)
+        const filter = keys.filter((k) => selectedKeys.includes(k))
+        return filter.reduce((acc, key) => {
+          acc[key] = db[key]
+          return acc
+        }, {})
       })
-    })
-    console.log(filteredDatabasesByKeys)
-    // const filterSubChildArray = (subChildArray) => {
-    //   return _.filter(subChildArray, (value) => {
-    //     return _.some(value, (result) => {
-    //       return (
-    //         _.includes(_.toLower(result).toString(), _.toLower(search)) ||
-    //         _.includes(result, search)
-    //       )
-    //     })
-    //   })
-    // }
+    }
 
-    // const filterChildArray = (childArray) => {
-    //   return _.filter(childArray, (value) => {
-    //     return _.some(value, (result) => {
-    //       return _.includes(_.toLower(result).toString(), _.toLower(search)) ||
-    //         _.includes(result, search) ||
-    //         filterSubChildArray(result).length > 0
-    //         ? childArray
-    //         : null
-    //     })
-    //   })
-    // }
+    let filteredData = data
 
-    // const filterDatabases = _.filter(databases, (db) => {
-    //   return _.some(keys, (key) => {
-    //     return _.includes(_.toLower(db[key]).toString(), _.toLower(search)) ||
-    //       _.includes(db[key], search) ||
-    //       filterChildArray(db[key]).length > 0
-    //       ? db
-    //       : null
-    //   })
-    // })
+    if (search) {
+      const selectedOptions = filterOptionsOracle.filter((item) =>
+        selectedKeys.includes(item.value)
+      )
+      filteredData = data.filter((itemData) => {
+        return selectedOptions.reduce((acc, opt) => {
+          return acc || (opt.filter ? opt.filter(itemData, search) : false)
+        }, false)
+      })
+    }
 
-    return filteredDatabasesByKeys
+    return filteredData
   },
-  // getCheckedFilters: (state) => (item) => {
-  //   console.log(item)
-  //   const checkInfo = _.map(info, (val) => {
-  //     return _.includes(state.dbFiltersSelected, val)
-  //   })
-
-  //   if (
-  //     state.dbFiltersSelected.length === 1 &&
-  //     state.dbFiltersSelected[0] === 'name'
-  //   ) {
-  //     return true
-  //   } else if (_.includes(checkInfo, true) && item === 'info') {
-  //     return true
-  //   } else {
-  //     return _.includes(state.dbFiltersSelected, item)
-  //   }
-  // },
   // Oracle Chart
   getOracleCpuUsageChart: (state, getters) => (selected) => {
     const dailyDbState = getters.currentHostDBs
@@ -252,8 +219,11 @@ export const mutations = {
   SET_HOST_DB_GRANTS: (state, payload) => {
     state.currentHostDbGrants = payload
   },
-  SET_DATABASES_FILTERS: (state, payload) => {
-    state.selectedDbFilters = payload
+  SET_SELECTED_KEYS: (state, payload) => {
+    state.selectedKeys = payload
+  },
+  SET_SEARCH_TERM_DB: (state, payload) => {
+    state.searchTermDB = payload
   },
 }
 
