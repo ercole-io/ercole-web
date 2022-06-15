@@ -31,6 +31,7 @@ export const actions = {
         username: auth.username,
         password: auth.password,
       },
+      timeout: 15000,
     }
 
     await axiosRequest('login', config, false)
