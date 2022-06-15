@@ -259,7 +259,7 @@ export const actions = {
       url: '/oracle-cloud/oci-objects',
     }
 
-    await axiosRequest('thunderApi', config).then((res) => {
+    await axiosRequest('thunderApi', config, false).then((res) => {
       commit('SET_ORACLE_OCI_OBJECTS', res.data)
     })
   },

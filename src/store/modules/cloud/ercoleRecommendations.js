@@ -82,6 +82,7 @@ export const actions = {
     const config = {
       method: 'post',
       url: '/oracle-cloud/retrieve-last-oci-recommendations',
+      timeout: 300000,
     }
 
     await axiosRequest('thunderApi', config, false)
