@@ -18,7 +18,7 @@ fi
 
 REPO_SERVICE_REMOTE_ENDPOINT=$(grep "FE.RepoService.RemoteEndpoint" /etc/ercole/conf.d/20-ercolesetup.toml | cut -d'=' -f2 | sed -e 's/[[:space:]]*"//' | sed -e 's/"[[:space:]]*//')
 if [ -z "$REPO_SERVICE_REMOTE_ENDPOINT" ]; then 
-	THUNDER_SERVICE_REMOTE_ENDPOINT="/thunder"
+	REPO_SERVICE_REMOTE_ENDPOINT="/repo"
 fi
 
 if [ -n "$API_SERVICE_REMOTE_ENDPOINT" ] && [ -n "$CHART_SERVICE_REMOTE_ENDPOINT" ] && [ -n "$THUNDER_SERVICE_REMOTE_ENDPOINT" ] && [ -n "$REPO_SERVICE_REMOTE_ENDPOINT" ]; then
