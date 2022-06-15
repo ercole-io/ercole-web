@@ -2,7 +2,7 @@ import axios from 'axios'
 import errorResponseHandler from '@/helpers/errorHandler.js'
 import store from '@/store/index.js'
 
-export default (name, auth) => {
+export default (name, auth, config) => {
   const token = localStorage.getItem('token')
 
   const baseApi = store.getters.getAPIServiceBaseURL
@@ -12,9 +12,12 @@ export default (name, auth) => {
 
   let options = {}
 
+  if (config) {
+    options = config
+  }
+
   if (name === 'login') {
     options.baseURL = baseApi
-    options.timeout = 15000
     store.dispatch('onLoading')
   } else if (name === 'baseApi') {
     options.baseURL = baseApi
@@ -24,7 +27,6 @@ export default (name, auth) => {
     options.baseURL = repoApi
   } else if (name === 'thunderApi') {
     options.baseURL = thunderApi
-    options.timeout = 300000
   }
 
   const instance = axios.create(options)
@@ -32,6 +34,10 @@ export default (name, auth) => {
   if (auth) {
     instance.interceptors.request.use((request) => {
       request.headers.Authorization = `Bearer ${token}`
+      return request
+    })
+  } else {
+    instance.interceptors.request.use((request) => {
       return request
     })
   }
