@@ -27,6 +27,7 @@ export const getters = {
         itemDescription: removeDashFromMsDesc(val.itemDescription),
         compliance: val.compliance * 100,
         complianceStroke: showStrokeColor(val.compliance * 100),
+        metric: val.metric === 'HOST' ? 'Host' : val.metric,
       })
     })
 

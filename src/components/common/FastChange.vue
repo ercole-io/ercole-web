@@ -41,7 +41,6 @@ export default {
   data() {
     return {
       searchValue: '',
-      data: [],
       toggleAutocomplete: false,
     }
   },
