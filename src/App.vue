@@ -23,7 +23,7 @@ export default {
     Loading,
   },
   created() {
-    this.fetchConfig().then(this.tryAutoLogin).then(this.offLoading)
+    this.fetchConfig().then(this.offLoading)
   },
   methods: {
     ...mapActions(['tryAutoLogin', 'fetchConfig', 'offLoading']),

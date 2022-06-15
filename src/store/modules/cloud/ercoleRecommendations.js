@@ -1,15 +1,23 @@
 import _ from 'lodash'
-import axios from 'axios'
+import { bus } from '@/helpers/eventBus.js'
 import { axiosRequest } from '@/services/services.js'
-import toUpper from '@/filters/toUpper.js'
+import formatDateTime from '@/filters/formatDateTime.js'
+// import toUpper from '@/filters/toUpper.js'
 
 export const state = () => ({
   ercoleRecommendations: [],
+  ercoleRecommendationsLastUpdate: null,
 })
 
 export const getters = {
   returnErcoleRecommendations: (state, getters) => {
     return getters.filteredOrNot(state.ercoleRecommendations)
+  },
+  returnErcoleRecommendationsLastUpdate(state) {
+    const updated = state.ercoleRecommendationsLastUpdate
+    return updated
+      ? formatDateTime(state.ercoleRecommendationsLastUpdate)
+      : null
   },
 }
 
@@ -17,69 +25,72 @@ export const mutations = {
   SET_ERCOLE_RECOMMENDATIONS: (state, payload) => {
     state.ercoleRecommendations = payload
   },
+  SET_ERCOLE_RECOMMENDATIONS_LAST_UPDATE: (state, payload) => {
+    state.ercoleRecommendationsLastUpdate = payload
+  },
 }
 
 export const actions = {
   async getErcoleRecommendations({ commit, dispatch, getters }) {
     dispatch('onLoadingTable')
-    const setUrl = (name) => {
-      return `/oracle-cloud/${name}/${getters.getOciActiveProfiles}`
+
+    const config = {
+      method: 'get',
+      url: `/oracle-cloud/oci-recommendations/${getters.getOciActiveProfiles}`,
     }
-    const endPoints = [
-      setUrl('load-balancers'),
-      setUrl('instances-idle'),
-      setUrl('block-storage'),
-      setUrl('old-snapshot'),
-      setUrl('unused-storage'),
-      setUrl('instance-rightsizing'),
-      setUrl('sis-rightsizing'),
-      setUrl('object-storage-optimization'),
-      setUrl('unused-service-decommisioning'),
-    ]
 
-    await Promise.all(
-      endPoints.map((endpoint) =>
-        axiosRequest('thunderApi', {
-          merthod: 'get',
-          url: endpoint,
-        })
-      )
-    ).then(
-      axios.spread((...allData) => {
-        const recommendations = []
-        const errors = []
-        let profileError = ''
+    await axiosRequest('thunderApi', config, false).then((res) => {
+      if (res.data.recommendations.length > 0) {
+        const lastUpdate = res.data.recommendations[0].createdAt
+        commit('SET_ERCOLE_RECOMMENDATIONS', res.data.recommendations)
+        commit('SET_ERCOLE_RECOMMENDATIONS_LAST_UPDATE', lastUpdate)
+      } else {
+        commit('SET_ERCOLE_RECOMMENDATIONS', [])
+        commit('SET_ERCOLE_RECOMMENDATIONS_LAST_UPDATE', null)
+      }
 
-        _.map(allData, (val) => {
-          if (val.data.error) {
-            if (_.includes(val.data.error, 'http status code:')) {
-              const apiProfile = _.replace(
-                val.request.responseURL,
-                'https://dev.ercole.io/thunder/oracle-cloud/',
-                ''
-              )
-              const splitApiProfile = _.split(apiProfile, '/')
-              const url = toUpper(_.replace(splitApiProfile[0], /-/g, ' '))
-              const profile = _.replace(splitApiProfile[1], /,/g, ', ')
-              let err = `From: <b>${url}</b> - Profile ID: <b>${profile}</b> \n\t ${val.data.error}`
+      dispatch('offLoadingTable')
+    })
+  },
+  async getErcoleRecommendationsErrors({ commit, getters }) {
+    const config = {
+      method: 'get',
+      url: `/oracle-cloud/oci-recommendation-errors/${getters.getOciActiveProfiles}`,
+    }
 
-              errors.push(err)
-            } else {
-              profileError = _.slice(val.data.error)[0]
-            }
+    await axiosRequest('thunderApi', config, false).then((res) => {
+      let errors = []
+      let profileError = []
+
+      if (res.data.length > 0) {
+        _.map(res.data, (err) => {
+          if (_.includes(err.error, 'can not create client')) {
+            profileError.push({ profileID: err.profileID })
+          } else {
+            errors.push(err)
           }
-
-          _.forEach(val.data.recommendations, (values) => {
-            recommendations.push(values)
-          })
         })
+      }
 
-        commit('SET_ERCOLE_RECOMMENDATIONS', recommendations)
-        commit('SET_OCI_ACTIVE_PROFILE_ERRORS', profileError)
-        commit('SET_OCI_ACTIVE_PROFILE_GENERAL_ERRORS', errors)
+      profileError = _.uniqBy(profileError, 'profileID').length
 
-        dispatch('offLoadingTable')
+      commit('SET_OCI_ACTIVE_PROFILE_ERRORS', profileError)
+      commit('SET_OCI_ACTIVE_PROFILE_GENERAL_ERRORS', errors)
+    })
+  },
+  async retireveRecommendations() {
+    const config = {
+      method: 'post',
+      url: '/oracle-cloud/retrieve-last-oci-recommendations',
+      timeout: 300000,
+    }
+
+    await axiosRequest('thunderApi', config, false)
+      .then(() => {
+        bus.$emit('finishRetrieveUpdates')
       })
-    )
+      .catch(() => {
+        bus.$emit('finishRetrieveUpdates')
+      })
   },
 }

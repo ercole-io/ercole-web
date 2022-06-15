@@ -5,7 +5,7 @@ import {
   setRangeDateFormat,
   checkRangeDate,
 } from '@/helpers/helpers.js'
-import { mapDatabases } from '@/helpers/databasesMap.js'
+// import { mapDatabases } from '@/helpers/databasesMap.js'
 import { mapClustStatus } from '@/helpers/helpers.js'
 import { ModalProgrammatic as Modal } from 'buefy'
 import formatDateTime from '@/filters/formatDateTime.js'
@@ -31,7 +31,7 @@ const getHostInfo = (info, host) => {
       },
       {
         name: 'Technology',
-        value: mapDatabases(host.features, 'technology'),
+        value: host.technology,
       },
       {
         name: 'Clust',
