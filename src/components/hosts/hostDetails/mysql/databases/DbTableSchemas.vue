@@ -5,7 +5,7 @@
   >
     <FullTable
       :tableData="tableSchemas"
-      :keys="['name', 'engine', 'allocation']"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
@@ -41,6 +41,11 @@ export default {
   components: {
     FullTable,
     TdContent,
+  },
+  data() {
+    return {
+      keys: ['name', 'engine', 'allocation'],
+    }
   },
 }
 </script>
