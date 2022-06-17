@@ -1,4 +1,7 @@
-import { stringSearch } from '@/helpers/hostDetails/hostDetailsHelpers.js'
+import {
+  stringSearch,
+  // licensesFilter,
+} from '@/helpers/hostDetails/hostDetailsHelpers.js'
 
 // PostgreSql Filter Options
 const filterOptionsPostgreSql = [
@@ -147,15 +150,21 @@ const filterOptionsPostgreSql = [
       return stringSearch(db.usersNum, search)
     },
   },
-  {
-    name: 'Databases',
-    value: 'databases',
-    level: 1,
-    group: 'databases',
-    // filter: (db, search) => {
-    //   return stringSearch(db.databases, search)
-    // },
-  },
+  // {
+  //   name: 'Databases',
+  //   value: 'databases',
+  //   level: 1,
+  //   group: 'databases',
+  //   filter: (db, search) => {
+  //     return stringSearch(db.databases, search)
+  //   },
+  // },
+  // {
+  //   name: 'Licenses',
+  //   value: 'licenses',
+  //   level: 1,
+  //   filter: (db, search) => licensesFilter(db.licenses, search),
+  // },
 ]
 
 export { filterOptionsPostgreSql }

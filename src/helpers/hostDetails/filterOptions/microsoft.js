@@ -141,20 +141,20 @@ const filterOptionsMicrosft = [
       return stringSearch(db.licensingInfo, search)
     },
   },
-  {
-    name: 'Databases',
-    value: 'databases',
-    level: 1,
-    filter: (db, search) => {
-      return (
-        db.databases.filter((data) => {
-          const searchDbName = stringSearch(data.dbName, search)
-          console.log(searchDbName)
-          return searchDbName
-        }).length > 0
-      )
-    },
-  },
+  // {
+  //   name: 'Databases',
+  //   value: 'databases',
+  //   level: 1,
+  //   filter: (db, search) => {
+  //     return (
+  //       db.databases.filter((data) => {
+  //         const searchDbName = stringSearch(data.dbName, search)
+  //         console.log(searchDbName)
+  //         return searchDbName
+  //       }).length > 0
+  //     )
+  //   },
+  // },
   {
     name: 'Licenses',
     value: 'licenses',
