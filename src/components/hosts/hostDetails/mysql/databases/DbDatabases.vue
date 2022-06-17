@@ -1,8 +1,8 @@
 <template>
-  <b-tab-item label="Databases" v-if="databases.length > 0">
+  <b-tab-item label="Databases" v-if="databases && databases.length > 0">
     <FullTable
       :tableData="databases"
-      :keys="[]"
+      :keys="['name', 'charset', 'collation', 'encrypted']"
       hideSearch
       hidePerpage
       hidePagination

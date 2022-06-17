@@ -15,13 +15,13 @@
 
     <DetailsInfo />
 
-    <DatabasesMain :dbType="currentHostType" />
+    <DatabasesMain />
   </section>
 </template>
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import Notifications from '@/components/hosts/hostDetails/Notifications.vue'
 import FileSystems from '@/components/hosts/hostDetails/FileSystems.vue'
 import DismissHost from '@/components/hosts/hostDetails/DismissHost.vue'
@@ -74,9 +74,6 @@ export default {
   methods: {
     ...mapActions(['getHostByName', 'getHostNames', 'getClusterNames']),
     ...mapMutations(['SET_ACTIVE_DB', 'SET_HOSTNAMES', 'SET_CLUSTERNAMES']),
-  },
-  computed: {
-    ...mapGetters(['currentHostType']),
   },
 }
 </script>

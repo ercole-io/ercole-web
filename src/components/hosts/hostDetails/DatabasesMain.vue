@@ -1,25 +1,24 @@
 <template>
   <GhostLoading :isLoading="loadingTableStatus" setHeight="390">
     <div class="columns">
-      <div class="column is-8" v-if="isOracle">
-        <OracleDatabases />
+      <div
+        class="column"
+        :class="
+          (isOracle ? 'is-8' : 'is-12',
+          !isOracle && !showDbFilters ? 'is-12' : 'is-8')
+        "
+      >
+        <DatabasesData />
       </div>
 
-      <div class="column is-4" v-if="isOracle">
-        <ChartCpu v-show="currentHostDBs.length > 0 && !showDbFilters" />
-        <DatabasesFilters v-show="showDbFilters" />
-      </div>
-
-      <div class="column is-12" v-if="isMysql">
-        <MysqlDatabases />
-      </div>
-
-      <div class="column is-12" v-if="isMicrosoft">
-        <MicrosoftDatabases />
-      </div>
-
-      <div class="column is-12" v-if="isPostgresql">
-        <PostgresqlDatabases />
+      <div class="column is-4">
+        <template v-if="isOracle">
+          <ChartCpu v-show="currentHostDBs.length > 0 && !showDbFilters" />
+        </template>
+        <DatabasesFilters
+          :filters="currentDatabasesOptions"
+          v-show="showDbFilters"
+        />
       </div>
     </div>
   </GhostLoading>
@@ -29,24 +28,17 @@
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import hostDatabasesFilters from '@/mixins/hostDatabasesFilters.js'
-import OracleDatabases from '@/components/hosts/hostDetails/oracle/OracleDatabases.vue'
-import DatabasesFilters from '@/components/hosts/hostDetails/oracle/databases/DatabasesFilters.vue'
 import ChartCpu from '@/components/hosts/hostDetails/oracle/ChartCpu.vue'
-import MysqlDatabases from '@/components/hosts/hostDetails/mysql/MysqlDatabases.vue'
-import MicrosoftDatabases from '@/components/hosts/hostDetails/microsoft/MicrosoftDatabases.vue'
-import PostgresqlDatabases from '@/components/hosts/hostDetails/postgresql/PostgresqlDatabases.vue'
+import DatabasesData from '@/components/hosts/hostDetails/DatabasesData.vue'
+import DatabasesFilters from '@/components/hosts/hostDetails/DatabasesFilters.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
   mixins: [hostDatabasesFilters],
-  props: ['dbType'],
   components: {
-    OracleDatabases,
+    DatabasesData,
     DatabasesFilters,
     ChartCpu,
-    MysqlDatabases,
-    MicrosoftDatabases,
-    PostgresqlDatabases,
     GhostLoading,
   },
   data() {
@@ -60,15 +52,23 @@ export default {
     })
   },
   computed: {
-    ...mapGetters(['currentHostDBs', 'loadingTableStatus']),
+    ...mapGetters([
+      'currentHostDBs',
+      'currentHostType',
+      'currentDatabasesOptions',
+      'loadingTableStatus',
+    ]),
     isOracle() {
-      return this.dbType === 'oracle'
+      return this.currentHostType === 'oracle'
     },
     isMysql() {
-      return this.dbType === 'mysql'
+      return this.currentHostType === 'mysql'
     },
     isMicrosoft() {
-      return this.dbType === 'microsoft'
+      return this.currentHostType === 'microsoft'
+    },
+    isPostgresql() {
+      return this.currentHostType === 'postgresql'
     },
   },
 }

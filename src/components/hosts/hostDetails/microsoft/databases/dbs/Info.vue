@@ -7,7 +7,7 @@
             <li>Details</li>
             <li>
               <span>Db Name</span>
-              <span>{{ info.name }}</span>
+              <span>{{ info.databaseName }}</span>
             </li>
             <li>
               <span>Db ID</span>

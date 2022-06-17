@@ -8,7 +8,11 @@
     animated
     v-if="showDatabases"
   >
-    <b-tab-item v-for="(dbs, i) in currentDBs" :label="dbs.name" :key="i">
+    <b-tab-item
+      v-for="(dbs, i) in currentHostFiltered"
+      :label="dbs.name"
+      :key="i"
+    >
       <b-tabs
         size="is-small"
         type="is-toggle"
@@ -55,6 +59,7 @@ import DbOptions from '@/components/hosts/hostDetails/oracle/databases/DbOptions
 import DbLicenses from '@/components/hosts/hostDetails/oracle/databases/DbLicenses.vue'
 import DbPDBs from '@/components/hosts/hostDetails/oracle/databases/DbPDBs.vue'
 import DbGrants from '@/components/hosts/hostDetails/oracle/databases/DbGrants.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   mixins: [hostDatabasesFilters, hostDetailsDatabasesMixins],
@@ -73,6 +78,9 @@ export default {
     DbLicenses,
     DbPDBs,
     DbGrants,
+  },
+  computed: {
+    ...mapGetters(['currentHostFiltered']),
   },
 }
 </script>

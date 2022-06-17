@@ -6,7 +6,11 @@
     v-model="isActive"
     @input="onChange"
   >
-    <b-tab-item v-for="(dbs, i) in currentDBs" :key="i" :label="dbs.name">
+    <b-tab-item
+      v-for="(dbs, i) in currentHostFiltered"
+      :key="i"
+      :label="dbs.name"
+    >
       <b-tabs
         size="is-small"
         type="is-toggle"
@@ -35,6 +39,7 @@ import DbSegmantAdvisors from '@/components/hosts/hostDetails/mysql/databases/Db
 import DbTableSchemas from '@/components/hosts/hostDetails/mysql/databases/DbTableSchemas.vue'
 import DbLicenses from '@/components/hosts/hostDetails/mysql/databases/DbLicenses.vue'
 import DbGrowth from '@/components/hosts/hostDetails/mysql/databases/DbGrowth.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   mixins: [hostDetailsDatabasesMixins],
@@ -45,6 +50,9 @@ export default {
     DbTableSchemas,
     DbLicenses,
     DbGrowth,
+  },
+  computed: {
+    ...mapGetters(['currentHostFiltered']),
   },
 }
 </script>

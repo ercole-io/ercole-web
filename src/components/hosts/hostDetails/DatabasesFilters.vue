@@ -58,13 +58,18 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex'
-import { filterOptionsOracle } from '@/helpers/hostDetails.js'
 import hostDatabasesFilters from '@/mixins/hostDatabasesFilters.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 
 export default {
   mixins: [hostDatabasesFilters],
+  props: {
+    filters: {
+      type: Array,
+      default: () => [],
+    },
+  },
   components: {
     BoxContent,
     SearchInput,
@@ -80,15 +85,16 @@ export default {
   methods: {
     ...mapMutations(['SET_SELECTED_KEYS']),
     resetFilters() {
-      this.SET_SELECTED_KEYS(this.hostDetails.selectedKeys)
+      this.selectedKeys = ['name']
+      this.SET_SELECTED_KEYS(this.selectedKeys)
     },
     onFilterClick(e) {
-      const clickedOption = filterOptionsOracle.find(
+      const clickedOption = this.filters.find(
         (item) => item.value === e.target.value
       )
 
       if (clickedOption.group) {
-        const group = filterOptionsOracle.filter(
+        const group = this.filters.filter(
           (item) => item.group === clickedOption.group
         )
 
@@ -133,7 +139,7 @@ export default {
   computed: {
     ...mapState(['hostDetails']),
     filterOptions() {
-      return filterOptionsOracle.map((opt) => ({
+      return this.filters.map((opt) => ({
         ...opt,
         disabled: opt.disabled ? opt.disabled(this.selectedKeys) : false,
       }))
@@ -143,6 +149,9 @@ export default {
     selectedKeys() {
       this.SET_SELECTED_KEYS(this.selectedKeys)
     },
+  },
+  beforeDestroy() {
+    this.resetFilters()
   },
 }
 </script>
