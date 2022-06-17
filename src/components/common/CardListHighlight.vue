@@ -1,28 +1,29 @@
 <template>
   <ul class="card-list">
-    <li v-for="item in list" :key="item.name">
-      <div class="columns">
-        <span :class="`column is-${colSizes[0]}`">{{ item.name }}</span>
-        <span
-          v-tooltip.right="options(item.value)"
-          v-html="highlight(toString(item.value))"
-          :class="`column is-${colSizes[1]}`"
-          v-if="!item.hasIcon"
-        />
-        <span
-          v-tooltip.right="options(bindIncon(item.value)[2])"
-          :class="`column is-${colSizes[1]}`"
-          v-if="item.hasIcon"
-        >
-          <b-icon
-            size="is-small"
-            :icon="bindIncon(item.value)[0]"
-            :type="bindIncon(item.value)[1]"
-            style="vertical-align: middle;"
+    <template v-for="item in list">
+      <li v-if="item.value" :key="item.name">
+        <div class="columns">
+          <span :class="`column is-${colSizes[0]}`">{{ item.name }}</span>
+          <span
+            v-tooltip.right="options(item.value)"
+            v-html="highlight(toString(item.value))"
+            :class="`column is-${colSizes[1]}`"
           />
-        </span>
-      </div>
-    </li>
+          <!-- <span
+            v-tooltip.right="options(bindIncon(item.value)[2])"
+            :class="`column is-${colSizes[1]}`"
+            v-if="item.hasIcon"
+          >
+            <b-icon
+              size="is-small"
+              :icon="bindIncon(item.value)[0]"
+              :type="bindIncon(item.value)[1]"
+              style="vertical-align: middle"
+            />
+          </span> -->
+        </div>
+      </li>
+    </template>
   </ul>
 </template>
 
@@ -37,12 +38,12 @@ export default {
   props: {
     list: {
       type: Array,
-      required: true
+      required: true,
     },
     colSizes: {
       type: Array,
-      default: () => ['4', '8']
-    }
+      default: () => ['4', '8'],
+    },
   },
   methods: {
     bindIncon(value) {
@@ -50,8 +51,8 @@ export default {
     },
     toString(val) {
       return _.toString(val)
-    }
-  }
+    },
+  },
 }
 </script>
 

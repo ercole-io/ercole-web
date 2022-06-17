@@ -6,14 +6,16 @@
           <CardListHighlight :colSizes="['6', '6']" :list="details" />
         </Card>
       </div>
+
       <div class="column is-4">
-        <div class="columns mb-0">
+        <div class="columns">
           <div class="column is-12">
             <Card cardTitle="Memory" cardType="custom">
               <CardListHighlight :colSizes="['6', '6']" :list="memory" />
             </Card>
           </div>
         </div>
+
         <div class="columns">
           <div class="column is-12">
             <Card cardTitle="Resource Utilization" cardType="custom">
@@ -22,14 +24,16 @@
           </div>
         </div>
       </div>
+
       <div class="column is-4">
-        <div class="columns mb-0">
+        <div class="columns">
           <div class="column is-12">
             <Card cardTitle="Space Utilization" cardType="custom">
               <CardListHighlight :colSizes="['6', '6']" :list="space" />
             </Card>
           </div>
         </div>
+
         <div class="columns">
           <div class="column is-12">
             <Card cardTitle="Additional Info" cardType="custom">
@@ -44,7 +48,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { filterOptionsOracle } from '@/helpers/hostDetails.js'
+import { filterOptionsOracle } from '@/helpers/hostDetails/filterOptions/oracle.js'
 import Card from '@/components/common/Card.vue'
 import CardListHighlight from '@/components/common/CardListHighlight.vue'
 
@@ -66,12 +70,10 @@ export default {
         { name: 'Status', value: this.dbInfo.status },
         { name: 'Role', value: this.dbInfo.role },
         { name: 'Db ID', value: this.dbInfo.dbID },
-        { name: 'Db Name', value: this.dbInfo.name },
         { name: 'Unique Name', value: this.dbInfo.uniqueName },
         {
           name: 'Archive Log',
-          value: this.dbInfo.archivelog,
-          hasIcon: true,
+          value: this.dbInfo.archivelog ? 'yes' : 'no',
         },
         { name: 'Block Size', value: this.dbInfo.blockSize },
         { name: 'Charset', value: this.dbInfo.charset },
@@ -112,8 +114,8 @@ export default {
     },
     additional() {
       return [
-        { name: 'ASM', value: this.dbInfo.asm, hasIcon: true },
-        { name: 'Data Guard', value: this.dbInfo.dataguard, hasIcon: true },
+        { name: 'ASM', value: this.dbInfo.asm ? 'yes' : 'no' },
+        { name: 'Data Guard', value: this.dbInfo.dataguard ? 'yes' : 'no' },
         { name: 'Platform', value: this.dbInfo.platform },
         { name: 'Version', value: this.dbInfo.version },
       ]
