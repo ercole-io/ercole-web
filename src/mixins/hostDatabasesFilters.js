@@ -38,8 +38,5 @@ export default {
     showDatabases() {
       return this.currentHostFiltered.length > 0
     },
-    isPostgresql() {
-      return this.currentHostType === 'postgresql'
-    },
   },
 }

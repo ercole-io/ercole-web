@@ -1,8 +1,11 @@
 <template>
-  <b-tab-item label="Table Schemas" v-if="tableSchemas.length > 0">
+  <b-tab-item
+    label="Table Schemas"
+    v-if="tableSchemas && tableSchemas.length > 0"
+  >
     <FullTable
       :tableData="tableSchemas"
-      :keys="[]"
+      :keys="['name', 'engine', 'allocation']"
       hideSearch
       hidePerpage
       hidePagination

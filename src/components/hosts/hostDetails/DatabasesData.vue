@@ -15,12 +15,16 @@
       v-show="!hideMainSearch"
     />
 
+    <AdvancedFiltersButton slot="customTitle" />
+
     <HbuttonScroll height="30" elemScroll="tabs" />
 
-    <Databases
-      :currentDBs="currentHostFiltered(searchDb)"
-      v-if="showDatabases"
-    />
+    <div v-if="showDatabases">
+      <Oracle v-if="isOracle" />
+      <Mirosoft v-if="isMicrosoft" />
+      <Mysql v-if="isMysql" />
+      <Postgre v-if="isPostgresql" />
+    </div>
 
     <NoContent
       v-else
@@ -37,7 +41,13 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 import HbuttonScroll from '@/components/HbuttonScroll.vue'
 import NoContent from '@/components/common/NoContent.vue'
-import Databases from '@/components/hosts/hostDetails/mysql/databases/Databases.vue'
+import AdvancedFiltersButton from '@/components/hosts/hostDetails/DatabasesFiltersButton.vue'
+
+import Oracle from '@/components/hosts/hostDetails/oracle/databases/Databases.vue'
+import Mirosoft from '@/components/hosts/hostDetails/microsoft/databases/Databases.vue'
+import Mysql from '@/components/hosts/hostDetails/mysql/databases/Databases.vue'
+import Postgre from '@/components/hosts/hostDetails/postgresql/databases/Databases.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   mixins: [hostDatabasesFilters, hostDetailsDatabasesMixins],
@@ -46,7 +56,26 @@ export default {
     SearchInput,
     HbuttonScroll,
     NoContent,
-    Databases,
+    AdvancedFiltersButton,
+    Oracle,
+    Mirosoft,
+    Mysql,
+    Postgre,
+  },
+  computed: {
+    ...mapGetters(['currentHostType']),
+    isOracle() {
+      return this.currentHostType === 'oracle'
+    },
+    isMysql() {
+      return this.currentHostType === 'mysql'
+    },
+    isMicrosoft() {
+      return this.currentHostType === 'microsoft'
+    },
+    isPostgresql() {
+      return this.currentHostType === 'postgresql'
+    },
   },
 }
 </script>

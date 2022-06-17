@@ -2,12 +2,6 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
-  props: {
-    currentDBs: {
-      type: Array,
-      default: () => [],
-    },
-  },
   data() {
     return {
       isActive: 0,
@@ -15,7 +9,7 @@ export default {
     }
   },
   beforeMount() {
-    const dbs = this.currentDBs
+    const dbs = this.currentHostFiltered
 
     this.isActive = this.currentHostActiveDbIndex(dbs)
 
@@ -44,11 +38,11 @@ export default {
     ]),
     onChange(index) {
       this.SET_IGNORE_LICENSE_ACTIVE_DB_TAB(index)
-      if (this.currentDBs[index]) {
+      if (this.currentHostFiltered[index]) {
         bus.$emit('cpuChartSelected', [
           {
-            name: this.currentDBs[index].name,
-            id: this.currentDBs[index].dbID,
+            name: this.currentHostFiltered[index].name,
+            id: this.currentHostFiltered[index].dbID,
           },
         ])
       }
@@ -65,6 +59,7 @@ export default {
       'currentHostActiveDbIndex',
       'getIgnoreLicenseDbTabActive',
       'getLicensesSubTabActive',
+      'currentHostFiltered',
     ]),
   },
 }

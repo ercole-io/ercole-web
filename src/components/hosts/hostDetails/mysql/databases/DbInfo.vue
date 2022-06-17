@@ -1,32 +1,32 @@
 <template>
-  <b-tab-item label="Info">
+  <b-tab-item label="Info" v-if="hasInfo">
     <div class="columns is-mobile is-multiline">
       <div class="column">
         <div class="columns">
           <div class="column">
             <ul class="db-info">
               <li>Database Details</li>
-              <li>
+              <li v-if="dbInfo.dbName">
                 <span>Db Name</span>
-                <span>{{ dbInfo.name }}</span>
+                <span>{{ dbInfo.dbName }}</span>
               </li>
-              <li>
+              <li v-if="dbInfo.version">
                 <span>Version</span>
                 <span>{{ dbInfo.version }}</span>
               </li>
-              <li>
+              <li v-if="dbInfo.platform">
                 <span>Platform</span>
                 <span>{{ dbInfo.platform }}</span>
               </li>
-              <li>
+              <li v-if="dbInfo.architecture">
                 <span>Architecture</span>
                 <span>{{ dbInfo.architecture }}</span>
               </li>
-              <li>
+              <li v-if="dbInfo.edition">
                 <span>Edition</span>
                 <span>{{ dbInfo.edition }}</span>
               </li>
-              <li>
+              <li v-if="dbInfo.engine">
                 <span>Engine</span>
                 <span>{{ dbInfo.engine }}</span>
               </li>
@@ -35,15 +35,15 @@
           <div class="column">
             <ul class="db-info">
               <li>Memory</li>
-              <li>
+              <li v-if="dbInfo.sortBufferSize">
                 <span>Sort Buffer Size</span>
                 <span>{{ dbInfo.sortBufferSize }}</span>
               </li>
-              <li>
+              <li v-if="dbInfo.logBufferSize">
                 <span>Log Buffer Size</span>
                 <span>{{ dbInfo.logBufferSize }}</span>
               </li>
-              <li>
+              <li v-if="dbInfo.bufferPoolSize">
                 <span>Pool Buffer Size</span>
                 <span>{{ dbInfo.bufferPoolSize }}</span>
               </li>
@@ -52,31 +52,32 @@
           <div class="column">
             <ul class="db-info">
               <li>Additional Info</li>
-              <li>
+              <li v-if="dbInfo.readOnly">
                 <span>Read Only</span>
-                <b-icon
+                <span>{{ dbInfo.readOnly }}</span>
+                <!-- <b-icon
                   size="is-small"
                   :icon="bindIcon(dbInfo.readOnly)[0]"
                   :type="bindIcon(dbInfo.readOnly)[1]"
-                />
+                /> -->
               </li>
-              <li>
-                <span>Read Only Log Enabled</span>
+              <li v-if="dbInfo.redoLogEnabled">
+                <span>Redo Log Enabled</span>
                 <span>{{ dbInfo.redoLogEnabled }}</span>
               </li>
-              <li>
+              <li v-if="dbInfo.threadsConcurrency">
                 <span>Threads Concurrency</span>
                 <span>{{ dbInfo.threadsConcurrency }}</span>
               </li>
-              <li>
+              <li v-if="dbInfo.charsetServer">
                 <span>Server Charset</span>
                 <span>{{ dbInfo.charsetServer }}</span>
               </li>
-              <li>
+              <li v-if="dbInfo.charsetSystem">
                 <span>System Charset</span>
                 <span>{{ dbInfo.charsetSystem }}</span>
               </li>
-              <li>
+              <li v-if="dbInfo.pageSize">
                 <span>Page Size</span>
                 <span>{{ dbInfo.pageSize }}</span>
               </li>
@@ -89,7 +90,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { mapBooleanIcon } from '@/helpers/helpers.js'
+import { filterOptionsMysql } from '@/helpers/hostDetails/filterOptions/mysql.js'
 
 export default {
   props: {
@@ -101,6 +104,20 @@ export default {
   methods: {
     bindIcon(value) {
       return mapBooleanIcon(value)
+    },
+  },
+  computed: {
+    ...mapState(['hostDetails']),
+    hasInfo() {
+      return (
+        (this.hostDetails.selectedKeys.length === 1 &&
+          this.hostDetails.selectedKeys.includes('name')) ||
+        filterOptionsMysql.filter(
+          (opt) =>
+            this.hostDetails.selectedKeys.includes(opt.value) &&
+            opt.group === 'info'
+        ).length > 0
+      )
     },
   },
 }

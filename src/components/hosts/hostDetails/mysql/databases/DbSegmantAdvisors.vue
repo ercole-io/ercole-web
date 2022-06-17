@@ -1,8 +1,19 @@
 <template>
-  <b-tab-item label="Segment Advisors" v-if="segmentAdvisors.length > 0">
+  <b-tab-item
+    label="Segment Advisors"
+    v-if="segmentAdvisors && segmentAdvisors.length > 0"
+  >
     <FullTable
       :tableData="segmentAdvisors"
-      :keys="[]"
+      :keys="[
+        'tableName',
+        'tableSchema',
+        'engine',
+        'data',
+        'allocation',
+        'index',
+        'free',
+      ]"
       hideSearch
       hidePerpage
       hidePagination

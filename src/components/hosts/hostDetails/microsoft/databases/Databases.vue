@@ -8,7 +8,11 @@
     animated
     v-if="showDatabases"
   >
-    <b-tab-item v-for="(dbs, i) in currentDBs" :key="i" :label="dbs.name">
+    <b-tab-item
+      v-for="(dbs, i) in currentHostFiltered"
+      :key="i"
+      :label="dbs.name"
+    >
       <b-tabs
         size="is-small"
         type="is-toggle"
@@ -18,7 +22,7 @@
         animated
         destroy-on-hide
       >
-        <DbInfo :dbInfo="dbs.info" />
+        <DbInfo :dbInfo="dbs" />
         <DbDatabases :databases="dbs.databases" />
         <DbLicenses :licenses="dbs.licenses" />
       </b-tabs>
@@ -32,6 +36,7 @@ import hostDetailsDatabasesMixins from '@/mixins/hostDetailsDatabases.js'
 import DbInfo from '@/components/hosts/hostDetails/microsoft/databases/DbInfo.vue'
 import DbDatabases from '@/components/hosts/hostDetails/microsoft/databases/DbDatabases.vue'
 import DbLicenses from '@/components/hosts/hostDetails/microsoft/databases/DbLicenses.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   mixins: [hostDatabasesFilters, hostDetailsDatabasesMixins],
@@ -39,6 +44,9 @@ export default {
     DbInfo,
     DbDatabases,
     DbLicenses,
+  },
+  computed: {
+    ...mapGetters(['currentHostFiltered']),
   },
 }
 </script>

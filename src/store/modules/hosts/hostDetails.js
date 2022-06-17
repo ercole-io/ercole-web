@@ -7,9 +7,13 @@ import {
   getHostType,
   mountCpuUsageChart,
   mapHostDatabases,
-  filterOptionsOracle,
-} from '@/helpers/hostDetails.js'
+} from '@/helpers/hostDetails/hostDetails.js'
 import { removeDashFromMsDesc } from '@/helpers/licenses.js'
+// filter options
+import { filterOptionsOracle } from '@/helpers/hostDetails/filterOptions/oracle.js'
+import { filterOptionsMysql } from '@/helpers/hostDetails/filterOptions/mysql.js'
+import { filterOptionsMicrosft } from '@/helpers/hostDetails/filterOptions/microsoft.js'
+import { filterOptionsPostgreSql } from '@/helpers/hostDetails/filterOptions/postgresql.js'
 
 export const state = () => ({
   currentHost: {},
@@ -132,10 +136,24 @@ export const getters = {
 
     return dbGrants
   },
+  currentDatabasesOptions: (state, getters) => {
+    const hostType = getters.currentHostType
+
+    if (hostType === 'oracle') {
+      return filterOptionsOracle
+    } else if (hostType === 'mysql') {
+      return filterOptionsMysql
+    } else if (hostType === 'microsoft') {
+      return filterOptionsMicrosft
+    } else if (hostType === 'postgresql') {
+      return filterOptionsPostgreSql
+    }
+  },
   currentHostFiltered: (state, getters) => {
     const databases = getters.currentHostDBs
     const selectedKeys = [...state.selectedKeys]
     const search = state.searchTermDB
+    const options = getters.currentDatabasesOptions
 
     let data
     if (selectedKeys.length === 1 && selectedKeys[0] === 'name') {
@@ -156,7 +174,7 @@ export const getters = {
     let filteredData = data
 
     if (search) {
-      const selectedOptions = filterOptionsOracle.filter((item) =>
+      const selectedOptions = options.filter((item) =>
         selectedKeys.includes(item.value)
       )
       filteredData = data.filter((itemData) => {
@@ -250,11 +268,15 @@ export const actions = {
     )
       .then(
         axios.spread((...allData) => {
+          const hostType = allData[0].data.technology
+          const hostDatabases = allData[0].data.features
+
           commit('SET_CURRENT_HOST', allData[0].data)
-          commit('SET_CURRENT_HOST_TYPE', getHostType(allData[0].data.features))
+          commit('SET_CURRENT_HOST_TYPE', getHostType(hostType))
           commit('SET_HOST_DB_LICENSES', allData[1].data.usedLicenses)
           commit('SET_HOST_DB_GRANTS', allData[2].data)
-          return allData[0].data.features
+
+          return hostDatabases
         })
       )
       .then((databases) => {
@@ -265,19 +287,22 @@ export const actions = {
           }
 
           const type = getters.currentHostType
-          let hostDatabases = []
+          let getDatabases = []
 
           if (type === 'oracle') {
             const oracle = databases.oracle.database.databases
-            hostDatabases = mapHostDatabases(oracle, extraData, type)
+            getDatabases = mapHostDatabases(oracle, extraData, type)
           } else if (type === 'mysql') {
             const mysql = databases.mysql.instances
-            hostDatabases = mapHostDatabases(mysql, extraData, type)
+            getDatabases = mapHostDatabases(mysql, extraData, type)
           } else if (type === 'microsoft') {
             const microsoft = databases.microsoft.sqlServer.instances
-            hostDatabases = mapHostDatabases(microsoft, extraData, type)
+            getDatabases = mapHostDatabases(microsoft, extraData, type)
+          } else if (type === 'postgresql') {
+            const postgresql = databases.postgresql.instances
+            getDatabases = mapHostDatabases(postgresql, extraData, type)
           }
-          commit('SET_CURRENT_HOST_DATABASES', hostDatabases)
+          commit('SET_CURRENT_HOST_DATABASES', getDatabases)
         } else {
           commit('SET_CURRENT_HOST_DATABASES', [])
         }
