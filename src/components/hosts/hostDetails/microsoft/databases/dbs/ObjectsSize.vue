@@ -1,7 +1,7 @@
 <template>
   <FullTable
     :tableData="objectsSize"
-    :keys="[]"
+    :keys="keys"
     hideSearch
     hidePerpage
     hidePagination
@@ -36,6 +36,11 @@ export default {
   components: {
     FullTable,
     TdContent,
+  },
+  data() {
+    return {
+      keys: ['allocatedSpace', 'allocationType', 'usedSpace'],
+    }
   },
 }
 </script>
