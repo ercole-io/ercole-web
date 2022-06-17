@@ -1,5 +1,5 @@
 import _ from 'lodash'
-// import { mapExtraData } from '@/helpers/hostDetails/hostDetailsHelpers.js'
+import { mapExtraData } from '@/helpers/hostDetails/hostDetailsHelpers.js'
 
 const mapPostgreSqlDatabases = (data, extraData) => {
   let newData = []
@@ -20,9 +20,8 @@ const mapPostgreSqlDatabases = (data, extraData) => {
       tblspNum: item.tblspNum.toString(),
       trustHbaEntries: item.trustHbaEntries.toString(),
       usersNum: item.usersNum,
-      // setting: { ...item.setting },
       databases: [...item.databases],
-      // licenses: mapExtraData(item.name, extraData.licenses(item.name)),
+      licenses: mapExtraData(item.name, extraData.licenses(item.name)),
     })
   })
   return newData
