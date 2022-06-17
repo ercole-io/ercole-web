@@ -5,15 +5,7 @@
   >
     <FullTable
       :tableData="segmentAdvisors"
-      :keys="[
-        'tableName',
-        'tableSchema',
-        'engine',
-        'data',
-        'allocation',
-        'index',
-        'free',
-      ]"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
@@ -57,6 +49,19 @@ export default {
   components: {
     FullTable,
     TdContent,
+  },
+  data() {
+    return {
+      keys: [
+        'tableName',
+        'tableSchema',
+        'engine',
+        'data',
+        'allocation',
+        'index',
+        'free',
+      ],
+    }
   },
 }
 </script>
