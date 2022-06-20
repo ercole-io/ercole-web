@@ -40,6 +40,7 @@ export const actions = {
     }
 
     await axiosRequest('thunderApi', config, false).then((res) => {
+      hasActiveProfile(res.data, commit)
       commit('SET_OCI_PROFILE', res.data)
       dispatch('offLoadingTable')
     })
@@ -85,4 +86,27 @@ export const actions = {
       dispatch('offLoadingTable')
     })
   },
+  async activateProfile({ commit, getters }, payload) {
+    const config = {
+      method: 'put',
+      url: `/oracle-cloud/profile-selection/profileid/${payload.id}/selected/${payload.isActive}`,
+    }
+
+    await axiosRequest('thunderApi', config, false).then(() => {
+      hasActiveProfile(getters.getOciProfiles, commit)
+    })
+  },
+}
+
+const hasActiveProfile = (data, commit) => {
+  const hasProfileActive = []
+  _.map(data, (item) => {
+    hasProfileActive.push(item.selected)
+  })
+
+  if (_.includes(hasProfileActive, true)) {
+    commit('SET_OCI_ACTIVE_PROFILE', true)
+  } else {
+    commit('SET_OCI_ACTIVE_PROFILE', false)
+  }
 }
