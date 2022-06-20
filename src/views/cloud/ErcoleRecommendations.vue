@@ -37,16 +37,12 @@ export default {
     await this.getErcoleRecommendations().then(() => {
       bus.$emit('data', this.returnErcoleRecommendations)
     })
-    await this.getErcoleRecommendationsErrors()
   },
   mounted() {
     this.isMounted = true
   },
   methods: {
-    ...mapActions([
-      'getErcoleRecommendations',
-      'getErcoleRecommendationsErrors',
-    ]),
+    ...mapActions(['getErcoleRecommendations']),
   },
   computed: {
     ...mapGetters(['returnErcoleRecommendations', 'loadingTableStatus']),
