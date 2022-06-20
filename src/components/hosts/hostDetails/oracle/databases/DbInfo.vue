@@ -1,40 +1,64 @@
 <template>
-  <b-tab-item label="Info" v-if="hasInfo">
+  <b-tab-item label="Info" class="databasesInfo" v-if="hasInfo">
     <div class="columns is-mobile is-multiline">
       <div class="column is-4">
         <ul class="db-info">
           <li>Database Details</li>
           <li v-if="dbInfo.status">
             <span>Status</span>
-            <span>{{ dbInfo.status }}</span>
+            <span
+              v-tooltip.right="options(dbInfo.status)"
+              v-html="highlight(dbInfo.status)"
+            />
           </li>
           <li v-if="dbInfo.role">
             <span>Role</span>
-            <span>{{ dbInfo.role }}</span>
+            <span
+              v-tooltip.right="options(dbInfo.role)"
+              v-html="highlight(dbInfo.role)"
+            />
           </li>
           <li v-if="dbInfo.dbID">
             <span>Db ID</span>
-            <span>{{ dbInfo.dbID }}</span>
+            <span
+              v-tooltip.right="options(dbInfo.dbID)"
+              v-html="highlight(dbInfo.dbID)"
+            />
           </li>
           <li v-if="dbInfo.uniqueName">
             <span>Unique Name</span>
-            <span>{{ dbInfo.uniqueName }}</span>
+            <span
+              v-tooltip.right="options(dbInfo.uniqueName)"
+              v-html="highlight(dbInfo.uniqueName)"
+            />
           </li>
           <li v-if="dbInfo.archivelog">
             <span>Archive Log</span>
-            <SimpleBooleanIcon :value="dbInfo.archivelog" />
+            <SimpleBooleanIcon
+              :value="dbInfo.archivelog"
+              v-tooltip.right="options(dbInfo.archivelog)"
+            />
           </li>
           <li v-if="dbInfo.blockSize">
             <span>Block Size</span>
-            <span>{{ dbInfo.blockSize }}</span>
+            <span
+              v-tooltip.right="options(dbInfo.blockSize)"
+              v-html="highlight(dbInfo.blockSize)"
+            />
           </li>
           <li v-if="dbInfo.charset">
             <span>Charset</span>
-            <span>{{ dbInfo.charset }}</span>
+            <span
+              v-tooltip.right="options(dbInfo.charset)"
+              v-html="highlight(dbInfo.charset)"
+            />
           </li>
           <li v-if="dbInfo.nCharset">
             <span>N Charset</span>
-            <span>{{ dbInfo.nCharset }}</span>
+            <span
+              v-tooltip.right="options(dbInfo.nCharset)"
+              v-html="highlight(dbInfo.nCharset)"
+            />
           </li>
         </ul>
       </div>
@@ -46,19 +70,31 @@
               <li>Memory</li>
               <li v-if="dbInfo.memoryTarget">
                 <span>Memory Target</span>
-                <SimpleBooleanIcon :value="dbInfo.memoryTarget" />
+                <SimpleBooleanIcon
+                  :value="dbInfo.memoryTarget"
+                  v-tooltip.right="options(dbInfo.memoryTarget)"
+                />
               </li>
               <li v-if="dbInfo.pgaTarget">
                 <span>PGA Target (GB)</span>
-                <span>{{ dbInfo.pgaTarget }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.pgaTarget)"
+                  v-html="highlight(dbInfo.pgaTarget)"
+                />
               </li>
               <li v-if="dbInfo.sgaMaxSize">
                 <span>SGA MaxSize (GB)</span>
-                <span>{{ dbInfo.sgaMaxSize }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.sgaMaxSize)"
+                  v-html="highlight(dbInfo.sgaMaxSize)"
+                />
               </li>
               <li v-if="dbInfo.sgaTarget">
                 <span>SGA Target (GB)</span>
-                <span>{{ dbInfo.sgaTarget }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.sgaTarget)"
+                  v-html="highlight(dbInfo.sgaTarget)"
+                />
               </li>
             </ul>
           </div>
@@ -70,19 +106,31 @@
               <li>Resource Utilization</li>
               <li v-if="dbInfo.dbTime">
                 <span>Db Time</span>
-                <span>{{ dbInfo.dbTime }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.dbTime)"
+                  v-html="highlight(dbInfo.dbTime)"
+                />
               </li>
               <li v-if="dbInfo.elapsed">
                 <span>Elapsed</span>
-                <span>{{ dbInfo.elapsed }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.elapsed)"
+                  v-html="highlight(dbInfo.elapsed)"
+                />
               </li>
               <li v-if="dbInfo.work">
                 <span>DB time / Elapsed (min. 1)</span>
-                <span>{{ dbInfo.work }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.work)"
+                  v-html="highlight(dbInfo.work)"
+                />
               </li>
               <li v-if="dbInfo.cpuCount">
                 <span>CPU Count</span>
-                <span>{{ dbInfo.cpuCount }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.cpuCount)"
+                  v-html="highlight(dbInfo.cpuCount)"
+                />
               </li>
             </ul>
           </div>
@@ -96,15 +144,24 @@
               <li>Space Utilization</li>
               <li v-if="dbInfo.allocable">
                 <span>Allocable (GB)</span>
-                <span>{{ dbInfo.allocable }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.allocable)"
+                  v-html="highlight(dbInfo.allocable)"
+                />
               </li>
               <li v-if="dbInfo.allocable">
                 <span>DataFile Size (GB)</span>
-                <span>{{ dbInfo.allocable }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.allocable)"
+                  v-html="highlight(dbInfo.allocable)"
+                />
               </li>
               <li v-if="dbInfo.segmentsSize">
                 <span>Segments Size (GB)</span>
-                <span>{{ dbInfo.segmentsSize }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.segmentsSize)"
+                  v-html="highlight(dbInfo.segmentsSize)"
+                />
               </li>
             </ul>
           </div>
@@ -116,19 +173,31 @@
               <li>Additional Info</li>
               <li v-if="dbInfo.asm">
                 <span>ASM</span>
-                <SimpleBooleanIcon :value="dbInfo.asm" />
+                <SimpleBooleanIcon
+                  :value="dbInfo.asm"
+                  v-tooltip.right="options(dbInfo.asm)"
+                />
               </li>
               <li v-if="dbInfo.dataguard">
                 <span>Data Guard</span>
-                <SimpleBooleanIcon :value="dbInfo.dataguard" />
+                <SimpleBooleanIcon
+                  :value="dbInfo.dataguard"
+                  v-tooltip.right="options(dbInfo.dataguard)"
+                />
               </li>
               <li v-if="dbInfo.platform">
                 <span>Platform</span>
-                <span>{{ dbInfo.platform }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.platform)"
+                  v-html="highlight(dbInfo.platform)"
+                />
               </li>
               <li v-if="dbInfo.version">
                 <span>Version</span>
-                <span>{{ dbInfo.version }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.version)"
+                  v-html="highlight(dbInfo.version)"
+                />
               </li>
             </ul>
           </div>
@@ -139,73 +208,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { mapBooleanIcon } from '@/helpers/helpers.js'
-import { filterOptionsOracle } from '@/helpers/hostDetails/filterOptions/oracle.js'
-import SimpleBooleanIcon from '@/components/common/SimpleBooleanIcon.vue'
+import infoMixin from '@/mixins/hostDetails/info.js'
 
 export default {
-  props: {
-    dbInfo: {
-      type: Object,
-      default: () => {},
-    },
-  },
-  components: {
-    SimpleBooleanIcon,
-  },
-  methods: {
-    bindIcon(value) {
-      return mapBooleanIcon(value)
-    },
-  },
-  computed: {
-    ...mapState(['hostDetails']),
-    hasInfo() {
-      return (
-        (this.hostDetails.selectedKeys.length === 1 &&
-          this.hostDetails.selectedKeys.includes('name')) ||
-        filterOptionsOracle.filter(
-          (opt) =>
-            this.hostDetails.selectedKeys.includes(opt.value) &&
-            opt.group === 'info'
-        ).length > 0
-      )
-    },
-  },
+  mixins: [infoMixin],
 }
 </script>
 
-<style lang="scss" scoped>
-.db-info {
-  padding-top: 0;
-
-  li {
-    padding: 0 5px;
-    font-size: 0.7em;
-
-    span:first-child {
-      font-weight: 500;
-    }
-  }
-
-  li:not(:first-child) {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
-    padding: 3px 6px;
-
-    &:nth-child(odd) {
-      background: #f1f1f1;
-    }
-  }
-
-  li:first-child {
-    box-shadow: 0 0.08em 0 lightslategrey;
-    font-weight: 600;
-    text-transform: uppercase;
-    padding-left: 0;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

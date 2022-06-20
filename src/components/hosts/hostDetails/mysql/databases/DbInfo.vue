@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="Info" v-if="hasInfo">
+  <b-tab-item label="Info" class="databasesInfo" v-if="hasInfo">
     <div class="columns is-mobile is-multiline">
       <div class="column">
         <div class="columns">
@@ -8,27 +8,45 @@
               <li>Database Details</li>
               <li v-if="dbInfo.dbName">
                 <span>Db Name</span>
-                <span>{{ dbInfo.dbName }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.dbName)"
+                  v-html="highlight(dbInfo.dbName)"
+                />
               </li>
               <li v-if="dbInfo.version">
                 <span>Version</span>
-                <span>{{ dbInfo.version }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.version)"
+                  v-html="highlight(dbInfo.version)"
+                />
               </li>
               <li v-if="dbInfo.platform">
                 <span>Platform</span>
-                <span>{{ dbInfo.platform }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.platform)"
+                  v-html="highlight(dbInfo.platform)"
+                />
               </li>
               <li v-if="dbInfo.architecture">
                 <span>Architecture</span>
-                <span>{{ dbInfo.architecture }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.architecture)"
+                  v-html="highlight(dbInfo.architecture)"
+                />
               </li>
               <li v-if="dbInfo.edition">
                 <span>Edition</span>
-                <span>{{ dbInfo.edition }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.edition)"
+                  v-html="highlight(dbInfo.edition)"
+                />
               </li>
               <li v-if="dbInfo.engine">
                 <span>Engine</span>
-                <span>{{ dbInfo.engine }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.engine)"
+                  v-html="highlight(dbInfo.engine)"
+                />
               </li>
             </ul>
           </div>
@@ -37,15 +55,24 @@
               <li>Memory</li>
               <li v-if="dbInfo.sortBufferSize">
                 <span>Sort Buffer Size</span>
-                <span>{{ dbInfo.sortBufferSize }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.sortBufferSize)"
+                  v-html="highlight(dbInfo.sortBufferSize)"
+                />
               </li>
               <li v-if="dbInfo.logBufferSize">
                 <span>Log Buffer Size</span>
-                <span>{{ dbInfo.logBufferSize }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.logBufferSize)"
+                  v-html="highlight(dbInfo.logBufferSize)"
+                />
               </li>
               <li v-if="dbInfo.bufferPoolSize">
                 <span>Pool Buffer Size</span>
-                <span>{{ dbInfo.bufferPoolSize }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.bufferPoolSize)"
+                  v-html="highlight(dbInfo.bufferPoolSize)"
+                />
               </li>
             </ul>
           </div>
@@ -54,27 +81,45 @@
               <li>Additional Info</li>
               <li v-if="dbInfo.readOnly">
                 <span>Read Only</span>
-                <SimpleBooleanIcon :value="dbInfo.readOnly" />
+                <SimpleBooleanIcon
+                  :value="dbInfo.readOnly"
+                  v-tooltip.right="options(dbInfo.readOnly)"
+                />
               </li>
               <li v-if="dbInfo.redoLogEnabled">
                 <span>Redo Log Enabled</span>
-                <span>{{ dbInfo.redoLogEnabled }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.redoLogEnabled)"
+                  v-html="highlight(dbInfo.redoLogEnabled)"
+                />
               </li>
               <li v-if="dbInfo.threadsConcurrency">
                 <span>Threads Concurrency</span>
-                <span>{{ dbInfo.threadsConcurrency }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.threadsConcurrency)"
+                  v-html="highlight(dbInfo.threadsConcurrency)"
+                />
               </li>
               <li v-if="dbInfo.charsetServer">
                 <span>Server Charset</span>
-                <span>{{ dbInfo.charsetServer }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.charsetServer)"
+                  v-html="highlight(dbInfo.charsetServer)"
+                />
               </li>
               <li v-if="dbInfo.charsetSystem">
                 <span>System Charset</span>
-                <span>{{ dbInfo.charsetSystem }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.charsetSystem)"
+                  v-html="highlight(dbInfo.charsetSystem)"
+                />
               </li>
               <li v-if="dbInfo.pageSize">
                 <span>Page Size</span>
-                <span>{{ dbInfo.pageSize }}</span>
+                <span
+                  v-tooltip.right="options(dbInfo.pageSize)"
+                  v-html="highlight(dbInfo.pageSize)"
+                />
               </li>
             </ul>
           </div>
@@ -85,73 +130,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { mapBooleanIcon } from '@/helpers/helpers.js'
-import { filterOptionsMysql } from '@/helpers/hostDetails/filterOptions/mysql.js'
-import SimpleBooleanIcon from '@/components/common/SimpleBooleanIcon.vue'
+import infoMixin from '@/mixins/hostDetails/info.js'
 
 export default {
-  props: {
-    dbInfo: {
-      type: Object,
-      default: () => {},
-    },
-  },
-  components: {
-    SimpleBooleanIcon,
-  },
-  methods: {
-    bindIcon(value) {
-      return mapBooleanIcon(value)
-    },
-  },
-  computed: {
-    ...mapState(['hostDetails']),
-    hasInfo() {
-      return (
-        (this.hostDetails.selectedKeys.length === 1 &&
-          this.hostDetails.selectedKeys.includes('name')) ||
-        filterOptionsMysql.filter(
-          (opt) =>
-            this.hostDetails.selectedKeys.includes(opt.value) &&
-            opt.group === 'info'
-        ).length > 0
-      )
-    },
-  },
+  mixins: [infoMixin],
 }
 </script>
 
-<style lang="scss" scoped>
-.db-info {
-  padding-top: 0;
-
-  li {
-    padding: 0 5px;
-    font-size: 0.7em;
-
-    span:first-child {
-      font-weight: 500;
-    }
-  }
-
-  li:not(:first-child) {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
-    padding: 3px 6px;
-
-    &:nth-child(odd) {
-      background: #f1f1f1;
-    }
-  }
-
-  li:first-child {
-    box-shadow: 0 0.08em 0 lightslategrey;
-    font-weight: 600;
-    text-transform: uppercase;
-    padding-left: 0;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

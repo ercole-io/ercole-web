@@ -27,14 +27,17 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
+
+import databaseTypeMixin from '@/mixins/hostDetails/databaseType.js'
 import hostDatabasesFilters from '@/mixins/hostDatabasesFilters.js'
+
 import ChartCpu from '@/components/hosts/hostDetails/oracle/ChartCpu.vue'
 import DatabasesData from '@/components/hosts/hostDetails/DatabasesData.vue'
 import DatabasesFilters from '@/components/hosts/hostDetails/DatabasesFilters.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
-  mixins: [hostDatabasesFilters],
+  mixins: [hostDatabasesFilters, databaseTypeMixin],
   components: {
     DatabasesData,
     DatabasesFilters,
@@ -54,22 +57,9 @@ export default {
   computed: {
     ...mapGetters([
       'currentHostDBs',
-      'currentHostType',
       'currentDatabasesOptions',
       'loadingTableStatus',
     ]),
-    isOracle() {
-      return this.currentHostType === 'oracle'
-    },
-    isMysql() {
-      return this.currentHostType === 'mysql'
-    },
-    isMicrosoft() {
-      return this.currentHostType === 'microsoft'
-    },
-    isPostgresql() {
-      return this.currentHostType === 'postgresql'
-    },
   },
 }
 </script>
