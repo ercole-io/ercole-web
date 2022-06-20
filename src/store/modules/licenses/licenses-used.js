@@ -31,6 +31,7 @@ export const getters = {
         fullPartNumber: val.fullPartNumber,
         ignored: val.ignored,
         ignoredComment: val.ignoredComment,
+        olvmCapped: val.olvmCapped,
       })
     })
 
