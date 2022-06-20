@@ -100,16 +100,11 @@ export default {
     bus.$on('finishRetrieveUpdates', () => {
       setTimeout(() => {
         this.getErcoleRecommendations()
-        this.getErcoleRecommendationsErrors()
       }, 500)
     })
   },
   methods: {
-    ...mapActions([
-      'getErcoleRecommendations',
-      'getErcoleRecommendationsErrors',
-      'retireveRecommendations',
-    ]),
+    ...mapActions(['getErcoleRecommendations', 'retireveRecommendations']),
     ...mapMutations([
       'SET_OCI_ACTIVE_PROFILE_ERRORS',
       'SET_OCI_ACTIVE_PROFILE_GENERAL_ERRORS',
