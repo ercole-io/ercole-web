@@ -21,7 +21,7 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import Notifications from '@/components/hosts/hostDetails/Notifications.vue'
 import FileSystems from '@/components/hosts/hostDetails/FileSystems.vue'
 import DismissHost from '@/components/hosts/hostDetails/DismissHost.vue'
@@ -55,34 +55,25 @@ export default {
   },
   beforeMount() {
     this.getHostByName(this.hostname)
-    this.getLicensesByHostName(this.hostname)
-    this.getDbGrantsByHostName(this.hostname)
 
-    this.SET_ACTIVE_DB(this.dbname)
-
-    bus.$emit('dynamicTitle', this.hostname)
+    if (this.dbname !== '') {
+      this.SET_ACTIVE_DB(this.dbname)
+    }
 
     if (this.$route.name === 'hosts-details') {
       this.getHostNames()
     } else if (this.$route.name === 'cluster-details') {
       this.getClusterNames()
     }
+
+    bus.$emit('dynamicTitle', this.hostname)
   },
   mounted() {
     this.isMounted = true
   },
   methods: {
-    ...mapActions([
-      'getHostByName',
-      'getDbGrantsByHostName',
-      'getLicensesByHostName',
-      'getHostNames',
-      'getClusterNames',
-    ]),
+    ...mapActions(['getHostByName', 'getHostNames', 'getClusterNames']),
     ...mapMutations(['SET_ACTIVE_DB', 'SET_HOSTNAMES', 'SET_CLUSTERNAMES']),
-  },
-  computed: {
-    ...mapGetters(['currentHostType']),
   },
 }
 </script>

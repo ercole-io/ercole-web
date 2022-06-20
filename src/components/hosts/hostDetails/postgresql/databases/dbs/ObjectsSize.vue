@@ -1,7 +1,7 @@
 <template>
   <FullTable
     :tableData="objectsSize"
-    :keys="[]"
+    :keys="keys"
     hideSearch
     hidePerpage
     hidePagination
@@ -50,6 +50,22 @@ export default {
   components: {
     FullTable,
     TdContent,
+  },
+  data() {
+    return {
+      keys: [
+        'schemaName',
+        'schemaOwner',
+        'schemaSize',
+        'tablesCount',
+        'tablesSize',
+        'viewsCount',
+        'indexesCount',
+        'indexesSize',
+        'matviewsCount',
+        'matviewsSize',
+      ],
+    }
   },
 }
 </script>

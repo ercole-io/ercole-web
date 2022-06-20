@@ -2,7 +2,7 @@
   <section class="wrap-table py-3">
     <FullTable
       :tableData="fileGroups"
-      :keys="[]"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
@@ -46,6 +46,19 @@ export default {
   components: {
     FullTable,
     TdContent,
+  },
+  data() {
+    return {
+      keys: [
+        'alloc',
+        'fileType',
+        'filename',
+        'growth',
+        'growthUnit',
+        'status',
+        'used',
+      ],
+    }
   },
 }
 </script>

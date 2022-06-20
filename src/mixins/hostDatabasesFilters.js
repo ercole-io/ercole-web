@@ -1,5 +1,5 @@
 import { bus } from '@/helpers/eventBus.js'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   data() {
@@ -14,38 +14,29 @@ export default {
     })
   },
   methods: {
+    ...mapMutations(['SET_SEARCH_TERM_DB']),
     onSearch(e) {
       if (e !== '' && e.length > 0) {
         bus.$emit('isSearching', true)
         bus.$emit('sendSearchVal', e)
+        this.SET_SEARCH_TERM_DB(e)
       }
     },
     onSearchBlur() {
       if (this.searchDb.length === 0) {
         bus.$emit('isSearching', false)
         bus.$emit('sendSearchVal', '')
+        this.SET_SEARCH_TERM_DB('')
       }
     },
   },
   computed: {
-    ...mapGetters(['currentHostType', 'currentHostFiltered', 'currentHostDBs']),
+    ...mapGetters(['currentHostFiltered', 'currentHostDBs']),
     countDatabases() {
-      return this.currentHostFiltered(this.searchDb).length
+      return this.currentHostFiltered.length
     },
     showDatabases() {
-      return this.currentHostFiltered(this.searchDb).length > 0
-    },
-    isOracle() {
-      return this.currentHostType === 'oracle'
-    },
-    isMysql() {
-      return this.currentHostType === 'mysql'
-    },
-    isMicrosoft() {
-      return this.currentHostType === 'microsoft'
-    },
-    isPostgresql() {
-      return this.currentHostType === 'postgresql'
+      return this.currentHostFiltered.length > 0
     },
   },
 }

@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="Pluggable DBs" v-if="pdbs.length > 0">
+  <b-tab-item label="Pluggable DBs" v-if="pdbs && pdbs.length > 0">
     <b-collapse
       v-for="(pdb, i) in pdbs"
       :key="i"

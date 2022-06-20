@@ -1,12 +1,12 @@
 <template>
-  <b-tab-item label="DB Growth" v-if="growth.length > 0">
+  <b-tab-item label="DB Growth" v-if="growth && growth.length > 0">
     <RangeDates
       :setRange="SET_RANGE_DATES_ALT"
       totalRange="31"
       class="mt-0 mr-0"
     />
     <LineChart
-      :chartId="growthId"
+      chartId="growthId"
       :lineChartData="mountDbGrowthChart"
       class="mt-5"
     />
@@ -20,29 +20,30 @@ import { mapMutations, mapState } from 'vuex'
 import {
   setRangeDateFormat,
   checkRangeDate,
-  getKeyValuePair
+  getKeyValuePair,
 } from '@/helpers/helpers.js'
 import LineChart from '@/components/common/charts/LineChart.vue'
 import RangeDates from '@/components/common/RangeDates.vue'
 
 export default {
   props: {
-    growthId: {
-      type: String,
-      required: true
-    },
+    // growthId: {
+    //   type: String,
+    //   required: true,
+    // },
     growth: {
       type: Array,
-      default: null
-    }
+      default: null,
+    },
   },
   components: {
     LineChart,
-    RangeDates
+    RangeDates,
   },
   data() {
     return {
-      chartData: []
+      chartData: [],
+      num: 0,
     }
   },
   methods: {
@@ -50,14 +51,14 @@ export default {
     calcDatafileSize() {
       const datafile = []
 
-      _.map(this.growth, val => {
+      _.map(this.growth, (val) => {
         const { datafileSize, updated } = val
         let date = setRangeDateFormat(updated)
 
         if (checkRangeDate(date, this.rangeDates.rangeDatesAlt)) {
           datafile.push({
             date: moment(updated).format('ll'),
-            value: datafileSize
+            value: datafileSize,
           })
         }
       })
@@ -69,14 +70,14 @@ export default {
     calcSegmentsSize() {
       const segments = []
 
-      _.map(this.growth, val => {
+      _.map(this.growth, (val) => {
         const { segmentsSize, updated } = val
         let date = setRangeDateFormat(updated)
 
         if (checkRangeDate(date, this.rangeDates.rangeDatesAlt)) {
           segments.push({
             date: moment(updated).format('ll'),
-            value: segmentsSize
+            value: segmentsSize,
           })
         }
       })
@@ -88,14 +89,14 @@ export default {
     calcAllocatedSize() {
       const allocated = []
 
-      _.map(this.growth, val => {
+      _.map(this.growth, (val) => {
         const { allocable, updated } = val
         let date = setRangeDateFormat(updated)
 
         if (checkRangeDate(date, this.rangeDates.rangeDatesAlt)) {
           allocated.push({
             date: moment(updated).format('ll'),
-            value: allocable
+            value: allocable,
           })
         }
       })
@@ -103,7 +104,7 @@ export default {
       _.reverse(allocated)
 
       return getKeyValuePair(allocated, 'date', 'value')
-    }
+    },
   },
   computed: {
     ...mapState(['rangeDates']),
@@ -111,10 +112,10 @@ export default {
       return [
         { name: 'Datafile Size', data: this.calcDatafileSize() },
         { name: 'Segments Size', data: this.calcSegmentsSize() },
-        { name: 'Allocable Size', data: this.calcAllocatedSize() }
+        { name: 'Allocable Size', data: this.calcAllocatedSize() },
       ]
-    }
-  }
+    },
+  },
 }
 </script>
 

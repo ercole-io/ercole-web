@@ -8,7 +8,11 @@
     animated
     v-if="showDatabases"
   >
-    <b-tab-item v-for="(dbs, i) in currentDBs" :label="dbs.name" :key="i">
+    <b-tab-item
+      v-for="(dbs, i) in currentHostFiltered"
+      :label="dbs.name"
+      :key="i"
+    >
       <b-tabs
         size="is-small"
         type="is-toggle"
@@ -18,39 +22,21 @@
         animated
         destroy-on-hide
       >
-        <DbInfo :dbInfo="dbs" v-if="getCheckedFilters('info')" />
-        <DbPDBs :pdbs="dbs.pdbs" v-if="getCheckedFilters('pdbs')" />
-        <DbLicenses
-          :licenses="dbs.licenses"
-          v-if="getCheckedFilters('licenses')"
-        />
-        <DbGrants
-          :dbGrants="dbs.dbGrants"
-          v-if="getCheckedFilters('dbGrants')"
-        />
-        <DbOptions :options="dbs.options" v-if="getCheckedFilters('options')" />
-        <DbTablespaces
-          :tablespaces="dbs.tablespaces"
-          v-if="getCheckedFilters('tablespaces')"
-        />
-        <DbSchemas :schemas="dbs.schemas" v-if="getCheckedFilters('schemas')" />
-        <DbPatches :patches="dbs.patches" v-if="getCheckedFilters('patches')" />
-        <DbPSUs :psus="dbs.psus" v-if="getCheckedFilters('psus')" />
-        <DbADDMs :addms="dbs.addms" v-if="getCheckedFilters('addms')" />
-        <DbSegmentAdvisors
-          :segmentAdvisors="dbs.segmentAdvisors"
-          v-if="getCheckedFilters('segmentAdvisors')"
-        />
-        <DbGrowth
-          :growth="dbs.dbGrowth"
-          :growthId="dbs.name"
-          v-if="getCheckedFilters('dbGrowth')"
-        />
-        <DbBackups :backups="dbs.backups" v-if="getCheckedFilters('backups')" />
-        <DbServices
-          :services="dbs.services"
-          v-if="getCheckedFilters('services')"
-        />
+        <DbInfo :dbInfo="dbs" />
+        <DbPDBs :pdbs="dbs.pdbs" />
+        <DbLicenses :licenses="dbs.licenses" />
+        <DbGrants :dbGrants="dbs.dbGrants" />
+        <DbOptions :options="dbs.options" />
+        <DbTablespaces :tablespaces="dbs.tablespaces" />
+        <DbSchemas :schemas="dbs.schemas" />
+        <DbPatches :patches="dbs.patches" />
+        <DbPSUs :psus="dbs.psus" />
+        <DbADDMs :addms="dbs.addms" />
+        <DbSegmentAdvisors :segmentAdvisors="dbs.segmentAdvisors" />
+        <DbGrowth :growth="dbs.dbGrowth" />
+        <!-- :growthId="dbs.name" -->
+        <DbBackups :backups="dbs.backups" />
+        <DbServices :services="dbs.services" />
       </b-tabs>
     </b-tab-item>
   </b-tabs>
@@ -94,7 +80,7 @@ export default {
     DbGrants,
   },
   computed: {
-    ...mapGetters(['getCheckedFilters']),
+    ...mapGetters(['currentHostFiltered']),
   },
 }
 </script>
