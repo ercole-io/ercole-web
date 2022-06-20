@@ -1,8 +1,11 @@
 <template>
-  <b-tab-item label="Table Schemas" v-if="tableSchemas.length > 0">
+  <b-tab-item
+    label="Table Schemas"
+    v-if="tableSchemas && tableSchemas.length > 0"
+  >
     <FullTable
       :tableData="tableSchemas"
-      :keys="[]"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
@@ -38,6 +41,11 @@ export default {
   components: {
     FullTable,
     TdContent,
+  },
+  data() {
+    return {
+      keys: ['name', 'engine', 'allocation'],
+    }
   },
 }
 </script>

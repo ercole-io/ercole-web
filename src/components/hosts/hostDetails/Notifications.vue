@@ -1,57 +1,57 @@
 <template>
   <GhostLoading :isLoading="loadingTableStatus" setHeight="30" setWidth="360">
     <span class="has-text-weight-medium is-size-7">
-      {{ currentHostNotifications.total }}
+      {{ notifications.total }}
       {{ $t('views.hostDetails.notifications') }}
       <a
-        v-if="currentHostNotifications.agents > 0"
-        @click="redirectToAlerts(currentHostNotifications.hostname, 'AGENT')"
+        v-if="notifications.agents > 0"
+        @click="redirectToAlerts(notifications.hostname, 'AGENT')"
         class="is-active"
       >
         <span class="has-text-weight-light">
           {{ $t('views.hostDetails.agents') }}:
         </span>
-        {{ currentHostNotifications.agents }}
+        {{ notifications.agents }}
       </a>
-      <span v-if="currentHostNotifications.agents === 0">
+      <span v-if="notifications.agents === 0">
         <span class="has-text-weight-light">
           {{ $t('views.hostDetails.agents') }}:
         </span>
-        {{ currentHostNotifications.agents }}
+        {{ notifications.agents }}
       </span>
       |
       <a
-        v-if="currentHostNotifications.licenses > 0"
-        @click="redirectToAlerts(currentHostNotifications.hostname, 'LICENSE')"
+        v-if="notifications.licenses > 0"
+        @click="redirectToAlerts(notifications.hostname, 'LICENSE')"
         class="is-active"
       >
         <span class="has-text-weight-light">
           {{ $t('views.hostDetails.licenses') }}:
         </span>
-        {{ currentHostNotifications.licenses }}
+        {{ notifications.licenses }}
       </a>
-      <span v-if="currentHostNotifications.licenses === 0">
+      <span v-if="notifications.licenses === 0">
         <span class="has-text-weight-light">
           {{ $t('views.hostDetails.licenses') }}:
         </span>
-        {{ currentHostNotifications.licenses }}
+        {{ notifications.licenses }}
       </span>
       |
       <a
-        v-if="currentHostNotifications.engine > 0"
-        @click="redirectToAlerts(currentHostNotifications.hostname, 'ENGINE')"
+        v-if="notifications.engine > 0"
+        @click="redirectToAlerts(notifications.hostname, 'ENGINE')"
         class="is-active"
       >
         <span class="has-text-weight-light">
           {{ $t('views.hostDetails.engine') }}:
         </span>
-        {{ currentHostNotifications.engine }}
+        {{ notifications.engine }}
       </a>
-      <span v-if="currentHostNotifications.engine === 0">
+      <span v-if="notifications.engine === 0">
         <span class="has-text-weight-light">
           {{ $t('views.hostDetails.engine') }}:
         </span>
-        {{ currentHostNotifications.engine }}
+        {{ notifications.engine }}
       </span>
     </span>
   </GhostLoading>
@@ -76,7 +76,10 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['currentHostNotifications', 'loadingTableStatus']),
+    ...mapGetters(['hostNotifications', 'loadingTableStatus']),
+    notifications() {
+      return this.hostNotifications
+    },
   },
 }
 </script>
