@@ -25,7 +25,7 @@
       <td>
         <span
           class="is-block has-text-centered"
-          v-copy="rowData.scope.Download"
+          v-copy="getDownloadUrl(rowData.scope.Download)"
         >
           <b-icon icon="copy" pack="fas" size="is-small" type="is-info" />
         </span>
@@ -78,8 +78,17 @@ export default {
       ],
     }
   },
+  methods: {
+    getDownloadUrl(value) {
+      return `${this.getRepoServiceBaseUrl}/all/${value}`
+    },
+  },
   computed: {
-    ...mapGetters(['getRepository', 'loadingTableStatus']),
+    ...mapGetters([
+      'getRepository',
+      'getRepoServiceBaseUrl',
+      'loadingTableStatus',
+    ]),
   },
 }
 </script>
