@@ -1,7 +1,7 @@
 <template>
-  <b-tab-item label="Licenses" v-if="dbLicenses.length > 0">
+  <b-tab-item label="Licenses" v-if="licenses && licenses.length > 0">
     <FullTable
-      :tableData="dbLicenses"
+      :tableData="licenses"
       :keys="keys"
       hideSearch
       hidePerpage
@@ -21,7 +21,7 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <ignoreDbLicense
-          :db="dbName"
+          :db="rowData.scope.dbName"
           :host="$route.params.hostname"
           :licenseID="rowData.scope.licenseTypeID"
           :description="rowData.scope.description"
@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import ignoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
@@ -56,10 +55,6 @@ export default {
     licenses: {
       type: Array,
       default: null,
-    },
-    dbName: {
-      type: String,
-      required: true,
     },
   },
   components: {
@@ -79,12 +74,6 @@ export default {
         'ignoredComment',
       ],
     }
-  },
-  computed: {
-    ...mapGetters(['getCurrentHostDbLicenses']),
-    dbLicenses() {
-      return this.getCurrentHostDbLicenses(this.dbName)
-    },
   },
 }
 </script>

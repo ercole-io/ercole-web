@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="Tablespaces" v-if="tablespaces.length > 0">
+  <b-tab-item label="Tablespaces" v-if="tablespaces && tablespaces.length > 0">
     <FullTable
       :tableData="tablespaces"
       :keys="keys"

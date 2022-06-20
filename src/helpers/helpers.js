@@ -45,9 +45,11 @@ export const resolveSeverityIcon = (severity) => {
 // END: Resolve Icon Severity
 
 export const mapBooleanIcon = (value) => {
-  const yesValue = ['check-circle', 'is-success', 'yes']
-  const noValue = ['minus-circle', 'is-danger', 'no']
-  return value ? yesValue : noValue
+  if (value === true || value === 'yes') {
+    return ['check-circle', 'is-success', 'yes']
+  } else {
+    return ['minus-circle', 'is-danger', 'no']
+  }
 }
 
 export const mapClustStatus = (clust) => {

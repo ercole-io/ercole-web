@@ -1,8 +1,8 @@
 <template>
-  <b-tab-item label="Databases" v-if="databases.length > 0">
+  <b-tab-item label="Databases" v-if="databases && databases.length > 0">
     <FullTable
       :tableData="databases"
-      :keys="[]"
+      :keys="keys"
       hideSearch
       hidePerpage
       hidePagination
@@ -40,6 +40,11 @@ export default {
   components: {
     FullTable,
     TdContent,
+  },
+  data() {
+    return {
+      keys: ['name', 'charset', 'collation', 'encrypted'],
+    }
   },
 }
 </script>
