@@ -50,6 +50,10 @@
     "langKey": "common.collumns.pluggable"
   },
   {
+    "sort": "pdbs",
+    "langKey": "PDBs"
+  },
+  {
     "sort": "services",
     "langKey": "common.collumns.services"
   },
