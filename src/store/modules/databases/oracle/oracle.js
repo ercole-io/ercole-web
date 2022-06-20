@@ -21,10 +21,18 @@ export const getters = {
         services.push(serv.name)
       })
 
+      let pdbs = []
+      _.map(val.pdbs, (pdb) => {
+        if (pdb !== '') {
+          pdbs.push(pdb)
+        }
+      })
+
       oracleDbs.push({
         ...val,
         work: val.work === null ? 0 : val.work,
         services: services.length > 0 ? services : '-',
+        pdbs: pdbs.length > 0 ? pdbs : '-',
       })
       return oracleDbs
     })
