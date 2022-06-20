@@ -1,5 +1,5 @@
 export const state = () => ({
-  ociActiveProfile: [],
+  ociActiveProfile: false,
   ociActiveProfileErrors: '',
   ociActiveProfileGeneralErrors: [],
 })

@@ -33,8 +33,13 @@
     <template slot="bodyData" slot-scope="rowData">
       <td style="min-width: 0; text-align: center !important">
         <b-checkbox
-          v-model="activeOciProfiles"
-          :native-value="rowData.scope.id"
+          v-model="rowData.scope.selected"
+          @input="
+            activateProfile({
+              id: rowData.scope.id,
+              isActive: rowData.scope.selected,
+            })
+          "
         />
       </td>
       <td style="min-width: 0">
@@ -54,7 +59,13 @@
           class="delete-icon"
           pack="fas"
           icon="trash-alt"
-          @click.native="deleteProfile(rowData.scope.id, rowData.scope.profile)"
+          @click.native="
+            deleteProfile(
+              rowData.scope.id,
+              rowData.scope.profile,
+              rowData.scope.selected
+            )
+          "
         />
       </td>
       <TdContent :value="rowData.scope.profile" />
@@ -67,8 +78,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { bus } from '@/helpers/eventBus.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
@@ -90,20 +100,15 @@ export default {
         'region',
         'privateKey',
       ],
-      activeOciProfiles: [],
     }
   },
-  beforeMount() {
-    this.activeOciProfiles = this.getOciActiveProfiles
-  },
   methods: {
-    ...mapActions(['removeProfile']),
-    ...mapMutations(['SET_OCI_ACTIVE_PROFILE']),
+    ...mapActions(['removeProfile', 'activateProfile']),
     editProfile(profile) {
       bus.$emit('editProfile', profile)
     },
-    deleteProfile(id, profile) {
-      if (_.includes(this.activeOciProfiles, id)) {
+    deleteProfile(id, profile, isActive) {
+      if (isActive) {
         this.$buefy.dialog.alert(this.$i18n.t('views.cloud.cannotDelete'))
       } else {
         this.$buefy.dialog.confirm({
@@ -132,18 +137,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters([
-      'getOciProfiles',
-      'getOciActiveProfiles',
-      'loadingTableStatus',
-    ]),
-  },
-  watch: {
-    activeOciProfiles(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.SET_OCI_ACTIVE_PROFILE(newValue)
-      }
-    },
+    ...mapGetters(['getOciProfiles', 'loadingTableStatus']),
   },
 }
 </script>

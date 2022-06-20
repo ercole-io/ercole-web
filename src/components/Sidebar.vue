@@ -173,7 +173,7 @@ export default {
               href: { name: 'recommendations' },
               title: this.$i18n.t('menu.recommendations'),
               icon: 'fas fa-cog',
-              disabled: this.getOciActiveProfiles.length <= 0,
+              disabled: !this.getOciActiveProfiles,
             },
           ],
         },
