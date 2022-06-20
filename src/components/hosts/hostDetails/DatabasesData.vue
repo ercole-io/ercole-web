@@ -35,8 +35,10 @@
 </template>
 
 <script>
+import databaseTypeMixin from '@/mixins/hostDetails/databaseType.js'
 import hostDatabasesFilters from '@/mixins/hostDatabasesFilters.js'
 import hostDetailsDatabasesMixins from '@/mixins/hostDetailsDatabases.js'
+
 import BoxContent from '@/components/common/BoxContent.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 import HbuttonScroll from '@/components/HbuttonScroll.vue'
@@ -47,10 +49,9 @@ import Oracle from '@/components/hosts/hostDetails/oracle/databases/Databases.vu
 import Mirosoft from '@/components/hosts/hostDetails/microsoft/databases/Databases.vue'
 import Mysql from '@/components/hosts/hostDetails/mysql/databases/Databases.vue'
 import Postgre from '@/components/hosts/hostDetails/postgresql/databases/Databases.vue'
-import { mapGetters } from 'vuex'
 
 export default {
-  mixins: [hostDatabasesFilters, hostDetailsDatabasesMixins],
+  mixins: [hostDatabasesFilters, hostDetailsDatabasesMixins, databaseTypeMixin],
   components: {
     BoxContent,
     SearchInput,
@@ -61,21 +62,6 @@ export default {
     Mirosoft,
     Mysql,
     Postgre,
-  },
-  computed: {
-    ...mapGetters(['currentHostType']),
-    isOracle() {
-      return this.currentHostType === 'oracle'
-    },
-    isMysql() {
-      return this.currentHostType === 'mysql'
-    },
-    isMicrosoft() {
-      return this.currentHostType === 'microsoft'
-    },
-    isPostgresql() {
-      return this.currentHostType === 'postgresql'
-    },
   },
 }
 </script>
