@@ -108,34 +108,6 @@ export const getters = {
     })
     return usedLicensesByDb
   },
-  getCurrentHostDbGrants: (state) => (db) => {
-    const grantsByHost = state.currentHostDbGrants
-    const grantsByHostFormated = []
-    const dbGrants = []
-
-    _.map(grantsByHost, (val) => {
-      const defaultRole =
-        val.oracleGrantDba.defaultRole === 'yes' ? true : false
-      const adminOption =
-        val.oracleGrantDba.adminOption === 'yes' ? true : false
-
-      grantsByHostFormated.push({
-        dbName: val.databasename,
-        hostname: val.hostname,
-        adminOption: adminOption,
-        defaultRole: defaultRole,
-        grantee: val.oracleGrantDba.grantee,
-      })
-    })
-
-    _.map(grantsByHostFormated, (val) => {
-      if (val.dbName === db) {
-        dbGrants.push(val)
-      }
-    })
-
-    return dbGrants
-  },
   currentDatabasesOptions: (state, getters) => {
     const hostType = getters.currentHostType
 
@@ -252,7 +224,6 @@ export const actions = {
     const endPoints = [
       baseUrl,
       `${baseUrl}/technologies/all/databases/licenses-used`,
-      `${baseUrl}/technologies/all/databases/grant-dba`,
     ]
 
     await Promise.all(
@@ -274,7 +245,6 @@ export const actions = {
           commit('SET_CURRENT_HOST', allData[0].data)
           commit('SET_CURRENT_HOST_TYPE', getHostType(hostType))
           commit('SET_HOST_DB_LICENSES', allData[1].data.usedLicenses)
-          commit('SET_HOST_DB_GRANTS', allData[2].data)
 
           return hostDatabases
         })
@@ -283,7 +253,6 @@ export const actions = {
         if (databases) {
           const extraData = {
             licenses: (dbName) => getters.getCurrentHostDbLicenses(dbName),
-            dbGrants: (dbName) => getters.getCurrentHostDbGrants(dbName),
           }
 
           const type = getters.currentHostType

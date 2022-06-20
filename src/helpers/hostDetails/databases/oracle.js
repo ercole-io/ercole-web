@@ -43,10 +43,8 @@ const mapOracleDatabases = (data, extraData) => {
       dbGrowth: [...item.changes],
       backups: [...item.backups],
       services: resolveServices([...item.services]),
+      dbGrants: resolveDbGrants([...item.grantDba]),
       licenses: mapExtraData(item.name, extraData.licenses(item.name)),
-      dbGrants: resolveDbGrants(
-        mapExtraData(item.name, extraData.dbGrants(item.name))
-      ),
     })
   })
   return newData

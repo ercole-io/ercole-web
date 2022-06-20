@@ -25,7 +25,6 @@ const mapMysqlDatabases = (data, extraData) => {
       segmentAdvisors: [...item.segmentAdvisors],
       tableSchemas: [...item.tableSchemas],
       licenses: mapExtraData(item.name, extraData.licenses(item.name)),
-      dbGrants: mapExtraData(item.name, extraData.dbGrants(item.name)),
     })
   })
   return newData
