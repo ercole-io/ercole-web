@@ -61,12 +61,12 @@ const filterOptionsOracle = [
     },
   },
   {
-    name: 'ArchiveLog',
-    value: 'archiveLog',
+    name: 'Archive Log',
+    value: 'archivelog',
     level: 2,
     group: 'info',
     filter: (db, search) => {
-      return stringSearch(db.archiveLog, search)
+      return stringSearch(db.archivelog, search)
     },
   },
   {

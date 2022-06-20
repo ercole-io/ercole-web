@@ -1,7 +1,7 @@
 <template>
   <ul class="card-list">
     <template v-for="item in list">
-      <li v-if="item.value" :key="item.name">
+      <li v-if="item.value && !item.hasIcon" :key="item.name">
         <div class="columns">
           <span :class="`column is-${colSizes[0]}`">{{ item.name }}</span>
           <span
@@ -9,7 +9,12 @@
             v-html="highlight(toString(item.value))"
             :class="`column is-${colSizes[1]}`"
           />
-          <!-- <span
+        </div>
+      </li>
+      <li v-if="item.hasIcon" :key="item.name">
+        <div class="columns">
+          <span :class="`column is-${colSizes[0]}`">{{ item.name }}</span>
+          <span
             v-tooltip.right="options(bindIncon(item.value)[2])"
             :class="`column is-${colSizes[1]}`"
             v-if="item.hasIcon"
@@ -20,7 +25,7 @@
               :type="bindIncon(item.value)[1]"
               style="vertical-align: middle"
             />
-          </span> -->
+          </span>
         </div>
       </li>
     </template>

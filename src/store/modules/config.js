@@ -11,7 +11,7 @@ export const getters = {
   getAPIServiceBaseURL: (state) => state.config.APIServiceBaseUrl,
   getChartServiceBaseUrl: (state) => state.config.ChartServiceBaseUrl,
   getOracleCloudInfraUrl: (state) => state.config.ThunderServiceBaseUrl,
-  getRepoServiceBaseUrl: (state) => state.config.RepoServiceUrl,
+  getRepoServiceBaseUrl: (state) => state.config.RepoServiceBaseUrl,
 }
 
 export const mutations = {
