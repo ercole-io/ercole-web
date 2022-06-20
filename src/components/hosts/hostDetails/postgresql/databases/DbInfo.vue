@@ -12,39 +12,19 @@
               </li>
               <li v-if="dbInfo.isinreplica">
                 <span>Is In Replica</span>
-                <span>{{ dbInfo.isinreplica }}</span>
-                <!-- <b-icon
-                  size="is-small"
-                  :icon="bindIcon(dbInfo.isinreplica)[0]"
-                  :type="bindIcon(dbInfo.isinreplica)[1]"
-                /> -->
+                <SimpleBooleanIcon :value="dbInfo.isinreplica" />
               </li>
               <li v-if="dbInfo.ismaster">
                 <span>Is Master</span>
-                <span>{{ dbInfo.ismaster }}</span>
-                <!-- <b-icon
-                  size="is-small"
-                  :icon="bindIcon(dbInfo.ismaster)[0]"
-                  :type="bindIcon(dbInfo.ismaster)[1]"
-                /> -->
+                <SimpleBooleanIcon :value="dbInfo.ismaster" />
               </li>
               <li v-if="dbInfo.isslave">
                 <span>Is Slave</span>
-                <span>{{ dbInfo.isslave }}</span>
-                <!-- <b-icon
-                  size="is-small"
-                  :icon="bindIcon(dbInfo.isslave)[0]"
-                  :type="bindIcon(dbInfo.isslave)[1]"
-                /> -->
+                <SimpleBooleanIcon :value="dbInfo.isslave" />
               </li>
               <li v-if="dbInfo.archiverWorking">
                 <span>Archiver Working</span>
-                <span>{{ dbInfo.isslave }}</span>
-                <!-- <b-icon
-                  size="is-small"
-                  :icon="bindIcon(dbInfo.archiverWorking)[0]"
-                  :type="bindIcon(dbInfo.archiverWorking)[1]"
-                /> -->
+                <SimpleBooleanIcon :value="dbInfo.archiverWorking" />
               </li>
               <li v-if="dbInfo.port">
                 <span>Port</span>
@@ -99,6 +79,7 @@
 import { mapState } from 'vuex'
 import { mapBooleanIcon } from '@/helpers/helpers.js'
 import { filterOptionsPostgreSql } from '@/helpers/hostDetails/filterOptions/postgresql.js'
+import SimpleBooleanIcon from '@/components/common/SimpleBooleanIcon.vue'
 
 export default {
   props: {
@@ -106,6 +87,9 @@ export default {
       type: Object,
       default: () => {},
     },
+  },
+  components: {
+    SimpleBooleanIcon,
   },
   methods: {
     bindIcon(value) {

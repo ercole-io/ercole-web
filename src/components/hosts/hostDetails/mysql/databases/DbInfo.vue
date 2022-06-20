@@ -54,12 +54,7 @@
               <li>Additional Info</li>
               <li v-if="dbInfo.readOnly">
                 <span>Read Only</span>
-                <span>{{ dbInfo.readOnly }}</span>
-                <!-- <b-icon
-                  size="is-small"
-                  :icon="bindIcon(dbInfo.readOnly)[0]"
-                  :type="bindIcon(dbInfo.readOnly)[1]"
-                /> -->
+                <SimpleBooleanIcon :value="dbInfo.readOnly" />
               </li>
               <li v-if="dbInfo.redoLogEnabled">
                 <span>Redo Log Enabled</span>
@@ -93,6 +88,7 @@
 import { mapState } from 'vuex'
 import { mapBooleanIcon } from '@/helpers/helpers.js'
 import { filterOptionsMysql } from '@/helpers/hostDetails/filterOptions/mysql.js'
+import SimpleBooleanIcon from '@/components/common/SimpleBooleanIcon.vue'
 
 export default {
   props: {
@@ -100,6 +96,9 @@ export default {
       type: Object,
       default: () => {},
     },
+  },
+  components: {
+    SimpleBooleanIcon,
   },
   methods: {
     bindIcon(value) {
