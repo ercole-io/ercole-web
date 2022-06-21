@@ -1,9 +1,9 @@
 import _ from 'lodash'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import { mapBooleanIcon } from '@/helpers/helpers.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
-import databaseTypeMixin from '@/mixins/hostDetails/databaseType.js'
+import databaseTypesMixin from '@/mixins/hostDetails/databaseTypes.js'
 import SimpleBooleanIcon from '@/components/common/SimpleBooleanIcon.vue'
 
 import { filterOptionsPostgreSql } from '@/helpers/hostDetails/filterOptions/postgresql.js'
@@ -12,7 +12,7 @@ import { filterOptionsMicrosft } from '@/helpers/hostDetails/filterOptions/micro
 import { filterOptionsMysql } from '@/helpers/hostDetails/filterOptions/mysql.js'
 
 export default {
-  mixins: [TooltipMixin, HighlightSearchMixin, databaseTypeMixin],
+  mixins: [TooltipMixin, HighlightSearchMixin, databaseTypesMixin],
   props: {
     dbInfo: {
       type: Object,
@@ -50,15 +50,14 @@ export default {
     },
   },
   computed: {
-    ...mapState(['hostDetails']),
+    ...mapGetters(['returnSelectedKeys']),
     hasInfo() {
       return (
-        (this.hostDetails.selectedKeys.length === 1 &&
-          this.hostDetails.selectedKeys.includes('name')) ||
+        (this.returnSelectedKeys.length === 1 &&
+          this.returnSelectedKeys.includes('name')) ||
         this.dataOptions.filter(
           (opt) =>
-            this.hostDetails.selectedKeys.includes(opt.value) &&
-            opt.group === 'info'
+            this.returnSelectedKeys.includes(opt.value) && opt.group === 'info'
         ).length > 0
       )
     },

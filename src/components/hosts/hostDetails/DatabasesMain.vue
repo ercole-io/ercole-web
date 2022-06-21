@@ -15,10 +15,7 @@
         <template v-if="isOracle">
           <ChartCpu v-show="currentHostDBs.length > 0 && !showDbFilters" />
         </template>
-        <DatabasesFilters
-          :filters="currentDatabasesOptions"
-          v-show="showDbFilters"
-        />
+        <DatabasesFilters v-show="showDbFilters" />
       </div>
     </div>
   </GhostLoading>
@@ -28,8 +25,8 @@
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 
-import databaseTypeMixin from '@/mixins/hostDetails/databaseType.js'
-import hostDatabasesFilters from '@/mixins/hostDatabasesFilters.js'
+import databaseTypesMixin from '@/mixins/hostDetails/databaseTypes.js'
+import databaseFiltersMixin from '@/mixins/hostDetails/databaseFilters.js'
 
 import ChartCpu from '@/components/hosts/hostDetails/oracle/ChartCpu.vue'
 import DatabasesData from '@/components/hosts/hostDetails/DatabasesData.vue'
@@ -37,7 +34,7 @@ import DatabasesFilters from '@/components/hosts/hostDetails/DatabasesFilters.vu
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
-  mixins: [hostDatabasesFilters, databaseTypeMixin],
+  mixins: [databaseFiltersMixin, databaseTypesMixin],
   components: {
     DatabasesData,
     DatabasesFilters,
@@ -55,11 +52,7 @@ export default {
     })
   },
   computed: {
-    ...mapGetters([
-      'currentHostDBs',
-      'currentDatabasesOptions',
-      'loadingTableStatus',
-    ]),
+    ...mapGetters(['currentHostDBs', 'loadingTableStatus']),
   },
 }
 </script>

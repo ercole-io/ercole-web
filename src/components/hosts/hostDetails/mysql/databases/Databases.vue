@@ -4,7 +4,7 @@
     type="is-boxed"
     :animated="true"
     v-model="isActive"
-    @input="onChange"
+    @input="onChangeDbTab"
   >
     <b-tab-item
       v-for="(dbs, i) in currentHostFiltered"
@@ -32,17 +32,17 @@
 </template>
 
 <script>
-import hostDetailsDatabasesMixins from '@/mixins/hostDetailsDatabases.js'
+import databaseTabsMixin from '@/mixins/hostDetails/databaseTabs.js'
+
 import DbInfo from '@/components/hosts/hostDetails/mysql/databases/DbInfo.vue'
 import DbDatabases from '@/components/hosts/hostDetails/mysql/databases/DbDatabases.vue'
 import DbSegmantAdvisors from '@/components/hosts/hostDetails/mysql/databases/DbSegmantAdvisors.vue'
 import DbTableSchemas from '@/components/hosts/hostDetails/mysql/databases/DbTableSchemas.vue'
 import DbLicenses from '@/components/hosts/hostDetails/mysql/databases/DbLicenses.vue'
 import DbGrowth from '@/components/hosts/hostDetails/mysql/databases/DbGrowth.vue'
-import { mapGetters } from 'vuex'
 
 export default {
-  mixins: [hostDetailsDatabasesMixins],
+  mixins: [databaseTabsMixin],
   components: {
     DbInfo,
     DbDatabases,
@@ -50,9 +50,6 @@ export default {
     DbTableSchemas,
     DbLicenses,
     DbGrowth,
-  },
-  computed: {
-    ...mapGetters(['currentHostFiltered']),
   },
 }
 </script>

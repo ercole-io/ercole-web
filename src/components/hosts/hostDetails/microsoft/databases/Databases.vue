@@ -3,10 +3,9 @@
     size="is-small"
     type="is-boxed"
     v-model="isActive"
-    @input="onChange"
+    @input="onChangeDbTab"
     destroy-on-hide
     animated
-    v-if="showDatabases"
   >
     <b-tab-item
       v-for="(dbs, i) in currentHostFiltered"
@@ -31,22 +30,18 @@
 </template>
 
 <script>
-import hostDatabasesFilters from '@/mixins/hostDatabasesFilters.js'
-import hostDetailsDatabasesMixins from '@/mixins/hostDetailsDatabases.js'
+import databaseTabsMixin from '@/mixins/hostDetails/databaseTabs.js'
+
 import DbInfo from '@/components/hosts/hostDetails/microsoft/databases/DbInfo.vue'
 import DbDatabases from '@/components/hosts/hostDetails/microsoft/databases/DbDatabases.vue'
 import DbLicenses from '@/components/hosts/hostDetails/microsoft/databases/DbLicenses.vue'
-import { mapGetters } from 'vuex'
 
 export default {
-  mixins: [hostDatabasesFilters, hostDetailsDatabasesMixins],
+  mixins: [databaseTabsMixin],
   components: {
     DbInfo,
     DbDatabases,
     DbLicenses,
-  },
-  computed: {
-    ...mapGetters(['currentHostFiltered']),
   },
 }
 </script>

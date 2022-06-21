@@ -4,12 +4,12 @@
     type="is-boxed"
     :animated="true"
     v-model="isActive"
-    @input="onChange"
+    @input="onChangeDbTab"
   >
     <b-tab-item
       v-for="(dbs, i) in currentHostFiltered"
       :key="i"
-      :label="dbs.name"
+      :label="dbs.dbName"
     >
       <b-tabs
         size="is-small"
@@ -28,19 +28,16 @@
 </template>
 
 <script>
-import hostDetailsDatabasesMixins from '@/mixins/hostDetailsDatabases.js'
+import databaseTabsMixin from '@/mixins/hostDetails/databaseTabs.js'
+
 import DbInfo from '@/components/hosts/hostDetails/postgresql/databases/DbInfo.vue'
 import DbDatabases from '@/components/hosts/hostDetails/postgresql/databases/DbDatabases.vue'
-import { mapGetters } from 'vuex'
 
 export default {
-  mixins: [hostDetailsDatabasesMixins],
+  mixins: [databaseTabsMixin],
   components: {
     DbInfo,
     DbDatabases,
-  },
-  computed: {
-    ...mapGetters(['currentHostFiltered']),
   },
 }
 </script>

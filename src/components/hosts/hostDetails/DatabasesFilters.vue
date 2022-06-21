@@ -8,7 +8,6 @@
       :searchPlaceholder="$t('views.hostDetails.search')"
       v-model="searchDb"
       @input="onSearch($event)"
-      :onBlur="onSearchBlur"
       class="mb-3"
     />
 
@@ -57,19 +56,15 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex'
-import hostDatabasesFilters from '@/mixins/hostDatabasesFilters.js'
+import { mapGetters, mapMutations } from 'vuex'
+
+import databaseFiltersMixin from '@/mixins/hostDetails/databaseFilters.js'
+
 import BoxContent from '@/components/common/BoxContent.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 
 export default {
-  mixins: [hostDatabasesFilters],
-  props: {
-    filters: {
-      type: Array,
-      default: () => [],
-    },
-  },
+  mixins: [databaseFiltersMixin],
   components: {
     BoxContent,
     SearchInput,
@@ -80,7 +75,7 @@ export default {
     }
   },
   beforeMount() {
-    this.selectedKeys = this.hostDetails.selectedKeys
+    this.selectedKeys = this.returnSelectedKeys
   },
   methods: {
     ...mapMutations(['SET_SELECTED_KEYS']),
@@ -89,12 +84,12 @@ export default {
       this.SET_SELECTED_KEYS(this.selectedKeys)
     },
     onFilterClick(e) {
-      const clickedOption = this.filters.find(
+      const clickedOption = this.currentDatabasesOptions.find(
         (item) => item.value === e.target.value
       )
 
       if (clickedOption.group) {
-        const group = this.filters.filter(
+        const group = this.currentDatabasesOptions.filter(
           (item) => item.group === clickedOption.group
         )
 
@@ -137,9 +132,9 @@ export default {
     },
   },
   computed: {
-    ...mapState(['hostDetails']),
+    ...mapGetters(['currentDatabasesOptions', 'returnSelectedKeys']),
     filterOptions() {
-      return this.filters.map((opt) => ({
+      return this.currentDatabasesOptions.map((opt) => ({
         ...opt,
         disabled: opt.disabled ? opt.disabled(this.selectedKeys) : false,
       }))

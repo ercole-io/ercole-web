@@ -11,7 +11,6 @@
       v-model="searchDb"
       slot="customTitle"
       @input="onSearch($event)"
-      :onBlur="onSearchBlur"
       v-show="!hideMainSearch"
     />
 
@@ -35,9 +34,11 @@
 </template>
 
 <script>
-import databaseTypeMixin from '@/mixins/hostDetails/databaseType.js'
-import hostDatabasesFilters from '@/mixins/hostDatabasesFilters.js'
-import hostDetailsDatabasesMixins from '@/mixins/hostDetailsDatabases.js'
+import { bus } from '@/helpers/eventBus.js'
+import { mapGetters } from 'vuex'
+
+import databaseTypesMixin from '@/mixins/hostDetails/databaseTypes.js'
+import databaseFiltersMixin from '@/mixins/hostDetails/databaseFilters.js'
 
 import BoxContent from '@/components/common/BoxContent.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
@@ -51,7 +52,7 @@ import Mysql from '@/components/hosts/hostDetails/mysql/databases/Databases.vue'
 import Postgre from '@/components/hosts/hostDetails/postgresql/databases/Databases.vue'
 
 export default {
-  mixins: [hostDatabasesFilters, hostDetailsDatabasesMixins, databaseTypeMixin],
+  mixins: [databaseFiltersMixin, databaseTypesMixin],
   components: {
     BoxContent,
     SearchInput,
@@ -62,6 +63,25 @@ export default {
     Mirosoft,
     Mysql,
     Postgre,
+  },
+  data() {
+    return {
+      hideMainSearch: false,
+    }
+  },
+  beforeMount() {
+    bus.$on('isDbFiltersOpen', (val) => {
+      this.hideMainSearch = val
+    })
+  },
+  computed: {
+    ...mapGetters(['currentHostFiltered']),
+    countDatabases() {
+      return this.currentHostFiltered.length
+    },
+    showDatabases() {
+      return this.currentHostFiltered.length > 0
+    },
   },
 }
 </script>

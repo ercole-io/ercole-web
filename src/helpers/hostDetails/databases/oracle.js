@@ -9,6 +9,7 @@ const mapOracleDatabases = (data, extraData) => {
     newData.push({
       id: item.dbID.toString(),
       name: item.name.toString(),
+      dbName: item.name.toString(),
       status: item.status.toString(),
       role: item.role.toString(),
       dbID: item.dbID.toString(),
