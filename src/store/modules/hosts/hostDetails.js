@@ -191,9 +191,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async getHostByName({ commit, dispatch, getters }, hostname) {
-    dispatch('onLoadingTable')
-    const baseUrl = `/hosts/${hostname}`
+  async getHostByName({ commit, dispatch, getters }, payload) {
+    if (payload.loading) {
+      dispatch('onLoadingTable')
+    }
+
+    const baseUrl = `/hosts/${payload.hostname}`
     const endPoints = [
       baseUrl,
       `${baseUrl}/technologies/all/databases/licenses-used`,
