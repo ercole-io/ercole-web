@@ -4,6 +4,13 @@
       <div class="column is-4">
         <ul class="db-info">
           <li>Database Details</li>
+          <li v-if="dbInfo.dbName">
+            <span>Db Name</span>
+            <span
+              v-tooltip.right="options(dbInfo.dbName)"
+              v-html="highlight(dbInfo.dbName)"
+            />
+          </li>
           <li v-if="dbInfo.status">
             <span>Status</span>
             <span
@@ -208,7 +215,7 @@
 </template>
 
 <script>
-import infoMixin from '@/mixins/hostDetails/info.js'
+import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
 
 export default {
   mixins: [infoMixin],

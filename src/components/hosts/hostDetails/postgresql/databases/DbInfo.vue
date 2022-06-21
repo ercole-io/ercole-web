@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import infoMixin from '@/mixins/hostDetails/info.js'
+import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
 
 export default {
   mixins: [infoMixin],

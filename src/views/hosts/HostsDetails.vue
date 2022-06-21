@@ -29,18 +29,7 @@ import DetailsInfo from '@/components/hosts/hostDetails/DetailsInfo.vue'
 import DatabasesMain from '@/components/hosts/hostDetails/DatabasesMain.vue'
 
 export default {
-  props: {
-    hostname: {
-      type: String,
-      required: true,
-      default: '',
-    },
-    dbname: {
-      type: String,
-      required: false,
-      default: '',
-    },
-  },
+  props: ['hostname', 'dbname'],
   components: {
     Notifications,
     FileSystems,
@@ -55,8 +44,7 @@ export default {
   },
   beforeMount() {
     this.getHostByName(this.hostname)
-
-    if (this.dbname !== '') {
+    if (this.dbname) {
       this.SET_ACTIVE_DB(this.dbname)
     }
 
@@ -73,7 +61,10 @@ export default {
   },
   methods: {
     ...mapActions(['getHostByName', 'getHostNames', 'getClusterNames']),
-    ...mapMutations(['SET_ACTIVE_DB', 'SET_HOSTNAMES', 'SET_CLUSTERNAMES']),
+    ...mapMutations(['SET_ACTIVE_DB']),
+  },
+  beforeDestroy() {
+    this.SET_ACTIVE_DB('')
   },
 }
 </script>

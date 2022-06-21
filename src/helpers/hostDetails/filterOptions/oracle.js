@@ -25,6 +25,15 @@ const filterOptionsOracle = [
     group: 'info',
   },
   {
+    name: 'DB Name',
+    value: 'dbName',
+    level: 2,
+    group: 'info',
+    filter: (db, search) => {
+      return stringSearch(db.name, search)
+    },
+  },
+  {
     name: 'Status',
     value: 'status',
     level: 2,

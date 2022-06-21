@@ -25,7 +25,7 @@ const filterOptionsPostgreSql = [
     group: 'info',
   },
   {
-    name: 'Name',
+    name: 'DB Name',
     value: 'dbName',
     level: 2,
     group: 'info',

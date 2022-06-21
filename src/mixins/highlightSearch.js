@@ -7,7 +7,7 @@ export default {
     }
   },
   mounted() {
-    bus.$on('searchTerm', (val) => {
+    bus.$on('highlightSearch', (val) => {
       this.query = val
     })
   },

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import Loading from '@/components/common/Loading.vue'
 const default_layout = 'default'
 
@@ -27,21 +27,11 @@ export default {
   },
   methods: {
     ...mapActions(['tryAutoLogin', 'fetchConfig', 'offLoading']),
-    ...mapMutations([
-      'SET_IGNORE_LICENSE_ACTIVE_DB_TAB',
-      'SET_LICENMSES_SUB_TAB_ACTIVE',
-    ]),
   },
   computed: {
     ...mapGetters(['loadingStatus', 'isConfigLoaded']),
     layout() {
       return (this.$route.meta.layout || default_layout) + '-layout'
-    },
-  },
-  watch: {
-    $route() {
-      this.SET_IGNORE_LICENSE_ACTIVE_DB_TAB(0)
-      this.SET_LICENMSES_SUB_TAB_ACTIVE(0)
     },
   },
 }
