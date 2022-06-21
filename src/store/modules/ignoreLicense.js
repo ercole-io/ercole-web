@@ -7,9 +7,7 @@ export const getters = {}
 export const mutations = {}
 
 export const actions = {
-  async ignoreDatabaseLicense({ commit, dispatch }, data) {
-    dispatch('onLoading')
-
+  async ignoreDatabaseLicense({ commit }, data) {
     const oracleUrl = `/hosts/${data.hostname}/technologies/${data.type}/databases/${data.database}/licenses/${data.licenseID}/ignored/${data.status}`
     const microsoftUrl = `/hosts/${data.hostname}/technologies/${data.type}/databases/${data.database}/ignored/${data.status}`
     const mysqlUrl = `/hosts/${data.hostname}/technologies/${data.type}/databases/${data.database}/ignored/${data.status}`
@@ -35,7 +33,6 @@ export const actions = {
           commit('SET_IGNORE_DB_LICENSE', data)
         }
       }
-      dispatch('offLoading')
     })
   },
 }

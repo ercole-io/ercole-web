@@ -256,7 +256,7 @@ export default {
             })
           break
         case 'hosts-details':
-          this.getHostByName(params.hostname)
+          this.getHostByName({ hostname: params.hostname, loading: true })
           break
         case 'databases':
           this.getDatabases().then(() => this.offLoadingTable())
