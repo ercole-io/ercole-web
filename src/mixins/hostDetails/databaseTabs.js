@@ -13,14 +13,12 @@ export default {
   },
   beforeMount() {
     this.isActive = this.currentHostActiveDbIndex
-
     bus.$on('searchOnDbs', (val) => {
       if (val) {
         this.isActive = 0
       } else {
         this.isActive = this.currentHostActiveDbIndex
       }
-
       if (this.isOracle) {
         this.updateOracleChart(this.isActive)
       }
@@ -37,6 +35,7 @@ export default {
         this.updateOracleChart(index)
       }
       bus.$emit('onChangeDbTab')
+      this.isActiveSub = 0
     },
     updateOracleChart(dbIndex) {
       if (this.currentHostFiltered[dbIndex]) {
@@ -48,7 +47,7 @@ export default {
         ])
       }
     },
-    onChangeSub(index) {
+    onChangeSub() {
       bus.$emit('onChangeDbTab')
     },
   },

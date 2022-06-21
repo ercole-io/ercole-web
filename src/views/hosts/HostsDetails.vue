@@ -43,7 +43,7 @@ export default {
     }
   },
   beforeMount() {
-    this.getHostByName(this.hostname)
+    this.getHostByName({ hostname: this.hostname, loading: true })
     if (this.dbname) {
       this.SET_ACTIVE_DB(this.dbname)
     }

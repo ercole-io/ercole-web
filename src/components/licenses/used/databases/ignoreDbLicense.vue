@@ -78,7 +78,7 @@ export default {
 
       this.ignoreDatabaseLicense(data).then(() => {
         if (this.page === 'host-details') {
-          this.getHostByName(this.host)
+          this.getHostByName({ hostname: this.host, loading: false })
         } else {
           this.getLicensesDatabases()
         }
