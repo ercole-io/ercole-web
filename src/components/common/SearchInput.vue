@@ -9,12 +9,14 @@
     style="height: 30px; margin-left: auto"
     :placeholder="searchPlaceholder"
     @blur="onBlur"
+    @input="emitSearchTherm"
     v-model="searchTherm"
   />
 </template>
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -45,7 +47,7 @@ export default {
     this.searchTherm = this.urlParam
     this.emitSearchTherm(this.searchTherm)
 
-    bus.$on('sendSearchVal', (val) => {
+    bus.$on('searchOnDbs', (val) => {
       this.searchTherm = val
     })
 
@@ -54,24 +56,39 @@ export default {
         this.emitSearchTherm(this.searchTherm)
       }, 10)
     })
+
+    bus.$on('onChangeDbTab', () => {
+      if (this.searchTherm) {
+        setTimeout(() => {
+          bus.$emit('highlightSearch', this.searchTherm)
+        }, 10)
+      }
+    })
   },
   methods: {
     emitSearchTherm(value) {
-      bus.$emit('searchTerm', value)
+      if (this.hostDetailsHighlightSearch) {
+        bus.$emit('highlightSearch', value)
+      } else if (this.otherPagesHighlightSearch) {
+        bus.$emit('highlightSearch', value)
+      }
       this.$emit('input', value)
     },
     onClear() {
-      this.searchTherm = ''
-      this.emitSearchTherm(this.searchTherm)
+      this.emitSearchTherm('')
     },
   },
-  watch: {
-    searchTherm(value) {
-      if (value) {
-        this.emitSearchTherm(value)
-      } else {
-        this.emitSearchTherm('')
-      }
+  computed: {
+    ...mapGetters(['returnSelectedKeys']),
+    hostDetailsHighlightSearch() {
+      return (
+        this.$route.name === 'hosts-details' &&
+        (this.returnSelectedKeys.length > 1 ||
+          this.returnSelectedKeys[0] !== 'name')
+      )
+    },
+    otherPagesHighlightSearch() {
+      return this.$route.name !== 'hosts-details'
     },
   },
 }

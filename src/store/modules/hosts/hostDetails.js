@@ -9,6 +9,7 @@ import {
   mapHostDatabases,
 } from '@/helpers/hostDetails/hostDetails.js'
 import { removeDashFromMsDesc } from '@/helpers/licenses.js'
+
 // filter options
 import { filterOptionsOracle } from '@/helpers/hostDetails/filterOptions/oracle.js'
 import { filterOptionsMysql } from '@/helpers/hostDetails/filterOptions/mysql.js'
@@ -25,32 +26,6 @@ export const state = () => ({
   selectedKeys: ['name'],
   searchTermDB: '',
 })
-
-// const info = [
-//   'status',
-//   'role',
-//   'dbID',
-//   'uniqueName',
-//   'archiveLog',
-//   'blockSize',
-//   'charset',
-//   'nCharset',
-//   'memoryTarget',
-//   'pgaTarget',
-//   'sgaMaxSize',
-//   'sgaTarget',
-//   'dbTime',
-//   'elapsed',
-//   'work',
-//   'cpuCount',
-//   'allocable',
-//   'datafileSize',
-//   'segmentsSize',
-//   'asm',
-//   'dataguard',
-//   'platform',
-//   'version',
-// ]
 
 export const getters = {
   // general
@@ -88,12 +63,10 @@ export const getters = {
   currentHostDBs: (state) => {
     return state.currentHostDatabases
   },
-  currentHostActiveDB: (state) => {
-    return state.activeDb
-  },
-  currentHostActiveDbIndex: (state, getters) => (filteredDbs) => {
+  currentHostActiveDbIndex: (state, getters) => {
+    const filteredDbs = getters.currentHostFiltered
     return _.findIndex(filteredDbs, {
-      name: getters.currentHostActiveDB,
+      name: state.activeDb,
     })
   },
   getCurrentHostDbLicenses: (state) => (db) => {
@@ -121,9 +94,12 @@ export const getters = {
       return filterOptionsPostgreSql
     }
   },
+  returnSelectedKeys: (state) => {
+    return state.selectedKeys
+  },
   currentHostFiltered: (state, getters) => {
     const databases = getters.currentHostDBs
-    const selectedKeys = [...state.selectedKeys]
+    const selectedKeys = [...getters.returnSelectedKeys]
     const search = state.searchTermDB
     const options = getters.currentDatabasesOptions
 
@@ -159,10 +135,10 @@ export const getters = {
     return filteredData
   },
   // Oracle Chart
-  getOracleCpuUsageChart: (state, getters) => (selected) => {
+  getOracleCpuUsageChart: (state, getters, rootstate) => (selected) => {
     const dailyDbState = getters.currentHostDBs
     const dailyHistory = state.currentHost.history
-    const rangeDates = getters.getOracleCpuUsageChartRangeDates
+    const rangeDates = rootstate.rangeDates.rangeDates
 
     if (dailyDbState) {
       return mountCpuUsageChart(
@@ -184,9 +160,6 @@ export const getters = {
         id: val.dbID,
       }
     })
-  },
-  getOracleCpuUsageChartRangeDates: (state, getters, rootstate) => {
-    return rootstate.rangeDates.rangeDates
   },
 }
 

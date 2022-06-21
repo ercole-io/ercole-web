@@ -3,10 +3,9 @@
     size="is-small"
     type="is-boxed"
     v-model="isActive"
-    @input="onChange"
+    @input="onChangeDbTab"
     destroy-on-hide
     animated
-    v-if="showDatabases"
   >
     <b-tab-item
       v-for="(dbs, i) in currentHostFiltered"
@@ -43,8 +42,8 @@
 </template>
 
 <script>
-import hostDatabasesFilters from '@/mixins/hostDatabasesFilters.js'
-import hostDetailsDatabasesMixins from '@/mixins/hostDetailsDatabases.js'
+import databaseTabsMixin from '@/mixins/hostDetails/databaseTabs.js'
+
 import DbInfo from '@/components/hosts/hostDetails/oracle/databases/DbInfo.vue'
 import DbTablespaces from '@/components/hosts/hostDetails/oracle/databases/DbTablespaces.vue'
 import DbSchemas from '@/components/hosts/hostDetails/oracle/databases/DbSchemas.vue'
@@ -59,10 +58,9 @@ import DbOptions from '@/components/hosts/hostDetails/oracle/databases/DbOptions
 import DbLicenses from '@/components/hosts/hostDetails/oracle/databases/DbLicenses.vue'
 import DbPDBs from '@/components/hosts/hostDetails/oracle/databases/DbPDBs.vue'
 import DbGrants from '@/components/hosts/hostDetails/oracle/databases/DbGrants.vue'
-import { mapGetters } from 'vuex'
 
 export default {
-  mixins: [hostDatabasesFilters, hostDetailsDatabasesMixins],
+  mixins: [databaseTabsMixin],
   components: {
     DbInfo,
     DbTablespaces,
@@ -78,9 +76,6 @@ export default {
     DbLicenses,
     DbPDBs,
     DbGrants,
-  },
-  computed: {
-    ...mapGetters(['currentHostFiltered']),
   },
 }
 </script>

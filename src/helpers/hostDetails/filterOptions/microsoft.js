@@ -25,7 +25,7 @@ const filterOptionsMicrosft = [
     group: 'info',
   },
   {
-    name: 'Db Name',
+    name: 'DB Name',
     value: 'dbName',
     level: 2,
     group: 'info',
