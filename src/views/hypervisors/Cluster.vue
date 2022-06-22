@@ -175,13 +175,16 @@ export default {
     await this.getClusterByName(this.clustername).then(() => {
       bus.$emit('data', this.getCurrentClusterVms)
     })
+
+    this.getClusterNames()
+
     bus.$emit('dynamicTitle', this.clustername)
   },
   mounted() {
     this.isMounted = true
   },
   methods: {
-    ...mapActions(['getClusterByName']),
+    ...mapActions(['getClusterByName', 'getClusterNames']),
     checkIfErcoleIsInstalled(data) {
       if (data[0] && data[0].isErcoleInstalled) {
         this.handleClickedRow(data)
