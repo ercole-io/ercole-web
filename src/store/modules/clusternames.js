@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
@@ -13,9 +12,7 @@ export const getters = {
 
 export const mutations = {
   SET_CLUSTERNAMES: (state, payload) => {
-    state.clusternames = _.map(payload, (cluster) => {
-      return cluster.name
-    })
+    state.clusternames = payload
   },
 }
 
@@ -23,7 +20,7 @@ export const actions = {
   async getClusterNames({ commit }) {
     const config = {
       method: 'get',
-      url: '/hosts/clusters',
+      url: '/hosts/clusters?mode=clusternames',
     }
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_CLUSTERNAMES', res.data)
