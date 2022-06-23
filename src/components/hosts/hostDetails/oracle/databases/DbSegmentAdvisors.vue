@@ -1,8 +1,5 @@
 <template>
-  <b-tab-item
-    label="Segment Advisors"
-    v-if="segmentAdvisors && segmentAdvisors.length > 0"
-  >
+  <b-tab-item label="Segment Advisors">
     <FullTable
       :tableData="segmentAdvisors"
       :keys="keys"

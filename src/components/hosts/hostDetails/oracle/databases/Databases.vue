@@ -21,21 +21,51 @@
         animated
         destroy-on-hide
       >
-        <DbInfo :dbInfo="dbs" />
-        <DbPDBs :pdbs="dbs.pdbs" />
-        <DbLicenses :licenses="dbs.licenses" />
-        <DbGrants :dbGrants="dbs.dbGrants" />
-        <DbOptions :options="dbs.options" />
-        <DbTablespaces :tablespaces="dbs.tablespaces" />
-        <DbSchemas :schemas="dbs.schemas" />
-        <DbPatches :patches="dbs.patches" />
-        <DbPSUs :psus="dbs.psus" />
-        <DbADDMs :addms="dbs.addms" />
-        <DbSegmentAdvisors :segmentAdvisors="dbs.segmentAdvisors" />
-        <DbGrowth :growth="dbs.dbGrowth" />
+        <DbInfo :dbInfo="dbs" v-if="hasInfo" />
+        <DbPDBs :pdbs="dbs.pdbs" v-if="dbs.pdbs && dbs.pdbs.length > 0" />
+        <DbLicenses
+          :licenses="dbs.licenses"
+          v-if="dbs.licenses && dbs.licenses.length > 0"
+        />
+        <DbGrants
+          :dbGrants="dbs.dbGrants"
+          v-if="dbs.dbGrants && dbs.dbGrants.length > 0"
+        />
+        <DbOptions
+          :options="dbs.options"
+          v-if="dbs.options && dbs.options.length > 0"
+        />
+        <DbTablespaces
+          :tablespaces="dbs.tablespaces"
+          v-if="dbs.tablespaces && dbs.tablespaces.length > 0"
+        />
+        <DbSchemas
+          :schemas="dbs.schemas"
+          v-if="dbs.schemas && dbs.schemas.length > 0"
+        />
+        <DbPatches
+          :patches="dbs.patches"
+          v-if="dbs.patches && dbs.patches.length > 0"
+        />
+        <DbPSUs :psus="dbs.psus" v-if="dbs.psus && dbs.psus.length > 0" />
+        <DbADDMs :addms="dbs.addms" v-if="dbs.addms && dbs.addms.length > 0" />
+        <DbSegmentAdvisors
+          :segmentAdvisors="dbs.segmentAdvisors"
+          v-if="dbs.segmentAdvisors && dbs.segmentAdvisors.length > 0"
+        />
+        <DbGrowth
+          :growth="dbs.dbGrowth"
+          v-if="dbs.dbGrowth && dbs.dbGrowth.length > 0"
+        />
         <!-- :growthId="dbs.name" -->
-        <DbBackups :backups="dbs.backups" />
-        <DbServices :services="dbs.services" />
+        <DbBackups
+          :backups="dbs.backups"
+          v-if="dbs.backups && dbs.backups.length > 0"
+        />
+        <DbServices
+          :services="dbs.services"
+          v-if="dbs.services && dbs.services.length > 0"
+        />
       </b-tabs>
     </b-tab-item>
   </b-tabs>
@@ -43,6 +73,7 @@
 
 <script>
 import databaseTabsMixin from '@/mixins/hostDetails/databaseTabs.js'
+import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
 
 import DbInfo from '@/components/hosts/hostDetails/oracle/databases/DbInfo.vue'
 import DbTablespaces from '@/components/hosts/hostDetails/oracle/databases/DbTablespaces.vue'
@@ -60,7 +91,7 @@ import DbPDBs from '@/components/hosts/hostDetails/oracle/databases/DbPDBs.vue'
 import DbGrants from '@/components/hosts/hostDetails/oracle/databases/DbGrants.vue'
 
 export default {
-  mixins: [databaseTabsMixin],
+  mixins: [databaseTabsMixin, infoMixin],
   components: {
     DbInfo,
     DbTablespaces,

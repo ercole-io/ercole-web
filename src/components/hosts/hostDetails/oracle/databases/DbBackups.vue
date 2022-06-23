@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="Backups" v-if="backups && backups.length > 0">
+  <b-tab-item label="Backups">
     <FullTable
       :tableData="backups"
       :keys="keys"

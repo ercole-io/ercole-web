@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="DB Growth" v-if="growth && growth.length > 0">
+  <b-tab-item label="DB Growth">
     <RangeDates
       :setRange="SET_RANGE_DATES_ALT"
       totalRange="31"

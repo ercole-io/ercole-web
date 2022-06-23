@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="DBA Role" v-if="dbGrants && dbGrants.length > 0">
+  <b-tab-item label="DBA Role">
     <FullTable
       :tableData="dbGrants"
       :keys="keys"

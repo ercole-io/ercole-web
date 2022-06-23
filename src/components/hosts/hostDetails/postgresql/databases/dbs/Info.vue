@@ -1,107 +1,160 @@
 <template>
-  <div class="columns is-mobile is-multiline">
-    <div class="column">
-      <div class="columns">
-        <div class="column">
-          <ul class="db-info">
-            <li>Details</li>
-            <li>
-              <span>Db Name</span>
-              <span>{{ info.dbName }}</span>
-            </li>
-            <li>
-              <span>Db Owner</span>
-              <span>{{ info.dbOwner }}</span>
-            </li>
-            <li>
-              <span>Db Size</span>
-              <span>{{ info.dbSize | prettyBytes(1, true) }}</span>
-            </li>
-            <li>
-              <span>Datconn limit</span>
-              <span>{{ info.datconnlimit }}</span>
-            </li>
-            <li>
-              <span>Extensions Count</span>
-              <span>{{ info.extensionsCount }}</span>
-            </li>
-            <li>
-              <span>Logic Repl Setup</span>
-              <b-icon
-                size="is-small"
-                :icon="bindIcon(info.logicReplSetup)[0]"
-                :type="bindIcon(info.logicReplSetup)[1]"
-              />
-            </li>
-          </ul>
-        </div>
-        <div class="column">
-          <ul class="db-info">
-            <li>Additional Info</li>
-            <li>
-              <span>Indexes Count</span>
-              <span>{{ info.indexesCount }}</span>
-            </li>
-            <li>
-              <span>Indexes Size</span>
-              <span>{{ info.indexesSize | prettyBytes(1, true) }}</span>
-            </li>
-            <li>
-              <span>Lobs Count</span>
-              <span>{{ info.lobsCount }}</span>
-            </li>
-            <li>
-              <span>Lobs Size</span>
-              <span>{{ info.lobsSize | prettyBytes(1, true) }}</span>
-            </li>
-            <li>
-              <span>Matviews Count</span>
-              <span>{{ info.matviewsCount }}</span>
-            </li>
-            <li>
-              <span>Matviews Size</span>
-              <span>{{ info.matviewsSize | prettyBytes(1, true) }}</span>
-            </li>
-          </ul>
-        </div>
-        <div class="column">
-          <ul class="db-info">
-            <li>Additional Info</li>
-            <li>
-              <span>Publications Count</span>
-              <span>{{ info.publicationsCount }}</span>
-            </li>
-            <li>
-              <span>Schemas Count</span>
-              <span>{{ info.schemasCount }}</span>
-            </li>
-            <li>
-              <span>Subscriptions Count</span>
-              <span>{{ info.subscriptionsCount }}</span>
-            </li>
-            <li>
-              <span>Tables Count</span>
-              <span>{{ info.tablesCount }}</span>
-            </li>
-            <li>
-              <span>Tables Size</span>
-              <span>{{ info.tablesSize | prettyBytes(1, true) }}</span>
-            </li>
-            <li>
-              <span>Views Count</span>
-              <span>{{ info.viewsCount }}</span>
-            </li>
-          </ul>
+  <b-tab-item label="Info" class="databasesInfo">
+    <div class="columns is-mobile is-multiline">
+      <div class="column">
+        <div class="columns">
+          <div class="column">
+            <ul class="db-info">
+              <li>Details</li>
+              <li>
+                <span>Db Name</span>
+                <span
+                  v-tooltip.right="options(info.dbName)"
+                  v-html="highlight(toString(info.dbName))"
+                />
+              </li>
+              <li>
+                <span>Db Owner</span>
+                <span
+                  v-tooltip.right="options(info.dbOwner)"
+                  v-html="highlight(toString(info.dbOwner))"
+                />
+              </li>
+              <li>
+                <span>Db Size</span>
+                <span
+                  v-tooltip.right="options(info.dbSize)"
+                  v-html="highlight(toString(info.dbSize))"
+                />
+              </li>
+              <li>
+                <span>Datconn limit</span>
+                <span
+                  v-tooltip.right="options(info.datconnlimit)"
+                  v-html="highlight(toString(info.datconnlimit))"
+                />
+              </li>
+              <li>
+                <span>Extensions Count</span>
+                <span
+                  v-tooltip.right="options(info.extensionsCount)"
+                  v-html="highlight(toString(info.extensionsCount))"
+                />
+              </li>
+              <li>
+                <span>Logic Repl Setup</span>
+                <SimpleBooleanIcon
+                  :value="setBoolean(info.logicReplSetup)"
+                  v-tooltip.right="options(setBoolean(info.logicReplSetup))"
+                />
+              </li>
+            </ul>
+          </div>
+          <div class="column">
+            <ul class="db-info">
+              <li>Additional Info</li>
+              <li>
+                <span>Indexes Count</span>
+                <span
+                  v-tooltip.right="options(info.indexesCount)"
+                  v-html="highlight(toString(info.indexesCount))"
+                />
+              </li>
+              <li>
+                <span>Indexes Size</span>
+                <span
+                  v-tooltip.right="options(info.indexesSize)"
+                  v-html="highlight(toString(info.indexesSize))"
+                />
+              </li>
+              <li>
+                <span>Lobs Count</span>
+                <span
+                  v-tooltip.right="options(info.lobsCount)"
+                  v-html="highlight(toString(info.lobsCount))"
+                />
+              </li>
+              <li>
+                <span>Lobs Size</span>
+                <span
+                  v-tooltip.right="options(info.lobsSize)"
+                  v-html="highlight(toString(info.lobsSize))"
+                />
+              </li>
+              <li>
+                <span>Matviews Count</span>
+                <span
+                  v-tooltip.right="options(info.matviewsCount)"
+                  v-html="highlight(toString(info.matviewsCount))"
+                />
+              </li>
+              <li>
+                <span>Matviews Size</span>
+                <span
+                  v-tooltip.right="options(info.matviewsSize)"
+                  v-html="highlight(toString(info.matviewsSize))"
+                />
+              </li>
+            </ul>
+          </div>
+          <div class="column">
+            <ul class="db-info">
+              <li>Additional Info</li>
+              <li>
+                <span>Publications Count</span>
+                <span
+                  v-tooltip.right="options(info.publicationsCount)"
+                  v-html="highlight(toString(info.publicationsCount))"
+                />
+              </li>
+              <li>
+                <span>Schemas Count</span>
+                <span
+                  v-tooltip.right="options(info.schemasCount)"
+                  v-html="highlight(toString(info.schemasCount))"
+                />
+              </li>
+              <li>
+                <span>Subscriptions Count</span>
+                <span
+                  v-tooltip.right="options(info.subscriptionsCount)"
+                  v-html="highlight(toString(info.subscriptionsCount))"
+                />
+              </li>
+              <li>
+                <span>Tables Count</span>
+                <span
+                  v-tooltip.right="options(info.tablesCount)"
+                  v-html="highlight(toString(info.tablesCount))"
+                />
+              </li>
+              <li>
+                <span>Tables Size</span>
+                <span
+                  v-tooltip.right="options(info.tablesSize)"
+                  v-html="highlight(toString(info.tablesSize))"
+                />
+              </li>
+              <li>
+                <span>Views Count</span>
+                <span
+                  v-tooltip.right="options(info.viewsCount)"
+                  v-html="highlight(toString(info.viewsCount))"
+                />
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </b-tab-item>
 </template>
 
 <script>
-import { mapBooleanIcon } from '@/helpers/helpers.js'
+import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
 
 export default {
+  mixins: [infoMixin],
   props: {
     info: {
       type: Object,
@@ -109,38 +162,11 @@ export default {
     },
   },
   methods: {
-    bindIcon(value) {
-      return mapBooleanIcon(value)
+    setBoolean(value) {
+      return value ? 'yes' : 'no'
     },
   },
 }
 </script>
 
-<style lang="scss" scoped>
-.db-info {
-  padding-top: 0;
-  li {
-    padding: 0 5px;
-    font-size: 0.7em;
-    span:first-child {
-      font-weight: 500;
-    }
-  }
-  li:not(:first-child) {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
-    padding: 3px 6px;
-    &:nth-child(odd) {
-      background: #f1f1f1;
-    }
-  }
-  li:first-child {
-    box-shadow: 0 0.08em 0 lightslategrey;
-    font-weight: 600;
-    text-transform: uppercase;
-    padding-left: 0;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

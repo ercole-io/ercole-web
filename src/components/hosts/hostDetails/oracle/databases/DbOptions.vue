@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="Options" v-if="options && options.length > 0">
+  <b-tab-item label="Options">
     <FullTable
       :tableData="options"
       :keys="keys"
