@@ -5,9 +5,7 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <UsedLicensesHostFilters slot="left">
-      <Loading :isLoading="licensesUsed.hostsLoading" />
-    </UsedLicensesHostFilters>
+    <UsedLicensesHostFilters slot="left" />
 
     <FullTable
       slot="center"
@@ -17,7 +15,7 @@
       :tableData="getUsedLicensesByHost"
       @clickedRow="handleClickedRow"
       isClickable
-      :isLoadingTable="licensesUsed.hostsLoading"
+      :isLoadingTable="false"
     >
       <template slot="headData">
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
@@ -66,7 +64,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -78,7 +76,6 @@ import UsedLicensesHostModal from '@/components/licenses/used/hosts/UsedLicenses
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import ExportButton from '@/components/common/ExportButton.vue'
-import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [
@@ -94,7 +91,6 @@ export default {
     HostLink,
     UsedLicensesHostFilters,
     ExportButton,
-    Loading,
   },
   props: {
     partNumber: {
@@ -137,7 +133,6 @@ export default {
     },
   },
   computed: {
-    ...mapState(['licensesUsed']),
     ...mapGetters(['getUsedLicensesByHost']),
   },
 }
