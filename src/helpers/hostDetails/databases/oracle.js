@@ -93,6 +93,9 @@ const resolvePdbs = (pdbs) => {
         pdbStatus: val.status,
         pdbTablespaces: val.tablespaces,
         pdbGrantDba: grants,
+        pdbAllocable: val.allocable,
+        pdbDatafileSize: val.datafileSize,
+        pdbSegmentsSize: val.segmentsSize,
       })
     }
   })
