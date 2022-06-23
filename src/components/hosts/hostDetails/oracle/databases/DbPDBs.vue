@@ -21,12 +21,33 @@
         </div>
       </template>
       <b-tabs size="is-small" position="is-centered" class="block mr-0 p-3">
-        <b-tab-item label="Status">
-          <p class="py-3">
+        <b-tab-item label="General">
+          <p class="mb-0 mt-2 is-size-7">
             Status:
             <span
               class="has-text-weight-medium"
               v-html="highlight(pdb.pdbStatus)"
+            />
+          </p>
+          <p class="mb-0 is-size-7">
+            Allocable:
+            <span
+              class="has-text-weight-medium"
+              v-html="highlight(pdb.pdbAllocable)"
+            />
+          </p>
+          <p class="mb-0 is-size-7">
+            DatafileSize:
+            <span
+              class="has-text-weight-medium"
+              v-html="highlight(pdb.pdbDatafileSize)"
+            />
+          </p>
+          <p class="mb-0 is-size-7">
+            SegmentsSize:
+            <span
+              class="has-text-weight-medium"
+              v-html="highlight(pdb.pdbSegmentsSize)"
             />
           </p>
         </b-tab-item>
