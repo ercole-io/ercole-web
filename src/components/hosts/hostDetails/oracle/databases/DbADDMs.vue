@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="ADDM" v-if="addms && addms.length > 0">
+  <b-tab-item label="ADDM">
     <FullTable
       :tableData="addms"
       :keys="keys"

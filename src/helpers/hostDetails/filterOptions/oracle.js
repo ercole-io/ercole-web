@@ -14,9 +14,7 @@ const filterOptionsOracle = [
         : false
     },
     level: 1,
-    filter: (db, search) => {
-      return stringSearch(db.name, search)
-    },
+    filter: (db, search) => stringSearch(db.name, search),
   },
   {
     name: 'Info',
@@ -29,216 +27,168 @@ const filterOptionsOracle = [
     value: 'dbName',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.name, search)
-    },
+    filter: (db, search) => stringSearch(db.dbName, search),
   },
   {
     name: 'Status',
     value: 'status',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.status, search)
-    },
+    filter: (db, search) => stringSearch(db.status, search),
   },
   {
     name: 'Role',
     value: 'role',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.role, search)
-    },
+    filter: (db, search) => stringSearch(db.role, search),
   },
   {
     name: 'Db ID',
     value: 'dbID',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.dbID, search)
-    },
+    filter: (db, search) => stringSearch(db.dbID, search),
   },
   {
     name: 'Unique Name',
     value: 'uniqueName',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.uniqueName, search)
-    },
+    filter: (db, search) => stringSearch(db.uniqueName, search),
   },
   {
     name: 'Archive Log',
     value: 'archivelog',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.archivelog, search)
-    },
+    filter: (db, search) => stringSearch(db.archivelog, search),
   },
   {
     name: 'Block Size',
     value: 'blockSize',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.blockSize, search)
-    },
+    filter: (db, search) => stringSearch(db.blockSize, search),
   },
   {
     name: 'Charset',
     value: 'charset',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.charset, search)
-    },
+    filter: (db, search) => stringSearch(db.charset, search),
   },
   {
     name: 'N Charset',
     value: 'nCharset',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.nCharset, search)
-    },
+    filter: (db, search) => stringSearch(db.nCharset, search),
   },
   {
     name: 'Memory Target',
     value: 'memoryTarget',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.memoryTarget, search)
-    },
+    filter: (db, search) => stringSearch(db.memoryTarget, search),
   },
   {
     name: 'PGA Target',
     value: 'pgaTarget',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.pgaTarget, search)
-    },
+    filter: (db, search) => stringSearch(db.pgaTarget, search),
   },
   {
     name: 'SGA MaxSize',
     value: 'sgaMaxSize',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.sgaMaxSize, search)
-    },
+    filter: (db, search) => stringSearch(db.sgaMaxSize, search),
   },
   {
     name: 'SGA Target',
     value: 'sgaTarget',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.sgaMaxSize, search)
-    },
+    filter: (db, search) => stringSearch(db.sgaMaxSize, search),
   },
   {
     name: 'Db Time',
     value: 'dbTime',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.dbTime, search)
-    },
+    filter: (db, search) => stringSearch(db.dbTime, search),
   },
   {
     name: 'Elapsed',
     value: 'elapsed',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.elapsed, search)
-    },
+    filter: (db, search) => stringSearch(db.elapsed, search),
   },
   {
     name: 'Thread Used',
     value: 'work',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.work, search)
-    },
+    filter: (db, search) => stringSearch(db.work, search),
   },
   {
     name: 'CPU Count',
     value: 'cpuCount',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.cpuCount, search)
-    },
+    filter: (db, search) => stringSearch(db.cpuCount, search),
   },
   {
     name: 'Allocable',
     value: 'allocable',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.allocable, search)
-    },
+    filter: (db, search) => stringSearch(db.allocable, search),
   },
   {
     name: 'DataFile Size',
     value: 'datafileSize',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.datafileSize, search)
-    },
+    filter: (db, search) => stringSearch(db.datafileSize, search),
   },
   {
     name: 'Segments Size',
     value: 'segmentsSize',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.segmentsSize, search)
-    },
+    filter: (db, search) => stringSearch(db.segmentsSize, search),
   },
   {
     name: 'ASM',
     value: 'asm',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.asm, search)
-    },
+    filter: (db, search) => stringSearch(db.asm, search),
   },
   {
     name: 'Data Guard',
     value: 'dataguard',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.dataguard, search)
-    },
+    filter: (db, search) => stringSearch(db.dataguard, search),
   },
   {
     name: 'Platform',
     value: 'platform',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.platform, search)
-    },
+    filter: (db, search) => stringSearch(db.platform, search),
   },
   {
     name: 'Version',
     value: 'version',
     level: 2,
     group: 'info',
-    filter: (db, search) => {
-      return stringSearch(db.version, search)
-    },
+    filter: (db, search) => stringSearch(db.version, search),
   },
   {
     name: 'Pluggable DBs',
@@ -318,25 +268,25 @@ const pdbsFilter = (db, search) => {
   return (
     db.filter((pdb) => {
       const searchName = stringSearch(pdb.pdbName, search)
-      const searchSchemas = pdb.pdbSchemas.filter((schema) =>
-        stringSearch(schema.user, search)
+      const searchSchemas = pdb.pdbSchemas.filter((schm) =>
+        stringSearch(schm.user, search)
       )
       const searchStatus = stringSearch(pdb.pdbStatus, search)
-      const searchTablespaces = pdb.pdbTablespaces.filter((tablespace) => {
+      const searchTablespaces = pdb.pdbTablespaces.filter((tbs) => {
         return (
-          stringSearch(tablespace.name, search) ||
-          stringSearch(tablespace.status, search) ||
-          stringSearch(tablespace.used, search) ||
-          stringSearch(tablespace.usedPerc, search) ||
-          stringSearch(tablespace.total, search) ||
-          stringSearch(tablespace.maxSize, search)
+          stringSearch(tbs.name, search) ||
+          stringSearch(tbs.status, search) ||
+          stringSearch(tbs.used, search) ||
+          stringSearch(tbs.usedPerc, search) ||
+          stringSearch(tbs.total, search) ||
+          stringSearch(tbs.maxSize, search)
         )
       })
-      const searchGrantdba = pdb.pdbGrantDba.filter((grant) => {
+      const searchGrantdba = pdb.pdbGrantDba.filter((dba) => {
         return (
-          stringSearch(grant.grantee, search) ||
-          stringSearch(grant.defaultRole, search) ||
-          stringSearch(grant.adminOption, search)
+          stringSearch(dba.grantee, search) ||
+          stringSearch(dba.defaultRole, search) ||
+          stringSearch(dba.adminOption, search)
         )
       })
 

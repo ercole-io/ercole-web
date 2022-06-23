@@ -1,6 +1,14 @@
 <template>
-  <b-tab-item label="Services" v-if="services && services.length > 0">
-    <FullTable :tableData="services" :keys="keys" :isLoadingTable="false">
+  <b-tab-item label="Services">
+    <FullTable
+      :tableData="services"
+      :keys="keys"
+      hideSearch
+      hidePerpage
+      hidePagination
+      hideTopTable
+      :isLoadingTable="false"
+    >
       <template slot="headData">
         <v-th sortKey="name">Name</v-th>
         <v-th sortKey="name">Enabled</v-th>

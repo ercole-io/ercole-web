@@ -7,6 +7,7 @@ const mapOracleDatabases = (data, extraData) => {
   let newData = []
   _.map(data, (item) => {
     newData.push({
+      tabName: item.name.toString(),
       id: item.dbID.toString(),
       name: item.name.toString(),
       dbName: item.name.toString(),

@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="Licenses" v-if="licenses && licenses.length > 0">
+  <b-tab-item label="Licenses">
     <FullTable
       :tableData="licenses"
       :keys="keys"
