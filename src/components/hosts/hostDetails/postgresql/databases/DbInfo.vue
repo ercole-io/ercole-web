@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="Info" class="databasesInfo" v-if="hasInfo">
+  <b-tab-item label="Info" class="databasesInfo">
     <div class="columns is-mobile is-multiline">
       <div class="column">
         <div class="columns">

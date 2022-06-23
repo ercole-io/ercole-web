@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="Patches" v-if="patches && patches.length > 0">
+  <b-tab-item label="Patches">
     <FullTable
       :tableData="patches"
       :keys="keys"

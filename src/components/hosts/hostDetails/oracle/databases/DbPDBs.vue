@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="Pluggable DBs" v-if="pdbs && pdbs.length > 0">
+  <b-tab-item label="Pluggable DBs">
     <b-collapse
       v-for="(pdb, i) in pdbs"
       :key="i"
@@ -14,9 +14,7 @@
           role="button"
           aria-controls="contentIdForA11y2"
         >
-          <p class="card-header-title mb-0">
-            {{ pdb.pdbName }}
-          </p>
+          <p class="card-header-title mb-0" v-html="highlight(pdb.pdbName)" />
           <a class="card-header-icon py-2 px-2">
             <b-icon :icon="props.open ? 'menu-up' : 'menu-down'"> </b-icon>
           </a>
@@ -26,7 +24,10 @@
         <b-tab-item label="Status">
           <p class="py-3">
             Status:
-            <span class="has-text-weight-medium">{{ pdb.pdbStatus }}</span>
+            <span
+              class="has-text-weight-medium"
+              v-html="highlight(pdb.pdbStatus)"
+            />
           </p>
         </b-tab-item>
         <b-tab-item
@@ -129,11 +130,14 @@
 </template>
 
 <script>
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 
 export default {
+  mixins: [HighlightSearchMixin],
   components: {
     FullTable,
     TdContent,
