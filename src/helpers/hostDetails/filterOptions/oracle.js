@@ -289,13 +289,19 @@ const pdbsFilter = (db, search) => {
           stringSearch(dba.adminOption, search)
         )
       })
+      const searchAllocable = stringSearch(pdb.pdbAllocable, search)
+      const searchDatafileSize = stringSearch(pdb.pdbDatafileSize, search)
+      const searchSegmentsSize = stringSearch(pdb.pdbSegmentsSize, search)
 
       return (
         searchName ||
         searchSchemas ||
         searchStatus ||
         searchTablespaces ||
-        searchGrantdba
+        searchGrantdba ||
+        searchAllocable ||
+        searchDatafileSize ||
+        searchSegmentsSize
       )
     }).length > 0
   )
