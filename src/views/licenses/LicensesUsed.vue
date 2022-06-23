@@ -10,10 +10,10 @@
       <b-tab-item label="Databases">
         <UsedLicensesDbs :partNumber="partNumber" />
       </b-tab-item>
-      <b-tab-item label="Hosts">
+      <b-tab-item label="Hosts" :disabled="licensesUsed.hostsLoading">
         <UsedLicensesHost :partNumber="partNumber" />
       </b-tab-item>
-      <b-tab-item label="Clusters">
+      <b-tab-item label="Clusters" :disabled="licensesUsed.clustersLoading">
         <UsedLicensesClusters :partNumber="partNumber" />
       </b-tab-item>
     </b-tabs>
@@ -22,7 +22,7 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import UsedLicensesDbs from '@/components/licenses/used/databases/UsedLicensesDbs.vue'
 import UsedLicensesHost from '@/components/licenses/used/hosts/UsedLicensesHost.vue'
 import UsedLicensesClusters from '@/components/licenses/used/clusters/UsedLicensesClusters.vue'
@@ -44,10 +44,10 @@ export default {
       activeTab: 0,
     }
   },
-  async beforeMount() {
-    await this.getLicensesDatabases()
-    await this.getLicensesHosts()
-    await this.getLicensesClusters()
+  beforeMount() {
+    this.getLicensesDatabases()
+    this.getLicensesHosts()
+    this.getLicensesClusters()
 
     this.onTabChange(this.activeTab)
   },
@@ -60,6 +60,9 @@ export default {
     onTabChange(value) {
       bus.$emit('onUsedTabChange', value)
     },
+  },
+  computed: {
+    ...mapState(['licensesUsed']),
   },
 }
 </script>
