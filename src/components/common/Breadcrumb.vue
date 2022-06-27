@@ -31,10 +31,20 @@
         $route.name === 'hosts-details' || $route.name === 'cluster-details'
       "
     />
+    <b-progress
+      type="is-primary"
+      size="is-medium"
+      class="retrieveProgress"
+      show-value
+      v-if="showProgress"
+    >
+      <p class="is-size-7">Retrieving Recommendations Updates</p>
+    </b-progress>
   </nav>
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import dynamicTitle from '@/mixins/dynamicTitle.js'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import FastChange from '@/components/common/FastChange.vue'
@@ -43,6 +53,16 @@ export default {
   mixins: [dynamicTitle, tooltipMixin],
   components: {
     FastChange,
+  },
+  data() {
+    return {
+      showProgress: false,
+    }
+  },
+  beforeMount() {
+    bus.$on('retrieveUpdates', (val) => {
+      this.showProgress = val
+    })
   },
   methods: {
     routeTo(route) {
@@ -69,6 +89,7 @@ export default {
   min-height: 43px;
   display: flex;
   align-items: center;
+  position: relative;
 
   a {
     color: $custom-primary;
@@ -96,5 +117,12 @@ export default {
     padding: 0 0.75em;
     margin-left: -26px;
   }
+}
+
+.retrieveProgress {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  width: 300px;
 }
 </style>
