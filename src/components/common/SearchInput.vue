@@ -75,7 +75,8 @@ export default {
       this.$emit('input', value)
     },
     onClear() {
-      this.emitSearchTherm('')
+      this.searchTherm = ''
+      this.emitSearchTherm(this.searchTherm)
     },
   },
   computed: {
