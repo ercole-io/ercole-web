@@ -74,7 +74,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
 import ErcoleRecommendationsModal from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsModal.vue'
 import ErcoleRecommendationsHead from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsHead.json'
-import RetrieveUpdateModal from '@/components/cloud/ercoleRecommendations/RetrieveUpdatesModal.vue'
+// import RetrieveUpdateModal from '@/components/cloud/ercoleRecommendations/RetrieveUpdatesModal.vue'
 import ErrorsRecommendationsModal from '@/components/cloud/ercoleRecommendations/ErrorsRecommendationsModal.vue'
 import RefreshButton from '@/components/common/RefreshButton.vue'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
@@ -132,7 +132,7 @@ export default {
       })
     },
     retrieveUpdate() {
-      this.$buefy.dialog.alert({
+      this.$buefy.dialog.confirm({
         title: 'Retrieve Recommendations Updates',
         type: 'is-warning',
         message:
@@ -143,19 +143,24 @@ export default {
         hasIcon: true,
         icon: 'sync-alt',
         iconPack: 'fa',
-        onConfirm: () => this.updatingRecommendations(),
+        onConfirm: () => {
+          bus.$emit('retrieveUpdates', true)
+          this.retireveRecommendations().then(() => {
+            bus.$emit('retrieveUpdates', false)
+          })
+        },
       })
     },
-    updatingRecommendations() {
-      this.$buefy.modal.open({
-        component: RetrieveUpdateModal,
-        hasModalCard: true,
-        canCancel: false,
-      })
-      setTimeout(() => {
-        this.retireveRecommendations()
-      }, 500)
-    },
+    // updatingRecommendations() {
+    //   this.$buefy.modal.open({
+    //     component: RetrieveUpdateModal,
+    //     hasModalCard: true,
+    //     canCancel: false,
+    //   })
+    //   setTimeout(() => {
+    //     this.retireveRecommendations()
+    //   }, 500)
+    // },
   },
   computed: {
     ...mapGetters([
