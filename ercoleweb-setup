@@ -22,9 +22,5 @@ if [ -z "$REPO_SERVICE_REMOTE_ENDPOINT" ]; then
 fi
 
 if [ -n "$API_SERVICE_REMOTE_ENDPOINT" ] && [ -n "$CHART_SERVICE_REMOTE_ENDPOINT" ] && [ -n "$THUNDER_SERVICE_REMOTE_ENDPOINT" ] && [ -n "$REPO_SERVICE_REMOTE_ENDPOINT" ]; then
-	echo -e "{ \n\t\"APIServiceBaseUrl\":\"${API_SERVICE_REMOTE_ENDPOINT}\",
-						 \n\t\"ChartServiceBaseUrl\":\"${CHART_SERVICE_REMOTE_ENDPOINT}\",
-						 \n\t\"ThunderServiceBaseUrl\":\"${THUNDER_SERVICE_REMOTE_ENDPOINT}\",
-						 \n\t\"RepoServiceBaseUrl\":\"${REPO_SERVICE_REMOTE_ENDPOINT}\"\n}" 
-						 > /usr/share/ercole/web/config.json
+	echo -e "{ \n\t\"APIServiceBaseUrl\":\"${API_SERVICE_REMOTE_ENDPOINT}\", \n\t\"ChartServiceBaseUrl\":\"${CHART_SERVICE_REMOTE_ENDPOINT}\", \n\t\"ThunderServiceBaseUrl\":\"${THUNDER_SERVICE_REMOTE_ENDPOINT}\", \n\t\"RepoServiceBaseUrl\":\"${REPO_SERVICE_REMOTE_ENDPOINT}\"\n }" > /usr/share/ercole/web/config.json
 fi
