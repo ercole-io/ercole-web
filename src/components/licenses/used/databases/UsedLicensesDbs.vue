@@ -60,11 +60,15 @@
         <TdContent :value="rowData.scope.metric" />
         <TdContent
           :value="rowData.scope.usedLicenses"
-          :class="rowData.scope.clusterLicenses > 0 ? 'line-through' : ''"
+          :class="
+            rowData.scope.clusterLicenses > 0 && !rowData.scope.olvmCapped
+              ? 'line-through'
+              : ''
+          "
         />
         <TdContent
           :value="rowData.scope.clusterLicenses"
-          :class="rowData.scope.olvmCapped > 0 ? 'line-through' : ''"
+          :class="rowData.scope.olvmCapped ? 'line-through' : ''"
         />
       </template>
 

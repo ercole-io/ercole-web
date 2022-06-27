@@ -32,14 +32,23 @@
 
     <template slot="bodyData" slot-scope="rowData">
       <td style="min-width: 0; text-align: center !important">
-        <b-checkbox
+        <!-- <b-checkbox
           v-model="rowData.scope.selected"
-          @input="
-            activateProfile({
-              id: rowData.scope.id,
-              isActive: rowData.scope.selected,
-            })
+          @change.native="
+            toggleProfile(rowData.scope.id, rowData.scope.selected)
           "
+        /> -->
+        <b-button
+          @click="toggleProfile(rowData.scope.id, !rowData.scope.selected)"
+          class="button-checkbox"
+          type="is-primary"
+          :icon-right="
+            rowData.scope.selected
+              ? 'checkbox-marked'
+              : 'checkbox-blank-outline'
+          "
+          size="is-small"
+          inverted
         />
       </td>
       <td style="min-width: 0">
@@ -78,8 +87,9 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import i18n from '@/i18n.js'
 import { bus } from '@/helpers/eventBus.js'
+import { mapActions, mapGetters } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -103,7 +113,29 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['removeProfile', 'activateProfile']),
+    ...mapActions(['getProfiles', 'removeProfile', 'activateProfile']),
+    toggleProfile(id, selected) {
+      this.$buefy.dialog.alert({
+        title: 'Profile Activating/Deactivating Warning',
+        type: 'is-warning',
+        message:
+          "<p>It's recommended to retrieve updates on the <b>Recommendations page</b> <br> after <b>Activating/Deactivating</b> a profile to get updated information!<p>",
+        confirmText: i18n.t('common.general.yes'),
+        cancelText: i18n.t('common.general.close'),
+        canCancel: true,
+        hasIcon: true,
+        icon: 'alert',
+        iconPack: 'mdi',
+        onConfirm: () => {
+          this.activateProfile({
+            id: id,
+            isActive: selected,
+          }).then(() => {
+            this.getProfiles()
+          })
+        },
+      })
+    },
     editProfile(profile) {
       bus.$emit('editProfile', profile)
     },
@@ -142,4 +174,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.button-checkbox {
+  padding: 0;
+  font-size: 1rem;
+  height: inherit;
+  background-color: transparent !important;
+}
+</style>
