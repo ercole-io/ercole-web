@@ -328,9 +328,10 @@ export default {
         this.$route.name !== 'licenses-contract' &&
         this.$route.name !== 'dashboard' &&
         this.$route.name !== 'repository' &&
-        this.$route.name !== 'cloud-recommendations' &&
-        this.$route.name !== 'profile-configurations' &&
-        this.$route.name !== 'ercole-recommendations' &&
+        this.$route.name !== 'oracle-profile-configurations' &&
+        this.$route.name !== 'oracle-recommendations' &&
+        this.$route.name !== 'aws-profile-configurations' &&
+        this.$route.name !== 'aws-recommendations' &&
         this.$route.name !== 'alerts' &&
         this.$route.name !== 'dba-role'
       )

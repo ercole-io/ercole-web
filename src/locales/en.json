@@ -30,7 +30,8 @@
     "ercoleRecommendations": "Ercole Recommendations",
     "microsoft": "Microsoft",
     "dbGrants": "DBA Role",
-    "postgresql": "PostgreSQL"
+    "postgresql": "PostgreSQL",
+    "aws": "AWS"
   },
   "header": {
     "logout": "Logout"
