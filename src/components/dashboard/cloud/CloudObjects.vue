@@ -1,5 +1,11 @@
 <template>
-  <BoxContent title="Cloud Objects" border hasShadow :mbottom="false">
+  <BoxContent
+    title="Cloud Objects"
+    border
+    hasShadow
+    :mbottom="false"
+    data-cy="cloud-objects"
+  >
     <div class="cloud">
       <div class="cloud-list" v-for="(tech, i) in getCloud" :key="tech.id || i">
         <div class="image">
