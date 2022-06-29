@@ -17,8 +17,8 @@
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
-import ErcoleRecommendationsFilters from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsFilters.vue'
-import ErcoleRecommendationsList from '@/components/cloud/ercoleRecommendations/ErcoleRecommendationsList.vue'
+import ErcoleRecommendationsFilters from '@/components/cloud/oracle/recommendations/RecommendationsFilters.vue'
+import ErcoleRecommendationsList from '@/components/cloud/oracle/recommendations/RecommendationsList.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
