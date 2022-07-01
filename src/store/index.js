@@ -32,9 +32,14 @@ import * as LicensesTypes from './modules/licenses-types'
 import * as rangeDates from './modules/range-dates'
 import * as moreInfoToggle from '@/store/modules/more-info-toggle.js'
 import * as columnToggle from '@/store/modules/columns-toggle.js'
-import * as profileConfig from '@/store/modules/cloud/profileConfig.js'
-import * as ercoleRecommendations from '@/store/modules/cloud/ercoleRecommendations.js'
-import * as activeProfiles from '@/store/modules/cloud/activeProfiles.js'
+// Oracle Cloud
+import * as oracleProfileConfig from '@/store/modules/cloud/oracle/profileConfig.js'
+import * as oracleRecommendations from '@/store/modules/cloud/oracle/recommendations.js'
+import * as oracleActiveProfiles from '@/store/modules/cloud/oracle/activeProfiles.js'
+// AWS Cloud
+import * as awsProfileConfig from '@/store/modules/cloud/aws/profileConfig.js'
+import * as awsRecommendations from '@/store/modules/cloud/aws/recommendations.js'
+import * as awsActiveProfiles from '@/store/modules/cloud/aws/activeProfiles.js'
 import * as repository from '@/store/modules/repository/repository.js'
 import * as ignoreLicense from '@/store/modules/ignoreLicense.js'
 import * as microsoftContracts from '@/store/modules/licenses/contracts/microsoft.js'
@@ -76,9 +81,12 @@ export default new Vuex.Store({
     rangeDates,
     moreInfoToggle,
     columnToggle,
-    profileConfig,
-    ercoleRecommendations,
-    activeProfiles,
+    oracleProfileConfig,
+    oracleRecommendations,
+    oracleActiveProfiles,
+    awsProfileConfig,
+    awsRecommendations,
+    awsActiveProfiles,
     repository,
     ignoreLicense,
     microsoftContracts,
