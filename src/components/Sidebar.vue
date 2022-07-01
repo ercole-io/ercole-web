@@ -28,7 +28,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getOciActiveProfiles']),
+    ...mapGetters(['getOciActiveProfiles', 'getAwsActiveProfiles']),
     menu() {
       return [
         {
@@ -193,13 +193,13 @@ export default {
                   icon: 'fas fa-user-cog',
                   class: 'menu-third-level',
                 },
-                {
-                  href: { name: 'aws-recommendations' },
-                  title: this.$i18n.t('menu.recommendations'),
-                  icon: 'fas fa-user-shield',
-                  class: 'menu-third-level',
-                  disabled: !this.getOciActiveProfiles,
-                },
+                // {
+                //   href: { name: 'aws-recommendations' },
+                //   title: this.$i18n.t('menu.recommendations'),
+                //   icon: 'fas fa-user-shield',
+                //   class: 'menu-third-level',
+                //   disabled: !this.getAwsActiveProfiles,
+                // },
               ],
             },
           ],

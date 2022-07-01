@@ -1,6 +1,6 @@
 <template>
   <ToggleColumns
-    getPage="ercoleRecommendations"
+    getPage="recommendationsOracle"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
     v-if="isMounted"

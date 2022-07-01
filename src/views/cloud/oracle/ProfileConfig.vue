@@ -1,6 +1,6 @@
 <template>
   <ToggleColumns
-    getPage="profileConfig"
+    getPage="profileConfigOracle"
     :leftButton="$t('common.forms.advancedFilters')"
     rightButton="Add Profile"
     v-if="isMounted"
