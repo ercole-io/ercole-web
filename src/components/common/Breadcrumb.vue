@@ -6,13 +6,11 @@
   >
     <ul>
       <li><a href="/">Dashboard</a></li>
-      <li
-        v-for="(b, i) in breadcrumbList"
-        :key="i"
-        @click="routeTo(i)"
-        :class="{ 'is-active': !b.link }"
-      >
-        <a :href="b.link" id="link">
+      <li v-for="(b, i) in breadcrumbList" :key="i" @click="routeTo(i)">
+        <span v-if="!b.link">
+          {{ b.name }}
+        </span>
+        <a v-if="b.link" :href="b.link" id="link">
           {{ b.name }}
         </a>
         <span
@@ -91,26 +89,35 @@ export default {
   align-items: center;
   position: relative;
 
-  a {
-    color: $custom-primary;
-
-    &:hover {
-      color: $ercole-blue;
-    }
-  }
-
-  li + li::before {
-    font-size: 11px;
-  }
-
   ul {
     align-items: center;
-  }
 
-  .is-active {
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
+    li {
+      color: $ercole-blue;
+      font-size: 0.75rem;
+
+      span {
+        padding: 0 0.75em;
+      }
+    }
+
+    li:last-child {
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+
+      &::before {
+        font-size: 0.75rem;
+      }
+    }
+
+    a {
+      color: $custom-primary;
+
+      &:hover {
+        color: $ercole-blue;
+      }
+    }
   }
 
   .dynamicTitle {

@@ -18,9 +18,10 @@ const defaultState = () => ({
   'page-databasesMysql': [false, true],
   'page-hosts': [false, true],
   'page-repository': [false, true],
-  'page-profileConfig': [false, true],
-  'page-recommendations': [false, true],
-  'page-ercoleRecommendations': [false, true],
+  'page-profileConfigOracle': [false, true],
+  'page-profileConfigAws': [false, true],
+  'page-recommendationsOracle': [false, true],
+  'page-recommendationsAws': [false, true],
   'page-databasesMsSqlServer': [false, true],
 })
 

@@ -1,6 +1,6 @@
 <template>
   <ToggleColumns
-    getPage="profileConfig"
+    getPage="profileConfigOracle"
     :leftButton="$t('common.forms.advancedFilters')"
     rightButton="Add Profile"
     v-if="isMounted"
@@ -21,9 +21,9 @@
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
-import ProfileConfigList from '@/components/cloud/profileConfig/ProfileList.vue'
-import ProfileConfigForm from '@/components/cloud/profileConfig/ProfileForm.vue'
-import ProfileConfigFilters from '@/components/cloud/profileConfig/ProfileFilters.vue'
+import ProfileConfigList from '@/components/cloud/oracle/profileConfig/ProfileList.vue'
+import ProfileConfigForm from '@/components/cloud/oracle/profileConfig/ProfileForm.vue'
+import ProfileConfigFilters from '@/components/cloud/oracle/profileConfig/ProfileFilters.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
