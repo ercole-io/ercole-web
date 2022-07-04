@@ -3,11 +3,15 @@
     <header class="card-header">
       <p class="card-header-title alert-title">
         <b-icon type="is-dark" pack="fas" size="is-small" :icon="title[1]" />
-        <span>{{ title[0] }}</span>
+        <span :data-cy="setDataCy">{{ title[0] }}</span>
       </p>
     </header>
 
-    <main class="alert-body" v-if="loading || getTotals.total">
+    <main
+      class="alert-body"
+      v-if="loading || getTotals.total"
+      :data-cy="`${setDataCy}-id`"
+    >
       <transition name="flip" :duration="5000">
         <div v-if="!isAnimated">
           <div class="columns is-vcentered is-gapless bottom-space">
@@ -25,6 +29,7 @@
             <div class="column">
               <GhostLoading :isLoading="loading" setHeight="30" setWidth="116">
                 <b-button
+                  :data-cy="`${setDataCy}-mark-as-read`"
                   @click="
                     handleMarkAsRead(
                       getFirst.alertId,
@@ -86,6 +91,7 @@
                   @click="descriptionAlert(getFirst)"
                   v-if="!loading && getTotals.total"
                   class="full-description"
+                  :data-cy="`${setDataCy}-full-desc`"
                 >
                   {{ $t('common.general.fullDesc') }}
                 </a>
@@ -97,7 +103,7 @@
     </main>
     <main class="alert-body" v-if="!getTotals.total && !loading">
       <NoContent
-        :noContentText="`${$t('views.dashboard.noAlerts')} ${title[0]}`"
+        :noContentText="`${$t('views.dashboard.noAlerts')} ${setDataCy}`"
       />
     </main>
     <GhostLoading :isLoading="loading" setHeight="30">
@@ -114,8 +120,9 @@
           icon-left="information"
           class="has-text-weight-semibold alert-button"
           expanded
+          :data-cy="`${setDataCy}-info`"
         >
-          {{ getTotals.info }}
+          <p :data-cy="`${setDataCy}-info-value`">{{ getTotals.info }}</p>
         </b-button>
 
         <b-button
@@ -130,8 +137,9 @@
           icon-left="alert"
           class="has-text-weight-semibold alert-button"
           expanded
+          :data-cy="`${setDataCy}-warn`"
         >
-          {{ getTotals.warn }}
+          <p :data-cy="`${setDataCy}-warn-value`">{{ getTotals.warn }}</p>
         </b-button>
 
         <b-button
@@ -146,8 +154,9 @@
           icon-left="alert-circle"
           class="has-text-weight-semibold alert-button"
           expanded
+          :data-cy="`${setDataCy}-crit`"
         >
-          {{ getTotals.crit }}
+          <p :data-cy="`${setDataCy}-crit-value`">{{ getTotals.crit }}</p>
         </b-button>
       </footer>
     </GhostLoading>
@@ -230,6 +239,13 @@ export default {
     },
     setIcon() {
       return checkAlertIcon(this.getFirst.severity)
+    },
+    setDataCy() {
+      if (this.title[0] === 'Licenses') {
+        return 'licenses'
+      } else {
+        return 'ercole-engine'
+      }
     },
   },
   watch: {

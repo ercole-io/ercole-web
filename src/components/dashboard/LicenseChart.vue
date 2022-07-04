@@ -25,6 +25,7 @@
               expanded
               keep-first
               clearable
+              data-cy="licenses-input"
             >
               <template slot-scope="props">
                 <div class="media media-custom">
@@ -59,6 +60,7 @@
             :date-formatter="formatDate"
             class="range-dates-field"
             trap-focus
+            data-cy="licenses-start-date"
           />
         </GhostLoading>
       </div>

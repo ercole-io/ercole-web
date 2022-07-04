@@ -5,6 +5,7 @@
     <Alert
       :title="[$t('views.dashboard.licenses'), 'dollar-sign']"
       alertCategory="LICENSE"
+      data-cy="licenses"
     />
 
     <Alert
@@ -25,7 +26,7 @@ export default {
   components: {
     BoxContent,
     Agents,
-    Alert
+    Alert,
   },
   async beforeMount() {
     await this.getAlertsData({ status: 'NEW' }).then(() => {
@@ -33,8 +34,8 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['getAlertsData'])
-  }
+    ...mapActions(['getAlertsData']),
+  },
 }
 </script>
 

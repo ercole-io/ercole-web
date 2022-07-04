@@ -9,6 +9,7 @@
           @click="toggle('Left')"
           :icon-right="leftBtIcon"
           v-if="leftButton"
+          data-cy="show-left-content"
         >
           {{ leftBtText }}
         </b-button>
@@ -19,6 +20,7 @@
           @click="toggle('Right')"
           :icon-left="rightBtIcon"
           v-if="rightButton"
+          data-cy="show-right-content"
         >
           {{ rightBtText }}
         </b-button>

@@ -83,6 +83,7 @@
         :totalItems="total.length"
         :perPage="perPage"
         v-if="!filters.search.value"
+        data-cy="show-items"
       />
       <FilteredResults
         slot="info"
