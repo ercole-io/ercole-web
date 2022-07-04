@@ -1,5 +1,5 @@
 <template>
-  <div class="card notification">
+  <div class="card notification" data-cy="agents">
     <header class="card-header">
       <p class="card-header-title title">
         <b-icon
@@ -13,7 +13,9 @@
     </header>
     <div class="card-content body">
       <div class="agents">
-        <span>{{ $t('views.dashboard.agentsText') }} </span>
+        <span data-cy="agents-desc"
+          >{{ $t('views.dashboard.agentsText') }}
+        </span>
 
         <span class="has-text-weight-bold" data-stoped-agents>
           <GhostLoading :isLoading="loading" setWidth="20">
