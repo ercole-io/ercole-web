@@ -6,6 +6,25 @@
     applyText="Add/Update"
     cancelText="Cancel"
   >
+    <b-field label="Active Profile" custom-class="is-small" expanded>
+      <div class="is-flex is-justify-content-space-around mb-4">
+        <b-radio
+          size="is-small"
+          v-model="profileForm.selected"
+          :native-value="true"
+        >
+          {{ $t('common.forms.yes') }}
+        </b-radio>
+        <b-radio
+          size="is-small"
+          v-model="profileForm.selected"
+          :native-value="false"
+        >
+          {{ $t('common.forms.no') }}
+        </b-radio>
+      </div>
+    </b-field>
+
     <b-field
       :label="`${$t('common.collumns.profileName')} *`"
       custom-class="is-small"
@@ -188,7 +207,9 @@ export default {
   },
   data() {
     return {
-      profileForm: {},
+      profileForm: {
+        selected: false,
+      },
       isEditing: false,
       editPrivateKey: false,
     }
@@ -215,6 +236,7 @@ export default {
     },
     editProfile(data) {
       this.profileForm = {
+        selected: data.selected,
         id: data.id,
         profile: data.profile,
         tenancyOCID: data.tenancyOCID,
@@ -226,7 +248,9 @@ export default {
       this.editPrivateKey = false
     },
     resetForm() {
-      this.profileForm = {}
+      this.profileForm = {
+        selected: false,
+      }
       this.isEditing = false
       this.editPrivateKey = false
     },
