@@ -28,7 +28,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getOciActiveProfiles']),
+    ...mapGetters(['getOciActiveProfiles', 'getAwsActiveProfiles']),
     menu() {
       return [
         {
@@ -165,15 +165,42 @@ export default {
           icon: 'fas fa-cloud',
           child: [
             {
-              href: { name: 'profile-configurations' },
-              title: this.$i18n.t('menu.profileConfig'),
-              icon: 'fas fa-cog',
+              title: this.$i18n.t('menu.oracle'),
+              icon: 'fas fa-cloud',
+              child: [
+                {
+                  href: { name: 'oracle-profile-configurations' },
+                  title: this.$i18n.t('menu.profileConfig'),
+                  icon: 'fas fa-user-cog',
+                  class: 'menu-third-level',
+                },
+                {
+                  href: { name: 'oracle-recommendations' },
+                  title: this.$i18n.t('menu.recommendations'),
+                  icon: 'fas fa-user-shield',
+                  class: 'menu-third-level',
+                  disabled: !this.getOciActiveProfiles,
+                },
+              ],
             },
             {
-              href: { name: 'recommendations' },
-              title: this.$i18n.t('menu.recommendations'),
-              icon: 'fas fa-cog',
-              disabled: !this.getOciActiveProfiles,
+              title: this.$i18n.t('menu.aws'),
+              icon: 'fas fa-cloud',
+              child: [
+                {
+                  href: { name: 'aws-profile-configurations' },
+                  title: this.$i18n.t('menu.profileConfig'),
+                  icon: 'fas fa-user-cog',
+                  class: 'menu-third-level',
+                },
+                // {
+                //   href: { name: 'aws-recommendations' },
+                //   title: this.$i18n.t('menu.recommendations'),
+                //   icon: 'fas fa-user-shield',
+                //   class: 'menu-third-level',
+                //   disabled: !this.getAwsActiveProfiles,
+                // },
+              ],
             },
           ],
         },

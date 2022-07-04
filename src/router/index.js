@@ -95,11 +95,17 @@ const NotFound = lazy(() =>
 const GeneralError = lazy(() =>
   import(/* webpackPreload: true */ '@/views/Errors/GeneralError.vue')
 )
-const ProfileConfigurations = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/cloud/ProfileConfigurations.vue')
+const OracleProfileConfigurations = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/cloud/oracle/ProfileConfig.vue')
 )
-const ErcoleRecommendations = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/cloud/ErcoleRecommendations.vue')
+const OracleRecommendations = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/cloud/oracle/Recommendations.vue')
+)
+const AwsProfileConfigurations = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/cloud/aws/ProfileConfig.vue')
+)
+const AwsRecommendations = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/cloud/aws/Recommendations.vue')
 )
 
 Vue.use(VueRouter)
@@ -393,7 +399,7 @@ const routes = [
         beforeEnter: verifyAuth,
       },
       {
-        path: '/cluster/:clustername',
+        path: '/hypervisors/:clustername',
         name: 'cluster-details',
         component: Cluster,
         props: true,
@@ -432,24 +438,78 @@ const routes = [
     beforeEnter: verifyAuth,
   },
   {
-    path: '/profile-configurations',
-    name: 'profile-configurations',
-    component: ProfileConfigurations,
-    meta: {
-      label: i18n.t('menu.profileConfig'),
-      title: `${title}${i18n.t('menu.profileConfig')}`,
-      breadcrumb: [{ name: i18n.t('menu.profileConfig') }],
-    },
-  },
-  {
-    path: '/recommendations',
-    name: 'recommendations',
-    component: ErcoleRecommendations,
-    meta: {
-      label: i18n.t('menu.recommendations'),
-      title: `${title}${i18n.t('menu.recommendations')}`,
-      breadcrumb: [{ name: i18n.t('menu.recommendations') }],
-    },
+    path: '/cloud-advisor',
+    component: EmptyRouterView,
+    children: [
+      {
+        path: '/cloud-advisor/oracle',
+        component: EmptyRouterView,
+        children: [
+          {
+            path: '/cloud-advisor/oracle/profile-configurations',
+            name: 'oracle-profile-configurations',
+            component: OracleProfileConfigurations,
+            meta: {
+              label: i18n.t('menu.profileConfig'),
+              title: `${title}${i18n.t('menu.profileConfig')}`,
+              breadcrumb: [
+                { name: i18n.t('menu.cloudAdvisor') },
+                { name: i18n.t('menu.oracle') },
+                { name: i18n.t('menu.profileConfig') },
+              ],
+            },
+          },
+          {
+            path: '/cloud-advisor/oracle/recommendations',
+            name: 'oracle-recommendations',
+            component: OracleRecommendations,
+            meta: {
+              label: i18n.t('menu.recommendations'),
+              title: `${title}${i18n.t('menu.recommendations')}`,
+              breadcrumb: [
+                { name: i18n.t('menu.cloudAdvisor') },
+                { name: i18n.t('menu.oracle') },
+                { name: i18n.t('menu.recommendations') },
+              ],
+            },
+          },
+        ],
+      },
+      {
+        path: '/cloud-advisor/aws',
+        component: EmptyRouterView,
+        children: [
+          {
+            path: '/cloud-advisor/aws/profile-configurations',
+            name: 'aws-profile-configurations',
+            component: AwsProfileConfigurations,
+            meta: {
+              label: i18n.t('menu.profileConfig'),
+              title: `${title}${i18n.t('menu.profileConfig')}`,
+              breadcrumb: [
+                { name: i18n.t('menu.cloudAdvisor') },
+                { name: i18n.t('menu.aws') },
+                { name: i18n.t('menu.profileConfig') },
+              ],
+            },
+          },
+          {
+            path: '/cloud-advisor/aws/recommendations',
+            name: 'aws-recommendations',
+            component: AwsRecommendations,
+            meta: {
+              label: i18n.t('menu.recommendations'),
+              title: `${title}${i18n.t('menu.recommendations')}`,
+              breadcrumb: [
+                { name: i18n.t('menu.cloudAdvisor') },
+                { name: i18n.t('menu.aws') },
+                { name: i18n.t('menu.recommendations') },
+              ],
+            },
+          },
+        ],
+      },
+    ],
   },
   {
     path: '/repository',

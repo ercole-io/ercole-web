@@ -97,6 +97,8 @@ export default {
       filteredadminOption: [],
       filtereddefaultRole: [],
       filteredignoredComment: [],
+      filteredid: [],
+      filteredaccesskeyid: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,
