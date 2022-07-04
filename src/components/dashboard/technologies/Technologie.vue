@@ -1,7 +1,7 @@
 <template>
   <HbuttonScroll style="width: 90%; margin: 0 auto">
     <div class="technologies">
-      <div class="technologies-list">
+      <div class="technologies-list" id="ercole">
         <div class="image">
           <GhostLoading :isLoading="loading" setHeight="60">
             <img
@@ -11,11 +11,11 @@
           </GhostLoading>
         </div>
 
-        <!-- <div class="tech-name">
+        <div class="tech-name is-hidden">
           <GhostLoading :isLoading="loading" setWidth="100">
             <span v-if="!loading">{{ getTotalTarget.extra.name }}</span>
           </GhostLoading>
-        </div> -->
+        </div>
 
         <div class="agents">
           <GhostLoading :isLoading="loading" setHeight="15" setWidth="15">

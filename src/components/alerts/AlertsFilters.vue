@@ -12,7 +12,11 @@
         </CustomField>
 
         <CustomField label="Type">
-          <CustomSelect v-model="filters.alertCategory" fixedOptions>
+          <CustomSelect
+            v-model="filters.alertCategory"
+            fixedOptions
+            data-cy="alert-category"
+          >
             <option value="AGENT">AGENT</option>
             <option value="ENGINE">ENGINE</option>
             <option value="LICENSE">LICENSE</option>
@@ -46,7 +50,11 @@
         </CustomField>
 
         <CustomField :label="$t('common.fields.severity')">
-          <CustomSelect v-model="filters.alertSeverity" fixedOptions>
+          <CustomSelect
+            v-model="filters.alertSeverity"
+            fixedOptions
+            data-cy="alert-severity"
+          >
             <option value="INFO">INFO</option>
             <option value="WARNING">WARNING</option>
             <option value="CRITICAL">CRITICAL</option>
