@@ -10,7 +10,11 @@
       <div class="cloud-list" v-for="(tech, i) in getCloud" :key="tech.id || i">
         <div class="image">
           <GhostLoading :isLoading="loading" setHeight="62" setWidth="100%">
-            <img :src="tech.extra.logo" v-if="!loading" />
+            <img
+              :src="tech.extra.logo"
+              v-if="!loading"
+              :data-cy="`${getCloudTech(tech.extra.name)}-logo`"
+            />
           </GhostLoading>
         </div>
 
@@ -27,6 +31,7 @@
               v-if="!loading"
               :style="{ 'background-color': tech.extra.color }"
               style="color: #fff"
+              :data-cy="`${getCloudTech(tech.extra.name)}-value`"
             >
               {{ tech.agents }}
             </b-tag>
@@ -57,6 +62,17 @@ export default {
     bus.$on('loadTechComplete', () => {
       this.loading = false
     })
+  },
+  methods: {
+    getCloudTech(value) {
+      if (value === 'Oracle Cloud') {
+        return 'oracle-cloud'
+      } else if (value === 'Microsoft Azure') {
+        return 'microsoft-azure'
+      } else if (value === 'Amazon AWS') {
+        return 'amazon-aws'
+      }
+    },
   },
   computed: {
     ...mapGetters(['getCloudObjects']),
