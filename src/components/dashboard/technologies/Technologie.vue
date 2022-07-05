@@ -7,19 +7,20 @@
             <img
               src="@/assets/images/Cerchio-blu-cane-blu.png"
               v-if="!loading"
+              :data-cy="`${getTechnology(getTotalTarget.extra.name)}-logo`"
+              :title="`${getTotalTarget.extra.name}`"
             />
-          </GhostLoading>
-        </div>
-
-        <div class="tech-name is-hidden">
-          <GhostLoading :isLoading="loading" setWidth="100">
-            <span v-if="!loading">{{ getTotalTarget.extra.name }}</span>
           </GhostLoading>
         </div>
 
         <div class="agents">
           <GhostLoading :isLoading="loading" setHeight="15" setWidth="15">
-            <span v-if="!loading">{{ getTotalTarget.agents }}</span>
+            <span
+              v-if="!loading"
+              :data-cy="`${getTechnology(getTotalTarget.extra.name)}-value`"
+            >
+              {{ getTotalTarget.agents }}
+            </span>
           </GhostLoading>
         </div>
 
@@ -37,6 +38,7 @@
               :strokeWidth="7"
               :transitionDuration="2000"
               v-if="!loading"
+              :data-cy="`${getTechnology(getTotalTarget.extra.name)}-perc`"
             />
           </GhostLoading>
         </div>
@@ -52,19 +54,20 @@
             <img
               v-bind:src="`data:image/jpeg;base64,${tech.extra.logo}`"
               v-if="!loading"
+              :data-cy="`${getTechnology(tech.extra.name)}-logo`"
+              :title="`${tech.extra.name}`"
             />
           </GhostLoading>
         </div>
 
-        <!-- <div class="tech-name">
-          <GhostLoading :isLoading="loading" setWidth="100">
-            <span v-if="!loading">{{ tech.extra.name }}</span>
-          </GhostLoading>
-        </div> -->
-
         <div class="agents">
           <GhostLoading :isLoading="loading" setHeight="15" setWidth="15">
-            <span v-if="!loading">{{ tech.agents }}</span>
+            <span
+              v-if="!loading"
+              :data-cy="`${getTechnology(tech.extra.name)}-value`"
+            >
+              {{ tech.agents }}
+            </span>
           </GhostLoading>
         </div>
 
@@ -82,6 +85,7 @@
               :strokeWidth="7"
               :transitionDuration="2000"
               v-if="!loading"
+              :data-cy="`${getTechnology(tech.extra.name)}-perc`"
             />
           </GhostLoading>
         </div>
@@ -96,6 +100,7 @@ import { mapGetters } from 'vuex'
 import Progress from 'easy-circular-progress'
 import HbuttonScroll from '@/components/HbuttonScroll.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
+import toLower from '@/filters/toLower.js'
 
 export default {
   components: {
@@ -112,6 +117,23 @@ export default {
     bus.$on('loadTechComplete', () => {
       this.loading = false
     })
+  },
+  methods: {
+    getTechnology(value) {
+      if (value === 'Oracle Database') {
+        return 'oracle-database'
+      } else if (value === 'SQL Server') {
+        return 'sql-server'
+      } else if (value === 'MySQL') {
+        return 'mysql'
+      } else if (value === 'PostgreSQL') {
+        return 'postgresql'
+      } else if (value === 'MariaDB') {
+        return 'mariadb'
+      } else {
+        return toLower(value)
+      }
+    },
   },
   computed: {
     ...mapGetters(['getTotalTarget', 'getTechnologies']),
