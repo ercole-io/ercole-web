@@ -18,7 +18,7 @@ const mapPostgreSqlDatabases = (data, extraData) => {
       port: item.port,
       slavesNum: item.slavesNum.toString(),
       tblspNum: item.tblspNum.toString(),
-      trustHbaEntries: item.trustHbaEntries.toString(),
+      trustHbaEntries: item.trustHbaEntries,
       usersNum: item.usersNum,
       databases: [...item.databases],
       licenses: mapExtraData(item.name, extraData.licenses(item.name)),

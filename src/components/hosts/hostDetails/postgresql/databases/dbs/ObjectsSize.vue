@@ -10,7 +10,7 @@
       :isLoadingTable="false"
     >
       <template slot="headData">
-        <v-th sortKey="schemaName">Name</v-th>
+        <v-th sortKey="schemaName">Schema Name</v-th>
         <v-th sortKey="schemaOwner">Owner</v-th>
         <v-th sortKey="schemaSize">Size</v-th>
         <v-th sortKey="tablesCount">Tables Count</v-th>
