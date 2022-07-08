@@ -23,8 +23,8 @@
               <li>
                 <span>Db Size</span>
                 <span
-                  v-tooltip.right="options(info.dbSize)"
-                  v-html="highlight(toString(info.dbSize))"
+                  v-tooltip.right="options(mapBytes(info.dbSize))"
+                  v-html="highlight(mapBytes(info.dbSize))"
                 />
               </li>
               <li>
@@ -63,8 +63,8 @@
               <li>
                 <span>Indexes Size</span>
                 <span
-                  v-tooltip.right="options(info.indexesSize)"
-                  v-html="highlight(toString(info.indexesSize))"
+                  v-tooltip.right="options(mapBytes(info.indexesSize))"
+                  v-html="highlight(mapBytes(info.indexesSize))"
                 />
               </li>
               <li>
@@ -77,8 +77,8 @@
               <li>
                 <span>Lobs Size</span>
                 <span
-                  v-tooltip.right="options(info.lobsSize)"
-                  v-html="highlight(toString(info.lobsSize))"
+                  v-tooltip.right="options(mapBytes(info.lobsSize))"
+                  v-html="highlight(mapBytes(info.lobsSize))"
                 />
               </li>
               <li>
@@ -91,8 +91,8 @@
               <li>
                 <span>Matviews Size</span>
                 <span
-                  v-tooltip.right="options(info.matviewsSize)"
-                  v-html="highlight(toString(info.matviewsSize))"
+                  v-tooltip.right="options(mapBytes(info.matviewsSize))"
+                  v-html="highlight(mapBytes(info.matviewsSize))"
                 />
               </li>
             </ul>
@@ -131,8 +131,8 @@
               <li>
                 <span>Tables Size</span>
                 <span
-                  v-tooltip.right="options(info.tablesSize)"
-                  v-html="highlight(toString(info.tablesSize))"
+                  v-tooltip.right="options(mapBytes(info.tablesSize))"
+                  v-html="highlight(mapBytes(info.tablesSize))"
                 />
               </li>
               <li>
@@ -164,6 +164,9 @@ export default {
   methods: {
     setBoolean(value) {
       return value ? 'yes' : 'no'
+    },
+    mapBytes(value) {
+      return this.$options.filters.prettyBytes(value)
     },
   },
 }
