@@ -70,8 +70,8 @@
               <li v-if="dbInfo.instanceSize">
                 <span>Instance Size (GB)</span>
                 <span
-                  v-tooltip.right="options(dbInfo.instanceSize)"
-                  v-html="highlight(dbInfo.instanceSize)"
+                  v-tooltip.right="options(mapBytes(dbInfo.instanceSize))"
+                  v-html="highlight(mapBytes(dbInfo.instanceSize))"
                 />
               </li>
               <li v-if="dbInfo.maxConnections">
@@ -122,6 +122,11 @@ import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
 
 export default {
   mixins: [infoMixin],
+  methods: {
+    mapBytes(value) {
+      return this.$options.filters.prettyBytes(value)
+    },
+  },
 }
 </script>
 
