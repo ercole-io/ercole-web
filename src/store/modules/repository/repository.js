@@ -9,17 +9,32 @@ export const state = () => ({
 export const getters = {
   getRepository: (state, getters) => {
     let repos = []
-    // const link = `${getters.getRepoServiceBaseUrl}/all/`
 
     _.map(state.repository, (val) => {
       repos.push({
         ...val,
         ReleaseDate: formatDate(val.ReleaseDate),
         Download: val.Filename,
+        Version: formatVersion(val.Version),
       })
     })
 
     return getters.filteredOrNot(repos)
+  },
+  getRepositoryAsList: (state, getters) => {
+    const orderByDate = _.orderBy(getters.getRepository, 'ReleaseDate', 'desc')
+    const groupByVersion = _.groupBy(orderByDate, 'Version')
+    const sortByKey = _.sortBy(Object.keys(groupByVersion))
+    const reverseByKey = _.reverse(sortByKey)
+    const reduceByKey = _.reduce(
+      reverseByKey,
+      (obj, key) => {
+        obj[key] = groupByVersion[key]
+        return obj
+      },
+      {}
+    )
+    return reduceByKey
   },
 }
 
@@ -53,4 +68,17 @@ export const actions = {
         dispatch('offLoadingTable')
       })
   },
+}
+
+const formatVersion = (agentVersion) => {
+  if (agentVersion) {
+    let version = _.split(agentVersion, '.')
+    if (version.length > 2 && version[1].length === 1) {
+      version[1] = `0${version[1]}`
+    }
+    version = _.join(version, '.')
+    return version
+  } else {
+    return agentVersion
+  }
 }
