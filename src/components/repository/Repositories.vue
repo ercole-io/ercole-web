@@ -19,8 +19,8 @@
         {{ switchViewText }}
       </b-button>
 
-      <RepoTable v-if="switchView" />
-      <RepoList v-else />
+      <RepoTable class="animate__animated animate__fadeIn" v-if="switchView" />
+      <RepoList class="animate__animated animate__fadeIn" v-else />
     </div>
   </ToggleColumns>
 </template>
