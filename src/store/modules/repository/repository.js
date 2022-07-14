@@ -14,28 +14,40 @@ export const getters = {
       repos.push({
         ...val,
         ReleaseDate: formatDate(val.ReleaseDate),
-        Download: val.Filename,
+        Download: `${getters.getRepoServiceBaseUrl}/all/${val.Filename}`,
         Version: formatVersion(val.Version),
       })
     })
 
     return getters.filteredOrNot(repos)
   },
-  getRepositoryAsList: (state, getters) => {
-    const orderByDate = _.orderBy(getters.getRepository, 'ReleaseDate', 'desc')
-    const groupByVersion = _.groupBy(orderByDate, 'Version')
-    const sortByKey = _.sortBy(Object.keys(groupByVersion))
-    const reverseByKey = _.reverse(sortByKey)
-    const reduceByKey = _.reduce(
-      reverseByKey,
-      (obj, key) => {
-        obj[key] = groupByVersion[key]
-        return obj
-      },
-      {}
-    )
-    return reduceByKey
-  },
+  getRepositoryAsList:
+    (state, getters) =>
+    (reverse = true) => {
+      const orderByDate = _.orderBy(
+        getters.getRepository,
+        'ReleaseDate',
+        'desc'
+      )
+      const groupByVersion = _.groupBy(orderByDate, 'Version')
+      const sortByKey = _.sortBy(Object.keys(groupByVersion))
+      let reverseByKey
+      if (reverse) {
+        reverseByKey = _.reverse(sortByKey)
+      } else {
+        reverseByKey = sortByKey
+      }
+      // const reverseByKey = _.reverse(sortByKey)
+      const reduceByKey = _.reduce(
+        reverseByKey,
+        (obj, key) => {
+          obj[key] = groupByVersion[key]
+          return obj
+        },
+        {}
+      )
+      return reduceByKey
+    },
 }
 
 export const mutations = {
