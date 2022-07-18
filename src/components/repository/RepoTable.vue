@@ -25,16 +25,24 @@
       <td>
         <span
           class="is-block has-text-centered"
-          v-copy="getDownloadUrl(rowData.scope.Download)"
+          v-copy="rowData.scope.Download"
         >
-          <b-icon icon="copy" pack="fas" size="is-small" type="is-info" />
+          <b-icon type="is-info" icon="copy" pack="fas" size="is-small" />
         </span>
       </td>
-      <TdAction
-        :fileName="rowData.scope.Filename"
-        :link="rowData.scope.Download"
-        :iconSet="['is-custom-primary', 'fas', 'download']"
-      />
+      <td v-tooltip="options(rowData.scope.Filename)">
+        <span
+          class="is-block has-text-centered"
+          @click="downloadRepo(rowData.scope.Download, rowData.scope.Filename)"
+        >
+          <b-icon
+            type="is-custom-primary"
+            icon="download"
+            pack="fas"
+            size="is-small"
+          />
+        </span>
+      </td>
       <TdContent :value="rowData.scope.Name" />
       <TdContent :value="rowData.scope.Version" />
       <TdContent :value="rowData.scope.Filename" />
@@ -50,17 +58,17 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import downloadMixin from '@/mixins/repository/download.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
-import TdAction from '@/components/common/Table/TdAction.vue'
 
 export default {
+  mixins: [downloadMixin],
   components: {
     FullTable,
     TdContent,
     TdIcon,
-    TdAction,
   },
   data() {
     return {
@@ -78,17 +86,8 @@ export default {
       ],
     }
   },
-  methods: {
-    getDownloadUrl(value) {
-      return `${this.getRepoServiceBaseUrl}/all/${value}`
-    },
-  },
   computed: {
-    ...mapGetters([
-      'getRepository',
-      'getRepoServiceBaseUrl',
-      'loadingTableStatus',
-    ]),
+    ...mapGetters(['getRepository', 'loadingTableStatus']),
   },
 }
 </script>
