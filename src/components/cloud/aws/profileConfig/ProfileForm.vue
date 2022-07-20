@@ -117,49 +117,12 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
-import { mapActions } from 'vuex'
 import { required, requiredIf } from 'vuelidate/lib/validators'
-import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
+import profileFormMixin from '@/mixins/cloud/profileForm.js'
 
 export default {
-  components: {
-    AdvancedFiltersBase,
-  },
-  validations() {
-    return {
-      profileForm: this.validationFormFields,
-    }
-  },
-  data() {
-    return {
-      profileForm: {
-        selected: false,
-      },
-      isEditing: false,
-      editPrivateKey: false,
-    }
-  },
-  beforeMount() {
-    bus.$on('onResetAction', () => this.resetForm())
-
-    bus.$on('editProfile', (data) => {
-      bus.$emit('onToggleEdit', true)
-      this.editProfile(data)
-      this.isEditing = true
-    })
-  },
+  mixins: [profileFormMixin],
   methods: {
-    ...mapActions(['createCloudProfile', 'updateCloudProfile']),
-    addUpdateProfile() {
-      if (this.isEditing) {
-        this.updateCloudProfile(this.profileForm).then(() => this.resetForm())
-      } else {
-        this.createCloudProfile(this.profileForm).then(() => this.resetForm())
-      }
-      this.isEditing = false
-      this.editPrivateKey = false
-    },
     editProfile(data) {
       this.profileForm = {
         selected: data.selected,
@@ -167,13 +130,6 @@ export default {
         accesskeyid: data.accesskeyid,
         secretaccesskey: data.secretaccesskey,
         region: data.region,
-      }
-      this.isEditing = false
-      this.editPrivateKey = false
-    },
-    resetForm() {
-      this.profileForm = {
-        selected: false,
       }
       this.isEditing = false
       this.editPrivateKey = false
@@ -190,9 +146,6 @@ export default {
         },
         region: { required },
       }
-    },
-    showRequiredSymble() {
-      return this.isEditing ? '' : '*'
     },
   },
 }
