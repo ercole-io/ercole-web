@@ -191,49 +191,19 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
-import { mapActions } from 'vuex'
-import { required, requiredIf } from 'vuelidate/lib/validators'
-import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
+import { required, requiredIf, helpers } from 'vuelidate/lib/validators'
+import profileFormMixin from '@/mixins/cloud/profileForm.js'
+
+const isTenancyOcid = helpers.regex(
+  'isTenancyOcid',
+  /^ocid+\d+\.tenancy[a-z\d.]*$/
+)
+
+const isUserOcid = helpers.regex('isTenancyOcid', /^ocid+\d+\.user[a-z\d.]*$/)
 
 export default {
-  components: {
-    AdvancedFiltersBase,
-  },
-  validations() {
-    return {
-      profileForm: this.validationFormFields,
-    }
-  },
-  data() {
-    return {
-      profileForm: {
-        selected: false,
-      },
-      isEditing: false,
-      editPrivateKey: false,
-    }
-  },
-  beforeMount() {
-    bus.$on('onResetAction', () => this.resetForm())
-
-    bus.$on('editProfile', (data) => {
-      bus.$emit('onToggleEdit', true)
-      this.editProfile(data)
-      this.isEditing = true
-    })
-  },
+  mixins: [profileFormMixin],
   methods: {
-    ...mapActions(['createCloudProfile', 'updateCloudProfile']),
-    addUpdateProfile() {
-      if (this.profileForm.id) {
-        this.updateCloudProfile(this.profileForm).then(() => this.resetForm())
-      } else {
-        this.createCloudProfile(this.profileForm).then(() => this.resetForm())
-      }
-      this.isEditing = false
-      this.editPrivateKey = false
-    },
     editProfile(data) {
       this.profileForm = {
         selected: data.selected,
@@ -247,20 +217,16 @@ export default {
       this.isEditing = false
       this.editPrivateKey = false
     },
-    resetForm() {
-      this.profileForm = {
-        selected: false,
-      }
-      this.isEditing = false
-      this.editPrivateKey = false
-    },
   },
   computed: {
     validationFormFields() {
       return {
         profile: { required },
-        tenancyOCID: { required },
-        userOCID: { required },
+        tenancyOCID: {
+          required,
+          isTenancyOcid,
+        },
+        userOCID: { required, isUserOcid },
         keyFingerprint: { required },
         region: { required },
         privateKey: {
@@ -269,9 +235,6 @@ export default {
           }),
         },
       }
-    },
-    showRequiredSymble() {
-      return this.isEditing ? '' : '*'
     },
   },
 }
