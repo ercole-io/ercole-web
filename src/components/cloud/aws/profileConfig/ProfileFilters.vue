@@ -2,7 +2,7 @@
   <AdvancedFiltersBase :submitAction="apply">
     <Collapse :collapses="collapses">
       <template slot="General">
-        <CustomField :label="$t('common.collumns.profileName')">
+        <CustomField label="ID">
           <CustomAutocomplete
             v-model="filters.id"
             :filterResult="filteredid"
@@ -10,7 +10,7 @@
           />
         </CustomField>
 
-        <CustomField :label="$t('common.collumns.tenancy')">
+        <CustomField label="Access Key ID">
           <CustomSelect
             v-model="filters.accesskeyid"
             :options="filteredaccesskeyid"
@@ -39,8 +39,8 @@ export default {
   data() {
     return {
       collapses: ['General'],
-      autocompletes: ['profile'],
-      selects: ['id', 'accesskeyid', 'region'],
+      autocompletes: ['id'],
+      selects: ['accesskeyid', 'region'],
     }
   },
 }
