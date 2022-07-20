@@ -3,7 +3,7 @@
     slot="center"
     placeholder="Profile"
     :keys="keys"
-    :tableData="getAwsProfiles"
+    :tableData="returnCloudProfiles"
     :isLoadingTable="loadingTableStatus"
   >
     <template slot="headData">
@@ -86,16 +86,16 @@ export default {
   },
   methods: {
     ...mapActions([
-      'getAwsProfilesAction',
-      'removeAwsProfile',
-      'activateAwsProfile',
+      'getCloudProfiles',
+      'removeCloudProfile',
+      'activateCloudProfile',
     ]),
     toggleProfile(id, selected) {
-      this.activateAwsProfile({
+      this.activateCloudProfile({
         id: id,
         isActive: selected,
       }).then(() => {
-        this.getAwsProfilesAction()
+        this.getCloudProfiles()
       })
     },
     editProfile(profile) {
@@ -114,7 +114,7 @@ export default {
           type: 'is-danger',
           hasIcon: true,
           onConfirm: () => {
-            this.removeAwsProfile(id).then(() => {
+            this.removeCloudProfile(id).then(() => {
               this.$buefy.toast.open({
                 message: this.$i18n.t('views.cloud.deleteSuccess', {
                   profile: profile,
@@ -131,7 +131,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getAwsProfiles', 'loadingTableStatus']),
+    ...mapGetters(['returnCloudProfiles', 'loadingTableStatus']),
   },
 }
 </script>

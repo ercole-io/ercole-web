@@ -1,0 +1,26 @@
+[
+  {
+    "sort": "category",
+    "langKey": "common.collumns.category"
+  },
+  {
+    "sort": "objectType",
+    "langKey": "Object Type"
+  },
+  {
+    "sort": "suggestion",
+    "langKey": "Suggestion"
+  },
+  {
+    "sort": "resourceID",
+    "langKey": "Resource ID"
+  },
+  {
+    "sort": "profileID",
+    "langKey": "Profile ID"
+  },
+  {
+    "sort": "name",
+    "langKey": "common.collumns.repoName"
+  }
+]

@@ -3,7 +3,7 @@
     slot="center"
     placeholder="Profile"
     :keys="keys"
-    :tableData="getOciProfiles"
+    :tableData="returnCloudProfiles"
     :isLoadingTable="loadingTableStatus"
   >
     <template slot="headData">
@@ -113,7 +113,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getProfiles', 'removeProfile', 'activateProfile']),
+    ...mapActions([
+      'getCloudProfiles',
+      'removeCloudProfile',
+      'activateCloudProfile',
+    ]),
     toggleProfile(id, selected) {
       this.$buefy.dialog.alert({
         title: 'Profile Activating/Deactivating Warning',
@@ -127,11 +131,11 @@ export default {
         icon: 'alert',
         iconPack: 'mdi',
         onConfirm: () => {
-          this.activateProfile({
+          this.activateCloudProfile({
             id: id,
             isActive: selected,
           }).then(() => {
-            this.getProfiles()
+            this.getCloudProfiles()
           })
         },
       })
@@ -152,7 +156,7 @@ export default {
           type: 'is-danger',
           hasIcon: true,
           onConfirm: () => {
-            this.removeProfile(id).then(() => {
+            this.removeCloudProfile(id).then(() => {
               this.$buefy.toast.open({
                 message: this.$i18n.t('views.cloud.deleteSuccess', {
                   profile: profile,
@@ -169,7 +173,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getOciProfiles', 'loadingTableStatus']),
+    ...mapGetters(['returnCloudProfiles', 'loadingTableStatus']),
   },
 }
 </script>
