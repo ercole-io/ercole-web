@@ -224,12 +224,12 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['createProfile', 'updateProfile']),
+    ...mapActions(['createCloudProfile', 'updateCloudProfile']),
     addUpdateProfile() {
       if (this.profileForm.id) {
-        this.updateProfile(this.profileForm).then(() => this.resetForm())
+        this.updateCloudProfile(this.profileForm).then(() => this.resetForm())
       } else {
-        this.createProfile(this.profileForm).then(() => this.resetForm())
+        this.createCloudProfile(this.profileForm).then(() => this.resetForm())
       }
       this.isEditing = false
       this.editPrivateKey = false

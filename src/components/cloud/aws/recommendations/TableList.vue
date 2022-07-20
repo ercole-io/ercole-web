@@ -1,8 +1,8 @@
 <template>
   <FullTable
     placeholder="Cloud Recommendations"
-    :keys="getHeadKeys(ErcoleRecommendationsHead)"
-    :tableData="returnErcoleRecommendations"
+    :keys="getHeadKeys(AwsHeading)"
+    :tableData="returnCloudRecommendations"
     :isLoadingTable="loadingTableStatus"
     @clickedRow="handleClickedRow"
     isClickable
@@ -12,16 +12,16 @@
         <b-taglist
           attached
           class="is-align-self-center mb-0"
-          v-if="returnErcoleRecommendationsLastUpdate && !loadingTableStatus"
+          v-if="returnCloudRecommendationsLastUpdate && !loadingTableStatus"
         >
           <b-tag type="is-dark" class="mb-0">Last Update</b-tag>
           <b-tag type="is-success is-light" class="mb-0">
-            {{ returnErcoleRecommendationsLastUpdate }}
+            {{ returnCloudRecommendationsLastUpdate }}
           </b-tag>
         </b-taglist>
 
         <b-notification
-          v-if="getOciActiveProfileErrors && !loadingTableStatus"
+          v-if="getAwsActiveProfileErrors && !loadingTableStatus"
           type="is-warning is-light"
           class="is-flex is-align-content-center mb-0 mr-2"
           style="padding: 0.1rem 1rem 0 1rem"
@@ -49,7 +49,7 @@
 
     <DynamicHeading
       slot="headData"
-      v-for="head in ErcoleRecommendationsHead"
+      v-for="head in AwsHeading"
       :key="head.sort"
       :data="head"
     />
@@ -58,7 +58,8 @@
       <TdContent :value="rowData.scope.category" />
       <TdContent :value="rowData.scope.objectType" />
       <TdContent :value="rowData.scope.suggestion" />
-      <TdContent :value="rowData.scope.compartmentName" />
+      <TdContent :value="rowData.scope.resourceID" />
+      <TdContent :value="rowData.scope.profileID" />
       <TdContent :value="rowData.scope.name" />
     </template>
   </FullTable>
@@ -72,10 +73,9 @@ import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
-import ErcoleRecommendationsModal from '@/components/cloud/oracle/recommendations/RecommendationsModal.vue'
-import ErcoleRecommendationsHead from '@/components/cloud/oracle/recommendations/RecommendationsHead.json'
-// import RetrieveUpdateModal from '@/components/cloud/ercoleRecommendations/RetrieveUpdatesModal.vue'
-import ErrorsRecommendationsModal from '@/components/cloud/oracle/recommendations/RecommendationsErrorsModal.vue'
+import DetailsModal from '@/components/cloud/DetailsModal.vue'
+import AwsHeading from '@/components/cloud/aws/recommendations/Heading.json'
+import ErrorsModal from '@/components/cloud/ErrorsModal.vue'
 import RefreshButton from '@/components/common/RefreshButton.vue'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 
@@ -89,30 +89,29 @@ export default {
   },
   data() {
     return {
-      ErcoleRecommendationsHead: ErcoleRecommendationsHead,
+      AwsHeading: AwsHeading,
     }
   },
   beforeMount() {
     bus.$on('refreshPageData', () => {
       this.retrieveUpdate()
     })
-
     bus.$on('finishRetrieveUpdates', () => {
       setTimeout(() => {
-        this.getErcoleRecommendations()
+        this.getCloudRecommendations(this.returnCloudTechnology)
       }, 500)
     })
   },
   methods: {
-    ...mapActions(['getErcoleRecommendations', 'retireveRecommendations']),
+    ...mapActions(['getCloudRecommendations', 'retireveCloudRecommendations']),
     ...mapMutations([
-      'SET_OCI_ACTIVE_PROFILE_ERRORS',
-      'SET_OCI_ACTIVE_PROFILE_GENERAL_ERRORS',
+      'SET_AWS_ACTIVE_PROFILE_ERRORS',
+      'SET_AWS_ACTIVE_PROFILE_GENERAL_ERRORS',
     ]),
     handleClickedRow(value) {
       if (value[0]) {
         this.$buefy.modal.open({
-          component: ErcoleRecommendationsModal,
+          component: DetailsModal,
           hasModalCard: true,
           props: {
             modalTitle: value[0].name,
@@ -123,11 +122,11 @@ export default {
     },
     modalErrors() {
       this.$buefy.modal.open({
-        component: ErrorsRecommendationsModal,
+        component: ErrorsModal,
         hasModalCard: true,
         canCancel: true,
         props: {
-          dataErrors: this.getOciActiveProfileGeneralErrors,
+          dataErrors: this.getAwsActiveProfileGeneralErrors,
         },
       })
     },
@@ -145,51 +144,42 @@ export default {
         iconPack: 'fa',
         onConfirm: () => {
           bus.$emit('retrieveUpdates', true)
-          this.retireveRecommendations().then(() => {
+          this.retireveCloudRecommendations().then(() => {
             bus.$emit('retrieveUpdates', false)
           })
         },
       })
     },
-    // updatingRecommendations() {
-    //   this.$buefy.modal.open({
-    //     component: RetrieveUpdateModal,
-    //     hasModalCard: true,
-    //     canCancel: false,
-    //   })
-    //   setTimeout(() => {
-    //     this.retireveRecommendations()
-    //   }, 500)
-    // },
   },
   computed: {
     ...mapGetters([
-      'returnErcoleRecommendations',
-      'getOciActiveProfileErrors',
-      'getOciActiveProfileGeneralErrors',
+      'returnCloudTechnology',
+      'returnCloudRecommendations',
+      'getAwsActiveProfileErrors',
+      'getAwsActiveProfileGeneralErrors',
       'loadingTableStatus',
-      'returnErcoleRecommendationsLastUpdate',
+      'returnCloudRecommendationsLastUpdate',
     ]),
     showProfileErrors() {
-      const number = Number(this.getOciActiveProfileErrors) > 1 ? 2 : 1
+      const number = Number(this.getAwsActiveProfileErrors) > 1 ? 2 : 1
 
       if (number > 1) {
         return this.$i18n.t('views.cloud.moreErrActiveProfile', {
-          n: this.getOciActiveProfileErrors,
+          n: this.getAwsActiveProfileErrors,
         })
       } else {
         return this.$i18n.t('views.cloud.oneErrActiveProfile', {
-          n: this.getOciActiveProfileErrors,
+          n: this.getAwsActiveProfileErrors,
         })
       }
     },
     showGeneralErrors() {
-      return this.getOciActiveProfileGeneralErrors.length > 0
+      return this.getAwsActiveProfileGeneralErrors.length > 0
     },
   },
   beforeDestroy() {
-    this.SET_OCI_ACTIVE_PROFILE_ERRORS('')
-    this.SET_OCI_ACTIVE_PROFILE_GENERAL_ERRORS([])
+    this.SET_AWS_ACTIVE_PROFILE_ERRORS('')
+    this.SET_AWS_ACTIVE_PROFILE_GENERAL_ERRORS([])
   },
 }
 </script>
