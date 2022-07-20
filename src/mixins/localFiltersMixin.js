@@ -99,6 +99,7 @@ export default {
       filteredignoredComment: [],
       filteredid: [],
       filteredaccesskeyid: [],
+      filteredprofileID: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,

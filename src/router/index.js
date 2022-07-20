@@ -96,16 +96,16 @@ const GeneralError = lazy(() =>
   import(/* webpackPreload: true */ '@/views/Errors/GeneralError.vue')
 )
 const OracleProfileConfigurations = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/cloud/oracle/ProfileConfig.vue')
+  import(/* webpackPreload: true */ '@/views/cloud/ProfileConfig.vue')
 )
 const OracleRecommendations = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/cloud/oracle/Recommendations.vue')
+  import(/* webpackPreload: true */ '@/views/cloud/Recommendations.vue')
 )
 const AwsProfileConfigurations = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/cloud/aws/ProfileConfig.vue')
+  import(/* webpackPreload: true */ '@/views/cloud/ProfileConfig.vue')
 )
 const AwsRecommendations = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/cloud/aws/Recommendations.vue')
+  import(/* webpackPreload: true */ '@/views/cloud/Recommendations.vue')
 )
 
 Vue.use(VueRouter)

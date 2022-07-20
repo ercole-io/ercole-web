@@ -150,12 +150,12 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['createAwsProfile', 'updateAwsProfile']),
+    ...mapActions(['createCloudProfile', 'updateCloudProfile']),
     addUpdateProfile() {
       if (this.isEditing) {
-        this.updateAwsProfile(this.profileForm).then(() => this.resetForm())
+        this.updateCloudProfile(this.profileForm).then(() => this.resetForm())
       } else {
-        this.createAwsProfile(this.profileForm).then(() => this.resetForm())
+        this.createCloudProfile(this.profileForm).then(() => this.resetForm())
       }
       this.isEditing = false
       this.editPrivateKey = false
