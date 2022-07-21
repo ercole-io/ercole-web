@@ -43,6 +43,7 @@ export default {
     Alerts,
   },
   beforeMount() {
+    this.getDbConnection()
     this.getDashboardData()
       .then(() => {
         bus.$emit('loadDashboardComplete')
@@ -63,6 +64,7 @@ export default {
       'getGlobalFiltersLocations',
       'getGlobalFiltersEnvironments',
       'getOracleCloudObjects',
+      'getDbConnection',
     ]),
   },
 }
