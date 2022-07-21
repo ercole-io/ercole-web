@@ -46,6 +46,8 @@ import * as awsActiveProfiles from '@/store/modules/cloud/aws/activeProfiles.js'
 import * as cloudTechnology from '@/store/modules/cloud/cloudTechnology.js'
 import * as cloudProfileConfig from '@/store/modules/cloud/profileConfig.js'
 import * as cloudRecommendations from '@/store/modules/cloud/recommendations.js'
+//Database Connection
+import * as dbConnection from '@/store/modules/dbConnection.js'
 
 Vue.use(Vuex)
 
@@ -92,6 +94,7 @@ export default new Vuex.Store({
     mysqlContracts,
     oracleContracts,
     oracleDbGrants,
+    dbConnection,
   },
   plugins: [
     createPersistedState({

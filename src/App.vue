@@ -1,5 +1,13 @@
 <template>
   <div id="app">
+    <b-tag
+      type="is-danger"
+      class="db-connected animate__animated animate__fadeInDown"
+      v-if="!isDbConnected"
+    >
+      Database Not Connected!
+    </b-tag>
+
     <component :is="layout">
       <Suspense>
         <Loading :isLoading="loadingStatus" :isFullPage="true" />
@@ -29,7 +37,7 @@ export default {
     ...mapActions(['tryAutoLogin', 'fetchConfig', 'offLoading']),
   },
   computed: {
-    ...mapGetters(['loadingStatus', 'isConfigLoaded']),
+    ...mapGetters(['loadingStatus', 'isConfigLoaded', 'isDbConnected']),
     layout() {
       return (this.$route.meta.layout || default_layout) + '-layout'
     },
@@ -37,4 +45,12 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.db-connected {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+}
+</style>
