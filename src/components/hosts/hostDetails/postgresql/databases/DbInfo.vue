@@ -68,7 +68,7 @@
                 />
               </li>
               <li v-if="dbInfo.instanceSize">
-                <span>Instance Size (GB)</span>
+                <span>Instance Size</span>
                 <span
                   v-tooltip.right="options(mapBytes(dbInfo.instanceSize))"
                   v-html="highlight(mapBytes(dbInfo.instanceSize))"
