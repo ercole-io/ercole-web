@@ -14,7 +14,6 @@
           <p>
             <b>{{ err.category }}</b> - {{ getDate(err.createdAt) }}
           </p>
-          <p><b>Profile ID:</b> {{ err.profileID }}</p>
           <p>{{ err.error }}</p>
         </div>
       </div>

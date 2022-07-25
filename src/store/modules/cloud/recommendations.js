@@ -123,8 +123,8 @@ export const actions = {
 
       profileError = _.uniqBy(profileError, 'profileID').length
 
-      commit('SET_OCI_ACTIVE_PROFILE_ERRORS', profileError)
-      commit('SET_OCI_ACTIVE_PROFILE_GENERAL_ERRORS', errors)
+      commit('SET_CLOUD_ACTIVE_PROFILE_ERRORS', profileError)
+      commit('SET_CLOUD_ACTIVE_PROFILE_GENERAL_ERRORS', errors)
     })
   },
   async retireveCloudRecommendations({ getters }) {

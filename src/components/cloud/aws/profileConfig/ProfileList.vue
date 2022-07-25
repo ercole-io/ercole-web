@@ -67,71 +67,14 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapGetters } from 'vuex'
-import TooltipMixin from '@/mixins/tooltipMixin.js'
-import FullTable from '@/components/common/Table/FullTable.vue'
-import TdContent from '@/components/common/Table/TdContent.vue'
+import profileListMixin from '@/mixins/cloud/profileList.js'
 
 export default {
-  mixins: [TooltipMixin],
-  components: {
-    FullTable,
-    TdContent,
-  },
+  mixins: [profileListMixin],
   data() {
     return {
       keys: ['id', 'accesskeyid', 'region', 'selected'],
     }
-  },
-  methods: {
-    ...mapActions([
-      'getCloudProfiles',
-      'removeCloudProfile',
-      'activateCloudProfile',
-    ]),
-    toggleProfile(id, selected) {
-      this.activateCloudProfile({
-        id: id,
-        isActive: selected,
-      }).then(() => {
-        this.getCloudProfiles()
-      })
-    },
-    editProfile(profile) {
-      bus.$emit('editProfile', profile)
-    },
-    deleteProfile(id, profile, isActive) {
-      if (isActive) {
-        this.$buefy.dialog.alert(this.$i18n.t('views.cloud.cannotDelete'))
-      } else {
-        this.$buefy.dialog.confirm({
-          title: this.$i18n.t('views.cloud.deleteTitle'),
-          message: this.$i18n.t('views.cloud.deleteCheck', {
-            profile: profile,
-          }),
-          confirmText: this.$i18n.t('common.general.yes'),
-          type: 'is-danger',
-          hasIcon: true,
-          onConfirm: () => {
-            this.removeCloudProfile(id).then(() => {
-              this.$buefy.toast.open({
-                message: this.$i18n.t('views.cloud.deleteSuccess', {
-                  profile: profile,
-                }),
-                type: 'is-success',
-                duration: 5000,
-                position: 'is-bottom',
-              })
-            })
-          },
-          cancelText: this.$i18n.t('common.general.no'),
-        })
-      }
-    },
-  },
-  computed: {
-    ...mapGetters(['returnCloudProfiles', 'loadingTableStatus']),
   },
 }
 </script>

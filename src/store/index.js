@@ -38,14 +38,11 @@ import * as microsoftContracts from '@/store/modules/licenses/contracts/microsof
 import * as mysqlContracts from '@/store/modules/licenses/contracts/mysql.js'
 import * as oracleContracts from '@/store/modules/licenses/contracts/oracle.js'
 import * as oracleDbGrants from '@/store/modules/databases/oracle/oracle-db-grants.js'
-// Oracle Cloud
-import * as oracleActiveProfiles from '@/store/modules/cloud/oracle/activeProfiles.js'
-// AWS Cloud
-import * as awsActiveProfiles from '@/store/modules/cloud/aws/activeProfiles.js'
 // Cloud
 import * as cloudTechnology from '@/store/modules/cloud/cloudTechnology.js'
 import * as cloudProfileConfig from '@/store/modules/cloud/profileConfig.js'
 import * as cloudRecommendations from '@/store/modules/cloud/recommendations.js'
+import * as cloudActiveProfiles from '@/store/modules/cloud/activeProfiles.js'
 //Database Connection
 import * as dbConnection from '@/store/modules/dbConnection.js'
 
@@ -83,11 +80,10 @@ export default new Vuex.Store({
     rangeDates,
     moreInfoToggle,
     columnToggle,
-    awsActiveProfiles,
-    oracleActiveProfiles,
     cloudTechnology,
     cloudProfileConfig,
     cloudRecommendations,
+    cloudActiveProfiles,
     repository,
     ignoreLicense,
     microsoftContracts,
@@ -105,6 +101,8 @@ export default new Vuex.Store({
         'globalFilters',
         'moreInfoToggle',
         'columnToggle',
+        'cloudActiveProfiles.ociActiveProfile',
+        'cloudActiveProfiles.awsActiveProfile',
       ],
     }),
   ],
