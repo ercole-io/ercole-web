@@ -23,21 +23,6 @@
           />
         </CustomField>
 
-        <CustomField label="Resource ID">
-          <CustomAutocomplete
-            v-model="filters.resourceID"
-            :filterResult="filteredresourceID"
-            :filterMethod="setAutocompletes"
-          />
-        </CustomField>
-
-        <CustomField label="Profile ID">
-          <CustomSelect
-            v-model="filters.profileID"
-            :options="filteredprofileID"
-          />
-        </CustomField>
-
         <CustomField :label="$t('common.fields.repoName')">
           <CustomAutocomplete
             v-model="filters.name"
@@ -64,8 +49,8 @@ export default {
   data() {
     return {
       collapses: ['General'],
-      autocompletes: ['name', 'resourceID'],
-      selects: ['category', 'suggestion', 'objectType', 'profileID'],
+      autocompletes: ['name'],
+      selects: ['category', 'suggestion', 'objectType'],
     }
   },
 }

@@ -28,7 +28,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getOciActiveProfiles', 'getAwsActiveProfiles']),
+    ...mapGetters(['getCloudActiveProfiles']),
     menu() {
       return [
         {
@@ -205,7 +205,7 @@ export default {
                   title: this.$i18n.t('menu.recommendations'),
                   icon: 'fas fa-user-shield',
                   class: 'menu-third-level',
-                  disabled: !this.getOciActiveProfiles,
+                  disabled: !this.getCloudActiveProfiles('oci'),
                   attributes: { 'data-cy': 'mn-cloud-oracle-recommendations' },
                 },
               ],
@@ -227,7 +227,7 @@ export default {
                   title: this.$i18n.t('menu.recommendations'),
                   icon: 'fas fa-user-shield',
                   class: 'menu-third-level',
-                  disabled: !this.getAwsActiveProfiles,
+                  disabled: !this.getCloudActiveProfiles('aws'),
                   attributes: { 'data-cy': 'mn-cloud-aws-recommendations' },
                 },
               ],
