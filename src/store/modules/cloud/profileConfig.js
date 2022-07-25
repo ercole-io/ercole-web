@@ -57,9 +57,9 @@ export const actions = {
     await axiosRequest('thunderApi', config, false).then((res) => {
       commit('SET_CLOUD_PROFILE', res.data)
       if (getters.returnCloudTechnology === 'Oracle') {
-        commit('SET_OCI_ACTIVE_PROFILE', getters.hasActiveProfiles)
+        commit('SET_CLOUD_ACTIVE_PROFILE', [getters.hasActiveProfiles, 'oci'])
       } else if (getters.returnCloudTechnology === 'Aws') {
-        commit('SET_AWS_ACTIVE_PROFILE', getters.hasActiveProfiles)
+        commit('SET_CLOUD_ACTIVE_PROFILE', [getters.hasActiveProfiles, 'aws'])
       }
       dispatch('offLoadingTable')
     })
