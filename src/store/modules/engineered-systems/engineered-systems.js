@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import axios from 'axios'
-import { axiosRequest } from '@/services/services.js'
 import i18n from '@/i18n.js'
+import { axiosRequest } from '@/services/services.js'
 
 const url = '/hosts/technologies/oracle/exadata'
 
