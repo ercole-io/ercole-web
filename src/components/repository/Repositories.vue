@@ -19,8 +19,8 @@
         {{ switchViewText }}
       </b-button>
 
-      <RepoTable class="animate__animated animate__fadeIn" v-if="switchView" />
-      <RepoList class="animate__animated animate__fadeIn" v-else />
+      <RepoList class="animate__animated animate__fadeIn" v-if="switchView" />
+      <RepoTable class="animate__animated animate__fadeIn" v-else />
     </div>
   </ToggleColumns>
 </template>
@@ -53,7 +53,7 @@ export default {
   computed: {
     ...mapGetters(['loadingTableStatus']),
     switchViewText() {
-      return this.switchView ? 'List Mode' : 'Table Mode'
+      return this.switchView ? 'Table Mode' : 'List Mode'
     },
   },
 }
