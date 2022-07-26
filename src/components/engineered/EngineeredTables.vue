@@ -1,60 +1,61 @@
 <template>
-  <div>
-    <GhostLoading
-      :isLoading="loadingTableStatus"
-      setHeight="36"
-      class="mb-4"
-      v-if="loadingTableStatus"
-    />
-    <GhostLoading
-      :isLoading="loadingTableStatus"
-      setHeight="330"
-      v-if="loadingTableStatus"
-    />
-    <BoxContent
-      :title="data.hostname"
-      border
-      v-for="(data, i) in getEngSys"
-      :key="data.hostname"
+  <article>
+    <div
+      class="is-flex is-justify-content-flex-end"
+      v-if="getEngSys.length > 0"
     >
       <ExportButton
-        slot="customTitle"
         url="hosts/technologies/oracle/exadata"
         expName="engSystems"
-        v-if="i === 0"
       />
+    </div>
+    <div class="columns" style="flex-flow: wrap">
+      <GhostLoading
+        :isLoading="loadingTableStatus"
+        setHeight="395"
+        class="column is-6"
+        v-if="loadingTableStatus"
+      />
+      <GhostLoading
+        :isLoading="loadingTableStatus"
+        setHeight="395"
+        v-if="loadingTableStatus"
+        class="column is-6"
+      />
+      <BoxContent
+        :title="data.hostname"
+        border
+        v-for="data in getEngSys"
+        :key="data.hostname"
+        class="column is-6"
+      >
+        <ExadataTable :data="data" />
+      </BoxContent>
 
-      <DbServers :data="data.dbServers" />
-      <IBSwitch :data="data.ibSwitches" />
-      <Storage :data="data.storageServers" />
-    </BoxContent>
-
-    <NoContent
-      style="height: 370px; background-color: #eeeeee"
-      v-if="getEngSys.length === 0 && !loadingTableStatus"
-    />
-  </div>
+      <NoContent
+        class="column is-12"
+        style="height: 370px; background-color: #eeeeee"
+        v-if="getEngSys.length === 0 && !loadingTableStatus"
+      />
+    </div>
+  </article>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
-import DbServers from '@/components/engineered/DbServersTable.vue'
-import IBSwitch from '@/components/engineered/IBSwitchTable.vue.vue'
-import Storage from '@/components/engineered/StorageTable.vue'
-import ExportButton from '@/components/common/ExportButton.vue'
+import ExadataTable from '@/components/engineered/ExadataTable.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 import NoContent from '@/components/common/NoContent.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
   components: {
     BoxContent,
-    DbServers,
-    IBSwitch,
-    Storage,
-    ExportButton,
+    ExadataTable,
     GhostLoading,
     NoContent,
+    ExportButton,
   },
   computed: {
     ...mapGetters(['getEngSys', 'loadingTableStatus']),

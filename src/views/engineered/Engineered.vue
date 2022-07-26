@@ -16,7 +16,7 @@
     </div>
 
     <div class="columns">
-      <div class="column">
+      <div class="column is-12">
         <EngineeredTables />
       </div>
     </div>
