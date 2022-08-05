@@ -31,7 +31,8 @@
     "microsoft": "Microsoft",
     "dbGrants": "DBA Role",
     "postgresql": "PostgreSQL",
-    "aws": "AWS"
+    "aws": "AWS",
+    "patch": "Patch"
   },
   "header": {
     "logout": "Disconnettersi"

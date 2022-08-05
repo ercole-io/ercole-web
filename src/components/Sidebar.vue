@@ -90,9 +90,16 @@ export default {
                 {
                   href: { name: 'dba-role' },
                   title: this.$i18n.t('menu.dbGrants'),
-                  icon: 'fas fa-asterisk',
+                  icon: 'fas fa-server',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-dba-role' },
+                },
+                {
+                  href: { name: 'patch' },
+                  title: this.$i18n.t('menu.patch'),
+                  icon: 'fas fa-adjust',
+                  class: 'menu-third-level',
+                  attributes: { 'data-cy': 'mn-oracle-patch' },
                 },
               ],
             },

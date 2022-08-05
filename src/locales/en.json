@@ -31,7 +31,8 @@
     "microsoft": "Microsoft",
     "dbGrants": "DBA Role",
     "postgresql": "PostgreSQL",
-    "aws": "AWS"
+    "aws": "AWS",
+    "patch": "Patch"
   },
   "header": {
     "logout": "Logout"
@@ -437,7 +438,7 @@
       "loginErr422": "Your request was rejected.",
       "loginErr500": "Internal Server Error.",
       "loginErrGeneric": "Something went wrong. Please try again!",
-      "loginTimeout": "Request timeout exceeded", 
+      "loginTimeout": "Request timeout exceeded",
       "noResults": "No results found"
     },
     "errors": {
