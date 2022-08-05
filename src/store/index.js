@@ -17,13 +17,19 @@ import * as licensesCompliance from './modules/licenses/licenses-compliance'
 import * as clusters from './modules/hypervisors/clusters'
 import * as clusternames from './modules/clusternames.js'
 import * as technologies from './modules/technologies'
+// Databases
 import * as databases from './modules/databases/databases'
+// Databases Oracle
 import * as oracle from './modules/databases/oracle/oracle'
 import * as oracleSegmentAdvisor from './modules/databases/oracle/oracle-segment-advisor'
 import * as oraclePatchAdvisor from './modules/databases/oracle/oracle-patch-advisor'
 import * as oracleAddm from './modules/databases/oracle/oracle-addm'
+import * as oraclePatch from './modules/databases/oracle/oracle-patch.js'
+// Databases Mysql
 import * as mysql from './modules/databases/mysql/mysql'
+// Databases Microsoft
 import * as microsoft from './modules/databases/microsoft/microsoft.js'
+// Databases Postgree
 import * as postgresql from '@/store/modules/databases/postgresql/postgresql.js'
 import * as globalFilters from './modules/global-filters'
 import * as localFilters from './modules/local-filters'
@@ -70,6 +76,7 @@ export default new Vuex.Store({
     oracleSegmentAdvisor,
     oraclePatchAdvisor,
     oracleAddm,
+    oraclePatch,
     mysql,
     microsoft,
     postgresql,
