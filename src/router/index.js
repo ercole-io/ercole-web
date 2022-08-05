@@ -42,6 +42,9 @@ const PatchAdvidor = lazy(() =>
 const DatabaseGrants = lazy(() =>
   import(/* webpackPreload: true */ '@/views/databases/oracle/DB-Grants.vue')
 )
+const Patch = lazy(() =>
+  import(/* webpackPreload: true */ '@/views/databases/oracle/Patch.vue')
+)
 const MySQL = lazy(() =>
   import(/* webpackPreload: true */ '@/views/databases/mysql/MySQL.vue')
 )
@@ -268,6 +271,23 @@ const routes = [
                     { name: i18n.t('menu.databases'), link: '/databases' },
                     { name: i18n.t('menu.oracle'), link: '/oracle' },
                     { name: i18n.t('menu.dbGrants') },
+                  ],
+                },
+                beforeEnter: verifyAuth,
+              },
+              {
+                path: '/patch',
+                name: 'patch',
+                component: Patch,
+                meta: {
+                  label: `${i18n.t('menu.oracle')}: ${i18n.t('menu.patch')}`,
+                  title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.patch'
+                  )}`,
+                  breadcrumb: [
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: i18n.t('menu.patch') },
                   ],
                 },
                 beforeEnter: verifyAuth,

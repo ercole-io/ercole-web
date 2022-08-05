@@ -100,6 +100,10 @@ export default {
       filteredid: [],
       filteredaccesskeyid: [],
       filteredprofileID: [],
+      filteredpatchAction: [],
+      filteredpatchDesc: [],
+      filteredpatchID: [],
+      filteredpatchVersion: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,
