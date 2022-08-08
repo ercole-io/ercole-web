@@ -12,13 +12,11 @@
       <template slot="headData">
         <v-th sortKey="name">Name</v-th>
         <v-th sortKey="name">Enabled</v-th>
-        <v-th sortKey="name">Creation Date</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
         <TdContent :value="rowData.scope.name" />
         <TdIcon :value="rowData.scope.enabled" />
-        <TdContent :value="rowData.scope.creationDate" />
       </template>
     </FullTable>
   </b-tab-item>
@@ -43,7 +41,7 @@ export default {
   },
   data() {
     return {
-      keys: ['name', 'creationDate', 'enabled'],
+      keys: ['name', 'enabled'],
     }
   },
 }
