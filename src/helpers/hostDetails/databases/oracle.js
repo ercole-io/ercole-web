@@ -123,7 +123,6 @@ const resolveServices = (services) => {
   _.filter(services, (val) => {
     filteredServices.push({
       name: val.name,
-      creationDate: formatDate(val.creationDate),
       enabled: val.enabled,
     })
   })
