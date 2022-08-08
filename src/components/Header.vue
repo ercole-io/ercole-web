@@ -32,6 +32,10 @@
             Auto Refresh
           </b-switch>
         </b-navbar-item> -->
+        <b-navbar-item @click="openInfoModal" data-info-button>
+          Ercole Version
+        </b-navbar-item>
+        <hr class="mt-0 mb-0" />
         <b-navbar-item @click="callLogout" data-logout-button>
           {{ $t('header.logout') }}
         </b-navbar-item>
@@ -43,7 +47,7 @@
 <script>
 // import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 import { capitalize } from '@/helpers/helpers.js'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 // import { SnackbarProgrammatic as Snackbar } from 'buefy'
 import ErcoleLogo from '@/components/common/ErcoleLogo.vue'
 
@@ -63,8 +67,19 @@ export default {
       localStorage.setItem('historyPage', '')
       this.logout()
     },
+    openInfoModal() {
+      this.$buefy.dialog.alert({
+        title: 'Ercole Version',
+        message: `
+          <p class="has-text-weight-bold">Server Version: <span class="has-text-weight-normal">${this.version}</span></p>
+        `,
+        cancelButton: false,
+        type: 'is-success',
+      })
+    },
   },
   computed: {
+    ...mapGetters(['version']),
     username() {
       return capitalize(localStorage.getItem('username'))
     },

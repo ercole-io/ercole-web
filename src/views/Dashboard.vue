@@ -43,6 +43,7 @@ export default {
     Alerts,
   },
   beforeMount() {
+    this.getVersion()
     this.getDbConnection()
     this.getDashboardData()
       .then(() => {
@@ -65,6 +66,7 @@ export default {
       'getGlobalFiltersEnvironments',
       'getOracleCloudObjects',
       'getDbConnection',
+      'getVersion',
     ]),
   },
 }
