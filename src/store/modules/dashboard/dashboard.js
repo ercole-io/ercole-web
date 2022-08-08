@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import moment from 'moment'
+import axios from 'axios'
 import { axiosRequest } from '@/services/services.js'
 import {
   setRangeDateFormat,
@@ -92,11 +93,6 @@ export const state = () => ({
 
 export const getters = {
   getTotalTarget: (state) => {
-    // return {
-    //   agentsDiscovered: state.totalTarget.hostsCount,
-    //   percCompliance: Math.round(state.totalTarget.compliance * 100),
-    //   moneyMissing: state.totalTarget.unpaidDues,
-    // }
     const ercoleAgent = {
       id: 'ercoleAgent',
       agents: state.totalTarget.hostsCount,
@@ -191,15 +187,18 @@ export const getters = {
   getCloudObjects: (state) => {
     const oracle = calcCloudObjects(
       state.oracleObjectsData,
-      state.oracleObjects
+      state.oracleObjects,
+      'oracle'
     )
     const microsoft = calcCloudObjects(
       state.microsoftObjectsData,
-      state.microsoftObjects
+      state.microsoftObjects,
+      'microsoft'
     )
     const amazon = calcCloudObjects(
       state.amazonObjectsData,
-      state.amazonObjects
+      state.amazonObjects,
+      'amazon'
     )
 
     return _.concat(oracle, microsoft, amazon)
@@ -217,8 +216,10 @@ export const mutations = {
   SET_CORE_HOSTS: (state, payload) => {
     state.coreHosts = payload
   },
-  SET_ORACLE_OCI_OBJECTS: (state, payload) => {
-    state.oracleObjectsData = payload
+  SET_CLOUD_OBJECTS: (state, payload) => {
+    state.oracleObjectsData = payload.oracle
+    state.amazonObjectsData = payload.amazon
+    state.microsoftObjectsData = payload.microsoft
   },
 }
 
@@ -253,28 +254,50 @@ export const actions = {
       commit('SET_CORE_HOSTS', res.data.coresHistory)
     })
   },
-  async getOracleCloudObjects({ commit }) {
-    const config = {
-      method: 'get',
-      url: '/oracle-cloud/oci-objects',
-    }
+  async getCloudObjects({ commit }) {
+    const endPoints = ['/oracle-cloud/oci-objects', '/aws/aws-objects']
 
-    await axiosRequest('thunderApi', config, false).then((res) => {
-      commit('SET_ORACLE_OCI_OBJECTS', res.data)
-    })
+    await Promise.all(
+      endPoints.map((endpoint) =>
+        axiosRequest('thunderApi', {
+          merthod: 'get',
+          url: endpoint,
+        })
+      )
+    ).then(
+      axios.spread((...allData) => {
+        commit('SET_CLOUD_OBJECTS', {
+          oracle: allData[0].data,
+          amazon: allData[1].data[0].ObjectsCount,
+          microsoft: [],
+        })
+      })
+    )
   },
 }
 
-const calcCloudObjects = (data, objs) => {
+const calcCloudObjects = (data, objs, tech) => {
   let dataSumValues = []
   let cloudObjects = []
 
-  _.map(data, (values) => {
-    _.map(values.objects, (obj) => {
-      const { objectNumber } = obj
-      dataSumValues.push(objectNumber)
+  if (tech === 'oracle') {
+    _.map(data, (values) => {
+      _.map(values.objects, (obj) => {
+        const { objectNumber } = obj
+        dataSumValues.push(objectNumber)
+      })
     })
-  })
+  }
+
+  if (tech === 'amazon') {
+    _.map(data, (values) => {
+      dataSumValues.push(values.count)
+    })
+  }
+
+  if (tech === 'microsoft') {
+    dataSumValues.push()
+  }
 
   dataSumValues = _.sum(dataSumValues)
 
