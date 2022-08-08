@@ -51,6 +51,8 @@ import * as cloudRecommendations from '@/store/modules/cloud/recommendations.js'
 import * as cloudActiveProfiles from '@/store/modules/cloud/activeProfiles.js'
 //Database Connection
 import * as dbConnection from '@/store/modules/dbConnection.js'
+// Version
+import * as version from '@/store/modules/version.js'
 
 Vue.use(Vuex)
 
@@ -98,6 +100,7 @@ export default new Vuex.Store({
     oracleContracts,
     oracleDbGrants,
     dbConnection,
+    version,
   },
   plugins: [
     createPersistedState({
