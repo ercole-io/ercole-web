@@ -53,7 +53,7 @@ export default {
         bus.$emit('loadTechComplete')
       })
     this.getTechnologiesData()
-    this.getOracleCloudObjects()
+    this.getCloudObjects()
 
     this.getGlobalFiltersLocations()
     this.getGlobalFiltersEnvironments()
@@ -64,7 +64,7 @@ export default {
       'getTechnologiesData',
       'getGlobalFiltersLocations',
       'getGlobalFiltersEnvironments',
-      'getOracleCloudObjects',
+      'getCloudObjects',
       'getDbConnection',
       'getVersion',
     ]),
