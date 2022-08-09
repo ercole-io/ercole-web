@@ -267,8 +267,9 @@ export const actions = {
     ).then(
       axios.spread((...allData) => {
         commit('SET_CLOUD_OBJECTS', {
-          oracle: allData[0].data,
-          amazon: allData[1].data[0].ObjectsCount,
+          oracle: allData[0].data.length > 0 ? allData[0].data : [],
+          amazon:
+            allData[1].data.length > 0 ? allData[1].data[0].ObjectsCount : [],
           microsoft: [],
         })
       })
