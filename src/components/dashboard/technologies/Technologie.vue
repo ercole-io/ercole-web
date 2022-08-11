@@ -1,6 +1,6 @@
 <template>
-  <HbuttonScroll style="width: 90%; margin: 0 auto">
-    <div class="technologies">
+  <HbuttonScroll scrollID="technologies" style="width: 90%; margin: 0 auto">
+    <div class="technologies" id="technologies">
       <div class="technologies-list" id="ercole">
         <div class="image">
           <GhostLoading :isLoading="loading" setHeight="60">
