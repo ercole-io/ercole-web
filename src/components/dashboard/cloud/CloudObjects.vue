@@ -6,39 +6,45 @@
     :mbottom="false"
     data-cy="cloud-objects"
   >
-    <div class="cloud">
-      <div class="cloud-list" v-for="(tech, i) in getCloud" :key="tech.id || i">
-        <div class="image">
-          <GhostLoading :isLoading="loading" setHeight="62" setWidth="100%">
-            <img
-              :src="tech.extra.logo"
-              v-if="!loading"
-              :data-cy="`${getCloudTech(tech.extra.name)}-logo`"
-            />
-          </GhostLoading>
-        </div>
+    <HbuttonScroll scrollID="cloudObjects" style="width: 90%; margin: 0 auto">
+      <div class="cloud" id="cloudObjects">
+        <div
+          class="cloud-list"
+          v-for="(tech, i) in getCloud"
+          :key="tech.id || i"
+        >
+          <div class="image">
+            <GhostLoading :isLoading="loading" setHeight="62" setWidth="100%">
+              <img
+                :src="tech.extra.logo"
+                v-if="!loading"
+                :data-cy="`${getCloudTech(tech.extra.name)}-logo`"
+              />
+            </GhostLoading>
+          </div>
 
-        <!-- <div class="tech-name">
+          <!-- <div class="tech-name">
           <GhostLoading :isLoading="loading" setWidth="100">
             <span v-if="!loading">{{ tech.extra.name }}</span>
           </GhostLoading>
         </div> -->
 
-        <div class="agents">
-          <GhostLoading :isLoading="loading" setHeight="40" setWidth="53">
-            <b-tag
-              size="is-large"
-              v-if="!loading"
-              :style="{ 'background-color': tech.extra.color }"
-              style="color: #fff"
-              :data-cy="`${getCloudTech(tech.extra.name)}-value`"
-            >
-              {{ tech.agents }}
-            </b-tag>
-          </GhostLoading>
+          <div class="agents">
+            <GhostLoading :isLoading="loading" setHeight="40" setWidth="53">
+              <b-tag
+                size="is-large"
+                v-if="!loading"
+                :style="{ 'background-color': tech.extra.color }"
+                style="color: #fff"
+                :data-cy="`${getCloudTech(tech.extra.name)}-value`"
+              >
+                {{ tech.agents }}
+              </b-tag>
+            </GhostLoading>
+          </div>
         </div>
       </div>
-    </div>
+    </HbuttonScroll>
   </BoxContent>
 </template>
 
@@ -47,11 +53,13 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
+import HbuttonScroll from '@/components/HbuttonScroll.vue'
 
 export default {
   components: {
     GhostLoading,
     BoxContent,
+    HbuttonScroll,
   },
   data() {
     return {

@@ -18,7 +18,7 @@
       :style="{ height: height + 'px' }"
       v-if="isVisible"
     />
-    <div class="wrapper-box">
+    <div class="wrapper-box" :id="scrollID">
       <slot />
     </div>
   </div>
@@ -29,20 +29,24 @@ export default {
   props: {
     elemScroll: {
       type: String,
-      default: null
+      default: null,
     },
     height: {
       type: String,
-      default: null
+      default: null,
     },
     speed: {
       type: Number,
-      default: 50
-    }
+      default: 50,
+    },
+    scrollID: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
-      isVisible: null
+      isVisible: null,
     }
   },
   beforeMount() {
@@ -59,24 +63,27 @@ export default {
   methods: {
     scroll(side) {
       const element = document.querySelector(
-        this.elemScroll ? `.${this.elemScroll}` : '.wrapper-box'
+        this.elemScroll ? `.${this.elemScroll}` : `#${this.scrollID}`
       )
 
-      if (side === 'left') {
-        element.scrollLeft -= this.speed
-      } else {
-        element.scrollLeft += this.speed
+      if (element.childNodes[0].id === this.scrollID) {
+        if (side === 'left') {
+          element.scrollLeft -= this.speed
+        } else {
+          element.scrollLeft += this.speed
+        }
       }
     },
     checkScroll() {
       const element = document.querySelector(
-        this.elemScroll ? `.${this.elemScroll}` : '.wrapper-box'
+        this.elemScroll ? `.${this.elemScroll}` : `#${this.scrollID}`
       )
-      if (element) {
+
+      if (element.childNodes[0].id === this.scrollID) {
         this.isVisible = element.scrollWidth > element.clientWidth
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
