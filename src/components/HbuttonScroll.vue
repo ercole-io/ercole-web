@@ -66,7 +66,7 @@ export default {
         this.elemScroll ? `.${this.elemScroll}` : `#${this.scrollID}`
       )
 
-      if (element.childNodes[0].id === this.scrollID) {
+      if (element && element.childNodes[0].id === this.scrollID) {
         if (side === 'left') {
           element.scrollLeft -= this.speed
         } else {
@@ -79,7 +79,7 @@ export default {
         this.elemScroll ? `.${this.elemScroll}` : `#${this.scrollID}`
       )
 
-      if (element.childNodes[0].id === this.scrollID) {
+      if (element && element.childNodes[0].id === this.scrollID) {
         this.isVisible = element.scrollWidth > element.clientWidth
       }
     },
