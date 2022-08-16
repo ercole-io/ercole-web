@@ -104,6 +104,9 @@ export default {
       filteredpatchDesc: [],
       filteredpatchID: [],
       filteredpatchVersion: [],
+      filteredproduct: [],
+      filteredextraFeatureInfo: [],
+      filteredfeature: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,
@@ -169,6 +172,8 @@ export default {
       maxpending: null,
       mincostSaving: null,
       maxcostSaving: null,
+      mindetectedUsages: null,
+      maxdetectedUsages: null,
     }
   },
   mounted() {

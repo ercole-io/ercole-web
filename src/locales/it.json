@@ -32,7 +32,10 @@
     "dbGrants": "DBA Role",
     "postgresql": "PostgreSQL",
     "aws": "AWS",
-    "patch": "Patch"
+    "patch": "Patch",
+    "options": "Opzioni",
+    "tablespaces": "Tablespaces",
+    "dbgrowth": "DB Growth"
   },
   "header": {
     "logout": "Disconnettersi"
