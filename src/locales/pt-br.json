@@ -32,7 +32,10 @@
     "dbGrants": "DBA Role",
     "postgresql": "PostgreSQL",
     "aws": "AWS",
-    "patch": "Patch"
+    "patch": "Patch",
+    "options": "Opções",
+    "tablespaces": "Tablespaces",
+    "dbgrowth": "DB Growth"
   },
   "header": {
     "logout": "Sair"

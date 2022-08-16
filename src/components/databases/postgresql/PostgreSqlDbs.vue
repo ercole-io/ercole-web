@@ -1,6 +1,6 @@
 <template>
   <ToggleColumns
-    getPage="databasesMsSqlServer"
+    getPage="databasesPostgreSqlServer"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
     v-if="isMounted"

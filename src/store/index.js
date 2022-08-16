@@ -2,57 +2,64 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
-import * as config from './modules/config'
-import * as loading from './modules/loading'
-import * as errors from './modules/errors'
-import * as auth from './modules/auth'
-import * as dashboard from './modules/dashboard/dashboard'
-import * as hosts from './modules/hosts/hosts'
-import * as hostnames from './modules/hostnames'
-import * as hostDetails from './modules/hosts/hostDetails'
-import * as alerts from './modules/alerts/alerts'
-import * as licensesUsed from './modules/licenses/licenses-used'
-import * as licensesContracts from './modules/licenses/licenses-contracts'
-import * as licensesCompliance from './modules/licenses/licenses-compliance'
-import * as clusters from './modules/hypervisors/clusters'
-import * as clusternames from './modules/clusternames.js'
-import * as technologies from './modules/technologies'
+import * as config from '@/store/modules/config'
+import * as loading from '@/store/modules/loading'
+import * as errors from '@/store/modules/errors'
+// Login
+import * as auth from '@/store/modules/login/auth'
+// dashboard
+import * as dashboard from '@/store/modules/dashboard/dashboard'
+import * as technologies from '@/store/modules/technologies'
+// Hosts
+import * as hosts from '@/store/modules/hosts/hosts'
+import * as hostnames from '@/store/modules/hostnames'
+import * as hostDetails from '@/store/modules/hosts/hostDetails'
+// Alerts
+import * as alerts from '@/store/modules/alerts/alerts'
+// Licenses
+import * as licensesUsed from '@/store/modules/licenses/licenses-used'
+import * as licensesContracts from '@/store/modules/licenses/licenses-contracts'
+import * as licensesCompliance from '@/store/modules/licenses/licenses-compliance'
+// Clusters
+import * as clusters from '@/store/modules/hypervisors/clusters'
+import * as clusternames from '@/store/modules/clusternames'
 // Databases
-import * as databases from './modules/databases/databases'
+import * as databases from '@/store/modules/databases/databases'
 // Databases Oracle
-import * as oracle from './modules/databases/oracle/oracle'
-import * as oracleSegmentAdvisor from './modules/databases/oracle/oracle-segment-advisor'
-import * as oraclePatchAdvisor from './modules/databases/oracle/oracle-patch-advisor'
-import * as oracleAddm from './modules/databases/oracle/oracle-addm'
-import * as oraclePatch from './modules/databases/oracle/oracle-patch.js'
+import * as oracle from '@/store/modules/databases/oracle/oracle'
+import * as oracleSegmentAdvisor from '@/store/modules/databases/oracle/oracle-segment-advisor'
+import * as oraclePatchAdvisor from '@/store/modules/databases/oracle/oracle-patch-advisor'
+import * as oracleAddm from '@/store/modules/databases/oracle/oracle-addm'
+import * as oraclePatch from '@/store/modules/databases/oracle/oracle-patch'
+import * as oracleOptions from '@/store/modules/databases/oracle/options'
 // Databases Mysql
-import * as mysql from './modules/databases/mysql/mysql'
+import * as mysql from '@/store/modules/databases/mysql/mysql'
 // Databases Microsoft
-import * as microsoft from './modules/databases/microsoft/microsoft.js'
+import * as microsoft from '@/store/modules/databases/microsoft/microsoft'
 // Databases Postgree
-import * as postgresql from '@/store/modules/databases/postgresql/postgresql.js'
-import * as globalFilters from './modules/global-filters'
-import * as localFilters from './modules/local-filters'
-import * as engineeredSystems from './modules/engineered-systems/engineered-systems'
-import * as LicensesTypes from './modules/licenses-types'
-import * as rangeDates from './modules/range-dates'
-import * as moreInfoToggle from '@/store/modules/more-info-toggle.js'
-import * as columnToggle from '@/store/modules/columns-toggle.js'
-import * as repository from '@/store/modules/repository/repository.js'
-import * as ignoreLicense from '@/store/modules/ignoreLicense.js'
-import * as microsoftContracts from '@/store/modules/licenses/contracts/microsoft.js'
-import * as mysqlContracts from '@/store/modules/licenses/contracts/mysql.js'
-import * as oracleContracts from '@/store/modules/licenses/contracts/oracle.js'
-import * as oracleDbGrants from '@/store/modules/databases/oracle/oracle-db-grants.js'
+import * as postgresql from '@/store/modules/databases/postgresql/postgresql'
+import * as globalFilters from '@/store/modules/global-filters'
+import * as localFilters from '@/store/modules/local-filters'
+import * as engineeredSystems from '@/store/modules/engineered-systems/engineered-systems'
+import * as LicensesTypes from '@/store/modules/licenses-types'
+import * as rangeDates from '@/store/modules/range-dates'
+import * as moreInfoToggle from '@/store/modules/more-info-toggle'
+import * as columnToggle from '@/store/modules/columns-toggle'
+import * as repository from '@/store/modules/repository/repository'
+import * as ignoreLicense from '@/store/modules/ignoreLicense'
+import * as microsoftContracts from '@/store/modules/licenses/contracts/microsoft'
+import * as mysqlContracts from '@/store/modules/licenses/contracts/mysql'
+import * as oracleContracts from '@/store/modules/licenses/contracts/oracle'
+import * as oracleDbGrants from '@/store/modules/databases/oracle/oracle-db-grants'
 // Cloud
-import * as cloudTechnology from '@/store/modules/cloud/cloudTechnology.js'
-import * as cloudProfileConfig from '@/store/modules/cloud/profileConfig.js'
-import * as cloudRecommendations from '@/store/modules/cloud/recommendations.js'
-import * as cloudActiveProfiles from '@/store/modules/cloud/activeProfiles.js'
+import * as cloudTechnology from '@/store/modules/cloud/cloudTechnology'
+import * as cloudProfileConfig from '@/store/modules/cloud/profileConfig'
+import * as cloudRecommendations from '@/store/modules/cloud/recommendations'
+import * as cloudActiveProfiles from '@/store/modules/cloud/activeProfiles'
 //Database Connection
-import * as dbConnection from '@/store/modules/dbConnection.js'
+import * as dbConnection from '@/store/modules/dbConnection'
 // Version
-import * as version from '@/store/modules/version.js'
+import * as version from '@/store/modules/version'
 
 Vue.use(Vuex)
 
@@ -79,6 +86,7 @@ export default new Vuex.Store({
     oraclePatchAdvisor,
     oracleAddm,
     oraclePatch,
+    oracleOptions,
     mysql,
     microsoft,
     postgresql,

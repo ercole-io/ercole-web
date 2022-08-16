@@ -1,28 +1,38 @@
 const defaultState = () => ({
-  'page-microsoftContracts': [false, true],
-  'page-mysqlContracts': [false, true],
-  'page-oracleContracts': [false, true],
-  'page-licensesCompliance': [false, true],
-  'page-licensesUsedHosts': [false, true],
-  'page-licensesUsedDbs': [false, true],
-  'page-licensesUsedClusters': [false, true],
-  'page-alerts': [false, true],
+  'page-hosts': [false, true],
+
   'page-hypervisors': [false, true],
   'page-clusters': [false, true],
+
   'page-databases': [false, true],
   'page-databasesOracle': [false, true],
+  'page-databasesMsSqlServer': [false, true],
+  'page-databasesMysql': [false, true],
+  'page-databasesPostgreSqlServer': [false, true],
   'page-addm': [false, true],
   'page-patchAdvisor': [false, true],
   'page-segmentAdvisor': [false, true],
   'page-dbGrants': [false, true],
-  'page-databasesMysql': [false, true],
-  'page-hosts': [false, true],
-  'page-repository': [false, true],
+  'page-patch': [false, true],
+  'page-options': [false, true],
+
+  'page-alerts': [false, true],
+
+  'page-licensesCompliance': [false, true],
+  'page-licensesUsedHosts': [false, true],
+  'page-licensesUsedDbs': [false, true],
+  'page-licensesUsedClusters': [false, true],
+
+  'page-microsoftContracts': [false, true],
+  'page-mysqlContracts': [false, true],
+  'page-oracleContracts': [false, true],
+
   'page-profileConfigOracle': [false, true],
   'page-profileConfigAws': [false, true],
   'page-recommendationsOracle': [false, true],
   'page-recommendationsAws': [false, true],
-  'page-databasesMsSqlServer': [false, true],
+
+  'page-repository': [false, true],
 })
 
 export const state = defaultState()

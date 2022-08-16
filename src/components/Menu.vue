@@ -101,6 +101,27 @@ export default {
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-patch' },
                 },
+                {
+                  href: { name: 'options' },
+                  title: this.$i18n.t('menu.options'),
+                  icon: 'fas fa-adjust',
+                  class: 'menu-third-level',
+                  attributes: { 'data-cy': 'mn-oracle-options' },
+                },
+                // {
+                //   href: { name: 'tablespaces' },
+                //   title: this.$i18n.t('menu.tablespaces'),
+                //   icon: 'fas fa-adjust',
+                //   class: 'menu-third-level',
+                //   attributes: { 'data-cy': 'mn-oracle-tablespaces' },
+                // },
+                // {
+                //   href: { name: 'dbgrowth' },
+                //   title: this.$i18n.t('menu.dbgrowth'),
+                //   icon: 'fas fa-adjust',
+                //   class: 'menu-third-level',
+                //   attributes: { 'data-cy': 'mn-oracle-dbgrowth' },
+                // },
               ],
             },
             {
