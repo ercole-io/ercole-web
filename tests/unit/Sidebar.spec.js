@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
-import Sidebar from '@/components/Sidebar.vue'
+import Sidebar from '@/components/Menu.vue'
 import i18n from '@/i18n'
 
 Vue.config.ignoredElements = ['b-icon']

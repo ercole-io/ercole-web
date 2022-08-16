@@ -8,108 +8,14 @@ const title = 'Ercole - '
 const lang = localStorage.getItem('lang')
 i18n.locale = lang
 
-const EmptyRouterView = () =>
-  import(/* webpackPreload: true */ '@/views/Empty-Router-View.vue')
-const Login = () => import(/* webpackPreload: true */ '@/views/auth/Login.vue')
-const Dashboard = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/Dashboard.vue')
-)
-const Hosts = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/hosts/Hosts.vue')
-)
-const HostsDetails = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/hosts/HostsDetails.vue')
-)
-const Databases = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/databases/Databases.vue')
-)
-const Oracle = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/databases/oracle/Oracle.vue')
-)
-const ADDM = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/databases/oracle/ADDM.vue')
-)
-const SegmentAdvisor = lazy(() =>
-  import(
-    /* webpackPreload: true */ '@/views/databases/oracle/Segment-Advisor.vue'
-  )
-)
-const PatchAdvidor = lazy(() =>
-  import(
-    /* webpackPreload: true */ '@/views/databases/oracle/Patch-Advidor.vue'
-  )
-)
-const DatabaseGrants = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/databases/oracle/DB-Grants.vue')
-)
-const Patch = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/databases/oracle/Patch.vue')
-)
-const MySQL = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/databases/mysql/MySQL.vue')
-)
-const MsSqlServer = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/databases/microsoft/Microsoft.vue')
-)
-const PostgreSql = lazy(() =>
-  import(
-    /* webpackPreload: true */ '@/views/databases/postgresql/PostgreSql.vue'
-  )
-)
-const Middleware = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/middleware/Middleware.vue')
-)
-const LicensesContracts = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/licenses/LicensesContracts.vue')
-)
-const LicensesCompliance = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/licenses/LicensesCompliance.vue')
-)
-const LicensesUsed = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/licenses/LicensesUsed.vue')
-)
-const Hypervisors = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/hypervisors/Hypervisors.vue')
-)
-const Cluster = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/hypervisors/Cluster.vue')
-)
-const Engineered = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/engineered/Engineered.vue')
-)
-const Alerts = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/alerts/Alerts.vue')
-)
-const Repository = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/repository/Repository.vue')
-)
-const Settings = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/settings/Settings.vue')
-)
-const InternalServer = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/Errors/InternalServer.vue')
-)
-const Unauthorized = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/Errors/Unauthorized.vue')
-)
-const NotFound = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/Errors/NotFound.vue')
-)
-const GeneralError = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/Errors/GeneralError.vue')
-)
-const OracleProfileConfigurations = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/cloud/ProfileConfig.vue')
-)
-const OracleRecommendations = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/cloud/Recommendations.vue')
-)
-const AwsProfileConfigurations = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/cloud/ProfileConfig.vue')
-)
-const AwsRecommendations = lazy(() =>
-  import(/* webpackPreload: true */ '@/views/cloud/Recommendations.vue')
-)
+const lazyRouteBuilder = (path) => {
+  return lazy(() => import(/* webpackPreload: true */ `@/views/${path}`))
+}
+const routeBuilder = (path) => {
+  return () => import(/* webpackPreload: true */ `@/views/${path}`)
+}
+
+const EmptyRouterView = routeBuilder('Empty-Router-View.vue')
 
 Vue.use(VueRouter)
 
@@ -117,7 +23,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: Login,
+    component: routeBuilder('auth/Login.vue'),
     meta: {
       title: `${title}Login`,
       layout: 'simple',
@@ -126,7 +32,7 @@ const routes = [
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: Dashboard,
+    component: lazyRouteBuilder('Dashboard.vue'),
     meta: {
       title: `${title}Dashboard`,
     },
@@ -139,7 +45,7 @@ const routes = [
       {
         path: '',
         name: 'hosts',
-        component: Hosts,
+        component: lazyRouteBuilder('hosts/Hosts.vue'),
         meta: {
           label: i18n.t('menu.hosts'),
           title: `${title}${i18n.t('menu.hosts')}`,
@@ -150,7 +56,7 @@ const routes = [
       {
         path: '/details/:hostname/:dbname?',
         name: 'hosts-details',
-        component: HostsDetails,
+        component: lazyRouteBuilder('hosts/HostsDetails.vue'),
         props: true,
         meta: {
           // label: 'Host Details',
@@ -171,7 +77,7 @@ const routes = [
       {
         path: '',
         name: 'databases',
-        component: Databases,
+        component: lazyRouteBuilder('databases/Databases.vue'),
         meta: {
           label: i18n.t('menu.databases'),
           title: `${title}${i18n.t('menu.databases')}`,
@@ -186,7 +92,7 @@ const routes = [
           {
             path: '',
             name: 'oracle',
-            component: Oracle,
+            component: lazyRouteBuilder('databases/oracle/Oracle.vue'),
             meta: {
               label: i18n.t('menu.oracle'),
               title: `${title}${i18n.t('menu.oracle')}`,
@@ -204,7 +110,7 @@ const routes = [
               {
                 path: '/addm',
                 name: 'addm',
-                component: ADDM,
+                component: lazyRouteBuilder('databases/oracle/ADDM.vue'),
                 meta: {
                   label: `${i18n.t('menu.oracle')}: ${i18n.t('menu.addm')}`,
                   title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
@@ -221,7 +127,9 @@ const routes = [
               {
                 path: '/segment-advisor',
                 name: 'segment-advisor',
-                component: SegmentAdvisor,
+                component: lazyRouteBuilder(
+                  'databases/oracle/Segment-Advisor.vue'
+                ),
                 meta: {
                   label: `${i18n.t('menu.oracle')}: ${i18n.t(
                     'menu.segAdvisor'
@@ -240,7 +148,9 @@ const routes = [
               {
                 path: '/patch-advisor',
                 name: 'patch-advisor',
-                component: PatchAdvidor,
+                component: lazyRouteBuilder(
+                  'databases/oracle/Patch-Advidor.vue'
+                ),
                 meta: {
                   label: `${i18n.t('menu.oracle')}: ${i18n.t(
                     'menu.patAdvisor'
@@ -259,7 +169,7 @@ const routes = [
               {
                 path: '/dba-role',
                 name: 'dba-role',
-                component: DatabaseGrants,
+                component: lazyRouteBuilder('databases/oracle/DB-Grants.vue'),
                 meta: {
                   label: `${i18n.t('menu.oracle')}: ${i18n.t(
                     'menu.patAdvisor'
@@ -278,7 +188,7 @@ const routes = [
               {
                 path: '/patch',
                 name: 'patch',
-                component: Patch,
+                component: lazyRouteBuilder('databases/oracle/Patch.vue'),
                 meta: {
                   label: `${i18n.t('menu.oracle')}: ${i18n.t('menu.patch')}`,
                   title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
@@ -288,6 +198,59 @@ const routes = [
                     { name: i18n.t('menu.databases'), link: '/databases' },
                     { name: i18n.t('menu.oracle'), link: '/oracle' },
                     { name: i18n.t('menu.patch') },
+                  ],
+                },
+                beforeEnter: verifyAuth,
+              },
+              {
+                path: '/options',
+                name: 'options',
+                component: lazyRouteBuilder('databases/oracle/Options.vue'),
+                meta: {
+                  label: `${i18n.t('menu.oracle')}: ${i18n.t('menu.options')}`,
+                  title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.options'
+                  )}`,
+                  breadcrumb: [
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: i18n.t('menu.options') },
+                  ],
+                },
+                beforeEnter: verifyAuth,
+              },
+              {
+                path: '/tablespaces',
+                name: 'tablespaces',
+                component: lazyRouteBuilder('databases/oracle/Tablespaces.vue'),
+                meta: {
+                  label: `${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.tablespaces'
+                  )}`,
+                  title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.tablespaces'
+                  )}`,
+                  breadcrumb: [
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: i18n.t('menu.tablespaces') },
+                  ],
+                },
+                beforeEnter: verifyAuth,
+              },
+              {
+                path: '/dbgrowth',
+                name: 'dbgrowth',
+                component: lazyRouteBuilder('databases/oracle/DbGrowth.vue'),
+                meta: {
+                  label: `${i18n.t('menu.oracle')}: ${i18n.t('menu.dbgrowth')}`,
+                  title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.dbgrowth'
+                  )}`,
+                  breadcrumb: [
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: i18n.t('menu.dbgrowth') },
                   ],
                 },
                 beforeEnter: verifyAuth,
@@ -303,7 +266,7 @@ const routes = [
           {
             path: '',
             name: 'mysql',
-            component: MySQL,
+            component: lazyRouteBuilder('databases/mysql/MySQL.vue'),
             meta: {
               label: i18n.t('menu.mysql'),
               title: `${title}${i18n.t('menu.mysql')}`,
@@ -323,7 +286,7 @@ const routes = [
           {
             path: '',
             name: 'microsoft',
-            component: MsSqlServer,
+            component: lazyRouteBuilder('databases/microsoft/Microsoft.vue'),
             meta: {
               label: i18n.t('menu.microsoft'),
               title: `${title}${i18n.t('menu.microsoft')}`,
@@ -343,7 +306,7 @@ const routes = [
           {
             path: '',
             name: 'postgresql',
-            component: PostgreSql,
+            component: lazyRouteBuilder('databases/postgresql/PostgreSql.vue'),
             meta: {
               label: i18n.t('menu.postgresql'),
               title: `${title}${i18n.t('menu.postgresql')}`,
@@ -361,7 +324,7 @@ const routes = [
   {
     path: '/middleware',
     name: 'middleware',
-    component: Middleware,
+    component: lazyRouteBuilder('middleware/Middleware.vue'),
     meta: {
       label: 'Middleware',
       title: `${title}Middleware`,
@@ -372,7 +335,7 @@ const routes = [
   {
     path: '/licenses/contract',
     name: 'licenses-contract',
-    component: LicensesContracts,
+    component: lazyRouteBuilder('licenses/LicensesContracts.vue'),
     meta: {
       label: i18n.t('menu.licContracts'),
       title: `${title}${i18n.t('menu.licContracts')}`,
@@ -383,7 +346,7 @@ const routes = [
   {
     path: '/licenses/compliance',
     name: 'licenses-compliance',
-    component: LicensesCompliance,
+    component: lazyRouteBuilder('licenses/LicensesCompliance.vue'),
     meta: {
       label: i18n.t('menu.licCompliance'),
       title: `${title}${i18n.t('menu.licCompliance')}`,
@@ -394,7 +357,7 @@ const routes = [
   {
     path: '/licenses/used/:partNumber?',
     name: 'licenses-used',
-    component: LicensesUsed,
+    component: lazyRouteBuilder('licenses/LicensesUsed.vue'),
     props: true,
     meta: {
       label: i18n.tc('menu.licUsed'),
@@ -410,7 +373,7 @@ const routes = [
       {
         path: '',
         name: 'hypervisors',
-        component: Hypervisors,
+        component: lazyRouteBuilder('hypervisors/Hypervisors.vue'),
         meta: {
           label: i18n.t('menu.hypervisors'),
           title: `${title}${i18n.t('menu.hypervisors')}`,
@@ -421,7 +384,7 @@ const routes = [
       {
         path: '/hypervisors/:clustername',
         name: 'cluster-details',
-        component: Cluster,
+        component: lazyRouteBuilder('hypervisors/Cluster.vue'),
         props: true,
         meta: {
           // label: 'Cluster Details',
@@ -438,7 +401,7 @@ const routes = [
   {
     path: '/engineered-systems',
     name: 'engineered-systems',
-    component: Engineered,
+    component: lazyRouteBuilder('engineered/Engineered.vue'),
     meta: {
       label: i18n.t('menu.engSystems'),
       title: `${title}${i18n.t('menu.engSystems')}`,
@@ -449,7 +412,7 @@ const routes = [
   {
     path: '/alerts',
     name: 'alerts',
-    component: Alerts,
+    component: lazyRouteBuilder('alerts/Alerts.vue'),
     meta: {
       label: i18n.t('menu.alerts'),
       title: `${title}${i18n.t('menu.alerts')}`,
@@ -468,7 +431,7 @@ const routes = [
           {
             path: '/cloud-advisor/oracle/profile-configurations',
             name: 'oracle-profile-configurations',
-            component: OracleProfileConfigurations,
+            component: lazyRouteBuilder('cloud/ProfileConfig.vue'),
             meta: {
               label: i18n.t('menu.profileConfig'),
               title: `${title}${i18n.t('menu.profileConfig')}`,
@@ -482,7 +445,7 @@ const routes = [
           {
             path: '/cloud-advisor/oracle/recommendations',
             name: 'oracle-recommendations',
-            component: OracleRecommendations,
+            component: lazyRouteBuilder('cloud/Recommendations.vue'),
             meta: {
               label: i18n.t('menu.recommendations'),
               title: `${title}${i18n.t('menu.recommendations')}`,
@@ -502,7 +465,7 @@ const routes = [
           {
             path: '/cloud-advisor/aws/profile-configurations',
             name: 'aws-profile-configurations',
-            component: AwsProfileConfigurations,
+            component: lazyRouteBuilder('cloud/ProfileConfig.vue'),
             meta: {
               label: i18n.t('menu.profileConfig'),
               title: `${title}${i18n.t('menu.profileConfig')}`,
@@ -516,7 +479,7 @@ const routes = [
           {
             path: '/cloud-advisor/aws/recommendations',
             name: 'aws-recommendations',
-            component: AwsRecommendations,
+            component: lazyRouteBuilder('cloud/Recommendations.vue'),
             meta: {
               label: i18n.t('menu.recommendations'),
               title: `${title}${i18n.t('menu.recommendations')}`,
@@ -534,7 +497,7 @@ const routes = [
   {
     path: '/repository',
     name: 'repository',
-    component: Repository,
+    component: lazyRouteBuilder('repository/Repository.vue'),
     meta: {
       label: i18n.t('menu.repository'),
       title: `${title}${i18n.t('menu.repository')}`,
@@ -545,7 +508,7 @@ const routes = [
   {
     path: '/settings',
     name: 'settings',
-    component: Settings,
+    component: lazyRouteBuilder('settings/Settings.vue'),
     meta: {
       label: 'Settings',
       title: `${title}Settings`,
@@ -556,7 +519,7 @@ const routes = [
   {
     path: '/500',
     name: '500',
-    component: InternalServer,
+    component: lazyRouteBuilder('Errors/InternalServer.vue'),
     meta: {
       title: `${title}500 Internal Server Error`,
       layout: 'error',
@@ -565,7 +528,7 @@ const routes = [
   {
     path: '/401',
     name: '401',
-    component: Unauthorized,
+    component: lazyRouteBuilder('Errors/Unauthorized.vue'),
     meta: {
       title: `${title}401 Unauthorized`,
       layout: 'error',
@@ -574,7 +537,7 @@ const routes = [
   {
     path: '/404',
     name: '404',
-    component: NotFound,
+    component: lazyRouteBuilder('Errors/NotFound.vue'),
     meta: {
       title: `${title}404 Page Not Found`,
       layout: 'error',
@@ -583,7 +546,7 @@ const routes = [
   {
     path: '/error',
     name: 'error',
-    component: GeneralError,
+    component: lazyRouteBuilder('Errors/GeneralError.vue'),
     meta: {
       title: `Error`,
       layout: 'error',

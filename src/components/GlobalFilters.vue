@@ -334,7 +334,8 @@ export default {
         this.$route.name !== 'aws-recommendations' &&
         this.$route.name !== 'alerts' &&
         this.$route.name !== 'dba-role' &&
-        this.$route.name !== 'patch'
+        this.$route.name !== 'patch' &&
+        this.$route.name !== 'options'
       )
     },
   },
