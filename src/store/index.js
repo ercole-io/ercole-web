@@ -2,17 +2,34 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
-import * as config from '@/store/modules/config'
-import * as loading from '@/store/modules/loading'
-import * as errors from '@/store/modules/errors'
+// General
+import * as config from '@/store/modules/common/config'
+import * as loading from '@/store/modules/common/loading'
+import * as errors from '@/store/modules/common/errors'
+
+import * as columnToggle from '@/store/modules/common/columns-toggle'
+import * as moreInfoToggle from '@/store/modules/common/more-info-toggle'
+
+import * as dbConnection from '@/store/modules/common/dbConnection'
+import * as version from '@/store/modules/common/version'
+
+import * as globalFilters from '@/store/modules/common/global-filters'
+import * as localFilters from '@/store/modules/common/local-filters'
+
+import * as clusternames from '@/store/modules/common/clusternames'
+import * as hostnames from '@/store/modules/common/hostnames'
+import * as technologies from '@/store/modules/common/technologies'
+import * as LicensesTypes from '@/store/modules/common/licenses-types'
+
+import * as ignoreLicense from '@/store/modules/common/ignoreLicense'
+import * as rangeDates from '@/store/modules/common/range-dates'
+
 // Login
 import * as auth from '@/store/modules/login/auth'
 // dashboard
 import * as dashboard from '@/store/modules/dashboard/dashboard'
-import * as technologies from '@/store/modules/technologies'
 // Hosts
 import * as hosts from '@/store/modules/hosts/hosts'
-import * as hostnames from '@/store/modules/hostnames'
 import * as hostDetails from '@/store/modules/hosts/hostDetails'
 // Alerts
 import * as alerts from '@/store/modules/alerts/alerts'
@@ -22,7 +39,6 @@ import * as licensesContracts from '@/store/modules/licenses/licenses-contracts'
 import * as licensesCompliance from '@/store/modules/licenses/licenses-compliance'
 // Clusters
 import * as clusters from '@/store/modules/hypervisors/clusters'
-import * as clusternames from '@/store/modules/clusternames'
 // Databases
 import * as databases from '@/store/modules/databases/databases'
 // Databases Oracle
@@ -38,15 +54,11 @@ import * as mysql from '@/store/modules/databases/mysql/mysql'
 import * as microsoft from '@/store/modules/databases/microsoft/microsoft'
 // Databases Postgree
 import * as postgresql from '@/store/modules/databases/postgresql/postgresql'
-import * as globalFilters from '@/store/modules/global-filters'
-import * as localFilters from '@/store/modules/local-filters'
+// Exadata
 import * as engineeredSystems from '@/store/modules/engineered-systems/engineered-systems'
-import * as LicensesTypes from '@/store/modules/licenses-types'
-import * as rangeDates from '@/store/modules/range-dates'
-import * as moreInfoToggle from '@/store/modules/more-info-toggle'
-import * as columnToggle from '@/store/modules/columns-toggle'
+// Repository
 import * as repository from '@/store/modules/repository/repository'
-import * as ignoreLicense from '@/store/modules/ignoreLicense'
+// LIcenses Contracts
 import * as microsoftContracts from '@/store/modules/licenses/contracts/microsoft'
 import * as mysqlContracts from '@/store/modules/licenses/contracts/mysql'
 import * as oracleContracts from '@/store/modules/licenses/contracts/oracle'
@@ -56,10 +68,6 @@ import * as cloudTechnology from '@/store/modules/cloud/cloudTechnology'
 import * as cloudProfileConfig from '@/store/modules/cloud/profileConfig'
 import * as cloudRecommendations from '@/store/modules/cloud/recommendations'
 import * as cloudActiveProfiles from '@/store/modules/cloud/activeProfiles'
-//Database Connection
-import * as dbConnection from '@/store/modules/dbConnection'
-// Version
-import * as version from '@/store/modules/version'
 
 Vue.use(Vuex)
 
