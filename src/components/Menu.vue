@@ -108,13 +108,13 @@ export default {
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-options' },
                 },
-                // {
-                //   href: { name: 'tablespaces' },
-                //   title: this.$i18n.t('menu.tablespaces'),
-                //   icon: 'fas fa-adjust',
-                //   class: 'menu-third-level',
-                //   attributes: { 'data-cy': 'mn-oracle-tablespaces' },
-                // },
+                {
+                  href: { name: 'tablespaces' },
+                  title: this.$i18n.t('menu.tablespaces'),
+                  icon: 'fas fa-adjust',
+                  class: 'menu-third-level',
+                  attributes: { 'data-cy': 'mn-oracle-tablespaces' },
+                },
                 // {
                 //   href: { name: 'dbgrowth' },
                 //   title: this.$i18n.t('menu.dbgrowth'),
