@@ -335,7 +335,8 @@ export default {
         this.$route.name !== 'alerts' &&
         this.$route.name !== 'dba-role' &&
         this.$route.name !== 'patch' &&
-        this.$route.name !== 'options'
+        this.$route.name !== 'options' &&
+        this.$route.name !== 'tablespaces'
       )
     },
   },

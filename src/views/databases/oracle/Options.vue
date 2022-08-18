@@ -45,7 +45,7 @@
       <ExportButton
         slot="export"
         url="hosts/technologies/oracle/databases/option-list"
-        expName="oraclePatch"
+        expName="oracleOptions"
       />
     </FullTable>
   </ToggleColumns>

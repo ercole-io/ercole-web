@@ -15,6 +15,7 @@ const defaultState = () => ({
   'page-dbGrants': [false, true],
   'page-patch': [false, true],
   'page-options': [false, true],
+  'page-tablespaces': [false, true],
 
   'page-alerts': [false, true],
 
