@@ -16,6 +16,7 @@ const defaultState = () => ({
   'page-patch': [false, true],
   'page-options': [false, true],
   'page-tablespaces': [false, true],
+  'page-backups': [false, true],
 
   'page-alerts': [false, true],
 
