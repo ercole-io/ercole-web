@@ -48,6 +48,7 @@ import * as oraclePatchAdvisor from '@/store/modules/databases/oracle/oracle-pat
 import * as oracleAddm from '@/store/modules/databases/oracle/oracle-addm'
 import * as oraclePatch from '@/store/modules/databases/oracle/oracle-patch'
 import * as oracleOptions from '@/store/modules/databases/oracle/options'
+import * as oracleTablespaces from '@/store/modules/databases/oracle/tablespaces.js'
 // Databases Mysql
 import * as mysql from '@/store/modules/databases/mysql/mysql'
 // Databases Microsoft
@@ -95,6 +96,7 @@ export default new Vuex.Store({
     oracleAddm,
     oraclePatch,
     oracleOptions,
+    oracleTablespaces,
     mysql,
     microsoft,
     postgresql,

@@ -174,6 +174,14 @@ export default {
       maxcostSaving: null,
       mindetectedUsages: null,
       maxdetectedUsages: null,
+      minused: null,
+      maxused: null,
+      minusedPerc: null,
+      maxusedPerc: null,
+      mintotal: null,
+      maxtotal: null,
+      minmaxSize: null,
+      maxmaxSize: null,
     }
   },
   mounted() {
