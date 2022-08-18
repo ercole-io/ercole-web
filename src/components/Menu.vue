@@ -115,6 +115,13 @@ export default {
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-tablespaces' },
                 },
+                {
+                  href: { name: 'backups' },
+                  title: this.$i18n.t('menu.backups'),
+                  icon: 'fas fa-adjust',
+                  class: 'menu-third-level',
+                  attributes: { 'data-cy': 'mn-oracle-backups' },
+                },
                 // {
                 //   href: { name: 'dbgrowth' },
                 //   title: this.$i18n.t('menu.dbgrowth'),
