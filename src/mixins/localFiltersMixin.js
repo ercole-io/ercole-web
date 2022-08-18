@@ -107,6 +107,10 @@ export default {
       filteredproduct: [],
       filteredextraFeatureInfo: [],
       filteredfeature: [],
+      filteredweekDays: [],
+      filteredhour: [],
+      filteredbackupType: [],
+      filteredretention: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,
@@ -182,6 +186,8 @@ export default {
       maxtotal: null,
       minmaxSize: null,
       maxmaxSize: null,
+      minavgBckSize: null,
+      maxavgBckSize: null,
     }
   },
   mounted() {

@@ -239,6 +239,23 @@ const routes = [
                 beforeEnter: verifyAuth,
               },
               {
+                path: '/backups',
+                name: 'backups',
+                component: lazyRouteBuilder('databases/oracle/Backups.vue'),
+                meta: {
+                  label: `${i18n.t('menu.oracle')}: ${i18n.t('menu.backups')}`,
+                  title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.backups'
+                  )}`,
+                  breadcrumb: [
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: i18n.t('menu.backups') },
+                  ],
+                },
+                beforeEnter: verifyAuth,
+              },
+              {
                 path: '/dbgrowth',
                 name: 'dbgrowth',
                 component: lazyRouteBuilder('databases/oracle/DbGrowth.vue'),

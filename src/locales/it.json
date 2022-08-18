@@ -35,7 +35,8 @@
     "patch": "Patch",
     "options": "Opzioni",
     "tablespaces": "Tablespaces",
-    "dbgrowth": "DB Growth"
+    "dbgrowth": "DB Growth",
+    "backups": "Backups"
   },
   "header": {
     "logout": "Disconnettersi"
