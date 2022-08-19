@@ -337,7 +337,8 @@ export default {
         this.$route.name !== 'patch' &&
         this.$route.name !== 'options' &&
         this.$route.name !== 'tablespaces' &&
-        this.$route.name !== 'backups'
+        this.$route.name !== 'backups' &&
+        this.$route.name !== 'services'
       )
     },
   },

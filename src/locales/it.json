@@ -36,7 +36,8 @@
     "options": "Opzioni",
     "tablespaces": "Tablespaces",
     "dbgrowth": "DB Growth",
-    "backups": "Backups"
+    "backups": "Backups",
+    "services": "Servizi"
   },
   "header": {
     "logout": "Disconnettersi"

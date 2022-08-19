@@ -111,6 +111,7 @@ export default {
       filteredhour: [],
       filteredbackupType: [],
       filteredretention: [],
+      filteredservName: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,
