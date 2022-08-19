@@ -1,47 +1,41 @@
 <template>
   <ToggleColumns
-    getPage="tablespaces"
+    getPage="services"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
     v-if="isMounted"
   >
-    <TablespacesFilters slot="left">
+    <ServiceFilters slot="left">
       <Loading :isLoading="loadingTableStatus" />
-    </TablespacesFilters>
+    </ServiceFilters>
 
     <FullTable
       slot="center"
-      :placeholder="$t('menu.tablespaces')"
+      :placeholder="$t('menu.services')"
       :keys="keys"
-      :tableData="getOracleTablespaces"
+      :tableData="getOracleServices"
       @clickedRow="handleClickedRow"
       isClickable
       :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
-        <v-th sortKey="name">Name</v-th>
-        <v-th sortKey="status">Status</v-th>
-        <v-th sortKey="used">Used</v-th>
-        <v-th sortKey="usedPerc">Used GB</v-th>
-        <v-th sortKey="total">Total</v-th>
-        <v-th sortKey="maxSize">Max Size</v-th>
+        <v-th sortKey="dbName">{{ $t('common.collumns.name') }}</v-th>
+        <v-th sortKey="servName">Service Name</v-th>
+        <v-th sortKey="servEnabled">Enabled</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
         <HostLink :hostname="rowData.scope.hostname" class="first-col" />
-        <TdContent :value="rowData.scope.name" />
-        <TdContent :value="rowData.scope.status" />
-        <TdContent :value="rowData.scope.used" />
-        <TdContent :value="rowData.scope.usedPerc" />
-        <TdContent :value="rowData.scope.total" />
-        <TdContent :value="rowData.scope.maxSize" />
+        <TdContent :value="rowData.scope.dbName" />
+        <TdContent :value="rowData.scope.servName" />
+        <TdIcon :value="rowData.scope.servEnabled" />
       </template>
 
       <ExportButton
         slot="export"
-        url="hosts/technologies/oracle/databases/tablespaces"
-        expName="oracleTablespaces"
+        url="hosts/technologies/oracle/databases/service-list"
+        expName="oracleServices"
       />
     </FullTable>
   </ToggleColumns>
@@ -55,8 +49,9 @@ import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import TdIcon from '@/components/common/Table/TDIcon.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
-import TablespacesFilters from '@/components/databases/oracle/tablespaces/Filters.vue'
+import ServiceFilters from '@/components/databases/oracle/services/Filters.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
@@ -66,37 +61,30 @@ export default {
     FullTable,
     ExportButton,
     TdContent,
+    TdIcon,
     HostLink,
-    TablespacesFilters,
+    ServiceFilters,
     Loading,
   },
   data() {
     return {
-      keys: [
-        'hostname',
-        'name',
-        'status',
-        'used',
-        'usedPerc',
-        'total',
-        'maxSize',
-      ],
+      keys: ['hostname', 'name', 'servName', 'servEnabled'],
       isMounted: false,
     }
   },
   async beforeMount() {
-    await this.getTablespaces().then(() => {
-      bus.$emit('data', this.getOracleTablespaces)
+    await this.getServices().then(() => {
+      bus.$emit('data', this.getOracleServices)
     })
   },
   mounted() {
     this.isMounted = true
   },
   methods: {
-    ...mapActions(['getTablespaces']),
+    ...mapActions(['getServices']),
   },
   computed: {
-    ...mapGetters(['getOracleTablespaces', 'loadingTableStatus']),
+    ...mapGetters(['getOracleServices', 'loadingTableStatus']),
   },
 }
 </script>
