@@ -339,7 +339,8 @@ export default {
         this.$route.name !== 'tablespaces' &&
         this.$route.name !== 'backups' &&
         this.$route.name !== 'services' &&
-        this.$route.name !== 'dbgrowth'
+        this.$route.name !== 'dbgrowth' &&
+        this.$route.name !== 'schemas'
       )
     },
   },
