@@ -38,17 +38,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async getOptions({ commit, dispatch, getters }) {
+  async getOptions({ commit, dispatch }) {
     dispatch('onLoadingTable')
 
     const config = {
       method: 'get',
       url: '/hosts/technologies/oracle/databases/option-list',
-      params: {
-        'older-than': getters.getActiveFilters.date,
-        environment: getters.getActiveFilters.environment,
-        location: getters.getActiveFilters.location,
-      },
     }
 
     await axiosRequest('baseApi', config).then((res) => {
