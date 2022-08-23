@@ -136,6 +136,13 @@ export default {
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-dbgrowth' },
                 },
+                {
+                  href: { name: 'schemas' },
+                  title: this.$i18n.t('menu.schemas'),
+                  icon: 'fas fa-cog',
+                  class: 'menu-third-level',
+                  attributes: { 'data-cy': 'mn-oracle-schemas' },
+                },
               ],
             },
             {
