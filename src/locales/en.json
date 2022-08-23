@@ -37,7 +37,8 @@
     "tablespaces": "Tablespaces",
     "dbgrowth": "DB Growth",
     "backups": "Backups",
-    "services": "Services"
+    "services": "Services",
+    "schemas": "Schemas"
   },
   "header": {
     "logout": "Logout"
