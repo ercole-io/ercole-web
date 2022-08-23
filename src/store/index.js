@@ -51,6 +51,7 @@ import * as oracleOptions from '@/store/modules/databases/oracle/options'
 import * as oracleTablespaces from '@/store/modules/databases/oracle/tablespaces'
 import * as oracleBackups from '@/store/modules/databases/oracle/backups'
 import * as oracleServices from '@/store/modules/databases/oracle/services'
+import * as oracleDbgrowth from '@/store/modules/databases/oracle/dbgrowth.js'
 // Databases Mysql
 import * as mysql from '@/store/modules/databases/mysql/mysql'
 // Databases Microsoft
@@ -101,6 +102,7 @@ export default new Vuex.Store({
     oracleTablespaces,
     oracleBackups,
     oracleServices,
+    oracleDbgrowth,
     mysql,
     microsoft,
     postgresql,
