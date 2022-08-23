@@ -112,6 +112,7 @@ export default {
       filteredbackupType: [],
       filteredretention: [],
       filteredservName: [],
+      filtereduser: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,
@@ -189,6 +190,12 @@ export default {
       maxmaxSize: null,
       minavgBckSize: null,
       maxavgBckSize: null,
+      mintables: null,
+      maxtables: null,
+      minindexes: null,
+      maxindexes: null,
+      minlob: null,
+      maxlob: null,
     }
   },
   mounted() {
