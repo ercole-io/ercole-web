@@ -16,21 +16,21 @@ export default {
   props: {
     chartId: {
       type: String,
-      required: true
+      required: true,
     },
     lineChartData: {
       type: Array,
-      required: true
+      required: true,
     },
     discrete: {
       type: Boolean,
-      default: false
+      default: false,
     },
     hasLegend: {
       type: [String, Boolean],
-      default: 'bottom'
-    }
-  }
+      default: 'bottom',
+    },
+  },
 }
 </script>
 
