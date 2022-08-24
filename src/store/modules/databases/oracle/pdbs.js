@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
-// import pdbsData from '@/store/modules/databases/oracle/pdbs.json'
 
 export const state = () => ({
   pdbs: [],
@@ -31,11 +30,6 @@ export const actions = {
     await axiosRequest('baseApi', config).then((res) => {
       dispatch('offLoadingTable')
       commit('SET_PDBS', res.data)
-      // if (res.data.length > 0) {
-      //   commit('SET_PDBS', res.data)
-      // } else {
-      //   commit('SET_PDBS', pdbsData)
-      // }
     })
   },
 }
