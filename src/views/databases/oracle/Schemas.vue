@@ -20,7 +20,7 @@
     >
       <template slot="headData">
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
-        <v-th sortKey="dbName">{{ $t('common.collumns.name') }}</v-th>
+        <v-th sortKey="databaseName">{{ $t('common.collumns.name') }}</v-th>
         <v-th sortKey="user">User</v-th>
         <v-th sortKey="total">Total</v-th>
         <v-th sortKey="tables">Tables</v-th>
@@ -30,7 +30,7 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <HostLink :hostname="rowData.scope.hostname" class="first-col" />
-        <TdContent :value="rowData.scope.dbName" />
+        <TdContent :value="rowData.scope.databaseName" />
         <TdContent :value="rowData.scope.user" />
         <TdContent :value="rowData.scope.total" />
         <TdContent :value="rowData.scope.tables" />
@@ -72,7 +72,15 @@ export default {
   },
   data() {
     return {
-      keys: ['hostname', 'dbName', 'user', 'total', 'tables', 'indexes', 'lob'],
+      keys: [
+        'hostname',
+        'databaseName',
+        'user',
+        'total',
+        'tables',
+        'indexes',
+        'lob',
+      ],
       isMounted: false,
     }
   },
