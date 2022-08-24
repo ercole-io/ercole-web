@@ -143,6 +143,13 @@ export default {
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-schemas' },
                 },
+                {
+                  href: { name: 'pdbs' },
+                  title: this.$i18n.t('menu.pdbs'),
+                  icon: 'fas fa-cog',
+                  class: 'menu-third-level',
+                  attributes: { 'data-cy': 'mn-oracle-pdbs' },
+                },
               ],
             },
             {

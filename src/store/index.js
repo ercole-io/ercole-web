@@ -53,6 +53,7 @@ import * as oracleBackups from '@/store/modules/databases/oracle/backups'
 import * as oracleServices from '@/store/modules/databases/oracle/services'
 import * as oracleDbgrowth from '@/store/modules/databases/oracle/dbgrowth'
 import * as orcaleSchemas from '@/store/modules/databases/oracle/schemas'
+import * as oraclePdbs from '@/store/modules/databases/oracle/pdbs'
 // Databases Mysql
 import * as mysql from '@/store/modules/databases/mysql/mysql'
 // Databases Microsoft
@@ -105,6 +106,7 @@ export default new Vuex.Store({
     oracleServices,
     oracleDbgrowth,
     orcaleSchemas,
+    oraclePdbs,
     mysql,
     microsoft,
     postgresql,
