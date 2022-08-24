@@ -306,6 +306,23 @@ const routes = [
                 },
                 beforeEnter: verifyAuth,
               },
+              {
+                path: '/pdbs',
+                name: 'pdbs',
+                component: lazyRouteBuilder('databases/oracle/Pdbs.vue'),
+                meta: {
+                  label: `${i18n.t('menu.oracle')}: ${i18n.t('menu.pdbs')}`,
+                  title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.pdbs'
+                  )}`,
+                  breadcrumb: [
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: i18n.t('menu.pdbs') },
+                  ],
+                },
+                beforeEnter: verifyAuth,
+              },
             ],
           },
         ],
