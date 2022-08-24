@@ -38,7 +38,8 @@
     "dbgrowth": "DB Growth",
     "backups": "Backups",
     "services": "Serviços",
-    "schemas": "Schemas"
+    "schemas": "Schemas",
+    "pdbs": "Pluggable DBs"
   },
   "header": {
     "logout": "Sair"

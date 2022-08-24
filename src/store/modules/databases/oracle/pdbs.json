@@ -1,0 +1,576 @@
+[
+    {
+        "hostname": "erclin7dbx",
+        "pdb": {
+            "name": "ERC19PDB1",
+            "status": "READ WRITE",
+            "segmentsSize": 3,
+            "datafileSize": 5,
+            "allocable": 129,
+            "tablespaces": [
+                {
+                    "name": "SYSTEM",
+                    "maxSize": 32767.9844,
+                    "total": 280,
+                    "used": 278.4375,
+                    "usedPerc": 0.85,
+                    "status": "ONLINE"
+                },
+                {
+                    "name": "USERS",
+                    "maxSize": 32767.9844,
+                    "total": 5,
+                    "used": 0,
+                    "usedPerc": 0,
+                    "status": "ONLINE"
+                },
+                {
+                    "name": "UNDOTBS1",
+                    "maxSize": 32767.9844,
+                    "total": 520,
+                    "used": 0,
+                    "usedPerc": 0,
+                    "status": "ONLINE"
+                },
+                {
+                    "name": "SYSAUX",
+                    "maxSize": 32767.9844,
+                    "total": 440,
+                    "used": 415.8125,
+                    "usedPerc": 1.27,
+                    "status": "ONLINE"
+                }
+            ],
+            "schemas": [
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##AAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "REMOTE_SCHEDULER_AGENT"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "GGSYS"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##TEST2"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##RAFFAELLO"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "DBSFWUSER"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##CHECK_MK"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##AAAAAAA"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "ASDF"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##ASDDFASDFASDF"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##TEST1"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##PLUTO"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "SYSRAC"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##QWERTY"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "TEST"
+                },
+                {
+                    "indexes": 1,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 2,
+                    "user": "HR"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "PDBADMIN"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "SYS$UMF"
+                }
+            ],
+            "services": [],
+            "grantDba": [
+                {
+                    "grantee": "C##CHECK_MK",
+                    "adminOption": "NO",
+                    "defaultRole": "YES"
+                },
+                {
+                    "grantee": "SYS",
+                    "adminOption": "YES",
+                    "defaultRole": "YES"
+                },
+                {
+                    "grantee": "SYSTEM",
+                    "adminOption": "NO",
+                    "defaultRole": "YES"
+                }
+            ]
+        }
+    },
+    {
+        "hostname": "erclin7dbx",
+        "pdb": {
+            "name": "ERC18PDB2",
+            "status": "READ WRITE",
+            "segmentsSize": 3,
+            "datafileSize": 5,
+            "allocable": 129,
+            "tablespaces": [
+                {
+                    "name": "SYSTEM",
+                    "maxSize": 32767.9844,
+                    "total": 280,
+                    "used": 278.4375,
+                    "usedPerc": 0.85,
+                    "status": "ONLINE"
+                },
+                {
+                    "name": "USERS",
+                    "maxSize": 32767.9844,
+                    "total": 5,
+                    "used": 0,
+                    "usedPerc": 0,
+                    "status": "ONLINE"
+                },
+                {
+                    "name": "UNDOTBS1",
+                    "maxSize": 32767.9844,
+                    "total": 520,
+                    "used": 0,
+                    "usedPerc": 0,
+                    "status": "ONLINE"
+                },
+                {
+                    "name": "SYSAUX",
+                    "maxSize": 32767.9844,
+                    "total": 440,
+                    "used": 415.8125,
+                    "usedPerc": 1.27,
+                    "status": "ONLINE"
+                }
+            ],
+            "schemas": [
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##AAAAAAAAAAAAAAAAAAAAAAAAAA"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "REMOTE_SCHEDULER_AGENT"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "GGSYS"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##TEST2"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##RAFFAELLO"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "DBSFWUSER"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##CHECK_MK"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##AAAAAAA"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "ASDF"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##ASDDFASDFASDF"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##TEST1"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##PLUTO"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "SYSRAC"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "C##QWERTY"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "TEST"
+                },
+                {
+                    "indexes": 1,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 2,
+                    "user": "HR"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "PDBADMIN"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "SYS$UMF"
+                }
+            ],
+            "services": [],
+            "grantDba": [
+                {
+                    "grantee": "C##CHECK_MK",
+                    "adminOption": "NO",
+                    "defaultRole": "YES"
+                },
+                {
+                    "grantee": "SYS",
+                    "adminOption": "YES",
+                    "defaultRole": "YES"
+                },
+                {
+                    "grantee": "SYSTEM",
+                    "adminOption": "NO",
+                    "defaultRole": "YES"
+                }
+            ]
+        }
+    },
+    {
+        "hostname": "ercxedb18.ercole.io",
+        "pdb": {
+            "name": "XEPDB1",
+            "status": "READ WRITE",
+            "segmentsSize": 0,
+            "datafileSize": 0,
+            "allocable": 0,
+            "tablespaces": [
+                {
+                    "name": "SYSTEM",
+                    "maxSize": 32767.9844,
+                    "total": 270,
+                    "used": 259.875,
+                    "usedPerc": 0.79,
+                    "status": "ONLINE"
+                },
+                {
+                    "name": "USERS",
+                    "maxSize": 32767.9844,
+                    "total": 5,
+                    "used": 0,
+                    "usedPerc": 0,
+                    "status": "ONLINE"
+                },
+                {
+                    "name": "UNDOTBS1",
+                    "maxSize": 32767.9844,
+                    "total": 100,
+                    "used": 0,
+                    "usedPerc": 0,
+                    "status": "ONLINE"
+                },
+                {
+                    "name": "SYSAUX",
+                    "maxSize": 32767.9844,
+                    "total": 550,
+                    "used": 513.875,
+                    "usedPerc": 1.57,
+                    "status": "ONLINE"
+                }
+            ],
+            "schemas": [
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "SYS$UMF"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "GGSYS"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "DBSFWUSER"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "REMOTE_SCHEDULER_AGENT"
+                },
+                {
+                    "indexes": 1,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 2,
+                    "user": "HR"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "PDBADMIN"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "SYSRAC"
+                }
+            ],
+            "services": [],
+            "grantDba": null
+        }
+    },
+    {
+        "hostname": "ercxedb18.ercole.io",
+        "pdb": {
+            "name": "XEPDB2",
+            "status": "READ WRITE",
+            "segmentsSize": 0,
+            "datafileSize": 0,
+            "allocable": 0,
+            "tablespaces": [
+                {
+                    "name": "SYSTEM",
+                    "maxSize": 32767.9844,
+                    "total": 270,
+                    "used": 259.875,
+                    "usedPerc": 0.79,
+                    "status": "ONLINE"
+                },
+                {
+                    "name": "USERS",
+                    "maxSize": 32767.9844,
+                    "total": 5,
+                    "used": 0,
+                    "usedPerc": 0,
+                    "status": "ONLINE"
+                },
+                {
+                    "name": "UNDOTBS1",
+                    "maxSize": 32767.9844,
+                    "total": 100,
+                    "used": 0,
+                    "usedPerc": 0,
+                    "status": "ONLINE"
+                },
+                {
+                    "name": "SYSAUX",
+                    "maxSize": 32767.9844,
+                    "total": 550,
+                    "used": 513.875,
+                    "usedPerc": 1.57,
+                    "status": "ONLINE"
+                }
+            ],
+            "schemas": [
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "SYS$UMF"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "GGSYS"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "DBSFWUSER"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "REMOTE_SCHEDULER_AGENT"
+                },
+                {
+                    "indexes": 1,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 2,
+                    "user": "HR"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "PDBADMIN"
+                },
+                {
+                    "indexes": 0,
+                    "lob": 0,
+                    "tables": 0,
+                    "total": 0,
+                    "user": "SYSRAC"
+                }
+            ],
+            "services": [],
+            "grantDba": null
+        }
+    }
+]
