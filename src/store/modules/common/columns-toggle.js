@@ -18,7 +18,6 @@ const defaultState = () => ({
   'page-tablespaces': [false, true],
   'page-backups': [false, true],
   'page-services': [false, true],
-  'page-dbgrowth': [false, true],
   'page-schemas': [false, true],
 
   'page-alerts': [false, true],
