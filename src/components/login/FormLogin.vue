@@ -45,6 +45,7 @@
         :placeholder="$t('common.fields.password')"
         @blur="$v.password.$touch()"
         data-password
+        password-reveal
       />
       <template #message>
         <div v-if="!$v.password.required && $v.password.$error" class="error">
