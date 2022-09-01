@@ -87,6 +87,7 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     width: 200px;
     display: none;
+    right: auto !important;
   }
   
   
@@ -237,7 +238,7 @@
   
   .selectItem {
     display: block;
-    padding: 3px;
+    padding: 5px 10px;
     font-size: 13px;
     color: black;
     white-space: nowrap;
@@ -247,6 +248,7 @@
     -o-user-select: none;
     user-select: none;
     border: 1px solid transparent;
+    border-top: 1px solid #c4c4c4;
     position: relative;
     width: 200px;
     min-height: 20px;

@@ -323,6 +323,23 @@ const routes = [
                 },
                 beforeEnter: verifyAuth,
               },
+              {
+                path: '/cpu-time',
+                name: 'cpu-time',
+                component: lazyRouteBuilder('databases/oracle/CpuTime.vue'),
+                meta: {
+                  label: `${i18n.t('menu.oracle')}: ${i18n.t('menu.cpu-time')}`,
+                  title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.cpu-time'
+                  )}`,
+                  breadcrumb: [
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: i18n.t('menu.cpu-time') },
+                  ],
+                },
+                beforeEnter: verifyAuth,
+              },
             ],
           },
         ],

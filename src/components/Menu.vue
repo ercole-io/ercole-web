@@ -150,6 +150,13 @@ export default {
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-pdbs' },
                 },
+                {
+                  href: { name: 'cpu-time' },
+                  title: this.$i18n.t('menu.cpu-time'),
+                  icon: 'fas fa-cog',
+                  class: 'menu-third-level',
+                  attributes: { 'data-cy': 'mn-oracle-cpu-time' },
+                },
               ],
             },
             {
