@@ -11,6 +11,7 @@
     :emptyTabText="noDataFound"
     :btnLabel="() => btLabel"
     class="custom-multi-select"
+    showPointer
   >
     <template v-slot:option="{ option }">
       <span>{{ option.name }}</span>
@@ -26,7 +27,7 @@ export default {
   props: {
     selected: {
       type: Array,
-      required: true,
+      required: false,
     },
     dataOptions: {
       type: Array,
@@ -43,6 +44,14 @@ export default {
     btnLabelText: {
       type: String,
       required: false,
+    },
+    selectionSlice: {
+      type: Number,
+      default: 1,
+    },
+    preSelection: {
+      type: Boolean,
+      default: false,
     },
   },
   components: {
@@ -63,7 +72,11 @@ export default {
   computed: {
     cpuChartSelected: {
       get() {
-        return this.selected.slice(0, 10)
+        if (this.preSelection) {
+          return this.dataOptions.slice(0, this.selectionSlice)
+        } else {
+          return this.selected.slice(0, this.selectionSlice)
+        }
       },
       set(val) {
         bus.$emit('cpuChartSelected', val)

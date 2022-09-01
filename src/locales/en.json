@@ -39,7 +39,8 @@
     "backups": "Backups",
     "services": "Services",
     "schemas": "Schemas",
-    "pdbs": "Pluggable DBs"
+    "pdbs": "Pluggable DBs",
+    "cpu-time": "CPU Time"
   },
   "header": {
     "logout": "Logout"

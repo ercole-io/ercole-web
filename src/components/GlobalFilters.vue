@@ -341,7 +341,8 @@ export default {
         this.$route.name !== 'services' &&
         this.$route.name !== 'dbgrowth' &&
         this.$route.name !== 'schemas' &&
-        this.$route.name !== 'pdbs'
+        this.$route.name !== 'pdbs' &&
+        this.$route.name !== 'cpu-time'
       )
     },
   },
