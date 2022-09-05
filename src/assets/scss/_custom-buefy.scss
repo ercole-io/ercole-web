@@ -40,9 +40,12 @@
 
   > .tabs {
     ul {
-      min-width: 125px;
+      min-width: 170px;
       
       li {
+        flex-grow: unset;
+        min-height: 32px;
+
         a {
           padding: 0.3em 1em 0.25em 1em;
         }
