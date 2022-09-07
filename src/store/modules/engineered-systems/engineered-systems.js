@@ -2,6 +2,7 @@ import _ from 'lodash'
 import axios from 'axios'
 import i18n from '@/i18n.js'
 import { axiosRequest } from '@/services/services.js'
+import mockExadata from '@/store/modules/engineered-systems/exadata.json'
 
 const url = 'hosts/technologies/oracle/exadata'
 
@@ -34,7 +35,9 @@ const patchData = (data, months) => {
 
 export const getters = {
   getEngSys: (state) => {
-    return state.engSys
+    let exadata = state.engSys
+    exadata = mockExadata
+    return exadata
   },
   getPatchingChartData: (state) => {
     const finalData = []

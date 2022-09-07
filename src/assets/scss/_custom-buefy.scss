@@ -319,6 +319,18 @@ ul.pagination-list {
   }
 }
 
+// b-table 
+.b-table {
+  .detail {
+    td {
+      // padding: 0;
+    }
+    .detail-container {
+      padding: 0 !important;
+    }
+  }
+}
+
 // input
 .control {
   .input[disabled], .textarea {

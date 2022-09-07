@@ -4,6 +4,7 @@
       class="is-flex is-justify-content-flex-end"
       v-if="getEngSys.length > 0"
     >
+      <SearchInput class="mr-2" />
       <ExportButton
         url="hosts/technologies/oracle/exadata"
         expName="engSystems"
@@ -48,6 +49,7 @@ import ExadataTable from '@/components/engineered/ExadataTable.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 import NoContent from '@/components/common/NoContent.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
+import SearchInput from '@/components/common/SearchInput.vue'
 
 export default {
   components: {
@@ -56,6 +58,7 @@ export default {
     GhostLoading,
     NoContent,
     ExportButton,
+    SearchInput,
   },
   computed: {
     ...mapGetters(['getEngSys', 'loadingTableStatus']),

@@ -1,60 +1,348 @@
 <template>
-  <SimpleTable :theadData="keys">
-    <template slot="tbodyContent" v-if="data.dbServers">
-      <th colspan="6" class="subHeader">DB Servers</th>
-      <tr v-for="dbServer in data.dbServers" :key="dbServer.hostname">
-        <TdContent :value="dbServer.hostname" />
-        <TdContent :value="dbServer.model" />
-        <TdContent :value="dbServer.totalCPUCount" />
-        <TdContent :value="dbServer.memory" />
-        <TdContent :value="dbServer.swVersion" />
-        <TdContent
-          :value="`${dbServer.totalPowerSupply || '-'}     ${
-            dbServer.tempActual || '-'
-          }`"
+  <article>
+    <section class="columns mb-0">
+      <div class="column is-6">
+        <b-progress
+          format="percent"
+          type="is-warning"
+          :value="calcValues(data.totalRam, data.totalFreeRam)"
+          show-value
         />
-      </tr>
-    </template>
-    <template slot="tbodyContent" v-if="data.ibSwitches">
-      <th colspan="6" class="subHeader">IBSwitch</th>
-      <tr v-for="ibSwitche in data.ibSwitches" :key="ibSwitche.hostname">
-        <TdContent :value="ibSwitche.hostname" />
-        <TdContent :value="ibSwitche.model" />
-        <TdContent :value="ibSwitche.totalCPUCount" />
-        <TdContent :value="ibSwitche.memory" />
-        <TdContent :value="ibSwitche.swVersion" />
-        <TdContent
-          :value="`${ibSwitche.totalPowerSupply || '-'}     ${
-            ibSwitche.tempActual || '-'
-          }`"
+      </div>
+      <div class="column is-6">
+        <b-progress
+          format="percent"
+          type="is-warning"
+          :value="calcValues(data.totalVCPU, data.totalFreeVCPU)"
+          show-value
         />
-      </tr>
-    </template>
-    <template slot="tbodyContent" v-if="data.storageServers">
-      <th colspan="6" class="subHeader">Storage</th>
-      <tr
-        v-for="storageServer in data.storageServers"
-        :key="storageServer.hostname"
-      >
-        <TdContent :value="storageServer.hostname" />
-        <TdContent :value="storageServer.model" />
-        <TdContent :value="storageServer.totalCPUCount" />
-        <TdContent :value="storageServer.memory" />
-        <TdContent :value="storageServer.swVersion" />
-        <TdContent
-          :value="`${storageServer.totalPowerSupply || '-'}     ${
-            storageServer.tempActual || '-'
-          }`"
-        />
-      </tr>
-    </template>
-  </SimpleTable>
+      </div>
+    </section>
+    <section>
+      <p class="subHeader mb-0">DB Servers</p>
+      <div class="table-container">
+        <b-table
+          :data="data.dbServers"
+          detailed
+          detail-transition="fade"
+          detail-key="hostname"
+          :show-detail-icon="true"
+          :opened-detailed="defaultOpenedDetails"
+        >
+          <b-table-column
+            field="hostname"
+            label="Hostname"
+            centered
+            sortable
+            v-slot="props"
+          >
+            {{ props.row.hostname }}
+          </b-table-column>
+
+          <b-table-column field="totalRam" label="Ram Usage" centered sortable>
+            <template v-slot="props">
+              <b-progress
+                format="percent"
+                type="is-warning"
+                :value="calcValues(props.row.totalRam, props.row.totalFreeRam)"
+                show-value
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column
+            field="totalVCPU"
+            label="VCPU Usage"
+            centered
+            sortable
+          >
+            <template v-slot="props">
+              <b-progress
+                format="percent"
+                type="is-warning"
+                :value="
+                  calcValues(props.row.totalVCPU, props.row.totalFreeVCPU)
+                "
+                show-value
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column
+            field="model"
+            label="Model"
+            centered
+            sortable
+            v-slot="props"
+          >
+            {{ props.row.model }}
+          </b-table-column>
+
+          <b-table-column
+            field="swVersion"
+            label="Version"
+            centered
+            sortable
+            v-slot="props"
+          >
+            {{ props.row.swVersion }}
+          </b-table-column>
+
+          <template #detail="props">
+            <b-table :data="props.row.vms">
+              <b-table-column
+                field="hostname"
+                label="Hostname"
+                centered
+                sortable
+                v-slot="props"
+              >
+                {{ props.row.hostname }}
+              </b-table-column>
+
+              <b-table-column
+                field="ram"
+                label="Ram"
+                centered
+                sortable
+                v-slot="props"
+              >
+                {{ props.row.ram }}
+              </b-table-column>
+
+              <b-table-column
+                field="vcpu"
+                label="VCPU"
+                centered
+                sortable
+                v-slot="props"
+              >
+                {{ props.row.vcpu }}
+              </b-table-column>
+            </b-table>
+          </template>
+        </b-table>
+      </div>
+    </section>
+    <section>
+      <p class="subHeader mb-0">IBSwitch</p>
+      <div class="table-container">
+        <b-table
+          :data="data.ibSwitches"
+          detailed
+          detail-transition="fade"
+          detail-key="hostname"
+          :show-detail-icon="true"
+          :opened-detailed="defaultOpenedDetails"
+          @details-open="(row) => closeAllOtherDetails(row)"
+        >
+          <b-table-column
+            field="hostname"
+            label="Hostname"
+            centered
+            sortable
+            v-slot="props"
+          >
+            {{ props.row.hostname }}
+          </b-table-column>
+
+          <b-table-column field="totalRam" label="Ram Usage" centered sortable>
+            <template v-slot="props">
+              <b-progress
+                format="percent"
+                type="is-warning"
+                :value="calcValues(props.row.totalRam, props.row.totalFreeRam)"
+                show-value
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column
+            field="totalVCPU"
+            label="VCPU Usage"
+            centered
+            sortable
+          >
+            <template v-slot="props">
+              <b-progress
+                format="percent"
+                type="is-warning"
+                :value="
+                  calcValues(props.row.totalVCPU, props.row.totalFreeVCPU)
+                "
+                show-value
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column
+            field="model"
+            label="Model"
+            centered
+            sortable
+            v-slot="props"
+          >
+            {{ props.row.model }}
+          </b-table-column>
+
+          <b-table-column
+            field="swVersion"
+            label="Version"
+            centered
+            sortable
+            v-slot="props"
+          >
+            {{ props.row.swVersion }}
+          </b-table-column>
+
+          <template #detail="props">
+            <b-table :data="props.row.vms">
+              <b-table-column
+                field="hostname"
+                label="Hostname"
+                centered
+                sortable
+                v-slot="props"
+              >
+                {{ props.row.hostname }}
+              </b-table-column>
+
+              <b-table-column
+                field="ram"
+                label="Ram"
+                centered
+                sortable
+                v-slot="props"
+              >
+                {{ props.row.ram }}
+              </b-table-column>
+
+              <b-table-column
+                field="vcpu"
+                label="VCPU"
+                centered
+                sortable
+                v-slot="props"
+              >
+                {{ props.row.vcpu }}
+              </b-table-column>
+            </b-table>
+          </template>
+        </b-table>
+      </div>
+    </section>
+    <section>
+      <p class="subHeader mb-0">Storage</p>
+      <div class="table-container">
+        <b-table
+          :data="data.storageServers"
+          detailed
+          detail-transition="fade"
+          detail-key="hostname"
+          :show-detail-icon="true"
+          :opened-detailed="defaultOpenedDetails"
+          @details-open="(row) => closeAllOtherDetails(row)"
+        >
+          <b-table-column
+            field="hostname"
+            label="Hostname"
+            centered
+            sortable
+            v-slot="props"
+          >
+            {{ props.row.hostname }}
+          </b-table-column>
+
+          <b-table-column field="totalRam" label="Ram Usage" centered sortable>
+            <template v-slot="props">
+              <b-progress
+                format="percent"
+                type="is-warning"
+                :value="calcValues(props.row.totalRam, props.row.totalFreeRam)"
+                show-value
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column
+            field="totalVCPU"
+            label="VCPU Usage"
+            centered
+            sortable
+          >
+            <template v-slot="props">
+              <b-progress
+                format="percent"
+                type="is-warning"
+                :value="
+                  calcValues(props.row.totalVCPU, props.row.totalFreeVCPU)
+                "
+                show-value
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column
+            field="model"
+            label="Model"
+            centered
+            sortable
+            v-slot="props"
+          >
+            {{ props.row.model }}
+          </b-table-column>
+
+          <b-table-column
+            field="swVersion"
+            label="Version"
+            centered
+            sortable
+            v-slot="props"
+          >
+            {{ props.row.swVersion }}
+          </b-table-column>
+
+          <template #detail="props">
+            <b-table :data="props.row.vms">
+              <b-table-column
+                field="hostname"
+                label="Hostname"
+                centered
+                sortable
+                v-slot="props"
+              >
+                {{ props.row.hostname }}
+              </b-table-column>
+
+              <b-table-column
+                field="ram"
+                label="Ram"
+                centered
+                sortable
+                v-slot="props"
+              >
+                {{ props.row.ram }}
+              </b-table-column>
+
+              <b-table-column
+                field="vcpu"
+                label="VCPU"
+                centered
+                sortable
+                v-slot="props"
+              >
+                {{ props.row.vcpu }}
+              </b-table-column>
+            </b-table>
+          </template>
+        </b-table>
+      </div>
+    </section>
+  </article>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import SimpleTable from '@/components/common/Table/SimpleTable.vue'
-import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
   props: {
@@ -63,21 +351,21 @@ export default {
       default: () => [],
     },
   },
-  components: {
-    SimpleTable,
-    TdContent,
-  },
   data() {
     return {
-      keys: [
-        this.$i18n.t('common.collumns.hostname'),
-        this.$i18n.t('common.collumns.model'),
-        this.$i18n.t('common.collumns.cpu'),
-        this.$i18n.t('common.collumns.memory'),
-        this.$i18n.t('common.collumns.version'),
-        this.$i18n.t('common.collumns.powerTemp'),
-      ],
+      defaultOpenedDetails: ['exaerc01a', 'exaerc01b'],
     }
+  },
+  methods: {
+    setTooltip(total, free, format) {
+      return `Total: ${total}${format}<br>Free: ${free}${format}`
+    },
+    calcValues(total, free) {
+      return (free / total) * 100
+    },
+    closeAllOtherDetails(row) {
+      this.defaultOpenedDetails = [row.hostname]
+    },
   },
   computed: {
     ...mapGetters(['loadingTableStatus']),
@@ -93,5 +381,6 @@ export default {
   background-color: $light-primary;
   padding: 0.2em 0.75em;
   font-size: 12px;
+  font-weight: 900;
 }
 </style>

@@ -1,0 +1,316 @@
+[
+  {
+    "_id": "62baaf8c631041a2e52f96f7",
+    "createdAt": "2022-06-28T07:36:44.573Z",
+    "location": "Italy",
+    "environment": "PROD",
+    "hostname": "exaerc01a.ercole.io",
+    "totalRam": "500",
+    "totalFreeRam": "300",
+    "totalVCPU": "110",
+    "totalFreeVCPU": "6",
+    "dbServers": [
+      {
+        "hostname": "exaerc01a",
+        "model": "X7-2",
+        "swVersion": "19.2.22.0.0.210113",
+        "totalRam": "50",
+        "totalFreeRam": "30",
+        "totalVCPU": "50",
+        "totalFreeVCPU": "12",
+        "vms": [
+          {
+            "hostname": "hostname1",
+            "ram": "20",
+            "vcpu": "5"
+          },
+          {
+            "hostname": "hostname2",
+            "ram": "30",
+            "vcpu": "7"
+          },
+          {
+            "hostname": "hostname3",
+            "ram": "10",
+            "vcpu": "3"
+          },
+          {
+            "hostname": "hostname4",
+            "ram": "70",
+            "vcpu": "8"
+          }
+        ]
+      },
+      {
+        "hostname": "exaerc01b",
+        "model": "X7-2",
+        "swVersion": "19.2.22.0.0.210113",
+        "totalRam": "80",
+        "totalFreeRam": "10",
+        "totalVCPU": "70",
+        "totalFreeVCPU": "3",
+        "vms": [
+          {
+            "hostname": "hostname1",
+            "ram": "20",
+            "vcpu": "5"
+          },
+          {
+            "hostname": "hostname2",
+            "ram": "30",
+            "vcpu": "7"
+          },
+          {
+            "hostname": "hostname3",
+            "ram": "10",
+            "vcpu": "3"
+          },
+          {
+            "hostname": "hostname4",
+            "ram": "70",
+            "vcpu": "8"
+          }
+        ]
+      }
+    ],
+    "ibSwitches": [
+      {
+        "hostname": "oraexasw0-iba",
+        "model": "SUN_DCS_36p",
+        "swVersion": "2.2.16-1.200903",
+        "totalRam": "10",
+        "totalFreeRam": "2",
+        "totalVCPU": "30",
+        "totalFreeVCPU": "9",
+        "vms": [
+          {
+            "hostname": "hostname1",
+            "ram": "20",
+            "vcpu": "5"
+          },
+          {
+            "hostname": "hostname2",
+            "ram": "30",
+            "vcpu": "7"
+          },
+          {
+            "hostname": "hostname3",
+            "ram": "10",
+            "vcpu": "3"
+          },
+          {
+            "hostname": "hostname4",
+            "ram": "70",
+            "vcpu": "8"
+          }
+        ]
+      },
+      {
+        "hostname": "oraexasw0-ibb",
+        "model": "SUN_DCS_36p",
+        "swVersion": "2.2.16-1.200903",
+        "totalRam": "150",
+        "totalFreeRam": "50",
+        "totalVCPU": "250",
+        "totalFreeVCPU": "112",
+        "vms": [
+          {
+            "hostname": "hostname1",
+            "ram": "20",
+            "vcpu": "5"
+          },
+          {
+            "hostname": "hostname2",
+            "ram": "30",
+            "vcpu": "7"
+          },
+          {
+            "hostname": "hostname3",
+            "ram": "10",
+            "vcpu": "3"
+          },
+          {
+            "hostname": "hostname4",
+            "ram": "70",
+            "vcpu": "8"
+          }
+        ]
+      }
+    ],
+    "storageServers": [
+      {
+        "hostname": "adm-exaerc01cell01",
+        "model": "X7-2L_High_Capacity",
+        "swVersion": "19.2.22.0.0.210113",
+        "totalRam": "90",
+        "totalFreeRam": "10",
+        "totalVCPU": "350",
+        "totalFreeVCPU": "342",
+        "vms": [
+          {
+            "hostname": "hostname1",
+            "ram": "20",
+            "vcpu": "5"
+          },
+          {
+            "hostname": "hostname2",
+            "ram": "30",
+            "vcpu": "7"
+          },
+          {
+            "hostname": "hostname3",
+            "ram": "10",
+            "vcpu": "3"
+          },
+          {
+            "hostname": "hostname4",
+            "ram": "70",
+            "vcpu": "8"
+          }
+        ]
+      },
+      {
+        "hostname": "adm-exaerc01cell02",
+        "model": "X7-2L_High_Capacity",
+        "swVersion": "19.2.22.0.0.210113",
+        "totalRam": "190",
+        "totalFreeRam": "110",
+        "totalVCPU": "30",
+        "totalFreeVCPU": "20",
+        "vms": [
+          {
+            "hostname": "hostname1",
+            "ram": "20",
+            "vcpu": "5"
+          },
+          {
+            "hostname": "hostname2",
+            "ram": "30",
+            "vcpu": "7"
+          },
+          {
+            "hostname": "hostname3",
+            "ram": "10",
+            "vcpu": "3"
+          },
+          {
+            "hostname": "hostname4",
+            "ram": "70",
+            "vcpu": "8"
+          }
+        ]
+      },
+      {
+        "hostname": "adm-exaerc01cell03",
+        "model": "X7-2L_High_Capacity",
+        "swVersion": "19.2.22.0.0.210113",
+        "totalRam": "900",
+        "totalFreeRam": "76",
+        "totalVCPU": "36",
+        "totalFreeVCPU": "34",
+        "vms": [
+          {
+            "hostname": "hostname1",
+            "ram": "20",
+            "vcpu": "5"
+          },
+          {
+            "hostname": "hostname2",
+            "ram": "30",
+            "vcpu": "7"
+          },
+          {
+            "hostname": "hostname3",
+            "ram": "10",
+            "vcpu": "3"
+          },
+          {
+            "hostname": "hostname4",
+            "ram": "70",
+            "vcpu": "8"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": "62baaf8c631041a2e52f96fa",
+    "createdAt": "2022-06-28T07:36:44.589Z",
+    "location": "Boston",
+    "environment": "PROD",
+    "hostname": "exaerc02a.ercole.io",
+    "totalRam": "300",
+    "totalFreeRam": "100",
+    "totalVCPU": "80",
+    "totalFreeVCPU": "10",
+    "dbServers": [
+      {
+        "hostname": "exaerc02a",
+        "model": "X7-2",
+        "swVersion": "19.2.22.0.0.210113",
+        "totalRam": "120",
+        "totalFreeRam": "50",
+        "totalVCPU": "130",
+        "totalFreeVCPU": "50"
+      },
+      {
+        "hostname": "exaerc02b",
+        "model": "X7-2",
+        "swVersion": "19.2.22.0.0.210113",
+        "totalRam": "10",
+        "totalFreeRam": "5",
+        "totalVCPU": "20",
+        "totalFreeVCPU": "5"
+      }
+    ],
+    "ibSwitches": [
+      {
+        "hostname": "oraexasw0-iba",
+        "model": "SUN_DCS_36p",
+        "swVersion": "2.2.16-1.200903",
+        "totalRam": "10",
+        "totalFreeRam": "2",
+        "totalVCPU": "30",
+        "totalFreeVCPU": "9"
+      },
+      {
+        "hostname": "oraexasw0-ibb",
+        "model": "SUN_DCS_36p",
+        "swVersion": "2.2.16-1.200903",
+        "totalRam": "150",
+        "totalFreeRam": "50",
+        "totalVCPU": "250",
+        "totalFreeVCPU": "112"
+      }
+    ],
+    "storageServers": [
+      {
+        "hostname": "adm-exaerc01cell01",
+        "model": "X7-2L_High_Capacity",
+        "swVersion": "19.2.22.0.0.210113",
+        "totalRam": "876",
+        "totalFreeRam": "120",
+        "totalVCPU": "300",
+        "totalFreeVCPU": "242"
+      },
+      {
+        "hostname": "adm-exaerc01cell02",
+        "model": "X7-2L_High_Capacity",
+        "swVersion": "19.2.22.0.0.210113",
+        "totalRam": "190",
+        "totalFreeRam": "80",
+        "totalVCPU": "60",
+        "totalFreeVCPU": "20"
+      },
+      {
+        "hostname": "adm-exaerc01cell03",
+        "model": "X7-2L_High_Capacity",
+        "swVersion": "19.2.22.0.0.210113",
+        "totalRam": "700",
+        "totalFreeRam": "376",
+        "totalVCPU": "36",
+        "totalFreeVCPU": "34"
+      }
+    ]
+  }
+]
