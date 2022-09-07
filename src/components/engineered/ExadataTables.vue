@@ -27,10 +27,13 @@
         :title="data.hostname"
         border
         v-for="data in getEngSys"
-        :key="data.hostname"
+        :key="data._id"
         class="column is-6"
       >
-        <ExadataTable :data="data" />
+        <ExadataProgress :exadataProgress="data" />
+        <DbServers :dbServersData="data.dbServers" />
+        <IbSwitches :ibSwitchesData="data.ibSwitches" />
+        <StorageServers :storageServersData="data.storageServers" />
       </BoxContent>
 
       <NoContent
@@ -44,21 +47,29 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import tooltipMixin from '@/mixins/tooltipMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
-import ExadataTable from '@/components/engineered/ExadataTable.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 import NoContent from '@/components/common/NoContent.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
+import ExadataProgress from '@/components/engineered/ExadataProgress.vue'
+import DbServers from '@/components/engineered/DbServers.vue'
+import IbSwitches from '@/components/engineered/IbSwitches.vue'
+import StorageServers from '@/components/engineered/StorageServers.vue'
 
 export default {
+  mixins: [tooltipMixin],
   components: {
     BoxContent,
-    ExadataTable,
     GhostLoading,
     NoContent,
     ExportButton,
     SearchInput,
+    ExadataProgress,
+    DbServers,
+    IbSwitches,
+    StorageServers,
   },
   computed: {
     ...mapGetters(['getEngSys', 'loadingTableStatus']),

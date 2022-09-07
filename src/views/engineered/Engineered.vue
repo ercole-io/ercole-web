@@ -17,7 +17,7 @@
 
     <div class="columns">
       <div class="column is-12">
-        <EngineeredTables />
+        <ExadataTables />
       </div>
     </div>
   </section>
@@ -29,7 +29,7 @@ import Cpu from '@/components/engineered/CPU.vue'
 import Memory from '@/components/engineered/Memory.vue'
 import Storage from '@/components/engineered/Storage.vue'
 import Patching from '@/components/engineered/Patching.vue'
-import EngineeredTables from '@/components/engineered/EngineeredTables.vue'
+import ExadataTables from '@/components/engineered/ExadataTables.vue'
 
 export default {
   name: 'engineered-page',
@@ -38,7 +38,7 @@ export default {
     Memory,
     Storage,
     Patching,
-    EngineeredTables,
+    ExadataTables,
   },
   async beforeMount() {
     await this.getEngineeredSystems()
