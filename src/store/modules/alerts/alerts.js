@@ -167,6 +167,7 @@ export const actions = {
       to: data.endDate,
       environment: getters.getActiveFilters.environment,
       location: getters.getActiveFilters.location,
+      size: '115',
     }
 
     const config = {
@@ -176,7 +177,7 @@ export const actions = {
     }
 
     await axiosRequest('baseApi', config).then((res) => {
-      let response = res.data
+      let response = res.data.items
       _.map(response, (val) => {
         if (val.alertCategory !== 'AGENT') {
           val.isChecked = false
