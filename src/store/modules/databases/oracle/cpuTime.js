@@ -9,11 +9,22 @@ export const state = () => ({
   oracleHostsList: [],
   currentHostDatabases: [],
   currentHostHistory: [],
+  searchCpuTherm: '',
 })
 
 export const getters = {
   getOracleHostsList: (state) => {
-    return state.oracleHostsList
+    const therm = state.searchCpuTherm
+    let filteredData = []
+    filteredData = state.oracleHostsList
+
+    if (therm !== '') {
+      filteredData = _.filter(filteredData, (val) => {
+        return _.includes(val.toUpperCase(), therm.toUpperCase())
+      })
+    }
+
+    return filteredData
   },
   getOracleCpuTimeChart: (state, getters, rootstate) => (selected) => {
     const dailyDbState = state.currentHostDatabases
@@ -52,6 +63,9 @@ export const mutations = {
   },
   SET_CURRENT_HOST_HISTORY: (state, payload) => {
     state.currentHostHistory = payload
+  },
+  SET_SEARCH_CPU_THEME: (state, payload) => {
+    state.searchCpuTherm = payload
   },
 }
 
