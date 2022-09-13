@@ -176,7 +176,7 @@ export const actions = {
     }
 
     await axiosRequest('baseApi', config).then((res) => {
-      let response = res.data
+      let response = res.data.items
       _.map(response, (val) => {
         if (val.alertCategory !== 'AGENT') {
           val.isChecked = false
