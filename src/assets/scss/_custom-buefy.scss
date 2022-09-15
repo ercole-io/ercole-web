@@ -95,7 +95,35 @@ ul.pagination-list {
 // table
 .b-table .table {
   white-space: nowrap;
-  font-size: 14px;
+  font-size: 1em;
+}
+
+.b-table .table-wrapper.has-sticky-header {
+  height: 400px;
+}
+
+.b-table .table-wrapper.has-sticky-header tr:first-child th {
+  height: 30px;
+  line-height: 20px;
+  background-color: #101336;
+  font-weight: normal;
+}
+
+.b-table .table .checkbox-cell {
+  text-align: center !important;
+}
+
+.level {
+  justify-content: center;
+}
+
+.pagination-link.is-current {
+  background-color: #101336;
+  border-color: #dbdbdb;
+}
+
+.b-checkbox.checkbox input[type=checkbox]:disabled + .check {
+  display: none;
 }
 
 // navbar
