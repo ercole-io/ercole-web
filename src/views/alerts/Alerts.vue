@@ -37,21 +37,20 @@ export default {
         'description',
         'alertSeverity',
       ],
-      isLoading: false,
       isMounted: false,
-      alertStatus: 'NEW',
       firstLoad: true,
     }
   },
   async beforeMount() {
-    await this.getAlertsData({ status: this.alertStatus })
+    this.SET_SORT_ITEM('date')
+    await this.getAlertsData()
   },
   mounted() {
     this.isMounted = true
   },
   methods: {
     ...mapActions(['getAlertsData']),
-    ...mapMutations(['SET_ALERTS_PARAMS']),
+    ...mapMutations(['SET_ALERTS_PARAMS', 'SET_SORT_ITEM']),
   },
   computed: {
     ...mapGetters(['loadingTableStatus']),

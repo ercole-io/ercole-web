@@ -6,6 +6,7 @@ import createPersistedState from 'vuex-persistedstate'
 import * as config from '@/store/modules/common/config'
 import * as loading from '@/store/modules/common/loading'
 import * as errors from '@/store/modules/common/errors'
+import * as tableInterations from '@/store/modules/common/table-interations'
 
 import * as columnToggle from '@/store/modules/common/columns-toggle'
 import * as moreInfoToggle from '@/store/modules/common/more-info-toggle'
@@ -83,6 +84,7 @@ export default new Vuex.Store({
     config,
     loading,
     errors,
+    tableInterations,
     auth,
     dashboard,
     hosts,
