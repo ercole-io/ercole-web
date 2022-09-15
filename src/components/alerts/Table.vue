@@ -1,50 +1,32 @@
 <template>
-  <div>
-    <b-table
-      :data="isEmpty ? [] : getAlerts"
-      :columns="columns"
-      :checked-rows.sync="checkedRows"
-      checkable
-      :checkbox-position="checkboxPosition"
-      :checkbox-type="checkboxType"
-      :loading="loadingTableStatus"
-      :paginated="isPaginated"
-      backend-pagination
-      :total="total"
-      :per-page="perPage"
-      :current-page.sync="currentPage"
-      :pagination-simple="isPaginationSimple"
-      :pagination-position="paginationPosition"
-      :default-sort-direction="defaultSortDirection"
-      :pagination-rounded="isPaginationRounded"
-      :sort-icon="sortIcon"
-      :sort-icon-size="sortIconSize"
-      default-sort="date"
-      aria-next-label="Next page"
-      aria-previous-label="Previous page"
-      aria-page-label="Page"
-      aria-current-label="Current page"
-      :page-input="hasInput"
-      :pagination-order="paginationOrder"
-      :page-input-position="inputPosition"
-      :debounce-page-input="inputDebounce"
-    >
-    </b-table>
-    <p>Showing {{ perPage }} of {{ total }} items</p>
-    <b>Total checked</b>: {{ checkedRows.length }}
-  </div>
+  <FullTable
+    :tableData="getAlerts"
+    :setColumns="columns"
+    sortField="date"
+    :fnCallback="() => getAlertsData()"
+    hasCheckbox
+    :rowsNotCheckable="
+      (row) =>
+        row.alertCategory !== 'AGENT' &&
+        row.alertStatus !== 'ACK' &&
+        row.alertStatus !== 'DISMISSED'
+    "
+    hasExportButton
+    :exportInfo="['alerts?status=NEW', 'alerts-data']"
+  />
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { bus } from '@/helpers/eventBus.js'
+import { mapGetters, mapActions } from 'vuex'
+import FullTable from '@/components/common/Table/buefy/FullTable.vue'
 
 export default {
+  components: {
+    FullTable,
+  },
   data() {
     return {
-      isEmpty: false,
-      checkboxPosition: 'left',
-      checkboxType: 'is-primary',
-      checkedRows: [],
       columns: [
         {
           field: 'alertCategory',
@@ -84,28 +66,23 @@ export default {
           width: '40%',
         },
       ],
-      isPaginated: true,
-      isPaginationSimple: false,
-      isPaginationRounded: false,
-      paginationPosition: 'bottom',
-      defaultSortDirection: 'desc',
-      sortIcon: 'chevron-up',
-      sortIconSize: 'is-small',
-      currentPage: 1,
-      perPage: 10,
-      total: 115,
-      hasInput: false,
-      paginationOrder: 'is-centered',
-      inputPosition: 'is-input-left',
-      inputDebounce: '',
     }
   },
   beforeMount() {
-    console.log(this.getAlerts)
-    this.total = this.getAlerts.length
+    bus.$on('getRowSelected', (data) => {
+      // handle mark as read
+      console.log(data)
+    })
+
+    bus.$on('searchTherm', () => {
+      this.getAlertsData()
+    })
+  },
+  methods: {
+    ...mapActions(['getAlertsData']),
   },
   computed: {
-    ...mapGetters(['getAlerts', 'loadingTableStatus']),
+    ...mapGetters(['getAlerts']),
   },
 }
 </script>

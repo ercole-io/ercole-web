@@ -2,6 +2,7 @@ import { axiosRequest } from '@/services/services.js'
 import { returnAlertsByTypeDate, filterByKeys } from '@/helpers/helpers.js'
 import moment from 'moment'
 import _ from 'lodash'
+import formatDateTime from '@/filters/formatDateTime.js'
 
 const startDate = moment().subtract(1, 'week').format('YYYY-MM-DD')
 const endDate = moment().add(1, 'days').format('YYYY-MM-DD')
@@ -9,9 +10,12 @@ const endDate = moment().add(1, 'days').format('YYYY-MM-DD')
 export const state = () => ({
   alerts: [],
   params: {
+    status: 'NEW',
     category: null,
     severity: null,
     hostname: null,
+    from: '',
+    to: '',
   },
 })
 
@@ -37,6 +41,7 @@ export const getters = {
     }
   },
   getAllAlerts: (state) => {
+    const finalData = []
     const agents = state.alerts.AGENT
 
     const licenses = state.alerts.LICENSE
@@ -46,9 +51,16 @@ export const getters = {
     const enginesFull = organizeAlertsByFlag(engines)
 
     let all = _.concat(agents, licensesFull, enginesFull)
-    all = _.orderBy(all, ['date'], ['desc'])
+    // all = _.orderBy(all, ['date'], ['desc'])
 
-    return _.compact(all)
+    _.map(_.compact(all), (val) => {
+      finalData.push({
+        ...val,
+        date: formatDateTime(val.date),
+      })
+    })
+
+    return finalData
   },
   getFilteredAgents: (state) => (code, category) => {
     const agents = state.alerts[category]
@@ -107,6 +119,9 @@ export const getters = {
       total: info + warn + crit,
     }
   },
+  getAlertsParams: (state) => {
+    return state.params
+  },
 }
 
 export const mutations = {
@@ -158,15 +173,18 @@ export const mutations = {
 }
 
 export const actions = {
-  async getAlertsData({ commit, dispatch, getters }, data) {
+  async getAlertsData({ commit, dispatch, getters }) {
     dispatch('onLoadingTable')
 
     const params = {
-      status: data.status,
-      from: data.startDate,
-      to: data.endDate,
-      environment: getters.getActiveFilters.environment,
-      location: getters.getActiveFilters.location,
+      status: getters.getAlertsParams.status,
+      // from: data.startDate,
+      // to: data.endDate,
+      'sort-by': getters.getSortItem,
+      'sort-desc': getters.getSortOrder,
+      page: getters.getPageNum,
+      size: getters.getPerPage,
+      search: getters.getSearchTherm,
     }
 
     const config = {
@@ -183,6 +201,7 @@ export const actions = {
         }
       })
       commit('SET_ALERTS', response)
+      commit('SET_TOTAL_DATA', res.data.count)
       dispatch('offLoadingTable')
     })
   },
