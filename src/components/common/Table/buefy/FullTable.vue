@@ -1,7 +1,7 @@
 <template>
   <article>
     <div class="is-flex mb-2">
-      <b-select v-model="showPerPage" size="is-small">
+      <b-select v-model="showPerPage" size="is-small" class="mr-2">
         <option value="25" v-if="getTotalData > 25">
           25 {{ $t('common.table.perPage') }}
         </option>
@@ -84,7 +84,7 @@
     >
       <ShowPerPage
         :totalItems="getTotalData"
-        :perPage="showPerPage"
+        :perPage="getPageLength"
         data-cy="show-items"
       />
       <div class="buttons mb-0" v-if="hasExportButton">
@@ -172,7 +172,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getPerPage', 'getTotalData', 'loadingTableStatus']),
+    ...mapGetters([
+      'getPerPage',
+      'getTotalData',
+      'getPageLength',
+      'loadingTableStatus',
+    ]),
     showPerPage: {
       get() {
         return Number(this.getPerPage)
@@ -180,6 +185,11 @@ export default {
       set(val) {
         this.SET_PER_PAGE(val)
       },
+    },
+  },
+  watch: {
+    showPerPage() {
+      this.fnCallback()
     },
   },
 }

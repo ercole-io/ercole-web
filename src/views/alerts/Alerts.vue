@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     ...mapActions(['getAlertsData']),
-    ...mapMutations(['SET_ALERTS_PARAMS', 'SET_SORT_ITEM']),
+    ...mapMutations(['SET_SORT_ITEM']),
   },
   computed: {
     ...mapGetters(['loadingTableStatus']),
