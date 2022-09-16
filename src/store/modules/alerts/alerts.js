@@ -1,5 +1,5 @@
 import { axiosRequest } from '@/services/services.js'
-import { returnAlertsByTypeDate, filterByKeys } from '@/helpers/helpers.js'
+import { returnAlertsByTypeDate } from '@/helpers/helpers.js'
 import moment from 'moment'
 import _ from 'lodash'
 import formatDateTime from '@/filters/formatDateTime.js'
@@ -20,48 +20,42 @@ export const state = () => ({
 })
 
 export const getters = {
-  getAlerts: (state, getters, rootState) => {
-    const hasFilters = rootState.localFilters.hasFilters
-    const hasLocalFilters = rootState.localFilters.filters
-    const category = state.params.category
-    // const severity = state.params.severity
-    const hostname = state.params.hostname
+  getAlerts: (state) => {
+    const alerts = []
 
-    if (hasFilters) {
-      if (hostname) {
-        return filterByKeys(
-          getters.getFilteredAlertsByHost(hostname, category),
-          hasLocalFilters
-        )
-      } else {
-        return filterByKeys(getters['getAllAlerts'], hasLocalFilters)
-      }
-    } else {
-      return getters['getAllAlerts']
-    }
-  },
-  getAllAlerts: (state) => {
-    const finalData = []
-    const agents = state.alerts.AGENT
-
-    const licenses = state.alerts.LICENSE
-    const licensesFull = organizeAlertsByFlag(licenses)
-
-    const engines = state.alerts.ENGINE
-    const enginesFull = organizeAlertsByFlag(engines)
-
-    let all = _.concat(agents, licensesFull, enginesFull)
-    // all = _.orderBy(all, ['date'], ['desc'])
-
-    _.map(_.compact(all), (val) => {
-      finalData.push({
+    _.map(state.alerts, (val) => {
+      alerts.push({
         ...val,
         date: formatDateTime(val.date),
       })
     })
 
-    return finalData
+    return alerts
   },
+  // getAllAlerts: (state) => {
+  //   const finalData = []
+  //   const agents = state.alerts.AGENT
+
+  //   const licenses = state.alerts.LICENSE
+  //   const licensesFull = organizeAlertsByFlag(licenses)
+
+  //   const engines = state.alerts.ENGINE
+  //   const enginesFull = organizeAlertsByFlag(engines)
+
+  //   let all = _.concat(agents, licensesFull, enginesFull)
+  //   // all = _.orderBy(all, ['date'], ['desc'])
+
+  //   _.map(_.compact(all), (val) => {
+  //     finalData.push({
+  //       ...val,
+  //       date: formatDateTime(val.date),
+  //     })
+  //   })
+
+  //   console.log(finalData)
+
+  //   return finalData
+  // },
   getFilteredAgents: (state) => (code, category) => {
     const agents = state.alerts[category]
     const filtered = _.filter(agents, ['alertCode', code])
@@ -126,17 +120,18 @@ export const getters = {
 
 export const mutations = {
   SET_ALERTS: (state, payload) => {
-    state.alerts = _.groupBy(payload, 'alertCategory')
-    state.alerts.ENGINE = _.groupBy(state.alerts.ENGINE, 'alertSeverity')
-    state.alerts.LICENSE = _.groupBy(state.alerts.LICENSE, 'alertSeverity')
+    state.alerts = payload
+    // state.alerts = _.groupBy(payload, 'alertCategory')
+    // state.alerts.ENGINE = _.groupBy(state.alerts.ENGINE, 'alertSeverity')
+    // state.alerts.LICENSE = _.groupBy(state.alerts.LICENSE, 'alertSeverity')
 
-    _.forEach(state.alerts.ENGINE, (value, key) => {
-      state.alerts.ENGINE[key] = _.orderBy(value, ['date'], ['desc'])
-    })
+    // _.forEach(state.alerts.ENGINE, (value, key) => {
+    //   state.alerts.ENGINE[key] = _.orderBy(value, ['date'], ['desc'])
+    // })
 
-    _.forEach(state.alerts.LICENSE, (value, key) => {
-      state.alerts.LICENSE[key] = _.orderBy(value, ['date'], ['desc'])
-    })
+    // _.forEach(state.alerts.LICENSE, (value, key) => {
+    //   state.alerts.LICENSE[key] = _.orderBy(value, ['date'], ['desc'])
+    // })
   },
   MARK_AS_READ_DASH: (state, payload) => {
     let id = payload.id
@@ -165,6 +160,9 @@ export const mutations = {
   },
   SET_ALERTS_PARAMS: (state, payload) => {
     state.params = {
+      status: payload.status,
+      from: payload.from,
+      to: payload.to,
       category: payload.category,
       severity: payload.severity,
       hostname: payload.hostname,
@@ -178,8 +176,9 @@ export const actions = {
 
     const params = {
       status: getters.getAlertsParams.status,
-      // from: data.startDate,
-      // to: data.endDate,
+      from: getters.getAlertsParams.from,
+      to: getters.getAlertsParams.to,
+      severity: getters.getAlertsParams.severity,
       'sort-by': getters.getSortItem,
       'sort-desc': getters.getSortOrder,
       page: getters.getPageNum,
@@ -194,14 +193,9 @@ export const actions = {
     }
 
     await axiosRequest('baseApi', config).then((res) => {
-      let response = res.data.items
-      _.map(response, (val) => {
-        if (val.alertCategory !== 'AGENT') {
-          val.isChecked = false
-        }
-      })
-      commit('SET_ALERTS', response)
+      commit('SET_ALERTS', res.data.items)
       commit('SET_TOTAL_DATA', res.data.count)
+      commit('SET_PAGE_LENGTH', res.data.items.length)
       dispatch('offLoadingTable')
     })
   },
@@ -225,7 +219,7 @@ export const actions = {
       method: 'post',
       url: '/alerts/ack',
       data: {
-        ids: payload.idList,
+        ids: payload,
       },
     }
 
@@ -236,11 +230,11 @@ export const actions = {
   },
 }
 
-const organizeAlertsByFlag = (flag) => {
-  if (flag) {
-    return _.concat(flag.INFO || [], flag.WARNING || [], flag.CRITICAL || [])
-  }
-}
+// const organizeAlertsByFlag = (flag) => {
+//   if (flag) {
+//     return _.concat(flag.INFO || [], flag.WARNING || [], flag.CRITICAL || [])
+//   }
+// }
 
 const organizeAlertByFirst = (alert) => {
   if (alert) {

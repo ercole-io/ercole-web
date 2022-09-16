@@ -1,5 +1,5 @@
 <template>
-  <AdvancedFiltersBase :submitAction="apply">
+  <AdvancedFiltersBase :submitAction="applyAlertsFilters">
     <Collapse :collapses="collapses">
       <template slot="General">
         <CustomField :label="$t('common.fields.status')">
@@ -13,7 +13,7 @@
 
         <CustomField label="Type">
           <CustomSelect
-            v-model="filters.alertCategory"
+            v-model="alertCategory"
             fixedOptions
             data-cy="alert-category"
           >
@@ -51,7 +51,7 @@
 
         <CustomField :label="$t('common.fields.severity')">
           <CustomSelect
-            v-model="filters.alertSeverity"
+            v-model="alertSeverity"
             fixedOptions
             data-cy="alert-severity"
           >
@@ -62,26 +62,15 @@
         </CustomField>
 
         <CustomField :label="$t('common.fields.hostname')">
-          <CustomAutocomplete
-            v-model="filters.hostname"
-            :filterResult="filteredhostname"
-            :filterMethod="setAutocompletes"
-          />
+          <CustomAutocomplete v-model="hostname" />
         </CustomField>
 
         <CustomField :label="$t('common.fields.code')">
-          <CustomSelect
-            v-model="filters.alertCode"
-            :options="filteredalertCode"
-          />
+          <CustomAutocomplete v-model="alertCode" />
         </CustomField>
 
         <CustomField :label="$t('common.fields.description')">
-          <CustomAutocomplete
-            v-model="filters.description"
-            :filterResult="filtereddescription"
-            :filterMethod="setAutocompletes"
-          />
+          <CustomAutocomplete v-model="description" />
         </CustomField>
       </template>
     </Collapse>
@@ -93,110 +82,85 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { formatDatepickerDate } from '@/helpers/helpers.js'
-import { mapActions, mapState } from 'vuex'
-import localFiltersMixin from '@/mixins/localFiltersMixin.js'
+import { mapActions, mapMutations } from 'vuex'
 import formatDate from '@/filters/formatDate.js'
 import Collapse from '@/components/common/Collapse.vue'
+import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
+import CustomField from '@/components/common/Form/CustomField.vue'
+import CustomAutocomplete from '@/components/common/Form/CustomAutocomplete.vue'
+import CustomSelect from '@/components/common/Form/CustomSelect.vue'
 
 export default {
-  mixins: [localFiltersMixin],
   components: {
     Collapse,
+    AdvancedFiltersBase,
+    CustomField,
+    CustomAutocomplete,
+    CustomSelect,
   },
   data() {
     return {
       collapses: ['General'],
-      autocompletes: ['hostname', 'alertCode', 'description'],
-      selects: ['alertCode'],
       alertStatus: 'NEW',
+      alertCategory: null,
       startDate: null,
       endDate: null,
-      filters: {
-        alertCategory: null,
-        alertSeverity: null,
-      },
+      alertSeverity: null,
+      hostname: '',
+      alertCode: null,
+      description: '',
     }
   },
   mounted() {
-    this.filters = {
-      alertCategory: this.alerts.params.category,
-      alertSeverity: this.alerts.params.severity,
-      hostname: this.alerts.params.hostname,
-    }
-    this.apply()
-
-    bus.$on('refreshPageData', () => {
-      this.applyApiParams()
-    })
+    bus.$on('onResetAction', () => this.resetAlertsFilters())
   },
   methods: {
     ...mapActions(['getAlertsData']),
-    applyApiParams() {
-      return new Promise((resolve, reject) => {
-        this.getAlertsData({
-          status: this.alertStatus,
-          startDate: formatDatepickerDate(this.startDate, 'compare'),
-          endDate: formatDatepickerDate(this.endDate),
-        }).then(
-          (res) => {
-            resolve(res)
-          },
-          (err) => reject(err)
-        )
+    ...mapMutations(['SET_ALERTS_PARAMS']),
+    applyAlertsFilters() {
+      this.SET_ALERTS_PARAMS({
+        status: this.alertStatus,
+        alertCategory: this.alertCategory,
+        from: formatDatepickerDate(this.startDate, 'compare'),
+        to: formatDatepickerDate(this.endDate),
+        severity: this.alertSeverity,
+        hostname: this.hostname,
+        alertCode: this.alertCode,
+        description: this.description,
       })
+      this.getAlertsData()
     },
-    resetFilters() {
+    resetAlertsFilters() {
+      this.resetFields()
+      this.getAlertsData()
+    },
+    resetFields() {
+      this.alertStatus = 'NEW'
+      this.alertCategory = null
       this.startDate = null
       this.endDate = null
-      this.filters = {
+      this.alertSeverity = null
+      this.hostname = ''
+      this.alertCode = null
+      this.description = ''
+
+      this.SET_ALERTS_PARAMS({
+        status: 'NEW',
         alertCategory: null,
+        from: null,
+        to: null,
         alertSeverity: null,
-      }
-      this.$store.commit('SET_ALERTS_PARAMS', {
-        category: null,
-        severity: null,
-        hostname: null,
+        hostname: '',
+        alertCode: null,
+        description: '',
       })
-      this.alertStatus = 'NEW'
     },
     formatDate(date) {
       return formatDate(date)
     },
   },
-  computed: {
-    ...mapState(['alerts']),
-  },
-  watch: {
-    alertStatus(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.applyApiParams().then(() => {
-          this.apply()
-          // bus.$emit('alertStatus', newValue)
-        })
-      }
-    },
-    startDate(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.applyApiParams().then(() => {
-          this.apply()
-        })
-      }
-    },
-    endDate(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.applyApiParams().then(() => {
-          this.apply()
-        })
-      }
-    },
-  },
   beforeDestroy() {
-    this.resetFilters()
-    this.filters = {
-      alertCategory: null,
-      alertSeverity: null,
-      hostname: null,
-    }
+    this.resetFields()
   },
 }
 </script>
