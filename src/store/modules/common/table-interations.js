@@ -5,6 +5,7 @@ export const state = () => ({
   searchTherm: '',
   sortItem: '',
   sortOrder: 'desc',
+  pageLength: 0,
 })
 
 export const getters = {
@@ -26,6 +27,9 @@ export const getters = {
   getSortOrder: (state) => {
     return state.sortOrder === 'desc' ? true : false
   },
+  getPageLength: (state) => {
+    return state.pageLength
+  },
 }
 
 export const mutations = {
@@ -46,5 +50,8 @@ export const mutations = {
   },
   SET_SORT_ORDER: (state, payload) => {
     state.sortOrder = payload
+  },
+  SET_PAGE_LENGTH: (state, payload) => {
+    state.pageLength = payload
   },
 }

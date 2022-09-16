@@ -23,32 +23,32 @@ export default {
     value: {},
     filterResult: {
       type: Array,
-      required: true
+      required: false,
     },
     filterMethod: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
     inputMethod: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
     onSelect: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
     setPlaceholder: {
       type: String,
-      default: ''
+      default: '',
     },
     openOnFocus: {
       type: Boolean,
-      default: false
+      default: false,
     },
     appendToBody: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     inputVal: {
@@ -57,9 +57,9 @@ export default {
       },
       set(val) {
         this.$emit('input', val)
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>
 
