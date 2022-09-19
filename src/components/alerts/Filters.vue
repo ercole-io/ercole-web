@@ -25,23 +25,23 @@
 
         <CustomField :label="$t('common.fields.date')">
           <b-datepicker
-            v-model="startDate"
+            v-model="dateFrom"
             size="is-small"
             placeholder="Start Date"
             position="is-bottom-right"
             icon="calendar-today"
-            :max-date="endDate ? endDate : new Date()"
+            :max-date="dateTo ? dateTo : new Date()"
             :date-formatter="formatDate"
             class="mr-1"
             trap-focus
           />
           <b-datepicker
-            v-model="endDate"
+            v-model="dateTo"
             size="is-small"
             placeholder="End Date"
             position="is-bottom-left"
             icon="calendar-today"
-            :min-date="startDate"
+            :min-date="dateFrom"
             :max-date="new Date()"
             :date-formatter="formatDate"
             class="ml-1"
@@ -62,20 +62,38 @@
         </CustomField>
 
         <CustomField :label="$t('common.fields.hostname')">
-          <CustomAutocomplete v-model="hostname" />
+          <CustomAutocomplete v-model="alertHostname" />
         </CustomField>
 
         <CustomField :label="$t('common.fields.code')">
-          <CustomAutocomplete v-model="alertCode" />
+          <CustomSelect v-model="alertCode" fixedOptions data-cy="alert-code">
+            <option value="NEW_SERVER">NEW_SERVER</option>
+            <option value="UNLISTED_RUNNING_DATABASE">
+              UNLISTED_RUNNING_DATABASE
+            </option>
+            <option value="MISSING_PRIMARY_DATABASE">
+              MISSING_PRIMARY_DATABASE
+            </option>
+            <option value="MISSING_HOST_IN_ERCOLE">
+              MISSING_HOST_IN_ERCOLE
+            </option>
+            <option value="MISSING_HOST_IN_CMDB">MISSING_HOST_IN_CMDB</option>
+            <option value="AGENT_ERROR">AGENT_ERROR</option>
+            <option value="DISMISSED_HOST">DISMISSED_HOST</option>
+            <option value="NO_DATA">NO_DATA</option>
+            <option value="NEW_DATABASE">NEW_DATABASE</option>
+            <option value="NEW_LICENSE">NEW_LICENSE</option>
+            <option value="NEW_OPTION">NEW_OPTION</option>
+            <option value="INCREASED_CPU_CORES">INCREASED_CPU_CORES</option>
+            <option value="MISSING_DATABASE">MISSING_DATABASE</option>
+          </CustomSelect>
         </CustomField>
 
         <CustomField :label="$t('common.fields.description')">
-          <CustomAutocomplete v-model="description" />
+          <CustomAutocomplete v-model="alertDescription" />
         </CustomField>
       </template>
     </Collapse>
-
-    <slot />
   </AdvancedFiltersBase>
 </template>
 
@@ -103,12 +121,12 @@ export default {
       collapses: ['General'],
       alertStatus: 'NEW',
       alertCategory: null,
-      startDate: null,
-      endDate: null,
+      dateFrom: null,
+      dateTo: null,
       alertSeverity: null,
-      hostname: '',
+      alertHostname: null,
       alertCode: null,
-      description: '',
+      alertDescription: null,
     }
   },
   mounted() {
@@ -120,13 +138,13 @@ export default {
     applyAlertsFilters() {
       this.SET_ALERTS_PARAMS({
         status: this.alertStatus,
-        alertCategory: this.alertCategory,
-        from: formatDatepickerDate(this.startDate, 'compare'),
-        to: formatDatepickerDate(this.endDate),
+        category: this.alertCategory,
+        from: formatDatepickerDate(this.dateFrom, 'compare'),
+        to: formatDatepickerDate(this.dateTo),
         severity: this.alertSeverity,
-        hostname: this.hostname,
-        alertCode: this.alertCode,
-        description: this.description,
+        hostname: this.alertHostname,
+        code: this.alertCode,
+        description: this.alertDescription,
       })
       this.getAlertsData()
     },
@@ -137,21 +155,21 @@ export default {
     resetFields() {
       this.alertStatus = 'NEW'
       this.alertCategory = null
-      this.startDate = null
-      this.endDate = null
+      this.dateFrom = null
+      this.dateTo = null
       this.alertSeverity = null
-      this.hostname = ''
+      this.alertHostname = null
       this.alertCode = null
-      this.description = ''
+      this.alertDescription = null
 
       this.SET_ALERTS_PARAMS({
         status: 'NEW',
-        alertCategory: null,
+        category: null,
         from: null,
         to: null,
-        alertSeverity: null,
+        severity: null,
         hostname: '',
-        alertCode: null,
+        code: null,
         description: '',
       })
     },
