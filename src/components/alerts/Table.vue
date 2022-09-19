@@ -21,7 +21,9 @@
         sortable
         v-slot="props"
       >
-        {{ props.row.alertCategory }}
+        <span v-tooltip="options(props.row.alertCategory)">
+          {{ props.row.alertCategory }}
+        </span>
       </b-table-column>
       <b-table-column
         field="date"
@@ -30,7 +32,9 @@
         sortable
         v-slot="props"
       >
-        {{ props.row.date }}
+        <span v-tooltip="options(props.row.date)">
+          {{ props.row.date }}
+        </span>
       </b-table-column>
       <b-table-column field="alertSeverity" label="Severity" centered sortable>
         <template v-slot="props">
@@ -50,7 +54,15 @@
         sortable
         v-slot="props"
       >
-        {{ props.row.hostname }}
+        <a
+          href="#"
+          @click="hostlink($event, props.row.hostname)"
+          type="is-ghost"
+          v-if="props.row.alertStatus !== 'DISMISSED'"
+        >
+          {{ props.row.hostname }}
+        </a>
+        <span v-else>{{ props.row.hostname }}</span>
       </b-table-column>
       <b-table-column
         field="alertCode"
@@ -59,16 +71,30 @@
         sortable
         v-slot="props"
       >
-        {{ props.row.alertCode }}
+        <span v-tooltip="options(props.row.alertCode)">
+          {{ props.row.alertCode }}
+        </span>
       </b-table-column>
       <b-table-column
         field="description"
         label="Description"
         width="40%"
         sortable
-        v-slot="props"
       >
-        {{ props.row.description }}
+        <template v-slot="props">
+          <b-icon
+            v-tooltip="options($t('common.general.fullDesc'))"
+            type="is-primary"
+            class="delete-icon is-clickable"
+            pack="fas"
+            icon="file-alt"
+            @click.native="descriptionAlert(props.row)"
+            v-if="props.row.description.length > 100"
+          />
+          <span v-tooltip="options(props.row.description)">
+            {{ props.row.description }}
+          </span>
+        </template>
       </b-table-column>
     </template>
   </FullTable>
@@ -79,6 +105,7 @@ import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapActions } from 'vuex'
 import { resolveSeverityIcon } from '@/helpers/helpers.js'
+import { descriptionAlertDialog } from '@/helpers/alertsDescDialog.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/buefy/FullTable.vue'
 
@@ -136,7 +163,10 @@ export default {
       _.map(data, (val) => {
         alertIDs.push(val._id)
       })
-      this.markAsReadAlertsPage(alertIDs).then(() => this.getAlertsData())
+      this.markAsReadAlertsPage(alertIDs).then(() => {
+        bus.$emit('resetRowSelected')
+        this.getAlertsData()
+      })
     })
 
     bus.$on('searchTherm', () => {
@@ -147,6 +177,26 @@ export default {
     ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),
     resolveIcon(value) {
       return resolveSeverityIcon(value)
+    },
+    descriptionAlert(info) {
+      const data = {
+        code: info.alertCode,
+        host: info.hostname,
+        categ: info.alertCategory,
+        date: info.date,
+        desc: info.description,
+        severity: info.alertSeverity,
+      }
+      descriptionAlertDialog(data)
+    },
+    hostlink(e, hostname) {
+      e.preventDefault()
+      this.$router.push({
+        name: 'hosts-details',
+        params: {
+          hostname: hostname,
+        },
+      })
     },
   },
   computed: {

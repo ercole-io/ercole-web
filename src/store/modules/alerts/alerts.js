@@ -12,10 +12,12 @@ export const state = () => ({
   params: {
     status: 'NEW',
     category: null,
+    from: null,
+    to: null,
     severity: null,
     hostname: null,
-    from: '',
-    to: '',
+    code: null,
+    description: null,
   },
 })
 
@@ -161,11 +163,13 @@ export const mutations = {
   SET_ALERTS_PARAMS: (state, payload) => {
     state.params = {
       status: payload.status,
+      category: payload.category,
       from: payload.from,
       to: payload.to,
-      category: payload.category,
       severity: payload.severity,
       hostname: payload.hostname,
+      code: payload.code,
+      description: payload.description,
     }
   },
 }
@@ -176,9 +180,13 @@ export const actions = {
 
     const params = {
       status: getters.getAlertsParams.status,
+      category: getters.getAlertsParams.category,
       from: getters.getAlertsParams.from,
       to: getters.getAlertsParams.to,
       severity: getters.getAlertsParams.severity,
+      hostname: getters.getAlertsParams.hostname,
+      code: getters.getAlertsParams.code,
+      description: getters.getAlertsParams.description,
       'sort-by': getters.getSortItem,
       'sort-desc': getters.getSortOrder,
       page: getters.getPageNum,
@@ -193,9 +201,18 @@ export const actions = {
     }
 
     await axiosRequest('baseApi', config).then((res) => {
-      commit('SET_ALERTS', res.data.items)
-      commit('SET_TOTAL_DATA', res.data.count)
-      commit('SET_PAGE_LENGTH', res.data.items.length)
+      let alertsData = []
+      let alertsTotal = 0
+
+      if (res.data.items && res.data.items.length > 0) {
+        alertsData = res.data.items
+        alertsTotal = res.data.count
+      }
+
+      commit('SET_ALERTS', alertsData)
+      commit('SET_TOTAL_DATA', alertsTotal)
+      commit('SET_PAGE_LENGTH', alertsData.length)
+
       dispatch('offLoadingTable')
     })
   },
