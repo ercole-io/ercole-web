@@ -1,6 +1,6 @@
 <template>
   <article>
-    <div class="is-flex mb-3" v-if="getTotalData > 0">
+    <div class="is-flex mb-3">
       <b-select
         v-model="showPerPage"
         size="is-small"
@@ -44,15 +44,16 @@
       </template>
       <b-input
         placeholder="Search..."
-        type="search"
+        type="text"
         size="is-small"
         icon="magnify"
-        icon-clickable
+        icon-right="close-circle"
+        icon-right-clickable
+        @icon-right-click="onSearchClear"
         @keyup.enter.native="onSearch"
         class="ml-auto"
         v-model="search"
-      >
-      </b-input>
+      />
     </div>
 
     <b-table
@@ -82,10 +83,6 @@
       aria-page-label="Page"
       aria-current-label="Current page"
       sticky-header
-      :class="{
-        empty: getTotalData === 0,
-      }"
-      ref="fulltable"
     >
       <slot name="cols" />
 
@@ -183,6 +180,10 @@ export default {
       this.SET_SEARCH_THERM(this.search)
       bus.$emit('searchTherm')
     },
+    onSearchClear() {
+      this.search = ''
+      this.onSearch()
+    },
     onPageChange(page) {
       this.SET_PAGE_NUM(page)
       this.fnCallback()
@@ -221,8 +222,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.empty {
-  margin-top: 43px;
-}
-</style>
+<style lang="scss" scoped></style>
