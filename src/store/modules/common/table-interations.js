@@ -2,7 +2,7 @@ export const state = () => ({
   pageNum: 1,
   perPage: 25,
   totalData: 0,
-  searchTherm: '',
+  searchTherm: null,
   sortItem: '',
   sortOrder: 'desc',
   pageLength: 0,

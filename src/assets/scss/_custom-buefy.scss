@@ -99,7 +99,8 @@ ul.pagination-list {
 }
 
 .b-table .table-wrapper.has-sticky-header {
-  height: 400px;
+  max-height: 558px;
+  height: auto;
 }
 
 .b-table .table-wrapper.has-sticky-header tr:first-child th {

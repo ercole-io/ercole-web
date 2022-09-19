@@ -1,7 +1,12 @@
 <template>
   <article>
-    <div class="is-flex mb-2">
-      <b-select v-model="showPerPage" size="is-small" class="mr-2">
+    <div class="is-flex mb-3" v-if="getTotalData > 0">
+      <b-select
+        v-model="showPerPage"
+        size="is-small"
+        class="mr-2"
+        v-if="getTotalData > 25"
+      >
         <option value="25" v-if="getTotalData > 25">
           25 {{ $t('common.table.perPage') }}
         </option>
@@ -49,6 +54,7 @@
       >
       </b-input>
     </div>
+
     <b-table
       :data="isEmpty ? [] : tableData"
       :loading="loadingTableStatus"
@@ -58,7 +64,7 @@
       checkbox-type="is-primary"
       :checkable="hasCheckbox"
       :is-row-checkable="rowsNotCheckable"
-      :paginated="true"
+      :paginated="getTotalData > 0 ? true : false"
       backend-pagination
       :total="getTotalData"
       :per-page="getPerPage"
@@ -76,11 +82,22 @@
       aria-page-label="Page"
       aria-current-label="Current page"
       sticky-header
+      :class="{
+        empty: getTotalData === 0,
+      }"
+      ref="fulltable"
     >
       <slot name="cols" />
+
+      <template #empty>
+        <NoContent noContentText="No Data Results" noContentHeight="510px" />
+      </template>
     </b-table>
+
     <div
       class="is-flex is-justify-content-space-between is-align-items-center is-size-7 has-text-weight-medium"
+      style="margin-top: -31px"
+      v-if="getTotalData > 0"
     >
       <ShowPerPage
         :totalItems="getTotalData"
@@ -99,11 +116,13 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapGetters, mapMutations } from 'vuex'
 import ShowPerPage from '@/components/common/Table/ShowPerPage.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
+import NoContent from '@/components/common/NoContent.vue'
 
 export default {
   components: {
     ShowPerPage,
     ExportButton,
+    NoContent,
   },
   props: {
     tableData: {
@@ -145,6 +164,9 @@ export default {
       checkedRows: [],
       search: '',
     }
+  },
+  beforeMount() {
+    bus.$on('resetRowSelected', () => (this.checkedRows = []))
   },
   methods: {
     ...mapMutations([
@@ -191,8 +213,16 @@ export default {
     showPerPage() {
       this.fnCallback()
     },
+    loadingTableStatus() {
+      const table = this.$el.querySelector('.table-wrapper')
+      table.scrollTop = 0
+    },
   },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.empty {
+  margin-top: 43px;
+}
+</style>
