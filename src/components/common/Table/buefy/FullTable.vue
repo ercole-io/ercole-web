@@ -25,35 +25,37 @@
       </b-select>
       <template v-if="hasCheckbox && checkedRows.length > 0">
         <b-button
-          :label="`Clear selected (${checkedRows.length})`"
+          :label="`Clear All selected (${checkedRows.length})`"
           size="is-small"
           type="is-dark"
           icon-left="close"
           @click="checkedRows = []"
         />
         <b-button
+          :label="$t('views.alerts.markRead')"
           type="is-primary"
           size="is-small"
           icon-pack="fas"
           icon-left="check-circle"
           class="has-text-weight-semibold mr-2 ml-2"
           @click="markAsRead"
-        >
-          {{ $t('views.alerts.markRead') }}
-        </b-button>
+        />
       </template>
-      <b-input
-        placeholder="Search..."
-        type="text"
-        size="is-small"
-        icon="magnify"
-        icon-right="close-circle"
-        icon-right-clickable
-        @icon-right-click="onSearchClear"
-        @keyup.enter.native="onSearch"
-        class="ml-auto"
-        v-model="search"
-      />
+
+      <div style="width: 100%" class="is-flex is-justify-content-flex-end">
+        <RefreshButton v-if="hasRefreshButton" tooltipMsg="Update Data" />
+        <b-input
+          placeholder="Search..."
+          type="text"
+          size="is-small"
+          icon="magnify"
+          icon-right="close-circle"
+          icon-right-clickable
+          @icon-right-click="onSearchClear"
+          @keyup.enter.native="onSearch"
+          v-model="search"
+        />
+      </div>
     </div>
 
     <b-table
@@ -114,12 +116,14 @@ import { mapGetters, mapMutations } from 'vuex'
 import ShowPerPage from '@/components/common/Table/ShowPerPage.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import NoContent from '@/components/common/NoContent.vue'
+import RefreshButton from '@/components/common/RefreshButton.vue'
 
 export default {
   components: {
     ShowPerPage,
     ExportButton,
     NoContent,
+    RefreshButton,
   },
   props: {
     tableData: {
@@ -153,6 +157,10 @@ export default {
     exportInfo: {
       type: Array,
       default: () => [],
+    },
+    hasRefreshButton: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
