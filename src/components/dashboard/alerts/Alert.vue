@@ -198,17 +198,17 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['markAsRead']),
+    ...mapActions(['markAsReadDashboard']),
     handleMarkAsRead(id, flag, type) {
-      this.markAsRead({ id, flag, type }).then(() => {
+      this.markAsReadDashboard({ id, flag, type }).then(() => {
         this.isAnimated = !this.isAnimated
       })
     },
     handleAlertClick(category, severity) {
       this.$store.commit('SET_ALERTS_PARAMS', {
+        status: 'NEW',
         category: category,
         severity: severity,
-        hostname: null,
       })
       this.$router.push('/alerts')
     },
