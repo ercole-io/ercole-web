@@ -12,6 +12,7 @@
     "
     hasExportButton
     :exportInfo="['alerts?status=NEW', 'alerts-data']"
+    hasRefreshButton
   >
     <template slot="cols">
       <b-table-column
@@ -170,6 +171,10 @@ export default {
     })
 
     bus.$on('searchTherm', () => {
+      this.getAlertsData()
+    })
+
+    bus.$on('refreshPageData', () => {
       this.getAlertsData()
     })
   },
