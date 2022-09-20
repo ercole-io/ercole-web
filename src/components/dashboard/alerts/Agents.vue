@@ -64,9 +64,8 @@ export default {
     ...mapMutations(['SET_ALERTS_PARAMS']),
     inspectAgents() {
       this.SET_ALERTS_PARAMS({
+        status: 'NEW',
         category: 'AGENT',
-        severity: null,
-        hostname: null,
       })
       this.$router.push('/alerts')
     },

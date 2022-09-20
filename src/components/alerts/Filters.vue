@@ -100,7 +100,7 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { formatDatepickerDate } from '@/helpers/helpers.js'
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import formatDate from '@/filters/formatDate.js'
 import Collapse from '@/components/common/Collapse.vue'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
@@ -131,6 +131,10 @@ export default {
   },
   mounted() {
     bus.$on('onResetAction', () => this.resetAlertsFilters())
+
+    this.alertCategory = this.getAlertsParams.category
+    this.alertSeverity = this.getAlertsParams.severity
+    this.alertHostname = this.getAlertsParams.hostname
   },
   methods: {
     ...mapActions(['getAlertsData']),
@@ -176,6 +180,9 @@ export default {
     formatDate(date) {
       return formatDate(date)
     },
+  },
+  computed: {
+    ...mapGetters(['getAlertsParams']),
   },
   beforeDestroy() {
     this.resetFields()
