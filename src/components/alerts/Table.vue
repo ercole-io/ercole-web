@@ -22,9 +22,10 @@
         sortable
         v-slot="props"
       >
-        <span v-tooltip="options(props.row.alertCategory)">
-          {{ props.row.alertCategory }}
-        </span>
+        <span
+          v-tooltip="options(props.row.alertCategory)"
+          v-html="highlight(props.row.alertCategory)"
+        />
       </b-table-column>
       <b-table-column
         field="date"
@@ -59,11 +60,10 @@
           href="#"
           @click="hostlink($event, props.row.hostname)"
           type="is-ghost"
+          v-html="highlight(props.row.hostname)"
           v-if="props.row.alertStatus !== 'DISMISSED'"
-        >
-          {{ props.row.hostname }}
-        </a>
-        <span v-else>{{ props.row.hostname }}</span>
+        />
+        <span v-html="highlight(props.row.hostname)" v-else />
       </b-table-column>
       <b-table-column
         field="alertCode"
@@ -72,9 +72,10 @@
         sortable
         v-slot="props"
       >
-        <span v-tooltip="options(props.row.alertCode)">
-          {{ props.row.alertCode }}
-        </span>
+        <span
+          v-tooltip="options(props.row.alertCode)"
+          v-html="highlight(props.row.alertCode)"
+        />
       </b-table-column>
       <b-table-column
         field="description"
@@ -92,9 +93,10 @@
             @click.native="descriptionAlert(props.row)"
             v-if="props.row.description.length > 100"
           />
-          <span v-tooltip="options(props.row.description)">
-            {{ props.row.description }}
-          </span>
+          <span
+            v-tooltip="options(props.row.description)"
+            v-html="highlight(props.row.description)"
+          />
         </template>
       </b-table-column>
     </template>
@@ -108,10 +110,11 @@ import { mapGetters, mapActions } from 'vuex'
 import { resolveSeverityIcon } from '@/helpers/helpers.js'
 import { descriptionAlertDialog } from '@/helpers/alertsDescDialog.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import FullTable from '@/components/common/Table/buefy/FullTable.vue'
 
 export default {
-  mixins: [TooltipMixin],
+  mixins: [TooltipMixin, HighlightSearchMixin],
   components: {
     FullTable,
   },
@@ -170,8 +173,10 @@ export default {
       })
     })
 
-    bus.$on('searchTherm', () => {
-      this.getAlertsData()
+    bus.$on('searchTherm', (val) => {
+      this.getAlertsData().then(() => {
+        bus.$emit('highlightSearch', val)
+      })
     })
 
     bus.$on('refreshPageData', () => {

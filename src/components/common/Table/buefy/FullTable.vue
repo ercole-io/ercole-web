@@ -186,7 +186,7 @@ export default {
     },
     onSearch() {
       this.SET_SEARCH_THERM(this.search)
-      bus.$emit('searchTherm')
+      bus.$emit('searchTherm', this.search)
     },
     onSearchClear() {
       this.search = ''
