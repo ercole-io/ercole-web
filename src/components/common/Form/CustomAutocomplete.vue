@@ -13,7 +13,9 @@
     @select="onSelect"
     clearable
   >
-    <template #empty>{{ $i18n.t('common.validations.noResults') }}</template>
+    <template #empty v-if="filterResult">
+      {{ $i18n.t('common.validations.noResults') }}
+    </template>
   </b-autocomplete>
 </template>
 
