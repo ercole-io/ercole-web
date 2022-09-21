@@ -29,12 +29,12 @@ export default {
     Alert,
   },
   async beforeMount() {
-    await this.getAlertsData({ status: 'NEW' }).then(() => {
+    await this.getDashboardAlertsData().then(() => {
       bus.$emit('loadAlertsComplete')
     })
   },
   methods: {
-    ...mapActions(['getAlertsData']),
+    ...mapActions(['getDashboardAlertsData']),
   },
 }
 </script>

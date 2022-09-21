@@ -59,6 +59,10 @@
           text-align: left;
         }
 
+        &:last-child[data-label="Description"] {
+          text-align: left;
+        }
+
         &:hover {
           a {
             color: $ercole-blue;
