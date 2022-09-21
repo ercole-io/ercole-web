@@ -27,6 +27,7 @@
       vertical
       animated
       expanded
+      class="vertical-tabs-scroll"
     >
       <b-tab-item
         v-for="(host, index) in filteredOracleDbGrowth"
