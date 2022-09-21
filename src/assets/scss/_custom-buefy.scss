@@ -81,6 +81,13 @@
   }
 }
 
+.vertical-tabs-scroll {
+  .tabs {
+    overflow-y: auto;
+    max-height: 400px;
+  }
+}
+
 // pagination
 ul.pagination-list {
   list-style: none;
