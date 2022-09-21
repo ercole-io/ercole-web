@@ -1,5 +1,8 @@
 <template>
-  <span class="no-content is-size-7 has-text-weight-medium">
+  <span
+    class="no-content is-size-7 has-text-weight-medium"
+    :style="{ height: noContentHeight }"
+  >
     {{ noContentText }}
   </span>
 </template>
@@ -10,6 +13,10 @@ export default {
     noContentText: {
       type: String,
       default: 'There are no content to show',
+    },
+    noContentHeight: {
+      type: String,
+      default: '0',
     },
   },
 }

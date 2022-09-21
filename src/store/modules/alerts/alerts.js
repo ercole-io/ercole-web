@@ -1,7 +1,8 @@
 import { axiosRequest } from '@/services/services.js'
-import { returnAlertsByTypeDate, filterByKeys } from '@/helpers/helpers.js'
+import { returnAlertsByTypeDate } from '@/helpers/helpers.js'
 import moment from 'moment'
 import _ from 'lodash'
+import formatDateTime from '@/filters/formatDateTime.js'
 
 const startDate = moment().subtract(1, 'week').format('YYYY-MM-DD')
 const endDate = moment().add(1, 'days').format('YYYY-MM-DD')
@@ -9,63 +10,70 @@ const endDate = moment().add(1, 'days').format('YYYY-MM-DD')
 export const state = () => ({
   alerts: [],
   params: {
+    status: 'NEW',
     category: null,
+    from: null,
+    to: null,
     severity: null,
     hostname: null,
+    code: null,
+    description: null,
   },
+  dashboardAlerts: [],
 })
 
 export const getters = {
-  getAlerts: (state, getters, rootState) => {
-    const hasFilters = rootState.localFilters.hasFilters
-    const hasLocalFilters = rootState.localFilters.filters
-    const category = state.params.category
-    // const severity = state.params.severity
-    const hostname = state.params.hostname
+  getAlerts: (state) => {
+    const alerts = []
 
-    if (hasFilters) {
-      if (hostname) {
-        return filterByKeys(
-          getters.getFilteredAlertsByHost(hostname, category),
-          hasLocalFilters
-        )
-      } else {
-        return filterByKeys(getters['getAllAlerts'], hasLocalFilters)
-      }
-    } else {
-      return getters['getAllAlerts']
-    }
+    _.map(state.alerts, (val) => {
+      alerts.push({
+        ...val,
+        date: formatDateTime(val.date),
+      })
+    })
+
+    return alerts
   },
-  getAllAlerts: (state) => {
-    const agents = state.alerts.AGENT
+  // getAllAlerts: (state) => {
+  //   const finalData = []
+  //   const agents = state.alerts.AGENT
 
-    const licenses = state.alerts.LICENSE
-    const licensesFull = organizeAlertsByFlag(licenses)
+  //   const licenses = state.alerts.LICENSE
+  //   const licensesFull = organizeAlertsByFlag(licenses)
 
-    const engines = state.alerts.ENGINE
-    const enginesFull = organizeAlertsByFlag(engines)
+  //   const engines = state.alerts.ENGINE
+  //   const enginesFull = organizeAlertsByFlag(engines)
 
-    let all = _.concat(agents, licensesFull, enginesFull)
-    all = _.orderBy(all, ['date'], ['desc'])
+  //   let all = _.concat(agents, licensesFull, enginesFull)
+  //   all = _.orderBy(all, ['date'], ['desc'])
 
-    return _.compact(all)
-  },
+  //   _.map(_.compact(all), (val) => {
+  //     finalData.push({
+  //       ...val,
+  //       date: formatDateTime(val.date),
+  //     })
+  //   })
+
+  //   // console.log(finalData)
+
+  //   return finalData
+  // },
   getFilteredAgents: (state) => (code, category) => {
-    const agents = state.alerts[category]
+    const agents = state.dashboardAlerts[category]
     const filtered = _.filter(agents, ['alertCode', code])
-
     return _.orderBy(filtered, ['date'], ['desc'])
   },
   getFilteredAlertsByHost: (state) => (host, category) => {
     let alertsByHost = {}
 
     if (category === 'AGENT') {
-      alertsByHost = state.alerts[category]
+      alertsByHost = state.dashboardAlerts[category]
     } else {
       alertsByHost = _.concat(
-        state.alerts[category].WARNING || [],
-        state.alerts[category].CRITICAL || [],
-        state.alerts[category].INFO || []
+        state.dashboardAlerts[category].WARNING || [],
+        state.dashboardAlerts[category].CRITICAL || [],
+        state.dashboardAlerts[category].INFO || []
       )
     }
     const findByDate = returnAlertsByTypeDate(
@@ -79,7 +87,7 @@ export const getters = {
     return _.orderBy(filtered, ['date'], ['desc'])
   },
   getFirstAlertByCategory: (state) => (category) => {
-    const alert = state.alerts[category]
+    const alert = state.dashboardAlerts[category]
     const alerts = organizeAlertByFirst(alert)
 
     if (alerts) {
@@ -95,7 +103,7 @@ export const getters = {
     }
   },
   getTotalAlertsByCategory: (state) => (category) => {
-    let alerts = state.alerts[category]
+    let alerts = state.dashboardAlerts[category]
 
     let info = alerts && alerts.INFO ? alerts.INFO.length : 0
     let warn = alerts && alerts.WARNING ? alerts.WARNING.length : 0
@@ -107,34 +115,14 @@ export const getters = {
       total: info + warn + crit,
     }
   },
+  getAlertsParams: (state) => {
+    return state.params
+  },
 }
 
 export const mutations = {
   SET_ALERTS: (state, payload) => {
-    state.alerts = _.groupBy(payload, 'alertCategory')
-    state.alerts.ENGINE = _.groupBy(state.alerts.ENGINE, 'alertSeverity')
-    state.alerts.LICENSE = _.groupBy(state.alerts.LICENSE, 'alertSeverity')
-
-    _.forEach(state.alerts.ENGINE, (value, key) => {
-      state.alerts.ENGINE[key] = _.orderBy(value, ['date'], ['desc'])
-    })
-
-    _.forEach(state.alerts.LICENSE, (value, key) => {
-      state.alerts.LICENSE[key] = _.orderBy(value, ['date'], ['desc'])
-    })
-  },
-  MARK_AS_READ_DASH: (state, payload) => {
-    let id = payload.id
-    let flag = payload.flag
-    let type = payload.type
-
-    if (flag === 'AGENT') {
-      state.alerts[flag] = _.filter(state.alerts[flag], (item) => {
-        return item._id !== id
-      })
-    }
-
-    filterOnAlertsById(state.alerts, flag, type, id)
+    state.alerts = payload
   },
   MARK_AS_READ_ALERTS_PAGE: (state, payload) => {
     const alerts = state.alerts
@@ -150,23 +138,71 @@ export const mutations = {
   },
   SET_ALERTS_PARAMS: (state, payload) => {
     state.params = {
+      status: payload.status,
       category: payload.category,
+      from: payload.from,
+      to: payload.to,
       severity: payload.severity,
       hostname: payload.hostname,
+      code: payload.code,
+      description: payload.description,
     }
+  },
+  SET_DASHBOARD_ALERTS: (state, payload) => {
+    state.dashboardAlerts = _.groupBy(payload, 'alertCategory')
+    state.dashboardAlerts.ENGINE = _.groupBy(
+      state.dashboardAlerts.ENGINE,
+      'alertSeverity'
+    )
+    state.dashboardAlerts.LICENSE = _.groupBy(
+      state.dashboardAlerts.LICENSE,
+      'alertSeverity'
+    )
+
+    _.forEach(state.dashboardAlerts.ENGINE, (value, key) => {
+      state.dashboardAlerts.ENGINE[key] = _.orderBy(value, ['date'], ['desc'])
+    })
+
+    _.forEach(state.dashboardAlerts.LICENSE, (value, key) => {
+      state.dashboardAlerts.LICENSE[key] = _.orderBy(value, ['date'], ['desc'])
+    })
+  },
+  MARK_AS_READ_DASHBOARD: (state, payload) => {
+    let id = payload.id
+    let flag = payload.flag
+    let type = payload.type
+
+    if (flag === 'AGENT') {
+      state.dashboardAlerts[flag] = _.filter(
+        state.dashboardAlerts[flag],
+        (item) => {
+          return item._id !== id
+        }
+      )
+    }
+
+    filterOnAlertsById(state.dashboardAlerts, flag, type, id)
   },
 }
 
 export const actions = {
-  async getAlertsData({ commit, dispatch, getters }, data) {
+  async getAlertsData({ commit, dispatch, getters }) {
     dispatch('onLoadingTable')
 
     const params = {
-      status: data.status,
-      from: data.startDate,
-      to: data.endDate,
-      environment: getters.getActiveFilters.environment,
-      location: getters.getActiveFilters.location,
+      status: getters.getAlertsParams.status,
+      category: getters.getAlertsParams.category,
+      from: getters.getAlertsParams.from,
+      to: getters.getAlertsParams.to,
+      severity: getters.getAlertsParams.severity,
+      hostname: getters.getAlertsParams.hostname,
+      code: getters.getAlertsParams.code,
+      description: getters.getAlertsParams.description,
+      'sort-by': getters.getSortItem,
+      'sort-desc': getters.getSortOrder,
+      page: getters.getPageNum,
+      size: getters.getPerPage,
+      search: getters.getSearchTherm,
     }
 
     const config = {
@@ -176,27 +212,19 @@ export const actions = {
     }
 
     await axiosRequest('baseApi', config).then((res) => {
-      let response = res.data
-      _.map(response, (val) => {
-        if (val.alertCategory !== 'AGENT') {
-          val.isChecked = false
-        }
-      })
-      commit('SET_ALERTS', response)
-      dispatch('offLoadingTable')
-    })
-  },
-  async markAsRead({ commit }, payload) {
-    const config = {
-      method: 'post',
-      url: '/alerts/ack',
-      data: {
-        ids: [payload.id],
-      },
-    }
+      let alertsData = []
+      let alertsTotal = 0
 
-    await axiosRequest('baseApi', config).then(() => {
-      commit('MARK_AS_READ_DASH', payload)
+      if (res.data.items && res.data.items.length > 0) {
+        alertsData = res.data.items
+        alertsTotal = res.data.count
+      }
+
+      commit('SET_ALERTS', alertsData)
+      commit('SET_TOTAL_DATA', alertsTotal)
+      commit('SET_PAGE_LENGTH', alertsData.length)
+
+      dispatch('offLoadingTable')
     })
   },
   async markAsReadAlertsPage({ commit, dispatch }, payload) {
@@ -206,7 +234,7 @@ export const actions = {
       method: 'post',
       url: '/alerts/ack',
       data: {
-        ids: payload.idList,
+        ids: payload,
       },
     }
 
@@ -215,13 +243,45 @@ export const actions = {
       dispatch('offLoadingTable')
     })
   },
+  async getDashboardAlertsData({ commit, dispatch }) {
+    dispatch('onLoadingTable')
+
+    const params = {
+      status: 'NEW',
+    }
+
+    const config = {
+      method: 'get',
+      url: '/alerts',
+      params: params,
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_DASHBOARD_ALERTS', res.data)
+
+      dispatch('offLoadingTable')
+    })
+  },
+  async markAsReadDashboard({ commit }, payload) {
+    const config = {
+      method: 'post',
+      url: '/alerts/ack',
+      data: {
+        ids: [payload.id],
+      },
+    }
+
+    await axiosRequest('baseApi', config).then(() => {
+      commit('MARK_AS_READ_DASHBOARD', payload)
+    })
+  },
 }
 
-const organizeAlertsByFlag = (flag) => {
-  if (flag) {
-    return _.concat(flag.INFO || [], flag.WARNING || [], flag.CRITICAL || [])
-  }
-}
+// const organizeAlertsByFlag = (flag) => {
+//   if (flag) {
+//     return _.concat(flag.INFO || [], flag.WARNING || [], flag.CRITICAL || [])
+//   }
+// }
 
 const organizeAlertByFirst = (alert) => {
   if (alert) {
