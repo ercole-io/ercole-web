@@ -71,6 +71,7 @@
       backend-pagination
       :total="getTotalData"
       :per-page="getPerPage"
+      :current-page="getPageNum"
       @page-change="onPageChange"
       pagination-order="is-centered"
       pagination-size="is-small"
@@ -186,7 +187,7 @@ export default {
     },
     onSearch() {
       this.SET_SEARCH_THERM(this.search)
-      bus.$emit('searchTherm', this.search)
+      this.onPageChange(1)
     },
     onSearchClear() {
       this.search = ''
@@ -194,7 +195,9 @@ export default {
     },
     onPageChange(page) {
       this.SET_PAGE_NUM(page)
-      this.fnCallback()
+      this.fnCallback().then(() => {
+        bus.$emit('highlightSearch', this.search)
+      })
     },
     onPageSort(field, order) {
       this.SET_SORT_ITEM(field)
@@ -204,6 +207,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'getPageNum',
       'getPerPage',
       'getTotalData',
       'getPageLength',

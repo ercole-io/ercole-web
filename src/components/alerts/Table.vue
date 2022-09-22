@@ -106,7 +106,7 @@
 <script>
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { resolveSeverityIcon } from '@/helpers/helpers.js'
 import { descriptionAlertDialog } from '@/helpers/alertsDescDialog.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
@@ -173,18 +173,14 @@ export default {
       })
     })
 
-    bus.$on('searchTherm', (val) => {
-      this.getAlertsData().then(() => {
-        bus.$emit('highlightSearch', val)
-      })
-    })
-
     bus.$on('refreshPageData', () => {
+      this.SET_PAGE_NUM(1)
       this.getAlertsData()
     })
   },
   methods: {
     ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),
+    ...mapMutations(['SET_PAGE_NUM']),
     resolveIcon(value) {
       return resolveSeverityIcon(value)
     },
