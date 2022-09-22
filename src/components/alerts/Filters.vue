@@ -138,8 +138,9 @@ export default {
   },
   methods: {
     ...mapActions(['getAlertsData']),
-    ...mapMutations(['SET_ALERTS_PARAMS']),
+    ...mapMutations(['SET_ALERTS_PARAMS', 'SET_PAGE_NUM']),
     applyAlertsFilters() {
+      this.SET_PAGE_NUM(1)
       this.SET_ALERTS_PARAMS({
         status: this.alertStatus,
         category: this.alertCategory,
@@ -153,6 +154,7 @@ export default {
       this.getAlertsData()
     },
     resetAlertsFilters() {
+      this.SET_PAGE_NUM(1)
       this.resetFields()
       this.getAlertsData()
     },
