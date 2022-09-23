@@ -84,7 +84,8 @@
 .vertical-tabs-scroll {
   .tabs {
     overflow-y: auto;
-    max-height: 400px;
+    overflow-x: hidden;
+    max-height: 300px;
   }
 }
 
