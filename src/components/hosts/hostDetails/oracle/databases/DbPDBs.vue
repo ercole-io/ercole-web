@@ -50,6 +50,13 @@
               v-html="highlight(pdb.pdbSegmentsSize)"
             />
           </p>
+          <p class="mb-0 is-size-7">
+            Charset:
+            <span
+              class="has-text-weight-medium"
+              v-html="highlight(pdb.charset)"
+            />
+          </p>
         </b-tab-item>
         <b-tab-item
           label="Schemas"
