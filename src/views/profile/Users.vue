@@ -92,6 +92,7 @@
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
@@ -121,6 +122,8 @@ export default {
   async beforeMount() {
     await this.getUsers()
     await this.getGroups()
+
+    bus.$on('onResetAction', () => this.resetForm())
   },
   methods: {
     ...mapActions([
@@ -131,7 +134,6 @@ export default {
       'getGroups',
     ]),
     createUpdateUser() {
-      console.log(this.userForm)
       if (this.isUpdate) {
         this.updateUser({
           data: this.userForm,
@@ -151,7 +153,6 @@ export default {
         username: data.username,
         groups: data.groups,
       }
-      console.log(data)
     },
     delUser(username) {
       this.$buefy.dialog.confirm({
