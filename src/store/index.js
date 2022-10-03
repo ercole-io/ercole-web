@@ -76,6 +76,10 @@ import * as cloudTechnology from '@/store/modules/cloud/cloudTechnology'
 import * as cloudProfileConfig from '@/store/modules/cloud/profileConfig'
 import * as cloudRecommendations from '@/store/modules/cloud/recommendations'
 import * as cloudActiveProfiles from '@/store/modules/cloud/activeProfiles'
+// Profile Management
+import * as users from '@/store/modules/profile/users'
+import * as groups from '@/store/modules/profile/groups'
+import * as roles from '@/store/modules/profile/roles'
 
 Vue.use(Vuex)
 
@@ -133,6 +137,9 @@ export default new Vuex.Store({
     oracleDbGrants,
     dbConnection,
     version,
+    users,
+    groups,
+    roles,
   },
   plugins: [
     createPersistedState({
