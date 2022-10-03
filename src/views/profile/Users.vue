@@ -51,16 +51,16 @@
         :cancelText="$t('common.forms.cancel')"
         setMinHeight="540"
       >
-        <b-field label="Username">
+        <b-field label="Username" custom-class="is-small">
           <b-input
             type="text"
             size="is-small"
             v-model="userForm.username"
-            :readonly="isUpdate"
+            :disabled="isUpdate"
           />
         </b-field>
 
-        <b-field label="Password">
+        <b-field label="Password" custom-class="is-small">
           <b-input
             type="password"
             size="is-small"
@@ -69,7 +69,7 @@
           />
         </b-field>
 
-        <b-field label="Groups">
+        <b-field label="Groups" custom-class="is-small">
           <b-select
             size="is-small"
             multiple
