@@ -60,7 +60,23 @@
           />
         </b-field>
 
-        <b-field label="Roles">
+        <b-field label="Roles" class="is-relative">
+          <b-icon
+            v-tooltip="options('Create a New Role')"
+            type="is-primary"
+            class="createRole is-clickable"
+            pack="fas"
+            icon="plus"
+            @click.native="addRole"
+          />
+          <b-icon
+            v-tooltip="options('Delete Role')"
+            type="is-danger"
+            class="deleteRole is-clickable"
+            pack="fas"
+            icon="trash-alt"
+            @click.native="delRole"
+          />
           <b-select
             size="is-small"
             multiple
@@ -72,12 +88,29 @@
               v-for="role in showRoles"
               :key="role.name"
               :value="role.name"
+              class="is-relative"
             >
               {{ role.name }}
             </option>
           </b-select>
         </b-field>
       </AdvancedFiltersBase>
+
+      <b-modal
+        :active.sync="isCreateRoleModalActive"
+        :width="300"
+        :can-cancel="false"
+      >
+        <CreateRoleModal />
+      </b-modal>
+
+      <b-modal
+        :active.sync="isDeleteRoleModalActive"
+        :width="300"
+        :can-cancel="false"
+      >
+        <DeleteRoleModal :roleList="showRoles" />
+      </b-modal>
     </div>
   </div>
 </template>
@@ -90,6 +123,8 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
+import CreateRoleModal from '@/views/profile/CreateRoleModal.vue'
+import DeleteRoleModal from '@/views/profile/DeleteRoleModal.vue'
 
 export default {
   mixins: [TooltipMixin],
@@ -98,6 +133,8 @@ export default {
     TdContent,
     TdArrayMore,
     AdvancedFiltersBase,
+    CreateRoleModal,
+    DeleteRoleModal,
   },
   data() {
     return {
@@ -107,6 +144,8 @@ export default {
         roles: [],
       },
       isUpdate: false,
+      isDeleteRoleModalActive: false,
+      isCreateRoleModalActive: false,
     }
   },
   async beforeMount() {
@@ -122,6 +161,7 @@ export default {
       'updateGroup',
       'deleteGroup',
       'getRoles',
+      'createRole',
     ]),
     createUpdateGroup() {
       if (this.isUpdate) {
@@ -157,10 +197,17 @@ export default {
       })
     },
     resetForm() {
+      this.isUpdate = false
       this.groupForm = {
         name: '',
         roles: [],
       }
+    },
+    addRole() {
+      this.isCreateRoleModalActive = true
+    },
+    delRole() {
+      this.isDeleteRoleModalActive = true
     },
   },
   computed: {
@@ -169,4 +216,15 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.createRole {
+  position: absolute;
+  top: 3px;
+  right: 0;
+}
+.deleteRole {
+  position: absolute;
+  top: 3px;
+  right: 30px;
+}
+</style>
