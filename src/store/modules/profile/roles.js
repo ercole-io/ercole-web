@@ -1,4 +1,3 @@
-// import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
@@ -31,7 +30,27 @@ export const actions = {
       dispatch('offLoadingTable')
     })
   },
-  async createRoles({ commit, dispatch }) {},
-  async updateRoles({ commit, dispatch }) {},
-  async deleteRoles({ commit, dispatch }) {},
+  async createRole({ dispatch }, payload) {
+    const config = {
+      method: 'post',
+      url: '/roles',
+      data: {
+        name: payload,
+      },
+    }
+
+    await axiosRequest('baseApi', config).then(() => {
+      dispatch('getRoles')
+    })
+  },
+  async deleteRole({ dispatch }, rolename) {
+    const config = {
+      method: 'delete',
+      url: `/roles/${rolename}`,
+    }
+
+    await axiosRequest('baseApi', config).then(() => {
+      dispatch('getRoles')
+    })
+  },
 }

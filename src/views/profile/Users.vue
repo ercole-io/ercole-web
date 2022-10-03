@@ -167,6 +167,7 @@ export default {
       })
     },
     resetForm() {
+      this.isUpdate = false
       this.userForm = {
         username: '',
         password: '',
