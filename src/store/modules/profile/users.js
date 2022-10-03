@@ -1,4 +1,3 @@
-// import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({

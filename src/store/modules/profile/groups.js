@@ -1,4 +1,3 @@
-// import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
@@ -44,6 +43,29 @@ export const actions = {
       dispatch('getGroups')
     })
   },
-  // async updateGroup({ commit, dispatch }) {},
-  // async deleteGroup({ commit, dispatch }) {},
+  async updateGroup({ dispatch }, payload) {
+    dispatch('onLoadingTable')
+
+    const config = {
+      method: 'put',
+      url: `/groups/${payload.groupname}`,
+      data: payload.data,
+    }
+
+    await axiosRequest('baseApi', config).then(() => {
+      dispatch('getGroups')
+    })
+  },
+  async deleteGroup({ dispatch }, groupname) {
+    dispatch('onLoadingTable')
+
+    const config = {
+      method: 'delete',
+      url: `/groups/${groupname}`,
+    }
+
+    await axiosRequest('baseApi', config).then(() => {
+      dispatch('getGroups')
+    })
+  },
 }
