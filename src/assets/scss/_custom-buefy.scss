@@ -314,3 +314,10 @@ ul.pagination-list {
     padding: 12px 15px !important;
   }
 }
+
+// input
+.control {
+  .input[disabled] {
+    border-color: #dbdbdb;
+  }
+}

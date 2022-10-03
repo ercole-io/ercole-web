@@ -43,7 +43,7 @@
     </div>
     <div class="column is-3">
       <AdvancedFiltersBase
-        filterTitle="Add or Update an User"
+        filterTitle="Add or Update a Group"
         :submitAction="createUpdateGroup"
         :applyText="
           isUpdate ? $t('common.forms.update') : $t('common.forms.add')
@@ -51,16 +51,16 @@
         :cancelText="$t('common.forms.cancel')"
         setMinHeight="540"
       >
-        <b-field label="Group Name">
+        <b-field label="Group Name" custom-class="is-small">
           <b-input
             type="text"
             size="is-small"
             v-model="groupForm.name"
-            :readonly="isUpdate"
+            :disabled="isUpdate"
           />
         </b-field>
 
-        <b-field label="Roles" class="is-relative">
+        <b-field label="Roles" class="is-relative" custom-class="is-small">
           <b-icon
             v-tooltip="options('Create a New Role')"
             type="is-primary"
@@ -219,12 +219,16 @@ export default {
 <style lang="scss" scoped>
 .createRole {
   position: absolute;
-  top: 3px;
+  top: 0;
   right: 0;
+  width: 20px;
+  height: 20px;
 }
 .deleteRole {
   position: absolute;
-  top: 3px;
+  top: 0;
   right: 30px;
+  width: 20px;
+  height: 20px;
 }
 </style>
