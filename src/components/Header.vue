@@ -23,23 +23,58 @@
         <LocaleSwitcher />
       </b-navbar-item> -->
 
-      <b-navbar-dropdown
-        :label="`${username}, ${userRole}`"
-        data-navbar-username
-      >
-        <!-- <b-navbar-item>
-          <b-switch size="is-small" v-model="isAuto" type="is-primary">
-            Auto Refresh
-          </b-switch>
-        </b-navbar-item> -->
-        <b-navbar-item @click="openInfoModal" data-info-button>
-          Ercole Version
-        </b-navbar-item>
-        <hr class="mt-0 mb-0" />
-        <b-navbar-item @click="callLogout" data-logout-button>
-          {{ $t('header.logout') }}
-        </b-navbar-item>
-      </b-navbar-dropdown>
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <b-dropdown
+            v-model="navigation"
+            position="is-bottom-left"
+            append-to-body
+            aria-role="menu"
+          >
+            <template #trigger>
+              <a class="navbar-item" role="button">
+                <span data-navbar-username>
+                  {{ `${username}, ${userRole}` }}
+                </span>
+                <b-icon icon="menu-down" />
+              </a>
+            </template>
+
+            <b-dropdown-item
+              value="users"
+              aria-role="menuitem"
+              @click="openUsersPage"
+              data-users-button
+            >
+              <b-icon pack="fas" icon="users" />
+              Users
+            </b-dropdown-item>
+            <b-dropdown-item
+              value="groups"
+              aria-role="menuitem"
+              @click="openGroupsPage"
+              data-groups-button
+            >
+              <b-icon pack="fas" icon="layer-group" />
+              Groups
+            </b-dropdown-item>
+
+            <hr class="dropdown-divider" />
+
+            <b-dropdown-item @click="openInfoModal" data-info-button>
+              <b-icon custom-class="ercole-version-logo" />
+              Ercole Version
+            </b-dropdown-item>
+
+            <hr class="dropdown-divider" />
+
+            <b-dropdown-item @click="callLogout" data-logout-button>
+              <b-icon icon="logout"></b-icon>
+              {{ $t('header.logout') }}
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
+      </div>
     </template>
   </b-navbar>
 </template>
@@ -56,16 +91,27 @@ export default {
     ErcoleLogo,
     // LocaleSwitcher,
   },
-  // data() {
-  //   return {
-  //     isAuto: false
-  //   }
-  // },
+  data() {
+    return {
+      navigation: null,
+      // isAuto: false
+    }
+  },
   methods: {
     ...mapActions(['logout']),
     callLogout() {
       localStorage.setItem('historyPage', '')
       this.logout()
+    },
+    openUsersPage() {
+      this.$router.push({
+        name: 'users',
+      })
+    },
+    openGroupsPage() {
+      this.$router.push({
+        name: 'groups',
+      })
     },
     openInfoModal() {
       this.$buefy.dialog.alert({
@@ -120,6 +166,14 @@ export default {
   z-index: 54;
   margin-left: 50px;
   height: 4rem;
+}
+
+.navbar-item {
+  color: #ffffff;
+
+  &:hover {
+    background-color: #101336;
+  }
 }
 
 .ercole-logo {
