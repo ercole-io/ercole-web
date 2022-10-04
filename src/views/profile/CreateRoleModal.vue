@@ -1,7 +1,7 @@
 <template>
   <div class="modal-card" style="width: auto">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Create a New Role</p>
+    <header class="modal-card-head custom-card-head">
+      <p class="modal-card-title custom-card-title">Create a New Role</p>
     </header>
     <section class="modal-card-body">
       <b-input
@@ -11,8 +11,13 @@
       />
     </section>
     <footer class="modal-card-foot is-justify-content-flex-end">
-      <b-button label="Cancel" @click="$parent.close()" />
-      <b-button label="Create" type="is-primary" @click="addRole" />
+      <b-button label="Cancel" size="is-small" @click="$parent.close()" />
+      <b-button
+        label="Create"
+        size="is-small"
+        type="is-primary"
+        @click="addRole"
+      />
     </footer>
   </div>
 </template>
@@ -36,4 +41,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.custom-card-head {
+  padding: 10px;
+}
+
+.custom-card-title {
+  font-size: 0.9em;
+  font-weight: bold;
+}
+</style>

@@ -73,7 +73,7 @@
           <b-select
             size="is-small"
             multiple
-            native-size="10"
+            native-size="12"
             v-model="userForm.groups"
             expanded
           >
