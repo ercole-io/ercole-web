@@ -2,12 +2,24 @@
   <form
     @submit.prevent="
       login({
-        username: username,
-        password: password,
+        credentials: {
+          username: username,
+          password: password,
+        },
+        type: loginType,
       })
     "
     class="login-form"
   >
+    <CustomField>
+      <CustomSelect
+        v-model="loginType"
+        :options="['Basic Auth', 'LDAP']"
+        size=""
+        :hasReset="false"
+      />
+    </CustomField>
+
     <b-field
       label-for="username"
       :type="{
@@ -53,6 +65,7 @@
         </div>
       </template>
     </b-field>
+
     <b-button
       type="is-custom-primary"
       native-type="submit"
@@ -71,15 +84,20 @@
 import { required } from 'vuelidate/lib/validators'
 import { mapActions } from 'vuex'
 import ErrorMsg from '@/components/login/ErrorMsg.vue'
+import CustomField from '@/components/common/Form/CustomField.vue'
+import CustomSelect from '@/components/common/Form/CustomSelect.vue'
 
 export default {
   components: {
     ErrorMsg,
+    CustomField,
+    CustomSelect,
   },
   data() {
     return {
       username: '',
       password: '',
+      loginType: 'Basic Auth',
     }
   },
   validations: {

@@ -23,13 +23,16 @@ export const mutations = {
 }
 
 export const actions = {
-  async login({ commit, dispatch }, auth) {
+  async login({ commit, dispatch }, loginData) {
+    const basicUrl = '/user/login'
+    const ldapUrl = '/ldap/login'
+
     const config = {
       method: 'post',
-      url: '/user/login',
+      url: loginData.type === 'LDAP' ? ldapUrl : basicUrl,
       data: {
-        username: auth.username,
-        password: auth.password,
+        username: loginData.credentials.username,
+        password: loginData.credentials.password,
       },
       timeout: 15000,
     }
