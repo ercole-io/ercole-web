@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
@@ -6,7 +7,16 @@ export const state = () => ({
 
 export const getters = {
   showUsers: (state) => {
-    return state.users
+    const users = []
+    _.map(state.users, (user) => {
+      users.push({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        username: user.username,
+        groups: user.groups && user.groups.length > 0 ? user.groups : '-',
+      })
+    })
+    return users
   },
 }
 

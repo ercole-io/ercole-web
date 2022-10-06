@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
@@ -6,7 +7,14 @@ export const state = () => ({
 
 export const getters = {
   showRoles: (state) => {
-    return state.roles
+    const roles = []
+    _.map(state.roles, (role) => {
+      roles.push({
+        name: role.name,
+        description: `Description for ${role.name} with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+      })
+    })
+    return roles
   },
 }
 
@@ -28,29 +36,6 @@ export const actions = {
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_ROLES', res.data.roles)
       dispatch('offLoadingTable')
-    })
-  },
-  async createRole({ dispatch }, payload) {
-    const config = {
-      method: 'post',
-      url: '/roles',
-      data: {
-        name: payload,
-      },
-    }
-
-    await axiosRequest('baseApi', config).then(() => {
-      dispatch('getRoles')
-    })
-  },
-  async deleteRole({ dispatch }, rolename) {
-    const config = {
-      method: 'delete',
-      url: `/roles/${rolename}`,
-    }
-
-    await axiosRequest('baseApi', config).then(() => {
-      dispatch('getRoles')
     })
   },
 }

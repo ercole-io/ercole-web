@@ -12,6 +12,7 @@
             {{ $t('common.collumns.actions') }}
           </th>
           <v-th sortKey="name">Group Name</v-th>
+          <v-th sortKey="name">Group Description</v-th>
           <v-th sortKey="roles">Roles</v-th>
         </template>
 
@@ -37,6 +38,7 @@
             />
           </td>
           <TdContent :value="rowData.scope.name" />
+          <TdContent :value="rowData.scope.description" />
           <TdArrayMore :value="rowData.scope.roles" />
         </template>
       </FullTable>
@@ -49,7 +51,7 @@
           isUpdate ? $t('common.forms.update') : $t('common.forms.add')
         "
         :cancelText="$t('common.forms.cancel')"
-        setMinHeight="540"
+        setMinHeight="580"
       >
         <b-field label="Group Name" custom-class="is-small">
           <b-input
@@ -60,62 +62,63 @@
           />
         </b-field>
 
-        <b-field label="Roles" class="is-relative" custom-class="is-small">
-          <b-icon
-            v-tooltip="options('Create a New Role')"
-            type="is-primary"
-            class="createRole is-clickable"
-            pack="fas"
-            icon="plus"
-            @click.native="addRole"
-          />
-          <b-icon
-            v-tooltip="options('Delete Role')"
-            type="is-danger"
-            class="deleteRole is-clickable"
-            pack="fas"
-            icon="trash-alt"
-            @click.native="delRole"
-          />
-          <b-select
+        <b-field label="Group Description" custom-class="is-small">
+          <b-input
+            type="textarea"
             size="is-small"
-            multiple
-            native-size="12"
-            v-model="groupForm.roles"
-            expanded
-          >
-            <option
-              v-for="role in showRoles"
-              :key="role.name"
-              :value="role.name"
-              class="is-relative"
+            v-model="groupForm.description"
+            :disabled="isUpdate"
+            rows="2"
+          />
+        </b-field>
+
+        <b-field label="Roles" custom-class="is-small">
+          <div class="is-flex is-flex-direction-column">
+            <b-input
+              placeholder="Search Role"
+              type="search"
+              size="is-small"
+              icon="magnify"
+              icon-right="close-circle"
+              icon-right-clickable
+              @icon-right-click="onSearchRoleClear"
+              @input="filteredRoles"
+              v-model="searchRole"
+            />
+
+            <div
+              class="custom-checkbox-control"
+              v-if="filteredRoles().length > 0"
             >
-              {{ role.name }}
-            </option>
-          </b-select>
+              <b-checkbox-button
+                v-model="groupForm.roles"
+                type="is-primary"
+                size="is-small"
+                v-for="role in filteredRoles()"
+                :key="role.name"
+                :native-value="role.name"
+              >
+                <span>
+                  <p>{{ role.name }}</p>
+                  <small>{{ role.description }}</small>
+                </span>
+              </b-checkbox-button>
+            </div>
+            <div
+              class="custom-checkbox-control is-justify-content-center is-align-items-center is-size-7"
+              v-else
+            >
+              There are no roles!
+            </div>
+          </div>
         </b-field>
       </AdvancedFiltersBase>
-
-      <b-modal
-        :active.sync="isCreateRoleModalActive"
-        :width="300"
-        :can-cancel="false"
-      >
-        <CreateRoleModal />
-      </b-modal>
-
-      <b-modal
-        :active.sync="isDeleteRoleModalActive"
-        :width="300"
-        :can-cancel="false"
-      >
-        <DeleteRoleModal :roleList="showRoles" />
-      </b-modal>
     </div>
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
@@ -123,8 +126,10 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
-import CreateRoleModal from '@/views/profile/CreateRoleModal.vue'
-import DeleteRoleModal from '@/views/profile/DeleteRoleModal.vue'
+
+const stringSearch = (str, srch) => {
+  return str.toString().toUpperCase().includes(srch.toString().toUpperCase())
+}
 
 export default {
   mixins: [TooltipMixin],
@@ -133,19 +138,17 @@ export default {
     TdContent,
     TdArrayMore,
     AdvancedFiltersBase,
-    CreateRoleModal,
-    DeleteRoleModal,
   },
   data() {
     return {
-      keys: ['name', 'roles'],
+      keys: ['name', 'description', 'roles'],
       groupForm: {
         name: '',
+        description: '',
         roles: [],
       },
       isUpdate: false,
-      isDeleteRoleModalActive: false,
-      isCreateRoleModalActive: false,
+      searchRole: '',
     }
   },
   async beforeMount() {
@@ -200,14 +203,23 @@ export default {
       this.isUpdate = false
       this.groupForm = {
         name: '',
+        description: '',
         roles: [],
       }
     },
-    addRole() {
-      this.isCreateRoleModalActive = true
+    onSearchRoleClear() {
+      this.searchRole = ''
     },
-    delRole() {
-      this.isDeleteRoleModalActive = true
+    filteredRoles() {
+      if (this.searchRole !== '') {
+        return _.filter(this.showRoles, (role) => {
+          return (
+            stringSearch(role.name, this.searchRole) ||
+            stringSearch(role.description, this.searchRole)
+          )
+        })
+      }
+      return this.showRoles
     },
   },
   computed: {
@@ -216,19 +228,30 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.createRole {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 20px;
-  height: 20px;
-}
-.deleteRole {
-  position: absolute;
-  top: 0;
-  right: 30px;
-  width: 20px;
-  height: 20px;
+<style lang="scss">
+.custom-checkbox-control {
+  height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-top: none;
+
+  .control {
+    .checkbox {
+      height: auto;
+      display: block;
+      text-align: left;
+
+      p {
+        font-weight: bold;
+        margin-bottom: 0;
+      }
+      small {
+        white-space: pre-wrap;
+      }
+    }
+  }
 }
 </style>
