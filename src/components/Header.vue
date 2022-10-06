@@ -43,20 +43,31 @@
             <b-dropdown-item
               value="users"
               aria-role="menuitem"
-              @click="openUsersPage"
+              @click="openPage('users')"
               data-users-button
             >
               <b-icon pack="fas" icon="users" />
               Users
             </b-dropdown-item>
+
             <b-dropdown-item
               value="groups"
               aria-role="menuitem"
-              @click="openGroupsPage"
+              @click="openPage('groups')"
               data-groups-button
             >
               <b-icon pack="fas" icon="layer-group" />
               Groups
+            </b-dropdown-item>
+
+            <b-dropdown-item
+              value="roles"
+              aria-role="menuitem"
+              @click="openPage('roles')"
+              data-groups-button
+            >
+              <b-icon pack="fas" icon="scroll" />
+              Roles
             </b-dropdown-item>
 
             <hr class="dropdown-divider" />
@@ -103,14 +114,9 @@ export default {
       localStorage.setItem('historyPage', '')
       this.logout()
     },
-    openUsersPage() {
+    openPage(page) {
       this.$router.push({
-        name: 'users',
-      })
-    },
-    openGroupsPage() {
-      this.$router.push({
-        name: 'groups',
+        name: page,
       })
     },
     openInfoModal() {

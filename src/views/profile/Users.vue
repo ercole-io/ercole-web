@@ -11,6 +11,8 @@
           <th colspan="2" style="text-align: center !important">
             {{ $t('common.collumns.actions') }}
           </th>
+          <v-th sortKey="firstName">First Name</v-th>
+          <v-th sortKey="lastName">Last Name</v-th>
           <v-th sortKey="username">Username</v-th>
           <v-th sortKey="groups">Groups</v-th>
         </template>
@@ -36,6 +38,8 @@
               @click.native="delUser(rowData.scope.username)"
             />
           </td>
+          <TdContent :value="rowData.scope.firstName" />
+          <TdContent :value="rowData.scope.lastName" />
           <TdContent :value="rowData.scope.username" />
           <TdArrayMore :value="rowData.scope.groups" />
         </template>
@@ -51,6 +55,24 @@
         :cancelText="$t('common.forms.cancel')"
         setMinHeight="540"
       >
+        <b-field label="First Name" custom-class="is-small">
+          <b-input
+            type="text"
+            size="is-small"
+            v-model="userForm.firstName"
+            :disabled="isUpdate"
+          />
+        </b-field>
+
+        <b-field label="Last Name" custom-class="is-small">
+          <b-input
+            type="text"
+            size="is-small"
+            v-model="userForm.lastName"
+            :disabled="isUpdate"
+          />
+        </b-field>
+
         <b-field label="Username" custom-class="is-small">
           <b-input
             type="text"
@@ -110,8 +132,10 @@ export default {
   },
   data() {
     return {
-      keys: ['username', 'lastLogin', 'groups'],
+      keys: ['firstName', 'lastName', 'username', 'lastLogin', 'groups'],
       userForm: {
+        firstName: '',
+        lastName: '',
         username: '',
         password: '',
         groups: [],
@@ -150,6 +174,8 @@ export default {
     upUser(data) {
       this.isUpdate = true
       this.userForm = {
+        firstName: data.firstName,
+        lastName: data.lastName,
         username: data.username,
         groups: data.groups,
       }
@@ -169,6 +195,8 @@ export default {
     resetForm() {
       this.isUpdate = false
       this.userForm = {
+        firstName: '',
+        lastName: '',
         username: '',
         password: '',
         groups: [],
