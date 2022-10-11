@@ -49,53 +49,122 @@
       <AdvancedFiltersBase
         filterTitle="Add or Update an User"
         :submitAction="createUpdateUser"
+        :isDisabled="$v.$invalid"
         :applyText="
           isUpdate ? $t('common.forms.update') : $t('common.forms.add')
         "
         :cancelText="$t('common.forms.cancel')"
-        setMinHeight="540"
+        setMinHeight="600"
       >
-        <b-field label="First Name" custom-class="is-small">
+        <b-field
+          label="First Name"
+          custom-class="is-small"
+          :type="{
+            'is-danger': $v.userForm.firstName.$error,
+          }"
+        >
           <b-input
             type="text"
             size="is-small"
             v-model="userForm.firstName"
+            @blur="$v.userForm.firstName.$touch()"
+            @input="$v.userForm.firstName.$touch()"
             :disabled="isUpdate"
           />
+          <template #message>
+            <div
+              v-if="
+                !$v.userForm.firstName.required && $v.userForm.firstName.$error
+              "
+            >
+              {{ $i18n.t('common.validations.requiredAlt') }}
+            </div>
+          </template>
         </b-field>
 
-        <b-field label="Last Name" custom-class="is-small">
+        <b-field
+          label="Last Name"
+          custom-class="is-small"
+          :type="{
+            'is-danger': $v.userForm.lastName.$error,
+          }"
+        >
           <b-input
             type="text"
             size="is-small"
             v-model="userForm.lastName"
+            @blur="$v.userForm.lastName.$touch()"
+            @input="$v.userForm.lastName.$touch()"
             :disabled="isUpdate"
           />
+          <template #message>
+            <div
+              v-if="
+                !$v.userForm.lastName.required && $v.userForm.lastName.$error
+              "
+            >
+              {{ $i18n.t('common.validations.requiredAlt') }}
+            </div>
+          </template>
         </b-field>
 
-        <b-field label="Username" custom-class="is-small">
+        <b-field
+          label="Username"
+          custom-class="is-small"
+          :type="{
+            'is-danger': $v.userForm.username.$error,
+          }"
+        >
           <b-input
             type="text"
             size="is-small"
             v-model="userForm.username"
+            @blur="$v.userForm.username.$touch()"
+            @input="$v.userForm.username.$touch()"
             :disabled="isUpdate"
           />
+          <template #message>
+            <div
+              v-if="
+                !$v.userForm.username.required && $v.userForm.username.$error
+              "
+            >
+              {{ $i18n.t('common.validations.requiredAlt') }}
+            </div>
+          </template>
         </b-field>
 
-        <b-field label="Password" custom-class="is-small">
+        <b-field
+          label="Password"
+          custom-class="is-small"
+          :type="{
+            'is-danger': $v.userForm.password.$error,
+          }"
+        >
           <b-input
             type="password"
             size="is-small"
             v-model="userForm.password"
+            @blur="$v.userForm.password.$touch()"
+            @input="$v.userForm.password.$touch()"
             password-reveal
           />
+          <template #message>
+            <div
+              v-if="
+                !$v.userForm.password.required && $v.userForm.password.$error
+              "
+            >
+              {{ $i18n.t('common.validations.requiredAlt') }}
+            </div>
+          </template>
         </b-field>
 
         <b-field label="Groups" custom-class="is-small">
           <b-select
             size="is-small"
             multiple
-            native-size="12"
+            native-size="7"
             v-model="userForm.groups"
             expanded
           >
@@ -114,8 +183,10 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
+import { required, requiredIf } from 'vuelidate/lib/validators'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -141,6 +212,18 @@ export default {
         groups: [],
       },
       isUpdate: false,
+    }
+  },
+  validations() {
+    return {
+      userForm: {
+        firstName: { required },
+        lastName: { required },
+        username: { required },
+        password: {
+          required: requiredIf(() => !this.isUpdate),
+        },
+      },
     }
   },
   async beforeMount() {
@@ -177,7 +260,7 @@ export default {
         firstName: data.firstName,
         lastName: data.lastName,
         username: data.username,
-        groups: data.groups,
+        groups: _.isArray(data.groups) ? data.groups : [],
       }
     },
     delUser(username) {
