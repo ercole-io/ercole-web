@@ -42,6 +42,7 @@
     "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
+    "@volar-plugins/vetur": "latest",
     "@vue/cli-plugin-babel": "~4.5.15",
     "@vue/cli-plugin-eslint": "~4.3.0",
     "@vue/cli-plugin-router": "~4.5.15",
