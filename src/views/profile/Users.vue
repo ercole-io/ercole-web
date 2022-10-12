@@ -160,6 +160,33 @@
           </template>
         </b-field>
 
+        <b-field
+          label="Confirm Password"
+          custom-class="is-small"
+          :type="{
+            'is-danger': $v.userForm.confirmPassword.$error,
+          }"
+        >
+          <b-input
+            type="password"
+            size="is-small"
+            v-model="userForm.confirmPassword"
+            @blur="$v.userForm.confirmPassword.$touch()"
+            @input="$v.userForm.confirmPassword.$touch()"
+            password-reveal
+          />
+          <template #message>
+            <div
+              v-if="
+                !$v.userForm.confirmPassword.required &&
+                $v.userForm.confirmPassword.$error
+              "
+            >
+              Confirm password must match with password field.
+            </div>
+          </template>
+        </b-field>
+
         <b-field label="Groups" custom-class="is-small">
           <b-select
             size="is-small"
@@ -186,7 +213,7 @@
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
-import { required, requiredIf } from 'vuelidate/lib/validators'
+import { required, requiredIf, sameAs } from 'vuelidate/lib/validators'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -212,6 +239,7 @@ export default {
         groups: [],
       },
       isUpdate: false,
+      confirmPassword: '',
     }
   },
   validations() {
@@ -222,6 +250,10 @@ export default {
         username: { required },
         password: {
           required: requiredIf(() => !this.isUpdate),
+        },
+        confirmPassword: {
+          sameAs: sameAs((val) => val.password),
+          $lazy: true,
         },
       },
     }
@@ -241,6 +273,7 @@ export default {
       'getGroups',
     ]),
     createUpdateUser() {
+      delete this.userForm.confirmPassword
       if (this.isUpdate) {
         this.updateUser({
           data: this.userForm,
