@@ -53,23 +53,54 @@
         :cancelText="$t('common.forms.cancel')"
         setMinHeight="580"
       >
-        <b-field label="Group Name" custom-class="is-small">
+        <b-field
+          label="Group Name"
+          custom-class="is-small"
+          :type="{
+            'is-danger': $v.groupForm.name.$error,
+          }"
+        >
           <b-input
             type="text"
             size="is-small"
             v-model="groupForm.name"
+            @blur="$v.groupForm.name.$touch()"
+            @input="$v.groupForm.name.$touch()"
             :disabled="isUpdate"
           />
+          <template #message>
+            <div v-if="!$v.groupForm.name.required && $v.groupForm.name.$error">
+              {{ $i18n.t('common.validations.requiredAlt') }}
+            </div>
+          </template>
         </b-field>
 
-        <b-field label="Group Description" custom-class="is-small">
+        <b-field
+          label="Group Description"
+          custom-class="is-small"
+          :type="{
+            'is-danger': $v.groupForm.description.$error,
+          }"
+        >
           <b-input
             type="textarea"
             size="is-small"
-            v-model="groupForm.description"
-            :disabled="isUpdate"
             rows="2"
+            v-model="groupForm.description"
+            @blur="$v.groupForm.description.$touch()"
+            @input="$v.groupForm.description.$touch()"
+            :disabled="isUpdate"
           />
+          <template #message>
+            <div
+              v-if="
+                !$v.groupForm.description.required &&
+                $v.groupForm.description.$error
+              "
+            >
+              {{ $i18n.t('common.validations.requiredAlt') }}
+            </div>
+          </template>
         </b-field>
 
         <b-field label="Roles" custom-class="is-small">
@@ -84,6 +115,7 @@
               @icon-right-click="onSearchRoleClear"
               @input="filteredRoles"
               v-model="searchRole"
+              v-if="groupForm.roles.length > 0"
             />
 
             <div
@@ -121,6 +153,7 @@
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
+import { required } from 'vuelidate/lib/validators'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -149,6 +182,14 @@ export default {
       },
       isUpdate: false,
       searchRole: '',
+    }
+  },
+  validations() {
+    return {
+      groupForm: {
+        name: { required },
+        description: { required },
+      },
     }
   },
   async beforeMount() {
