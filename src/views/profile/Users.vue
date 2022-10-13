@@ -140,6 +140,7 @@
           :type="{
             'is-danger': $v.userForm.password.$error,
           }"
+          v-if="!isUpdate"
         >
           <b-input
             type="password"
@@ -166,6 +167,7 @@
           :type="{
             'is-danger': $v.userForm.confirmPassword.$error,
           }"
+          v-if="!isUpdate"
         >
           <b-input
             type="password"
@@ -236,10 +238,10 @@ export default {
         lastName: '',
         username: '',
         password: '',
+        confirmPassword: '',
         groups: [],
       },
       isUpdate: false,
-      confirmPassword: '',
     }
   },
   validations() {
