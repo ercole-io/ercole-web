@@ -29,8 +29,8 @@ import ToUpper from './filters/toUpper.js'
 import ToLower from './filters/toLower.js'
 import ToString from './filters/toString.js'
 
-import './assets/icons/material-design-webfonts/css/materialdesignicons.min.css'
-import './assets/icons/font-awesome/css/all.min.css'
+import './assets/icons/material-design-icons-6.9.96/css/materialdesignicons.css'
+import './assets/icons/font-awesome-6.2.0/css/all.min.css'
 import 'animate.css'
 
 Vue.component('default-layout', DefaultPage)

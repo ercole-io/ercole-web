@@ -602,6 +602,39 @@ const routes = [
     beforeEnter: verifyAuth,
   },
   {
+    path: '/users',
+    name: 'users',
+    component: lazyRouteBuilder('profile/Users.vue'),
+    meta: {
+      label: 'Users',
+      title: `${title}Users`,
+      breadcrumb: [{ name: 'Users' }],
+    },
+    beforeEnter: verifyAuth,
+  },
+  {
+    path: '/groups',
+    name: 'groups',
+    component: lazyRouteBuilder('profile/Groups.vue'),
+    meta: {
+      label: 'Groups',
+      title: `${title}Groups`,
+      breadcrumb: [{ name: 'Groups' }],
+    },
+    beforeEnter: verifyAuth,
+  },
+  {
+    path: '/roles',
+    name: 'roles',
+    component: lazyRouteBuilder('profile/Roles.vue'),
+    meta: {
+      label: 'Roles',
+      title: `${title}Roles`,
+      breadcrumb: [{ name: 'Roles' }],
+    },
+    beforeEnter: verifyAuth,
+  },
+  {
     path: '/500',
     name: '500',
     component: lazyRouteBuilder('Errors/InternalServer.vue'),

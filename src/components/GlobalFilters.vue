@@ -342,7 +342,10 @@ export default {
         this.$route.name !== 'dbgrowth' &&
         this.$route.name !== 'schemas' &&
         this.$route.name !== 'pdbs' &&
-        this.$route.name !== 'cpu-time'
+        this.$route.name !== 'cpu-time' &&
+        this.$route.name !== 'users' &&
+        this.$route.name !== 'groups' &&
+        this.$route.name !== 'roles'
       )
     },
   },
