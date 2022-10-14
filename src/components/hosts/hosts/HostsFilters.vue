@@ -10,14 +10,6 @@
           />
         </CustomField>
 
-        <CustomField :label="$t('common.fields.hostname')">
-          <CustomAutocomplete
-            v-model="filters.hostname"
-            :filterResult="filteredhostname"
-            :filterMethod="setAutocompletes"
-          />
-        </CustomField>
-
         <CustomField :label="$t('common.fields.env')">
           <CustomSelect
             v-model="filters.environment"
