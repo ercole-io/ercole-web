@@ -93,4 +93,15 @@ export const actions = {
       commit('SET_PASSWORD_RESET', res.data)
     })
   },
+  async changePassword({ commit }, payload) {
+    const config = {
+      method: 'post',
+      url: `/admin/users/${payload.username}/change-password`,
+      data: payload.data,
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      console.log(res)
+    })
+  },
 }

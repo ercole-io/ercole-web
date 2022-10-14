@@ -7,7 +7,6 @@ export const state = () => {
   return {
     isLoggedIn: !!localStorage.getItem('token'),
     isAdmin: false,
-    isReadyonly: true,
   }
 }
 
@@ -22,6 +21,9 @@ export const mutations = {
   },
   LOGOUT: (state) => {
     state.isLoggedIn = false
+  },
+  SET_ADMIN: (state, payload) => {
+    state.isAdmin = payload
   },
 }
 
@@ -51,6 +53,12 @@ export const actions = {
           token: token,
           username: username,
           expiration: expiration,
+        }
+
+        if (username === 'ercole') {
+          commit('SET_ADMIN', true)
+        } else {
+          commit('SET_ADMIN', false)
         }
 
         commit('LOGIN_SUCCESS')

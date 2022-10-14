@@ -1,6 +1,12 @@
 <template>
   <div class="columns">
-    <div class="column is-9">
+    <div
+      class="column"
+      :class="{
+        'is-9': isAdmin,
+        'is-12': !isAdmin,
+      }"
+    >
       <FullTable
         placeholder="Users"
         :keys="keys"
@@ -8,7 +14,7 @@
         :isLoadingTable="loadingTableStatus"
       >
         <template slot="headData">
-          <th colspan="3" style="text-align: center !important">
+          <th colspan="3" style="text-align: center !important" v-if="isAdmin">
             {{ $t('common.collumns.actions') }}
           </th>
           <v-th sortKey="firstName">First Name</v-th>
@@ -18,17 +24,16 @@
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
-          <td style="min-width: 0; text-align: center">
+          <td style="min-width: 0; text-align: center" v-if="isAdmin">
             <b-icon
               v-tooltip="options($t('common.general.edit'))"
               type="is-info"
               pack="fas"
               icon="edit"
               @click.native="upUser(rowData.scope)"
-              v-if="isAdmin"
             />
           </td>
-          <td style="min-width: 0">
+          <td style="min-width: 0" v-if="isAdmin">
             <b-button
               v-tooltip="`Reset Password`"
               type="is-ghost"
@@ -40,7 +45,7 @@
               :loading="resetPassLoading"
             />
           </td>
-          <td style="min-width: 0">
+          <td style="min-width: 0" v-if="isAdmin">
             <b-icon
               v-tooltip="options($t('common.general.delete'))"
               type="is-danger"
@@ -58,7 +63,7 @@
         </template>
       </FullTable>
     </div>
-    <div class="column is-3">
+    <div class="column is-3" v-if="isAdmin">
       <AdvancedFiltersBase
         filterTitle="Add or Update an User"
         :submitAction="createUpdateUser"
