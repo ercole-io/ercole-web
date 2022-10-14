@@ -23,49 +23,113 @@
         <LocaleSwitcher />
       </b-navbar-item> -->
 
-      <b-navbar-dropdown
-        :label="`${username}, ${userRole}`"
-        data-navbar-username
-      >
-        <!-- <b-navbar-item>
-          <b-switch size="is-small" v-model="isAuto" type="is-primary">
-            Auto Refresh
-          </b-switch>
-        </b-navbar-item> -->
-        <b-navbar-item @click="openInfoModal" data-info-button>
-          Ercole Version
-        </b-navbar-item>
-        <hr class="mt-0 mb-0" />
-        <b-navbar-item @click="callLogout" data-logout-button>
-          {{ $t('header.logout') }}
-        </b-navbar-item>
-      </b-navbar-dropdown>
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <b-dropdown
+            v-model="navigation"
+            position="is-bottom-left"
+            append-to-body
+            aria-role="menu"
+          >
+            <template #trigger>
+              <a class="navbar-item" role="button">
+                <span data-navbar-username>
+                  {{ `${username}, ${userRole}` }}
+                </span>
+                <b-icon icon="menu-down" />
+              </a>
+            </template>
+
+            <template v-if="!isAdmin">
+              <b-dropdown-item
+                @click="openChangePassModal"
+                data-change-password
+              >
+                <b-icon pack="fas" icon="key" />
+                Change Password
+              </b-dropdown-item>
+
+              <hr class="dropdown-divider" />
+            </template>
+
+            <b-dropdown-item
+              value="users"
+              aria-role="menuitem"
+              @click="openPage('users')"
+              data-users-button
+            >
+              <b-icon pack="fas" icon="users" />
+              Users
+            </b-dropdown-item>
+
+            <b-dropdown-item
+              value="groups"
+              aria-role="menuitem"
+              @click="openPage('groups')"
+              data-groups-button
+            >
+              <b-icon pack="fas" icon="layer-group" />
+              Groups
+            </b-dropdown-item>
+
+            <b-dropdown-item
+              value="roles"
+              aria-role="menuitem"
+              @click="openPage('roles')"
+              data-groups-button
+            >
+              <b-icon pack="fas" icon="scroll" />
+              Roles
+            </b-dropdown-item>
+
+            <hr class="dropdown-divider" />
+
+            <b-dropdown-item @click="openInfoModal" data-info-button>
+              <b-icon custom-class="ercole-version-logo" />
+              Ercole Version
+            </b-dropdown-item>
+
+            <hr class="dropdown-divider" />
+
+            <b-dropdown-item @click="callLogout" data-logout-button>
+              <b-icon icon="logout"></b-icon>
+              {{ $t('header.logout') }}
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
+      </div>
     </template>
   </b-navbar>
 </template>
 
 <script>
 // import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
-import { capitalize } from '@/helpers/helpers.js'
 import { mapActions, mapGetters } from 'vuex'
 // import { SnackbarProgrammatic as Snackbar } from 'buefy'
 import ErcoleLogo from '@/components/common/ErcoleLogo.vue'
+import ChangePassModal from '@/views/profile/ChangePassModal.vue'
 
 export default {
   components: {
     ErcoleLogo,
     // LocaleSwitcher,
   },
-  // data() {
-  //   return {
-  //     isAuto: false
-  //   }
-  // },
+  data() {
+    return {
+      navigation: null,
+      // isAuto: false
+    }
+  },
   methods: {
     ...mapActions(['logout']),
     callLogout() {
       localStorage.setItem('historyPage', '')
       this.logout()
+    },
+    openPage(page) {
+      this.$router.push({
+        name: page,
+      })
     },
     openInfoModal() {
       this.$buefy.dialog.alert({
@@ -78,11 +142,20 @@ export default {
         type: 'is-success',
       })
     },
+    openChangePassModal() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: ChangePassModal,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+      })
+    },
   },
   computed: {
-    ...mapGetters(['version']),
+    ...mapGetters(['version', 'isAdmin']),
     username() {
-      return capitalize(localStorage.getItem('username'))
+      return localStorage.getItem('username')
     },
     userRole() {
       return 'Operator'
@@ -120,6 +193,14 @@ export default {
   z-index: 54;
   margin-left: 50px;
   height: 4rem;
+}
+
+.navbar-item {
+  color: #ffffff;
+
+  &:hover {
+    background-color: #101336;
+  }
 }
 
 .ercole-logo {

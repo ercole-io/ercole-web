@@ -1,14 +1,7 @@
 <template>
-  <b-select
-    v-model="selectVal"
-    size="is-small"
-    :placeholder="optionMsg"
-    expanded
-  >
+  <b-select v-model="selectVal" :size="size" :placeholder="optionMsg" expanded>
     <template v-if="hasReset">
-      <option :value="null" v-if="selectVal">
-        Reset
-      </option>
+      <option :value="null" v-if="selectVal">Reset</option>
     </template>
 
     <template v-if="fixedOptions">
@@ -29,20 +22,24 @@ export default {
     value: {},
     options: {
       type: Array,
-      required: false
+      required: false,
     },
     placeholder: {
       type: String,
-      required: false
+      required: false,
     },
     fixedOptions: {
       type: Boolean,
-      default: false
+      default: false,
     },
     hasReset: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
+    size: {
+      type: String,
+      default: 'is-small',
+    },
   },
   computed: {
     selectVal: {
@@ -51,14 +48,14 @@ export default {
       },
       set(val) {
         this.$emit('input', val)
-      }
+      },
     },
     optionMsg() {
       return this.placeholder
         ? this.placeholder
         : this.$i18n.t('common.forms.option')
-    }
-  }
+    },
+  },
 }
 </script>
 

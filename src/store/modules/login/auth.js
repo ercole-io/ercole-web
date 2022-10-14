@@ -6,11 +6,13 @@ import i18n from '@/i18n.js'
 export const state = () => {
   return {
     isLoggedIn: !!localStorage.getItem('token'),
+    isAdmin: false,
   }
 }
 
 export const getters = {
   isLoggedIn: (state) => state.isLoggedIn,
+  isAdmin: (state) => state.isAdmin,
 }
 
 export const mutations = {
@@ -20,16 +22,22 @@ export const mutations = {
   LOGOUT: (state) => {
     state.isLoggedIn = false
   },
+  SET_ADMIN: (state, payload) => {
+    state.isAdmin = payload
+  },
 }
 
 export const actions = {
-  async login({ commit, dispatch }, auth) {
+  async login({ commit, dispatch }, loginData) {
+    const basicUrl = '/user/login'
+    const ldapUrl = '/ldap/login'
+
     const config = {
       method: 'post',
-      url: '/user/login',
+      url: loginData.type === 'LDAP' ? ldapUrl : basicUrl,
       data: {
-        username: auth.username,
-        password: auth.password,
+        username: loginData.credentials.username,
+        password: loginData.credentials.password,
       },
       timeout: 15000,
     }
@@ -45,6 +53,12 @@ export const actions = {
           token: token,
           username: username,
           expiration: expiration,
+        }
+
+        if (username === 'ercole') {
+          commit('SET_ADMIN', true)
+        } else {
+          commit('SET_ADMIN', false)
         }
 
         commit('LOGIN_SUCCESS')

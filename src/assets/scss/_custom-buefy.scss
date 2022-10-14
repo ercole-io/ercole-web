@@ -290,6 +290,10 @@ ul.pagination-list {
   color: $white;
 }
 
+.button:focus:not(:active), .button.is-focused:not(:active) {
+  box-shadow: none
+}
+
 .navbar-item img {
   max-height: 2rem;
 
@@ -312,5 +316,12 @@ ul.pagination-list {
   .vsm--link {
     font-size: 13px !important;
     padding: 12px 15px !important;
+  }
+}
+
+// input
+.control {
+  .input[disabled], .textarea {
+    border-color: #dbdbdb;
   }
 }
