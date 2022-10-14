@@ -8,7 +8,7 @@
         :isLoadingTable="loadingTableStatus"
       >
         <template slot="headData">
-          <th colspan="2" style="text-align: center !important">
+          <th colspan="3" style="text-align: center !important">
             {{ $t('common.collumns.actions') }}
           </th>
           <v-th sortKey="firstName">First Name</v-th>
@@ -22,20 +22,33 @@
             <b-icon
               v-tooltip="options($t('common.general.edit'))"
               type="is-info"
-              class="edit-icon"
               pack="fas"
               icon="edit"
               @click.native="upUser(rowData.scope)"
+              v-if="isAdmin"
+            />
+          </td>
+          <td style="min-width: 0">
+            <b-button
+              v-tooltip="`Reset Password`"
+              type="is-ghost"
+              icon-pack="fas"
+              icon-right="repeat"
+              size="is-small"
+              @click.native="newPass(rowData.scope.username)"
+              v-if="rowData.scope.username !== 'ercole' && isAdmin"
+              :loading="resetPassLoading"
             />
           </td>
           <td style="min-width: 0">
             <b-icon
               v-tooltip="options($t('common.general.delete'))"
               type="is-danger"
-              class="delete-icon"
               pack="fas"
               icon="trash-alt"
+              size="is-small"
               @click.native="delUser(rowData.scope.username)"
+              v-if="rowData.scope.username !== 'ercole' && isAdmin"
             />
           </td>
           <TdContent :value="rowData.scope.firstName" />
@@ -221,6 +234,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
+import ResetPassModal from '@/views/profile/ResetPassModal.vue'
 
 export default {
   mixins: [TooltipMixin],
@@ -242,6 +256,7 @@ export default {
         groups: [],
       },
       isUpdate: false,
+      resetPassLoading: false,
     }
   },
   validations() {
@@ -273,6 +288,7 @@ export default {
       'updateUser',
       'deleteUser',
       'getGroups',
+      'resetPassword',
     ]),
     createUpdateUser() {
       delete this.userForm.confirmPassword
@@ -310,6 +326,22 @@ export default {
         },
       })
     },
+    newPass(username) {
+      this.resetPassLoading = true
+      this.resetPassword(username).then(() => {
+        this.resetPassLoading = false
+        this.$buefy.modal.open({
+          parent: this,
+          component: ResetPassModal,
+          hasModalCard: true,
+          customClass: 'custom-class custom-class-2',
+          trapFocus: true,
+          props: {
+            newPass: this.showResetPassword,
+          },
+        })
+      })
+    },
     resetForm() {
       this.isUpdate = false
       this.userForm = {
@@ -322,7 +354,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['showUsers', 'showGroups', 'loadingTableStatus']),
+    ...mapGetters([
+      'showUsers',
+      'showGroups',
+      'loadingTableStatus',
+      'isAdmin',
+      'showResetPassword',
+    ]),
   },
 }
 </script>

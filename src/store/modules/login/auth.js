@@ -6,11 +6,14 @@ import i18n from '@/i18n.js'
 export const state = () => {
   return {
     isLoggedIn: !!localStorage.getItem('token'),
+    isAdmin: false,
+    isReadyonly: true,
   }
 }
 
 export const getters = {
   isLoggedIn: (state) => state.isLoggedIn,
+  isAdmin: (state) => state.isAdmin,
 }
 
 export const mutations = {

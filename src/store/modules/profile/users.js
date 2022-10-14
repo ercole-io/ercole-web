@@ -3,6 +3,7 @@ import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
   users: [],
+  passwordReset: '',
 })
 
 export const getters = {
@@ -18,11 +19,15 @@ export const getters = {
     })
     return users
   },
+  showResetPassword: (state) => state.passwordReset,
 }
 
 export const mutations = {
   SET_USERS: (state, payload) => {
     state.users = payload
+  },
+  SET_PASSWORD_RESET: (state, payload) => {
+    state.passwordReset = payload
   },
 }
 
@@ -76,6 +81,16 @@ export const actions = {
 
     await axiosRequest('baseApi', config).then(() => {
       dispatch('getUsers')
+    })
+  },
+  async resetPassword({ commit }, username) {
+    const config = {
+      method: 'post',
+      url: `/admin/users/${username}/reset-password`,
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_PASSWORD_RESET', res.data)
     })
   },
 }
