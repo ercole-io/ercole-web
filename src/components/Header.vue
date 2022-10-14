@@ -40,6 +40,18 @@
               </a>
             </template>
 
+            <template v-if="!isAdmin">
+              <b-dropdown-item
+                @click="openChangePassModal"
+                data-change-password
+              >
+                <b-icon pack="fas" icon="key" />
+                Change Password
+              </b-dropdown-item>
+
+              <hr class="dropdown-divider" />
+            </template>
+
             <b-dropdown-item
               value="users"
               aria-role="menuitem"
@@ -92,10 +104,10 @@
 
 <script>
 // import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
-import { capitalize } from '@/helpers/helpers.js'
 import { mapActions, mapGetters } from 'vuex'
 // import { SnackbarProgrammatic as Snackbar } from 'buefy'
 import ErcoleLogo from '@/components/common/ErcoleLogo.vue'
+import ChangePassModal from '@/views/profile/ChangePassModal.vue'
 
 export default {
   components: {
@@ -130,11 +142,20 @@ export default {
         type: 'is-success',
       })
     },
+    openChangePassModal() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: ChangePassModal,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+      })
+    },
   },
   computed: {
-    ...mapGetters(['version']),
+    ...mapGetters(['version', 'isAdmin']),
     username() {
-      return capitalize(localStorage.getItem('username'))
+      return localStorage.getItem('username')
     },
     userRole() {
       return 'Operator'
