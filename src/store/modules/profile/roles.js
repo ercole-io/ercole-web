@@ -11,7 +11,7 @@ export const getters = {
     _.map(state.roles, (role) => {
       roles.push({
         name: role.name,
-        description: `Description for ${role.name} with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+        description: role.description,
       })
     })
     return roles
