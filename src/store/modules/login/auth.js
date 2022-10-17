@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 import router from '@/router/index.js'
 import * as helpers from '@/helpers/helpers.js'
@@ -6,7 +7,7 @@ import i18n from '@/i18n.js'
 export const state = () => {
   return {
     isLoggedIn: !!localStorage.getItem('token'),
-    isAdmin: false,
+    isAdmin: !!localStorage.getItem('admin'),
   }
 }
 
@@ -21,9 +22,6 @@ export const mutations = {
   },
   LOGOUT: (state) => {
     state.isLoggedIn = false
-  },
-  SET_ADMIN: (state, payload) => {
-    state.isAdmin = payload
   },
 }
 
@@ -44,21 +42,17 @@ export const actions = {
 
     await axiosRequest('login', config, false)
       .then((res) => {
-        const token = res.data
+        const token = res.data.token
         const decodeToken = JSON.parse(atob(token.split('.')[1]))
-        const username = decodeToken.sub
         const expiration = decodeToken.exp
+        const username = res.data.user.username
+        const admin = _.includes(res.data.user.groups, 'admin')
 
         const payload = {
           token: token,
           username: username,
           expiration: expiration,
-        }
-
-        if (username === 'ercole') {
-          commit('SET_ADMIN', true)
-        } else {
-          commit('SET_ADMIN', false)
+          admin: admin,
         }
 
         commit('LOGIN_SUCCESS')

@@ -8,12 +8,14 @@ export const setLocalStorageAuth = (payload) => {
   localStorage.setItem('username', payload.username)
   const expirationTime = moment(payload.expiration * 1000).format()
   localStorage.setItem('expiration', expirationTime)
+  localStorage.setItem('admin', payload.admin)
 }
 
 export const clearLocalStorageAuth = () => {
   localStorage.removeItem('token')
   localStorage.removeItem('username')
   localStorage.removeItem('expiration')
+  localStorage.removeItem('admin')
 }
 // END: Manage som localstorage data //
 
