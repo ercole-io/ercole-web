@@ -15,7 +15,7 @@ export const state = () => {
 export const getters = {
   isLoggedIn: (state) => state.isLoggedIn,
   isAdmin: (state) => state.isAdmin,
-  getLoginType: (state) => state.loginType,
+  getLoginType: (state) => (state.loginType === 'LDAP' ? 'ldap' : 'basic'),
 }
 
 export const mutations = {

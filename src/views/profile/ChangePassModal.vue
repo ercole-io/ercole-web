@@ -92,13 +92,14 @@
         type="is-primary"
         @click="modifyPass"
         :disabled="$v.$invalid"
+        :loading="changeLoading"
       />
     </footer>
   </div>
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 import { required, sameAs } from 'vuelidate/lib/validators'
 
 export default {
@@ -109,6 +110,7 @@ export default {
         newPassword: '',
         confirmedPassword: '',
       },
+      changeLoading: false,
     }
   },
   validations() {
@@ -124,15 +126,32 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['changePassword']),
-    ...mapMutations(['LOGOUT']),
+    ...mapActions(['changePassword', 'logout']),
     modifyPass() {
+      this.changeLoading = true
       this.changePassword({
         username: localStorage.getItem('username'),
         data: this.changePassForm,
-      }).then(() => {
-        this.LOGOUT()
       })
+        .then(() => {
+          this.$parent.close()
+          this.$buefy.dialog.alert({
+            message: 'Your Password has been changed!',
+            confirmText: 'login',
+            type: 'is-primary',
+            onConfirm: () => {
+              this.logout()
+            },
+          })
+        })
+        .catch(() => {
+          this.$parent.close()
+          this.$buefy.dialog.alert({
+            message: 'Something went wrong! Please try again',
+            confirmText: 'ok',
+            type: 'is-danger',
+          })
+        })
     },
   },
 }
