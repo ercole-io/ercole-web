@@ -121,7 +121,7 @@
               @icon-right-click="onSearchRoleClear"
               @input="filteredRoles"
               v-model="searchRole"
-              v-if="groupForm.roles.length > 0"
+              v-if="filteredRoles().length > 0 || searchRole !== ''"
             />
 
             <div
@@ -231,18 +231,27 @@ export default {
       this.isUpdate = true
       this.groupForm = {
         name: data.name,
+        description: data.description,
         roles: data.roles,
       }
     },
     delGroup(name) {
       this.$buefy.dialog.confirm({
-        title: 'Delete User',
+        title: 'Delete Group',
         message: `Are you sure you want to <b>delete</b> the group <b>${name}</b>? This action cannot be undone.`,
         confirmText: 'Confirm',
         type: 'is-danger',
         hasIcon: true,
         onConfirm: () => {
-          this.deleteGroup(name)
+          this.deleteGroup(name).catch((err) => {
+            this.$buefy.dialog.alert({
+              title: 'Delete Group Warning',
+              message: err.error,
+              confirmText: 'OK',
+              type: 'is-warning',
+              hasIcon: true,
+            })
+          })
         },
       })
     },

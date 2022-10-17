@@ -64,8 +64,13 @@ export const actions = {
       url: `/groups/${groupname}`,
     }
 
-    await axiosRequest('baseApi', config).then(() => {
-      dispatch('getGroups')
-    })
+    await axiosRequest('baseApi', config)
+      .then(() => {
+        dispatch('getGroups')
+      })
+      .catch((err) => {
+        dispatch('offLoadingTable')
+        throw err.data
+      })
   },
 }

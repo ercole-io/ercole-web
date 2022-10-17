@@ -12,7 +12,7 @@ const errorResponseHandler = (error) => {
     }
   }
 
-  return Promise.reject(error)
+  throw error.response
 }
 
 export default errorResponseHandler

@@ -46,7 +46,6 @@ export default (name, auth, config) => {
     instance.interceptors.response.use(
       (response) => response,
       (error) => {
-        console.log(error)
         return Promise.reject(errorResponseHandler(error))
       }
     )
