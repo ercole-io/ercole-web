@@ -76,6 +76,14 @@
       {{ $t('common.forms.signIn') }}
     </b-button>
 
+    <a
+      href="#"
+      @click="forgotPassModal"
+      class="is-flex is-justify-content-center has-text-grey-lighter mt-2"
+    >
+      Forgot Password
+    </a>
+
     <ErrorMsg />
   </form>
 </template>
@@ -112,6 +120,14 @@ export default {
     ...mapActions(['login']),
     required(field) {
       return this.$i18n.t('common.validations.required', [field])
+    },
+    forgotPassModal() {
+      this.$buefy.dialog.alert({
+        title: 'Forgot Password',
+        message: 'To recover your lost password please contact your admin!',
+        confirmText: 'Ok',
+        type: 'is-primary',
+      })
     },
   },
 }
