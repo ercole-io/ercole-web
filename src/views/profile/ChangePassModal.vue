@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import { required, sameAs } from 'vuelidate/lib/validators'
 
 export default {
@@ -125,10 +125,13 @@ export default {
   },
   methods: {
     ...mapActions(['changePassword']),
+    ...mapMutations(['LOGOUT']),
     modifyPass() {
       this.changePassword({
         username: localStorage.getItem('username'),
         data: this.changePassForm,
+      }).then(() => {
+        this.LOGOUT()
       })
     },
   },

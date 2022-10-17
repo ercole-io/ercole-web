@@ -40,17 +40,12 @@
               </a>
             </template>
 
-            <template v-if="!isAdmin">
-              <b-dropdown-item
-                @click="openChangePassModal"
-                data-change-password
-              >
-                <b-icon pack="fas" icon="key" />
-                Change Password
-              </b-dropdown-item>
+            <b-dropdown-item @click="openChangePassModal" data-change-password>
+              <b-icon pack="fas" icon="key" />
+              Change Password
+            </b-dropdown-item>
 
-              <hr class="dropdown-divider" />
-            </template>
+            <hr class="dropdown-divider" />
 
             <b-dropdown-item
               value="users"

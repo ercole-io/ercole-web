@@ -7,13 +7,15 @@ import i18n from '@/i18n.js'
 export const state = () => {
   return {
     isLoggedIn: !!localStorage.getItem('token'),
-    isAdmin: !!localStorage.getItem('admin'),
+    isAdmin: false,
+    loginType: '',
   }
 }
 
 export const getters = {
   isLoggedIn: (state) => state.isLoggedIn,
   isAdmin: (state) => state.isAdmin,
+  getLoginType: (state) => state.loginType,
 }
 
 export const mutations = {
@@ -22,6 +24,12 @@ export const mutations = {
   },
   LOGOUT: (state) => {
     state.isLoggedIn = false
+  },
+  SET_ADMIN: (state, payload) => {
+    state.isAdmin = payload
+  },
+  SET_LOGIN_TYPE: (state, payload) => {
+    state.loginType = payload
   },
 }
 
@@ -40,6 +48,8 @@ export const actions = {
       timeout: 15000,
     }
 
+    commit('SET_LOGIN_TYPE', loginData.type)
+
     await axiosRequest('login', config, false)
       .then((res) => {
         const token = res.data.token
@@ -52,9 +62,9 @@ export const actions = {
           token: token,
           username: username,
           expiration: expiration,
-          admin: admin,
         }
 
+        commit('SET_ADMIN', admin)
         commit('LOGIN_SUCCESS')
         helpers.setLocalStorageAuth(payload)
         dispatch('setErrMsg', null)

@@ -50,7 +50,7 @@ export const actions = {
 
     const config = {
       method: 'post',
-      url: '/users',
+      url: '/admin/basic/users',
       data: payload,
     }
 
@@ -63,7 +63,7 @@ export const actions = {
 
     const config = {
       method: 'put',
-      url: `/users/${payload.username}`,
+      url: `/admin/basic/users/${payload.username}`,
       data: payload.data,
     }
 
@@ -76,7 +76,7 @@ export const actions = {
 
     const config = {
       method: 'delete',
-      url: `/users/${username}`,
+      url: `/admin/basic/users/${username}`,
     }
 
     await axiosRequest('baseApi', config).then(() => {
@@ -86,22 +86,27 @@ export const actions = {
   async resetPassword({ commit }, username) {
     const config = {
       method: 'post',
-      url: `/admin/users/${username}/reset-password`,
+      url: `/admin/basic/users/${username}/reset-password`,
     }
 
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_PASSWORD_RESET', res.data)
     })
   },
-  async changePassword({ commit }, payload) {
+  async changePassword({ getters }, payload) {
+    let url = null
+    const loginType = getters.getLoginType === 'LDAP' ? 'ldap' : 'basic'
+    if (getters.isAdmin) {
+      url = `/admin/${loginType}/users/${payload.username}/change-password`
+    }
+    url = `/${loginType}/users/${payload.username}/change-password`
+
     const config = {
       method: 'post',
-      url: `/admin/users/${payload.username}/change-password`,
+      url: url,
       data: payload.data,
     }
 
-    await axiosRequest('baseApi', config).then((res) => {
-      console.log(res)
-    })
+    await axiosRequest('baseApi', config)
   },
 }
