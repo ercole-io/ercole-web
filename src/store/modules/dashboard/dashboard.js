@@ -266,10 +266,16 @@ export const actions = {
       )
     ).then(
       axios.spread((...allData) => {
+        const amazon = []
+        _.map(allData[1].data[0].ObjectsCount, (val) => {
+          if (val.name !== 'snapshots') {
+            amazon.push(val)
+          }
+        })
+
         commit('SET_CLOUD_OBJECTS', {
           oracle: allData[0].data.length > 0 ? allData[0].data : [],
-          amazon:
-            allData[1].data.length > 0 ? allData[1].data[0].ObjectsCount : [],
+          amazon: allData[1].data.length > 0 ? amazon : [],
           microsoft: [],
         })
       })
