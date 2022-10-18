@@ -149,6 +149,13 @@
             >
               {{ $i18n.t('common.validations.requiredAlt') }}
             </div>
+            <div
+              v-if="
+                !$v.userForm.username.noSpaces && $v.userForm.username.$error
+              "
+            >
+              This field does not allow spaces
+            </div>
           </template>
         </b-field>
 
@@ -175,6 +182,13 @@
               "
             >
               {{ $i18n.t('common.validations.requiredAlt') }}
+            </div>
+            <div
+              v-if="
+                !$v.userForm.password.noSpaces && $v.userForm.password.$error
+              "
+            >
+              This field does not allow spaces
             </div>
           </template>
         </b-field>
@@ -203,6 +217,14 @@
               "
             >
               Confirm password must match with password field.
+            </div>
+            <div
+              v-if="
+                !$v.userForm.confirmPassword.noSpaces &&
+                $v.userForm.confirmPassword.$error
+              "
+            >
+              This field does not allow spaces
             </div>
           </template>
         </b-field>
@@ -233,13 +255,15 @@
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
-import { required, requiredIf, sameAs } from 'vuelidate/lib/validators'
+import { helpers, required, requiredIf, sameAs } from 'vuelidate/lib/validators'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import ResetPassModal from '@/views/profile/ResetPassModal.vue'
+
+const noSpaces = helpers.regex('noSpaces', /^\S*$/)
 
 export default {
   mixins: [TooltipMixin],
@@ -269,12 +293,14 @@ export default {
       userForm: {
         firstName: { required },
         lastName: { required },
-        username: { required },
+        username: { required, noSpaces },
         password: {
           required: requiredIf(() => !this.isUpdate),
+          noSpaces,
         },
         confirmPassword: {
           sameAs: sameAs((val) => val.password),
+          noSpaces,
           $lazy: true,
         },
       },

@@ -78,6 +78,9 @@
             <div v-if="!$v.groupForm.name.required && $v.groupForm.name.$error">
               {{ $i18n.t('common.validations.requiredAlt') }}
             </div>
+            <div v-if="!$v.groupForm.name.noSpaces && $v.groupForm.name.$error">
+              This field does not allow spaces
+            </div>
           </template>
         </b-field>
 
@@ -113,7 +116,7 @@
           <div class="is-flex is-flex-direction-column">
             <b-input
               placeholder="Search Role"
-              type="search"
+              type="text"
               size="is-small"
               icon="magnify"
               icon-right="close-circle"
@@ -159,7 +162,7 @@
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
-import { required } from 'vuelidate/lib/validators'
+import { helpers, required } from 'vuelidate/lib/validators'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -169,6 +172,8 @@ import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 const stringSearch = (str, srch) => {
   return str.toString().toUpperCase().includes(srch.toString().toUpperCase())
 }
+
+const noSpaces = helpers.regex('noSpaces', /^\S*$/)
 
 export default {
   mixins: [TooltipMixin],
@@ -193,7 +198,7 @@ export default {
   validations() {
     return {
       groupForm: {
-        name: { required },
+        name: { required, noSpaces },
         description: { required },
       },
     }
