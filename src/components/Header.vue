@@ -40,12 +40,17 @@
               </a>
             </template>
 
-            <b-dropdown-item @click="openChangePassModal" data-change-password>
-              <b-icon pack="fas" icon="key" />
-              Change Password
-            </b-dropdown-item>
+            <template v-if="getProvider === 'basic'">
+              <b-dropdown-item
+                @click="openChangePassModal"
+                data-change-password
+              >
+                <b-icon pack="fas" icon="key" />
+                Change Password
+              </b-dropdown-item>
 
-            <hr class="dropdown-divider" />
+              <hr class="dropdown-divider" />
+            </template>
 
             <b-dropdown-item
               value="users"
@@ -148,12 +153,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['version', 'isAdmin']),
+    ...mapGetters(['version', 'isAdmin', 'getProvider', 'getUserRole']),
     username() {
       return localStorage.getItem('username')
     },
     userRole() {
-      return 'Operator'
+      return this.getUserRole
     },
   },
   // watch: {

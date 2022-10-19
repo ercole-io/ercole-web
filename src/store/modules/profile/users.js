@@ -50,7 +50,7 @@ export const actions = {
 
     const config = {
       method: 'post',
-      url: `/admin/${getters.getLoginType}/users`,
+      url: `/admin/${getters.getProvider}/users`,
       data: payload,
     }
 
@@ -63,7 +63,7 @@ export const actions = {
 
     const config = {
       method: 'put',
-      url: `/admin/${getters.getLoginType}/users/${payload.username}`,
+      url: `/admin/${getters.getProvider}/users/${payload.username}`,
       data: payload.data,
     }
 
@@ -76,7 +76,7 @@ export const actions = {
 
     const config = {
       method: 'delete',
-      url: `/admin/${getters.getLoginType}/users/${username}`,
+      url: `/admin/${getters.getProvider}/users/${username}`,
     }
 
     await axiosRequest('baseApi', config).then(() => {
@@ -86,7 +86,7 @@ export const actions = {
   async resetPassword({ commit, getters }, username) {
     const config = {
       method: 'post',
-      url: `/admin/${getters.getLoginType}/users/${username}/reset-password`,
+      url: `/admin/${getters.getProvider}/users/${username}/reset-password`,
     }
 
     await axiosRequest('baseApi', config).then((res) => {
@@ -98,9 +98,9 @@ export const actions = {
     let url = null
 
     if (getters.isAdmin) {
-      url = `/admin/${getters.getLoginType}/users/${payload.username}/change-password`
+      url = `/admin/${getters.getProvider}/users/${payload.username}/change-password`
     } else {
-      url = `/${getters.getLoginType}/users/${payload.username}/change-password`
+      url = `/${getters.getProvider}/users/${payload.username}/change-password`
     }
 
     const config = {

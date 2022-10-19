@@ -8,14 +8,16 @@ export const state = () => {
   return {
     isLoggedIn: !!localStorage.getItem('token'),
     isAdmin: false,
-    loginType: '',
+    provider: '',
+    userRole: '',
   }
 }
 
 export const getters = {
   isLoggedIn: (state) => state.isLoggedIn,
   isAdmin: (state) => state.isAdmin,
-  getLoginType: (state) => (state.loginType === 'LDAP' ? 'ldap' : 'basic'),
+  getProvider: (state) => state.provider,
+  getUserRole: (state) => state.userRole,
 }
 
 export const mutations = {
@@ -28,8 +30,11 @@ export const mutations = {
   SET_ADMIN: (state, payload) => {
     state.isAdmin = payload
   },
-  SET_LOGIN_TYPE: (state, payload) => {
-    state.loginType = payload
+  SET_PROVIDER: (state, payload) => {
+    state.provider = payload
+  },
+  SET_USER_ROLE: (state, payload) => {
+    state.userRole = payload
   },
 }
 
@@ -48,8 +53,6 @@ export const actions = {
       timeout: 15000,
     }
 
-    commit('SET_LOGIN_TYPE', loginData.type)
-
     await axiosRequest('login', config, false)
       .then((res) => {
         const token = res.data.token
@@ -57,6 +60,8 @@ export const actions = {
         const expiration = decodeToken.exp
         const username = res.data.user.username
         const admin = _.includes(res.data.user.groups, 'admin')
+        const provider = res.data.user.provider
+        const userRole = res.data.user.groups[0]
 
         const payload = {
           token: token,
@@ -65,6 +70,8 @@ export const actions = {
         }
 
         commit('SET_ADMIN', admin)
+        commit('SET_PROVIDER', provider)
+        commit('SET_USER_ROLE', userRole)
         commit('LOGIN_SUCCESS')
         helpers.setLocalStorageAuth(payload)
         dispatch('setErrMsg', null)
