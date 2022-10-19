@@ -19,3 +19,5 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+src/store/modules/databases/oracle/Services.json
