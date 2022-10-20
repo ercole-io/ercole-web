@@ -36,7 +36,7 @@
           </td>
           <td
             style="min-width: 0"
-            v-if="isAdmin && row.scope.provider === 'basic'"
+            v-if="isAdmin && rowData.scope.provider === 'basic'"
           >
             <b-button
               v-tooltip="`Reset Password`"
@@ -234,21 +234,45 @@
         </b-field>
 
         <b-field label="Groups" custom-class="is-small">
-          <b-select
-            size="is-small"
-            multiple
-            native-size="7"
-            v-model="userForm.groups"
-            expanded
-          >
-            <option
-              v-for="group in showGroups"
-              :key="group.name"
-              :value="group.name"
+          <div class="is-flex is-flex-direction-column">
+            <b-input
+              placeholder="Search Group"
+              type="text"
+              size="is-small"
+              icon="magnify"
+              icon-right="close-circle"
+              icon-right-clickable
+              @icon-right-click="onSearchGroupClear"
+              @input="filteredGroups"
+              v-model="searchGroup"
+              v-if="filteredGroups().length > 0 || searchGroup !== ''"
+            />
+
+            <div
+              class="custom-checkbox-control"
+              v-if="filteredGroups().length > 0"
             >
-              {{ group.name }}
-            </option>
-          </b-select>
+              <b-checkbox-button
+                v-model="userForm.groups"
+                type="is-primary"
+                size="is-small"
+                v-for="group in filteredGroups()"
+                :key="group.name"
+                :native-value="group.name"
+              >
+                <span>
+                  <p>{{ group.name }}</p>
+                  <small>{{ group.description }}</small>
+                </span>
+              </b-checkbox-button>
+            </div>
+            <div
+              class="custom-checkbox-control is-justify-content-center is-align-items-center is-size-7"
+              v-else
+            >
+              There are no groups!
+            </div>
+          </div>
         </b-field>
       </AdvancedFiltersBase>
     </div>
@@ -266,6 +290,10 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import ResetPassModal from '@/views/profile/ResetPassModal.vue'
+
+const stringSearch = (str, srch) => {
+  return str.toString().toUpperCase().includes(srch.toString().toUpperCase())
+}
 
 const noSpaces = helpers.regex('noSpaces', /^\S*$/)
 
@@ -290,6 +318,7 @@ export default {
       },
       isUpdate: false,
       resetPassLoading: false,
+      searchGroup: '',
     }
   },
   validations() {
@@ -387,6 +416,17 @@ export default {
         groups: [],
       }
     },
+    onSearchGroupClear() {
+      this.searchGroup = ''
+    },
+    filteredGroups() {
+      if (this.searchGroup !== '') {
+        return _.filter(this.showGroups, (role) => {
+          return stringSearch(role.name, this.searchGroup)
+        })
+      }
+      return this.showGroups
+    },
   },
   computed: {
     ...mapGetters([
@@ -401,4 +441,30 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.custom-checkbox-control {
+  height: 150px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-top: none;
+
+  .control {
+    .checkbox {
+      height: auto;
+      display: block;
+      text-align: left;
+
+      p {
+        font-weight: bold;
+        margin-bottom: 0;
+      }
+      small {
+        white-space: pre-wrap;
+      }
+    }
+  }
+}
+</style>
