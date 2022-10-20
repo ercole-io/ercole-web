@@ -15,6 +15,7 @@ export const getters = {
         lastName: user.lastName,
         username: user.username,
         groups: user.groups && user.groups.length > 0 ? user.groups : '-',
+        provider: user.provider,
       })
     })
     return users

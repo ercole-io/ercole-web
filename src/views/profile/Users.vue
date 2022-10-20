@@ -14,11 +14,7 @@
         :isLoadingTable="loadingTableStatus"
       >
         <template slot="headData">
-          <th
-            :colspan="getProvider === 'basic' ? 3 : 2"
-            style="text-align: center !important"
-            v-if="isAdmin"
-          >
+          <th colspan="3" style="text-align: center !important" v-if="isAdmin">
             {{ $t('common.collumns.actions') }}
           </th>
           <v-th sortKey="firstName">First Name</v-th>
@@ -38,7 +34,10 @@
               v-if="rowData.scope.username !== 'ercole' && isAdmin"
             />
           </td>
-          <td style="min-width: 0" v-if="isAdmin && getProvider === 'basic'">
+          <td
+            style="min-width: 0"
+            v-if="isAdmin && row.scope.provider === 'basic'"
+          >
             <b-button
               v-tooltip="`Reset Password`"
               type="is-ghost"
