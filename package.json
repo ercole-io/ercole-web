@@ -59,7 +59,7 @@
     "glob-parent": "^6.0.2",
     "node-forge": "^1.2.1",
     "node-notifier": "^10.0.0",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.0",
     "nth-check": "^2.0.1",
     "postcss": "^8.4.5",
     "prettier": "^2.4.1",
