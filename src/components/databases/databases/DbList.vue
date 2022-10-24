@@ -63,7 +63,7 @@
 
       <ExportButton
         slot="export"
-        url="hosts/technologies/oracle/databases"
+        url="hosts/technologies/all/databases"
         expName="databases"
       />
     </FullTable>
