@@ -21,6 +21,7 @@
           <v-th sortKey="lastName">Last Name</v-th>
           <v-th sortKey="username">Username</v-th>
           <v-th sortKey="groups">Groups</v-th>
+          <v-th sortKey="provider">Provider</v-th>
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
@@ -34,10 +35,7 @@
               v-if="rowData.scope.username !== 'ercole' && isAdmin"
             />
           </td>
-          <td
-            style="min-width: 0"
-            v-if="isAdmin && rowData.scope.provider === 'basic'"
-          >
+          <td style="min-width: 0">
             <b-button
               v-tooltip="`Reset Password`"
               type="is-ghost"
@@ -45,7 +43,11 @@
               icon-right="repeat"
               size="is-small"
               @click.native="newPass(rowData.scope.username)"
-              v-if="rowData.scope.username !== 'ercole' && isAdmin"
+              v-if="
+                rowData.scope.username !== 'ercole' &&
+                isAdmin &&
+                rowData.scope.provider === 'basic'
+              "
               :loading="resetPassLoading"
             />
           </td>
@@ -64,6 +66,7 @@
           <TdContent :value="rowData.scope.lastName" />
           <TdContent :value="rowData.scope.username" />
           <TdArrayMore :value="rowData.scope.groups" />
+          <TdContent :value="rowData.scope.provider" />
         </template>
       </FullTable>
     </div>
@@ -307,7 +310,14 @@ export default {
   },
   data() {
     return {
-      keys: ['firstName', 'lastName', 'username', 'lastLogin', 'groups'],
+      keys: [
+        'firstName',
+        'lastName',
+        'username',
+        'lastLogin',
+        'groups',
+        'provider',
+      ],
       userForm: {
         firstName: '',
         lastName: '',
