@@ -141,7 +141,6 @@
             class="filters-button"
             size="is-small"
             type="is-custom-primary"
-            :disabled="!disableButtons"
           >
             {{ $t('common.forms.apply') }}
           </b-button>
@@ -151,7 +150,6 @@
             class="filters-button"
             size="is-small"
             type="is-danger"
-            :disabled="!disableButtons"
           >
             {{ $t('common.forms.reset') }}
           </b-button>
@@ -312,17 +310,6 @@ export default {
   computed: {
     ...mapState(['globalFilters']),
     ...mapGetters(['getActiveFilters']),
-    disableButtons() {
-      if (
-        this.glFilters.location ||
-        this.glFilters.environment ||
-        this.glFilters.date
-      ) {
-        return true
-      } else {
-        return false
-      }
-    },
     notShowing() {
       return (
         this.$route.name !== 'dashboard' &&
