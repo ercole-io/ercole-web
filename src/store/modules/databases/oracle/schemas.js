@@ -22,7 +22,7 @@ export const actions = {
 
     const config = {
       method: 'get',
-      url: '/hosts/technologies/oracle/databases/schemas',
+      url: 'hosts/technologies/oracle/databases/schemas',
     }
 
     await axiosRequest('baseApi', config).then((res) => {

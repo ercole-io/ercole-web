@@ -17,12 +17,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async getAddms({ commit, dispatch, getters }) {
+  async getAddms({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const config = {
       method: 'get',
-      url: '/hosts/technologies/oracle/databases/addms',
+      url: 'hosts/technologies/oracle/databases/addms',
       params: {
         'older-than': getters.getActiveFilters.date,
         environment: getters.getActiveFilters.environment,

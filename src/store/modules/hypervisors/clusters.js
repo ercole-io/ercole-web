@@ -101,12 +101,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async getClusters({ commit, dispatch, getters }) {
+  async getClusters({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const config = {
       method: 'get',
-      url: '/hosts/clusters',
+      url: 'hosts/clusters',
       params: {
         'older-than': getters.getActiveFilters.date,
         environment: getters.getActiveFilters.environment,
@@ -119,12 +119,12 @@ export const actions = {
       dispatch('offLoadingTable')
     })
   },
-  async getClusterByName({ commit, dispatch, getters }, clustername) {
+  async getClusterByName({ commit, getters, dispatch }, clustername) {
     dispatch('onLoadingTable')
 
     const config = {
       method: 'get',
-      url: `/hosts/clusters/${clustername}`,
+      url: `hosts/clusters/${clustername}`,
       params: {
         'older-than': getters.getActiveFilters.date,
       },

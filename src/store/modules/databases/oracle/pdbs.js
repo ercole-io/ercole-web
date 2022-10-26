@@ -24,7 +24,7 @@ export const actions = {
 
     const config = {
       method: 'get',
-      url: '/hosts/technologies/oracle/databases/pdbs',
+      url: 'hosts/technologies/oracle/databases/pdbs',
     }
 
     await axiosRequest('baseApi', config).then((res) => {

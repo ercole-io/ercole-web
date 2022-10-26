@@ -18,6 +18,13 @@ export const getters = {
   isAdmin: (state) => state.isAdmin,
   getProvider: (state) => state.provider,
   getUserRole: (state) => state.userRole,
+  apiPrefix: (state) => {
+    if (state.provider === 'ldap') {
+      return '/ldap/'
+    } else {
+      return '/'
+    }
+  },
 }
 
 export const mutations = {

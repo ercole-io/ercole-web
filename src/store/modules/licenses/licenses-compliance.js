@@ -42,12 +42,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async getComplianceList({ commit, dispatch, getters }) {
+  async getComplianceList({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const config = {
       method: 'get',
-      url: '/hosts/technologies/all/databases/licenses-compliance',
+      url: 'hosts/technologies/all/databases/licenses-compliance',
       params: {
         'older-than': getters.getActiveFilters.date,
         environment: getters.getActiveFilters.environment,

@@ -20,7 +20,7 @@ export const actions = {
   async getTechnologiesData({ commit }) {
     const config = {
       method: 'get',
-      url: '/settings/technologies',
+      url: 'settings/technologies',
     }
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_TECHNOLOGIES_DATA', res.data)

@@ -20,7 +20,7 @@ export const actions = {
   async getDbConnection({ commit }) {
     const config = {
       method: 'get',
-      url: '/database/connection/status',
+      url: 'database/connection/status',
     }
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_DB_CONNECTION', res.data.connected)

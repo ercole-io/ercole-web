@@ -32,7 +32,7 @@ export const actions = {
 
     const config = {
       method: 'get',
-      url: '/hosts/technologies/oracle/databases/service-list',
+      url: 'hosts/technologies/oracle/databases/service-list',
     }
 
     await axiosRequest('baseApi', config).then((res) => {

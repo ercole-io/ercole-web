@@ -61,7 +61,7 @@ export const actions = {
   async microsoftLicensesTypes({ commit }) {
     const config = {
       method: 'get',
-      url: '/settings/microsoft/database/license-types',
+      url: 'settings/microsoft/database/license-types',
     }
 
     await axiosRequest('baseApi', config).then((res) => {

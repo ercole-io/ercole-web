@@ -3,7 +3,7 @@ import { axiosRequest } from '@/services/services.js'
 import { setFullPartNumber } from '@/helpers/helpers.js'
 import { removeDashFromMsDesc } from '@/helpers/licenses.js'
 
-const url = '/hosts/technologies/all/databases'
+const url = 'hosts/technologies/all/databases'
 
 export const state = () => ({
   dbsLicensesUsed: [],

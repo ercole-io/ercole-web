@@ -38,7 +38,7 @@ export const actions = {
   async getGlobalFiltersLocations({ commit }) {
     const config = {
       method: 'get',
-      url: '/hosts/locations',
+      url: 'hosts/locations',
     }
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_LOCATIONS', res.data)
@@ -47,7 +47,7 @@ export const actions = {
   async getGlobalFiltersEnvironments({ commit }) {
     const config = {
       method: 'get',
-      url: '/hosts/environments',
+      url: 'hosts/environments',
     }
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_ENVIRONMENTS', res.data)

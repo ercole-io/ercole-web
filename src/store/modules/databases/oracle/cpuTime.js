@@ -73,7 +73,7 @@ export const actions = {
   async getOracleHosts({ commit }) {
     const config = {
       method: 'get',
-      url: '/hosts/technologies/oracle/databases',
+      url: 'hosts/technologies/oracle/databases',
     }
 
     await axiosRequest('baseApi', config).then((res) => {
@@ -94,7 +94,7 @@ export const actions = {
 
     const config = {
       method: 'get',
-      url: `/hosts/${hostname}`,
+      url: `hosts/${hostname}`,
     }
 
     await axiosRequest('baseApi', config)

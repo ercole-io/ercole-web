@@ -5,6 +5,8 @@ import store from '@/store/index.js'
 export default (name, auth, config) => {
   const token = localStorage.getItem('token')
 
+  const apiPrefix = store.getters.apiPrefix
+
   const baseApi = store.getters.getAPIServiceBaseURL
   const chartApi = store.getters.getChartServiceBaseUrl
   const repoApi = store.getters.getRepoServiceBaseUrl
@@ -20,13 +22,13 @@ export default (name, auth, config) => {
     options.baseURL = baseApi
     store.dispatch('onLoading')
   } else if (name === 'baseApi') {
-    options.baseURL = baseApi
+    options.baseURL = `${baseApi}${apiPrefix}`
   } else if (name === 'chartApi') {
-    options.baseURL = chartApi
+    options.baseURL = `${chartApi}${apiPrefix}`
   } else if (name === 'repoApi') {
-    options.baseURL = repoApi
+    options.baseURL = `${repoApi}${apiPrefix}`
   } else if (name === 'thunderApi') {
-    options.baseURL = thunderApi
+    options.baseURL = `${thunderApi}${apiPrefix}`
   }
 
   const instance = axios.create(options)

@@ -56,7 +56,7 @@ export const actions = {
   async mysqlLicensesTypes({ commit }) {
     const config = {
       method: 'get',
-      url: '/settings/mysql/database/license-types',
+      url: 'settings/mysql/database/license-types',
     }
 
     await axiosRequest('baseApi', config).then((res) => {

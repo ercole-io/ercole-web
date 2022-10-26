@@ -186,7 +186,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async getAlertsData({ commit, dispatch, getters }) {
+  async getAlertsData({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const params = {
@@ -207,7 +207,7 @@ export const actions = {
 
     const config = {
       method: 'get',
-      url: '/alerts',
+      url: 'alerts',
       params: params,
     }
 
@@ -232,7 +232,7 @@ export const actions = {
 
     const config = {
       method: 'post',
-      url: '/alerts/ack',
+      url: 'alerts/ack',
       data: {
         ids: payload,
       },
@@ -252,7 +252,7 @@ export const actions = {
 
     const config = {
       method: 'get',
-      url: '/alerts',
+      url: 'alerts',
       params: params,
     }
 
@@ -265,7 +265,7 @@ export const actions = {
   async markAsReadDashboard({ commit }, payload) {
     const config = {
       method: 'post',
-      url: '/alerts/ack',
+      url: 'alerts/ack',
       data: {
         ids: [payload.id],
       },

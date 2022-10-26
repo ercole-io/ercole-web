@@ -42,7 +42,7 @@ export const actions = {
 
     const config = {
       method: 'get',
-      url: '/hosts/technologies/all/databases/grant-dba',
+      url: 'hosts/technologies/all/databases/grant-dba',
     }
 
     await axiosRequest('baseApi', config).then((res) => {

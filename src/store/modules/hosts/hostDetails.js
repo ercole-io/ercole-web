@@ -191,16 +191,13 @@ export const mutations = {
 }
 
 export const actions = {
-  async getHostByName({ commit, dispatch, getters }, payload) {
+  async getHostByName({ commit, getters, dispatch }, payload) {
     if (payload.loading) {
       dispatch('onLoadingTable')
     }
 
-    const baseUrl = `/hosts/${payload.hostname}`
-    const endPoints = [
-      baseUrl,
-      `${baseUrl}/technologies/all/databases/licenses-used`,
-    ]
+    const url = `hosts/${payload.hostname}`
+    const endPoints = [url, `${url}/technologies/all/databases/licenses-used`]
 
     await Promise.all(
       endPoints.map((endpoint) =>
