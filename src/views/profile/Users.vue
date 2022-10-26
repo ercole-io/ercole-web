@@ -35,7 +35,7 @@
               v-if="rowData.scope.username !== 'ercole' && isAdmin"
             />
           </td>
-          <td style="min-width: 0">
+          <td style="min-width: 0" v-if="isAdmin">
             <b-button
               v-tooltip="`Reset Password`"
               type="is-ghost"
