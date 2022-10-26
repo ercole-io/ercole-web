@@ -17,12 +17,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async getMsSqlServerDbs({ commit, dispatch, getters }) {
+  async getMsSqlServerDbs({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const config = {
       method: 'get',
-      url: '/hosts/technologies/microsoft/databases',
+      url: 'hosts/technologies/microsoft/databases',
       params: {
         'older-than': getters.getActiveFilters.date,
         environment: getters.getActiveFilters.environment,

@@ -54,9 +54,9 @@ export const actions = {
 
     let url = null
     if (getters.returnCloudTechnology === 'Oracle') {
-      url = '/oracle-cloud/oci-recommendations'
+      url = 'oracle-cloud/oci-recommendations'
     } else if (getters.returnCloudTechnology === 'Aws') {
-      url = '/aws/aws-recommendations'
+      url = 'aws/aws-recommendations'
     }
 
     const config = {
@@ -95,9 +95,9 @@ export const actions = {
   async getCloudRecommendationsErrors({ commit, getters }, seqNum) {
     let url = null
     if (getters.returnCloudTechnology === 'Oracle') {
-      url = `/oracle-cloud/oci-recommendation-errors/${seqNum}`
+      url = `oracle-cloud/oci-recommendation-errors/${seqNum}`
     } else if (getters.returnCloudTechnology === 'Aws') {
-      url = `/aws/aws-recommendation-errors/${seqNum}`
+      url = `aws/aws-recommendation-errors/${seqNum}`
     }
 
     const config = {
@@ -130,9 +130,9 @@ export const actions = {
   async retireveCloudRecommendations({ getters }) {
     let url = null
     if (getters.returnCloudTechnology === 'Oracle') {
-      url = '/oracle-cloud/retrieve-last-oci-recommendations'
+      url = 'oracle-cloud/retrieve-last-oci-recommendations'
     } else if (getters.returnCloudTechnology === 'Aws') {
-      url = '/aws/retrieve-last-aws-recommendations'
+      url = 'aws/retrieve-last-aws-recommendations'
     }
 
     const config = {

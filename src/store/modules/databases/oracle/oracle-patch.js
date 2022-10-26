@@ -37,7 +37,7 @@ export const actions = {
 
     const config = {
       method: 'get',
-      url: '/hosts/technologies/oracle/databases/patch-list',
+      url: 'hosts/technologies/oracle/databases/patch-list',
     }
 
     await axiosRequest('baseApi', config).then((res) => {

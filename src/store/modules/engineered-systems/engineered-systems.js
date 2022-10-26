@@ -3,7 +3,7 @@ import axios from 'axios'
 import i18n from '@/i18n.js'
 import { axiosRequest } from '@/services/services.js'
 
-const url = '/hosts/technologies/oracle/exadata'
+const url = 'hosts/technologies/oracle/exadata'
 
 export const state = () => ({
   engSys: {},

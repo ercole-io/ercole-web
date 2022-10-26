@@ -52,12 +52,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async getHosts({ commit, dispatch, getters }, olderThan = null) {
+  async getHosts({ commit, getters, dispatch }, olderThan = null) {
     dispatch('onLoadingTable')
 
     const config = {
       method: 'get',
-      url: '/hosts?mode=summary',
+      url: 'hosts?mode=summary',
       params: {
         'older-than': getters.getActiveFilters.date || olderThan,
         environment: getters.getActiveFilters.environment,

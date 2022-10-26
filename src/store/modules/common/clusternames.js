@@ -20,7 +20,7 @@ export const actions = {
   async getClusterNames({ commit }) {
     const config = {
       method: 'get',
-      url: '/hosts/clusters?mode=clusternames',
+      url: 'hosts/clusters?mode=clusternames',
     }
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_CLUSTERNAMES', res.data)

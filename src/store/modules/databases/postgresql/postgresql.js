@@ -22,7 +22,7 @@ export const actions = {
 
     const config = {
       method: 'get',
-      url: '/hosts/technologies/postgresql/databases',
+      url: 'hosts/technologies/postgresql/databases',
       params: {
         'older-than': getters.getActiveFilters.date,
         environment: getters.getActiveFilters.environment,

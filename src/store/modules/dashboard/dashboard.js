@@ -9,19 +9,6 @@ import {
 } from '@/helpers/helpers.js'
 import { removeDashFromMsDesc } from '@/helpers/licenses.js'
 
-const getExtraTechInfo = (techName, techs) => {
-  const tech = _.find(techs, (t) => {
-    return t.product === techName
-  })
-  if (tech) {
-    return {
-      color: tech.color,
-      logo: tech.logo,
-      name: tech.prettyName,
-    }
-  }
-}
-
 export const state = () => ({
   totalTarget: {},
   techDash: {},
@@ -227,7 +214,7 @@ export const actions = {
   async getDashboardData({ commit }) {
     const config = {
       method: 'get',
-      url: '/frontend/dashboard',
+      url: 'frontend/dashboard',
     }
 
     await axiosRequest('baseApi', config).then((res) => {
@@ -237,7 +224,7 @@ export const actions = {
   async getLicenseHistory({ commit }) {
     const config = {
       method: 'get',
-      url: '/technologies/all/license-history',
+      url: 'technologies/all/license-history',
     }
 
     await axiosRequest('chartApi', config).then((res) => {
@@ -247,7 +234,7 @@ export const actions = {
   async getCoreHosts({ commit }) {
     const config = {
       method: 'get',
-      url: '/hosts/cores',
+      url: 'hosts/cores',
     }
 
     await axiosRequest('chartApi', config).then((res) => {
@@ -255,7 +242,7 @@ export const actions = {
     })
   },
   async getCloudObjects({ commit }) {
-    const endPoints = ['/oracle-cloud/oci-objects', '/aws/aws-objects']
+    const endPoints = ['oracle-cloud/oci-objects', 'aws/aws-objects']
 
     await Promise.all(
       endPoints.map((endpoint) =>
@@ -281,6 +268,19 @@ export const actions = {
       })
     )
   },
+}
+
+const getExtraTechInfo = (techName, techs) => {
+  const tech = _.find(techs, (t) => {
+    return t.product === techName
+  })
+  if (tech) {
+    return {
+      color: tech.color,
+      logo: tech.logo,
+      name: tech.prettyName,
+    }
+  }
 }
 
 const calcCloudObjects = (data, objs, tech) => {

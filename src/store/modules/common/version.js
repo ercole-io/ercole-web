@@ -20,7 +20,7 @@ export const actions = {
   async getVersion({ commit }) {
     const config = {
       method: 'get',
-      url: '/version',
+      url: 'version',
     }
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_VERSION', res.data.version)

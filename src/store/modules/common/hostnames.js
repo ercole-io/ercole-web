@@ -20,7 +20,7 @@ export const actions = {
   async getHostNames({ commit }) {
     const config = {
       method: 'get',
-      url: '/hosts?mode=hostnames',
+      url: 'hosts?mode=hostnames',
     }
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_HOSTNAMES', res.data)

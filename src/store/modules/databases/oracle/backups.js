@@ -35,7 +35,7 @@ export const actions = {
 
     const config = {
       method: 'get',
-      url: '/hosts/technologies/oracle/databases/backup-list',
+      url: 'hosts/technologies/oracle/databases/backup-list',
     }
 
     await axiosRequest('baseApi', config).then((res) => {

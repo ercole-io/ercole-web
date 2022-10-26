@@ -3,7 +3,7 @@ import { axiosRequest } from '@/services/services.js'
 import { mountDatabasesChart } from '@/helpers/databasesCharts.js'
 import _ from 'lodash'
 
-const url = '/hosts/technologies/oracle/databases'
+const url = 'hosts/technologies/oracle/databases'
 
 export const state = () => ({
   oracleDbs: [],
@@ -65,7 +65,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async getOracleDbs({ commit, dispatch, getters }) {
+  async getOracleDbs({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const endPoints = [

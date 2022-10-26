@@ -22,7 +22,7 @@ export const actions = {
 
     const config = {
       method: 'get',
-      url: '/hosts/technologies/oracle/databases/tablespaces',
+      url: 'hosts/technologies/oracle/databases/tablespaces',
     }
 
     await axiosRequest('baseApi', config).then((res) => {

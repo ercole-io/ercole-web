@@ -1,8 +1,8 @@
 import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 
-const oracleUrl = '/oracle-cloud/configurations'
-const awsUrl = '/aws/configurations'
+const oracleUrl = 'oracle-cloud/configurations'
+const awsUrl = 'aws/configurations'
 
 export const state = () => ({
   cloudProfiles: [],
@@ -129,9 +129,9 @@ export const actions = {
   async activateCloudProfile({ getters }, payload) {
     let url = null
     if (getters.returnCloudTechnology === 'Oracle') {
-      url = `/oracle-cloud/profile-selection/profileid/${payload.id}/selected/${payload.isActive}`
+      url = `oracle-cloud/profile-selection/profileid/${payload.id}/selected/${payload.isActive}`
     } else if (getters.returnCloudTechnology === 'Aws') {
-      url = `/aws/profile-selection/profileid/${payload.id}/selected/${payload.isActive}`
+      url = `aws/profile-selection/profileid/${payload.id}/selected/${payload.isActive}`
     }
 
     const config = {

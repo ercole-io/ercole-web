@@ -45,12 +45,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async getSegmentAdvisor({ commit, dispatch, getters }) {
+  async getSegmentAdvisor({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const config = {
       method: 'get',
-      url: '/hosts/technologies/oracle/databases/segment-advisors',
+      url: 'hosts/technologies/oracle/databases/segment-advisors',
       params: {
         'older-than': getters.getActiveFilters.date,
         environment: getters.getActiveFilters.environment,

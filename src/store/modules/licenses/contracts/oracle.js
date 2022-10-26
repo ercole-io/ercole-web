@@ -65,7 +65,7 @@ export const actions = {
   async oracleLicensesTypes({ commit }) {
     const config = {
       method: 'get',
-      url: '/settings/oracle/database/license-types',
+      url: 'settings/oracle/database/license-types',
     }
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_ORACLE_LICENSES_TYPES', res.data['license-types'])

@@ -8,9 +8,9 @@ export const mutations = {}
 
 export const actions = {
   async ignoreDatabaseLicense({ commit }, data) {
-    const oracleUrl = `/hosts/${data.hostname}/technologies/${data.type}/databases/${data.database}/licenses/${data.licenseID}/ignored/${data.status}`
-    const microsoftUrl = `/hosts/${data.hostname}/technologies/${data.type}/databases/${data.database}/ignored/${data.status}`
-    const mysqlUrl = `/hosts/${data.hostname}/technologies/${data.type}/databases/${data.database}/ignored/${data.status}`
+    const oracleUrl = `hosts/${data.hostname}/technologies/${data.type}/databases/${data.database}/licenses/${data.licenseID}/ignored/${data.status}`
+    const microsoftUrl = `hosts/${data.hostname}/technologies/${data.type}/databases/${data.database}/ignored/${data.status}`
+    const mysqlUrl = `hosts/${data.hostname}/technologies/${data.type}/databases/${data.database}/ignored/${data.status}`
 
     const config = {
       method: 'put',

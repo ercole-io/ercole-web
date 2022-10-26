@@ -17,12 +17,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async getMysqlDbs({ commit, dispatch, getters }) {
+  async getMysqlDbs({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const config = {
       method: 'get',
-      url: '/hosts/technologies/mysql/databases',
+      url: 'hosts/technologies/mysql/databases',
       params: {
         'older-than': getters.getActiveFilters.date,
         environment: getters.getActiveFilters.environment,

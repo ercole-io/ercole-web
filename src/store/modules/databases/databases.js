@@ -4,7 +4,7 @@ import { mountDatabasesChart } from '@/helpers/databasesCharts.js'
 import { returnTechTypePrettyName } from '@/helpers/helpers.js'
 import _ from 'lodash'
 
-const url = '/hosts/technologies/all/databases'
+const url = 'hosts/technologies/all/databases'
 
 export const state = () => ({
   databases: [],
@@ -37,7 +37,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async getDatabases({ commit, dispatch, getters }) {
+  async getDatabases({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const endPoints = [url, `${url}/statistics`]
