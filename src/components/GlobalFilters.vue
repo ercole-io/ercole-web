@@ -233,7 +233,7 @@ export default {
         environment: null,
         date: null,
       }
-      this.$store.commit('SET_ACTIVE_FILTERS', {
+      this.SET_ACTIVE_FILTERS({
         active: this.glFilters,
         status: false,
       })
