@@ -26,7 +26,7 @@ export default (name, auth, config) => {
   } else if (name === 'chartApi') {
     options.baseURL = `${chartApi}${apiPrefix}`
   } else if (name === 'repoApi') {
-    options.baseURL = `${repoApi}${apiPrefix}`
+    options.baseURL = `${repoApi}`
   } else if (name === 'thunderApi') {
     options.baseURL = `${thunderApi}${apiPrefix}`
   }
