@@ -10,6 +10,7 @@
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
+    "@types/node": "18.11.1",
     "@vue/vue2-jest": "^27.0.0-alpha.4",
     "animate.css": "^4.1.1",
     "axios": "^0.24.0",

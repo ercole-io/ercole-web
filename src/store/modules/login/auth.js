@@ -128,8 +128,16 @@ export const actions = {
   // },
   logout({ commit, dispatch }) {
     dispatch('offLoading')
-    commit('LOGOUT')
+    commit('SET_ACTIVE_FILTERS', {
+      active: {
+        location: null,
+        environment: null,
+        date: null,
+      },
+      status: false,
+    })
     commit('SET_DEFAULT_COLS')
+    commit('LOGOUT')
     helpers.clearLocalStorageAuth()
     router.push('/login')
   },
