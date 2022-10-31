@@ -263,6 +263,62 @@
               'is-danger': $v.userLdapForm.Uid.$error,
             }"
           >
+            <b-autocomplete
+              v-model="userLdapForm.Uid"
+              size="is-small"
+              type="text"
+              icon="magnify"
+              field="uid"
+              :data="ldapUsersData"
+              @blur="$v.userLdapForm.Uid.$touch()"
+              @input="$v.userLdapForm.Uid.$touch()"
+              @typing="filteredLdapUsers($event)"
+              @select="selecteLdapUser"
+              @icon-right-click="clearLdapUsersSearch"
+              icon-right="close-circle"
+              icon-right-clickable
+              :disabled="isUpdateLdap"
+            >
+              <template slot-scope="props">
+                <div class="media media-custom">
+                  <div class="media-content">
+                    <b>{{ props.option.uid }}</b> -
+                    <small>
+                      {{ props.option.givenName }} {{ props.option.sn }}
+                    </small>
+                  </div>
+                </div>
+              </template>
+              <template slot="empty">
+                {{ $i18n.t('common.validations.noResults') }}
+              </template>
+            </b-autocomplete>
+
+            <template #message>
+              <div
+                v-if="
+                  !$v.userLdapForm.Uid.required && $v.userLdapForm.Uid.$error
+                "
+              >
+                {{ $i18n.t('common.validations.requiredAlt') }}
+              </div>
+              <div
+                v-if="
+                  !$v.userLdapForm.Uid.noSpaces && $v.userLdapForm.Uid.$error
+                "
+              >
+                This field does not allow spaces
+              </div>
+            </template>
+          </b-field>
+
+          <!-- <b-field
+            label="Username"
+            custom-class="is-small"
+            :type="{
+              'is-danger': $v.userLdapForm.Uid.$error,
+            }"
+          >
             <b-input
               type="text"
               size="is-small"
@@ -287,7 +343,7 @@
                 This field does not allow spaces
               </div>
             </template>
-          </b-field>
+          </b-field> -->
 
           <b-field
             label="First Name"
@@ -391,6 +447,7 @@
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
+import { axiosRequest } from '@/services/services.js'
 import { helpers, requiredIf, sameAs } from 'vuelidate/lib/validators'
 import UsersList from '@/components/profile/users/UsersList.vue'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
@@ -422,10 +479,12 @@ export default {
         Uid: '',
         groups: [],
       },
-      provider: 'basic',
+      provider: 'ldap',
       isUpdateLdap: false,
       isUpdateBasic: false,
       searchGroup: '',
+      ldapUsersData: [],
+      ldapUserSelected: null,
     }
   },
   validations() {
@@ -593,6 +652,42 @@ export default {
         })
       }
       return this.showGroups
+    },
+    filteredLdapUsers: _.debounce(function (username) {
+      if (!username.length) {
+        this.ldapUsersData = []
+        return
+      }
+
+      const config = {
+        method: 'get',
+        url: `users/ldap/${username}`,
+      }
+
+      axiosRequest('baseApi', config).then((res) => {
+        this.ldapUsersData = res.data
+      })
+    }, 1000),
+    selecteLdapUser(option) {
+      if (option) {
+        this.userLdapForm = {
+          GivenName: option.givenName,
+          Sn: option.sn,
+          Uid: option.uid,
+          groups: [],
+        }
+      } else {
+        this.resetLdapForm()
+        this.ldapUsersData = []
+      }
+    },
+    clearLdapUsersSearch() {
+      this.userLdapForm = {
+        GivenName: '',
+        Sn: '',
+        Uid: '',
+      }
+      this.ldapUsersData = []
     },
   },
   computed: {
