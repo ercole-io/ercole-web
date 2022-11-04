@@ -29,7 +29,8 @@ export const mountDatabasesChart = (data, page) => {
         'dataguard',
         i18n.t('common.charts.disasterRecovery')
       ),
-      chartBySeries(data, 'ha', i18n.t('common.charts.highAvailability'))
+      chartBySeries(data, 'ha', i18n.t('common.charts.highAvailability')),
+      chartBySeries(data, 'version', 'Version')
     )
   }
 
