@@ -30,7 +30,7 @@ export const actions = {
 
     const config = {
       method: 'get',
-      url: '/roles',
+      url: 'admin/roles',
     }
 
     await axiosRequest('baseApi', config).then((res) => {
