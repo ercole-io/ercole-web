@@ -312,39 +312,6 @@
             </template>
           </b-field>
 
-          <!-- <b-field
-            label="Username"
-            custom-class="is-small"
-            :type="{
-              'is-danger': $v.userLdapForm.Uid.$error,
-            }"
-          >
-            <b-input
-              type="text"
-              size="is-small"
-              v-model="userLdapForm.Uid"
-              @blur="$v.userLdapForm.Uid.$touch()"
-              @input="$v.userLdapForm.Uid.$touch()"
-              :disabled="isUpdateLdap"
-            />
-            <template #message>
-              <div
-                v-if="
-                  !$v.userLdapForm.Uid.required && $v.userLdapForm.Uid.$error
-                "
-              >
-                {{ $i18n.t('common.validations.requiredAlt') }}
-              </div>
-              <div
-                v-if="
-                  !$v.userLdapForm.Uid.noSpaces && $v.userLdapForm.Uid.$error
-                "
-              >
-                This field does not allow spaces
-              </div>
-            </template>
-          </b-field> -->
-
           <b-field
             label="First Name"
             custom-class="is-small"
@@ -479,7 +446,7 @@ export default {
         Uid: '',
         groups: [],
       },
-      provider: 'ldap',
+      provider: 'basic',
       isUpdateLdap: false,
       isUpdateBasic: false,
       searchGroup: '',
