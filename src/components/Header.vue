@@ -77,6 +77,7 @@
               aria-role="menuitem"
               @click="openPage('roles')"
               data-groups-button
+              v-if="isAdmin"
             >
               <b-icon pack="fas" icon="scroll" />
               Roles
