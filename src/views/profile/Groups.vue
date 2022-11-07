@@ -205,7 +205,10 @@ export default {
   },
   async beforeMount() {
     await this.getGroups()
-    await this.getRoles()
+
+    if (this.isAdmin) {
+      await this.getRoles()
+    }
 
     bus.$on('onResetAction', () => this.resetForm())
   },
