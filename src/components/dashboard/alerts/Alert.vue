@@ -43,7 +43,7 @@
                   icon-left="check-circle"
                   class="has-text-weight-semibold"
                   style="float: right"
-                  v-if="!loading && getTotals.total"
+                  v-if="!loading && getTotals.total && isAdmin"
                 >
                   {{ $t('views.dashboard.markAsRead') }}
                 </b-button>
@@ -225,7 +225,11 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getFirstAlertByCategory', 'getTotalAlertsByCategory']),
+    ...mapGetters([
+      'getFirstAlertByCategory',
+      'getTotalAlertsByCategory',
+      'isAdmin',
+    ]),
     getFirst() {
       return this.getFirstAlertByCategory(this.alertCategory)
     },
