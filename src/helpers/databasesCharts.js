@@ -30,7 +30,7 @@ export const mountDatabasesChart = (data, page) => {
         i18n.t('common.charts.disasterRecovery')
       ),
       chartBySeries(data, 'ha', i18n.t('common.charts.highAvailability')),
-      chartBySeries(data, 'version', 'Version')
+      chartBySeries(data, 'version', 'DB Version')
     )
   }
 
