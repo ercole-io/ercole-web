@@ -54,7 +54,7 @@ export const actions = {
       url: url,
     }
 
-    await axiosRequest('thunderApi', config, false).then((res) => {
+    await axiosRequest('thunderApi', config).then((res) => {
       commit('SET_CLOUD_PROFILE', res.data)
       if (getters.returnCloudTechnology === 'Oracle') {
         commit('SET_CLOUD_ACTIVE_PROFILE', [getters.hasActiveProfiles, 'oci'])
@@ -80,7 +80,7 @@ export const actions = {
       data: payload,
     }
 
-    await axiosRequest('thunderApi', config, false).then((res) => {
+    await axiosRequest('thunderApi', config).then((res) => {
       commit('CREATE_CLOUD_PROFILE', res.data)
       dispatch('offLoadingTable')
     })
@@ -101,7 +101,7 @@ export const actions = {
       data: payload,
     }
 
-    await axiosRequest('thunderApi', config, false).then((res) => {
+    await axiosRequest('thunderApi', config).then((res) => {
       commit('UPDATE_CLOUD_PROFILE', res.data)
       dispatch('offLoadingTable')
     })
@@ -121,7 +121,7 @@ export const actions = {
       url: `${url}/${id}`,
     }
 
-    await axiosRequest('thunderApi', config, false).then(() => {
+    await axiosRequest('thunderApi', config).then(() => {
       commit('DELETE_CLOUD_PROFILE', id)
       dispatch('offLoadingTable')
     })
@@ -139,6 +139,6 @@ export const actions = {
       url: url,
     }
 
-    await axiosRequest('thunderApi', config, false)
+    await axiosRequest('thunderApi', config)
   },
 }

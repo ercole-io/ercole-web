@@ -64,7 +64,7 @@ export const actions = {
       url: url,
     }
 
-    await axiosRequest('thunderApi', config, false)
+    await axiosRequest('thunderApi', config)
       .then((res) => {
         let data = res.data.recommendations
 
@@ -105,7 +105,7 @@ export const actions = {
       url: url,
     }
 
-    await axiosRequest('thunderApi', config, false).then((res) => {
+    await axiosRequest('thunderApi', config).then((res) => {
       let errors = []
       let profileError = []
 
@@ -141,7 +141,7 @@ export const actions = {
       timeout: 300000,
     }
 
-    await axiosRequest('thunderApi', config, false)
+    await axiosRequest('thunderApi', config)
       .then(() => {
         bus.$emit('finishRetrieveUpdates')
       })
