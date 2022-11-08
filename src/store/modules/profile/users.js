@@ -102,9 +102,16 @@ export const actions = {
   async changePassword({ dispatch }, payload) {
     dispatch('onLoadingTable')
 
+    let url
+    if (payload.admin) {
+      url = `admin/users/${payload.username}/change-password`
+    } else {
+      url = `users/${payload.username}/change-password`
+    }
+
     const config = {
       method: 'post',
-      url: `admin/users/${payload.username}/change-password`,
+      url: url,
       data: payload.data,
     }
 

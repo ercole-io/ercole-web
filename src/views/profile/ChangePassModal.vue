@@ -99,10 +99,26 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { required, sameAs } from 'vuelidate/lib/validators'
 
 export default {
+  props: {
+    limitedUsername: {
+      type: String,
+      required: false,
+    },
+    oldPassword: {
+      type: String,
+      required: false,
+    },
+  },
+  beforeMount() {
+    if (this.oldPassword) {
+      this.isLimited = true
+      this.changePassForm.oldPassword = this.oldPassword
+    }
+  },
   data() {
     return {
       changePassForm: {
@@ -111,6 +127,7 @@ export default {
         confirmedPassword: '',
       },
       changeLoading: false,
+      isLimited: false,
     }
   },
   validations() {
@@ -129,10 +146,23 @@ export default {
     ...mapActions(['changePassword', 'logout']),
     modifyPass() {
       this.changeLoading = true
-      this.changePassword({
-        username: localStorage.getItem('username'),
-        data: this.changePassForm,
-      })
+
+      let body
+      if (this.isLimited) {
+        body = {
+          username: this.limitedUsername,
+          data: this.changePassForm,
+          admin: this.admin,
+        }
+      } else {
+        body = {
+          username: localStorage.getItem('username'),
+          data: this.changePassForm,
+          admin: this.admin,
+        }
+      }
+
+      this.changePassword(body)
         .then(() => {
           this.$parent.close()
           this.$buefy.dialog.alert({
@@ -140,9 +170,16 @@ export default {
             confirmText: 'login',
             type: 'is-primary',
             onConfirm: () => {
-              this.logout()
+              if (this.isLimited) {
+                localStorage.removeItem('token')
+              } else {
+                this.logout()
+              }
             },
           })
+        })
+        .then(() => {
+          this.isLimited = false
         })
         .catch(() => {
           this.$parent.close()
@@ -153,6 +190,9 @@ export default {
           })
         })
     },
+  },
+  computed: {
+    ...mapGetters(['isAdmin']),
   },
 }
 </script>

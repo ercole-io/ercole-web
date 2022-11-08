@@ -1,16 +1,5 @@
 <template>
-  <form
-    @submit.prevent="
-      login({
-        credentials: {
-          username: username,
-          password: password,
-        },
-        type: loginType,
-      })
-    "
-    class="login-form"
-  >
+  <form @submit.prevent="authLogin" class="login-form">
     <CustomField>
       <CustomSelect
         v-model="loginType"
@@ -89,11 +78,13 @@
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { required } from 'vuelidate/lib/validators'
 import { mapActions } from 'vuex'
 import ErrorMsg from '@/components/login/ErrorMsg.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
 import CustomSelect from '@/components/common/Form/CustomSelect.vue'
+import ChangePassModal from '@/views/profile/ChangePassModal.vue'
 
 export default {
   components: {
@@ -116,8 +107,32 @@ export default {
       required,
     },
   },
+  beforeMount() {
+    bus.$on('isLimited', () => {
+      this.$buefy.modal.open({
+        parent: this,
+        component: ChangePassModal,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+        props: {
+          limitedUsername: this.username,
+          oldPassword: this.password,
+        },
+      })
+    })
+  },
   methods: {
     ...mapActions(['login']),
+    authLogin() {
+      this.login({
+        credentials: {
+          username: this.username,
+          password: this.password,
+        },
+        type: this.loginType,
+      })
+    },
     required(field) {
       return this.$i18n.t('common.validations.required', [field])
     },
