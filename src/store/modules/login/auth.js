@@ -3,6 +3,7 @@ import { axiosRequest } from '@/services/services.js'
 import router from '@/router/index.js'
 import * as helpers from '@/helpers/helpers.js'
 import i18n from '@/i18n.js'
+import { bus } from '@/helpers/eventBus.js'
 
 export const state = () => {
   return {
@@ -61,6 +62,19 @@ export const actions = {
     }
 
     await axiosRequest('login', config, false)
+      .then((res) => {
+        const limited = _.includes(res.data.user.groups, 'limited')
+        if (limited) {
+          bus.$emit('isLimited')
+          const admin = _.includes(res.data.user.groups, 'admin')
+          commit('SET_ADMIN', admin)
+          const token = res.data.token
+          localStorage.setItem('token', token)
+          return
+        } else {
+          return res
+        }
+      })
       .then((res) => {
         const token = res.data.token
         const decodeToken = JSON.parse(atob(token.split('.')[1]))
