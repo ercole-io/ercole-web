@@ -555,12 +555,9 @@ export default {
       if (this.isUpdateLdap) {
         this.updateUser({
           data: {
-            username: this.userLdapForm.GivenName,
-            firstName: this.userLdapForm.Sn,
-            lastName: this.userLdapForm.Uid,
             groups: this.userLdapForm.groups,
           },
-          username: this.userLdapForm.GivenName,
+          username: this.userLdapForm.Uid,
           provider: this.provider,
         }).then(() => {
           this.resetForm()
