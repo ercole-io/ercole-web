@@ -52,6 +52,7 @@ export const getters = {
         usedLicenses: val.usedLicenses,
         clusterLicenses: val.clusterLicenses,
         fullPartNumber: val.fullPartNumber,
+        olvmCapped: val.olvmCapped,
       })
     })
 
