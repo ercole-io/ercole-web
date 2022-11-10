@@ -156,11 +156,11 @@
                   v-html="highlight(dbInfo.allocable)"
                 />
               </li>
-              <li v-if="dbInfo.allocable">
+              <li v-if="dbInfo.datafileSize">
                 <span>DataFile Size (GB)</span>
                 <span
-                  v-tooltip.right="options(dbInfo.allocable)"
-                  v-html="highlight(dbInfo.allocable)"
+                  v-tooltip.right="options(dbInfo.datafileSize)"
+                  v-html="highlight(dbInfo.datafileSize)"
                 />
               </li>
               <li v-if="dbInfo.segmentsSize">
