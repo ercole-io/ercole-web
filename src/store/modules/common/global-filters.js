@@ -16,6 +16,9 @@ export const getters = {
   getActiveFilters: (state) => {
     return state.activeFilters
   },
+  getLocations: (state) => {
+    return state.locations
+  },
 }
 
 export const mutations = {

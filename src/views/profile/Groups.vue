@@ -56,6 +56,7 @@
         :applyText="
           isUpdate ? $t('common.forms.update') : $t('common.forms.add')
         "
+        :isDisabled="$v.$invalid"
         :cancelText="$t('common.forms.cancel')"
         setMinHeight="580"
       >
