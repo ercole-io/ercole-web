@@ -38,4 +38,47 @@ export const actions = {
       dispatch('offLoadingTable')
     })
   },
+  async createRole({ dispatch }, payload) {
+    dispatch('onLoadingTable')
+
+    const config = {
+      method: 'post',
+      url: 'admin/roles',
+      data: payload,
+    }
+
+    await axiosRequest('baseApi', config).then(() => {
+      dispatch('getRoles')
+    })
+  },
+  async updateRole({ dispatch }, payload) {
+    dispatch('onLoadingTable')
+
+    const config = {
+      method: 'put',
+      url: `admin/roles/${payload.rolename}`,
+      data: payload.data,
+    }
+
+    await axiosRequest('baseApi', config).then(() => {
+      dispatch('getRoles')
+    })
+  },
+  async deleteRole({ dispatch }, rolename) {
+    dispatch('onLoadingTable')
+
+    const config = {
+      method: 'delete',
+      url: `admin/roles/${rolename}`,
+    }
+
+    await axiosRequest('baseApi', config)
+      .then(() => {
+        dispatch('getRoles')
+      })
+      .catch((err) => {
+        dispatch('offLoadingTable')
+        throw err.data
+      })
+  },
 }
