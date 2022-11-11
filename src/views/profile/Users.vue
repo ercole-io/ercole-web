@@ -290,7 +290,7 @@
                 </div>
               </template>
               <template slot="empty">
-                {{ $i18n.t('common.validations.noResults') }}
+                {{ ldapUserError }}
               </template>
             </b-autocomplete>
 
@@ -452,6 +452,7 @@ export default {
       searchGroup: '',
       ldapUsersData: [],
       ldapUserSelected: null,
+      ldapUserError: '',
     }
   },
   validations() {
@@ -628,9 +629,13 @@ export default {
         url: `users/ldap/${username}`,
       }
 
-      axiosRequest('baseApi', config).then((res) => {
-        this.ldapUsersData = res.data
-      })
+      axiosRequest('baseApi', config)
+        .then((res) => {
+          this.ldapUsersData = res.data
+        })
+        .catch((err) => {
+          this.ldapUserError = err.data.error
+        })
     }, 1000),
     selecteLdapUser(option) {
       if (option) {
