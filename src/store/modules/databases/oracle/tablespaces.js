@@ -17,12 +17,17 @@ export const mutations = {
 }
 
 export const actions = {
-  async getTablespaces({ commit, dispatch }) {
+  async getTablespaces({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const config = {
       method: 'get',
       url: 'hosts/technologies/oracle/databases/tablespaces',
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
 
     await axiosRequest('baseApi', config).then((res) => {
