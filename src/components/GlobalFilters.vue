@@ -208,6 +208,7 @@ export default {
       'getDbGrants',
       'getPatch',
       'getOptions',
+      'getTablespaces',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS', 'SET_ACTIVE_FILTERS']),
     expandFilters() {
@@ -314,6 +315,9 @@ export default {
         case 'options':
           this.getOptions().then(() => this.offLoadingTable())
           break
+        case 'tablespaces':
+          this.getTablespaces().then(() => this.offLoadingTable())
+          break
         default:
           return
       }
@@ -334,7 +338,6 @@ export default {
         this.$route.name !== 'oracle-recommendations' &&
         this.$route.name !== 'aws-profile-configurations' &&
         this.$route.name !== 'aws-recommendations' &&
-        this.$route.name !== 'tablespaces' &&
         this.$route.name !== 'backups' &&
         this.$route.name !== 'services' &&
         this.$route.name !== 'dbgrowth' &&
