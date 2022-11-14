@@ -214,6 +214,7 @@ export default {
       'getDbgrowth',
       'getSchemas',
       'getPdbs',
+      'getOracleHosts',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS', 'SET_ACTIVE_FILTERS']),
     expandFilters() {
@@ -338,6 +339,9 @@ export default {
         case 'pdbs':
           this.getPdbs().then(() => this.offLoadingTable())
           break
+        case 'cpu-time':
+          this.getOracleHosts().then(() => this.offLoadingTable())
+          break
         default:
           return
       }
@@ -358,7 +362,6 @@ export default {
         this.$route.name !== 'oracle-recommendations' &&
         this.$route.name !== 'aws-profile-configurations' &&
         this.$route.name !== 'aws-recommendations' &&
-        this.$route.name !== 'cpu-time' &&
         this.$route.name !== 'users' &&
         this.$route.name !== 'groups' &&
         this.$route.name !== 'roles'
