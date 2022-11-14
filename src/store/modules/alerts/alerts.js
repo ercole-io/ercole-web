@@ -203,6 +203,9 @@ export const actions = {
       page: getters.getPageNum,
       size: getters.getPerPage,
       search: getters.getSearchTherm,
+      'older-than': getters.getActiveFilters.date,
+      environment: getters.getActiveFilters.environment,
+      location: getters.getActiveFilters.location,
     }
 
     const config = {
