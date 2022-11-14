@@ -207,6 +207,7 @@ export default {
       'getAlertsData',
       'getDbGrants',
       'getPatch',
+      'getOptions',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS', 'SET_ACTIVE_FILTERS']),
     expandFilters() {
@@ -310,6 +311,9 @@ export default {
         case 'patch':
           this.getPatch().then(() => this.offLoadingTable())
           break
+        case 'options':
+          this.getOptions().then(() => this.offLoadingTable())
+          break
         default:
           return
       }
@@ -330,7 +334,6 @@ export default {
         this.$route.name !== 'oracle-recommendations' &&
         this.$route.name !== 'aws-profile-configurations' &&
         this.$route.name !== 'aws-recommendations' &&
-        this.$route.name !== 'options' &&
         this.$route.name !== 'tablespaces' &&
         this.$route.name !== 'backups' &&
         this.$route.name !== 'services' &&
