@@ -44,12 +44,17 @@ export const mutations = {
 }
 
 export const actions = {
-  async getDbgrowth({ commit, dispatch }) {
+  async getDbgrowth({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const config = {
       method: 'get',
       url: 'hosts/technologies/oracle/databases/change-list',
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
 
     await axiosRequest('baseApi', config).then((res) => {
