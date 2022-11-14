@@ -17,12 +17,17 @@ export const mutations = {
 }
 
 export const actions = {
-  async getSchemas({ commit, dispatch }) {
+  async getSchemas({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const config = {
       method: 'get',
       url: 'hosts/technologies/oracle/databases/schemas',
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
 
     await axiosRequest('baseApi', config).then((res) => {

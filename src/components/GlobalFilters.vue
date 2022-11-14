@@ -212,6 +212,7 @@ export default {
       'getBackups',
       'getServices',
       'getDbgrowth',
+      'getSchemas',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS', 'SET_ACTIVE_FILTERS']),
     expandFilters() {
@@ -330,6 +331,9 @@ export default {
         case 'dbgrowth':
           this.getDbgrowth().then(() => this.offLoadingTable())
           break
+        case 'schemas':
+          this.getSchemas().then(() => this.offLoadingTable())
+          break
         default:
           return
       }
@@ -350,7 +354,6 @@ export default {
         this.$route.name !== 'oracle-recommendations' &&
         this.$route.name !== 'aws-profile-configurations' &&
         this.$route.name !== 'aws-recommendations' &&
-        this.$route.name !== 'schemas' &&
         this.$route.name !== 'pdbs' &&
         this.$route.name !== 'cpu-time' &&
         this.$route.name !== 'users' &&
