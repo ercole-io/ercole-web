@@ -37,12 +37,17 @@ export const mutations = {
 }
 
 export const actions = {
-  async getDbGrants({ commit, dispatch }) {
+  async getDbGrants({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const config = {
       method: 'get',
       url: 'hosts/technologies/all/databases/grant-dba',
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
 
     await axiosRequest('baseApi', config).then((res) => {

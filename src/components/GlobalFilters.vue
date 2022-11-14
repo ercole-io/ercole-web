@@ -205,6 +205,7 @@ export default {
       'getLicensesClusters',
       'getLicensesDatabases',
       'getAlertsData',
+      'getDbGrants',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS', 'SET_ACTIVE_FILTERS']),
     expandFilters() {
@@ -302,6 +303,9 @@ export default {
         case 'alerts':
           this.getAlertsData().then(() => this.offLoadingTable())
           break
+        case 'dba-role':
+          this.getDbGrants().then(() => this.offLoadingTable())
+          break
         default:
           return
       }
@@ -322,7 +326,6 @@ export default {
         this.$route.name !== 'oracle-recommendations' &&
         this.$route.name !== 'aws-profile-configurations' &&
         this.$route.name !== 'aws-recommendations' &&
-        this.$route.name !== 'dba-role' &&
         this.$route.name !== 'patch' &&
         this.$route.name !== 'options' &&
         this.$route.name !== 'tablespaces' &&
