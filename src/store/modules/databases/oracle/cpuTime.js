@@ -70,10 +70,15 @@ export const mutations = {
 }
 
 export const actions = {
-  async getOracleHosts({ commit }) {
+  async getOracleHosts({ commit, getters }) {
     const config = {
       method: 'get',
       url: 'hosts/technologies/oracle/databases',
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
 
     await axiosRequest('baseApi', config).then((res) => {
