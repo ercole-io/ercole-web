@@ -210,6 +210,7 @@ export default {
       'getOptions',
       'getTablespaces',
       'getBackups',
+      'getServices',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS', 'SET_ACTIVE_FILTERS']),
     expandFilters() {
@@ -322,6 +323,9 @@ export default {
         case 'backups':
           this.getBackups().then(() => this.offLoadingTable())
           break
+        case 'services':
+          this.getServices().then(() => this.offLoadingTable())
+          break
         default:
           return
       }
@@ -342,7 +346,6 @@ export default {
         this.$route.name !== 'oracle-recommendations' &&
         this.$route.name !== 'aws-profile-configurations' &&
         this.$route.name !== 'aws-recommendations' &&
-        this.$route.name !== 'services' &&
         this.$route.name !== 'dbgrowth' &&
         this.$route.name !== 'schemas' &&
         this.$route.name !== 'pdbs' &&
