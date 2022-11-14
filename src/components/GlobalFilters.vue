@@ -118,7 +118,6 @@
           class="filters-field"
           custom-class="is-size-7"
           horizontal
-          v-show="$route.name !== 'alerts'"
         >
           <b-datepicker
             v-model="glFilters.date"
@@ -205,8 +204,9 @@ export default {
       'getLicensesHosts',
       'getLicensesClusters',
       'getLicensesDatabases',
+      'getAlertsData',
     ]),
-    ...mapMutations(['SET_OPEN_FILTERS']),
+    ...mapMutations(['SET_OPEN_FILTERS', 'SET_ACTIVE_FILTERS']),
     expandFilters() {
       this.isFiltersOpened = !this.isFiltersOpened
       if (this.isFiltersOpened) {
@@ -299,6 +299,9 @@ export default {
         case 'postgresql':
           this.getPostgreSqlDbs().then(() => this.offLoadingTable())
           break
+        case 'alerts':
+          this.getAlertsData().then(() => this.offLoadingTable())
+          break
         default:
           return
       }
@@ -319,7 +322,6 @@ export default {
         this.$route.name !== 'oracle-recommendations' &&
         this.$route.name !== 'aws-profile-configurations' &&
         this.$route.name !== 'aws-recommendations' &&
-        this.$route.name !== 'alerts' &&
         this.$route.name !== 'dba-role' &&
         this.$route.name !== 'patch' &&
         this.$route.name !== 'options' &&
