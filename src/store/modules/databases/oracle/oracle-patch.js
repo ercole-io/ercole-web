@@ -32,12 +32,17 @@ export const mutations = {
 }
 
 export const actions = {
-  async getPatch({ commit, dispatch }) {
+  async getPatch({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const config = {
       method: 'get',
       url: 'hosts/technologies/oracle/databases/patch-list',
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
 
     await axiosRequest('baseApi', config).then((res) => {
