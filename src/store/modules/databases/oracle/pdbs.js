@@ -19,12 +19,17 @@ export const mutations = {
 }
 
 export const actions = {
-  async getPdbs({ commit, dispatch }) {
+  async getPdbs({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const config = {
       method: 'get',
       url: 'hosts/technologies/oracle/databases/pdbs',
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
     }
 
     await axiosRequest('baseApi', config).then((res) => {
