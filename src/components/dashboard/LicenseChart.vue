@@ -170,11 +170,14 @@ export default {
     await this.getLicenseHistory().then(() => {
       this.loading = false
     })
-    this.selectedType = this.getChartLicenseHistory[0].full
 
-    this.getCurrentMonthDates()
+    if (this.getChartLicenseHistory && this.getChartLicenseHistory[0]) {
+      this.selectedType = this.getChartLicenseHistory[0].full
 
-    this.mountLincenseChart()
+      this.getCurrentMonthDates()
+
+      this.mountLincenseChart()
+    }
   },
   methods: {
     ...mapActions(['getLicenseHistory']),
