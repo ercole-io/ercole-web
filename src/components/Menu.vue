@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { SidebarMenu } from 'vue-sidebar-menu'
 import { mapGetters } from 'vuex'
 
@@ -26,9 +27,18 @@ export default {
     onToggleCollapse(collapsed) {
       this.$emit('collapsedSidebar', collapsed)
     },
+    checkMenu(name, parent) {
+      if (
+        _.filter(this.getDynamicMenu, _.matches({ name: name, parent: parent }))
+          .length > 0
+      ) {
+        return false
+      }
+      return true
+    },
   },
   computed: {
-    ...mapGetters(['getCloudActiveProfiles']),
+    ...mapGetters(['getCloudActiveProfiles', 'getDynamicMenu']),
     menu() {
       return [
         {
@@ -36,28 +46,33 @@ export default {
           title: this.$i18n.t('menu.dashboard'),
           icon: 'fas fa-home',
           attributes: { 'data-cy': 'mn-dashboard' },
+          hidden: this.checkMenu('Dashboard', ''),
         },
         {
           href: { name: 'hosts' },
           title: this.$i18n.t('menu.hosts'),
           icon: 'fas fa-server',
           attributes: { 'data-cy': 'mn-hosts' },
+          hidden: this.checkMenu('Hosts', ''),
         },
         {
           title: this.$i18n.t('menu.databases'),
           icon: 'fas fa-database',
           attributes: { 'data-cy': 'mn-databases' },
+          hidden: this.checkMenu('Databases', ''),
           child: [
             {
               title: this.$i18n.t('menu.allTechs'),
               href: { path: '/databases' },
               icon: 'fas fa-server',
               attributes: { 'data-cy': 'mn-all-technologies' },
+              hidden: this.checkMenu('All Technologies', 'Databases'),
             },
             {
               title: this.$i18n.t('menu.oracle'),
               icon: 'oracle-logo',
               attributes: { 'data-cy': 'mn-oracle' },
+              hidden: this.checkMenu('Oracle', 'Databases'),
               child: [
                 {
                   title: this.$i18n.t('menu.dbList'),
@@ -65,6 +80,7 @@ export default {
                   icon: 'fas fa-database',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-list' },
+                  hidden: this.checkMenu('DB List', 'Oracle'),
                 },
                 {
                   href: { name: 'addm' },
@@ -72,6 +88,7 @@ export default {
                   icon: 'fas fa-heartbeat',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-addm' },
+                  hidden: this.checkMenu('ADDM', 'Oracle'),
                 },
                 {
                   href: { name: 'segment-advisor' },
@@ -79,6 +96,7 @@ export default {
                   icon: 'fas fa-columns',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-segment-advisor' },
+                  hidden: this.checkMenu('Segment Advisor', 'Oracle'),
                 },
                 {
                   href: { name: 'patch-advisor' },
@@ -86,6 +104,7 @@ export default {
                   icon: 'fas fa-band-aid',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-patch-advisor' },
+                  hidden: this.checkMenu('Patch Advisor', 'Oracle'),
                 },
                 {
                   href: { name: 'dba-role' },
@@ -93,6 +112,7 @@ export default {
                   icon: 'fas fa-server',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-dba-role' },
+                  hidden: this.checkMenu('DBA Role', 'Oracle'),
                 },
                 {
                   href: { name: 'patch' },
@@ -100,6 +120,7 @@ export default {
                   icon: 'fas fa-adjust',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-patch' },
+                  hidden: this.checkMenu('Patch', 'Oracle'),
                 },
                 {
                   href: { name: 'options' },
@@ -107,6 +128,7 @@ export default {
                   icon: 'fas fa-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-options' },
+                  hidden: this.checkMenu('Options', 'Oracle'),
                 },
                 {
                   href: { name: 'tablespaces' },
@@ -114,6 +136,7 @@ export default {
                   icon: 'fas fa-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-tablespaces' },
+                  hidden: this.checkMenu('Tablespaces', 'Oracle'),
                 },
                 {
                   href: { name: 'backups' },
@@ -121,6 +144,7 @@ export default {
                   icon: 'fas fa-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-backups' },
+                  hidden: this.checkMenu('Backups', 'Oracle'),
                 },
                 {
                   href: { name: 'services' },
@@ -128,6 +152,7 @@ export default {
                   icon: 'fas fa-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-services' },
+                  hidden: this.checkMenu('Services', 'Oracle'),
                 },
                 {
                   href: { name: 'dbgrowth' },
@@ -135,6 +160,7 @@ export default {
                   icon: 'fas fa-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-dbgrowth' },
+                  hidden: this.checkMenu('DB Growth', 'Oracle'),
                 },
                 {
                   href: { name: 'schemas' },
@@ -142,6 +168,7 @@ export default {
                   icon: 'fas fa-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-schemas' },
+                  hidden: this.checkMenu('Schemas', 'Oracle'),
                 },
                 {
                   href: { name: 'pdbs' },
@@ -149,6 +176,7 @@ export default {
                   icon: 'fas fa-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-pdbs' },
+                  hidden: this.checkMenu('Pluggable DBs', 'Oracle'),
                 },
                 {
                   href: { name: 'cpu-time' },
@@ -156,6 +184,7 @@ export default {
                   icon: 'fas fa-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-cpu-time' },
+                  hidden: this.checkMenu('CPU Time', 'Oracle'),
                 },
               ],
             },
@@ -163,6 +192,7 @@ export default {
               title: this.$i18n.t('menu.mysql'),
               icon: 'mysql-logo',
               attributes: { 'data-cy': 'mn-mysql' },
+              hidden: this.checkMenu('MySQL', 'Databases'),
               child: [
                 {
                   title: this.$i18n.t('menu.dbList'),
@@ -170,6 +200,7 @@ export default {
                   icon: 'fas fa-database',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-mysql-list' },
+                  hidden: this.checkMenu('DB List', 'MySQL'),
                 },
               ],
             },
@@ -177,6 +208,7 @@ export default {
               title: this.$i18n.t('menu.microsoft'),
               icon: 'microsoft-logo',
               attributes: { 'data-cy': 'mn-microsoft' },
+              hidden: this.checkMenu('Microsoft', 'Databases'),
               child: [
                 {
                   title: this.$i18n.t('menu.dbList'),
@@ -184,6 +216,7 @@ export default {
                   icon: 'fas fa-database',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-microsoft-list' },
+                  hidden: this.checkMenu('DB List', 'Microsoft'),
                 },
               ],
             },
@@ -191,6 +224,7 @@ export default {
               title: this.$i18n.t('menu.postgresql'),
               icon: 'postgresql-logo',
               attributes: { 'data-cy': 'mn-postgresql' },
+              hidden: this.checkMenu('PostgreSQL', 'Databases'),
               child: [
                 {
                   title: this.$i18n.t('menu.dbList'),
@@ -198,6 +232,7 @@ export default {
                   icon: 'fas fa-database',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-postgresql-list' },
+                  hidden: this.checkMenu('DB LIst', 'PostgreSQL'),
                 },
               ],
             },
@@ -208,41 +243,48 @@ export default {
           title: this.$i18n.t('menu.hypervisors'),
           icon: 'fas fa-object-group',
           attributes: { 'data-cy': 'mn-hypervisors' },
+          hidden: this.checkMenu('Hypervisors', ''),
         },
         {
           href: { name: 'engineered-systems' },
           title: this.$i18n.t('menu.engSystems'),
           icon: 'far fa-calendar-times',
           attributes: { 'data-cy': 'mn-engineered-systems' },
+          hidden: this.checkMenu('Engineered Systems', ''),
         },
         {
           href: { name: 'alerts' },
           title: this.$i18n.t('menu.alerts'),
           icon: 'fas fa-bell',
           attributes: { 'data-cy': 'mn-alerts' },
+          hidden: this.checkMenu('Alerts', ''),
         },
         {
           title: this.$i18n.t('menu.licenses'),
           icon: 'fas fa-dollar-sign',
           attributes: { 'data-cy': 'mn-licenses' },
+          hidden: this.checkMenu('Licenses', ''),
           child: [
             {
               href: { name: 'licenses-contract' },
               title: this.$i18n.t('menu.licContracts'),
               icon: 'fas fa-cog',
               attributes: { 'data-cy': 'mn-licenses-contract' },
+              hidden: this.checkMenu('Licenses Contract', 'Licenses'),
             },
             {
               href: { name: 'licenses-compliance' },
               title: this.$i18n.t('menu.licCompliance'),
               icon: 'fas fa-cog',
               attributes: { 'data-cy': 'mn-licenses-compliance' },
+              hidden: this.checkMenu('Licenses Compliance', 'Licenses'),
             },
             {
               href: { name: 'licenses-used' },
               title: this.$i18n.t('menu.licUsed'),
               icon: 'fas fa-cog',
               attributes: { 'data-cy': 'mn-licenses-used' },
+              hidden: this.checkMenu('Licenses Used', 'Licenses'),
             },
           ],
         },
@@ -250,11 +292,13 @@ export default {
           title: this.$i18n.t('menu.cloudAdvisor'),
           icon: 'fas fa-cloud',
           attributes: { 'data-cy': 'mn-cloud' },
+          hidden: this.checkMenu('Cloud Advisors', ''),
           child: [
             {
               title: this.$i18n.t('menu.oracle'),
               icon: 'fas fa-cloud',
               attributes: { 'data-cy': 'mn-cloud-oracle' },
+              hidden: this.checkMenu('Oracle', 'Cloud Advisors'),
               child: [
                 {
                   href: { name: 'oracle-profile-configurations' },
@@ -262,6 +306,7 @@ export default {
                   icon: 'fas fa-user-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-cloud-oracle-profile' },
+                  hidden: this.checkMenu('Profile Configuration', 'Oracle'),
                 },
                 {
                   href: { name: 'oracle-recommendations' },
@@ -270,6 +315,7 @@ export default {
                   class: 'menu-third-level',
                   disabled: !this.getCloudActiveProfiles('oci'),
                   attributes: { 'data-cy': 'mn-cloud-oracle-recommendations' },
+                  hidden: this.checkMenu('Recommendations', 'Oracle'),
                 },
               ],
             },
@@ -277,6 +323,7 @@ export default {
               title: this.$i18n.t('menu.aws'),
               icon: 'fas fa-cloud',
               attributes: { 'data-cy': 'mn-cloud-aws' },
+              hidden: this.checkMenu('AWS', 'Cloud Advisors'),
               child: [
                 {
                   href: { name: 'aws-profile-configurations' },
@@ -284,6 +331,7 @@ export default {
                   icon: 'fas fa-user-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-cloud-aws-profile' },
+                  hidden: this.checkMenu('Profile Configuration', 'AWS'),
                 },
                 {
                   href: { name: 'aws-recommendations' },
@@ -292,6 +340,7 @@ export default {
                   class: 'menu-third-level',
                   disabled: !this.getCloudActiveProfiles('aws'),
                   attributes: { 'data-cy': 'mn-cloud-aws-recommendations' },
+                  hidden: this.checkMenu('Recommendations', 'AWS'),
                 },
               ],
             },
@@ -302,6 +351,7 @@ export default {
           title: this.$i18n.t('menu.repository'),
           icon: 'fas fa-download',
           attributes: { 'data-cy': 'mn-repository' },
+          hidden: this.checkMenu('Repository', ''),
         },
       ]
     },

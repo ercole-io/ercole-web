@@ -95,6 +95,9 @@ export const actions = {
         commit('SET_USER_ROLE', userRole)
         commit('LOGIN_SUCCESS')
         helpers.setLocalStorageAuth(payload)
+      })
+      .then(() => {
+        dispatch('requestDynamicMenu')
         dispatch('setErrMsg', null)
         dispatch('getHosts')
         dispatch('getClusters')
