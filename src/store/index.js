@@ -27,6 +27,8 @@ import * as rangeDates from '@/store/modules/common/range-dates'
 
 // Login
 import * as auth from '@/store/modules/login/auth'
+// Menu
+import * as menu from '@/store/modules/menu/menu'
 // dashboard
 import * as dashboard from '@/store/modules/dashboard/dashboard'
 // Hosts
@@ -90,6 +92,7 @@ export default new Vuex.Store({
     errors,
     tableInterations,
     auth,
+    menu,
     dashboard,
     hosts,
     hostnames,
@@ -152,6 +155,7 @@ export default new Vuex.Store({
         'columnToggle',
         'cloudActiveProfiles.ociActiveProfile',
         'cloudActiveProfiles.awsActiveProfile',
+        'menu',
       ],
     }),
   ],
