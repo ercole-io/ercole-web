@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
@@ -7,14 +6,7 @@ export const state = () => ({
 
 export const getters = {
   showRoles: (state) => {
-    const roles = []
-    _.map(state.roles, (role) => {
-      roles.push({
-        name: role.name,
-        description: role.description,
-      })
-    })
-    return roles
+    return state.roles
   },
 }
 
