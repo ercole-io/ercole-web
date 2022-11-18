@@ -87,21 +87,14 @@
           </template>
         </b-field>
 
-        <b-field
-          label="Location"
-          custom-class="is-small"
-          :type="{
-            'is-danger': $v.roleForm.location.$error,
-          }"
-        >
+        <b-field label="Location" custom-class="is-small">
           <b-select
-            @blur="$v.roleForm.location.$touch()"
-            @input="$v.roleForm.location.$touch()"
             size="is-small"
             placeholder="Select"
             v-model="roleForm.location"
             expanded
           >
+            <option value="">All</option>
             <option
               v-for="location in getLocations"
               :key="location"
@@ -110,10 +103,32 @@
               {{ location }}
             </option>
           </b-select>
+        </b-field>
+
+        <b-field
+          label="Permission"
+          custom-class="is-small"
+          :type="{
+            'is-danger': $v.roleForm.permission.$error,
+          }"
+        >
+          <b-select
+            @blur="$v.roleForm.permission.$touch()"
+            @input="$v.roleForm.permission.$touch()"
+            size="is-small"
+            placeholder="Select"
+            v-model="roleForm.permission"
+            expanded
+          >
+            <option value="admin">Admin</option>
+            <option value="read">Read</option>
+            <option value="write">Write</option>
+          </b-select>
           <template #message>
             <div
               v-if="
-                !$v.roleForm.location.required && $v.roleForm.location.$error
+                !$v.roleForm.permission.required &&
+                $v.roleForm.permission.$error
               "
             >
               {{ $i18n.t('common.validations.requiredAlt') }}
@@ -121,7 +136,7 @@
           </template>
         </b-field>
 
-        <b-field
+        <!-- <b-field
           label="Permission"
           custom-class="is-small"
           :type="{
@@ -145,7 +160,7 @@
               {{ $i18n.t('common.validations.requiredAlt') }}
             </div>
           </template>
-        </b-field>
+        </b-field> -->
 
         <b-field
           label="Role Description"
@@ -213,7 +228,6 @@ export default {
       roleForm: {
         name: { required, noSpaces },
         description: { required },
-        location: { required },
         permission: { required },
       },
     }
