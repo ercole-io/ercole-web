@@ -353,6 +353,13 @@ export default {
           attributes: { 'data-cy': 'mn-repository' },
           hidden: this.checkMenu('Repository', ''),
         },
+        {
+          href: { name: 'settings' },
+          title: this.$i18n.t('menu.settings'),
+          icon: 'fas fa-cog',
+          attributes: { 'data-cy': 'mn-settings' },
+          hidden: !this.checkMenu('Settings', ''),
+        },
       ]
     },
   },
