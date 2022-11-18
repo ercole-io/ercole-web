@@ -78,6 +78,8 @@ import * as cloudTechnology from '@/store/modules/cloud/cloudTechnology'
 import * as cloudProfileConfig from '@/store/modules/cloud/profileConfig'
 import * as cloudRecommendations from '@/store/modules/cloud/recommendations'
 import * as cloudActiveProfiles from '@/store/modules/cloud/activeProfiles'
+// Settings
+import * as settings from '@/store/modules/settings/settings'
 // Profile Management
 import * as users from '@/store/modules/profile/users'
 import * as groups from '@/store/modules/profile/groups'
@@ -143,6 +145,7 @@ export default new Vuex.Store({
     users,
     groups,
     roles,
+    settings,
   },
   plugins: [
     createPersistedState({

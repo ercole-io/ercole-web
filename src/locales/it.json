@@ -40,7 +40,8 @@
     "services": "Servizi",
     "schemas": "Schemas",
     "pdbs": "Pluggable DBs",
-    "cpu-time": "CPU Time"
+    "cpu-time": "CPU Time",
+    "settings": "Settings"
   },
   "header": {
     "logout": "Disconnettersi"
