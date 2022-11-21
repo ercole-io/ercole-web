@@ -94,7 +94,7 @@
             v-model="roleForm.location"
             expanded
           >
-            <option value="">All</option>
+            <option value="All">All</option>
             <option
               v-for="location in getLocations"
               :key="location"
@@ -217,7 +217,7 @@ export default {
       roleForm: {
         name: '',
         description: '',
-        location: '',
+        location: 'All',
         permission: '',
       },
       isUpdate: false,
@@ -294,7 +294,7 @@ export default {
       this.roleForm = {
         name: '',
         description: '',
-        location: '',
+        location: 'All',
         permission: '',
       }
     },
