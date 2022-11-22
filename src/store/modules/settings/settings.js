@@ -1,36 +1,33 @@
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
-  settings: [],
+  allSettings: {},
 })
 
 export const getters = {
-  getAllSettings: (state) => {
-    return state.settings
-  },
-  getDataService: (state) => {
-    return state.settings.DataService
+  getAPIService: (state) => {
+    return state.allSettings.APIService
   },
   getAlertService: (state) => {
-    return state.settings.AlertService
-  },
-  getAPIService: (state) => {
-    return state.settings.APIService
+    return state.allSettings.AlertService
   },
   getChartService: (state) => {
-    return state.settings.ChartService
+    return state.allSettings.ChartService
   },
-  getThunderService: (state) => {
-    return state.settings.ThunderService
+  getDataService: (state) => {
+    return state.allSettings.DataService
   },
   getResourceFilePath: (state) => {
-    return state.settings.ResourceFilePath
+    return state.allSettings.ResourceFilePath
+  },
+  getThunderService: (state) => {
+    return state.allSettings.ThunderService
   },
 }
 
 export const mutations = {
   SET_SETTINGS: (state, payload) => {
-    state.settings = payload
+    state.allSettings = payload
   },
 }
 
@@ -42,6 +39,16 @@ export const actions = {
     }
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_SETTINGS', res.data)
+    })
+  },
+  async saveSettings({ dispatch }, data) {
+    const config = {
+      method: 'post',
+      url: '/configuration',
+      data: data,
+    }
+    await axiosRequest('baseApi', config).then(() => {
+      dispatch('requestSettings')
     })
   },
 }
