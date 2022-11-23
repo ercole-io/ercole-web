@@ -154,55 +154,9 @@
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import settings from '@/mixins/settings/settings.js'
-import Loading from '@/components/common/Loading.vue'
-import CustomField from '@/components/common/Form/CustomField.vue'
-import CustomInput from '@/components/common/Form/CustomInput.vue'
-import CustomRadio from '@/components/common/Form/CustomRadio.vue'
-
-// import VueJsonPretty from 'vue-json-pretty'
-// import 'vue-json-pretty/lib/styles.css'
 
 export default {
   mixins: [settings],
-  components: {
-    Loading,
-    CustomField,
-    CustomInput,
-    CustomRadio,
-    // VueJsonPretty,
-  },
-  data() {
-    return {
-      APIService: {
-        RemoteEndpoint: null,
-        Port: null,
-        BindIP: null,
-        LogHTTPRequest: null,
-        ReadOnly: null,
-        DebugOracleDatabaseContractsAssignmentAlgorithm: null,
-        AuthenticationProvider: {
-          Types: null,
-          Username: null,
-          Password: null,
-          PrivateKey: null,
-          PublicKey: null,
-          TokenValidityTimeout: null,
-          Host: null,
-          Port: null,
-          LDAPBase: null,
-          LDAPBindDN: null,
-          LDAPBindPassword: null,
-          LDAPUserFilter: null,
-        },
-        OperatingSystemAggregationRules: null,
-        DefaultDatabaseTags: null,
-      },
-      // masks: {
-      //   ip: [],
-      // },
-      // :inputMask="'#?#?#.#?#?#.#?#?#.#?#?#'"
-    }
-  },
   beforeMount() {
     this.bindOriginalApiServiceData()
 
