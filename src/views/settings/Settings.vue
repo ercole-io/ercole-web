@@ -25,12 +25,10 @@
 
       <template slot="Alert Service">
         <AlertService />
-        <!-- <VueJsonPretty :data="getAlertService" /> -->
       </template>
 
       <template slot="Chart Service">
         <ChartService />
-        <!-- <VueJsonPretty :data="getChartService" /> -->
       </template>
 
       <template slot="Data Service">
