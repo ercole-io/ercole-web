@@ -6,8 +6,8 @@ import CustomField from '@/components/common/Form/CustomField.vue'
 import CustomInput from '@/components/common/Form/CustomInput.vue'
 import CustomRadio from '@/components/common/Form/CustomRadio.vue'
 
-// import VueJsonPretty from 'vue-json-pretty'
-// import 'vue-json-pretty/lib/styles.css'
+import VueJsonPretty from 'vue-json-pretty'
+import 'vue-json-pretty/lib/styles.css'
 
 // masks: {
 //   ip: [],
@@ -20,7 +20,7 @@ export default {
     CustomField,
     CustomInput,
     CustomRadio,
-    // VueJsonPretty,,
+    VueJsonPretty,
   },
   data() {
     return {
@@ -71,6 +71,13 @@ export default {
         },
       },
       alertServiceLoading: false,
+      ChartService: {
+        RemoteEndpoint: null,
+        BindIP: null,
+        Port: null,
+        LogHTTPRequest: null,
+      },
+      chartServiceLoading: false,
     }
   },
   methods: {
@@ -87,6 +94,7 @@ export default {
       this.saveSettings(data).then(() => {
         this.apiServiceLoading = false
         this.alertServiceLoading = false
+        this.chartServiceLoading = false
       })
     },
     resetAllSettings() {
