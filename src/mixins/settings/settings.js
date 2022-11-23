@@ -77,7 +77,33 @@ export default {
         Port: null,
         LogHTTPRequest: null,
       },
-      chartServiceLoading: false,
+      chartServiceLoading: null,
+      DataService: {
+        RemoteEndpoint: null,
+        BindIP: null,
+        Port: null,
+        LogHTTPRequest: null,
+        LogInsertingHostdata: null,
+        AgentUsername: null,
+        AgentPassword: null,
+        CurrentHostCleaningJob: {
+          Crontab: null,
+          HourThreshold: null,
+          RunAtStartup: null,
+        },
+        ArchivedHostCleaningJob: {
+          Crontab: null,
+          HourThreshold: null,
+          RunAtStartup: null,
+        },
+        FreshnessCheckJob: {
+          Crontab: null,
+          RunAtStartup: null,
+        },
+        LicenseTypeMetricsDefault: null,
+        LicenseTypeMetricsByEnvironment: null,
+      },
+      dataServiceLoading: null,
     }
   },
   methods: {
@@ -95,6 +121,7 @@ export default {
         this.apiServiceLoading = false
         this.alertServiceLoading = false
         this.chartServiceLoading = false
+        this.dataServiceLoading = false
       })
     },
     resetAllSettings() {

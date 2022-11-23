@@ -33,7 +33,6 @@
 
       <template slot="Data Service">
         <DataService />
-        <!-- <VueJsonPretty :data="getDataService" /> -->
       </template>
 
       <template slot="Resource File Path">
