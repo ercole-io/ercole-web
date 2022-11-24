@@ -232,7 +232,7 @@ export default {
                   icon: 'fas fa-database',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-postgresql-list' },
-                  hidden: this.checkMenu('DB LIst', 'PostgreSQL'),
+                  hidden: this.checkMenu('DB List', 'PostgreSQL'),
                 },
               ],
             },
