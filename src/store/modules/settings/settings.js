@@ -42,8 +42,6 @@ export const actions = {
     })
   },
   async saveSettings({ dispatch }, data) {
-    console.log(data)
-
     const config = {
       method: 'post',
       url: '/configuration',

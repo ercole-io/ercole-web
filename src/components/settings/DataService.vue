@@ -15,7 +15,7 @@
       <b-button
         type="is-custom-primary"
         size="is-small"
-        @click="saveDataServiceSettings"
+        @click="submitSettings('dataService')"
       >
         Save
       </b-button>
@@ -170,69 +170,11 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
-import { mapGetters } from 'vuex'
 import settings from '@/mixins/settings/settings.js'
 
 export default {
   mixins: [settings],
-  beforeMount() {
-    this.bindOriginalDataServiceData()
-
-    bus.$on('resetAllSettings', () => {
-      this.bindOriginalDataServiceData()
-    })
-  },
-  methods: {
-    bindOriginalDataServiceData() {
-      this.DataService = {
-        RemoteEndpoint: this.getDataService.RemoteEndpoint,
-        BindIP: this.getDataService.BindIP,
-        Port: this.getDataService.Port,
-        LogHTTPRequest: this.getDataService.LogHTTPRequest,
-        LogInsertingHostdata: this.getDataService.LogInsertingHostdata,
-        AgentUsername: this.getDataService.AgentUsername,
-        AgentPassword: this.getDataService.AgentPassword,
-        CurrentHostCleaningJob: {
-          Crontab: this.getDataService.CurrentHostCleaningJob.Crontab,
-          HourThreshold:
-            this.getDataService.CurrentHostCleaningJob.HourThreshold,
-          RunAtStartup: this.getDataService.CurrentHostCleaningJob.RunAtStartup,
-        },
-        ArchivedHostCleaningJob: {
-          Crontab: this.getDataService.ArchivedHostCleaningJob.Crontab,
-          HourThreshold:
-            this.getDataService.ArchivedHostCleaningJob.HourThreshold,
-          RunAtStartup:
-            this.getDataService.ArchivedHostCleaningJob.RunAtStartup,
-        },
-        FreshnessCheckJob: {
-          Crontab: this.getDataService.FreshnessCheckJob.Crontab,
-          RunAtStartup: this.getDataService.FreshnessCheckJob.RunAtStartup,
-        },
-        LicenseTypeMetricsDefault:
-          this.getDataService.LicenseTypeMetricsDefault,
-        LicenseTypeMetricsByEnvironment:
-          this.getDataService.LicenseTypeMetricsByEnvironment,
-      }
-    },
-    saveDataServiceSettings() {
-      this.dataServiceLoading = true
-      this.submitSettings()
-    },
-    resetDataService() {
-      console.log('reset data service')
-      this.bindOriginalDataServiceData()
-    },
-  },
-  computed: {
-    ...mapGetters(['getDataService']),
-  },
 }
 </script>
 
-<style lang="scss" scoped>
-.customLabel {
-  width: 250px !important;
-}
-</style>
+<style lang="scss" scoped></style>

@@ -15,7 +15,7 @@
       <b-button
         type="is-custom-primary"
         size="is-small"
-        @click="saveChartServiceSettings"
+        @click="submitSettings('chartService')"
       >
         Save
       </b-button>
@@ -50,45 +50,11 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
-import { mapGetters } from 'vuex'
 import settings from '@/mixins/settings/settings.js'
 
 export default {
   mixins: [settings],
-  beforeMount() {
-    this.bindOriginalChartServiceData()
-
-    bus.$on('resetAllSettings', () => {
-      this.bindOriginalChartServiceData()
-    })
-  },
-  methods: {
-    bindOriginalChartServiceData() {
-      this.ChartService = {
-        RemoteEndpoint: this.getChartService.RemoteEndpoint,
-        BindIP: this.getChartService.BindIP,
-        Port: this.getChartService.Port,
-        LogHTTPRequest: this.getChartService.LogHTTPRequest,
-      }
-    },
-    saveChartServiceSettings() {
-      this.chartServiceLoading = true
-      this.submitSettings()
-    },
-    resetChartService() {
-      console.log('reset chart service')
-      this.bindOriginalChartServiceData()
-    },
-  },
-  computed: {
-    ...mapGetters(['getChartService']),
-  },
 }
 </script>
 
-<style lang="scss" scoped>
-.customLabel {
-  width: 250px !important;
-}
-</style>
+<style lang="scss" scoped></style>

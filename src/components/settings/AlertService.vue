@@ -15,7 +15,7 @@
       <b-button
         type="is-custom-primary"
         size="is-small"
-        @click="saveAlertServiceSettings"
+        @click="submitSettings('alertService')"
       >
         Save
       </b-button>
@@ -139,61 +139,11 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
-import { mapGetters } from 'vuex'
 import settings from '@/mixins/settings/settings.js'
 
 export default {
   mixins: [settings],
-  beforeMount() {
-    this.bindOriginalAlertServiceData()
-
-    bus.$on('resetAllSettings', () => {
-      this.bindOriginalAlertServiceData()
-    })
-  },
-  methods: {
-    bindOriginalAlertServiceData() {
-      this.AlertService = {
-        RemoteEndpoint: this.getAlertService.RemoteEndpoint,
-        BindIP: this.getAlertService.BindIP,
-        Port: this.getAlertService.Port,
-        LogHTTPRequest: this.getAlertService.LogHTTPRequest,
-        LogMessages: this.getAlertService.LogMessages,
-        LogAlertThrows: this.getAlertService.LogAlertThrows,
-        PublisherUsername: this.getAlertService.PublisherUsername,
-        PublisherPassword: this.getAlertService.PublisherPassword,
-        QueueBufferSize: this.getAlertService.QueueBufferSize,
-        Emailer: {
-          Enabled: this.getAlertService.Emailer.Enabled,
-          From: this.getAlertService.Emailer.From,
-          To: this.getAlertService.Emailer.To,
-          SMTPServer: this.getAlertService.Emailer.SMTPServer,
-          SMTPPort: this.getAlertService.Emailer.SMTPPort,
-          SMTPUsername: this.getAlertService.Emailer.SMTPUsername,
-          SMTPPassword: this.getAlertService.Emailer.SMTPPassword,
-          DisableSSLCertificateValidation:
-            this.getAlertService.Emailer.DisableSSLCertificateValidation,
-        },
-      }
-    },
-    saveAlertServiceSettings() {
-      this.alertServiceLoading = true
-      this.submitSettings()
-    },
-    resetAlertService() {
-      console.log('reset alert service')
-      this.bindOriginalAlertServiceData()
-    },
-  },
-  computed: {
-    ...mapGetters(['getAlertService']),
-  },
 }
 </script>
 
-<style lang="scss" scoped>
-.customLabel {
-  width: 250px !important;
-}
-</style>
+<style lang="scss" scoped></style>
