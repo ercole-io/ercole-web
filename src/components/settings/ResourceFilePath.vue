@@ -15,7 +15,7 @@
       <b-button
         type="is-custom-primary"
         size="is-small"
-        @click="saveResourceFilePathSettings"
+        @click="submitSettings('resourceFilePath')"
       >
         Save
       </b-button>
@@ -32,35 +32,10 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
-import { mapGetters } from 'vuex'
 import settings from '@/mixins/settings/settings.js'
 
 export default {
   mixins: [settings],
-  beforeMount() {
-    this.bindOriginalResourceFilePathData()
-
-    bus.$on('resetAllSettings', () => {
-      this.bindOriginalResourceFilePathData()
-    })
-  },
-  methods: {
-    bindOriginalResourceFilePathData() {
-      this.ResourceFilePath = this.getResourceFilePath
-    },
-    saveResourceFilePathSettings() {
-      this.resourceFilePathLoading = true
-      this.submitSettings()
-    },
-    resetResourceFilePath() {
-      console.log('reset resource file path')
-      this.bindOriginalResourceFilePathData()
-    },
-  },
-  computed: {
-    ...mapGetters(['getResourceFilePath']),
-  },
 }
 </script>
 

@@ -15,7 +15,7 @@
       <b-button
         type="is-custom-primary"
         size="is-small"
-        @click="saveApiServiceSettings"
+        @click="submitSettings('apiService')"
       >
         Save
       </b-button>
@@ -151,70 +151,11 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
-import { mapGetters } from 'vuex'
 import settings from '@/mixins/settings/settings.js'
 
 export default {
   mixins: [settings],
-  beforeMount() {
-    this.bindOriginalApiServiceData()
-
-    bus.$on('resetAllSettings', () => {
-      this.bindOriginalApiServiceData()
-    })
-  },
-  methods: {
-    bindOriginalApiServiceData() {
-      this.APIService = {
-        RemoteEndpoint: this.getAPIService.RemoteEndpoint,
-        Port: this.getAPIService.Port,
-        BindIP: this.getAPIService.BindIP,
-        LogHTTPRequest: this.getAPIService.LogHTTPRequest,
-        ReadOnly: this.getAPIService.ReadOnly,
-        DebugOracleDatabaseContractsAssignmentAlgorithm:
-          this.getAPIService.DebugOracleDatabaseContractsAssignmentAlgorithm,
-        AuthenticationProvider: {
-          Types: this.getAPIService.AuthenticationProvider.Types,
-          Username: this.getAPIService.AuthenticationProvider.Username,
-          Password: this.getAPIService.AuthenticationProvider.Password,
-          PrivateKey: this.getAPIService.AuthenticationProvider.PrivateKey,
-          PublicKey: this.getAPIService.AuthenticationProvider.PublicKey,
-          TokenValidityTimeout:
-            this.getAPIService.AuthenticationProvider.TokenValidityTimeout,
-          Host: this.getAPIService.AuthenticationProvider.Host,
-          Port: this.getAPIService.AuthenticationProvider.Port,
-          LDAPBase: this.getAPIService.AuthenticationProvider.LDAPBase,
-          LDAPBindDN: this.getAPIService.AuthenticationProvider.LDAPBindDN,
-          LDAPBindPassword:
-            this.getAPIService.AuthenticationProvider.LDAPBindPassword,
-          LDAPUserFilter:
-            this.getAPIService.AuthenticationProvider.LDAPUserFilter,
-        },
-        // never change
-        OperatingSystemAggregationRules:
-          this.getAPIService.OperatingSystemAggregationRules,
-        DefaultDatabaseTags: this.getAPIService.DefaultDatabaseTags,
-        // never change
-      }
-    },
-    saveApiServiceSettings() {
-      this.apiServiceLoading = true
-      this.submitSettings()
-    },
-    resetApiService() {
-      console.log('reset api service')
-      this.bindOriginalApiServiceData()
-    },
-  },
-  computed: {
-    ...mapGetters(['getAPIService']),
-  },
 }
 </script>
 
-<style lang="scss" scoped>
-.customLabel {
-  width: 250px !important;
-}
-</style>
+<style lang="scss" scoped></style>

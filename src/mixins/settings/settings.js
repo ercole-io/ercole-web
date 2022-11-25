@@ -1,5 +1,4 @@
-import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 import Loading from '@/components/common/Loading.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
@@ -24,6 +23,7 @@ export default {
   },
   data() {
     return {
+      isMounted: false,
       APIService: {
         RemoteEndpoint: null,
         Port: null,
@@ -108,9 +108,25 @@ export default {
       resourceFilePathLoading: false,
     }
   },
+  async beforeMount() {
+    await this.requestSettings().then(() => {
+      this.isMounted = true
+    })
+
+    this.bindoOriginalData()
+  },
   methods: {
-    ...mapActions(['saveSettings']),
-    submitSettings() {
+    ...mapActions(['requestSettings', 'saveSettings']),
+    bindoOriginalData() {
+      this.bindOriginalApiServiceData()
+      this.bindOriginalAlertServiceData()
+      this.bindOriginalChartServiceData()
+      this.bindOriginalDataServiceData()
+      this.bindOriginalResourceFilePathData()
+    },
+    submitSettings(type) {
+      this.loadingStatus(type, true)
+
       const data = {
         APIService: this.APIService,
         AlertService: this.AlertService,
@@ -119,21 +135,197 @@ export default {
         ResourceFilePath: this.ResourceFilePath,
         ThunderService: this.ThunderService,
       }
-      this.saveSettings(data).then(() => {
-        this.apiServiceLoading = false
-        this.alertServiceLoading = false
-        this.chartServiceLoading = false
-        this.dataServiceLoading = false
-        this.resourceFilePathLoading = false
+
+      this.saveSettings(data)
+        .then(() => {
+          this.loadingStatus(type, false)
+        })
+        .then(() => {
+          this.successSaveSettings(type)
+        })
+    },
+    loadingStatus(type, action) {
+      switch (type) {
+        case 'apiService':
+          this.apiServiceLoading = action
+          break
+        case 'alertService':
+          this.alertServiceLoading = action
+          break
+        case 'chartService':
+          this.chartServiceLoading = action
+          break
+        case 'dataService':
+          this.dataServiceLoading = action
+          break
+        case 'resourceFilePath':
+          this.resourceFilePathLoading = action
+          break
+        case 'thunderService':
+          this.thunderServiceLoading = action
+          break
+        default:
+          break
+      }
+    },
+    successSaveSettings(type) {
+      let message = ''
+
+      switch (type) {
+        case 'apiService':
+          message = 'Api Service'
+          break
+        case 'alertService':
+          message = 'Alerts Service'
+          break
+        case 'chartService':
+          message = 'Chart Service'
+          break
+        case 'dataService':
+          message = 'Data Service'
+          break
+        case 'resourceFilePath':
+          message = 'Resource File Path'
+          break
+        case 'thunderService':
+          message = 'Thunder Service'
+          break
+        default:
+          break
+      }
+
+      this.$buefy.toast.open({
+        message: `The ${message} settings was successfully saved!`,
+        type: 'is-success',
+        duration: 5000,
+        position: 'is-bottom',
       })
     },
-    resetAllSettings() {
-      console.log('resetAll')
-      bus.$emit('resetAllSettings')
+    bindOriginalApiServiceData() {
+      this.APIService = {
+        RemoteEndpoint: this.getAPIService.RemoteEndpoint,
+        Port: this.getAPIService.Port,
+        BindIP: this.getAPIService.BindIP,
+        LogHTTPRequest: this.getAPIService.LogHTTPRequest,
+        ReadOnly: this.getAPIService.ReadOnly,
+        DebugOracleDatabaseContractsAssignmentAlgorithm:
+          this.getAPIService.DebugOracleDatabaseContractsAssignmentAlgorithm,
+        AuthenticationProvider: {
+          Types: this.getAPIService.AuthenticationProvider.Types,
+          Username: this.getAPIService.AuthenticationProvider.Username,
+          Password: this.getAPIService.AuthenticationProvider.Password,
+          PrivateKey: this.getAPIService.AuthenticationProvider.PrivateKey,
+          PublicKey: this.getAPIService.AuthenticationProvider.PublicKey,
+          TokenValidityTimeout:
+            this.getAPIService.AuthenticationProvider.TokenValidityTimeout,
+          Host: this.getAPIService.AuthenticationProvider.Host,
+          Port: this.getAPIService.AuthenticationProvider.Port,
+          LDAPBase: this.getAPIService.AuthenticationProvider.LDAPBase,
+          LDAPBindDN: this.getAPIService.AuthenticationProvider.LDAPBindDN,
+          LDAPBindPassword:
+            this.getAPIService.AuthenticationProvider.LDAPBindPassword,
+          LDAPUserFilter:
+            this.getAPIService.AuthenticationProvider.LDAPUserFilter,
+        },
+        // never change
+        OperatingSystemAggregationRules:
+          this.getAPIService.OperatingSystemAggregationRules,
+        DefaultDatabaseTags: this.getAPIService.DefaultDatabaseTags,
+        // never change
+      }
+    },
+    resetApiService() {
+      this.bindOriginalApiServiceData()
+    },
+    bindOriginalResourceFilePathData() {
+      this.ResourceFilePath = this.getResourceFilePath
+    },
+    resetResourceFilePath() {
+      this.bindOriginalResourceFilePathData()
+    },
+    bindOriginalAlertServiceData() {
+      this.AlertService = {
+        RemoteEndpoint: this.getAlertService.RemoteEndpoint,
+        BindIP: this.getAlertService.BindIP,
+        Port: this.getAlertService.Port,
+        LogHTTPRequest: this.getAlertService.LogHTTPRequest,
+        LogMessages: this.getAlertService.LogMessages,
+        LogAlertThrows: this.getAlertService.LogAlertThrows,
+        PublisherUsername: this.getAlertService.PublisherUsername,
+        PublisherPassword: this.getAlertService.PublisherPassword,
+        QueueBufferSize: this.getAlertService.QueueBufferSize,
+        Emailer: {
+          Enabled: this.getAlertService.Emailer.Enabled,
+          From: this.getAlertService.Emailer.From,
+          To: this.getAlertService.Emailer.To,
+          SMTPServer: this.getAlertService.Emailer.SMTPServer,
+          SMTPPort: this.getAlertService.Emailer.SMTPPort,
+          SMTPUsername: this.getAlertService.Emailer.SMTPUsername,
+          SMTPPassword: this.getAlertService.Emailer.SMTPPassword,
+          DisableSSLCertificateValidation:
+            this.getAlertService.Emailer.DisableSSLCertificateValidation,
+        },
+      }
+    },
+    resetAlertService() {
+      this.bindOriginalAlertServiceData()
+    },
+    bindOriginalChartServiceData() {
+      this.ChartService = {
+        RemoteEndpoint: this.getChartService.RemoteEndpoint,
+        BindIP: this.getChartService.BindIP,
+        Port: this.getChartService.Port,
+        LogHTTPRequest: this.getChartService.LogHTTPRequest,
+      }
+    },
+    resetChartService() {
+      this.bindOriginalChartServiceData()
+    },
+    bindOriginalDataServiceData() {
+      this.DataService = {
+        RemoteEndpoint: this.getDataService.RemoteEndpoint,
+        BindIP: this.getDataService.BindIP,
+        Port: this.getDataService.Port,
+        LogHTTPRequest: this.getDataService.LogHTTPRequest,
+        LogInsertingHostdata: this.getDataService.LogInsertingHostdata,
+        AgentUsername: this.getDataService.AgentUsername,
+        AgentPassword: this.getDataService.AgentPassword,
+        CurrentHostCleaningJob: {
+          Crontab: this.getDataService.CurrentHostCleaningJob.Crontab,
+          HourThreshold:
+            this.getDataService.CurrentHostCleaningJob.HourThreshold,
+          RunAtStartup: this.getDataService.CurrentHostCleaningJob.RunAtStartup,
+        },
+        ArchivedHostCleaningJob: {
+          Crontab: this.getDataService.ArchivedHostCleaningJob.Crontab,
+          HourThreshold:
+            this.getDataService.ArchivedHostCleaningJob.HourThreshold,
+          RunAtStartup:
+            this.getDataService.ArchivedHostCleaningJob.RunAtStartup,
+        },
+        FreshnessCheckJob: {
+          Crontab: this.getDataService.FreshnessCheckJob.Crontab,
+          RunAtStartup: this.getDataService.FreshnessCheckJob.RunAtStartup,
+        },
+        LicenseTypeMetricsDefault:
+          this.getDataService.LicenseTypeMetricsDefault,
+        LicenseTypeMetricsByEnvironment:
+          this.getDataService.LicenseTypeMetricsByEnvironment,
+      }
+    },
+    resetDataService() {
+      this.bindOriginalDataServiceData()
     },
   },
   computed: {
     ...mapState(['settings']),
+    ...mapGetters([
+      'getAPIService',
+      'getAlertService',
+      'getChartService',
+      'getDataService',
+      'getResourceFilePath',
+    ]),
     trueOrFalseOptions() {
       return [
         {
