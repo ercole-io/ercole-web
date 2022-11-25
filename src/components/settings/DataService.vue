@@ -2,24 +2,7 @@
   <article>
     <Loading :isLoading="dataServiceLoading" />
 
-    <div class="is-flex is-flex-direction-row is-justify-content-flex-end mb-3">
-      <b-button
-        type="is-danger"
-        size="is-small"
-        @click="resetDataService"
-        class="mr-2"
-      >
-        Restore
-      </b-button>
-
-      <b-button
-        type="is-custom-primary"
-        size="is-small"
-        @click="submitSettings('dataService')"
-      >
-        Save
-      </b-button>
-    </div>
+    <SettingsActions formName="dataService" />
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
@@ -171,9 +154,13 @@
 
 <script>
 import settings from '@/mixins/settings/settings.js'
+import SettingsActions from '@/components/settings/SettingsActions.vue'
 
 export default {
   mixins: [settings],
+  components: {
+    SettingsActions,
+  },
 }
 </script>
 
