@@ -167,6 +167,30 @@ export default {
           this.successSaveSettings(type)
         })
     },
+    resetSettings(type) {
+      switch (type) {
+        case 'apiService':
+          this.bindOriginalApiServiceData()
+          break
+        case 'alertService':
+          this.bindOriginalAlertServiceData()
+          break
+        case 'chartService':
+          this.bindOriginalChartServiceData()
+          break
+        case 'dataService':
+          this.bindOriginalDataServiceData()
+          break
+        case 'resourceFilePath':
+          this.bindOriginalResourceFilePathData()
+          break
+        case 'thunderService':
+          this.bindOriginalThunderServiceData()
+          break
+        default:
+          break
+      }
+    },
     loadingStatus(type, action) {
       switch (type) {
         case 'apiService':
@@ -257,14 +281,8 @@ export default {
         // never change
       }
     },
-    resetApiService() {
-      this.bindOriginalApiServiceData()
-    },
     bindOriginalResourceFilePathData() {
       this.ResourceFilePath = this.getResourceFilePath
-    },
-    resetResourceFilePath() {
-      this.bindOriginalResourceFilePathData()
     },
     bindOriginalAlertServiceData() {
       this.AlertService = {
@@ -290,9 +308,6 @@ export default {
         },
       }
     },
-    resetAlertService() {
-      this.bindOriginalAlertServiceData()
-    },
     bindOriginalChartServiceData() {
       this.ChartService = {
         RemoteEndpoint: this.getChartService.RemoteEndpoint,
@@ -300,9 +315,6 @@ export default {
         Port: this.getChartService.Port,
         LogHTTPRequest: this.getChartService.LogHTTPRequest,
       }
-    },
-    resetChartService() {
-      this.bindOriginalChartServiceData()
     },
     bindOriginalDataServiceData() {
       this.DataService = {
@@ -336,9 +348,6 @@ export default {
           this.getDataService.LicenseTypeMetricsByEnvironment,
       }
     },
-    resetDataService() {
-      this.bindOriginalDataServiceData()
-    },
     bindOriginalThunderServiceData() {
       this.ThunderService = {
         RemoteEndpoint: this.getThunderService.RemoteEndpoint,
@@ -365,9 +374,6 @@ export default {
           RunAtStartup: this.getThunderService.AwsDataRetrieveJob.RunAtStartup,
         },
       }
-    },
-    resetThunderService() {
-      this.bindOriginalThunderServiceData()
     },
   },
   computed: {
