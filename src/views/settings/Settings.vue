@@ -29,7 +29,6 @@
 
         <template slot="Thunder Service">
           <ThunderService />
-          <!-- <VueJsonPretty :data="getThunderService" /> -->
         </template>
       </Collapse>
     </BoxContent>

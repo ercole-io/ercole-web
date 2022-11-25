@@ -106,6 +106,28 @@ export default {
       dataServiceLoading: null,
       ResourceFilePath: null,
       resourceFilePathLoading: false,
+      ThunderService: {
+        RemoteEndpoint: null,
+        BindIP: null,
+        Port: null,
+        LogHTTPRequest: null,
+        OciDataRetrieveJob: {
+          Crontab: null,
+          DaysThreshold: null,
+          RunAtStartup: null,
+        },
+        OciRemoveOldDataObjectsJob: {
+          Crontab: null,
+          DaysThreshold: null,
+          RunAtStartup: null,
+        },
+        AwsDataRetrieveJob: {
+          Crontab: null,
+          DaysThreshold: null,
+          RunAtStartup: null,
+        },
+      },
+      thunderServiceLoading: false,
     }
   },
   async beforeMount() {
@@ -123,6 +145,7 @@ export default {
       this.bindOriginalChartServiceData()
       this.bindOriginalDataServiceData()
       this.bindOriginalResourceFilePathData()
+      this.bindOriginalThunderServiceData()
     },
     submitSettings(type) {
       this.loadingStatus(type, true)
@@ -316,6 +339,36 @@ export default {
     resetDataService() {
       this.bindOriginalDataServiceData()
     },
+    bindOriginalThunderServiceData() {
+      this.ThunderService = {
+        RemoteEndpoint: this.getThunderService.RemoteEndpoint,
+        BindIP: this.getThunderService.BindIP,
+        Port: this.getThunderService.Port,
+        LogHTTPRequest: this.getThunderService.LogHTTPRequest,
+        OciDataRetrieveJob: {
+          Crontab: this.getThunderService.OciDataRetrieveJob.Crontab,
+          DaysThreshold:
+            this.getThunderService.OciDataRetrieveJob.DaysThreshold,
+          RunAtStartup: this.getThunderService.OciDataRetrieveJob.RunAtStartup,
+        },
+        OciRemoveOldDataObjectsJob: {
+          Crontab: this.getThunderService.OciRemoveOldDataObjectsJob.Crontab,
+          DaysThreshold:
+            this.getThunderService.OciRemoveOldDataObjectsJob.DaysThreshold,
+          RunAtStartup:
+            this.getThunderService.OciRemoveOldDataObjectsJob.RunAtStartup,
+        },
+        AwsDataRetrieveJob: {
+          Crontab: this.getThunderService.AwsDataRetrieveJob.Crontab,
+          DaysThreshold:
+            this.getThunderService.AwsDataRetrieveJob.DaysThreshold,
+          RunAtStartup: this.getThunderService.AwsDataRetrieveJob.RunAtStartup,
+        },
+      }
+    },
+    resetThunderService() {
+      this.bindOriginalThunderServiceData()
+    },
   },
   computed: {
     ...mapState(['settings']),
@@ -325,6 +378,7 @@ export default {
       'getChartService',
       'getDataService',
       'getResourceFilePath',
+      'getThunderService',
     ]),
     trueOrFalseOptions() {
       return [
