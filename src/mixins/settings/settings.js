@@ -104,6 +104,8 @@ export default {
         LicenseTypeMetricsByEnvironment: null,
       },
       dataServiceLoading: null,
+      ResourceFilePath: null,
+      resourceFilePathLoading: false,
     }
   },
   methods: {
@@ -122,6 +124,7 @@ export default {
         this.alertServiceLoading = false
         this.chartServiceLoading = false
         this.dataServiceLoading = false
+        this.resourceFilePathLoading = false
       })
     },
     resetAllSettings() {

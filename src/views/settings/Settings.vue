@@ -37,7 +37,6 @@
 
       <template slot="Resource File Path">
         <ResourceFilePath />
-        <!-- <VueJsonPretty :data="getResourceFilePath" /> -->
       </template>
 
       <template slot="Thunder Service">
