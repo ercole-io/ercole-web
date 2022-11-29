@@ -139,6 +139,17 @@
       </template>
     </b-field>
 
+    <b-field label="Support Expiration" custom-class="is-small">
+      <b-datepicker
+        v-model="mysqlForm.supportExpiration"
+        placeholder="Set a Date"
+        size="is-small"
+        append-to-body
+        position="is-top-right"
+        icon="calendar-today"
+      />
+    </b-field>
+
     <b-field
       :label="`${$t('common.fields.numberLicenses')} *`"
       custom-class="is-small"
@@ -353,6 +364,9 @@ export default {
         numberOfLicenses: data.numberOfLicenses,
         contractID: data.contractID,
         csi: data.csi,
+        supportExpiration: data.supportExpiration
+          ? new Date(data.supportExpiration)
+          : null,
         hosts: this.mapAssociated(data.hosts, 'host'),
         clusters: this.mapAssociated(data.clusters, 'cluster'),
       }

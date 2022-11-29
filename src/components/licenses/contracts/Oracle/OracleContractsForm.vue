@@ -164,6 +164,17 @@
       </b-autocomplete>
     </b-field>
 
+    <b-field label="Support Expiration" custom-class="is-small">
+      <b-datepicker
+        v-model="oracleForm.supportExpiration"
+        placeholder="Set a Date"
+        size="is-small"
+        append-to-body
+        position="is-top-right"
+        icon="calendar-today"
+      />
+    </b-field>
+
     <b-field
       :label="`${$t('common.fields.licemnses')} *`"
       custom-class="is-small"
@@ -350,6 +361,7 @@ export default {
         hostAssociated: [],
         basket: false,
         restricted: false,
+        supportExpiration: null,
       },
       filteredcontractID: [],
       filteredcsi: [],
@@ -393,6 +405,7 @@ export default {
         basket: this.oracleForm.basket,
         licenseTypeID: this.oracleForm.partNumber.split(' - ')[0],
         restricted: this.oracleForm.restricted,
+        supportExpiration: this.oracleForm.supportExpiration,
       }
 
       if (action === 'put') {
@@ -419,6 +432,7 @@ export default {
         hostAssociated: [],
         basket: false,
         restricted: false,
+        supportExpiration: null,
       }
     },
     editContract(data) {
@@ -445,6 +459,9 @@ export default {
         hostAssociated: this.mapAssociated(data.hosts, 'host'),
         basket: data.basket,
         restricted: data.restricted,
+        supportExpiration: data.supportExpiration
+          ? new Date(data.supportExpiration)
+          : null,
       }
     },
   },
