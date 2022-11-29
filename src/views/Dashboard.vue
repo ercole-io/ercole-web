@@ -42,8 +42,8 @@ export default {
     DashboardTabs,
     Alerts,
   },
-  async beforeMount() {
-    await this.requestDynamicMenu()
+  beforeMount() {
+    this.requestDynamicMenu()
     this.getVersion()
     this.getDbConnection()
     this.getDashboardData()
