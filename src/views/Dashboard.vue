@@ -42,7 +42,8 @@ export default {
     DashboardTabs,
     Alerts,
   },
-  beforeMount() {
+  async beforeMount() {
+    await this.requestDynamicMenu()
     this.getVersion()
     this.getDbConnection()
     this.getDashboardData()
@@ -67,6 +68,7 @@ export default {
       'getCloudObjects',
       'getDbConnection',
       'getVersion',
+      'requestDynamicMenu',
     ]),
   },
 }
