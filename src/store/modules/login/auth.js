@@ -97,7 +97,6 @@ export const actions = {
         helpers.setLocalStorageAuth(payload)
       })
       .then(() => {
-        dispatch('requestDynamicMenu')
         dispatch('setErrMsg', null)
         dispatch('getHosts')
         dispatch('getClusters')
@@ -108,6 +107,7 @@ export const actions = {
           router.replace('/dashboard')
         } else {
           router.replace(`${historyPage}`)
+          dispatch('requestDynamicMenu')
         }
 
         dispatch('offLoading')
