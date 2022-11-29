@@ -28,6 +28,7 @@
       <v-th sortKey="referenceNumber" v-if="toggleReferenceNumber">
         {{ $t('common.collumns.refNumber') }}
       </v-th>
+      <v-th sortKey="supportExpiration">Support Expiration</v-th>
       <v-th sortKey="unlimited">
         {{ $t('common.collumns.ula') }}
       </v-th>
@@ -108,6 +109,11 @@
         :value="rowData.scope.referenceNumber"
         v-if="toggleReferenceNumber"
       />
+      <TdContent
+        :value="rowData.scope.supportExpiration | formatDate"
+        v-if="rowData.scope.supportExpiration"
+      />
+      <TdContent value="-" v-else />
       <TdIcon :value="rowData.scope.unlimited" />
       <TdContent :value="rowData.scope.licensesPerCore" />
       <TdContent :value="rowData.scope.availableLicensesPerCore" />

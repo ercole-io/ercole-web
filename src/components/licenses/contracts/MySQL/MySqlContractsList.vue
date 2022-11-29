@@ -19,6 +19,7 @@
       <v-th sortKey="csi">
         {{ $t('common.collumns.csi') }}
       </v-th>
+      <v-th sortKey="supportExpiration">Support Expiration</v-th>
       <v-th sortKey="numberOfLicenses">
         {{ $t('common.collumns.numberLicenses') }}
       </v-th>
@@ -54,6 +55,11 @@
       <TdContent :value="rowData.scope.licenseTypeID" />
       <TdContent :value="rowData.scope.description" />
       <TdContent :value="rowData.scope.csi" />
+      <TdContent
+        :value="rowData.scope.supportExpiration | formatDate"
+        v-if="rowData.scope.supportExpiration"
+      />
+      <TdContent value="-" v-else />
       <TdContent :value="rowData.scope.numberOfLicenses" />
       <td>
         <b-icon

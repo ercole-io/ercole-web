@@ -243,6 +243,17 @@
       </b-taginput>
     </b-field>
 
+    <b-field label="Support Expiration" custom-class="is-small">
+      <b-datepicker
+        v-model="msSqlServer.supportExpiration"
+        placeholder="Set a Date"
+        size="is-small"
+        append-to-body
+        position="is-top-right"
+        icon="calendar-today"
+      />
+    </b-field>
+
     <slot />
   </AdvancedFiltersBase>
 </template>
@@ -331,6 +342,9 @@ export default {
         licenseTypeID: data.fullPartNumber,
         contractID: data.contractID,
         licensesNumber: data.licensesNumber,
+        supportExpiration: data.supportExpiration
+          ? new Date(data.supportExpiration)
+          : null,
         hosts: this.mapAssociated(data.hosts, 'host'),
         clusters: this.mapAssociated(data.clusters, 'cluster'),
       }

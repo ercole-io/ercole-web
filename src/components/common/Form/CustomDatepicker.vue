@@ -20,13 +20,13 @@ export default {
     value: {},
     placeholder: {
       type: String,
-      required: false
-    }
+      required: false,
+    },
   },
   methods: {
     formatDate(date) {
       return formatDate(date)
-    }
+    },
   },
   computed: {
     dateVal: {
@@ -35,14 +35,14 @@ export default {
       },
       set(val) {
         this.$emit('input', val)
-      }
+      },
     },
     dateMsg() {
       return this.placeholder
         ? this.placeholder
         : this.$i18n.t('common.forms.date')
-    }
-  }
+    },
+  },
 }
 </script>
 

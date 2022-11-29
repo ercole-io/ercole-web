@@ -13,6 +13,7 @@
       <v-th sortKey="type"> Type </v-th>
       <v-th sortKey="contractID"> Contract ID </v-th>
       <v-th sortKey="licenseTypeID"> License Type </v-th>
+      <v-th sortKey="supportExpiration">Support Expiration</v-th>
       <v-th sortKey="description"> Description </v-th>
       <v-th sortKey="metric"> Edition - Version </v-th>
       <v-th sortKey="licensesNumber">
@@ -48,6 +49,11 @@
       <TdContent :value="rowData.scope.type" />
       <TdContent :value="rowData.scope.contractID" />
       <TdContent :value="rowData.scope.licenseTypeID" />
+      <TdContent
+        :value="rowData.scope.supportExpiration | formatDate"
+        v-if="rowData.scope.supportExpiration"
+      />
+      <TdContent value="-" v-else />
       <TdContent :value="rowData.scope.description" />
       <TdContent :value="rowData.scope.metric" />
       <TdContent :value="rowData.scope.licensesNumber" />
