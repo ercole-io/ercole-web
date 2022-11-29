@@ -24,6 +24,9 @@
         </v-th>
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
         <v-th sortKey="name">{{ $t('common.collumns.vmName') }}</v-th>
+        <v-th sortKey="physicalServerModelName">
+          Physical Server Model Name
+        </v-th>
         <v-th sortKey="cappedCPU">{{ $t('common.collumns.cappedCpu') }}</v-th>
         <v-th sortKey="isErcoleInstalled"> Ercole Installed? </v-th>
       </template>
@@ -39,6 +42,7 @@
         />
         <TdContent :value="rowData.scope.hostname" v-else />
         <TdContent :value="rowData.scope.name" />
+        <TdContent :value="rowData.scope.physicalServerModelName" />
         <TdIcon
           :value="rowData.scope.cappedCPU"
           @click.native="checkIfErcoleIsInstalled([rowData.scope])"
