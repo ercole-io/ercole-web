@@ -2,7 +2,10 @@
   <article>
     <Loading :isLoading="alertServiceLoading" />
 
-    <SettingsActions formName="alertService" />
+    <SettingsActions
+      :reset="resetAlertServiceSettings"
+      :action="saveAlertServiceSettings"
+    />
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
@@ -124,11 +127,45 @@
 <script>
 import settings from '@/mixins/settings/settings.js'
 import SettingsActions from '@/components/settings/SettingsActions.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [settings],
   components: {
     SettingsActions,
+    Loading,
+  },
+  data() {
+    return {
+      alertServiceLoading: false,
+    }
+  },
+  methods: {
+    saveAlertServiceSettings() {
+      this.alertServiceLoading = true
+
+      const data = {
+        APIService: this.APIService,
+        AlertService: this.AlertService,
+        ChartService: this.ChartService,
+        DataService: this.DataService,
+        ResourceFilePath: this.ResourceFilePath,
+        ThunderService: this.ThunderService,
+      }
+
+      this.saveSettings(data)
+        .then(() => {
+          setTimeout(() => {
+            this.alertServiceLoading = false
+          }, 1000)
+        })
+        .then(() => {
+          this.successSaveSettings('alertService')
+        })
+    },
+    resetAlertServiceSettings() {
+      this.bindOriginalAlertServiceData()
+    },
   },
 }
 </script>

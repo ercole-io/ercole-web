@@ -2,7 +2,10 @@
   <article>
     <Loading :isLoading="dataServiceLoading" />
 
-    <SettingsActions formName="dataService" />
+    <SettingsActions
+      :reset="resetApiServiceSettings"
+      :action="saveDataServiceSettings"
+    />
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
@@ -124,7 +127,7 @@
     <hr class="my-3" />
 
     <div class="columns is-multiline">
-      <div class="column is-two-quarter">
+      <div class="column is-half">
         <CustomField label="License Type Metrics Default">
           <b-taginput
             v-model="DataService.LicenseTypeMetricsDefault"
@@ -136,7 +139,7 @@
           />
         </CustomField>
       </div>
-      <div class="column is-two-quarter">
+      <!-- <div class="column is-two-quarter">
         <CustomField label="License Type Metrics By Environment">
           <b-taginput
             v-model="DataService.LicenseTypeMetricsByEnvironment.TEST"
@@ -147,7 +150,7 @@
             type="is-primary"
           />
         </CustomField>
-      </div>
+      </div> -->
     </div>
   </article>
 </template>
@@ -155,11 +158,45 @@
 <script>
 import settings from '@/mixins/settings/settings.js'
 import SettingsActions from '@/components/settings/SettingsActions.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [settings],
   components: {
     SettingsActions,
+    Loading,
+  },
+  data() {
+    return {
+      dataServiceLoading: false,
+    }
+  },
+  methods: {
+    saveDataServiceSettings() {
+      this.dataServiceLoading = true
+
+      const data = {
+        APIService: this.APIService,
+        AlertService: this.AlertService,
+        ChartService: this.ChartService,
+        DataService: this.DataService,
+        ResourceFilePath: this.ResourceFilePath,
+        ThunderService: this.ThunderService,
+      }
+
+      this.saveSettings(data)
+        .then(() => {
+          setTimeout(() => {
+            this.dataServiceLoading = false
+          }, 1000)
+        })
+        .then(() => {
+          this.successSaveSettings('dataService')
+        })
+    },
+    resetApiServiceSettings() {
+      this.bindOriginalDataServiceData()
+    },
   },
 }
 </script>
