@@ -3,17 +3,13 @@
     <b-button
       type="is-danger"
       size="is-small"
-      @click="resetSettings(formName)"
+      @click.prevent="reset"
       class="mr-2"
     >
       Restore
     </b-button>
 
-    <b-button
-      type="is-custom-primary"
-      size="is-small"
-      @click="submitSettings(formName)"
-    >
+    <b-button type="is-custom-primary" size="is-small" @click.prevent="action">
       Save
     </b-button>
   </div>
@@ -25,8 +21,12 @@ import settings from '@/mixins/settings/settings.js'
 export default {
   mixins: [settings],
   props: {
-    formName: {
-      type: String,
+    reset: {
+      type: Function,
+      required: true,
+    },
+    action: {
+      type: Function,
       required: true,
     },
   },

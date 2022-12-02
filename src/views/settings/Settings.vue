@@ -45,6 +45,7 @@ import ChartService from '@/components/settings/ChartService.vue'
 import DataService from '@/components/settings/DataService.vue'
 import ResourceFilePath from '@/components/settings/ResourceFilePath.vue'
 import ThunderService from '@/components/settings/ThunderService.vue'
+import { mapActions } from 'vuex'
 
 export default {
   mixins: [settings],
@@ -69,6 +70,14 @@ export default {
         'Thunder Service',
       ],
     }
+  },
+  async created() {
+    await this.requestSettings().then(() => {
+      this.isMounted = true
+    })
+  },
+  methods: {
+    ...mapActions(['requestSettings']),
   },
 }
 </script>

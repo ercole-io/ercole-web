@@ -1,6 +1,5 @@
 import { mapActions, mapGetters, mapState } from 'vuex'
 
-import Loading from '@/components/common/Loading.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
 import CustomInput from '@/components/common/Form/CustomInput.vue'
 import CustomRadio from '@/components/common/Form/CustomRadio.vue'
@@ -15,7 +14,6 @@ import 'vue-json-pretty/lib/styles.css'
 
 export default {
   components: {
-    Loading,
     CustomField,
     CustomInput,
     CustomRadio,
@@ -48,7 +46,6 @@ export default {
         OperatingSystemAggregationRules: null,
         DefaultDatabaseTags: null,
       },
-      apiServiceLoading: false,
       AlertService: {
         RemoteEndpoint: null,
         BindIP: null,
@@ -70,14 +67,12 @@ export default {
           DisableSSLCertificateValidation: null,
         },
       },
-      alertServiceLoading: false,
       ChartService: {
         RemoteEndpoint: null,
         BindIP: null,
         Port: null,
         LogHTTPRequest: null,
       },
-      chartServiceLoading: null,
       DataService: {
         RemoteEndpoint: null,
         BindIP: null,
@@ -103,9 +98,7 @@ export default {
         LicenseTypeMetricsDefault: null,
         LicenseTypeMetricsByEnvironment: null,
       },
-      dataServiceLoading: null,
       ResourceFilePath: null,
-      resourceFilePathLoading: false,
       ThunderService: {
         RemoteEndpoint: null,
         BindIP: null,
@@ -127,94 +120,20 @@ export default {
           RunAtStartup: null,
         },
       },
-      thunderServiceLoading: false,
     }
   },
-  async beforeMount() {
-    await this.requestSettings().then(() => {
-      this.isMounted = true
-    })
-
-    this.bindoOriginalData()
-  },
-  methods: {
-    ...mapActions(['requestSettings', 'saveSettings']),
-    bindoOriginalData() {
+  beforeMount() {
+    setTimeout(() => {
       this.bindOriginalApiServiceData()
+      this.bindOriginalResourceFilePathData()
       this.bindOriginalAlertServiceData()
       this.bindOriginalChartServiceData()
       this.bindOriginalDataServiceData()
-      this.bindOriginalResourceFilePathData()
       this.bindOriginalThunderServiceData()
-    },
-    submitSettings(type) {
-      this.loadingStatus(type, true)
-
-      const data = {
-        APIService: this.APIService,
-        AlertService: this.AlertService,
-        ChartService: this.ChartService,
-        DataService: this.DataService,
-        ResourceFilePath: this.ResourceFilePath,
-        ThunderService: this.ThunderService,
-      }
-
-      this.saveSettings(data)
-        .then(() => {
-          this.loadingStatus(type, false)
-        })
-        .then(() => {
-          this.successSaveSettings(type)
-        })
-    },
-    resetSettings(type) {
-      switch (type) {
-        case 'apiService':
-          this.bindOriginalApiServiceData()
-          break
-        case 'alertService':
-          this.bindOriginalAlertServiceData()
-          break
-        case 'chartService':
-          this.bindOriginalChartServiceData()
-          break
-        case 'dataService':
-          this.bindOriginalDataServiceData()
-          break
-        case 'resourceFilePath':
-          this.bindOriginalResourceFilePathData()
-          break
-        case 'thunderService':
-          this.bindOriginalThunderServiceData()
-          break
-        default:
-          break
-      }
-    },
-    loadingStatus(type, action) {
-      switch (type) {
-        case 'apiService':
-          this.apiServiceLoading = action
-          break
-        case 'alertService':
-          this.alertServiceLoading = action
-          break
-        case 'chartService':
-          this.chartServiceLoading = action
-          break
-        case 'dataService':
-          this.dataServiceLoading = action
-          break
-        case 'resourceFilePath':
-          this.resourceFilePathLoading = action
-          break
-        case 'thunderService':
-          this.thunderServiceLoading = action
-          break
-        default:
-          break
-      }
-    },
+    }, 500)
+  },
+  methods: {
+    ...mapActions(['saveSettings']),
     successSaveSettings(type) {
       let message = ''
 

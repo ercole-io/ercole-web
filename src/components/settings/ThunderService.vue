@@ -2,7 +2,10 @@
   <article>
     <Loading :isLoading="thunderServiceLoading" />
 
-    <SettingsActions formName="thunderService" />
+    <SettingsActions
+      :reset="resetThunderServiceSettings"
+      :action="saveThunderServiceSettings"
+    />
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
@@ -120,11 +123,45 @@
 <script>
 import settings from '@/mixins/settings/settings.js'
 import SettingsActions from '@/components/settings/SettingsActions.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   mixins: [settings],
   components: {
     SettingsActions,
+    Loading,
+  },
+  data() {
+    return {
+      thunderServiceLoading: false,
+    }
+  },
+  methods: {
+    saveThunderServiceSettings() {
+      this.thunderServiceLoading = true
+
+      const data = {
+        APIService: this.APIService,
+        AlertService: this.AlertService,
+        ChartService: this.ChartService,
+        DataService: this.DataService,
+        ResourceFilePath: this.ResourceFilePath,
+        ThunderService: this.ThunderService,
+      }
+
+      this.saveSettings(data)
+        .then(() => {
+          setTimeout(() => {
+            this.thunderServiceLoading = false
+          }, 1000)
+        })
+        .then(() => {
+          this.successSaveSettings('thunderService')
+        })
+    },
+    resetThunderServiceSettings() {
+      this.bindOriginalThunderServiceData()
+    },
   },
 }
 </script>
