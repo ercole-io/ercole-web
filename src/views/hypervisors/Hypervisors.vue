@@ -24,9 +24,12 @@
         <v-th sortKey="type">Type</v-th>
         <v-th sortKey="cpu">{{ $t('common.collumns.cores') }}</v-th>
         <v-th sortKey="sockets">{{ $t('common.collumns.socket') }}</v-th>
-        <v-th sortKey="virtualizationNodes">{{
-          $t('common.collumns.physicalHost')
-        }}</v-th>
+        <v-th sortKey="virtualizationNodes">
+          {{ $t('common.collumns.physicalHost') }}
+        </v-th>
+        <v-th sortKey="physicalServerModelNames">
+          Physical Server Model Names
+        </v-th>
         <v-th sortKey="vmsCount">{{ $tc('common.collumns.totalVM', 1) }}</v-th>
         <v-th sortKey="vmsErcoleAgentCount">{{
           $tc('common.collumns.totalVM', 2)
@@ -39,7 +42,45 @@
         <TdContent :value="rowData.scope.type" />
         <TdContent :value="rowData.scope.cpu" />
         <TdContent :value="rowData.scope.sockets" />
-        <TdContent :value="rowData.scope.virtualizationNodes" />
+
+        <td>
+          <b-icon
+            v-tooltip="options('Physical Hosts')"
+            type="is-custom-primary"
+            class="hosts-icon"
+            pack="fas"
+            icon="server"
+            @click.native="
+              openModal(
+                rowData.scope.virtualizationNodes,
+                'Physical Hosts',
+                rowData.scope.name
+              )
+            "
+            v-if="rowData.scope.virtualizationNodes.length > 0"
+          />
+          <span v-else>-</span>
+        </td>
+
+        <td>
+          <b-icon
+            v-tooltip="options('Physical Server Model Names')"
+            type="is-custom-primary"
+            class="hosts-icon"
+            pack="fas"
+            icon="server"
+            @click.native="
+              openModal(
+                rowData.scope.physicalServerModelNames,
+                'Physical Server Model Names',
+                rowData.scope.name
+              )
+            "
+            v-if="rowData.scope.physicalServerModelNames.length > 0"
+          />
+          <span v-else>-</span>
+        </td>
+
         <TdContent :value="rowData.scope.vmsCount" />
         <TdContent :value="rowData.scope.vmsErcoleAgentCount" />
       </template>
@@ -98,6 +139,7 @@
 import { bus } from '@/helpers/eventBus.js'
 import techTypePrettyName from '@/mixins/techTypePrettyName.js'
 import { mapActions, mapGetters } from 'vuex'
+import TooltipMixin from '@/mixins/tooltipMixin.js'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -106,11 +148,12 @@ import ExportButton from '@/components/common/ExportButton.vue'
 import ColumnChart from '@/components/common/charts/ColumnChart.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HypervisorsFilters from '@/components/hypervisors/HypervisorsFilters.vue'
+import HypervisorsModal from '@/components/hypervisors/HypervisorsModal.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
-  mixins: [techTypePrettyName, localFiltersMixin],
+  mixins: [techTypePrettyName, localFiltersMixin, TooltipMixin],
   components: {
     ToggleColumns,
     BoxContent,
@@ -154,6 +197,19 @@ export default {
           params: { clustername: selectedRow },
         })
       }
+    },
+    openModal(data, title, cluster) {
+      this.$buefy.modal.open({
+        component: HypervisorsModal,
+        hasModalCard: true,
+        props: {
+          modalData: data,
+          modalInfo: {
+            title: title,
+            name: cluster,
+          },
+        },
+      })
     },
   },
   computed: {
