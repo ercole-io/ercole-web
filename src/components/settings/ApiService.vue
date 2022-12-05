@@ -57,14 +57,17 @@
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
         <CustomField label="Types">
-          <b-taginput
-            v-model="APIService.AuthenticationProvider.Types"
-            ellipsis
-            icon="label"
-            placeholder="Add a type"
+          <b-select
+            expanded
+            multiple
+            native-size="2"
             size="is-small"
             type="is-primary"
-          />
+            v-model="APIService.AuthenticationProvider.Types"
+          >
+            <option value="basic">Basic</option>
+            <option value="ldap">LDAP</option>
+          </b-select>
         </CustomField>
       </div>
       <div class="column is-one-quarter">
