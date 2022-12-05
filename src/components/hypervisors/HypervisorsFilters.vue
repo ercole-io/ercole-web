@@ -17,7 +17,7 @@
           />
         </CustomField>
 
-        <CustomField :label="$t('common.fields.type')">
+        <CustomField label="Type">
           <CustomSelect v-model="filters.type" :options="filteredtype" />
         </CustomField>
 
@@ -37,7 +37,11 @@
           />
         </CustomField>
 
-        <CustomField :label="$t('common.fields.physicalHost')">
+        <CustomField
+          :label="`${$t(
+            'common.fields.physicalHost'
+          )} - Physical Server Model Names`"
+        >
           <CustomAutocomplete
             v-model="filters.virtualizationNodes"
             :filterResult="filteredvirtualizationNodes"
