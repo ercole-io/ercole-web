@@ -30,7 +30,7 @@ export default {
         ReadOnly: null,
         DebugOracleDatabaseContractsAssignmentAlgorithm: null,
         AuthenticationProvider: {
-          Types: null,
+          Types: [],
           Username: null,
           Password: null,
           PrivateKey: null,
