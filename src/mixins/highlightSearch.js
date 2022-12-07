@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 
 export default {
@@ -14,11 +15,18 @@ export default {
   methods: {
     highlight(value) {
       if (!this.query) {
-        return value.toString()
+        if (!_.isNil(value)) {
+          return value.toString()
+        }
+      } else {
+        if (!_.isNil(value)) {
+          return value
+            .toString()
+            .replace(new RegExp(this.query, 'gi'), (match) => {
+              return `<span class="highlightText">${match}</span>`
+            })
+        }
       }
-      return value.toString().replace(new RegExp(this.query, 'gi'), (match) => {
-        return `<span class="highlightText">${match}</span>`
-      })
     },
   },
 }
