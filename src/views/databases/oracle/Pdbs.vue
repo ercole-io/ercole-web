@@ -83,7 +83,14 @@
                 <section class="wrap-table py-3">
                   <FullTable
                     :tableData="pdb.pdb.schemas"
-                    :keys="['user', 'total', 'tables', 'indexes', 'lob']"
+                    :keys="[
+                      'user',
+                      'total',
+                      'tables',
+                      'indexes',
+                      'lob',
+                      'accountStatus',
+                    ]"
                     hideSearch
                     hidePerpage
                     hidePagination
@@ -96,6 +103,7 @@
                       <v-th sortKey="tables">Tables</v-th>
                       <v-th sortKey="indexes">Indexes</v-th>
                       <v-th sortKey="lob">LOB</v-th>
+                      <v-th sortKey="accountStatus">Account Status</v-th>
                     </template>
 
                     <template slot="bodyData" slot-scope="rowData">
@@ -104,6 +112,7 @@
                       <TdContent :value="rowData.scope.tables" />
                       <TdContent :value="rowData.scope.indexes" />
                       <TdContent :value="rowData.scope.lob" />
+                      <TdContent :value="rowData.scope.accountStatus" />
                     </template>
                   </FullTable>
                 </section>
