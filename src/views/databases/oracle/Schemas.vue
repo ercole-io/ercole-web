@@ -26,6 +26,7 @@
         <v-th sortKey="tables">Tables</v-th>
         <v-th sortKey="indexes">Indexes</v-th>
         <v-th sortKey="lob">LOB</v-th>
+        <v-th sortKey="accountStatus">Account Status</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
@@ -36,6 +37,7 @@
         <TdContent :value="rowData.scope.tables" />
         <TdContent :value="rowData.scope.indexes" />
         <TdContent :value="rowData.scope.lob" />
+        <TdContent :value="rowData.scope.accountStatus" />
       </template>
 
       <ExportButton
@@ -80,6 +82,7 @@ export default {
         'tables',
         'indexes',
         'lob',
+        'accountStatus',
       ],
       isMounted: false,
     }
