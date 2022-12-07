@@ -13,7 +13,7 @@
         <v-th sortKey="firstUsageDate">First</v-th>
         <v-th sortKey="lastUsageDate">Last</v-th>
         <v-th sortKey="detectedUsages">Detected</v-th>
-        <v-th sortKey="product">Prod</v-th>
+        <v-th sortKey="product">Description</v-th>
         <v-th sortKey="currentlyUsed">Currently</v-th>
         <v-th sortKey="extraFeatureInfo">Extra</v-th>
         <v-th sortKey="feature">Feature</v-th>
