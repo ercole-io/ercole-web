@@ -155,6 +155,44 @@
             </FullTable>
           </section>
         </b-tab-item>
+        <b-tab-item
+          label="Segment Advisors"
+          v-if="pdb.segmentAdvisors && pdb.segmentAdvisors.length > 0"
+        >
+          <section class="wrap-table py-3">
+            <FullTable
+              :tableData="pdb.segmentAdvisors"
+              :keys="[
+                'segmentOwner',
+                'segmentName',
+                'segmentType',
+                'partitionName',
+                'recommendation',
+              ]"
+              hideSearch
+              hidePerpage
+              hidePagination
+              hideTopTable
+              :isLoadingTable="false"
+            >
+              <template slot="headData">
+                <v-th sortKey="segmentOwner">Segment Owner</v-th>
+                <v-th sortKey="segmentName">Segment Name</v-th>
+                <v-th sortKey="segmentType">Segment Type</v-th>
+                <v-th sortKey="partitionName">Partition Name</v-th>
+                <v-th sortKey="recommendation">Recommendation</v-th>
+              </template>
+
+              <template slot="bodyData" slot-scope="rowData">
+                <TdContent :value="rowData.scope.segmentOwner" />
+                <TdContent :value="rowData.scope.segmentName" />
+                <TdContent :value="rowData.scope.segmentType" />
+                <TdContent :value="rowData.scope.partitionName" />
+                <TdContent :value="rowData.scope.recommendation" />
+              </template>
+            </FullTable>
+          </section>
+        </b-tab-item>
       </b-tabs>
     </b-collapse>
   </b-tab-item>
