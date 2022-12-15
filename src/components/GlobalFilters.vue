@@ -364,7 +364,8 @@ export default {
         this.$route.name !== 'aws-recommendations' &&
         this.$route.name !== 'users' &&
         this.$route.name !== 'groups' &&
-        this.$route.name !== 'roles'
+        this.$route.name !== 'roles' &&
+        this.$route.name !== 'settings'
       )
     },
   },
