@@ -139,32 +139,53 @@
           />
         </CustomField>
       </div>
-      <!-- <div class="column is-two-quarter">
-        <CustomField label="License Type Metrics By Environment">
-          <b-taginput
-            v-model="DataService.LicenseTypeMetricsByEnvironment.TEST"
-            ellipsis
-            icon="label"
-            placeholder="Add"
-            size="is-small"
+      <div class="column is-half">
+        <CustomField
+          label="License Type Metrics By Environment"
+          class="is-relative"
+        >
+          <b-button
             type="is-primary"
+            icon-right="plus"
+            size="is-small"
+            @click="addNewLTMBE"
+            class="addNew"
           />
+          <div
+            class="is-flex is-flex-direction-row"
+            v-for="value in Object.entries(LTMBEchanges)"
+            :key="value[0]"
+          >
+            <p class="is-flex is-flex-direction-column is-flex-grow-2">
+              <CustomInput v-model="value[1].name" />
+              <DragAndDropList :list="value[1].items" />
+            </p>
+            <b-button
+              type="is-danger"
+              icon-right="delete"
+              size="is-small"
+              @click="deleteLTMBE(value[0])"
+            />
+          </div>
         </CustomField>
-      </div> -->
+      </div>
     </div>
   </article>
 </template>
 
 <script>
+import _ from 'lodash'
 import settings from '@/mixins/settings/settings.js'
 import SettingsActions from '@/components/settings/SettingsActions.vue'
 import Loading from '@/components/common/Loading.vue'
+import DragAndDropList from '@/components/common/DragAndDropList.vue'
 
 export default {
   mixins: [settings],
   components: {
     SettingsActions,
     Loading,
+    DragAndDropList,
   },
   data() {
     return {
@@ -174,6 +195,11 @@ export default {
   methods: {
     saveDataServiceSettings() {
       this.dataServiceLoading = true
+
+      this.DataService.LicenseTypeMetricsByEnvironment = _.mapValues(
+        _.keyBy(this.LTMBEchanges, 'name'),
+        'items'
+      )
 
       const data = {
         APIService: this.APIService,
@@ -197,8 +223,24 @@ export default {
     resetApiServiceSettings() {
       this.bindOriginalDataServiceData()
     },
+    addNewLTMBE() {
+      const newLTMBE = {
+        name: '',
+        items: ['Named User Plus Perpetual', 'Processor Perpetual'],
+      }
+      this.LTMBEchanges.unshift(newLTMBE)
+    },
+    deleteLTMBE(index) {
+      this.LTMBEchanges.splice(index, 1)
+    },
   },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.addNew {
+  position: absolute;
+  top: -9px;
+  right: 0;
+}
+</style>

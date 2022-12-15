@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { mapActions, mapGetters, mapState } from 'vuex'
 
 import CustomField from '@/components/common/Form/CustomField.vue'
@@ -96,8 +97,9 @@ export default {
           RunAtStartup: null,
         },
         LicenseTypeMetricsDefault: null,
-        LicenseTypeMetricsByEnvironment: null,
+        LicenseTypeMetricsByEnvironment: {},
       },
+      LTMBEchanges: [],
       ResourceFilePath: null,
       ThunderService: {
         RemoteEndpoint: null,
@@ -266,6 +268,14 @@ export default {
         LicenseTypeMetricsByEnvironment:
           this.getDataService.LicenseTypeMetricsByEnvironment,
       }
+
+      this.LTMBEchanges = []
+      _.map(this.getDataService.LicenseTypeMetricsByEnvironment, (v, k) => {
+        this.LTMBEchanges.push({
+          name: k,
+          items: v,
+        })
+      })
     },
     bindOriginalThunderServiceData() {
       this.ThunderService = {
