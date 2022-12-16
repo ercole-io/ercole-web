@@ -129,14 +129,7 @@
     <div class="columns is-multiline">
       <div class="column is-half">
         <CustomField label="License Type Metrics Default">
-          <b-taginput
-            v-model="DataService.LicenseTypeMetricsDefault"
-            ellipsis
-            icon="label"
-            placeholder="Add"
-            size="is-small"
-            type="is-primary"
-          />
+          <DragAndDropList :list="DataService.LicenseTypeMetricsDefault" />
         </CustomField>
       </div>
       <div class="column is-half">
