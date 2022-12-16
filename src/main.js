@@ -19,7 +19,7 @@ import Vuelidate from 'vuelidate'
 import VTooltip from 'v-tooltip'
 import ClickCopy from 'vue-directive-copy'
 import vueFilterPrettyBytes from 'vue-filter-pretty-bytes'
-import VueSanitize from 'vue-sanitize'
+// import VueSanitize from 'vue-sanitize'
 import VueMask from 'v-mask'
 
 import CapitalizeFilter from './filters/capitalize.js'
@@ -74,7 +74,7 @@ Vue.use(VTooltip, {
 })
 Vue.use(ClickCopy)
 Vue.use(vueFilterPrettyBytes)
-Vue.use(VueSanitize)
+// Vue.use(VueSanitize)
 Vue.use(VueMask)
 
 Vue.filter('capitalize', CapitalizeFilter)
