@@ -54,9 +54,11 @@ export default {
   computed: {
     setValue() {
       if (typeof this.value === 'number') {
-        return this.$sanitize(this.value)
+        return this.value
+        // return this.$sanitize(this.value)
       } else {
-        return this.$sanitize(this.value) || '-'
+        return this.value || '-'
+        // return this.$sanitize(this.value) || '-'
       }
     },
     setHighlight() {
