@@ -3,16 +3,14 @@
     :groupTitle="`${$t('common.general.moreInfo')}:`"
     class="moreInfo"
   >
-    <template v-for="(button, i) in buttonItems">
+    <div v-for="(button, i) in buttonItems" :key="i">
       <GhostLoading
         :isLoading="loadingTableStatus"
         setWidth="60"
         setHeight="30"
         class="mr-1"
-        :key="i"
       >
         <b-button
-          :key="i"
           class="mr-1"
           size="is-small"
           :type="
@@ -31,7 +29,7 @@
           {{ $t(`${button.langKey}`) }}
         </b-button>
       </GhostLoading>
-    </template>
+    </div>
   </ButtonGroup>
 </template>
 
