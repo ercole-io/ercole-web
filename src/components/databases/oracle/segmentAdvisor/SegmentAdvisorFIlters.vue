@@ -38,6 +38,10 @@
           />
         </CustomField>
 
+        <CustomField label="PDB">
+          <CustomSelect v-model="filters.pdb" :options="filteredpdb" />
+        </CustomField>
+
         <CustomField :label="$t('common.collumns.segmentOwner')">
           <CustomAutocomplete
             v-model="filters.segmentOwner"
@@ -94,7 +98,7 @@ export default {
         'segmentName',
         'recommendation',
       ],
-      selects: ['segmentType'],
+      selects: ['segmentType', 'pdb'],
       sliders: ['reclaimable', 'segmentsSize', 'retrieve'],
     }
   },
