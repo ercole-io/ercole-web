@@ -20,7 +20,7 @@ export const mutations = {
 
 export const actions = {
   async getPdbs({ commit, getters, dispatch }) {
-    dispatch('onLoadingTable')
+    dispatch('onLoading')
 
     const config = {
       method: 'get',
@@ -33,7 +33,7 @@ export const actions = {
     }
 
     await axiosRequest('baseApi', config).then((res) => {
-      dispatch('offLoadingTable')
+      dispatch('offLoading')
       commit('SET_PDBS', res.data)
     })
   },
