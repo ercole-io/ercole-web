@@ -8,13 +8,7 @@
     v-if="isMounted"
   >
     <template v-if="Object.keys(getOraclePdbs).length > 0">
-      <b-tabs
-        size="is-small"
-        type="is-toggle"
-        destroy-on-hide
-        vertical
-        animated
-      >
+      <b-tabs size="is-small" type="is-toggle" vertical animated>
         <b-tab-item
           v-for="(host, key) in getOraclePdbs"
           :label="key"
