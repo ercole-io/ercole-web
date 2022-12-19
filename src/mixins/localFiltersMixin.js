@@ -113,6 +113,8 @@ export default {
       filteredretention: [],
       filteredservName: [],
       filtereduser: [],
+      filteredpdb: [],
+      filteredaccountStatus: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,

@@ -18,6 +18,10 @@
           />
         </CustomField>
 
+        <CustomField label="PDB">
+          <CustomSelect v-model="filters.pdb" :options="filteredpdb" />
+        </CustomField>
+
         <CustomField label="User">
           <CustomSelect v-model="filters.user" :options="filtereduser" />
         </CustomField>
@@ -53,6 +57,13 @@
             :steps="1"
           />
         </CustomField>
+
+        <CustomField label="Account Status">
+          <CustomSelect
+            v-model="filters.accountStatus"
+            :options="filteredaccountStatus"
+          />
+        </CustomField>
       </template>
     </Collapse>
 
@@ -73,7 +84,7 @@ export default {
     return {
       collapses: ['General'],
       autocompletes: ['hostname', 'dbName'],
-      selects: ['user'],
+      selects: ['user', 'pdb', 'accountStatus'],
       sliders: ['total', 'tables', 'indexes', 'lob'],
     }
   },
