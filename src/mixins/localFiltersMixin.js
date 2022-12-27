@@ -115,6 +115,9 @@ export default {
       filtereduser: [],
       filteredpdb: [],
       filteredaccountStatus: [],
+      filtereddatabaseName: [],
+      filteredowner: [],
+      filteredpartitionName: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,
@@ -198,6 +201,8 @@ export default {
       maxindexes: null,
       minlob: null,
       maxlob: null,
+      minmb: null,
+      maxmb: null,
     }
   },
   mounted() {

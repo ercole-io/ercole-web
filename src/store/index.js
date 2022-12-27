@@ -58,6 +58,7 @@ import * as oracleDbgrowth from '@/store/modules/databases/oracle/dbgrowth'
 import * as orcaleSchemas from '@/store/modules/databases/oracle/schemas'
 import * as oraclePdbs from '@/store/modules/databases/oracle/pdbs'
 import * as oracleCpuTime from '@/store/modules/databases/oracle/cpuTime'
+import * as oraclePartitionings from '@/store/modules/databases/oracle/partitionings.js'
 // Databases Mysql
 import * as mysql from '@/store/modules/databases/mysql/mysql'
 // Databases Microsoft
@@ -120,6 +121,7 @@ export default new Vuex.Store({
     orcaleSchemas,
     oraclePdbs,
     oracleCpuTime,
+    oraclePartitionings,
     mysql,
     microsoft,
     postgresql,

@@ -215,6 +215,7 @@ export default {
       'getSchemas',
       'getPdbs',
       'getOracleHosts',
+      'getPartitionings',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS', 'SET_ACTIVE_FILTERS']),
     expandFilters() {
@@ -341,6 +342,9 @@ export default {
           break
         case 'cpu-time':
           this.getOracleHosts().then(() => this.offLoadingTable())
+          break
+        case 'partitionings':
+          this.getPartitionings().then(() => this.offLoadingTable())
           break
         default:
           return

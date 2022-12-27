@@ -41,7 +41,8 @@
     "schemas": "Schemas",
     "pdbs": "Pluggable DBs",
     "cpu-time": "CPU Time",
-    "settings": "Settings"
+    "settings": "Settings",
+    "partitionings": "Partitionings"
   },
   "header": {
     "logout": "Logout"
