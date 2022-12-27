@@ -98,6 +98,7 @@ const resolvePdbs = (pdbs) => {
         pdbAllocable: val.allocable,
         pdbDatafileSize: val.datafileSize,
         pdbSegmentsSize: val.segmentsSize,
+        pdbPartitionings: val.partitionings,
       })
     }
   })
