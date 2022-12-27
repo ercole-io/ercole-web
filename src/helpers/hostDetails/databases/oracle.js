@@ -47,8 +47,10 @@ const mapOracleDatabases = (data, extraData) => {
       services: resolveServices([...item.services]),
       dbGrants: item.grantDba ? resolveDbGrants([...item.grantDba]) : [],
       licenses: mapExtraData(item.name, extraData.licenses(item.name)),
+      partitionings: genericResolve([...item.partitionings]),
     })
   })
+
   return newData
 }
 
