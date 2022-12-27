@@ -186,6 +186,14 @@ export default {
                   attributes: { 'data-cy': 'mn-oracle-cpu-time' },
                   hidden: this.checkMenu('CPU Time', 'Oracle'),
                 },
+                {
+                  href: { name: 'partitionings' },
+                  title: this.$i18n.t('menu.partitionings'),
+                  icon: 'fas fa-cog',
+                  class: 'menu-third-level',
+                  attributes: { 'data-cy': 'mn-oracle-partitionings' },
+                  hidden: this.checkMenu('Partitionings', 'Oracle'),
+                },
               ],
             },
             {
@@ -358,7 +366,7 @@ export default {
           title: this.$i18n.t('menu.settings'),
           icon: 'fas fa-cog',
           attributes: { 'data-cy': 'mn-settings' },
-          hidden: !this.checkMenu('Settings', ''),
+          hidden: this.checkMenu('Settings', ''),
         },
       ]
     },

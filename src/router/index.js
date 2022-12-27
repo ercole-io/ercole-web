@@ -340,6 +340,27 @@ const routes = [
                 },
                 beforeEnter: verifyAuth,
               },
+              {
+                path: '/partitionings',
+                name: 'partitionings',
+                component: lazyRouteBuilder(
+                  'databases/oracle/Partitionings.vue'
+                ),
+                meta: {
+                  label: `${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.partitionings'
+                  )}`,
+                  title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.partitionings'
+                  )}`,
+                  breadcrumb: [
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: i18n.t('menu.partitionings') },
+                  ],
+                },
+                beforeEnter: verifyAuth,
+              },
             ],
           },
         ],
