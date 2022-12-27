@@ -66,6 +66,10 @@
           :services="dbs.services"
           v-if="dbs.services && dbs.services.length > 0"
         />
+        <DbPartitionings
+          :partitionings="dbs.partitionings"
+          v-if="dbs.partitionings && dbs.partitionings.length > 0"
+        />
       </b-tabs>
     </b-tab-item>
   </b-tabs>
@@ -89,6 +93,7 @@ import DbOptions from '@/components/hosts/hostDetails/oracle/databases/DbOptions
 import DbLicenses from '@/components/hosts/hostDetails/oracle/databases/DbLicenses.vue'
 import DbPDBs from '@/components/hosts/hostDetails/oracle/databases/DbPDBs.vue'
 import DbGrants from '@/components/hosts/hostDetails/oracle/databases/DbGrants.vue'
+import DbPartitionings from '@/components/hosts/hostDetails/oracle/databases/DbPartitionings.vue'
 
 export default {
   mixins: [databaseTabsMixin, infoMixin],
@@ -107,6 +112,7 @@ export default {
     DbLicenses,
     DbPDBs,
     DbGrants,
+    DbPartitionings,
   },
 }
 </script>
