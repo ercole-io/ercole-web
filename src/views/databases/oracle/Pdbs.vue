@@ -212,6 +212,45 @@
                   </template>
                 </FullTable>
               </b-tab-item>
+              <b-tab-item
+                label="Partitionings"
+                v-if="pdb.pdb.partitionings && pdb.pdb.partitionings.length > 0"
+              >
+                <FullTable
+                  :tableData="pdb.pdb.partitionings"
+                  :keys="[
+                    'date',
+                    'mb',
+                    'owner',
+                    'partitionName',
+                    'segmentName',
+                    'segmentType',
+                  ]"
+                  hideSearch
+                  hidePerpage
+                  hidePagination
+                  hideTopTable
+                  :isLoadingTable="false"
+                >
+                  <template slot="headData">
+                    <v-th sortKey="segmentName">Segment Name</v-th>
+                    <v-th sortKey="owner">Segment Owner</v-th>
+                    <v-th sortKey="segmentType">Segment Type</v-th>
+                    <v-th sortKey="partitionName">Partition</v-th>
+                    <v-th sortKey="mb">MB</v-th>
+                    <v-th sortKey="date">Date</v-th>
+                  </template>
+
+                  <template slot="bodyData" slot-scope="rowData">
+                    <TdContent :value="rowData.scope.segmentName" />
+                    <TdContent :value="rowData.scope.owner" />
+                    <TdContent :value="rowData.scope.segmentType" />
+                    <TdContent :value="rowData.scope.partitionName" />
+                    <TdContent :value="rowData.scope.mb" />
+                    <TdContent :value="rowData.scope.date" />
+                  </template>
+                </FullTable>
+              </b-tab-item>
             </b-tabs>
           </b-collapse>
         </b-tab-item>
