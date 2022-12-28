@@ -48,6 +48,7 @@ import ThunderService from '@/components/settings/ThunderService.vue'
 import { mapActions } from 'vuex'
 
 export default {
+  name: 'settings-page',
   mixins: [settings],
   components: {
     BoxContent,

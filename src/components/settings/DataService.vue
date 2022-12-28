@@ -52,73 +52,14 @@
     </div>
 
     <hr class="my-3" />
-    <p class="is-size-6 has-text-weight-semibold">Current Host Cleaning Job</p>
+    <p class="is-size-6 has-text-weight-semibold">Agent Data Retention</p>
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
-        <CustomField label="Crontab">
-          <CustomInput v-model="DataService.CurrentHostCleaningJob.Crontab" />
-        </CustomField>
-      </div>
-      <div class="column is-one-quarter">
-        <CustomField label="HourThreshold">
+        <CustomField label="Hour Threshold">
           <CustomInput
             v-model="DataService.CurrentHostCleaningJob.HourThreshold"
             inputType="number"
-          />
-        </CustomField>
-      </div>
-      <div class="column is-one-quarter">
-        <CustomField label="Run At Startup">
-          <CustomRadio
-            v-model="DataService.CurrentHostCleaningJob.RunAtStartup"
-            :options="trueOrFalseOptions"
-          />
-        </CustomField>
-      </div>
-    </div>
-
-    <hr class="my-3" />
-    <p class="is-size-6 has-text-weight-semibold">Archived Host Cleaning Job</p>
-
-    <div class="columns is-multiline">
-      <div class="column is-one-quarter">
-        <CustomField label="Crontab">
-          <CustomInput v-model="DataService.ArchivedHostCleaningJob.Crontab" />
-        </CustomField>
-      </div>
-      <div class="column is-one-quarter">
-        <CustomField label="HourThreshold">
-          <CustomInput
-            v-model="DataService.ArchivedHostCleaningJob.HourThreshold"
-            inputType="number"
-          />
-        </CustomField>
-      </div>
-      <div class="column is-one-quarter">
-        <CustomField label="Run At Startup">
-          <CustomRadio
-            v-model="DataService.ArchivedHostCleaningJob.RunAtStartup"
-            :options="trueOrFalseOptions"
-          />
-        </CustomField>
-      </div>
-    </div>
-
-    <hr class="my-3" />
-    <p class="is-size-6 has-text-weight-semibold">Freshness Check Job</p>
-
-    <div class="columns is-multiline">
-      <div class="column is-one-quarter">
-        <CustomField label="Crontab">
-          <CustomInput v-model="DataService.FreshnessCheckJob.Crontab" />
-        </CustomField>
-      </div>
-      <div class="column is-one-quarter">
-        <CustomField label="Run At Startup">
-          <CustomRadio
-            v-model="DataService.FreshnessCheckJob.RunAtStartup"
-            :options="trueOrFalseOptions"
           />
         </CustomField>
       </div>
@@ -193,6 +134,9 @@ export default {
         _.keyBy(this.LTMBEchanges, 'name'),
         'items'
       )
+
+      this.DataService.ArchivedHostCleaningJob.HourThreshold =
+        this.DataService.CurrentHostCleaningJob.HourThreshold
 
       const data = {
         APIService: this.APIService,
