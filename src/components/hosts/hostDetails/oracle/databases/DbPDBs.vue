@@ -186,7 +186,7 @@
           </FullTable>
         </b-tab-item>
         <b-tab-item
-          label="Partitionings"
+          label="Partitioning"
           v-if="pdb.partitionings && pdb.partitionings.length > 0"
         >
           <FullTable
@@ -210,8 +210,7 @@
               <v-th sortKey="owner">Segment Owner</v-th>
               <v-th sortKey="segmentType">Segment Type</v-th>
               <v-th sortKey="partitionName">Partition</v-th>
-              <v-th sortKey="mb">MB</v-th>
-              <v-th sortKey="date">Date</v-th>
+              <v-th sortKey="mb" defaultSort="desc">MB</v-th>
             </template>
 
             <template slot="bodyData" slot-scope="rowData">
@@ -220,7 +219,6 @@
               <TdContent :value="rowData.scope.segmentType" />
               <TdContent :value="rowData.scope.partitionName" />
               <TdContent :value="rowData.scope.mb" />
-              <TdContent :value="rowData.scope.date" />
             </template>
           </FullTable>
         </b-tab-item>
@@ -237,6 +235,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 
 export default {
+  name: 'host-details-pdbs-tab',
   mixins: [HighlightSearchMixin],
   components: {
     FullTable,

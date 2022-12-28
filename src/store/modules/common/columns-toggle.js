@@ -19,6 +19,7 @@ const defaultState = () => ({
   'page-backups': [false, true],
   'page-services': [false, true],
   'page-schemas': [false, true],
+  'page-partitionings': [false, true],
 
   'page-alerts': [false, true],
 

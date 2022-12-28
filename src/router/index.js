@@ -341,8 +341,8 @@ const routes = [
                 beforeEnter: verifyAuth,
               },
               {
-                path: '/partitionings',
-                name: 'partitionings',
+                path: '/partitioning',
+                name: 'partitioning',
                 component: lazyRouteBuilder(
                   'databases/oracle/Partitionings.vue'
                 ),

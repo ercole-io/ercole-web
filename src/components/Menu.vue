@@ -20,6 +20,7 @@ import { SidebarMenu } from 'vue-sidebar-menu'
 import { mapGetters } from 'vuex'
 
 export default {
+  name: 'menu-component',
   components: {
     SidebarMenu,
   },
@@ -187,7 +188,7 @@ export default {
                   hidden: this.checkMenu('CPU Time', 'Oracle'),
                 },
                 {
-                  href: { name: 'partitionings' },
+                  href: { name: 'partitioning' },
                   title: this.$i18n.t('menu.partitionings'),
                   icon: 'fas fa-cog',
                   class: 'menu-third-level',
