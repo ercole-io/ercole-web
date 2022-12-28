@@ -111,6 +111,7 @@ import ErcoleLogo from '@/components/common/ErcoleLogo.vue'
 import ChangePassModal from '@/views/profile/ChangePassModal.vue'
 
 export default {
+  name: 'header-component',
   components: {
     ErcoleLogo,
     // LocaleSwitcher,
@@ -137,7 +138,7 @@ export default {
         title: 'Ercole Version',
         message: `
           <p class="has-text-weight-bold">Server Version: <span class="has-text-weight-normal">${this.version}</span></p>
-          <p class="has-text-weight-bold">Web Version: <span class="has-text-weight-normal">2.26.1</span></p>
+          <p class="has-text-weight-bold">Web Version: <span class="has-text-weight-normal">2.29.0</span></p>
         `,
         cancelButton: false,
         type: 'is-success',
