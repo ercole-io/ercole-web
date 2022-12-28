@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="Partitionings">
+  <b-tab-item label="Partitioning">
     <FullTable
       :tableData="partitionings"
       :keys="keys"
@@ -14,8 +14,7 @@
         <v-th sortKey="owner">Segment Owner</v-th>
         <v-th sortKey="segmentType">Segment Type</v-th>
         <v-th sortKey="partitionName">Partition</v-th>
-        <v-th sortKey="mb">MB</v-th>
-        <v-th sortKey="date">Date</v-th>
+        <v-th sortKey="mb" defaultSort="desc">MB</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
@@ -24,7 +23,6 @@
         <TdContent :value="rowData.scope.segmentType" />
         <TdContent :value="rowData.scope.partitionName" />
         <TdContent :value="rowData.scope.mb" />
-        <TdContent :value="rowData.scope.date" />
       </template>
     </FullTable>
   </b-tab-item>
@@ -35,6 +33,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
+  name: 'host-details-partitioning-tab',
   props: {
     partitionings: {
       type: Array,

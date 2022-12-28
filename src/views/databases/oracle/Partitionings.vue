@@ -26,7 +26,7 @@
         <v-th sortKey="owner">Segment Owner</v-th>
         <v-th sortKey="segmentType">Segment Type</v-th>
         <v-th sortKey="partitionName">Partition</v-th>
-        <v-th sortKey="mb">MB</v-th>
+        <v-th sortKey="mb" defaultSort="desc">MB</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
