@@ -3,6 +3,7 @@ import { axiosRequest } from '@/services/services.js'
 
 const oracleUrl = 'oracle-cloud/configurations'
 const awsUrl = 'aws/configurations'
+const azureUrl = 'azure/configurations'
 
 export const state = () => ({
   cloudProfiles: [],

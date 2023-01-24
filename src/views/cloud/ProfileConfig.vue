@@ -13,11 +13,16 @@
       <AwsProfileConfigFilters v-if="returnCloudTechnology === 'Aws'">
         <Loading :isLoading="loadingTableStatus" />
       </AwsProfileConfigFilters>
+
+      <AzureProfileConfigFilters v-if="returnCloudTechnology === 'Azure'">
+        <Loading :isLoading="loadingTableStatus" />
+      </AzureProfileConfigFilters>
     </template>
 
     <template slot="center">
       <OracleProfileConfigList v-if="returnCloudTechnology === 'Oracle'" />
       <AwsProfileConfigList v-if="returnCloudTechnology === 'Aws'" />
+      <AzureProfileConfigList v-if="returnCloudTechnology === 'Azure'" />
     </template>
 
     <template slot="right">
@@ -28,6 +33,10 @@
       <AwsProfileConfigForm v-if="returnCloudTechnology === 'Aws'">
         <Loading :isLoading="loadingTableStatus" />
       </AwsProfileConfigForm>
+
+      <AzureProfileConfigForm v-if="returnCloudTechnology === 'Azure'">
+        <Loading :isLoading="loadingTableStatus" />
+      </AzureProfileConfigForm>
     </template>
   </ToggleColumns>
 </template>
@@ -46,7 +55,12 @@ import AwsProfileConfigList from '@/components/cloud/aws/profileConfig/ProfileLi
 import AwsProfileConfigForm from '@/components/cloud/aws/profileConfig/ProfileForm.vue'
 import AwsProfileConfigFilters from '@/components/cloud/aws/profileConfig/ProfileFilters.vue'
 
+import AzureProfileConfigList from '@/components/cloud/azure/profileConfig/ProfileList.vue'
+import AzureProfileConfigForm from '@/components/cloud/azure/profileConfig/ProfileForm.vue'
+import AzureProfileConfigFilters from '@/components/cloud/azure/profileConfig/ProfileFilters.vue'
+
 export default {
+  name: 'cloud-profile',
   components: {
     ToggleColumns,
     Loading,
@@ -56,6 +70,9 @@ export default {
     AwsProfileConfigList,
     AwsProfileConfigForm,
     AwsProfileConfigFilters,
+    AzureProfileConfigList,
+    AzureProfileConfigForm,
+    AzureProfileConfigFilters,
   },
   data() {
     return {
@@ -67,6 +84,8 @@ export default {
       this.SET_CLOUD_TECHNOLOGY('Oracle')
     } else if (this.$route.name === 'aws-profile-configurations') {
       this.SET_CLOUD_TECHNOLOGY('Aws')
+    } else if (this.$route.name === 'azure-recommendations') {
+      this.SET_CLOUD_TECHNOLOGY('Azure')
     }
 
     await this.getCloudProfiles().then(() => {

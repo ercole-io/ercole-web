@@ -42,7 +42,8 @@
     "pdbs": "Pluggable DBs",
     "cpu-time": "CPU Time",
     "settings": "Settings",
-    "partitionings": "Partitioning"
+    "partitionings": "Partitioning",
+    "azure": "Azure"
   },
   "header": {
     "logout": "Sair"

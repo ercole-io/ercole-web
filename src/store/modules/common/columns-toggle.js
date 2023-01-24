@@ -34,6 +34,7 @@ const defaultState = () => ({
 
   'page-profileConfigOracle': [false, true],
   'page-profileConfigAws': [false, true],
+  'page-profileConfigAzure': [false, true],
   'page-recommendationsOracle': [false, true],
   'page-recommendationsAws': [false, true],
 
