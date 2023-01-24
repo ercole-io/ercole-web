@@ -366,6 +366,7 @@ export default {
         this.$route.name !== 'oracle-recommendations' &&
         this.$route.name !== 'aws-profile-configurations' &&
         this.$route.name !== 'aws-recommendations' &&
+        this.$route.name !== 'azure-profile-configurations' &&
         this.$route.name !== 'users' &&
         this.$route.name !== 'groups' &&
         this.$route.name !== 'roles' &&

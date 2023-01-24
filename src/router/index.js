@@ -598,6 +598,40 @@ const routes = [
           },
         ],
       },
+      {
+        path: '/cloud-advisor/azure',
+        component: EmptyRouterView,
+        children: [
+          {
+            path: '/cloud-advisor/azure/profile-configurations',
+            name: 'azure-profile-configurations',
+            component: lazyRouteBuilder('cloud/ProfileConfig.vue'),
+            meta: {
+              label: i18n.t('menu.profileConfig'),
+              title: `${title}${i18n.t('menu.profileConfig')}`,
+              breadcrumb: [
+                { name: i18n.t('menu.cloudAdvisor') },
+                { name: i18n.t('menu.azure') },
+                { name: i18n.t('menu.profileConfig') },
+              ],
+            },
+          },
+          // {
+          //   path: '/cloud-advisor/azure/recommendations',
+          //   name: 'azure-recommendations',
+          //   component: lazyRouteBuilder('cloud/Recommendations.vue'),
+          //   meta: {
+          //     label: i18n.t('menu.recommendations'),
+          //     title: `${title}${i18n.t('menu.recommendations')}`,
+          //     breadcrumb: [
+          //       { name: i18n.t('menu.cloudAdvisor') },
+          //       { name: i18n.t('menu.azure') },
+          //       { name: i18n.t('menu.recommendations') },
+          //     ],
+          //   },
+          // },
+        ],
+      },
     ],
   },
   {

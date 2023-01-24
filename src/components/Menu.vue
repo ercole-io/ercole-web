@@ -353,6 +353,31 @@ export default {
                 },
               ],
             },
+            {
+              title: this.$i18n.t('menu.azure'),
+              icon: 'fas fa-cloud',
+              attributes: { 'data-cy': 'mn-cloud-azure' },
+              hidden: !this.checkMenu('Azure', 'Cloud Advisors'),
+              child: [
+                {
+                  href: { name: 'azure-profile-configurations' },
+                  title: this.$i18n.t('menu.profileConfig'),
+                  icon: 'fas fa-user-cog',
+                  class: 'menu-third-level',
+                  attributes: { 'data-cy': 'mn-cloud-azure-profile' },
+                  hidden: !this.checkMenu('Profile Configuration', 'Azure'),
+                },
+                // {
+                //   href: { name: 'azure-recommendations' },
+                //   title: this.$i18n.t('menu.recommendations'),
+                //   icon: 'fas fa-user-shield',
+                //   class: 'menu-third-level',
+                //   disabled: !this.getCloudActiveProfiles('azure'),
+                //   attributes: { 'data-cy': 'mn-cloud-azure-recommendations' },
+                //   hidden: this.checkMenu('Recommendations', 'Azure'),
+                // },
+              ],
+            },
           ],
         },
         {
