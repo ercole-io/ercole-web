@@ -357,7 +357,7 @@ export default {
               title: this.$i18n.t('menu.azure'),
               icon: 'fas fa-cloud',
               attributes: { 'data-cy': 'mn-cloud-azure' },
-              hidden: !this.checkMenu('Azure', 'Cloud Advisors'),
+              hidden: this.checkMenu('Azure', 'Cloud Advisors'),
               child: [
                 {
                   href: { name: 'azure-profile-configurations' },
@@ -365,7 +365,7 @@ export default {
                   icon: 'fas fa-user-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-cloud-azure-profile' },
-                  hidden: !this.checkMenu('Profile Configuration', 'Azure'),
+                  hidden: this.checkMenu('Profile Configuration', 'Azure'),
                 },
                 // {
                 //   href: { name: 'azure-recommendations' },
