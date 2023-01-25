@@ -27,7 +27,6 @@ export default {
   methods: {
     ...mapActions(['createCloudProfile', 'updateCloudProfile']),
     addUpdateProfile() {
-      console.log(this.profileForm)
       if (this.isEditing) {
         this.updateCloudProfile(this.profileForm).then(() => this.resetForm())
       } else {
