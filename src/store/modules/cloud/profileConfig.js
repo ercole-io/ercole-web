@@ -77,6 +77,8 @@ export const actions = {
       url = oracleUrl
     } else if (getters.returnCloudTechnology === 'Aws') {
       url = awsUrl
+    } else if (getters.returnCloudTechnology === 'Azure') {
+      url = azureUrl
     }
 
     const config = {
