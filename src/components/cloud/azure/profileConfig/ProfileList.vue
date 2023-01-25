@@ -16,15 +16,10 @@
       <v-th sortKey="name">
         {{ $t('common.collumns.profileName') }}
       </v-th>
-      <v-th sortKey="tenantid">
-        {{ $t('common.collumns.tenancy') }}
-      </v-th>
-      <v-th sortKey="clientid">
-        {{ $t('common.collumns.userOCID') }}
-      </v-th>
-      <v-th sortKey="clientsecret"> Client Secret </v-th>
+      <v-th sortKey="tenantid"> Tenant ID </v-th>
+      <v-th sortKey="clientid"> Client ID </v-th>
       <v-th sortKey="subscriptionid"> Subscription ID </v-th>
-      <v-th sortKey="region"> Region </v-th>
+      <v-th sortKey="region"> {{ $t('common.collumns.region') }} </v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
@@ -71,7 +66,6 @@
       <TdContent :value="rowData.scope.name" />
       <TdContent :value="rowData.scope.tenantid" />
       <TdContent :value="rowData.scope.clientid" />
-      <TdContent :value="rowData.scope.clientsecret" />
       <TdContent :value="rowData.scope.subscriptionid" />
       <TdContent :value="rowData.scope.region" />
     </template>
@@ -85,14 +79,7 @@ export default {
   mixins: [profileListMixin],
   data() {
     return {
-      keys: [
-        'name',
-        'tenantid',
-        'clientid',
-        'clientsecret',
-        'subscriptionid',
-        'region',
-      ],
+      keys: ['name', 'tenantid', 'clientid', 'subscriptionid', 'region'],
     }
   },
 }
