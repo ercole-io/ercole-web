@@ -84,7 +84,7 @@ export default {
       this.SET_CLOUD_TECHNOLOGY('Oracle')
     } else if (this.$route.name === 'aws-profile-configurations') {
       this.SET_CLOUD_TECHNOLOGY('Aws')
-    } else if (this.$route.name === 'azure-recommendations') {
+    } else if (this.$route.name === 'azure-profile-configurations') {
       this.SET_CLOUD_TECHNOLOGY('Azure')
     }
 

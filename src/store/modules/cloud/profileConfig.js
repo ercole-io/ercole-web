@@ -48,6 +48,8 @@ export const actions = {
       url = oracleUrl
     } else if (getters.returnCloudTechnology === 'Aws') {
       url = awsUrl
+    } else if (getters.returnCloudTechnology === 'Azure') {
+      url = azureUrl
     }
 
     const config = {
@@ -61,6 +63,8 @@ export const actions = {
         commit('SET_CLOUD_ACTIVE_PROFILE', [getters.hasActiveProfiles, 'oci'])
       } else if (getters.returnCloudTechnology === 'Aws') {
         commit('SET_CLOUD_ACTIVE_PROFILE', [getters.hasActiveProfiles, 'aws'])
+      } else if (getters.returnCloudTechnology === 'Azure') {
+        commit('SET_CLOUD_ACTIVE_PROFILE', [getters.hasActiveProfiles, 'azure'])
       }
       dispatch('offLoadingTable')
     })
