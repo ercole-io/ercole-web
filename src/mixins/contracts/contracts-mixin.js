@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import { simpleAutocompleteData } from '@/helpers/helpers.js'
 
 export default {
@@ -12,14 +12,10 @@ export default {
       selectedID: '',
     }
   },
-  async beforeMount() {
-    await this.getLicensesHosts()
-    await this.getLicensesClusters()
-
+  beforeMount() {
     bus.$on('onTabChange', (value) => (this.currentTab = value))
   },
   methods: {
-    ...mapActions(['getLicensesHosts', 'getLicensesClusters']),
     sussessToastMsg(contractID, text) {
       this.$buefy.toast.open({
         message: `The Contract Number <b>${contractID}</b> was successfully ${text}!`,
