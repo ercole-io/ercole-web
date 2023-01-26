@@ -118,6 +118,9 @@ export default {
       filtereddatabaseName: [],
       filteredowner: [],
       filteredpartitionName: [],
+      filteredtenantid: [],
+      filteredclientid: [],
+      filteredsubscriptionid: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,

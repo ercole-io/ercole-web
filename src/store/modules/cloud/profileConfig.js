@@ -143,6 +143,8 @@ export const actions = {
       url = `oracle-cloud/profile-selection/profileid/${payload.id}/selected/${payload.isActive}`
     } else if (getters.returnCloudTechnology === 'Aws') {
       url = `aws/profile-selection/profileid/${payload.id}/selected/${payload.isActive}`
+    } else if (getters.returnCloudTechnology === 'Azure') {
+      url = `azure/profile-selection/profileid/${payload.id}/selected/${payload.isActive}`
     }
 
     const config = {
