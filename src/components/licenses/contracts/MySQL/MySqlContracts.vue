@@ -3,7 +3,6 @@
     getPage="mysqlContracts"
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('views.licenses.agreeForm')"
-    v-if="isMounted"
   >
     <MySqlContractsFilters slot="left">
       <Loading :isLoading="loadingTableStatus" />
@@ -34,19 +33,11 @@ export default {
     MySqlContractsFilters,
     Loading,
   },
-  data() {
-    return {
-      isMounted: false,
-    }
-  },
-  async beforeMount() {
-    await this.mysqlContractsActions({ action: 'get', body: null }).then(() => {
+  beforeMount() {
+    this.mysqlContractsActions({ action: 'get', body: null }).then(() => {
       bus.$emit('data', this.getMysqlContracts)
     })
-    await this.mysqlLicensesTypes()
-  },
-  mounted() {
-    this.isMounted = true
+    this.mysqlLicensesTypes()
   },
   methods: {
     ...mapActions(['mysqlContractsActions', 'mysqlLicensesTypes']),

@@ -25,6 +25,7 @@ import { bus } from '@/helpers/eventBus.js'
 import OracleContracts from '@/components/licenses/contracts/Oracle/OracleContracts.vue'
 import MySqlContracts from '@/components/licenses/contracts/MySQL/MySqlContracts.vue'
 import MsSqlServerContracts from '@/components/licenses/contracts/Microsoft/MsSqlServerContracts.vue'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -37,7 +38,12 @@ export default {
       activeTab: 0,
     }
   },
+  mounted() {
+    this.getLicensesHosts()
+    this.getLicensesClusters()
+  },
   methods: {
+    ...mapActions(['getLicensesHosts', 'getLicensesClusters']),
     onTabChange(value) {
       bus.$emit('onTabChange', value)
     },

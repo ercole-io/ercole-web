@@ -3,7 +3,6 @@
     getPage="microsoftContracts"
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('views.licenses.agreeForm')"
-    v-if="isMounted"
   >
     <MsSqlServerFilters slot="left">
       <Loading :isLoading="loadingTableStatus" />
@@ -34,21 +33,11 @@ export default {
     MsSqlServerFilters,
     Loading,
   },
-  data() {
-    return {
-      isMounted: false,
-    }
-  },
-  async beforeMount() {
-    await this.microsoftContractsActions({ action: 'get', body: null }).then(
-      () => {
-        bus.$emit('data', this.getMicrosoftContracts)
-      }
-    )
-    await this.microsoftLicensesTypes()
-  },
-  mounted() {
-    this.isMounted = true
+  beforeMount() {
+    this.microsoftContractsActions({ action: 'get', body: null }).then(() => {
+      bus.$emit('data', this.getMicrosoftContracts)
+    })
+    this.microsoftLicensesTypes()
   },
   methods: {
     ...mapActions(['microsoftContractsActions', 'microsoftLicensesTypes']),

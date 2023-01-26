@@ -3,7 +3,6 @@
     getPage="oracleContracts"
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('views.licenses.agreeForm')"
-    v-if="isMounted"
   >
     <OracleContractsFilters slot="left">
       <Loading :isLoading="loadingTableStatus" />
@@ -34,21 +33,11 @@ export default {
     OracleContractsFilters,
     Loading,
   },
-  data() {
-    return {
-      isMounted: false,
-    }
-  },
-  async beforeMount() {
-    await this.oracleContractsActions({ action: 'get', body: null }).then(
-      () => {
-        bus.$emit('data', this.getOracleContracts)
-      }
-    )
-    await this.oracleLicensesTypes()
-  },
-  mounted() {
-    this.isMounted = true
+  beforeMount() {
+    this.oracleContractsActions({ action: 'get', body: null }).then(() => {
+      bus.$emit('data', this.getOracleContracts)
+    })
+    this.oracleLicensesTypes()
   },
   methods: {
     ...mapActions(['oracleContractsActions', 'oracleLicensesTypes']),
