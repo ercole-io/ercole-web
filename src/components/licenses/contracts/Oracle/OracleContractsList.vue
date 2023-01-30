@@ -61,7 +61,7 @@
           pack="fas"
           icon="server"
           @click.native="openModal(rowData.scope)"
-          v-if="rowData.scope.hosts.length > 0"
+          v-if="rowData.scope.hosts && rowData.scope.hosts.length > 0"
         />
         <span v-else>-</span>
       </td>
