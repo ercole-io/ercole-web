@@ -377,7 +377,7 @@ export default {
       this.filteredpartNumber = this.getOracleLicensesTypes
     }, 1000)
 
-    bus.$on('onResetAction', () => this.cancelCreateContract())
+    bus.$on('onResetAction', () => this.resetFormContract())
 
     bus.$on('editOracleContract', (data) => {
       bus.$emit('onToggleEdit', true)
@@ -416,11 +416,11 @@ export default {
         action: action,
         body: oracleAgreementData,
       }).then(() => {
-        this.oracleForm = {}
+        this.resetFormContract()
         this.sussessToastMsg(oracleAgreementData.contractID, toastMsg)
       })
     },
-    cancelCreateContract() {
+    resetFormContract() {
       this.oracleForm = {
         licenseID: '',
         contractID: '',
