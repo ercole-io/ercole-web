@@ -122,6 +122,85 @@ export default {
           RunAtStartup: null,
         },
       },
+      APIServiceLabels: [
+        'Remote Endpoint',
+        'Port',
+        'Bind IP',
+        'Log HTTP Request',
+        'ReadOnly',
+        'Debug Oracle Database Contracts Assignment Algorithm',
+        'Types',
+        'Username',
+        'Password',
+        'Private Key',
+        'Public Key',
+        'Token Validity Timeout',
+        'Host',
+        'Port',
+        'LDAP Base',
+        'LDAP Bind DN',
+        'LDAP Bind Password',
+        'LDAP User Filter',
+      ],
+      highlightApiService: false,
+      AlertServiceLabels: [
+        'Remote Endpoint',
+        'Bind IP',
+        'Port',
+        'Log HTTP Request',
+        'Log Messages',
+        'Log Alert Throws',
+        'Publisher Username',
+        'Publisher Password',
+        'Queue Buffer Size',
+        'Enabled',
+        'From',
+        'To',
+        'SMTP Server',
+        'SMTP Port',
+        'SMTP Username',
+        'SMTP Password',
+        'Disable SSL Certificate Validation',
+      ],
+      highlightAlertService: false,
+      ChartServiceLabels: [
+        'Remote Endpoint',
+        'Port',
+        'Bind IP',
+        'Log HTTP Request',
+      ],
+      highlightChartService: false,
+      DataServiceLabels: [
+        'Remote Endpoint',
+        'Port',
+        'Bind IP',
+        'Log HTTP Request',
+        'Log Inserting Hostdata',
+        'Agent Username',
+        'Agent Password',
+        'Hour Threshold',
+        'License Type Metrics Default',
+        'License Type Metrics By Environment',
+      ],
+      highlightDataService: false,
+      ResourceFilePathLabels: ['Resource File Path'],
+      highlightResourceFilePath: false,
+      ThunderServiceLabels: [
+        'Remote Endpoint',
+        'Port',
+        'Bind IP',
+        'Log HTTP Request',
+        'Crontab',
+        'HourThreshold',
+        'Run At Startup',
+        'Crontab',
+        'HourThreshold',
+        'Run At Startup',
+        'Crontab',
+        'HourThreshold',
+        'Run At Startup',
+      ],
+      highlightThunderService: false,
     }
   },
   beforeMount() {
@@ -303,6 +382,49 @@ export default {
           RunAtStartup: this.getThunderService.AwsDataRetrieveJob.RunAtStartup,
         },
       }
+    },
+    searchByLabels(e) {
+      let searchApiService = []
+      let searchAlertService = []
+      let searchChartService = []
+      let searchDataService = []
+      let searchResourceFilePath = []
+      let searchThunderService = []
+
+      if (e && e.length > 0) {
+        searchApiService = this.filterLabels(this.APIServiceLabels, e)
+        searchAlertService = this.filterLabels(this.AlertServiceLabels, e)
+        searchChartService = this.filterLabels(this.ChartServiceLabels, e)
+        searchDataService = this.filterLabels(this.DataServiceLabels, e)
+        searchResourceFilePath = this.filterLabels(
+          this.ResourceFilePathLabels,
+          e
+        )
+        searchThunderService = this.filterLabels(this.ThunderServiceLabels, e)
+      }
+
+      this.highlightApiService = searchApiService.length > 0 ? true : false
+      this.highlightAlertService = searchAlertService.length > 0 ? true : false
+      this.highlightChartService = searchChartService.length > 0 ? true : false
+      this.highlightDataService = searchDataService.length > 0 ? true : false
+      this.highlightResourceFilePath =
+        searchResourceFilePath.length > 0 ? true : false
+      this.highlightThunderService =
+        searchThunderService.length > 0 ? true : false
+
+      return {
+        searchApiService,
+        searchAlertService,
+        searchChartService,
+        searchDataService,
+        searchResourceFilePath,
+        searchThunderService,
+      }
+    },
+    filterLabels(service, therm) {
+      return service.filter((label) => {
+        return label.toLowerCase().includes(therm.toLowerCase())
+      })
     },
   },
   computed: {

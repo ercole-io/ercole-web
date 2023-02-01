@@ -9,45 +9,73 @@
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
-        <CustomField label="Remote Endpoint">
+        <div class="field">
+          <label
+            v-html="highlight(DataServiceLabels[0])"
+            class="label is-small"
+          />
           <CustomInput v-model="DataService.RemoteEndpoint" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Port">
+        <div class="field">
+          <label
+            v-html="highlight(DataServiceLabels[1])"
+            class="label is-small"
+          />
           <CustomInput v-model="DataService.Port" inputType="number" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Bind IP">
+        <div class="field">
+          <label
+            v-html="highlight(DataServiceLabels[2])"
+            class="label is-small"
+          />
           <CustomInput v-model="DataService.BindIP" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Log HTTP Request">
+        <div class="field">
+          <label
+            v-html="highlight(DataServiceLabels[3])"
+            class="label is-small"
+          />
           <CustomRadio
             v-model="DataService.LogHTTPRequest"
             :options="trueOrFalseOptions"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Log Inserting Hostdata">
+        <div class="field">
+          <label
+            v-html="highlight(DataServiceLabels[4])"
+            class="label is-small"
+          />
           <CustomRadio
             v-model="DataService.LogInsertingHostdata"
             :options="trueOrFalseOptions"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Agent Username">
+        <div class="field">
+          <label
+            v-html="highlight(DataServiceLabels[5])"
+            class="label is-small"
+          />
           <CustomInput v-model="DataService.AgentUsername" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Agent Password">
+        <div class="field">
+          <label
+            v-html="highlight(DataServiceLabels[6])"
+            class="label is-small"
+          />
           <CustomInput v-model="DataService.AgentPassword" />
-        </CustomField>
+        </div>
       </div>
     </div>
 
@@ -56,12 +84,16 @@
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
-        <CustomField label="Hour Threshold">
+        <div class="field">
+          <label
+            v-html="highlight(DataServiceLabels[7])"
+            class="label is-small"
+          />
           <CustomInput
             v-model="DataService.CurrentHostCleaningJob.HourThreshold"
             inputType="number"
           />
-        </CustomField>
+        </div>
       </div>
     </div>
 
@@ -69,39 +101,46 @@
 
     <div class="columns is-multiline">
       <div class="column is-half">
-        <CustomField label="License Type Metrics Default">
+        <div class="field">
+          <label
+            v-html="highlight(DataServiceLabels[8])"
+            class="label is-small"
+          />
           <DragAndDropList :list="DataService.LicenseTypeMetricsDefault" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-half">
-        <CustomField
-          label="License Type Metrics By Environment"
-          class="is-relative"
-        >
-          <b-button
-            type="is-primary"
-            icon-right="plus"
-            size="is-small"
-            @click="addNewLTMBE"
-            class="addNew"
+        <div class="field">
+          <label
+            v-html="highlight(DataServiceLabels[9])"
+            class="label is-small"
           />
-          <div
-            class="is-flex is-flex-direction-row"
-            v-for="value in Object.entries(LTMBEchanges)"
-            :key="value[0]"
-          >
-            <p class="is-flex is-flex-direction-column is-flex-grow-2">
-              <CustomInput v-model="value[1].name" />
-              <DragAndDropList :list="value[1].items" />
-            </p>
+          <div class="is-relative">
             <b-button
-              type="is-danger"
-              icon-right="delete"
+              type="is-primary"
+              icon-right="plus"
               size="is-small"
-              @click="deleteLTMBE(value[0])"
+              @click="addNewLTMBE"
+              class="addNew"
             />
+            <div
+              class="is-flex is-flex-direction-row"
+              v-for="value in Object.entries(LTMBEchanges)"
+              :key="value[0]"
+            >
+              <p class="is-flex is-flex-direction-column is-flex-grow-2">
+                <CustomInput v-model="value[1].name" />
+                <DragAndDropList :list="value[1].items" />
+              </p>
+              <b-button
+                type="is-danger"
+                icon-right="delete"
+                size="is-small"
+                @click="deleteLTMBE(value[0])"
+              />
+            </div>
           </div>
-        </CustomField>
+        </div>
       </div>
     </div>
   </article>
@@ -114,8 +153,10 @@ import SettingsActions from '@/components/settings/SettingsActions.vue'
 import Loading from '@/components/common/Loading.vue'
 import DragAndDropList from '@/components/common/DragAndDropList.vue'
 
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+
 export default {
-  mixins: [settings],
+  mixins: [settings, HighlightSearchMixin],
   components: {
     SettingsActions,
     Loading,
@@ -177,7 +218,7 @@ export default {
 <style lang="scss" scoped>
 .addNew {
   position: absolute;
-  top: -9px;
+  top: -33px;
   right: 0;
 }
 </style>

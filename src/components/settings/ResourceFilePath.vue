@@ -9,9 +9,13 @@
 
     <div class="columns is-multiline">
       <div class="column is-half">
-        <CustomField label="Resource File Path">
+        <div class="field">
+          <label
+            v-html="highlight(ResourceFilePathLabels[0])"
+            class="label is-small"
+          />
           <CustomInput v-model="ResourceFilePath" />
-        </CustomField>
+        </div>
       </div>
     </div>
   </article>
@@ -22,8 +26,10 @@ import settings from '@/mixins/settings/settings.js'
 import SettingsActions from '@/components/settings/SettingsActions.vue'
 import Loading from '@/components/common/Loading.vue'
 
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+
 export default {
-  mixins: [settings],
+  mixins: [settings, HighlightSearchMixin],
   components: {
     SettingsActions,
     Loading,

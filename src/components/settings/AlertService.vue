@@ -9,61 +9,97 @@
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
-        <CustomField label="Remote Endpoint">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[0])"
+            class="label is-small"
+          />
           <CustomInput v-model="AlertService.RemoteEndpoint" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Bind IP">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[1])"
+            class="label is-small"
+          />
           <CustomInput v-model="AlertService.BindIP" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Port">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[2])"
+            class="label is-small"
+          />
           <CustomInput v-model="AlertService.Port" inputType="number" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Log HTTP Request">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[3])"
+            class="label is-small"
+          />
           <CustomRadio
             v-model="AlertService.LogHTTPRequest"
             :options="trueOrFalseOptions"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Log Messages">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[4])"
+            class="label is-small"
+          />
           <CustomRadio
             v-model="AlertService.LogMessages"
             :options="trueOrFalseOptions"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Log Alert Throws">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[5])"
+            class="label is-small"
+          />
           <CustomRadio
             v-model="AlertService.LogAlertThrows"
             :options="trueOrFalseOptions"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Publisher Username">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[6])"
+            class="label is-small"
+          />
           <CustomInput v-model="AlertService.PublisherUsername" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Publisher Password">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[7])"
+            class="label is-small"
+          />
           <CustomInput v-model="AlertService.PublisherPassword" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Queue Buffer Size">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[8])"
+            class="label is-small"
+          />
           <CustomInput
             v-model="AlertService.QueueBufferSize"
             inputType="number"
           />
-        </CustomField>
+        </div>
       </div>
     </div>
 
@@ -72,53 +108,85 @@
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
-        <CustomField label="Enabled">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[9])"
+            class="label is-small"
+          />
           <CustomRadio
             v-model="AlertService.Emailer.Enabled"
             :options="trueOrFalseOptions"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="From">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[10])"
+            class="label is-small"
+          />
           <CustomInput v-model="AlertService.Emailer.From" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="To">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[11])"
+            class="label is-small"
+          />
           <CustomInput v-model="AlertService.Emailer.To" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="SMTP Server">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[12])"
+            class="label is-small"
+          />
           <CustomInput v-model="AlertService.Emailer.SMTPServer" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="SMTP Port">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[13])"
+            class="label is-small"
+          />
           <CustomInput
             v-model="AlertService.Emailer.SMTPPort"
             inputType="number"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="SMTP Username">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[14])"
+            class="label is-small"
+          />
           <CustomInput v-model="AlertService.Emailer.SMTPUsername" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="SMTP Password">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[15])"
+            class="label is-small"
+          />
           <CustomInput v-model="AlertService.Emailer.SMTPPassword" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Disable SSL Certificate Validation">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[16])"
+            class="label is-small"
+          />
           <CustomRadio
             v-model="AlertService.Emailer.DisableSSLCertificateValidation"
             :options="trueOrFalseOptions"
           />
-        </CustomField>
+        </div>
       </div>
     </div>
   </article>
@@ -129,8 +197,10 @@ import settings from '@/mixins/settings/settings.js'
 import SettingsActions from '@/components/settings/SettingsActions.vue'
 import Loading from '@/components/common/Loading.vue'
 
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+
 export default {
-  mixins: [settings],
+  mixins: [settings, HighlightSearchMixin],
   components: {
     SettingsActions,
     Loading,

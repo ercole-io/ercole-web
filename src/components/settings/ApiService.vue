@@ -9,45 +9,67 @@
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
-        <CustomField label="Remote Endpoint">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[0])"
+            class="label is-small"
+          />
           <CustomInput v-model="APIService.RemoteEndpoint" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Port">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[1])"
+            class="label is-small"
+          />
           <CustomInput v-model="APIService.Port" inputType="number" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Bind IP">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[2])"
+            class="label is-small"
+          />
           <CustomInput v-model="APIService.BindIP" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Log HTTP Request">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[3])"
+            class="label is-small"
+          />
           <CustomRadio
             v-model="APIService.LogHTTPRequest"
             :options="trueOrFalseOptions"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="ReadOnly">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[4])"
+            class="label is-small"
+          />
           <CustomRadio
             v-model="APIService.ReadOnly"
             :options="trueOrFalseOptions"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField
-          label="Debug Oracle Database Contracts Assignment Algorithm"
-        >
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[5])"
+            class="label is-small"
+          />
           <CustomRadio
             v-model="APIService.DebugOracleDatabaseContractsAssignmentAlgorithm"
             :options="trueOrFalseOptions"
           />
-        </CustomField>
+        </div>
       </div>
     </div>
 
@@ -56,7 +78,11 @@
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
-        <CustomField label="Types">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[6])"
+            class="label is-small"
+          />
           <b-select
             expanded
             multiple
@@ -68,72 +94,116 @@
             <option value="basic">Basic</option>
             <option value="ldap">LDAP</option>
           </b-select>
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Username">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[7])"
+            class="label is-small"
+          />
           <CustomInput v-model="APIService.AuthenticationProvider.Username" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Password">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[8])"
+            class="label is-small"
+          />
           <CustomInput v-model="APIService.AuthenticationProvider.Password" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Private Key">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[9])"
+            class="label is-small"
+          />
           <CustomInput v-model="APIService.AuthenticationProvider.PrivateKey" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Public Key">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[10])"
+            class="label is-small"
+          />
           <CustomInput v-model="APIService.AuthenticationProvider.PublicKey" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Token Validity Timeout">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[11])"
+            class="label is-small"
+          />
           <CustomInput
             v-model="APIService.AuthenticationProvider.TokenValidityTimeout"
             inputType="number"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Host">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[12])"
+            class="label is-small"
+          />
           <CustomInput v-model="APIService.AuthenticationProvider.Host" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Port">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[13])"
+            class="label is-small"
+          />
           <CustomInput
             v-model="APIService.AuthenticationProvider.Port"
             inputType="number"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="LDAP Base">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[14])"
+            class="label is-small"
+          />
           <CustomInput v-model="APIService.AuthenticationProvider.LDAPBase" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="LDAP Bind DN">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[15])"
+            class="label is-small"
+          />
           <CustomInput v-model="APIService.AuthenticationProvider.LDAPBindDN" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="LDAP Bind Password">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[16])"
+            class="label is-small"
+          />
           <CustomInput
             v-model="APIService.AuthenticationProvider.LDAPBindPassword"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="LDAP User Filter">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[17])"
+            class="label is-small"
+          />
           <CustomInput
             v-model="APIService.AuthenticationProvider.LDAPUserFilter"
           />
-        </CustomField>
+        </div>
       </div>
     </div>
   </article>
@@ -144,8 +214,10 @@ import settings from '@/mixins/settings/settings.js'
 import SettingsActions from '@/components/settings/SettingsActions.vue'
 import Loading from '@/components/common/Loading.vue'
 
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+
 export default {
-  mixins: [settings],
+  mixins: [settings, HighlightSearchMixin],
   components: {
     SettingsActions,
     Loading,
