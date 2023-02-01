@@ -9,27 +9,43 @@
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
-        <CustomField label="Remote Endpoint">
+        <div class="field">
+          <label
+            v-html="highlight(ChartServiceLabels[0])"
+            class="label is-small"
+          />
           <CustomInput v-model="ChartService.RemoteEndpoint" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Port">
+        <div class="field">
+          <label
+            v-html="highlight(ChartServiceLabels[1])"
+            class="label is-small"
+          />
           <CustomInput v-model="ChartService.Port" inputType="number" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Bind IP">
+        <div class="field">
+          <label
+            v-html="highlight(ChartServiceLabels[2])"
+            class="label is-small"
+          />
           <CustomInput v-model="ChartService.BindIP" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Log HTTP Request">
+        <div class="field">
+          <label
+            v-html="highlight(ChartServiceLabels[3])"
+            class="label is-small"
+          />
           <CustomRadio
             v-model="ChartService.LogHTTPRequest"
             :options="trueOrFalseOptions"
           />
-        </CustomField>
+        </div>
       </div>
     </div>
   </article>
@@ -40,8 +56,10 @@ import settings from '@/mixins/settings/settings.js'
 import SettingsActions from '@/components/settings/SettingsActions.vue'
 import Loading from '@/components/common/Loading.vue'
 
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+
 export default {
-  mixins: [settings],
+  mixins: [settings, HighlightSearchMixin],
   components: {
     SettingsActions,
     Loading,

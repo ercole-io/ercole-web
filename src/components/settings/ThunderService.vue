@@ -9,27 +9,43 @@
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
-        <CustomField label="Remote Endpoint">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[0])"
+            class="label is-small"
+          />
           <CustomInput v-model="ThunderService.RemoteEndpoint" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Port">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[1])"
+            class="label is-small"
+          />
           <CustomInput v-model="ThunderService.Port" inputType="number" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Bind IP">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[2])"
+            class="label is-small"
+          />
           <CustomInput v-model="ThunderService.BindIP" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Log HTTP Request">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[3])"
+            class="label is-small"
+          />
           <CustomRadio
             v-model="ThunderService.LogHTTPRequest"
             :options="trueOrFalseOptions"
           />
-        </CustomField>
+        </div>
       </div>
     </div>
 
@@ -38,25 +54,37 @@
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
-        <CustomField label="Crontab">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[4])"
+            class="label is-small"
+          />
           <CustomInput v-model="ThunderService.OciDataRetrieveJob.Crontab" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="HourThreshold">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[5])"
+            class="label is-small"
+          />
           <CustomInput
             v-model="ThunderService.OciDataRetrieveJob.DaysThreshold"
             inputType="number"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Run At Startup">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[6])"
+            class="label is-small"
+          />
           <CustomRadio
             v-model="ThunderService.OciDataRetrieveJob.RunAtStartup"
             :options="trueOrFalseOptions"
           />
-        </CustomField>
+        </div>
       </div>
     </div>
 
@@ -67,27 +95,39 @@
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
-        <CustomField label="Crontab">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[7])"
+            class="label is-small"
+          />
           <CustomInput
             v-model="ThunderService.OciRemoveOldDataObjectsJob.Crontab"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="HourThreshold">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[8])"
+            class="label is-small"
+          />
           <CustomInput
             v-model="ThunderService.OciRemoveOldDataObjectsJob.DaysThreshold"
             inputType="number"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Run At Startup">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[9])"
+            class="label is-small"
+          />
           <CustomRadio
             v-model="ThunderService.OciRemoveOldDataObjectsJob.RunAtStartup"
             :options="trueOrFalseOptions"
           />
-        </CustomField>
+        </div>
       </div>
     </div>
 
@@ -96,25 +136,37 @@
 
     <div class="columns is-multiline">
       <div class="column is-one-quarter">
-        <CustomField label="Crontab">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[10])"
+            class="label is-small"
+          />
           <CustomInput v-model="ThunderService.AwsDataRetrieveJob.Crontab" />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="HourThreshold">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[11])"
+            class="label is-small"
+          />
           <CustomInput
             v-model="ThunderService.AwsDataRetrieveJob.DaysThreshold"
             inputType="number"
           />
-        </CustomField>
+        </div>
       </div>
       <div class="column is-one-quarter">
-        <CustomField label="Run At Startup">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[12])"
+            class="label is-small"
+          />
           <CustomRadio
             v-model="ThunderService.AwsDataRetrieveJob.RunAtStartup"
             :options="trueOrFalseOptions"
           />
-        </CustomField>
+        </div>
       </div>
     </div>
   </article>
@@ -125,8 +177,10 @@ import settings from '@/mixins/settings/settings.js'
 import SettingsActions from '@/components/settings/SettingsActions.vue'
 import Loading from '@/components/common/Loading.vue'
 
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+
 export default {
-  mixins: [settings],
+  mixins: [settings, HighlightSearchMixin],
   components: {
     SettingsActions,
     Loading,
