@@ -8,6 +8,7 @@ import { mapActions, mapGetters } from 'vuex'
 import OracleDBs from '@/components/databases/oracle/OracleDBs.vue'
 
 export default {
+  name: 'oracle-databases-page',
   components: {
     OracleDBs,
   },

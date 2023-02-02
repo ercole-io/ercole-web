@@ -20,6 +20,7 @@ import { mapActions } from 'vuex'
 import ErrorCode from '@/components/common/ErrorCode.vue'
 
 export default {
+  name: 'unauthorized-page',
   components: {
     ErrorCode,
   },

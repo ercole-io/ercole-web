@@ -64,6 +64,7 @@ import SchemasFilters from '@/components/databases/oracle/schemas/Filters.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'oracle-databases-schemas-page',
   mixins: [hostnameLinkRow],
   components: {
     ToggleColumns,

@@ -60,6 +60,7 @@ import PatchFilters from '@/components/databases/oracle/patch/Filters.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'oracle-databases-patch-page',
   mixins: [hostnameLinkRow],
   components: {
     ToggleColumns,

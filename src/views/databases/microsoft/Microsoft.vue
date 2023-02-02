@@ -8,6 +8,7 @@ import { mapActions, mapGetters } from 'vuex'
 import MsSqlServerDbs from '@/components/databases/microsoft/MsSqlServerDbs.vue'
 
 export default {
+  name: 'microsoft-databases-page',
   components: {
     MsSqlServerDbs,
   },

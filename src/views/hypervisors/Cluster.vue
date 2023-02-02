@@ -147,6 +147,7 @@ import GhostLoading from '@/components/common/GhostLoading.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'cluster-page',
   mixins: [techTypePrettyName, localFiltersMixin, hostnameLinkRow],
   props: ['clustername'],
   components: {

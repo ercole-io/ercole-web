@@ -36,6 +36,7 @@ import DashboardTabs from '@/components/dashboard/DashboardTabs.vue'
 import Alerts from '@/components/dashboard/alerts/Alerts.vue'
 
 export default {
+  name: 'dashboard-page',
   components: {
     Technologies,
     CloudObjects,

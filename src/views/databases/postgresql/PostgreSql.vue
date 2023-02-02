@@ -8,6 +8,7 @@ import { mapActions, mapGetters } from 'vuex'
 import PostgreSqlDbs from '@/components/databases/postgresql/PostgreSqlDbs.vue'
 
 export default {
+  name: 'postgresql-databases-page',
   components: {
     PostgreSqlDbs,
   },

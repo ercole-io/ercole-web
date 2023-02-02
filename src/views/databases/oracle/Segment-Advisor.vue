@@ -98,6 +98,7 @@ import Loading from '@/components/common/Loading.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'oracle-databases-segmentadvisor-page',
   mixins: [hostnameLinkRow],
   components: {
     ToggleColumns,

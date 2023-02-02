@@ -177,6 +177,7 @@ const stringSearch = (str, srch) => {
 const noSpaces = helpers.regex('noSpaces', /^\S*$/)
 
 export default {
+  name: 'groups-page',
   mixins: [TooltipMixin],
   components: {
     FullTable,

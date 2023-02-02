@@ -267,7 +267,7 @@ import TdIcon from '@/components/common/Table/TDIcon.vue'
 import NoContent from '@/components/common/NoContent.vue'
 
 export default {
-  name: 'databases-pdbs-page',
+  name: 'oracle-databases-pdbs-page',
   components: {
     BoxContent,
     FullTable,

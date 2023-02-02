@@ -95,6 +95,7 @@ import ExportButton from '@/components/common/ExportButton.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'licensescompliance-page',
   mixins: [paginationMixin],
   components: {
     ToggleColumns,

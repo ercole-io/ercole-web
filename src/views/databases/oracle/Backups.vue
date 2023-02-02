@@ -61,6 +61,7 @@ import BackupsFilters from '@/components/databases/oracle/backups/Filters.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'oracle-databases-backups-page',
   mixins: [hostnameLinkRow],
   components: {
     ToggleColumns,

@@ -29,6 +29,7 @@ import DetailsInfo from '@/components/hosts/hostDetails/DetailsInfo.vue'
 import DatabasesMain from '@/components/hosts/hostDetails/DatabasesMain.vue'
 
 export default {
+  name: 'host-details-page',
   props: ['hostname', 'dbname'],
   components: {
     Notifications,

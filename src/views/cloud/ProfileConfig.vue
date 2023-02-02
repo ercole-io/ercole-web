@@ -60,7 +60,7 @@ import AzureProfileConfigForm from '@/components/cloud/azure/profileConfig/Profi
 import AzureProfileConfigFilters from '@/components/cloud/azure/profileConfig/ProfileFilters.vue'
 
 export default {
-  name: 'cloud-profile',
+  name: 'cloud-profile-page',
   components: {
     ToggleColumns,
     Loading,

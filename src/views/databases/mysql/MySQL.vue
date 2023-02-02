@@ -8,6 +8,7 @@ import { mapActions, mapGetters } from 'vuex'
 import MySqlDbs from '@/components/databases/mysql/MySqlDbs.vue'
 
 export default {
+  name: 'mysql-databases-page',
   components: {
     MySqlDbs,
   },

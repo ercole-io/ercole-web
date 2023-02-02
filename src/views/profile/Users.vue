@@ -426,6 +426,7 @@ const stringSearch = (str, srch) => {
 const noSpaces = helpers.regex('noSpaces', /^\S*$/)
 
 export default {
+  name: 'users-page',
   components: {
     UsersList,
     AdvancedFiltersBase,

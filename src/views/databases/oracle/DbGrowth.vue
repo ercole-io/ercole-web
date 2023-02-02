@@ -74,6 +74,7 @@ import SearchInput from '@/components/common/SearchInput.vue'
 import NoContent from '@/components/common/NoContent.vue'
 
 export default {
+  name: 'oracle-databases-dbgrowth-page',
   mixins: [DbGrowthMixin],
   components: {
     BoxContent,

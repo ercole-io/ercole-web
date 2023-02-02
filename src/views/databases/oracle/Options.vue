@@ -65,6 +65,7 @@ import OptionsFilters from '@/components/databases/oracle/options/Filters.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'oracle-databases-options-page',
   mixins: [hostnameLinkRow],
   components: {
     ToggleColumns,

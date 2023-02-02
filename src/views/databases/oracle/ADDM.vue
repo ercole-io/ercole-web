@@ -65,6 +65,7 @@ import AddmFilters from '@/components/databases/oracle/addm/AddmFilters.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'oracle-databases-addm-page',
   mixins: [hostnameLinkRow],
   components: {
     ToggleColumns,

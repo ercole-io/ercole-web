@@ -21,6 +21,7 @@ import AlertsTable from '@/components/alerts/Table.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'alerts-page',
   components: {
     ToggleColumns,
     AlertsFilters,

@@ -103,6 +103,7 @@ import { mapActions, mapGetters } from 'vuex'
 import { required, sameAs } from 'vuelidate/lib/validators'
 
 export default {
+  name: 'change-password-modal',
   props: {
     limitedUsername: {
       type: String,

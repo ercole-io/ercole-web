@@ -15,6 +15,7 @@
 import ErrorCode from '@/components/common/ErrorCode.vue'
 
 export default {
+  name: 'generalerrors-page',
   components: {
     ErrorCode,
   },
