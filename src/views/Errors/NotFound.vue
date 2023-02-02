@@ -19,6 +19,7 @@
 import ErrorCode from '@/components/common/ErrorCode.vue'
 
 export default {
+  name: 'notfound-page',
   components: {
     ErrorCode,
   },

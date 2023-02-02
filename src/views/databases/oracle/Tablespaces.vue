@@ -60,6 +60,7 @@ import TablespacesFilters from '@/components/databases/oracle/tablespaces/Filter
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'oracle-databases-tablespaces-page',
   mixins: [hostnameLinkRow],
   components: {
     ToggleColumns,

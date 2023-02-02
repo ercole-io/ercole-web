@@ -162,6 +162,7 @@ import Loading from '@/components/common/Loading.vue'
 import RefreshButton from '@/components/common/RefreshButton.vue'
 
 export default {
+  name: 'hosts-page',
   mixins: [localFiltersMixin, hostnameLinkRow, getHeadKeys, TooltipMixin],
   components: {
     ToggleColumns,

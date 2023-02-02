@@ -79,6 +79,7 @@ import NoContent from '@/components/common/NoContent.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'oracle-databases-cputime-page',
   components: {
     BoxContent,
     LineChart,

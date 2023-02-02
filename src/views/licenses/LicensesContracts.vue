@@ -28,6 +28,7 @@ import MsSqlServerContracts from '@/components/licenses/contracts/Microsoft/MsSq
 import { mapActions } from 'vuex'
 
 export default {
+  name: 'licensescontracts-page',
   components: {
     OracleContracts,
     MySqlContracts,

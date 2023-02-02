@@ -63,6 +63,7 @@ import DbGrantsFilters from '@/components/databases/oracle/databaseGrants/DbGran
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'oracle-databases-dbgrants-page',
   mixins: [hostnameLinkRow],
   components: {
     ToggleColumns,

@@ -24,6 +24,7 @@
 
 <script>
 export default {
+  name: 'reset-password-modal',
   props: {
     newPass: {
       type: String,

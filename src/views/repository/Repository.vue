@@ -8,6 +8,7 @@ import { mapActions, mapGetters } from 'vuex'
 import Repositories from '@/components/repository/Repositories.vue'
 
 export default {
+  name: 'repository-page',
   components: {
     Repositories,
   },

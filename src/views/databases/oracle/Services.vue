@@ -55,6 +55,7 @@ import ServiceFilters from '@/components/databases/oracle/services/Filters.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'oracle-databases-services-page',
   mixins: [hostnameLinkRow],
   components: {
     ToggleColumns,

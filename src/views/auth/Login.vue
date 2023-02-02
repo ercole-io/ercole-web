@@ -22,6 +22,7 @@ import ErcoleLogo from '@/components/common/ErcoleLogo.vue'
 // import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 
 export default {
+  name: 'login-page',
   components: {
     LoginForm,
     ErcoleLogo,

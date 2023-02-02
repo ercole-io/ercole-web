@@ -8,6 +8,7 @@ import { mapActions, mapGetters } from 'vuex'
 import DbList from '@/components/databases/databases/DbList.vue'
 
 export default {
+  name: 'databases-page',
   components: {
     DbList,
   },

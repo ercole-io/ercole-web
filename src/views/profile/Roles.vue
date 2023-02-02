@@ -205,6 +205,7 @@ import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 const noSpaces = helpers.regex('noSpaces', /^\S*$/)
 
 export default {
+  name: 'roles-page',
   mixins: [TooltipMixin],
   components: {
     FullTable,

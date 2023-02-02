@@ -35,6 +35,7 @@ import AwsFilters from '@/components/cloud/aws/recommendations/Filters.vue'
 import AwsTableList from '@/components/cloud/aws/recommendations/TableList.vue'
 
 export default {
+  name: 'recommendations-page',
   components: {
     ToggleColumns,
     OracleFilters,

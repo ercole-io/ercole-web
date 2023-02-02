@@ -32,6 +32,7 @@ import Patching from '@/components/engineered/Patching.vue'
 import EngineeredTables from '@/components/engineered/EngineeredTables.vue'
 
 export default {
+  name: 'engineered-page',
   components: {
     Cpu,
     Memory,

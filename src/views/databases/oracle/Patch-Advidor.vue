@@ -81,6 +81,7 @@ import PatchAdvisorFilters from '@/components/databases/oracle/patchAdvisor/Patc
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'oracle-databases-patchadvisor-page',
   mixins: [hostnameLinkRow],
   components: {
     ToggleColumns,

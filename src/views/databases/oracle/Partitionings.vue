@@ -65,7 +65,7 @@ import PartitioningsFilters from '@/components/databases/oracle/partitionings/Fi
 import Loading from '@/components/common/Loading.vue'
 
 export default {
-  name: 'partitionings-page',
+  name: 'oracle-databases-partitionings-page',
   mixins: [hostnameLinkRow],
   components: {
     ToggleColumns,

@@ -116,6 +116,7 @@ import GhostLoading from '@/components/common/GhostLoading.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'hypervisors-page',
   mixins: [techTypePrettyName, localFiltersMixin, TooltipMixin],
   components: {
     ToggleColumns,

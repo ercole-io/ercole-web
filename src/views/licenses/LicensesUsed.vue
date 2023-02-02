@@ -28,6 +28,7 @@ import UsedLicensesHost from '@/components/licenses/used/hosts/UsedLicensesHost.
 import UsedLicensesClusters from '@/components/licenses/used/clusters/UsedLicensesClusters.vue'
 
 export default {
+  name: 'licensesused-page',
   components: {
     UsedLicensesDbs,
     UsedLicensesHost,
