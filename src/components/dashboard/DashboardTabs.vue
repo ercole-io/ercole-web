@@ -20,6 +20,7 @@ import LicensesChart from '@/components/dashboard/LicenseChart.vue'
 import CoreHostsChart from '@/components/dashboard/CoreHostsChart.vue'
 
 export default {
+  name: 'daschboard-tabs-component',
   components: {
     BoxContent,
     LicensesChart,

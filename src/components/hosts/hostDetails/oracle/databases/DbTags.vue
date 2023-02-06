@@ -16,17 +16,18 @@
 import Tags from '@/components/common/Tags.vue'
 
 export default {
+  name: 'hosts-details-oracle-databases-tags-component',
   props: {
     dbName: {
-      type: String
+      type: String,
     },
     tags: {
       type: Array,
-      default: null
-    }
+      default: null,
+    },
   },
   components: {
-    Tags
+    Tags,
   },
   methods: {
     handleAddTag(value) {
@@ -37,8 +38,8 @@ export default {
     },
     handleEditTag(value) {
       console.log('make api call to edit tag', value)
-    }
-  }
+    },
+  },
 }
 </script>
 

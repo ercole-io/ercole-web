@@ -16,6 +16,7 @@
 import { mapState } from 'vuex'
 
 export default {
+  name: 'commom-table-dynamicheader-component',
   props: ['data'],
   computed: {
     ...mapState(['moreInfoToggle']),

@@ -76,6 +76,7 @@ import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
 
 export default {
+  name: 'databases-oracle-schemas-filters-component',
   mixins: [localFiltersMixin],
   components: {
     Collapse,

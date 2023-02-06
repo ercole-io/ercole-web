@@ -12,6 +12,7 @@
 
 <script>
 export default {
+  name: 'commom-cardstats-component',
   props: {
     cardStatTitle: {
       type: String,

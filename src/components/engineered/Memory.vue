@@ -14,6 +14,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'engineered-memory-component',
   components: {
     BoxContent,
     GhostLoading,

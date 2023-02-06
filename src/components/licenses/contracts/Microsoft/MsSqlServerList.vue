@@ -109,6 +109,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
+  name: 'licenses-contracts-microsoft-list-component',
   mixins: [TooltipMixin],
   components: {
     FullTable,

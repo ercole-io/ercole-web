@@ -37,6 +37,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
+  name: 'hosts-details-filesystems-component',
   props: {
     fileSysData: {
       type: Array,

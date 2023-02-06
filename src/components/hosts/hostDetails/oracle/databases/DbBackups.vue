@@ -34,6 +34,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdArray from '@/components/common/Table/TdArray.vue'
 
 export default {
+  name: 'hosts-details-oracle-databases-backups-component',
   components: {
     FullTable,
     TdContent,

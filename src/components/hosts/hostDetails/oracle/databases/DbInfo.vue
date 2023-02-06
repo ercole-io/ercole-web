@@ -218,6 +218,7 @@
 import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
 
 export default {
+  name: 'hosts-details-oracle-databases-info-component',
   mixins: [infoMixin],
 }
 </script>

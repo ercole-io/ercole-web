@@ -26,6 +26,7 @@ import MySqlContractsFilters from '@/components/licenses/contracts/MySQL/MySqlCo
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'licenses-contracts-mysql-main-component',
   components: {
     ToggleColumns,
     MySqlContractsList,

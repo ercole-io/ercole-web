@@ -38,6 +38,7 @@
 
 <script>
 export default {
+  name: 'commom-collapse-component',
   props: {
     title: {
       type: String,

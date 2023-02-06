@@ -94,6 +94,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import i18n from '@/i18n.js'
 
 export default {
+  name: 'licenses-contracts-oracle-associatedmodal-component',
   mixins: [TooltipMixin],
   components: {
     FullTable,

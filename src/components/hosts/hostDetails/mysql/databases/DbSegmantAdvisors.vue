@@ -40,6 +40,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
+  name: 'hosts-details-mysql-databases-segadvisors-component',
   props: {
     segmentAdvisors: {
       type: Array,

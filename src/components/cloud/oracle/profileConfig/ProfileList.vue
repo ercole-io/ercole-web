@@ -90,6 +90,7 @@
 import profileListMixin from '@/mixins/cloud/profileList.js'
 
 export default {
+  name: 'cloud-oracle-profileconfig-list-component',
   mixins: [profileListMixin],
   data() {
     return {

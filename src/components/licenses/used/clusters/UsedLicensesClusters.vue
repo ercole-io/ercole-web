@@ -74,6 +74,7 @@ import ExportButton from '@/components/common/ExportButton.vue'
 import UsedLicensesClustersModal from '@/components/licenses/used/clusters/UsedLicensesClustersModal.vue'
 
 export default {
+  name: 'licenses-used-clusters-main-component',
   mixins: [
     HighlightSearchMixin,
     TooltipMixin,

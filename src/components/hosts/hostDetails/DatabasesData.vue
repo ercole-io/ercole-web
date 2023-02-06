@@ -52,6 +52,7 @@ import Mysql from '@/components/hosts/hostDetails/mysql/databases/Databases.vue'
 import Postgre from '@/components/hosts/hostDetails/postgresql/databases/Databases.vue'
 
 export default {
+  name: 'hosts-details-databases-data-component',
   mixins: [databaseFiltersMixin, databaseTypesMixin],
   components: {
     BoxContent,

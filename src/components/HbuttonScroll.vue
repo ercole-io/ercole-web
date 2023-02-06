@@ -26,6 +26,7 @@
 
 <script>
 export default {
+  name: 'horizontalscroll-component',
   props: {
     elemScroll: {
       type: String,

@@ -114,6 +114,7 @@ import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import FullTable from '@/components/common/Table/buefy/FullTable.vue'
 
 export default {
+  name: 'alerts-table-component',
   mixins: [TooltipMixin, HighlightSearchMixin],
   components: {
     FullTable,

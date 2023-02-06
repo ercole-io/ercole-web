@@ -15,6 +15,7 @@ import { bus } from '@/helpers/eventBus.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 
 export default {
+  name: 'commom-refreshbutton-component',
   mixins: [TooltipMixin],
   props: {
     tooltipMsg: {

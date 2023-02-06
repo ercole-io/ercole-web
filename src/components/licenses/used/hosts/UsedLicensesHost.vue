@@ -85,6 +85,7 @@ import TooltipMixin from '@/mixins/tooltipMixin.js'
 import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
+  name: 'licenses-used-hosts-main-component',
   mixins: [
     HighlightSearchMixin,
     TooltipMixin,

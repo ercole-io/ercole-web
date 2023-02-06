@@ -29,6 +29,7 @@ import { bus } from '@/helpers/eventBus.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 
 export default {
+  name: 'commom-table-selectperpage-component',
   mixins: [paginationMixin],
   props: {
     totalItems: {

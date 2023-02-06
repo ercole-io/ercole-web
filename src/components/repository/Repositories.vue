@@ -34,6 +34,7 @@ import RepoFilters from '@/components/repository/RepoFilters.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'repository-main-component',
   components: {
     ToggleColumns,
     RepoTable,

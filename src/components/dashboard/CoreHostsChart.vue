@@ -24,14 +24,15 @@ import RangeDates from '@/components/common/RangeDates.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'daschboard-corechart-component',
   components: {
     LineChart,
     RangeDates,
-    GhostLoading
+    GhostLoading,
   },
   data() {
     return {
-      loading: true
+      loading: true,
     }
   },
   async beforeMount() {
@@ -41,11 +42,11 @@ export default {
   },
   methods: {
     ...mapActions(['getCoreHosts']),
-    ...mapMutations(['SET_RANGE_DATES_ALT'])
+    ...mapMutations(['SET_RANGE_DATES_ALT']),
   },
   computed: {
-    ...mapGetters(['getChartCoreHosts'])
-  }
+    ...mapGetters(['getChartCoreHosts']),
+  },
 }
 </script>
 

@@ -45,6 +45,7 @@ import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
 
 export default {
+  name: 'hypervisors-clusters-filters-component',
   mixins: [localFiltersMixin],
   components: {
     Collapse,

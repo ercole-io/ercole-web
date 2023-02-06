@@ -4,8 +4,8 @@
     :class="[
       {
         collapsed: isCollapsedSidebar,
-        withFilters: globalFilters.isFilterOpened
-      }
+        withFilters: globalFilters.isFilterOpened,
+      },
     ]"
   >
     <slot />
@@ -16,15 +16,16 @@
 import { mapState } from 'vuex'
 
 export default {
+  name: 'main-component',
   props: {
     isCollapsedSidebar: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   computed: {
-    ...mapState(['globalFilters'])
-  }
+    ...mapState(['globalFilters']),
+  },
 }
 </script>
 

@@ -147,6 +147,7 @@ import OracleStorage from '@/components/databases/oracle/OracleStorage.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'databases-oracle-dbs-component',
   mixins: [hostnameLinkRow, getHeadKeys],
   components: {
     ToggleColumns,

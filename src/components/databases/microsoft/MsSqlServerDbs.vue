@@ -59,6 +59,7 @@ import MsSqlServerFilters from '@/components/databases/microsoft/MsSqlServerFilt
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'databases-microsoft-dbs-component',
   mixins: [hostnameLinkRow],
   components: {
     ToggleColumns,

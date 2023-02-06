@@ -11,6 +11,7 @@
 
 <script>
 export default {
+  name: 'commom-buttongroup-component',
   props: ['groupTitle'],
 }
 </script>

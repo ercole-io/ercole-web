@@ -56,6 +56,7 @@ import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
 
 export default {
+  name: 'databases-oracle-addm-filters-component',
   mixins: [localFiltersMixin],
   components: {
     Collapse,

@@ -21,6 +21,7 @@ import CardStats from '@/components/common/CardStats.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'databases-databases-segsize-component',
   components: {
     BoxContent,
     CardStats,

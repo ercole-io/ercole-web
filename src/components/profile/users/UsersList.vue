@@ -75,6 +75,7 @@ import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
 import ResetPassModal from '@/views/profile/ResetPassModal.vue'
 
 export default {
+  name: 'profile-list-component',
   mixins: [TooltipMixin],
   components: {
     FullTable,

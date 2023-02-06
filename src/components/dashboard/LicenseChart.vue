@@ -150,6 +150,7 @@ const resolveType = (type, value) => {
 }
 
 export default {
+  name: 'daschboard-licenseschart-component',
   components: {
     LineChart,
     NoContent,

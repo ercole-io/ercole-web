@@ -15,6 +15,7 @@ import { mapState } from 'vuex'
 import DownloadingModal from '@/components/common/DownloadingModal.vue'
 
 export default {
+  name: 'commom-exportbutton-component',
   props: {
     text: {
       type: String,

@@ -70,6 +70,7 @@
 import profileListMixin from '@/mixins/cloud/profileList.js'
 
 export default {
+  name: 'cloud-aws-profileconfig-list-component',
   mixins: [profileListMixin],
   data() {
     return {

@@ -13,6 +13,7 @@
 
 <script>
 export default {
+  name: 'commom-charts-line-component',
   props: {
     chartId: {
       type: String,

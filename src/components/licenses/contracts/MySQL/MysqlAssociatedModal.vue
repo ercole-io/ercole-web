@@ -20,6 +20,7 @@ import TooltipMixin from '@/mixins/tooltipMixin.js'
 import HostLink from '@/components/common/Table/HostLink.vue'
 
 export default {
+  name: 'licenses-contracts-mysql-associatedmodal-component',
   mixins: [TooltipMixin],
   components: {
     HostLink,

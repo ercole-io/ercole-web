@@ -156,6 +156,7 @@ import DragAndDropList from '@/components/common/DragAndDropList.vue'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 
 export default {
+  name: 'settings-dataservice-component',
   mixins: [settings, HighlightSearchMixin],
   components: {
     SettingsActions,

@@ -48,6 +48,7 @@ import tooltipMixin from '@/mixins/tooltipMixin.js'
 import FastChange from '@/components/common/FastChange.vue'
 
 export default {
+  name: 'commom-breadcrumb-component',
   mixins: [dynamicTitle, tooltipMixin],
   components: {
     FastChange,

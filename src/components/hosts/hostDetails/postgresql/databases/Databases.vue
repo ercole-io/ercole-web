@@ -38,6 +38,7 @@ import DbInfo from '@/components/hosts/hostDetails/postgresql/databases/DbInfo.v
 import DbDatabases from '@/components/hosts/hostDetails/postgresql/databases/DbDatabases.vue'
 
 export default {
+  name: 'hosts-details-postgre-databases-main-component',
   mixins: [databaseTabsMixin, infoMixin],
   components: {
     DbInfo,

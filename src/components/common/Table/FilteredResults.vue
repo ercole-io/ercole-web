@@ -6,11 +6,12 @@
 
 <script>
 export default {
+  name: 'commom-table-filteredresults-component',
   props: {
     totalItems: {
-      type: Number
-    }
-  }
+      type: Number,
+    },
+  },
 }
 </script>
 

@@ -33,7 +33,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
-  name: 'host-details-partitioning-tab',
+  name: 'hosts-details-oracle-databases-partitionings-component',
   props: {
     partitionings: {
       type: Array,

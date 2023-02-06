@@ -45,6 +45,7 @@ import { mapBooleanIcon } from '@/helpers/helpers.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 
 export default {
+  name: 'commom-cardlist-component',
   mixins: [TooltipMixin],
   props: {
     list: {

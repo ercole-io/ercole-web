@@ -15,6 +15,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'engineered-cpu-component',
   components: {
     BoxContent,
     GhostLoading,

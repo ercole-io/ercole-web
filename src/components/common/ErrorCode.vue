@@ -11,6 +11,7 @@
 
 <script>
 export default {
+  name: 'commom-errorcode-component',
   props: {
     code: {
       type: String,

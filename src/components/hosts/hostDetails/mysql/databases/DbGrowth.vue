@@ -26,6 +26,7 @@ import LineChart from '@/components/common/charts/LineChart.vue'
 import RangeDates from '@/components/common/RangeDates.vue'
 
 export default {
+  name: 'hosts-details-mysql-databases-growth-component',
   props: {
     growthId: {
       type: String,

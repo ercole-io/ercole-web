@@ -6,12 +6,13 @@
 
 <script>
 export default {
+  name: 'commom-form-field-component',
   props: {
     label: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>
 

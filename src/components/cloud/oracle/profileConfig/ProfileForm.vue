@@ -202,6 +202,7 @@ const isTenancyOcid = helpers.regex(
 const isUserOcid = helpers.regex('isTenancyOcid', /^ocid+\d+\.user[a-z\d.]*$/)
 
 export default {
+  name: 'cloud-oracle-profileconfig-form-component',
   mixins: [profileFormMixin],
   methods: {
     editProfile(data) {

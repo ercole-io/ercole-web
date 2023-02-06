@@ -21,6 +21,7 @@
 
 <script>
 export default {
+  name: 'commom-boxcontent-component',
   props: {
     title: {
       type: String,

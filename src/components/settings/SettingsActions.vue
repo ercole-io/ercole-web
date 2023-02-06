@@ -19,6 +19,7 @@
 import settings from '@/mixins/settings/settings.js'
 
 export default {
+  name: 'settings-actions-component',
   mixins: [settings],
   props: {
     reset: {

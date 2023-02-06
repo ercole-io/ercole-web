@@ -113,6 +113,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
+  name: 'licenses-contracts-mysql-list-component',
   mixins: [TooltipMixin],
   components: {
     FullTable,

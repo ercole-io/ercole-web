@@ -63,6 +63,7 @@ import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutoc
 import Collapse from '@/components/common/Collapse.vue'
 
 export default {
+  name: 'licenses-used-hosts-filters-component',
   mixins: [localFiltersMixin],
   components: {
     CustomSelectAutocomplete,

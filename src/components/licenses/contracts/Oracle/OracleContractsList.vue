@@ -143,6 +143,7 @@ import TdIcon from '@/components/common/Table/TDIcon.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
+  name: 'licenses-contracts-oracle-list-component',
   mixins: [TooltipMixin],
   components: {
     FullTable,

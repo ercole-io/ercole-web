@@ -38,6 +38,7 @@ import SearchableMultiSelect from '@/components/common/SearchableMultiSelect.vue
 import RangeDates from '@/components/common/RangeDates.vue'
 
 export default {
+  name: 'hosts-details-oracle-chartcpu-component',
   components: {
     BoxContent,
     LineChart,

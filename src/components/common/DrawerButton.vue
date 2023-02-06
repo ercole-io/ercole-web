@@ -16,20 +16,21 @@ import TooltipMixin from '@/mixins/tooltipMixin.js'
 import { bus } from '@/helpers/eventBus.js'
 
 export default {
+  name: 'commom-drawerbutton-component',
   mixins: [TooltipMixin],
   props: {
     tooltipText: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   data() {
     return {
-      isOpenFilters: false
+      isOpenFilters: false,
     }
   },
   created() {
-    bus.$on('closeFilters', val => {
+    bus.$on('closeFilters', (val) => {
       this.isOpenFilters = val
     })
   },
@@ -37,8 +38,8 @@ export default {
     isOpened() {
       this.isOpenFilters = !this.isOpenFilters
       bus.$emit('openFilters', this.isOpenFilters)
-    }
-  }
+    },
+  },
 }
 </script>
 

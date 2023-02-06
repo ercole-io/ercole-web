@@ -26,6 +26,7 @@ import OracleContractsFilters from '@/components/licenses/contracts/Oracle/Oracl
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'licenses-contracts-oracle-main-component',
   components: {
     ToggleColumns,
     OracleContractsList,

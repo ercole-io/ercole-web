@@ -43,6 +43,7 @@ import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
 
 export default {
+  name: 'licenses-contracts-mysql-filters-component',
   mixins: [localFiltersMixin],
   components: {
     Collapse,
