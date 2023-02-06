@@ -11,16 +11,17 @@ import Drawer from '@/components/common/Drawer.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 
 export default {
+  name: 'commom-drawerfilters-component',
   props: {
     title: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   components: {
     Drawer,
-    BoxContent
-  }
+    BoxContent,
+  },
 }
 </script>
 

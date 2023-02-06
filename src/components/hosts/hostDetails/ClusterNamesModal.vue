@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  name: 'hosts-details-clustersnames-modal-component',
   props: {
     clusterNames: {
       type: [Array, Object],

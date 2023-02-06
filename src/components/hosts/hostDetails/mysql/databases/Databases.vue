@@ -42,6 +42,7 @@ import DbLicenses from '@/components/hosts/hostDetails/mysql/databases/DbLicense
 import DbGrowth from '@/components/hosts/hostDetails/mysql/databases/DbGrowth.vue'
 
 export default {
+  name: 'hosts-details-mysql-databases-main-component',
   mixins: [databaseTabsMixin],
   components: {
     DbInfo,

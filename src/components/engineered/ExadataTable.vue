@@ -57,6 +57,7 @@ import SimpleTable from '@/components/common/Table/SimpleTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
+  name: 'engineered-exadata-component',
   props: {
     data: {
       type: Object,

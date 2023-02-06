@@ -26,6 +26,7 @@ import MsSqlServerFilters from '@/components/licenses/contracts/Microsoft/MsSqlS
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'licenses-contracts-microsoft-main-component',
   components: {
     ToggleColumns,
     MsSqlServerList,

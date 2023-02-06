@@ -16,9 +16,10 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import Tags from '@/components/common/Tags.vue'
 
 export default {
+  name: 'hosts-details-tags-component',
   components: {
     BoxContent,
-    Tags
+    Tags,
   },
   methods: {
     handleAddTag(value) {
@@ -29,8 +30,8 @@ export default {
     },
     handleEditTag(value) {
       console.log('make api call to edit tag', value)
-    }
-  }
+    },
+  },
 }
 </script>
 

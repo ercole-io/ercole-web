@@ -235,7 +235,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 
 export default {
-  name: 'host-details-pdbs-tab',
+  name: 'hosts-details-oracle-databases-pdbs-component',
   mixins: [HighlightSearchMixin],
   components: {
     FullTable,

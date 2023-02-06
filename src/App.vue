@@ -27,6 +27,7 @@ import Loading from '@/components/common/Loading.vue'
 const default_layout = 'default'
 
 export default {
+  name: 'app-page',
   components: {
     Loading,
   },

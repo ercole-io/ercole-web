@@ -11,7 +11,7 @@
         icon="globe"
         pack="fa"
         type="is-light"
-        style="cursor: pointer;"
+        style="cursor: pointer"
       />
     </template>
 
@@ -25,7 +25,7 @@
         <b-image
           :src="require(`@/assets/lang/${locale.code}.png`)"
           class="media-left"
-          style="width: 15%;"
+          style="width: 15%"
         />
         <div class="media-content">
           <h3>{{ $t(`lang.${locale.code}`) }}</h3>
@@ -39,19 +39,20 @@
 import { getSupportedLocales } from '@/util/supported-locales.js'
 
 export default {
+  name: 'localeswitcher-component',
   props: {
     isAbsolute: {
       type: Boolean,
-      default: false
+      default: false,
     },
     dropitemPosition: {
       type: String,
-      default: 'is-bottom-right'
-    }
+      default: 'is-bottom-right',
+    },
   },
   data() {
     return {
-      locales: getSupportedLocales()
+      locales: getSupportedLocales(),
     }
   },
   beforeMount() {
@@ -62,8 +63,8 @@ export default {
   watch: {
     '$i18n.locale'(value) {
       localStorage.setItem('lang', value)
-    }
-  }
+    },
+  },
 }
 </script>
 

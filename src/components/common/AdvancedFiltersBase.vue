@@ -24,6 +24,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import ActionButtons from '@/components/common/Form/ActionButtons.vue'
 
 export default {
+  name: 'commom-advancedfilters-component',
   props: {
     filterTitle: {
       type: String,

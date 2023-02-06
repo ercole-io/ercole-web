@@ -34,6 +34,7 @@ import DatabasesFilters from '@/components/hosts/hostDetails/DatabasesFilters.vu
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'hosts-details-databases-main-component',
   mixins: [databaseFiltersMixin, databaseTypesMixin],
   components: {
     DatabasesData,

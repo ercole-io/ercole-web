@@ -39,6 +39,7 @@ import TooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 
 export default {
+  name: 'commom-cardlisthighlight-component',
   mixins: [TooltipMixin, HighlightSearchMixin],
   props: {
     list: {

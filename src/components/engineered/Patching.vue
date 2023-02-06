@@ -18,6 +18,7 @@ import BarChart from '@/components/common/charts/BarChart.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'engineered-patching-component',
   components: {
     BoxContent,
     BarChart,

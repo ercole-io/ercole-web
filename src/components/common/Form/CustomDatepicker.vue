@@ -16,6 +16,7 @@
 import formatDate from '@/filters/formatDate.js'
 
 export default {
+  name: 'commom-form-datepicker-component',
   props: {
     value: {},
     placeholder: {

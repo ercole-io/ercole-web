@@ -97,6 +97,7 @@ import DbTotalSegmentSize from '@/components/databases/databases/DbTotalSegmentS
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'databases-databases-list-component',
   mixins: [hostnameLinkRow, getHeadKeys],
   components: {
     ToggleColumns,

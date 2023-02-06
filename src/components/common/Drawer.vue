@@ -29,6 +29,7 @@ import { mapMutations } from 'vuex'
 import { bus } from '@/helpers/eventBus.js'
 
 export default {
+  name: 'commom-drawer-component',
   data() {
     return {
       isOpenFilters: false,

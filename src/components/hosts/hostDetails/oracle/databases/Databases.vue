@@ -96,6 +96,7 @@ import DbGrants from '@/components/hosts/hostDetails/oracle/databases/DbGrants.v
 import DbPartitionings from '@/components/hosts/hostDetails/oracle/databases/DbPartitionings.vue'
 
 export default {
+  name: 'hosts-details-oracle-databases-dbs-component',
   mixins: [databaseTabsMixin, infoMixin],
   components: {
     DbInfo,

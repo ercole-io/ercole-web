@@ -21,6 +21,7 @@
 import { mapActions } from 'vuex'
 
 export default {
+  name: 'licenses-used-databases-ignore-component',
   props: [
     'db',
     'host',

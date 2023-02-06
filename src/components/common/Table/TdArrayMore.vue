@@ -41,6 +41,7 @@ import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 
 export default {
+  name: 'commom-table-tdarraymore-component',
   mixins: [HighlightSearchMixin, TooltipMixin],
   data() {
     return {

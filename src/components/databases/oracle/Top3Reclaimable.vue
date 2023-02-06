@@ -38,6 +38,7 @@ import GhostLoading from '@/components/common/GhostLoading.vue'
 // import Top10Link from '@/components/databases/oracle/Top10Link.vue'
 
 export default {
+  name: 'databases-oracle-reclaimable-component',
   components: {
     BoxContent,
     SimpleTable,

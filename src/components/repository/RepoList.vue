@@ -56,6 +56,7 @@ import NoContent from '@/components/common/NoContent.vue'
 import SimpleBooleanIcon from '@/components/common/SimpleBooleanIcon.vue'
 
 export default {
+  name: 'repository-list-component',
   mixins: [downloadMixin],
   components: { BoxContent, NoContent, SimpleBooleanIcon },
   data() {

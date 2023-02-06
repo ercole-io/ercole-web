@@ -69,6 +69,7 @@ import recommendationsMixin from '@/mixins/cloud/recommendations.js'
 import OracleHeading from '@/components/cloud/oracle/recommendations/Heading.json'
 
 export default {
+  name: 'cloud-oracle-recommendations-list-component',
   mixins: [recommendationsMixin],
   data() {
     return {

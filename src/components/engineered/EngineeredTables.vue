@@ -50,6 +50,7 @@ import NoContent from '@/components/common/NoContent.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
+  name: 'engineered-tables-component',
   components: {
     BoxContent,
     ExadataTable,

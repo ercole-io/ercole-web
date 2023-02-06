@@ -51,6 +51,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
+  name: 'licenses-used-clusters-modal-component',
   mixins: [TooltipMixin],
   components: {
     FullTable,

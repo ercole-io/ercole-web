@@ -13,12 +13,13 @@
 import dynamicTitle from '@/mixins/dynamicTitle.js'
 
 export default {
+  name: 'commom-pagetitle-component',
   mixins: [dynamicTitle],
   computed: {
     pageTitle() {
       return this.dynamicTitle ? this.dynamicTitle : this.$route.meta.label
-    }
-  }
+    },
+  },
 }
 </script>
 

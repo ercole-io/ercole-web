@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  name: 'commom-table-simpletable-component',
   props: {
     theadData: {
       type: Array,

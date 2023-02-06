@@ -17,6 +17,7 @@
 import DbGrowthMixin from '@/mixins/oracle/dbGrowth.js'
 
 export default {
+  name: 'hosts-details-oracle-databases-growth-component',
   mixins: [DbGrowthMixin],
   props: {
     growth: {

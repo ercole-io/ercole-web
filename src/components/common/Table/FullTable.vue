@@ -116,6 +116,7 @@ import Loading from '@/components/common/Loading.vue'
 import i18n from '@/i18n.js'
 
 export default {
+  name: 'commom-table-fulltable-component',
   mixins: [paginationMixin],
   props: {
     placeholder: {

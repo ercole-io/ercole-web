@@ -39,6 +39,7 @@ import ButtonGroup from '@/components/common/ButtonGroup.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'commom-moreinfobutton-component',
   props: {
     buttonItems: {
       type: Array,

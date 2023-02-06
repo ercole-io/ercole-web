@@ -109,6 +109,7 @@ import CustomAutocomplete from '@/components/common/Form/CustomAutocomplete.vue'
 import CustomSelect from '@/components/common/Form/CustomSelect.vue'
 
 export default {
+  name: 'alerts-filters-component',
   components: {
     Collapse,
     AdvancedFiltersBase,

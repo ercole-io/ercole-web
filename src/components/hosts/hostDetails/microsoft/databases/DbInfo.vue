@@ -114,6 +114,7 @@
 import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
 
 export default {
+  name: 'hosts-details-microsoft-databases-info-component',
   mixins: [infoMixin],
 }
 </script>

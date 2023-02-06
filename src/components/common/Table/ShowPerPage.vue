@@ -8,14 +8,15 @@
 
 <script>
 export default {
+  name: 'commom-table-showperpage-component',
   props: {
     totalItems: {
-      type: Number
+      type: Number,
     },
     perPage: {
-      type: Number
-    }
-  }
+      type: Number,
+    },
+  },
 }
 </script>
 

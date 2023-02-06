@@ -197,6 +197,7 @@ import profileFormMixin from '@/mixins/cloud/profileForm.js'
 // const isClientid = helpers.regex('isClientid', /^ocid+\d+\.client[a-z\d.]*$/)
 
 export default {
+  name: 'cloud-azure-profileconfig-form-component',
   mixins: [profileFormMixin],
   methods: {
     editProfile(data) {

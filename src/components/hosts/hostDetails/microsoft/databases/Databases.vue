@@ -37,6 +37,7 @@ import DbDatabases from '@/components/hosts/hostDetails/microsoft/databases/DbDa
 import DbLicenses from '@/components/hosts/hostDetails/microsoft/databases/DbLicenses.vue'
 
 export default {
+  name: 'hosts-details-microsoft-databases-main-component',
   mixins: [databaseTabsMixin],
   components: {
     DbInfo,

@@ -12,6 +12,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  name: 'login-errormsg-component',
   computed: {
     ...mapGetters(['getErrMsg']),
   },

@@ -133,6 +133,7 @@
 import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
 
 export default {
+  name: 'hosts-details-mysql-databases-info-component',
   mixins: [infoMixin],
 }
 </script>

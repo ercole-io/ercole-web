@@ -10,6 +10,7 @@
 
 <script>
 export default {
+  name: 'footer-component',
   data() {
     return {
       version: `Ercole 2.0 © ${new Date().getFullYear()} Sorint.lab S.p.A.`,

@@ -331,6 +331,7 @@ import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import ContractsMixin from '@/mixins/contracts/contracts-mixin.js'
 
 export default {
+  name: 'licenses-contracts-oracle-form-component',
   mixins: [TooltipMixin, ContractsMixin],
   components: {
     AdvancedFiltersBase,

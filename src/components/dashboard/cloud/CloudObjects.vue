@@ -56,6 +56,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import HbuttonScroll from '@/components/HbuttonScroll.vue'
 
 export default {
+  name: 'daschboard-cloud-cloudobjects-component',
   components: {
     GhostLoading,
     BoxContent,

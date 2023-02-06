@@ -5,7 +5,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'commom-table-toptable-component',
+}
 </script>
 
 <style lang="scss" scoped>

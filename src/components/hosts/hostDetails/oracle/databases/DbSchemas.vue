@@ -35,6 +35,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
+  name: 'hosts-details-oracle-databases-schemas-component',
   props: {
     schemas: {
       type: Array,

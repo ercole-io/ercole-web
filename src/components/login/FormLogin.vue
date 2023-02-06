@@ -87,6 +87,7 @@ import CustomSelect from '@/components/common/Form/CustomSelect.vue'
 import ChangePassModal from '@/views/profile/ChangePassModal.vue'
 
 export default {
+  name: 'login-form-component',
   components: {
     ErrorMsg,
     CustomField,

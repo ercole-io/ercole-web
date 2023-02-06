@@ -172,6 +172,7 @@ import NoContent from '@/components/common/NoContent.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'daschboard-alerts-alert-component',
   props: {
     title: {
       type: Array,

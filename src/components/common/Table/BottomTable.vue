@@ -5,7 +5,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'commom-table-bottomtable-component',
+}
 </script>
 
 <style lang="scss" scoped></style>

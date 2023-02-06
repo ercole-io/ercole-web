@@ -38,6 +38,7 @@ import Info from '@/components/hosts/hostDetails/postgresql/databases/dbs/Info.v
 import ObjectsSize from '@/components/hosts/hostDetails/postgresql/databases/dbs/ObjectsSize.vue'
 
 export default {
+  name: 'hosts-details-postgre-databases-dbs-component',
   mixins: [databaseTabsMixin],
   components: {
     Info,

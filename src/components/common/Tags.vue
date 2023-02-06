@@ -40,27 +40,28 @@
 
 <script>
 export default {
+  name: 'commom-tags-component',
   props: {
     title: {
       type: String,
-      default: null
+      default: null,
     },
     tagsList: {
       type: Array,
-      required: true
+      required: true,
     },
     direction: {
       type: String,
-      default: 'horizontal'
+      default: 'horizontal',
     },
     inputWidth: {
       type: String,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
     return {
-      newTag: ''
+      newTag: '',
     }
   },
   methods: {
@@ -77,29 +78,29 @@ export default {
         message: `Do you want to edit this tag?`,
         inputAttrs: {
           value: tag,
-          maxlength: 10
+          maxlength: 10,
         },
         size: 'is-small',
         confirmText: 'Save',
         trapFocus: true,
-        onConfirm: value => {
+        onConfirm: (value) => {
           this.tags[index] = value
           this.$emit('editTag', value)
           this.$forceUpdate()
-        }
+        },
       })
     },
     removeTag(index) {
       this.tags.splice(index, 1)
       this.$emit('removeTag', index)
       this.$forceUpdate()
-    }
+    },
   },
   computed: {
     tags() {
       return this.tagsList
-    }
-  }
+    },
+  },
 }
 </script>
 

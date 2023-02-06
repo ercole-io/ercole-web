@@ -46,6 +46,7 @@ import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
 
 export default {
+  name: 'cloud-azure-profileconfig-filters-component',
   mixins: [localFiltersMixin],
   components: {
     Collapse,

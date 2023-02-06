@@ -21,6 +21,7 @@ import FileSystemsContent from '@/components/hosts/hostDetails/FileSystemsConten
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'hosts-details-filesystems-main-component',
   components: {
     FileSystemsContent,
     GhostLoading,

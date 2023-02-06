@@ -165,6 +165,7 @@ import formatDate from '@/filters/formatDate.js'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 
 export default {
+  name: 'globalfilters-component',
   mixins: [tooltipMixin],
   data() {
     return {

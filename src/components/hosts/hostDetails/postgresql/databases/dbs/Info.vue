@@ -154,6 +154,7 @@
 import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
 
 export default {
+  name: 'hosts-details-postgre-databases-dbs-info-component',
   mixins: [infoMixin],
   props: {
     info: {

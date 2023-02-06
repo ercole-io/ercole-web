@@ -19,6 +19,7 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 
 export default {
+  name: 'commom-searchinput-component',
   props: {
     value: {
       type: String,

@@ -120,6 +120,7 @@ import NoContent from '@/components/common/NoContent.vue'
 import RefreshButton from '@/components/common/RefreshButton.vue'
 
 export default {
+  name: 'commom-table-buefy-fulltable-component',
   components: {
     ShowPerPage,
     ExportButton,

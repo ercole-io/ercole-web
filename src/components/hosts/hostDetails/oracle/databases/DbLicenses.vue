@@ -51,6 +51,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import ignoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
 
 export default {
+  name: 'hosts-details-oracle-databases-licenses-component',
   props: {
     licenses: {
       type: Array,

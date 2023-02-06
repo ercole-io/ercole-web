@@ -8,6 +8,7 @@
 
 <script>
 export default {
+  name: 'commom-loading-component',
   props: {
     isLoading: {
       type: Boolean,

@@ -10,6 +10,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import hostnameLinkMixin from '@/mixins/hostnameLink.js'
 
 export default {
+  name: 'commom-table-hostlink-component',
   mixins: [hostnameLinkMixin],
   components: {
     TdContent,

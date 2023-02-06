@@ -26,6 +26,7 @@
 import formatDateTime from '@/filters/formatDateTime.js'
 
 export default {
+  name: 'cloud-errorsmodal-component',
   props: ['dataErrors'],
   methods: {
     getDate(date) {

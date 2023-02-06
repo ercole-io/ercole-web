@@ -32,6 +32,7 @@ import FileGroups from '@/components/hosts/hostDetails/microsoft/databases/dbs/F
 import ObjectsSize from '@/components/hosts/hostDetails/microsoft/databases/dbs/ObjectsSize.vue'
 
 export default {
+  name: 'hosts-details-microsoft-databases-dbs-component',
   components: {
     Info,
     FileGroups,

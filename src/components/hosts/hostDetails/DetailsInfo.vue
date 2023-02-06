@@ -27,6 +27,7 @@ import CardList from '@/components/common/CardList.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'hosts-details-detailsinfo-component',
   components: {
     Card,
     CardList,

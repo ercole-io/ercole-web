@@ -76,6 +76,7 @@
 
 <script>
 export default {
+  name: 'hosts-details-microsoft-databases-dbs-info-component',
   props: {
     info: {
       type: Object,
