@@ -2,6 +2,7 @@
   <b-button
     type="is-ercole-blue"
     size="is-small"
+    icon-left="download"
     @click="exportData()"
     data-export-button
     class="mb-0 has-text-weight-bold"
