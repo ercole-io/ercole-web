@@ -123,11 +123,10 @@
       <TdIcon :value="rowData.scope.restricted" />
     </template>
 
-    <ExportButton
-      slot="export"
-      url="contracts/oracle/database"
-      expName="oracleContracts"
-    />
+    <div class="is-flex" slot="export">
+      <ImportCSV contractType="oracle" />
+      <ExportButton url="contracts/oracle/database" expName="oracleContracts" />
+    </div>
   </FullTable>
 </template>
 
@@ -141,6 +140,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
+import ImportCSV from '@/components/licenses/contracts/ImportCSV.vue'
 
 export default {
   name: 'licenses-contracts-oracle-list-component',
@@ -150,6 +150,7 @@ export default {
     TdContent,
     TdIcon,
     ExportButton,
+    ImportCSV,
   },
   data() {
     return {

@@ -95,11 +95,10 @@
       </td>
     </template>
 
-    <ExportButton
-      slot="export"
-      url="contracts/mysql/database"
-      expName="mysqlContracts"
-    />
+    <div class="is-flex" slot="export">
+      <ImportCSV contractType="mysql" />
+      <ExportButton url="contracts/mysql/database" expName="mysqlContracts" />
+    </div>
   </FullTable>
 </template>
 
@@ -111,6 +110,7 @@ import MysqlAssociatedModal from '@/components/licenses/contracts/MySQL/MysqlAss
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
+import ImportCSV from '@/components/licenses/contracts/ImportCSV.vue'
 
 export default {
   name: 'licenses-contracts-mysql-list-component',
@@ -119,6 +119,7 @@ export default {
     FullTable,
     TdContent,
     ExportButton,
+    ImportCSV,
   },
   data() {
     return {

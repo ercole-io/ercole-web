@@ -151,6 +151,7 @@
       "moreInfo": "Show more info",
       "exportData": "Export Data",
       "exportLms": "Export LMS Audit File",
+      "importData": "Import Data",
       "inProgress": "in Progress",
       "wait": "This may take some time, please wait...",
       "cancelRequest": "Cancel Request",
