@@ -4,6 +4,7 @@ import createPersistedState from 'vuex-persistedstate'
 
 // General
 import * as config from '@/store/modules/common/config'
+import * as config_sso from '@/store/modules/common/config_sso.js'
 import * as loading from '@/store/modules/common/loading'
 import * as errors from '@/store/modules/common/errors'
 import * as tableInterations from '@/store/modules/common/table-interations'
@@ -91,6 +92,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   modules: {
     config,
+    config_sso,
     loading,
     errors,
     tableInterations,
