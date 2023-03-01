@@ -14,6 +14,8 @@ export const clearLocalStorageAuth = () => {
   localStorage.removeItem('token')
   localStorage.removeItem('username')
   localStorage.removeItem('expiration')
+  localStorage.removeItem('sso')
+  localStorage.removeItem('sso_auth_code')
 }
 // END: Manage som localstorage data //
 
