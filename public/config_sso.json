@@ -1,7 +1,11 @@
 {
-  "api_url": "https://sts.webapp.esselunga.it/as/authorization.oauth2",
-  "client_id": "Oauth_ercole",
-  "response_type": "code",
-  "redirect_uri": "https%3A%2F%2Flxercole0%2Fdashboard",
-  "scope": "openid"
+  "auth_url": "",
+  "token_url": "",
+  "client_id": "",
+  "client_id_secret": "",
+  "redirect_uri": "",
+  "grant_type": "",
+  "response_type": "",
+  "scope": "",
+  "sso_visible": false
 }

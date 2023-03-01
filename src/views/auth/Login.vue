@@ -8,19 +8,26 @@
             <ErcoleLogo />
           </div>
         </div>
-        <div class="colunm">
+        <div class="colunm" v-if="!isRedirecting">
           <LoginForm />
 
-          <hr style="background-color: #5fd8df; height: 1px" />
+          <template v-if="isSsoVisible.sso_visible">
+            <hr style="background-color: #5fd8df; height: 1px" />
 
-          <div class="is-flex is-justify-content-center">
-            <b-button
-              @click="loginSSO"
-              style="background-color: #054759; color: white"
-            >
-              SSO Login
-            </b-button>
-          </div>
+            <div class="is-flex is-justify-content-center">
+              <b-button
+                @click="fetchSSO"
+                style="background-color: #054759; color: white"
+              >
+                SSO Login
+              </b-button>
+            </div>
+          </template>
+        </div>
+        <div class="column" v-else>
+          <p class="is-flex is-justify-content-center is-size-2 has-text-light">
+            Single Sign On Redirecting...
+          </p>
         </div>
       </div>
     </div>
@@ -30,8 +37,8 @@
 <script>
 import LoginForm from '@/components/login/FormLogin.vue'
 import ErcoleLogo from '@/components/common/ErcoleLogo.vue'
-import { mapActions } from 'vuex'
-import axios from 'axios'
+import { mapActions, mapState } from 'vuex'
+// import axios from 'axios'
 // import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 
 export default {
@@ -41,25 +48,40 @@ export default {
     ErcoleLogo,
     // LocaleSwitcher
   },
+  data() {
+    return {
+      isRedirecting: false,
+    }
+  },
+  beforeMount() {
+    if (this.$route.query.code) {
+      this.isRedirecting = true
+      const code = this.$route.query.code
+      localStorage.setItem('sso_auth_code', code)
+    }
+  },
+  mounted() {
+    setTimeout(() => {
+      if (this.$route.query.code) {
+        this.loginSSO({
+          sso: JSON.parse(localStorage.getItem('sso')),
+          auth_code: localStorage.getItem('sso_auth_code'),
+        })
+      }
+    }, 1000)
+  },
   methods: {
-    ...mapActions(['fetchConfigSSO']),
-    loginSSO() {
-      this.fetchConfigSSO().then((res) => {
-        const api = res.data.api_url
-        const client = res.data.client_id
-        const response = res.data.response_type
-        const redirect = res.data.redirect_uri
-        const scope = res.data.scope
+    ...mapActions(['fetchConfigSSO', 'loginSSO']),
+    fetchSSO() {
+      const sso_data = JSON.parse(localStorage.getItem('sso'))
 
-        axios
-          .get(
-            `${api}?client_id=${client}&response_type=${response}&redirect_uri=${redirect}&scope=${scope}`
-          )
-          .then((res) => {
-            console.log(res)
-          })
-      })
+      window.location.replace(
+        `${sso_data.auth_url}?client_id=${sso_data.client_id}&response_type=${sso_data.response_type}&scope=${sso_data.scope}&redirect_uri=${sso_data.redirect_uri}`
+      )
     },
+  },
+  computed: {
+    ...mapState({ isSsoVisible: 'auth' }),
   },
 }
 </script>
