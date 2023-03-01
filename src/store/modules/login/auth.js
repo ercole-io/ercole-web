@@ -1,9 +1,11 @@
 import _ from 'lodash'
+import axios from 'axios'
 import { axiosRequest } from '@/services/services.js'
 import router from '@/router/index.js'
 import * as helpers from '@/helpers/helpers.js'
 import i18n from '@/i18n.js'
 import { bus } from '@/helpers/eventBus.js'
+import qs from 'qs'
 
 export const state = () => {
   return {
@@ -11,6 +13,7 @@ export const state = () => {
     isAdmin: false,
     provider: '',
     userRole: '',
+    sso_visible: false,
   }
 }
 
@@ -44,12 +47,17 @@ export const mutations = {
   SET_USER_ROLE: (state, payload) => {
     state.userRole = payload
   },
+  SET_SSO_VISIBILITY: (state, payload) => {
+    state.sso_visible = payload
+  },
 }
 
 export const actions = {
   async login({ commit, dispatch }, loginData) {
     const basicUrl = '/user/login'
     const ldapUrl = '/ldap/login'
+
+    const provider = loginData.type === 'Basic Auth' ? 'basic' : 'ldap'
 
     const config = {
       method: 'post',
@@ -63,10 +71,10 @@ export const actions = {
 
     await axiosRequest('login', config, false)
       .then((res) => {
-        const limited = _.includes(res.data.user.groups, 'limited')
+        const limited = _.includes(res.data.allowedUser.groups, 'limited')
         if (limited) {
           bus.$emit('isLimited')
-          const admin = _.includes(res.data.user.groups, 'admin')
+          const admin = _.includes(res.data.allowedUser.groups, 'admin')
           commit('SET_ADMIN', admin)
           const token = res.data.token
           localStorage.setItem('token', token)
@@ -79,10 +87,12 @@ export const actions = {
         const token = res.data.token
         const decodeToken = JSON.parse(atob(token.split('.')[1]))
         const expiration = decodeToken.exp
-        const username = res.data.user.username
-        const admin = _.includes(res.data.user.groups, 'admin')
-        const provider = res.data.user.provider
-        const userRole = res.data.user.groups[0]
+        const username = res.data.allowedUser.username
+        const admin = _.includes(res.data.allowedUser.groups, 'admin')
+        // const provider = res.data.allowedUser.provider
+        //   ? res.data.allowedUser.provider
+        //   : 'basic'
+        const userRole = res.data.allowedUser.groups[0]
 
         const payload = {
           token: token,
@@ -125,6 +135,61 @@ export const actions = {
         } else {
           dispatch('setErrMsg', i18n.t(`common.validations.loginErrGeneric`))
         }
+      })
+  },
+  async loginSSO({ commit, dispatch }, data) {
+    const basicAuth = btoa(`${data.sso.client_id}:${data.sso.client_id_secret}`)
+
+    const config = {
+      method: 'post',
+      url: data.sso.token_url,
+      data: qs.stringify({
+        grant_type: data.sso.grant_type,
+        code: data.auth_code,
+        client_id: data.sso.client_id,
+        redirect_uri: data.sso.redirect_uri,
+      }),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Basic ${basicAuth}`,
+      },
+    }
+
+    await axios(config)
+      .then((res) => {
+        const token = res.data.access_token
+        const decodeToken = JSON.parse(atob(token.split('.')[1]))
+        const expiration = decodeToken.exp
+        const username = 'SSO User'
+
+        const payload = {
+          token: token,
+          username: username,
+          expiration: expiration,
+        }
+
+        commit('SET_ADMIN', true)
+        commit('SET_PROVIDER', 'sso')
+        commit('SET_USER_ROLE', 'admin')
+        commit('LOGIN_SUCCESS')
+        helpers.setLocalStorageAuth(payload)
+      })
+      .then(() => {
+        router.push('/dashboard')
+      })
+      .catch((err) => {
+        if (err && !err.response) {
+          dispatch('setErrMsg', i18n.t(`common.validations.loginTimeout`))
+        } else if (err.response && err.response.status === 401) {
+          dispatch('setErrMsg', i18n.t(`common.validations.loginUnauthorized`))
+        } else if (err.response && err.response.status === 422) {
+          dispatch('setErrMsg', i18n.t(`common.validations.loginErr422`))
+        } else if (err.response && err.response.status === 500) {
+          dispatch('setErrMsg', i18n.t(`common.validations.loginErr500`))
+        } else {
+          dispatch('setErrMsg', i18n.t(`common.validations.loginErrGeneric`))
+        }
+        router.push('/login')
       })
   },
   // tryAutoLogin({ commit }) {

@@ -21,7 +21,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/login',
+    path: '/login/:code?',
     name: 'login',
     component: routeBuilder('auth/Login.vue'),
     meta: {

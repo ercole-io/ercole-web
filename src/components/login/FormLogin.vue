@@ -156,6 +156,8 @@ export default {
   margin: 2rem;
   border-radius: 4px;
   background-color: transparent;
+  margin-bottom: 0;
+  padding-bottom: 0;
 
   button[disabled] {
     opacity: 1;

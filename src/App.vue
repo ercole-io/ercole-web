@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import Loading from '@/components/common/Loading.vue'
 const default_layout = 'default'
 
@@ -33,9 +33,23 @@ export default {
   },
   created() {
     this.fetchConfig().then(this.offLoading)
+    this.fetchConfigSSO().then((res) => {
+      const sso_data = {
+        ...res.data,
+      }
+
+      this.SET_SSO_VISIBILITY(sso_data.sso_visible)
+      localStorage.setItem('sso', JSON.stringify(sso_data))
+    })
   },
   methods: {
-    ...mapActions(['tryAutoLogin', 'fetchConfig', 'offLoading']),
+    ...mapActions([
+      'tryAutoLogin',
+      'fetchConfig',
+      'fetchConfigSSO',
+      'offLoading',
+    ]),
+    ...mapMutations(['SET_SSO_VISIBILITY']),
   },
   computed: {
     ...mapGetters(['loadingStatus', 'isConfigLoaded', 'isDbConnected']),
