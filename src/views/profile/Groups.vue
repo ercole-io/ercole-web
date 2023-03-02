@@ -20,6 +20,7 @@
           <v-th sortKey="name">Group Name</v-th>
           <v-th sortKey="name">Group Description</v-th>
           <v-th sortKey="roles">Roles</v-th>
+          <v-th sortKey="tags">Tags</v-th>
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
@@ -46,6 +47,7 @@
           <TdContent :value="rowData.scope.name" />
           <TdContent :value="rowData.scope.description" />
           <TdArrayMore :value="rowData.scope.roles" />
+          <TdArrayMore :value="rowData.scope.tags || []" />
         </template>
       </FullTable>
     </div>
@@ -58,7 +60,7 @@
         "
         :isDisabled="$v.$invalid"
         :cancelText="$t('common.forms.cancel')"
-        setMinHeight="580"
+        setMinHeight="680"
       >
         <b-field
           label="Group Name"
@@ -154,6 +156,47 @@
             </div>
           </div>
         </b-field>
+
+        <b-field label="Tags" custom-class="is-small">
+          <div class="is-flex is-flex-direction-column">
+            <b-input
+              placeholder="Search Tags"
+              type="text"
+              size="is-small"
+              icon="magnify"
+              icon-right="close-circle"
+              icon-right-clickable
+              @icon-right-click="onSearchTagClear"
+              @input="filteredTags"
+              v-model="searchTag"
+              v-if="filteredTags().length > 0 || searchTag !== ''"
+            />
+
+            <div
+              class="custom-checkbox-control"
+              v-if="filteredTags().length > 0"
+            >
+              <b-checkbox-button
+                v-model="groupForm.tags"
+                type="is-primary"
+                size="is-small"
+                v-for="tag in filteredTags()"
+                :key="tag"
+                :native-value="tag"
+              >
+                <span>
+                  <p>{{ tag }}</p>
+                </span>
+              </b-checkbox-button>
+            </div>
+            <div
+              class="custom-checkbox-control is-justify-content-center is-align-items-center is-size-7"
+              v-else
+            >
+              There are no tags!
+            </div>
+          </div>
+        </b-field>
       </AdvancedFiltersBase>
     </div>
   </div>
@@ -187,14 +230,16 @@ export default {
   },
   data() {
     return {
-      keys: ['name', 'description', 'roles'],
+      keys: ['name', 'description', 'roles', 'tags'],
       groupForm: {
         name: '',
         description: '',
         roles: [],
+        tags: [],
       },
       isUpdate: false,
       searchRole: '',
+      searchTag: '',
     }
   },
   validations() {
@@ -243,6 +288,7 @@ export default {
         name: data.name,
         description: data.description,
         roles: data.roles,
+        tags: data.tags,
       }
     },
     delGroup(name) {
@@ -271,6 +317,7 @@ export default {
         name: '',
         description: '',
         roles: [],
+        tags: [],
       }
     },
     onSearchRoleClear() {
@@ -286,6 +333,18 @@ export default {
         })
       }
       return this.showRoles
+    },
+    onSearchTagClear() {
+      this.searchTag = ''
+    },
+    filteredTags() {
+      this.showTags = []
+      if (this.searchTag !== '') {
+        return _.filter(this.showTags, (tag) => {
+          return stringSearch(tag, this.searchTag)
+        })
+      }
+      return this.showTags
     },
   },
   computed: {
