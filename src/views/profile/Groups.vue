@@ -158,44 +158,12 @@
         </b-field>
 
         <b-field label="Tags" custom-class="is-small">
-          <div class="is-flex is-flex-direction-column">
-            <b-input
-              placeholder="Search Tags"
-              type="text"
-              size="is-small"
-              icon="magnify"
-              icon-right="close-circle"
-              icon-right-clickable
-              @icon-right-click="onSearchTagClear"
-              @input="filteredTags"
-              v-model="searchTag"
-              v-if="filteredTags().length > 0 || searchTag !== ''"
-            />
-
-            <div
-              class="custom-checkbox-control"
-              v-if="filteredTags().length > 0"
-            >
-              <b-checkbox-button
-                v-model="groupForm.tags"
-                type="is-primary"
-                size="is-small"
-                v-for="tag in filteredTags()"
-                :key="tag"
-                :native-value="tag"
-              >
-                <span>
-                  <p>{{ tag }}</p>
-                </span>
-              </b-checkbox-button>
-            </div>
-            <div
-              class="custom-checkbox-control is-justify-content-center is-align-items-center is-size-7"
-              v-else
-            >
-              There are no tags!
-            </div>
-          </div>
+          <b-taginput
+            v-model="groupForm.tags"
+            size="is-small"
+            type="is-primary"
+          >
+          </b-taginput>
         </b-field>
       </AdvancedFiltersBase>
     </div>
@@ -239,7 +207,6 @@ export default {
       },
       isUpdate: false,
       searchRole: '',
-      searchTag: '',
     }
   },
   validations() {
@@ -333,18 +300,6 @@ export default {
         })
       }
       return this.showRoles
-    },
-    onSearchTagClear() {
-      this.searchTag = ''
-    },
-    filteredTags() {
-      this.showTags = []
-      if (this.searchTag !== '') {
-        return _.filter(this.showTags, (tag) => {
-          return stringSearch(tag, this.searchTag)
-        })
-      }
-      return this.showTags
     },
   },
   computed: {
