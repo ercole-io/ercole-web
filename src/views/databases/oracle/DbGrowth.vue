@@ -28,12 +28,16 @@
       animated
       expanded
       class="vertical-tabs-scroll"
+      v-model="activeTab"
+      @input="getDbGrowthData"
     >
       <b-tab-item
-        v-for="(host, index) in filteredOracleDbGrowth"
-        :label="host.hostname"
-        :key="index"
+        v-for="host in filteredOracleDbGrowthHostnames"
+        :label="host"
+        :key="host"
+        :value="host"
       >
+        <Loading :isLoading="loadingDbGrwothChart" />
         <b-tabs
           size="is-small"
           type="is-boxed"
@@ -41,9 +45,10 @@
           animated
           expanded
           multiline
+          v-if="!loadingDbGrwothChart"
         >
           <b-tab-item
-            v-for="(db, i) in host.oracleChangesDBs"
+            v-for="(db, i) in currentDbGrowth"
             :label="db.databasename"
             :key="i"
           >
@@ -59,7 +64,7 @@
     </b-tabs>
 
     <NoContent
-      v-if="filteredOracleDbGrowth.length === 0"
+      v-if="filteredOracleDbGrowthHostnames.length === 0"
       noContentText="There are no results for this search"
       style="min-height: 332px"
     />
@@ -67,11 +72,13 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import DbGrowthMixin from '@/mixins/oracle/dbGrowth.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 import NoContent from '@/components/common/NoContent.vue'
+import Loading from '@/components/common/Loading.vue'
 
 export default {
   name: 'oracle-databases-dbgrowth-page',
@@ -80,24 +87,42 @@ export default {
     BoxContent,
     SearchInput,
     NoContent,
+    Loading,
   },
   data() {
     return {
       isMounted: false,
       searchTherm: '',
+      activeTab: '',
+      currentDbGrowth: [],
+      loadingDbGrwothChart: false,
     }
   },
   async beforeMount() {
-    await this.getDbgrowth().then(() => {
-      this.isMounted = true
-    })
+    await this.getDbGrowthDbs().then(() => (this.isMounted = true))
+    this.activeTab = this.filteredOracleDbGrowthHostnames[0]
+    this.getDbGrowthData(this.activeTab)
   },
   methods: {
-    ...mapActions(['getDbgrowth']),
+    ...mapActions(['getDbgrowth', 'getDbGrowthDbs']),
     ...mapMutations(['SET_SEARCH']),
+    getDbGrowthData(hostname) {
+      this.loadingDbGrwothChart = true
+      setTimeout(() => {
+        _.filter(this.filteredOracleDbGrowthHostnames, (val) => {
+          if (val === hostname) {
+            this.getDbgrowth(hostname)
+              .then((res) => {
+                this.currentDbGrowth = res.data[0].oracleChangesDBs
+              })
+              .then(() => (this.loadingDbGrwothChart = false))
+          }
+        })
+      }, 500)
+    },
   },
   computed: {
-    ...mapGetters(['filteredOracleDbGrowth', 'loadingTableStatus']),
+    ...mapGetters(['filteredOracleDbGrowthHostnames', 'loadingTableStatus']),
   },
   watch: {
     searchTherm(value) {
