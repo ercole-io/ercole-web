@@ -157,7 +157,7 @@ export default {
         }
       } else {
         body = {
-          username: localStorage.getItem('username'),
+          username: this.getUsername,
           data: this.changePassForm,
           admin: this.admin,
         }
@@ -193,7 +193,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['isAdmin']),
+    ...mapGetters(['isAdmin', 'getUsername']),
   },
 }
 </script>

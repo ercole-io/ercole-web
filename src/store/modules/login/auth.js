@@ -14,12 +14,14 @@ export const state = () => {
     provider: '',
     userRole: '',
     sso_visible: false,
+    username: '',
   }
 }
 
 export const getters = {
   isLoggedIn: (state) => state.isLoggedIn,
   isAdmin: (state) => state.isAdmin,
+  getUsername: (state) => state.username,
   getProvider: (state) => state.provider,
   getUserRole: (state) => state.userRole,
   apiPrefix: (state) => {
@@ -40,6 +42,9 @@ export const mutations = {
   },
   SET_ADMIN: (state, payload) => {
     state.isAdmin = payload
+  },
+  SET_USERNAME: (state, payload) => {
+    state.username = payload
   },
   SET_PROVIDER: (state, payload) => {
     state.provider = payload
@@ -87,24 +92,18 @@ export const actions = {
         const token = res.data.token
         const decodeToken = JSON.parse(atob(token.split('.')[1]))
         const expiration = decodeToken.exp
-        const username = res.data.allowedUser.username
-        const admin = _.includes(res.data.allowedUser.groups, 'admin')
-        // const provider = res.data.allowedUser.provider
-        //   ? res.data.allowedUser.provider
-        //   : 'basic'
-        const userRole = res.data.allowedUser.groups[0]
 
         const payload = {
           token: token,
-          username: username,
           expiration: expiration,
         }
 
-        commit('SET_ADMIN', admin)
         commit('SET_PROVIDER', provider)
-        commit('SET_USER_ROLE', userRole)
         commit('LOGIN_SUCCESS')
         helpers.setLocalStorageAuth(payload)
+      })
+      .then(() => {
+        dispatch('getUsersInfo')
       })
       .then(() => {
         dispatch('setErrMsg', null)
@@ -160,19 +159,18 @@ export const actions = {
         const token = res.data.access_token
         const decodeToken = JSON.parse(atob(token.split('.')[1]))
         const expiration = decodeToken.exp
-        const username = 'SSO User'
 
         const payload = {
           token: token,
-          username: username,
           expiration: expiration,
         }
 
-        commit('SET_ADMIN', true)
         commit('SET_PROVIDER', 'sso')
-        commit('SET_USER_ROLE', 'admin')
         commit('LOGIN_SUCCESS')
         helpers.setLocalStorageAuth(payload)
+      })
+      .then(() => {
+        dispatch('getUsersInfo')
       })
       .then(() => {
         router.push('/dashboard')
@@ -191,6 +189,22 @@ export const actions = {
         }
         router.push('/login')
       })
+  },
+  async getUsersInfo({ commit }) {
+    const config = {
+      method: 'get',
+      url: 'users/info',
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      const username = res.data.username
+      const admin = _.includes(res.data.groups, 'admin')
+      const userRole = res.data.groups[0]
+
+      commit('SET_ADMIN', admin)
+      commit('SET_USERNAME', username)
+      commit('SET_USER_ROLE', userRole)
+    })
   },
   // tryAutoLogin({ commit }) {
   //   const token = localStorage.getItem('token')

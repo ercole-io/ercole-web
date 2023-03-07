@@ -125,7 +125,6 @@ export default {
   methods: {
     ...mapActions(['logout']),
     callLogout() {
-      localStorage.setItem('historyPage', '')
       this.logout()
     },
     openPage(page) {
@@ -155,9 +154,15 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['version', 'isAdmin', 'getProvider', 'getUserRole']),
+    ...mapGetters([
+      'version',
+      'isAdmin',
+      'getProvider',
+      'getUserRole',
+      'getUsername',
+    ]),
     username() {
-      return localStorage.getItem('username')
+      return this.getUsername
     },
     userRole() {
       return this.getUserRole
