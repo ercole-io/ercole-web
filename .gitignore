@@ -21,3 +21,6 @@ yarn-error.log*
 *.sw?
 
 src/store/modules/databases/oracle/Services.json
+
+public/config.json
+public/config_sso.json

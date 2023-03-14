@@ -33,14 +33,20 @@ export default {
   },
   created() {
     this.fetchConfig().then(this.offLoading)
-    this.fetchConfigSSO().then((res) => {
-      const sso_data = {
-        ...res.data,
-      }
+    this.fetchConfigSSO()
+      .then((res) => {
+        const sso_data = {
+          ...res.data,
+        }
 
-      this.SET_SSO_VISIBILITY(sso_data.sso_visible)
-      localStorage.setItem('sso', JSON.stringify(sso_data))
-    })
+        this.SET_SSO_VISIBILITY(sso_data.sso_visible)
+        localStorage.setItem('sso', JSON.stringify(sso_data))
+      })
+      .catch((err) => {
+        if (err) {
+          this.SET_SSO_VISIBILITY(false)
+        }
+      })
   },
   methods: {
     ...mapActions([

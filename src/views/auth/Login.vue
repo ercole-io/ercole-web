@@ -71,7 +71,7 @@ export default {
     }, 1000)
   },
   methods: {
-    ...mapActions(['fetchConfigSSO', 'loginSSO']),
+    ...mapActions(['loginSSO']),
     fetchSSO() {
       const sso_data = JSON.parse(localStorage.getItem('sso'))
 
