@@ -295,7 +295,9 @@
       "pluggable": "Pluggable",
       "services": "Services",
       "state": "State",
-      "collation": "Collation Name"
+      "collation": "Collation Name",
+      "environment": "Environment",
+      "location": "Location"
     },
     "table": {
       "perPage": "per page",
@@ -420,7 +422,8 @@
       "pluggable": "Pluggable",
       "services": "Services",
       "state": "State",
-      "collation": "Collation Name"
+      "collation": "Collation Name",
+      "location": "Location"
     },
     "charts": {
       "archivelog": "Archivelog Mode",

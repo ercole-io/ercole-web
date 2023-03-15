@@ -9,6 +9,7 @@ const defaultState = () => ({
   'page-databasesMsSqlServer': [false, true],
   'page-databasesMysql': [false, true],
   'page-databasesPostgreSqlServer': [false, true],
+  'page-databasesMongoDbServer': [false, true],
   'page-addm': [false, true],
   'page-patchAdvisor': [false, true],
   'page-segmentAdvisor': [false, true],
