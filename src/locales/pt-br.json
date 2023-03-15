@@ -43,7 +43,8 @@
     "cpu-time": "CPU Time",
     "settings": "Settings",
     "partitionings": "Partitioning",
-    "azure": "Azure"
+    "azure": "Azure",
+    "mongodb": "MongoDB"
   },
   "header": {
     "logout": "Sair"
