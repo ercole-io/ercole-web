@@ -15,5 +15,8 @@ export default {
     isPostgresql() {
       return this.currentHostType === 'postgresql'
     },
+    isMongodb() {
+      return this.currentHostType === 'mongodb'
+    },
   },
 }
