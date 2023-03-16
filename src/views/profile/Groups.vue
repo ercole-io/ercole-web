@@ -162,6 +162,10 @@
             v-model="groupForm.tags"
             size="is-small"
             type="is-primary"
+            :on-paste-separators="[]"
+            :confirm-keys="['Tab', 'Enter']"
+            allow-new
+            ellipsis
           >
           </b-taginput>
         </b-field>
