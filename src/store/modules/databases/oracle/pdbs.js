@@ -37,4 +37,20 @@ export const actions = {
       commit('SET_PDBS', res.data)
     })
   },
+  async getOraclePdbsByHost({ commit, getters, dispatch }, hostname) {
+    const config = {
+      method: 'get',
+      url: `/hosts/technologies/oracle/databases/change-list/${hostname}/pdbs`,
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      dispatch('offLoading')
+      console.log(res.data)
+    })
+  },
 }

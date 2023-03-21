@@ -199,6 +199,8 @@ export const actions = {
     const url = `hosts/${payload.hostname}`
     const endPoints = [url, `${url}/technologies/all/databases/licenses-used`]
 
+    dispatch('getOraclePdbsByHost', payload.hostname)
+
     await Promise.all(
       endPoints.map((endpoint) =>
         axiosRequest('baseApi', {
