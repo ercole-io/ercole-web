@@ -224,10 +224,6 @@ export const actions = {
   // },
   logout({ commit, dispatch }) {
     dispatch('offLoading')
-    if (JSON.parse(localStorage.getItem('sso')).signoff_url !== '') {
-      dispatch('logoutSSO')
-    }
-
     commit('SET_ACTIVE_FILTERS', {
       active: {
         location: null,
@@ -238,6 +234,14 @@ export const actions = {
     })
     commit('SET_DEFAULT_COLS')
     commit('LOGOUT')
+
+    if (
+      JSON.parse(localStorage.getItem('sso')) &&
+      JSON.parse(localStorage.getItem('sso')).sso_visible
+    ) {
+      dispatch('logoutSSO')
+    }
+
     helpers.clearLocalStorageAuth()
     router.push('/login')
   },

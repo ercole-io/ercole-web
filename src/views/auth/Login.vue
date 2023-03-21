@@ -15,10 +15,7 @@
             <hr style="background-color: #5fd8df; height: 1px" />
 
             <div class="is-flex is-justify-content-center">
-              <b-button
-                @click="fetchSSO"
-                style="background-color: #054759; color: white"
-              >
+              <b-button @click="fetchSSO" type="is-primary">
                 SSO Login
               </b-button>
             </div>
