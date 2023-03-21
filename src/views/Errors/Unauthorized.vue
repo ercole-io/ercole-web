@@ -40,7 +40,9 @@ export default {
           this.countDown--
           this.countDownTimer()
         }, 1000)
-      } else {
+      }
+
+      if (this.countDown === 0) {
         this.logout()
       }
     },

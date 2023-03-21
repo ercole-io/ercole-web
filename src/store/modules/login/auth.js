@@ -187,7 +187,6 @@ export const actions = {
         } else {
           dispatch('setErrMsg', i18n.t(`common.validations.loginErrGeneric`))
         }
-        router.push('/login')
       })
   },
   async getUsersInfo({ commit }) {
@@ -224,6 +223,20 @@ export const actions = {
   // },
   logout({ commit, dispatch }) {
     dispatch('offLoading')
+
+    if (
+      JSON.parse(sessionStorage.getItem('sso')) &&
+      JSON.parse(sessionStorage.getItem('sso')).sso_visible
+    ) {
+      const signoffUrl = JSON.parse(sessionStorage.getItem('sso')).signoff_url
+      popupCenter({
+        url: `${signoffUrl}`,
+        title: 'Signoff',
+        w: 300,
+        h: 210,
+      })
+    }
+
     commit('SET_ACTIVE_FILTERS', {
       active: {
         location: null,
@@ -235,18 +248,40 @@ export const actions = {
     commit('SET_DEFAULT_COLS')
     commit('LOGOUT')
 
-    if (
-      JSON.parse(localStorage.getItem('sso')) &&
-      JSON.parse(localStorage.getItem('sso')).sso_visible
-    ) {
-      dispatch('logoutSSO')
-    }
-
     helpers.clearLocalStorageAuth()
     router.push('/login')
   },
-  logoutSSO() {
-    const signoffUrl = JSON.parse(localStorage.getItem('sso')).signoff_url
-    window.open(`${signoffUrl}`, '_blank')
-  },
+}
+
+const popupCenter = ({ url, title, w, h }) => {
+  const dualScreenLeft =
+    window.screenLeft !== undefined ? window.screenLeft : window.screenX
+  const dualScreenTop =
+    window.screenTop !== undefined ? window.screenTop : window.screenY
+
+  const width = window.innerWidth
+    ? window.innerWidth
+    : document.documentElement.clientWidth
+    ? document.documentElement.clientWidth
+    : screen.width
+  const height = window.innerHeight
+    ? window.innerHeight
+    : document.documentElement.clientHeight
+    ? document.documentElement.clientHeight
+    : screen.height
+
+  const systemZoom = width / window.screen.availWidth
+  const left = (width - w) / 2 / systemZoom + dualScreenLeft
+  const top = (height - h) / 4 / systemZoom + dualScreenTop
+  window.open(
+    url,
+    title,
+    `
+    scrollbars=yes,
+    width=${w / systemZoom}, 
+    height=${h / systemZoom}, 
+    top=${top}, 
+    left=${left}
+    `
+  )
 }

@@ -61,7 +61,7 @@ export default {
     setTimeout(() => {
       if (this.$route.query.code) {
         this.loginSSO({
-          sso: JSON.parse(localStorage.getItem('sso')),
+          sso: JSON.parse(sessionStorage.getItem('sso')),
           auth_code: localStorage.getItem('sso_auth_code'),
         })
       }
@@ -70,7 +70,7 @@ export default {
   methods: {
     ...mapActions(['loginSSO']),
     fetchSSO() {
-      const sso_data = JSON.parse(localStorage.getItem('sso'))
+      const sso_data = JSON.parse(sessionStorage.getItem('sso'))
 
       window.location.replace(
         `${sso_data.auth_url}?client_id=${sso_data.client_id}&response_type=${sso_data.response_type}&scope=${sso_data.scope}&redirect_uri=${sso_data.redirect_uri}`

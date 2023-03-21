@@ -12,7 +12,6 @@ export const setLocalStorageAuth = (payload) => {
 export const clearLocalStorageAuth = () => {
   localStorage.removeItem('token')
   localStorage.removeItem('expiration')
-  localStorage.removeItem('sso')
   localStorage.removeItem('sso_auth_code')
   localStorage.removeItem('persisted-data')
 }
