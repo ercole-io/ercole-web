@@ -90,12 +90,8 @@ export const actions = {
       })
       .then((res) => {
         const token = res.data.token
-        const decodeToken = JSON.parse(atob(token.split('.')[1]))
-        const expiration = decodeToken.exp
-
         const payload = {
           token: token,
-          expiration: expiration,
         }
 
         commit('SET_PROVIDER', provider)
@@ -157,12 +153,8 @@ export const actions = {
     await axios(config)
       .then((res) => {
         const token = res.data.access_token
-        const decodeToken = JSON.parse(atob(token.split('.')[1]))
-        const expiration = decodeToken.exp
-
         const payload = {
           token: token,
-          expiration: expiration,
         }
 
         commit('SET_PROVIDER', 'sso')
@@ -200,6 +192,8 @@ export const actions = {
       const admin = _.includes(res.data.groups, 'admin')
       const userRole = res.data.groups[0]
 
+      console.log(res.data.groups[0])
+
       commit('SET_ADMIN', admin)
       commit('SET_USERNAME', username)
       commit('SET_USER_ROLE', userRole)
@@ -224,10 +218,7 @@ export const actions = {
   logout({ commit, dispatch }) {
     dispatch('offLoading')
 
-    if (
-      JSON.parse(sessionStorage.getItem('sso')) &&
-      JSON.parse(sessionStorage.getItem('sso')).sso_visible
-    ) {
+    if (localStorage.getItem('sso_auth_code')) {
       const signoffUrl = JSON.parse(sessionStorage.getItem('sso')).signoff_url
       popupCenter({
         url: `${signoffUrl}`,
