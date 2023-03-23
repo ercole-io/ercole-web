@@ -3,7 +3,7 @@ import errorResponseHandler from '@/helpers/errorHandler.js'
 import store from '@/store/index.js'
 
 export default (name, auth, config) => {
-  const token = localStorage.getItem('token')
+  const token = sessionStorage.getItem('token')
 
   const apiPrefix = store.getters.apiPrefix
 

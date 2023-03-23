@@ -9,7 +9,7 @@ import qs from 'qs'
 
 export const state = () => {
   return {
-    isLoggedIn: !!localStorage.getItem('token'),
+    isLoggedIn: !!sessionStorage.getItem('token'),
     isAdmin: false,
     provider: '',
     userRole: '',
@@ -192,29 +192,11 @@ export const actions = {
       const admin = _.includes(res.data.groups, 'admin')
       const userRole = res.data.groups[0]
 
-      console.log(res.data.groups[0])
-
       commit('SET_ADMIN', admin)
       commit('SET_USERNAME', username)
       commit('SET_USER_ROLE', userRole)
     })
   },
-  // tryAutoLogin({ commit }) {
-  //   const token = localStorage.getItem('token')
-  //   if (!token) {
-  //     commit('LOGOUT')
-  //   }
-
-  //   const tokenExp = localStorage.getItem('expiration')
-  //   const expiration = moment(tokenExp).format()
-  //   const now = moment(new Date()).format()
-
-  //   if (now >= expiration) {
-  //     commit('LOGOUT')
-  //   }
-
-  //   commit('LOGIN_SUCCESS')
-  // },
   logout({ commit, dispatch }) {
     dispatch('offLoading')
 

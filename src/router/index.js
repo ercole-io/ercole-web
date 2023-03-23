@@ -760,7 +760,7 @@ router.beforeEach((to, from, next) => {
 })
 
 function verifyAuth(to, from, next) {
-  const token = localStorage.getItem('token')
+  const token = sessionStorage.getItem('token')
   if (token && store.getters.isLoggedIn) {
     next()
   } else {
