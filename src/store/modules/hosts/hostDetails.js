@@ -247,7 +247,7 @@ export const actions = {
             const postgresql = databases.postgresql.instances
             getDatabases = mapHostDatabases(postgresql, extraData, type)
           } else if (type === 'mongodb') {
-            const mongodb = databases.mongodb.dbStats
+            const mongodb = databases.mongodb.instances
             getDatabases = mapHostDatabases(mongodb, extraData, type)
           }
           commit('SET_CURRENT_HOST_DATABASES', getDatabases)
