@@ -1,5 +1,5 @@
 <template>
-  <div class="columns is-mobile is-multiline">
+  <div class="columns is-mobile is-multiline" v-if="dbInfo">
     <div class="column">
       <div class="columns">
         <div class="column">
@@ -7,35 +7,59 @@
             <li>Database Details</li>
             <li>
               <span>Db Name</span>
-              <span>{{ info.dbName }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.dbName)"
+                v-html="highlight(toString(dbInfo.dbName))"
+              />
             </li>
             <li>
               <span>Charset</span>
-              <span>{{ info.charset }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.charset)"
+                v-html="highlight(toString(dbInfo.charset))"
+              />
             </li>
             <li>
               <span>Collections</span>
-              <span>{{ info.collections }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.collections)"
+                v-html="highlight(toString(dbInfo.collections))"
+              />
             </li>
             <li>
               <span>Objects</span>
-              <span>{{ info.objects }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.objects)"
+                v-html="highlight(toString(dbInfo.objects))"
+              />
             </li>
             <li>
               <span>Users</span>
-              <span>{{ info.objects }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.users)"
+                v-html="highlight(toString(dbInfo.users))"
+              />
             </li>
             <li>
               <span>Views</span>
-              <span>{{ info.views }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.views)"
+                v-html="highlight(toString(dbInfo.views))"
+              />
             </li>
             <li>
               <span>Indexes</span>
-              <span>{{ info.indexes }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.indexes)"
+                v-html="highlight(toString(dbInfo.indexes))"
+              />
             </li>
             <li>
               <span>Shard DBs</span>
-              <span>{{ info.shardDBs }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.shardDBs)"
+                v-html="highlight(toString(dbInfo.shardDBs))"
+              />
             </li>
           </ul>
         </div>
@@ -44,43 +68,66 @@
             <li>Additional Info</li>
             <li>
               <span>Data Size</span>
-              <span>{{ info.dataSize | prettyBytes(1, true) }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.dataSize)"
+                v-html="highlight(toString(dbInfo.dataSize))"
+              />
             </li>
             <li>
               <span>Free Storage Size</span>
-              <span>{{ info.freeStorageSize | prettyBytes(1, true) }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.freeStorageSize)"
+                v-html="highlight(toString(dbInfo.freeStorageSize))"
+              />
             </li>
             <li>
               <span>Fs Total Size</span>
-              <span>{{ info.fsTotalSize | prettyBytes(1, true) }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.fsTotalSize)"
+                v-html="highlight(toString(dbInfo.fsTotalSize))"
+              />
             </li>
             <li>
               <span>Fs Used Size</span>
-              <span>{{ info.fsUsedSize | prettyBytes(1, true) }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.fsUsedSize)"
+                v-html="highlight(toString(dbInfo.fsUsedSize))"
+              />
             </li>
             <li>
               <span>Index Free Storage Size</span>
-              <span>{{
-                info.indexFreeStorageSize | prettyBytes(1, true)
-              }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.indexFreeStorageSize)"
+                v-html="highlight(toString(dbInfo.indexFreeStorageSize))"
+              />
             </li>
             <li>
               <span>Index Size</span>
-              <span>{{ info.indexSize | prettyBytes(1, true) }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.indexSize)"
+                v-html="highlight(toString(dbInfo.indexSize))"
+              />
             </li>
             <li>
               <span>Storage Size</span>
-              <span>{{ info.storageSize | prettyBytes(1, true) }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.storageSize)"
+                v-html="highlight(toString(dbInfo.storageSize))"
+              />
             </li>
             <li>
               <span>Total Free Storage Size</span>
-              <span>{{
-                info.totalFreeStorageSize | prettyBytes(1, true)
-              }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.totalFreeStorageSize)"
+                v-html="highlight(toString(dbInfo.totalFreeStorageSize))"
+              />
             </li>
             <li>
               <span>Total Size</span>
-              <span>{{ info.totalSize | prettyBytes(1, true) }}</span>
+              <span
+                v-tooltip.right="options(dbInfo.totalSize)"
+                v-html="highlight(toString(dbInfo.totalSize))"
+              />
             </li>
           </ul>
         </div>
@@ -90,10 +137,13 @@
 </template>
 
 <script>
+import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
+
 export default {
   name: 'hosts-details-microsoft-databases-dbs-info-component',
+  mixins: [infoMixin],
   props: {
-    info: {
+    dbInfo: {
       type: Object,
       default: () => {},
     },

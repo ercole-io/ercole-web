@@ -6,11 +6,11 @@
           <div class="column">
             <ul class="db-info">
               <li>Database Details</li>
-              <li v-if="dbInfo.name">
+              <li v-if="dbInfo.dbName">
                 <span>Db Name</span>
                 <span
-                  v-tooltip.right="options(dbInfo.name)"
-                  v-html="highlight(toString(dbInfo.name))"
+                  v-tooltip.right="options(dbInfo.dbName)"
+                  v-html="highlight(toString(dbInfo.dbName))"
                 />
               </li>
               <li v-if="dbInfo.dbs">

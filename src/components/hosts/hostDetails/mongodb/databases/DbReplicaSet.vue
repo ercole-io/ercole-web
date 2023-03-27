@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="Replica Set" class="databasesInfo">
+  <b-tab-item label="Replica Set" class="databasesInfo" v-if="replicaset">
     <div class="columns is-mobile is-multiline">
       <div class="column">
         <div class="columns">

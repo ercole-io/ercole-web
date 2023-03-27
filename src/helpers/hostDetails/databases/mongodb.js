@@ -7,8 +7,7 @@ const mapMongoDbDatabases = (data) => {
     const databases = []
     _.map(item.dbStats, (db) => {
       databases.push({
-        info: {
-          name: db.dbName,
+        dbInfo: {
           dbName: db.dbName,
           charset: db.charset,
           collections: db.collections,
@@ -28,12 +27,13 @@ const mapMongoDbDatabases = (data) => {
           shardDBs: db.shardDBs.length,
         },
         shardDBs: db.shardDBs,
-        dbName: db.dbName,
+        name: db.dbName,
       })
     })
 
     newData.push({
       name: item.name,
+      dbName: item.name,
       dbs: item.dbs,
       version: item.version,
       databases: databases,
@@ -42,6 +42,8 @@ const mapMongoDbDatabases = (data) => {
       statusConnection: item.statusConnection,
     })
   })
+
+  console.log(newData)
 
   return newData
 }
