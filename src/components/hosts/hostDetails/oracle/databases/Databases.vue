@@ -22,7 +22,11 @@
         destroy-on-hide
       >
         <DbInfo :dbInfo="dbs" v-if="hasInfo" />
-        <DbPDBs :pdbs="dbs.pdbs" v-if="dbs.pdbs && dbs.pdbs.length > 0" />
+        <DbPDBs
+          :pdbs="dbs.pdbs"
+          :dbname="dbs.name"
+          v-if="dbs.pdbs && dbs.pdbs.length > 0"
+        />
         <DbLicenses
           :licenses="dbs.licenses"
           v-if="dbs.licenses && dbs.licenses.length > 0"

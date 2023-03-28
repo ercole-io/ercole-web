@@ -202,8 +202,6 @@ export const actions = {
     const url = `hosts/${payload.hostname}`
     const endPoints = [url, `${url}/technologies/all/databases/licenses-used`]
 
-    dispatch('getOraclePdbsByHost', payload.hostname)
-
     await Promise.all(
       endPoints.map((endpoint) =>
         axiosRequest('baseApi', {
@@ -255,6 +253,11 @@ export const actions = {
           commit('SET_CURRENT_HOST_DATABASES', getDatabases)
         } else {
           commit('SET_CURRENT_HOST_DATABASES', [])
+        }
+      })
+      .then(() => {
+        if (getters.currentHostType === 'oracle') {
+          dispatch('getPdbsByHostDbGrothData', payload.hostname)
         }
       })
       .then(() => dispatch('offLoadingTable'))
