@@ -4,15 +4,11 @@ import store from '@/store/index.js'
 
 // INIT: Manage som localstorage data //
 export const setLocalStorageAuth = (payload) => {
-  localStorage.setItem('token', payload.token)
-  const expirationTime = moment(payload.expiration * 1000).format()
-  localStorage.setItem('expiration', expirationTime)
+  sessionStorage.setItem('token', payload.token)
 }
 
 export const clearLocalStorageAuth = () => {
-  localStorage.removeItem('token')
-  localStorage.removeItem('expiration')
-  localStorage.removeItem('sso')
+  sessionStorage.removeItem('token')
   localStorage.removeItem('sso_auth_code')
   localStorage.removeItem('persisted-data')
 }

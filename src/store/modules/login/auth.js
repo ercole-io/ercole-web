@@ -9,7 +9,7 @@ import qs from 'qs'
 
 export const state = () => {
   return {
-    isLoggedIn: !!localStorage.getItem('token'),
+    isLoggedIn: !!sessionStorage.getItem('token'),
     isAdmin: false,
     provider: '',
     userRole: '',
@@ -90,12 +90,8 @@ export const actions = {
       })
       .then((res) => {
         const token = res.data.token
-        const decodeToken = JSON.parse(atob(token.split('.')[1]))
-        const expiration = decodeToken.exp
-
         const payload = {
           token: token,
-          expiration: expiration,
         }
 
         commit('SET_PROVIDER', provider)
@@ -157,12 +153,8 @@ export const actions = {
     await axios(config)
       .then((res) => {
         const token = res.data.access_token
-        const decodeToken = JSON.parse(atob(token.split('.')[1]))
-        const expiration = decodeToken.exp
-
         const payload = {
           token: token,
-          expiration: expiration,
         }
 
         commit('SET_PROVIDER', 'sso')
@@ -187,7 +179,6 @@ export const actions = {
         } else {
           dispatch('setErrMsg', i18n.t(`common.validations.loginErrGeneric`))
         }
-        router.push('/login')
       })
   },
   async getUsersInfo({ commit }) {
@@ -206,26 +197,17 @@ export const actions = {
       commit('SET_USER_ROLE', userRole)
     })
   },
-  // tryAutoLogin({ commit }) {
-  //   const token = localStorage.getItem('token')
-  //   if (!token) {
-  //     commit('LOGOUT')
-  //   }
-
-  //   const tokenExp = localStorage.getItem('expiration')
-  //   const expiration = moment(tokenExp).format()
-  //   const now = moment(new Date()).format()
-
-  //   if (now >= expiration) {
-  //     commit('LOGOUT')
-  //   }
-
-  //   commit('LOGIN_SUCCESS')
-  // },
   logout({ commit, dispatch }) {
     dispatch('offLoading')
-    if (JSON.parse(localStorage.getItem('sso')).signoff_url !== '') {
-      dispatch('logoutSSO')
+
+    if (localStorage.getItem('sso_auth_code')) {
+      const signoffUrl = JSON.parse(sessionStorage.getItem('sso')).signoff_url
+      popupCenter({
+        url: `${signoffUrl}`,
+        title: 'Signoff',
+        w: 300,
+        h: 210,
+      })
     }
 
     commit('SET_ACTIVE_FILTERS', {
@@ -238,11 +220,41 @@ export const actions = {
     })
     commit('SET_DEFAULT_COLS')
     commit('LOGOUT')
+
     helpers.clearLocalStorageAuth()
     router.push('/login')
   },
-  logoutSSO() {
-    const signoffUrl = JSON.parse(localStorage.getItem('sso')).signoff_url
-    window.open(`${signoffUrl}`, '_blank')
-  },
+}
+
+const popupCenter = ({ url, title, w, h }) => {
+  const dualScreenLeft =
+    window.screenLeft !== undefined ? window.screenLeft : window.screenX
+  const dualScreenTop =
+    window.screenTop !== undefined ? window.screenTop : window.screenY
+
+  const width = window.innerWidth
+    ? window.innerWidth
+    : document.documentElement.clientWidth
+    ? document.documentElement.clientWidth
+    : screen.width
+  const height = window.innerHeight
+    ? window.innerHeight
+    : document.documentElement.clientHeight
+    ? document.documentElement.clientHeight
+    : screen.height
+
+  const systemZoom = width / window.screen.availWidth
+  const left = (width - w) / 2 / systemZoom + dualScreenLeft
+  const top = (height - h) / 4 / systemZoom + dualScreenTop
+  window.open(
+    url,
+    title,
+    `
+    scrollbars=yes,
+    width=${w / systemZoom}, 
+    height=${h / systemZoom}, 
+    top=${top}, 
+    left=${left}
+    `
+  )
 }

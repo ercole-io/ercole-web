@@ -43,7 +43,8 @@
     "cpu-time": "CPU Time",
     "settings": "Settings",
     "partitionings": "Partitioning",
-    "azure": "Azure"
+    "azure": "Azure",
+    "mongodb": "MongoDB"
   },
   "header": {
     "logout": "Sair"
@@ -292,7 +293,9 @@
       "pluggable": "Plugável",
       "services": "Serviços",
       "state": "Estado",
-      "collation": "Nome do Agrupamento"
+      "collation": "Nome do Agrupamento",
+      "environment": "Environment",
+      "location": "Location"
     },
     "table": {
       "perPage": "por página",
@@ -412,7 +415,8 @@
       "pluggable": "Plugável",
       "services": "Serviços",
       "state": "Stato",
-      "collation": "Nome Raccolta"
+      "collation": "Nome Raccolta",
+      "location": "Location"
     },
     "charts": {
       "archivelog": "Modo Archivelog",

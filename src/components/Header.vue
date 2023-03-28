@@ -92,7 +92,7 @@
 
             <hr class="dropdown-divider" />
 
-            <b-dropdown-item @click="callLogout" data-logout-button>
+            <b-dropdown-item @click="logout" data-logout-button>
               <b-icon icon="logout"></b-icon>
               {{ $t('header.logout') }}
             </b-dropdown-item>
@@ -124,9 +124,6 @@ export default {
   },
   methods: {
     ...mapActions(['logout']),
-    callLogout() {
-      this.logout()
-    },
     openPage(page) {
       this.$router.push({
         name: page,
@@ -137,7 +134,7 @@ export default {
         title: 'Ercole Version',
         message: `
           <p class="has-text-weight-bold">Server Version: <span class="has-text-weight-normal">${this.version}</span></p>
-          <p class="has-text-weight-bold">Web Version: <span class="has-text-weight-normal">2.30.1</span></p>
+          <p class="has-text-weight-bold">Web Version: <span class="has-text-weight-normal">2.32.4</span></p>
         `,
         cancelButton: false,
         type: 'is-success',

@@ -40,7 +40,7 @@ export default {
         }
 
         this.SET_SSO_VISIBILITY(sso_data.sso_visible)
-        localStorage.setItem('sso', JSON.stringify(sso_data))
+        sessionStorage.setItem('sso', JSON.stringify(sso_data))
       })
       .catch((err) => {
         if (err) {

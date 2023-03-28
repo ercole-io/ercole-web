@@ -15,6 +15,7 @@ import { filterOptionsOracle } from '@/helpers/hostDetails/filterOptions/oracle.
 import { filterOptionsMysql } from '@/helpers/hostDetails/filterOptions/mysql.js'
 import { filterOptionsMicrosft } from '@/helpers/hostDetails/filterOptions/microsoft.js'
 import { filterOptionsPostgreSql } from '@/helpers/hostDetails/filterOptions/postgresql.js'
+import { filterOptionsMongoDb } from '@/helpers/hostDetails/filterOptions/mongodb.js'
 
 export const state = () => ({
   currentHost: {},
@@ -92,6 +93,8 @@ export const getters = {
       return filterOptionsMicrosft
     } else if (hostType === 'postgresql') {
       return filterOptionsPostgreSql
+    } else if (hostType === 'mongodb') {
+      return filterOptionsMongoDb
     }
   },
   returnSelectedKeys: (state) => {
@@ -245,6 +248,9 @@ export const actions = {
           } else if (type === 'postgresql') {
             const postgresql = databases.postgresql.instances
             getDatabases = mapHostDatabases(postgresql, extraData, type)
+          } else if (type === 'mongodb') {
+            const mongodb = databases.mongodb.instances
+            getDatabases = mapHostDatabases(mongodb, extraData, type)
           }
           commit('SET_CURRENT_HOST_DATABASES', getDatabases)
         } else {

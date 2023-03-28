@@ -53,40 +53,32 @@ input[readonly] {
   color: #999;
 }
 
-.mysql-logo {
+.logos {
   width: 30px;
   height: 30px;
-  content: url('../../assets/images/technologies/mysql.jpeg');
   background-color: #fff;
   padding: 3px;
   border-radius: 3px;
-}
 
-.oracle-logo {
-  width: 30px;
-  height: 30px;
-  content: url('../../assets/images/technologies/oracle.jpeg');
-  background-color: #fff;
-  padding: 3px;
-  border-radius: 3px;
-}
+  &.mysql {
+    content: url('../../assets/images/technologies/mysql.jpeg');
+  }
 
-.microsoft-logo {
-  width: 30px;
-  height: 30px;
-  content: url('../../assets/images/technologies/microsoft.jpeg');
-  background-color: #fff;
-  padding: 3px;
-  border-radius: 3px;
-}
+  &.oracle {
+    content: url('../../assets/images/technologies/oracle.jpeg');
+  }
 
-.postgresql-logo {
-  width: 20px;
-  height: 30px;
-  content: url('../../assets/images/technologies/postgresql.jpeg');
-  background-color: #fff;
-  padding: 3px;
-  border-radius: 3px;
+  &.microsoft {
+    content: url('../../assets/images/technologies/microsoft.jpeg');
+  }
+
+  &.postgresql {
+    content: url('../../assets/images/technologies/postgresql.jpeg');
+  }
+
+  &.mongodb {
+    content: url('../../assets/images/technologies/mongodb.jpeg');
+  }
 }
 
 .ercole-version-logo {
@@ -101,28 +93,28 @@ input[readonly] {
 .databasesInfo {
   .db-info {
     padding-top: 0;
-  
+
     li {
       padding: 0 5px;
       font-size: 0.7em;
-  
+
       span:first-child {
         font-weight: 500;
       }
     }
-  
+
     li:not(:first-child) {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       align-items: center;
       padding: 3px 6px;
-  
+
       &:nth-child(odd) {
         background: #f1f1f1;
       }
     }
-  
+
     li:first-child {
       box-shadow: 0 0.08em 0 lightslategrey;
       font-weight: 600;

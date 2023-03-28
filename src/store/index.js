@@ -66,6 +66,8 @@ import * as mysql from '@/store/modules/databases/mysql/mysql'
 import * as microsoft from '@/store/modules/databases/microsoft/microsoft'
 // Databases Postgree
 import * as postgresql from '@/store/modules/databases/postgresql/postgresql'
+// Databases MongoDB
+import * as mongodb from '@/store/modules/databases/mongodb/mongodb'
 // Exadata
 import * as engineeredSystems from '@/store/modules/engineered-systems/engineered-systems'
 // Repository
@@ -127,6 +129,7 @@ export default new Vuex.Store({
     mysql,
     microsoft,
     postgresql,
+    mongodb,
     globalFilters,
     localFilters,
     engineeredSystems,

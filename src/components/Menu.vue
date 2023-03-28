@@ -71,7 +71,7 @@ export default {
             },
             {
               title: this.$i18n.t('menu.oracle'),
-              icon: 'oracle-logo',
+              icon: 'logos oracle',
               attributes: { 'data-cy': 'mn-oracle' },
               hidden: this.checkMenu('Oracle', 'Databases'),
               child: [
@@ -199,7 +199,7 @@ export default {
             },
             {
               title: this.$i18n.t('menu.mysql'),
-              icon: 'mysql-logo',
+              icon: 'logos mysql',
               attributes: { 'data-cy': 'mn-mysql' },
               hidden: this.checkMenu('MySQL', 'Databases'),
               child: [
@@ -215,7 +215,7 @@ export default {
             },
             {
               title: this.$i18n.t('menu.microsoft'),
-              icon: 'microsoft-logo',
+              icon: 'logos microsoft',
               attributes: { 'data-cy': 'mn-microsoft' },
               hidden: this.checkMenu('Microsoft', 'Databases'),
               child: [
@@ -231,7 +231,7 @@ export default {
             },
             {
               title: this.$i18n.t('menu.postgresql'),
-              icon: 'postgresql-logo',
+              icon: 'logos postgresql',
               attributes: { 'data-cy': 'mn-postgresql' },
               hidden: this.checkMenu('PostgreSQL', 'Databases'),
               child: [
@@ -242,6 +242,22 @@ export default {
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-postgresql-list' },
                   hidden: this.checkMenu('DB List', 'PostgreSQL'),
+                },
+              ],
+            },
+            {
+              title: this.$i18n.t('menu.mongodb'),
+              icon: 'logos mongodb',
+              attributes: { 'data-cy': 'mn-mongodb' },
+              hidden: this.checkMenu('MongoDB', 'Databases'),
+              child: [
+                {
+                  title: this.$i18n.t('menu.dbList'),
+                  href: { name: 'mongodb' },
+                  icon: 'fas fa-database',
+                  class: 'menu-third-level',
+                  attributes: { 'data-cy': 'mn-mongodb-list' },
+                  hidden: this.checkMenu('DB List', 'MongoDB'),
                 },
               ],
             },
