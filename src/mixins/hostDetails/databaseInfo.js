@@ -10,6 +10,7 @@ import { filterOptionsPostgreSql } from '@/helpers/hostDetails/filterOptions/pos
 import { filterOptionsOracle } from '@/helpers/hostDetails/filterOptions/oracle.js'
 import { filterOptionsMicrosft } from '@/helpers/hostDetails/filterOptions/microsoft.js'
 import { filterOptionsMysql } from '@/helpers/hostDetails/filterOptions/mysql.js'
+import { filterOptionsMongoDb } from '@/helpers/hostDetails/filterOptions/mongodb.js'
 
 export default {
   mixins: [TooltipMixin, HighlightSearchMixin, databaseTypesMixin],
@@ -36,6 +37,8 @@ export default {
       this.dataOptions = filterOptionsMicrosft
     } else if (this.isPostgresql) {
       this.dataOptions = filterOptionsPostgreSql
+    } else if (this.isMongodb) {
+      this.dataOptions = filterOptionsMongoDb
     }
   },
   methods: {

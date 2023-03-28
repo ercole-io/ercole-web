@@ -23,6 +23,7 @@
       <Mirosoft v-if="isMicrosoft" />
       <Mysql v-if="isMysql" />
       <Postgre v-if="isPostgresql" />
+      <Mongodb v-if="isMongodb" />
     </div>
 
     <NoContent
@@ -50,6 +51,7 @@ import Oracle from '@/components/hosts/hostDetails/oracle/databases/Databases.vu
 import Mirosoft from '@/components/hosts/hostDetails/microsoft/databases/Databases.vue'
 import Mysql from '@/components/hosts/hostDetails/mysql/databases/Databases.vue'
 import Postgre from '@/components/hosts/hostDetails/postgresql/databases/Databases.vue'
+import Mongodb from '@/components/hosts/hostDetails/mongodb/databases/Databases.vue'
 
 export default {
   name: 'hosts-details-databases-data-component',
@@ -64,6 +66,7 @@ export default {
     Mirosoft,
     Mysql,
     Postgre,
+    Mongodb,
   },
   data() {
     return {

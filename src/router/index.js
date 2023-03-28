@@ -425,6 +425,26 @@ const routes = [
           },
         ],
       },
+      {
+        path: '/mongodb',
+        component: EmptyRouterView,
+        children: [
+          {
+            path: '',
+            name: 'mongodb',
+            component: lazyRouteBuilder('databases/mongodb/MongoDB.vue'),
+            meta: {
+              label: i18n.t('menu.mongodb'),
+              title: `${title}${i18n.t('menu.mongodb')}`,
+              breadcrumb: [
+                { name: i18n.t('menu.databases'), link: '/databases' },
+                { name: i18n.t('menu.mongodb') },
+              ],
+            },
+            beforeEnter: verifyAuth,
+          },
+        ],
+      },
     ],
   },
   {

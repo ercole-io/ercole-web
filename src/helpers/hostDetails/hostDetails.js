@@ -15,6 +15,7 @@ import { mapOracleDatabases } from '@/helpers/hostDetails/databases/oracle.js'
 import { mapMysqlDatabases } from '@/helpers/hostDetails/databases/mysql.js'
 import { mapMicrosoftDatabases } from '@/helpers/hostDetails/databases/microsoft.js'
 import { mapPostgreSqlDatabases } from '@/helpers/hostDetails/databases/postgresql.js'
+import { mapMongoDbDatabases } from '@/helpers/hostDetails/databases/mongodb.js'
 
 const startDate = moment().subtract(1, 'week').format('YYYY-MM-DD')
 const endDate = moment().add(1, 'days').format('YYYY-MM-DD')
@@ -155,6 +156,8 @@ const getHostType = (hostType) => {
       return 'microsoft'
     } else if (hostType === 'PostgreSQL/PostgreSQL') {
       return 'postgresql'
+    } else if (hostType === 'MongoDB/MongoDB') {
+      return 'mongodb'
     } else {
       return null
     }
@@ -171,6 +174,8 @@ const mapHostDatabases = (data, extraData, type) => {
     return mapMicrosoftDatabases(data, extraData)
   } else if (type === 'postgresql') {
     return mapPostgreSqlDatabases(data, extraData)
+  } else if (type === 'mongodb') {
+    return mapMongoDbDatabases(data)
   }
 }
 

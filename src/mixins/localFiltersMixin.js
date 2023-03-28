@@ -121,6 +121,7 @@ export default {
       filteredtenantid: [],
       filteredclientid: [],
       filteredsubscriptionid: [],
+      filteredlocation: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,
