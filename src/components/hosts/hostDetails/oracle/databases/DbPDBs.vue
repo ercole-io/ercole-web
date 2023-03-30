@@ -1,5 +1,10 @@
 <template>
   <b-tab-item label="Pluggable DBs">
+    <RangeDates
+      :setRange="SET_RANGE_DATES_ALT"
+      totalRange="31"
+      class="mt-0 mr-0"
+    />
     <b-collapse
       v-for="(pdb, i) in pdbs"
       :key="i"
@@ -240,13 +245,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
-
+import RangeDates from '@/components/common/RangeDates.vue'
 import DbGrowth from '@/components/common/DbGrowth.vue'
 
 export default {
@@ -256,6 +261,7 @@ export default {
     FullTable,
     TdContent,
     TdIcon,
+    RangeDates,
     DbGrowth,
   },
   props: {
@@ -267,6 +273,9 @@ export default {
       type: String,
       required: true,
     },
+  },
+  methods: {
+    ...mapMutations(['SET_RANGE_DATES_ALT']),
   },
   computed: {
     ...mapGetters(['getOraclePdbsDbGrowth']),

@@ -14,8 +14,16 @@ export const getters = {
   getOraclePdbsDbGrowth: (state) => (db, pdb) => {
     const dbGrowth = []
     _.map(state.pdbsDbGrowth, (data) => {
-      if (data.dbname === db && data.pdbname === pdb) {
-        dbGrowth.push(data)
+      if (db) {
+        if (data.dbname === db && data.pdbname === pdb) {
+          dbGrowth.push(data)
+        }
+      }
+
+      if (!db) {
+        if (data.pdbname === pdb) {
+          dbGrowth.push(data)
+        }
       }
     })
 

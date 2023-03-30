@@ -1,6 +1,6 @@
 <template>
   <b-tab-item label="DB Growth">
-    <DbGrowth :data="growth" />
+    <DbGrowth :data="growth" showRangeDate />
   </b-tab-item>
 </template>
 

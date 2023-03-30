@@ -41,7 +41,7 @@
   > .tabs {
     ul {
       min-width: 170px;
-      
+
       li {
         flex-grow: unset;
         min-height: 32px;
@@ -95,7 +95,7 @@ ul.pagination-list {
   margin-left: 0;
   margin-top: 0;
 
-  li+li {
+  li + li {
     margin-top: 0;
   }
 }
@@ -131,7 +131,7 @@ ul.pagination-list {
   border-color: #dbdbdb;
 }
 
-.b-checkbox.checkbox input[type=checkbox]:disabled + .check {
+.b-checkbox.checkbox input[type='checkbox']:disabled + .check {
   display: none;
 }
 
@@ -157,12 +157,12 @@ ul.pagination-list {
   z-index: 100;
 }
 
-// dialog 
+// dialog
 .dialog .modal-card {
   max-width: 1000px;
 }
 
-// toast 
+// toast
 .notices .toast.is-success {
   color: $grey-darker;
   background: lightgreen;
@@ -180,13 +180,13 @@ ul.pagination-list {
 }
 
 .vsm--toggle-btn > span > span {
-  font-size: 1rem;;
+  font-size: 1rem;
 }
 
 .b-sidebar {
   .sidebar-content {
     width: 350px;
-  
+
     &.is-fullheight {
       display: unset;
       flex-direction: unset;
@@ -208,32 +208,35 @@ ul.pagination-list {
 // slider
 .b-slider {
   width: 90%;
-    margin: 0 auto;
-    padding-bottom: 15px;
+  margin: 0 auto;
+  padding-bottom: 15px;
 
-    .b-slider-tick-label {
-      padding-top: 2px;
-    }
+  .b-slider-tick-label {
+    padding-top: 2px;
+  }
 
-    .b-slider-thumb-wrapper.has-indicator {
-      .b-slider-thumb {
-        padding: 2px 3px;
-        font-size: 10px;
-        font-weight: 600;
-      }
+  .b-slider-thumb-wrapper.has-indicator {
+    .b-slider-thumb {
+      padding: 2px 3px;
+      font-size: 10px;
+      font-weight: 600;
     }
+  }
 }
 
 // taginput
-.taginput .taginput-container > .tag, .taginput .taginput-container > .tags {
+.taginput .taginput-container > .tag,
+.taginput .taginput-container > .tags {
   overflow: hidden;
 }
 
-.taginput .taginput-container > .tag .tag, .taginput .taginput-container > .tags .tag {
+.taginput .taginput-container > .tag .tag,
+.taginput .taginput-container > .tags .tag {
   max-width: 80%;
 }
 
-.taginput .taginput-container > .tag .tag, .taginput .taginput-container > .tags .tag span {
+.taginput .taginput-container > .tag .tag,
+.taginput .taginput-container > .tags .tag span {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -256,12 +259,16 @@ ul.pagination-list {
   //   color: #2bad84
   // }
 
-  .control.has-icons-left .icon, .control.has-icons-right .icon {
-    color: #48c78e
+  .control.has-icons-left .icon,
+  .control.has-icons-right .icon {
+    color: #48c78e;
   }
 
-  .control.has-icons-left .input:focus ~ .icon, .control.has-icons-left .select:focus ~ .icon, .control.has-icons-right .input:focus ~ .icon, .control.has-icons-right .select:focus ~ .icon {
-    color: #2bad84
+  .control.has-icons-left .input:focus ~ .icon,
+  .control.has-icons-left .select:focus ~ .icon,
+  .control.has-icons-right .input:focus ~ .icon,
+  .control.has-icons-right .select:focus ~ .icon {
+    color: #2bad84;
   }
 }
 
@@ -290,8 +297,9 @@ ul.pagination-list {
   color: $white;
 }
 
-.button:focus:not(:active), .button.is-focused:not(:active) {
-  box-shadow: none
+.button:focus:not(:active),
+.button.is-focused:not(:active) {
+  box-shadow: none;
 }
 
 .navbar-item img {
@@ -299,7 +307,7 @@ ul.pagination-list {
 
   .notification.is-warning.is-light {
     margin-bottom: 0;
-    padding: 0.20rem 2.5rem 0.20rem 1rem;
+    padding: 0.2rem 2.5rem 0.2rem 1rem;
 
     > .delete {
       top: 0.3rem;
@@ -307,7 +315,7 @@ ul.pagination-list {
   }
 }
 
-// menu 
+// menu
 .v-sidebar-menu {
   * {
     max-width: 270px !important;
@@ -321,7 +329,8 @@ ul.pagination-list {
 
 // input
 .control {
-  .input[disabled], .textarea {
+  .input[disabled],
+  .textarea {
     border-color: #dbdbdb;
   }
 }

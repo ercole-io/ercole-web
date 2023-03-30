@@ -4,6 +4,7 @@
       :setRange="SET_RANGE_DATES_ALT"
       totalRange="31"
       class="mt-0 mr-0"
+      v-if="showRangeDate"
     />
     <LineChart
       :chartId="dataID"
@@ -25,7 +26,11 @@ export default {
     },
     dataID: {
       type: String,
-      default: null,
+      default: '',
+    },
+    showRangeDate: {
+      type: Boolean,
+      default: false,
     },
   },
 }
