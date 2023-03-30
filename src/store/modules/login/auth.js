@@ -76,20 +76,7 @@ export const actions = {
 
     await axiosRequest('login', config, false)
       .then((res) => {
-        const limited = _.includes(res.data.allowedUser.groups, 'limited')
-        if (limited) {
-          bus.$emit('isLimited')
-          const admin = _.includes(res.data.allowedUser.groups, 'admin')
-          commit('SET_ADMIN', admin)
-          const token = res.data.token
-          localStorage.setItem('token', token)
-          return
-        } else {
-          return res
-        }
-      })
-      .then((res) => {
-        const token = res.data.token
+        const token = res.data
         const payload = {
           token: token,
         }
@@ -188,6 +175,11 @@ export const actions = {
     }
 
     await axiosRequest('baseApi', config).then((res) => {
+      const limited = _.includes(res.data.groups, 'limited')
+      if (limited) {
+        bus.$emit('isLimited')
+      }
+
       const username = res.data.username
       const admin = _.includes(res.data.groups, 'admin')
       const userRole = res.data.groups[0]
