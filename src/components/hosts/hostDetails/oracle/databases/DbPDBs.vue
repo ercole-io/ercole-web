@@ -1,5 +1,10 @@
 <template>
   <b-tab-item label="Pluggable DBs">
+    <RangeDates
+      :setRange="SET_RANGE_DATES_ALT"
+      totalRange="31"
+      class="mt-0 mr-0"
+    />
     <b-collapse
       v-for="(pdb, i) in pdbs"
       :key="i"
@@ -20,7 +25,12 @@
           </a>
         </div>
       </template>
-      <b-tabs size="is-small" position="is-centered" class="block mr-0 p-3">
+      <b-tabs
+        size="is-small"
+        position="is-centered"
+        class="block mr-0 p-3"
+        destroy-on-hide
+      >
         <b-tab-item label="General">
           <p class="mb-0 mt-2 is-size-7">
             Status:
@@ -222,17 +232,27 @@
             </template>
           </FullTable>
         </b-tab-item>
+        <b-tab-item label="DB Growth">
+          <DbGrowth
+            :data="getOraclePdbsDbGrowth(dbname, pdb.pdbName)"
+            :dataID="`dbGrowth-${pdb.pdbName}`"
+            class="mt-3"
+          />
+        </b-tab-item>
       </b-tabs>
     </b-collapse>
   </b-tab-item>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
+import RangeDates from '@/components/common/RangeDates.vue'
+import DbGrowth from '@/components/common/DbGrowth.vue'
 
 export default {
   name: 'hosts-details-oracle-databases-pdbs-component',
@@ -241,12 +261,24 @@ export default {
     FullTable,
     TdContent,
     TdIcon,
+    RangeDates,
+    DbGrowth,
   },
   props: {
     pdbs: {
       type: Array,
       default: null,
     },
+    dbname: {
+      type: String,
+      required: true,
+    },
+  },
+  methods: {
+    ...mapMutations(['SET_RANGE_DATES_ALT']),
+  },
+  computed: {
+    ...mapGetters(['getOraclePdbsDbGrowth']),
   },
 }
 </script>

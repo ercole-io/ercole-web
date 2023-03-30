@@ -255,6 +255,11 @@ export const actions = {
           commit('SET_CURRENT_HOST_DATABASES', [])
         }
       })
+      .then(() => {
+        if (getters.currentHostType === 'oracle') {
+          dispatch('getPdbsByHostDbGrothData', payload.hostname)
+        }
+      })
       .then(() => dispatch('offLoadingTable'))
   },
 }
