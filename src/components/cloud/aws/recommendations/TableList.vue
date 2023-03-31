@@ -43,6 +43,7 @@
       </div>
     </template>
     <RefreshButton
+      :clickAction="retrieveUpdate"
       tooltipMsg="Retrieve Recommendations Updates"
       slot="customTopHeader"
     />

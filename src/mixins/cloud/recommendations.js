@@ -19,10 +19,6 @@ export default {
     RefreshButton,
   },
   beforeMount() {
-    bus.$on('refreshPageData', () => {
-      this.retrieveUpdate()
-    })
-
     bus.$on('finishRetrieveUpdates', () => {
       setTimeout(() => {
         this.getCloudRecommendations(this.returnCloudTechnology)

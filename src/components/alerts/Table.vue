@@ -13,6 +13,7 @@
     hasExportButton
     :exportInfo="['alerts?status=NEW', 'alerts-data']"
     hasRefreshButton
+    :refreshButtonAction="updateAlerts"
   >
     <template slot="cols">
       <b-table-column
@@ -173,11 +174,6 @@ export default {
         this.getAlertsData()
       })
     })
-
-    bus.$on('refreshPageData', () => {
-      this.SET_PAGE_NUM(1)
-      this.getAlertsData()
-    })
   },
   methods: {
     ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),
@@ -204,6 +200,10 @@ export default {
           hostname: hostname,
         },
       })
+    },
+    updateAlerts() {
+      this.SET_PAGE_NUM(1)
+      this.getAlertsData()
     },
   },
   computed: {

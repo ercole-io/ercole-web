@@ -43,7 +43,11 @@
       </template>
 
       <div style="width: 100%" class="is-flex is-justify-content-flex-end">
-        <RefreshButton v-if="hasRefreshButton" tooltipMsg="Update Data" />
+        <RefreshButton
+          v-if="hasRefreshButton"
+          tooltipMsg="Update Data"
+          :clickAction="refreshButtonAction"
+        />
         <b-input
           placeholder="Search..."
           type="text"
@@ -163,6 +167,10 @@ export default {
     hasRefreshButton: {
       type: Boolean,
       default: false,
+    },
+    refreshButtonAction: {
+      type: Function,
+      default: () => {},
     },
   },
   data() {
