@@ -96,6 +96,11 @@
     </template>
 
     <div class="is-flex" slot="export">
+      <ExportButton
+        url="contracts/mysql/sample"
+        expName="mysqlContractsSample"
+        text="Download Sample"
+      />
       <ImportCSV contractType="mysql" />
       <ExportButton url="contracts/mysql/database" expName="mysqlContracts" />
     </div>
