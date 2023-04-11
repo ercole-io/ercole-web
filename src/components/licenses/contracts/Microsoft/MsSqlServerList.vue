@@ -92,6 +92,11 @@
     </template>
 
     <div class="is-flex" slot="export">
+      <ExportButton
+        url="contracts/sqlserver/sample"
+        expName="sqlserverContractsSample"
+        text="Download Sample"
+      />
       <ImportCSV contractType="sqlserver" />
       <ExportButton
         url="contracts/microsoft/database"
