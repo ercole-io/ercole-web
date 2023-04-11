@@ -124,6 +124,11 @@
     </template>
 
     <div class="is-flex" slot="export">
+      <ExportButton
+        url="contracts/oracle/sample"
+        expName="oracleContractsSample"
+        text="Download Sample"
+      />
       <ImportCSV contractType="oracle" />
       <ExportButton url="contracts/oracle/database" expName="oracleContracts" />
     </div>
