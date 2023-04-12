@@ -1,30 +1,15 @@
 <template>
   <b-tab-item label="Pluggable DBs">
-    <RangeDates
-      :setRange="SET_RANGE_DATES_ALT"
-      totalRange="31"
-      class="mt-0 mr-0"
-    />
-    <b-collapse
+    <RangeDates :setRange="SET_RANGE_DATES_ALT" class="mt-0 mr-0" />
+
+    <CollapseSimple
       v-for="(pdb, i) in pdbs"
       :key="i"
       :id="i"
-      animation="slide"
-      class="card mt-2 mb-4"
-      :open="false"
+      :isOpen="false"
+      :collapseID="pdb.pdbName"
+      :collapseTitle="pdb.pdbName"
     >
-      <template #trigger="props">
-        <div
-          class="panel-heading card-header py-0 px-0 is-size-6"
-          role="button"
-          aria-controls="contentIdForA11y2"
-        >
-          <p class="card-header-title mb-0" v-html="highlight(pdb.pdbName)" />
-          <a class="card-header-icon py-2 px-2">
-            <b-icon :icon="props.open ? 'menu-up' : 'menu-down'"> </b-icon>
-          </a>
-        </div>
-      </template>
       <b-tabs
         size="is-small"
         position="is-centered"
@@ -240,7 +225,7 @@
           />
         </b-tab-item>
       </b-tabs>
-    </b-collapse>
+    </CollapseSimple>
   </b-tab-item>
 </template>
 
@@ -252,6 +237,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import RangeDates from '@/components/common/RangeDates.vue'
+import CollapseSimple from '@/components/common/CollapseSimple.vue'
 import DbGrowth from '@/components/common/DbGrowth.vue'
 
 export default {
@@ -262,6 +248,7 @@ export default {
     TdContent,
     TdIcon,
     RangeDates,
+    CollapseSimple,
     DbGrowth,
   },
   props: {

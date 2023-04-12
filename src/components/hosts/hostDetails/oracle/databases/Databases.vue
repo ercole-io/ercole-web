@@ -58,7 +58,9 @@
           v-if="dbs.segmentAdvisors && dbs.segmentAdvisors.length > 0"
         />
         <DbGrowth
+          :dbname="dbs.name"
           :growth="dbs.dbGrowth"
+          :pdbs="dbs.pdbs"
           v-if="dbs.dbGrowth && dbs.dbGrowth.length > 0"
         />
         <!-- :growthId="dbs.name" -->

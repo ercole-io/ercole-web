@@ -1,11 +1,7 @@
 <template>
   <div v-if="getChartCoreHosts.length > 0">
     <GhostLoading :isLoading="loading" setHeight="30" class="mb-4">
-      <RangeDates
-        :setRange="SET_RANGE_DATES_ALT"
-        totalRange="31"
-        class="mt-0 mb-4"
-      />
+      <RangeDates :setRange="SET_RANGE_DATES_ALT" class="mt-0 mb-4" />
     </GhostLoading>
     <GhostLoading :isLoading="loading" setHeight="300">
       <LineChart

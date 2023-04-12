@@ -48,6 +48,7 @@ export default {
     },
     totalRange: {
       type: String,
+      default: '31',
     },
   },
   data() {
