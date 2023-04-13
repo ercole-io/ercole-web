@@ -24,7 +24,7 @@
         <v-th sortKey="pdb">PDB</v-th>
         <v-th sortKey="segmentName">Segment Name</v-th>
         <v-th sortKey="owner">Segment Owner</v-th>
-        <v-th sortKey="count">Partition Count"</v-th>
+        <v-th sortKey="count">Partition Count</v-th>
         <v-th sortKey="mb" defaultSort="desc">MB</v-th>
       </template>
 
