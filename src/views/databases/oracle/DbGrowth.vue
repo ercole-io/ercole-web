@@ -48,12 +48,21 @@
             :label="db.databasename"
             :key="i"
           >
-            <LineChart
-              :chartId="db.databasename"
-              :lineChartData="mountDbGrowthChart(db.oracleChanges)"
-              class="mt-5"
-              discrete
-            />
+            <DbGrowth :data="db.oracleChanges" :dataID="db.databasename" />
+
+            <p class="has-text-centered has-text-weight-medium mt-5">
+              {{ db.databasename }} - Pluggable Databases
+            </p>
+
+            <CollapseSimple
+              :isOpen="false"
+              :collapseID="`collapse-${pdb[0]}`"
+              :collapseTitle="pdb[0]"
+              v-for="pdb in Object.entries(db.pdbs)"
+              :key="pdb[0]"
+            >
+              <DbGrowth :data="pdb[1]" :dataID="`dbgrowth-${pdb[0]}`" />
+            </CollapseSimple>
           </b-tab-item>
         </b-tabs>
       </b-tab-item>
@@ -70,27 +79,37 @@
 <script>
 import _ from 'lodash'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-import DbGrowthMixin from '@/mixins/oracle/dbGrowth.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 import NoContent from '@/components/common/NoContent.vue'
 import Loading from '@/components/common/Loading.vue'
+import RangeDates from '@/components/common/RangeDates.vue'
+import DbGrowth from '@/components/common/DbGrowth.vue'
+import CollapseSimple from '@/components/common/CollapseSimple.vue'
+
+// import VueJsonPretty from 'vue-json-pretty'
+// import 'vue-json-pretty/lib/styles.css'
 
 export default {
   name: 'oracle-databases-dbgrowth-page',
-  mixins: [DbGrowthMixin],
   components: {
     BoxContent,
     SearchInput,
     NoContent,
     Loading,
+    RangeDates,
+    DbGrowth,
+    CollapseSimple,
+    // VueJsonPretty,
   },
   data() {
     return {
       isMounted: false,
       searchTherm: '',
       activeTab: '',
+      activeDB: '',
       currentDbGrowth: [],
+      currentDbGrowthPdbs: [],
       loadingDbGrwothChart: false,
     }
   },
@@ -101,15 +120,15 @@ export default {
   },
   methods: {
     ...mapActions(['getDbgrowth', 'getDbGrowthDbs']),
-    ...mapMutations(['SET_SEARCH']),
+    ...mapMutations(['SET_SEARCH', 'SET_RANGE_DATES_ALT']),
     getDbGrowthData(hostname) {
       this.loadingDbGrwothChart = true
       setTimeout(() => {
         _.filter(this.filteredOracleDbGrowthHostnames, (val) => {
           if (val === hostname) {
             this.getDbgrowth(hostname)
-              .then((res) => {
-                this.currentDbGrowth = res.data[0].oracleChangesDBs
+              .then(() => {
+                this.currentDbGrowth = this.getDbGrowthPdbData
               })
               .then(() => (this.loadingDbGrwothChart = false))
           }
@@ -118,7 +137,11 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['filteredOracleDbGrowthHostnames', 'loadingTableStatus']),
+    ...mapGetters([
+      'filteredOracleDbGrowthHostnames',
+      'getDbGrowthPdbData',
+      'loadingTableStatus',
+    ]),
   },
   watch: {
     searchTherm(value) {

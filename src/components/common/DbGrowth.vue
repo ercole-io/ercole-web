@@ -9,6 +9,7 @@
       :chartId="dataID"
       :lineChartData="mountDbGrowthChart(data)"
       class="mt-5"
+      discrete
     />
   </div>
 </template>

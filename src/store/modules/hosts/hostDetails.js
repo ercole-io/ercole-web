@@ -205,7 +205,7 @@ export const actions = {
     await Promise.all(
       endPoints.map((endpoint) =>
         axiosRequest('baseApi', {
-          merthod: 'get',
+          method: 'get',
           url: endpoint,
           params: {
             'older-than': getters.getActiveFilters.date,

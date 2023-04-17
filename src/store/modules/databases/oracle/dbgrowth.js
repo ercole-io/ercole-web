@@ -1,8 +1,10 @@
 import _ from 'lodash'
+import axios from 'axios'
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
   dbGrwothHostnames: [],
+  dbgrowthData: [],
   searchTherm: '',
 })
 
@@ -24,11 +26,17 @@ export const getters = {
 
     return hostnames
   },
+  getDbGrowthPdbData: (state) => {
+    return state.dbgrowthData
+  },
 }
 
 export const mutations = {
   SET_DBGROWTH_HOSTNAMES: (state, payload) => {
     state.dbGrwothHostnames = payload
+  },
+  SET_DBGROWTH_DATA: (state, payload) => {
+    state.dbgrowthData = payload
   },
   SET_SEARCH: (state, payload) => {
     state.searchTherm = payload
@@ -36,18 +44,44 @@ export const mutations = {
 }
 
 export const actions = {
-  getDbgrowth({ getters }, hostname) {
-    const config = {
-      method: 'get',
-      url: `hosts/technologies/oracle/databases/change-list/${hostname}`,
-      params: {
-        'older-than': getters.getActiveFilters.date,
-        environment: getters.getActiveFilters.environment,
-        location: getters.getActiveFilters.location,
-      },
-    }
+  async getDbgrowth({ commit, getters }, hostname) {
+    const url = 'hosts/technologies/oracle/databases/change-list/'
+    const endPoints = [`${url}${hostname}`, `${url}${hostname}/pdbs`]
 
-    return axiosRequest('baseApi', config)
+    await Promise.all(
+      endPoints.map((endpoint) =>
+        axiosRequest('baseApi', {
+          method: 'get',
+          url: endpoint,
+          params: {
+            'older-than': getters.getActiveFilters.date,
+            environment: getters.getActiveFilters.environment,
+            location: getters.getActiveFilters.location,
+          },
+        })
+      )
+    ).then(
+      axios.spread((...allData) => {
+        let data = []
+        let dbgrowth = allData[0].data[0].oracleChangesDBs
+        const dbgrowthPdbs = allData[1].data
+
+        _.forEach(dbgrowth, (db) => {
+          const filterPDB = _.filter(dbgrowthPdbs, (pdb) => {
+            return db.databasename === pdb.dbname
+          })
+
+          data.push({
+            ...db,
+            pdbs: _.groupBy(filterPDB, 'pdbname'),
+          })
+        })
+
+        commit('SET_DBGROWTH_DATA', data)
+      })
+    )
+
+    // return axiosRequest('baseApi', config)
   },
   async getDbGrowthDbs({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
