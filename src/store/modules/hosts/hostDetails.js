@@ -242,6 +242,8 @@ export const actions = {
             getDatabases = mapHostDatabases(mysql, extraData, type)
           } else if (type === 'microsoft') {
             const microsoft = databases.microsoft.sqlServer.instances
+            extraData.patches = databases.microsoft.sqlServer.patches
+            extraData.features = databases.microsoft.sqlServer.features
             getDatabases = mapHostDatabases(microsoft, extraData, type)
           } else if (type === 'postgresql') {
             const postgresql = databases.postgresql.instances

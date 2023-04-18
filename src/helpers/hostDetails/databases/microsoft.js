@@ -45,8 +45,11 @@ const mapMicrosoftDatabases = (data, extraData) => {
       stateDesc: item.stateDesc,
       databases: databases,
       licenses: mapExtraData(item.name, extraData.licenses(item.name)),
+      patches: extraData.patches,
+      features: extraData.features,
     })
   })
+
   return newData
 }
 
