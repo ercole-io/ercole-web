@@ -37,6 +37,7 @@ import TooltipMixin from '@/mixins/tooltipMixin.js'
 import formatDateTime from '@/filters/formatDateTime.js'
 
 export default {
+  name: 'commom-table-tdcontent-component',
   mixins: [HighlightSearchMixin, TooltipMixin],
   props: {
     link: {

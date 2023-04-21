@@ -18,7 +18,7 @@
         :placeholderName="$t('views.hostDetails.searchBy')"
         :btnLabelText="$t('views.hostDetails.compareDb')"
       />
-      <RangeDates :setRange="SET_RANGE_DATES" totalRange="31" />
+      <RangeDates :setRange="SET_RANGE_DATES" />
     </div>
     <div class="chart-space">
       <LineChart
@@ -38,6 +38,7 @@ import SearchableMultiSelect from '@/components/common/SearchableMultiSelect.vue
 import RangeDates from '@/components/common/RangeDates.vue'
 
 export default {
+  name: 'hosts-details-oracle-chartcpu-component',
   components: {
     BoxContent,
     LineChart,

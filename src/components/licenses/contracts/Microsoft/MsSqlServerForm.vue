@@ -268,6 +268,7 @@ import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import ContractsMixin from '@/mixins/contracts/contracts-mixin.js'
 
 export default {
+  name: 'licenses-contracts-microsoft-form-component',
   mixins: [ContractsMixin],
   components: {
     AdvancedFiltersBase,

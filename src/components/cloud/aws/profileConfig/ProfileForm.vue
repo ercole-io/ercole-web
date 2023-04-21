@@ -121,6 +121,7 @@ import { required, requiredIf } from 'vuelidate/lib/validators'
 import profileFormMixin from '@/mixins/cloud/profileForm.js'
 
 export default {
+  name: 'cloud-aws-profileconfig-form-component',
   mixins: [profileFormMixin],
   methods: {
     editProfile(data) {

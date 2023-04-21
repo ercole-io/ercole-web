@@ -121,6 +121,7 @@
 import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
 
 export default {
+  name: 'hosts-details-postgre-databases-info-component',
   mixins: [infoMixin],
   methods: {
     mapBytes(value) {

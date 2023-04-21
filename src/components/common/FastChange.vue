@@ -25,6 +25,7 @@ import { mapGetters } from 'vuex'
 import CustomAutocomplete from '@/components/common/Form/CustomAutocomplete.vue'
 
 export default {
+  name: 'commom-fastchange-component',
   props: {
     routeName: {
       type: String,

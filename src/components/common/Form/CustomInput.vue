@@ -12,6 +12,7 @@
 
 <script>
 export default {
+  name: 'commom-form-input-component',
   props: {
     value: {},
     inputType: {

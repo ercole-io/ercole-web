@@ -15,6 +15,7 @@ import { filterOptionsOracle } from '@/helpers/hostDetails/filterOptions/oracle.
 import { filterOptionsMysql } from '@/helpers/hostDetails/filterOptions/mysql.js'
 import { filterOptionsMicrosft } from '@/helpers/hostDetails/filterOptions/microsoft.js'
 import { filterOptionsPostgreSql } from '@/helpers/hostDetails/filterOptions/postgresql.js'
+import { filterOptionsMongoDb } from '@/helpers/hostDetails/filterOptions/mongodb.js'
 
 export const state = () => ({
   currentHost: {},
@@ -92,6 +93,8 @@ export const getters = {
       return filterOptionsMicrosft
     } else if (hostType === 'postgresql') {
       return filterOptionsPostgreSql
+    } else if (hostType === 'mongodb') {
+      return filterOptionsMongoDb
     }
   },
   returnSelectedKeys: (state) => {
@@ -202,7 +205,7 @@ export const actions = {
     await Promise.all(
       endPoints.map((endpoint) =>
         axiosRequest('baseApi', {
-          merthod: 'get',
+          method: 'get',
           url: endpoint,
           params: {
             'older-than': getters.getActiveFilters.date,
@@ -239,14 +242,24 @@ export const actions = {
             getDatabases = mapHostDatabases(mysql, extraData, type)
           } else if (type === 'microsoft') {
             const microsoft = databases.microsoft.sqlServer.instances
+            extraData.patches = databases.microsoft.sqlServer.patches
+            extraData.features = databases.microsoft.sqlServer.features
             getDatabases = mapHostDatabases(microsoft, extraData, type)
           } else if (type === 'postgresql') {
             const postgresql = databases.postgresql.instances
             getDatabases = mapHostDatabases(postgresql, extraData, type)
+          } else if (type === 'mongodb') {
+            const mongodb = databases.mongodb.instances
+            getDatabases = mapHostDatabases(mongodb, extraData, type)
           }
           commit('SET_CURRENT_HOST_DATABASES', getDatabases)
         } else {
           commit('SET_CURRENT_HOST_DATABASES', [])
+        }
+      })
+      .then(() => {
+        if (getters.currentHostType === 'oracle') {
+          dispatch('getPdbsByHostDbGrothData', payload.hostname)
         }
       })
       .then(() => dispatch('offLoadingTable'))

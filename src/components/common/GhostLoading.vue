@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  name: 'commom-ghostloading-component',
   props: {
     setElement: {
       type: String,

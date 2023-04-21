@@ -135,6 +135,7 @@ const exportLms = {
 }
 
 export default {
+  name: 'commom-downloadmodal-component',
   props: {
     exportType: {
       type: String,

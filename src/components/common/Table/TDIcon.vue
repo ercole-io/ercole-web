@@ -15,6 +15,7 @@ import TooltipMixin from '@/mixins/tooltipMixin.js'
 import { mapBooleanIcon } from '@/helpers/helpers.js'
 
 export default {
+  name: 'commom-table-tdicon-component',
   mixins: [TooltipMixin],
   computed: {
     bindIncon() {

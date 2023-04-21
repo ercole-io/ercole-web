@@ -48,6 +48,7 @@ import { bus } from '@/helpers/eventBus.js'
 import { mapMutations, mapGetters } from 'vuex'
 
 export default {
+  name: 'commom-togglecolumns-component',
   props: {
     leftCol: {
       type: Number,

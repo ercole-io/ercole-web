@@ -57,6 +57,7 @@ import PostgreSqlFilters from '@/components/databases/postgresql/PostgreSqlFilte
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'databases-postgre-dbs-component',
   mixins: [hostnameLinkRow],
   components: {
     ToggleColumns,

@@ -47,6 +47,7 @@ import { mapGetters, mapMutations } from 'vuex'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'daschboard-alerts-agents-component',
   components: {
     GhostLoading,
   },

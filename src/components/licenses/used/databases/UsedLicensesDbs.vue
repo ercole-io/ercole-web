@@ -96,6 +96,7 @@ import ignoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicens
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'licenses-used-databases-list-component',
   mixins: [paginationMixin, hostnameLinkRow],
   props: {
     partNumber: {

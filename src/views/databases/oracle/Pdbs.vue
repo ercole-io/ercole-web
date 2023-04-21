@@ -4,15 +4,27 @@
     border
     hasShadow
     :mbottom="false"
-    customStyle="padding: 0"
-    v-if="isMounted"
+    customStyle="padding-left: 1rem"
   >
+    <RangeDates
+      :setRange="SET_RANGE_DATES_ALT"
+      class="mt-0 mr-0"
+      slot="customTitle"
+    />
     <template v-if="Object.keys(getOraclePdbs).length > 0">
-      <b-tabs size="is-small" type="is-toggle" vertical animated>
+      <b-tabs
+        v-model="activeTab"
+        @input="getDbGrowthData"
+        size="is-small"
+        type="is-toggle"
+        vertical
+        animated
+      >
         <b-tab-item
           v-for="(host, key) in getOraclePdbs"
           :label="key"
           :key="key"
+          :value="key"
         >
           <b-collapse
             v-for="(pdb, i) in host"
@@ -249,6 +261,13 @@
                   </template>
                 </FullTable>
               </b-tab-item>
+              <b-tab-item label="DB Growth">
+                <DbGrowth
+                  :data="getOraclePdbsDbGrowth(null, pdb.pdb.name)"
+                  :dataID="`dbGrowth-${pdb.pdb.name}`"
+                  class="mt-3"
+                />
+              </b-tab-item>
             </b-tabs>
           </b-collapse>
         </b-tab-item>
@@ -259,12 +278,14 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import NoContent from '@/components/common/NoContent.vue'
+import RangeDates from '@/components/common/RangeDates.vue'
+import DbGrowth from '@/components/common/DbGrowth.vue'
 
 export default {
   name: 'oracle-databases-pdbs-page',
@@ -274,22 +295,38 @@ export default {
     TdContent,
     TdIcon,
     NoContent,
+    RangeDates,
+    DbGrowth,
   },
   data() {
     return {
       isMounted: false,
+      activeTab: '',
     }
   },
   async beforeMount() {
-    await this.getPdbs().then(() => {
-      this.isMounted = true
-    })
+    await this.getPdbs()
+      .then(async () => {
+        this.activeTab = Object.keys(this.getOraclePdbs)[0]
+        this.getDbGrowthData(this.activeTab)
+      })
+      .then(() => {
+        this.isMounted = true
+      })
   },
   methods: {
-    ...mapActions(['getPdbs']),
+    ...mapActions(['getPdbs', 'getPdbsByHostDbGrothData']),
+    ...mapMutations(['SET_RANGE_DATES_ALT']),
+    getDbGrowthData(e) {
+      this.getPdbsByHostDbGrothData(e)
+    },
   },
   computed: {
-    ...mapGetters(['getOraclePdbs', 'loadingTableStatus']),
+    ...mapGetters([
+      'getOraclePdbs',
+      'getOraclePdbsDbGrowth',
+      'loadingTableStatus',
+    ]),
   },
 }
 </script>

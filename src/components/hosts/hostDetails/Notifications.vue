@@ -62,6 +62,7 @@ import { mapGetters } from 'vuex'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'hosts-details-notifications-component',
   components: {
     GhostLoading,
   },

@@ -30,6 +30,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import NoContent from '@/components/common/NoContent.vue'
 
 export default {
+  name: 'cloud-detailsmodal-component',
   mixins: [TooltipMixin],
   components: {
     SimpleTable,

@@ -38,10 +38,11 @@ import BubbleChart from '@/components/common/charts/BubbleChart.vue'
 import PieChart from '@/components/common/charts/PieChart.vue'
 
 export default {
+  name: 'daschboard-charttabs-component',
   components: {
     BoxContent,
     BubbleChart,
-    PieChart
+    PieChart,
   },
   data() {
     return {
@@ -49,7 +50,7 @@ export default {
         ['Item 1', 50],
         ['Item 2', 30],
         ['Item 3', 10],
-        ['Item 4', 20]
+        ['Item 4', 20],
       ],
       dataset1: {
         children: [
@@ -62,8 +63,8 @@ export default {
           { Name: 'Potato Salad', Count: 1306 },
           { Name: 'Baked Potatoes', Count: 1293 },
           { Name: 'Roquefort', Count: 1273 },
-          { Name: 'Stewed Prunes', Count: 1268 }
-        ]
+          { Name: 'Stewed Prunes', Count: 1268 },
+        ],
       },
       dataset2: {
         children: [
@@ -77,11 +78,11 @@ export default {
           { Name: 'Cocoa', Count: 1636 },
           { Name: 'Lettuce Salad', Count: 1566 },
           { Name: 'Lobster Salad', Count: 1511 },
-          { Name: 'Chocolate', Count: 1489 }
-        ]
-      }
+          { Name: 'Chocolate', Count: 1489 },
+        ],
+      },
     }
-  }
+  },
 }
 </script>
 

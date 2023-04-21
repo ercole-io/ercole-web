@@ -43,6 +43,7 @@ import Progress from 'easy-circular-progress'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'daschboard-totaltargets-component',
   components: {
     BoxContent,
     Progress,

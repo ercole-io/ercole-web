@@ -23,6 +23,7 @@
 import { bus } from '@/helpers/eventBus.js'
 
 export default {
+  name: 'commom-form-actionbuttons-component',
   props: {
     applyText: {
       type: String,

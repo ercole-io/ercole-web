@@ -103,6 +103,7 @@ import GhostLoading from '@/components/common/GhostLoading.vue'
 import toLower from '@/filters/toLower.js'
 
 export default {
+  name: 'daschboard-technologies-technologie-component',
   components: {
     Progress,
     HbuttonScroll,

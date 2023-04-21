@@ -22,7 +22,11 @@
         destroy-on-hide
       >
         <DbInfo :dbInfo="dbs" v-if="hasInfo" />
-        <DbPDBs :pdbs="dbs.pdbs" v-if="dbs.pdbs && dbs.pdbs.length > 0" />
+        <DbPDBs
+          :pdbs="dbs.pdbs"
+          :dbname="dbs.name"
+          v-if="dbs.pdbs && dbs.pdbs.length > 0"
+        />
         <DbLicenses
           :licenses="dbs.licenses"
           v-if="dbs.licenses && dbs.licenses.length > 0"
@@ -54,7 +58,9 @@
           v-if="dbs.segmentAdvisors && dbs.segmentAdvisors.length > 0"
         />
         <DbGrowth
+          :dbname="dbs.name"
           :growth="dbs.dbGrowth"
+          :pdbs="dbs.pdbs"
           v-if="dbs.dbGrowth && dbs.dbGrowth.length > 0"
         />
         <!-- :growthId="dbs.name" -->
@@ -96,6 +102,7 @@ import DbGrants from '@/components/hosts/hostDetails/oracle/databases/DbGrants.v
 import DbPartitionings from '@/components/hosts/hostDetails/oracle/databases/DbPartitionings.vue'
 
 export default {
+  name: 'hosts-details-oracle-databases-dbs-component',
   mixins: [databaseTabsMixin, infoMixin],
   components: {
     DbInfo,

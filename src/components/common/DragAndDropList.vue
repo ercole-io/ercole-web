@@ -20,6 +20,7 @@
 <script>
 import draggable from 'vuedraggable'
 export default {
+  name: 'commom-draganddroplist-component',
   props: {
     list: {
       type: Array,

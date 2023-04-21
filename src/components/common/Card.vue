@@ -16,6 +16,7 @@
 
 <script>
 export default {
+  name: 'commom-card-component',
   props: {
     cardType: {
       type: String,

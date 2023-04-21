@@ -20,6 +20,7 @@
     "core-js": "^3.19.1",
     "d3": "^7.1.1",
     "easy-circular-progress": "^1.0.4",
+    "ejs": "~3.1.7",
     "file-saver": "^2.0.5",
     "flush-promises": "^1.0.2",
     "jest": "^27.5.1",

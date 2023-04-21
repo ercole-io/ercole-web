@@ -77,6 +77,7 @@ import MySqlFilters from '@/components/databases/mysql/MySqlFilters.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
+  name: 'databases-mysql-dbs-component',
   mixins: [hostnameLinkRow],
   components: {
     ToggleColumns,

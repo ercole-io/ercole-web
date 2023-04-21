@@ -165,6 +165,7 @@ import formatDate from '@/filters/formatDate.js'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 
 export default {
+  name: 'globalfilters-component',
   mixins: [tooltipMixin],
   data() {
     return {
@@ -201,6 +202,7 @@ export default {
       'getComplianceList',
       'getMsSqlServerDbs',
       'getPostgreSqlDbs',
+      'getMongoDbDbs',
       'getLicensesHosts',
       'getLicensesClusters',
       'getLicensesDatabases',
@@ -309,6 +311,9 @@ export default {
           break
         case 'postgresql':
           this.getPostgreSqlDbs().then(() => this.offLoadingTable())
+          break
+        case 'mongodb':
+          this.getMongoDbDbs().then(() => this.offLoadingTable())
           break
         case 'alerts':
           this.getAlertsData().then(() => this.offLoadingTable())

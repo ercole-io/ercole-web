@@ -6,11 +6,7 @@
     :mbottom="false"
     v-if="isMounted"
   >
-    <RangeDates
-      :setRange="SET_RANGE_DATES"
-      totalRange="31"
-      slot="customTitle"
-    />
+    <RangeDates :setRange="SET_RANGE_DATES" slot="customTitle" />
 
     <div class="is-flex">
       <SearchInput

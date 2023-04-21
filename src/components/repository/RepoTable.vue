@@ -64,6 +64,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 
 export default {
+  name: 'repository-table-component',
   mixins: [downloadMixin],
   components: {
     FullTable,

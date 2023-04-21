@@ -63,6 +63,7 @@ import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
 
 export default {
+  name: 'databases-oracle-backups-filters-component',
   mixins: [localFiltersMixin],
   components: {
     Collapse,

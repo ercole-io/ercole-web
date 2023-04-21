@@ -24,7 +24,7 @@
         <v-th sortKey="retrieve">{{ $t('common.fields.retrieve') }}</v-th>
         <v-th sortKey="hostname">{{ $t('common.fields.hostname') }}</v-th>
         <v-th sortKey="dbname">{{ $t('common.fields.name') }}</v-th>
-        <v-th sortKey="pdb">PDB</v-th>
+        <v-th sortKey="pdbName">PDB</v-th>
         <v-th sortKey="segmentOwner">{{
           $t('common.fields.segmentOwner')
         }}</v-th>
@@ -51,7 +51,7 @@
         />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.dbname]" />
         <TdContent :value="rowData.scope.dbname" />
-        <TdContent :value="rowData.scope.pdb" />
+        <TdContent :value="rowData.scope.pdbName" />
         <TdContent :value="rowData.scope.segmentOwner" />
         <TdContent :value="rowData.scope.segmentName" />
         <TdContent :value="rowData.scope.segmentType" />
@@ -120,7 +120,7 @@ export default {
         'retrieve',
         'hostname',
         'dbname',
-        'pdb',
+        'pdbName',
         'segmentOwner',
         'segmentName',
         'segmentType',

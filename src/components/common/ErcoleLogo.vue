@@ -3,7 +3,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'commom-ercolelogo-component',
+}
 </script>
 
 <style lang="scss" scoped></style>

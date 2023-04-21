@@ -43,7 +43,8 @@
     "cpu-time": "CPU Time",
     "settings": "Settings",
     "partitionings": "Partitioning",
-    "azure": "Azure"
+    "azure": "Azure",
+    "mongodb": "MongoDB"
   },
   "header": {
     "logout": "Logout"
@@ -151,6 +152,7 @@
       "moreInfo": "Show more info",
       "exportData": "Export Data",
       "exportLms": "Export LMS Audit File",
+      "importData": "Import Data",
       "inProgress": "in Progress",
       "wait": "This may take some time, please wait...",
       "cancelRequest": "Cancel Request",
@@ -293,7 +295,9 @@
       "pluggable": "Pluggable",
       "services": "Services",
       "state": "State",
-      "collation": "Collation Name"
+      "collation": "Collation Name",
+      "environment": "Environment",
+      "location": "Location"
     },
     "table": {
       "perPage": "per page",
@@ -418,7 +422,8 @@
       "pluggable": "Pluggable",
       "services": "Services",
       "state": "State",
-      "collation": "Collation Name"
+      "collation": "Collation Name",
+      "location": "Location"
     },
     "charts": {
       "archivelog": "Archivelog Mode",

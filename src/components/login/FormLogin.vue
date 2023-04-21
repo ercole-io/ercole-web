@@ -87,6 +87,7 @@ import CustomSelect from '@/components/common/Form/CustomSelect.vue'
 import ChangePassModal from '@/views/profile/ChangePassModal.vue'
 
 export default {
+  name: 'login-form-component',
   components: {
     ErrorMsg,
     CustomField,
@@ -155,6 +156,8 @@ export default {
   margin: 2rem;
   border-radius: 4px;
   background-color: transparent;
+  margin-bottom: 0;
+  padding-bottom: 0;
 
   button[disabled] {
     opacity: 1;

@@ -91,11 +91,18 @@
       </td>
     </template>
 
-    <ExportButton
-      slot="export"
-      url="contracts/microsoft/database"
-      expName="msSqlServerContracts"
-    />
+    <div class="is-flex" slot="export">
+      <ExportButton
+        url="contracts/sqlserver/sample"
+        expName="sqlserverContractsSample"
+        text="Download Sample"
+      />
+      <ImportCSV contractType="sqlserver" />
+      <ExportButton
+        url="contracts/microsoft/database"
+        expName="msSqlServerContracts"
+      />
+    </div>
   </FullTable>
 </template>
 
@@ -107,13 +114,16 @@ import MsSqlServerAssociatedModal from '@/components/licenses/contracts/Microsof
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
+import ImportCSV from '@/components/licenses/contracts/ImportCSV.vue'
 
 export default {
+  name: 'licenses-contracts-microsoft-list-component',
   mixins: [TooltipMixin],
   components: {
     FullTable,
     TdContent,
     ExportButton,
+    ImportCSV,
   },
   data() {
     return {

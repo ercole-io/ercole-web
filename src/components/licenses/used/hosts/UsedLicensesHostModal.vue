@@ -55,6 +55,7 @@ import HostLink from '@/components/common/Table/HostLink.vue'
 import i18n from '@/i18n.js'
 
 export default {
+  name: 'licenses-used-hosts-modal-component',
   mixins: [TooltipMixin],
   components: {
     FullTable,

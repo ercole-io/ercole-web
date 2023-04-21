@@ -1,11 +1,7 @@
 <template>
   <div v-if="getChartCoreHosts.length > 0">
     <GhostLoading :isLoading="loading" setHeight="30" class="mb-4">
-      <RangeDates
-        :setRange="SET_RANGE_DATES_ALT"
-        totalRange="31"
-        class="mt-0 mb-4"
-      />
+      <RangeDates :setRange="SET_RANGE_DATES_ALT" class="mt-0 mb-4" />
     </GhostLoading>
     <GhostLoading :isLoading="loading" setHeight="300">
       <LineChart
@@ -24,14 +20,15 @@ import RangeDates from '@/components/common/RangeDates.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'daschboard-corechart-component',
   components: {
     LineChart,
     RangeDates,
-    GhostLoading
+    GhostLoading,
   },
   data() {
     return {
-      loading: true
+      loading: true,
     }
   },
   async beforeMount() {
@@ -41,11 +38,11 @@ export default {
   },
   methods: {
     ...mapActions(['getCoreHosts']),
-    ...mapMutations(['SET_RANGE_DATES_ALT'])
+    ...mapMutations(['SET_RANGE_DATES_ALT']),
   },
   computed: {
-    ...mapGetters(['getChartCoreHosts'])
-  }
+    ...mapGetters(['getChartCoreHosts']),
+  },
 }
 </script>
 

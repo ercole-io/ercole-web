@@ -24,6 +24,7 @@ import { bus } from '@/helpers/eventBus.js'
 import vueMultiSelect from 'vue-multi-select'
 
 export default {
+  name: 'commom-searchablemultiselect-component',
   props: {
     selected: {
       type: Array,

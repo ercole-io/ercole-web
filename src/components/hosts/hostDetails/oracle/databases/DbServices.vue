@@ -28,6 +28,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 
 export default {
+  name: 'hosts-details-oracle-databases-services-component',
   props: {
     services: {
       type: Array,

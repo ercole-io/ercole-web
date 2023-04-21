@@ -289,6 +289,7 @@ import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import ContractsMixin from '@/mixins/contracts/contracts-mixin.js'
 
 export default {
+  name: 'licenses-contracts-mysql-form-component',
   mixins: [ContractsMixin],
   components: {
     AdvancedFiltersBase,

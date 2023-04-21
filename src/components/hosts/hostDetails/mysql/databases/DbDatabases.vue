@@ -31,6 +31,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
+  name: 'hosts-details-mysql-databases-dbs-component',
   props: {
     databases: {
       type: Array,

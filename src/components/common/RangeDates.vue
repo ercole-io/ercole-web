@@ -40,6 +40,7 @@ import moment from 'moment'
 import formatDate from '@/filters/formatDate.js'
 
 export default {
+  name: 'commom-rangedates-component',
   props: {
     setRange: {
       type: Function,
@@ -47,6 +48,7 @@ export default {
     },
     totalRange: {
       type: String,
+      default: '31',
     },
   },
   data() {

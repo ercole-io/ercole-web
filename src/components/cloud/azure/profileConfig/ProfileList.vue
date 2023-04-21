@@ -76,6 +76,7 @@
 import profileListMixin from '@/mixins/cloud/profileList.js'
 
 export default {
+  name: 'cloud-azure-profileconfig-list-component',
   mixins: [profileListMixin],
   data() {
     return {

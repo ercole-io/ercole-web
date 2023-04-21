@@ -15,6 +15,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import Technologie from '@/components/dashboard/technologies/Technologie.vue'
 
 export default {
+  name: 'daschboard-technologies-technologies-component',
   components: {
     BoxContent,
     Technologie,

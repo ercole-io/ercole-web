@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  name: 'commom-charts-bar-component',
   props: {
     chartId: {
       type: String,

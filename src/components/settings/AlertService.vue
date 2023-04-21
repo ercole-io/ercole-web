@@ -200,6 +200,7 @@ import Loading from '@/components/common/Loading.vue'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 
 export default {
+  name: 'settings-alertservice-component',
   mixins: [settings, HighlightSearchMixin],
   components: {
     SettingsActions,

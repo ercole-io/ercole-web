@@ -60,6 +60,7 @@ import StorageServers from '@/components/engineered/StorageServers.vue'
 
 export default {
   mixins: [tooltipMixin],
+  name: 'engineered-tables-component',
   components: {
     BoxContent,
     GhostLoading,

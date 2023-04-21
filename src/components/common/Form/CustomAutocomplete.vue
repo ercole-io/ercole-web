@@ -21,6 +21,7 @@
 
 <script>
 export default {
+  name: 'commom-form-autocomplete-component',
   props: {
     value: {},
     filterResult: {

@@ -27,6 +27,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 
 export default {
+  name: 'hosts-details-microsoft-databases-dbs-objectsize-component',
   props: {
     objectsSize: {
       type: Array,

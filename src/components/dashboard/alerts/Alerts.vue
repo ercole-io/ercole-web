@@ -23,6 +23,7 @@ import Agents from '@/components/dashboard/alerts/Agents.vue'
 import Alert from '@/components/dashboard/alerts/Alert.vue'
 
 export default {
+  name: 'daschboard-alerts-alerts-component',
   components: {
     BoxContent,
     Agents,

@@ -14,6 +14,7 @@
 import { bus } from '@/helpers/eventBus.js'
 
 export default {
+  name: 'hosts-details-databases-filters-button-component',
   data() {
     return {
       isFiltersOpened: false,

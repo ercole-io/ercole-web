@@ -9,6 +9,7 @@
 
 <script>
 export default {
+  name: 'commom-nocontent-component',
   props: {
     noContentText: {
       type: String,

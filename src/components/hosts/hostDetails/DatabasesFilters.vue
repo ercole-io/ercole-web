@@ -64,6 +64,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 
 export default {
+  name: 'hosts-details-databases-filters-component',
   mixins: [databaseFiltersMixin],
   components: {
     BoxContent,

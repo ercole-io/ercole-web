@@ -43,6 +43,7 @@
       </div>
     </template>
     <RefreshButton
+      :clickAction="retrieveUpdate"
       tooltipMsg="Retrieve Recommendations Updates"
       slot="customTopHeader"
     />
@@ -68,6 +69,7 @@ import recommendationsMixin from '@/mixins/cloud/recommendations.js'
 import AwsHeading from '@/components/cloud/aws/recommendations/Heading.json'
 
 export default {
+  name: 'cloud-aws-recommendations-list-component',
   mixins: [recommendationsMixin],
   data() {
     return {

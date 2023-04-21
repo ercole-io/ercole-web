@@ -2,6 +2,7 @@
   <b-button
     type="is-ercole-blue"
     size="is-small"
+    icon-left="download"
     @click="exportData()"
     data-export-button
     class="mb-0 has-text-weight-bold"
@@ -15,6 +16,7 @@ import { mapState } from 'vuex'
 import DownloadingModal from '@/components/common/DownloadingModal.vue'
 
 export default {
+  name: 'commom-exportbutton-component',
   props: {
     text: {
       type: String,

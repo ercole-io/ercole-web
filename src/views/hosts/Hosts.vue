@@ -20,7 +20,11 @@
     >
       <MoreInfoButtons :buttonItems="hostsMoreInfo" slot="customTopHeader" />
 
-      <RefreshButton tooltipMsg="Update Host Data" slot="customTopHeader" />
+      <RefreshButton
+        :clickAction="getHostData"
+        tooltipMsg="Update Host Data"
+        slot="customTopHeader"
+      />
 
       <DynamicHeading
         slot="headData"
@@ -190,10 +194,6 @@ export default {
     await this.getHosts().then(() => {
       bus.$emit('data', this.getAllHosts)
       this.firstLoad = false
-    })
-
-    bus.$on('refreshPageData', () => {
-      this.getHostData()
     })
   },
   mounted() {

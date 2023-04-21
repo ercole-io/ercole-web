@@ -14,31 +14,32 @@
 
 <script>
 export default {
+  name: 'commom-charts-column-component',
   props: {
     chartId: {
       type: String,
-      required: true
+      required: true,
     },
     columnChartData: {
       type: Array || Object,
-      required: true
+      required: true,
     },
     stacked: {
       type: Boolean,
-      default: false
+      default: false,
     },
     legend: {
       type: [Boolean, String],
-      default: 'bottom'
+      default: 'bottom',
     },
     colors: {
-      type: Array
+      type: Array,
     },
     chartHeight: {
       type: String,
-      default: '300px'
-    }
-  }
+      default: '300px',
+    },
+  },
 }
 </script>
 

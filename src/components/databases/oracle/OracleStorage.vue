@@ -33,6 +33,7 @@ import CardStats from '@/components/common/CardStats.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'databases-oracle-storage-component',
   components: {
     BoxContent,
     CardStats,

@@ -18,6 +18,7 @@ import BarChart from '@/components/common/charts/BarChart.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
+  name: 'databases-databases-charts-component',
   props: {
     id: {
       type: String,

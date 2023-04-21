@@ -45,6 +45,7 @@ import Collapse from '@/components/common/Collapse.vue'
 import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutocomplete.vue'
 
 export default {
+  name: 'licenses-contracts-microsoft-filters-component',
   mixins: [localFiltersMixin],
   components: {
     Collapse,

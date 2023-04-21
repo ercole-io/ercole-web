@@ -4,6 +4,7 @@ import createPersistedState from 'vuex-persistedstate'
 
 // General
 import * as config from '@/store/modules/common/config'
+import * as config_sso from '@/store/modules/common/config_sso.js'
 import * as loading from '@/store/modules/common/loading'
 import * as errors from '@/store/modules/common/errors'
 import * as tableInterations from '@/store/modules/common/table-interations'
@@ -65,6 +66,8 @@ import * as mysql from '@/store/modules/databases/mysql/mysql'
 import * as microsoft from '@/store/modules/databases/microsoft/microsoft'
 // Databases Postgree
 import * as postgresql from '@/store/modules/databases/postgresql/postgresql'
+// Databases MongoDB
+import * as mongodb from '@/store/modules/databases/mongodb/mongodb'
 // Exadata
 import * as engineeredSystems from '@/store/modules/engineered-systems/engineered-systems'
 // Repository
@@ -91,6 +94,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   modules: {
     config,
+    config_sso,
     loading,
     errors,
     tableInterations,
@@ -125,6 +129,7 @@ export default new Vuex.Store({
     mysql,
     microsoft,
     postgresql,
+    mongodb,
     globalFilters,
     localFilters,
     engineeredSystems,

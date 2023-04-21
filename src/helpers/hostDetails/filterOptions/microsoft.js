@@ -161,6 +161,56 @@ const filterOptionsMicrosft = [
     level: 1,
     filter: (db, search) => licensesFilter(db.licenses, search),
   },
+  {
+    name: 'Patches',
+    value: 'patches',
+    level: 1,
+    filter: (db, search) => patchesFilter(db.patches, search),
+  },
+  {
+    name: 'Features',
+    value: 'features',
+    level: 1,
+    filter: (db, search) => featuresFilter(db.features, search),
+  },
 ]
+
+// Search By Patches
+const patchesFilter = (db, search) => {
+  return (
+    db.filter((patch) => {
+      const searchDisplayName = stringSearch(patch.displayName, search)
+      const searchDisplayVersion = stringSearch(patch.displayVersion, search)
+      const searchInstallDate = stringSearch(patch.installDate, search)
+
+      return searchDisplayName || searchDisplayVersion || searchInstallDate
+    }).length > 0
+  )
+}
+
+// Search By Features
+const featuresFilter = (db, search) => {
+  return (
+    db.filter((feature) => {
+      const searchclustered = stringSearch(feature.clustered, search)
+      const searchconfigured = stringSearch(feature.configured, search)
+      const searchedition = stringSearch(feature.edition, search)
+      const searchfeature = stringSearch(feature.feature, search)
+      const searchlanguage = stringSearch(feature.language, search)
+      const searchproduct = stringSearch(feature.product, search)
+      const searchversion = stringSearch(feature.version, search)
+
+      return (
+        searchclustered ||
+        searchconfigured ||
+        searchedition ||
+        searchfeature ||
+        searchlanguage ||
+        searchproduct ||
+        searchversion
+      )
+    }).length > 0
+  )
+}
 
 export { filterOptionsMicrosft }

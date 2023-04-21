@@ -1,28 +1,22 @@
 import _ from 'lodash'
+import axios from 'axios'
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
-  dbgrowth: [],
-  // searchKey: 'oracleChangesDBs',
+  dbGrwothHostnames: [],
+  dbgrowthData: [],
   searchTherm: '',
 })
 
 export const getters = {
-  filteredOracleDbGrowth: (state) => {
-    let dbgrowth = []
+  filteredOracleDbGrowthHostnames: (state) => {
+    let hostnames = _.uniq(state.dbGrwothHostnames)
     const therm = state.searchTherm
-    // const key = state.searchKey
-
-    _.map(state.dbgrowth, (val) => {
-      if (val.oracleChangesDBs.length > 0) {
-        dbgrowth.push(val)
-      }
-    })
 
     if (state.searchTherm !== '') {
-      dbgrowth = _.filter(dbgrowth, (el) => {
+      hostnames = _.filter(hostnames, (el) => {
         return (
-          _.includes(el.hostname.toUpperCase(), therm.toUpperCase()) ||
+          _.includes(el.toUpperCase(), therm.toUpperCase()) ||
           _.filter(el.oracleChangesDBs, (v) => {
             return _.includes(v.databasename.toUpperCase(), therm.toUpperCase())
           }).length > 0
@@ -30,13 +24,19 @@ export const getters = {
       })
     }
 
-    return dbgrowth
+    return hostnames
+  },
+  getDbGrowthPdbData: (state) => {
+    return state.dbgrowthData
   },
 }
 
 export const mutations = {
-  SET_DBGROWTH: (state, payload) => {
-    state.dbgrowth = payload
+  SET_DBGROWTH_HOSTNAMES: (state, payload) => {
+    state.dbGrwothHostnames = payload
+  },
+  SET_DBGROWTH_DATA: (state, payload) => {
+    state.dbgrowthData = payload
   },
   SET_SEARCH: (state, payload) => {
     state.searchTherm = payload
@@ -44,12 +44,51 @@ export const mutations = {
 }
 
 export const actions = {
-  async getDbgrowth({ commit, getters, dispatch }) {
+  async getDbgrowth({ commit, getters }, hostname) {
+    const url = 'hosts/technologies/oracle/databases/change-list/'
+    const endPoints = [`${url}${hostname}`, `${url}${hostname}/pdbs`]
+
+    await Promise.all(
+      endPoints.map((endpoint) =>
+        axiosRequest('baseApi', {
+          method: 'get',
+          url: endpoint,
+          params: {
+            'older-than': getters.getActiveFilters.date,
+            environment: getters.getActiveFilters.environment,
+            location: getters.getActiveFilters.location,
+          },
+        })
+      )
+    ).then(
+      axios.spread((...allData) => {
+        let data = []
+        let dbgrowth = allData[0].data[0].oracleChangesDBs
+        const dbgrowthPdbs = allData[1].data
+
+        _.forEach(dbgrowth, (db) => {
+          const filterPDB = _.filter(dbgrowthPdbs, (pdb) => {
+            return db.databasename === pdb.dbname
+          })
+
+          data.push({
+            ...db,
+            pdbs: _.groupBy(filterPDB, 'pdbname'),
+          })
+        })
+
+        commit('SET_DBGROWTH_DATA', data)
+      })
+    )
+
+    // return axiosRequest('baseApi', config)
+  },
+  async getDbGrowthDbs({ commit, getters, dispatch }) {
     dispatch('onLoadingTable')
 
     const config = {
-      method: 'get',
-      url: 'hosts/technologies/oracle/databases/change-list',
+      merthod: 'get',
+      url: 'hosts/technologies/oracle/databases',
       params: {
         'older-than': getters.getActiveFilters.date,
         environment: getters.getActiveFilters.environment,
@@ -59,7 +98,8 @@ export const actions = {
 
     await axiosRequest('baseApi', config).then((res) => {
       dispatch('offLoadingTable')
-      commit('SET_DBGROWTH', res.data)
+      const hostnames = _.map(res.data, (val) => val.hostname)
+      commit('SET_DBGROWTH_HOSTNAMES', hostnames)
     })
   },
 }
