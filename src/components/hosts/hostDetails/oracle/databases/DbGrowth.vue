@@ -1,7 +1,11 @@
 <template>
   <b-tab-item label="DB Growth">
     <RangeDates :setRange="SET_RANGE_DATES_ALT" class="mt-0 mr-0" />
-    <CollapseSimple :isOpen="true" collapseID="all" collapseTitle="All Data">
+    <CollapseSimple
+      :isOpen="true"
+      collapseID="all"
+      collapseTitle="Sum All Pdbs"
+    >
       <DbGrowth :data="growth" dataID="dbGrowth-all" />
     </CollapseSimple>
 
