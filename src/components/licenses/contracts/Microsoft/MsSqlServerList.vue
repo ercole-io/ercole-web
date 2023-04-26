@@ -96,6 +96,7 @@
         url="contracts/sqlserver/sample"
         expName="sqlserverContractsSample"
         text="Download Sample"
+        type="csv"
       />
       <ImportCSV contractType="sqlserver" />
       <ExportButton

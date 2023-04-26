@@ -193,8 +193,16 @@ export default {
   methods: {
     exportRequest() {
       const headers = this.isLms ? exportLms : exportAll
-      const extension = this.isLms ? 'xlsm' : 'xlsx'
       const date = moment().format('YYYYMMDD')
+
+      let extension = null
+      if (this.isLms) {
+        extension = 'xlsm'
+      } else if (!this.isLms && this.exportType === 'csv') {
+        extension = 'csv'
+      } else {
+        extension = 'xlsx'
+      }
 
       this.request = axios.CancelToken.source()
       this.isClose = false
@@ -218,7 +226,11 @@ export default {
       }
       axiosRequest('baseApi', config)
         .then((res) => {
-          saveAs(res.data, `${this.exportName}-${date}.${extension}`)
+          const filename =
+            this.exportType === 'csv'
+              ? `${this.exportName}.${extension}`
+              : `${this.exportName}-${date}.${extension}`
+          saveAs(res.data, filename)
         })
         .then(() => {
           this.closeModal()

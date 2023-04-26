@@ -100,6 +100,7 @@
         url="contracts/mysql/sample"
         expName="mysqlContractsSample"
         text="Download Sample"
+        type="csv"
       />
       <ImportCSV contractType="mysql" />
       <ExportButton url="contracts/mysql/database" expName="mysqlContracts" />
