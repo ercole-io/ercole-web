@@ -9,7 +9,7 @@
   >
     <RangeDates :setRange="SET_RANGE_DATES_ALT" slot="customTitle" />
 
-    <div class="is-flex">
+    <div class="is-flex px-5">
       <SearchInput
         :searchPlaceholder="$t('views.hostDetails.search')"
         v-model="searchTherm"
@@ -23,7 +23,7 @@
       vertical
       animated
       expanded
-      class="vertical-tabs-scroll"
+      class="vertical-tabs-scroll px-5"
       v-model="activeTab"
       @input="getDbGrowthData"
     >
@@ -50,19 +50,21 @@
           >
             <DbGrowth :data="db.oracleChanges" :dataID="db.databasename" />
 
-            <p class="has-text-centered has-text-weight-medium mt-5">
-              {{ db.databasename }} - Pluggable Databases
-            </p>
+            <div class="pdb-box" v-if="Object.entries(db.pdbs).length > 0">
+              <p class="has-text-centered has-text-weight-medium">
+                {{ db.databasename }} - Pluggable Databases
+              </p>
 
-            <CollapseSimple
-              :isOpen="false"
-              :collapseID="`collapse-${pdb[0]}`"
-              :collapseTitle="pdb[0]"
-              v-for="pdb in Object.entries(db.pdbs)"
-              :key="pdb[0]"
-            >
-              <DbGrowth :data="pdb[1]" :dataID="`dbgrowth-${pdb[0]}`" />
-            </CollapseSimple>
+              <CollapseSimple
+                :isOpen="false"
+                :collapseID="`collapse-${pdb[0]}`"
+                :collapseTitle="pdb[0]"
+                v-for="pdb in Object.entries(db.pdbs)"
+                :key="pdb[0]"
+              >
+                <DbGrowth :data="pdb[1]" :dataID="`dbgrowth-${pdb[0]}`" />
+              </CollapseSimple>
+            </div>
           </b-tab-item>
         </b-tabs>
       </b-tab-item>
@@ -151,4 +153,12 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.pdb-box {
+  margin-top: 20px;
+  padding: 10px 10px 0 10px;
+  border: 1px solid #dbdbdb;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.5),
+    0 0.5em 1em -0.125em rgba(10, 10, 10, 0.5);
+}
+</style>
