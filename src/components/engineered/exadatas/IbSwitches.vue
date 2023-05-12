@@ -72,7 +72,7 @@
               sortable
               v-slot="props"
             >
-              {{ props.row.hostname }}
+              {{ props.row.hostname || '-' }}
             </b-table-column>
 
             <b-table-column
@@ -82,7 +82,7 @@
               sortable
               v-slot="props"
             >
-              {{ props.row.ram }}
+              {{ props.row.ram || '-' }}
             </b-table-column>
 
             <b-table-column
@@ -92,7 +92,7 @@
               sortable
               v-slot="props"
             >
-              {{ props.row.vcpu }}
+              {{ props.row.vcpu || '-' }}
             </b-table-column>
           </b-table>
         </template>

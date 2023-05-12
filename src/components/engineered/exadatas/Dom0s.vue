@@ -1,24 +1,21 @@
 <template>
   <section>
-    <p class="subHeader mb-0">Storage</p>
+    <p class="subHeader mb-0">DOM0</p>
     <div class="table-container">
       <b-table
-        :data="storageServersData"
+        :data="dom0sData"
         detailed
         detail-transition="fade"
         detail-key="hostname"
         :show-detail-icon="true"
         :opened-detailed="defaultOpenedDetails"
-        @details-open="(row) => closeAllOtherDetails(row)"
       >
-        <b-table-column
-          field="hostname"
-          label="Hostname"
-          centered
-          sortable
-          v-slot="props"
-        >
-          {{ props.row.hostname }}
+        <b-table-column field="hostname" label="Hostname" centered sortable>
+          <template v-slot="props">
+            <p v-tooltip.bottom="options(props.row.hostname)">
+              {{ props.row.hostname }}
+            </p>
+          </template>
         </b-table-column>
 
         <b-table-column field="totalRam" label="Ram Usage" centered sortable>
@@ -28,6 +25,11 @@
               type="is-warning"
               :value="calcValues(props.row.totalRam, props.row.totalFreeRam)"
               show-value
+              v-tooltip.bottom="
+                options(
+                  setTooltip(props.row.totalRam, props.row.totalFreeRam, 'GB')
+                )
+              "
             />
           </template>
         </b-table-column>
@@ -39,60 +41,55 @@
               type="is-warning"
               :value="calcValues(props.row.totalVCPU, props.row.totalFreeVCPU)"
               show-value
+              v-tooltip.bottom="
+                options(
+                  setTooltip(props.row.totalVCPU, props.row.totalFreeVCPU, 'GB')
+                )
+              "
             />
           </template>
         </b-table-column>
 
-        <b-table-column
-          field="model"
-          label="Model"
-          centered
-          sortable
-          v-slot="props"
-        >
-          {{ props.row.model }}
+        <b-table-column field="model" label="Model" centered sortable>
+          <template v-slot="props">
+            <p v-tooltip.bottom="options(props.row.model)">
+              {{ props.row.model }}
+            </p>
+          </template>
         </b-table-column>
 
-        <b-table-column
-          field="swVersion"
-          label="Version"
-          centered
-          sortable
-          v-slot="props"
-        >
-          {{ props.row.swVersion }}
+        <b-table-column field="swVersion" label="Version" centered sortable>
+          <template v-slot="props">
+            <p v-tooltip.bottom="options(props.row.swVersion)">
+              {{ props.row.swVersion }}
+            </p>
+          </template>
         </b-table-column>
 
         <template #detail="props">
           <b-table :data="props.row.vms">
-            <b-table-column
-              field="hostname"
-              label="Hostname"
-              centered
-              sortable
-              v-slot="props"
-            >
-              {{ props.row.hostname }}
+            <b-table-column field="hostname" label="Hostname" centered sortable>
+              <template v-slot="props">
+                <p v-tooltip.bottom="options(props.row.hostname)">
+                  {{ props.row.hostname }}
+                </p>
+              </template>
             </b-table-column>
 
-            <b-table-column
-              field="ram"
-              label="Ram"
-              centered
-              sortable
-              v-slot="props"
-            >
-              {{ props.row.ram }}
+            <b-table-column field="ram" label="Ram" centered sortable>
+              <template v-slot="props">
+                <p v-tooltip.bottom="options(props.row.ram)">
+                  {{ props.row.ram }}
+                </p>
+              </template>
             </b-table-column>
 
-            <b-table-column
-              field="vcpu"
-              label="VCPU"
-              centered
-              sortable
-              v-slot="props"
-            >
-              {{ props.row.vcpu }}
+            <b-table-column field="vcpu" label="VCPU" centered sortable>
+              <template v-slot="props">
+                <p v-tooltip.bottom="options(props.row.vcpu)">
+                  {{ props.row.vcpu }}
+                </p>
+              </template>
             </b-table-column>
           </b-table>
         </template>
@@ -107,14 +104,14 @@ import tooltipMixin from '@/mixins/tooltipMixin.js'
 export default {
   mixins: [tooltipMixin],
   props: {
-    storageServersData: {
+    dom0sData: {
       type: Array,
       default: () => [],
     },
   },
   data() {
     return {
-      defaultOpenedDetails: [],
+      defaultOpenedDetails: ['exaerc01a', 'exaerc01b'],
     }
   },
   methods: {

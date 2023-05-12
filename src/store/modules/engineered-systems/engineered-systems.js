@@ -1,78 +1,99 @@
 import _ from 'lodash'
 import axios from 'axios'
-import i18n from '@/i18n.js'
+// import i18n from '@/i18n.js'
 import { axiosRequest } from '@/services/services.js'
-import mockExadata from '@/store/modules/engineered-systems/exadata.json'
+// import mockExadata from '@/store/modules/engineered-systems/exadata.json'
 
-const url = 'hosts/technologies/oracle/exadata'
+const url = 'exadata'
 
 export const state = () => ({
   engSys: {},
-  memory: 0,
-  cpu: {
-    running: 0,
-    total: 0,
-  },
-  storage: 0,
-  patching6: null,
-  patching12: null,
+  // memory: 0,
+  // cpu: {
+  //   running: 0,
+  //   total: 0,
+  // },
+  // storage: 0,
+  // patching6: null,
+  // patching12: null,
 })
 
-const patchData = (data, months) => {
-  const patched = []
-  const notPatched = []
+// const patchData = (data, months) => {
+//   const patched = []
+//   const notPatched = []
 
-  _.map(data, (item) => {
-    if (item.status) {
-      patched.push([months, item.count || 0])
-    } else {
-      notPatched.push([months, item.count || 0])
-    }
-  })
+//   _.map(data, (item) => {
+//     if (item.status) {
+//       patched.push([months, item.count || 0])
+//     } else {
+//       notPatched.push([months, item.count || 0])
+//     }
+//   })
 
-  return { patched, notPatched }
-}
+//   return { patched, notPatched }
+// }
 
 export const getters = {
   getEngSys: (state) => {
-    let exadata = state.engSys
-    exadata = mockExadata
+    let exadata = []
+    const totalRam = '100'
+    const freeRam = '0'
+    const totalVcpu = '100'
+    const freeVcpu = '0'
+
+    _.map(state.engSys, (val) => {
+      console.log(val)
+
+      exadata.push({
+        _id: val.rackID,
+        hostname: val.hostname,
+        components: _.groupBy(val.components, 'hostType'),
+        progress: {
+          totalRam: totalRam,
+          freeRam: freeRam,
+          totalVcpu: totalVcpu,
+          freeVcpu: freeVcpu,
+        },
+      })
+    })
+
+    console.log(exadata)
     return exadata
   },
-  getPatchingChartData: (state) => {
-    const finalData = []
-    const patch6 = patchData(
-      state.patching6,
-      i18n.t('views.engSystems.months', ['6'])
-    )
-    const patch12 = patchData(
-      state.patching12,
-      i18n.t('views.engSystems.months', ['12'])
-    )
+  // getPatchingChartData: (state) => {
+  //   const finalData = []
+  //   const patch6 = patchData(
+  //     state.patching6,
+  //     i18n.t('views.engSystems.months', ['6'])
+  //   )
+  //   const patch12 = patchData(
+  //     state.patching12,
+  //     i18n.t('views.engSystems.months', ['12'])
+  //   )
 
-    finalData.push([
-      {
-        name: i18n.tc('views.engSystems.patching', 1),
-        data: _.concat(patch6.patched, patch12.patched),
-      },
-      {
-        name: i18n.tc('views.engSystems.patching', 2),
-        data: _.concat(patch6.notPatched, patch12.notPatched),
-      },
-    ])
+  //   finalData.push([
+  //     {
+  //       name: i18n.tc('views.engSystems.patching', 1),
+  //       data: _.concat(patch6.patched, patch12.patched),
+  //     },
+  //     {
+  //       name: i18n.tc('views.engSystems.patching', 2),
+  //       data: _.concat(patch6.notPatched, patch12.notPatched),
+  //     },
+  //   ])
 
-    return _.orderBy(finalData[0], ['name'], ['asc'])
-  },
+  //   return _.orderBy(finalData[0], ['name'], ['asc'])
+  // },
 }
 
 export const mutations = {
   SET_ENGINEERED_SYSTEMS: (state, payload) => {
     state.engSys = payload.engSys
-    state.memory = payload.memory
-    state.cpu = payload.cpu
-    state.storage = payload.storage || 0
-    state.patching6 = payload.patch6
-    state.patching12 = payload.patch12
+    //   state.memory = payload.memory
+    //   state.cpu = payload.cpu
+    //   state.storage = payload.storage || 0
+    //   state.patching6 = payload.patch6
+    //   state.patching12 = payload.patch12
   },
 }
 
@@ -82,11 +103,11 @@ export const actions = {
 
     const endPoints = [
       url,
-      `${url}/total-memory-size`,
-      `${url}/total-cpu`,
-      `${url}/average-storage-usage`,
-      `${url}/patch-status?window-time=6`,
-      `${url}/patch-status?window-time=12`,
+      // `${url}/total-memory-size`,
+      // `${url}/total-cpu`,
+      // `${url}/average-storage-usage`,
+      // `${url}/patch-status?window-time=6`,
+      // `${url}/patch-status?window-time=12`,
     ]
 
     await Promise.all(
@@ -105,11 +126,11 @@ export const actions = {
       axios.spread((...allData) => {
         commit('SET_ENGINEERED_SYSTEMS', {
           engSys: allData[0].data,
-          memory: allData[1].data,
-          cpu: allData[2].data,
-          storage: allData[3].data,
-          patch6: allData[4].data,
-          patch12: allData[5].data,
+          // memory: allData[1].data,
+          // cpu: allData[2].data,
+          // storage: allData[3].data,
+          // patch6: allData[4].data,
+          // patch12: allData[5].data,
         })
         dispatch('offLoadingTable')
       })

@@ -1,9 +1,9 @@
 <template>
   <section>
-    <p class="subHeader mb-0">DB Servers</p>
+    <p class="subHeader mb-0">KVM Host</p>
     <div class="table-container">
       <b-table
-        :data="dbServersData"
+        :data="kvmHostsData"
         detailed
         detail-transition="fade"
         detail-key="hostname"
@@ -104,7 +104,7 @@ import tooltipMixin from '@/mixins/tooltipMixin.js'
 export default {
   mixins: [tooltipMixin],
   props: {
-    dbServersData: {
+    kvmHostsData: {
       type: Array,
       default: () => [],
     },

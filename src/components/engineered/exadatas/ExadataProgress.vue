@@ -4,17 +4,11 @@
       <b-progress
         format="percent"
         type="is-warning"
-        :value="
-          calcValues(exadataProgress.totalRam, exadataProgress.totalFreeRam)
-        "
+        :value="calcValues(exadataProgress.totalRam, exadataProgress.freeRam)"
         show-value
         v-tooltip.bottom="
           options(
-            setTooltip(
-              exadataProgress.totalRam,
-              exadataProgress.totalFreeRam,
-              'GB'
-            )
+            setTooltip(exadataProgress.totalRam, exadataProgress.freeRam, 'GB')
           )
         "
       />
@@ -23,15 +17,13 @@
       <b-progress
         format="percent"
         type="is-warning"
-        :value="
-          calcValues(exadataProgress.totalVCPU, exadataProgress.totalFreeVCPU)
-        "
+        :value="calcValues(exadataProgress.totalVcpu, exadataProgress.freeVcpu)"
         show-value
         v-tooltip.bottom="
           options(
             setTooltip(
-              exadataProgress.totalVCPU,
-              exadataProgress.totalFreeVCPU,
+              exadataProgress.totalVcpu,
+              exadataProgress.freeVcpu,
               'GB'
             )
           )
@@ -45,11 +37,12 @@
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 
 export default {
+  name: 'exadata-progress',
   mixins: [tooltipMixin],
   props: {
     exadataProgress: {
       type: Object,
-      default: () => [],
+      default: () => {},
     },
   },
   methods: {
@@ -57,7 +50,7 @@ export default {
       return `Total: ${total}${format}<br>Free: ${free}${format}`
     },
     calcValues(total, free) {
-      return (free / total) * 100
+      return (total - free) * 1
     },
   },
 }
