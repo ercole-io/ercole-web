@@ -1,14 +1,19 @@
 <template>
   <section>
-    <p class="subHeader mb-0">KVM Host</p>
+    <p class="subHeader mb-0">{{ typeName }}</p>
     <div class="table-container">
       <b-table
-        :data="kvmHostsData"
+        :data="typeData"
         detailed
         detail-transition="fade"
         detail-key="hostname"
-        :show-detail-icon="true"
-        :opened-detailed="defaultOpenedDetails"
+        :show-detail-icon="
+          typeData[0].hostType === 'IBSWITCH' ||
+          typeData[0].hostType === 'BARE_METAL'
+            ? false
+            : true
+        "
+        icon-pack="fa"
       >
         <b-table-column field="hostname" label="Hostname" centered sortable>
           <template v-slot="props">
@@ -67,11 +72,11 @@
         </b-table-column>
 
         <template #detail="props">
-          <b-table :data="props.row.vms">
+          <b-table :data="props.row.vms || props.row.storageCells">
             <b-table-column field="hostname" label="Hostname" centered sortable>
               <template v-slot="props">
                 <p v-tooltip.bottom="options(props.row.hostname)">
-                  {{ props.row.hostname }}
+                  {{ props.row.hostname || props.row.name }}
                 </p>
               </template>
             </b-table-column>
@@ -104,15 +109,14 @@ import tooltipMixin from '@/mixins/tooltipMixin.js'
 export default {
   mixins: [tooltipMixin],
   props: {
-    kvmHostsData: {
+    typeName: {
+      type: String,
+      required: true,
+    },
+    typeData: {
       type: Array,
       default: () => [],
     },
-  },
-  data() {
-    return {
-      defaultOpenedDetails: ['exaerc01a', 'exaerc01b'],
-    }
   },
   methods: {
     setTooltip(total, free, format) {
@@ -120,9 +124,6 @@ export default {
     },
     calcValues(total, free) {
       return (free / total) * 100
-    },
-    closeAllOtherDetails(row) {
-      this.defaultOpenedDetails = [row.hostname]
     },
   },
 }

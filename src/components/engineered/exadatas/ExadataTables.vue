@@ -4,7 +4,7 @@
       class="is-flex is-justify-content-flex-end"
       v-if="getEngSys.length > 0"
     >
-      <SearchInput class="mr-2" />
+      <SearchInput v-model="exadataSearchTherm" class="mr-2" />
       <ExportButton
         url="hosts/technologies/oracle/exadata"
         expName="engSystems"
@@ -26,27 +26,40 @@
       <BoxContent
         :title="data.hostname"
         border
-        v-for="data in getEngSys"
+        v-for="data in exadataSearch"
         :key="data._id"
         class="column is-6"
       >
         <ExadataProgress :exadataProgress="data.progress" />
-        <IbSwitches
-          :ibSwitchesData="data.components['IBSWITCH']"
-          v-if="data.components['IBSWITCH']"
-        />
-        <Storages
-          :storagesData="data.components['STORAGE_CELL']"
-          v-if="data.components['STORAGE_CELL']"
-        />
-        <KvmHosts
-          :kvmHostsData="data.components['KVM_HOST']"
+
+        <ExadataTypes
+          typeName="KVM Host"
+          :typeData="data.components['KVM_HOST']"
           v-if="data.components['KVM_HOST']"
         />
-        <Vms :vmsData="data.components['VM']" v-if="data.components['VM']" />
-        <Dom0s
-          :dom0sData="data.components['DOM0'] || data.components['DOMO0']"
-          v-if="data.components['DOM0'] || data.components['DOMO0']"
+
+        <ExadataTypes
+          typeName="Bare Metal"
+          :typeData="data.components['BARE_METAL']"
+          v-if="data.components['BARE_METAL']"
+        />
+
+        <ExadataTypes
+          typeName="DOM0"
+          :typeData="data.components['DOM0']"
+          v-if="data.components['DOM0']"
+        />
+
+        <ExadataTypes
+          typeName="IBSwitch"
+          :typeData="data.components['IBSWITCH']"
+          v-if="data.components['IBSWITCH']"
+        />
+
+        <ExadataTypes
+          typeName="Storage"
+          :typeData="data.components['STORAGE_CELL']"
+          v-if="data.components['STORAGE_CELL']"
         />
       </BoxContent>
 
@@ -60,6 +73,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapGetters } from 'vuex'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -68,11 +82,12 @@ import NoContent from '@/components/common/NoContent.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 import ExadataProgress from '@/components/engineered/exadatas/ExadataProgress.vue'
-import KvmHosts from '@/components/engineered/exadatas/KvmHosts.vue'
-import IbSwitches from '@/components/engineered/exadatas/IbSwitches.vue'
-import Storages from '@/components/engineered/exadatas/Storages.vue'
-import Vms from '@/components/engineered/exadatas/Vms.vue'
-import Dom0s from '@/components/engineered/exadatas/Dom0s.vue'
+import ExadataTypes from '@/components/engineered/exadatas/ExadataTypes.vue'
+// import KvmHosts from '@/components/engineered/exadatas/KvmHosts.vue'
+// import IbSwitches from '@/components/engineered/exadatas/IbSwitches.vue'
+// import Storages from '@/components/engineered/exadatas/Storages.vue'
+// import BareMetals from '@/components/engineered/exadatas/BareMetals.vue'
+// import Dom0s from '@/components/engineered/exadatas/Dom0s.vue'
 
 export default {
   mixins: [tooltipMixin],
@@ -84,14 +99,41 @@ export default {
     ExportButton,
     SearchInput,
     ExadataProgress,
-    KvmHosts,
-    IbSwitches,
-    Storages,
-    Vms,
-    Dom0s,
+    ExadataTypes,
+    // KvmHosts,
+    // IbSwitches,
+    // Storages,
+    // BareMetals,
+    // Dom0s,
+  },
+  data() {
+    return {
+      exadataSearchTherm: '',
+    }
   },
   computed: {
     ...mapGetters(['getEngSys', 'loadingTableStatus']),
+    exadataSearch() {
+      if (this.exadataSearchTherm !== '') {
+        return _.filter(this.getEngSys, (val) => {
+          // return _.map(val.components, (comp) => {
+          //   return _.filter(comp, (c) => {
+          //     return _.includes(
+          //       c.hostname.toUpperCase(),
+          //       this.exadataSearchTherm.toUpperCase()
+          //     )
+          //   })
+          // })
+
+          return _.includes(
+            val.hostname.toUpperCase(),
+            this.exadataSearchTherm.toUpperCase()
+          )
+        })
+      } else {
+        return this.getEngSys
+      }
+    },
   },
 }
 </script>

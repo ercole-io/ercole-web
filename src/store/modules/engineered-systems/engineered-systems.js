@@ -42,7 +42,7 @@ export const getters = {
     const freeVcpu = '0'
 
     _.map(state.engSys, (val) => {
-      console.log(val)
+      // console.log(val)
 
       exadata.push({
         _id: val.rackID,
@@ -56,8 +56,8 @@ export const getters = {
         },
       })
     })
+    // console.log(exadata)
 
-    console.log(exadata)
     return exadata
   },
   // getPatchingChartData: (state) => {
