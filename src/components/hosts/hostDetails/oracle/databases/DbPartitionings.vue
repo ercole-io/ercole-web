@@ -12,16 +12,14 @@
       <template slot="headData">
         <v-th sortKey="segmentName">Segment Name</v-th>
         <v-th sortKey="owner">Segment Owner</v-th>
-        <v-th sortKey="segmentType">Segment Type</v-th>
-        <v-th sortKey="partitionName">Partition</v-th>
+        <v-th sortKey="count">Partition Count</v-th>
         <v-th sortKey="mb" defaultSort="desc">MB</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
         <TdContent :value="rowData.scope.segmentName" />
         <TdContent :value="rowData.scope.owner" />
-        <TdContent :value="rowData.scope.segmentType" />
-        <TdContent :value="rowData.scope.partitionName" />
+        <TdContent :value="rowData.scope.count" />
         <TdContent :value="rowData.scope.mb" />
       </template>
     </FullTable>
@@ -46,14 +44,7 @@ export default {
   },
   data() {
     return {
-      keys: [
-        'date',
-        'mb',
-        'owner',
-        'partitionName',
-        'segmentName',
-        'segmentType',
-      ],
+      keys: ['count', 'mb', 'owner', 'segmentName'],
     }
   },
 }
