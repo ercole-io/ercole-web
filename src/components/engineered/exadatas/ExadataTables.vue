@@ -5,10 +5,7 @@
       v-if="getEngSys.length > 0"
     >
       <SearchInput v-model="exadataSearchTherm" class="mr-2" />
-      <ExportButton
-        url="hosts/technologies/oracle/exadata"
-        expName="engSystems"
-      />
+      <ExportButton url="exadata" expName="exadata" />
     </div>
     <div class="columns" style="flex-flow: wrap">
       <GhostLoading
@@ -34,32 +31,32 @@
 
         <ExadataTypes
           typeName="KVM Host"
-          :typeData="data.components['KVM_HOST']"
-          v-if="data.components['KVM_HOST']"
+          :typeData="data.kvmhost"
+          v-if="data.kvmhost && data.kvmhost.length > 0"
         />
 
         <ExadataTypes
           typeName="Bare Metal"
-          :typeData="data.components['BARE_METAL']"
-          v-if="data.components['BARE_METAL']"
+          :typeData="data.baremetal"
+          v-if="data.baremetal && data.baremetal.length > 0"
         />
 
         <ExadataTypes
           typeName="DOM0"
-          :typeData="data.components['DOM0']"
-          v-if="data.components['DOM0']"
+          :typeData="data.dom0"
+          v-if="data.dom0 && data.dom0.length > 0"
         />
 
         <ExadataTypes
           typeName="IBSwitch"
-          :typeData="data.components['IBSWITCH']"
-          v-if="data.components['IBSWITCH']"
+          :typeData="data.ibswitch"
+          v-if="data.ibswitch && data.ibswitch.length > 0"
         />
 
         <ExadataTypes
           typeName="Storage"
-          :typeData="data.components['STORAGE_CELL']"
-          v-if="data.components['STORAGE_CELL']"
+          :typeData="data.storagecell"
+          v-if="data.storagecell && data.storagecell.length > 0"
         />
       </BoxContent>
 
@@ -83,11 +80,6 @@ import ExportButton from '@/components/common/ExportButton.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 import ExadataProgress from '@/components/engineered/exadatas/ExadataProgress.vue'
 import ExadataTypes from '@/components/engineered/exadatas/ExadataTypes.vue'
-// import KvmHosts from '@/components/engineered/exadatas/KvmHosts.vue'
-// import IbSwitches from '@/components/engineered/exadatas/IbSwitches.vue'
-// import Storages from '@/components/engineered/exadatas/Storages.vue'
-// import BareMetals from '@/components/engineered/exadatas/BareMetals.vue'
-// import Dom0s from '@/components/engineered/exadatas/Dom0s.vue'
 
 export default {
   mixins: [tooltipMixin],
@@ -100,11 +92,6 @@ export default {
     SearchInput,
     ExadataProgress,
     ExadataTypes,
-    // KvmHosts,
-    // IbSwitches,
-    // Storages,
-    // BareMetals,
-    // Dom0s,
   },
   data() {
     return {
@@ -115,21 +102,60 @@ export default {
     ...mapGetters(['getEngSys', 'loadingTableStatus']),
     exadataSearch() {
       if (this.exadataSearchTherm !== '') {
-        return _.filter(this.getEngSys, (val) => {
-          // return _.map(val.components, (comp) => {
-          //   return _.filter(comp, (c) => {
-          //     return _.includes(
-          //       c.hostname.toUpperCase(),
-          //       this.exadataSearchTherm.toUpperCase()
-          //     )
-          //   })
-          // })
+        // const searchExadata = _.filter(this.getEngSys, (val) => {
+        //   return _.includes(
+        //     _.upperCase(val.hostname),
+        //     _.upperCase(this.exadataSearchTherm)
+        //   )
+        // })
 
+        // const search = _.map(this.getEngSys, (el) => {
+        //   return {
+        //     ...el,
+        //     kvmhost: _.filter(el.kvmhost, (kvm) =>
+        //       _.includes(
+        //         _.upperCase(kvm.hostname),
+        //         _.upperCase(this.exadataSearchTherm)
+        //       )
+        //     ),
+        //     ibswitch: _.filter(el.ibswitch, (ibs) =>
+        //       _.includes(
+        //         _.upperCase(ibs.hostname),
+        //         _.upperCase(this.exadataSearchTherm)
+        //       )
+        //     ),
+        //     storagecell: _.filter(el.storagecell, (sto) =>
+        //       _.includes(
+        //         _.upperCase(sto.hostname),
+        //         _.upperCase(this.exadataSearchTherm)
+        //       )
+        //     ),
+        //     dom0: _.filter(el.dom0, (dom) =>
+        //       _.includes(
+        //         _.upperCase(dom.hostname),
+        //         _.upperCase(this.exadataSearchTherm)
+        //       )
+        //     ),
+        //     baremetal: _.filter(el.baremetal, (bar) =>
+        //       _.includes(
+        //         _.upperCase(bar.hostname),
+        //         _.upperCase(this.exadataSearchTherm)
+        //       )
+        //     ),
+        //   }
+        // })
+        // // console.log(search)
+
+        const search = _.filter(this.getEngSys, (obj) => {
           return _.includes(
-            val.hostname.toUpperCase(),
-            this.exadataSearchTherm.toUpperCase()
+            _.lowerCase(JSON.stringify(obj)),
+            _.lowerCase(_.toString(this.exadataSearchTherm))
           )
         })
+
+        // console.log(search)
+
+        return search
       } else {
         return this.getEngSys
       }
