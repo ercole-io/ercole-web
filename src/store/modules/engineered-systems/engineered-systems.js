@@ -11,41 +11,21 @@ export const state = () => ({
 export const getters = {
   getEngSys: (state) => {
     let exadata = []
-    const totalRam = '100'
-    const freeRam = '0'
-    const totalVcpu = '100'
-    const freeVcpu = '0'
 
     _.map(state.engSys, (val) => {
-      const KVM_HOST = _.filter(val.components, (kvm) => {
-        return kvm.hostType === 'KVM_HOST'
-      })
-
-      const IBSWITCH = _.filter(val.components, (ibs) => {
-        return ibs.hostType === 'IBSWITCH'
-      })
-
-      const STORAGE_CELL = _.filter(val.components, (sto) => {
-        return sto.hostType === 'STORAGE_CELL'
-      })
-
-      const DOM0 = _.filter(val.components, (dom) => {
-        return dom.hostType === 'DOM0'
-      })
-
-      const BARE_METAL = _.filter(val.components, (bar) => {
-        return bar.hostType === 'BARE_METAL'
-      })
+      let totalRam = Math.floor(Math.random() * 100)
+      let freeRam = Math.floor(Math.random() * totalRam)
+      let totalVcpu = Math.floor(Math.random() * 100)
+      let freeVcpu = Math.floor(Math.random() * totalVcpu)
 
       exadata.push({
         _id: val.rackID,
         hostname: val.hostname,
-        exadata: [val.hostname],
-        kvmhost: KVM_HOST,
-        ibswitch: IBSWITCH,
-        storagecell: STORAGE_CELL,
-        dom0: DOM0,
-        baremetal: BARE_METAL,
+        kvmhost: getHostype(val, 'KVM_HOST'),
+        ibswitch: getHostype(val, 'IBSWITCH'),
+        storagecell: getHostype(val, 'STORAGE_CELL'),
+        dom0: getHostype(val, 'DOM0'),
+        baremetal: getHostype(val, 'BARE_METAL'),
         progress: {
           totalRam: totalRam,
           freeRam: freeRam,
@@ -54,8 +34,6 @@ export const getters = {
         },
       })
     })
-
-    console.log(exadata)
 
     return exadata
   },
@@ -94,4 +72,10 @@ export const actions = {
       })
     )
   },
+}
+
+const getHostype = (val, type) => {
+  return _.filter(val.components, (t) => {
+    return t.hostType === type
+  })
 }

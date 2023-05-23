@@ -14,12 +14,14 @@
             : true
         "
         icon-pack="fa"
+        :opened-detailed="openRowAfterSearch"
       >
         <b-table-column field="hostname" label="Hostname" centered sortable>
           <template v-slot="props">
-            <p v-tooltip.bottom="options(props.row.hostname)">
-              {{ props.row.hostname }}
-            </p>
+            <p
+              v-tooltip.bottom="options(props.row.hostname)"
+              v-html="highlight(props.row.hostname)"
+            />
           </template>
         </b-table-column>
 
@@ -57,17 +59,19 @@
 
         <b-table-column field="model" label="Model" centered sortable>
           <template v-slot="props">
-            <p v-tooltip.bottom="options(props.row.model)">
-              {{ props.row.model }}
-            </p>
+            <p
+              v-tooltip.bottom="options(props.row.model)"
+              v-html="highlight(props.row.model)"
+            />
           </template>
         </b-table-column>
 
         <b-table-column field="swVersion" label="Version" centered sortable>
           <template v-slot="props">
-            <p v-tooltip.bottom="options(props.row.swVersion)">
-              {{ props.row.swVersion }}
-            </p>
+            <p
+              v-tooltip.bottom="options(props.row.swVersion)"
+              v-html="highlight(props.row.swVersion)"
+            />
           </template>
         </b-table-column>
 
@@ -75,25 +79,28 @@
           <b-table :data="props.row.vms || props.row.storageCells">
             <b-table-column field="hostname" label="Hostname" centered sortable>
               <template v-slot="props">
-                <p v-tooltip.bottom="options(props.row.hostname)">
-                  {{ props.row.hostname || props.row.name }}
-                </p>
+                <p
+                  v-tooltip.bottom="options(props.row.hostname)"
+                  v-html="highlight(props.row.hostname || props.row.name)"
+                />
               </template>
             </b-table-column>
 
             <b-table-column field="ram" label="Ram" centered sortable>
               <template v-slot="props">
-                <p v-tooltip.bottom="options(props.row.ram)">
-                  {{ props.row.ram }}
-                </p>
+                <p
+                  v-tooltip.bottom="options(props.row.ram)"
+                  v-html="highlight(props.row.ram)"
+                />
               </template>
             </b-table-column>
 
             <b-table-column field="vcpu" label="VCPU" centered sortable>
               <template v-slot="props">
-                <p v-tooltip.bottom="options(props.row.vcpu)">
-                  {{ props.row.vcpu }}
-                </p>
+                <p
+                  v-tooltip.bottom="options(props.row.vcpu)"
+                  v-html="highlight(props.row.vcpu)"
+                />
               </template>
             </b-table-column>
           </b-table>
@@ -105,15 +112,20 @@
 
 <script>
 import tooltipMixin from '@/mixins/tooltipMixin.js'
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 
 export default {
-  mixins: [tooltipMixin],
+  mixins: [tooltipMixin, HighlightSearchMixin],
   props: {
     typeName: {
       type: String,
       required: true,
     },
     typeData: {
+      type: Array,
+      default: () => [],
+    },
+    openRowAfterSearch: {
       type: Array,
       default: () => [],
     },
