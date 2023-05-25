@@ -15,6 +15,7 @@
         "
         icon-pack="fa"
         :opened-detailed="openRowAfterSearch"
+        scrollable
       >
         <b-table-column field="hostname" label="Hostname" centered sortable>
           <template v-slot="props">
@@ -72,45 +73,12 @@
         </b-table-column>
 
         <template #detail="props">
-          <b-table v-if="props.row.vms" :data="props.row.vms">
-            <b-table-column field="hostname" label="Hostname" centered sortable>
-              <template v-slot="props">
-                <p
-                  v-tooltip.bottom="options(props.row.hostname)"
-                  v-html="highlight(props.row.hostname || props.row.name)"
-                />
-              </template>
-            </b-table-column>
+          <ExadataTypesVms v-if="props.row.vms" :data="props.row.vms" />
 
-            <b-table-column field="ram" label="Ram" centered sortable>
-              <template v-slot="props">
-                <p
-                  v-tooltip.bottom="options(props.row.ramCurrent)"
-                  v-html="highlight(props.row.ramCurrent)"
-                />
-              </template>
-            </b-table-column>
-
-            <b-table-column field="vcpu" label="VCPU" centered sortable>
-              <template v-slot="props">
-                <p
-                  v-tooltip.bottom="options(props.row.cpuCurrent)"
-                  v-html="highlight(props.row.cpuCurrent)"
-                />
-              </template>
-            </b-table-column>
-          </b-table>
-
-          <b-table v-if="props.row.storageCells" :data="props.row.storageCells">
-            <b-table-column field="hostname" label="Hostname" centered sortable>
-              <template v-slot="props">
-                <p
-                  v-tooltip.bottom="options(props.row.hostname)"
-                  v-html="highlight(props.row.hostname || props.row.name)"
-                />
-              </template>
-            </b-table-column>
-          </b-table>
+          <ExadataTypesStorage
+            v-if="props.row.storageCells"
+            :data="props.row.storageCells"
+          />
         </template>
       </b-table>
     </div>
@@ -120,6 +88,8 @@
 <script>
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+import ExadataTypesVms from '@/components/engineered/exadatas/ExadataTypesVms.vue'
+import ExadataTypesStorage from '@/components/engineered/exadatas/ExadataTypesStorage.vue'
 
 export default {
   mixins: [tooltipMixin, HighlightSearchMixin],
@@ -137,12 +107,13 @@ export default {
       default: () => [],
     },
   },
+  components: {
+    ExadataTypesVms,
+    ExadataTypesStorage,
+  },
   methods: {
     setTooltip(total, free, format) {
       return `Total: ${total}${format}<br>Free: ${free}${format}`
-    },
-    calcValues(total, free) {
-      return (free / total) * 100
     },
   },
 }

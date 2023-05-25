@@ -32,8 +32,6 @@ export const getters = {
       })
     })
 
-    console.log(exadata)
-
     return exadata
   },
 }
