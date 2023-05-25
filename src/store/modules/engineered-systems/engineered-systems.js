@@ -13,11 +13,6 @@ export const getters = {
     let exadata = []
 
     _.map(state.engSys, (val) => {
-      let totalRam = Math.floor(Math.random() * 100)
-      let freeRam = Math.floor(Math.random() * totalRam)
-      let totalVcpu = Math.floor(Math.random() * 100)
-      let freeVcpu = Math.floor(Math.random() * totalVcpu)
-
       exadata.push({
         _id: val.rackID,
         hostname: val.hostname,
@@ -27,13 +22,17 @@ export const getters = {
         dom0: getHostype(val, 'DOM0'),
         baremetal: getHostype(val, 'BARE_METAL'),
         progress: {
-          totalRam: totalRam,
-          freeRam: freeRam,
-          totalVcpu: totalVcpu,
-          freeVcpu: freeVcpu,
+          totalCPU: val.totalCPU,
+          usedCPU: val.usedCPU,
+          freeCPU: val.freeCPU,
+          totalMemory: val.totalMemory,
+          usedMemory: val.usedMemory,
+          freeMemory: val.freeMemory,
         },
       })
     })
+
+    console.log(exadata)
 
     return exadata
   },

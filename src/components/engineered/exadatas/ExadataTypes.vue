@@ -30,12 +30,10 @@
             <b-progress
               format="percent"
               type="is-warning"
-              :value="calcValues(props.row.totalRam, props.row.totalFreeRam)"
+              :value="props.row.usedRAM"
               show-value
               v-tooltip.bottom="
-                options(
-                  setTooltip(props.row.totalRam, props.row.totalFreeRam, 'GB')
-                )
+                options(setTooltip(props.row.memory, props.row.freeRAM, 'GB'))
               "
             />
           </template>
@@ -46,12 +44,10 @@
             <b-progress
               format="percent"
               type="is-warning"
-              :value="calcValues(props.row.totalVCPU, props.row.totalFreeVCPU)"
+              :value="props.row.usedCPU"
               show-value
               v-tooltip.bottom="
-                options(
-                  setTooltip(props.row.totalVCPU, props.row.totalFreeVCPU, 'GB')
-                )
+                options(setTooltip(props.row.totalCPU, props.row.freeCPU, 'GB'))
               "
             />
           </template>
@@ -76,7 +72,7 @@
         </b-table-column>
 
         <template #detail="props">
-          <b-table :data="props.row.vms || props.row.storageCells">
+          <b-table v-if="props.row.vms" :data="props.row.vms">
             <b-table-column field="hostname" label="Hostname" centered sortable>
               <template v-slot="props">
                 <p
@@ -89,8 +85,8 @@
             <b-table-column field="ram" label="Ram" centered sortable>
               <template v-slot="props">
                 <p
-                  v-tooltip.bottom="options(props.row.ram)"
-                  v-html="highlight(props.row.ram)"
+                  v-tooltip.bottom="options(props.row.ramCurrent)"
+                  v-html="highlight(props.row.ramCurrent)"
                 />
               </template>
             </b-table-column>
@@ -98,8 +94,19 @@
             <b-table-column field="vcpu" label="VCPU" centered sortable>
               <template v-slot="props">
                 <p
-                  v-tooltip.bottom="options(props.row.vcpu)"
-                  v-html="highlight(props.row.vcpu)"
+                  v-tooltip.bottom="options(props.row.cpuCurrent)"
+                  v-html="highlight(props.row.cpuCurrent)"
+                />
+              </template>
+            </b-table-column>
+          </b-table>
+
+          <b-table v-if="props.row.storageCells" :data="props.row.storageCells">
+            <b-table-column field="hostname" label="Hostname" centered sortable>
+              <template v-slot="props">
+                <p
+                  v-tooltip.bottom="options(props.row.hostname)"
+                  v-html="highlight(props.row.hostname || props.row.name)"
                 />
               </template>
             </b-table-column>

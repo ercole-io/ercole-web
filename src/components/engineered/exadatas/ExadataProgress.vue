@@ -1,31 +1,33 @@
 <template>
   <section class="columns mb-0">
     <div class="column is-6">
+      <span class="is-size-7 has-text-weight-semibold ml-2">Ram Usage</span>
       <b-progress
         format="percent"
         type="is-warning"
-        :value="calcValues(exadataProgress.totalRam, exadataProgress.freeRam)"
+        :value="exadataProgress.usedMemory"
         show-value
         v-tooltip.bottom="
           options(
-            setTooltip(exadataProgress.totalRam, exadataProgress.freeRam, 'GB')
+            setTooltip(
+              exadataProgress.totalMemory,
+              exadataProgress.freeMemory,
+              'GB'
+            )
           )
         "
       />
     </div>
     <div class="column is-6">
+      <span class="is-size-7 has-text-weight-semibold ml-2">VCPU Usage</span>
       <b-progress
         format="percent"
         type="is-warning"
-        :value="calcValues(exadataProgress.totalVcpu, exadataProgress.freeVcpu)"
+        :value="exadataProgress.usedCPU"
         show-value
         v-tooltip.bottom="
           options(
-            setTooltip(
-              exadataProgress.totalVcpu,
-              exadataProgress.freeVcpu,
-              'GB'
-            )
+            setTooltip(exadataProgress.totalCPU, exadataProgress.freeCPU, 'GB')
           )
         "
       />
