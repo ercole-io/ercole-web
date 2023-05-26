@@ -121,6 +121,29 @@ ul.pagination-list {
   text-align: center !important;
 }
 
+.b-table {
+  .table {
+    tr {
+      td {
+        height: 32px;
+      }
+
+      &.detail {
+        background-color: white;
+
+        &.detail-container {
+          padding: 10px !important;
+        }
+
+        td {
+          font-size: 0.75em;
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
 .level {
   justify-content: center;
 }
@@ -323,6 +346,18 @@ ul.pagination-list {
   .vsm--link {
     font-size: 13px !important;
     padding: 12px 15px !important;
+  }
+}
+
+// b-table
+.b-table {
+  .detail {
+    td {
+      // padding: 0;
+    }
+    .detail-container {
+      padding: 0 !important;
+    }
   }
 }
 

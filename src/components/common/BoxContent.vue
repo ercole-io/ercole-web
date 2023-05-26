@@ -6,7 +6,7 @@
       :class="{ 'border-bottom': border }"
       :style="customStyleTitle"
     >
-      {{ title }}
+      <span v-html="hasHighlight ? highlight(title) : title" />
       <slot name="customTitle" />
     </h2>
     <article
@@ -20,8 +20,11 @@
 </template>
 
 <script>
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+
 export default {
   name: 'commom-boxcontent-component',
+  mixins: [HighlightSearchMixin],
   props: {
     title: {
       type: String,
@@ -51,6 +54,10 @@ export default {
     customStyleTitle: {
       type: String,
       default: '',
+    },
+    hasHighlight: {
+      type: Boolean,
+      default: false,
     },
   },
 }

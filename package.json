@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.5.4",
-    "@volar-plugins/vetur": "latest",
+    "@volar-plugins/vetur": "^2.0.0",
     "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-plugin-router": "~5.0.8",
