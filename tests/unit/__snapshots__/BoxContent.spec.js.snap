@@ -2,9 +2,7 @@
 
 exports[`Ercole Logo will mount the component 1`] = `
 <section style="background-color: rgb(0, 0, 0);">
-  <h2 class="sub-title border-bottom">
-    Title Test
-  </h2>
+  <h2 class="sub-title border-bottom"><span>Title Test</span> </h2>
   <article class="box-content"></article>
 </section>
 `;
