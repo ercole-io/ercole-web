@@ -1,9 +1,15 @@
 <template>
-  <div>MongoDB Licenses Contracts</div>
+  <MongodbContracts />
 </template>
 
 <script>
-export default {}
+import MongodbContracts from '@/components/licenses/contracts/MongoDB/Contracts.vue'
+
+export default {
+  components: {
+    MongodbContracts,
+  },
+}
 </script>
 
 <style lang="scss" scoped></style>

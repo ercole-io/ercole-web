@@ -1,9 +1,15 @@
 <template>
-  <div>PostgreSQL Licenses Contracts</div>
+  <PostgreContracts />
 </template>
 
 <script>
-export default {}
+import PostgreContracts from '@/components/licenses/contracts/PostgreSQL/Contracts.vue'
+
+export default {
+  components: {
+    PostgreContracts,
+  },
+}
 </script>
 
 <style lang="scss" scoped></style>
