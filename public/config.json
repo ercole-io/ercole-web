@@ -1,6 +1,6 @@
 {
-  "APIServiceBaseUrl": "https://dev.ercole.io/api",
-  "ChartServiceBaseUrl": "https://dev.ercole.io/chart",
-  "ThunderServiceBaseUrl": "https://dev.ercole.io/thunder",
-  "RepoServiceBaseUrl": "https://repository.ercole.io"
+  "APIServiceBaseUrl": "http://localhost:11113",
+  "ChartServiceBaseUrl": "http://localhost:11116",
+  "ThunderServiceBaseUrl": "http://localhost:11117",
+  "RepoServiceBaseUrl": "https://repository.ercole.io/api"
 }

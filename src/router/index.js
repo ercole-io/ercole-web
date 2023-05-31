@@ -468,6 +468,78 @@ const routes = [
       breadcrumb: [{ name: i18n.t('menu.licContracts') }],
     },
     beforeEnter: verifyAuth,
+    children: [
+      {
+        path: '/licenses/contract/oracle',
+        name: 'licenses-contracts-oracle',
+        component: lazyRouteBuilder('licenses/Contracts/Oracle.vue'),
+        meta: {
+          label: `Oracle`,
+          title: `${title}${i18n.t('menu.licContracts')} - Oracle`,
+          breadcrumb: [
+            { name: i18n.t('menu.licContracts') },
+            { name: `Oracle` },
+          ],
+        },
+        beforeEnter: verifyAuth,
+      },
+      {
+        path: '/licenses/contract/mysql',
+        name: 'licenses-contracts-mysql',
+        component: lazyRouteBuilder('licenses/Contracts/MySQL.vue'),
+        meta: {
+          label: `MySQL`,
+          title: `${title}${i18n.t('menu.licContracts')} - MySQL`,
+          breadcrumb: [
+            { name: i18n.t('menu.licContracts') },
+            { name: `MySQL` },
+          ],
+        },
+        beforeEnter: verifyAuth,
+      },
+      {
+        path: '/licenses/contract/sqlserver',
+        name: 'licenses-contracts-sqlserver',
+        component: lazyRouteBuilder('licenses/Contracts/SQLServer.vue'),
+        meta: {
+          label: `SQLServer`,
+          title: `${title}${i18n.t('menu.licContracts')} - SQLServer`,
+          breadcrumb: [
+            { name: i18n.t('menu.licContracts') },
+            { name: `SQLServer` },
+          ],
+        },
+        beforeEnter: verifyAuth,
+      },
+      {
+        path: '/licenses/contract/postgresql',
+        name: 'licenses-contracts-postgresql',
+        component: lazyRouteBuilder('licenses/Contracts/PostgreSQL.vue'),
+        meta: {
+          label: `PostgreSQL`,
+          title: `${title}${i18n.t('menu.licContracts')} - PostgreSQL`,
+          breadcrumb: [
+            { name: i18n.t('menu.licContracts') },
+            { name: `PostgreSQL` },
+          ],
+        },
+        beforeEnter: verifyAuth,
+      },
+      {
+        path: '/licenses/contract/mongodb',
+        name: 'licenses-contracts-mongodb',
+        component: lazyRouteBuilder('licenses/Contracts/MongoDB.vue'),
+        meta: {
+          label: `MongoDB`,
+          title: `${title}${i18n.t('menu.licContracts')} - MongoDB`,
+          breadcrumb: [
+            { name: i18n.t('menu.licContracts') },
+            { name: `MongoDB` },
+          ],
+        },
+        beforeEnter: verifyAuth,
+      },
+    ],
   },
   {
     path: '/licenses/compliance',

@@ -366,6 +366,11 @@ export default {
       return (
         this.$route.name !== 'dashboard' &&
         this.$route.name !== 'licenses-contract' &&
+        this.$route.name !== 'licenses-contracts-oracle' &&
+        this.$route.name !== 'licenses-contracts-mysql' &&
+        this.$route.name !== 'licenses-contracts-sqlserver' &&
+        this.$route.name !== 'licenses-contracts-postgresql' &&
+        this.$route.name !== 'licenses-contracts-mongodb' &&
         this.$route.name !== 'repository' &&
         this.$route.name !== 'oracle-profile-configurations' &&
         this.$route.name !== 'oracle-recommendations' &&

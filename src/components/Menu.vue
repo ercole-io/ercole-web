@@ -291,7 +291,7 @@ export default {
           hidden: this.checkMenu('Licenses', ''),
           child: [
             {
-              href: { name: 'licenses-contract' },
+              href: { name: 'licenses-contracts-oracle' },
               title: this.$i18n.t('menu.licContracts'),
               icon: 'fas fa-cog',
               attributes: { 'data-cy': 'mn-licenses-contract' },

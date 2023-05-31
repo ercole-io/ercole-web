@@ -14,6 +14,7 @@ export default {
   },
   beforeMount() {
     bus.$on('onTabChange', (value) => (this.currentTab = value))
+    console.log(this.currentTab)
   },
   methods: {
     sussessToastMsg(contractID, text) {
@@ -61,6 +62,7 @@ export default {
       this[`filtered${toFilter}`] = newValues
     },
     getAssociatedList(e, type) {
+      console.log(this.currentTab)
       if (e && e.id) {
         this.selectedID = e.id
         let list = this.filteredAssociatedListByLicenseId(type)
