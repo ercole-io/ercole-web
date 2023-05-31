@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import { simpleAutocompleteData } from '@/helpers/helpers.js'
 
@@ -11,10 +10,6 @@ export default {
       currentTab: '',
       selectedID: '',
     }
-  },
-  beforeMount() {
-    bus.$on('onTabChange', (value) => (this.currentTab = value))
-    console.log(this.currentTab)
   },
   methods: {
     sussessToastMsg(contractID, text) {
@@ -62,22 +57,9 @@ export default {
       this[`filtered${toFilter}`] = newValues
     },
     getAssociatedList(e, type) {
-      console.log(this.currentTab)
       if (e && e.id) {
         this.selectedID = e.id
         let list = this.filteredAssociatedListByLicenseId(type)
-
-        if (!_.isEqual(this[`filtered${type}Tags`].sort(), list.sort())) {
-          if (this.currentTab === 2) {
-            this.msSqlServer.hosts = []
-            this.msSqlServer.clusters = []
-          } else if (this.currentTab === 1) {
-            this.mysqlForm.hosts = []
-            this.mysqlForm.clusters = []
-          } else {
-            this.oracleForm.hostAssociated = []
-          }
-        }
 
         this[`filtered${type}Tags`] = list
       }
