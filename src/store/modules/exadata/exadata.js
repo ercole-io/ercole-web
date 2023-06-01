@@ -5,14 +5,14 @@ import { axiosRequest } from '@/services/services.js'
 const url = 'exadata'
 
 export const state = () => ({
-  engSys: {},
+  exadata: {},
 })
 
 export const getters = {
-  getEngSys: (state) => {
+  getExadata: (state) => {
     let exadata = []
 
-    _.map(state.engSys, (val) => {
+    _.map(state.exadata, (val) => {
       exadata.push({
         _id: val.rackID,
         hostname: val.hostname,
@@ -37,13 +37,13 @@ export const getters = {
 }
 
 export const mutations = {
-  SET_ENGINEERED_SYSTEMS: (state, payload) => {
-    state.engSys = payload.engSys
+  SET_EXADATA: (state, payload) => {
+    state.exadata = payload.exadata
   },
 }
 
 export const actions = {
-  async getEngineeredSystems({ commit, getters, dispatch }, olderThan = null) {
+  async getExadataData({ commit, getters, dispatch }, olderThan = null) {
     dispatch('onLoadingTable')
 
     const endPoints = [url]
@@ -62,8 +62,8 @@ export const actions = {
       )
     ).then(
       axios.spread((...allData) => {
-        commit('SET_ENGINEERED_SYSTEMS', {
-          engSys: allData[0].data,
+        commit('SET_EXADATA', {
+          exadata: allData[0].data,
         })
         dispatch('offLoadingTable')
       })

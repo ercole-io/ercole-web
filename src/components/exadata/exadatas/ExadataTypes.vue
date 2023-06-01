@@ -88,8 +88,8 @@
 <script>
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
-import ExadataTypesVms from '@/components/engineered/exadatas/ExadataTypesVms.vue'
-import ExadataTypesStorage from '@/components/engineered/exadatas/ExadataTypesStorage.vue'
+import ExadataTypesVms from '@/components/exadata/exadatas/ExadataTypesVms.vue'
+import ExadataTypesStorage from '@/components/exadata/exadatas/ExadataTypesStorage.vue'
 
 export default {
   mixins: [tooltipMixin, HighlightSearchMixin],
