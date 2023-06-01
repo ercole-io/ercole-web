@@ -474,11 +474,13 @@ const routes = [
         name: 'licenses-contracts-oracle',
         component: lazyRouteBuilder('licenses/Contracts/Oracle.vue'),
         meta: {
-          label: `Oracle`,
-          title: `${title}${i18n.t('menu.licContracts')} - Oracle`,
+          label: `${i18n.t('menu.oracle')}`,
+          title: `${title}${i18n.t('menu.licContracts')} - ${i18n.t(
+            'menu.oracle'
+          )}`,
           breadcrumb: [
             { name: i18n.t('menu.licContracts') },
-            { name: `Oracle` },
+            { name: `${i18n.t('menu.oracle')}` },
           ],
         },
         beforeEnter: verifyAuth,
@@ -488,11 +490,13 @@ const routes = [
         name: 'licenses-contracts-mysql',
         component: lazyRouteBuilder('licenses/Contracts/MySQL.vue'),
         meta: {
-          label: `MySQL`,
-          title: `${title}${i18n.t('menu.licContracts')} - MySQL`,
+          label: `${i18n.t('menu.mysql')}`,
+          title: `${title}${i18n.t('menu.licContracts')} - ${i18n.t(
+            'menu.mysql'
+          )}`,
           breadcrumb: [
             { name: i18n.t('menu.licContracts') },
-            { name: `MySQL` },
+            { name: `${i18n.t('menu.mysql')}` },
           ],
         },
         beforeEnter: verifyAuth,
@@ -502,11 +506,13 @@ const routes = [
         name: 'licenses-contracts-sqlserver',
         component: lazyRouteBuilder('licenses/Contracts/SQLServer.vue'),
         meta: {
-          label: `SQLServer`,
-          title: `${title}${i18n.t('menu.licContracts')} - SQLServer`,
+          label: `${i18n.t('menu.sqlserver')}`,
+          title: `${title}${i18n.t('menu.licContracts')} - ${i18n.t(
+            'menu.sqlserver'
+          )}`,
           breadcrumb: [
             { name: i18n.t('menu.licContracts') },
-            { name: `SQLServer` },
+            { name: `${i18n.t('menu.sqlserver')}` },
           ],
         },
         beforeEnter: verifyAuth,
@@ -516,11 +522,13 @@ const routes = [
         name: 'licenses-contracts-postgresql',
         component: lazyRouteBuilder('licenses/Contracts/PostgreSQL.vue'),
         meta: {
-          label: `PostgreSQL`,
-          title: `${title}${i18n.t('menu.licContracts')} - PostgreSQL`,
+          label: `${i18n.t('menu.postgresql')}`,
+          title: `${title}${i18n.t('menu.licContracts')} - ${i18n.t(
+            'menu.postgresql'
+          )}`,
           breadcrumb: [
             { name: i18n.t('menu.licContracts') },
-            { name: `PostgreSQL` },
+            { name: `${i18n.t('menu.postgresql')}` },
           ],
         },
         beforeEnter: verifyAuth,
@@ -530,11 +538,13 @@ const routes = [
         name: 'licenses-contracts-mongodb',
         component: lazyRouteBuilder('licenses/Contracts/MongoDB.vue'),
         meta: {
-          label: `MongoDB`,
-          title: `${title}${i18n.t('menu.licContracts')} - MongoDB`,
+          label: `${i18n.t('menu.mongodb')}`,
+          title: `${title}${i18n.t('menu.licContracts')} - ${i18n.t(
+            'menu.mongodb'
+          )}`,
           breadcrumb: [
             { name: i18n.t('menu.licContracts') },
-            { name: `MongoDB` },
+            { name: `${i18n.t('menu.mongodb')}` },
           ],
         },
         beforeEnter: verifyAuth,

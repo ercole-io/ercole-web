@@ -44,7 +44,8 @@
     "settings": "Settings",
     "partitionings": "Partitioning",
     "azure": "Azure",
-    "mongodb": "MongoDB"
+    "mongodb": "MongoDB",
+    "sqlserver": "SQLServer"
   },
   "header": {
     "logout": "Logout"

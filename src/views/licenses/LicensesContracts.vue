@@ -3,31 +3,31 @@
     <div class="tabs is-small is-boxed">
       <ul>
         <router-link tag="li" :to="{ name: 'licenses-contracts-oracle' }" exact>
-          <a>Oracle</a>
+          <a>{{ `${$i18n.t('menu.oracle')}` }}</a>
         </router-link>
         <router-link tag="li" :to="{ name: 'licenses-contracts-mysql' }" exact>
-          <a>MySQL</a>
+          <a>{{ `${$i18n.t('menu.mysql')}` }}</a>
         </router-link>
         <router-link
           tag="li"
           :to="{ name: 'licenses-contracts-sqlserver' }"
           exact
         >
-          <a>SQLServer</a>
+          <a>{{ `${$i18n.t('menu.sqlserver')}` }}</a>
         </router-link>
         <router-link
           tag="li"
           :to="{ name: 'licenses-contracts-postgresql' }"
           exact
         >
-          <a>PostgreSQL</a>
+          <a>{{ `${$i18n.t('menu.postgresql')}` }}</a>
         </router-link>
         <router-link
           tag="li"
           :to="{ name: 'licenses-contracts-mongodb' }"
           exact
         >
-          <a>MongoDB</a>
+          <a>{{ `${$i18n.t('menu.mongodb')}` }}</a>
         </router-link>
       </ul>
     </div>
