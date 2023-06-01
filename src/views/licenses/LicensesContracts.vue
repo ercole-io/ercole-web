@@ -2,48 +2,37 @@
   <section>
     <div class="tabs is-small is-boxed">
       <ul>
-        <router-link tag="li" :to="{ name: 'licenses-contracts-oracle' }" exact>
-          <a>{{ `${$i18n.t('menu.oracle')}` }}</a>
-        </router-link>
-        <router-link tag="li" :to="{ name: 'licenses-contracts-mysql' }" exact>
-          <a>{{ `${$i18n.t('menu.mysql')}` }}</a>
-        </router-link>
         <router-link
-          tag="li"
-          :to="{ name: 'licenses-contracts-sqlserver' }"
-          exact
+          v-for="tab in tabs"
+          :key="tab"
+          :to="{ name: `licenses-contracts-${tab}` }"
+          v-slot="{ navigate }"
+          custom
         >
-          <a>{{ `${$i18n.t('menu.sqlserver')}` }}</a>
-        </router-link>
-        <router-link
-          tag="li"
-          :to="{ name: 'licenses-contracts-postgresql' }"
-          exact
-        >
-          <a>{{ `${$i18n.t('menu.postgresql')}` }}</a>
-        </router-link>
-        <router-link
-          tag="li"
-          :to="{ name: 'licenses-contracts-mongodb' }"
-          exact
-        >
-          <a>{{ `${$i18n.t('menu.mongodb')}` }}</a>
+          <li
+            @click="navigate"
+            role="link"
+            :class="{ 'is-active': getRouteName === tab }"
+          >
+            <a>{{ `${$i18n.t(`menu.${tab}`)}` }}</a>
+          </li>
         </router-link>
       </ul>
     </div>
 
-    <router-view></router-view>
+    <router-view />
   </section>
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'licensescontracts-page',
   data() {
     return {
-      activeTab: 0,
+      tabs: ['oracle', 'mysql', 'sqlserver', 'postgresql', 'mongodb'],
     }
   },
   mounted() {
@@ -52,6 +41,11 @@ export default {
   },
   methods: {
     ...mapActions(['getLicensesHosts', 'getLicensesClusters']),
+  },
+  computed: {
+    getRouteName() {
+      return _.last(_.split(this.$route.path, '/'))
+    },
   },
 }
 </script>
