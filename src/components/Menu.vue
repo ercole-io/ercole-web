@@ -271,10 +271,10 @@ export default {
           hidden: this.checkMenu('Hypervisors', ''),
         },
         {
-          href: { name: 'engineered-systems' },
-          title: this.$i18n.t('menu.engSystems'),
+          href: { name: 'exadata' },
+          title: this.$i18n.t('menu.exadata'),
           icon: 'far fa-calendar-times',
-          attributes: { 'data-cy': 'mn-engineered-systems' },
+          attributes: { 'data-cy': 'mn-exadata' },
           hidden: this.checkMenu('Engineered Systems', ''),
         },
         {
