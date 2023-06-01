@@ -1,6 +1,6 @@
 <template>
   <ToggleColumns
-    getPage="oracleContracts"
+    getPage="postgreContracts"
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('views.licenses.agreeForm')"
   >

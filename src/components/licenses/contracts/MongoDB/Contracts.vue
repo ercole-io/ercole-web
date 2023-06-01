@@ -1,6 +1,6 @@
 <template>
   <ToggleColumns
-    getPage="oracleContracts"
+    getPage="mongoContracts"
     :leftButton="$t('common.forms.advancedFilters')"
     :rightButton="$t('views.licenses.agreeForm')"
   >
