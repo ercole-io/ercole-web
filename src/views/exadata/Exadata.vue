@@ -10,7 +10,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import ExadataTables from '@/components/engineered/exadatas/ExadataTables.vue'
+import ExadataTables from '@/components/exadata/exadatas/ExadataTables.vue'
 
 export default {
   name: 'engineered-page',
@@ -18,10 +18,10 @@ export default {
     ExadataTables,
   },
   async beforeMount() {
-    await this.getEngineeredSystems()
+    await this.getExadataData()
   },
   methods: {
-    ...mapActions(['getEngineeredSystems']),
+    ...mapActions(['getExadataData']),
   },
 }
 </script>

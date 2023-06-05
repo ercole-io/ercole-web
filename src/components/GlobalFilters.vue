@@ -197,7 +197,7 @@ export default {
       'getPatchAdvisor',
       'getClusters',
       'getClusterByName',
-      'getEngineeredSystems',
+      'getExadataData',
       'getMysqlDbs',
       'getComplianceList',
       'getMsSqlServerDbs',
@@ -298,7 +298,7 @@ export default {
           this.getLicensesClusters().then(() => this.offLoadingTable())
           break
         case 'engineered-systems':
-          this.getEngineeredSystems().then(() => this.offLoadingTable())
+          this.getExadataData().then(() => this.offLoadingTable())
           break
         case 'mysql':
           this.getMysqlDbs().then(() => this.offLoadingTable())

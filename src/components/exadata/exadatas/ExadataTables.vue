@@ -2,7 +2,7 @@
   <article>
     <div
       class="is-flex is-justify-content-flex-end"
-      v-if="getEngSys.length > 0"
+      v-if="getExadata.length > 0"
     >
       <SearchInput v-model="exadataSearchTherm" class="mr-2" />
       <ExportButton url="exadata" expName="exadata" />
@@ -68,7 +68,7 @@
       <NoContent
         class="column is-12"
         style="height: 370px; background-color: #eeeeee"
-        v-if="getEngSys.length === 0 && !loadingTableStatus"
+        v-if="getExadata.length === 0 && !loadingTableStatus"
       />
     </div>
   </article>
@@ -83,12 +83,12 @@ import GhostLoading from '@/components/common/GhostLoading.vue'
 import NoContent from '@/components/common/NoContent.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
-import ExadataProgress from '@/components/engineered/exadatas/ExadataProgress.vue'
-import ExadataTypes from '@/components/engineered/exadatas/ExadataTypes.vue'
+import ExadataProgress from '@/components/exadata/exadatas/ExadataProgress.vue'
+import ExadataTypes from '@/components/exadata/exadatas/ExadataTypes.vue'
 
 export default {
   mixins: [tooltipMixin],
-  name: 'engineered-tables-component',
+  name: 'exadata-tables-component',
   components: {
     BoxContent,
     GhostLoading,
@@ -112,14 +112,14 @@ export default {
       this.domOpenRows = []
       this.stoOpenRows = []
 
-      return this.getEngSys
+      return this.getExadata
     },
   },
   computed: {
-    ...mapGetters(['getEngSys', 'loadingTableStatus']),
+    ...mapGetters(['getExadata', 'loadingTableStatus']),
     exadataSearch() {
       if (this.exadataSearchTherm !== '') {
-        const search = _.filter(this.getEngSys, (obj) => {
+        const search = _.filter(this.getExadata, (obj) => {
           const searchIncludes = (data) => {
             return _.includes(
               _.lowerCase(JSON.stringify(data)),

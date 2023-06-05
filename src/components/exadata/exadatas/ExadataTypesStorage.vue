@@ -117,8 +117,8 @@
 <script>
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
-import StorageDatabaseModal from '@/components/engineered/exadatas/StorageDatabaseModal.vue'
-import StorageGridDisksModal from '@/components/engineered/exadatas/StorageGridDisksModal.vue'
+import StorageDatabaseModal from '@/components/exadata/exadatas/StorageDatabaseModal.vue'
+import StorageGridDisksModal from '@/components/exadata/exadatas/StorageGridDisksModal.vue'
 
 export default {
   mixins: [tooltipMixin, HighlightSearchMixin],
