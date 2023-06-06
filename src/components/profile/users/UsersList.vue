@@ -24,7 +24,11 @@
           pack="fas"
           icon="edit"
           @click.native="upUser(rowData.scope)"
-          v-if="rowData.scope.username !== 'ercole' && isAdmin"
+          v-if="
+            rowData.scope.username !== 'ercole' &&
+            isAdmin &&
+            rowData.scope.provider === 'basic'
+          "
         />
       </td>
       <td style="min-width: 0" v-if="isAdmin">
