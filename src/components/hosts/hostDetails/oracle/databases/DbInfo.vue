@@ -77,9 +77,9 @@
               <li>Memory</li>
               <li v-if="dbInfo.memoryTarget">
                 <span>Memory Target</span>
-                <SimpleBooleanIcon
-                  :value="dbInfo.memoryTarget"
+                <span
                   v-tooltip.right="options(dbInfo.memoryTarget)"
+                  v-html="highlight(dbInfo.memoryTarget)"
                 />
               </li>
               <li v-if="dbInfo.pgaTarget">

@@ -19,7 +19,7 @@ const mapOracleDatabases = (data, extraData) => {
       blockSize: item.blockSize.toString(),
       charset: item.charset.toString(),
       nCharset: item.nCharset.toString(),
-      memoryTarget: item.memoryTarget ? 'yes' : 'no',
+      memoryTarget: item.memoryTarget.toString(),
       pgaTarget: item.pgaTarget.toString(),
       sgaMaxSize: item.sgaMaxSize.toString(),
       sgaTarget: item.sgaTarget.toString(),
