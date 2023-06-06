@@ -10,7 +10,7 @@
       <UsersList />
     </div>
     <div class="column is-3" v-if="isAdmin">
-      <div class="is-flex py-3 is-justify-content-space-around">
+      <!-- <div class="is-flex py-3 is-justify-content-space-around">
         <b-radio
           v-model="provider"
           size="is-small"
@@ -27,7 +27,7 @@
         >
           LDAP
         </b-radio>
-      </div>
+      </div> -->
 
       <template v-if="provider === 'basic'">
         <AdvancedFiltersBase
@@ -245,7 +245,7 @@
         </AdvancedFiltersBase>
       </template>
 
-      <template v-if="provider === 'ldap'">
+      <!-- <template v-if="provider === 'ldap'">
         <AdvancedFiltersBase
           filterTitle="Add or Update an LDAP User"
           :submitAction="createUpdateUserLdap"
@@ -405,7 +405,7 @@
             </div>
           </b-field>
         </AdvancedFiltersBase>
-      </template>
+      </template> -->
     </div>
   </div>
 </template>
@@ -414,7 +414,7 @@
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
-import { axiosRequest } from '@/services/services.js'
+// import { axiosRequest } from '@/services/services.js'
 import { helpers, requiredIf, sameAs } from 'vuelidate/lib/validators'
 import UsersList from '@/components/profile/users/UsersList.vue'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
@@ -441,19 +441,19 @@ export default {
         confirmPassword: '',
         groups: [],
       },
-      userLdapForm: {
-        GivenName: '',
-        Sn: '',
-        Uid: '',
-        groups: [],
-      },
+      // userLdapForm: {
+      //   GivenName: '',
+      //   Sn: '',
+      //   Uid: '',
+      //   groups: [],
+      // },
       provider: 'basic',
-      isUpdateLdap: false,
+      // isUpdateLdap: false,
       isUpdateBasic: false,
       searchGroup: '',
-      ldapUsersData: [],
-      ldapUserSelected: null,
-      ldapUserError: '',
+      // ldapUsersData: [],
+      // ldapUserSelected: null,
+      // ldapUserError: '',
     }
   },
   validations() {
@@ -481,18 +481,18 @@ export default {
           $lazy: true,
         },
       },
-      userLdapForm: {
-        GivenName: {
-          required: requiredIf(() => this.provider === 'ldap'),
-        },
-        Sn: {
-          required: requiredIf(() => this.provider === 'ldap'),
-        },
-        Uid: {
-          required: requiredIf(() => this.provider === 'ldap'),
-          noSpaces,
-        },
-      },
+      // userLdapForm: {
+      //   GivenName: {
+      //     required: requiredIf(() => this.provider === 'ldap'),
+      //   },
+      //   Sn: {
+      //     required: requiredIf(() => this.provider === 'ldap'),
+      //   },
+      //   Uid: {
+      //     required: requiredIf(() => this.provider === 'ldap'),
+      //     noSpaces,
+      //   },
+      // },
     }
   },
   async beforeMount() {
@@ -501,25 +501,26 @@ export default {
 
     bus.$on('onResetAction', () => this.resetForm())
     bus.$on('updateUser', (data) => {
+      console.log(data)
       this.provider = data.provider
 
-      if (this.provider === 'ldap') {
-        this.isUpdateBasic = false
-        this.resetBasicForm()
+      // if (this.provider === 'ldap') {
+      //   this.isUpdateBasic = false
+      //   this.resetBasicForm()
 
-        this.isUpdateLdap = true
+      //   this.isUpdateLdap = true
 
-        this.userLdapForm = {
-          GivenName: data.user.firstName,
-          Sn: data.user.lastName,
-          Uid: data.user.username,
-          groups: _.isArray(data.user.groups) ? data.user.groups : [],
-        }
-      }
+      //   this.userLdapForm = {
+      //     GivenName: data.user.firstName,
+      //     Sn: data.user.lastName,
+      //     Uid: data.user.username,
+      //     groups: _.isArray(data.user.groups) ? data.user.groups : [],
+      //   }
+      // }
 
       if (this.provider === 'basic') {
-        this.isUpdateLdap = false
-        this.resetLdapForm()
+        // this.isUpdateLdap = false
+        // this.resetLdapForm()
 
         this.isUpdateBasic = true
 
@@ -553,42 +554,42 @@ export default {
         })
       }
     },
-    createUpdateUserLdap() {
-      if (this.isUpdateLdap) {
-        this.updateUser({
-          data: {
-            groups: this.userLdapForm.groups,
-          },
-          username: this.userLdapForm.Uid,
-          provider: this.provider,
-        }).then(() => {
-          this.resetForm()
-        })
-      } else {
-        this.createUser({
-          data: {
-            userLdap: {
-              GivenName: this.userLdapForm.GivenName,
-              Sn: this.userLdapForm.Sn,
-              Uid: this.userLdapForm.Uid,
-            },
-            groups: this.userLdapForm.groups,
-          },
-          provider: this.provider,
-        }).then(() => {
-          this.resetForm()
-        })
-      }
-    },
-    resetLdapForm() {
-      this.userLdapForm = {
-        GivenName: '',
-        Sn: '',
-        Uid: '',
-        groups: [],
-      }
-      this.isUpdateLdap = false
-    },
+    // createUpdateUserLdap() {
+    //   if (this.isUpdateLdap) {
+    //     this.updateUser({
+    //       data: {
+    //         groups: this.userLdapForm.groups,
+    //       },
+    //       username: this.userLdapForm.Uid,
+    //       provider: this.provider,
+    //     }).then(() => {
+    //       this.resetForm()
+    //     })
+    //   } else {
+    //     this.createUser({
+    //       data: {
+    //         userLdap: {
+    //           GivenName: this.userLdapForm.GivenName,
+    //           Sn: this.userLdapForm.Sn,
+    //           Uid: this.userLdapForm.Uid,
+    //         },
+    //         groups: this.userLdapForm.groups,
+    //       },
+    //       provider: this.provider,
+    //     }).then(() => {
+    //       this.resetForm()
+    //     })
+    //   }
+    // },
+    // resetLdapForm() {
+    //   this.userLdapForm = {
+    //     GivenName: '',
+    //     Sn: '',
+    //     Uid: '',
+    //     groups: [],
+    //   }
+    //   this.isUpdateLdap = false
+    // },
     resetBasicForm() {
       this.userBasicForm = {
         firstName: '',
@@ -604,9 +605,9 @@ export default {
         this.resetBasicForm()
       }
 
-      if (this.provider === 'ldap') {
-        this.resetLdapForm()
-      }
+      // if (this.provider === 'ldap') {
+      //   this.resetLdapForm()
+      // }
     },
     onSearchGroupClear() {
       this.searchGroup = ''
@@ -619,46 +620,46 @@ export default {
       }
       return this.showGroups
     },
-    filteredLdapUsers: _.debounce(function (username) {
-      if (!username.length) {
-        this.ldapUsersData = []
-        return
-      }
+    // filteredLdapUsers: _.debounce(function (username) {
+    //   if (!username.length) {
+    //     this.ldapUsersData = []
+    //     return
+    //   }
 
-      const config = {
-        method: 'get',
-        url: `users/ldap/${username}`,
-      }
+    //   const config = {
+    //     method: 'get',
+    //     url: `users/ldap/${username}`,
+    //   }
 
-      axiosRequest('baseApi', config)
-        .then((res) => {
-          this.ldapUsersData = res.data
-        })
-        .catch((err) => {
-          this.ldapUserError = err.data.error
-        })
-    }, 1000),
-    selecteLdapUser(option) {
-      if (option) {
-        this.userLdapForm = {
-          GivenName: option.givenName,
-          Sn: option.sn,
-          Uid: option.uid,
-          groups: [],
-        }
-      } else {
-        this.resetLdapForm()
-        this.ldapUsersData = []
-      }
-    },
-    clearLdapUsersSearch() {
-      this.userLdapForm = {
-        GivenName: '',
-        Sn: '',
-        Uid: '',
-      }
-      this.ldapUsersData = []
-    },
+    //   axiosRequest('baseApi', config)
+    //     .then((res) => {
+    //       this.ldapUsersData = res.data
+    //     })
+    //     .catch((err) => {
+    //       this.ldapUserError = err.data.error
+    //     })
+    // }, 1000),
+    // selecteLdapUser(option) {
+    //   if (option) {
+    //     this.userLdapForm = {
+    //       GivenName: option.givenName,
+    //       Sn: option.sn,
+    //       Uid: option.uid,
+    //       groups: [],
+    //     }
+    //   } else {
+    //     this.resetLdapForm()
+    //     this.ldapUsersData = []
+    //   }
+    // },
+    // clearLdapUsersSearch() {
+    //   this.userLdapForm = {
+    //     GivenName: '',
+    //     Sn: '',
+    //     Uid: '',
+    //   }
+    //   this.ldapUsersData = []
+    // },
   },
   computed: {
     ...mapGetters(['showGroups', 'isAdmin', 'getProvider']),
