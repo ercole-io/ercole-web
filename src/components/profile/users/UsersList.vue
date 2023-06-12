@@ -17,45 +17,43 @@
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
-      <td style="min-width: 0; text-align: center" v-if="isAdmin">
-        <b-icon
-          v-tooltip="options($t('common.general.edit'))"
-          type="is-info"
-          pack="fas"
-          icon="edit"
-          @click.native="upUser(rowData.scope)"
-          v-if="rowData.scope.username !== 'ercole' && isAdmin"
-        />
-      </td>
-      <td style="min-width: 0" v-if="isAdmin">
-        <b-button
-          v-tooltip="`Reset Password`"
-          type="is-ghost"
-          icon-pack="fas"
-          icon-right="repeat"
-          size="is-small"
-          @click.native="newPass(rowData.scope.username)"
-          v-if="
-            rowData.scope.username !== 'ercole' &&
-            isAdmin &&
-            rowData.scope.provider === 'basic'
-          "
-          :loading="resetPassLoading"
-        />
-      </td>
-      <td style="min-width: 0" v-if="isAdmin">
-        <b-icon
-          v-tooltip="options($t('common.general.delete'))"
-          type="is-danger"
-          pack="fas"
-          icon="trash-alt"
-          size="is-small"
-          @click.native="
-            delUser(rowData.scope.username, rowData.scope.provider)
-          "
-          v-if="rowData.scope.username !== 'ercole' && isAdmin"
-        />
-      </td>
+      <template v-if="isAdmin">
+        <td style="min-width: 0; text-align: center">
+          <b-icon
+            v-tooltip="options($t('common.general.edit'))"
+            type="is-info"
+            pack="fas"
+            icon="edit"
+            @click.native="upUser(rowData.scope)"
+            v-if="verifyShowing(rowData.scope)"
+          />
+        </td>
+        <td style="min-width: 0">
+          <b-button
+            v-tooltip="`Reset Password`"
+            type="is-ghost"
+            icon-pack="fas"
+            icon-right="repeat"
+            size="is-small"
+            @click.native="newPass(rowData.scope.username)"
+            v-if="verifyShowing(rowData.scope)"
+            :loading="resetPassLoading"
+          />
+        </td>
+        <td style="min-width: 0">
+          <b-icon
+            v-tooltip="options($t('common.general.delete'))"
+            type="is-danger"
+            pack="fas"
+            icon="trash-alt"
+            size="is-small"
+            @click.native="
+              delUser(rowData.scope.username, rowData.scope.provider)
+            "
+            v-if="rowData.scope.username !== 'ercole' && isAdmin"
+          />
+        </td>
+      </template>
       <TdContent :value="rowData.scope.firstName" />
       <TdContent :value="rowData.scope.lastName" />
       <TdContent :value="rowData.scope.username" />
@@ -127,6 +125,11 @@ export default {
           this.deleteUser({ username: username, provider: provider })
         },
       })
+    },
+    verifyShowing(data) {
+      return (
+        data.username !== 'ercole' && this.isAdmin && data.provider === 'basic'
+      )
     },
   },
   computed: {
