@@ -1,6 +1,6 @@
 {
-  "APIServiceBaseUrl": "http://example-domain/main-api",
-  "ChartServiceBaseUrl": "http://example-domain/chart-api",
-  "ThunderServiceBaseUrl": "http://example-domain/cloud-api",
-  "RepoServiceBaseUrl": "http://example-domain/repo-api"
+  "APIServiceBaseUrl": "http://localhost:11113",
+  "ChartServiceBaseUrl": "http://localhost:11116",
+  "ThunderServiceBaseUrl": "http://localhost:11117",
+  "RepoServiceBaseUrl": "https://repository.ercole.io/api"
 }
