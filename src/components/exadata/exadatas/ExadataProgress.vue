@@ -5,12 +5,15 @@
       <b-progress
         format="percent"
         type="is-warning"
-        :value="exadataProgress.usedMemory"
+        :value="
+          calcValues(exadataProgress.totalMemory, exadataProgress.freeMemory)
+        "
         show-value
         v-tooltip.bottom="
           options(
             setTooltip(
               exadataProgress.totalMemory,
+              exadataProgress.usedMemory,
               exadataProgress.freeMemory,
               'GB'
             )
@@ -23,11 +26,16 @@
       <b-progress
         format="percent"
         type="is-warning"
-        :value="exadataProgress.usedCPU"
+        :value="calcValues(exadataProgress.totalCPU, exadataProgress.freeCPU)"
         show-value
         v-tooltip.bottom="
           options(
-            setTooltip(exadataProgress.totalCPU, exadataProgress.freeCPU, 'GB')
+            setTooltip(
+              exadataProgress.totalCPU,
+              exadataProgress.usedCPU,
+              exadataProgress.freeCPU,
+              'GB'
+            )
           )
         "
       />
@@ -36,6 +44,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 
 export default {
@@ -48,11 +57,11 @@ export default {
     },
   },
   methods: {
-    setTooltip(total, free, format) {
-      return `Total: ${total}${format}<br>Free: ${free}${format}`
+    setTooltip(total, free, used, format) {
+      return `Total: ${total}${format}<br>Used: ${used}${format}<br>Free: ${free}${format}`
     },
     calcValues(total, free) {
-      return (total - free) * 1
+      return _.toNumber((free / total) * 100) || 0
     },
   },
 }
