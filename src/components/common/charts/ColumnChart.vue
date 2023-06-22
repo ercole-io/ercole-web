@@ -8,7 +8,8 @@
     :colors="colors"
     :legend="legend"
     :messages="{ empty: 'No data' }"
-    :style="{ height: chartHeight }"
+    :style="{ height: chartHeight, width: '250px' }"
+    :bytes="true"
   />
 </template>
 
