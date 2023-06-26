@@ -1,11 +1,13 @@
 <template>
   <b-tab-item label="Capacity 2">
-    <BoxContent border title="Database">
+    <BoxContent border title="CPU Database">
       <apex-chart
         type="bar"
-        height="350"
+        height="300"
+        width="100%"
         :options="chartOptions"
         :series="series"
+        id="demoChart"
       />
     </BoxContent>
   </b-tab-item>
@@ -25,7 +27,7 @@ export default {
   components: {
     BoxContent,
   },
-  data: function () {
+  data: () => {
     return {
       series: [
         {
@@ -189,29 +191,20 @@ export default {
           ],
         },
       ],
-      chartOptions: {
-        height: 350,
-        type: 'bar',
-      },
-      plotOptions: {
-        bar: {
-          columnWidth: '60%',
-        },
-      },
-      colors: ['#00E396'],
-      dataLabels: {
-        enabled: false,
-      },
       legend: {
-        // show: true,
-        // showForSingleSeries: true,
-        // customLegendItems: ['Actual', 'Expected'],
-        // markers: {
-        //   fillColors: ['#00E396', '#775DD0'],
-        // },
-        position: 'bottom',
-        offsetX: 200,
-        offsetY: 200,
+        show: true,
+      },
+      chartOptions: {
+        chart: {
+          id: 'demoChart',
+        },
+        xaxis: {
+          labels: {
+            style: {
+              colors: ['red', 'green', 'blue'],
+            },
+          },
+        },
       },
     }
   },

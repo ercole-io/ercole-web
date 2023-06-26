@@ -1,42 +1,44 @@
 <template>
   <b-tab-item label="Capacity">
-    <div class="is-flex is-flex-wrap-wrap is-justify-content-space-evenly">
-      <BoxContent border title="Month">
-        <ColumnChart
-          chartId="monthlyCapacity"
-          :columnChartData="data"
-          chartHeight="250"
-        />
-      </BoxContent>
-      <BoxContent border title="Week 1">
-        <ColumnChart
-          chartId="firstweekCapacity"
-          :columnChartData="data1"
-          chartHeight="250"
-        />
-      </BoxContent>
-      <BoxContent border title="Week 2">
-        <ColumnChart
-          chartId="secondweekCapacity"
-          :columnChartData="data2"
-          chartHeight="250"
-        />
-      </BoxContent>
-      <BoxContent border title="Week 3">
-        <ColumnChart
-          chartId="thirdweekCapacity"
-          :columnChartData="data3"
-          chartHeight="250"
-        />
-      </BoxContent>
-      <BoxContent border title="Week 4">
-        <ColumnChart
-          chartId="fourthweekCapacity"
-          :columnChartData="data4"
-          chartHeight="250"
-        />
-      </BoxContent>
-    </div>
+    <BoxContent border title="CPU Database">
+      <div class="is-flex is-flex-wrap-wrap is-justify-content-space-evenly">
+        <BoxContent border title="Month">
+          <ColumnChart
+            chartId="monthlyCapacity"
+            :columnChartData="data"
+            chartHeight="250"
+          />
+        </BoxContent>
+        <BoxContent border title="Week 1">
+          <ColumnChart
+            chartId="firstweekCapacity"
+            :columnChartData="data1"
+            chartHeight="250"
+          />
+        </BoxContent>
+        <BoxContent border title="Week 2">
+          <ColumnChart
+            chartId="secondweekCapacity"
+            :columnChartData="data2"
+            chartHeight="250"
+          />
+        </BoxContent>
+        <BoxContent border title="Week 3">
+          <ColumnChart
+            chartId="thirdweekCapacity"
+            :columnChartData="data3"
+            chartHeight="250"
+          />
+        </BoxContent>
+        <BoxContent border title="Week 4">
+          <ColumnChart
+            chartId="fourthweekCapacity"
+            :columnChartData="data4"
+            chartHeight="250"
+          />
+        </BoxContent>
+      </div>
+    </BoxContent>
   </b-tab-item>
 </template>
 

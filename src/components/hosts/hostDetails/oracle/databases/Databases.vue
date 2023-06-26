@@ -79,6 +79,7 @@
         <DbCapacity />
         <DbCapacity1 />
         <DbCapacity2 />
+        <DbCapacity3 />
       </b-tabs>
     </b-tab-item>
   </b-tabs>
@@ -106,6 +107,7 @@ import DbPartitionings from '@/components/hosts/hostDetails/oracle/databases/DbP
 import DbCapacity from '@/components/hosts/hostDetails/oracle/databases/DbCapacity.vue'
 import DbCapacity1 from '@/components/hosts/hostDetails/oracle/databases/DbCapacity1.vue'
 import DbCapacity2 from '@/components/hosts/hostDetails/oracle/databases/DbCapacity2.vue'
+import DbCapacity3 from '@/components/hosts/hostDetails/oracle/databases/DbCapacity3.vue'
 
 export default {
   name: 'hosts-details-oracle-databases-dbs-component',
@@ -129,6 +131,7 @@ export default {
     DbCapacity,
     DbCapacity1,
     DbCapacity2,
+    DbCapacity3,
   },
 }
 </script>
