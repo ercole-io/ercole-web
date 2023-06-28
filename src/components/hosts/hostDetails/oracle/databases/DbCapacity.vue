@@ -6,8 +6,8 @@
         height="300"
         width="100%"
         :options="chartOptions"
-        :series="series"
-        id="demoChart"
+        :series="cpuCapacitySeries"
+        id="cpuCapacityChart"
       />
     </BoxContent>
   </b-tab-item>
@@ -27,186 +27,270 @@ export default {
   components: {
     BoxContent,
   },
+  // beforeMount() {
+  //   console.log(this.capacity)
+  // },
   data: () => {
     return {
-      series: [
+      monthColor: 'rgb(87, 117, 144)',
+      weekColor: 'rgb(67, 170, 139)',
+      dayColor: 'rgba(153, 102, 255)',
+      maxColor: 'rgb(249, 65, 68)',
+    }
+  },
+  computed: {
+    chartOptions() {
+      return {
+        // yaxis: {
+        //   labels: {
+        //     formatter: function (value) {
+        //       return value + ' GB'
+        //     },
+        //   },
+        // },
+        xaxis: {
+          // labels: {
+          //   formatter: function (value) {
+          //     return value
+          //   },
+          // },
+          group: {
+            style: {
+              fontSize: '12px',
+              fontWeight: 'bold',
+            },
+            groups: [
+              { title: 'Month', cols: 1 },
+              { title: 'Weeks', cols: 4 },
+              { title: 'Days', cols: 7 },
+            ],
+          },
+        },
+        dataLabels: {
+          enabled: true,
+          style: {
+            colors: ['#333'],
+            fontSize: '12px',
+            fontWeight: 'bold',
+          },
+          // dropShadow: {
+          //   enabled: true,
+          //   left: 2,
+          //   top: 2,
+          //   opacity: 0.5,
+          // },
+          background: {
+            enabled: true,
+            foreColor: '#fff',
+            borderRadius: 4,
+            padding: 3,
+            opacity: 0.7,
+            borderWidth: 1,
+            borderColor: '#fff',
+          },
+          offsetX: 0,
+          offsetY: 0,
+        },
+        grid: {
+          position: 'back',
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              position: 'bottom',
+            },
+          },
+        },
+        legend: {
+          show: true,
+          showForSingleSeries: true,
+          customLegendItems: ['Month Avg', 'Week Avg', 'Day Avg', 'Max'],
+          markers: {
+            fillColors: [
+              this.monthColor,
+              this.weekColor,
+              this.dayColor,
+              this.maxColor,
+            ],
+          },
+          onItemClick: {
+            toggleDataSeries: false,
+          },
+        },
+      }
+    },
+    cpuCapacitySeries() {
+      return [
         {
           name: 'Average',
           data: [
             {
-              x: 'Month',
-              y: 1292,
+              x: 'M',
+              y: this.capacity[0].cpuDbAvg,
+              fillColor: this.monthColor,
               goals: [
                 {
                   name: 'Max',
-                  value: 1400,
+                  value: this.capacity[0].cpuDbMax,
                   strokeHeight: 2,
-                  strokeColor: '#775DD0',
+                  strokeColor: this.maxColor,
                 },
               ],
             },
             {
-              x: 'Week 1',
-              y: 4432,
+              x: 'W4',
+              y: this.capacity[1].cpuDbAvg,
+              fillColor: this.weekColor,
               goals: [
                 {
                   name: 'Max',
-                  value: 5400,
+                  value: this.capacity[1].cpuDbMax,
                   strokeHeight: 2,
-                  strokeColor: '#775DD0',
+                  strokeColor: this.maxColor,
                 },
               ],
+              tooltip: {
+                x: {
+                  formatter: (val) => {
+                    return `Week ${val}`
+                  },
+                },
+              },
             },
             {
-              x: 'Week 2',
-              y: 5423,
+              x: 'W3',
+              y: this.capacity[2].cpuDbAvg,
+              fillColor: this.weekColor,
               goals: [
                 {
                   name: 'Max',
-                  value: 5200,
+                  value: this.capacity[2].cpuDbMax,
                   strokeHeight: 2,
-                  strokeColor: '#775DD0',
+                  strokeColor: this.maxColor,
                 },
               ],
             },
             {
-              x: 'Week 3',
-              y: 6653,
+              x: 'W2',
+              y: this.capacity[3].cpuDbAvg,
+              fillColor: this.weekColor,
               goals: [
                 {
                   name: 'Max',
-                  value: 6500,
+                  value: this.capacity[3].cpuDbMax,
                   strokeHeight: 2,
-                  strokeColor: '#775DD0',
+                  strokeColor: this.maxColor,
                 },
               ],
             },
             {
-              x: 'Week 4',
-              y: 8133,
+              x: 'W1',
+              y: this.capacity[4].cpuDbAvg,
+              fillColor: this.weekColor,
               goals: [
                 {
                   name: 'Max',
-                  value: 6600,
-                  strokeHeight: 13,
-                  strokeWidth: 0,
-                  strokeLineCap: 'round',
-                  strokeColor: '#775DD0',
-                },
-              ],
-            },
-            {
-              x: 'Day 1',
-              y: 7132,
-              goals: [
-                {
-                  name: 'Max',
-                  value: 7500,
-                  strokeHeight: 13,
-                  strokeWidth: 0,
-                  strokeLineCap: 'round',
-                  strokeColor: '#775DD0',
-                },
-              ],
-            },
-            {
-              x: 'Day 2',
-              y: 7332,
-              goals: [
-                {
-                  name: 'Max',
-                  value: 8700,
-                  strokeHeight: 13,
-                  strokeWidth: 0,
-                  strokeLineCap: 'round',
-                  strokeColor: '#775DD0',
-                },
-              ],
-            },
-            {
-              x: 'Day 3',
-              y: 6553,
-              goals: [
-                {
-                  name: 'Max',
-                  value: 7300,
+                  value: this.capacity[4].cpuDbMax,
                   strokeHeight: 2,
-                  strokeDashArray: 2,
-                  strokeColor: '#775DD0',
+                  strokeColor: this.maxColor,
                 },
               ],
             },
             {
-              x: 'Day 4',
-              y: 6553,
+              x: 'D7',
+              y: this.capacity[5].cpuDbAvg,
+              fillColor: this.dayColor,
               goals: [
                 {
                   name: 'Max',
-                  value: 7300,
+                  value: this.capacity[5].cpuDbMax,
                   strokeHeight: 2,
-                  strokeDashArray: 2,
-                  strokeColor: '#775DD0',
+                  strokeColor: this.maxColor,
                 },
               ],
             },
             {
-              x: 'Day 5',
-              y: 6553,
+              x: 'D6',
+              y: this.capacity[6].cpuDbAvg,
+              fillColor: this.dayColor,
               goals: [
                 {
                   name: 'Max',
-                  value: 7300,
+                  value: this.capacity[6].cpuDbMax,
                   strokeHeight: 2,
-                  strokeDashArray: 2,
-                  strokeColor: '#775DD0',
+                  strokeColor: this.maxColor,
                 },
               ],
             },
             {
-              x: 'Day 6',
-              y: 6553,
+              x: 'D5',
+              y: this.capacity[7].cpuDbAvg,
+              fillColor: this.dayColor,
               goals: [
                 {
                   name: 'Max',
-                  value: 7300,
+                  value: this.capacity[7].cpuDbMax,
                   strokeHeight: 2,
-                  strokeDashArray: 2,
-                  strokeColor: '#775DD0',
+                  strokeColor: this.maxColor,
                 },
               ],
             },
             {
-              x: 'Day 7',
-              y: 6553,
+              x: 'D4',
+              y: this.capacity[8].cpuDbAvg,
+              fillColor: this.dayColor,
               goals: [
                 {
                   name: 'Max',
-                  value: 7300,
+                  value: this.capacity[8].cpuDbMax,
                   strokeHeight: 2,
-                  strokeDashArray: 2,
-                  strokeColor: '#775DD0',
+                  strokeColor: this.maxColor,
+                },
+              ],
+            },
+            {
+              x: 'D3',
+              y: this.capacity[9].cpuDbAvg,
+              fillColor: this.dayColor,
+              goals: [
+                {
+                  name: 'Max',
+                  value: this.capacity[9].cpuDbMax,
+                  strokeHeight: 2,
+                  strokeColor: this.maxColor,
+                },
+              ],
+            },
+            {
+              x: 'D2',
+              y: this.capacity[10].cpuDbAvg,
+              fillColor: this.dayColor,
+              goals: [
+                {
+                  name: 'Max',
+                  value: this.capacity[10].cpuDbMax,
+                  strokeHeight: 2,
+                  strokeColor: this.maxColor,
+                },
+              ],
+            },
+            {
+              x: 'D1',
+              y: this.capacity[11].cpuDbAvg,
+              fillColor: this.dayColor,
+              goals: [
+                {
+                  name: 'Max',
+                  value: this.capacity[11].cpuDbMax,
+                  strokeHeight: 2,
+                  strokeColor: this.maxColor,
                 },
               ],
             },
           ],
         },
-      ],
-      legend: {
-        show: true,
-      },
-      chartOptions: {
-        chart: {
-          id: 'demoChart',
-        },
-        xaxis: {
-          labels: {
-            style: {
-              colors: ['red', 'green', 'blue'],
-            },
-          },
-        },
-      },
-    }
+      ]
+    },
   },
 }
 </script>

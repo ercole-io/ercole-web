@@ -34,7 +34,7 @@ export default {
       if (this.isOracle) {
         this.updateOracleChart(index)
       }
-      this.isActiveSub = 0
+      this.isActiveSub = 6
     },
     updateOracleChart(dbIndex) {
       if (this.currentHostFiltered[dbIndex]) {

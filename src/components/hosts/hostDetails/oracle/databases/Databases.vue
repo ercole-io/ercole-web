@@ -74,7 +74,7 @@
           :partitionings="dbs.partitionings"
           v-if="dbs.partitionings && dbs.partitionings.length > 0"
         />
-        <DbCapacity />
+        <DbCapacity :capacity="dbs.capacity" />
       </b-tabs>
     </b-tab-item>
   </b-tabs>
