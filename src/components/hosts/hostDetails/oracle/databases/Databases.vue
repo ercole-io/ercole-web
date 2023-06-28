@@ -16,10 +16,8 @@
         size="is-small"
         type="is-toggle"
         v-model="isActiveSub"
-        @input="onChangeSub"
         vertical
         animated
-        destroy-on-hide
       >
         <DbInfo :dbInfo="dbs" v-if="hasInfo" />
         <DbPDBs
@@ -77,9 +75,6 @@
           v-if="dbs.partitionings && dbs.partitionings.length > 0"
         />
         <DbCapacity />
-        <DbCapacity1 />
-        <DbCapacity2 />
-        <DbCapacity3 />
       </b-tabs>
     </b-tab-item>
   </b-tabs>
@@ -105,9 +100,6 @@ import DbPDBs from '@/components/hosts/hostDetails/oracle/databases/DbPDBs.vue'
 import DbGrants from '@/components/hosts/hostDetails/oracle/databases/DbGrants.vue'
 import DbPartitionings from '@/components/hosts/hostDetails/oracle/databases/DbPartitionings.vue'
 import DbCapacity from '@/components/hosts/hostDetails/oracle/databases/DbCapacity.vue'
-import DbCapacity1 from '@/components/hosts/hostDetails/oracle/databases/DbCapacity1.vue'
-import DbCapacity2 from '@/components/hosts/hostDetails/oracle/databases/DbCapacity2.vue'
-import DbCapacity3 from '@/components/hosts/hostDetails/oracle/databases/DbCapacity3.vue'
 
 export default {
   name: 'hosts-details-oracle-databases-dbs-component',
@@ -129,9 +121,6 @@ export default {
     DbGrants,
     DbPartitionings,
     DbCapacity,
-    DbCapacity1,
-    DbCapacity2,
-    DbCapacity3,
   },
 }
 </script>
