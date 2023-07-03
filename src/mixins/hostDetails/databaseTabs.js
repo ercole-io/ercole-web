@@ -34,6 +34,7 @@ export default {
       if (this.isOracle) {
         this.updateOracleChart(index)
       }
+      bus.$emit('onChangeDbTab')
       this.isActiveSub = 0
     },
     updateOracleChart(dbIndex) {
@@ -45,6 +46,9 @@ export default {
           },
         ])
       }
+    },
+    onChangeSub() {
+      bus.$emit('onChangeDbTab')
     },
   },
   computed: {
