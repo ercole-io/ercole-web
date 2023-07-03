@@ -6,13 +6,18 @@
     :mbottom="false"
     customStyle="padding: 0"
   >
-    <SearchInput
-      :searchPlaceholder="$t('views.hostDetails.searchBy')"
-      v-model="searchDb"
-      slot="customTitle"
-      @input="onSearch($event)"
-      v-show="!hideMainSearch"
-    />
+    <template slot="customTitle">
+      <b-tag type="is-danger" class="ml-2" v-if="showMissingDbWarning">
+        This host has some missing Databases!
+      </b-tag>
+
+      <SearchInput
+        :searchPlaceholder="$t('views.hostDetails.searchBy')"
+        v-model="searchDb"
+        @input="onSearch($event)"
+        v-show="!hideMainSearch"
+      />
+    </template>
 
     <AdvancedFiltersButton slot="customTitle" />
 
@@ -36,7 +41,7 @@
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import databaseTypesMixin from '@/mixins/hostDetails/databaseTypes.js'
 import databaseFiltersMixin from '@/mixins/hostDetails/databaseFilters.js'
@@ -80,11 +85,17 @@ export default {
   },
   computed: {
     ...mapGetters(['currentHostFiltered']),
+    ...mapState(['hostDetails']),
     countDatabases() {
       return this.currentHostFiltered.length
     },
     showDatabases() {
       return this.currentHostFiltered.length > 0
+    },
+    showMissingDbWarning() {
+      return (
+        this.hostDetails.isMissingDB && this.hostDetails.hostType === 'oracle'
+      )
     },
   },
 }
