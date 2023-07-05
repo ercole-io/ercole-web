@@ -1,5 +1,5 @@
 <template>
-  <b-tab-item label="Info" class="databasesInfo">
+  <b-tab-item label="Info" value="Info" class="databasesInfo">
     <div class="columns is-mobile is-multiline">
       <div class="column is-4">
         <ul class="db-info">

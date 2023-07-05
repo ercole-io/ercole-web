@@ -21,6 +21,7 @@ import ClickCopy from 'vue-directive-copy'
 import vueFilterPrettyBytes from 'vue-filter-pretty-bytes'
 // import VueSanitize from 'vue-sanitize'
 import VueMask from 'v-mask'
+import VueApexCharts from 'vue-apexcharts'
 
 import CapitalizeFilter from './filters/capitalize.js'
 import FormatDate from './filters/formatDate.js'
@@ -37,6 +38,9 @@ import 'animate.css'
 Vue.component('default-layout', DefaultPage)
 Vue.component('simple-layout', SimplePage)
 Vue.component('error-layout', ErrorPage)
+
+Vue.use(VueApexCharts)
+Vue.component('apex-chart', VueApexCharts)
 
 Vue.use(VueAsyncManager)
 Vue.use(Buefy)

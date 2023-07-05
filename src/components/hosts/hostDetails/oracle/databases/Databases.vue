@@ -5,7 +5,6 @@
     v-model="isActive"
     @input="onChangeDbTab"
     destroy-on-hide
-    animated
   >
     <b-tab-item
       v-for="(dbs, i) in currentHostFiltered"
@@ -16,10 +15,8 @@
         size="is-small"
         type="is-toggle"
         v-model="isActiveSub"
-        @input="onChangeSub"
         vertical
-        animated
-        destroy-on-hide
+        expanded
       >
         <DbInfo :dbInfo="dbs" v-if="hasInfo" />
         <DbPDBs
@@ -76,6 +73,10 @@
           :partitionings="dbs.partitionings"
           v-if="dbs.partitionings && dbs.partitionings.length > 0"
         />
+        <DbCapacity
+          :capacity="dbs.capacity"
+          v-if="dbs.capacity && dbs.capacity.length > 0"
+        />
       </b-tabs>
     </b-tab-item>
   </b-tabs>
@@ -100,6 +101,7 @@ import DbLicenses from '@/components/hosts/hostDetails/oracle/databases/DbLicens
 import DbPDBs from '@/components/hosts/hostDetails/oracle/databases/DbPDBs.vue'
 import DbGrants from '@/components/hosts/hostDetails/oracle/databases/DbGrants.vue'
 import DbPartitionings from '@/components/hosts/hostDetails/oracle/databases/DbPartitionings.vue'
+import DbCapacity from '@/components/hosts/hostDetails/oracle/databases/capacity/DbCapacity.vue'
 
 export default {
   name: 'hosts-details-oracle-databases-dbs-component',
@@ -120,6 +122,7 @@ export default {
     DbPDBs,
     DbGrants,
     DbPartitionings,
+    DbCapacity,
   },
 }
 </script>

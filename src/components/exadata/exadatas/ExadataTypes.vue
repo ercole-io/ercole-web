@@ -20,7 +20,7 @@
         <b-table-column field="hostname" label="Hostname" centered sortable>
           <template v-slot="props">
             <p
-              v-tooltip.bottom="options(props.row.hostname)"
+              v-tooltip="options(props.row.hostname)"
               v-html="highlight(props.row.hostname)"
             />
           </template>
@@ -31,10 +31,17 @@
             <b-progress
               format="percent"
               type="is-warning"
-              :value="props.row.usedRAM"
+              :value="calcValues(props.row.memory, props.row.freeRAM)"
               show-value
-              v-tooltip.bottom="
-                options(setTooltip(props.row.memory, props.row.freeRAM, 'GB'))
+              v-tooltip="
+                options(
+                  setTooltip(
+                    props.row.memory,
+                    props.row.usedRAM,
+                    props.row.freeRAM,
+                    'GB'
+                  )
+                )
               "
             />
           </template>
@@ -45,10 +52,17 @@
             <b-progress
               format="percent"
               type="is-warning"
-              :value="props.row.usedCPU"
+              :value="calcValues(props.row.totalCPU, props.row.freeCPU)"
               show-value
-              v-tooltip.bottom="
-                options(setTooltip(props.row.totalCPU, props.row.freeCPU, 'GB'))
+              v-tooltip="
+                options(
+                  setTooltip(
+                    props.row.totalCPU,
+                    props.row.usedCPU,
+                    props.row.freeCPU,
+                    'GB'
+                  )
+                )
               "
             />
           </template>
@@ -57,7 +71,7 @@
         <b-table-column field="model" label="Model" centered sortable>
           <template v-slot="props">
             <p
-              v-tooltip.bottom="options(props.row.model)"
+              v-tooltip="options(props.row.model)"
               v-html="highlight(props.row.model)"
             />
           </template>
@@ -66,7 +80,7 @@
         <b-table-column field="swVersion" label="Version" centered sortable>
           <template v-slot="props">
             <p
-              v-tooltip.bottom="options(props.row.swVersion)"
+              v-tooltip="options(props.row.swVersion)"
               v-html="highlight(props.row.swVersion)"
             />
           </template>
@@ -86,6 +100,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import ExadataTypesVms from '@/components/exadata/exadatas/ExadataTypesVms.vue'
@@ -112,8 +127,11 @@ export default {
     ExadataTypesStorage,
   },
   methods: {
-    setTooltip(total, free, format) {
-      return `Total: ${total}${format}<br>Free: ${free}${format}`
+    setTooltip(total, free, used, format) {
+      return `Total: ${total}${format}<br>Used: ${used}${format}<br>Free: ${free}${format}`
+    },
+    calcValues(total, free) {
+      return _.toNumber((free / total) * 100) || 0
     },
   },
 }

@@ -43,8 +43,6 @@ const mapMongoDbDatabases = (data) => {
     })
   })
 
-  console.log(newData)
-
   return newData
 }
 

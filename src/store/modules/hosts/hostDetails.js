@@ -26,6 +26,7 @@ export const state = () => ({
   currentHostDbGrants: [],
   selectedKeys: ['name'],
   searchTermDB: '',
+  isMissingDB: false,
 })
 
 export const getters = {
@@ -191,6 +192,9 @@ export const mutations = {
   SET_SEARCH_TERM_DB: (state, payload) => {
     state.searchTermDB = payload
   },
+  SET_IS_MISSING_DBS: (state, payload) => {
+    state.isMissingDB = payload
+  },
 }
 
 export const actions = {
@@ -235,6 +239,12 @@ export const actions = {
           let getDatabases = []
 
           if (type === 'oracle') {
+            dispatch('hostMissingDatabases', payload.hostname)
+          } else {
+            commit('SET_IS_MISSING_DBS', false)
+          }
+
+          if (type === 'oracle') {
             const oracle = databases.oracle.database.databases
             getDatabases = mapHostDatabases(oracle, extraData, type)
           } else if (type === 'mysql') {
@@ -263,5 +273,15 @@ export const actions = {
         }
       })
       .then(() => dispatch('offLoadingTable'))
+  },
+  async hostMissingDatabases({ commit }, hostname) {
+    const config = {
+      method: 'get',
+      url: `/hosts/${hostname}/is-missing-db`,
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_IS_MISSING_DBS', res.data.IsMissingDB)
+    })
   },
 }

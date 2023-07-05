@@ -9,6 +9,7 @@
     :legend="legend"
     :messages="{ empty: 'No data' }"
     :style="{ height: chartHeight }"
+    :bytes="true"
   />
 </template>
 
