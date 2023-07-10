@@ -3,7 +3,7 @@
     size="is-small"
     type="is-boxed"
     v-model="isActive"
-    @input="onChangeDbTab"
+    @input="onChangeDbTab($event), dbMigrationInfo($event)"
     destroy-on-hide
   >
     <b-tab-item
@@ -102,6 +102,7 @@ import DbPDBs from '@/components/hosts/hostDetails/oracle/databases/DbPDBs.vue'
 import DbGrants from '@/components/hosts/hostDetails/oracle/databases/DbGrants.vue'
 import DbPartitionings from '@/components/hosts/hostDetails/oracle/databases/DbPartitionings.vue'
 import DbCapacity from '@/components/hosts/hostDetails/oracle/databases/capacity/DbCapacity.vue'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'hosts-details-oracle-databases-dbs-component',
@@ -123,6 +124,15 @@ export default {
     DbGrants,
     DbPartitionings,
     DbCapacity,
+  },
+  methods: {
+    ...mapActions(['hostDatabaseCanBeMigrate']),
+    dbMigrationInfo(index) {
+      this.hostDatabaseCanBeMigrate(this.currentHostFiltered[index].name)
+    },
+  },
+  computed: {
+    ...mapGetters(['currentHostFiltered']),
   },
 }
 </script>

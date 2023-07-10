@@ -206,6 +206,13 @@
                   v-html="highlight(dbInfo.version)"
                 />
               </li>
+              <li>
+                <span>Can Be Migrate</span>
+                <SimpleBooleanIcon
+                  :value="getMigrate"
+                  v-tooltip.right="options(getMigrate)"
+                />
+              </li>
             </ul>
           </div>
         </div>
@@ -216,10 +223,17 @@
 
 <script>
 import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
+import { mapState } from 'vuex'
 
 export default {
   name: 'hosts-details-oracle-databases-info-component',
   mixins: [infoMixin],
+  computed: {
+    ...mapState(['hostDetails']),
+    getMigrate() {
+      return this.hostDetails.canBeMigrate
+    },
+  },
 }
 </script>
 
