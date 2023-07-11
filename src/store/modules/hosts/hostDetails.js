@@ -27,6 +27,7 @@ export const state = () => ({
   selectedKeys: ['name'],
   searchTermDB: '',
   isMissingDB: false,
+  canBeMigrate: false,
 })
 
 export const getters = {
@@ -195,6 +196,9 @@ export const mutations = {
   SET_IS_MISSING_DBS: (state, payload) => {
     state.isMissingDB = payload
   },
+  SET_CAN_BE_MIGRATE: (state, payload) => {
+    state.canBeMigrate = payload
+  },
 }
 
 export const actions = {
@@ -282,6 +286,16 @@ export const actions = {
 
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_IS_MISSING_DBS', res.data.IsMissingDB)
+    })
+  },
+  async hostDatabaseCanBeMigrate({ commit, getters }, dbname) {
+    const config = {
+      method: 'get',
+      url: `/hosts/${getters.currentHost}/technologies/oracle/databases/${dbname}/can-migrate`,
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_CAN_BE_MIGRATE', res.data.Canbemigrate)
     })
   },
 }
