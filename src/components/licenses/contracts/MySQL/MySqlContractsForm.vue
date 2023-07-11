@@ -20,6 +20,7 @@
         placeholder="Select"
         v-model="mysqlForm.type"
         expanded
+        data-cy="mysql-type"
       >
         <option :value="cluster">{{ cluster }}</option>
         <option :value="host">{{ host }}</option>
@@ -59,10 +60,11 @@
         @select="getAssociatedList($event, 'host')"
         open-on-focus
         clearable
+        data-cy="mysql-license-type"
       >
         <template slot-scope="props">
           <div class="media media-custom">
-            <div class="media-content">
+            <div class="media-content" data-cy="mysql-license-type-options">
               <b>
                 {{ props.option.id }}
               </b>
@@ -102,6 +104,7 @@
         @input="$v.mysqlForm.contractID.$touch()"
         size="is-small"
         v-model="mysqlForm.contractID"
+        data-cy="mysql-contract-number"
       />
       <template #message>
         <div
@@ -128,6 +131,7 @@
         size="is-small"
         type="number"
         v-model="mysqlForm.csi"
+        data-cy="mysql-csi"
       />
       <template #message>
         <div v-if="!$v.mysqlForm.csi.required && $v.mysqlForm.csi.$error">
@@ -147,6 +151,7 @@
         append-to-body
         position="is-top-right"
         icon="calendar-today"
+        data-cy="mysql-expiration"
       />
     </b-field>
 
@@ -164,6 +169,7 @@
         size="is-small"
         type="number"
         v-model="mysqlForm.numberOfLicenses"
+        data-cy="mysql-license-number"
       />
       <template #message>
         <div
@@ -206,6 +212,7 @@
         "
         custom-class="is-small"
         :open-on-focus="true"
+        data-cy="mysql-hosts-associated"
       >
         <template slot-scope="props">
           {{ props.option }}
@@ -251,6 +258,7 @@
         "
         custom-class="is-small"
         :open-on-focus="true"
+        data-cy="mysql-clusters-associated"
       >
         <template slot-scope="props">
           {{ props.option }}
