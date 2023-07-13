@@ -101,7 +101,7 @@ import DbLicenses from '@/components/hosts/hostDetails/oracle/databases/DbLicens
 import DbPDBs from '@/components/hosts/hostDetails/oracle/databases/DbPDBs.vue'
 import DbGrants from '@/components/hosts/hostDetails/oracle/databases/DbGrants.vue'
 import DbPartitionings from '@/components/hosts/hostDetails/oracle/databases/DbPartitionings.vue'
-import DbCapacity from '@/components/hosts/hostDetails/oracle/databases/capacity/DbCapacity.vue'
+import DbCapacity from '@/components/hosts/hostDetails/oracle/databases/DbCapacity.vue'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {

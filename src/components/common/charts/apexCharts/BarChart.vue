@@ -1,10 +1,10 @@
 <template>
   <apex-chart
     type="bar"
-    height="400"
-    width="100%"
-    :options="options"
-    :series="series"
+    :height="chartHeight"
+    :width="chartWidth"
+    :options="chartOptions"
+    :series="chartSeries"
     :id="chartID"
     class="mt-4"
   />
@@ -12,19 +12,27 @@
 
 <script>
 export default {
-  name: 'hosts-details-oracle-databases-capacity',
+  name: 'apex-bar-chart',
   props: {
-    options: {
+    chartOptions: {
       type: Object,
       default: () => {},
     },
-    series: {
+    chartSeries: {
       type: Array,
       default: () => [],
     },
     chartID: {
       type: String,
       required: true,
+    },
+    chartHeight: {
+      type: String,
+      default: '400',
+    },
+    chartWidth: {
+      type: String,
+      default: '100%',
     },
   },
 }

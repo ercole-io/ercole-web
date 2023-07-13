@@ -7,10 +7,10 @@
         :label="cap.label"
         :value="cap.label"
       >
-        <CapacityChart
+        <ApexBarChart
           :chartID="`${cap.id}CapacityChart`"
-          :options="chartOptions"
-          :series="getSeries(cap.id)"
+          :chartOptions="chartOptions"
+          :chartSeries="getSeries(cap.id)"
         />
       </b-tab-item>
     </b-tabs>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import CapacityChart from '@/components/hosts/hostDetails/oracle/databases/capacity/CapacityChart.vue'
+import ApexBarChart from '@/components/common/charts/apexCharts/BarChart.vue'
 
 export default {
   name: 'hosts-details-oracle-databases-capacity-component',
@@ -29,7 +29,7 @@ export default {
     },
   },
   components: {
-    CapacityChart,
+    ApexBarChart,
   },
   data: () => {
     return {
