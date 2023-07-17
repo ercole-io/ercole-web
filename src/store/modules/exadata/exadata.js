@@ -15,7 +15,7 @@ export const getters = {
     _.map(state.exadata, (val) => {
       exadata.push({
         _id: val.rackID,
-        hostname: val.hostname,
+        hostname: `${val.hostname} - ${val.rackID}`,
         kvmhost: getHostype(val, 'KVM_HOST'),
         ibswitch: getHostype(val, 'IB_SWITCH'),
         storagecell: getHostype(val, 'STORAGE_CELL'),
