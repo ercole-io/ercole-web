@@ -36,10 +36,10 @@
           pack="fas"
           icon="database"
           @click.native="
-            openModal(
-              { hostname: props.row.hostname, data: props.row.database },
-              'database'
-            )
+            openModalDatabase({
+              hostname: props.row.hostname,
+              data: props.row.database,
+            })
           "
           v-if="props.row.database && Object.keys(props.row.database).length"
         />
@@ -92,10 +92,10 @@
           pack="fas"
           icon="hard-drive"
           @click.native="
-            openModal(
-              { hostname: props.row.hostname, data: props.row.gridDisks },
-              'gridDisks'
-            )
+            openModalGridDisks({
+              hostname: props.row.hostname,
+              data: props.row.gridDisks,
+            })
           "
           v-if="props.row.gridDisks && props.row.gridDisks.length > 0"
         />
@@ -121,8 +121,8 @@ export default {
     },
   },
   methods: {
-    openModal(data, comp) {
-      const newData = _.map(data.data, (d) => {
+    openModalGridDisks(data) {
+      let newData = _.map(data.data, (d) => {
         return {
           ...d,
           size: this.formatValue(d.size),
@@ -131,14 +131,24 @@ export default {
       })
 
       this.$buefy.modal.open({
-        component:
-          comp === 'database' ? StorageDatabaseModal : StorageGridDisksModal,
+        component: StorageGridDisksModal,
         hasModalCard: true,
         props: {
           hostname: data.hostname,
           data: newData,
         },
-        fullScreen: comp === 'database' ? false : true,
+        fullScreen: true,
+      })
+    },
+    openModalDatabase(data) {
+      this.$buefy.modal.open({
+        component: StorageDatabaseModal,
+        hasModalCard: true,
+        props: {
+          hostname: data.hostname,
+          data: data.data,
+        },
+        fullScreen: false,
       })
     },
     formatValue(val) {
