@@ -1,14 +1,5 @@
 <template>
   <b-table :data="data" scrollable>
-    <b-table-column field="hostname" label="Hostname" centered sortable>
-      <template v-slot="props">
-        <p
-          v-tooltip.bottom="options(props.row.hostname || '-')"
-          v-html="highlight(props.row.hostname || '-')"
-        />
-      </template>
-    </b-table-column>
-
     <b-table-column field="type" label="Type" centered sortable>
       <template v-slot="props">
         <p
@@ -30,8 +21,8 @@
     <b-table-column field="size" label="Size" centered sortable>
       <template v-slot="props">
         <p
-          v-tooltip.bottom="options(props.row.size || '-')"
-          v-html="highlight(props.row.size || '-')"
+          v-tooltip.bottom="options(formatValue(props.row.size) || '-')"
+          v-html="highlight(formatValue(props.row.size) || '-')"
         />
       </template>
     </b-table-column>
@@ -59,8 +50,8 @@
     <b-table-column field="freeSpace" label="Free Space" centered sortable>
       <template v-slot="props">
         <p
-          v-tooltip.bottom="options(props.row.freeSpace || '-')"
-          v-html="highlight(props.row.freeSpace || '-')"
+          v-tooltip.bottom="options(formatValue(props.row.freeSpace) || '-')"
+          v-html="highlight(formatValue(props.row.freeSpace) || '-')"
         />
       </template>
     </b-table-column>
@@ -115,6 +106,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import StorageDatabaseModal from '@/components/exadata/exadatas/StorageDatabaseModal.vue'
@@ -130,15 +122,38 @@ export default {
   },
   methods: {
     openModal(data, comp) {
+      const newData = _.map(data.data, (d) => {
+        return {
+          ...d,
+          size: this.formatValue(d.size),
+          asmDiskSize: this.formatValue(d.asmDiskSize),
+        }
+      })
+
       this.$buefy.modal.open({
         component:
           comp === 'database' ? StorageDatabaseModal : StorageGridDisksModal,
         hasModalCard: true,
         props: {
           hostname: data.hostname,
-          data: data.data,
+          data: newData,
         },
+        fullScreen: comp === 'database' ? false : true,
       })
+    },
+    formatValue(val) {
+      const ext = val.substr(val.length - 1)
+      let values
+      let value
+
+      if (_.includes(val, '.')) {
+        values = val.split('.')
+        value = values[1].slice(0, 2)
+        return `${values[0]}.${value} ${ext}B`
+      } else {
+        values = val.slice(0, -1)
+        return `${values} ${ext}B`
+      }
     },
   },
 }
