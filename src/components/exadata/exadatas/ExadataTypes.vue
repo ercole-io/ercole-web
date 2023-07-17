@@ -8,7 +8,7 @@
         detail-transition="fade"
         detail-key="hostname"
         :show-detail-icon="
-          typeData[0].hostType === 'IBSWITCH' ||
+          typeData[0].hostType === 'IB_SWITCH' ||
           typeData[0].hostType === 'BARE_METAL'
             ? false
             : true

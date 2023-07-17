@@ -17,7 +17,7 @@ export const getters = {
         _id: val.rackID,
         hostname: val.hostname,
         kvmhost: getHostype(val, 'KVM_HOST'),
-        ibswitch: getHostype(val, 'IBSWITCH'),
+        ibswitch: getHostype(val, 'IB_SWITCH'),
         storagecell: getHostype(val, 'STORAGE_CELL'),
         dom0: getHostype(val, 'DOM0'),
         baremetal: getHostype(val, 'BARE_METAL'),
@@ -31,7 +31,7 @@ export const getters = {
         },
       })
     })
-
+    console.log(exadata)
     return exadata
   },
 }
