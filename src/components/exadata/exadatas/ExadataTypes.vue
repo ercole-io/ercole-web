@@ -26,47 +26,79 @@
           </template>
         </b-table-column>
 
-        <b-table-column field="totalRam" label="Ram Usage" centered sortable>
-          <template v-slot="props">
-            <b-progress
-              format="percent"
-              type="is-warning"
-              :value="calcValues(props.row.memory, props.row.freeRAM)"
-              show-value
-              v-tooltip="
-                options(
-                  setTooltip(
-                    props.row.memory,
-                    props.row.usedRAM,
-                    props.row.freeRAM,
-                    'GB'
-                  )
-                )
-              "
-            />
-          </template>
-        </b-table-column>
+        <template v-if="typeName === 'Storage'">
+          <b-table-column
+            field="cpuEnabled"
+            label="Enabled CPU"
+            centered
+            sortable
+          >
+            <template v-slot="props">
+              <p
+                v-tooltip="options(props.row.cpuEnabled)"
+                v-html="highlight(props.row.cpuEnabled)"
+              />
+            </template>
+          </b-table-column>
 
-        <b-table-column field="totalVCPU" label="VCPU Usage" centered sortable>
-          <template v-slot="props">
-            <b-progress
-              format="percent"
-              type="is-warning"
-              :value="calcValues(props.row.totalCPU, props.row.freeCPU)"
-              show-value
-              v-tooltip="
-                options(
-                  setTooltip(
-                    props.row.totalCPU,
-                    props.row.usedCPU,
-                    props.row.freeCPU,
-                    'GB'
+          <b-table-column field="totalCPU" label="Total CPU" centered sortable>
+            <template v-slot="props">
+              <p
+                v-tooltip="options(props.row.totalCPU)"
+                v-html="highlight(props.row.totalCPU)"
+              />
+            </template>
+          </b-table-column>
+        </template>
+
+        <template v-else>
+          <b-table-column field="totalRam" label="Ram Usage" centered sortable>
+            <template v-slot="props">
+              <b-progress
+                format="percent"
+                type="is-warning"
+                :value="calcValues(props.row.memory, props.row.freeRAM)"
+                show-value
+                v-tooltip="
+                  options(
+                    setTooltip(
+                      props.row.memory,
+                      props.row.usedRAM,
+                      props.row.freeRAM,
+                      'GB'
+                    )
                   )
-                )
-              "
-            />
-          </template>
-        </b-table-column>
+                "
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column
+            field="totalVCPU"
+            label="VCPU Usage"
+            centered
+            sortable
+          >
+            <template v-slot="props">
+              <b-progress
+                format="percent"
+                type="is-warning"
+                :value="calcValues(props.row.totalCPU, props.row.freeCPU)"
+                show-value
+                v-tooltip="
+                  options(
+                    setTooltip(
+                      props.row.totalCPU,
+                      props.row.usedCPU,
+                      props.row.freeCPU,
+                      'GB'
+                    )
+                  )
+                "
+              />
+            </template>
+          </b-table-column>
+        </template>
 
         <b-table-column field="model" label="Model" centered sortable>
           <template v-slot="props">
