@@ -7,7 +7,7 @@
       <SearchInput v-model="exadataSearchTherm" class="mr-2" />
       <ExportButton url="exadata" expName="exadata" />
     </div>
-    <div class="columns" style="flex-flow: wrap">
+    <div class="columns mt-2" style="flex-flow: wrap">
       <template v-for="(item, k) in 4">
         <GhostLoading
           :isLoading="loadingTableStatus"

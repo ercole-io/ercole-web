@@ -119,7 +119,11 @@
         </b-table-column>
 
         <template #detail="props">
-          <ExadataTypesVms v-if="props.row.vms" :data="props.row.vms" />
+          <ExadataTypesVms
+            :type="typeName"
+            v-if="props.row.vms"
+            :data="props.row.vms"
+          />
 
           <ExadataTypesStorage
             v-if="props.row.storageCells"
