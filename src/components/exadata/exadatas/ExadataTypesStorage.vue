@@ -1,5 +1,45 @@
 <template>
   <b-table :data="data" scrollable>
+    <b-table-column field="gridDisks" label="Grid Disks" centered sortable>
+      <template v-slot="props">
+        <b-icon
+          v-tooltip="options('Grid Disks')"
+          type="is-custom-primary"
+          class="hosts-icon is-clickable"
+          pack="fas"
+          icon="hard-drive"
+          @click.native="
+            openModalGridDisks({
+              hostname: props.row.hostname,
+              data: props.row.gridDisks,
+            })
+          "
+          v-if="props.row.gridDisks && props.row.gridDisks.length > 0"
+        />
+        <span v-else>-</span>
+      </template>
+    </b-table-column>
+
+    <b-table-column field="database" label="Database" centered sortable>
+      <template v-slot="props">
+        <b-icon
+          v-tooltip="options('Database')"
+          type="is-custom-primary"
+          class="hosts-icon is-clickable"
+          pack="fas"
+          icon="database"
+          @click.native="
+            openModalDatabase({
+              hostname: props.row.hostname,
+              data: props.row.database,
+            })
+          "
+          v-if="props.row.database && Object.keys(props.row.database).length"
+        />
+        <span v-else>-</span>
+      </template>
+    </b-table-column>
+
     <b-table-column field="type" label="Type" centered sortable>
       <template v-slot="props">
         <p
@@ -27,26 +67,6 @@
       </template>
     </b-table-column>
 
-    <b-table-column field="database" label="Database" centered sortable>
-      <template v-slot="props">
-        <b-icon
-          v-tooltip="options('Database')"
-          type="is-custom-primary"
-          class="hosts-icon is-clickable"
-          pack="fas"
-          icon="database"
-          @click.native="
-            openModalDatabase({
-              hostname: props.row.hostname,
-              data: props.row.database,
-            })
-          "
-          v-if="props.row.database && Object.keys(props.row.database).length"
-        />
-        <span v-else>-</span>
-      </template>
-    </b-table-column>
-
     <b-table-column field="freeSpace" label="Free Space" centered sortable>
       <template v-slot="props">
         <p
@@ -59,8 +79,8 @@
     <b-table-column field="errorCount" label="Error Count" centered sortable>
       <template v-slot="props">
         <p
-          v-tooltip.bottom="options(props.row.errorCount || '-')"
-          v-html="highlight(props.row.errorCount || '-')"
+          v-tooltip.bottom="options(props.row.errorCount || '0')"
+          v-html="highlight(props.row.errorCount || '0')"
         />
       </template>
     </b-table-column>
@@ -80,26 +100,6 @@
           v-tooltip.bottom="options(props.row.cellDisk || '-')"
           v-html="highlight(props.row.cellDisk || '-')"
         />
-      </template>
-    </b-table-column>
-
-    <b-table-column field="gridDisks" label="Grid Disks" centered sortable>
-      <template v-slot="props">
-        <b-icon
-          v-tooltip="options('Grid Disks')"
-          type="is-custom-primary"
-          class="hosts-icon is-clickable"
-          pack="fas"
-          icon="hard-drive"
-          @click.native="
-            openModalGridDisks({
-              hostname: props.row.hostname,
-              data: props.row.gridDisks,
-            })
-          "
-          v-if="props.row.gridDisks && props.row.gridDisks.length > 0"
-        />
-        <span v-else>-</span>
       </template>
     </b-table-column>
   </b-table>
