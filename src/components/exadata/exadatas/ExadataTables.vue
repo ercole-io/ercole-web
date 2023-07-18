@@ -29,10 +29,14 @@
         hasShadow
         :mbottom="false"
       >
+        <template slot="customTitle">
+          {{ data['_id'] }} - {{ data['machineType'] }}
+        </template>
+
         <ExadataProgress :exadataProgress="data.progress" />
 
         <ExadataTypes
-          typeName="KVM Host"
+          typeName="KVM"
           :typeData="data.kvmhost"
           :openRowAfterSearch="kvmOpenRows"
           v-if="data.kvmhost && data.kvmhost.length > 0"
@@ -52,13 +56,13 @@
         />
 
         <ExadataTypes
-          typeName="IBSwitch"
+          typeName="IBSWITCH"
           :typeData="data.ibswitch"
           v-if="data.ibswitch && data.ibswitch.length > 0"
         />
 
         <ExadataTypes
-          typeName="Storage"
+          typeName="STORAGE"
           :typeData="data.storagecell"
           :openRowAfterSearch="stoOpenRows"
           v-if="data.storagecell && data.storagecell.length > 0"

@@ -26,7 +26,7 @@
           </template>
         </b-table-column>
 
-        <template v-if="typeName === 'Storage'">
+        <template v-if="typeName === 'STORAGE'">
           <b-table-column
             field="cpuEnabled"
             label="Enabled CPU"

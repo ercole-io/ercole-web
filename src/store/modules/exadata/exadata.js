@@ -4,6 +4,10 @@ import { axiosRequest } from '@/services/services.js'
 
 const url = 'exadata'
 
+// const findMachineType = (data) => {
+//   return
+// }
+
 export const state = () => ({
   exadata: {},
 })
@@ -15,7 +19,7 @@ export const getters = {
     _.map(state.exadata, (val) => {
       exadata.push({
         _id: val.rackID,
-        hostname: `${val.hostname} - ${val.rackID}`,
+        hostname: val.hostname,
         kvmhost: getHostype(val, 'KVM_HOST'),
         ibswitch: getHostype(val, 'IB_SWITCH'),
         storagecell: getHostype(val, 'STORAGE_CELL'),
@@ -32,6 +36,25 @@ export const getters = {
       })
     })
 
+    exadata = _.map(exadata, (val) => {
+      if (val.dom0.length > 0) {
+        return {
+          ...val,
+          machineType: 'OVM',
+        }
+      } else if (val.kvmhost.length > 0) {
+        return {
+          ...val,
+          machineType: 'KWM',
+        }
+      } else {
+        return {
+          ...val,
+          machineType: 'BARE METAL',
+        }
+      }
+    })
+    console.log(exadata)
     return exadata
   },
 }
