@@ -109,11 +109,11 @@
           </template>
         </b-table-column>
 
-        <b-table-column field="swVersion" label="Version" centered sortable>
+        <b-table-column field="imageVersion" label="Version" centered sortable>
           <template v-slot="props">
             <p
-              v-tooltip="options(props.row.swVersion)"
-              v-html="highlight(props.row.swVersion)"
+              v-tooltip="options(props.row.imageVersion)"
+              v-html="highlight(props.row.imageVersion)"
             />
           </template>
         </b-table-column>
