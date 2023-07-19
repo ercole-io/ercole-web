@@ -65,7 +65,7 @@
                       props.row.memory,
                       props.row.usedRAM,
                       props.row.freeRAM,
-                      'GB'
+                      ''
                     )
                   )
                 "
@@ -91,7 +91,7 @@
                       props.row.totalCPU,
                       props.row.usedCPU,
                       props.row.freeCPU,
-                      'GB'
+                      ''
                     )
                   )
                 "

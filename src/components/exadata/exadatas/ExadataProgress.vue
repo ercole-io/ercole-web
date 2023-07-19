@@ -15,7 +15,7 @@
               exadataProgress.totalMemory,
               exadataProgress.usedMemory,
               exadataProgress.freeMemory,
-              'GB'
+              ''
             )
           )
         "
@@ -34,7 +34,7 @@
               exadataProgress.totalCPU,
               exadataProgress.usedCPU,
               exadataProgress.freeCPU,
-              'GB'
+              ''
             )
           )
         "
