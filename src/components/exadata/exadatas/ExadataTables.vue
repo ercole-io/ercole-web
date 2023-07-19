@@ -19,19 +19,17 @@
       </template>
 
       <BoxContent
-        :title="data.hostname"
+        :title="`${data['hostname']} - ${data['_id']}`"
         border
         v-for="data in exadataSearch"
-        :key="data._id"
+        :key="data['_id']"
         class="column is-6 mb-5"
         customStyle="padding: 0 0.5rem"
         hasHighlight
         hasShadow
         :mbottom="false"
       >
-        <template slot="customTitle">
-          {{ data['_id'] }} - {{ data['machineType'] }}
-        </template>
+        <template slot="customTitle">{{ data['machineType'] }}</template>
 
         <ExadataProgress :exadataProgress="data.progress" />
 
