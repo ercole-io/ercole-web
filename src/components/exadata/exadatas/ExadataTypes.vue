@@ -165,12 +165,12 @@
 import _ from 'lodash'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
-import ProgressBar from '@/components/common/charts/ProgressBar.vue'
+import ProgressMixin from '@/mixins/exadata/progress-mixin.js'
 import ExadataTypesVms from '@/components/exadata/exadatas/ExadataTypesVms.vue'
 import ExadataTypesStorage from '@/components/exadata/exadatas/ExadataTypesStorage.vue'
 
 export default {
-  mixins: [tooltipMixin, HighlightSearchMixin],
+  mixins: [tooltipMixin, HighlightSearchMixin, ProgressMixin],
   props: {
     typeName: {
       type: String,
@@ -186,7 +186,6 @@ export default {
     },
   },
   components: {
-    ProgressBar,
     ExadataTypesVms,
     ExadataTypesStorage,
   },
