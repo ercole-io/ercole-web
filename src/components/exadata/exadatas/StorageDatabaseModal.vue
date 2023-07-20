@@ -1,27 +1,47 @@
 <template>
-  <div class="modal-card" style="width: 650px">
+  <div class="modal-card" style="width: auto; min-width: 650px">
     <header class="modal-card-head">
-      <p class="modal-card-title is-size-6">
-        Database Info:
-        <span class="has-text-weight-bold is-size-5">{{ hostname }}</span>
+      <p class="modal-card-title is-size-4 has-text-weight-semibold">
+        Database Info
       </p>
     </header>
     <section class="modal-card-body">
-      <div class="is-flex is-justify-content-space-between">
-        <CardStats cardStatTitle="Name" :cardStatValue="data.dbName || '-'" />
-        <CardStats cardStatTitle="Type" :cardStatValue="data.type || '-'" />
-        <CardStats cardStatTitle="Cell" :cardStatValue="data.cell || '-'" />
+      <div
+        class="is-flex is-justify-content-space-around is-align-content-center"
+      >
         <CardStats
+          class="card-stat-style"
+          cardStatTitle="Name"
+          :cardStatValue="data.dbName || '-'"
+        />
+        <CardStats
+          class="card-stat-style"
+          cardStatTitle="Type"
+          :cardStatValue="data.type || '-'"
+        />
+        <CardStats
+          class="card-stat-style"
+          cardStatTitle="Cell"
+          :cardStatValue="data.cell || '-'"
+        />
+      </div>
+      <div
+        class="is-flex is-justify-content-space-around is-align-content-center"
+      >
+        <CardStats
+          class="card-stat-style"
           cardStatTitle="Flash Cache Limit"
           :cardStatValue="data.flashCacheLimit || '-'"
         />
         <CardStats
+          class="card-stat-style"
           cardStatTitle="IO RM Share"
           :cardStatValue="data.iormShare || '-'"
         />
         <CardStats
+          class="card-stat-style"
           cardStatTitle="Last IO Req"
-          :cardStatValue="formatDate(data.lastIOReq) || '-'"
+          :cardStatValue="data.lastIOReq ? formatDate(data.lastIOReq) : '-'"
         />
       </div>
     </section>
@@ -63,5 +83,10 @@ export default {
 .modal-card-body {
   font-size: 1rem;
   cursor: default;
+}
+
+.card-stat-style {
+  width: 100%;
+  padding: 0.5rem;
 }
 </style>

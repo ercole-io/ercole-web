@@ -1,9 +1,8 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title is-size-6">
-        Grid Disks Info:
-        <span class="has-text-weight-bold is-size-5">{{ hostname }}</span>
+      <p class="modal-card-title is-size-4 has-text-weight-semibold">
+        Grid Disks Info
       </p>
     </header>
     <section class="modal-card-body">
