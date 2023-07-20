@@ -7,12 +7,7 @@
         detailed
         detail-transition="fade"
         detail-key="hostname"
-        :show-detail-icon="
-          typeData[0].hostType === 'IB_SWITCH' ||
-          typeData[0].hostType === 'BARE_METAL'
-            ? false
-            : true
-        "
+        :show-detail-icon="typeData[0].hostType === 'IB_SWITCH' ? false : true"
         icon-pack="fa"
         :opened-detailed="openRowAfterSearch"
         scrollable

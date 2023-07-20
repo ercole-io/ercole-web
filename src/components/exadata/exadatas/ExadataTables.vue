@@ -31,39 +31,33 @@
       >
         <template slot="customTitle">{{ data['machineType'] }}</template>
 
-        <ExadataProgress :exadataProgress="data.progress" />
+        <ExadataProgress :exadataProgress="data['progress']" />
 
         <ExadataTypes
           typeName="KVM"
-          :typeData="data.kvmhost"
+          :typeData="data['kvmhost']"
           :openRowAfterSearch="kvmOpenRows"
-          v-if="data.kvmhost && data.kvmhost.length > 0"
-        />
-
-        <ExadataTypes
-          typeName="Bare Metal"
-          :typeData="data.baremetal"
-          v-if="data.baremetal && data.baremetal.length > 0"
+          v-if="data['kvmhost'] && data['kvmhost'].length > 0"
         />
 
         <ExadataTypes
           typeName="DOM0"
-          :typeData="data.dom0"
+          :typeData="data['dom0']"
           :openRowAfterSearch="domOpenRows"
-          v-if="data.dom0 && data.dom0.length > 0"
+          v-if="data['dom0'] && data['dom0'].length > 0"
         />
 
         <ExadataTypes
           typeName="IBSWITCH"
-          :typeData="data.ibswitch"
-          v-if="data.ibswitch && data.ibswitch.length > 0"
+          :typeData="data['ibswitch']"
+          v-if="data['ibswitch'] && data['ibswitch'].length > 0"
         />
 
         <ExadataTypes
           typeName="STORAGE"
-          :typeData="data.storagecell"
+          :typeData="data['storagecell']"
           :openRowAfterSearch="stoOpenRows"
-          v-if="data.storagecell && data.storagecell.length > 0"
+          v-if="data['storagecell'] && data['storagecell'].length > 0"
         />
       </BoxContent>
 

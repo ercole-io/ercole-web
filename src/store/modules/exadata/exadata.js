@@ -24,7 +24,6 @@ export const getters = {
         ibswitch: getHostype(val, 'IB_SWITCH'),
         storagecell: getHostype(val, 'STORAGE_CELL'),
         dom0: getHostype(val, 'DOM0'),
-        baremetal: getHostype(val, 'BARE_METAL'),
         progress: {
           totalCPU: val.totalCPU,
           usedCPU: val.usedCPU,
