@@ -70,19 +70,14 @@
         <template v-if="typeName !== 'STORAGE' && typeName !== 'IBSWITCH'">
           <b-table-column field="totalRam" label="Ram Usage" centered sortable>
             <template v-slot="props">
-              <b-progress
-                format="percent"
-                type="is-warning"
-                :value="calcValues(props.row.memory, props.row.freeRAM)"
-                show-value
-                v-tooltip="
-                  options(
-                    setTooltip(
-                      props.row.memory,
-                      props.row.usedRAM,
-                      props.row.freeRAM,
-                      ''
-                    )
+              <ProgressBar
+                :progressValue="calcValues(props.row.memory, props.row.freeRAM)"
+                :progressTooltip="
+                  setTooltip(
+                    props.row.memory,
+                    props.row.usedRAM,
+                    props.row.freeRAM,
+                    ''
                   )
                 "
               />
@@ -96,19 +91,16 @@
             sortable
           >
             <template v-slot="props">
-              <b-progress
-                format="percent"
-                type="is-warning"
-                :value="calcValues(props.row.totalCPU, props.row.freeCPU)"
-                show-value
-                v-tooltip="
-                  options(
-                    setTooltip(
-                      props.row.totalCPU,
-                      props.row.usedCPU,
-                      props.row.freeCPU,
-                      ''
-                    )
+              <ProgressBar
+                :progressValue="
+                  calcValues(props.row.totalCPU, props.row.freeCPU)
+                "
+                :progressTooltip="
+                  setTooltip(
+                    props.row.totalCPU,
+                    props.row.usedCPU,
+                    props.row.freeCPU,
+                    ''
                   )
                 "
               />
@@ -173,6 +165,7 @@
 import _ from 'lodash'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+import ProgressBar from '@/components/common/charts/ProgressBar.vue'
 import ExadataTypesVms from '@/components/exadata/exadatas/ExadataTypesVms.vue'
 import ExadataTypesStorage from '@/components/exadata/exadatas/ExadataTypesStorage.vue'
 
@@ -193,6 +186,7 @@ export default {
     },
   },
   components: {
+    ProgressBar,
     ExadataTypesVms,
     ExadataTypesStorage,
   },

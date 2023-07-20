@@ -2,40 +2,32 @@
   <section class="columns mb-0">
     <div class="column is-6">
       <span class="is-size-7 has-text-weight-semibold ml-2">Ram Usage</span>
-      <b-progress
-        format="percent"
-        type="is-warning"
-        :value="
+      <ProgressBar
+        :progressValue="
           calcValues(exadataProgress.totalMemory, exadataProgress.freeMemory)
         "
-        show-value
-        v-tooltip.bottom="
-          options(
-            setTooltip(
-              exadataProgress.totalMemory,
-              exadataProgress.usedMemory,
-              exadataProgress.freeMemory,
-              ''
-            )
+        :progressTooltip="
+          setTooltip(
+            exadataProgress.totalMemory,
+            exadataProgress.usedMemory,
+            exadataProgress.freeMemory,
+            ''
           )
         "
       />
     </div>
     <div class="column is-6">
       <span class="is-size-7 has-text-weight-semibold ml-2">VCPU Usage</span>
-      <b-progress
-        format="percent"
-        type="is-warning"
-        :value="calcValues(exadataProgress.totalCPU, exadataProgress.freeCPU)"
-        show-value
-        v-tooltip.bottom="
-          options(
-            setTooltip(
-              exadataProgress.totalCPU,
-              exadataProgress.usedCPU,
-              exadataProgress.freeCPU,
-              ''
-            )
+      <ProgressBar
+        :progressValue="
+          calcValues(exadataProgress.totalCPU, exadataProgress.freeCPU)
+        "
+        :progressTooltip="
+          setTooltip(
+            exadataProgress.totalCPU,
+            exadataProgress.usedCPU,
+            exadataProgress.freeCPU,
+            ''
           )
         "
       />
@@ -45,16 +37,18 @@
 
 <script>
 import _ from 'lodash'
-import tooltipMixin from '@/mixins/tooltipMixin.js'
+import ProgressBar from '@/components/common/charts/ProgressBar.vue'
 
 export default {
   name: 'exadata-progress',
-  mixins: [tooltipMixin],
   props: {
     exadataProgress: {
       type: Object,
       default: () => {},
     },
+  },
+  components: {
+    ProgressBar,
   },
   methods: {
     setTooltip(total, free, used, format) {
