@@ -17,7 +17,23 @@
         :opened-detailed="openRowAfterSearch"
         scrollable
       >
-        <b-table-column field="hostname" label="Hostname" centered sortable>
+        <template v-if="typeName === 'IBSWITCH'">
+          <b-table-column field="rackID" label="Rack ID" centered sortable>
+            <template v-slot="props">
+              <p
+                v-tooltip="options(props.row.rackID)"
+                v-html="highlight(props.row.rackID)"
+              />
+            </template>
+          </b-table-column>
+        </template>
+
+        <b-table-column
+          field="hostname"
+          :label="typeName === 'IBSWITCH' ? 'Switch Name' : 'Hostname'"
+          centered
+          sortable
+        >
           <template v-slot="props">
             <p
               v-tooltip="options(props.row.hostname)"
@@ -51,7 +67,7 @@
           </b-table-column>
         </template>
 
-        <template v-else>
+        <template v-if="typeName !== 'STORAGE' && typeName !== 'IBSWITCH'">
           <b-table-column field="totalRam" label="Ram Usage" centered sortable>
             <template v-slot="props">
               <b-progress
@@ -109,14 +125,32 @@
           </template>
         </b-table-column>
 
-        <b-table-column field="imageVersion" label="Version" centered sortable>
-          <template v-slot="props">
-            <p
-              v-tooltip="options(props.row.imageVersion)"
-              v-html="highlight(props.row.imageVersion)"
-            />
-          </template>
-        </b-table-column>
+        <template v-if="typeName === 'IBSWITCH'">
+          <b-table-column field="swVersion" label="Version" centered sortable>
+            <template v-slot="props">
+              <p
+                v-tooltip="options(props.row.swVersion)"
+                v-html="highlight(props.row.swVersion)"
+              />
+            </template>
+          </b-table-column>
+        </template>
+
+        <template v-else>
+          <b-table-column
+            field="imageVersion"
+            label="Version"
+            centered
+            sortable
+          >
+            <template v-slot="props">
+              <p
+                v-tooltip="options(props.row.imageVersion)"
+                v-html="highlight(props.row.imageVersion)"
+              />
+            </template>
+          </b-table-column>
+        </template>
 
         <template #detail="props">
           <ExadataTypesVms
