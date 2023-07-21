@@ -6,6 +6,8 @@ import { mapExtraData } from '@/helpers/hostDetails/hostDetailsHelpers.js'
 const mapOracleDatabases = (data, extraData) => {
   let newData = []
   _.map(data, (item) => {
+    console.log(item.cpuDiskConsumptions)
+
     newData.push({
       tabName: item.name.toString(),
       id: item.dbID.toString(),
@@ -48,10 +50,10 @@ const mapOracleDatabases = (data, extraData) => {
       dbGrants: item.grantDba ? resolveDbGrants([...item.grantDba]) : [],
       licenses: mapExtraData(item.name, extraData.licenses(item.name)),
       partitionings: genericResolve([...item.partitionings]),
-      capacity: item.CpuDiskConsumption ? [...item.CpuDiskConsumption] : [],
+      capacity: item.cpuDiskConsumptions ? [...item.cpuDiskConsumptions] : [],
     })
   })
-
+  console.log(newData)
   return newData
 }
 
