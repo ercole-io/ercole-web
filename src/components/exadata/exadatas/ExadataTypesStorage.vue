@@ -166,7 +166,8 @@ export default {
       }
     },
     formatMBintoGB(val) {
-      return this.$options.filters.prettyBytes(val.slice(0, -1), 5, false, 'GB')
+      const value = val.slice(0, -1) * 1000000
+      return this.$options.filters.prettyBytes(value, 2, false, 'GB')
     },
   },
 }

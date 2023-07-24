@@ -69,7 +69,8 @@ export default {
   },
   methods: {
     setPrettyBystes(val) {
-      return this.$options.filters.prettyBytes(val, 5, false, 'GB')
+      const value = val * 1000000
+      return this.$options.filters.prettyBytes(value, 2, false, 'GB')
     },
   },
 }
