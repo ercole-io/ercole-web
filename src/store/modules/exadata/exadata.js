@@ -44,7 +44,7 @@ export const getters = {
       } else if (val.kvmhost.length > 0) {
         return {
           ...val,
-          machineType: 'KWM',
+          machineType: 'KVM',
         }
       } else {
         return {
