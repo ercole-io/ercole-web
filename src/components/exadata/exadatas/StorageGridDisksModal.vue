@@ -8,11 +8,10 @@
     <section class="modal-card-body">
       <SimpleTable
         :theadData="[
-          'Type',
-          'Status',
-          'Size',
           'Grid Disk',
           'Cell Disk',
+          'Status',
+          'Size',
           'Error Count',
           'Caching Policy',
           'Asm Disk Name',
@@ -23,11 +22,10 @@
       >
         <template slot="tbodyContent" v-if="data.length > 0">
           <tr v-for="(d, index) in data" :key="index">
-            <TdContent :value="d.type" />
-            <TdContent :value="d.size" />
-            <TdContent :value="d.status" />
             <TdContent :value="d.gridDisk" />
             <TdContent :value="d.cellDisk" />
+            <TdContent :value="d.status" />
+            <TdContent :value="d.size" />
             <TdContent :value="d.errorCount" />
             <TdContent :value="d.cachingPolicy" />
             <TdContent :value="d.asmDiskName" />

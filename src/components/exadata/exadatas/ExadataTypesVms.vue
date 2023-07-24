@@ -13,8 +13,8 @@
       <b-table-column field="ramOnline" label="Ram" centered sortable>
         <template v-slot="props">
           <p
-            v-tooltip.bottom="options(props.row.ramOnline)"
-            v-html="highlight(props.row.ramOnline)"
+            v-tooltip.bottom="options(setPrettyBystes(props.row.ramOnline))"
+            v-html="highlight(setPrettyBystes(props.row.ramOnline))"
           />
         </template>
       </b-table-column>
@@ -33,8 +33,8 @@
       <b-table-column field="ramCurrent" label="Ram" centered sortable>
         <template v-slot="props">
           <p
-            v-tooltip.bottom="options(props.row.ramCurrent)"
-            v-html="highlight(props.row.ramCurrent)"
+            v-tooltip.bottom="options(setPrettyBystes(props.row.ramCurrent))"
+            v-html="highlight(setPrettyBystes(props.row.ramCurrent))"
           />
         </template>
       </b-table-column>
@@ -65,6 +65,11 @@ export default {
     type: {
       type: String,
       default: '',
+    },
+  },
+  methods: {
+    setPrettyBystes(val) {
+      return this.$options.filters.prettyBytes(val, 5, false, 'GB')
     },
   },
 }

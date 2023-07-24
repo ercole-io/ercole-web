@@ -49,6 +49,24 @@
       </template>
     </b-table-column>
 
+    <b-table-column field="cellDisk" label="Cell Disk" centered sortable>
+      <template v-slot="props">
+        <p
+          v-tooltip.bottom="options(props.row.cellDisk || '-')"
+          v-html="highlight(props.row.cellDisk || '-')"
+        />
+      </template>
+    </b-table-column>
+
+    <b-table-column field="cell" label="Cell" centered sortable>
+      <template v-slot="props">
+        <p
+          v-tooltip.bottom="options(props.row.cell || '-')"
+          v-html="highlight(props.row.cell || '-')"
+        />
+      </template>
+    </b-table-column>
+
     <b-table-column field="status" label="Status" centered sortable>
       <template v-slot="props">
         <p
@@ -84,24 +102,6 @@
         />
       </template>
     </b-table-column>
-
-    <b-table-column field="cell" label="Cell" centered sortable>
-      <template v-slot="props">
-        <p
-          v-tooltip.bottom="options(props.row.cell || '-')"
-          v-html="highlight(props.row.cell || '-')"
-        />
-      </template>
-    </b-table-column>
-
-    <b-table-column field="cellDisk" label="Cell Disk" centered sortable>
-      <template v-slot="props">
-        <p
-          v-tooltip.bottom="options(props.row.cellDisk || '-')"
-          v-html="highlight(props.row.cellDisk || '-')"
-        />
-      </template>
-    </b-table-column>
   </b-table>
 </template>
 
@@ -126,7 +126,7 @@ export default {
         return {
           ...d,
           size: this.formatValue(d.size),
-          asmDiskSize: this.formatValue(d.asmDiskSize),
+          asmDiskSize: this.formatMBintoGB(d.asmDiskSize),
         }
       })
 
@@ -164,6 +164,9 @@ export default {
         values = val.slice(0, -1)
         return `${values} ${ext}B`
       }
+    },
+    formatMBintoGB(val) {
+      return this.$options.filters.prettyBytes(val.slice(0, -1), 5, false, 'GB')
     },
   },
 }

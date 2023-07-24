@@ -5,7 +5,7 @@
       v-if="getExadata.length > 0"
     >
       <SearchInput v-model="exadataSearchTherm" class="mr-2" />
-      <ExportButton url="exadata" expName="exadata" />
+      <!-- <ExportButton url="exadata" expName="exadata" /> -->
     </div>
     <div class="columns mt-2" style="flex-flow: wrap">
       <template v-for="(item, k) in 4">
@@ -77,7 +77,7 @@ import tooltipMixin from '@/mixins/tooltipMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 import NoContent from '@/components/common/NoContent.vue'
-import ExportButton from '@/components/common/ExportButton.vue'
+// import ExportButton from '@/components/common/ExportButton.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 import ExadataProgress from '@/components/exadata/exadatas/ExadataProgress.vue'
 import ExadataTypes from '@/components/exadata/exadatas/ExadataTypes.vue'
@@ -89,7 +89,7 @@ export default {
     BoxContent,
     GhostLoading,
     NoContent,
-    ExportButton,
+    // ExportButton,
     SearchInput,
     ExadataProgress,
     ExadataTypes,
