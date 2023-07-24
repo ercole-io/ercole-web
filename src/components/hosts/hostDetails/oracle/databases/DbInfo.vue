@@ -206,8 +206,8 @@
                   v-html="highlight(dbInfo.version)"
                 />
               </li>
-              <li>
-                <span>Can Be Migrate</span>
+              <li v-if="getMigrate">
+                <span>Migrable to Standard</span>
                 <SimpleBooleanIcon
                   :value="getMigrate"
                   v-tooltip.right="options(getMigrate)"
