@@ -9,7 +9,7 @@
       >
         <ApexBarChart
           :chartID="`${cap.id}CapacityChart`"
-          :chartOptions="chartOptions"
+          :chartOptions="chartOptions(cap.label)"
           :chartSeries="getSeries(cap.id)"
         />
       </b-tab-item>
@@ -55,6 +55,7 @@ export default {
           id: 'iomb',
         },
       ],
+      title: ``,
     }
   },
   methods: {
@@ -282,9 +283,16 @@ export default {
         },
       ]
     },
-  },
-  computed: {
-    chartOptions() {
+    getChartTitle(type) {
+      if (type === 'IOPS') {
+        return 'IOPS'
+      } else if (type === 'IOMB') {
+        return 'IOMB'
+      } else {
+        return 'Threads'
+      }
+    },
+    chartOptions(type) {
       return {
         yaxis: {
           // labels: {
@@ -380,6 +388,20 @@ export default {
         chart: {
           toolbar: {
             show: false,
+          },
+        },
+        title: {
+          text: this.getChartTitle(type),
+          align: 'left',
+          margin: 10,
+          offsetX: 0,
+          offsetY: 0,
+          floating: false,
+          style: {
+            fontSize: '14px',
+            fontWeight: 'bold',
+            fontFamily: undefined,
+            color: '#263238',
           },
         },
       }
