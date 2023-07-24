@@ -11,7 +11,7 @@
             exadataProgress.totalMemory,
             exadataProgress.usedMemory,
             exadataProgress.freeMemory,
-            ''
+            ' GB'
           )
         "
       />

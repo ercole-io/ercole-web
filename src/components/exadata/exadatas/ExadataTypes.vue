@@ -61,7 +61,7 @@
                     props.row.memory,
                     props.row.usedRAM,
                     props.row.freeRAM,
-                    ''
+                    ' GB'
                   )
                 "
               />
