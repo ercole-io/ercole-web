@@ -12,17 +12,6 @@
         :opened-detailed="openRowAfterSearch"
         scrollable
       >
-        <template v-if="typeName === 'IBSWITCH'">
-          <b-table-column field="rackID" label="Rack ID" centered sortable>
-            <template v-slot="props">
-              <p
-                v-tooltip="options(props.row.rackID)"
-                v-html="highlight(props.row.rackID)"
-              />
-            </template>
-          </b-table-column>
-        </template>
-
         <b-table-column
           field="hostname"
           :label="typeName === 'IBSWITCH' ? 'Switch Name' : 'Hostname'"
