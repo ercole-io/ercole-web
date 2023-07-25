@@ -21,8 +21,8 @@
       <BoxContent
         :title="`${data['hostname']} - ${data['_id']}`"
         border
-        v-for="data in exadataSearch"
-        :key="data['_id']"
+        v-for="(data, k) in getExadata(exadataSearchTherm)"
+        :key="k"
         class="column is-6 mb-5"
         customStyle="padding: 0 0.5rem"
         hasHighlight
@@ -64,14 +64,15 @@
       <NoContent
         class="column is-12"
         style="height: 370px; background-color: #eeeeee"
-        v-if="getExadata.length === 0 && !loadingTableStatus"
+        v-if="
+          getExadata(exadataSearchTherm).length === 0 && !loadingTableStatus
+        "
       />
     </div>
   </article>
 </template>
 
 <script>
-import _ from 'lodash'
 import { mapGetters } from 'vuex'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -102,53 +103,8 @@ export default {
       stoOpenRows: [],
     }
   },
-  methods: {
-    clearSearch() {
-      this.kvmOpenRows = []
-      this.domOpenRows = []
-      this.stoOpenRows = []
-
-      return this.getExadata
-    },
-  },
   computed: {
     ...mapGetters(['getExadata', 'loadingTableStatus']),
-    exadataSearch() {
-      if (this.exadataSearchTherm !== '') {
-        const search = _.filter(this.getExadata, (obj) => {
-          const searchIncludes = (data) => {
-            return _.includes(
-              _.lowerCase(JSON.stringify(data)),
-              _.lowerCase(_.toString(this.exadataSearchTherm))
-            )
-          }
-
-          _.filter(obj.kvmhost, (kvm) => {
-            if (searchIncludes(kvm)) {
-              this.kvmOpenRows.push(kvm.hostname)
-            }
-          })
-
-          _.filter(obj.dom0, (dom) => {
-            if (searchIncludes(dom)) {
-              this.domOpenRows.push(dom.hostname)
-            }
-          })
-
-          _.filter(obj.storagecell, (sto) => {
-            if (searchIncludes(sto)) {
-              this.stoOpenRows.push(sto.hostname)
-            }
-          })
-
-          return searchIncludes(obj)
-        })
-
-        return search
-      } else {
-        return this.clearSearch()
-      }
-    },
   },
 }
 </script>
