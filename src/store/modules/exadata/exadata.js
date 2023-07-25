@@ -11,7 +11,6 @@ export const state = () => ({
 export const getters = {
   getExadata: (state) => (searchTherm) => {
     const exadata = getMachineTypes(state.exadata)
-    console.log(exadata)
 
     if (searchTherm === '') {
       return exadata

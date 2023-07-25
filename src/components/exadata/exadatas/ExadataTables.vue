@@ -29,7 +29,7 @@
         hasShadow
         :mbottom="false"
       >
-        <template slot="customTitle">{{ data['machineType'] }}</template>
+        <span slot="customTitle" v-html="highlight(data['machineType'])" />
 
         <ExadataProgress :exadataProgress="data['progress']" />
 
@@ -75,6 +75,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 import NoContent from '@/components/common/NoContent.vue'
@@ -84,7 +85,7 @@ import ExadataProgress from '@/components/exadata/exadatas/ExadataProgress.vue'
 import ExadataTypes from '@/components/exadata/exadatas/ExadataTypes.vue'
 
 export default {
-  mixins: [tooltipMixin],
+  mixins: [tooltipMixin, HighlightSearchMixin],
   name: 'exadata-tables-component',
   components: {
     BoxContent,
