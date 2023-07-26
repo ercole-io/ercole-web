@@ -55,10 +55,6 @@ export default {
       type: Array,
       default: () => {},
     },
-    hostname: {
-      type: String,
-      default: '',
-    },
   },
   components: {
     SimpleTable,
