@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import ApexBarChart from '@/components/common/charts/apexCharts/BarChart.vue'
 
 export default {
@@ -55,61 +56,127 @@ export default {
           id: 'iomb',
         },
       ],
+      capacityData: [],
       title: ``,
     }
   },
+  beforeMount() {
+    let data = []
+    _.map(this.capacity, (value) => {
+      value = _.omit(value, ['timeEnd', 'timeStart'])
+      if (_.isString(value.target)) {
+        data.push(value)
+      }
+    })
+    this.capacityData = data
+  },
   methods: {
     getData(type) {
-      return {
-        month: {
-          avg: this.capacity[0][`${type}Avg`],
-          max: this.capacity[0][`${type}Max`],
+      const model = {
+        m: {
+          avg: null,
+          max: null,
         },
         w4: {
-          avg: this.capacity[1][`${type}Avg`],
-          max: this.capacity[1][`${type}Max`],
+          avg: null,
+          max: null,
         },
         w3: {
-          avg: this.capacity[2][`${type}Avg`],
-          max: this.capacity[2][`${type}Max`],
+          avg: null,
+          max: null,
         },
         w2: {
-          avg: this.capacity[3][`${type}Avg`],
-          max: this.capacity[3][`${type}Max`],
+          avg: null,
+          max: null,
         },
         w1: {
-          avg: this.capacity[4][`${type}Avg`],
-          max: this.capacity[4][`${type}Max`],
+          avg: null,
+          max: null,
         },
         d7: {
-          avg: this.capacity[5][`${type}Avg`],
-          max: this.capacity[5][`${type}Max`],
+          avg: null,
+          max: null,
         },
         d6: {
-          avg: this.capacity[6][`${type}Avg`],
-          max: this.capacity[6][`${type}Max`],
+          avg: null,
+          max: null,
         },
         d5: {
-          avg: this.capacity[7][`${type}Avg`],
-          max: this.capacity[7][`${type}Max`],
+          avg: null,
+          max: null,
         },
         d4: {
-          avg: this.capacity[8][`${type}Avg`],
-          max: this.capacity[8][`${type}Max`],
+          avg: null,
+          max: null,
         },
         d3: {
-          avg: this.capacity[9][`${type}Avg`],
-          max: this.capacity[9][`${type}Max`],
+          avg: null,
+          max: null,
         },
         d2: {
-          avg: this.capacity[10][`${type}Avg`],
-          max: this.capacity[10][`${type}Max`],
+          avg: null,
+          max: null,
         },
         d1: {
-          avg: this.capacity[11][`${type}Avg`],
-          max: this.capacity[11][`${type}Max`],
+          avg: null,
+          max: null,
         },
       }
+      _.map(this.capacityData, (value) => {
+        switch (value.target) {
+          case 'm':
+            model.m.avg = value[`${type}Avg`]
+            model.m.max = value[`${type}Max`]
+            break
+          case 'w4':
+            model.w4.avg = value[`${type}Avg`]
+            model.w4.max = value[`${type}Max`]
+            break
+          case 'w3':
+            model.w3.avg = value[`${type}Avg`]
+            model.w3.max = value[`${type}Max`]
+            break
+          case 'w2':
+            model.w2.avg = value[`${type}Avg`]
+            model.w2.max = value[`${type}Max`]
+            break
+          case 'w1':
+            model.w1.avg = value[`${type}Avg`]
+            model.w1.max = value[`${type}Max`]
+            break
+          case 'd7':
+            model.d7.avg = value[`${type}Avg`]
+            model.d7.max = value[`${type}Max`]
+            break
+          case 'd6':
+            model.d6.avg = value[`${type}Avg`]
+            model.d6.max = value[`${type}Max`]
+            break
+          case 'd5':
+            model.d5.avg = value[`${type}Avg`]
+            model.d5.max = value[`${type}Max`]
+            break
+          case 'd4':
+            model.d4.avg = value[`${type}Avg`]
+            model.d4.max = value[`${type}Max`]
+            break
+          case 'd3':
+            model.d3.avg = value[`${type}Avg`]
+            model.d3.max = value[`${type}Max`]
+            break
+          case 'd2':
+            model.d2.avg = value[`${type}Avg`]
+            model.d2.max = value[`${type}Max`]
+            break
+          case 'd1':
+            model.d1.avg = value[`${type}Avg`]
+            model.d1.max = value[`${type}Max`]
+            break
+          default:
+            break
+        }
+      })
+      return model
     },
     getSeries(type) {
       return [
@@ -118,14 +185,16 @@ export default {
           data: [
             {
               x: 'M',
-              y: this.getData(type).month.avg,
+              y: this.getData(type).m.avg,
               fillColor: this.monthColor,
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type).month.max,
+                  value: this.getData(type).m.max,
                   strokeHeight: 2,
-                  strokeColor: this.maxColor,
+                  strokeColor: _.isNumber(this.getData(type).m.max)
+                    ? this.maxColor
+                    : 'transparent',
                 },
               ],
             },
@@ -138,16 +207,11 @@ export default {
                   name: 'Max',
                   value: this.getData(type).w4.max,
                   strokeHeight: 2,
-                  strokeColor: this.maxColor,
+                  strokeColor: _.isNumber(this.getData(type).w4.max)
+                    ? this.maxColor
+                    : 'transparent',
                 },
               ],
-              tooltip: {
-                x: {
-                  formatter: (val) => {
-                    return `Week ${val}`
-                  },
-                },
-              },
             },
             {
               x: 'W3',
@@ -158,7 +222,9 @@ export default {
                   name: 'Max',
                   value: this.getData(type).w3.max,
                   strokeHeight: 2,
-                  strokeColor: this.maxColor,
+                  strokeColor: _.isNumber(this.getData(type).w3.max)
+                    ? this.maxColor
+                    : 'transparent',
                 },
               ],
             },
@@ -171,7 +237,9 @@ export default {
                   name: 'Max',
                   value: this.getData(type).w2.max,
                   strokeHeight: 2,
-                  strokeColor: this.maxColor,
+                  strokeColor: _.isNumber(this.getData(type).w2.max)
+                    ? this.maxColor
+                    : 'transparent',
                 },
               ],
             },
@@ -184,7 +252,9 @@ export default {
                   name: 'Max',
                   value: this.getData(type).w1.max,
                   strokeHeight: 2,
-                  strokeColor: this.maxColor,
+                  strokeColor: _.isNumber(this.getData(type).w1.max)
+                    ? this.maxColor
+                    : 'transparent',
                 },
               ],
             },
@@ -197,7 +267,9 @@ export default {
                   name: 'Max',
                   value: this.getData(type).d7.max,
                   strokeHeight: 2,
-                  strokeColor: this.maxColor,
+                  strokeColor: _.isNumber(this.getData(type).d7.max)
+                    ? this.maxColor
+                    : 'transparent',
                 },
               ],
             },
@@ -210,7 +282,9 @@ export default {
                   name: 'Max',
                   value: this.getData(type).d6.max,
                   strokeHeight: 2,
-                  strokeColor: this.maxColor,
+                  strokeColor: _.isNumber(this.getData(type).d6.max)
+                    ? this.maxColor
+                    : 'transparent',
                 },
               ],
             },
@@ -223,7 +297,9 @@ export default {
                   name: 'Max',
                   value: this.getData(type).d5.max,
                   strokeHeight: 2,
-                  strokeColor: this.maxColor,
+                  strokeColor: _.isNumber(this.getData(type).d5.max)
+                    ? this.maxColor
+                    : 'transparent',
                 },
               ],
             },
@@ -236,7 +312,9 @@ export default {
                   name: 'Max',
                   value: this.getData(type).d4.max,
                   strokeHeight: 2,
-                  strokeColor: this.maxColor,
+                  strokeColor: _.isNumber(this.getData(type).d4.max)
+                    ? this.maxColor
+                    : 'transparent',
                 },
               ],
             },
@@ -249,7 +327,9 @@ export default {
                   name: 'Max',
                   value: this.getData(type).d3.max,
                   strokeHeight: 2,
-                  strokeColor: this.maxColor,
+                  strokeColor: _.isNumber(this.getData(type).d3.max)
+                    ? this.maxColor
+                    : 'transparent',
                 },
               ],
             },
@@ -262,7 +342,9 @@ export default {
                   name: 'Max',
                   value: this.getData(type).d2.max,
                   strokeHeight: 2,
-                  strokeColor: this.maxColor,
+                  strokeColor: _.isNumber(this.getData(type).d2.max)
+                    ? this.maxColor
+                    : 'transparent',
                 },
               ],
             },
@@ -275,7 +357,9 @@ export default {
                   name: 'Max',
                   value: this.getData(type).d1.max,
                   strokeHeight: 2,
-                  strokeColor: this.maxColor,
+                  strokeColor: _.isNumber(this.getData(type).d1.max)
+                    ? this.maxColor
+                    : 'transparent',
                 },
               ],
             },
@@ -295,9 +379,10 @@ export default {
     chartOptions(type) {
       return {
         yaxis: {
+          showForNullSeries: false,
           // labels: {
-          //   formatter: function (value) {
-          //     return value + ' GB'
+          //   formatter: (value) => {
+          //     return value
           //   },
           // },
           // title: {
@@ -352,9 +437,12 @@ export default {
           },
           offsetX: 0,
           offsetY: 0,
-          // formatter: function (val) {
-          //   return val + '%'
-          // },
+          formatter: function (val) {
+            if (_.isNull(val)) {
+              return 'N/A'
+            }
+            return val
+          },
         },
         grid: {
           position: 'back',
