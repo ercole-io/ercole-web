@@ -8,12 +8,7 @@
           class="hosts-icon is-clickable"
           pack="fas"
           icon="hard-drive"
-          @click.native="
-            openModalGridDisks({
-              hostname: props.row.hostname,
-              data: props.row.gridDisks,
-            })
-          "
+          @click.native="openModalGridDisks(props.row.gridDisks)"
           v-if="props.row.gridDisks && props.row.gridDisks.length > 0"
         />
         <span v-else>-</span>
@@ -28,13 +23,8 @@
           class="hosts-icon is-clickable"
           pack="fas"
           icon="database"
-          @click.native="
-            openModalDatabase({
-              hostname: props.row.hostname,
-              data: props.row.database,
-            })
-          "
-          v-if="props.row.database && Object.keys(props.row.database).length"
+          @click.native="openModalDatabase(props.row.databases)"
+          v-if="props.row.databases && props.row.databases.length > 0"
         />
         <span v-else>-</span>
       </template>
@@ -122,7 +112,7 @@ export default {
   },
   methods: {
     openModalGridDisks(data) {
-      let newData = _.map(data.data, (d) => {
+      let newData = _.map(data, (d) => {
         return {
           ...d,
           size: this.formatValue(d.size),
@@ -134,7 +124,6 @@ export default {
         component: StorageGridDisksModal,
         hasModalCard: true,
         props: {
-          hostname: data.hostname,
           data: newData,
         },
         fullScreen: true,
@@ -145,10 +134,9 @@ export default {
         component: StorageDatabaseModal,
         hasModalCard: true,
         props: {
-          hostname: data.hostname,
-          data: data.data,
+          data: data,
         },
-        fullScreen: false,
+        fullScreen: true,
       })
     },
     formatValue(val) {

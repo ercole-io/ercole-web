@@ -201,7 +201,6 @@ const databasesFilter = (db, search) => {
 const segmentAdvisorsFilter = (db, search) => {
   return (
     db.filter((seg) => {
-      console.log(seg)
       const searchData = stringSearch(seg.data, search)
       const searchegine = stringSearch(seg.engine, search)
       const searchFree = stringSearch(seg.free, search)
