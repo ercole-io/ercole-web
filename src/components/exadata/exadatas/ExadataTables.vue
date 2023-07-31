@@ -52,7 +52,7 @@
         />
 
         <ExadataTypes
-          typeName="BARE_METAL"
+          typeName="BARE METAL"
           :typeData="data['baremetal']"
           :openRowAfterSearch="bareMetalOpenRows"
           v-if="data['baremetal'] && data['baremetal'].length > 0"
