@@ -1,6 +1,6 @@
 <template>
-  <b-tab-item label="Capacity" value="Capacity">
-    <b-tabs size="is-small" type="is-boxed" expanded>
+  <b-tab-item label="Capacity">
+    <b-tabs size="is-small" type="is-boxed" class="mt-5" expanded>
       <b-tab-item
         v-for="cap in capacityTabs"
         :key="cap.label"
@@ -18,16 +18,19 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import databasesCapacityMixin from '@/mixins/hostDetails/databasesCapacity.js'
 
 export default {
-  name: 'hosts-details-oracle-databases-capacity-component',
+  name: 'hosts-details-oracle-databases-capacity-pdb-component',
   mixins: [databasesCapacityMixin],
-
   beforeMount() {
+    this.capacityTabs = _.remove(this.capacityTabs, (val) => {
+      return val.id !== 'cpuHost'
+    })
     this.capacityData = this.capacity
   },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="sass" scoped></style>

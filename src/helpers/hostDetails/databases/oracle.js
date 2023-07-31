@@ -48,7 +48,9 @@ const mapOracleDatabases = (data, extraData) => {
       dbGrants: item.grantDba ? resolveDbGrants([...item.grantDba]) : [],
       licenses: mapExtraData(item.name, extraData.licenses(item.name)),
       partitionings: genericResolve([...item.partitionings]),
-      capacity: item.cpuDiskConsumptions ? [...item.cpuDiskConsumptions] : [],
+      capacity: item.cpuDiskConsumptions
+        ? resolveCapacity([...item.cpuDiskConsumptions])
+        : [],
     })
   })
 
@@ -89,6 +91,18 @@ const resolvePdbs = (pdbs) => {
         })
       })
 
+      let capacityPdb = []
+      let capacityDailyPdb = []
+      _.map(val.cpuDiskConsumptionPdbs, (value) => {
+        if (_.isString(value.target)) {
+          value = _.omit(value, ['timeEnd', 'timeStart'])
+          capacityPdb.push(value)
+        } else {
+          value = _.omit(value, ['timeEnd'])
+          capacityDailyPdb.push(value)
+        }
+      })
+
       filteredPdbs.push({
         pdbName: val.name,
         pdbSchemas: val.schemas,
@@ -100,6 +114,8 @@ const resolvePdbs = (pdbs) => {
         pdbDatafileSize: val.datafileSize,
         pdbSegmentsSize: val.segmentsSize,
         pdbPartitionings: val.partitionings,
+        pdbCapacity: capacityPdb,
+        pdbDailyCapacity: capacityDailyPdb,
       })
     }
   })
@@ -142,6 +158,17 @@ const genericResolve = (data) => {
     })
   })
   return filteredData
+}
+
+const resolveCapacity = (data) => {
+  let capacity = []
+  _.map(data, (value) => {
+    value = _.omit(value, ['timeEnd', 'timeStart'])
+    if (_.isString(value.target)) {
+      capacity.push(value)
+    }
+  })
+  return capacity
 }
 
 export { mapOracleDatabases }
