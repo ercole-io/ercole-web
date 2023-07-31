@@ -4,7 +4,7 @@
     :type="progressType"
     :value="progressValue"
     :show-value="progressShowValue"
-    v-tooltip.bottom="options(progressTooltip)"
+    v-tooltip="options(progressTooltip)"
   />
 </template>
 
