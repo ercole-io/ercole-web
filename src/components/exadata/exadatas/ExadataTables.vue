@@ -40,6 +40,10 @@
           v-if="data['kvmhost'] && data['kvmhost'].length > 0"
         />
 
+        <template v-if="data['kvmhost'] && data['ibswitch'].length === 0">
+          <p class="subHeader my-1">RDMA over Converged Ethernet (RoCE)</p>
+        </template>
+
         <ExadataTypes
           typeName="DOM0"
           :typeData="data['dom0']"
@@ -118,4 +122,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
+
+.subHeader {
+  border: none;
+  background-color: $light-primary;
+  padding: 0.2em 0.75em;
+  font-size: 12px;
+  font-weight: 900;
+}
+</style>
