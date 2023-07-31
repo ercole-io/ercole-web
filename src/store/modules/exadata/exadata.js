@@ -24,7 +24,8 @@ export const getters = {
         searchChilds(data, 'kvmhost', searchTherm) ||
         searchChilds(data, 'dom0', searchTherm) ||
         searchChilds(data, 'ibswitch', searchTherm) ||
-        searchChilds(data, 'storagecell', searchTherm)
+        searchChilds(data, 'storagecell', searchTherm) ||
+        searchChilds(data, 'baremetal', searchTherm)
       )
     })
 
@@ -76,6 +77,7 @@ const organizeExadata = (data) => {
       ibswitch: getHostype(val, 'IB_SWITCH'),
       storagecell: getHostype(val, 'STORAGE_CELL'),
       dom0: getHostype(val, 'DOM0'),
+      baremetal: getHostype(val, 'BARE_METAL'),
       progress: {
         totalCPU: val.totalCPU,
         usedCPU: val.usedCPU,

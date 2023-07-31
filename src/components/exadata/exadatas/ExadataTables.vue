@@ -48,6 +48,13 @@
         />
 
         <ExadataTypes
+          typeName="BARE_METAL"
+          :typeData="data['baremetal']"
+          :openRowAfterSearch="bareMetalOpenRows"
+          v-if="data['baremetal'] && data['baremetal'].length > 0"
+        />
+
+        <ExadataTypes
           typeName="IBSWITCH"
           :typeData="data['ibswitch']"
           v-if="data['ibswitch'] && data['ibswitch'].length > 0"
@@ -102,6 +109,7 @@ export default {
       kvmOpenRows: [],
       domOpenRows: [],
       stoOpenRows: [],
+      bareMetalOpenRows: [],
     }
   },
   computed: {
