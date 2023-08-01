@@ -116,13 +116,12 @@
             <template v-slot="props">
               <ProgressBar
                 :progressMaxValue="props.row.totalCPU"
-                :progressValue="props.row.totalCPU - props.row.cpuEnabled"
+                :progressValue="props.row.cpuEnabled"
                 :progressTooltip="
                   setTooltip(
                     props.row.totalCPU,
-                    props.row.totalCPU - props.row.cpuEnabled,
                     props.row.cpuEnabled,
-
+                    props.row.totalCPU - props.row.cpuEnabled,
                     ''
                   )
                 "
