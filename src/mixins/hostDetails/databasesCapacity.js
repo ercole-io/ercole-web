@@ -13,10 +13,10 @@ export default {
   },
   data() {
     return {
-      monthColor: 'rgb(87, 117, 144)',
-      weekColor: 'rgb(67, 170, 139)',
-      dayColor: 'rgba(153, 102, 255)',
-      maxColor: 'rgb(249, 65, 68)',
+      monthColor: 'rgb(148, 179, 206)',
+      weekColor: 'rgb(121, 206, 179)',
+      dayColor: 'rgb(186, 161, 237)',
+      maxColor: 'rgb(247, 106, 106)',
       capacityTabs: [
         {
           label: 'Database',
@@ -160,7 +160,7 @@ export default {
                 {
                   name: 'Max',
                   value: this.getData(type).m.max,
-                  strokeHeight: 2,
+                  strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type).m.max)
                     ? this.maxColor
                     : 'transparent',
@@ -175,7 +175,7 @@ export default {
                 {
                   name: 'Max',
                   value: this.getData(type).w4.max,
-                  strokeHeight: 2,
+                  strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type).w4.max)
                     ? this.maxColor
                     : 'transparent',
@@ -190,7 +190,7 @@ export default {
                 {
                   name: 'Max',
                   value: this.getData(type).w3.max,
-                  strokeHeight: 2,
+                  strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type).w3.max)
                     ? this.maxColor
                     : 'transparent',
@@ -205,7 +205,7 @@ export default {
                 {
                   name: 'Max',
                   value: this.getData(type).w2.max,
-                  strokeHeight: 2,
+                  strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type).w2.max)
                     ? this.maxColor
                     : 'transparent',
@@ -220,7 +220,7 @@ export default {
                 {
                   name: 'Max',
                   value: this.getData(type).w1.max,
-                  strokeHeight: 2,
+                  strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type).w1.max)
                     ? this.maxColor
                     : 'transparent',
@@ -235,7 +235,7 @@ export default {
                 {
                   name: 'Max',
                   value: this.getData(type).d7.max,
-                  strokeHeight: 2,
+                  strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type).d7.max)
                     ? this.maxColor
                     : 'transparent',
@@ -250,7 +250,7 @@ export default {
                 {
                   name: 'Max',
                   value: this.getData(type).d6.max,
-                  strokeHeight: 2,
+                  strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type).d6.max)
                     ? this.maxColor
                     : 'transparent',
@@ -265,7 +265,7 @@ export default {
                 {
                   name: 'Max',
                   value: this.getData(type).d5.max,
-                  strokeHeight: 2,
+                  strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type).d5.max)
                     ? this.maxColor
                     : 'transparent',
@@ -280,7 +280,7 @@ export default {
                 {
                   name: 'Max',
                   value: this.getData(type).d4.max,
-                  strokeHeight: 2,
+                  strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type).d4.max)
                     ? this.maxColor
                     : 'transparent',
@@ -295,7 +295,7 @@ export default {
                 {
                   name: 'Max',
                   value: this.getData(type).d3.max,
-                  strokeHeight: 2,
+                  strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type).d3.max)
                     ? this.maxColor
                     : 'transparent',
@@ -310,7 +310,7 @@ export default {
                 {
                   name: 'Max',
                   value: this.getData(type).d2.max,
-                  strokeHeight: 2,
+                  strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type).d2.max)
                     ? this.maxColor
                     : 'transparent',
@@ -325,7 +325,7 @@ export default {
                 {
                   name: 'Max',
                   value: this.getData(type).d1.max,
-                  strokeHeight: 2,
+                  strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type).d1.max)
                     ? this.maxColor
                     : 'transparent',
@@ -349,21 +349,8 @@ export default {
       return {
         yaxis: {
           showForNullSeries: false,
-          // labels: {
-          //   formatter: (value) => {
-          //     return value
-          //   },
-          // },
-          // title: {
-          //   text: 'Servings',
-          // },
         },
         xaxis: {
-          // labels: {
-          //   formatter: function (value) {
-          //     return value
-          //   },
-          // },
           group: {
             style: {
               fontSize: '12px',
@@ -381,32 +368,29 @@ export default {
           axisTicks: {
             show: true,
           },
+          labels: {
+            offsetX: 0,
+            offsetY: 0,
+          },
         },
         dataLabels: {
           enabled: true,
           style: {
-            colors: ['#333'],
+            colors: ['#000'],
             fontSize: '12px',
             fontWeight: 'bold',
           },
-          // dropShadow: {
-          //   enabled: true,
-          //   left: 2,
-          //   top: 2,
-          //   opacity: 0.5,
-          // },
-          background: {
+          dropShadow: {
             enabled: true,
-            foreColor: '#fff',
-            borderRadius: 4,
-            padding: 3,
-            opacity: 0.7,
-            borderWidth: 1,
-            borderColor: '#fff',
+            top: 0,
+            left: 0,
+            blur: 5,
+            color: '#fff',
+            opacity: 1,
           },
           offsetX: 0,
           offsetY: 0,
-          formatter: function (val) {
+          formatter: (val) => {
             if (_.isNull(val)) {
               return 'N/A'
             }
@@ -441,6 +425,8 @@ export default {
           onItemClick: {
             toggleDataSeries: false,
           },
+          offsetX: 0,
+          offsetY: 0,
         },
         chart: {
           toolbar: {
