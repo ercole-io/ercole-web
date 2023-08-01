@@ -13,7 +13,11 @@
             ' GB'
           )
         "
+        v-if="exadataType !== 'BARE METAL'"
       />
+      <p class="is-size-7 has-text-centered" v-else>
+        {{ exadataProgress.totalMemory }} GB
+      </p>
     </div>
     <div class="column is-6">
       <span class="is-size-7 has-text-weight-semibold ml-2">VCPU Usage</span>
@@ -43,6 +47,9 @@ export default {
     exadataProgress: {
       type: Object,
       default: () => {},
+    },
+    exadataType: {
+      type: String,
     },
   },
 }
