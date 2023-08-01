@@ -56,11 +56,12 @@
           </b-table-column>
         </template>
 
-        <template v-if="typeName !== 'STORAGE' && typeName !== 'IBSWITCH'">
+        <template v-if="typeName === 'KVM' || typeName === 'DOM0'">
           <b-table-column field="totalRam" label="Ram Usage" centered sortable>
             <template v-slot="props">
               <ProgressBar
-                :progressValue="calcValues(props.row.memory, props.row.freeRAM)"
+                :progressMaxValue="props.row.memory"
+                :progressValue="props.row.usedRAM"
                 :progressTooltip="
                   setTooltip(
                     props.row.memory,
@@ -81,14 +82,47 @@
           >
             <template v-slot="props">
               <ProgressBar
-                :progressValue="
-                  calcValues(props.row.totalCPU, props.row.freeCPU)
-                "
+                :progressMaxValue="props.row.totalCPU"
+                :progressValue="props.row.usedCPU"
                 :progressTooltip="
                   setTooltip(
                     props.row.totalCPU,
                     props.row.usedCPU,
                     props.row.freeCPU,
+                    ''
+                  )
+                "
+              />
+            </template>
+          </b-table-column>
+        </template>
+
+        <template v-if="typeName === 'BARE METAL'">
+          <b-table-column field="memory" label="Ram Usage" centered sortable>
+            <template v-slot="props">
+              <p
+                v-tooltip="options(`${props.row.memory} GB`)"
+                v-html="highlight(`${props.row.memory} GB`)"
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column
+            field="totalVCPU"
+            label="VCPU Usage"
+            centered
+            sortable
+          >
+            <template v-slot="props">
+              <ProgressBar
+                :progressMaxValue="props.row.totalCPU"
+                :progressValue="props.row.totalCPU - props.row.cpuEnabled"
+                :progressTooltip="
+                  setTooltip(
+                    props.row.totalCPU,
+                    props.row.totalCPU - props.row.cpuEnabled,
+                    props.row.cpuEnabled,
+
                     ''
                   )
                 "
@@ -133,6 +167,17 @@
           </b-table-column>
         </template>
 
+        <template v-if="typeName === 'BARE METAL'">
+          <b-table-column field="kernel" label="Kernel" centered sortable>
+            <template v-slot="props">
+              <p
+                v-tooltip="options(props.row.kernel)"
+                v-html="highlight(props.row.kernel)"
+              />
+            </template>
+          </b-table-column>
+        </template>
+
         <template #detail="props">
           <ExadataTypesVms
             :type="typeName"
@@ -151,7 +196,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import ProgressMixin from '@/mixins/exadata/progress-mixin.js'
@@ -177,14 +221,6 @@ export default {
   components: {
     ExadataTypesVms,
     ExadataTypesStorage,
-  },
-  methods: {
-    setTooltip(total, free, used, format) {
-      return `Total: ${total}${format}<br>Used: ${used}${format}<br>Free: ${free}${format}`
-    },
-    calcValues(total, free) {
-      return _.toNumber((free / total) * 100) || 0
-    },
   },
 }
 </script>

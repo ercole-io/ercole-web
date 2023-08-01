@@ -3,9 +3,8 @@
     <div class="column is-6">
       <span class="is-size-7 has-text-weight-semibold ml-2">Ram Usage</span>
       <ProgressBar
-        :progressValue="
-          calcValues(exadataProgress.totalMemory, exadataProgress.freeMemory)
-        "
+        :progressMaxValue="exadataProgress.totalMemory"
+        :progressValue="exadataProgress.usedMemory"
         :progressTooltip="
           setTooltip(
             exadataProgress.totalMemory,
@@ -19,9 +18,8 @@
     <div class="column is-6">
       <span class="is-size-7 has-text-weight-semibold ml-2">VCPU Usage</span>
       <ProgressBar
-        :progressValue="
-          calcValues(exadataProgress.totalCPU, exadataProgress.freeCPU)
-        "
+        :progressMaxValue="exadataProgress.totalCPU"
+        :progressValue="exadataProgress.usedCPU"
         :progressTooltip="
           setTooltip(
             exadataProgress.totalCPU,

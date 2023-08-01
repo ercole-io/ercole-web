@@ -41,7 +41,9 @@
         />
 
         <template v-if="data['kvmhost'] && data['ibswitch'].length === 0">
-          <p class="subHeader my-1">RDMA over Converged Ethernet (RoCE)</p>
+          <p class="subHeader">RDMA over Converged Ethernet (RoCE)</p>
+          <span />
+          <span />
         </template>
 
         <ExadataTypes
@@ -131,5 +133,20 @@ export default {
   padding: 0.2em 0.75em;
   font-size: 12px;
   font-weight: 900;
+  margin: 2px 0 0 0 !important;
+
+  & + span {
+    display: block;
+    width: 100%;
+    height: 30px;
+    background-color: #101336;
+
+    & + span {
+      display: block;
+      width: 100%;
+      height: 30px;
+      background-color: #fff;
+    }
+  }
 }
 </style>
