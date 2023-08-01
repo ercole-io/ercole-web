@@ -134,7 +134,7 @@ export default {
         title: 'Ercole Version',
         message: `
           <p class="has-text-weight-bold">Server Version: <span class="has-text-weight-normal">${this.version}</span></p>
-          <p class="has-text-weight-bold">Web Version: <span class="has-text-weight-normal">2.36.0</span></p>
+          <p class="has-text-weight-bold">Web Version: <span class="has-text-weight-normal">2.37.1</span></p>
         `,
         cancelButton: false,
         type: 'is-success',
