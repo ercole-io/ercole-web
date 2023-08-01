@@ -75,6 +75,7 @@
         />
         <DbCapacity
           :capacity="dbs.capacity"
+          :capacityDaily="dbs.capacityDaily"
           v-if="dbs.capacity && dbs.capacity.length > 0"
         />
       </b-tabs>

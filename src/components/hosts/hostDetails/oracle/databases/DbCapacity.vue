@@ -26,6 +26,7 @@ export default {
 
   beforeMount() {
     this.capacityData = this.capacity
+    console.log(this.capacityDaily)
   },
 }
 </script>

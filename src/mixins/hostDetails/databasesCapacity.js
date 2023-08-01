@@ -7,6 +7,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    capacityDaily: {
+      type: Array,
+      default: () => [],
+    },
   },
   components: {
     ApexBarChart,
