@@ -31,7 +31,10 @@
       >
         <span slot="customTitle" v-html="highlight(data['machineType'])" />
 
-        <ExadataProgress :exadataProgress="data['progress']" />
+        <ExadataProgress
+          :exadataProgress="data['progress']"
+          :exadataType="data['machineType']"
+        />
 
         <ExadataTypes
           typeName="KVM"
