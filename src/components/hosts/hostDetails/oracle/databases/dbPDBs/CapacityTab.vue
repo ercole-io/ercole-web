@@ -7,8 +7,9 @@
         :label="cap.label"
         :value="cap.label"
       >
-        <ApexBarChart
-          :chartID="`${cap.id}CapacityChart`"
+        <ChartBuilder
+          chartType="bar"
+          :chartID="`${cap.id}CapacityPdbChart`"
           :chartOptions="chartOptions(cap.label)"
           :chartSeries="getSeries(cap.id)"
         />
@@ -19,11 +20,12 @@
 
 <script>
 import _ from 'lodash'
-import databasesCapacityMixin from '@/mixins/hostDetails/databasesCapacity.js'
+import databasesCapacityMixin from '@/mixins/hostDetails/capacity/databasesCapacity.js'
+import databasesCapacityMonthMixin from '@/mixins/hostDetails/capacity/databasesCapacityMonth.js'
 
 export default {
   name: 'hosts-details-oracle-databases-capacity-pdb-component',
-  mixins: [databasesCapacityMixin],
+  mixins: [databasesCapacityMixin, databasesCapacityMonthMixin],
   beforeMount() {
     this.capacityTabs = _.remove(this.capacityTabs, (val) => {
       return val.id !== 'cpuHost'

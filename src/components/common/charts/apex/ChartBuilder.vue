@@ -1,26 +1,30 @@
 <template>
   <apex-chart
-    type="bar"
-    :height="chartHeight"
-    :width="chartWidth"
+    :type="chartType"
     :options="chartOptions"
     :series="chartSeries"
     :id="chartID"
-    class="mt-4"
+    :height="chartHeight"
+    :width="chartWidth"
+    :class="chartClass"
   />
 </template>
 
 <script>
 export default {
-  name: 'apex-bar-chart',
+  name: 'apex-chart-builder',
   props: {
+    chartType: {
+      type: String,
+      required: true,
+    },
     chartOptions: {
       type: Object,
-      default: () => {},
+      required: true,
     },
     chartSeries: {
       type: Array,
-      default: () => [],
+      required: true,
     },
     chartID: {
       type: String,
@@ -33,6 +37,10 @@ export default {
     chartWidth: {
       type: String,
       default: '100%',
+    },
+    chartClass: {
+      type: String,
+      default: 'mt-4',
     },
   },
 }

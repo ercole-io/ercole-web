@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import ApexBarChart from '@/components/common/charts/apexCharts/BarChart.vue'
 
 export default {
   props: {
@@ -7,41 +6,15 @@ export default {
       type: Array,
       default: () => [],
     },
-    capacityDaily: {
-      type: Array,
-      default: () => [],
-    },
-  },
-  components: {
-    ApexBarChart,
   },
   data() {
     return {
-      monthColor: 'rgb(148, 179, 206)',
-      weekColor: 'rgb(121, 206, 179)',
-      dayColor: 'rgb(186, 161, 237)',
-      maxColor: 'rgb(247, 106, 106)',
-      capacityTabs: [
-        {
-          label: 'Database',
-          id: 'cpuDb',
-        },
-        {
-          label: 'Host',
-          id: 'cpuHost',
-        },
-        {
-          label: 'IOPS',
-          id: 'iops',
-        },
-        {
-          label: 'IOMB',
-          id: 'iomb',
-        },
-      ],
       capacityData: [],
       title: ``,
     }
+  },
+  beforeMount() {
+    this.capacityData = this.capacity
   },
   methods: {
     getData(type) {
@@ -340,15 +313,6 @@ export default {
         },
       ]
     },
-    getChartTitle(type) {
-      if (type === 'IOPS') {
-        return 'IOPS'
-      } else if (type === 'IOMB') {
-        return 'IOMB'
-      } else {
-        return 'Threads'
-      }
-    },
     chartOptions(type) {
       return {
         yaxis: {
@@ -404,7 +368,8 @@ export default {
         grid: {
           position: 'back',
           row: {
-            colors: ['#f9f9f9', '#fff'],
+            colors: ['#f3f3f3', 'transparent'],
+            opacity: 0.5,
           },
         },
         plotOptions: {
@@ -438,7 +403,7 @@ export default {
           },
         },
         title: {
-          text: this.getChartTitle(type),
+          text: this.getChartTitle(type, 'month'),
           align: 'left',
           margin: 10,
           offsetX: 0,
