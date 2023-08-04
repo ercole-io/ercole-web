@@ -1,5 +1,5 @@
 <template>
-  <b-table :data="data" scrollable>
+  <b-table :data="data" class="custom-collapse-table" scrollable>
     <b-table-column field="gridDisks" label="Grid Disks" centered sortable>
       <template v-slot="props">
         <b-icon
