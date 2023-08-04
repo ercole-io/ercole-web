@@ -51,6 +51,12 @@ export default {
         },
         xaxis: {
           categories: categories,
+          labels: {
+            formatter: (value, timestamp, opts) => {
+              // return _.split(value, ' ')[1]
+              return value
+            },
+          },
         },
         colors: [this.maxColor, this.dayColor],
         dataLabels: {
