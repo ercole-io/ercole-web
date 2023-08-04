@@ -51,6 +51,9 @@ const mapOracleDatabases = (data, extraData) => {
       capacity: item.cpuDiskConsumptions
         ? resolveCapacity([...item.cpuDiskConsumptions])
         : [],
+      capacityDaily: item.cpuDiskConsumptions
+        ? resolveCapacityDaily([...item.cpuDiskConsumptions])
+        : [],
     })
   })
 
@@ -169,6 +172,17 @@ const resolveCapacity = (data) => {
     }
   })
   return capacity
+}
+
+const resolveCapacityDaily = (data) => {
+  let capacityDaily = []
+  _.map(data, (value) => {
+    value = _.omit(value, ['timeEnd'])
+    if (!_.isString(value.target)) {
+      capacityDaily.push(value)
+    }
+  })
+  return _.orderBy(capacityDaily, ['timeStart'], ['asc'])
 }
 
 export { mapOracleDatabases }

@@ -224,7 +224,10 @@
             class="mt-3"
           />
         </b-tab-item>
-        <CapacityTab :capacity="pdb.pdbCapacity" />
+        <CapacityTab
+          :capacity="pdb.pdbCapacity"
+          :capacityDaily="pdb.pdbDailyCapacity"
+        />
       </b-tabs>
     </CollapseSimple>
   </b-tab-item>
