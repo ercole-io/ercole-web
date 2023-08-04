@@ -1,5 +1,5 @@
 <template>
-  <b-table :data="data">
+  <b-table :data="data" class="custom-collapse-table">
     <b-table-column field="hostname" label="Hostname" centered sortable>
       <template v-slot="props">
         <p
@@ -76,4 +76,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss"></style>
