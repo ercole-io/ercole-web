@@ -33,12 +33,18 @@ export default {
     },
     chartDailyOptions(type) {
       const categories = []
+      const dateRange = []
 
       _.map(this.capacityDaily, (val) => {
         if (_.includes(type, '-daily')) {
           categories.push(formatDateTime(val.timeStart))
         }
       })
+
+      dateRange.push(
+        _.split(_.head(categories), ' ')[0],
+        _.split(_.last(categories), ' ')[0]
+      )
 
       return {
         chart: {
@@ -52,9 +58,8 @@ export default {
         xaxis: {
           categories: categories,
           labels: {
-            formatter: (value, timestamp, opts) => {
-              // return _.split(value, ' ')[1]
-              return value
+            formatter: (value) => {
+              return _.split(value, ' ')[1]
             },
           },
         },
@@ -66,7 +71,7 @@ export default {
           curve: 'smooth',
         },
         title: {
-          text: this.getChartTitle(type, 'daily'),
+          text: this.getChartTitle(type, 'daily', dateRange),
           align: 'left',
         },
         grid: {
@@ -82,6 +87,14 @@ export default {
         legend: {
           position: 'bottom',
           horizontalAlign: 'center',
+        },
+        tooltip: {
+          x: {
+            show: true,
+            formatter: (seriesIndex) => {
+              return categories[seriesIndex - 1]
+            },
+          },
         },
       }
     },

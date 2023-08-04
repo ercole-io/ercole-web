@@ -403,7 +403,7 @@ export default {
           },
         },
         title: {
-          text: this.getChartTitle(type, 'month'),
+          text: this.getChartTitle(type, 'month', null),
           align: 'left',
           margin: 10,
           offsetX: 0,

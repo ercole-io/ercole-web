@@ -47,14 +47,14 @@ export default {
     }
   },
   methods: {
-    getChartTitle(type, mode) {
+    getChartTitle(type, mode, dateRange) {
       if (mode === 'daily') {
         if (type === 'iops-daily') {
-          return 'IOPS - Daily'
+          return `IOPS - Daily:  From: ${dateRange[0]} to ${dateRange[1]}`
         } else if (type === 'iomb-daily') {
-          return 'IOMB - Daily'
+          return `IOMB - Daily:  From: ${dateRange[0]} to ${dateRange[1]}`
         } else {
-          return 'Threads - Daily'
+          return `Threads - Daily:  From: ${dateRange[0]} to ${dateRange[1]}`
         }
       } else {
         if (type === 'IOPS') {
