@@ -1,6 +1,6 @@
 <template>
   <b-tab-item label="Capacity" value="Capacity">
-    <b-tabs size="is-small" expanded>
+    <b-tabs size="is-small" type="is-toggle" expanded>
       <b-tab-item
         v-for="cap in capacityTabs"
         :key="cap.id"

@@ -20,12 +20,6 @@ export default {
         avgData.push(val[`${transformType[0]}Avg`])
       })
 
-      maxData.push(null)
-      maxData.unshift(null)
-
-      avgData.push(null)
-      avgData.unshift(null)
-
       return [
         {
           name: 'Max',
@@ -46,13 +40,13 @@ export default {
         }
       })
 
-      categories.push('')
-      categories.unshift('')
-
       return {
         chart: {
           toolbar: {
             show: false,
+          },
+          zoom: {
+            enabled: false,
           },
         },
         xaxis: {
@@ -60,7 +54,7 @@ export default {
         },
         colors: [this.maxColor, this.dayColor],
         dataLabels: {
-          enabled: true,
+          enabled: false,
         },
         stroke: {
           curve: 'smooth',
