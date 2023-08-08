@@ -1,5 +1,5 @@
 <template>
-  <td v-tooltip.bottom="tooltip">
+  <td v-tooltip.bottom="tooltip" v-if="!noTd">
     <b-icon
       :custom-size="size"
       :icon="icon"
@@ -7,6 +7,13 @@
       style="vertical-align: middle"
     />
   </td>
+  <b-icon
+    :custom-size="size"
+    :icon="icon"
+    :type="type"
+    style="vertical-align: middle"
+    v-else
+  />
 </template>
 
 <script>
@@ -17,6 +24,12 @@ import { mapBooleanIcon } from '@/helpers/helpers.js'
 export default {
   name: 'commom-table-tdicon-component',
   mixins: [TooltipMixin],
+  props: {
+    noTd: {
+      type: Boolean,
+      default: false,
+    },
+  },
   computed: {
     bindIncon() {
       if (_.isArray(this.value)) {

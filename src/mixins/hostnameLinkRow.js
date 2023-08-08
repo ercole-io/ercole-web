@@ -24,5 +24,11 @@ export default {
         return
       }
     },
+    handleSimpleClickRow(value) {
+      this.$router.push({
+        name: 'hosts-details',
+        params: { hostname: value.hostname },
+      })
+    },
   },
 }

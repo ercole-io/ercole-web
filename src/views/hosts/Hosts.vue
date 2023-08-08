@@ -5,11 +5,13 @@
     :centerCol="9"
     v-if="isMounted"
   >
-    <HostsFilters slot="left">
-      <Loading :isLoading="loadingTableStatus" v-if="firstLoad" />
-    </HostsFilters>
+    <!-- <HostsFilters slot="left"> -->
+    <!-- <Loading :isLoading="loadingTableStatus" v-if="firstLoad" /> -->
+    <!-- </HostsFilters> -->
+    <p slot="left">filters</p>
 
-    <FullTable
+    <HostsTable slot="center" />
+    <!-- <FullTable
       :placeholder="$t('menu.hosts')"
       :keys="getHeadKeys(hostsHead)"
       :tableData="getAllHosts"
@@ -138,7 +140,7 @@
           type="LMS"
         />
       </template>
-    </FullTable>
+    </FullTable> -->
   </ToggleColumns>
 </template>
 
@@ -149,38 +151,40 @@ import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
-import FullTable from '@/components/common/Table/FullTable.vue'
-import TdContent from '@/components/common/Table/TdContent.vue'
-import TdIcon from '@/components/common/Table/TDIcon.vue'
-import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
-import ExportButton from '@/components/common/ExportButton.vue'
-import HostsFilters from '@/components/hosts/hosts/HostsFilters.vue'
-import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
-import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
-import HostLink from '@/components/common/Table/HostLink.vue'
+import HostsTable from '@/components/hosts/hosts/Table.vue'
+// import FullTable from '@/components/common/Table/FullTable.vue'
+// import TdContent from '@/components/common/Table/TdContent.vue'
+// import TdIcon from '@/components/common/Table/TDIcon.vue'
+// import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
+// import ExportButton from '@/components/common/ExportButton.vue'
+// import HostsFilters from '@/components/hosts/hosts/HostsFilters.vue'
+// import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
+// import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
+// import HostLink from '@/components/common/Table/HostLink.vue'
 import formatDate from '@/filters/formatDate.js'
 import hostsHead from '@/views/hosts/hosts-head.json'
 import hostsMoreInfo from '@/views/hosts/hosts-more-info.json'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
-import Loading from '@/components/common/Loading.vue'
-import RefreshButton from '@/components/common/RefreshButton.vue'
+// import Loading from '@/components/common/Loading.vue'
+// import RefreshButton from '@/components/common/RefreshButton.vue'
 
 export default {
   name: 'hosts-page',
   mixins: [localFiltersMixin, hostnameLinkRow, getHeadKeys, TooltipMixin],
   components: {
     ToggleColumns,
-    FullTable,
-    TdContent,
-    TdIcon,
-    TdArrayMore,
-    ExportButton,
-    HostsFilters,
-    DynamicHeading,
-    MoreInfoButtons,
-    HostLink,
-    Loading,
-    RefreshButton,
+    HostsTable,
+    // FullTable,
+    // TdContent,
+    // TdIcon,
+    // TdArrayMore,
+    // ExportButton,
+    // HostsFilters,
+    // DynamicHeading,
+    // MoreInfoButtons,
+    // HostLink,
+    // Loading,
+    // RefreshButton,
   },
   data() {
     return {

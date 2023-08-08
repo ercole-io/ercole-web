@@ -43,6 +43,8 @@
       </template>
 
       <div style="width: 100%" class="is-flex is-justify-content-flex-end">
+        <MoreInfoButtons :buttonItems="moreInfoItems" v-if="hasMoreInfo" />
+
         <RefreshButton
           v-if="hasRefreshButton"
           tooltipMsg="Update Data"
@@ -90,6 +92,8 @@
       aria-page-label="Page"
       aria-current-label="Current page"
       sticky-header
+      @click="rowClick"
+      :row-class="() => 'is-clickable'"
     >
       <slot name="cols" />
 
@@ -122,6 +126,7 @@ import ShowPerPage from '@/components/common/Table/ShowPerPage.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import NoContent from '@/components/common/NoContent.vue'
 import RefreshButton from '@/components/common/RefreshButton.vue'
+import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
 
 export default {
   name: 'commom-table-buefy-fulltable-component',
@@ -130,6 +135,7 @@ export default {
     ExportButton,
     NoContent,
     RefreshButton,
+    MoreInfoButtons,
   },
   props: {
     tableData: {
@@ -171,6 +177,18 @@ export default {
     refreshButtonAction: {
       type: Function,
       default: () => {},
+    },
+    rowClick: {
+      type: Function,
+      default: () => {},
+    },
+    hasMoreInfo: {
+      type: Boolean,
+      default: false,
+    },
+    moreInfoItems: {
+      type: Array,
+      default: () => [],
     },
   },
   data() {

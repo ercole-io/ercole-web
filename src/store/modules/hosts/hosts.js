@@ -10,38 +10,41 @@ export const state = () => ({
 export const getters = {
   getAllHosts: (state, getters) => {
     let allHosts = []
-    _.map(state.hosts, (host) => {
-      let time = moment(host.createdAt).format('YYYY-MM-DDTHH:mm')
+    _.map(state.hosts, (item) => {
+      let time = moment(item.Host.createdAt).format('YYYY-MM-DDTHH:mm')
       let compareTime = moment().diff(time, 'seconds')
       let fromNow = moment(time).fromNow()
       const seconds = 86400 //24h in seconds
 
       allHosts.push({
-        _id: host._id,
-        hostname: host.hostname,
-        environment: host.environment,
-        databases: _.split(Object.values(host.databases), ','),
-        techType: Object.keys(host.databases),
-        platform: formatPlatform(host.info.hardwareAbstractionTechnology),
-        cluster: host.cluster,
-        virtNode: host.virtualizationNode,
-        os: `${host.info.os} - ${host.info.osVersion}`,
-        kernel: `${host.info.kernelVersion} - ${host.info.kernel}`,
-        memorytotal: host.info.memoryTotal,
-        swaptotal: host.info.swapTotal,
-        iconCluster: mapClustStatus(host.clusterMembershipStatus)[0],
-        model: host.info.cpuModel,
-        threads: host.info.cpuThreads,
-        cores: host.info.cpuCores,
-        socket: host.info.cpuSockets,
-        version: formatVersion(host.agentVersion),
-        updated: host.createdAt,
+        _id: item.Host.id,
+        hostname: item.Host.hostname,
+        environment: item.Host.environment,
+        // databases: _.split(Object.values(item.Host.databases), ','),
+        // techType: Object.keys(item.Host.databases),
+        databases: '-',
+        techType: '-',
+        platform: formatPlatform(item.Host.info.hardwareAbstractionTechnology),
+        cluster: item.Host.cluster || '-',
+        virtNode: item.Host.virtualizationNode || '-',
+        os: `${item.Host.info.os} - ${item.Host.info.osVersion}`,
+        kernel: `${item.Host.info.kernelVersion} - ${item.Host.info.kernel}`,
+        memorytotal: item.Host.info.memoryTotal,
+        swaptotal: item.Host.info.swapTotal,
+        iconCluster: mapClustStatus(item.Host.clusterMembershipStatus)[0],
+        model: item.Host.info.cpuModel,
+        threads: item.Host.info.cpuThreads,
+        cores: item.Host.info.cpuCores,
+        socket: item.Host.info.cpuSockets,
+        version: formatVersion(item.Host.agentVersion),
+        updated: item.Host.createdAt,
         obsolete: compareTime > seconds ? true : false,
         obsoleteDiff: `Obsolete from ${fromNow}`,
+        IsMissingDB: item.IsMissingDB,
       })
     })
 
-    return getters.filteredOrNot(allHosts)
+    return allHosts
   },
 }
 
@@ -57,8 +60,13 @@ export const actions = {
 
     const config = {
       method: 'get',
-      url: 'hosts?mode=summary',
+      url: 'hosts',
       params: {
+        'sort-by': getters.getSortItem,
+        'sort-desc': getters.getSortOrder,
+        page: getters.getPageNum,
+        size: getters.getPerPage,
+        search: getters.getSearchTherm,
         'older-than': getters.getActiveFilters.date || olderThan,
         environment: getters.getActiveFilters.environment,
         location: getters.getActiveFilters.location,
@@ -66,7 +74,18 @@ export const actions = {
     }
 
     await axiosRequest('baseApi', config).then((res) => {
-      commit('SET_HOSTS', res.data.hosts)
+      let hostsData = []
+      let hostsTotal = 0
+
+      if (res.data.items && res.data.items.length > 0) {
+        hostsData = res.data.items
+        hostsTotal = res.data.count
+      }
+
+      commit('SET_HOSTS', hostsData)
+      commit('SET_TOTAL_DATA', hostsTotal)
+      commit('SET_PAGE_LENGTH', hostsData.length)
+
       dispatch('offLoadingTable')
     })
   },
