@@ -9,7 +9,7 @@ export const state = () => ({
 })
 
 export const getters = {
-  getAllHosts: (state, getters) => {
+  getAllHosts: (state) => {
     let allHosts = []
     _.map(state.hosts, (item) => {
       let time = moment(item.Host.createdAt).format('YYYY-MM-DDTHH:mm')
@@ -21,11 +21,10 @@ export const getters = {
         _id: item.Host.id,
         hostname: item.Host.hostname,
         environment: item.Host.environment,
-        // databases: _.split(Object.values(item.Host.databases), ','),
+        databases: getDatabasesNames(item.Host.features),
         techType: getTechnologyType(item.Host.features),
-        databases: '-',
         platform: formatPlatform(item.Host.info.hardwareAbstractionTechnology),
-        cluster: item.Host.cluster || '-',
+        cluster: item.Host.clusters || '-',
         virtNode: item.Host.virtualizationNode || '-',
         os: `${item.Host.info.os} - ${item.Host.info.osVersion}`,
         kernel: `${item.Host.info.kernelVersion} - ${item.Host.info.kernel}`,
@@ -130,4 +129,33 @@ const getTechnologyType = (features) => {
       return '-'
     }
   }
+}
+
+const getDatabasesNames = (features) => {
+  let databases
+
+  if (features) {
+    if (features.oracle) {
+      databases = features.oracle.database.databases
+    } else if (features.mysql) {
+      databases = features.mysql.instances
+    } else if (features.microsoft) {
+      databases = features.microsoft.sqlServer.instances
+    } else if (features.postgresql) {
+      databases = features.postgresql.instances
+    } else if (features.mongodb) {
+      databases = features.mongodb.instances
+    }
+  }
+
+  return setDbNames(databases)
+}
+
+const setDbNames = (dbs) => {
+  let dbNames = []
+  _.map(dbs, (val) => {
+    dbNames.push(val.name)
+  })
+
+  return dbNames.length > 0 ? dbNames : '-'
 }

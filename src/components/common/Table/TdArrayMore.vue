@@ -1,6 +1,42 @@
 <template>
-  <td v-tooltip="options(formatArrayToShow(value), null, 'top')">
-    <div class="dbsList">
+  <div
+    v-tooltip="options(formatArrayToShow(value), null, 'top')"
+    class="itemsList"
+    v-if="noTD"
+  >
+    <div v-if="valueSize > defaultSize">
+      <b-button
+        size="is-small"
+        type="is-success is-light"
+        @click="show('plus')"
+        icon-right="plus"
+        icon-pack="fas"
+        :disabled="limit > valueSize"
+        outlined
+      />
+      <b-button
+        size="is-small"
+        type="is-danger is-light"
+        @click="show()"
+        icon-right="minus"
+        icon-pack="fas"
+        :disabled="limit < defaultSize"
+        outlined
+      />
+    </div>
+    <ul>
+      <li
+        v-for="(val, index) in value"
+        :key="index"
+        :class="index > limit ? 'hidden' : ''"
+        class="wrap-list"
+      >
+        <span v-html="highlight(val) || '-'"></span>
+      </li>
+    </ul>
+  </div>
+  <td v-tooltip="options(formatArrayToShow(value), null, 'top')" v-else>
+    <div class="itemsList">
       <div v-if="valueSize > defaultSize">
         <b-button
           size="is-small"
@@ -43,6 +79,12 @@ import TooltipMixin from '@/mixins/tooltipMixin.js'
 export default {
   name: 'commom-table-tdarraymore-component',
   mixins: [HighlightSearchMixin, TooltipMixin],
+  props: {
+    noTD: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       limit: 4,
@@ -76,7 +118,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.dbsList {
+.itemsList {
   display: flex;
   justify-content: center;
   align-items: center;

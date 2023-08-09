@@ -185,10 +185,12 @@
         sortable
         v-slot="props"
       >
-        <span
-          v-tooltip="options(props.row.databases)"
-          v-html="highlight(props.row.databases)"
+        <TdArrayMore
+          v-if="props.row.databases.length > 5"
+          :value="props.row.databases"
+          noTD
         />
+        <TdArrayMore v-else :value="props.row.databases" noTD />
       </b-table-column>
       <b-table-column
         field="techType"
@@ -280,6 +282,7 @@ import formatDateTime from '@/filters/formatDateTime.js'
 import hostsMoreInfo from '@/views/hosts/hosts-more-info.json'
 import FullTable from '@/components/common/Table/buefy/FullTable.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
+import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
@@ -288,6 +291,7 @@ export default {
   components: {
     FullTable,
     TdIcon,
+    TdArrayMore,
     ExportButton,
   },
   data() {
