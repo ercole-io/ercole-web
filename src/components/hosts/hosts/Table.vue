@@ -260,6 +260,14 @@
         />
       </b-table-column>
     </template>
+
+    <ExportButton
+      url="hosts"
+      expName="hosts-lms-data"
+      :text="`${$t('common.general.exportLms')}`"
+      type="LMS"
+      slot="extra-export"
+    />
   </FullTable>
 </template>
 
@@ -272,6 +280,7 @@ import formatDateTime from '@/filters/formatDateTime.js'
 import hostsMoreInfo from '@/views/hosts/hosts-more-info.json'
 import FullTable from '@/components/common/Table/buefy/FullTable.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
   name: 'hosts-table-component',
@@ -279,6 +288,7 @@ export default {
   components: {
     FullTable,
     TdIcon,
+    ExportButton,
   },
   data() {
     return {

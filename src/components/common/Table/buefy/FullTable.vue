@@ -114,6 +114,7 @@
       />
       <div class="buttons mb-0" v-if="hasExportButton">
         <ExportButton :url="exportInfo[0]" :expName="exportInfo[1]" />
+        <slot name="extra-export" />
       </div>
     </div>
   </article>
