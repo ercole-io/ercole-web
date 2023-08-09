@@ -18,6 +18,7 @@
         sortable
         v-slot="props"
         cell-class="first-col"
+        width="250"
       >
         <b-icon
           v-if="props.row.obsolete"
@@ -26,6 +27,14 @@
           icon="alert"
           type="is-warning"
           v-tooltip="options(props.row.obsoleteDiff)"
+        />
+        <b-icon
+          v-if="props.row.IsMissingDB"
+          size="is-medium"
+          custom-size="mdi-18px"
+          icon="database"
+          type="is-danger"
+          v-tooltip="options('Missing Databases')"
         />
         <span
           v-tooltip="options(props.row.hostname)"
