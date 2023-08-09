@@ -2,6 +2,7 @@ import _ from 'lodash'
 import moment from 'moment'
 import { mapClustStatus } from '@/helpers/helpers.js'
 import { axiosRequest } from '@/services/services.js'
+import capitalize from '@/filters/capitalize.js'
 
 export const state = () => ({
   hosts: [],
@@ -21,9 +22,8 @@ export const getters = {
         hostname: item.Host.hostname,
         environment: item.Host.environment,
         // databases: _.split(Object.values(item.Host.databases), ','),
-        // techType: Object.keys(item.Host.databases),
+        techType: getTechnologyType(item.Host.features),
         databases: '-',
-        techType: '-',
         platform: formatPlatform(item.Host.info.hardwareAbstractionTechnology),
         cluster: item.Host.cluster || '-',
         virtNode: item.Host.virtualizationNode || '-',
@@ -108,5 +108,26 @@ const formatVersion = (agentVersion) => {
     return version
   } else {
     return agentVersion
+  }
+}
+
+const getTechnologyComplement = (technology, features) => {
+  if (technology.length > 0 && Object.keys(features[technology])) {
+    return Object.keys(features[technology])
+  }
+}
+
+const getTechnologyType = (features) => {
+  const technology = Object.keys(features)
+  const complement = getTechnologyComplement(technology, features)
+
+  if (!_.isUndefined(complement) && _.toString(complement) !== 'instances') {
+    return `${capitalize(technology)}/${capitalize(complement)}`
+  } else {
+    if (_.isArray(technology) && technology.length > 0) {
+      return capitalize(technology[0])
+    } else {
+      return '-'
+    }
   }
 }
