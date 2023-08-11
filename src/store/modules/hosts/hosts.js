@@ -6,6 +6,25 @@ import capitalize from '@/filters/capitalize.js'
 
 export const state = () => ({
   hosts: [],
+  params: {
+    hostname: null,
+    environment: null,
+    updated: null,
+    databases: null,
+    techType: null,
+    os: null,
+    iconCluster: '',
+    kernel: null,
+    memorytotal: null,
+    swaptotal: null,
+    platform: null,
+    cluster: null,
+    virtNode: null,
+    model: null,
+    threads: null,
+    cores: null,
+    socket: null,
+  },
 })
 
 export const getters = {
@@ -45,11 +64,36 @@ export const getters = {
 
     return allHosts
   },
+  getHostsParams: (state) => {
+    return state.params
+  },
 }
 
 export const mutations = {
   SET_HOSTS: (state, payload) => {
     state.hosts = payload
+  },
+  SET_HOSTS_PARAMS: (state, payload) => {
+    console.log(payload)
+    state.params = {
+      hostname: payload.hostname,
+      environment: payload.environment,
+      updated: payload.updated,
+      databases: payload.databases,
+      techType: payload.techType,
+      os: payload.os,
+      iconCluster: payload.iconCluster,
+      kernel: payload.kernel,
+      memorytotal: payload.memorytotal,
+      swaptotal: payload.swaptotal,
+      platform: payload.platform,
+      cluster: payload.cluster,
+      virtNode: payload.virtNode,
+      model: payload.model,
+      threads: payload.threads,
+      cores: payload.cores,
+      socket: payload.socket,
+    }
   },
 }
 
@@ -61,13 +105,29 @@ export const actions = {
       method: 'get',
       url: 'hosts',
       params: {
+        hostname: getters.getHostsParams.hostname,
+        database: getters.getHostsParams.databases,
+        technology: getters.getHostsParams.techType,
+        'hardware-abstraction-technology': getters.getHostsParams.virtNode,
+        cluster: getters.getHostsParams.cluster,
+        'physical-host': getters.getHostsParams.physicalHost,
+        'operating-system': getters.getHostsParams.os,
+        kernel: getters.getHostsParams.kernel,
+        'memory-total-lte': getters.getHostsParams.memorytotal,
+        'swap-total-lte': getters.getHostsParams.swaptotal,
+        'is-member-of-cluster': getters.getHostsParams.iconCluster,
+        'cpu-model': getters.getHostsParams.model,
+        'cpu-cores-lte': getters.getHostsParams.cores,
+        'cpu-threads-lte': getters.getHostsParams.threads,
         'sort-by': getters.getSortItem,
         'sort-desc': getters.getSortOrder,
         page: getters.getPageNum,
         size: getters.getPerPage,
         search: getters.getSearchTherm,
         'older-than': getters.getActiveFilters.date || olderThan,
-        environment: getters.getActiveFilters.environment,
+        environment:
+          getters.getHostsParams.environment ||
+          getters.getActiveFilters.environment,
         location: getters.getActiveFilters.location,
       },
     }
