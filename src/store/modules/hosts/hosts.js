@@ -24,6 +24,8 @@ export const state = () => ({
     threads: null,
     cores: null,
     socket: null,
+    isMissingDb: '',
+    version: null,
   },
 })
 
@@ -31,34 +33,34 @@ export const getters = {
   getAllHosts: (state) => {
     let allHosts = []
     _.map(state.hosts, (item) => {
-      let time = moment(item.Host.createdAt).format('YYYY-MM-DDTHH:mm')
+      let time = moment(item.createdAt).format('YYYY-MM-DDTHH:mm')
       let compareTime = moment().diff(time, 'seconds')
       let fromNow = moment(time).fromNow()
       const seconds = 86400 //24h in seconds
 
       allHosts.push({
-        _id: item.Host.id,
-        hostname: item.Host.hostname,
-        environment: item.Host.environment,
-        databases: getDatabasesNames(item.Host.features),
-        techType: getTechnologyType(item.Host.features),
-        platform: formatPlatform(item.Host.info.hardwareAbstractionTechnology),
-        cluster: item.Host.clusters || '-',
-        virtNode: item.Host.virtualizationNode || '-',
-        os: `${item.Host.info.os} - ${item.Host.info.osVersion}`,
-        kernel: `${item.Host.info.kernelVersion} - ${item.Host.info.kernel}`,
-        memorytotal: item.Host.info.memoryTotal,
-        swaptotal: item.Host.info.swapTotal,
-        iconCluster: mapClustStatus(item.Host.clusterMembershipStatus)[0],
-        model: item.Host.info.cpuModel,
-        threads: item.Host.info.cpuThreads,
-        cores: item.Host.info.cpuCores,
-        socket: item.Host.info.cpuSockets,
-        version: formatVersion(item.Host.agentVersion),
-        updated: item.Host.createdAt,
+        _id: item.id,
+        hostname: item.hostname,
+        environment: item.environment,
+        databases: getDatabasesNames(item.features),
+        techType: getTechnologyType(item.features),
+        platform: formatPlatform(item.info.hardwareAbstractionTechnology),
+        cluster: setClusterNames(item.clusters),
+        virtNode: item.virtualizationNode || '-',
+        os: `${item.info.os} - ${item.info.osVersion}`,
+        kernel: `${item.info.kernelVersion} - ${item.info.kernel}`,
+        memorytotal: item.info.memoryTotal,
+        swaptotal: item.info.swapTotal,
+        iconCluster: mapClustStatus(item.clusterMembershipStatus)[0],
+        model: item.info.cpuModel,
+        threads: item.info.cpuThreads,
+        cores: item.info.cpuCores,
+        socket: item.info.cpuSockets,
+        version: formatVersion(item.agentVersion),
+        updated: item.createdAt,
         obsolete: compareTime > seconds ? true : false,
         obsoleteDiff: `Obsolete from ${fromNow}`,
-        IsMissingDB: item.IsMissingDB,
+        isMissingDb: item.isMissingDb,
       })
     })
 
@@ -74,7 +76,6 @@ export const mutations = {
     state.hosts = payload
   },
   SET_HOSTS_PARAMS: (state, payload) => {
-    console.log(payload)
     state.params = {
       hostname: payload.hostname,
       environment: payload.environment,
@@ -93,6 +94,8 @@ export const mutations = {
       threads: payload.threads,
       cores: payload.cores,
       socket: payload.socket,
+      isMissingDb: payload.isMissingDb,
+      version: payload.version,
     }
   },
 }
@@ -108,7 +111,6 @@ export const actions = {
         hostname: getters.getHostsParams.hostname,
         database: getters.getHostsParams.databases,
         technology: getters.getHostsParams.techType,
-        'hardware-abstraction-technology': getters.getHostsParams.virtNode,
         cluster: getters.getHostsParams.cluster,
         'physical-host': getters.getHostsParams.physicalHost,
         'operating-system': getters.getHostsParams.os,
@@ -121,10 +123,18 @@ export const actions = {
         'cpu-threads-lte': getters.getHostsParams.threads,
         'sort-by': getters.getSortItem,
         'sort-desc': getters.getSortOrder,
-        page: getters.getPageNum,
+        'is-missing-db': getters.getHostsParams.isMissingDb,
+        version: getters.getHostsParams.version,
+        virtNode: getters.getHostsParams.virtNode,
+        platform: getters.getHostsParams.platform,
+        socket: getters.getHostsParams.socket,
+        page: getters.getPageNum - 1,
         size: getters.getPerPage,
         search: getters.getSearchTherm,
-        'older-than': getters.getActiveFilters.date || olderThan,
+        'older-than':
+          getters.getActiveFilters.date ||
+          olderThan ||
+          getters.getHostsParams.updated,
         environment:
           getters.getHostsParams.environment ||
           getters.getActiveFilters.environment,
@@ -136,9 +146,9 @@ export const actions = {
       let hostsData = []
       let hostsTotal = 0
 
-      if (res.data.items && res.data.items.length > 0) {
-        hostsData = res.data.items
-        hostsTotal = res.data.count
+      if (res.data.content && res.data.content.length > 0) {
+        hostsData = res.data.content
+        hostsTotal = res.data.metadata.totalElements
       }
 
       commit('SET_HOSTS', hostsData)
@@ -218,4 +228,13 @@ const setDbNames = (dbs) => {
   })
 
   return dbNames.length > 0 ? dbNames : '-'
+}
+
+const setClusterNames = (clusters) => {
+  let clusterNames = []
+  _.map(clusters, (val) => {
+    clusterNames.push(val.name)
+  })
+
+  return clusterNames.length > 0 ? clusterNames : '-'
 }

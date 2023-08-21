@@ -2,12 +2,12 @@
   <AdvancedFiltersBase :submitAction="applyHostsFilters">
     <Collapse :collapses="collapses">
       <template slot="General">
+        <CustomField label="Is Missing DB">
+          <CustomRadio v-model="isMissingDb" />
+        </CustomField>
+
         <CustomField :label="$t('common.fields.hostname')">
-          <CustomAutocomplete
-            v-model="hostname"
-            :filterResult="filteredhostname"
-            :filterMethod="setAutocompletes"
-          />
+          <CustomAutocomplete v-model="hostname" />
         </CustomField>
 
         <CustomField :label="$t('common.fields.env')">
@@ -15,11 +15,7 @@
         </CustomField>
 
         <CustomField :label="$t('common.fields.dbs')">
-          <CustomAutocomplete
-            v-model="databases"
-            :filterResult="filtereddatabases"
-            :filterMethod="setAutocompletes"
-          />
+          <CustomAutocomplete v-model="databases" />
         </CustomField>
 
         <CustomField :label="$t('common.fields.tech')">
@@ -27,11 +23,7 @@
         </CustomField>
 
         <CustomField :label="$t('common.fields.os')">
-          <CustomAutocomplete
-            v-model="os"
-            :filterResult="filteredos"
-            :filterMethod="setAutocompletes"
-          />
+          <CustomAutocomplete v-model="os" />
         </CustomField>
 
         <CustomField :label="$t('common.fields.clust')">
@@ -39,25 +31,15 @@
         </CustomField>
 
         <CustomField :label="$t('common.fields.kernel')">
-          <CustomAutocomplete
-            v-model="kernel"
-            :filterResult="filteredkernel"
-            :filterMethod="setAutocompletes"
-          />
+          <CustomAutocomplete v-model="kernel" />
         </CustomField>
 
         <CustomField :label="$t('common.fields.memory')">
-          <CustomSlider
-            v-model="memorytotal"
-            :ticks="[minmemorytotal, maxmemorytotal]"
-          />
+          <b-numberinput v-model="memorytotal" min="0" size="is-small" />
         </CustomField>
 
         <CustomField :label="$t('common.fields.swap')">
-          <CustomSlider
-            v-model="swaptotal"
-            :ticks="[minswaptotal, maxswaptotal]"
-          />
+          <b-numberinput v-model="swaptotal" min="0" size="is-small" />
         </CustomField>
 
         <CustomField :label="$t('common.fields.updated')">
@@ -71,47 +53,35 @@
         </CustomField>
 
         <CustomField :label="$t('common.fields.cluster')">
-          <CustomAutocomplete
-            v-model="cluster"
-            :filterResult="filteredcluster"
-            :filterMethod="setAutocompletes"
-          />
+          <CustomAutocomplete v-model="cluster" />
         </CustomField>
 
         <CustomField :label="$t('common.fields.node')">
-          <CustomAutocomplete
-            v-model="virtNode"
-            :filterResult="filteredvirtNode"
-            :filterMethod="setAutocompletes"
-          />
+          <CustomAutocomplete v-model="virtNode" />
         </CustomField>
       </template>
 
       <template slot="CPU">
         <CustomField :label="$t('common.fields.procModel')">
-          <CustomAutocomplete
-            v-model="model"
-            :filterResult="filteredmodel"
-            :filterMethod="setAutocompletes"
-          />
+          <CustomAutocomplete v-model="model" />
         </CustomField>
 
         <CustomField :label="$t('common.fields.threads')">
-          <CustomSlider v-model="threads" :ticks="[minthreads, maxthreads]" />
+          <b-numberinput v-model="threads" min="0" size="is-small" />
         </CustomField>
 
         <CustomField :label="$t('common.fields.cores')">
-          <CustomSlider v-model="cores" :ticks="[mincores, maxcores]" />
+          <b-numberinput v-model="cores" min="0" size="is-small" />
         </CustomField>
 
         <CustomField :label="$t('common.fields.socket')">
-          <CustomSlider v-model="socket" :ticks="[minsocket, maxsocket]" />
+          <b-numberinput v-model="socket" min="0" size="is-small" />
         </CustomField>
       </template>
 
       <template slot="Agent">
         <CustomField :label="$t('common.fields.version')">
-          <CustomSelect v-model="filters.version" :options="filteredversion" />
+          <CustomSelect v-model="version" :options="filteredversion" />
         </CustomField>
       </template>
     </Collapse>
@@ -121,6 +91,7 @@
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapMutations } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
@@ -134,17 +105,7 @@ export default {
   data() {
     return {
       collapses: ['General', 'Virtual', 'CPU', 'Agent'],
-      autocompletes: [
-        'hostname',
-        'databases',
-        'model',
-        'os',
-        'kernel',
-        'cluster',
-        'virtNode',
-      ],
       selects: ['environment', 'techType', 'platform', 'version'],
-      sliders: ['threads', 'cores', 'socket', 'memorytotal', 'swaptotal'],
       hostname: null,
       environment: null,
       updated: null,
@@ -162,7 +123,12 @@ export default {
       threads: null,
       cores: null,
       socket: null,
+      isMissingDb: '',
+      version: null,
     }
+  },
+  mounted() {
+    bus.$on('onResetAction', () => this.resetHostsFilters())
   },
   methods: {
     ...mapActions(['getHosts']),
@@ -187,10 +153,17 @@ export default {
         threads: this.threads,
         cores: this.cores,
         socket: this.socket,
+        isMissingDb: this.isMissingDb,
+        version: this.version,
       })
       this.getHosts()
     },
-    resetFilters() {
+    resetHostsFilters() {
+      this.SET_PAGE_NUM(1)
+      this.resetFields()
+      this.getHosts()
+    },
+    resetFields() {
       this.hostname = null
       this.environment = null
       this.updated = null
@@ -208,6 +181,8 @@ export default {
       this.threads = null
       this.cores = null
       this.socket = null
+      this.isMissingDb = ''
+      this.version = null
 
       this.SET_HOSTS_PARAMS({
         hostname: null,
@@ -227,14 +202,9 @@ export default {
         threads: null,
         cores: null,
         socket: null,
+        isMissingDb: '',
+        version: null,
       })
-    },
-  },
-  watch: {
-    updated(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.getHosts(this.updated)
-      }
     },
   },
 }

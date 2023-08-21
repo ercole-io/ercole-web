@@ -29,7 +29,7 @@
           v-tooltip="options(props.row.obsoleteDiff)"
         />
         <b-icon
-          v-if="props.row.IsMissingDB"
+          v-if="props.row.isMissingDb"
           size="is-medium"
           custom-size="mdi-18px"
           icon="database"
@@ -64,10 +64,12 @@
         header-class="color-1"
         :visible="!moreInfoToggle.hiddenVirtual"
       >
-        <span
-          v-tooltip="options(props.row.cluster)"
-          v-html="highlight(props.row.cluster)"
+        <TdArrayMore
+          v-if="props.row.cluster.length > 5"
+          :value="props.row.cluster"
+          noTD
         />
+        <TdArrayMore v-else :value="props.row.cluster" noTD />
       </b-table-column>
       <b-table-column
         field="virtNode"
