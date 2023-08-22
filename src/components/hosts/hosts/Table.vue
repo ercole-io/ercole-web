@@ -45,7 +45,6 @@
         field="platform"
         label="Platform"
         centered
-        sortable
         v-slot="props"
         header-class="color-1"
         :visible="!moreInfoToggle.hiddenVirtual"
@@ -59,7 +58,6 @@
         field="cluster"
         label="Cluster"
         centered
-        sortable
         v-slot="props"
         header-class="color-1"
         :visible="!moreInfoToggle.hiddenVirtual"
@@ -75,7 +73,6 @@
         field="virtNode"
         label="Node"
         centered
-        sortable
         v-slot="props"
         header-class="color-1"
         :visible="!moreInfoToggle.hiddenVirtual"
@@ -89,7 +86,6 @@
         field="model"
         label="Model"
         centered
-        sortable
         v-slot="props"
         header-class="color-2"
         :visible="!moreInfoToggle.hiddenCpu"
@@ -103,7 +99,6 @@
         field="threads"
         label="Threads"
         centered
-        sortable
         v-slot="props"
         header-class="color-2"
         :visible="!moreInfoToggle.hiddenCpu"
@@ -117,7 +112,6 @@
         field="cores"
         label="Cores"
         centered
-        sortable
         v-slot="props"
         header-class="color-2"
         :visible="!moreInfoToggle.hiddenCpu"
@@ -131,7 +125,6 @@
         field="socket"
         label="Socket"
         centered
-        sortable
         v-slot="props"
         header-class="color-2"
         :visible="!moreInfoToggle.hiddenCpu"
@@ -145,7 +138,6 @@
         field="version"
         label="Version"
         centered
-        sortable
         v-slot="props"
         header-class="color-3"
         :visible="!moreInfoToggle.hiddenAgent"
@@ -159,7 +151,6 @@
         field="updated"
         label="Updated"
         centered
-        sortable
         v-slot="props"
         header-class="color-3"
         :visible="!moreInfoToggle.hiddenAgent"
@@ -181,7 +172,6 @@
         field="environment"
         label="Environment"
         centered
-        sortable
         v-slot="props"
       >
         <span
@@ -193,7 +183,6 @@
         field="databases"
         label="Databases"
         centered
-        sortable
         v-slot="props"
       >
         <TdArrayMore
@@ -207,7 +196,6 @@
         field="techType"
         label="Technology"
         centered
-        sortable
         v-slot="props"
       >
         <span
@@ -219,7 +207,6 @@
         field="os"
         label="Operating System"
         centered
-        sortable
         v-slot="props"
       >
         <span
@@ -227,22 +214,10 @@
           v-html="highlight(props.row.os)"
         />
       </b-table-column>
-      <b-table-column
-        field="iconCluster"
-        label="Clust"
-        centered
-        sortable
-        v-slot="props"
-      >
+      <b-table-column field="iconCluster" label="Clust" centered v-slot="props">
         <TdIcon :value="props.row.iconCluster" noTd />
       </b-table-column>
-      <b-table-column
-        field="kernel"
-        label="Kernel"
-        centered
-        sortable
-        v-slot="props"
-      >
+      <b-table-column field="kernel" label="Kernel" centered v-slot="props">
         <span
           v-tooltip="options(props.row.kernel)"
           v-html="highlight(props.row.kernel)"
@@ -252,7 +227,6 @@
         field="memorytotal"
         label="Memory"
         centered
-        sortable
         v-slot="props"
       >
         <span
@@ -260,13 +234,7 @@
           v-html="highlight(props.row.memorytotal)"
         />
       </b-table-column>
-      <b-table-column
-        field="swaptotal"
-        label="Swap"
-        centered
-        sortable
-        v-slot="props"
-      >
+      <b-table-column field="swaptotal" label="Swap" centered v-slot="props">
         <span
           v-tooltip="options(props.row.swaptotal)"
           v-html="highlight(props.row.swaptotal)"

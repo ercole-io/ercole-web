@@ -34,6 +34,10 @@
           <CustomAutocomplete v-model="kernel" />
         </CustomField>
 
+        <CustomField label="Kernel Version">
+          <CustomAutocomplete v-model="kernelVersion" />
+        </CustomField>
+
         <CustomField :label="$t('common.fields.memory')">
           <b-numberinput v-model="memorytotal" min="0" size="is-small" />
         </CustomField>
@@ -114,6 +118,7 @@ export default {
       os: null,
       iconCluster: '',
       kernel: null,
+      kernelVersion: null,
       memorytotal: null,
       swaptotal: null,
       platform: null,
@@ -144,6 +149,7 @@ export default {
         os: this.os,
         iconCluster: this.iconCluster,
         kernel: this.kernel,
+        kernelVersion: this.kernelVersion,
         memorytotal: this.memorytotal,
         swaptotal: this.swaptotal,
         platform: this.platform,
@@ -172,6 +178,7 @@ export default {
       this.os = null
       this.iconCluster = ''
       this.kernel = null
+      this.kernelVersion = null
       this.memorytotal = null
       this.swaptotal = null
       this.platform = null
@@ -193,6 +200,7 @@ export default {
         os: null,
         iconCluster: '',
         kernel: null,
+        kernelVersion: null,
         memorytotal: null,
         swaptotal: null,
         platform: null,
