@@ -195,6 +195,14 @@ export default {
                   attributes: { 'data-cy': 'mn-oracle-partitionings' },
                   hidden: this.checkMenu('Partitionings', 'Oracle'),
                 },
+                {
+                  href: { name: 'capacity' },
+                  title: this.$i18n.t('menu.capacity'),
+                  icon: 'fas fa-cog',
+                  class: 'menu-third-level',
+                  attributes: { 'data-cy': 'mn-oracle-capacity' },
+                  hidden: !this.checkMenu('Capacity', 'Oracle'),
+                },
               ],
             },
             {

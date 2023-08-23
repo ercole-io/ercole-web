@@ -361,6 +361,23 @@ const routes = [
                 },
                 beforeEnter: verifyAuth,
               },
+              {
+                path: '/capacity',
+                name: 'capacity',
+                component: lazyRouteBuilder('databases/oracle/Capacity.vue'),
+                meta: {
+                  label: `${i18n.t('menu.oracle')}: ${i18n.t('menu.capacity')}`,
+                  title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.capacity'
+                  )}`,
+                  breadcrumb: [
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: i18n.t('menu.capacity') },
+                  ],
+                },
+                beforeEnter: verifyAuth,
+              },
             ],
           },
         ],
