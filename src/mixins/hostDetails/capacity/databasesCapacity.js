@@ -49,12 +49,17 @@ export default {
   methods: {
     getChartTitle(type, mode, dateRange) {
       if (mode === 'daily') {
+        let fromToMsg = ''
+        if (dateRange[0] !== '' && dateRange[1] !== '') {
+          fromToMsg = `: From ${dateRange[0]} to ${dateRange[1]}`
+        }
+
         if (type === 'iops-daily') {
-          return `IOPS - Daily:  From: ${dateRange[0]} to ${dateRange[1]}`
+          return `IOPS - Daily${fromToMsg}`
         } else if (type === 'iomb-daily') {
-          return `IOMB - Daily:  From: ${dateRange[0]} to ${dateRange[1]}`
+          return `IOMB - Daily${fromToMsg}`
         } else {
-          return `Threads - Daily:  From: ${dateRange[0]} to ${dateRange[1]}`
+          return `Threads - Daily${fromToMsg}`
         }
       } else {
         if (type === 'IOPS') {

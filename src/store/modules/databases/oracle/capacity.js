@@ -1,5 +1,9 @@
 import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
+import {
+  resolveCapacity,
+  resolveCapacityDaily,
+} from '@/helpers/hostDetails/databases/oracle.js'
 
 export const state = () => ({
   oracleHostNames: [],
@@ -21,7 +25,6 @@ export const getters = {
     return filteredData
   },
   oracleDatabasesCapacity: (state) => {
-    console.log(state.currentHostDatabasesCapacity)
     return state.currentHostDatabasesCapacity
   },
 }
@@ -72,7 +75,7 @@ export const actions = {
 
     await axiosRequest('baseApi', config)
       .then((res) => {
-        const databases = res.data.features.oracle.database.databases
+        let databases = res.data.features.oracle.database.databases
 
         const databasesCapacity = _.map(databases, (db) => {
           const { name, cpuDiskConsumptions, pdbs } = db
@@ -82,13 +85,15 @@ export const actions = {
 
             return {
               pdbName: name,
-              pdbCapacity: cpuDiskConsumptionPdbs,
+              pdbCapacity: resolveCapacity(cpuDiskConsumptionPdbs),
+              pdbCapacityDaily: resolveCapacityDaily(cpuDiskConsumptionPdbs),
             }
           })
 
           return {
             dbName: name,
-            dbCapacity: cpuDiskConsumptions,
+            dbCapacity: resolveCapacity(cpuDiskConsumptions),
+            dbCapacityDaily: resolveCapacityDaily(cpuDiskConsumptions),
             pdbs: pdbsCapacity,
           }
         })

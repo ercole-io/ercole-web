@@ -9,15 +9,13 @@ export default {
   },
   data() {
     return {
-      capacityData: [],
       title: ``,
     }
   },
-  beforeMount() {
-    this.capacityData = this.capacity
-  },
   methods: {
-    getData(type) {
+    getData(type, data = []) {
+      const dataSeries = data ? data : this.capacityDaily
+
       const model = {
         m: {
           avg: null,
@@ -68,7 +66,7 @@ export default {
           max: null,
         },
       }
-      _.map(this.capacityData, (value) => {
+      _.map(dataSeries, (value) => {
         switch (value.target) {
           case 'm':
             model.m.avg = value[`${type}Avg`]
@@ -124,21 +122,23 @@ export default {
       })
       return model
     },
-    getSeries(type) {
+    getSeries(type, data = []) {
+      const dataSeries = data ? data : this.capacityDaily
+
       return [
         {
           name: 'Average',
           data: [
             {
               x: 'M',
-              y: this.getData(type).m.avg,
+              y: this.getData(type, dataSeries).m.avg,
               fillColor: this.monthColor,
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type).m.max,
+                  value: this.getData(type, dataSeries).m.max,
                   strokeHeight: 3,
-                  strokeColor: _.isNumber(this.getData(type).m.max)
+                  strokeColor: _.isNumber(this.getData(type, dataSeries).m.max)
                     ? this.maxColor
                     : 'transparent',
                 },
@@ -146,14 +146,14 @@ export default {
             },
             {
               x: 'W4',
-              y: this.getData(type).w4.avg,
+              y: this.getData(type, dataSeries).w4.avg,
               fillColor: this.weekColor,
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type).w4.max,
+                  value: this.getData(type, dataSeries).w4.max,
                   strokeHeight: 3,
-                  strokeColor: _.isNumber(this.getData(type).w4.max)
+                  strokeColor: _.isNumber(this.getData(type, dataSeries).w4.max)
                     ? this.maxColor
                     : 'transparent',
                 },
@@ -161,14 +161,14 @@ export default {
             },
             {
               x: 'W3',
-              y: this.getData(type).w3.avg,
+              y: this.getData(type, dataSeries).w3.avg,
               fillColor: this.weekColor,
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type).w3.max,
+                  value: this.getData(type, dataSeries).w3.max,
                   strokeHeight: 3,
-                  strokeColor: _.isNumber(this.getData(type).w3.max)
+                  strokeColor: _.isNumber(this.getData(type, dataSeries).w3.max)
                     ? this.maxColor
                     : 'transparent',
                 },
@@ -176,14 +176,14 @@ export default {
             },
             {
               x: 'W2',
-              y: this.getData(type).w2.avg,
+              y: this.getData(type, dataSeries).w2.avg,
               fillColor: this.weekColor,
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type).w2.max,
+                  value: this.getData(type, dataSeries).w2.max,
                   strokeHeight: 3,
-                  strokeColor: _.isNumber(this.getData(type).w2.max)
+                  strokeColor: _.isNumber(this.getData(type, dataSeries).w2.max)
                     ? this.maxColor
                     : 'transparent',
                 },
@@ -191,14 +191,14 @@ export default {
             },
             {
               x: 'W1',
-              y: this.getData(type).w1.avg,
+              y: this.getData(type, dataSeries).w1.avg,
               fillColor: this.weekColor,
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type).w1.max,
+                  value: this.getData(type, dataSeries).w1.max,
                   strokeHeight: 3,
-                  strokeColor: _.isNumber(this.getData(type).w1.max)
+                  strokeColor: _.isNumber(this.getData(type, dataSeries).w1.max)
                     ? this.maxColor
                     : 'transparent',
                 },
@@ -206,14 +206,14 @@ export default {
             },
             {
               x: 'D7',
-              y: this.getData(type).d7.avg,
+              y: this.getData(type, dataSeries).d7.avg,
               fillColor: this.dayColor,
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type).d7.max,
+                  value: this.getData(type, dataSeries).d7.max,
                   strokeHeight: 3,
-                  strokeColor: _.isNumber(this.getData(type).d7.max)
+                  strokeColor: _.isNumber(this.getData(type, dataSeries).d7.max)
                     ? this.maxColor
                     : 'transparent',
                 },
@@ -221,14 +221,14 @@ export default {
             },
             {
               x: 'D6',
-              y: this.getData(type).d6.avg,
+              y: this.getData(type, dataSeries).d6.avg,
               fillColor: this.dayColor,
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type).d6.max,
+                  value: this.getData(type, dataSeries).d6.max,
                   strokeHeight: 3,
-                  strokeColor: _.isNumber(this.getData(type).d6.max)
+                  strokeColor: _.isNumber(this.getData(type, dataSeries).d6.max)
                     ? this.maxColor
                     : 'transparent',
                 },
@@ -236,14 +236,14 @@ export default {
             },
             {
               x: 'D5',
-              y: this.getData(type).d5.avg,
+              y: this.getData(type, dataSeries).d5.avg,
               fillColor: this.dayColor,
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type).d5.max,
+                  value: this.getData(type, dataSeries).d5.max,
                   strokeHeight: 3,
-                  strokeColor: _.isNumber(this.getData(type).d5.max)
+                  strokeColor: _.isNumber(this.getData(type, dataSeries).d5.max)
                     ? this.maxColor
                     : 'transparent',
                 },
@@ -251,14 +251,14 @@ export default {
             },
             {
               x: 'D4',
-              y: this.getData(type).d4.avg,
+              y: this.getData(type, dataSeries).d4.avg,
               fillColor: this.dayColor,
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type).d4.max,
+                  value: this.getData(type, dataSeries).d4.max,
                   strokeHeight: 3,
-                  strokeColor: _.isNumber(this.getData(type).d4.max)
+                  strokeColor: _.isNumber(this.getData(type, dataSeries).d4.max)
                     ? this.maxColor
                     : 'transparent',
                 },
@@ -266,14 +266,14 @@ export default {
             },
             {
               x: 'D3',
-              y: this.getData(type).d3.avg,
+              y: this.getData(type, dataSeries).d3.avg,
               fillColor: this.dayColor,
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type).d3.max,
+                  value: this.getData(type, dataSeries).d3.max,
                   strokeHeight: 3,
-                  strokeColor: _.isNumber(this.getData(type).d3.max)
+                  strokeColor: _.isNumber(this.getData(type, dataSeries).d3.max)
                     ? this.maxColor
                     : 'transparent',
                 },
@@ -281,14 +281,14 @@ export default {
             },
             {
               x: 'D2',
-              y: this.getData(type).d2.avg,
+              y: this.getData(type, dataSeries).d2.avg,
               fillColor: this.dayColor,
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type).d2.max,
+                  value: this.getData(type, dataSeries).d2.max,
                   strokeHeight: 3,
-                  strokeColor: _.isNumber(this.getData(type).d2.max)
+                  strokeColor: _.isNumber(this.getData(type, dataSeries).d2.max)
                     ? this.maxColor
                     : 'transparent',
                 },
@@ -296,14 +296,14 @@ export default {
             },
             {
               x: 'D1',
-              y: this.getData(type).d1.avg,
+              y: this.getData(type, dataSeries).d1.avg,
               fillColor: this.dayColor,
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type).d1.max,
+                  value: this.getData(type, dataSeries).d1.max,
                   strokeHeight: 3,
-                  strokeColor: _.isNumber(this.getData(type).d1.max)
+                  strokeColor: _.isNumber(this.getData(type, dataSeries).d1.max)
                     ? this.maxColor
                     : 'transparent',
                 },
@@ -414,6 +414,18 @@ export default {
             fontWeight: 'bold',
             fontFamily: undefined,
             color: '#263238',
+          },
+        },
+        noData: {
+          text: 'There are no data',
+          align: 'center',
+          verticalAlign: 'middle',
+          offsetX: 0,
+          offsetY: 0,
+          style: {
+            color: undefined,
+            fontSize: '14px',
+            fontFamily: undefined,
           },
         },
       }

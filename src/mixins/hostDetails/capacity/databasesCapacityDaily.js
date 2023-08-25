@@ -9,13 +9,15 @@ export default {
     },
   },
   methods: {
-    chartDailySeries(type) {
+    chartDailySeries(type, data = []) {
+      const dataSeries = data ? data : this.capacityDaily
+
       const transformType = _.split(type, '-daily')
 
       const maxData = []
       const avgData = []
 
-      _.map(this.capacityDaily, (val) => {
+      _.map(dataSeries, (val) => {
         maxData.push(val[`${transformType[0]}Max`])
         avgData.push(val[`${transformType[0]}Avg`])
       })
@@ -31,11 +33,13 @@ export default {
         },
       ]
     },
-    chartDailyOptions(type) {
+    chartDailyOptions(type, data = []) {
+      const dataSeries = data ? data : this.capacityDaily
+
       const categories = []
       const dateRange = []
 
-      _.map(this.capacityDaily, (val) => {
+      _.map(dataSeries, (val) => {
         if (_.includes(type, '-daily')) {
           categories.push(formatDateTime(val.timeStart))
         }
@@ -94,6 +98,18 @@ export default {
             formatter: (seriesIndex) => {
               return categories[seriesIndex - 1]
             },
+          },
+        },
+        noData: {
+          text: 'There are no data',
+          align: 'center',
+          verticalAlign: 'middle',
+          offsetX: 0,
+          offsetY: 0,
+          style: {
+            color: undefined,
+            fontSize: '14px',
+            fontFamily: undefined,
           },
         },
       }
