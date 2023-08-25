@@ -4,7 +4,7 @@ import createPersistedState from 'vuex-persistedstate'
 
 // General
 import * as config from '@/store/modules/common/config'
-import * as config_sso from '@/store/modules/common/config_sso.js'
+import * as config_sso from '@/store/modules/common/config_sso'
 import * as loading from '@/store/modules/common/loading'
 import * as errors from '@/store/modules/common/errors'
 import * as tableInterations from '@/store/modules/common/table-interations'
@@ -59,7 +59,8 @@ import * as oracleDbgrowth from '@/store/modules/databases/oracle/dbgrowth'
 import * as orcaleSchemas from '@/store/modules/databases/oracle/schemas'
 import * as oraclePdbs from '@/store/modules/databases/oracle/pdbs'
 import * as oracleCpuTime from '@/store/modules/databases/oracle/cpuTime'
-import * as oraclePartitionings from '@/store/modules/databases/oracle/partitionings.js'
+import * as oraclePartitionings from '@/store/modules/databases/oracle/partitionings'
+import * as oracleCapacity from '@/store/modules/databases/oracle/capacity'
 // Databases Mysql
 import * as mysql from '@/store/modules/databases/mysql/mysql'
 // Databases Microsoft
@@ -126,6 +127,7 @@ export default new Vuex.Store({
     oraclePdbs,
     oracleCpuTime,
     oraclePartitionings,
+    oracleCapacity,
     mysql,
     microsoft,
     postgresql,
