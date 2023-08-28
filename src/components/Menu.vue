@@ -201,7 +201,7 @@ export default {
                   icon: 'fas fa-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-capacity' },
-                  hidden: !this.checkMenu('Capacity', 'Oracle'),
+                  hidden: this.checkMenu('Capacity', 'Oracle'),
                 },
               ],
             },
