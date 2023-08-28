@@ -44,7 +44,8 @@
     "settings": "Settings",
     "partitionings": "Partitioning",
     "azure": "Azure",
-    "mongodb": "MongoDB"
+    "mongodb": "MongoDB",
+    "capacity": "Capacity"
   },
   "header": {
     "logout": "Sair"

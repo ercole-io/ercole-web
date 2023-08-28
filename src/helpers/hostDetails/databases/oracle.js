@@ -185,4 +185,4 @@ const resolveCapacityDaily = (data) => {
   return _.orderBy(capacityDaily, ['timeStart'], ['asc'])
 }
 
-export { mapOracleDatabases }
+export { mapOracleDatabases, resolveCapacity, resolveCapacityDaily }
