@@ -57,23 +57,6 @@
         </template>
 
         <template v-if="typeName === 'KVM' || typeName === 'DOM0'">
-          <b-table-column field="totalRam" label="Ram Usage" centered sortable>
-            <template v-slot="props">
-              <ProgressBar
-                :progressMaxValue="props.row.memory"
-                :progressValue="props.row.usedRAM"
-                :progressTooltip="
-                  setTooltip(
-                    props.row.memory,
-                    props.row.usedRAM,
-                    props.row.freeRAM,
-                    ' GB'
-                  )
-                "
-              />
-            </template>
-          </b-table-column>
-
           <b-table-column
             field="totalVCPU"
             label="VCPU Usage"
@@ -90,6 +73,23 @@
                     props.row.usedCPU,
                     props.row.freeCPU,
                     ''
+                  )
+                "
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column field="totalRam" label="Ram Usage" centered sortable>
+            <template v-slot="props">
+              <ProgressBar
+                :progressMaxValue="props.row.memory"
+                :progressValue="props.row.usedRAM"
+                :progressTooltip="
+                  setTooltip(
+                    props.row.memory,
+                    props.row.usedRAM,
+                    props.row.freeRAM,
+                    ' GB'
                   )
                 "
               />

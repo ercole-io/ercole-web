@@ -43,12 +43,6 @@
           v-if="data['kvmhost'] && data['kvmhost'].length > 0"
         />
 
-        <template v-if="data['kvmhost'] && data['ibswitch'].length === 0">
-          <p class="subHeader">RDMA over Converged Ethernet (RoCE)</p>
-          <span />
-          <span />
-        </template>
-
         <ExadataTypes
           typeName="DOM0"
           :typeData="data['dom0']"
@@ -62,6 +56,12 @@
           :openRowAfterSearch="bareMetalOpenRows"
           v-if="data['baremetal'] && data['baremetal'].length > 0"
         />
+
+        <template v-if="data['ibswitch'].length === 0">
+          <p class="subHeader">RDMA over Converged Ethernet (RoCE)</p>
+          <span />
+          <span />
+        </template>
 
         <ExadataTypes
           typeName="IBSWITCH"
