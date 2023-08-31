@@ -10,15 +10,6 @@
     </b-table-column>
 
     <template v-if="type === 'DOM0'">
-      <b-table-column field="ramOnline" label="Ram" centered sortable>
-        <template v-slot="props">
-          <p
-            v-tooltip.bottom="options(setPrettyBystes(props.row.ramOnline))"
-            v-html="highlight(setPrettyBystes(props.row.ramOnline))"
-          />
-        </template>
-      </b-table-column>
-
       <b-table-column field="cpuOnline" label="VCPU" centered sortable>
         <template v-slot="props">
           <p
@@ -27,23 +18,32 @@
           />
         </template>
       </b-table-column>
-    </template>
 
-    <template v-if="type === 'KVM'">
-      <b-table-column field="ramCurrent" label="Ram" centered sortable>
+      <b-table-column field="ramOnline" label="Ram" centered sortable>
         <template v-slot="props">
           <p
-            v-tooltip.bottom="options(setPrettyBystes(props.row.ramCurrent))"
-            v-html="highlight(setPrettyBystes(props.row.ramCurrent))"
+            v-tooltip.bottom="options(setPrettyBystes(props.row.ramOnline))"
+            v-html="highlight(setPrettyBystes(props.row.ramOnline))"
           />
         </template>
       </b-table-column>
+    </template>
 
+    <template v-if="type === 'KVM'">
       <b-table-column field="cpuCurrent" label="VCPU" centered sortable>
         <template v-slot="props">
           <p
             v-tooltip.bottom="options(props.row.cpuCurrent)"
             v-html="highlight(props.row.cpuCurrent)"
+          />
+        </template>
+      </b-table-column>
+
+      <b-table-column field="ramCurrent" label="Ram" centered sortable>
+        <template v-slot="props">
+          <p
+            v-tooltip.bottom="options(setPrettyBystes(props.row.ramCurrent))"
+            v-html="highlight(setPrettyBystes(props.row.ramCurrent))"
           />
         </template>
       </b-table-column>

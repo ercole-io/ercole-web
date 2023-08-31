@@ -2,9 +2,9 @@
   <article>
     <div
       class="is-flex is-justify-content-flex-end"
-      v-if="getExadata.length > 0"
+      v-if="getExadata.length > 0 && !loadingTableStatus"
     >
-      <SearchInput v-model="exadataSearchTherm" class="mr-2" />
+      <SearchInput v-model="exadataSearchTherm" class="mr-2" isLazy />
       <!-- <ExportButton url="exadata" expName="exadata" /> -->
     </div>
     <div class="columns mt-2" style="flex-flow: wrap">
@@ -19,7 +19,7 @@
       </template>
 
       <BoxContent
-        :title="`${data['hostname']} - ${data['_id']}`"
+        :title="`${data['exadata']} - ${data['_id']}`"
         border
         v-for="(data, k) in getExadata(exadataSearchTherm)"
         :key="k"
@@ -39,21 +39,20 @@
         <ExadataTypes
           typeName="KVM"
           :typeData="data['kvmhost']"
-          :openRowAfterSearch="kvmOpenRows"
+          :openRowAfterSearch="data['kvmOpenRows']"
           v-if="data['kvmhost'] && data['kvmhost'].length > 0"
         />
 
         <ExadataTypes
           typeName="DOM0"
           :typeData="data['dom0']"
-          :openRowAfterSearch="domOpenRows"
+          :openRowAfterSearch="data['domOpenRows']"
           v-if="data['dom0'] && data['dom0'].length > 0"
         />
 
         <ExadataTypes
           typeName="BARE METAL"
           :typeData="data['baremetal']"
-          :openRowAfterSearch="bareMetalOpenRows"
           v-if="data['baremetal'] && data['baremetal'].length > 0"
         />
 
@@ -72,7 +71,7 @@
         <ExadataTypes
           typeName="STORAGE"
           :typeData="data['storagecell']"
-          :openRowAfterSearch="stoOpenRows"
+          :openRowAfterSearch="data['stoOpenRows']"
           v-if="data['storagecell'] && data['storagecell'].length > 0"
         />
       </BoxContent>
@@ -115,10 +114,6 @@ export default {
   data() {
     return {
       exadataSearchTherm: '',
-      kvmOpenRows: [],
-      domOpenRows: [],
-      stoOpenRows: [],
-      bareMetalOpenRows: [],
     }
   },
   computed: {

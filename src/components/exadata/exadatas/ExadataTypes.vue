@@ -128,6 +128,15 @@
               />
             </template>
           </b-table-column>
+
+          <b-table-column field="kernel" label="Kernel" centered sortable>
+            <template v-slot="props">
+              <p
+                v-tooltip="options(props.row.kernel)"
+                v-html="highlight(props.row.kernel)"
+              />
+            </template>
+          </b-table-column>
         </template>
 
         <b-table-column field="model" label="Model" centered sortable>
@@ -161,17 +170,6 @@
               <p
                 v-tooltip="options(props.row.imageVersion)"
                 v-html="highlight(props.row.imageVersion)"
-              />
-            </template>
-          </b-table-column>
-        </template>
-
-        <template v-if="typeName === 'BARE METAL'">
-          <b-table-column field="kernel" label="Kernel" centered sortable>
-            <template v-slot="props">
-              <p
-                v-tooltip="options(props.row.kernel)"
-                v-html="highlight(props.row.kernel)"
               />
             </template>
           </b-table-column>

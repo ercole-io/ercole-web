@@ -17,15 +17,29 @@ export const getters = {
     }
 
     const search = _.filter(exadata, (data) => {
+      const {
+        exadata,
+        machineType,
+        _id,
+        kvmhost,
+        kvmOpenRows,
+        ibswitch,
+        dom0,
+        domOpenRows,
+        baremetal,
+        storagecell,
+        stoOpenRows,
+      } = data
+
       return (
-        _.includes(_.lowerCase(data.hostname), _.lowerCase(searchTherm)) ||
-        _.includes(_.lowerCase(data.machineType), _.lowerCase(searchTherm)) ||
-        _.includes(_.lowerCase(data._id), _.lowerCase(searchTherm)) ||
-        searchChilds(data, 'kvmhost', searchTherm) ||
-        searchChilds(data, 'dom0', searchTherm) ||
-        searchChilds(data, 'ibswitch', searchTherm) ||
-        searchChilds(data, 'storagecell', searchTherm) ||
-        searchChilds(data, 'baremetal', searchTherm)
+        _.includes(_.lowerCase(exadata), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(machineType), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(_id), _.lowerCase(searchTherm)) ||
+        filterGeneric(kvmhost, kvmOpenRows, searchTherm, 'kvm') ||
+        filterGeneric(dom0, domOpenRows, searchTherm, 'dom') ||
+        filterGeneric(baremetal, null, searchTherm, 'bare') ||
+        filterGeneric(storagecell, stoOpenRows, searchTherm, 'sto') ||
+        filterGeneric(ibswitch, null, searchTherm, 'ibs')
       )
     })
 
@@ -72,11 +86,14 @@ const organizeExadata = (data) => {
   return _.map(data, (val) => {
     return {
       _id: val.rackID,
-      hostname: val.hostname,
+      exadata: val.hostname,
       kvmhost: getHostype(val, 'KVM_HOST'),
+      kvmOpenRows: [],
       ibswitch: getHostype(val, 'IB_SWITCH'),
       storagecell: getHostype(val, 'STORAGE_CELL'),
+      stoOpenRows: [],
       dom0: getHostype(val, 'DOM0'),
+      domOpenRows: [],
       baremetal: getHostype(val, 'BARE_METAL'),
       progress: {
         totalCPU: val.totalCPU,
@@ -117,19 +134,154 @@ const getHostype = (val, type) => {
   })
 }
 
-const searchChilds = (data, item, therm) => {
-  return data[item].filter((i) => {
-    let val = i
+const filterGeneric = (techData, techOpenRows, searchTherm, type) => {
+  return _.filter(techData, (kvm) => {
+    const {
+      hostname,
+      model,
+      imageVersion,
+      totalCPU,
+      usedCPU,
+      freeCPU,
+      memory,
+      usedRAM,
+      freeRAM,
+      cpuEnabled,
+      kernel,
+      vms,
+      storageCells,
+      swVersion,
+    } = kvm
 
-    if (item === 'storagecell') {
-      val = _.unset(i, ['gridDisks', 'databases'])
+    let searchVms
+    if (type === 'kvm') {
+      searchVms = filterKvmVms(vms, techOpenRows, hostname, searchTherm)
     }
 
-    const resultSearch = _.includes(
-      _.lowerCase(JSON.stringify(val)),
-      _.lowerCase(_.toString(therm))
-    )
+    if (type === 'dom') {
+      searchVms = filterDomVms(vms, techOpenRows, hostname, searchTherm)
+    }
 
-    return resultSearch
+    if (type === 'sto') {
+      searchVms = filterStoVms(
+        storageCells,
+        techOpenRows,
+        hostname,
+        searchTherm
+      )
+    }
+
+    if (type === 'kvm' || type === 'dom') {
+      return (
+        _.includes(_.lowerCase(hostname), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(model), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(imageVersion), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(totalCPU), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(usedCPU), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(freeCPU), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(memory), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(usedRAM), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(freeRAM), _.lowerCase(searchTherm)) ||
+        searchVms
+      )
+    }
+
+    if (type === 'bare') {
+      return (
+        _.includes(_.lowerCase(hostname), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(memory), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(cpuEnabled), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(totalCPU), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(imageVersion), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(kernel), _.lowerCase(searchTherm))
+      )
+    }
+
+    if (type === 'sto') {
+      return (
+        _.includes(_.lowerCase(hostname), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(model), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(imageVersion), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(totalCPU), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(cpuEnabled), _.lowerCase(searchTherm)) ||
+        searchVms
+      )
+    }
+
+    if (type === 'ibs') {
+      return (
+        _.includes(_.lowerCase(hostname), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(model), _.lowerCase(searchTherm)) ||
+        _.includes(_.lowerCase(swVersion), _.lowerCase(searchTherm))
+      )
+    }
+  }).length
+}
+
+const filterKvmVms = (vms, techOpenRows, hostname, searchTherm) => {
+  return _.filter(vms, (vm) => {
+    const { name, ramCurrent, cpuCurrent } = vm
+
+    if (
+      _.includes(_.lowerCase(name), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(ramCurrent), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(cpuCurrent), _.lowerCase(searchTherm))
+    ) {
+      techOpenRows.push(hostname)
+    }
+
+    return (
+      _.includes(_.lowerCase(name), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(ramCurrent), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(cpuCurrent), _.lowerCase(searchTherm))
+    )
+  }).length
+}
+
+const filterDomVms = (vms, techOpenRows, hostname, searchTherm) => {
+  return _.filter(vms, (vm) => {
+    const { name, cpuOnline, ramOnline } = vm
+
+    if (
+      _.includes(_.lowerCase(name), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(cpuOnline), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(ramOnline), _.lowerCase(searchTherm))
+    ) {
+      techOpenRows.push(hostname)
+    }
+
+    return (
+      _.includes(_.lowerCase(name), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(cpuOnline), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(ramOnline), _.lowerCase(searchTherm))
+    )
+  }).length
+}
+
+const filterStoVms = (vms, techOpenRows, hostname, searchTherm) => {
+  return _.filter(vms, (vm) => {
+    const { type, cellDisk, cell, status, size, freeSpace, errorCount } = vm
+
+    if (
+      _.includes(_.lowerCase(type), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(cellDisk), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(cell), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(status), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(size), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(freeSpace), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(errorCount), _.lowerCase(searchTherm))
+    ) {
+      techOpenRows.push(hostname)
+    }
+
+    return (
+      _.includes(_.lowerCase(type), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(cellDisk), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(cell), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(status), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(size), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(freeSpace), _.lowerCase(searchTherm)) ||
+      _.includes(_.lowerCase(errorCount), _.lowerCase(searchTherm))
+    )
   }).length
 }
