@@ -1,7 +1,5 @@
 <template>
   <BoxContent
-    title="Capacity Average and Daily Average Usage"
-    border
     hasShadow
     :mbottom="false"
     customStyle="padding: 20px"
