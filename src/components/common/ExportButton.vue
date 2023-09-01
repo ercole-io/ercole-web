@@ -37,14 +37,20 @@ export default {
   },
   methods: {
     exportData() {
-      const checkType =
-        this.type === 'LMS'
-          ? `${this.$i18n.t('common.general.exportLms')} ${this.$i18n.t(
-              'common.general.inProgress'
-            )}`
-          : `${this.$i18n.t('common.general.exportData')} ${this.$i18n.t(
-              'common.general.inProgress'
-            )}`
+      let checkType
+      if (this.type === 'LMS') {
+        checkType = `${this.$i18n.t('common.general.exportLms')} ${this.$i18n.t(
+          'common.general.inProgress'
+        )}`
+      } else if (this.type === 'LMS-MYSQL') {
+        checkType = `${this.$i18n.t(
+          'common.general.exportLmsMysql'
+        )} ${this.$i18n.t('common.general.inProgress')}`
+      } else {
+        checkType = `${this.$i18n.t(
+          'common.general.exportData'
+        )} ${this.$i18n.t('common.general.inProgress')}`
+      }
 
       this.$buefy.modal.open({
         component: DownloadingModal,

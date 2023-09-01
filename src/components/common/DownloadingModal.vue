@@ -134,6 +134,10 @@ const exportLms = {
   Accept: 'application/vnd.oracle.lms+vnd.ms-excel.sheet.macroEnabled.12',
 }
 
+const exportLmsMysql = {
+  Accept: 'application/vnd.mysql.lms+vnd.ms-excel.sheet.macroEnabled.12',
+}
+
 export default {
   name: 'commom-downloadmodal-component',
   props: {
@@ -192,7 +196,17 @@ export default {
   },
   methods: {
     exportRequest() {
-      const headers = this.isLms ? exportLms : exportAll
+      let headers = this.isLms ? exportLms : exportAll
+      if (this.isLms) {
+        if (this.exportType === 'LMS') {
+          headers = exportLms
+        } else {
+          headers = exportLmsMysql
+        }
+      } else {
+        headers = exportAll
+      }
+
       const date = moment().format('YYYYMMDD')
 
       let extension = null
@@ -273,7 +287,11 @@ export default {
   },
   computed: {
     isLms() {
-      return this.exportType === 'LMS' ? true : false
+      if (this.exportType === 'LMS' || this.exportType === 'LMS-MYSQL') {
+        return true
+      } else {
+        return false
+      }
     },
     exportParamsText() {
       return i18n.t('views.hosts.addExportParams')

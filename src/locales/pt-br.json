@@ -153,6 +153,7 @@
       "moreInfo": "Mostrar mais informações",
       "exportData": "Exportar Dados",
       "exportLms": "Exportar Arquivo LMS Audit",
+      "exportLmsMysql": "Exportar Arquivo LMS MySQL Audit",
       "importData": "Import Data",
       "inProgress": "em Andamento",
       "wait": "Isso pode demorar um pouco, por favor aguarde...",

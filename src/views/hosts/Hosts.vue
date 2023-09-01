@@ -137,6 +137,12 @@
           :text="`${$t('common.general.exportLms')}`"
           type="LMS"
         />
+        <ExportButton
+          url="hosts"
+          expName="hosts-lms-mysql-data"
+          :text="`${$t('common.general.exportLmsMysql')}`"
+          type="LMS-MYSQL"
+        />
       </template>
     </FullTable>
   </ToggleColumns>
