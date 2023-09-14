@@ -4,20 +4,22 @@
       <div class="column is-12">
         <div class="contentChange">
           <b-button
-            :type="changeLayout ? 'is-white' : 'is-primary'"
+            :type="isList ? 'is-primary' : 'is-white'"
             icon-pack="fas"
             icon-left="list"
-            @click="updateLayout(changeLayout !== changeLayout)"
+            tag="router-link"
+            to="/exadata/list"
           />
           <b-button
-            :type="!changeLayout ? 'is-white' : 'is-primary'"
+            :type="isTable ? 'is-primary' : 'is-white'"
             icon-pack="fas"
             icon-left="table-cells-large"
-            @click="updateLayout(!changeLayout !== changeLayout)"
+            tag="router-link"
+            to="/exadata/table"
           />
         </div>
-        <ExadataList v-if="!changeLayout" />
-        <ExadataTables v-else />
+
+        <router-view />
       </div>
     </div>
   </section>
@@ -25,28 +27,28 @@
 
 <script>
 import { mapActions } from 'vuex'
-import ExadataList from '@/components/exadata/exadatas/ExadataList.vue'
-import ExadataTables from '@/components/exadata/exadatas/ExadataTables.vue'
 
 export default {
-  name: 'engineered-page',
-  components: {
-    ExadataTables,
-    ExadataList,
-  },
+  name: 'exadata-page',
   data() {
     return {
-      changeLayout: false,
+      isList: true,
+      isTable: false,
     }
   },
   async beforeMount() {
+    if (this.$route.name === 'exadata-table') {
+      this.isList = false
+      this.isTable = true
+    } else {
+      this.isList = true
+      this.isTable = false
+    }
+
     await this.getExadataData()
   },
   methods: {
     ...mapActions(['getExadataData']),
-    updateLayout(val) {
-      this.changeLayout = val
-    },
   },
 }
 </script>

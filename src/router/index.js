@@ -543,14 +543,31 @@ const routes = [
   },
   {
     path: '/exadata',
-    name: 'exadata',
     component: lazyRouteBuilder('exadata/Exadata.vue'),
-    meta: {
-      label: i18n.t('menu.exadata'),
-      title: `${title}${i18n.t('menu.exadata')}`,
-      breadcrumb: [{ name: i18n.t('menu.exadata') }],
-    },
-    beforeEnter: verifyAuth,
+    children: [
+      {
+        path: '/exadata/list',
+        name: 'exadata-list',
+        component: lazyRouteBuilder('exadata/ExadataList.vue'),
+        meta: {
+          label: i18n.t('menu.exadata'),
+          title: `${title}${i18n.t('menu.exadata')}`,
+          breadcrumb: [{ name: i18n.t('menu.exadata') }],
+        },
+        beforeEnter: verifyAuth,
+      },
+      {
+        path: '/exadata/table',
+        name: 'exadata-table',
+        component: lazyRouteBuilder('exadata/ExadataTable.vue'),
+        meta: {
+          label: i18n.t('menu.exadata'),
+          title: `${title}${i18n.t('menu.exadata')}`,
+          breadcrumb: [{ name: i18n.t('menu.exadata') }],
+        },
+        beforeEnter: verifyAuth,
+      },
+    ],
   },
   {
     path: '/alerts',

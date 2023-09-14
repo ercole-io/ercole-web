@@ -279,7 +279,7 @@ export default {
           hidden: this.checkMenu('Hypervisors', ''),
         },
         {
-          href: { name: 'exadata' },
+          href: { name: 'exadata-list' },
           title: this.$i18n.t('menu.exadata'),
           icon: 'far fa-calendar-times',
           attributes: { 'data-cy': 'mn-exadata' },
