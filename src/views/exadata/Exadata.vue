@@ -1,27 +1,27 @@
 <template>
-  <section>
-    <div class="columns">
-      <div class="column is-12">
-        <div class="contentChange">
-          <b-button
-            :type="isList ? 'is-primary' : 'is-white'"
-            icon-pack="fas"
-            icon-left="list"
-            tag="router-link"
-            to="/exadata/list"
-          />
-          <b-button
-            :type="isTable ? 'is-primary' : 'is-white'"
-            icon-pack="fas"
-            icon-left="table-cells-large"
-            tag="router-link"
-            to="/exadata/table"
-          />
-        </div>
-
-        <router-view />
-      </div>
+  <section class="is-flex is-flex-direction-column">
+    <div class="is-align-self-center">
+      <b-button
+        :type="isList ? 'is-primary' : 'is-white'"
+        icon-pack="fas"
+        icon-left="list"
+        tag="router-link"
+        to="/exadata/list"
+        :class="{ inactiveButton: !isList }"
+        class="mr-1"
+      />
+      <b-button
+        :type="isTable ? 'is-primary' : 'is-white'"
+        icon-pack="fas"
+        icon-left="table-cells-large"
+        tag="router-link"
+        to="/exadata/table"
+        :class="{ inactiveButton: !isTable }"
+        class="ml-1"
+      />
     </div>
+
+    <router-view />
   </section>
 </template>
 
@@ -53,4 +53,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.contentChange {
+  border: 1px solid red;
+}
+.inactiveButton {
+  border: 1px solid #ededed;
+}
+</style>

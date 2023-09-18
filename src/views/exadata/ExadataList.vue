@@ -28,13 +28,14 @@
         vertical
         animated
         expanded
-        class="vertical-tabs-scroll mt-2"
+        class="vertical-tabs-scroll mt-4"
       >
         <b-tab-item
           v-for="(exadata, index) in getExadataList"
           :value="exadata"
           :label="exadata"
           :key="index"
+          style="margin-top: -25px"
         >
           <BoxContent
             :title="`${data['exadata']} - ${data['_id']}`"

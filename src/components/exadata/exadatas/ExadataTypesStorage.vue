@@ -5,7 +5,7 @@
         <b-icon
           v-tooltip="options('Grid Disks')"
           type="is-custom-primary"
-          class="hosts-icon is-clickable"
+          class="is-clickable"
           pack="fas"
           icon="hard-drive"
           @click.native="openModalGridDisks(props.row.gridDisks)"
@@ -20,7 +20,7 @@
         <b-icon
           v-tooltip="options('Database')"
           type="is-custom-primary"
-          class="hosts-icon is-clickable"
+          class="is-clickable"
           pack="fas"
           icon="database"
           @click.native="openModalDatabase(props.row.databases)"
