@@ -1,28 +1,25 @@
 <template>
   <article>
-    <div
-      class="is-flex is-justify-content-flex-end"
-      v-if="getExadata.length > 0 && !loadingTableStatus"
-    >
+    <div class="is-flex is-justify-content-flex-end" v-if="!loadingTableStatus">
       <SearchInput v-model="exadataSearchTherm" class="mr-2" isLazy />
       <!-- <ExportButton url="exadata" expName="exadata" /> -->
     </div>
     <div class="columns mt-2" style="flex-flow: wrap">
-      <template v-for="(item, k) in 4">
+      <template v-for="item in 4">
         <GhostLoading
           :isLoading="loadingTableStatus"
           setHeight="395"
           class="column is-6"
           v-if="loadingTableStatus"
-          :key="k"
+          :key="item"
         />
       </template>
 
       <BoxContent
         :title="`${data['exadata']} - ${data['_id']}`"
         border
-        v-for="(data, k) in getExadata(exadataSearchTherm)"
-        :key="k"
+        v-for="data in getExadata(exadataSearchTherm)"
+        :key="`${data['_id']}`"
         class="column is-6 mb-5"
         customStyle="padding: 0 0.5rem"
         hasHighlight

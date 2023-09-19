@@ -6,6 +6,7 @@ const url = 'exadata'
 
 export const state = () => ({
   exadata: {},
+  exadataList: [],
 })
 
 export const getters = {
@@ -45,11 +46,29 @@ export const getters = {
 
     return search
   },
+  getExadataList: (state) => {
+    return state.exadataList
+  },
+  getExadataListData: (state) => (selected) => {
+    const exadata = getMachineTypes(state.exadata)
+    console.log(exadata)
+
+    const data = _.filter(exadata, (val) => {
+      if (val.exadata === selected) {
+        return val
+      }
+    })
+
+    return data
+  },
 }
 
 export const mutations = {
   SET_EXADATA: (state, payload) => {
     state.exadata = payload.exadata
+  },
+  SET_EXADATA_LIST: (state, payload) => {
+    state.exadataList = payload
   },
 }
 
@@ -73,8 +92,14 @@ export const actions = {
       )
     ).then(
       axios.spread((...allData) => {
+        const data = allData[0].data
+        const list = _.map(data, (val) => {
+          return val.hostname
+        })
+
+        commit('SET_EXADATA_LIST', list)
         commit('SET_EXADATA', {
-          exadata: allData[0].data,
+          exadata: data,
         })
         dispatch('offLoadingTable')
       })
