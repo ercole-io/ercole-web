@@ -5,8 +5,8 @@
       <!-- <ExportButton url="exadata" expName="exadata" /> -->
     </div>
 
-    <template v-if="loadingTableStatus">
-      <div class="columns mt-2">
+    <div class="columns mt-2">
+      <template v-if="loadingTableStatus">
         <GhostLoading
           :isLoading="loadingTableStatus"
           setHeight="600"
@@ -17,10 +17,8 @@
           setHeight="600"
           class="column"
         />
-      </div>
-    </template>
+      </template>
 
-    <template v-else>
       <b-tabs
         size="is-small"
         type="is-toggle"
@@ -28,21 +26,21 @@
         vertical
         animated
         expanded
-        class="vertical-tabs-scroll mt-4"
+        class="column vertical-tabs-scroll mt-4"
+        v-else
       >
         <b-tab-item
-          v-for="exadata in getExadataList"
-          :value="exadata"
-          :label="exadata"
-          :key="exadata"
-          style="margin-top: -25px"
+          v-for="data in getExadata(exadataSearchTherm)"
+          :value="data['exadata']"
+          :label="data['exadata']"
+          :key="data['exadata']"
+          style="margin-top: -20px"
         >
           <BoxContent
             :title="`${data['exadata']} - ${data['_id']}`"
             border
-            v-for="data in getExadataListData(exadata)"
             :key="`${data['_id']}`"
-            class="column mb-5"
+            class="mb-5"
             customStyle="padding: 0 0.5rem"
             hasHighlight
             hasShadow
@@ -96,7 +94,13 @@
           </BoxContent>
         </b-tab-item>
       </b-tabs>
-    </template>
+    </div>
+
+    <NoContent
+      class="column is-12"
+      style="height: 370px; background-color: #eeeeee"
+      v-if="getExadata(exadataSearchTherm).length === 0 && !loadingTableStatus"
+    />
   </article>
 </template>
 
@@ -106,6 +110,7 @@ import tooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
+import NoContent from '@/components/common/NoContent.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 // import ExportButton from '@/components/common/ExportButton.vue'
 import ExadataProgress from '@/components/exadata/exadatas/ExadataProgress.vue'
@@ -116,6 +121,7 @@ export default {
   components: {
     BoxContent,
     GhostLoading,
+    NoContent,
     SearchInput,
     // ExportButton
     ExadataProgress,
@@ -128,6 +134,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'getExadata',
       'getExadataList',
       'getExadataListData',
       'loadingTableStatus',
