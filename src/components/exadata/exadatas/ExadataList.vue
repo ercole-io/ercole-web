@@ -1,23 +1,18 @@
 <template>
   <article>
-    <div class="is-flex is-justify-content-flex-end" v-if="!loadingTableStatus">
-      <SearchInput v-model="exadataSearchTherm" class="mr-2" isLazy />
-      <!-- <ExportButton url="exadata" expName="exadata" /> -->
-    </div>
-
-    <div class="columns mt-2">
-      <template v-if="loadingTableStatus">
-        <GhostLoading
-          :isLoading="loadingTableStatus"
-          setHeight="600"
-          class="column is-2"
-        />
-        <GhostLoading
-          :isLoading="loadingTableStatus"
-          setHeight="600"
-          class="column"
-        />
-      </template>
+    <div class="columns mt-3" style="margin-right: -28px">
+      <GhostLoading
+        :isLoading="loadingTableStatus"
+        setHeight="600"
+        class="column is-2"
+        v-if="loadingTableStatus"
+      />
+      <GhostLoading
+        :isLoading="loadingTableStatus"
+        setHeight="600"
+        class="column"
+        v-if="loadingTableStatus"
+      />
 
       <b-tabs
         size="is-small"
@@ -26,8 +21,8 @@
         vertical
         animated
         expanded
-        class="column vertical-tabs-scroll mt-4"
-        v-else
+        class="column is-12 vertical-tabs-scroll"
+        v-if="!loadingTableStatus"
       >
         <b-tab-item
           v-for="data in getExadata(exadataSearchTherm)"
@@ -40,7 +35,6 @@
             :title="`${data['exadata']} - ${data['_id']}`"
             border
             :key="`${data['_id']}`"
-            class="mb-5"
             customStyle="padding: 0 0.5rem"
             hasHighlight
             hasShadow
@@ -111,34 +105,29 @@ import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import BoxContent from '@/components/common/BoxContent.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 import NoContent from '@/components/common/NoContent.vue'
-import SearchInput from '@/components/common/SearchInput.vue'
 // import ExportButton from '@/components/common/ExportButton.vue'
 import ExadataProgress from '@/components/exadata/exadatas/ExadataProgress.vue'
 import ExadataTypes from '@/components/exadata/exadatas/ExadataTypes.vue'
 
 export default {
+  name: 'exadata-list-component',
   mixins: [tooltipMixin, HighlightSearchMixin],
+  props: {
+    exadataSearchTherm: {
+      type: String,
+      default: '',
+    },
+  },
   components: {
     BoxContent,
     GhostLoading,
     NoContent,
-    SearchInput,
     // ExportButton
     ExadataProgress,
     ExadataTypes,
   },
-  data() {
-    return {
-      exadataSearchTherm: '',
-    }
-  },
   computed: {
-    ...mapGetters([
-      'getExadata',
-      'getExadataList',
-      'getExadataListData',
-      'loadingTableStatus',
-    ]),
+    ...mapGetters(['getExadata', 'loadingTableStatus']),
   },
 }
 </script>

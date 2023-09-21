@@ -19,12 +19,19 @@
       />
     </div>
 
-    <div class="columns">
-      <div class="column is-12">
-        <ExadataList v-if="!layoutSwitch" />
-        <ExadataTables v-if="layoutSwitch" />
-      </div>
+    <div class="is-flex is-justify-content-flex-end">
+      <SearchInput v-model="exadataSearchTherm" class="mr-2" isLazy />
+      <!-- <ExportButton url="exadata" expName="exadata" /> -->
     </div>
+
+    <ExadataList
+      :exadataSearchTherm="exadataSearchTherm"
+      v-if="!layoutSwitch"
+    />
+    <ExadataTables
+      :exadataSearchTherm="exadataSearchTherm"
+      v-if="layoutSwitch"
+    />
   </section>
 </template>
 
@@ -32,16 +39,19 @@
 import { mapActions } from 'vuex'
 import ExadataTables from '@/components/exadata/exadatas/ExadataTables.vue'
 import ExadataList from '@/components/exadata/exadatas/ExadataList.vue'
+import SearchInput from '@/components/common/SearchInput.vue'
 
 export default {
   name: 'engineered-page',
   components: {
     ExadataTables,
     ExadataList,
+    SearchInput,
   },
   data() {
     return {
       layoutSwitch: false,
+      exadataSearchTherm: '',
     }
   },
   async beforeMount() {
