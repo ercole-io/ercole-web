@@ -15,9 +15,9 @@
       <span slot="customTitle" v-html="highlight(data['machineType'])" />
       <span
         slot="customSubTitle"
-        class="is-flex is-justify-content-flex-end is-size-7 py-2 pr-1"
+        class="is-flex is-justify-content-flex-end is-size-6 py-2 pr-1"
       >
-        last update: <b>{{ setDateTime(data['update']) }}</b>
+        last update: <b class="pl-2">{{ setDateTime(data['update']) }}</b>
       </span>
 
       <ExadataContent :data="data" />
