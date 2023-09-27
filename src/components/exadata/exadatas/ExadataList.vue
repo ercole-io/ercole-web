@@ -35,12 +35,19 @@
             :title="`${data['exadata']} - ${data['_id']}`"
             border
             :key="`${data['_id']}`"
-            customStyle="padding: 0 0.5rem"
+            customStyle="padding: 5px 0.5rem"
+            customStyleTitle="margin-bottom: 0"
             hasHighlight
             hasShadow
             :mbottom="false"
           >
             <span slot="customTitle" v-html="highlight(data['machineType'])" />
+            <span
+              slot="customSubTitle"
+              class="is-flex is-justify-content-flex-end is-size-7 py-2 pr-1"
+            >
+              last update: <b>{{ setDateTime(data['update']) }}</b>
+            </span>
 
             <ExadataProgress
               :exadataProgress="data['progress']"
@@ -100,6 +107,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import formatDateTime from '@/filters/formatDateTime.js'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -125,6 +133,11 @@ export default {
     // ExportButton
     ExadataProgress,
     ExadataTypes,
+  },
+  methods: {
+    setDateTime(val) {
+      return formatDateTime(val)
+    },
   },
   computed: {
     ...mapGetters(['getExadata', 'loadingTableStatus']),

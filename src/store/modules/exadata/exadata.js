@@ -74,11 +74,7 @@ export const actions = {
     ).then(
       axios.spread((...allData) => {
         const data = allData[0].data
-        // const list = _.map(data, (val) => {
-        //   return val.hostname
-        // })
 
-        // commit('SET_EXADATA_LIST', list)
         commit('SET_EXADATA', {
           exadata: data,
         })
@@ -93,6 +89,7 @@ const organizeExadata = (data) => {
     return {
       _id: val.rackID,
       exadata: val.hostname,
+      update: val.updateAt,
       kvmhost: getHostype(val, 'KVM_HOST'),
       kvmOpenRows: [],
       ibswitch: getHostype(val, 'IB_SWITCH'),

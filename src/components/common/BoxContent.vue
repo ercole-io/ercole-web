@@ -9,6 +9,7 @@
       <span v-html="hasHighlight ? highlight(title) : title" />
       <slot name="customTitle" />
     </h2>
+    <slot name="customSubTitle" />
     <article
       class="box-content"
       :class="{ 'bottom-space': mbottom, 'card card-custom': hasShadow }"
