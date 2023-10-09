@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     getData(type, data = []) {
-      const dataSeries = data ? data : this.capacityDaily
+      const dataSeries = data && data.length > 0 ? data : this.capacity
 
       const model = {
         m: {
@@ -123,7 +123,7 @@ export default {
       return model
     },
     getSeries(type, data = []) {
-      const dataSeries = data ? data : this.capacityDaily
+      const dataSeries = data && data.length > 0 ? data : this.capacity
 
       return [
         {

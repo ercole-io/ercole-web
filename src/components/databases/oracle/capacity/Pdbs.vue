@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import databasesCapacityMixin from '@/mixins/hostDetails/capacity/databasesCapacity.js'
 import databasesCapacityMonthMixin from '@/mixins/hostDetails/capacity/databasesCapacityMonth.js'
 import databasesCapacityDailyMixin from '@/mixins/hostDetails/capacity/databasesCapacityDaily.js'
@@ -63,6 +64,16 @@ export default {
   },
   components: {
     CollapseSimple,
+  },
+  beforeMount() {
+    this.capacityTabs = _.remove(this.capacityTabs, (val) => {
+      return (
+        val.id !== 'cpuHost' &&
+        val.id !== 'cpuHost-daily' &&
+        val.id !== 'iops-daily'
+      )
+    })
+    this.capacityData = this.capacity
   },
 }
 </script>
