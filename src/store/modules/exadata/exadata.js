@@ -73,8 +73,10 @@ export const actions = {
       )
     ).then(
       axios.spread((...allData) => {
+        const data = allData[0].data
+
         commit('SET_EXADATA', {
-          exadata: allData[0].data,
+          exadata: data,
         })
         dispatch('offLoadingTable')
       })
@@ -87,6 +89,7 @@ const organizeExadata = (data) => {
     return {
       _id: val.rackID,
       exadata: val.hostname,
+      update: val.updateAt,
       kvmhost: getHostype(val, 'KVM_HOST'),
       kvmOpenRows: [],
       ibswitch: getHostype(val, 'IB_SWITCH'),
