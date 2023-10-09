@@ -10,7 +10,7 @@ export default {
   },
   methods: {
     chartDailySeries(type, data = []) {
-      const dataSeries = data ? data : this.capacityDaily
+      const dataSeries = data && data.length > 0 ? data : this.capacityDaily
 
       const transformType = _.split(type, '-daily')
 
@@ -34,7 +34,7 @@ export default {
       ]
     },
     chartDailyOptions(type, data = []) {
-      const dataSeries = data ? data : this.capacityDaily
+      const dataSeries = data && data.length > 0 ? data : this.capacityDaily
 
       const categories = []
       const dateRange = []

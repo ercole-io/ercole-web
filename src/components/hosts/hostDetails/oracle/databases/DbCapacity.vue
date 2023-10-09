@@ -19,7 +19,7 @@
           :chartID="`${cap.id}CapacityChart`"
           :chartOptions="chartOptions(cap.label)"
           :chartSeries="getSeries(cap.id)"
-          v-else
+          v-if="!checkID(cap.id)"
         />
       </b-tab-item>
     </b-tabs>
