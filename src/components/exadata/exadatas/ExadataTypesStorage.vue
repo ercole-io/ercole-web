@@ -69,8 +69,10 @@
     <b-table-column field="size" label="Size" centered sortable>
       <template v-slot="props">
         <p
-          v-tooltip.bottom="options(formatValue(props.row.size) || '-')"
-          v-html="highlight(formatValue(props.row.size) || '-')"
+          v-tooltip.bottom="
+            options(formatValue(props.row.size.unparsedValue) || '-')
+          "
+          v-html="highlight(formatValue(props.row.size.unparsedValue) || '-')"
         />
       </template>
     </b-table-column>
@@ -78,8 +80,12 @@
     <b-table-column field="freeSpace" label="Free Space" centered sortable>
       <template v-slot="props">
         <p
-          v-tooltip.bottom="options(formatValue(props.row.freeSpace) || '-')"
-          v-html="highlight(formatValue(props.row.freeSpace) || '-')"
+          v-tooltip.bottom="
+            options(formatValue(props.row.freeSpace.unparsedValue) || '-')
+          "
+          v-html="
+            highlight(formatValue(props.row.freeSpace.unparsedValue) || '-')
+          "
         />
       </template>
     </b-table-column>
