@@ -186,6 +186,15 @@
           </b-table-column>
         </template>
 
+        <b-table-column field="hostID" label="Host ID" centered sortable>
+          <template v-slot="props">
+            <p
+              v-tooltip="options(props.row.hostID)"
+              v-html="highlight(props.row.hostID)"
+            />
+          </template>
+        </b-table-column>
+
         <template #detail="props">
           <ExadataTypesVms
             :type="typeName"
