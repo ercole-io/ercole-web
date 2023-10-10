@@ -54,6 +54,17 @@
               />
             </template>
           </b-table-column>
+
+          <b-table-column field="usage" label="Total Usage" centered sortable>
+            <template v-slot="props">
+              <ProgressBar
+                :progressValue="setTotalUsage(props.row.freeSizePercentage)"
+                :progressTooltip="
+                  setTotalUsage(props.row.freeSizePercentage, 'tooltip')
+                "
+              />
+            </template>
+          </b-table-column>
         </template>
 
         <template v-if="typeName === 'KVM' || typeName === 'DOM0'">
@@ -198,6 +209,7 @@ import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import ProgressMixin from '@/mixins/exadata/progress-mixin.js'
 import ExadataTypesVms from '@/components/exadata/exadatas/ExadataTypesVms.vue'
 import ExadataTypesStorage from '@/components/exadata/exadatas/ExadataTypesStorage.vue'
+import { toNumber } from 'lodash'
 
 export default {
   mixins: [tooltipMixin, HighlightSearchMixin, ProgressMixin],
@@ -218,6 +230,17 @@ export default {
   components: {
     ExadataTypesVms,
     ExadataTypesStorage,
+  },
+  methods: {
+    setTotalUsage(val, type = null) {
+      const formatVal = toNumber(val.split('%')[0].slice(0, 5))
+
+      if (type) {
+        return `${formatVal}%`
+      } else {
+        return formatVal
+      }
+    },
   },
 }
 </script>

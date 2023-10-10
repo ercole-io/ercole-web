@@ -12,7 +12,7 @@ export const getters = {
   getExadata: (state) => (searchTherm) => {
     const exadata = getMachineTypes(state.exadata)
 
-    console.log(exadata)
+    // console.log(exadata)
 
     if (searchTherm === '') {
       return exadata
@@ -87,7 +87,7 @@ export const actions = {
 }
 
 const organizeExadata = (data) => {
-  return _.map(data, (val) => {
+  const result = _.map(data, (val) => {
     return {
       _id: val.rackID,
       exadata: val.hostname,
@@ -110,6 +110,8 @@ const organizeExadata = (data) => {
       },
     }
   })
+
+  return result
 }
 
 const getMachineTypes = (data) => {
