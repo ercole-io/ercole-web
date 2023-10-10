@@ -90,6 +90,26 @@
       </template>
     </b-table-column>
 
+    <b-table-column field="usage" label="Usage" centered sortable>
+      <template v-slot="props">
+        <ProgressBar
+          :progressMaxValue="props.row.size.quantity"
+          :progressValue="props.row.freeSpace.quantity"
+          :progressTooltip="
+            setTooltip(
+              formatValue(props.row.size.unparsedValue),
+              formatUsageTooltip(
+                props.row.size.unparsedValue,
+                props.row.freeSpace.unparsedValue
+              ),
+              formatValue(props.row.freeSpace.unparsedValue),
+              ''
+            )
+          "
+        />
+      </template>
+    </b-table-column>
+
     <b-table-column field="errorCount" label="Error Count" centered sortable>
       <template v-slot="props">
         <p
@@ -105,11 +125,12 @@
 import _ from 'lodash'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+import ProgressMixin from '@/mixins/exadata/progress-mixin.js'
 import StorageDatabaseModal from '@/components/exadata/exadatas/StorageDatabaseModal.vue'
 import StorageGridDisksModal from '@/components/exadata/exadatas/StorageGridDisksModal.vue'
 
 export default {
-  mixins: [tooltipMixin, HighlightSearchMixin],
+  mixins: [tooltipMixin, HighlightSearchMixin, ProgressMixin],
   props: {
     data: {
       type: Array,
@@ -162,6 +183,14 @@ export default {
     formatMBintoGB(val) {
       const value = val.slice(0, -1) * 1000000
       return this.$options.filters.prettyBytes(value, 2, false, 'GB')
+    },
+    formatUsageTooltip(total, free) {
+      const setTotal = this.formatValue(total).split(' ')[0]
+      const setFree = this.formatValue(free).split(' ')[0]
+      const ext = this.formatValue(free).split(' ')[1]
+      const result = `${setTotal - setFree} ${ext}`
+
+      return result
     },
   },
 }
