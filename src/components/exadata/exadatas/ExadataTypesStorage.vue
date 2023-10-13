@@ -90,22 +90,16 @@
       </template>
     </b-table-column>
 
-    <b-table-column field="usage" label="Usage" centered sortable>
+    <b-table-column
+      field="freeSpacePerc"
+      label="Free Space %"
+      centered
+      sortable
+    >
       <template v-slot="props">
         <ProgressBar
-          :progressMaxValue="props.row.size.quantity"
-          :progressValue="props.row.freeSpace.quantity"
-          :progressTooltip="
-            setTooltip(
-              formatValue(props.row.size.unparsedValue),
-              formatUsageTooltip(
-                props.row.size.unparsedValue,
-                props.row.freeSpace.unparsedValue
-              ),
-              formatValue(props.row.freeSpace.unparsedValue),
-              ''
-            )
-          "
+          :progressValue="props.row.freeSizePercentage"
+          :progressTooltip="`${props.row.freeSizePercentage}%`"
         />
       </template>
     </b-table-column>
@@ -183,14 +177,6 @@ export default {
     formatMBintoGB(val) {
       const value = val.slice(0, -1) * 1000000
       return this.$options.filters.prettyBytes(value, 2, false, 'GB')
-    },
-    formatUsageTooltip(total, free) {
-      const setTotal = this.formatValue(total).split(' ')[0]
-      const setFree = this.formatValue(free).split(' ')[0]
-      const ext = this.formatValue(free).split(' ')[1]
-      const result = `${setTotal - setFree} ${ext}`
-
-      return result
     },
   },
 }

@@ -55,13 +55,16 @@
             </template>
           </b-table-column>
 
-          <b-table-column field="usage" label="Total Usage" centered sortable>
+          <b-table-column
+            field="freeSpace"
+            label="Free Space %"
+            centered
+            sortable
+          >
             <template v-slot="props">
               <ProgressBar
-                :progressValue="setTotalUsage(props.row.freeSizePercentage)"
-                :progressTooltip="
-                  setTotalUsage(props.row.freeSizePercentage, 'tooltip')
-                "
+                :progressValue="props.row.freeSizePercentage"
+                :progressTooltip="`${props.row.freeSizePercentage}%`"
               />
             </template>
           </b-table-column>
@@ -190,7 +193,7 @@
           <template v-slot="props">
             <p
               v-tooltip="options(props.row.hostID)"
-              v-html="highlight(props.row.hostID)"
+              v-html="highlight(props.row.hostID) || '-'"
             />
           </template>
         </b-table-column>
