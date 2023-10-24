@@ -8,5 +8,8 @@ export default {
     setTooltip(total, used, free, format) {
       return `Total: ${total}${format}<br>Used: ${used}${format}<br>Free: ${free}${format}`
     },
+    calculatePercentageOfUsage(freeSizePercentage) {
+      return 100 - freeSizePercentage
+    },
   },
 }

@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import axios from 'axios'
 import { axiosRequest } from '@/services/services.js'
-
 const url = 'exadata'
 
 export const state = () => ({
@@ -11,7 +10,6 @@ export const state = () => ({
 export const getters = {
   getExadata: (state) => (searchTherm) => {
     const exadata = getMachineTypes(state.exadata)
-
     if (searchTherm === '') {
       return exadata
     }
@@ -62,7 +60,7 @@ export const actions = {
     await Promise.all(
       endPoints.map((endpoint) =>
         axiosRequest('baseApi', {
-          merthod: 'get',
+          method: 'get',
           url: endpoint,
           params: {
             'older-than': getters.getActiveFilters.date || olderThan,
@@ -74,13 +72,44 @@ export const actions = {
     ).then(
       axios.spread((...allData) => {
         const data = allData[0].data
-
         commit('SET_EXADATA', {
           exadata: data,
         })
         dispatch('offLoadingTable')
       })
     )
+  },
+  async updateClusterName(_, cluster) {
+    const { rackID, hostID, clusterNames } = cluster
+    return axiosRequest('baseApi', {
+      method: 'post',
+      url: `/exadata/${rackID}/components/${hostID}`,
+      data: {
+        clusterNames,
+      },
+    })
+  },
+  async updateVmsClusterName(_, cluster) {
+    const { rackID, hostID, clusterName, hostname } = cluster
+    return axiosRequest('baseApi', {
+      method: 'post',
+      url: `/exadata/${rackID}/components/${hostID}/vms/${hostname}`,
+      data: {
+        clusterName,
+      },
+    })
+  },
+  async createRDMA(_, rdma) {
+    const { rackID, swVersion, switchName, model } = rdma
+    return axiosRequest('baseApi', {
+      method: 'post',
+      url: `/exadata/${rackID}/rdma`,
+      data: {
+        swVersion,
+        switchName,
+        model,
+      },
+    })
   },
 }
 
@@ -105,7 +134,11 @@ const organizeExadata = (data) => {
         totalMemory: val.totalMemory,
         usedMemory: val.usedMemory,
         freeMemory: val.freeMemory,
+        totalSize: val.totalSize,
+        usedSize: val.usedSize,
+        freeSpace: val.freeSpace,
       },
+      rdma: val.rdma,
     }
   })
 

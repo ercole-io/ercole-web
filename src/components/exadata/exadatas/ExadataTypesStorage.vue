@@ -3,9 +3,10 @@
     <b-table-column field="gridDisks" label="Grid Disks" centered sortable>
       <template v-slot="props">
         <b-icon
-          v-tooltip="options('Grid Disks')"
+          v-tooltip="options('Click to view Grid Disks details')"
           type="is-custom-primary"
           class="hosts-icon is-clickable"
+          size="is-large"
           pack="fas"
           icon="hard-drive"
           @click.native="openModalGridDisks(props.row.gridDisks)"
@@ -18,11 +19,12 @@
     <b-table-column field="database" label="Database" centered sortable>
       <template v-slot="props">
         <b-icon
-          v-tooltip="options('Database')"
+          v-tooltip="options('Click to view Database details')"
           type="is-custom-primary"
           class="hosts-icon is-clickable"
           pack="fas"
           icon="database"
+          size="is-large"
           @click.native="openModalDatabase(props.row.databases)"
           v-if="props.row.databases && props.row.databases.length > 0"
         />
@@ -90,16 +92,15 @@
       </template>
     </b-table-column>
 
-    <b-table-column
-      field="freeSpacePerc"
-      label="Free Space %"
-      centered
-      sortable
-    >
+    <b-table-column field="freeSpacePerc" label="Usage %" centered sortable>
       <template v-slot="props">
         <ProgressBar
-          :progressValue="props.row.freeSizePercentage"
-          :progressTooltip="`${props.row.freeSizePercentage}%`"
+          :progressValue="
+            calculatePercentageOfUsage(props.row.freeSizePercentage)
+          "
+          :progressTooltip="`${calculatePercentageOfUsage(
+            props.row.freeSizePercentage
+          )}%`"
         />
       </template>
     </b-table-column>
@@ -171,7 +172,7 @@ export default {
         return `${values[0]}.${value} ${ext}B`
       } else {
         values = val.slice(0, -1)
-        return `${values} ${ext}B`
+        return values == 0 ? values : `${values} ${ext}B`
       }
     },
     formatMBintoGB(val) {

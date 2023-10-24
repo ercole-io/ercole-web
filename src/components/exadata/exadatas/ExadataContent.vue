@@ -24,11 +24,8 @@
       :typeData="data['baremetal']"
       v-if="data['baremetal'] && data['baremetal'].length > 0"
     />
-
     <template v-if="data['ibswitch'].length === 0">
-      <p class="subHeader">RDMA over Converged Ethernet (RoCE)</p>
-      <span />
-      <span />
+      <ExadataRDMA :rackID="data['_id']" :rdmaData="data['rdma']" />
     </template>
 
     <ExadataTypes
@@ -50,6 +47,7 @@
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import ExadataProgress from '@/components/exadata/exadatas/ExadataProgress.vue'
 import ExadataTypes from '@/components/exadata/exadatas/ExadataTypes.vue'
+import ExadataRDMA from '@/components/exadata/exadatas/ExadataRDMA.vue'
 
 export default {
   name: 'exadata-content-component',
@@ -63,33 +61,9 @@ export default {
   components: {
     ExadataProgress,
     ExadataTypes,
+    ExadataRDMA,
   },
 }
 </script>
 
-<style lang="scss" scoped>
-@import '@/assets/scss/_variables.scss';
-
-.subHeader {
-  border: none;
-  background-color: $light-primary;
-  padding: 0.2em 0.75em;
-  font-size: 12px;
-  font-weight: 900;
-  margin: 2px 0 0 0 !important;
-
-  & + span {
-    display: block;
-    width: 100%;
-    height: 30px;
-    background-color: #101336;
-
-    & + span {
-      display: block;
-      width: 100%;
-      height: 30px;
-      background-color: #fff;
-    }
-  }
-}
-</style>
+<style lang="scss" scoped></style>
