@@ -1,5 +1,17 @@
 <template>
   <b-table :data="data" class="custom-collapse-table">
+    <b-table-column centered label="Cluster Name">
+      <template v-slot="props">
+        <ExadataVmsUpdate
+          :cluster="{
+            rackID: rackID,
+            hostID: hostID,
+            hostname: props.row.name,
+            clusterName: props.row.clusterName,
+          }"
+        />
+      </template>
+    </b-table-column>
     <b-table-column field="hostname" label="Hostname" centered sortable>
       <template v-slot="props">
         <p
@@ -54,6 +66,7 @@
 <script>
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+import ExadataVmsUpdate from './ExadataVmsUpdate.vue'
 
 export default {
   mixins: [tooltipMixin, HighlightSearchMixin],
@@ -66,6 +79,12 @@ export default {
       type: String,
       default: '',
     },
+    rackID: {
+      type: String,
+    },
+    hostID: {
+      type: String,
+    },
   },
   methods: {
     setPrettyBystes(val) {
@@ -73,6 +92,7 @@ export default {
       return this.$options.filters.prettyBytes(value, 2, false, 'GB')
     },
   },
+  components: { ExadataVmsUpdate },
 }
 </script>
 

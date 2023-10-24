@@ -17,6 +17,23 @@
         :opened-detailed="openRowAfterSearch"
         scrollable
       >
+        <template v-if="typeName === 'STORAGE'">
+          <b-table-column
+            centered
+            field="clusterName"
+            label="Cluster Name"
+            v-slot="props"
+          >
+            <ExadataClusterName
+              :cluster="{
+                rackID: props.row.rackID,
+                hostID: props.row.hostID,
+                clusterNames: props.row.clusterNames,
+              }"
+            />
+          </b-table-column>
+        </template>
+
         <b-table-column
           field="hostname"
           :label="typeName === 'IBSWITCH' ? 'Switch Name' : 'Hostname'"
@@ -56,15 +73,56 @@
           </b-table-column>
 
           <b-table-column
-            field="freeSpace"
-            label="Free Space %"
+            field="totalSize"
+            label="Total Size"
             centered
             sortable
           >
             <template v-slot="props">
+              <p
+                v-tooltip="
+                  options(formatValue(props.row.totalSize.unparsedValue) || '-')
+                "
+                v-html="
+                  highlight(
+                    formatValue(props.row.totalSize.unparsedValue) || '-'
+                  )
+                "
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column
+            field="totalFreeSpace"
+            label="Total Free Space"
+            centered
+            sortable
+          >
+            <template v-slot="props">
+              <p
+                v-tooltip="
+                  options(
+                    formatValue(props.row.totalFreeSpace.unparsedValue) || '-'
+                  )
+                "
+                v-html="
+                  highlight(
+                    formatValue(props.row.totalFreeSpace.unparsedValue) || '-'
+                  )
+                "
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column field="freeSpace" label="Usage %" centered sortable>
+            <template v-slot="props">
               <ProgressBar
-                :progressValue="props.row.freeSizePercentage"
-                :progressTooltip="`${props.row.freeSizePercentage}%`"
+                :progressValue="
+                  calculatePercentageOfUsage(props.row.freeSizePercentage)
+                "
+                :progressTooltip="`${calculatePercentageOfUsage(
+                  props.row.freeSizePercentage
+                )}%`"
               />
             </template>
           </b-table-column>
@@ -203,6 +261,8 @@
             :type="typeName"
             v-if="props.row.vms"
             :data="props.row.vms"
+            :rackID="props.row.rackID"
+            :hostID="props.row.hostID"
           />
 
           <ExadataTypesStorage
@@ -221,7 +281,8 @@ import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import ProgressMixin from '@/mixins/exadata/progress-mixin.js'
 import ExadataTypesVms from '@/components/exadata/exadatas/ExadataTypesVms.vue'
 import ExadataTypesStorage from '@/components/exadata/exadatas/ExadataTypesStorage.vue'
-import { toNumber } from 'lodash'
+import ExadataClusterName from '@/components/exadata/exadatas/ExadataClusterName.vue'
+import { toNumber, includes } from 'lodash'
 
 export default {
   mixins: [tooltipMixin, HighlightSearchMixin, ProgressMixin],
@@ -242,6 +303,7 @@ export default {
   components: {
     ExadataTypesVms,
     ExadataTypesStorage,
+    ExadataClusterName,
   },
   methods: {
     setTotalUsage(val, type = null) {
@@ -251,6 +313,20 @@ export default {
         return `${formatVal}%`
       } else {
         return formatVal
+      }
+    },
+    formatValue(val) {
+      const ext = val.substr(val.length - 2)
+      let values
+      let value
+
+      if (includes(val, '.')) {
+        values = val.split('.')
+        value = values[1].slice(0, 2)
+        return `${values[0]}.${value}  ${ext}`
+      } else {
+        values = val.slice(0, 1)
+        return values == 0 ? values : `${values} ${ext}`
       }
     },
   },
