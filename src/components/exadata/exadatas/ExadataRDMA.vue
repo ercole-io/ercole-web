@@ -5,7 +5,7 @@
       <b-table :data="[rdmaData]">
         <b-table-column width="40px" label="Switch Name" centered>
           <template v-slot="props">
-            <template v-if="props.row">
+            <template v-if="context != 'EDIT'">
               <p
                 v-tooltip="options(props.row.switchName)"
                 v-html="highlight(props.row.switchName)"
@@ -26,7 +26,7 @@
         </b-table-column>
         <b-table-column width="40px" label="Model" centered>
           <template v-slot="props">
-            <template v-if="props.row">
+            <template v-if="context != 'EDIT'">
               <p
                 v-tooltip="options(props.row.model)"
                 v-html="highlight(props.row.model)"
@@ -46,7 +46,7 @@
         ></b-table-column>
         <b-table-column width="40px" label="Version" centered>
           <template v-slot="props">
-            <template v-if="props.row">
+            <template v-if="context != 'EDIT'">
               <p
                 v-tooltip="options(props.row.swVersion)"
                 v-html="highlight(props.row.swVersion)"
@@ -64,7 +64,7 @@
               </b-field>
             </template> </template
         ></b-table-column>
-        <b-table-column v-if="!rdmaData" width="40px" centered>
+        <b-table-column v-if="this.context == 'EDIT'" width="40px" centered>
           <template>
             <b-field class="always-show">
               <b-button
@@ -72,6 +72,18 @@
                 type="is-success"
                 @click="dispatchUpdatedRDMA()"
                 >Update RDMA</b-button
+              >
+            </b-field>
+          </template>
+        </b-table-column>
+        <b-table-column v-else width="40px" centered>
+          <template>
+            <b-field class="always-show">
+              <b-button
+                size="is-small"
+                type="is-success"
+                @click="changeToEdit()"
+                >Change to Edit View</b-button
               >
             </b-field>
           </template>
@@ -95,6 +107,7 @@ export default {
         switchName: '',
         model: '',
       },
+      context: '',
     }
   },
   props: {
@@ -123,7 +136,7 @@ export default {
           type: 'is-success',
           position: 'is-top',
         })
-        this.getExadataData()
+        //this.getExadataData()
       } catch (error) {
         Notification.open({
           message: 'Something was wrong!',
@@ -131,6 +144,11 @@ export default {
           position: 'is-top',
         })
       }
+      this.context = ''
+    },
+    changeToEdit() {
+      this.rdma = this.rdmaData
+      this.context = 'EDIT'
     },
   },
 }

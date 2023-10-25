@@ -49,6 +49,36 @@ export const mutations = {
   SET_EXADATA: (state, payload) => {
     state.exadata = payload.exadata
   },
+  SET_EXADATA_STORAGE_CLUSTERNAMES: (state, payload) => {
+    let exadataScoped = [...state.exadata]
+    exadataScoped
+      .find((el) => el.rackID === payload.rackID)
+      .components.find((el) => el.hostID === payload.hostID).clusterNames =
+      payload.clusterNames
+
+    state.exadata = [...exadataScoped]
+  },
+  SET_EXADATA_KVM_CLUSTERNAME: (
+    state,
+    { rackID, hostID, hostname, clusterName }
+  ) => {
+    let exadataScoped = [...state.exadata]
+    exadataScoped
+      .find((el) => el.rackID === rackID)
+      .components.find((el) => el.hostID === hostID)
+      .vms.find((el) => el.name === hostname).clusterName = clusterName
+
+    state.exadata = [...exadataScoped]
+  },
+  SET_EXADATA_RDMA: (state, { rackID, swVersion, switchName, model }) => {
+    let exadataScoped = [...state.exadata]
+    exadataScoped.find((el) => el.rackID === rackID).rdma = {
+      swVersion,
+      switchName,
+      model,
+    }
+    state.exadata = [...exadataScoped]
+  },
 }
 
 export const actions = {
@@ -79,29 +109,42 @@ export const actions = {
       })
     )
   },
-  async updateClusterName(_, cluster) {
+  async updateClusterName({ commit }, cluster) {
     const { rackID, hostID, clusterNames } = cluster
-    return axiosRequest('baseApi', {
+    axiosRequest('baseApi', {
       method: 'post',
       url: `/exadata/${rackID}/components/${hostID}`,
       data: {
         clusterNames,
       },
+    }).then(() => {
+      commit('SET_EXADATA_STORAGE_CLUSTERNAMES', {
+        hostID,
+        rackID,
+        clusterNames,
+      })
     })
   },
-  async updateVmsClusterName(_, cluster) {
+  async updateVmsClusterName({ commit }, cluster) {
     const { rackID, hostID, clusterName, hostname } = cluster
-    return axiosRequest('baseApi', {
+    axiosRequest('baseApi', {
       method: 'post',
       url: `/exadata/${rackID}/components/${hostID}/vms/${hostname}`,
       data: {
         clusterName,
       },
+    }).then(() => {
+      commit('SET_EXADATA_KVM_CLUSTERNAME', {
+        hostID,
+        rackID,
+        clusterName,
+        hostname,
+      })
     })
   },
-  async createRDMA(_, rdma) {
+  async createRDMA({ commit }, rdma) {
     const { rackID, swVersion, switchName, model } = rdma
-    return axiosRequest('baseApi', {
+    axiosRequest('baseApi', {
       method: 'post',
       url: `/exadata/${rackID}/rdma`,
       data: {
@@ -109,6 +152,13 @@ export const actions = {
         switchName,
         model,
       },
+    }).then(() => {
+      commit('SET_EXADATA_RDMA', {
+        swVersion,
+        rackID,
+        switchName,
+        model,
+      })
     })
   },
 }

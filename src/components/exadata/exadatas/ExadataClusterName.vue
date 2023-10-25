@@ -51,7 +51,7 @@ export default {
           type: 'is-success',
           position: 'is-top',
         })
-        this.getExadataData()
+        //this.getExadataData()
       } catch (error) {
         Notification.open({
           message: 'Something was wrong!',
