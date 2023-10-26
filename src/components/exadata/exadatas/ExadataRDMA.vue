@@ -5,7 +5,7 @@
       <b-table :data="[rdmaData]">
         <b-table-column width="40px" label="Switch Name" centered>
           <template v-slot="props">
-            <template v-if="context != 'EDIT'">
+            <template v-if="context != 'EDIT' && props.row">
               <p
                 v-tooltip="options(props.row.switchName)"
                 v-html="highlight(props.row.switchName)"
@@ -26,7 +26,7 @@
         </b-table-column>
         <b-table-column width="40px" label="Model" centered>
           <template v-slot="props">
-            <template v-if="context != 'EDIT'">
+            <template v-if="context != 'EDIT' && props.row">
               <p
                 v-tooltip="options(props.row.model)"
                 v-html="highlight(props.row.model)"
@@ -46,7 +46,7 @@
         ></b-table-column>
         <b-table-column width="40px" label="Version" centered>
           <template v-slot="props">
-            <template v-if="context != 'EDIT'">
+            <template v-if="context != 'EDIT' && props.row">
               <p
                 v-tooltip="options(props.row.swVersion)"
                 v-html="highlight(props.row.swVersion)"
@@ -64,7 +64,11 @@
               </b-field>
             </template> </template
         ></b-table-column>
-        <b-table-column v-if="this.context == 'EDIT'" width="40px" centered>
+        <b-table-column
+          v-if="this.context == 'EDIT' || !rdmaData"
+          width="40px"
+          centered
+        >
           <template>
             <b-field class="always-show">
               <b-button
@@ -116,8 +120,15 @@ export default {
       type: String,
     },
     rdmaData: {
-      required: true,
+      required: false,
       type: Object,
+      default: () => {
+        return {
+          swVersion: '',
+          switchName: '',
+          model: '',
+        }
+      },
     },
   },
   methods: {
