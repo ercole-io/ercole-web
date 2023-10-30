@@ -8,6 +8,7 @@ import {
 export const state = () => ({
   oracleHostNames: [],
   currentHostDatabasesCapacity: [],
+  currentHostCapacityByOs: [],
   searchHostname: '',
 })
 
@@ -27,6 +28,10 @@ export const getters = {
   oracleDatabasesCapacity: (state) => {
     return state.currentHostDatabasesCapacity
   },
+  oracleCapacityByOs: (state) => {
+    console.log(state.currentHostCapacityByOs)
+    return state.currentHostCapacityByOs
+  },
 }
 
 export const mutations = {
@@ -35,6 +40,9 @@ export const mutations = {
   },
   SET_CURRENT_HOST_DB_CAPACITY: (state, payload) => {
     state.currentHostDatabasesCapacity = payload
+  },
+  SET_CURRENT_HOST_CAPACITY_BY_OS: (state, payload) => {
+    state.currentHostCapacityByOs = payload
   },
   SET_SEARCH_HOSTNAME: (state, payload) => {
     state.searchHostname = payload
@@ -75,7 +83,8 @@ export const actions = {
 
     await axiosRequest('baseApi', config)
       .then((res) => {
-        let databases = res.data.features.oracle.database.databases
+        const databases = res.data.features.oracle.database.databases
+        const hostData = res.data
 
         const databasesCapacity = _.map(databases, (db) => {
           const { name, cpuDiskConsumptions, pdbs } = db
@@ -98,7 +107,11 @@ export const actions = {
           }
         })
 
+        const { cpuConsumptions, diskConsumptions } = hostData
+        const databasesCapacityByOs = [cpuConsumptions, diskConsumptions]
+
         commit('SET_CURRENT_HOST_DB_CAPACITY', databasesCapacity)
+        commit('SET_CURRENT_HOST_CAPACITY_BY_OS', databasesCapacityByOs)
       })
       .then(() => {
         dispatch('offLoadingTable')

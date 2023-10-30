@@ -381,7 +381,7 @@ const routes = [
               {
                 path: '/capacity/by-os',
                 name: 'capacityos',
-                component: lazyRouteBuilder('databases/oracle/CapacityOs.vue'),
+                component: lazyRouteBuilder('databases/oracle/Capacity.vue'),
                 meta: {
                   label: `${i18n.t('menu.oracle')}: ${i18n.t('menu.capacity')}`,
                   title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(

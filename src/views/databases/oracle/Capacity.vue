@@ -31,10 +31,19 @@
           :label="host"
           :key="index"
         >
-          <CapacityDatabases
-            :capacityData="oracleDatabasesCapacity"
-            v-if="!loadingTableStatus"
-          />
+          <template v-if="getRoute === 'capacity'">
+            <CapacityDatabases
+              :capacityData="oracleDatabasesCapacity"
+              v-if="!loadingTableStatus"
+            />
+          </template>
+
+          <template v-else>
+            <CapacityByOs
+              :capacityData="oracleCapacityByOs"
+              v-if="!loadingTableStatus"
+            />
+          </template>
         </b-tab-item>
       </b-tabs>
 
@@ -53,6 +62,7 @@
 import _ from 'lodash'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import CapacityDatabases from '@/components/databases/oracle/capacity/Databases.vue'
+import CapacityByOs from '@/components/databases/oracle/capacity/CapacityByOS.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 import NoContent from '@/components/common/NoContent.vue'
@@ -63,6 +73,7 @@ export default {
 
   components: {
     CapacityDatabases,
+    CapacityByOs,
     BoxContent,
     SearchInput,
     NoContent,
@@ -104,8 +115,12 @@ export default {
     ...mapGetters([
       'oracleHostNamesList',
       'oracleDatabasesCapacity',
+      'oracleCapacityByOs',
       'loadingTableStatus',
     ]),
+    getRoute() {
+      return this.$route.name
+    },
   },
   watch: {
     searchTherm(value) {
