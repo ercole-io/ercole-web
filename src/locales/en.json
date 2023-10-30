@@ -46,7 +46,7 @@
     "azure": "Azure",
     "mongodb": "MongoDB",
     "capacity": "Capacity",
-    "capacityos": "Capacity By OS"
+    "capacityos": "OS Capacity"
   },
   "header": {
     "logout": "Logout"
