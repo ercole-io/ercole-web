@@ -45,7 +45,6 @@ export default {
   },
   beforeMount() {
     this.requestDynamicMenu()
-    this.getVersion()
     this.getDbConnection()
     this.getDashboardData()
       .then(() => {
@@ -68,7 +67,6 @@ export default {
       'getGlobalFiltersEnvironments',
       'getCloudObjects',
       'getDbConnection',
-      'getVersion',
       'requestDynamicMenu',
     ]),
   },
