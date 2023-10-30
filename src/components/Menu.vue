@@ -202,6 +202,16 @@ export default {
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-capacity' },
                   hidden: this.checkMenu('Capacity', 'Oracle'),
+                  child: [
+                    {
+                      title: this.$i18n.t('menu.capacityos'),
+                      href: { name: 'capacityos' },
+                      icon: 'fas fa-database',
+                      class: 'menu-fourth-level',
+                      attributes: { 'data-cy': 'mn-capacity-os' },
+                      hidden: !this.checkMenu('Capacity-OS', 'Oracle'),
+                    },
+                  ],
                 },
               ],
             },
@@ -471,5 +481,8 @@ $icon-width: 20px !default;
 
 .menu-third-level {
   background-color: #232963;
+}
+.menu-fourth-level {
+  background-color: #2a3063;
 }
 </style>

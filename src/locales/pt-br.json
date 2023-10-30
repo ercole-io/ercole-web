@@ -45,7 +45,8 @@
     "partitionings": "Partitioning",
     "azure": "Azure",
     "mongodb": "MongoDB",
-    "capacity": "Capacity"
+    "capacity": "Capacity",
+    "capacityos": "Capacity By OS"
   },
   "header": {
     "logout": "Sair"

@@ -378,6 +378,24 @@ const routes = [
                 },
                 beforeEnter: verifyAuth,
               },
+              {
+                path: '/capacity/by-os',
+                name: 'capacityos',
+                component: lazyRouteBuilder('databases/oracle/CapacityOs.vue'),
+                meta: {
+                  label: `${i18n.t('menu.oracle')}: ${i18n.t('menu.capacity')}`,
+                  title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
+                    'menu.capacityos'
+                  )}`,
+                  breadcrumb: [
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: i18n.t('menu.capacity'), link: '/capacity' },
+                    { name: i18n.t('menu.capacityos') },
+                  ],
+                },
+                beforeEnter: verifyAuth,
+              },
             ],
           },
         ],
