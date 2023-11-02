@@ -40,7 +40,8 @@
 
           <template v-else>
             <CapacityByOs
-              :capacityData="oracleCapacityByOs"
+              :capacityDataOS="oracleCapacityByOs"
+              :capacityDailyDataOS="oracleCapacityDailyByOs"
               v-if="!loadingTableStatus"
             />
           </template>
@@ -116,6 +117,7 @@ export default {
       'oracleHostNamesList',
       'oracleDatabasesCapacity',
       'oracleCapacityByOs',
+      'oracleCapacityDailyByOs',
       'loadingTableStatus',
     ]),
     getRoute() {
