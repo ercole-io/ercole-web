@@ -11,7 +11,9 @@
           <SimpleTable :theadData="['Metric', 'Count']">
             <template
               slot="tbodyContent"
-              v-if="getSemaphoreData.metrics.length > 0"
+              v-if="
+                getSemaphoreData.metrics && getSemaphoreData.metrics.length > 0
+              "
             >
               <tr v-for="(v, i) in getSemaphoreData.metrics" :key="i">
                 <TdContent :value="v.metric" />
@@ -26,25 +28,27 @@
           </SimpleTable>
         </b-tab-item>
 
-        <b-tab-item
-          v-for="(data, i) in getSemaphoreData.other"
-          :label="data.schema"
-          :key="i"
-        >
-          <SimpleTable :theadData="['Object Type', 'Count']">
-            <template slot="tbodyContent">
-              <tr>
-                <TdContent :value="data.objectType" />
-                <TdContent :value="data.Count" />
-              </tr>
-            </template>
-            <!-- <template slot="tbodyContent" v-else>
+        <template v-if="getSemaphoreData.other">
+          <b-tab-item
+            v-for="(data, i) in getSemaphoreData.other"
+            :label="data.schema"
+            :key="i"
+          >
+            <SimpleTable :theadData="['Object Type', 'Count']">
+              <template slot="tbodyContent">
+                <tr>
+                  <TdContent :value="data.objectType" />
+                  <TdContent :value="data.Count" />
+                </tr>
+              </template>
+              <!-- <template slot="tbodyContent" v-else>
               <tr>
                 <td colspan="2"><NoContent style="min-height: 100px" /></td>
               </tr>
             </template> -->
-          </SimpleTable>
-        </b-tab-item>
+            </SimpleTable>
+          </b-tab-item>
+        </template>
       </b-tabs>
     </Card>
   </b-modal>

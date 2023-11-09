@@ -4,27 +4,27 @@
       pack="fas"
       icon="circle"
       :type="setColor === 'red' ? 'is-danger' : ''"
-      size="is-small"
+      :size="setSize"
       :class="{ 'is-clickable': setColor === 'red' }"
-      @click.native="activateModal() && setColor === 'red'"
+      @click.native="isModalActive = true && setColor === 'red'"
     />
 
     <b-icon
       pack="fas"
       icon="circle"
       :type="setColor === 'yellow' ? 'is-warning' : ''"
-      size="is-small"
+      :size="setSize"
       :class="{ 'is-clickable': setColor === 'yellow' }"
-      @click.native="activateModal() && setColor === 'yellow'"
+      @click.native="isModalActive = true && setColor === 'yellow'"
     />
 
     <b-icon
       pack="fas"
       icon="circle"
       :type="setColor === 'green' ? 'is-primary' : ''"
-      size="is-small"
+      :size="setSize"
       :class="{ 'is-clickable': setColor === 'green' }"
-      @click.native="activateModal() && setColor === 'green'"
+      @click.native="isModalActive = true && setColor === 'green'"
     />
   </div>
 </template>
@@ -39,15 +39,21 @@ export default {
       type: String,
       default: '',
     },
+    setSize: {
+      type: String,
+      default: 'is-small',
+    },
   },
   data() {
     return {
       isModalActive: false,
     }
   },
-  methods: {
-    activateModal() {
-      bus.$emit('semaphoreModal', true)
+  watch: {
+    isModalActive(val) {
+      if (val) {
+        bus.$emit('semaphoreModal', val)
+      }
     },
   },
 }

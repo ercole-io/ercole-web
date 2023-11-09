@@ -1,28 +1,32 @@
 [
-  { "sort": "name", 
-    "langKey": "common.collumns.name" 
+  {
+    "sort": "name",
+    "langKey": "common.collumns.name"
   },
-  { "sort": "uniqueName", 
-    "langKey": "common.collumns.uniqueName" 
+  {
+    "sort": "uniqueName",
+    "langKey": "common.collumns.uniqueName"
   },
-  { "sort": "hostname", 
-    "langKey": "common.collumns.hostname" 
+  {
+    "sort": "hostname",
+    "langKey": "common.collumns.hostname"
   },
   {
     "sort": "archivelog",
     "group": "ReliabilityOracle",
-    "class": "color-1", 
+    "class": "color-1",
     "langKey": "common.collumns.archivelog"
   },
-  { "sort": "dataguard", 
-    "group": "ReliabilityOracle", 
-    "class": "color-1", 
-    "langKey": "common.collumns.disasterRecovery" 
+  {
+    "sort": "dataguard",
+    "group": "ReliabilityOracle",
+    "class": "color-1",
+    "langKey": "common.collumns.disasterRecovery"
   },
   {
     "sort": "ha",
     "group": "ReliabilityOracle",
-    "class": "color-1", 
+    "class": "color-1",
     "langKey": "common.collumns.highAvailability"
   },
   {
@@ -31,15 +35,17 @@
     "class": "color-2",
     "langKey": "common.collumns.datafileSize"
   },
-  { "sort": "segmentsSize", 
+  {
+    "sort": "segmentsSize",
     "group": "SpaceUsed",
     "class": "color-2",
-    "langKey": "common.collumns.segmentSize" 
+    "langKey": "common.collumns.segmentSize"
   },
-  { "sort": "charset", 
+  {
+    "sort": "charset",
     "group": "Charset",
     "class": "color-3",
-    "langKey": "common.collumns.charset" 
+    "langKey": "common.collumns.charset"
   },
   {
     "sort": "version",
@@ -65,16 +71,24 @@
     "sort": "cpuCount",
     "langKey": "common.collumns.cpuCount"
   },
-  { "sort": "blockSize", 
-    "langKey": "common.collumns.blockSize" 
+  {
+    "sort": "blockSize",
+    "langKey": "common.collumns.blockSize"
   },
-  { "sort": "status", 
-    "langKey": "common.collumns.status" 
+  {
+    "sort": "status",
+    "langKey": "common.collumns.status"
   },
-  { "sort": "memory", 
-    "langKey": "common.collumns.memory" 
+  {
+    "sort": "memory",
+    "langKey": "common.collumns.memory"
   },
-  { "sort": "environment", 
-    "langKey": "common.collumns.environment" 
+  {
+    "sort": "environment",
+    "langKey": "common.collumns.environment"
+  },
+  {
+    "sort": "pgsqlMigrabilitySemaphore",
+    "langKey": "Postgre Migrability"
   }
 ]
