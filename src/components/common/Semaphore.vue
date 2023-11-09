@@ -6,7 +6,7 @@
       :type="setColor === 'red' ? 'is-danger' : ''"
       size="is-small"
       :class="{ 'is-clickable': setColor === 'red' }"
-      @click.native="isModalActive = true && setColor === 'red'"
+      @click.native="activateModal() && setColor === 'red'"
     />
 
     <b-icon
@@ -15,7 +15,7 @@
       :type="setColor === 'yellow' ? 'is-warning' : ''"
       size="is-small"
       :class="{ 'is-clickable': setColor === 'yellow' }"
-      @click.native="isModalActive = true && setColor === 'yellow'"
+      @click.native="activateModal() && setColor === 'yellow'"
     />
 
     <b-icon
@@ -24,25 +24,13 @@
       :type="setColor === 'green' ? 'is-primary' : ''"
       size="is-small"
       :class="{ 'is-clickable': setColor === 'green' }"
-      @click.native="isModalActive = true && setColor === 'green'"
+      @click.native="activateModal() && setColor === 'green'"
     />
-
-    <b-modal :active.sync="isModalActive" :width="750" scroll="keep">
-      <Card
-        cardTitle="Migrable to Postgre"
-        contentSize="1"
-        contentPadding="1rem"
-      >
-        {{ setData.metrics }}
-        <br />
-        {{ setData.other }}
-      </Card>
-    </b-modal>
   </div>
 </template>
 
 <script>
-import Card from '@/components/common/Card.vue'
+import { bus } from '@/helpers/eventBus.js'
 
 export default {
   name: 'commom-semaphore-component',
@@ -51,18 +39,16 @@ export default {
       type: String,
       default: '',
     },
-    setData: {
-      type: Object,
-      default: () => {},
-    },
-  },
-  components: {
-    Card,
   },
   data() {
     return {
       isModalActive: false,
     }
+  },
+  methods: {
+    activateModal() {
+      bus.$emit('semaphoreModal', true)
+    },
   },
 }
 </script>

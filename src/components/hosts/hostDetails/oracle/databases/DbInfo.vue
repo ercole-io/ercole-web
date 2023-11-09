@@ -215,10 +215,7 @@
               </li>
               <li>
                 <span>Migrable to Postgre</span>
-                <Semaphore
-                  :setColor="getSemaphore"
-                  :setData="getSemaphoreData"
-                />
+                <Semaphore :setColor="getSemaphore" />
               </li>
             </ul>
           </div>
@@ -307,9 +304,6 @@ export default {
     },
     getSemaphore() {
       return this.hostDetails.semaphore
-    },
-    getSemaphoreData() {
-      return this.hostDetails.semaphoreData
     },
   },
 }
