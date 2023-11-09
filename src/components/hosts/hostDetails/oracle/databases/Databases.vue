@@ -127,9 +127,15 @@ export default {
     DbCapacity,
   },
   methods: {
-    ...mapActions(['hostDatabaseCanBeMigrate']),
+    ...mapActions([
+      'hostDatabaseCanBeMigrate',
+      'hostDatabaseSemaphore',
+      'hostDatabaseSemaphoreData',
+    ]),
     dbMigrationInfo(index) {
       this.hostDatabaseCanBeMigrate(this.currentHostFiltered[index].name)
+      this.hostDatabaseSemaphore(this.currentHostFiltered[index].name)
+      this.hostDatabaseSemaphoreData(this.currentHostFiltered[index].name)
     },
   },
   computed: {

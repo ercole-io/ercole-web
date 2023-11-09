@@ -28,6 +28,8 @@ export const state = () => ({
   searchTermDB: '',
   isMissingDB: false,
   canBeMigrate: false,
+  semaphore: '',
+  semaphoreData: {},
 })
 
 export const getters = {
@@ -199,6 +201,12 @@ export const mutations = {
   SET_CAN_BE_MIGRATE: (state, payload) => {
     state.canBeMigrate = payload
   },
+  SET_SEMAPHORE: (state, payload) => {
+    state.semaphore = payload
+  },
+  SET_SEMAPHORE_DATA: (state, payload) => {
+    state.semaphoreData = payload
+  },
 }
 
 export const actions = {
@@ -296,6 +304,30 @@ export const actions = {
 
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_CAN_BE_MIGRATE', res.data.Canbemigrate)
+    })
+  },
+  async hostDatabaseSemaphore({ commit, getters }, dbname) {
+    const config = {
+      method: 'get',
+      url: `/hosts/${getters.currentHost}/technologies/oracle/databases/${dbname}/psql-migrabilities/semaphore`,
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_SEMAPHORE', res.data)
+    })
+  },
+  async hostDatabaseSemaphoreData({ commit, getters }, dbname) {
+    const config = {
+      method: 'get',
+      url: `/hosts/${getters.currentHost}/technologies/oracle/databases/${dbname}/psql-migrabilities`,
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      const data = res.data
+      const metrics = _.take(data, 10)
+      const other = _.drop(data, 10)
+
+      commit('SET_SEMAPHORE_DATA', { metrics, other })
     })
   },
 }
