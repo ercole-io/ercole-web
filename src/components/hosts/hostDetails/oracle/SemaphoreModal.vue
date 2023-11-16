@@ -1,21 +1,11 @@
 <template>
-  <b-modal
-    :active.sync="activeModal"
-    :width="750"
-    scroll="keep"
-    custom-class="isModal"
-  >
+  <div class="modal-card" style="min-width: 750px">
     <Card cardTitle="Migrable to Postgre" contentSize="1" contentPadding="1rem">
       <b-tabs size="is-small" type="is-boxed" destroy-on-hide>
-        <b-tab-item label="Migrability">
+        <b-tab-item label="General">
           <SimpleTable :theadData="['Metric', 'Count']">
-            <template
-              slot="tbodyContent"
-              v-if="
-                getSemaphoreData.metrics && getSemaphoreData.metrics.length > 0
-              "
-            >
-              <tr v-for="(v, i) in getSemaphoreData.metrics" :key="i">
+            <template slot="tbodyContent" v-if="metrics && metrics.length > 0">
+              <tr v-for="(v, i) in metrics" :key="i">
                 <TdContent :value="v.metric" />
                 <TdContent :value="v.Count" />
               </tr>
@@ -28,17 +18,17 @@
           </SimpleTable>
         </b-tab-item>
 
-        <template v-if="getSemaphoreData.other">
+        <template v-if="Object.entries(other).length > 0">
           <b-tab-item
-            v-for="(data, i) in getSemaphoreData.other"
-            :label="data.schema"
+            v-for="(data, i) in Object.entries(other)"
+            :label="data[0]"
             :key="i"
           >
             <SimpleTable :theadData="['Object Type', 'Count']">
               <template slot="tbodyContent">
-                <tr>
-                  <TdContent :value="data.objectType" />
-                  <TdContent :value="data.Count" />
+                <tr v-for="(val, index) in data[1]" :key="index">
+                  <TdContent :value="val.objectType" />
+                  <TdContent :value="val.Count" />
                 </tr>
               </template>
               <!-- <template slot="tbodyContent" v-else>
@@ -51,39 +41,22 @@
         </template>
       </b-tabs>
     </Card>
-  </b-modal>
+  </div>
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
-import { mapState } from 'vuex'
 import Card from '@/components/common/Card.vue'
 import SimpleTable from '@/components/common/Table/SimpleTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import NoContent from '@/components/common/NoContent.vue'
 
 export default {
+  props: ['metrics', 'other'],
   components: {
     Card,
     SimpleTable,
     TdContent,
     NoContent,
-  },
-  data() {
-    return {
-      activeModal: false,
-    }
-  },
-  beforeMount() {
-    bus.$on('semaphoreModal', (val) => {
-      this.activeModal = val
-    })
-  },
-  computed: {
-    ...mapState(['hostDetails']),
-    getSemaphoreData() {
-      return this.hostDetails.semaphoreData
-    },
   },
 }
 </script>

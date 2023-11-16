@@ -325,7 +325,9 @@ export const actions = {
     await axiosRequest('baseApi', config).then((res) => {
       const data = res.data
       const metrics = _.take(data, 10)
-      const other = _.drop(data, 10)
+      let other = _.drop(data, 10)
+
+      other = _.groupBy(other, 'schema')
 
       commit('SET_SEMAPHORE_DATA', { metrics, other })
     })

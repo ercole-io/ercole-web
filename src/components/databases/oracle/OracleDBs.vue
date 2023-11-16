@@ -88,10 +88,7 @@
         <TdContent :value="rowData.scope.memory | formatNumber('0.00', '')" />
         <TdContent :value="rowData.scope.environment" />
         <td>
-          <Semaphore
-            :setColor="rowData.scope.pgsqlMigrabilitySemaphore"
-            setSize="is-medium"
-          />
+          <Semaphore :setColor="rowData.scope.pgsqlMigrabilitySemaphore" />
         </td>
       </template>
 

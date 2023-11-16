@@ -17,7 +17,7 @@
 
     <DatabasesMain />
 
-    <SemaphoreModal />
+    <!-- <SemaphoreModal /> -->
   </section>
 </template>
 
@@ -29,7 +29,7 @@ import FileSystems from '@/components/hosts/hostDetails/FileSystems.vue'
 import DismissHost from '@/components/hosts/hostDetails/DismissHost.vue'
 import DetailsInfo from '@/components/hosts/hostDetails/DetailsInfo.vue'
 import DatabasesMain from '@/components/hosts/hostDetails/DatabasesMain.vue'
-import SemaphoreModal from '@/components/hosts/hostDetails/oracle/SemaphoreModal.vue'
+// import SemaphoreModal from '@/components/hosts/hostDetails/oracle/SemaphoreModal.vue'
 
 export default {
   name: 'host-details-page',
@@ -40,7 +40,7 @@ export default {
     DismissHost,
     DetailsInfo,
     DatabasesMain,
-    SemaphoreModal,
+    // SemaphoreModal,
   },
   data() {
     return {
