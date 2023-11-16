@@ -215,7 +215,11 @@
               </li>
               <li>
                 <span>Migrable to Postgre</span>
-                <Semaphore :setColor="getSemaphore" />
+                <Semaphore
+                  :hostname="null"
+                  :dbname="dbInfo.dbName"
+                  :setColor="getSemaphore"
+                />
               </li>
             </ul>
           </div>

@@ -316,10 +316,14 @@ export const actions = {
       commit('SET_SEMAPHORE', res.data)
     })
   },
-  async hostDatabaseSemaphoreData({ commit, getters }, dbname) {
+  async hostDatabaseSemaphoreData({ commit, getters }, data) {
+    const host = data.hostname ? data.hostname : getters.currentHost
+
+    console.log(host)
+
     const config = {
       method: 'get',
-      url: `/hosts/${getters.currentHost}/technologies/oracle/databases/${dbname}/psql-migrabilities`,
+      url: `/hosts/${host}/technologies/oracle/databases/${data.dbname}/psql-migrabilities`,
     }
 
     await axiosRequest('baseApi', config).then((res) => {

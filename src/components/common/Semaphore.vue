@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import SemaphoreModal from '@/components/hosts/hostDetails/oracle/SemaphoreModal.vue'
 
@@ -27,6 +27,14 @@ export default {
       type: String,
       default: 'is-small',
     },
+    hostname: {
+      type: String,
+      default: '',
+    },
+    dbname: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -34,14 +42,20 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['hostDatabaseSemaphoreData']),
     openMograbilityModal() {
-      this.$buefy.modal.open({
-        component: SemaphoreModal,
-        hasModalCard: true,
-        props: {
-          metrics: this.hostDetails.semaphoreData.metrics,
-          other: this.hostDetails.semaphoreData.other,
-        },
+      this.hostDatabaseSemaphoreData({
+        hostname: this.hostname,
+        dbname: this.dbname,
+      }).then(() => {
+        this.$buefy.modal.open({
+          component: SemaphoreModal,
+          hasModalCard: true,
+          props: {
+            metrics: this.hostDetails.semaphoreData.metrics,
+            other: this.hostDetails.semaphoreData.other,
+          },
+        })
       })
     },
   },
