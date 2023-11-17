@@ -50,11 +50,26 @@ export default {
           hidden: this.checkMenu('Dashboard', ''),
         },
         {
-          href: { name: 'hosts' },
           title: this.$i18n.t('menu.hosts'),
           icon: 'fas fa-server',
           attributes: { 'data-cy': 'mn-hosts' },
           hidden: this.checkMenu('Hosts', ''),
+          child: [
+            {
+              title: 'Hosts List',
+              href: { name: 'hosts' },
+              icon: 'fas fa-server',
+              attributes: { 'data-cy': 'mn-hosts' },
+              hidden: this.checkMenu('Hosts', ''),
+            },
+            {
+              title: this.$i18n.t('menu.capacityos'),
+              href: { name: 'capacityos' },
+              icon: 'fas fa-car-battery',
+              attributes: { 'data-cy': 'mn-capacity-os' },
+              hidden: !this.checkMenu('Capacity-OS', 'Hosts'),
+            },
+          ],
         },
         {
           title: this.$i18n.t('menu.databases'),
@@ -202,16 +217,6 @@ export default {
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-capacity' },
                   hidden: this.checkMenu('Capacity', 'Oracle'),
-                  child: [
-                    {
-                      title: this.$i18n.t('menu.capacityos'),
-                      href: { name: 'capacityos' },
-                      icon: 'fas fa-database',
-                      class: 'menu-fourth-level',
-                      attributes: { 'data-cy': 'mn-capacity-os' },
-                      hidden: !this.checkMenu('Capacity-OS', 'Oracle'),
-                    },
-                  ],
                 },
               ],
             },
