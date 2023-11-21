@@ -65,17 +65,10 @@ export default {
         },
         xaxis: {
           categories: categories,
+          tickAmount: 60,
           labels: {
-            // formatter: (value) => {
-            //   return _.split(_.split(value, ' ')[1], ':')[0]
-            // },
-            hideOverlappingLabels: true,
-            format: true,
-            datetimeFormatter: {
-              year: '',
-              month: '',
-              day: '',
-              hour: 'HH:mm',
+            formatter: (value) => {
+              return _.split(value, ' ')[1]
             },
           },
         },
