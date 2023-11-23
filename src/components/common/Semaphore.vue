@@ -1,13 +1,15 @@
 <template>
   <b-button
     icon-pack="fas"
-    :icon-right="getIcon"
+    :icon-left="getIcon"
     :type="getColor"
     :size="setSize"
     class="is-clickable"
     @click="openMograbilityModal"
     v-tooltip="options('Postgre Migrability')"
-  />
+  >
+    Details
+  </b-button>
 </template>
 
 <script>
