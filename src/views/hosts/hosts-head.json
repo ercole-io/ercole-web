@@ -1,82 +1,98 @@
 [
-  { "sort": "hostname", 
+  {
+    "sort": "hostname",
     "langKey": "common.collumns.hostname",
     "colspan": 2
   },
   {
     "sort": "platform",
     "group": "Virtual",
-    "class": "color-1", 
+    "class": "color-1",
     "langKey": "common.collumns.platform"
   },
-  { "sort": "cluster", 
-    "group": "Virtual", 
-    "class": "color-1", 
-    "langKey": "common.collumns.cluster" 
+  {
+    "sort": "cluster",
+    "group": "Virtual",
+    "class": "color-1",
+    "langKey": "common.collumns.cluster"
   },
   {
     "sort": "virtNode",
     "group": "Virtual",
-    "class": "color-1", 
+    "class": "color-1",
     "langKey": "common.collumns.virtNode"
   },
   {
     "sort": "model",
     "group": "Cpu",
-    "class": "color-2", 
+    "class": "color-2",
     "langKey": "common.collumns.model"
   },
-  { "sort": "threads", 
-    "group": "Cpu", 
-    "class": "color-2", 
-    "langKey": "common.collumns.threads" 
+  {
+    "sort": "threads",
+    "group": "Cpu",
+    "class": "color-2",
+    "langKey": "common.collumns.threads"
   },
-  { "sort": "cores", 
-    "group": "Cpu", 
-    "class": "color-2", 
-    "langKey": "common.collumns.cores" 
+  {
+    "sort": "cores",
+    "group": "Cpu",
+    "class": "color-2",
+    "langKey": "common.collumns.cores"
   },
   {
     "sort": "socket",
     "group": "Cpu",
-    "class": "color-2", 
+    "class": "color-2",
     "langKey": "common.collumns.socket"
   },
   {
     "sort": "version",
     "group": "Agent",
-    "class": "color-3", 
+    "class": "color-3",
     "langKey": "common.collumns.version"
   },
   {
     "sort": "updated",
     "group": "Agent",
-    "class": "color-3", 
+    "class": "color-3",
     "langKey": "common.collumns.updated",
     "colspan": 2
   },
-  { "sort": "environment", 
-    "langKey": "common.collumns.environment" 
+  {
+    "sort": "environment",
+    "langKey": "common.collumns.environment"
   },
-  { "sort": "databases", 
-    "langKey": "common.collumns.databases" 
+  {
+    "sort": "databases",
+    "langKey": "common.collumns.databases"
   },
-  { "sort": "techType", 
-    "langKey": "common.collumns.techType" 
+  {
+    "sort": "isMissingDB",
+    "langKey": "Missing Databases"
   },
-  { "sort": "os", 
-    "langKey": "common.collumns.os" 
+  {
+    "sort": "techType",
+    "langKey": "common.collumns.techType"
   },
-  { "sort": "iconCluster", 
-    "langKey": "common.collumns.iconCluster" 
+  {
+    "sort": "os",
+    "langKey": "common.collumns.os"
   },
-  { "sort": "kernel", 
-    "langKey": "common.collumns.kernel" 
+  {
+    "sort": "iconCluster",
+    "langKey": "common.collumns.iconCluster"
   },
-  { "sort": "memorytotal", 
-    "langKey": "common.collumns.memorytotal" 
+  {
+    "sort": "kernel",
+    "langKey": "common.collumns.kernel"
   },
-  { "sort": "swaptotal", 
-    "langKey": "common.collumns.swaptotal" 
+  {
+    "sort": "memorytotal",
+    "langKey": "common.collumns.memorytotal"
+  },
+  {
+    "sort": "swaptotal",
+    "langKey": "common.collumns.swaptotal"
   }
 ]

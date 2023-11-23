@@ -118,6 +118,17 @@
           :value="rowData.scope.databases"
           @click.native="handleClickedRow([rowData.scope])"
         />
+        <TdArrayMore
+          v-if="
+            rowData.scope.isMissingDB && rowData.scope.isMissingDB.length > 5
+          "
+          :value="rowData.scope.isMissingDB || '-'"
+        />
+        <TdArrayMore
+          v-else
+          :value="rowData.scope.isMissingDB || '-'"
+          @click.native="handleClickedRow([rowData.scope])"
+        />
         <TdContent :value="rowData.scope.techType" />
         <TdContent :value="rowData.scope.os" />
         <TdIcon
