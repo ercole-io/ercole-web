@@ -216,6 +216,7 @@ export const mutations = {
   },
   SET_SEMAPHORE_DATA: (state, payload) => {
     state.semaphoreData = payload
+  },
   SET_CURRENT_HOST_DETAILS_CAPACITY_BY_OS: (state, payload) => {
     state.currentHostDetailsCapacityByOs = payload
   },
