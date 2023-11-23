@@ -171,6 +171,7 @@ const resolveCapacity = (data) => {
       capacity.push(value)
     }
   })
+
   return capacity
 }
 
@@ -182,7 +183,8 @@ const resolveCapacityDaily = (data) => {
       capacityDaily.push(value)
     }
   })
-  return _.orderBy(capacityDaily, ['timeStart'], ['asc'])
+  capacityDaily = _.orderBy(capacityDaily, ['timeStart'], ['asc'])
+  return capacityDaily
 }
 
 export { mapOracleDatabases, resolveCapacity, resolveCapacityDaily }

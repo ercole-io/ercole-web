@@ -50,11 +50,26 @@ export default {
           hidden: this.checkMenu('Dashboard', ''),
         },
         {
-          href: { name: 'hosts' },
           title: this.$i18n.t('menu.hosts'),
           icon: 'fas fa-server',
           attributes: { 'data-cy': 'mn-hosts' },
           hidden: this.checkMenu('Hosts', ''),
+          child: [
+            {
+              title: 'Hosts List',
+              href: { name: 'hosts' },
+              icon: 'fas fa-server',
+              attributes: { 'data-cy': 'mn-hosts' },
+              hidden: this.checkMenu('Hosts', ''),
+            },
+            {
+              title: this.$i18n.t('menu.capacityos'),
+              href: { name: 'capacityos' },
+              icon: 'fas fa-car-battery',
+              attributes: { 'data-cy': 'mn-capacity-os' },
+              hidden: !this.checkMenu('Capacity-OS', 'Hosts'),
+            },
+          ],
         },
         {
           title: this.$i18n.t('menu.databases'),
@@ -471,5 +486,8 @@ $icon-width: 20px !default;
 
 .menu-third-level {
   background-color: #232963;
+}
+.menu-fourth-level {
+  background-color: #2a3063;
 }
 </style>

@@ -4,10 +4,13 @@ import {
   resolveCapacity,
   resolveCapacityDaily,
 } from '@/helpers/hostDetails/databases/oracle.js'
+import setCapacityByOsData from '@/helpers/hostDetails/capacity/capacityByOs.js'
 
 export const state = () => ({
   oracleHostNames: [],
   currentHostDatabasesCapacity: [],
+  currentHostCapacityByOs: [],
+  currentHostCapacityDailyByOs: [],
   searchHostname: '',
 })
 
@@ -27,6 +30,12 @@ export const getters = {
   oracleDatabasesCapacity: (state) => {
     return state.currentHostDatabasesCapacity
   },
+  oracleCapacityByOs: (state) => {
+    return state.currentHostCapacityByOs
+  },
+  oracleCapacityDailyByOs: (state) => {
+    return state.currentHostCapacityDailyByOs
+  },
 }
 
 export const mutations = {
@@ -35,6 +44,12 @@ export const mutations = {
   },
   SET_CURRENT_HOST_DB_CAPACITY: (state, payload) => {
     state.currentHostDatabasesCapacity = payload
+  },
+  SET_CURRENT_HOST_CAPACITY_BY_OS: (state, payload) => {
+    state.currentHostCapacityByOs = payload
+  },
+  SET_CURRENT_HOST_CAPACITY_DAILY_BY_OS: (state, payload) => {
+    state.currentHostCapacityDailyByOs = payload
   },
   SET_SEARCH_HOSTNAME: (state, payload) => {
     state.searchHostname = payload
@@ -75,7 +90,8 @@ export const actions = {
 
     await axiosRequest('baseApi', config)
       .then((res) => {
-        let databases = res.data.features.oracle.database.databases
+        const databases = res.data.features.oracle.database.databases
+        const hostData = res.data
 
         const databasesCapacity = _.map(databases, (db) => {
           const { name, cpuDiskConsumptions, pdbs } = db
@@ -98,7 +114,15 @@ export const actions = {
           }
         })
 
+        const { cpuConsumptions, diskConsumptions } = hostData
+        const newData = _.concat(cpuConsumptions, diskConsumptions)
+
+        const capacityOS = setCapacityByOsData(newData)
+        const capacityDailyOS = resolveCapacityDaily(newData)
+
         commit('SET_CURRENT_HOST_DB_CAPACITY', databasesCapacity)
+        commit('SET_CURRENT_HOST_CAPACITY_BY_OS', capacityOS)
+        commit('SET_CURRENT_HOST_CAPACITY_DAILY_BY_OS', capacityDailyOS)
       })
       .then(() => {
         dispatch('offLoadingTable')

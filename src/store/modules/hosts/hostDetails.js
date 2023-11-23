@@ -9,6 +9,8 @@ import {
   mapHostDatabases,
 } from '@/helpers/hostDetails/hostDetails.js'
 import { removeDashFromMsDesc } from '@/helpers/licenses.js'
+import { resolveCapacityDaily } from '@/helpers/hostDetails/databases/oracle.js'
+import setCapacityByOsData from '@/helpers/hostDetails/capacity/capacityByOs.js'
 
 // filter options
 import { filterOptionsOracle } from '@/helpers/hostDetails/filterOptions/oracle.js'
@@ -30,6 +32,8 @@ export const state = () => ({
   canBeMigrate: false,
   semaphore: '',
   semaphoreData: {},
+  currentHostDetailsCapacityByOs: [],
+  currentHostDetailsCapacityDailyByOs: [],
 })
 
 export const getters = {
@@ -168,6 +172,12 @@ export const getters = {
       }
     })
   },
+  hostDetailsCapacityByOs: (state) => {
+    return state.currentHostDetailsCapacityByOs
+  },
+  hostDetailsCapacityDailyByOs: (state) => {
+    return state.currentHostDetailsCapacityDailyByOs
+  },
 }
 
 export const mutations = {
@@ -206,6 +216,11 @@ export const mutations = {
   },
   SET_SEMAPHORE_DATA: (state, payload) => {
     state.semaphoreData = payload
+  SET_CURRENT_HOST_DETAILS_CAPACITY_BY_OS: (state, payload) => {
+    state.currentHostDetailsCapacityByOs = payload
+  },
+  SET_CURRENT_HOST_DETAILS_CAPACITY_DAILY_BY_OS: (state, payload) => {
+    state.currentHostDetailsCapacityDailyByOs = payload
   },
 }
 
@@ -234,9 +249,21 @@ export const actions = {
           const hostType = allData[0].data.technology
           const hostDatabases = allData[0].data.features
 
+          const { cpuConsumptions, diskConsumptions } = allData[0].data
+          const capacityOsData = _.concat(cpuConsumptions, diskConsumptions)
+
+          const capacityOS = setCapacityByOsData(capacityOsData)
+          const capacityDailyOS = resolveCapacityDaily(capacityOsData)
+
           commit('SET_CURRENT_HOST', allData[0].data)
           commit('SET_CURRENT_HOST_TYPE', getHostType(hostType))
           commit('SET_HOST_DB_LICENSES', allData[1].data.usedLicenses)
+
+          commit('SET_CURRENT_HOST_DETAILS_CAPACITY_BY_OS', capacityOS)
+          commit(
+            'SET_CURRENT_HOST_DETAILS_CAPACITY_DAILY_BY_OS',
+            capacityDailyOS
+          )
 
           return hostDatabases
         })

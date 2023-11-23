@@ -44,6 +44,32 @@ export default {
           id: 'iomb-daily',
         },
       ],
+      capacityTabsOS: [
+        {
+          label: 'CPU',
+          id: 'cpu',
+        },
+        {
+          label: 'CPU',
+          id: 'cpu-daily',
+        },
+        {
+          label: 'IOPS',
+          id: 'iopsHostDay',
+        },
+        {
+          label: 'IOPS',
+          id: 'iopsHostDay-daily',
+        },
+        {
+          label: 'IOMB',
+          id: 'iombHostDay',
+        },
+        {
+          label: 'IOMB',
+          id: 'iombHostDay-daily',
+        },
+      ],
     }
   },
   methods: {

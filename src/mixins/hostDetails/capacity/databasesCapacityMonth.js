@@ -120,12 +120,13 @@ export default {
             break
         }
       })
+
       return model
     },
     getSeries(type, data = []) {
       const dataSeries = data && data.length > 0 ? data : this.capacity
 
-      return [
+      const result = [
         {
           name: 'Average',
           data: [
@@ -312,6 +313,8 @@ export default {
           ],
         },
       ]
+
+      return result
     },
     chartOptions(type) {
       return {
