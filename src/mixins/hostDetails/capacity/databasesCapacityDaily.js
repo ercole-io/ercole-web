@@ -18,8 +18,12 @@ export default {
       const avgData = []
 
       _.map(dataSeries, (val) => {
-        maxData.push(val[`${transformType[0]}Max`])
-        avgData.push(val[`${transformType[0]}Avg`])
+        if (val[`${transformType[0]}Max`]) {
+          maxData.push(val[`${transformType[0]}Max`])
+        }
+        if (val[`${transformType[0]}Avg`]) {
+          avgData.push(val[`${transformType[0]}Avg`])
+        }
       })
 
       return [
@@ -61,6 +65,7 @@ export default {
         },
         xaxis: {
           categories: categories,
+          tickAmount: 60,
           labels: {
             formatter: (value) => {
               return _.split(value, ' ')[1]
