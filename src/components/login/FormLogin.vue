@@ -1,15 +1,6 @@
 <template>
   <div class="login-bgc">
     <form @submit.prevent="authLogin" class="login-form">
-      <CustomField>
-        <CustomSelect
-          v-model="loginType"
-          :options="['Basic Auth', 'LDAP']"
-          size=""
-          :hasReset="false"
-        />
-      </CustomField>
-
       <b-field
         label-for="username"
         :type="{
@@ -55,6 +46,15 @@
           </div>
         </template>
       </b-field>
+
+      <CustomField>
+        <CustomSelect
+          v-model="loginType"
+          :options="['Basic Auth', 'LDAP']"
+          size=""
+          :hasReset="false"
+        />
+      </CustomField>
 
       <b-button
         type="is-custom-primary"
@@ -154,17 +154,15 @@ export default {
 <style lang="scss" scoped>
 .login-bgc {
   background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 10px;
 }
 
 .login-form {
-  width: 500px;
-  padding: 3rem;
+  width: 400px;
+  padding: 3rem 1rem;
   margin: 2rem;
   border-radius: 4px;
   background-color: transparent;
   margin-bottom: 0;
-  padding-bottom: 20px;
 
   button[disabled] {
     opacity: 1;
