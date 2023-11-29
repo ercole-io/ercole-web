@@ -88,6 +88,10 @@
     "langKey": "common.collumns.environment"
   },
   {
+    "sort": "canbemigrate",
+    "langKey": "Migrable to Standard"
+  },
+  {
     "sort": "pgsqlMigrabilitySemaphore",
     "langKey": "Postgre Migrability"
   }

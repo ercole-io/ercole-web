@@ -87,6 +87,10 @@
         <TdContent :value="rowData.scope.status" />
         <TdContent :value="rowData.scope.memory | formatNumber('0.00', '')" />
         <TdContent :value="rowData.scope.environment" />
+        <TdIcon
+          :value="rowData.scope.canbemigrate"
+          @click.native="handleClickedRow([rowData.scope])"
+        />
         <td>
           <Semaphore
             :hostname="rowData.scope.hostname"
