@@ -158,9 +158,13 @@ local task_build_push_image(push) =
               name: 'version',
               command: |||
                 if [ -z ${AGOLA_GIT_TAG} ] || [[ ${AGOLA_GIT_TAG} == *-* ]]; then 
-                  export VERSION=latest
+                  if [[ ${AGOLA_GIT_TAG} == *-rc.* ]]; then
+                    export VERSION=$(echo $AGOLA_GIT_TAG | sed 's/-/_/g')
+                  else
+                    export VERSION=latest
+                  fi
                 else
-                  export VERSION=${AGOLA_GIT_TAG}
+                  export VERSION=$(echo $AGOLA_GIT_TAG | sed 's/-/_/g')
                 fi
                 echo VERSION: ${VERSION}
                 echo "export VERSION=${VERSION}" > /tmp/variables
