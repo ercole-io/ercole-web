@@ -59,7 +59,7 @@ export default {
               title: 'Hosts List',
               href: { name: 'hosts' },
               icon: 'fas fa-server',
-              attributes: { 'data-cy': 'mn-hosts' },
+              attributes: { 'data-cy': 'mn-hosts-list' },
               hidden: this.checkMenu('Hosts', ''),
             },
             {
