@@ -23,13 +23,14 @@
           {{ $t('common.table.allData') }} - {{ getTotalData }}
         </option>
       </b-select>
-      <template v-if="hasCheckbox && checkedRows.length > 0">
+      <template v-if="hasCheckbox">
         <b-button
           :label="`Clear All selected (${checkedRows.length})`"
           size="is-small"
           type="is-dark"
           icon-left="close"
           @click="checkedRows = []"
+          v-if="checkedRows && checkedRows.length > 0"
         />
         <b-button
           :label="$t('views.alerts.markRead')"
@@ -39,6 +40,7 @@
           icon-left="check-circle"
           class="has-text-weight-semibold mr-2 ml-2"
           @click="markAsRead"
+          v-if="checkedRows && checkedRows.length > 0"
         />
       </template>
 
@@ -207,6 +209,7 @@ export default {
       this.fnCallback().then(() => {
         bus.$emit('highlightSearch', this.search)
       })
+      this.checkedRows = []
     },
     onPageSort(field, order) {
       this.SET_SORT_ITEM(field)
