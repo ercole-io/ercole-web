@@ -87,7 +87,7 @@
         <TdContent :value="rowData.scope.status" />
         <TdContent :value="rowData.scope.memory | formatNumber('0.00', '')" />
         <TdContent :value="rowData.scope.environment" />
-        <TdIcon
+        <!-- <TdIcon
           :value="rowData.scope.canbemigrate"
           @click.native="handleClickedRow([rowData.scope])"
         />
@@ -97,7 +97,7 @@
             :dbname="rowData.scope.name"
             :setColor="rowData.scope.pgsqlMigrabilitySemaphore"
           />
-        </td>
+        </td> -->
       </template>
 
       <ExportButton
@@ -155,7 +155,7 @@ import OracleCharts from '@/components/databases/oracle/OracleCharts.vue'
 import OracleCpu from '@/components/databases/oracle/OracleCpu.vue'
 import OracleMemory from '@/components/databases/oracle/OracleMemory.vue'
 import OracleStorage from '@/components/databases/oracle/OracleStorage.vue'
-import Semaphore from '@/components/common/Semaphore.vue'
+// import Semaphore from '@/components/common/Semaphore.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
@@ -179,7 +179,7 @@ export default {
     OracleCpu,
     OracleMemory,
     OracleStorage,
-    Semaphore,
+    // Semaphore,
     Loading,
   },
   data() {
