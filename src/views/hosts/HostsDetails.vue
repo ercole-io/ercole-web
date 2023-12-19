@@ -60,13 +60,15 @@ export default {
       isMounted: false,
     }
   },
-  beforeMount() {
-    this.getHostByName({ hostname: this.hostname, loading: true })
+  async beforeMount() {
+    await this.getHostByName({ hostname: this.hostname, loading: true }).then(
+      () => {
+        this.getHostNames()
+      }
+    )
     if (this.dbname) {
       this.SET_ACTIVE_DB(this.dbname)
     }
-
-    this.getHostNames()
 
     bus.$emit('dynamicTitle', this.hostname)
   },

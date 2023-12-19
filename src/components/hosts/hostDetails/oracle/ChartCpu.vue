@@ -17,6 +17,7 @@
         :dataOptions="getOracleCpuUsageChartInfo"
         :placeholderName="$t('views.hostDetails.searchBy')"
         :btnLabelText="$t('views.hostDetails.compareDb')"
+        preSelection
       />
       <RangeDates :setRange="SET_RANGE_DATES" />
     </div>

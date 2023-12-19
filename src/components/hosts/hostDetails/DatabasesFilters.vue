@@ -3,6 +3,7 @@
     title="Databases Advanced Filters"
     class="database-filters"
     :mbottom="false"
+    v-if="isMounted"
   >
     <SearchInput
       :searchPlaceholder="$t('views.hostDetails.search')"
@@ -73,10 +74,14 @@ export default {
   data() {
     return {
       selectedKeys: [],
+      isMounted: false,
     }
   },
   beforeMount() {
     this.selectedKeys = this.returnSelectedKeys
+  },
+  mounted() {
+    this.isMounted = true
   },
   methods: {
     ...mapMutations(['SET_SELECTED_KEYS']),
