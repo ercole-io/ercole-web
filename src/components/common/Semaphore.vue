@@ -7,9 +7,11 @@
     class="is-clickable"
     @click="openMograbilityModal"
     v-tooltip="options('Postgre Migrability')"
+    v-if="getColor !== 'is-danger'"
   >
     Details
   </b-button>
+  <span v-else>-</span>
 </template>
 
 <script>
