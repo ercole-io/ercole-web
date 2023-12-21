@@ -27,6 +27,11 @@ const getNotificationsByType = (notifications, type) => {
 
 // Host Info
 const getHostInfo = (info, host) => {
+  console.log(info)
+  const clusterVersion = info.clusterwareVersion
+    ? `- ${info.clusterwareVersion}`
+    : ''
+
   const general = {
     name: 'General Info',
     data: [
@@ -45,7 +50,9 @@ const getHostInfo = (info, host) => {
       },
       {
         name: 'Cluster Type',
-        value: mapClustStatus(host.clusterMembershipStatus)[1],
+        value: `${
+          mapClustStatus(host.clusterMembershipStatus)[1]
+        } ${clusterVersion}`,
       },
     ],
   }

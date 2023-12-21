@@ -135,6 +135,7 @@
           :value="rowData.scope.iconCluster"
           @click.native="handleClickedRow([rowData.scope])"
         />
+        <TdContent :value="rowData.scope.clusterwareVersion" />
         <TdContent :value="rowData.scope.kernel" />
         <TdContent :value="rowData.scope.memorytotal" />
         <TdContent :value="rowData.scope.swaptotal" />
