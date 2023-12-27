@@ -27,7 +27,6 @@ const getNotificationsByType = (notifications, type) => {
 
 // Host Info
 const getHostInfo = (info, host) => {
-  console.log(info)
   const clusterVersion = info.clusterwareVersion
     ? `- ${info.clusterwareVersion}`
     : ''

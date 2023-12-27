@@ -19,7 +19,6 @@
       :isOpen="false"
       collapseID="capacityByOs"
       collapseTitle="OS Capacity"
-      v-if="currentHostType === 'oracle'"
     >
       <CapacityByOs
         class="p-5 pb-0"
