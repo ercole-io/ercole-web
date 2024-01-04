@@ -7,8 +7,18 @@ export const state = () => ({
 })
 
 export const getters = {
-  getOraclePdbs: (state) => {
-    const pdbs = _.groupBy(state.pdbs, 'hostname')
+  getOracleHostsPdbs: (state) => {
+    return _.uniq(_.map(state.pdbs, 'hostname'))
+  },
+  getOraclePdbs: (state) => (hostname) => {
+    const pdbs = _.compact(
+      _.map(state.pdbs, (val) => {
+        if (val.hostname === hostname) {
+          return val.pdb
+        }
+      })
+    )
+    console.log(pdbs)
     return pdbs
   },
   getOraclePdbsDbGrowth: (state) => (db, pdb) => {
