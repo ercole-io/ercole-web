@@ -46,6 +46,7 @@ export default {
   methods: {
     ...mapActions(['getLicensesHosts', 'getLicensesClusters']),
     onTabChange(value) {
+      console.log(value)
       bus.$emit('onTabChange', value)
     },
   },

@@ -18,7 +18,6 @@ export const getters = {
         }
       })
     )
-    console.log(pdbs)
     return pdbs
   },
   getOraclePdbsDbGrowth: (state) => (db, pdb) => {
