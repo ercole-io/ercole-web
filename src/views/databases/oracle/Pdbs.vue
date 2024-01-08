@@ -13,7 +13,6 @@
       style="width: 15%"
     />
 
-    <!-- {{ getOraclePdbs(selectedHost) }} -->
     <FullTable
       :tableData="getOraclePdbs(selectedHost)"
       :keys="[
@@ -135,10 +134,6 @@ import CustomSelect from '@/components/common/Form/CustomSelect.vue'
 import PdbsModal from '@/views/databases/oracle/PdbsModal.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
-// import TdIcon from '@/components/common/Table/TDIcon.vue'
-// import NoContent from '@/components/common/NoContent.vue'
-// import RangeDates from '@/components/common/RangeDates.vue'
-// import DbGrowth from '@/components/common/DbGrowth.vue'
 
 export default {
   name: 'oracle-databases-pdbs-page',
@@ -149,10 +144,6 @@ export default {
     FullTable,
     TdContent,
     PdbsModal,
-    // TdIcon,
-    // NoContent,
-    // RangeDates,
-    // DbGrowth,
   },
   data() {
     return {
