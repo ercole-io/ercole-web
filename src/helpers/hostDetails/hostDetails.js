@@ -43,7 +43,7 @@ const getHostInfo = (info, host) => {
         value: host.technology,
       },
       {
-        name: 'Clust',
+        name: 'Cluster',
         value: mapClustStatus(host.clusterMembershipStatus)[0],
         hasIcon: true,
       },

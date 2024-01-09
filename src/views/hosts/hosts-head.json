@@ -81,7 +81,7 @@
   },
   {
     "sort": "iconCluster",
-    "langKey": "common.collumns.iconCluster"
+    "langKey": "common.collumns.cluster"
   },
   {
     "sort": "clusterwareVersion",
