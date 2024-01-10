@@ -22,6 +22,7 @@
         <v-th sortKey="hostname">{{ $t('common.collumns.hostname') }}</v-th>
         <v-th sortKey="dbName">{{ $t('common.collumns.name') }}</v-th>
         <v-th sortKey="servName">Service Name</v-th>
+        <v-th sortKey="container">Container Name</v-th>
         <v-th sortKey="servEnabled">Enabled</v-th>
       </template>
 
@@ -29,6 +30,7 @@
         <HostLink :hostname="rowData.scope.hostname" class="first-col" />
         <TdContent :value="rowData.scope.dbName" />
         <TdContent :value="rowData.scope.servName" />
+        <TdContent :value="rowData.scope.container" />
         <TdIcon :value="rowData.scope.servEnabled" />
       </template>
 
@@ -69,7 +71,7 @@ export default {
   },
   data() {
     return {
-      keys: ['hostname', 'name', 'servName', 'servEnabled'],
+      keys: ['hostname', 'name', 'servName', 'servEnabled', 'container'],
       isMounted: false,
     }
   },
