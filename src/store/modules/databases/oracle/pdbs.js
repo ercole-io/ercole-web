@@ -2,23 +2,37 @@ import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
-  pdbs: [],
+  pdbsHosts: [],
+  pdbsData: [],
+  pdbsModalData: [],
   pdbsDbGrowth: [],
 })
 
 export const getters = {
-  getOracleHostsPdbs: (state) => {
-    return _.uniq(_.map(state.pdbs, 'hostname'))
-  },
   getOraclePdbs: (state) => (hostname) => {
-    const pdbs = _.compact(
-      _.map(state.pdbs, (val) => {
-        if (val.hostname === hostname) {
-          return val.pdb
+    let data = state.pdbsData
+
+    if (hostname !== 'All') {
+      data = _.compact(
+        _.map(state.pdbsData, (val) => {
+          if (val.hostname === hostname) {
+            return val
+          }
+        })
+      )
+    }
+    return data
+  },
+  getOraclePdbsModal: (state) => (pdb) => {
+    const pdbsModal = _.compact(
+      _.map(state.pdbsModalData, (val) => {
+        if (val.name === pdb) {
+          return val
         }
       })
     )
-    return pdbs
+
+    return pdbsModal
   },
   getOraclePdbsDbGrowth: (state) => (db, pdb) => {
     const dbGrowth = []
@@ -41,8 +55,14 @@ export const getters = {
 }
 
 export const mutations = {
-  SET_PDBS: (state, payload) => {
-    state.pdbs = payload
+  SET_PDBS_HOSTS_DATA: (state, payload) => {
+    state.pdbsHosts = _.uniq(_.concat('All', payload))
+  },
+  SET_PDBS_DATA: (state, payload) => {
+    state.pdbsData = payload
+  },
+  SET_PDBS_MODAL_DATA: (state, payload) => {
+    state.pdbsModalData = payload
   },
   SET_DBGROWTH_PDBS: (state, payload) => {
     state.pdbsDbGrowth = payload
@@ -65,7 +85,52 @@ export const actions = {
 
     await axiosRequest('baseApi', config).then((res) => {
       dispatch('offLoading')
-      commit('SET_PDBS', res.data)
+
+      const hosts = _.map(res.data, (val) => {
+        const { hostname } = val
+        return hostname
+      })
+      commit('SET_PDBS_HOSTS_DATA', hosts)
+
+      const pdbs = _.map(res.data, (val) => {
+        const { hostname } = val
+        const { allocable, charset, datafileSize, name, segmentsSize, status } =
+          val.pdb
+        return {
+          hostname: hostname,
+          allocable: allocable,
+          charset: charset,
+          datafileSize: datafileSize,
+          name: name,
+          segmentsSize: segmentsSize,
+          status: status,
+        }
+      })
+      commit('SET_PDBS_DATA', pdbs)
+
+      const pdbsModal = _.map(res.data, (val) => {
+        const { hostname } = val
+        const {
+          name,
+          grantDba,
+          partitionings,
+          schemas,
+          segmentAdvisors,
+          services,
+          tablespaces,
+        } = val.pdb
+        return {
+          name: name,
+          hostname: hostname,
+          grantDba: grantDba,
+          partitionings: partitionings,
+          schemas: schemas,
+          segmentAdvisors: segmentAdvisors,
+          services: services,
+          tablespaces: tablespaces,
+        }
+      })
+      commit('SET_PDBS_MODAL_DATA', pdbsModal)
     })
   },
   async getPdbsByHostDbGrothData({ commit, getters, dispatch }, hostname) {

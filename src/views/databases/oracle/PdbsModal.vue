@@ -23,7 +23,7 @@
       <b-tabs v-model="activeTab" size="is-small" type="is-toggle" vertical>
         <b-tab-item label="Schemas">
           <FullTable
-            :tableData="data.schemas"
+            :tableData="tabsData.schemas || []"
             :keys="[
               'user',
               'total',
@@ -55,7 +55,7 @@
         </b-tab-item>
         <b-tab-item label="Tablespaces">
           <FullTable
-            :tableData="data.tablespaces"
+            :tableData="tabsData.tablespaces || []"
             :keys="['name', 'status', 'usedPerc', 'used', 'total', 'maxSize']"
             :isLoadingTable="false"
           >
@@ -80,7 +80,7 @@
         </b-tab-item>
         <b-tab-item label="Grant Role">
           <FullTable
-            :tableData="data.grantDba"
+            :tableData="tabsData.grantDba || []"
             :keys="['adminOption', 'defaultRole', 'grantee']"
             :isLoadingTable="false"
           >
@@ -99,7 +99,7 @@
         </b-tab-item>
         <b-tab-item label="Segment Advisors">
           <FullTable
-            :tableData="data.segmentAdvisors"
+            :tableData="tabsData.segmentAdvisors || []"
             :keys="[
               'segmentOwner',
               'segmentName',
@@ -128,7 +128,7 @@
         </b-tab-item>
         <b-tab-item label="Partitioning">
           <FullTable
-            :tableData="data.partitionings"
+            :tableData="tabsData.partitionings || []"
             :keys="[
               'date',
               'mb',
@@ -180,7 +180,7 @@ import SimpleTable from '@/components/common/Table/SimpleTable.vue'
 
 export default {
   name: 'oracle-databases-pdbs-page-modal',
-  props: ['pdbName', 'hostname', 'tab', 'data'],
+  props: ['pdbName', 'hostname', 'tab', 'data', 'tabsData'],
   components: {
     FullTable,
     TdContent,

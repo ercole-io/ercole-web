@@ -6,16 +6,16 @@
     :mbottom="false"
     customStyle="padding-left: 1rem"
   >
-    <CustomSelect
-      v-model="selectedHost"
-      :options="getOracleHostsPdbs"
-      :hasReset="false"
-      style="width: 15%"
-    />
+    <b-select v-model="selectedHost" size="is-small">
+      <option v-for="host in oraclePdbs.pdbsHosts" :value="host" :key="host">
+        {{ host }}
+      </option>
+    </b-select>
 
     <FullTable
       :tableData="getOraclePdbs(selectedHost)"
       :keys="[
+        'hostname',
         'name',
         'status',
         'allocable',
@@ -32,6 +32,7 @@
     >
       <template slot="headData">
         <v-th sortKey="name">PDB Name</v-th>
+        <v-th sortKey="hostname">Hostname</v-th>
         <v-th sortKey="schemas">Schemas</v-th>
         <v-th sortKey="tablespaces">Tablespaces</v-th>
         <v-th sortKey="grantDba">Grant Role</v-th>
@@ -46,6 +47,7 @@
 
       <template slot="bodyData" slot-scope="rowData">
         <TdContent :value="rowData.scope.name" class="first-col" />
+        <TdContent :value="rowData.scope.hostname" />
         <td class="is-clickable">
           <b-icon
             v-tooltip="options('Click to see Schemas information')"
@@ -120,17 +122,17 @@
         :tab="modalData.tab"
         :data="modalData.data"
         :dbgrowth="modalData.dbgrowth"
+        :tabsData="modalData.tabsData"
       />
     </b-modal>
   </BoxContent>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import BoxContent from '@/components/common/BoxContent.vue'
-import CustomSelect from '@/components/common/Form/CustomSelect.vue'
 import PdbsModal from '@/views/databases/oracle/PdbsModal.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -140,7 +142,6 @@ export default {
   mixins: [TooltipMixin, HighlightSearchMixin],
   components: {
     BoxContent,
-    CustomSelect,
     FullTable,
     TdContent,
     PdbsModal,
@@ -154,13 +155,10 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getPdbs()
-      .then(async () => {
-        this.selectedHost = this.getOracleHostsPdbs[0]
-      })
-      .then(() => {
-        this.isMounted = true
-      })
+    await this.getPdbs().then(() => {
+      this.isMounted = true
+    })
+    this.selectedHost = this.oraclePdbs.pdbsHosts[0]
   },
   methods: {
     ...mapActions(['getPdbs']),
@@ -171,13 +169,15 @@ export default {
         hostname: this.selectedHost,
         tab: tab,
         data: data,
+        tabsData: this.getOraclePdbsModal(data.name)[0],
       }
     },
   },
   computed: {
+    ...mapState(['oraclePdbs']),
     ...mapGetters([
-      'getOracleHostsPdbs',
       'getOraclePdbs',
+      'getOraclePdbsModal',
       'loadingTableStatus',
     ]),
   },
