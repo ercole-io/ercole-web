@@ -1,5 +1,7 @@
 <template>
-  <OracleDBs />
+  <div>
+    <OracleDBs />
+  </div>
 </template>
 
 <script>

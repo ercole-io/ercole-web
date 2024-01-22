@@ -38,6 +38,7 @@ export const getters = {
         updated: host.createdAt,
         obsolete: compareTime > seconds ? true : false,
         obsoleteDiff: `Obsolete from ${fromNow}`,
+        isMissingDB: host.isMissingDB,
       })
     })
 

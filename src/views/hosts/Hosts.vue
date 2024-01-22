@@ -118,12 +118,24 @@
           :value="rowData.scope.databases"
           @click.native="handleClickedRow([rowData.scope])"
         />
+        <TdArrayMore
+          v-if="
+            rowData.scope.isMissingDB && rowData.scope.isMissingDB.length > 5
+          "
+          :value="rowData.scope.isMissingDB || '-'"
+        />
+        <TdArrayMore
+          v-else
+          :value="rowData.scope.isMissingDB || '-'"
+          @click.native="handleClickedRow([rowData.scope])"
+        />
         <TdContent :value="rowData.scope.techType" />
         <TdContent :value="rowData.scope.os" />
         <TdIcon
           :value="rowData.scope.iconCluster"
           @click.native="handleClickedRow([rowData.scope])"
         />
+        <TdContent :value="rowData.scope.clusterwareVersion" />
         <TdContent :value="rowData.scope.kernel" />
         <TdContent :value="rowData.scope.memorytotal" />
         <TdContent :value="rowData.scope.swaptotal" />
@@ -136,6 +148,12 @@
           expName="hosts-lms-data"
           :text="`${$t('common.general.exportLms')}`"
           type="LMS"
+        />
+        <ExportButton
+          url="hosts"
+          expName="hosts-lms-mysql-data"
+          :text="`${$t('common.general.exportLmsMysql')}`"
+          type="LMS-MYSQL"
         />
       </template>
     </FullTable>

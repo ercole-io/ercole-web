@@ -1,12 +1,14 @@
 <template>
   <div class="is-size-7 has-text-weight-medium">
-    {{ $t('common.table.showing') }}
+    {{ showing }}
     {{ totalItems > perPage ? perPage : totalItems }}
-    {{ $t('common.table.of') }} {{ totalItems }} {{ $t('common.table.items') }}
+    {{ of }} {{ totalItems }} {{ items }}
   </div>
 </template>
 
 <script>
+import i18n from '@/i18n.js'
+
 export default {
   name: 'commom-table-showperpage-component',
   props: {
@@ -15,6 +17,17 @@ export default {
     },
     perPage: {
       type: Number,
+    },
+  },
+  computed: {
+    showing() {
+      return `${i18n.t('common.table.showing')}`
+    },
+    of() {
+      return `${i18n.t('common.table.of')}`
+    },
+    items() {
+      return `${i18n.t('common.table.items')}`
     },
   },
 }

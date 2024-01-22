@@ -45,7 +45,9 @@
     "partitionings": "Partitioning",
     "azure": "Azure",
     "mongodb": "MongoDB",
-    "sqlserver": "SQLServer"
+    "sqlserver": "SQLServer",
+    "capacity": "Capacity",
+    "capacityos": "OS Capacity"
   },
   "header": {
     "logout": "Disconnettersi"
@@ -153,6 +155,7 @@
       "moreInfo": "Mostra più informazioni",
       "exportData": "Esportare i dati",
       "exportLms": "Esportare LMS Audit File",
+      "exportLmsMysql": "Esportare MySQL Audit File",
       "importData": "Import Data",
       "inProgress": "in Corso",
       "wait": "Questo potrebbe richiedere un pò di tempo, per favore aspetta...",

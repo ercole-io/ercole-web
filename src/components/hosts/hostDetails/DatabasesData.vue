@@ -7,10 +7,6 @@
     customStyle="padding: 0"
   >
     <template slot="customTitle">
-      <b-tag type="is-danger" class="ml-2" v-if="showMissingDbWarning">
-        This host has some missing Databases!
-      </b-tag>
-
       <SearchInput
         :searchPlaceholder="$t('views.hostDetails.searchBy')"
         v-model="searchDb"
@@ -20,6 +16,22 @@
     </template>
 
     <AdvancedFiltersButton slot="customTitle" />
+
+    <b-tag
+      type="is-danger"
+      class="mb-4"
+      v-if="showMissingDbWarning"
+      slot="customSubTitle"
+    >
+      This host has {{ hostDetails.isMissingDB.length }} missing Databases:
+      <span
+        v-for="(db, i) in hostDetails.isMissingDB"
+        :key="db"
+        class="has-text-weight-bold"
+      >
+        {{ db }}<span v-if="i !== hostDetails.isMissingDB.length - 1">,</span>
+      </span>
+    </b-tag>
 
     <HbuttonScroll height="30" elemScroll="tabs" />
 
@@ -94,7 +106,9 @@ export default {
     },
     showMissingDbWarning() {
       return (
-        this.hostDetails.isMissingDB && this.hostDetails.hostType === 'oracle'
+        this.hostDetails.isMissingDB &&
+        this.hostDetails.isMissingDB.length > 0 &&
+        this.hostDetails.hostType === 'oracle'
       )
     },
   },

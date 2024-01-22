@@ -11,6 +11,7 @@
     @blur="onBlur"
     @input="emitSearchTherm"
     v-model="searchTherm"
+    :lazy="isLazy"
   />
 </template>
 
@@ -37,6 +38,10 @@ export default {
     onBlur: {
       type: Function,
       default: () => {},
+    },
+    isLazy: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

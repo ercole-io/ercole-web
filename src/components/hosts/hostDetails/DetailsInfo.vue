@@ -1,5 +1,5 @@
 <template>
-  <div class="columns">
+  <div class="columns" v-if="isMounted">
     <template v-if="loadingTableStatus">
       <div class="column is-one-fifth" v-for="i in 5" :key="i">
         <GhostLoading :isLoading="loadingTableStatus" setHeight="180" />
@@ -32,6 +32,14 @@ export default {
     Card,
     CardList,
     GhostLoading,
+  },
+  data() {
+    return {
+      isMounted: false,
+    }
+  },
+  beforeMount() {
+    this.isMounted = true
   },
   computed: {
     ...mapGetters(['currentHostInfo', 'loadingTableStatus']),

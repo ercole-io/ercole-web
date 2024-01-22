@@ -47,9 +47,7 @@
             pack="fas"
             icon="trash-alt"
             size="is-small"
-            @click.native="
-              delUser(rowData.scope.username, rowData.scope.provider)
-            "
+            @click.native="delUser(rowData.scope.username)"
             v-if="rowData.scope.username !== 'ercole' && isAdmin"
           />
         </td>
@@ -114,7 +112,7 @@ export default {
         })
       })
     },
-    delUser(username, provider) {
+    delUser(username) {
       this.$buefy.dialog.confirm({
         title: 'Delete User',
         message: `Are you sure you want to <b>delete</b> the user <b>${username}</b>? This action cannot be undone.`,
@@ -122,7 +120,7 @@ export default {
         type: 'is-danger',
         hasIcon: true,
         onConfirm: () => {
-          this.deleteUser({ username: username, provider: provider })
+          this.deleteUser({ username: username })
         },
       })
     },

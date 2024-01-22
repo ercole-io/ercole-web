@@ -15,18 +15,32 @@
 
     <DetailsInfo />
 
+    <CollapseSimple
+      :isOpen="false"
+      collapseID="capacityByOs"
+      collapseTitle="OS Capacity"
+    >
+      <CapacityByOs
+        class="p-5 pb-0"
+        :capacityDataOS="hostDetailsCapacityByOs"
+        :capacityDailyDataOS="hostDetailsCapacityDailyByOs"
+      />
+    </CollapseSimple>
+
     <DatabasesMain />
   </section>
 </template>
 
 <script>
 import { bus } from '@/helpers/eventBus.js'
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 import Notifications from '@/components/hosts/hostDetails/Notifications.vue'
 import FileSystems from '@/components/hosts/hostDetails/FileSystems.vue'
 import DismissHost from '@/components/hosts/hostDetails/DismissHost.vue'
 import DetailsInfo from '@/components/hosts/hostDetails/DetailsInfo.vue'
 import DatabasesMain from '@/components/hosts/hostDetails/DatabasesMain.vue'
+import CollapseSimple from '@/components/common/CollapseSimple.vue'
+import CapacityByOs from '@/components/databases/oracle/capacity/CapacityByOS.vue'
 
 export default {
   name: 'host-details-page',
@@ -37,19 +51,23 @@ export default {
     DismissHost,
     DetailsInfo,
     DatabasesMain,
+    CollapseSimple,
+    CapacityByOs,
   },
   data() {
     return {
       isMounted: false,
     }
   },
-  beforeMount() {
-    this.getHostByName({ hostname: this.hostname, loading: true })
+  async beforeMount() {
+    await this.getHostByName({ hostname: this.hostname, loading: true }).then(
+      () => {
+        this.getHostNames()
+      }
+    )
     if (this.dbname) {
       this.SET_ACTIVE_DB(this.dbname)
     }
-
-    this.getHostNames()
 
     bus.$emit('dynamicTitle', this.hostname)
   },
@@ -62,6 +80,13 @@ export default {
   },
   beforeDestroy() {
     this.SET_ACTIVE_DB('')
+  },
+  computed: {
+    ...mapGetters([
+      'currentHostType',
+      'hostDetailsCapacityByOs',
+      'hostDetailsCapacityDailyByOs',
+    ]),
   },
 }
 </script>

@@ -24,7 +24,7 @@ const mapMongoDbDatabases = (data) => {
           totalSize: db.totalSize,
           users: db.users,
           views: db.views,
-          shardDBs: db.shardDBs.length,
+          shardDBs: db.shardDBs ? db.shardDBs.length : null,
         },
         shardDBs: db.shardDBs,
         name: db.dbName,

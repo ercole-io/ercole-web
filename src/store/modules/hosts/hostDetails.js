@@ -9,6 +9,8 @@ import {
   mapHostDatabases,
 } from '@/helpers/hostDetails/hostDetails.js'
 import { removeDashFromMsDesc } from '@/helpers/licenses.js'
+import { resolveCapacityDaily } from '@/helpers/hostDetails/databases/oracle.js'
+import setCapacityByOsData from '@/helpers/hostDetails/capacity/capacityByOs.js'
 
 // filter options
 import { filterOptionsOracle } from '@/helpers/hostDetails/filterOptions/oracle.js'
@@ -28,6 +30,10 @@ export const state = () => ({
   searchTermDB: '',
   isMissingDB: false,
   canBeMigrate: false,
+  semaphore: '',
+  semaphoreData: {},
+  currentHostDetailsCapacityByOs: [],
+  currentHostDetailsCapacityDailyByOs: [],
 })
 
 export const getters = {
@@ -166,6 +172,12 @@ export const getters = {
       }
     })
   },
+  hostDetailsCapacityByOs: (state) => {
+    return state.currentHostDetailsCapacityByOs
+  },
+  hostDetailsCapacityDailyByOs: (state) => {
+    return state.currentHostDetailsCapacityDailyByOs
+  },
 }
 
 export const mutations = {
@@ -199,6 +211,18 @@ export const mutations = {
   SET_CAN_BE_MIGRATE: (state, payload) => {
     state.canBeMigrate = payload
   },
+  SET_SEMAPHORE: (state, payload) => {
+    state.semaphore = payload
+  },
+  SET_SEMAPHORE_DATA: (state, payload) => {
+    state.semaphoreData = payload
+  },
+  SET_CURRENT_HOST_DETAILS_CAPACITY_BY_OS: (state, payload) => {
+    state.currentHostDetailsCapacityByOs = payload
+  },
+  SET_CURRENT_HOST_DETAILS_CAPACITY_DAILY_BY_OS: (state, payload) => {
+    state.currentHostDetailsCapacityDailyByOs = payload
+  },
 }
 
 export const actions = {
@@ -226,9 +250,21 @@ export const actions = {
           const hostType = allData[0].data.technology
           const hostDatabases = allData[0].data.features
 
+          const { cpuConsumptions, diskConsumptions } = allData[0].data
+          const capacityOsData = _.concat(cpuConsumptions, diskConsumptions)
+
+          const capacityOS = setCapacityByOsData(capacityOsData)
+          const capacityDailyOS = resolveCapacityDaily(capacityOsData)
+
           commit('SET_CURRENT_HOST', allData[0].data)
           commit('SET_CURRENT_HOST_TYPE', getHostType(hostType))
           commit('SET_HOST_DB_LICENSES', allData[1].data.usedLicenses)
+
+          commit('SET_CURRENT_HOST_DETAILS_CAPACITY_BY_OS', capacityOS)
+          commit(
+            'SET_CURRENT_HOST_DETAILS_CAPACITY_DAILY_BY_OS',
+            capacityDailyOS
+          )
 
           return hostDatabases
         })
@@ -296,6 +332,36 @@ export const actions = {
 
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_CAN_BE_MIGRATE', res.data.Canbemigrate)
+    })
+  },
+  async hostDatabaseSemaphore({ commit, getters }, dbname) {
+    const config = {
+      method: 'get',
+      url: `/hosts/${getters.currentHost}/technologies/oracle/databases/${dbname}/psql-migrabilities/semaphore`,
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_SEMAPHORE', res.data)
+    })
+  },
+  async hostDatabaseSemaphoreData({ commit, getters }, data) {
+    const host = data.hostname ? data.hostname : getters.currentHost
+
+    console.log(host)
+
+    const config = {
+      method: 'get',
+      url: `/hosts/${host}/technologies/oracle/databases/${data.dbname}/psql-migrabilities`,
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      const data = res.data
+      const metrics = _.take(data, 10)
+      let other = _.drop(data, 10)
+
+      other = _.groupBy(other, 'schema')
+
+      commit('SET_SEMAPHORE_DATA', { metrics, other })
     })
   },
 }

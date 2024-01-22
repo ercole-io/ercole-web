@@ -1,5 +1,5 @@
 <template>
-  <div class="table-container">
+  <div class="table-container" :style="customStyle">
     <table class="table">
       <thead>
         <tr class="has-background-light">
@@ -20,6 +20,10 @@ export default {
     theadData: {
       type: Array,
       default: () => [],
+    },
+    customStyle: {
+      type: String,
+      default: '',
     },
   },
 }

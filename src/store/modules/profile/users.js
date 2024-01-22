@@ -82,7 +82,7 @@ export const actions = {
 
     const config = {
       method: 'delete',
-      url: `admin/${payload.provider}/users/${payload.username}`,
+      url: `admin/users/${payload.username}`,
     }
 
     await axiosRequest('baseApi', config).then(() => {

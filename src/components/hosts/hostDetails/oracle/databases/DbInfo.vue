@@ -206,11 +206,19 @@
                   v-html="highlight(dbInfo.version)"
                 />
               </li>
-              <li>
-                <span>Can Be Migrate</span>
+              <li v-if="getMigrate">
+                <span>Migrable to Standard</span>
                 <SimpleBooleanIcon
                   :value="getMigrate"
                   v-tooltip.right="options(getMigrate)"
+                />
+              </li>
+              <li>
+                <span>Migrable to Postgre</span>
+                <Semaphore
+                  :hostname="null"
+                  :dbname="dbInfo.dbName"
+                  :setColor="getSemaphore"
                 />
               </li>
             </ul>
@@ -222,16 +230,84 @@
 </template>
 
 <script>
-import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
 import { mapState } from 'vuex'
+import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
+import Semaphore from '@/components/common/Semaphore.vue'
 
 export default {
   name: 'hosts-details-oracle-databases-info-component',
   mixins: [infoMixin],
+  components: {
+    Semaphore,
+  },
+  data() {
+    return {
+      semaphoreData: [
+        {
+          metric: 'PLSQL LINES',
+          Count: 6212,
+        },
+        {
+          metric: 'PARTITIONED TABLES',
+          Count: 0,
+        },
+        {
+          metric: 'PARTITIONED INDEXES',
+          Count: 0,
+        },
+        {
+          metric: 'PROCEDURES',
+          Count: 1,
+        },
+        {
+          metric: 'SEQUENCES',
+          Count: 1,
+        },
+        {
+          metric: 'TRIGGERS',
+          Count: 0,
+        },
+        {
+          metric: 'FUNCTIONS',
+          Count: 0,
+        },
+        {
+          metric: 'HCC COMPRESSED TABLES',
+          Count: 0,
+        },
+        {
+          metric: 'MVIEWS REWRITE ENABLED',
+          Count: 0,
+        },
+        {
+          metric: 'VDP POLICIES',
+          Count: 0,
+        },
+        {
+          Count: 348,
+          schema: 'PERFSTAT',
+          objectType: 'PACKAGE',
+        },
+        {
+          Count: 5817,
+          schema: 'PERFSTAT',
+          objectType: 'PACKAGE BODY',
+        },
+        {
+          Count: 47,
+          schema: 'PERFSTAT',
+          objectType: 'PROCEDURE',
+        },
+      ],
+    }
+  },
   computed: {
     ...mapState(['hostDetails']),
     getMigrate() {
       return this.hostDetails.canBeMigrate
+    },
+    getSemaphore() {
+      return this.hostDetails.semaphore
     },
   },
 }

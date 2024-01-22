@@ -1,29 +1,38 @@
 <template>
-  <div class="modal-card" style="width: 650px">
+  <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title is-size-6">
-        Database Info:
-        <span class="has-text-weight-bold is-size-5">{{ hostname }}</span>
+      <p class="modal-card-title is-size-4 has-text-weight-semibold">
+        Databases Info
       </p>
     </header>
     <section class="modal-card-body">
-      <div class="is-flex is-justify-content-space-between">
-        <CardStats cardStatTitle="Name" :cardStatValue="data.dbName || '-'" />
-        <CardStats cardStatTitle="Type" :cardStatValue="data.type || '-'" />
-        <CardStats cardStatTitle="Cell" :cardStatValue="data.cell || '-'" />
-        <CardStats
-          cardStatTitle="Flash Cache Limit"
-          :cardStatValue="data.flashCacheLimit || '-'"
-        />
-        <CardStats
-          cardStatTitle="IO RM Share"
-          :cardStatValue="data.iormShare || '-'"
-        />
-        <CardStats
-          cardStatTitle="Last IO Req"
-          :cardStatValue="formatDate(data.lastIOReq) || '-'"
-        />
-      </div>
+      <SimpleTable
+        :theadData="[
+          'Database Name',
+          'Type',
+          'Cell',
+          'Flash Cache Limit',
+          'Iorm Share',
+          'Last IO Req',
+        ]"
+        customStyle="max-height: 100%;"
+      >
+        <template slot="tbodyContent" v-if="data.length > 0">
+          <tr v-for="(d, index) in data" :key="index">
+            <TdContent :value="d.dbName" />
+            <TdContent :value="d.type" />
+            <TdContent :value="d.cell" />
+            <TdContent :value="d.flashCacheLimit" />
+            <TdContent :value="d.iormShare" />
+            <TdContent :value="formatDate(d.lastIOReq)" />
+          </tr>
+        </template>
+        <template slot="tbodyContent" v-else>
+          <tr>
+            <td colspan="2"><NoContent style="min-height: 100px" /></td>
+          </tr>
+        </template>
+      </SimpleTable>
     </section>
     <footer class="modal-card-foot"></footer>
   </div>
@@ -31,21 +40,21 @@
 
 <script>
 import FormatDateTime from '@/filters/formatDateTime.js'
-import CardStats from '@/components/common/CardStats.vue'
+import SimpleTable from '@/components/common/Table/SimpleTable.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
+import NoContent from '@/components/common/NoContent.vue'
 
 export default {
   props: {
     data: {
-      type: Object,
+      type: Array,
       default: () => {},
-    },
-    hostname: {
-      type: String,
-      default: '',
     },
   },
   components: {
-    CardStats,
+    SimpleTable,
+    TdContent,
+    NoContent,
   },
   methods: {
     formatDate(date) {

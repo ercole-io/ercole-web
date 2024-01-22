@@ -50,9 +50,10 @@ export const mapBooleanIcon = (value) => {
 }
 
 export const mapClustStatus = (clust) => {
-  const veritasCount = clust.veritasClusterHostnames
-    ? clust.veritasClusterHostnames.length
-    : 0
+  const veritasCount =
+    clust && clust.veritasClusterHostnames
+      ? clust.veritasClusterHostnames.length
+      : 0
 
   if (
     clust &&

@@ -380,7 +380,9 @@ export default {
         this.$route.name !== 'users' &&
         this.$route.name !== 'groups' &&
         this.$route.name !== 'roles' &&
-        this.$route.name !== 'settings'
+        this.$route.name !== 'settings' &&
+        this.$route.name !== 'capacity' &&
+        this.$route.name !== 'capacityos'
       )
     },
   },

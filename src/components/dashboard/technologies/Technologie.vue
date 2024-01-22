@@ -9,6 +9,11 @@
               v-if="!loading"
               :data-cy="`${getTechnology(getTotalTarget.extra.name)}-logo`"
               :title="`${getTotalTarget.extra.name}`"
+              @click="
+                $router.push({
+                  name: 'hosts',
+                })
+              "
             />
           </GhostLoading>
         </div>
@@ -56,6 +61,7 @@
               v-if="!loading"
               :data-cy="`${getTechnology(tech.extra.name)}-logo`"
               :title="`${tech.extra.name}`"
+              @click="getUrl(tech.extra.name)"
             />
           </GhostLoading>
         </div>
@@ -135,6 +141,31 @@ export default {
         return toLower(value)
       }
     },
+    getUrl(value) {
+      if (value === 'Oracle Database') {
+        return this.$router.push({
+          name: 'oracle',
+        })
+      } else if (value === 'SQL Server') {
+        return this.$router.push({
+          name: 'microsoft',
+        })
+      } else if (value === 'MySQL') {
+        return this.$router.push({
+          name: 'mysql',
+        })
+      } else if (value === 'PostgreSQL') {
+        return this.$router.push({
+          name: 'postgresql',
+        })
+      } else if (value === 'MongoDB') {
+        return this.$router.push({
+          name: 'mongodb',
+        })
+      } else if (value === 'MariaDB') {
+        return null
+      }
+    },
   },
   computed: {
     ...mapGetters(['getTotalTarget', 'getTechnologies']),
@@ -164,6 +195,10 @@ export default {
     margin: 0 auto;
     display: block;
     padding: 10px 0;
+
+    img {
+      cursor: pointer;
+    }
   }
 
   .tech-name {

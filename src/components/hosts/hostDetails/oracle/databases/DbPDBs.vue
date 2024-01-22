@@ -224,6 +224,10 @@
             class="mt-3"
           />
         </b-tab-item>
+        <CapacityTab
+          :capacity="pdb.pdbCapacity"
+          :capacityDaily="pdb.pdbDailyCapacity"
+        />
       </b-tabs>
     </CollapseSimple>
   </b-tab-item>
@@ -239,6 +243,7 @@ import TdIcon from '@/components/common/Table/TDIcon.vue'
 import RangeDates from '@/components/common/RangeDates.vue'
 import CollapseSimple from '@/components/common/CollapseSimple.vue'
 import DbGrowth from '@/components/common/DbGrowth.vue'
+import CapacityTab from '@/components/hosts/hostDetails/oracle/databases/dbPDBs/CapacityTab.vue'
 
 export default {
   name: 'hosts-details-oracle-databases-pdbs-component',
@@ -250,6 +255,7 @@ export default {
     RangeDates,
     CollapseSimple,
     DbGrowth,
+    CapacityTab,
   },
   props: {
     pdbs: {

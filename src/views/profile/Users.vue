@@ -501,7 +501,6 @@ export default {
 
     bus.$on('onResetAction', () => this.resetForm())
     bus.$on('updateUser', (data) => {
-      console.log(data)
       this.provider = data.provider
 
       // if (this.provider === 'ldap') {
