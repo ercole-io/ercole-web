@@ -6,16 +6,7 @@
           <CustomSelect v-model="filters.type" :options="filteredtype" />
         </CustomField>
 
-        <CustomField label="Licenses Types">
-          <CustomSelectAutocomplete
-            v-model="filters.fullPartNumber"
-            :filterResult="filteredfullPartNumber"
-            :filterMethod="setAutocompletes"
-            field="fullPartNumber"
-          />
-        </CustomField>
-
-        <CustomField label="Contract ID">
+        <CustomField :label="$t('common.fields.agreeNumber')">
           <CustomAutocomplete
             v-model="filters.contractID"
             :filterResult="filteredcontractID"
@@ -23,10 +14,18 @@
           />
         </CustomField>
 
+        <CustomField :label="$t('common.fields.csi')">
+          <CustomAutocomplete
+            v-model="filters.csi"
+            :filterResult="filteredcsi"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
+
         <CustomField :label="$t('common.fields.numberLicenses')">
           <CustomAutocomplete
-            v-model="filters.licensesNumber"
-            :filterResult="filteredlicensesNumber"
+            v-model="filters.numberOfLicenses"
+            :filterResult="filterednumberOfLicenses"
             :filterMethod="setAutocompletes"
           />
         </CustomField>
@@ -38,27 +37,21 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
-import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutocomplete.vue'
 
 export default {
-  name: 'licenses-contracts-microsoft-filters-component',
+  name: 'licenses-contracts-mongodb-filters-component',
   mixins: [localFiltersMixin],
   components: {
     Collapse,
-    CustomSelectAutocomplete,
   },
   data() {
     return {
       collapses: ['General'],
-      autocompletes: ['contractID', 'licensesNumber', 'fullPartNumber'],
+      autocompletes: ['contractID', 'csi', 'numberOfLicenses'],
       selects: ['type'],
     }
-  },
-  computed: {
-    ...mapGetters(['getMicrosoftContracts']),
   },
 }
 </script>

@@ -1,7 +1,13 @@
 <template>
   <div class="columns sticky-buttons">
     <div class="column">
-      <b-button type="is-danger" size="is-small" @click="reset" expanded>
+      <b-button
+        type="is-danger"
+        size="is-small"
+        @click="reset"
+        expanded
+        data-cy="btn-reset"
+      >
         {{ cancelText }}
       </b-button>
     </div>
@@ -12,6 +18,7 @@
         native-type="submit"
         :disabled="isDisabled"
         expanded
+        data-cy="btn-apply"
       >
         {{ applyText }}
       </b-button>
