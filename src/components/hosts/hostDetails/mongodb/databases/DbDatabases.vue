@@ -14,7 +14,10 @@
           <b-tab-item label="Info">
             <Info :dbInfo="db.dbInfo" />
           </b-tab-item>
-          <b-tab-item label="Shard DBs">
+          <b-tab-item
+            label="Shard DBs"
+            v-if="db.shardDBs && db.shardDBs.length > 0"
+          >
             <ShardDbs :sharddbs="db.shardDBs" />
           </b-tab-item>
         </b-tabs>

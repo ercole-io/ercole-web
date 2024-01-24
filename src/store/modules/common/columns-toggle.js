@@ -32,6 +32,8 @@ const defaultState = () => ({
   'page-microsoftContracts': [false, true],
   'page-mysqlContracts': [false, true],
   'page-oracleContracts': [false, true],
+  'page-postgreContracts': [false, true],
+  'page-mongoContracts': [false, true],
 
   'page-profileConfigOracle': [false, true],
   'page-profileConfigAws': [false, true],

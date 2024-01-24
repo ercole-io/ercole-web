@@ -27,6 +27,7 @@
         clearable
         @blur="$v.oracleForm.contractID.$touch()"
         @input="$v.oracleForm.contractID.$touch()"
+        data-cy="oracle-contract-number"
       >
         <template slot="empty">
           {{ $i18n.t('common.validations.noResults') }}
@@ -79,10 +80,11 @@
         @select="getAssociatedList($event, 'host')"
         open-on-focus
         clearable
+        data-cy="oracle-part-number"
       >
         <template slot-scope="props">
           <div class="media media-custom">
-            <div class="media-content">
+            <div class="media-content" data-cy="oracle-part-number-options">
               <b>{{ props.option.id }}</b>
               <br />
               <small>
@@ -127,6 +129,7 @@
         clearable
         @blur="$v.oracleForm.csi.$touch()"
         @input="$v.oracleForm.csi.$touch()"
+        data-cy="oracle-csi"
       >
         <template slot="empty">
           {{ $i18n.t('common.validations.noResults') }}
@@ -157,6 +160,7 @@
           )
         "
         clearable
+        data-cy="oracle-reference-number"
       >
         <template slot="empty">
           {{ $i18n.t('common.validations.noResults') }}
@@ -172,6 +176,7 @@
         append-to-body
         position="is-top-right"
         icon="calendar-today"
+        data-cy="oracle-support-expiration"
       />
     </b-field>
 
@@ -185,7 +190,11 @@
         custom-class="is-small"
         expanded
       >
-        <b-checkbox size="is-small" v-model="oracleForm.ula" />
+        <b-checkbox
+          size="is-small"
+          v-model="oracleForm.ula"
+          data-cy="oracle-ula"
+        />
       </b-field>
 
       <span class="pr-4 pt-3">{{ $t('common.forms.or') }}</span>
@@ -207,6 +216,7 @@
           v-model="oracleForm.licenseNumber"
           :disabled="ula"
           :custom-class="disableInput"
+          data-cy="oracle-number"
         />
 
         <template #message>
@@ -243,6 +253,7 @@
         custom-class="is-small"
         open-on-focus
         :disabled="ula"
+        data-cy="oracle-host-associated"
       >
         <template slot-scope="props">
           {{ props.option }}
@@ -267,13 +278,18 @@
       </b-taginput>
     </b-field>
 
-    <b-field :label="`${$t('common.fields.basket')}`" custom-class="is-small">
+    <b-field
+      :label="`${$t('common.fields.basket')}`"
+      custom-class="is-small"
+      data-cy="oracle-basket"
+    >
       <div class="is-flex" style="justify-content: space-around">
         <b-radio
           size="is-small"
           v-model="oracleForm.basket"
           :native-value="true"
           :disabled="restricted || ula"
+          data-cy="oracle-basket-true"
         >
           {{ $t('common.forms.yes') }}
         </b-radio>
@@ -282,6 +298,7 @@
           v-model="oracleForm.basket"
           :native-value="false"
           :disabled="restricted || ula"
+          data-cy="oracle-basket-false"
         >
           {{ $t('common.forms.no') }}
         </b-radio>
@@ -291,6 +308,7 @@
     <b-field
       :label="`${$t('common.fields.restricted')}`"
       custom-class="is-small"
+      data-cy="oracle-restricted"
     >
       <div class="is-flex" style="justify-content: space-around">
         <b-radio

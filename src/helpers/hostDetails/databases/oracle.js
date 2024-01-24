@@ -119,6 +119,7 @@ const resolvePdbs = (pdbs) => {
         pdbPartitionings: val.partitionings,
         pdbCapacity: capacityPdb,
         pdbDailyCapacity: capacityDailyPdb,
+        pdbServices: val.services,
       })
     }
   })
@@ -146,6 +147,7 @@ const resolveServices = (services) => {
   _.filter(services, (val) => {
     filteredServices.push({
       name: val.name,
+      container: val.containerName,
       enabled: val.enabled,
     })
   })

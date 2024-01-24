@@ -10,7 +10,7 @@
 
     <OracleContractsList slot="center" />
 
-    <OracleContractsForm slot="right">
+    <OracleContractsForm slot="right" data-cy="oracle-contract-form">
       <Loading :isLoading="loadingTableStatus" />
     </OracleContractsForm>
   </ToggleColumns>

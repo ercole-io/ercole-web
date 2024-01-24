@@ -228,6 +228,30 @@
           :capacity="pdb.pdbCapacity"
           :capacityDaily="pdb.pdbDailyCapacity"
         />
+        <b-tab-item
+          label="Services"
+          v-if="pdb.pdbServices && pdb.pdbServices.length > 0"
+        >
+          <FullTable
+            :tableData="pdb.pdbServices"
+            :keys="['name', 'enabled']"
+            hideSearch
+            hidePerpage
+            hidePagination
+            hideTopTable
+            :isLoadingTable="false"
+          >
+            <template slot="headData">
+              <v-th sortKey="name">Service Name</v-th>
+              <v-th sortKey="enabled">Enabled</v-th>
+            </template>
+
+            <template slot="bodyData" slot-scope="rowData">
+              <TdContent :value="rowData.scope.name" />
+              <TdIcon :value="rowData.scope.enabled" />
+            </template>
+          </FullTable>
+        </b-tab-item>
       </b-tabs>
     </CollapseSimple>
   </b-tab-item>

@@ -1,42 +1,44 @@
 <template>
   <section>
-    <b-tabs
-      size="is-small"
-      type="is-boxed"
-      class="block"
-      v-model="activeTab"
-      @input="onTabChange"
-    >
-      <b-tab-item label="Oracle">
-        <OracleContracts />
-      </b-tab-item>
-      <b-tab-item label="MySQL">
-        <MySqlContracts />
-      </b-tab-item>
-      <b-tab-item label="SQLServer">
-        <MsSqlServerContracts />
-      </b-tab-item>
-    </b-tabs>
+    <div class="tabs is-small is-boxed">
+      <ul>
+        <router-link
+          v-for="tab in tabs"
+          :key="tab"
+          :to="{ name: `licenses-contracts-${tab}` }"
+          v-slot="{ navigate }"
+          custom
+        >
+          <li
+            @click="navigate"
+            role="link"
+            :class="{ 'is-active': getRouteName === tab }"
+          >
+            <a>{{ `${$i18n.t(`menu.${tab}`)}` }}</a>
+          </li>
+        </router-link>
+      </ul>
+    </div>
+
+    <router-view />
   </section>
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
-import OracleContracts from '@/components/licenses/contracts/Oracle/OracleContracts.vue'
-import MySqlContracts from '@/components/licenses/contracts/MySQL/MySqlContracts.vue'
-import MsSqlServerContracts from '@/components/licenses/contracts/Microsoft/MsSqlServerContracts.vue'
+import _ from 'lodash'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'licensescontracts-page',
-  components: {
-    OracleContracts,
-    MySqlContracts,
-    MsSqlServerContracts,
-  },
   data() {
     return {
-      activeTab: 0,
+      tabs: [
+        'oracle',
+        'mysql',
+        'sqlserver',
+        // 'postgresql',
+        // 'mongodb'
+      ],
     }
   },
   mounted() {
@@ -45,9 +47,10 @@ export default {
   },
   methods: {
     ...mapActions(['getLicensesHosts', 'getLicensesClusters']),
-    onTabChange(value) {
-      console.log(value)
-      bus.$emit('onTabChange', value)
+  },
+  computed: {
+    getRouteName() {
+      return _.last(_.split(this.$route.path, '/'))
     },
   },
 }
