@@ -32,7 +32,13 @@ export default {
   name: 'licensescontracts-page',
   data() {
     return {
-      tabs: ['oracle', 'mysql', 'sqlserver', 'postgresql', 'mongodb'],
+      tabs: [
+        'oracle',
+        'mysql',
+        'sqlserver',
+        // 'postgresql',
+        // 'mongodb'
+      ],
     }
   },
   mounted() {

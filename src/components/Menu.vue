@@ -337,18 +337,18 @@ export default {
                   icon: 'logos microsoft',
                   attributes: { 'data-cy': 'mn-licenses-contracts-sqlserver' },
                 },
-                {
-                  href: { name: 'licenses-contracts-postgresql' },
-                  title: this.$i18n.t('menu.postgresql'),
-                  icon: 'logos postgresql',
-                  attributes: { 'data-cy': 'mn-licenses-contracts-postgresql' },
-                },
-                {
-                  href: { name: 'licenses-contracts-mongodb' },
-                  title: this.$i18n.t('menu.mongodb'),
-                  icon: 'logos mongodb',
-                  attributes: { 'data-cy': 'mn-licenses-contracts-mongodb' },
-                },
+                // {
+                //   href: { name: 'licenses-contracts-postgresql' },
+                //   title: this.$i18n.t('menu.postgresql'),
+                //   icon: 'logos postgresql',
+                //   attributes: { 'data-cy': 'mn-licenses-contracts-postgresql' },
+                // },
+                // {
+                //   href: { name: 'licenses-contracts-mongodb' },
+                //   title: this.$i18n.t('menu.mongodb'),
+                //   icon: 'logos mongodb',
+                //   attributes: { 'data-cy': 'mn-licenses-contracts-mongodb' },
+                // },
               ],
             },
             {
