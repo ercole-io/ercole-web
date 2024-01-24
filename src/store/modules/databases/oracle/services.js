@@ -13,6 +13,7 @@ export const getters = {
         hostname: val.hostname,
         dbName: val.databasename,
         servName: val.oracleDatabaseService.name,
+        container: val.oracleDatabaseService.containerName,
         servEnabled: val.oracleDatabaseService.enabled,
       })
     })
