@@ -45,6 +45,7 @@
     "partitionings": "Partitioning",
     "azure": "Azure",
     "mongodb": "MongoDB",
+    "sqlserver": "SQLServer",
     "capacity": "Capacity",
     "capacityos": "OS Capacity"
   },

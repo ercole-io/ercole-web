@@ -20,6 +20,7 @@
         placeholder="Select"
         v-model="msSqlServer.type"
         expanded
+        data-cy="sqlserver-type"
       >
         <option :value="cluster">{{ cluster }}</option>
         <option :value="host">{{ host }}</option>
@@ -59,10 +60,11 @@
         @select="getAssociatedList($event, 'host')"
         open-on-focus
         clearable
+        data-cy="sqlserver-license-type"
       >
         <template slot-scope="props">
           <div class="media media-custom">
-            <div class="media-content">
+            <div class="media-content" data-cy="sqlserver-license-type-options">
               <b>
                 {{ props.option.id }}
               </b>
@@ -105,6 +107,7 @@
         @input="$v.msSqlServer.contractID.$touch()"
         size="is-small"
         v-model="msSqlServer.contractID"
+        data-cy="sqlserver-contract-number"
       />
       <template #message>
         <div
@@ -132,6 +135,7 @@
         size="is-small"
         type="number"
         v-model="msSqlServer.licensesNumber"
+        data-cy="sqlserver-number-license"
       />
       <template #message>
         <div
@@ -251,6 +255,7 @@
         append-to-body
         position="is-top-right"
         icon="calendar-today"
+        data-cy="sqlserver-expiration"
       />
     </b-field>
 

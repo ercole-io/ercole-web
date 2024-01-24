@@ -314,11 +314,42 @@ export default {
           hidden: this.checkMenu('Licenses', ''),
           child: [
             {
-              href: { name: 'licenses-contract' },
               title: this.$i18n.t('menu.licContracts'),
               icon: 'fas fa-cog',
               attributes: { 'data-cy': 'mn-licenses-contract' },
               hidden: this.checkMenu('Licenses Contract', 'Licenses'),
+              child: [
+                {
+                  href: { name: 'licenses-contracts-oracle' },
+                  title: this.$i18n.t('menu.oracle'),
+                  icon: 'logos oracle',
+                  attributes: { 'data-cy': 'mn-licenses-contracts-oracle' },
+                },
+                {
+                  href: { name: 'licenses-contracts-mysql' },
+                  title: this.$i18n.t('menu.mysql'),
+                  icon: 'logos mysql',
+                  attributes: { 'data-cy': 'mn-licenses-contracts-mysql' },
+                },
+                {
+                  href: { name: 'licenses-contracts-sqlserver' },
+                  title: this.$i18n.t('menu.sqlserver'),
+                  icon: 'logos microsoft',
+                  attributes: { 'data-cy': 'mn-licenses-contracts-sqlserver' },
+                },
+                // {
+                //   href: { name: 'licenses-contracts-postgresql' },
+                //   title: this.$i18n.t('menu.postgresql'),
+                //   icon: 'logos postgresql',
+                //   attributes: { 'data-cy': 'mn-licenses-contracts-postgresql' },
+                // },
+                // {
+                //   href: { name: 'licenses-contracts-mongodb' },
+                //   title: this.$i18n.t('menu.mongodb'),
+                //   icon: 'logos mongodb',
+                //   attributes: { 'data-cy': 'mn-licenses-contracts-mongodb' },
+                // },
+              ],
             },
             {
               href: { name: 'licenses-compliance' },

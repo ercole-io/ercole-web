@@ -1,32 +1,31 @@
 <template>
   <AdvancedFiltersBase
-    filterTitle="Add or Modify an MySql Contract"
+    filterTitle="Add or Modify an PostgreSQL Contract"
     :submitAction="createUpdateContract"
     :isDisabled="$v.$invalid"
-    :applyText="mysqlForm.id ? 'Update Contract' : 'Add Contract'"
+    :applyText="postgreForm.id ? 'Update Contract' : 'Add Contract'"
     cancelText="Cancel"
   >
     <b-field
       label="Type *"
       custom-class="is-small"
       :type="{
-        'is-danger': $v.mysqlForm.type.$error,
+        'is-danger': $v.postgreForm.type.$error,
       }"
     >
       <b-select
-        @blur="$v.mysqlForm.type.$touch()"
-        @input="$v.mysqlForm.type.$touch()"
+        @blur="$v.postgreForm.type.$touch()"
+        @input="$v.postgreForm.type.$touch()"
         size="is-small"
         placeholder="Select"
-        v-model="mysqlForm.type"
+        v-model="postgreForm.type"
         expanded
-        data-cy="mysql-type"
       >
         <option :value="cluster">{{ cluster }}</option>
         <option :value="host">{{ host }}</option>
       </b-select>
       <template #message>
-        <div v-if="!$v.mysqlForm.type.required && $v.mysqlForm.type.$error">
+        <div v-if="!$v.postgreForm.type.required && $v.postgreForm.type.$error">
           {{ $i18n.t('common.validations.requiredAlt') }}
         </div>
       </template>
@@ -36,11 +35,11 @@
       label="Licenses Types *"
       custom-class="is-small"
       :type="{
-        'is-danger': $v.mysqlForm.licenseTypeID.$error,
+        'is-danger': $v.postgreForm.licenseTypeID.$error,
       }"
     >
       <b-autocomplete
-        v-model="mysqlForm.licenseTypeID"
+        v-model="postgreForm.licenseTypeID"
         size="is-small"
         type="text"
         icon="magnify"
@@ -55,16 +54,15 @@
           )
         "
         @focus="() => (filteredlicenseTypeID = getMysqlLicensesTypes)"
-        @blur="$v.mysqlForm.licenseTypeID.$touch()"
-        @input="$v.mysqlForm.licenseTypeID.$touch()"
+        @blur="$v.postgreForm.licenseTypeID.$touch()"
+        @input="$v.postgreForm.licenseTypeID.$touch()"
         @select="getAssociatedList($event, 'host')"
         open-on-focus
         clearable
-        data-cy="mysql-license-type"
       >
         <template slot-scope="props">
           <div class="media media-custom">
-            <div class="media-content" data-cy="mysql-license-type-options">
+            <div class="media-content">
               <b>
                 {{ props.option.id }}
               </b>
@@ -82,8 +80,8 @@
       <template #message>
         <div
           v-if="
-            !$v.mysqlForm.licenseTypeID.required &&
-            $v.mysqlForm.licenseTypeID.$error
+            !$v.postgreForm.licenseTypeID.required &&
+            $v.postgreForm.licenseTypeID.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
@@ -96,20 +94,20 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.mysqlForm.contractID.$error,
+        'is-danger': $v.postgreForm.contractID.$error,
       }"
     >
       <b-input
-        @blur="$v.mysqlForm.contractID.$touch()"
-        @input="$v.mysqlForm.contractID.$touch()"
+        @blur="$v.postgreForm.contractID.$touch()"
+        @input="$v.postgreForm.contractID.$touch()"
         size="is-small"
-        v-model="mysqlForm.contractID"
-        data-cy="mysql-contract-number"
+        v-model="postgreForm.contractID"
       />
       <template #message>
         <div
           v-if="
-            !$v.mysqlForm.contractID.required && $v.mysqlForm.contractID.$error
+            !$v.postgreForm.contractID.required &&
+            $v.postgreForm.contractID.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
@@ -122,22 +120,21 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.mysqlForm.csi.$error,
+        'is-danger': $v.postgreForm.csi.$error,
       }"
     >
       <b-input
-        @blur="$v.mysqlForm.csi.$touch()"
-        @input="$v.mysqlForm.csi.$touch()"
+        @blur="$v.postgreForm.csi.$touch()"
+        @input="$v.postgreForm.csi.$touch()"
         size="is-small"
         type="number"
-        v-model="mysqlForm.csi"
-        data-cy="mysql-csi"
+        v-model="postgreForm.csi"
       />
       <template #message>
-        <div v-if="!$v.mysqlForm.csi.required && $v.mysqlForm.csi.$error">
+        <div v-if="!$v.postgreForm.csi.required && $v.postgreForm.csi.$error">
           {{ $i18n.t('common.validations.requiredAlt') }}
         </div>
-        <div v-if="!$v.mysqlForm.csi.numeric && $v.mysqlForm.csi.$error">
+        <div v-if="!$v.postgreForm.csi.numeric && $v.postgreForm.csi.$error">
           {{ $i18n.t('common.validations.onlyNumbers') }}
         </div>
       </template>
@@ -145,13 +142,12 @@
 
     <b-field label="Support Expiration" custom-class="is-small">
       <b-datepicker
-        v-model="mysqlForm.supportExpiration"
+        v-model="postgreForm.supportExpiration"
         placeholder="Set a Date"
         size="is-small"
         append-to-body
         position="is-top-right"
         icon="calendar-today"
-        data-cy="mysql-expiration"
       />
     </b-field>
 
@@ -160,30 +156,29 @@
       custom-class="is-small"
       expanded
       :type="{
-        'is-danger': $v.mysqlForm.numberOfLicenses.$error,
+        'is-danger': $v.postgreForm.numberOfLicenses.$error,
       }"
     >
       <b-input
-        @blur="$v.mysqlForm.numberOfLicenses.$touch()"
-        @input="$v.mysqlForm.numberOfLicenses.$touch()"
+        @blur="$v.postgreForm.numberOfLicenses.$touch()"
+        @input="$v.postgreForm.numberOfLicenses.$touch()"
         size="is-small"
         type="number"
-        v-model="mysqlForm.numberOfLicenses"
-        data-cy="mysql-license-number"
+        v-model="postgreForm.numberOfLicenses"
       />
       <template #message>
         <div
           v-if="
-            !$v.mysqlForm.numberOfLicenses.required &&
-            $v.mysqlForm.numberOfLicenses.$error
+            !$v.postgreForm.numberOfLicenses.required &&
+            $v.postgreForm.numberOfLicenses.$error
           "
         >
           {{ $i18n.t('common.validations.requiredAlt') }}
         </div>
         <div
           v-if="
-            !$v.mysqlForm.numberOfLicenses.numeric &&
-            $v.mysqlForm.numberOfLicenses.$error
+            !$v.postgreForm.numberOfLicenses.numeric &&
+            $v.postgreForm.numberOfLicenses.$error
           "
         >
           {{ $i18n.t('common.validations.onlyNumbers') }}
@@ -194,10 +189,10 @@
     <b-field
       label="Hosts"
       custom-class="is-small"
-      v-if="mysqlForm.type === host"
+      v-if="postgreForm.type === host"
     >
       <b-taginput
-        v-model="mysqlForm.hosts"
+        v-model="postgreForm.hosts"
         :data="filteredhostTags"
         ref="hostTag"
         autocomplete
@@ -212,7 +207,6 @@
         "
         custom-class="is-small"
         :open-on-focus="true"
-        data-cy="mysql-hosts-associated"
       >
         <template slot-scope="props">
           {{ props.option }}
@@ -240,10 +234,10 @@
     <b-field
       label="Clusters"
       custom-class="is-small"
-      v-if="mysqlForm.type === cluster"
+      v-if="postgreForm.type === cluster"
     >
       <b-taginput
-        v-model="mysqlForm.clusters"
+        v-model="postgreForm.clusters"
         :data="filteredclusterTags"
         ref="clusterTag"
         autocomplete
@@ -258,7 +252,6 @@
         "
         custom-class="is-small"
         :open-on-focus="true"
-        data-cy="mysql-clusters-associated"
       >
         <template slot-scope="props">
           {{ props.option }}
@@ -288,22 +281,18 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import { bus } from '@/helpers/eventBus.js'
 import { required, numeric } from 'vuelidate/lib/validators'
-import { mapActions, mapGetters } from 'vuex'
-import toUpper from '@/filters/toUpper.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import ContractsMixin from '@/mixins/contracts/contracts-mixin.js'
 
 export default {
-  name: 'licenses-contracts-mysql-form-component',
+  name: 'licenses-contracts-postgre-form-component',
   mixins: [ContractsMixin],
   components: {
     AdvancedFiltersBase,
   },
   validations: {
-    mysqlForm: {
+    postgreForm: {
       type: { required },
       licenseTypeID: { required },
       numberOfLicenses: { required, numeric },
@@ -313,7 +302,7 @@ export default {
   },
   data() {
     return {
-      mysqlForm: {
+      postgreForm: {
         hosts: [],
         clusters: [],
       },
@@ -322,67 +311,8 @@ export default {
       filteredlicenseTypeID: [],
     }
   },
-  async beforeMount() {
-    this.filteredlicenseTypeID = this.getMysqlLicensesTypes
-
-    bus.$on('onResetAction', () => (this.mysqlForm = {}))
-    bus.$on('updateMysqlContract', (data) => {
-      bus.$emit('onToggleEdit', true)
-      this.editContract(data)
-    })
-  },
   methods: {
-    ...mapActions(['mysqlContractsActions']),
-    createUpdateContract() {
-      const action = this.mysqlForm.id ? 'put' : 'post'
-      const toastMsg = this.mysqlForm.id ? 'modified' : 'created'
-      const contractID = this.mysqlForm.contractID
-
-      this.mysqlForm.type = toUpper(this.mysqlForm.type)
-      this.mysqlForm.licenseTypeID = _.split(
-        this.mysqlForm.licenseTypeID,
-        ' - '
-      )[0]
-      this.mysqlForm.numberOfLicenses = Number(this.mysqlForm.numberOfLicenses)
-      this.mysqlForm.hosts =
-        this.mysqlForm.type === 'HOST' ? this.mysqlForm.hosts : []
-      this.mysqlForm.clusters =
-        this.mysqlForm.type === 'CLUSTER' ? this.mysqlForm.clusters : []
-
-      this.mysqlContractsActions({
-        action: action,
-        body: this.mysqlForm,
-      }).then(() => {
-        this.mysqlForm = {}
-        this.sussessToastMsg(contractID, toastMsg)
-      })
-    },
-    editContract(data) {
-      this.getAssociatedList(
-        {
-          full: `${data.licenseTypeID} - ${data.itemDescription}`,
-          licenseTypeID: data.licenseTypeID,
-          description: data.itemDescription,
-        },
-        data.type
-      )
-      this.mysqlForm = {
-        id: data.id,
-        type: data.type,
-        licenseTypeID: data.fullPartNumber,
-        numberOfLicenses: data.numberOfLicenses,
-        contractID: data.contractID,
-        csi: data.csi,
-        supportExpiration: data.supportExpiration
-          ? new Date(data.supportExpiration)
-          : null,
-        hosts: this.mapAssociated(data.hosts, 'host'),
-        clusters: this.mapAssociated(data.clusters, 'cluster'),
-      }
-    },
-  },
-  computed: {
-    ...mapGetters(['getMysqlLicensesTypes']),
+    createUpdateContract() {},
   },
 }
 </script>

@@ -96,7 +96,6 @@
 
 <script>
 import _ from 'lodash'
-import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import CustomSelectAutocomplete from '@/components/common/Form/CustomSelectAutocomplete.vue'
@@ -132,14 +131,6 @@ export default {
         restricted: '',
       },
     }
-  },
-  mounted() {
-    bus.$on('onTabChange', (value) => {
-      if (value === 0) {
-        this.reset(this.resetFilters)
-        bus.$emit('data', this.getOracleContracts)
-      }
-    })
   },
   methods: {
     resetFilters() {

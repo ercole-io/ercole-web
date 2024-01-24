@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
 import localFiltersMixin from '@/mixins/localFiltersMixin.js'
 import Collapse from '@/components/common/Collapse.vue'
@@ -54,14 +53,6 @@ export default {
       autocompletes: ['contractID', 'csi', 'numberOfLicenses'],
       selects: ['type'],
     }
-  },
-  mounted() {
-    bus.$on('onTabChange', (value) => {
-      if (value === 1) {
-        this.reset()
-        bus.$emit('data', this.getMysqlContracts)
-      }
-    })
   },
   computed: {
     ...mapGetters(['getMysqlContracts']),
