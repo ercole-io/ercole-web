@@ -13,6 +13,13 @@ export default {
     }
   },
   methods: {
+    setMax(val) {
+      if (val) {
+        return val
+      } else {
+        return 0
+      }
+    },
     getData(type, data = []) {
       const dataSeries = data && data.length > 0 ? data : this.capacity
 
@@ -137,7 +144,7 @@ export default {
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type, dataSeries).m.max,
+                  value: this.setMax(this.getData(type, dataSeries).m.max),
                   strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type, dataSeries).m.max)
                     ? this.maxColor
@@ -152,7 +159,7 @@ export default {
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type, dataSeries).w4.max,
+                  value: this.setMax(this.getData(type, dataSeries).w4.max),
                   strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type, dataSeries).w4.max)
                     ? this.maxColor
@@ -167,7 +174,7 @@ export default {
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type, dataSeries).w3.max,
+                  value: this.setMax(this.getData(type, dataSeries).w3.max),
                   strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type, dataSeries).w3.max)
                     ? this.maxColor
@@ -182,7 +189,7 @@ export default {
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type, dataSeries).w2.max,
+                  value: this.setMax(this.getData(type, dataSeries).w2.max),
                   strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type, dataSeries).w2.max)
                     ? this.maxColor
@@ -197,7 +204,7 @@ export default {
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type, dataSeries).w1.max,
+                  value: this.setMax(this.getData(type, dataSeries).w1.max),
                   strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type, dataSeries).w1.max)
                     ? this.maxColor
@@ -212,7 +219,7 @@ export default {
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type, dataSeries).d7.max,
+                  value: this.setMax(this.getData(type, dataSeries).d7.max),
                   strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type, dataSeries).d7.max)
                     ? this.maxColor
@@ -227,7 +234,7 @@ export default {
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type, dataSeries).d6.max,
+                  value: this.setMax(this.getData(type, dataSeries).d6.max),
                   strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type, dataSeries).d6.max)
                     ? this.maxColor
@@ -242,7 +249,7 @@ export default {
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type, dataSeries).d5.max,
+                  value: this.setMax(this.getData(type, dataSeries).d5.max),
                   strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type, dataSeries).d5.max)
                     ? this.maxColor
@@ -257,7 +264,7 @@ export default {
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type, dataSeries).d4.max,
+                  value: this.setMax(this.getData(type, dataSeries).d4.max),
                   strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type, dataSeries).d4.max)
                     ? this.maxColor
@@ -272,7 +279,7 @@ export default {
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type, dataSeries).d3.max,
+                  value: this.setMax(this.getData(type, dataSeries).d3.max),
                   strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type, dataSeries).d3.max)
                     ? this.maxColor
@@ -287,7 +294,7 @@ export default {
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type, dataSeries).d2.max,
+                  value: this.setMax(this.getData(type, dataSeries).d2.max),
                   strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type, dataSeries).d2.max)
                     ? this.maxColor
@@ -302,7 +309,7 @@ export default {
               goals: [
                 {
                   name: 'Max',
-                  value: this.getData(type, dataSeries).d1.max,
+                  value: this.setMax(this.getData(type, dataSeries).d1.max),
                   strokeHeight: 3,
                   strokeColor: _.isNumber(this.getData(type, dataSeries).d1.max)
                     ? this.maxColor
