@@ -6,7 +6,13 @@
           placeholder="Cluster name"
           size="is-small"
           v-model="clusterName"
-        ></b-input>
+          v-if="isEditing || clusterName === ''"
+        />
+
+        <p class="no-editing" v-if="!isEditing && clusterName !== ''">
+          {{ clusterName }}
+        </p>
+
         <p class="control">
           <b-button
             size="is-small"
@@ -15,6 +21,17 @@
             type="is-primary"
             @click="dispatchVmsClusterNameUpdate"
             :disabled="this.$v.$invalid"
+            v-if="isEditing || clusterName === ''"
+          />
+
+          <b-button
+            size="is-small"
+            icon-right="pen-to-square"
+            icon-pack="fa"
+            class="cluster-name-field control"
+            type="is-primary"
+            @click="isEditing = true"
+            v-if="!isEditing && clusterName !== ''"
           />
         </p>
       </b-field>
@@ -30,6 +47,7 @@ export default {
   data() {
     return {
       clusterName: this.cluster.clusterName,
+      isEditing: false,
     }
   },
 
@@ -58,6 +76,8 @@ export default {
           hostID,
           hostname,
           clusterName: this.clusterName,
+        }).then(() => {
+          this.isEditing = false
         })
         Notification.open({
           message: `Vms ${rackID} name updated correctly!`,
@@ -84,5 +104,12 @@ export default {
   flex-direction: row;
   padding: 0;
   width: 100%;
+}
+
+.no-editing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 30px 0 60px;
 }
 </style>
