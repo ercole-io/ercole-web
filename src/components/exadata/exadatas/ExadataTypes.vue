@@ -17,23 +17,6 @@
         :opened-detailed="openRowAfterSearch"
         scrollable
       >
-        <template v-if="typeName === 'STORAGE'">
-          <b-table-column
-            centered
-            field="clusterName"
-            label="Cluster Name"
-            v-slot="props"
-          >
-            <ExadataClusterName
-              :cluster="{
-                rackID: props.row.rackID,
-                hostID: props.row.hostID,
-                clusterNames: props.row.clusterNames,
-              }"
-            />
-          </b-table-column>
-        </template>
-
         <b-table-column
           field="hostname"
           :label="typeName === 'IBSWITCH' ? 'Switch Name' : 'Hostname'"
@@ -48,7 +31,7 @@
           </template>
         </b-table-column>
 
-        <template v-if="typeName === 'STORAGE'">
+        <template v-if="typeName === 'STORAGE CELLS'">
           <b-table-column
             field="cpuEnabled"
             label="Enabled CPU"
@@ -255,6 +238,23 @@
             />
           </template>
         </b-table-column>
+
+        <template v-if="typeName === 'STORAGE CELLS'">
+          <b-table-column
+            centered
+            field="clusterName"
+            label="Cluster Name"
+            v-slot="props"
+          >
+            <ExadataClusterName
+              :cluster="{
+                rackID: props.row.rackID,
+                hostID: props.row.hostID,
+                clusterNames: props.row.clusterNames,
+              }"
+            />
+          </b-table-column>
+        </template>
 
         <template #detail="props">
           <ExadataTypesVms

@@ -1,17 +1,5 @@
 <template>
   <b-table :data="data" class="custom-collapse-table">
-    <b-table-column centered label="Cluster Name">
-      <template v-slot="props">
-        <ExadataVmsUpdate
-          :cluster="{
-            rackID: rackID,
-            hostID: hostID,
-            hostname: props.row.name,
-            clusterName: props.row.clusterName,
-          }"
-        />
-      </template>
-    </b-table-column>
     <b-table-column field="hostname" label="Hostname" centered sortable>
       <template v-slot="props">
         <p
@@ -56,6 +44,19 @@
           <p
             v-tooltip.bottom="options(setPrettyBystes(props.row.ramCurrent))"
             v-html="highlight(setPrettyBystes(props.row.ramCurrent))"
+          />
+        </template>
+      </b-table-column>
+
+      <b-table-column centered label="Cluster Name">
+        <template v-slot="props">
+          <ExadataVmsUpdate
+            :cluster="{
+              rackID: rackID,
+              hostID: hostID,
+              hostname: props.row.name,
+              clusterName: props.row.clusterName,
+            }"
           />
         </template>
       </b-table-column>
