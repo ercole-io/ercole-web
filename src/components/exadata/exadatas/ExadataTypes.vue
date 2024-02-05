@@ -114,6 +114,38 @@
         <template v-if="typeName === 'KVM' || typeName === 'DOM0'">
           <b-table-column
             field="totalVCPU"
+            label="VCPU Total"
+            centered
+            sortable
+          >
+            <template v-slot="props">
+              <p
+                v-tooltip="options(props.row.totalCPU)"
+                v-html="highlight(props.row.totalCPU)"
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column field="usedVCPU" label="VCPU Used" centered sortable>
+            <template v-slot="props">
+              <p
+                v-tooltip="options(props.row.usedCPU)"
+                v-html="highlight(props.row.usedCPU)"
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column field="freeVCPU" label="VCPU Free" centered sortable>
+            <template v-slot="props">
+              <p
+                v-tooltip="options(props.row.freeCPU)"
+                v-html="highlight(props.row.freeCPU)"
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column
+            field="usageVCPU"
             label="VCPU Usage"
             centered
             sortable
@@ -134,7 +166,34 @@
             </template>
           </b-table-column>
 
-          <b-table-column field="totalRam" label="Ram Usage" centered sortable>
+          <b-table-column field="totalRam" label="Ram Total" centered sortable>
+            <template v-slot="props">
+              <p
+                v-tooltip="options(`${props.row.memory} GB`)"
+                v-html="highlight(`${props.row.memory} GB`)"
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column field="usedRam" label="Ram Used" centered sortable>
+            <template v-slot="props">
+              <p
+                v-tooltip="options(`${props.row.usedRAM} GB`)"
+                v-html="highlight(`${props.row.usedRAM} GB`)"
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column field="freeRam" label="Ram Free" centered sortable>
+            <template v-slot="props">
+              <p
+                v-tooltip="options(`${props.row.freeRAM} GB`)"
+                v-html="highlight(`${props.row.freeRAM} GB`)"
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column field="usageRam" label="Ram Usage" centered sortable>
             <template v-slot="props">
               <ProgressBar
                 :progressMaxValue="props.row.memory"
