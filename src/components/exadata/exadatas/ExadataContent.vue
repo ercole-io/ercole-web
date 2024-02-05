@@ -35,7 +35,7 @@
     />
 
     <ExadataTypes
-      typeName="STORAGE"
+      typeName="STORAGE CELLS"
       :typeData="data['storagecell']"
       :openRowAfterSearch="data['stoOpenRows']"
       v-if="data['storagecell'] && data['storagecell'].length > 0"
