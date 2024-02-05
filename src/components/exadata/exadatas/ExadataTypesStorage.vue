@@ -113,6 +113,14 @@
         />
       </template>
     </b-table-column>
+
+    <b-modal :active.sync="modalGridActive" :width="1500" scroll="keep">
+      <StorageGridDisksModal :data="modalGridData" />
+    </b-modal>
+
+    <b-modal :active.sync="modalDatabaseActive" :width="1500" scroll="keep">
+      <StorageDatabaseModal :data="modalDatabaseData" />
+    </b-modal>
   </b-table>
 </template>
 
@@ -132,6 +140,18 @@ export default {
       default: () => [],
     },
   },
+  components: {
+    StorageGridDisksModal,
+    StorageDatabaseModal,
+  },
+  data() {
+    return {
+      modalGridActive: false,
+      modalGridData: [],
+      modalDatabaseActive: false,
+      modalDatabaseData: [],
+    }
+  },
   methods: {
     openModalGridDisks(data) {
       let newData = _.map(data, (d) => {
@@ -142,24 +162,12 @@ export default {
         }
       })
 
-      this.$buefy.modal.open({
-        component: StorageGridDisksModal,
-        hasModalCard: true,
-        props: {
-          data: newData,
-        },
-        fullScreen: true,
-      })
+      this.modalGridData = newData
+      this.modalGridActive = true
     },
     openModalDatabase(data) {
-      this.$buefy.modal.open({
-        component: StorageDatabaseModal,
-        hasModalCard: true,
-        props: {
-          data: data,
-        },
-        fullScreen: true,
-      })
+      this.modalDatabaseData = data
+      this.modalDatabaseActive = true
     },
     formatValue(val) {
       const ext = val.substr(val.length - 1)
