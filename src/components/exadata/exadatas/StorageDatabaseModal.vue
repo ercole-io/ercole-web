@@ -9,7 +9,6 @@
       <SimpleTable
         :theadData="[
           'Database Name',
-          'Type',
           'Cell',
           'Flash Cache Limit',
           'Iorm Share',
@@ -20,7 +19,6 @@
         <template slot="tbodyContent" v-if="data.length > 0">
           <tr v-for="(d, index) in data" :key="index">
             <TdContent :value="d.dbName" />
-            <TdContent :value="d.type" />
             <TdContent :value="d.cell" />
             <TdContent :value="d.flashCacheLimit" />
             <TdContent :value="d.iormShare" />
