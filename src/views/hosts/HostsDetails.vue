@@ -24,6 +24,7 @@
         class="p-5 pb-0"
         :capacityDataOS="hostDetailsCapacityByOs"
         :capacityDailyDataOS="hostDetailsCapacityDailyByOs"
+        :hasMax="false"
       />
     </CollapseSimple>
 

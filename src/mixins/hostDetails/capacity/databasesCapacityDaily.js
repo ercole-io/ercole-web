@@ -9,7 +9,7 @@ export default {
     },
   },
   methods: {
-    chartDailySeries(type, data = []) {
+    chartDailySeries(type, data = [], hasMax) {
       const dataSeries = data && data.length > 0 ? data : this.capacityDaily
 
       const transformType = _.split(type, '-daily')
@@ -26,18 +26,27 @@ export default {
         }
       })
 
-      return [
-        {
-          name: 'Max',
-          data: maxData,
-        },
-        {
-          name: 'Daily Avg',
-          data: avgData,
-        },
-      ]
+      if (hasMax) {
+        return [
+          {
+            name: 'Max',
+            data: maxData,
+          },
+          {
+            name: 'Daily Avg',
+            data: avgData,
+          },
+        ]
+      } else {
+        return [
+          {
+            name: 'Daily Avg',
+            data: avgData,
+          },
+        ]
+      }
     },
-    chartDailyOptions(type, data = []) {
+    chartDailyOptions(type, data = [], hasMax) {
       const dataSeries = data && data.length > 0 ? data : this.capacityDaily
 
       const categories = []
@@ -72,7 +81,7 @@ export default {
             },
           },
         },
-        colors: [this.maxColor, this.dayColor],
+        colors: hasMax ? [this.maxColor, this.dayColor] : [this.dayColor],
         dataLabels: {
           enabled: false,
         },

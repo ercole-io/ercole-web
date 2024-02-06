@@ -16,16 +16,16 @@
           <ChartBuilder
             chartType="line"
             :chartID="`${cap.id}-${cap.label}CapacityDailyChart`"
-            :chartOptions="chartDailyOptions(cap.id, db.dbCapacityDaily)"
-            :chartSeries="chartDailySeries(cap.id, db.dbCapacityDaily)"
+            :chartOptions="chartDailyOptions(cap.id, db.dbCapacityDaily, true)"
+            :chartSeries="chartDailySeries(cap.id, db.dbCapacityDaily, true)"
             v-if="checkID(cap.id)"
           />
 
           <ChartBuilder
             chartType="bar"
             :chartID="`${cap.id}-${cap.label}CapacityChart`"
-            :chartOptions="chartOptions(cap.label)"
-            :chartSeries="getSeries(cap.id, db.dbCapacity)"
+            :chartOptions="chartOptions(cap.label, true)"
+            :chartSeries="getSeries(cap.id, db.dbCapacity, true)"
             v-if="!checkID(cap.id)"
           />
         </b-tab-item>

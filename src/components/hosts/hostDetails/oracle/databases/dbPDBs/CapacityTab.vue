@@ -10,15 +10,15 @@
         <ChartBuilder
           chartType="line"
           :chartID="`${cap.id}CapacityDailyPdbChart`"
-          :chartOptions="chartDailyOptions(cap.id)"
-          :chartSeries="chartDailySeries(cap.id)"
+          :chartOptions="chartDailyOptions(cap.id, [], true)"
+          :chartSeries="chartDailySeries(cap.id, [], true)"
           v-if="checkID(cap.id)"
         />
         <ChartBuilder
           chartType="bar"
           :chartID="`${cap.id}CapacityPdbChart`"
-          :chartOptions="chartOptions(cap.label)"
-          :chartSeries="getSeries(cap.id)"
+          :chartOptions="chartOptions(cap.label, true)"
+          :chartSeries="getSeries(cap.id, [], true)"
           v-if="!checkID(cap.id)"
         />
       </b-tab-item>

@@ -42,6 +42,7 @@
             <CapacityByOs
               :capacityDataOS="oracleCapacityByOs"
               :capacityDailyDataOS="oracleCapacityDailyByOs"
+              :hasMax="false"
               v-if="!loadingTableStatus"
             />
           </template>

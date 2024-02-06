@@ -21,15 +21,19 @@
           <ChartBuilder
             chartType="line"
             :chartID="`${capPdb.id}-${capPdb.label}CapacityDailyPdbChart`"
-            :chartOptions="chartDailyOptions(capPdb.id, pdb.pdbCapacityDaily)"
-            :chartSeries="chartDailySeries(capPdb.id, pdb.pdbCapacityDaily)"
+            :chartOptions="
+              chartDailyOptions(capPdb.id, pdb.pdbCapacityDaily, true)
+            "
+            :chartSeries="
+              chartDailySeries(capPdb.id, pdb.pdbCapacityDaily, true)
+            "
             v-if="checkID(capPdb.id)"
           />
           <ChartBuilder
             chartType="bar"
             :chartID="`${capPdb.id}-${capPdb.label}CapacityPdbChart`"
-            :chartOptions="chartOptions(capPdb.label)"
-            :chartSeries="getSeries(capPdb.id, pdb.pdbCapacity)"
+            :chartOptions="chartOptions(capPdb.label, true)"
+            :chartSeries="getSeries(capPdb.id, pdb.pdbCapacity, true)"
             v-if="!checkID(capPdb.id)"
           />
         </b-tab-item>

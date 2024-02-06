@@ -13,16 +13,16 @@
         <ChartBuilder
           chartType="line"
           :chartID="`${cap.id}-${cap.label}CapacityDailyChart`"
-          :chartOptions="chartDailyOptions(cap.id, capacityDailyDataOS)"
-          :chartSeries="chartDailySeries(cap.id, capacityDailyDataOS)"
+          :chartOptions="chartDailyOptions(cap.id, capacityDailyDataOS, hasMax)"
+          :chartSeries="chartDailySeries(cap.id, capacityDailyDataOS, hasMax)"
           v-if="checkID(cap.id)"
         />
 
         <ChartBuilder
           chartType="bar"
           :chartID="`${cap.id}-${cap.label}CapacityChart`"
-          :chartOptions="chartOptions(cap.label)"
-          :chartSeries="getSeries(cap.id, capacityDataOS)"
+          :chartOptions="chartOptions(cap.label, hasMax)"
+          :chartSeries="getSeries(cap.id, capacityDataOS, hasMax)"
           v-if="!checkID(cap.id)"
         />
       </BoxContent>
@@ -52,6 +52,10 @@ export default {
     capacityDailyDataOS: {
       type: Array,
       required: true,
+    },
+    hasMax: {
+      type: Boolean,
+      default: true,
     },
   },
   components: {
