@@ -4,6 +4,7 @@
       <p class="modal-card-title is-size-4 has-text-weight-semibold">
         Databases Info
       </p>
+      <button type="button" class="delete" @click="$parent.close()" />
     </header>
     <section class="modal-card-body">
       <SimpleTable

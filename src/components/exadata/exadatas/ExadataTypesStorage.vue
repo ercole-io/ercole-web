@@ -114,11 +114,21 @@
       </template>
     </b-table-column>
 
-    <b-modal :active.sync="modalGridActive" :width="1500" scroll="keep">
+    <b-modal
+      :active.sync="modalGridActive"
+      :width="1500"
+      scroll="keep"
+      :can-cancel="false"
+    >
       <StorageGridDisksModal :data="modalGridData" />
     </b-modal>
 
-    <b-modal :active.sync="modalDatabaseActive" :width="1500" scroll="keep">
+    <b-modal
+      :active.sync="modalDatabaseActive"
+      :width="1500"
+      scroll="keep"
+      :can-cancel="false"
+    >
       <StorageDatabaseModal :data="modalDatabaseData" />
     </b-modal>
   </b-table>
