@@ -26,6 +26,7 @@
 
     <ExadataList
       :exadataSearchTherm="exadataSearchTherm"
+      :exadataSelected="exadataSelected"
       v-if="!layoutSwitch"
     />
     <ExadataTables
@@ -36,7 +37,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import ExadataTables from '@/components/exadata/exadatas/ExadataTables.vue'
 import ExadataList from '@/components/exadata/exadatas/ExadataList.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
@@ -52,13 +53,19 @@ export default {
     return {
       layoutSwitch: false,
       exadataSearchTherm: '',
+      exadataSelected: '',
     }
   },
   async beforeMount() {
-    await this.getExadataData()
+    await this.getExadataList().then((res) => {
+      this.SET_EXADATA_LIST(res.data)
+      this.getSelectedExadata(res.data[0].rackID)
+      this.exadataSelected = res.data[0].rackID
+    })
   },
   methods: {
-    ...mapActions(['getExadataData']),
+    ...mapActions(['getExadataList', 'getSelectedExadata']),
+    ...mapMutations(['SET_EXADATA_LIST']),
     isLayoutSwitching() {
       this.layoutSwitch = !this.layoutSwitch
     },

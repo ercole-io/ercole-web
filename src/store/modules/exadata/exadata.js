@@ -1,15 +1,19 @@
 import _ from 'lodash'
-import axios from 'axios'
 import { axiosRequest } from '@/services/services.js'
+
 const url = 'exadata'
 
 export const state = () => ({
-  exadata: {},
+  exadataList: {},
+  currentExadata: {},
 })
 
 export const getters = {
-  getExadata: (state) => (searchTherm) => {
-    const exadata = getMachineTypes(state.exadata)
+  showExadataList: (state) => {
+    return state.exadataList
+  },
+  showSelectedExadata: (state) => (searchTherm) => {
+    const exadata = getMachineTypes(state.currentExadata)
     if (searchTherm === '') {
       return exadata
     }
@@ -46,68 +50,66 @@ export const getters = {
 }
 
 export const mutations = {
-  SET_EXADATA: (state, payload) => {
-    state.exadata = payload.exadata
+  SET_EXADATA_LIST: (state, payload) => {
+    state.exadataList = payload
+  },
+  SET_CURRENT_EXADATA: (state, payload) => {
+    state.currentExadata = payload
   },
   SET_EXADATA_STORAGE_CLUSTERNAMES: (state, payload) => {
-    let exadataScoped = [...state.exadata]
+    let exadataScoped = [...state.currentExadata]
     exadataScoped
       .find((el) => el.rackID === payload.rackID)
       .components.find((el) => el.hostID === payload.hostID).clusterNames =
       payload.clusterNames
 
-    state.exadata = [...exadataScoped]
+    state.currentExadata = [...exadataScoped]
   },
   SET_EXADATA_KVM_CLUSTERNAME: (
     state,
     { rackID, hostID, hostname, clusterName }
   ) => {
-    let exadataScoped = [...state.exadata]
+    let exadataScoped = [...state.currentExadata]
     exadataScoped
       .find((el) => el.rackID === rackID)
       .components.find((el) => el.hostID === hostID)
       .vms.find((el) => el.name === hostname).clusterName = clusterName
 
-    state.exadata = [...exadataScoped]
+    state.currentExadata = [...exadataScoped]
   },
   SET_EXADATA_RDMA: (state, { rackID, swVersion, switchName, model }) => {
-    let exadataScoped = [...state.exadata]
+    let exadataScoped = [...state.currentExadata]
     exadataScoped.find((el) => el.rackID === rackID).rdma = {
       swVersion,
       switchName,
       model,
     }
-    state.exadata = [...exadataScoped]
+    state.currentExadata = [...exadataScoped]
   },
 }
 
 export const actions = {
-  async getExadataData({ commit, getters, dispatch }, olderThan = null) {
+  // eslint-disable-next-line no-empty-pattern
+  async getExadataList({}) {
+    const config = {
+      method: 'get',
+      url: url,
+    }
+
+    return axiosRequest('baseApi', config)
+  },
+  async getSelectedExadata({ commit, dispatch }, id) {
     dispatch('onLoadingTable')
 
-    const endPoints = [url]
+    const config = {
+      method: 'get',
+      url: `${url}/${id}`,
+    }
 
-    await Promise.all(
-      endPoints.map((endpoint) =>
-        axiosRequest('baseApi', {
-          method: 'get',
-          url: endpoint,
-          params: {
-            'older-than': getters.getActiveFilters.date || olderThan,
-            environment: getters.getActiveFilters.environment,
-            location: getters.getActiveFilters.location,
-          },
-        })
-      )
-    ).then(
-      axios.spread((...allData) => {
-        const data = allData[0].data
-        commit('SET_EXADATA', {
-          exadata: data,
-        })
-        dispatch('offLoadingTable')
-      })
-    )
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_CURRENT_EXADATA', res.data)
+      dispatch('offLoadingTable')
+    })
   },
   async updateClusterName({ commit }, cluster) {
     const { rackID, hostID, clusterNames } = cluster
@@ -164,56 +166,57 @@ export const actions = {
 }
 
 const organizeExadata = (data) => {
-  const result = _.map(data, (val) => {
-    return {
-      _id: val.rackID,
-      exadata: val.hostname,
-      update: val.updateAt,
-      kvmhost: getHostype(val, 'KVM_HOST'),
-      kvmOpenRows: [],
-      ibswitch: getHostype(val, 'IB_SWITCH'),
-      storagecell: getHostype(val, 'STORAGE_CELL'),
-      stoOpenRows: [],
-      dom0: getHostype(val, 'DOM0'),
-      domOpenRows: [],
-      baremetal: getHostype(val, 'BARE_METAL'),
-      progress: {
-        totalCPU: val.totalCPU,
-        usedCPU: val.usedCPU,
-        freeCPU: val.freeCPU,
-        totalMemory: val.totalMemory,
-        usedMemory: val.usedMemory,
-        freeMemory: val.freeMemory,
-        totalSize: val.totalSize,
-        usedSize: val.usedSize,
-        freeSpace: val.freeSpace,
-      },
-      rdma: val.rdma,
-    }
-  })
+  const result = {
+    _id: data.rackID,
+    exadata: data.hostname,
+    update: data.updateAt,
+    kvmhost: getHostype(data, 'KVM_HOST'),
+    kvmOpenRows: [],
+    ibswitch: getHostype(data, 'IB_SWITCH'),
+    storagecell: getHostype(data, 'STORAGE_CELL'),
+    stoOpenRows: [],
+    dom0: getHostype(data, 'DOM0'),
+    domOpenRows: [],
+    baremetal: getHostype(data, 'BARE_METAL'),
+    progress: {
+      totalCPU: data.totalCPU,
+      usedCPU: data.usedCPU,
+      freeCPU: data.freeCPU,
+      totalMemory: data.totalMemory,
+      usedMemory: data.usedMemory,
+      freeMemory: data.freeMemory,
+      totalSize: data.totalSize,
+      usedSize: data.usedSize,
+      freeSpace: data.freeSpace,
+    },
+    rdma: data.rdma ? data.rdma : {},
+  }
 
   return result
 }
 
 const getMachineTypes = (data) => {
-  return _.map(organizeExadata(data), (val) => {
-    if (val.dom0.length > 0) {
-      return {
-        ...val,
-        machineType: 'OVM',
-      }
-    } else if (val.kvmhost.length > 0) {
-      return {
-        ...val,
-        machineType: 'KVM',
-      }
-    } else {
-      return {
-        ...val,
-        machineType: 'BARE METAL',
-      }
+  const newData = organizeExadata(data)
+  let result = {}
+
+  if (newData.dom0.length > 0) {
+    result = {
+      ...newData,
+      machineType: 'OVM',
     }
-  })
+  } else if (newData.kvmhost.length > 0) {
+    result = {
+      ...newData,
+      machineType: 'KVM',
+    }
+  } else {
+    result = {
+      ...newData,
+      machineType: 'BARE METAL',
+    }
+  }
+
+  return result
 }
 
 const getHostype = (val, type) => {

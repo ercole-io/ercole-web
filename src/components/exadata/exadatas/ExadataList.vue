@@ -23,33 +23,45 @@
         expanded
         class="column is-12 vertical-tabs-scroll"
         v-if="!loadingTableStatus"
+        v-model="selectedExadata"
+        @input="getSelectedExadata(selectedExadata)"
       >
         <b-tab-item
-          v-for="data in getExadata(exadataSearchTherm)"
-          :value="data['exadata']"
-          :label="data['exadata']"
-          :key="data['exadata']"
+          v-for="data in showExadataList"
+          :value="data['rackID']"
+          :label="data['hostname']"
+          :key="data['rackID']"
           style="margin-top: -20px"
         >
           <BoxContent
-            :title="`${data['exadata']} - ${data['_id']}`"
+            :title="`${data['hostname']} - ${data['rackID']}`"
             border
-            :key="`${data['_id']}`"
+            :key="`${data['rackID']}`"
             customStyle="padding: 5px 0.5rem"
             customStyleTitle="margin-bottom: 0"
             hasHighlight
             hasShadow
             :mbottom="false"
           >
-            <span slot="customTitle" v-html="highlight(data['machineType'])" />
+            <span
+              slot="customTitle"
+              v-html="
+                highlight(
+                  showSelectedExadata(exadataSearchTherm)['machineType']
+                )
+              "
+            />
             <span
               slot="customSubTitle"
               class="is-flex is-justify-content-flex-end is-size-6 py-2 pr-1"
             >
-              last update: <b class="pl-2">{{ setDateTime(data['update']) }}</b>
+              last update:
+              <b class="pl-2">{{
+                setDateTime(showSelectedExadata(exadataSearchTherm)['update'])
+              }}</b>
             </span>
 
-            <ExadataContent :data="data" />
+            <ExadataContent :data="showSelectedExadata(exadataSearchTherm)" />
           </BoxContent>
         </b-tab-item>
       </b-tabs>
@@ -58,13 +70,13 @@
     <NoContent
       class="column is-12"
       style="height: 370px; background-color: #eeeeee"
-      v-if="getExadata(exadataSearchTherm).length === 0 && !loadingTableStatus"
+      v-if="showExadataList.length === 0 && !loadingTableStatus"
     />
   </article>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import formatDateTime from '@/filters/formatDateTime.js'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
@@ -82,6 +94,10 @@ export default {
       type: String,
       default: '',
     },
+    exadataSelected: {
+      type: String,
+      default: '',
+    },
   },
   components: {
     BoxContent,
@@ -90,13 +106,26 @@ export default {
     // ExportButton
     ExadataContent,
   },
+  data() {
+    return {
+      selectedExadata: '',
+    }
+  },
+  async mounted() {
+    this.selectedExadata = this.exadataSelected
+  },
   methods: {
+    ...mapActions(['getSelectedExadata']),
     setDateTime(val) {
       return formatDateTime(val)
     },
   },
   computed: {
-    ...mapGetters(['getExadata', 'loadingTableStatus']),
+    ...mapGetters([
+      'showExadataList',
+      'showSelectedExadata',
+      'loadingTableStatus',
+    ]),
   },
 }
 </script>
