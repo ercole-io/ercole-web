@@ -347,8 +347,6 @@ export const actions = {
   async hostDatabaseSemaphoreData({ commit, getters }, data) {
     const host = data.hostname ? data.hostname : getters.currentHost
 
-    console.log(host)
-
     const config = {
       method: 'get',
       url: `/hosts/${host}/technologies/oracle/databases/${data.dbname}/psql-migrabilities`,
