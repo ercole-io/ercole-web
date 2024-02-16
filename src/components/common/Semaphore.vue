@@ -7,7 +7,7 @@
     class="is-clickable"
     @click="openMograbilityModal"
     v-tooltip="options('Postgre Migrability')"
-    v-if="getColor !== 'is-danger'"
+    v-if="getColor !== ''"
   >
     Details
   </b-button>
@@ -69,12 +69,12 @@ export default {
       let color
       if (this.setColor === 'red') {
         color = 'is-danger'
-      }
-      if (this.setColor === 'yellow') {
+      } else if (this.setColor === 'yellow') {
         color = 'is-warning'
-      }
-      if (this.setColor === 'green') {
+      } else if (this.setColor === 'green') {
         color = 'is-primary'
+      } else {
+        color = ''
       }
       return color
     },
