@@ -1,5 +1,22 @@
 <template>
-  <div>
+  <BoxContent
+    :title="`${data['exadata']} - ${data['_id']}`"
+    border
+    :key="`${data['_id']}`"
+    customStyle="padding: 5px 0.5rem"
+    customStyleTitle="margin-bottom: 0"
+    hasHighlight
+    hasShadow
+    :mbottom="false"
+  >
+    <span slot="customTitle">{{ data['machineType'] }}</span>
+    <span
+      slot="customSubTitle"
+      class="is-flex is-justify-content-flex-end is-size-6 py-2 pr-1"
+    >
+      last update:
+      <b class="pl-2">{{ setDateTime(data['update']) }}</b>
+    </span>
     <ExadataProgress
       :exadataProgress="data['progress']"
       :exadataType="data['machineType']"
@@ -40,21 +57,24 @@
       :openRowAfterSearch="data['stoOpenRows']"
       v-if="data['storagecell'] && data['storagecell'].length > 0"
     />
-  </div>
+  </BoxContent>
 </template>
 
 <script>
+import tooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import ExadataProgress from '@/components/exadata/exadatas/ExadataProgress.vue'
 import ExadataTypes from '@/components/exadata/exadatas/ExadataTypes.vue'
 import ExadataRDMA from '@/components/exadata/exadatas/ExadataRDMA.vue'
+import BoxContent from '@/components/common/BoxContent.vue'
+import formatDateTime from '@/filters/formatDateTime.js'
 
 export default {
   name: 'exadata-content-component',
-  mixins: [HighlightSearchMixin],
+  mixins: [tooltipMixin, HighlightSearchMixin],
   props: {
     data: {
-      type: Object,
+      type: [Object, Array],
       required: true,
     },
   },
@@ -62,6 +82,12 @@ export default {
     ExadataProgress,
     ExadataTypes,
     ExadataRDMA,
+    BoxContent,
+  },
+  methods: {
+    setDateTime(val) {
+      return formatDateTime(val)
+    },
   },
 }
 </script>

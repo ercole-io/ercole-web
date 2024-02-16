@@ -89,14 +89,15 @@ export const mutations = {
 }
 
 export const actions = {
-  // eslint-disable-next-line no-empty-pattern
-  async getExadataList({}) {
+  async getExadataList({ commit }) {
     const config = {
       method: 'get',
       url: url,
     }
 
-    return axiosRequest('baseApi', config)
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_EXADATA_LIST', res.data)
+    })
   },
   async getSelectedExadata({ commit, dispatch }, id) {
     dispatch('onLoadingTable')

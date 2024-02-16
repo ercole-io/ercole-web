@@ -1,6 +1,6 @@
 <template>
   <section class="is-flex is-flex-direction-column">
-    <div class="is-align-self-center">
+    <!-- <div class="is-align-self-center">
       <b-button
         :type="!layoutSwitch ? 'is-primary' : 'is-white'"
         icon-pack="fas"
@@ -17,7 +17,7 @@
         class="ml-1"
         @click="isLayoutSwitching"
       />
-    </div>
+    </div> -->
 
     <div class="is-flex is-justify-content-flex-end">
       <SearchInput v-model="exadataSearchTherm" class="mr-2" isLazy />
@@ -26,26 +26,26 @@
 
     <ExadataList
       :exadataSearchTherm="exadataSearchTherm"
-      :exadataSelected="exadataSelected"
+      :exadataSelected="showExadataList[0].rackID"
       v-if="!layoutSwitch"
     />
-    <ExadataTables
+    <!-- <ExadataTables
       :exadataSearchTherm="exadataSearchTherm"
       v-if="layoutSwitch"
-    />
+    /> -->
   </section>
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
-import ExadataTables from '@/components/exadata/exadatas/ExadataTables.vue'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
+// import ExadataTables from '@/components/exadata/exadatas/ExadataTables.vue'
 import ExadataList from '@/components/exadata/exadatas/ExadataList.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 
 export default {
   name: 'engineered-page',
   components: {
-    ExadataTables,
+    // ExadataTables,
     ExadataList,
     SearchInput,
   },
@@ -53,22 +53,26 @@ export default {
     return {
       layoutSwitch: false,
       exadataSearchTherm: '',
-      exadataSelected: '',
     }
   },
   async beforeMount() {
-    await this.getExadataList().then((res) => {
-      this.SET_EXADATA_LIST(res.data)
-      this.getSelectedExadata(res.data[0].rackID)
-      this.exadataSelected = res.data[0].rackID
-    })
+    await this.getExadataList()
+      .then(async () => {
+        await this.showExadataList
+      })
+      .then(() => {
+        this.getSelectedExadata(this.showExadataList[0].rackID)
+      })
   },
   methods: {
     ...mapActions(['getExadataList', 'getSelectedExadata']),
     ...mapMutations(['SET_EXADATA_LIST']),
-    isLayoutSwitching() {
-      this.layoutSwitch = !this.layoutSwitch
-    },
+    // isLayoutSwitching() {
+    //   this.layoutSwitch = !this.layoutSwitch
+    // },
+  },
+  computed: {
+    ...mapGetters(['showExadataList']),
   },
 }
 </script>
