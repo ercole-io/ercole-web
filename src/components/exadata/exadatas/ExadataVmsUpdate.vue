@@ -2,28 +2,19 @@
   <div class="cluster-name-container">
     <form>
       <b-field grouped custom-class="is-small">
-        <b-input
-          placeholder="Cluster name"
-          size="is-small"
-          v-model="clusterName"
-          v-if="isEditing || clusterName === ''"
-        />
-
         <p class="no-editing" v-if="!isEditing && clusterName !== ''">
           {{ clusterName }}
         </p>
 
-        <p class="control">
-          <b-button
-            size="is-small"
-            icon-right="check"
-            class="cluster-name-field control"
-            type="is-primary"
-            @click="dispatchVmsClusterNameUpdate"
-            :disabled="this.$v.$invalid"
-            v-if="isEditing || clusterName === ''"
-          />
+        <b-input
+          placeholder="Cluster name"
+          size="is-small"
+          v-model="clusterName"
+          @focus="() => (isEditing = true)"
+          v-else
+        />
 
+        <p class="control">
           <b-button
             size="is-small"
             icon-right="pen-to-square"
@@ -32,6 +23,16 @@
             type="is-primary"
             @click="isEditing = true"
             v-if="!isEditing && clusterName !== ''"
+          />
+
+          <b-button
+            size="is-small"
+            icon-right="check"
+            class="cluster-name-field control"
+            type="is-primary"
+            @click="dispatchVmsClusterNameUpdate"
+            :disabled="$v.$invalid"
+            v-else
           />
         </p>
       </b-field>
@@ -43,6 +44,7 @@
 import { required, minLength } from 'vuelidate/lib/validators'
 import { NotificationProgrammatic as Notification } from 'buefy'
 import { mapActions } from 'vuex'
+
 export default {
   data() {
     return {
@@ -50,22 +52,18 @@ export default {
       isEditing: false,
     }
   },
-
   props: {
     cluster: {
       type: Object,
       required: true,
     },
   },
-  components: {},
-
   validations: {
     clusterName: {
       required,
       minLength: minLength(4),
     },
   },
-
   methods: {
     ...mapActions(['updateVmsClusterName', 'getExadataData']),
     async dispatchVmsClusterNameUpdate() {
@@ -84,7 +82,6 @@ export default {
           type: 'is-success',
           position: 'is-top',
         })
-        //this.getExadataData()
       } catch (error) {
         Notification.open({
           message: 'Something was wrong!',
