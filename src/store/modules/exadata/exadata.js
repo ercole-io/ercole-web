@@ -14,38 +14,39 @@ export const getters = {
   },
   showSelectedExadata: (state) => (searchTherm) => {
     const exadata = getMachineTypes(state.currentExadata)
-    if (searchTherm === '') {
-      return exadata
+
+    if (searchTherm) {
+      const search = _.filter(exadata, (data) => {
+        const {
+          exadata,
+          machineType,
+          _id,
+          kvmhost,
+          kvmOpenRows,
+          ibswitch,
+          dom0,
+          domOpenRows,
+          baremetal,
+          storagecell,
+          stoOpenRows,
+        } = data
+
+        return (
+          _.includes(_.lowerCase(exadata), _.lowerCase(searchTherm)) ||
+          _.includes(_.lowerCase(machineType), _.lowerCase(searchTherm)) ||
+          _.includes(_.lowerCase(_id), _.lowerCase(searchTherm)) ||
+          filterGeneric(kvmhost, kvmOpenRows, searchTherm, 'kvm') ||
+          filterGeneric(dom0, domOpenRows, searchTherm, 'dom') ||
+          filterGeneric(baremetal, null, searchTherm, 'bare') ||
+          filterGeneric(storagecell, stoOpenRows, searchTherm, 'sto') ||
+          filterGeneric(ibswitch, null, searchTherm, 'ibs')
+        )
+      })
+
+      return search
     }
 
-    const search = _.filter(exadata, (data) => {
-      const {
-        exadata,
-        machineType,
-        _id,
-        kvmhost,
-        kvmOpenRows,
-        ibswitch,
-        dom0,
-        domOpenRows,
-        baremetal,
-        storagecell,
-        stoOpenRows,
-      } = data
-
-      return (
-        _.includes(_.lowerCase(exadata), _.lowerCase(searchTherm)) ||
-        _.includes(_.lowerCase(machineType), _.lowerCase(searchTherm)) ||
-        _.includes(_.lowerCase(_id), _.lowerCase(searchTherm)) ||
-        filterGeneric(kvmhost, kvmOpenRows, searchTherm, 'kvm') ||
-        filterGeneric(dom0, domOpenRows, searchTherm, 'dom') ||
-        filterGeneric(baremetal, null, searchTherm, 'bare') ||
-        filterGeneric(storagecell, stoOpenRows, searchTherm, 'sto') ||
-        filterGeneric(ibswitch, null, searchTherm, 'ibs')
-      )
-    })
-
-    return search
+    return exadata
   },
 }
 
@@ -57,47 +58,54 @@ export const mutations = {
     state.currentExadata = payload
   },
   SET_EXADATA_STORAGE_CLUSTERNAMES: (state, payload) => {
-    let exadataScoped = [...state.currentExadata]
-    exadataScoped
-      .find((el) => el.rackID === payload.rackID)
-      .components.find((el) => el.hostID === payload.hostID).clusterNames =
-      payload.clusterNames
+    let exadataScoped = { ...state.currentExadata }
 
-    state.currentExadata = [...exadataScoped]
+    if (exadataScoped.rackID === payload.rackID) {
+      exadataScoped.components.find(
+        (el) => el.hostID === payload.hostID
+      ).clusterNames = payload.clusterNames
+    }
+
+    state.currentExadata = { ...exadataScoped }
   },
   SET_EXADATA_KVM_CLUSTERNAME: (
     state,
     { rackID, hostID, hostname, clusterName }
   ) => {
-    let exadataScoped = [...state.currentExadata]
-    exadataScoped
-      .find((el) => el.rackID === rackID)
-      .components.find((el) => el.hostID === hostID)
-      .vms.find((el) => el.name === hostname).clusterName = clusterName
+    let exadataScoped = { ...state.currentExadata }
 
-    state.currentExadata = [...exadataScoped]
+    if (exadataScoped.rackID === rackID) {
+      exadataScoped.components
+        .find((el) => el.hostID === hostID)
+        .vms.find((el) => el.name === hostname).clusterName = clusterName
+    }
+
+    state.currentExadata = { ...exadataScoped }
   },
   SET_EXADATA_RDMA: (state, { rackID, swVersion, switchName, model }) => {
-    let exadataScoped = [...state.currentExadata]
-    exadataScoped.find((el) => el.rackID === rackID).rdma = {
-      swVersion,
-      switchName,
-      model,
+    let exadataScoped = { ...state.currentExadata }
+
+    if (exadataScoped.rackID === rackID) {
+      exadataScoped.rdma = {
+        swVersion,
+        switchName,
+        model,
+      }
     }
-    state.currentExadata = [...exadataScoped]
+
+    state.currentExadata = { ...exadataScoped }
   },
 }
 
 export const actions = {
-  async getExadataList({ commit }) {
+  // eslint-disable-next-line no-empty-pattern
+  async getExadataList({}) {
     const config = {
       method: 'get',
       url: url,
     }
 
-    await axiosRequest('baseApi', config).then((res) => {
-      commit('SET_EXADATA_LIST', res.data)
-    })
+    return await axiosRequest('baseApi', config)
   },
   async getSelectedExadata({ commit, dispatch }, id) {
     dispatch('onLoadingTable')
