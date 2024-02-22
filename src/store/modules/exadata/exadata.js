@@ -16,34 +16,45 @@ export const getters = {
     const exadata = getMachineTypes(state.currentExadata)
 
     if (searchTherm) {
-      const search = _.filter(exadata, (data) => {
-        const {
-          exadata,
-          machineType,
-          _id,
-          kvmhost,
-          kvmOpenRows,
-          ibswitch,
-          dom0,
-          domOpenRows,
-          baremetal,
-          storagecell,
-          stoOpenRows,
-        } = data
+      filterGeneric(exadata.kvmhost, exadata.kvmOpenRows, searchTherm, 'kvm')
+      filterGeneric(exadata.dom0, exadata.domOpenRows, searchTherm, 'dom')
+      filterGeneric(exadata.baremetal, null, searchTherm, 'bare')
+      filterGeneric(
+        exadata.storagecell,
+        exadata.stoOpenRows,
+        searchTherm,
+        'sto'
+      )
+      filterGeneric(exadata.ibswitch, null, searchTherm, 'ibs')
 
-        return (
-          _.includes(_.lowerCase(exadata), _.lowerCase(searchTherm)) ||
-          _.includes(_.lowerCase(machineType), _.lowerCase(searchTherm)) ||
-          _.includes(_.lowerCase(_id), _.lowerCase(searchTherm)) ||
-          filterGeneric(kvmhost, kvmOpenRows, searchTherm, 'kvm') ||
-          filterGeneric(dom0, domOpenRows, searchTherm, 'dom') ||
-          filterGeneric(baremetal, null, searchTherm, 'bare') ||
-          filterGeneric(storagecell, stoOpenRows, searchTherm, 'sto') ||
-          filterGeneric(ibswitch, null, searchTherm, 'ibs')
-        )
-      })
+      // const search = _.filter(exadata, (data) => {
+      //   const {
+      //     exadata,
+      //     machineType,
+      //     _id,
+      //     kvmhost,
+      //     kvmOpenRows,
+      //     ibswitch,
+      //     dom0,
+      //     domOpenRows,
+      //     baremetal,
+      //     storagecell,
+      //     stoOpenRows,
+      //   } = data
 
-      return search
+      //   return (
+      //     _.includes(_.lowerCase(exadata), _.lowerCase(searchTherm)) ||
+      //     _.includes(_.lowerCase(machineType), _.lowerCase(searchTherm)) ||
+      //     _.includes(_.lowerCase(_id), _.lowerCase(searchTherm)) ||
+      //     filterGeneric(kvmhost, kvmOpenRows, searchTherm, 'kvm') ||
+      //     filterGeneric(dom0, domOpenRows, searchTherm, 'dom') ||
+      //     filterGeneric(baremetal, null, searchTherm, 'bare') ||
+      //     filterGeneric(storagecell, stoOpenRows, searchTherm, 'sto') ||
+      //     filterGeneric(ibswitch, null, searchTherm, 'ibs')
+      //   )
+      // })
+
+      // return search
     }
 
     return exadata
