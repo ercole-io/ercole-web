@@ -1,6 +1,6 @@
 <template>
   <section class="is-flex is-flex-direction-column">
-    <div class="is-align-self-center">
+    <!-- <div class="is-align-self-center">
       <b-button
         :type="!layoutSwitch ? 'is-primary' : 'is-white'"
         icon-pack="fas"
@@ -17,7 +17,7 @@
         class="ml-1"
         @click="isLayoutSwitching"
       />
-    </div>
+    </div> -->
 
     <div class="is-flex is-justify-content-flex-end">
       <SearchInput v-model="exadataSearchTherm" class="mr-2" isLazy />
@@ -26,25 +26,26 @@
 
     <ExadataList
       :exadataSearchTherm="exadataSearchTherm"
-      v-if="!layoutSwitch"
+      :exadataSelected="exadataSelected"
+      v-if="!layoutSwitch && exadataSelected"
     />
-    <ExadataTables
+    <!-- <ExadataTables
       :exadataSearchTherm="exadataSearchTherm"
       v-if="layoutSwitch"
-    />
+    /> -->
   </section>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import ExadataTables from '@/components/exadata/exadatas/ExadataTables.vue'
+import { mapActions, mapMutations } from 'vuex'
+// import ExadataTables from '@/components/exadata/exadatas/ExadataTables.vue'
 import ExadataList from '@/components/exadata/exadatas/ExadataList.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 
 export default {
   name: 'engineered-page',
   components: {
-    ExadataTables,
+    // ExadataTables,
     ExadataList,
     SearchInput,
   },
@@ -52,16 +53,22 @@ export default {
     return {
       layoutSwitch: false,
       exadataSearchTherm: '',
+      exadataSelected: '',
     }
   },
   async beforeMount() {
-    await this.getExadataData()
+    await this.getExadataList().then((res) => {
+      this.exadataSelected = res.data[0].rackID
+      this.SET_EXADATA_LIST(res.data)
+      this.getSelectedExadata(res.data[0].rackID)
+    })
   },
   methods: {
-    ...mapActions(['getExadataData']),
-    isLayoutSwitching() {
-      this.layoutSwitch = !this.layoutSwitch
-    },
+    ...mapActions(['getExadataList', 'getSelectedExadata']),
+    ...mapMutations(['SET_EXADATA_LIST']),
+    // isLayoutSwitching() {
+    //   this.layoutSwitch = !this.layoutSwitch
+    // },
   },
 }
 </script>

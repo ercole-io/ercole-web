@@ -382,7 +382,8 @@ export default {
         this.$route.name !== 'roles' &&
         this.$route.name !== 'settings' &&
         this.$route.name !== 'capacity' &&
-        this.$route.name !== 'capacityos'
+        this.$route.name !== 'capacityos' &&
+        this.$route.name !== 'exadata'
       )
     },
   },
