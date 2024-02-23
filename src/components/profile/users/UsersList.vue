@@ -13,7 +13,6 @@
       <v-th sortKey="lastName">Last Name</v-th>
       <v-th sortKey="username">Username</v-th>
       <v-th sortKey="groups">Groups</v-th>
-      <v-th sortKey="provider">Provider</v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
@@ -56,7 +55,6 @@
       <TdContent :value="rowData.scope.lastName" />
       <TdContent :value="rowData.scope.username" />
       <TdArrayMore :value="rowData.scope.groups" />
-      <TdContent :value="rowData.scope.provider" />
     </template>
   </FullTable>
 </template>
@@ -80,21 +78,14 @@ export default {
   },
   data() {
     return {
-      keys: [
-        'firstName',
-        'lastName',
-        'username',
-        'lastLogin',
-        'groups',
-        'provider',
-      ],
+      keys: ['firstName', 'lastName', 'username', 'lastLogin', 'groups'],
       resetPassLoading: false,
     }
   },
   methods: {
     ...mapActions(['resetPassword', 'deleteUser']),
     upUser(data) {
-      bus.$emit('updateUser', { user: data, provider: data.provider })
+      bus.$emit('updateUser', { user: data })
     },
     newPass(username) {
       this.resetPassLoading = true
@@ -125,9 +116,7 @@ export default {
       })
     },
     verifyShowing(data) {
-      return (
-        data.username !== 'ercole' && this.isAdmin && data.provider === 'basic'
-      )
+      return data.username !== 'ercole' && this.isAdmin
     },
   },
   computed: {

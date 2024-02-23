@@ -15,7 +15,6 @@ export const getters = {
         lastName: user.lastName,
         username: user.username,
         groups: user.groups && user.groups.length > 0 ? user.groups : '-',
-        provider: user.provider,
       })
     })
     return users
@@ -50,9 +49,9 @@ export const actions = {
     dispatch('onLoadingTable')
 
     let url = 'admin/users'
-    if (payload.provider === 'ldap') {
-      url = `admin/${payload.provider}/users`
-    }
+    // if (payload.provider === 'ldap') {
+    //   url = `admin/${payload.provider}/users`
+    // }
 
     const config = {
       method: 'post',
@@ -69,7 +68,7 @@ export const actions = {
 
     const config = {
       method: 'put',
-      url: `admin/${payload.provider}/users/${payload.username}`,
+      url: `admin/users/${payload.username}`,
       data: payload.data,
     }
 
