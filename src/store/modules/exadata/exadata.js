@@ -10,7 +10,7 @@ export const state = () => ({
 
 export const getters = {
   showExadataList: (state) => {
-    return state.exadataList
+    return _.orderBy(state.exadataList, ['hostname'], ['asc'])
   },
   showSelectedExadata: (state) => (searchTherm) => {
     const exadata = getMachineTypes(state.currentExadata)
