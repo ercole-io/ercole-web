@@ -393,3 +393,11 @@ tr.detail {
     border-color: #dbdbdb;
   }
 }
+
+.col-separate-left {
+  border-left: 1px solid $ercole-blue !important;
+}
+
+.col-separate-right {
+  border-right: 1px solid $ercole-blue !important;
+}

@@ -115,6 +115,7 @@
           <b-table-column
             field="totalVCPU"
             label="VCPU Total"
+            cell-class="col-separate-left"
             centered
             sortable
           >
@@ -147,6 +148,7 @@
           <b-table-column
             field="usageVCPU"
             label="VCPU Usage"
+            cell-class="col-separate-right"
             centered
             sortable
           >
@@ -193,7 +195,13 @@
             </template>
           </b-table-column>
 
-          <b-table-column field="usageRam" label="Ram Usage" centered sortable>
+          <b-table-column
+            field="usageRam"
+            label="Ram Usage"
+            cell-class="col-separate-right"
+            centered
+            sortable
+          >
             <template v-slot="props">
               <ProgressBar
                 :progressMaxValue="props.row.memory"
