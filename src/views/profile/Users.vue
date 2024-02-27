@@ -310,7 +310,13 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['getUsers', 'createUser', 'updateUser', 'getGroups']),
+    ...mapActions([
+      'getUsers',
+      'createUser',
+      'updateUser',
+      'getGroups',
+      'offLoadingTable',
+    ]),
     createUpdateUserBasic() {
       delete this.userBasicForm.confirmPassword
       if (this.isUpdateBasic) {
@@ -323,9 +329,23 @@ export default {
       } else {
         this.createUser({
           data: this.userBasicForm,
-        }).then(() => {
-          this.resetForm()
         })
+          .then(() => {
+            this.resetForm()
+          })
+          .catch((err) => {
+            if (err.status === 422) {
+              this.offLoadingTable()
+              this.$buefy.dialog.alert({
+                title: 'Username aleardy exists!',
+                message: `
+                <p class="has-text-weight-bold">Please choose another username.</p>
+              `,
+                cancelButton: false,
+                type: 'is-warning',
+              })
+            }
+          })
       }
     },
 
