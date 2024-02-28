@@ -20,7 +20,17 @@
     </div> -->
 
     <div class="is-flex is-justify-content-flex-end">
-      <SearchInput v-model="exadataSearchTherm" class="mr-2" isLazy />
+      <ExportButton
+        url="exadata/export"
+        text="Export Exadatas"
+        expName="exadata-list"
+      />
+      <SearchInput
+        v-model="exadataSearchTherm"
+        class="mx-2"
+        style="margin-left: none"
+        isLazy
+      />
       <!-- <ExportButton url="exadata" expName="exadata" /> -->
     </div>
 
@@ -41,6 +51,7 @@ import { mapActions, mapMutations } from 'vuex'
 // import ExadataTables from '@/components/exadata/exadatas/ExadataTables.vue'
 import ExadataList from '@/components/exadata/exadatas/ExadataList.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
   name: 'engineered-page',
@@ -48,6 +59,7 @@ export default {
     // ExadataTables,
     ExadataList,
     SearchInput,
+    ExportButton,
   },
   data() {
     return {
