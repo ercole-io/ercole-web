@@ -86,7 +86,6 @@ import { mapActions } from 'vuex'
 import ErrorMsg from '@/components/login/ErrorMsg.vue'
 import CustomField from '@/components/common/Form/CustomField.vue'
 import CustomSelect from '@/components/common/Form/CustomSelect.vue'
-import ChangePassModal from '@/views/profile/ChangePassModal.vue'
 
 export default {
   name: 'login-form-component',
@@ -112,16 +111,9 @@ export default {
   },
   beforeMount() {
     bus.$on('isLimited', () => {
-      this.$buefy.modal.open({
-        parent: this,
-        component: ChangePassModal,
-        hasModalCard: true,
-        customClass: 'custom-class custom-class-2',
-        trapFocus: true,
-        props: {
-          limitedUsername: this.username,
-          oldPassword: this.password,
-        },
+      bus.$emit('isLimitedData', {
+        limitedUsername: this.username,
+        oldPassword: this.password,
       })
     })
   },

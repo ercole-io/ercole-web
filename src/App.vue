@@ -18,18 +18,46 @@
         />
       </Suspense>
     </component>
+
+    <b-modal
+      :active.sync="isChangePassModalActive"
+      custom-class="custom-class custom-class-2"
+      :has-modal-card="true"
+    >
+      <ChangePassModal
+        :limitedUsername="changePassUsername"
+        :oldPassword="changePassOldPassword"
+      />
+    </b-modal>
   </div>
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import Loading from '@/components/common/Loading.vue'
+import ChangePassModal from '@/views/profile/ChangePassModal.vue'
 const default_layout = 'default'
 
 export default {
   name: 'app-page',
   components: {
     Loading,
+    ChangePassModal,
+  },
+  data() {
+    return {
+      isChangePassModalActive: false,
+      changePassUsername: '',
+      changePassOldPassword: '',
+    }
+  },
+  beforeMount() {
+    bus.$on('isLimitedData', (data) => {
+      this.isChangePassModalActive = true
+      this.changePassUsername = data.limitedUsername
+      this.changePassOldPassword = data.oldPassword
+    })
   },
   created() {
     this.fetchConfig().then(this.offLoading)
