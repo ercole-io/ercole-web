@@ -157,8 +157,6 @@ export default {
       let newData = _.map(data, (d) => {
         return {
           ...d,
-          size: this.formatValue(d.size),
-          asmDiskSize: this.formatMBintoGB(d.asmDiskSize),
         }
       })
 
