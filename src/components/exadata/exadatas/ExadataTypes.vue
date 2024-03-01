@@ -63,14 +63,8 @@
           >
             <template v-slot="props">
               <p
-                v-tooltip="
-                  options(formatValue(props.row.totalSize.unparsedValue) || '-')
-                "
-                v-html="
-                  highlight(
-                    formatValue(props.row.totalSize.unparsedValue) || '-'
-                  )
-                "
+                v-tooltip="options(formatValue(props.row.totalSize) || '-')"
+                v-html="highlight(formatValue(props.row.totalSize) || '-')"
               />
             </template>
           </b-table-column>
@@ -84,15 +78,9 @@
             <template v-slot="props">
               <p
                 v-tooltip="
-                  options(
-                    formatValue(props.row.totalFreeSpace.unparsedValue) || '-'
-                  )
+                  options(formatValue(props.row.totalFreeSpace) || '-')
                 "
-                v-html="
-                  highlight(
-                    formatValue(props.row.totalFreeSpace.unparsedValue) || '-'
-                  )
-                "
+                v-html="highlight(formatValue(props.row.totalFreeSpace) || '-')"
               />
             </template>
           </b-table-column>
@@ -100,12 +88,8 @@
           <b-table-column field="freeSpace" label="Usage %" centered sortable>
             <template v-slot="props">
               <ProgressBar
-                :progressValue="
-                  calculatePercentageOfUsage(props.row.freeSizePercentage)
-                "
-                :progressTooltip="`${calculatePercentageOfUsage(
-                  props.row.freeSizePercentage
-                )}%`"
+                :progressValue="formatPercentage(props.row.usedSizePercentage)"
+                :progressTooltip="props.row.usedSizePercentage"
               />
             </template>
           </b-table-column>
@@ -154,8 +138,7 @@
           >
             <template v-slot="props">
               <ProgressBar
-                :progressMaxValue="props.row.totalCPU"
-                :progressValue="props.row.usedCPU"
+                :progressValue="formatPercentage(props.row.usedCPUPercentage)"
                 :progressTooltip="
                   setTooltip(
                     props.row.totalCPU,
@@ -171,8 +154,8 @@
           <b-table-column field="totalRam" label="Ram Total" centered sortable>
             <template v-slot="props">
               <p
-                v-tooltip="options(`${props.row.memory} GB`)"
-                v-html="highlight(`${props.row.memory} GB`)"
+                v-tooltip="options(`${props.row.memory}`)"
+                v-html="highlight(`${props.row.memory}`)"
               />
             </template>
           </b-table-column>
@@ -180,8 +163,8 @@
           <b-table-column field="usedRam" label="Ram Used" centered sortable>
             <template v-slot="props">
               <p
-                v-tooltip="options(`${props.row.usedRAM} GB`)"
-                v-html="highlight(`${props.row.usedRAM} GB`)"
+                v-tooltip="options(`${props.row.usedRAM}`)"
+                v-html="highlight(`${props.row.usedRAM}`)"
               />
             </template>
           </b-table-column>
@@ -189,8 +172,8 @@
           <b-table-column field="freeRam" label="Ram Free" centered sortable>
             <template v-slot="props">
               <p
-                v-tooltip="options(`${props.row.freeRAM} GB`)"
-                v-html="highlight(`${props.row.freeRAM} GB`)"
+                v-tooltip="options(`${props.row.freeRAM}`)"
+                v-html="highlight(`${props.row.freeRAM}`)"
               />
             </template>
           </b-table-column>
@@ -204,14 +187,13 @@
           >
             <template v-slot="props">
               <ProgressBar
-                :progressMaxValue="props.row.memory"
-                :progressValue="props.row.usedRAM"
+                :progressValue="formatPercentage(props.row.usedRAMPercentage)"
                 :progressTooltip="
                   setTooltip(
                     props.row.memory,
                     props.row.usedRAM,
                     props.row.freeRAM,
-                    ' GB'
+                    ''
                   )
                 "
               />
@@ -223,8 +205,8 @@
           <b-table-column field="memory" label="Ram Usage" centered sortable>
             <template v-slot="props">
               <p
-                v-tooltip="options(`${props.row.memory} GB`)"
-                v-html="highlight(`${props.row.memory} GB`)"
+                v-tooltip="options(`${props.row.memory}`)"
+                v-html="highlight(`${props.row.memory}`)"
               />
             </template>
           </b-table-column>
@@ -237,8 +219,7 @@
           >
             <template v-slot="props">
               <ProgressBar
-                :progressMaxValue="props.row.totalCPU"
-                :progressValue="props.row.cpuEnabled"
+                :progressValue="formatPercentage(props.row.usedCPUPercentage)"
                 :progressTooltip="
                   setTooltip(
                     props.row.totalCPU,
@@ -395,6 +376,9 @@ export default {
         values = val.slice(0, 1)
         return values == 0 ? values : `${values} ${ext}`
       }
+    },
+    formatPercentage(val) {
+      return _.toNumber(val.split('%')[0])
     },
   },
 }

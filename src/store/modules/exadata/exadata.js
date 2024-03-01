@@ -9,13 +9,16 @@ export const state = () => ({
 })
 
 export const getters = {
-  showExadataList: (state) => {
+  showExadataList: (state) =>
+  {
     return _.orderBy(state.exadataList, ['hostname'], ['asc'])
   },
-  showSelectedExadata: (state) => (searchTherm) => {
+  showSelectedExadata: (state) => (searchTherm) =>
+  {
     const exadata = getMachineTypes(state.currentExadata)
 
-    if (searchTherm) {
+    if (searchTherm)
+    {
       filterGeneric(exadata.kvmhost, exadata.kvmOpenRows, searchTherm, 'kvm')
       filterGeneric(exadata.dom0, exadata.domOpenRows, searchTherm, 'dom')
       filterGeneric(exadata.baremetal, null, searchTherm, 'bare')
@@ -62,16 +65,20 @@ export const getters = {
 }
 
 export const mutations = {
-  SET_EXADATA_LIST: (state, payload) => {
+  SET_EXADATA_LIST: (state, payload) =>
+  {
     state.exadataList = payload
   },
-  SET_CURRENT_EXADATA: (state, payload) => {
+  SET_CURRENT_EXADATA: (state, payload) =>
+  {
     state.currentExadata = payload
   },
-  SET_EXADATA_STORAGE_CLUSTERNAMES: (state, payload) => {
+  SET_EXADATA_STORAGE_CLUSTERNAMES: (state, payload) =>
+  {
     let exadataScoped = { ...state.currentExadata }
 
-    if (exadataScoped.rackID === payload.rackID) {
+    if (exadataScoped.rackID === payload.rackID)
+    {
       exadataScoped.components.find(
         (el) => el.hostID === payload.hostID
       ).clusterNames = payload.clusterNames
@@ -82,10 +89,12 @@ export const mutations = {
   SET_EXADATA_KVM_CLUSTERNAME: (
     state,
     { rackID, hostID, hostname, clusterName }
-  ) => {
+  ) =>
+  {
     let exadataScoped = { ...state.currentExadata }
 
-    if (exadataScoped.rackID === rackID) {
+    if (exadataScoped.rackID === rackID)
+    {
       exadataScoped.components
         .find((el) => el.hostID === hostID)
         .vms.find((el) => el.name === hostname).clusterName = clusterName
@@ -93,10 +102,12 @@ export const mutations = {
 
     state.currentExadata = { ...exadataScoped }
   },
-  SET_EXADATA_RDMA: (state, { rackID, swVersion, switchName, model }) => {
+  SET_EXADATA_RDMA: (state, { rackID, swVersion, switchName, model }) =>
+  {
     let exadataScoped = { ...state.currentExadata }
 
-    if (exadataScoped.rackID === rackID) {
+    if (exadataScoped.rackID === rackID)
+    {
       exadataScoped.rdma = {
         swVersion,
         switchName,
@@ -110,7 +121,8 @@ export const mutations = {
 
 export const actions = {
   // eslint-disable-next-line no-empty-pattern
-  async getExadataList({}) {
+  async getExadataList({ })
+  {
     const config = {
       method: 'get',
       url: url,
@@ -118,7 +130,8 @@ export const actions = {
 
     return await axiosRequest('baseApi', config)
   },
-  async getSelectedExadata({ commit, dispatch }, id) {
+  async getSelectedExadata({ commit, dispatch }, id)
+  {
     dispatch('onLoadingTable')
 
     const config = {
@@ -126,12 +139,14 @@ export const actions = {
       url: `${url}/${id}`,
     }
 
-    await axiosRequest('baseApi', config).then((res) => {
+    await axiosRequest('baseApi', config).then((res) =>
+    {
       commit('SET_CURRENT_EXADATA', res.data)
       dispatch('offLoadingTable')
     })
   },
-  async updateClusterName({ commit }, cluster) {
+  async updateClusterName({ commit }, cluster)
+  {
     const { rackID, hostID, clusterNames } = cluster
     axiosRequest('baseApi', {
       method: 'post',
@@ -139,7 +154,8 @@ export const actions = {
       data: {
         clusterNames,
       },
-    }).then(() => {
+    }).then(() =>
+    {
       commit('SET_EXADATA_STORAGE_CLUSTERNAMES', {
         hostID,
         rackID,
@@ -147,7 +163,8 @@ export const actions = {
       })
     })
   },
-  async updateVmsClusterName({ commit }, cluster) {
+  async updateVmsClusterName({ commit }, cluster)
+  {
     const { rackID, hostID, clusterName, hostname } = cluster
     axiosRequest('baseApi', {
       method: 'post',
@@ -155,7 +172,8 @@ export const actions = {
       data: {
         clusterName,
       },
-    }).then(() => {
+    }).then(() =>
+    {
       commit('SET_EXADATA_KVM_CLUSTERNAME', {
         hostID,
         rackID,
@@ -164,7 +182,8 @@ export const actions = {
       })
     })
   },
-  async createRDMA({ commit }, rdma) {
+  async createRDMA({ commit }, rdma)
+  {
     const { rackID, swVersion, switchName, model } = rdma
     axiosRequest('baseApi', {
       method: 'post',
@@ -174,7 +193,8 @@ export const actions = {
         switchName,
         model,
       },
-    }).then(() => {
+    }).then(() =>
+    {
       commit('SET_EXADATA_RDMA', {
         swVersion,
         rackID,
@@ -185,7 +205,8 @@ export const actions = {
   },
 }
 
-const organizeExadata = (data) => {
+const organizeExadata = (data) =>
+{
   const result = {
     _id: data.rackID,
     exadata: data.hostname,
@@ -201,12 +222,15 @@ const organizeExadata = (data) => {
     progress: {
       totalCPU: data.totalCPU,
       usedCPU: data.usedCPU,
+      usedCPUPercentage: data.usedCPUPercentage,
       freeCPU: data.freeCPU,
       totalMemory: data.totalMemory,
       usedMemory: data.usedMemory,
+      usedMemoryPercentage: data.usedMemoryPercentage,
       freeMemory: data.freeMemory,
       totalSize: data.totalSize,
       usedSize: data.usedSize,
+      usedSizePercentage: data.usedSizePercentage,
       freeSpace: data.freeSpace,
     },
     rdma: data.rdma ? data.rdma : {},
@@ -215,21 +239,25 @@ const organizeExadata = (data) => {
   return result
 }
 
-const getMachineTypes = (data) => {
+const getMachineTypes = (data) =>
+{
   const newData = organizeExadata(data)
   let result = {}
 
-  if (newData.dom0.length > 0) {
+  if (newData.dom0.length > 0)
+  {
     result = {
       ...newData,
       machineType: 'OVM',
     }
-  } else if (newData.kvmhost.length > 0) {
+  } else if (newData.kvmhost.length > 0)
+  {
     result = {
       ...newData,
       machineType: 'KVM',
     }
-  } else {
+  } else
+  {
     result = {
       ...newData,
       machineType: 'BARE METAL',
@@ -239,14 +267,18 @@ const getMachineTypes = (data) => {
   return result
 }
 
-const getHostype = (val, type) => {
-  return _.filter(val.components, (t) => {
+const getHostype = (val, type) =>
+{
+  return _.filter(val.components, (t) =>
+  {
     return t.hostType === type
   })
 }
 
-const filterGeneric = (techData, techOpenRows, searchTherm, type) => {
-  return _.filter(techData, (kvm) => {
+const filterGeneric = (techData, techOpenRows, searchTherm, type) =>
+{
+  return _.filter(techData, (kvm) =>
+  {
     const {
       hostname,
       model,
@@ -265,15 +297,18 @@ const filterGeneric = (techData, techOpenRows, searchTherm, type) => {
     } = kvm
 
     let searchVms
-    if (type === 'kvm') {
+    if (type === 'kvm')
+    {
       searchVms = filterKvmVms(vms, techOpenRows, hostname, searchTherm)
     }
 
-    if (type === 'dom') {
+    if (type === 'dom')
+    {
       searchVms = filterDomVms(vms, techOpenRows, hostname, searchTherm)
     }
 
-    if (type === 'sto') {
+    if (type === 'sto')
+    {
       searchVms = filterStoVms(
         storageCells,
         techOpenRows,
@@ -282,7 +317,8 @@ const filterGeneric = (techData, techOpenRows, searchTherm, type) => {
       )
     }
 
-    if (type === 'kvm' || type === 'dom') {
+    if (type === 'kvm' || type === 'dom')
+    {
       return (
         _.includes(_.lowerCase(hostname), _.lowerCase(searchTherm)) ||
         _.includes(_.lowerCase(model), _.lowerCase(searchTherm)) ||
@@ -297,7 +333,8 @@ const filterGeneric = (techData, techOpenRows, searchTherm, type) => {
       )
     }
 
-    if (type === 'bare') {
+    if (type === 'bare')
+    {
       return (
         _.includes(_.lowerCase(hostname), _.lowerCase(searchTherm)) ||
         _.includes(_.lowerCase(memory), _.lowerCase(searchTherm)) ||
@@ -308,7 +345,8 @@ const filterGeneric = (techData, techOpenRows, searchTherm, type) => {
       )
     }
 
-    if (type === 'sto') {
+    if (type === 'sto')
+    {
       return (
         _.includes(_.lowerCase(hostname), _.lowerCase(searchTherm)) ||
         _.includes(_.lowerCase(model), _.lowerCase(searchTherm)) ||
@@ -319,7 +357,8 @@ const filterGeneric = (techData, techOpenRows, searchTherm, type) => {
       )
     }
 
-    if (type === 'ibs') {
+    if (type === 'ibs')
+    {
       return (
         _.includes(_.lowerCase(hostname), _.lowerCase(searchTherm)) ||
         _.includes(_.lowerCase(model), _.lowerCase(searchTherm)) ||
@@ -329,15 +368,18 @@ const filterGeneric = (techData, techOpenRows, searchTherm, type) => {
   }).length
 }
 
-const filterKvmVms = (vms, techOpenRows, hostname, searchTherm) => {
-  return _.filter(vms, (vm) => {
+const filterKvmVms = (vms, techOpenRows, hostname, searchTherm) =>
+{
+  return _.filter(vms, (vm) =>
+  {
     const { name, ramCurrent, cpuCurrent } = vm
 
     if (
       _.includes(_.lowerCase(name), _.lowerCase(searchTherm)) ||
       _.includes(_.lowerCase(ramCurrent), _.lowerCase(searchTherm)) ||
       _.includes(_.lowerCase(cpuCurrent), _.lowerCase(searchTherm))
-    ) {
+    )
+    {
       techOpenRows.push(hostname)
     }
 
@@ -349,15 +391,18 @@ const filterKvmVms = (vms, techOpenRows, hostname, searchTherm) => {
   }).length
 }
 
-const filterDomVms = (vms, techOpenRows, hostname, searchTherm) => {
-  return _.filter(vms, (vm) => {
+const filterDomVms = (vms, techOpenRows, hostname, searchTherm) =>
+{
+  return _.filter(vms, (vm) =>
+  {
     const { name, cpuOnline, ramOnline } = vm
 
     if (
       _.includes(_.lowerCase(name), _.lowerCase(searchTherm)) ||
       _.includes(_.lowerCase(cpuOnline), _.lowerCase(searchTherm)) ||
       _.includes(_.lowerCase(ramOnline), _.lowerCase(searchTherm))
-    ) {
+    )
+    {
       techOpenRows.push(hostname)
     }
 
@@ -369,8 +414,10 @@ const filterDomVms = (vms, techOpenRows, hostname, searchTherm) => {
   }).length
 }
 
-const filterStoVms = (vms, techOpenRows, hostname, searchTherm) => {
-  return _.filter(vms, (vm) => {
+const filterStoVms = (vms, techOpenRows, hostname, searchTherm) =>
+{
+  return _.filter(vms, (vm) =>
+  {
     const { type, cellDisk, cell, status, size, freeSpace, errorCount } = vm
 
     if (
@@ -381,7 +428,8 @@ const filterStoVms = (vms, techOpenRows, hostname, searchTherm) => {
       _.includes(_.lowerCase(size), _.lowerCase(searchTherm)) ||
       _.includes(_.lowerCase(freeSpace), _.lowerCase(searchTherm)) ||
       _.includes(_.lowerCase(errorCount), _.lowerCase(searchTherm))
-    ) {
+    )
+    {
       techOpenRows.push(hostname)
     }
 
