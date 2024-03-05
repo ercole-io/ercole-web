@@ -63,8 +63,8 @@
           >
             <template v-slot="props">
               <p
-                v-tooltip="options(formatValue(props.row.totalSize) || '-')"
-                v-html="highlight(formatValue(props.row.totalSize) || '-')"
+                v-tooltip="options(props.row.totalSize || '-')"
+                v-html="highlight(props.row.totalSize || '-')"
               />
             </template>
           </b-table-column>
@@ -77,10 +77,8 @@
           >
             <template v-slot="props">
               <p
-                v-tooltip="
-                  options(formatValue(props.row.totalFreeSpace) || '-')
-                "
-                v-html="highlight(formatValue(props.row.totalFreeSpace) || '-')"
+                v-tooltip="options(props.row.totalFreeSpace || '-')"
+                v-html="highlight(props.row.totalFreeSpace || '-')"
               />
             </template>
           </b-table-column>
@@ -95,7 +93,13 @@
           </b-table-column>
         </template>
 
-        <template v-if="typeName === 'KVM' || typeName === 'DOM0'">
+        <template
+          v-if="
+            typeName === 'KVM' ||
+            typeName === 'DOM0' ||
+            typeName === 'BARE METAL'
+          "
+        >
           <b-table-column
             field="totalVCPU"
             label="VCPU Total"
@@ -202,36 +206,6 @@
         </template>
 
         <template v-if="typeName === 'BARE METAL'">
-          <b-table-column field="memory" label="Ram Usage" centered sortable>
-            <template v-slot="props">
-              <p
-                v-tooltip="options(`${props.row.memory}`)"
-                v-html="highlight(`${props.row.memory}`)"
-              />
-            </template>
-          </b-table-column>
-
-          <b-table-column
-            field="totalVCPU"
-            label="VCPU Usage"
-            centered
-            sortable
-          >
-            <template v-slot="props">
-              <ProgressBar
-                :progressValue="formatPercentage(props.row.usedCPUPercentage)"
-                :progressTooltip="
-                  setTooltip(
-                    props.row.totalCPU,
-                    props.row.cpuEnabled,
-                    props.row.totalCPU - props.row.cpuEnabled,
-                    ''
-                  )
-                "
-              />
-            </template>
-          </b-table-column>
-
           <b-table-column field="kernel" label="Kernel" centered sortable>
             <template v-slot="props">
               <p
