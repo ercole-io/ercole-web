@@ -26,11 +26,7 @@
             ''
           )
         "
-        v-if="exadataType !== 'BARE METAL'"
       />
-      <p class="is-size-7 has-text-centered" v-else>
-        {{ exadataProgress.totalMemory }}
-      </p>
     </div>
 
     <div class="column is-4">
