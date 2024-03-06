@@ -11,7 +11,7 @@ export const state = () => ({
 export const getters = {
   showExadataList: (state) =>
   {
-    return _.orderBy(state.exadataList, ['hostname'], ['asc'])
+    return state.exadataList
   },
   showSelectedExadata: (state) => (searchTherm) =>
   {

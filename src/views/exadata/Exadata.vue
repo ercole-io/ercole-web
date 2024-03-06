@@ -52,6 +52,7 @@ import { mapActions, mapMutations } from 'vuex'
 import ExadataList from '@/components/exadata/exadatas/ExadataList.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
+import _ from 'lodash'
 
 export default {
   name: 'engineered-page',
@@ -70,9 +71,10 @@ export default {
   },
   async beforeMount() {
     await this.getExadataList().then((res) => {
-      this.exadataSelected = res.data[0].rackID
-      this.SET_EXADATA_LIST(res.data)
-      this.getSelectedExadata(res.data[0].rackID)
+      const exadataList = _.orderBy(res.data, ['hostname'], ['asc'])
+      this.exadataSelected = exadataList[0].rackID
+      this.SET_EXADATA_LIST(exadataList)
+      this.getSelectedExadata(exadataList[0].rackID)
     })
   },
   methods: {
