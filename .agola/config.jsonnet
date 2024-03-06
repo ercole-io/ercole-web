@@ -246,7 +246,7 @@ local task_build_push_image(push) =
               command: |||
                 curl --location --request POST ${REDEPLOY_URL} \
                   --header 'Content-Type: application/json' \
-                  --data-raw '{ "namespace": "ercole", "podname" : "ercole-web" }' \
+                  --data-raw '{ "namespace": "default", "podname" : "ercole-web" }' \
                   --insecure
               |||,
             },
