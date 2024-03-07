@@ -1,5 +1,5 @@
 <template>
-  <b-table :data="data" class="custom-collapse-table" scrollable>
+  <b-table :data="data" class="custom-collapse-table table-header" scrollable>
     <b-table-column field="gridDisks" label="Grid Disks" centered sortable>
       <template v-slot="props">
         <b-icon
@@ -197,4 +197,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.table-header {
+  position: relative;
+  z-index: 0;
+}
+</style>
