@@ -71,8 +71,8 @@
     <b-table-column field="size" label="Size" centered sortable>
       <template v-slot="props">
         <p
-          v-tooltip.bottom="options(formatValue(props.row.size) || '-')"
-          v-html="highlight(formatValue(props.row.size) || '-')"
+          v-tooltip.bottom="options(props.row.size || '-')"
+          v-html="highlight(props.row.size || '-')"
         />
       </template>
     </b-table-column>
@@ -80,8 +80,8 @@
     <b-table-column field="freeSpace" label="Free Space" centered sortable>
       <template v-slot="props">
         <p
-          v-tooltip.bottom="options(formatValue(props.row.freeSpace) || '-')"
-          v-html="highlight(formatValue(props.row.freeSpace) || '-')"
+          v-tooltip.bottom="options(props.row.freeSpace || '-')"
+          v-html="highlight(props.row.freeSpace || '-')"
         />
       </template>
     </b-table-column>
@@ -89,8 +89,8 @@
     <b-table-column field="freeSpacePerc" label="Usage %" centered sortable>
       <template v-slot="props">
         <ProgressBar
-          :progressValue="formatPercentage(props.row.freeSizePercentage)"
-          :progressTooltip="props.row.freeSizePercentage"
+          :progressValue="formatPercentage(props.row.usedSizePercentage)"
+          :progressTooltip="props.row.usedSizePercentage"
         />
       </template>
     </b-table-column>
