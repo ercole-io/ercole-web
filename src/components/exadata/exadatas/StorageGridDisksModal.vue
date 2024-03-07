@@ -12,11 +12,11 @@
           'Grid Disk',
           'Cell Disk',
           'Status',
-          'Size',
+          'Size (GIB)',
           'Error Count',
           'Caching Policy',
           'Asm Disk Name',
-          'Asm Disk Size',
+          'Asm Disk Size (GIB)',
           'Asm Disk Status',
         ]"
         customStyle="max-height: 100%;"
