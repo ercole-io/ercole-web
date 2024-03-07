@@ -57,7 +57,7 @@
 
           <b-table-column
             field="totalSize"
-            label="Total Size"
+            label="Total Size (GIB)"
             centered
             sortable
           >
@@ -71,7 +71,7 @@
 
           <b-table-column
             field="totalFreeSpace"
-            label="Total Free Space"
+            label="Total Free Space (GIB)"
             centered
             sortable
           >
@@ -155,7 +155,12 @@
             </template>
           </b-table-column>
 
-          <b-table-column field="totalRam" label="Ram Total" centered sortable>
+          <b-table-column
+            field="totalRam"
+            label="Ram Total (GIB)"
+            centered
+            sortable
+          >
             <template v-slot="props">
               <p
                 v-tooltip="options(`${props.row.memory}`)"
@@ -164,7 +169,12 @@
             </template>
           </b-table-column>
 
-          <b-table-column field="usedRam" label="Ram Used" centered sortable>
+          <b-table-column
+            field="usedRam"
+            label="Ram Used (GIB)"
+            centered
+            sortable
+          >
             <template v-slot="props">
               <p
                 v-tooltip="options(`${props.row.usedRAM}`)"
@@ -173,7 +183,12 @@
             </template>
           </b-table-column>
 
-          <b-table-column field="freeRam" label="Ram Free" centered sortable>
+          <b-table-column
+            field="freeRam"
+            label="Ram Free (GIB)"
+            centered
+            sortable
+          >
             <template v-slot="props">
               <p
                 v-tooltip="options(`${props.row.freeRAM}`)"
