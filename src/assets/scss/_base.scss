@@ -123,3 +123,8 @@ input[readonly] {
     }
   }
 }
+
+.detail-container .table-container table {
+  position: relative;
+  z-index: 0;
+}
