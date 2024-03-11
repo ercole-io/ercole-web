@@ -1,6 +1,6 @@
 <template>
   <b-tab-item
-    label="Status Connection"
+    label="Connection Status"
     class="databasesInfo"
     v-if="statusconnection"
   >
