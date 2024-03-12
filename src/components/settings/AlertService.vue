@@ -134,7 +134,18 @@
             v-html="highlight(AlertServiceLabels[11])"
             class="label is-small"
           />
-          <CustomInput v-model="AlertService.Emailer.To" />
+          <b-taginput
+            size="is-small"
+            v-model="AlertService.Emailer.To"
+            type="is-primary"
+            :on-paste-separators="[]"
+            :confirm-keys="['Tab', 'Enter']"
+            allow-new
+            ellipsis
+            :before-adding="beforeAdding"
+          >
+          </b-taginput>
+          <!--   <CustomInput v-model="AlertService.Emailer.To" /> -->
         </div>
       </div>
       <div class="column is-one-quarter">
@@ -196,7 +207,6 @@
 import settings from '@/mixins/settings/settings.js'
 import SettingsActions from '@/components/settings/SettingsActions.vue'
 import Loading from '@/components/common/Loading.vue'
-
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 
 export default {
@@ -236,6 +246,10 @@ export default {
     },
     resetAlertServiceSettings() {
       this.bindOriginalAlertServiceData()
+    },
+    beforeAdding(tag) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      return emailRegex.test(tag)
     },
   },
 }
