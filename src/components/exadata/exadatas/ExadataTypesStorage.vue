@@ -68,7 +68,7 @@
       </template>
     </b-table-column>
 
-    <b-table-column field="size" label="Size (GIB)" centered sortable>
+    <b-table-column field="size" label="Size (GiB)" centered sortable>
       <template v-slot="props">
         <p
           v-tooltip.bottom="options(props.row.size || '-')"
@@ -79,7 +79,7 @@
 
     <b-table-column
       field="freeSpace"
-      label="Free Space (GIB)"
+      label="Free Space (GiB)"
       centered
       sortable
     >

@@ -19,7 +19,7 @@
         </template>
       </b-table-column>
 
-      <b-table-column field="ramOnline" label="Ram (GIB)" centered sortable>
+      <b-table-column field="ramOnline" label="Ram (GiB)" centered sortable>
         <template v-slot="props">
           <p
             v-tooltip.bottom="options(props.row.ramOnline)"
@@ -39,7 +39,7 @@
         </template>
       </b-table-column>
 
-      <b-table-column field="ramCurrent" label="Ram (GIB)" centered sortable>
+      <b-table-column field="ramCurrent" label="Ram (GiB)" centered sortable>
         <template v-slot="props">
           <p
             v-tooltip.bottom="options(props.row.ramCurrent)"

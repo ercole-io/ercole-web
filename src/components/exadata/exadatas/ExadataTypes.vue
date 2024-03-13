@@ -57,7 +57,7 @@
 
           <b-table-column
             field="totalSize"
-            label="Total Size (GIB)"
+            label="Total Size (GiB)"
             centered
             sortable
           >
@@ -71,7 +71,7 @@
 
           <b-table-column
             field="totalFreeSpace"
-            label="Total Free Space (GIB)"
+            label="Total Free Space (GiB)"
             centered
             sortable
           >
@@ -157,7 +157,7 @@
 
           <b-table-column
             field="totalRam"
-            label="Ram Total (GIB)"
+            label="Ram Total (GiB)"
             centered
             sortable
           >
@@ -171,7 +171,7 @@
 
           <b-table-column
             field="usedRam"
-            label="Ram Used (GIB)"
+            label="Ram Used (GiB)"
             centered
             sortable
           >
@@ -185,7 +185,7 @@
 
           <b-table-column
             field="freeRam"
-            label="Ram Free (GIB)"
+            label="Ram Free (GiB)"
             centered
             sortable
           >
