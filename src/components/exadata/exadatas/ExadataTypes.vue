@@ -234,8 +234,8 @@
         <b-table-column field="model" label="Model" centered sortable>
           <template v-slot="props">
             <p
-              v-tooltip="options(props.row.model)"
-              v-html="highlight(props.row.model)"
+              v-tooltip="options(formatModel(props.row.model))"
+              v-html="highlight(formatModel(props.row.model))"
             />
           </template>
         </b-table-column>
@@ -368,6 +368,13 @@ export default {
     },
     formatPercentage(val) {
       return _.toNumber(val.split('%')[0])
+    },
+    formatModel(val) {
+      const truncText = 'Oracle Corporation'
+      if (val.includes(truncText)) {
+        return val.split(truncText)[1]
+      }
+      return val
     },
   },
 }
