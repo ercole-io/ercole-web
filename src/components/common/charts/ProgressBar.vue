@@ -2,7 +2,7 @@
   <b-progress
     :precision="progressPrecision"
     :format="progressFormat"
-    :type="progressType"
+    :type="progressColor"
     :value="forceToNumber(progressValue)"
     :max="progressMaxValue ? forceToNumber(progressMaxValue) : 100"
     :show-value="progressShowValue"
@@ -48,6 +48,21 @@ export default {
   methods: {
     forceToNumber(val) {
       return _.toNumber(val)
+    },
+  },
+  computed: {
+    progressColor() {
+      const progress = this.progressValue
+      if (progress >= 0 && progress <= 70) {
+        return 'is-success'
+      }
+      if (progress > 70 && progress <= 80) {
+        return 'is-warning'
+      }
+      if (progress > 80 && progress <= 90) {
+        return 'is-orange'
+      }
+      return 'is-danger'
     },
   },
 }

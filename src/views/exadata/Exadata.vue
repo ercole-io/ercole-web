@@ -22,7 +22,7 @@
     <div class="is-flex is-justify-content-flex-end">
       <ExportButton
         url="exadata/export"
-        text="Export Exadatas"
+        text="Export Exadata"
         expName="exadata-list"
       />
       <SearchInput
