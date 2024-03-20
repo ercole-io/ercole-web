@@ -106,6 +106,7 @@
             cell-class="col-separate-left"
             centered
             sortable
+            width="5%"
           >
             <template v-slot="props">
               <p
@@ -115,7 +116,13 @@
             </template>
           </b-table-column>
 
-          <b-table-column field="usedVCPU" label="VCPU Used" centered sortable>
+          <b-table-column
+            field="usedVCPU"
+            label="VCPU Used"
+            centered
+            sortable
+            width="5%"
+          >
             <template v-slot="props">
               <p
                 v-tooltip="options(props.row.usedCPU)"
@@ -124,7 +131,13 @@
             </template>
           </b-table-column>
 
-          <b-table-column field="freeVCPU" label="VCPU Free" centered sortable>
+          <b-table-column
+            field="freeVCPU"
+            label="VCPU Free"
+            centered
+            sortable
+            width="5%"
+          >
             <template v-slot="props">
               <p
                 v-tooltip="options(props.row.freeCPU)"
@@ -160,6 +173,7 @@
             label="Ram Total (GiB)"
             centered
             sortable
+            width="5%"
           >
             <template v-slot="props">
               <p
@@ -174,6 +188,7 @@
             label="Ram Used (GiB)"
             centered
             sortable
+            width="5%"
           >
             <template v-slot="props">
               <p
@@ -188,6 +203,7 @@
             label="Ram Free (GiB)"
             centered
             sortable
+            width="5%"
           >
             <template v-slot="props">
               <p
@@ -241,7 +257,13 @@
         </b-table-column>
 
         <template v-if="typeName === 'IBSWITCH'">
-          <b-table-column field="swVersion" label="Version" centered sortable>
+          <b-table-column
+            field="swVersion"
+            label="Version"
+            centered
+            sortable
+            width="5%"
+          >
             <template v-slot="props">
               <p
                 v-tooltip="options(props.row.swVersion)"
@@ -257,6 +279,7 @@
             label="Version"
             centered
             sortable
+            width="5%"
           >
             <template v-slot="props">
               <p
@@ -267,7 +290,13 @@
           </b-table-column>
         </template>
 
-        <b-table-column field="hostID" label="Host ID" centered sortable>
+        <b-table-column
+          field="hostID"
+          label="Host ID"
+          centered
+          sortable
+          width="5%"
+        >
           <template v-slot="props">
             <p
               v-tooltip="options(props.row.hostID)"
@@ -313,6 +342,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import ProgressMixin from '@/mixins/exadata/progress-mixin.js'

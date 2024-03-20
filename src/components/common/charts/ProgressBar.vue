@@ -62,7 +62,7 @@ export default {
       if (progress > 80 && progress <= 90) {
         return 'is-orange'
       }
-      return 'is-danger'
+      return 'is-alt-red'
     },
   },
 }
