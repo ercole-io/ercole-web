@@ -54,15 +54,15 @@ export default {
     progressColor() {
       const progress = this.progressValue
       if (progress >= 0 && progress <= 70) {
-        return 'is-success'
+        return 'is-alt-success'
       }
       if (progress > 70 && progress <= 80) {
-        return 'is-warning'
+        return 'is-alt-warning'
       }
       if (progress > 80 && progress <= 90) {
-        return 'is-orange'
+        return 'is-alt-orange'
       }
-      return 'is-alt-red'
+      return 'is-alt-danger'
     },
   },
 }

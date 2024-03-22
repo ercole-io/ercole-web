@@ -172,12 +172,20 @@ $light-danger-invert: rgba($white, 1);
 $light-primary: rgba($primary, 0.7);
 
 $custom-colors: (
-  'orange': (
+  'alt-orange': (
     #f76336,
-    $orange-invert,
+    $white,
   ),
-  'alt-red': (
+  'alt-danger': (
     #fc2a2a,
-    $danger-invert,
+    $white,
+  ),
+  'alt-success': (
+    $success,
+    $dark,
+  ),
+  'alt-warning': (
+    $warning,
+    $dark,
   ),
 );
