@@ -7,27 +7,46 @@
         detailed
         detail-transition="fade"
         detail-key="hostname"
-        :show-detail-icon="
-          typeData[0].hostType === 'IB_SWITCH' ||
-          typeData[0].hostType === 'BARE_METAL'
-            ? false
-            : true
-        "
         icon-pack="fa"
         :opened-detailed="openRowAfterSearch"
         scrollable
+        ref="table"
+        :show-detail-icon="false"
       >
+        <b-table-column
+          v-if="
+            typeData[0].hostType === 'IB_SWITCH' ||
+            typeData[0].hostType === 'BARE_METAL'
+              ? false
+              : true
+          "
+          cell-class="toggle-details-class"
+        >
+          <template v-slot="props">
+            <b-button
+              @click="toggle(props.row)"
+              type="is-ghost"
+              icon-right="up-down"
+              icon-pack="fa"
+              size="is-small"
+              style="text-decoration: none"
+            />
+          </template>
+        </b-table-column>
+
         <b-table-column
           field="hostname"
           :label="typeName === 'IBSWITCH' ? 'Switch Name' : 'Hostname'"
-          centered
           sortable
+          cell-class="has-text-left"
         >
           <template v-slot="props">
-            <p
-              v-tooltip="options(props.row.hostname)"
-              v-html="highlight(props.row.hostname)"
-            />
+            <a @click="toggle(props.row)">
+              <p
+                v-tooltip="options(props.row.hostname)"
+                v-html="highlight(props.row.hostname)"
+              />
+            </a>
           </template>
         </b-table-column>
 
@@ -102,11 +121,12 @@
         >
           <b-table-column
             field="totalVCPU"
-            label="VCPU Total"
+            :label="`VCPU ${'\n'} Total`"
             cell-class="col-separate-left"
             centered
             sortable
-            width="5%"
+            header-class="break-line"
+            width="1%"
           >
             <template v-slot="props">
               <p
@@ -118,10 +138,11 @@
 
           <b-table-column
             field="usedVCPU"
-            label="VCPU Used"
+            :label="`VCPU ${'\n'} Used`"
             centered
             sortable
-            width="5%"
+            header-class="break-line"
+            width="1%"
           >
             <template v-slot="props">
               <p
@@ -133,10 +154,11 @@
 
           <b-table-column
             field="freeVCPU"
-            label="VCPU Free"
+            :label="`VCPU ${'\n'} Free`"
             centered
             sortable
-            width="5%"
+            header-class="break-line"
+            width="1%"
           >
             <template v-slot="props">
               <p
@@ -148,10 +170,12 @@
 
           <b-table-column
             field="usageVCPU"
-            label="VCPU Usage"
+            :label="`VCPU ${'\n'} Usage`"
             cell-class="col-separate-right"
             centered
             sortable
+            header-class="break-line"
+            width="10%"
           >
             <template v-slot="props">
               <ProgressBar
@@ -170,10 +194,11 @@
 
           <b-table-column
             field="totalRam"
-            label="Ram Total (GiB)"
+            :label="`Ram Total ${'\n'} (GiB)`"
             centered
             sortable
-            width="5%"
+            header-class="break-line"
+            width="1%"
           >
             <template v-slot="props">
               <p
@@ -185,10 +210,11 @@
 
           <b-table-column
             field="usedRam"
-            label="Ram Used (GiB)"
+            :label="`Ram Used ${'\n'} (GiB)`"
             centered
             sortable
-            width="5%"
+            header-class="break-line"
+            width="1%"
           >
             <template v-slot="props">
               <p
@@ -200,10 +226,11 @@
 
           <b-table-column
             field="freeRam"
-            label="Ram Free (GiB)"
+            :label="`Ram Free ${'\n'} (GiB)`"
             centered
             sortable
-            width="5%"
+            header-class="break-line"
+            width="1%"
           >
             <template v-slot="props">
               <p
@@ -215,10 +242,12 @@
 
           <b-table-column
             field="usageRam"
-            label="Ram Usage"
+            :label="`Ram ${'\n'} Usage `"
             cell-class="col-separate-right"
             centered
             sortable
+            header-class="break-line"
+            width="10%"
           >
             <template v-slot="props">
               <ProgressBar
@@ -247,7 +276,14 @@
           </b-table-column>
         </template>
 
-        <b-table-column field="model" label="Model" centered sortable>
+        <b-table-column
+          field="model"
+          label="Model"
+          centered
+          sortable
+          header-class="model-class"
+          width="300"
+        >
           <template v-slot="props">
             <p
               v-tooltip="options(formatModel(props.row.model))"
@@ -257,13 +293,7 @@
         </b-table-column>
 
         <template v-if="typeName === 'IBSWITCH'">
-          <b-table-column
-            field="swVersion"
-            label="Version"
-            centered
-            sortable
-            width="5%"
-          >
+          <b-table-column field="swVersion" label="Version" centered sortable>
             <template v-slot="props">
               <p
                 v-tooltip="options(props.row.swVersion)"
@@ -279,7 +309,6 @@
             label="Version"
             centered
             sortable
-            width="5%"
           >
             <template v-slot="props">
               <p
@@ -290,13 +319,7 @@
           </b-table-column>
         </template>
 
-        <b-table-column
-          field="hostID"
-          label="Host ID"
-          centered
-          sortable
-          width="5%"
-        >
+        <b-table-column field="hostID" label="Host ID" centered sortable>
           <template v-slot="props">
             <p
               v-tooltip="options(props.row.hostID)"
@@ -405,6 +428,9 @@ export default {
         return val.split(truncText)[1]
       }
       return val
+    },
+    toggle(row) {
+      this.$refs.table.toggleDetails(row)
     },
   },
 }
