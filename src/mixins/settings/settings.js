@@ -66,6 +66,18 @@ export default {
           SMTPUsername: null,
           SMTPPassword: null,
           DisableSSLCertificateValidation: null,
+          AlertType: {
+            NewHost: null,
+            NewDatabase: null,
+            NewLicense: null,
+            NewOption: null,
+            NewUnlistedRunningDatabase: null,
+            NewHostCpu: null,
+            MissingPrimaryDatabase: null,
+            MissingDatabase: null,
+            AgentError: null,
+            NoData: null,
+          },
         },
       },
       ChartService: {
@@ -161,6 +173,16 @@ export default {
         'SMTP Username',
         'SMTP Password',
         'Disable SSL Certificate Validation',
+        'New Host',
+        'New Database',
+        'New License',
+        'New Option',
+        'New Unlisted Running Database',
+        'New Host Cpu',
+        'Missing Primary Database',
+        'Missing Database',
+        'Agent Error',
+        'No Data',
       ],
       highlightAlertService: false,
       ChartServiceLabels: [
@@ -305,6 +327,28 @@ export default {
           SMTPPassword: this.getAlertService.Emailer.SMTPPassword,
           DisableSSLCertificateValidation:
             this.getAlertService.Emailer.DisableSSLCertificateValidation,
+          AlertType: {
+            NewHost: this.getAlertService.Emailer.AlertType.NewHost || false,
+            NewDatabase:
+              this.getAlertService.Emailer.AlertType.NewDatabase || false,
+            NewLicense:
+              this.getAlertService.Emailer.AlertType.NewLicense || false,
+            NewOption:
+              this.getAlertService.Emailer.AlertType.NewOption || false,
+            NewUnlistedRunningDatabase:
+              this.getAlertService.Emailer.AlertType
+                .NewUnlistedRunningDatabase || false,
+            NewHostCpu:
+              this.getAlertService.Emailer.AlertType.NewHostCpu || false,
+            MissingPrimaryDatabase:
+              this.getAlertService.Emailer.AlertType.MissingPrimaryDatabase ||
+              false,
+            MissingDatabase:
+              this.getAlertService.Emailer.AlertType.MissingDatabase || false,
+            AgentError:
+              this.getAlertService.Emailer.AlertType.AgentError || false,
+            NoData: this.getAlertService.Emailer.AlertType.NoData || false,
+          },
         },
       }
     },
