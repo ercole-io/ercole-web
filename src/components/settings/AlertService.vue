@@ -200,6 +200,151 @@
         </div>
       </div>
     </div>
+
+    <p class="is-size-6 has-text-weight-semibold">Alert Type</p>
+
+    <div class="columns is-multiline">
+      <div class="column is-2">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[17])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="AlertService.Emailer.AlertType.NewHost"
+            :options="trueOrFalseOptions"
+            customClass="is-justify-content-flex-start"
+            customRadioClass="mr-5"
+          />
+        </div>
+      </div>
+      <div class="column is-2">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[18])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="AlertService.Emailer.AlertType.NewDatabase"
+            :options="trueOrFalseOptions"
+            customClass="is-justify-content-flex-start"
+            customRadioClass="mr-5"
+          />
+        </div>
+      </div>
+      <div class="column is-2">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[19])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="AlertService.Emailer.AlertType.NewLicense"
+            :options="trueOrFalseOptions"
+            customClass="is-justify-content-flex-start"
+            customRadioClass="mr-5"
+          />
+        </div>
+      </div>
+      <div class="column is-2">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[20])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="AlertService.Emailer.AlertType.NewOption"
+            :options="trueOrFalseOptions"
+            customClass="is-justify-content-flex-start"
+            customRadioClass="mr-5"
+          />
+        </div>
+      </div>
+      <div class="column is-2">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[21])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="AlertService.Emailer.AlertType.NewUnlistedRunningDatabase"
+            :options="trueOrFalseOptions"
+            customClass="is-justify-content-flex-start"
+            customRadioClass="mr-5"
+          />
+        </div>
+      </div>
+      <div class="column is-2">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[22])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="AlertService.Emailer.AlertType.NewHostCpu"
+            :options="trueOrFalseOptions"
+            customClass="is-justify-content-flex-start"
+            customRadioClass="mr-5"
+          />
+        </div>
+      </div>
+      <div class="column is-2">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[23])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="AlertService.Emailer.AlertType.MissingPrimaryDatabase"
+            :options="trueOrFalseOptions"
+            customClass="is-justify-content-flex-start"
+            customRadioClass="mr-5"
+          />
+        </div>
+      </div>
+      <div class="column is-2">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[24])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="AlertService.Emailer.AlertType.MissingDatabase"
+            :options="trueOrFalseOptions"
+            customClass="is-justify-content-flex-start"
+            customRadioClass="mr-5"
+          />
+        </div>
+      </div>
+      <div class="column is-2">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[25])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="AlertService.Emailer.AlertType.AgentError"
+            :options="trueOrFalseOptions"
+            customClass="is-justify-content-flex-start"
+            customRadioClass="mr-5"
+          />
+        </div>
+      </div>
+      <div class="column is-2">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[26])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="AlertService.Emailer.AlertType.NoData"
+            :options="trueOrFalseOptions"
+            customClass="is-justify-content-flex-start"
+            customRadioClass="mr-5"
+          />
+        </div>
+      </div>
+    </div>
   </article>
 </template>
 

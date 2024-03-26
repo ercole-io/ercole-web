@@ -1,11 +1,12 @@
 <template>
-  <div class="is-flex is-justify-content-space-around">
+  <div class="is-flex" :class="customClass">
     <b-radio
       v-for="(opt, i) in setOptions"
       :key="i"
       size="is-small"
       v-model="radioVal"
       :native-value="opt.val"
+      :class="customRadioClass"
     >
       {{ opt.text }}
     </b-radio>
@@ -20,6 +21,14 @@ export default {
     options: {
       type: Array,
       default: () => [],
+    },
+    customClass: {
+      type: String,
+      default: 'is-justify-content-space-around',
+    },
+    customRadioClass: {
+      type: String,
+      default: '',
     },
   },
   computed: {
