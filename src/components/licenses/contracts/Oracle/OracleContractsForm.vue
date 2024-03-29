@@ -169,15 +169,41 @@
     </b-field>
 
     <b-field label="Support Expiration" custom-class="is-small">
-      <b-datepicker
+      <CustomDatepicker
         v-model="oracleForm.supportExpiration"
-        placeholder="Set a Date"
-        size="is-small"
-        append-to-body
-        position="is-top-right"
-        icon="calendar-today"
         data-cy="oracle-support-expiration"
       />
+    </b-field>
+
+    <b-field
+      label="Status"
+      custom-class="is-small"
+      expanded
+      :type="{
+        'is-danger': $v.oracleForm.status.$error,
+      }"
+    >
+      <b-input
+        @blur="$v.oracleForm.status.$touch()"
+        @input="$v.oracleForm.status.$touch()"
+        size="is-small"
+        type="text"
+        v-model="oracleForm.status"
+        data-cy="oracle-status"
+      />
+
+      <template #message>
+        <div
+          v-if="!$v.oracleForm.status.required && $v.oracleForm.status.$error"
+        >
+          {{ $i18n.t('common.validations.requiredAlt') }}
+        </div>
+      </template>
+    </b-field>
+
+    <b-field label="Product Order Date" custom-class="is-small" expanded>
+      <!-- <b-datepicker></b-datepicker> -->
+      <CustomDatepicker v-model="oracleForm.productOrderDate" />
     </b-field>
 
     <b-field
@@ -347,12 +373,14 @@ import {
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 import ContractsMixin from '@/mixins/contracts/contracts-mixin.js'
+import CustomDatepicker from '@/components/common/Form/CustomDatepicker.vue'
 
 export default {
   name: 'licenses-contracts-oracle-form-component',
   mixins: [TooltipMixin, ContractsMixin],
   components: {
     AdvancedFiltersBase,
+    CustomDatepicker,
   },
   validations: {
     oracleForm: {
@@ -364,6 +392,9 @@ export default {
           return !val.ula
         }),
         decimal,
+      },
+      status: {
+        required,
       },
     },
   },
@@ -381,6 +412,8 @@ export default {
         basket: false,
         restricted: false,
         supportExpiration: null,
+        status: '',
+        productOrderDate: null,
       },
       filteredcontractID: [],
       filteredcsi: [],
@@ -425,6 +458,8 @@ export default {
         licenseTypeID: this.oracleForm.partNumber.split(' - ')[0],
         restricted: this.oracleForm.restricted,
         supportExpiration: this.oracleForm.supportExpiration,
+        status: this.oracleForm.status,
+        productOrderDate: this.oracleForm.productOrderDate,
       }
 
       if (action === 'put') {
@@ -452,6 +487,8 @@ export default {
         basket: false,
         restricted: false,
         supportExpiration: null,
+        status: '',
+        productOrderDate: null,
       }
     },
     editContract(data) {
@@ -481,6 +518,8 @@ export default {
         supportExpiration: data.supportExpiration
           ? new Date(data.supportExpiration)
           : null,
+        status: data.status,
+        productOrderDate: new Date(data.productOrderDate),
       }
     },
   },

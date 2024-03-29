@@ -44,6 +44,10 @@
           />
         </CustomField>
 
+        <!-- <CustomField label="Support Expiration">
+          <CustomDatepicker v-model="filters.supportExpiration" />
+        </CustomField> -->
+
         <CustomField :label="$t('common.fields.ula')">
           <CustomRadio v-model="filters.unlimited" />
         </CustomField>
@@ -129,6 +133,7 @@ export default {
         unlimited: '',
         basket: '',
         restricted: '',
+        supportExpiration: null,
       },
     }
   },
@@ -138,6 +143,7 @@ export default {
         unlimited: '',
         basket: '',
         restricted: '',
+        supportExpiration: null,
       }
     },
   },
