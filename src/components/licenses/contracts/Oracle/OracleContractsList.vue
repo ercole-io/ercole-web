@@ -29,6 +29,8 @@
         {{ $t('common.collumns.refNumber') }}
       </v-th>
       <v-th sortKey="supportExpiration">Support Expiration</v-th>
+      <v-th sortKey="status">Status</v-th>
+      <v-th sortKey="productOrderDate">Product Order Date</v-th>
       <v-th sortKey="unlimited">
         {{ $t('common.collumns.ula') }}
       </v-th>
@@ -112,6 +114,12 @@
       <TdContent
         :value="rowData.scope.supportExpiration | formatDate"
         v-if="rowData.scope.supportExpiration"
+      />
+      <TdContent value="-" v-else />
+      <TdContent :value="rowData.scope.status" />
+      <TdContent
+        :value="rowData.scope.productOrderDate | formatDate"
+        v-if="rowData.scope.productOrderDate"
       />
       <TdContent value="-" v-else />
       <TdIcon :value="rowData.scope.unlimited" />
