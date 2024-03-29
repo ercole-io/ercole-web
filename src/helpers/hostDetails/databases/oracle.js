@@ -6,6 +6,8 @@ import { mapExtraData } from '@/helpers/hostDetails/hostDetailsHelpers.js'
 const mapOracleDatabases = (data, extraData) => {
   let newData = []
   _.map(data, (item) => {
+    const oracleDatabaseMemoryAdvisor = item.oracleDatabaseMemoryAdvisor
+
     newData.push({
       tabName: item.name.toString(),
       id: item.dbID.toString(),
@@ -20,9 +22,18 @@ const mapOracleDatabases = (data, extraData) => {
       charset: item.charset.toString(),
       nCharset: item.nCharset.toString(),
       memoryTarget: item.memoryTarget.toString(),
+      memorySizeLowerGb: oracleDatabaseMemoryAdvisor
+        ? oracleDatabaseMemoryAdvisor.memorySizeLowerGb.toString()
+        : '',
       pgaTarget: item.pgaTarget.toString(),
+      pgaTargetAggregateLowerGb: oracleDatabaseMemoryAdvisor
+        ? oracleDatabaseMemoryAdvisor.pgaTargetAggregateLowerGb.toString()
+        : '',
       sgaMaxSize: item.sgaMaxSize.toString(),
       sgaTarget: item.sgaTarget.toString(),
+      sgaSizeLowerGb: oracleDatabaseMemoryAdvisor
+        ? oracleDatabaseMemoryAdvisor.sgaSizeLowerGb.toString()
+        : '',
       dbTime: item.dbTime.toString(),
       elapsed: item.elapsed.toString(),
       work: item.work ? item.work.toString() : '0',

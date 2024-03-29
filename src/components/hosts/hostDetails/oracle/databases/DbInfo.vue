@@ -82,11 +82,25 @@
                   v-html="highlight(dbInfo.memoryTarget)"
                 />
               </li>
+              <li v-if="dbInfo.memorySizeLowerGb !== ''">
+                <span>Memory Size Lower (GB)</span>
+                <span
+                  v-tooltip.right="options(dbInfo.memorySizeLowerGb)"
+                  v-html="highlight(dbInfo.memorySizeLowerGb)"
+                />
+              </li>
               <li v-if="dbInfo.pgaTarget">
                 <span>PGA Target (GB)</span>
                 <span
                   v-tooltip.right="options(dbInfo.pgaTarget)"
                   v-html="highlight(dbInfo.pgaTarget)"
+                />
+              </li>
+              <li v-if="dbInfo.pgaTargetAggregateLowerGb !== ''">
+                <span>Pga Target Aggregate Lower (GB)</span>
+                <span
+                  v-tooltip.right="options(dbInfo.pgaTargetAggregateLowerGb)"
+                  v-html="highlight(dbInfo.pgaTargetAggregateLowerGb)"
                 />
               </li>
               <li v-if="dbInfo.sgaMaxSize">
@@ -101,6 +115,13 @@
                 <span
                   v-tooltip.right="options(dbInfo.sgaTarget)"
                   v-html="highlight(dbInfo.sgaTarget)"
+                />
+              </li>
+              <li v-if="dbInfo.sgaSizeLowerGb !== ''">
+                <span>Sga Size Lower (GB)</span>
+                <span
+                  v-tooltip.right="options(dbInfo.sgaSizeLowerGb)"
+                  v-html="highlight(dbInfo.sgaSizeLowerGb)"
                 />
               </li>
             </ul>

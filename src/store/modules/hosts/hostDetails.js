@@ -1,14 +1,13 @@
 import _ from 'lodash'
 import axios from 'axios'
 import { axiosRequest } from '@/services/services.js'
-import
-  {
-    getNotificationsByType,
-    getHostInfo,
-    getHostType,
-    mountCpuUsageChart,
-    mapHostDatabases,
-  } from '@/helpers/hostDetails/hostDetails.js'
+import {
+  getNotificationsByType,
+  getHostInfo,
+  getHostType,
+  mountCpuUsageChart,
+  mapHostDatabases,
+} from '@/helpers/hostDetails/hostDetails.js'
 import { removeDashFromMsDesc } from '@/helpers/licenses.js'
 import { resolveCapacityDaily } from '@/helpers/hostDetails/databases/oracle.js'
 import setCapacityByOsData from '@/helpers/hostDetails/capacity/capacityByOs.js'
@@ -39,8 +38,7 @@ export const state = () => ({
 
 export const getters = {
   // general
-  hostNotifications: (state) =>
-  {
+  hostNotifications: (state) => {
     const notifications = state.currentHost.alerts
     const hostname = state.currentHost.hostname
 
@@ -57,42 +55,33 @@ export const getters = {
       hostname,
     }
   },
-  hostFileSystems: (state) =>
-  {
+  hostFileSystems: (state) => {
     return state.currentHost.filesystems
   },
-  currentHost: (state) =>
-  {
+  currentHost: (state) => {
     return state.currentHost.hostname
   },
-  currentHostInfo: (state) =>
-  {
+  currentHostInfo: (state) => {
     const info = state.currentHost.info
     const host = state.currentHost
     return getHostInfo(info, host)
   },
-  currentHostType: (state) =>
-  {
+  currentHostType: (state) => {
     return state.hostType
   },
-  currentHostDBs: (state) =>
-  {
+  currentHostDBs: (state) => {
     return state.currentHostDatabases
   },
-  currentHostActiveDbIndex: (state, getters) =>
-  {
+  currentHostActiveDbIndex: (state, getters) => {
     const filteredDbs = getters.currentHostFiltered
     return _.findIndex(filteredDbs, {
       name: state.activeDb,
     })
   },
-  getCurrentHostDbLicenses: (state) => (db) =>
-  {
+  getCurrentHostDbLicenses: (state) => (db) => {
     const usedLicensesByDb = []
-    _.map(state.currentHostDbLicenses, (val) =>
-    {
-      if (val.dbName === db)
-      {
+    _.map(state.currentHostDbLicenses, (val) => {
+      if (val.dbName === db) {
         usedLicensesByDb.push({
           ...val,
           description: removeDashFromMsDesc(val.description),
@@ -101,52 +90,40 @@ export const getters = {
     })
     return usedLicensesByDb
   },
-  currentDatabasesOptions: (state, getters) =>
-  {
+  currentDatabasesOptions: (state, getters) => {
     const hostType = getters.currentHostType
 
-    if (hostType === 'oracle')
-    {
+    if (hostType === 'oracle') {
       return filterOptionsOracle
-    } else if (hostType === 'mysql')
-    {
+    } else if (hostType === 'mysql') {
       return filterOptionsMysql
-    } else if (hostType === 'microsoft')
-    {
+    } else if (hostType === 'microsoft') {
       return filterOptionsMicrosft
-    } else if (hostType === 'postgresql')
-    {
+    } else if (hostType === 'postgresql') {
       return filterOptionsPostgreSql
-    } else if (hostType === 'mongodb')
-    {
+    } else if (hostType === 'mongodb') {
       return filterOptionsMongoDb
     }
   },
-  returnSelectedKeys: (state) =>
-  {
+  returnSelectedKeys: (state) => {
     return state.selectedKeys
   },
-  currentHostFiltered: (state, getters) =>
-  {
+  currentHostFiltered: (state, getters) => {
     const databases = getters.currentHostDBs
     const selectedKeys = [...getters.returnSelectedKeys]
     const search = state.searchTermDB
     const options = getters.currentDatabasesOptions
 
     let data
-    if (selectedKeys.length === 1 && selectedKeys[0] === 'name')
-    {
+    if (selectedKeys.length === 1 && selectedKeys[0] === 'name') {
       data = databases
-    } else
-    {
+    } else {
       selectedKeys.push('name')
 
-      data = databases.map((db) =>
-      {
+      data = databases.map((db) => {
         const keys = Object.keys(db)
         const filter = keys.filter((k) => selectedKeys.includes(k))
-        return filter.reduce((acc, key) =>
-        {
+        return filter.reduce((acc, key) => {
           acc[key] = db[key]
           return acc
         }, {})
@@ -155,15 +132,12 @@ export const getters = {
 
     let filteredData = data
 
-    if (search)
-    {
+    if (search) {
       const selectedOptions = options.filter((item) =>
         selectedKeys.includes(item.value)
       )
-      filteredData = data.filter((itemData) =>
-      {
-        return selectedOptions.reduce((acc, opt) =>
-        {
+      filteredData = data.filter((itemData) => {
+        return selectedOptions.reduce((acc, opt) => {
           return acc || (opt.filter ? opt.filter(itemData, search) : false)
         }, false)
       })
@@ -172,111 +146,88 @@ export const getters = {
     return filteredData
   },
   // Oracle Chart
-  getOracleCpuUsageChart: (state, getters, rootstate) => (selected) =>
-  {
+  getOracleCpuUsageChart: (state, getters, rootstate) => (selected) => {
     const dailyDbState = getters.currentHostDBs
     const dailyHistory = state.currentHost.history
     const rangeDates = rootstate.rangeDates.rangeDates
 
-    if (dailyDbState)
-    {
+    if (dailyDbState) {
       return mountCpuUsageChart(
         dailyHistory,
         selected,
         dailyDbState,
         rangeDates
       )
-    } else
-    {
+    } else {
       return null
     }
   },
-  getOracleCpuUsageChartInfo: (state, getters) =>
-  {
+  getOracleCpuUsageChartInfo: (state, getters) => {
     const databases = getters.currentHostDBs
 
-    return _.map(databases, (val) =>
-    {
+    return _.map(databases, (val) => {
       return {
         name: val.name,
         id: val.dbID,
       }
     })
   },
-  hostDetailsCapacityByOs: (state) =>
-  {
+  hostDetailsCapacityByOs: (state) => {
     return state.currentHostDetailsCapacityByOs
   },
-  hostDetailsCapacityDailyByOs: (state) =>
-  {
+  hostDetailsCapacityDailyByOs: (state) => {
     return state.currentHostDetailsCapacityDailyByOs
   },
 }
 
 export const mutations = {
-  SET_CURRENT_HOST: (state, payload) =>
-  {
+  SET_CURRENT_HOST: (state, payload) => {
     state.currentHost = payload
   },
-  SET_CURRENT_HOST_TYPE: (state, payload) =>
-  {
+  SET_CURRENT_HOST_TYPE: (state, payload) => {
     state.hostType = payload
   },
-  SET_CURRENT_HOST_DATABASES: (state, payload) =>
-  {
+  SET_CURRENT_HOST_DATABASES: (state, payload) => {
     state.currentHostDatabases = payload
   },
-  SET_ACTIVE_DB: (state, payload) =>
-  {
+  SET_ACTIVE_DB: (state, payload) => {
     state.activeDb = payload
   },
-  SET_HOST_DB_LICENSES: (state, payload) =>
-  {
+  SET_HOST_DB_LICENSES: (state, payload) => {
     state.currentHostDbLicenses = payload
   },
-  SET_HOST_DB_GRANTS: (state, payload) =>
-  {
+  SET_HOST_DB_GRANTS: (state, payload) => {
     state.currentHostDbGrants = payload
   },
-  SET_SELECTED_KEYS: (state, payload) =>
-  {
+  SET_SELECTED_KEYS: (state, payload) => {
     state.selectedKeys = payload
   },
-  SET_SEARCH_TERM_DB: (state, payload) =>
-  {
+  SET_SEARCH_TERM_DB: (state, payload) => {
     state.searchTermDB = payload
   },
-  SET_IS_MISSING_DBS: (state, payload) =>
-  {
+  SET_IS_MISSING_DBS: (state, payload) => {
     state.isMissingDB = payload
   },
-  SET_CAN_BE_MIGRATE: (state, payload) =>
-  {
+  SET_CAN_BE_MIGRATE: (state, payload) => {
     state.canBeMigrate = payload
   },
-  SET_SEMAPHORE: (state, payload) =>
-  {
+  SET_SEMAPHORE: (state, payload) => {
     state.semaphore = payload
   },
-  SET_SEMAPHORE_DATA: (state, payload) =>
-  {
+  SET_SEMAPHORE_DATA: (state, payload) => {
     state.semaphoreData = payload
   },
-  SET_CURRENT_HOST_DETAILS_CAPACITY_BY_OS: (state, payload) =>
-  {
+  SET_CURRENT_HOST_DETAILS_CAPACITY_BY_OS: (state, payload) => {
     state.currentHostDetailsCapacityByOs = payload
   },
-  SET_CURRENT_HOST_DETAILS_CAPACITY_DAILY_BY_OS: (state, payload) =>
-  {
+  SET_CURRENT_HOST_DETAILS_CAPACITY_DAILY_BY_OS: (state, payload) => {
     state.currentHostDetailsCapacityDailyByOs = payload
   },
 }
 
 export const actions = {
-  async getHostByName({ commit, getters, dispatch }, payload)
-  {
-    if (payload.loading)
-    {
+  async getHostByName({ commit, getters, dispatch }, payload) {
+    if (payload.loading) {
       dispatch('onLoadingTable')
     }
 
@@ -295,8 +246,7 @@ export const actions = {
       )
     )
       .then(
-        axios.spread((...allData) =>
-        {
+        axios.spread((...allData) => {
           const hostType = allData[0].data.technology
           const hostDatabases = allData[0].data.features
 
@@ -319,10 +269,8 @@ export const actions = {
           return hostDatabases
         })
       )
-      .then((databases) =>
-      {
-        if (databases)
-        {
+      .then((databases) => {
+        if (databases) {
           const extraData = {
             licenses: (dbName) => getters.getCurrentHostDbLicenses(dbName),
           }
@@ -332,82 +280,67 @@ export const actions = {
 
           dispatch('hostMissingDatabases', payload.hostname)
 
-          if (type === 'oracle')
-          {
+          if (type === 'oracle') {
             const oracle = databases.oracle.database.databases
             getDatabases = mapHostDatabases(oracle, extraData, type)
-          } else if (type === 'mysql')
-          {
+          } else if (type === 'mysql') {
             const mysql = databases.mysql.instances
             getDatabases = mapHostDatabases(mysql, extraData, type)
-          } else if (type === 'microsoft')
-          {
+          } else if (type === 'microsoft') {
             const microsoft = databases.microsoft.sqlServer.instances
             extraData.patches = databases.microsoft.sqlServer.patches
             extraData.features = databases.microsoft.sqlServer.features
             getDatabases = mapHostDatabases(microsoft, extraData, type)
-          } else if (type === 'postgresql')
-          {
+          } else if (type === 'postgresql') {
             const postgresql = databases.postgresql.instances
             getDatabases = mapHostDatabases(postgresql, extraData, type)
-          } else if (type === 'mongodb')
-          {
+          } else if (type === 'mongodb') {
             const mongodb = databases.mongodb.instances
             getDatabases = mapHostDatabases(mongodb, extraData, type)
           }
           commit('SET_CURRENT_HOST_DATABASES', getDatabases)
-        } else
-        {
+        } else {
           commit('SET_CURRENT_HOST_DATABASES', [])
         }
       })
-      .then(() =>
-      {
-        if (getters.currentHostType === 'oracle')
-        {
+      .then(() => {
+        if (getters.currentHostType === 'oracle') {
           dispatch('getPdbsByHostDbGrothData', payload.hostname)
         }
       })
       .then(() => dispatch('offLoadingTable'))
   },
-  async hostMissingDatabases({ commit }, hostname)
-  {
+  async hostMissingDatabases({ commit }, hostname) {
     const config = {
       method: 'get',
       url: `/hosts/${hostname}/is-missing-db`,
     }
 
-    await axiosRequest('baseApi', config).then((res) =>
-    {
+    await axiosRequest('baseApi', config).then((res) => {
       commit('SET_IS_MISSING_DBS', res.data.IsMissingDB)
     })
   },
-  async hostDatabaseCanBeMigrate({ commit, getters }, dbname)
-  {
+  async hostDatabaseCanBeMigrate({ commit, getters }, dbname) {
     const config = {
       method: 'get',
       url: `/hosts/${getters.currentHost}/technologies/oracle/databases/${dbname}/can-migrate`,
     }
 
-    await axiosRequest('baseApi', config).then((res) =>
-    {
+    await axiosRequest('baseApi', config).then((res) => {
       commit('SET_CAN_BE_MIGRATE', res.data.Canbemigrate)
     })
   },
-  async hostDatabaseSemaphore({ commit, getters }, dbname)
-  {
+  async hostDatabaseSemaphore({ commit, getters }, dbname) {
     const config = {
       method: 'get',
       url: `/hosts/${getters.currentHost}/technologies/oracle/databases/${dbname}/psql-migrabilities/semaphore`,
     }
 
-    await axiosRequest('baseApi', config).then((res) =>
-    {
+    await axiosRequest('baseApi', config).then((res) => {
       commit('SET_SEMAPHORE', res.data)
     })
   },
-  async hostDatabaseSemaphoreData({ commit, getters }, data)
-  {
+  async hostDatabaseSemaphoreData({ commit, getters }, data) {
     const host = data.hostname ? data.hostname : getters.currentHost
 
     const config = {
@@ -415,8 +348,7 @@ export const actions = {
       url: `/hosts/${host}/technologies/oracle/databases/${data.dbname}/psql-migrabilities`,
     }
 
-    await axiosRequest('baseApi', config).then((res) =>
-    {
+    await axiosRequest('baseApi', config).then((res) => {
       const data = res.data
       const metrics = _.take(data, 10)
       let other = _.drop(data, 10)
