@@ -52,6 +52,10 @@
     "langKey": "common.collumns.version"
   },
   {
+    "sort": "clusterwareVersion",
+    "langKey": "Cluster Version"
+  },
+  {
     "sort": "isCDB",
     "langKey": "common.collumns.pluggable"
   },
