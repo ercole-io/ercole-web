@@ -59,6 +59,7 @@
           :class="{ 'is-hidden': moreInfoToggle.hiddenCharset }"
         />
         <TdContent :value="rowData.scope.version" />
+        <TdContent :value="rowData.scope.clusterwareVersion" />
         <TdIcon
           :value="rowData.scope.isCDB"
           @click.native="handleClickedRow([rowData.scope])"
