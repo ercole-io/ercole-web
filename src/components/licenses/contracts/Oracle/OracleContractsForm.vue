@@ -203,7 +203,10 @@
 
     <b-field label="Product Order Date" custom-class="is-small" expanded>
       <!-- <b-datepicker></b-datepicker> -->
-      <CustomDatepicker v-model="oracleForm.productOrderDate" />
+      <CustomDatepicker
+        v-model="oracleForm.productOrderDate"
+        data-cy="oracle-product-order"
+      />
     </b-field>
 
     <b-field
