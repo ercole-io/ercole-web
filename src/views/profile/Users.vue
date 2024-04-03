@@ -35,6 +35,7 @@
               @blur="$v.userBasicForm.firstName.$touch()"
               @input="$v.userBasicForm.firstName.$touch()"
               :disabled="isUpdateBasic"
+              data-cy="first-name"
             />
             <template #message>
               <div
@@ -62,6 +63,7 @@
               @blur="$v.userBasicForm.lastName.$touch()"
               @input="$v.userBasicForm.lastName.$touch()"
               :disabled="isUpdateBasic"
+              data-cy="last-name"
             />
             <template #message>
               <div
@@ -89,6 +91,7 @@
               @blur="$v.userBasicForm.username.$touch()"
               @input="$v.userBasicForm.username.$touch()"
               :disabled="isUpdateBasic"
+              data-cy="user-name"
             />
             <template #message>
               <div
@@ -125,6 +128,7 @@
               @blur="$v.userBasicForm.password.$touch()"
               @input="$v.userBasicForm.password.$touch()"
               password-reveal
+              data-cy="password"
             />
             <template #message>
               <div
@@ -153,6 +157,7 @@
               'is-danger': $v.userBasicForm.confirmPassword.$error,
             }"
             v-if="!isUpdateBasic"
+            data-cy="confirm-password"
           >
             <b-input
               type="password"
@@ -195,6 +200,7 @@
                 @input="filteredGroups"
                 v-model="searchGroup"
                 v-if="filteredGroups().length > 0 || searchGroup !== ''"
+                data-cy="groups"
               />
 
               <div
