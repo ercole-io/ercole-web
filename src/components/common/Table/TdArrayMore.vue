@@ -1,5 +1,5 @@
 <template>
-  <td v-tooltip="options(formatArrayToShow(value), null, 'top')">
+  <td v-tooltip="options(formatArrayToShow(value), null, 'right')">
     <div class="dbsList">
       <div v-if="valueSize > defaultSize">
         <b-button
