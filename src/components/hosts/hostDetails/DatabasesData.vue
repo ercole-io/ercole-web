@@ -19,7 +19,7 @@
 
     <b-tag
       type="is-danger"
-      class="mb-4"
+      class="mb-4 custom-tag"
       v-if="showMissingDbWarning"
       slot="customSubTitle"
     >
@@ -108,7 +108,10 @@ export default {
       return (
         this.hostDetails.isMissingDB &&
         this.hostDetails.isMissingDB.length > 0 &&
-        this.hostDetails.hostType === 'oracle'
+        this.hostDetails.hostType !== 'mysql' &&
+        this.hostDetails.hostType !== 'microsoft' &&
+        this.hostDetails.hostType !== 'postgresql' &&
+        this.hostDetails.hostType !== 'mongodb'
       )
     },
   },

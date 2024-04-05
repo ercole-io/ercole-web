@@ -401,3 +401,10 @@ tr.detail {
 .col-separate-right {
   border-right: 1px solid $ercole-blue !important;
 }
+
+//tag
+.custom-tag {
+  white-space: break-spaces !important;
+  min-height: 2em !important;
+  height: auto !important;
+}
