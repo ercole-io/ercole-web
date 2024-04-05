@@ -24,7 +24,11 @@
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
-          <td style="min-width: 0; text-align: center" v-if="isAdmin">
+          <td
+            style="min-width: 0; text-align: center"
+            v-if="isAdmin"
+            :data-cy="`edit-${rowData.scope.name}`"
+          >
             <b-icon
               v-tooltip="options($t('common.general.edit'))"
               type="is-info"
@@ -34,7 +38,11 @@
               @click.native="upGroup(rowData.scope)"
             />
           </td>
-          <td style="min-width: 0" v-if="isAdmin">
+          <td
+            style="min-width: 0"
+            v-if="isAdmin"
+            :data-cy="`delete-${rowData.scope.name}`"
+          >
             <b-icon
               v-tooltip="options($t('common.general.delete'))"
               type="is-danger"
@@ -76,6 +84,7 @@
             @blur="$v.groupForm.name.$touch()"
             @input="$v.groupForm.name.$touch()"
             :disabled="isUpdate"
+            data-cy="group-name"
           />
           <template #message>
             <div v-if="!$v.groupForm.name.required && $v.groupForm.name.$error">
@@ -102,6 +111,7 @@
             @blur="$v.groupForm.description.$touch()"
             @input="$v.groupForm.description.$touch()"
             :disabled="isUpdate"
+            data-cy="group-desc"
           />
           <template #message>
             <div
@@ -128,6 +138,7 @@
               @input="filteredRoles"
               v-model="searchRole"
               v-if="filteredRoles().length > 0 || searchRole !== ''"
+              data-cy="group-roles"
             />
 
             <div
@@ -166,6 +177,7 @@
             :confirm-keys="['Tab', 'Enter']"
             allow-new
             ellipsis
+            data-cy="group-tags"
           >
           </b-taginput>
         </b-field>

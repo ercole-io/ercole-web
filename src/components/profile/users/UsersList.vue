@@ -17,7 +17,10 @@
 
     <template slot="bodyData" slot-scope="rowData">
       <template v-if="isAdmin">
-        <td style="min-width: 0; text-align: center">
+        <td
+          style="min-width: 0; text-align: center"
+          :data-cy="`edit-${rowData.scope.username}`"
+        >
           <b-icon
             v-tooltip="options($t('common.general.edit'))"
             type="is-info"
@@ -27,7 +30,7 @@
             v-if="verifyShowing(rowData.scope)"
           />
         </td>
-        <td style="min-width: 0">
+        <td style="min-width: 0" :data-cy="`reset-${rowData.scope.username}`">
           <b-button
             v-tooltip="`Reset Password`"
             type="is-ghost"
@@ -39,7 +42,7 @@
             :loading="resetPassLoading"
           />
         </td>
-        <td style="min-width: 0">
+        <td style="min-width: 0" :data-cy="`delete-${rowData.scope.username}`">
           <b-icon
             v-tooltip="options($t('common.general.delete'))"
             type="is-danger"

@@ -24,7 +24,11 @@
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
-          <td style="min-width: 0; text-align: center" v-if="isAdmin">
+          <td
+            style="min-width: 0; text-align: center"
+            v-if="isAdmin"
+            :data-cy="`edit-${rowData.scope.name}`"
+          >
             <b-icon
               v-tooltip="options($t('common.general.edit'))"
               type="is-info"
@@ -34,7 +38,11 @@
               @click.native="upRole(rowData.scope)"
             />
           </td>
-          <td style="min-width: 0" v-if="isAdmin">
+          <td
+            style="min-width: 0"
+            v-if="isAdmin"
+            :data-cy="`delete-${rowData.scope.name}`"
+          >
             <b-icon
               v-tooltip="options($t('common.general.delete'))"
               type="is-danger"
@@ -76,6 +84,7 @@
             @blur="$v.roleForm.name.$touch()"
             @input="$v.roleForm.name.$touch()"
             :disabled="isUpdate"
+            data-cy="role-name"
           />
           <template #message>
             <div v-if="!$v.roleForm.name.required && $v.roleForm.name.$error">
@@ -93,6 +102,7 @@
             placeholder="Select"
             v-model="roleForm.location"
             expanded
+            data-cy="role-location"
           >
             <option value="All">All</option>
             <option
@@ -119,6 +129,7 @@
             placeholder="Select"
             v-model="roleForm.permission"
             expanded
+            data-cy="role-perm"
           >
             <option value="admin">Admin</option>
             <option value="read">Read</option>
@@ -176,6 +187,7 @@
             v-model="roleForm.description"
             @blur="$v.roleForm.description.$touch()"
             @input="$v.roleForm.description.$touch()"
+            data-cy="role-desc"
           />
           <template #message>
             <div
