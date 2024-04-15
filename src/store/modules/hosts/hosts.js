@@ -21,7 +21,7 @@ export const getters = {
         hostname: host.hostname,
         environment: host.environment,
         databases: _.split(Object.values(host.databases), ','),
-        techType: Object.keys(host.databases),
+        techType: host.technology,
         platform: formatPlatform(host.info.hardwareAbstractionTechnology),
         cluster: host.cluster,
         virtNode: host.virtualizationNode,
