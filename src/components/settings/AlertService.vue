@@ -201,7 +201,7 @@
       </div>
     </div>
 
-    <p class="is-size-6 has-text-weight-semibold">Alert Type</p>
+    <p class="is-size-6 has-text-weight-semibold">Emailer Alert Type</p>
 
     <div class="columns is-multiline">
       <div class="column is-2">
