@@ -7,6 +7,20 @@ const mapOracleDatabases = (data, extraData) => {
   let newData = []
   _.map(data, (item) => {
     const oracleDatabaseMemoryAdvisor = item.oracleDatabaseMemoryAdvisor
+    const memorySizeLowerGb =
+      oracleDatabaseMemoryAdvisor &&
+      oracleDatabaseMemoryAdvisor.memorySizeLowerGb
+        ? oracleDatabaseMemoryAdvisor.memorySizeLowerGb.toString()
+        : ''
+    const pgaTargetAggregateLowerGb =
+      oracleDatabaseMemoryAdvisor &&
+      oracleDatabaseMemoryAdvisor.pgaTargetAggregateLowerGb
+        ? oracleDatabaseMemoryAdvisor.pgaTargetAggregateLowerGb.toString()
+        : ''
+    const sgaSizeLowerGb =
+      oracleDatabaseMemoryAdvisor && oracleDatabaseMemoryAdvisor.sgaSizeLowerGb
+        ? oracleDatabaseMemoryAdvisor.sgaSizeLowerGb.toString()
+        : ''
 
     newData.push({
       tabName: item.name.toString(),
@@ -22,18 +36,12 @@ const mapOracleDatabases = (data, extraData) => {
       charset: item.charset.toString(),
       nCharset: item.nCharset.toString(),
       memoryTarget: item.memoryTarget.toString(),
-      memorySizeLowerGb: oracleDatabaseMemoryAdvisor
-        ? oracleDatabaseMemoryAdvisor.memorySizeLowerGb.toString()
-        : '',
+      memorySizeLowerGb: memorySizeLowerGb,
       pgaTarget: item.pgaTarget.toString(),
-      pgaTargetAggregateLowerGb: oracleDatabaseMemoryAdvisor
-        ? oracleDatabaseMemoryAdvisor.pgaTargetAggregateLowerGb.toString()
-        : '',
+      pgaTargetAggregateLowerGb: pgaTargetAggregateLowerGb,
       sgaMaxSize: item.sgaMaxSize.toString(),
       sgaTarget: item.sgaTarget.toString(),
-      sgaSizeLowerGb: oracleDatabaseMemoryAdvisor
-        ? oracleDatabaseMemoryAdvisor.sgaSizeLowerGb.toString()
-        : '',
+      sgaSizeLowerGb: sgaSizeLowerGb,
       dbTime: item.dbTime.toString(),
       elapsed: item.elapsed.toString(),
       work: item.work ? item.work.toString() : '0',
