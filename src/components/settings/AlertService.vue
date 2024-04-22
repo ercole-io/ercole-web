@@ -201,9 +201,11 @@
       </div>
     </div>
 
-    <p class="is-size-6 has-text-weight-semibold">Emailer Alert Type</p>
+    <p class="is-size-6 has-text-weight-semibold py-0 px-5">
+      Emailer Alert Type
+    </p>
 
-    <div class="columns is-multiline">
+    <div class="columns is-multiline py-0 px-5">
       <div class="column is-2">
         <div class="field">
           <label
