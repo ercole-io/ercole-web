@@ -464,6 +464,13 @@ export default {
           attributes: { 'data-cy': 'mn-settings' },
           hidden: this.checkMenu('Settings', ''),
         },
+        {
+          href: { name: 'troubleshooting' },
+          title: 'Troubleshooting',
+          icon: 'fas fa-circle-exclamation',
+          attributes: { 'data-cy': 'mn-troubleshooting' },
+          hidden: !this.checkMenu('Troubleshooting', ''),
+        },
       ]
     },
   },
