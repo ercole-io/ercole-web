@@ -27,6 +27,19 @@
           />
         </template>
       </b-table-column>
+
+      <b-table-column centered label="Cluster Name">
+        <template v-slot="props">
+          <ExadataVmsUpdate
+            :cluster="{
+              rackID: rackID,
+              hostID: hostID,
+              hostname: props.row.name,
+              clusterName: props.row.clusterName,
+            }"
+          />
+        </template>
+      </b-table-column>
     </template>
 
     <template v-if="type === 'KVM'">
