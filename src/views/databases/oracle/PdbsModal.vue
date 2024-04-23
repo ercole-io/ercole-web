@@ -164,12 +164,52 @@
             class="mt-3"
           />
         </b-tab-item>
+        <b-tab-item label="Migrable to Postgre">
+          <b-tabs size="is-small" type="is-boxed" destroy-on-hide>
+            <b-tab-item label="General">
+              <SimpleTable :theadData="['Metric', 'Count']">
+                <template
+                  slot="tbodyContent"
+                  v-if="metrics && metrics.length > 0"
+                >
+                  <tr v-for="(v, i) in metrics" :key="i">
+                    <TdContent :value="v.metric" />
+                    <TdContent :value="v.Count" />
+                  </tr>
+                </template>
+                <template slot="tbodyContent" v-else>
+                  <tr>
+                    <td colspan="2"><NoContent style="min-height: 100px" /></td>
+                  </tr>
+                </template>
+              </SimpleTable>
+            </b-tab-item>
+
+            <template v-if="Object.entries(other).length > 0">
+              <b-tab-item
+                v-for="(data, i) in Object.entries(other)"
+                :label="data[0]"
+                :key="i"
+              >
+                <SimpleTable :theadData="['Object Type', 'Count']">
+                  <template slot="tbodyContent">
+                    <tr v-for="(val, index) in data[1]" :key="index">
+                      <TdContent :value="val.objectType" />
+                      <TdContent :value="val.Count" />
+                    </tr>
+                  </template>
+                </SimpleTable>
+              </b-tab-item>
+            </template>
+          </b-tabs>
+        </b-tab-item>
       </b-tabs>
     </section>
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -177,10 +217,11 @@ import TdIcon from '@/components/common/Table/TDIcon.vue'
 import DbGrowth from '@/components/common/DbGrowth.vue'
 import RangeDates from '@/components/common/RangeDates.vue'
 import SimpleTable from '@/components/common/Table/SimpleTable.vue'
+import NoContent from '@/components/common/NoContent.vue'
 
 export default {
   name: 'oracle-databases-pdbs-page-modal',
-  props: ['pdbName', 'hostname', 'tab', 'data', 'tabsData'],
+  props: ['pdbName', 'hostname', 'tab', 'data', 'tabsData', 'dbname'],
   components: {
     FullTable,
     TdContent,
@@ -188,6 +229,7 @@ export default {
     DbGrowth,
     RangeDates,
     SimpleTable,
+    NoContent,
   },
   data() {
     return {
@@ -199,16 +241,32 @@ export default {
     this.activeTab = this.tab
 
     this.getPdbsByHostDbGrothData(this.hostname)
+
+    console.log(this.tabsData)
+
+    // if (this.activeTab === 6) {
+    //   this.getPdbsMigrablePostgreSemaphore()
+    // }
   },
   mounted() {
     this.isMounted = true
   },
   methods: {
-    ...mapActions(['getPdbsByHostDbGrothData']),
+    ...mapActions([
+      'getPdbsByHostDbGrothData',
+      'getPdbsMigrablePostgreSemaphore',
+    ]),
     ...mapMutations(['SET_RANGE_DATES_ALT']),
   },
   computed: {
     ...mapGetters(['getOraclePdbsDbGrowth']),
+    metrics() {
+      return _.take(this.tabsData.pgsqlMigrability, 10)
+    },
+    other() {
+      const other = _.drop(this.tabsData.pgsqlMigrability, 10)
+      return _.groupBy(other, 'schema')
+    },
   },
 }
 </script>

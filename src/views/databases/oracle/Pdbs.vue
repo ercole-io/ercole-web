@@ -26,6 +26,7 @@
         'grantDba',
         'segmentAdvisors',
         'dbgrowth',
+        'psqlMigrable',
       ]"
       :isLoadingTable="false"
       style="cursor: default"
@@ -39,6 +40,7 @@
         <v-th sortKey="segmentAdvisors">Segment Advisors</v-th>
         <v-th sortKey="partitionings">Partitioning</v-th>
         <v-th sortKey="dbgrowth">DB Growth</v-th>
+        <v-th sortKey="psqlMigrable">Migrable to Postgre</v-th>
         <v-th sortKey="status">Status</v-th>
         <v-th sortKey="allocable">Allocable</v-th>
         <v-th sortKey="datafileSize">DatafileSize</v-th>
@@ -106,6 +108,16 @@
             type="is-black"
             style="width: 100%"
             @click.native="openModal(5, rowData.scope)"
+          />
+        </td>
+        <td class="is-clickable">
+          <b-icon
+            v-tooltip="options('Click to see Migrable to Postgre information')"
+            icon="arrow-up-right-from-square"
+            pack="fa"
+            type="is-black"
+            style="width: 100%"
+            @click.native="openModal(6, rowData.scope)"
           />
         </td>
         <TdContent :value="rowData.scope.status" />
