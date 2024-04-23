@@ -792,17 +792,6 @@ const routes = [
     beforeEnter: verifyAuth,
   },
   {
-    path: '/troubleshooting',
-    name: 'troubleshooting',
-    component: lazyRouteBuilder('troubleshooting/Troubleshooting.vue'),
-    meta: {
-      label: 'Troubleshooting',
-      title: `${title}Troubleshooting`,
-      breadcrumb: [{ name: 'Troubleshooting' }],
-    },
-    beforeEnter: verifyAuth,
-  },
-  {
     path: '/users',
     name: 'users',
     component: lazyRouteBuilder('profile/Users.vue'),
