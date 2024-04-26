@@ -53,12 +53,19 @@
       aria-current-label="Current page"
       v-if="total > 10"
     />
+
+    <NoContent
+      noContentText="There are no Agents With No Data to show"
+      noContentHeight="640px"
+      v-if="!total"
+    />
   </div>
 </template>
 
 <script>
 import formatDateTime from '@/filters/formatDateTime.js'
 import CollapseSimple from '@/components/common/CollapseSimple.vue'
+import NoContent from '@/components/common/NoContent.vue'
 
 export default {
   props: {
@@ -69,6 +76,7 @@ export default {
   },
   components: {
     CollapseSimple,
+    NoContent,
   },
   data() {
     return {

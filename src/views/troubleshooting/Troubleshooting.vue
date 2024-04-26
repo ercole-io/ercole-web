@@ -13,7 +13,7 @@
           >)
         </p>
         <AgentsNoData :data="agentsNoData" v-if="!agentsLoading" />
-        <Loading :isLoading="agentsLoading" />
+        <Loading :isLoading="agentsLoading" style="min-height: 640px" />
       </BoxContent>
     </div>
     <div class="column">
@@ -29,7 +29,7 @@
           >)
         </p>
         <MissingDbs :data="missingDbs" v-if="!missingDbsLoading" />
-        <Loading :isLoading="missingDbsLoading" />
+        <Loading :isLoading="missingDbsLoading" style="min-height: 640px" />
       </BoxContent>
     </div>
     <div class="column">
@@ -45,7 +45,7 @@
           >)
         </p>
         <VHostNoCluster :data="vHostsNoCluster" v-if="!noCLusterLoading" />
-        <Loading :isLoading="noCLusterLoading" />
+        <Loading :isLoading="noCLusterLoading" style="min-height: 640px" />
       </BoxContent>
     </div>
   </div>

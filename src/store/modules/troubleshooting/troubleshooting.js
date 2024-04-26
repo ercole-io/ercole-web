@@ -27,7 +27,7 @@ export const actions = {
       url: '/alerts?status=NEW&code=NO_DATA&page=1&size=999999',
     }
     await axiosRequest('baseApi', config).then((res) => {
-      commit('SET_NO_DATA_AGENTS', res.data.items)
+      commit('SET_NO_DATA_AGENTS', res.data.items || [])
     })
   },
   async getMissingDbs({ commit }) {
