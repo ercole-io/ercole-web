@@ -3,16 +3,21 @@
     <template #trigger="props">
       <div
         class="panel-heading card-header py-0 px-0 is-size-6"
+        :class="callapsibleHeadColors"
         role="button"
         :aria-controls="collapseID"
       >
-        <p class="card-header-title mb-0" v-html="highlight(collapseTitle)" />
+        <p
+          class="card-header-title mb-0"
+          :class="callapsibleHeadColors"
+          v-html="highlight(collapseTitle)"
+        />
         <a class="card-header-icon py-2 px-2">
           <b-icon :icon="props.open ? 'menu-up' : 'menu-down'"> </b-icon>
         </a>
       </div>
     </template>
-    <slot></slot>
+    <slot />
   </b-collapse>
 </template>
 
@@ -34,6 +39,10 @@ export default {
     collapseTitle: {
       type: String,
       required: true,
+    },
+    callapsibleHeadColors: {
+      type: String,
+      default: '',
     },
   },
 }
