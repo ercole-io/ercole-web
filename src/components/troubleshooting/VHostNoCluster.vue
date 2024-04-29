@@ -29,14 +29,13 @@
 
     <NoContent
       noContentText="There are no Virtual Hosts with No CLuster to show"
-      noContentHeight="640px"
+      noContentHeight="630px"
       v-if="!total"
     />
   </div>
 </template>
 
 <script>
-import formatDateTime from '@/filters/formatDateTime.js'
 import NoContent from '@/components/common/NoContent.vue'
 
 export default {
@@ -60,11 +59,6 @@ export default {
       prevIcon: 'chevron-left',
       nextIcon: 'chevron-right',
     }
-  },
-  methods: {
-    formatTimeAndDate(val) {
-      return formatDateTime(val)
-    },
   },
   computed: {
     total() {

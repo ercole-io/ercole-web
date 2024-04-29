@@ -24,7 +24,7 @@
         hasShadow
       >
         <p slot="customTitle">
-          (<span class="collapsible-missing-header">
+          (<span class="collapsible-missingdb-header">
             {{ missingDbs.length }} </span
           >)
         </p>

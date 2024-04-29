@@ -56,7 +56,7 @@
 
     <NoContent
       noContentText="There are no Agents With No Data to show"
-      noContentHeight="640px"
+      noContentHeight="630px"
       v-if="!total"
     />
   </div>
