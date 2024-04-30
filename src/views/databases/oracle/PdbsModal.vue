@@ -242,8 +242,6 @@ export default {
 
     this.getPdbsByHostDbGrothData(this.hostname)
 
-    console.log(this.tabsData)
-
     // if (this.activeTab === 6) {
     //   this.getPdbsMigrablePostgreSemaphore()
     // }

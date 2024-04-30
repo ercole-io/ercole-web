@@ -62,7 +62,6 @@ export const mutations = {
     state.pdbsData = payload
   },
   SET_PDBS_MODAL_DATA: (state, payload) => {
-    console.log(payload)
     state.pdbsModalData = payload
   },
   SET_DBGROWTH_PDBS: (state, payload) => {
@@ -94,10 +93,11 @@ export const actions = {
       commit('SET_PDBS_HOSTS_DATA', hosts)
 
       const pdbs = _.map(res.data, (val) => {
-        const { hostname } = val
+        const { hostname, color } = val
         const { allocable, charset, datafileSize, name, segmentsSize, status } =
           val.pdb
         return {
+          semaphoreColor: color,
           hostname: hostname,
           allocable: allocable,
           charset: charset,

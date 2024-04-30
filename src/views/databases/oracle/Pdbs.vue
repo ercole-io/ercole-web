@@ -111,14 +111,19 @@
           />
         </td>
         <td class="is-clickable">
-          <b-icon
+          <b-button
+            icon-pack="fas"
+            :icon-left="getIcon(rowData.scope.semaphoreColor)"
+            :type="getColor(rowData.scope.semaphoreColor)"
+            size="is-small"
+            class="is-clickable"
+            @click="openModal(6, rowData.scope)"
             v-tooltip="options('Click to see Migrable to Postgre information')"
-            icon="arrow-up-right-from-square"
-            pack="fa"
-            type="is-black"
-            style="width: 100%"
-            @click.native="openModal(6, rowData.scope)"
-          />
+            v-if="getColor(rowData.scope.semaphoreColor) !== ''"
+          >
+            Details
+          </b-button>
+          <span v-else>-</span>
         </td>
         <TdContent :value="rowData.scope.status" />
         <TdContent :value="rowData.scope.allocable" />
@@ -183,6 +188,32 @@ export default {
         data: data,
         tabsData: this.getOraclePdbsModal(data.name)[0],
       }
+    },
+    getColor(semaphoreColor) {
+      let color
+      if (semaphoreColor === 'red') {
+        color = 'is-danger'
+      } else if (semaphoreColor === 'yellow') {
+        color = 'is-warning'
+      } else if (semaphoreColor === 'green') {
+        color = 'is-primary'
+      } else {
+        color = ''
+      }
+      return color
+    },
+    getIcon(semaphoreColor) {
+      let icon
+      if (semaphoreColor === 'red') {
+        icon = 'minus'
+      }
+      if (semaphoreColor === 'yellow') {
+        icon = 'exclamation'
+      }
+      if (semaphoreColor === 'green') {
+        icon = 'check'
+      }
+      return icon
     },
   },
   computed: {
