@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="min-height: 630px">
     <CollapseSimple
       v-for="(item, k) in paginatedItems"
       :key="k"
@@ -9,7 +9,7 @@
       callapsibleHeadColors="collapsible-missingdb-header"
     >
       <div class="p-2">
-        <span v-for="msdb in item.issingdbs" :key="msdb">{{ msdb }}, </span>
+        <span v-for="msdb in item.missingdbs" :key="msdb">{{ msdb }}, </span>
       </div>
     </CollapseSimple>
 

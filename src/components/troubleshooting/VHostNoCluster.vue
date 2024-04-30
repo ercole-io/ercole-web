@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="min-height: 630px">
     <p
       v-for="item in paginatedItems"
       :key="item._id"
