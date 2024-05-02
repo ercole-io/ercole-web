@@ -98,13 +98,17 @@ export default {
       })
     },
     mapAssociated(data, type) {
-      if (this.checkArray(data)) {
-        return data
-      } else if (!this.checkArray(data)) {
-        if (type === 'host') {
-          return this.mapHostsAssociated(data)
-        } else {
-          return this.mapClustersAssociated(data)
+      if (data === null) {
+        return []
+      } else {
+        if (this.checkArray(data)) {
+          return data
+        } else if (!this.checkArray(data)) {
+          if (type === 'host') {
+            return this.mapHostsAssociated(data)
+          } else {
+            return this.mapClustersAssociated(data)
+          }
         }
       }
     },
