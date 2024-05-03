@@ -79,6 +79,8 @@
       "fileSystemsTitle": "Lista de Sistemas de Arquivos",
       "dismissHost": "Dispensar Host",
       "dismissMsg": "Tem certeza de que deseja <b>dispensar</b> o host <b>{hostname}</b>? Essa ação não pode ser desfeita.",
+      "dismissExadata": "Dismiss Exadata",
+      "dismissExadataMsg": "Are you sure you want to <b>dismiss</b> the exadata <b>{exadata}</b>? This action cannot be undone.",
       "notifications": "novos alertas desde a semana passada:",
       "agents": "Agentes",
       "licenses": "Licenças",
