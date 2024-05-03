@@ -175,30 +175,13 @@
       />
     </b-field>
 
-    <b-field
-      label="Status"
-      custom-class="is-small"
-      expanded
-      :type="{
-        'is-danger': $v.oracleForm.status.$error,
-      }"
-    >
+    <b-field label="Status" custom-class="is-small" expanded>
       <b-input
-        @blur="$v.oracleForm.status.$touch()"
-        @input="$v.oracleForm.status.$touch()"
         size="is-small"
         type="text"
         v-model="oracleForm.status"
         data-cy="oracle-status"
       />
-
-      <template #message>
-        <div
-          v-if="!$v.oracleForm.status.required && $v.oracleForm.status.$error"
-        >
-          {{ $i18n.t('common.validations.requiredAlt') }}
-        </div>
-      </template>
     </b-field>
 
     <b-field label="Product Order Date" custom-class="is-small" expanded>
@@ -395,9 +378,6 @@ export default {
           return !val.ula
         }),
         decimal,
-      },
-      status: {
-        required,
       },
     },
   },
