@@ -198,6 +198,9 @@ export default {
         .then(() => {
           this.successSaveSettings('dataService')
         })
+        .then(() => {
+          this.settingsWarning()
+        })
     },
     resetApiServiceSettings() {
       this.bindOriginalDataServiceData()
