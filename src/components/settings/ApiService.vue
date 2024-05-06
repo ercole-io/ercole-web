@@ -250,6 +250,9 @@ export default {
         .then(() => {
           this.successSaveSettings('apiService')
         })
+        .then(() => {
+          this.settingsWarning()
+        })
     },
     resetApiServiceSettings() {
       this.bindOriginalApiServiceData()

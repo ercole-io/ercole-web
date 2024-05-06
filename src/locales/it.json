@@ -79,6 +79,8 @@
       "fileSystemsTitle": "Elenco di File di Sistemi",
       "dismissHost": "Cancella Host",
       "dismissMsg": "Sei sicuro di voler <b>cancellare</b> L'host <b>{hostname}</b>? Questa azione non può essere annullata.",
+      "dismissExadata": "Dismiss Exadata",
+      "dismissExadataMsg": "Are you sure you want to <b>dismiss</b> the exadata <b>{exadata}</b>? This action cannot be undone.",
       "notifications": "nuovi avvisi dalla scorsa settimana:",
       "agents": "Agenti",
       "licenses": "Licenze",

@@ -17,6 +17,13 @@
       last update:
       <b class="pl-2">{{ setDateTime(data['update']) }}</b>
     </span>
+
+    <ExadataDismiss
+      :exadata="data['exadata']"
+      :rackID="data['_id']"
+      slot="customSubTitle"
+    />
+
     <ExadataProgress
       :exadataProgress="data['progress']"
       :exadataType="data['machineType']"
@@ -68,6 +75,7 @@ import ExadataTypes from '@/components/exadata/exadatas/ExadataTypes.vue'
 import ExadataRDMA from '@/components/exadata/exadatas/ExadataRDMA.vue'
 import BoxContent from '@/components/common/BoxContent.vue'
 import formatDateTime from '@/filters/formatDateTime.js'
+import ExadataDismiss from '@/components/exadata/exadatas/ExadataDismiss.vue'
 
 export default {
   name: 'exadata-content-component',
@@ -83,6 +91,7 @@ export default {
     ExadataTypes,
     ExadataRDMA,
     BoxContent,
+    ExadataDismiss,
   },
   methods: {
     setDateTime(val) {
