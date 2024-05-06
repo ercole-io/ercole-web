@@ -93,10 +93,11 @@ export const actions = {
       commit('SET_PDBS_HOSTS_DATA', hosts)
 
       const pdbs = _.map(res.data, (val) => {
-        const { hostname } = val
+        const { hostname, color } = val
         const { allocable, charset, datafileSize, name, segmentsSize, status } =
           val.pdb
         return {
+          semaphoreColor: color,
           hostname: hostname,
           allocable: allocable,
           charset: charset,
@@ -118,6 +119,7 @@ export const actions = {
           segmentAdvisors,
           services,
           tablespaces,
+          pgsqlMigrability,
         } = val.pdb
         return {
           name: name,
@@ -128,6 +130,7 @@ export const actions = {
           segmentAdvisors: segmentAdvisors,
           services: services,
           tablespaces: tablespaces,
+          pgsqlMigrability: pgsqlMigrability,
         }
       })
       commit('SET_PDBS_MODAL_DATA', pdbsModal)
@@ -149,4 +152,19 @@ export const actions = {
       commit('SET_DBGROWTH_PDBS', res.data)
     })
   },
+  // async getPdbsMigrablePostgreSemaphore(
+  //   { commit, getters, dispatch },
+  //   SET_PDBS_HOSTS_DATA
+  // ) {
+  //   const config = {
+  //     method: 'get',
+  //     url: `/hosts/${hostname}/technologies/oracle/databases/${dbname}/pdbs/${pdbname}/psql-migrabilities/semaphore`,
+  //   }
+
+  //   await axiosRequest('baseApi', config).then((res) => {
+  //     console.log(res)
+  //     dispatch('offLoading')
+  //     // commit('SET_DBGROWTH_PDBS', res.data)
+  //   })
+  // },
 }

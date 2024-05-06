@@ -26,6 +26,7 @@
         'grantDba',
         'segmentAdvisors',
         'dbgrowth',
+        'psqlMigrable',
       ]"
       :isLoadingTable="false"
       style="cursor: default"
@@ -39,6 +40,7 @@
         <v-th sortKey="segmentAdvisors">Segment Advisors</v-th>
         <v-th sortKey="partitionings">Partitioning</v-th>
         <v-th sortKey="dbgrowth">DB Growth</v-th>
+        <v-th sortKey="psqlMigrable">Migrable to Postgre</v-th>
         <v-th sortKey="status">Status</v-th>
         <v-th sortKey="allocable">Allocable</v-th>
         <v-th sortKey="datafileSize">DatafileSize</v-th>
@@ -108,6 +110,21 @@
             @click.native="openModal(5, rowData.scope)"
           />
         </td>
+        <td class="is-clickable">
+          <b-button
+            icon-pack="fas"
+            :icon-left="getIcon(rowData.scope.semaphoreColor)"
+            :type="getColor(rowData.scope.semaphoreColor)"
+            size="is-small"
+            class="is-clickable"
+            @click="openModal(6, rowData.scope)"
+            v-tooltip="options('Click to see Migrable to Postgre information')"
+            v-if="getColor(rowData.scope.semaphoreColor) !== ''"
+          >
+            Details
+          </b-button>
+          <span v-else>-</span>
+        </td>
         <TdContent :value="rowData.scope.status" />
         <TdContent :value="rowData.scope.allocable" />
         <TdContent :value="rowData.scope.datafileSize" />
@@ -171,6 +188,32 @@ export default {
         data: data,
         tabsData: this.getOraclePdbsModal(data.name)[0],
       }
+    },
+    getColor(semaphoreColor) {
+      let color
+      if (semaphoreColor === 'red') {
+        color = 'is-danger'
+      } else if (semaphoreColor === 'yellow') {
+        color = 'is-warning'
+      } else if (semaphoreColor === 'green') {
+        color = 'is-primary'
+      } else {
+        color = ''
+      }
+      return color
+    },
+    getIcon(semaphoreColor) {
+      let icon
+      if (semaphoreColor === 'red') {
+        icon = 'minus'
+      }
+      if (semaphoreColor === 'yellow') {
+        icon = 'exclamation'
+      }
+      if (semaphoreColor === 'green') {
+        icon = 'check'
+      }
+      return icon
     },
   },
   computed: {
