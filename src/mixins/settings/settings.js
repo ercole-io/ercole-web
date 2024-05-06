@@ -470,6 +470,21 @@ export default {
         return label.toLowerCase().includes(therm.toLowerCase())
       })
     },
+    settingsWarning() {
+      setTimeout(() => {
+        this.$buefy.dialog.alert({
+          title: 'Settings Warning',
+          message:
+            'The new configuration will be active <br /> only after an Ercole Server restart!',
+          type: 'is-warning',
+          hasIcon: true,
+          icon: 'circle-exclamation',
+          iconPack: 'fa',
+          ariaRole: 'alertdialog',
+          ariaModal: true,
+        })
+      }, 500)
+    },
   },
   computed: {
     ...mapState(['settings']),

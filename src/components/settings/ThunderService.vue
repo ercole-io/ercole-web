@@ -213,6 +213,9 @@ export default {
         .then(() => {
           this.successSaveSettings('thunderService')
         })
+        .then(() => {
+          this.settingsWarning()
+        })
     },
     resetThunderServiceSettings() {
       this.bindOriginalThunderServiceData()
