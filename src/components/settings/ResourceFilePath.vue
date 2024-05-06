@@ -62,6 +62,9 @@ export default {
         .then(() => {
           this.successSaveSettings('resourceFilePath')
         })
+        .then(() => {
+          this.settingsWarning()
+        })
     },
     resetResourceFilePath() {
       this.bindOriginalResourceFilePathData()

@@ -390,6 +390,9 @@ export default {
         .then(() => {
           this.successSaveSettings('alertService')
         })
+        .then(() => {
+          this.settingsWarning()
+        })
     },
     resetAlertServiceSettings() {
       this.bindOriginalAlertServiceData()

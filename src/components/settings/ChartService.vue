@@ -92,6 +92,9 @@ export default {
         .then(() => {
           this.successSaveSettings('chartService')
         })
+        .then(() => {
+          this.settingsWarning()
+        })
     },
     resetChartServiceSettings() {
       this.bindOriginalChartServiceData()

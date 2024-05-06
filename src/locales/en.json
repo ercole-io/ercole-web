@@ -79,6 +79,8 @@
       "fileSystemsTitle": "File Systems List",
       "dismissHost": "Dismiss Host",
       "dismissMsg": "Are you sure you want to <b>dismiss</b> the host <b>{hostname}</b>? This action cannot be undone.",
+      "dismissExadata": "Dismiss Exadata",
+      "dismissExadataMsg": "Are you sure you want to <b>dismiss</b> the exadata <b>{exadata}</b>? This action cannot be undone.",
       "notifications": "new alerts from the last week:",
       "agents": "Agents",
       "licenses": "Licenses",
