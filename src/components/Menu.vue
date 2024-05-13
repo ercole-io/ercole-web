@@ -99,6 +99,14 @@ export default {
                   hidden: this.checkMenu('DB List', 'Oracle'),
                 },
                 {
+                  title: 'AWS RDS',
+                  href: { name: 'awsrds' },
+                  icon: 'fas fa-database',
+                  class: 'menu-third-level',
+                  attributes: { 'data-cy': 'mn-oracle-awsrds' },
+                  hidden: !this.checkMenu('AWS RDS', 'Oracle'),
+                },
+                {
                   href: { name: 'addm' },
                   title: this.$i18n.t('menu.addm'),
                   icon: 'fas fa-heartbeat',

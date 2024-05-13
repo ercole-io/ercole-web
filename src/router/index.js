@@ -394,6 +394,21 @@ const routes = [
                 },
                 beforeEnter: verifyAuth,
               },
+              {
+                path: '/awsrds',
+                name: 'awsrds',
+                component: lazyRouteBuilder('databases/oracle/AWS-RDS.vue'),
+                meta: {
+                  label: `${i18n.t('menu.oracle')}:  AWS RDS}`,
+                  title: `${title}${i18n.t('menu.oracle')}: AWS RDS}`,
+                  breadcrumb: [
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: 'AWS RDS' },
+                  ],
+                },
+                beforeEnter: verifyAuth,
+              },
             ],
           },
         ],
