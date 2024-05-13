@@ -1,13 +1,13 @@
 <template>
   <ToggleColumns
-    getPage="partitionings"
+    getPage="awsrds"
     :leftButton="$t('common.forms.advancedFilters')"
     :centerCol="9"
     v-if="isMounted"
   >
-    <div slot="left">
+    <Filters slot="left">
       <Loading :isLoading="loadingTableStatus" />
-    </div>
+    </Filters>
 
     <FullTable
       slot="center"
@@ -58,8 +58,10 @@
 </template>
 
 <script>
+import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
+import Filters from '@/components/databases/oracle/aws-rds/Filters.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -69,6 +71,7 @@ export default {
   name: 'oracle-databases-aws-rds',
   components: {
     ToggleColumns,
+    Filters,
     FullTable,
     ExportButton,
     TdContent,
@@ -97,7 +100,9 @@ export default {
     }
   },
   async beforeMount() {
-    await this.getAwsRdsDbs()
+    await this.getAwsRdsDbs().then(() => {
+      bus.$emit('data', this.returnAwsRdsDbs)
+    })
   },
   mounted() {
     this.isMounted = true
