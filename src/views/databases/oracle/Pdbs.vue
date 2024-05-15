@@ -40,6 +40,7 @@
         <v-th sortKey="segmentAdvisors">Segment Advisors</v-th>
         <v-th sortKey="partitionings">Partitioning</v-th>
         <v-th sortKey="dbgrowth">DB Growth</v-th>
+        <v-th sortKey="dbgrowth">Services</v-th>
         <v-th sortKey="psqlMigrable">Migrable to Postgre</v-th>
         <v-th sortKey="status">Status</v-th>
         <v-th sortKey="allocable">Allocable</v-th>
@@ -111,13 +112,23 @@
           />
         </td>
         <td class="is-clickable">
+          <b-icon
+            v-tooltip="options('Click to see Services information')"
+            icon="arrow-up-right-from-square"
+            pack="fa"
+            type="is-black"
+            style="width: 100%"
+            @click.native="openModal(6, rowData.scope)"
+          />
+        </td>
+        <td class="is-clickable">
           <b-button
             icon-pack="fas"
             :icon-left="getIcon(rowData.scope.semaphoreColor)"
             :type="getColor(rowData.scope.semaphoreColor)"
             size="is-small"
             class="is-clickable"
-            @click="openModal(6, rowData.scope)"
+            @click="openModal(7, rowData.scope)"
             v-tooltip="options('Click to see Migrable to Postgre information')"
             v-if="getColor(rowData.scope.semaphoreColor) !== ''"
           >
