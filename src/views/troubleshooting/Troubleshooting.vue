@@ -4,11 +4,12 @@
       <BoxContent
         title="Agents With No Data"
         customStyle="padding: 0 20px 10px 20px"
+        class="is-size-5"
         border
         hasShadow
       >
         <p slot="customTitle">
-          (<span class="collapsible-agents-header">
+          (<span class="collapsible-agents-header has-text-weight-bold">
             {{ agentsNoData.length }} </span
           >)
         </p>
@@ -20,11 +21,12 @@
       <BoxContent
         title="Hosts With Missing Databases"
         customStyle="padding: 0 20px 10px 20px"
+        class="is-size-5"
         border
         hasShadow
       >
         <p slot="customTitle">
-          (<span class="collapsible-missingdb-header">
+          (<span class="collapsible-missingdb-header has-text-weight-bold">
             {{ missingDbs.length }} </span
           >)
         </p>
@@ -34,13 +36,14 @@
     </div>
     <div class="column">
       <BoxContent
-        title="Virtual Hosts with No CLuster"
+        title="Virtual Hosts with No Cluster"
         customStyle="padding: 0 20px 10px 20px"
+        class="is-size-5"
         border
         hasShadow
       >
         <p slot="customTitle">
-          (<span class="collapsible-nocluster-header">
+          (<span class="collapsible-nocluster-header has-text-weight-bold">
             {{ vHostsNoCluster.length }} </span
           >)
         </p>

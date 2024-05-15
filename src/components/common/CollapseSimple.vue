@@ -11,7 +11,17 @@
           class="card-header-title mb-0"
           :class="callapsibleHeadColors"
           v-html="highlight(collapseTitle)"
+          v-if="!hasTitleLink"
         />
+        <button
+          @click.prevent="titleLink"
+          class="card-header-title mb-0 is-size-6 is-clickable"
+          style="border: 0"
+          :class="callapsibleHeadColors"
+          v-else
+        >
+          {{ collapseTitle }}
+        </button>
         <a class="card-header-icon py-2 px-2">
           <b-icon :icon="props.open ? 'menu-up' : 'menu-down'"> </b-icon>
         </a>
@@ -43,6 +53,14 @@ export default {
     callapsibleHeadColors: {
       type: String,
       default: '',
+    },
+    hasTitleLink: {
+      type: Boolean,
+      default: false,
+    },
+    titleLink: {
+      type: Function,
+      default: () => {},
     },
   },
 }

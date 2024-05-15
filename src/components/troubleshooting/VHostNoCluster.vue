@@ -1,16 +1,26 @@
 <template>
   <div style="min-height: 630px">
-    <p
+    <!-- <p
       v-for="item in paginatedItems"
       :key="item._id"
-      class="nocluster collapsible-nocluster-header"
+      class="nocluster has-text-black-ter"
     >
       <span>{{
         `${item.hostname} - ${item.hardwareAbstractionTechnology}`
       }}</span>
-    </p>
+    </p> -->
 
-    <b-pagination
+    <SimpleTable
+      :theadData="['Hostname', 'Hardware Abstraction Technology']"
+      v-if="total"
+    >
+      <tr v-for="item in paginatedItems" :key="item._id" slot="tbodyContent">
+        <HostLink :hostname="item.hostname" class="first-col" />
+        <TdContent :value="item.hardwareAbstractionTechnology" />
+      </tr>
+    </SimpleTable>
+
+    <!-- <b-pagination
       :total="total"
       v-model="current"
       :range-before="rangeBefore"
@@ -25,7 +35,7 @@
       aria-page-label="Page"
       aria-current-label="Current page"
       v-if="total > 10"
-    />
+    /> -->
 
     <NoContent
       noContentText="There are no Virtual Hosts with No CLuster to show"
@@ -36,6 +46,9 @@
 </template>
 
 <script>
+import SimpleTable from '@/components/common/Table/SimpleTable.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
+import HostLink from '@/components/common/Table/HostLink.vue'
 import NoContent from '@/components/common/NoContent.vue'
 
 export default {
@@ -46,6 +59,9 @@ export default {
     },
   },
   components: {
+    SimpleTable,
+    TdContent,
+    HostLink,
     NoContent,
   },
   data() {

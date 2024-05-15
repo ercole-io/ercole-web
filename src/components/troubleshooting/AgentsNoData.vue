@@ -4,9 +4,11 @@
       v-for="item in paginatedItems"
       :key="item._id"
       :collapseTitle="`${item.hostname} - ${formatTimeAndDate(item.date)}`"
-      :collapseID="item._id"
+      :collapseID="toString(item._id)"
       :isOpen="false"
-      callapsibleHeadColors="collapsible-agents-header"
+      callapsibleHeadColors="has-text-black-ter"
+      hasTitleLink
+      :titleLink="hostRedirect"
     >
       <div class="py-2">
         <div class="is-flex px-2" style="font-size: 0.8rem">
@@ -63,6 +65,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import formatDateTime from '@/filters/formatDateTime.js'
 import CollapseSimple from '@/components/common/CollapseSimple.vue'
 import NoContent from '@/components/common/NoContent.vue'
@@ -93,6 +96,14 @@ export default {
   methods: {
     formatTimeAndDate(val) {
       return formatDateTime(val)
+    },
+    hostRedirect(e) {
+      e.preventDefault()
+      const value = _.split(e.target.innerHTML, ' - ', 1)[0].trim()
+      this.$router.push({
+        name: 'hosts-details',
+        params: { hostname: value },
+      })
     },
   },
   computed: {

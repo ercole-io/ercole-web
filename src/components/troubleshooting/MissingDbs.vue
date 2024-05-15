@@ -4,9 +4,11 @@
       v-for="(item, k) in paginatedItems"
       :key="k"
       :collapseTitle="item.hostname"
-      :collapseID="k"
+      :collapseID="toString(k)"
       :isOpen="false"
-      callapsibleHeadColors="collapsible-missingdb-header"
+      callapsibleHeadColors="has-text-black-ter"
+      hasTitleLink
+      :titleLink="hostRedirect"
     >
       <div class="p-2">
         <span v-for="msdb in item.missingdbs" :key="msdb">{{ msdb }}, </span>
@@ -39,6 +41,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import CollapseSimple from '@/components/common/CollapseSimple.vue'
 import NoContent from '@/components/common/NoContent.vue'
 
@@ -64,6 +67,16 @@ export default {
       prevIcon: 'chevron-left',
       nextIcon: 'chevron-right',
     }
+  },
+  methods: {
+    hostRedirect(e) {
+      e.preventDefault()
+      const value = _.split(e.target.innerHTML, ' - ', 1)[0].trim()
+      this.$router.push({
+        name: 'hosts-details',
+        params: { hostname: value },
+      })
+    },
   },
   computed: {
     total() {
