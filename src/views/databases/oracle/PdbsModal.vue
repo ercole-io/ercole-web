@@ -164,6 +164,23 @@
             class="mt-3"
           />
         </b-tab-item>
+        <b-tab-item label="Services">
+          <FullTable
+            :tableData="tabsData.services || []"
+            :keys="['name', 'enabled']"
+            :isLoadingTable="false"
+          >
+            <template slot="headData">
+              <v-th sortKey="segmentName">Service Name</v-th>
+              <v-th sortKey="owner">Enabled</v-th>
+            </template>
+
+            <template slot="bodyData" slot-scope="rowData">
+              <TdContent :value="rowData.scope.name" />
+              <TdIcon :value="rowData.scope.enabled" />
+            </template>
+          </FullTable>
+        </b-tab-item>
         <b-tab-item label="Migrable to Postgre">
           <b-tabs size="is-small" type="is-boxed" destroy-on-hide>
             <b-tab-item label="General">
