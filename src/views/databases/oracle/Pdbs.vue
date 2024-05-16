@@ -143,7 +143,7 @@
       </template>
     </FullTable>
 
-    <b-modal :active.sync="isModalActive" fullScreen>
+    <b-modal :active.sync="isModalActive" :width="1500" scroll="keep">
       <PdbsModal
         :pdbName="modalData.pdbName"
         :hostname="modalData.hostname"
