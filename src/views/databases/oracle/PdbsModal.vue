@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card" v-if="isMounted">
+  <div class="modal-card" style="width: 100%" v-if="isMounted">
     <header class="modal-card-head">
       <p class="modal-card-title is-size-4 has-text-weight-semibold">
         {{ pdbName }} -
