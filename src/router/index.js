@@ -782,6 +782,40 @@ const routes = [
           // },
         ],
       },
+      {
+        path: '/cloud-advisor/google',
+        component: EmptyRouterView,
+        children: [
+          {
+            path: '/cloud-advisor/google/profile-configurations',
+            name: 'google-profile-configurations',
+            component: lazyRouteBuilder('cloud/ProfileConfig.vue'),
+            meta: {
+              label: i18n.t('menu.profileConfig'),
+              title: `${title}${i18n.t('menu.profileConfig')}`,
+              breadcrumb: [
+                { name: i18n.t('menu.cloudAdvisor') },
+                { name: 'Google' },
+                { name: i18n.t('menu.profileConfig') },
+              ],
+            },
+          },
+          // {
+          //   path: '/cloud-advisor/oracle/recommendations',
+          //   name: 'oracle-recommendations',
+          //   component: lazyRouteBuilder('cloud/Recommendations.vue'),
+          //   meta: {
+          //     label: i18n.t('menu.recommendations'),
+          //     title: `${title}${i18n.t('menu.recommendations')}`,
+          //     breadcrumb: [
+          //       { name: i18n.t('menu.cloudAdvisor') },
+          //       { name: i18n.t('menu.oracle') },
+          //       { name: i18n.t('menu.recommendations') },
+          //     ],
+          //   },
+          // },
+        ],
+      },
     ],
   },
   {

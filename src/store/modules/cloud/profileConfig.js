@@ -4,6 +4,7 @@ import { axiosRequest } from '@/services/services.js'
 const oracleUrl = 'oracle-cloud/configurations'
 const awsUrl = 'aws/configurations'
 const azureUrl = 'azure/configurations'
+const googleUrl = 'gcp/configurations'
 
 export const state = () => ({
   cloudProfiles: [],
@@ -50,6 +51,8 @@ export const actions = {
       url = awsUrl
     } else if (getters.returnCloudTechnology === 'Azure') {
       url = azureUrl
+    } else if (getters.returnCloudTechnology === 'Google') {
+      url = googleUrl
     }
 
     const config = {
@@ -65,6 +68,11 @@ export const actions = {
         commit('SET_CLOUD_ACTIVE_PROFILE', [getters.hasActiveProfiles, 'aws'])
       } else if (getters.returnCloudTechnology === 'Azure') {
         commit('SET_CLOUD_ACTIVE_PROFILE', [getters.hasActiveProfiles, 'azure'])
+      } else if (getters.returnCloudTechnology === 'Google') {
+        commit('SET_CLOUD_ACTIVE_PROFILE', [
+          getters.hasActiveProfiles,
+          'google',
+        ])
       }
       dispatch('offLoadingTable')
     })
@@ -79,6 +87,8 @@ export const actions = {
       url = awsUrl
     } else if (getters.returnCloudTechnology === 'Azure') {
       url = azureUrl
+    } else if (getters.returnCloudTechnology === 'Google') {
+      url = googleUrl
     }
 
     const config = {
@@ -102,6 +112,8 @@ export const actions = {
       url = awsUrl
     } else if (getters.returnCloudTechnology === 'Azure') {
       url = azureUrl
+    } else if (getters.returnCloudTechnology === 'Google') {
+      url = googleUrl
     }
 
     const config = {
@@ -125,6 +137,8 @@ export const actions = {
       url = awsUrl
     } else if (getters.returnCloudTechnology === 'Azure') {
       url = azureUrl
+    } else if (getters.returnCloudTechnology === 'Google') {
+      url = googleUrl
     }
 
     const config = {
@@ -145,6 +159,8 @@ export const actions = {
       url = `aws/profile-selection/profileid/${payload.id}/selected/${payload.isActive}`
     } else if (getters.returnCloudTechnology === 'Azure') {
       url = `azure/profile-selection/profileid/${payload.id}/selected/${payload.isActive}`
+    } else if (getters.returnCloudTechnology === 'Google') {
+      url = `google/profile-selection/profileid/${payload.id}/selected/${payload.isActive}`
     }
 
     const config = {
