@@ -129,6 +129,7 @@ export default {
       filteredlicenseModel: [],
       filtereddbInstanceStatus: [],
       filteredengineVersion: [],
+      filteredclientemail: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,

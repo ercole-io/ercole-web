@@ -81,6 +81,7 @@ export const actions = {
     dispatch('onLoadingTable')
 
     let url = null
+    let data = payload
     if (getters.returnCloudTechnology === 'Oracle') {
       url = oracleUrl
     } else if (getters.returnCloudTechnology === 'Aws') {
@@ -89,16 +90,17 @@ export const actions = {
       url = azureUrl
     } else if (getters.returnCloudTechnology === 'Google') {
       url = googleUrl
+      data = _.pick(data, ['clientemail', 'name', 'privatekey'])
     }
 
     const config = {
       method: 'post',
       url: url,
-      data: payload,
+      data: data,
     }
 
-    await axiosRequest('thunderApi', config).then((res) => {
-      commit('CREATE_CLOUD_PROFILE', res.data)
+    await axiosRequest('thunderApi', config).then(() => {
+      commit('CREATE_CLOUD_PROFILE', payload)
       dispatch('offLoadingTable')
     })
   },
@@ -106,6 +108,7 @@ export const actions = {
     dispatch('onLoadingTable')
 
     let url = null
+    let data = payload
     if (getters.returnCloudTechnology === 'Oracle') {
       url = oracleUrl
     } else if (getters.returnCloudTechnology === 'Aws') {
@@ -114,16 +117,17 @@ export const actions = {
       url = azureUrl
     } else if (getters.returnCloudTechnology === 'Google') {
       url = googleUrl
+      data = _.pick(data, ['clientemail', 'name', 'privatekey'])
     }
 
     const config = {
       method: 'put',
       url: `${url}/${payload.id}`,
-      data: payload,
+      data: data,
     }
 
-    await axiosRequest('thunderApi', config).then((res) => {
-      commit('UPDATE_CLOUD_PROFILE', res.data)
+    await axiosRequest('thunderApi', config).then(() => {
+      commit('UPDATE_CLOUD_PROFILE', payload)
       dispatch('offLoadingTable')
     })
   },
@@ -160,7 +164,7 @@ export const actions = {
     } else if (getters.returnCloudTechnology === 'Azure') {
       url = `azure/profile-selection/profileid/${payload.id}/selected/${payload.isActive}`
     } else if (getters.returnCloudTechnology === 'Google') {
-      url = `google/profile-selection/profileid/${payload.id}/selected/${payload.isActive}`
+      url = `/gcp/configurations/${payload.id}/selected/${payload.isActive}`
     }
 
     const config = {
