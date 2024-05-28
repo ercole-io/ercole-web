@@ -6,7 +6,7 @@
     applyText="Add/Update"
     cancelText="Cancel"
   >
-    <!-- <b-field label="Active Profile" custom-class="is-small" expanded>
+    <b-field label="Active Profile" custom-class="is-small" expanded>
       <div class="is-flex is-justify-content-space-around mb-4">
         <b-radio
           size="is-small"
@@ -23,7 +23,7 @@
           {{ $t('common.forms.no') }}
         </b-radio>
       </div>
-    </b-field> -->
+    </b-field>
 
     <b-field
       :label="`${$t('common.collumns.profileName')} *`"

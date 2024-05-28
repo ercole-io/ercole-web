@@ -90,7 +90,7 @@ export const actions = {
       url = azureUrl
     } else if (getters.returnCloudTechnology === 'Google') {
       url = googleUrl
-      data = _.pick(data, ['clientemail', 'name', 'privatekey'])
+      data = _.pick(data, ['clientemail', 'name', 'privatekey', 'selected'])
     }
 
     const config = {
@@ -117,7 +117,7 @@ export const actions = {
       url = azureUrl
     } else if (getters.returnCloudTechnology === 'Google') {
       url = googleUrl
-      data = _.pick(data, ['clientemail', 'name', 'privatekey'])
+      data = _.pick(data, ['clientemail', 'name', 'privatekey', 'selected'])
     }
 
     const config = {
