@@ -13,11 +13,16 @@
       <AwsFilters v-if="returnCloudTechnology === 'Aws'">
         <Loading :isLoading="loadingTableStatus" />
       </AwsFilters>
+
+      <GoogleFilters v-if="returnCloudTechnology === 'Google'">
+        <Loading :isLoading="loadingTableStatus" />
+      </GoogleFilters>
     </template>
 
     <template slot="center">
       <OracleTableList v-if="returnCloudTechnology === 'Oracle'" />
       <AwsTableList v-if="returnCloudTechnology === 'Aws'" />
+      <GoogleTableList v-if="returnCloudTechnology === 'Google'" />
     </template>
   </ToggleColumns>
 </template>
@@ -34,6 +39,9 @@ import OracleTableList from '@/components/cloud/oracle/recommendations/TableList
 import AwsFilters from '@/components/cloud/aws/recommendations/Filters.vue'
 import AwsTableList from '@/components/cloud/aws/recommendations/TableList.vue'
 
+import GoogleFilters from '@/components/cloud/google/recommendations/Filters.vue'
+import GoogleTableList from '@/components/cloud/google/recommendations/TableList.vue'
+
 export default {
   name: 'recommendations-page',
   components: {
@@ -42,6 +50,8 @@ export default {
     OracleTableList,
     AwsFilters,
     AwsTableList,
+    GoogleFilters,
+    GoogleTableList,
     Loading,
   },
   data() {
@@ -54,6 +64,8 @@ export default {
       this.SET_CLOUD_TECHNOLOGY('Oracle')
     } else if (this.$route.name === 'aws-recommendations') {
       this.SET_CLOUD_TECHNOLOGY('Aws')
+    } else if (this.$route.name === 'google-recommendations') {
+      this.SET_CLOUD_TECHNOLOGY('Google')
     }
 
     await this.getCloudRecommendations().then(() => {

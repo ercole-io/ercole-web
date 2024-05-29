@@ -130,6 +130,9 @@ export default {
       filtereddbInstanceStatus: [],
       filteredengineVersion: [],
       filteredclientemail: [],
+      filteredprojectName: [],
+      filteredprojectID: [],
+      filteredinstanceID: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,

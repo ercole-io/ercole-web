@@ -29,6 +29,8 @@ export const getters = {
           details: details,
         })
       })
+    } else if (getters.returnCloudTechnology === 'Google') {
+      recommendations = state.cloudRecommendations
     }
 
     return getters.filteredOrNot(recommendations)
@@ -57,6 +59,8 @@ export const actions = {
       url = 'oracle-cloud/oci-recommendations'
     } else if (getters.returnCloudTechnology === 'Aws') {
       url = 'aws/aws-recommendations'
+    } else if (getters.returnCloudTechnology === 'Google') {
+      url = 'gcp/recommendations'
     }
 
     const config = {
@@ -66,7 +70,7 @@ export const actions = {
 
     await axiosRequest('thunderApi', config)
       .then((res) => {
-        let data = res.data.recommendations
+        let data = res.data.recommendations || res.data
 
         // if (getters.returnCloudTechnology === 'Aws') {
         //   data = awsData.recommendations
@@ -86,7 +90,9 @@ export const actions = {
         }
       })
       .then((seqNum) => {
-        dispatch('getCloudRecommendationsErrors', seqNum)
+        if (getters.returnCloudTechnology !== 'Google') {
+          dispatch('getCloudRecommendationsErrors', seqNum)
+        }
       })
       .then(() => {
         dispatch('offLoadingTable')

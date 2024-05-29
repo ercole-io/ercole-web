@@ -385,7 +385,9 @@ export default {
         this.$route.name !== 'capacityos' &&
         this.$route.name !== 'exadata' &&
         this.$route.name !== 'troubleshooting' &&
-        this.$route.name !== 'awsrds'
+        this.$route.name !== 'awsrds' &&
+        this.$route.name !== 'google-profile-configurations' &&
+        this.$route.name !== 'google-recommendations'
       )
     },
   },
