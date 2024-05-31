@@ -5,7 +5,7 @@
     :placeholder="dateMsg"
     position="is-top-right"
     icon="calendar-today"
-    :max-date="new Date()"
+    :max-date="setMaxDate"
     :date-formatter="formatDate"
     class="mr-1"
     append-to-body
@@ -22,6 +22,10 @@ export default {
     placeholder: {
       type: String,
       required: false,
+    },
+    maxDate: {
+      type: Boolean,
+      default: true,
     },
   },
   methods: {
@@ -42,6 +46,9 @@ export default {
       return this.placeholder
         ? this.placeholder
         : this.$i18n.t('common.forms.date')
+    },
+    setMaxDate() {
+      return this.maxDate ? new Date() : null
     },
   },
 }
