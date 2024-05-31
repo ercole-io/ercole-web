@@ -172,6 +172,7 @@
       <CustomDatepicker
         v-model="oracleForm.supportExpiration"
         data-cy="oracle-support-expiration"
+        :maxDate="false"
       />
     </b-field>
 
