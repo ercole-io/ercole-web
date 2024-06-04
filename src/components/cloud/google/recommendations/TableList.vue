@@ -7,7 +7,7 @@
     @clickedRow="handleClickedRow"
     isClickable
   >
-    <!-- <template slot="customTopHeader">
+    <template slot="customTopHeader">
       <div class="is-flex is-justify-content-space-between" style="width: 100%">
         <b-taglist
           attached
@@ -41,12 +41,12 @@
           v-tooltip="options('Recommendations Errors')"
         />
       </div>
-    </template> -->
-    <!-- <RefreshButton
+    </template>
+    <RefreshButton
       :clickAction="retrieveUpdate"
       tooltipMsg="Retrieve Recommendations Updates"
       slot="customTopHeader"
-    /> -->
+    />
 
     <DynamicHeading
       slot="headData"

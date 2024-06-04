@@ -90,9 +90,7 @@ export const actions = {
         }
       })
       .then((seqNum) => {
-        if (getters.returnCloudTechnology !== 'Google') {
-          dispatch('getCloudRecommendationsErrors', seqNum)
-        }
+        dispatch('getCloudRecommendationsErrors', seqNum)
       })
       .then(() => {
         dispatch('offLoadingTable')
@@ -104,6 +102,8 @@ export const actions = {
       url = `oracle-cloud/oci-recommendation-errors/${seqNum}`
     } else if (getters.returnCloudTechnology === 'Aws') {
       url = `aws/aws-recommendation-errors/${seqNum}`
+    } else if (getters.returnCloudTechnology === 'Google') {
+      url = `gcp/errors`
     }
 
     const config = {
@@ -139,6 +139,8 @@ export const actions = {
       url = 'oracle-cloud/retrieve-last-oci-recommendations'
     } else if (getters.returnCloudTechnology === 'Aws') {
       url = 'aws/retrieve-last-aws-recommendations'
+    } else if (getters.returnCloudTechnology === 'Google') {
+      url = 'gcp/retrieve-last-gcp-recommendations'
     }
 
     const config = {

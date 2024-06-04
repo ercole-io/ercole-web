@@ -14,7 +14,7 @@
           <p>
             <b>{{ err.category }}</b> - {{ getDate(err.createdAt) }}
           </p>
-          <p>{{ err.error }}</p>
+          <p>{{ err.error || err.msg }}</p>
         </div>
       </div>
     </section>
