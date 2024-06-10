@@ -252,12 +252,65 @@
             </template>
           </FullTable>
         </b-tab-item>
+        <b-tab-item
+          label="Migrable to Postgre"
+          v-if="pdb.pdbPgsqlMigrability && pdb.pdbPgsqlMigrability.length > 0"
+        >
+          <b-tabs size="is-small" type="is-boxed" destroy-on-hide>
+            <b-tab-item label="General">
+              <SimpleTable :theadData="['Metric', 'Count']">
+                <template
+                  slot="tbodyContent"
+                  v-if="
+                    metrics(pdb.pdbPgsqlMigrability) &&
+                    metrics(pdb.pdbPgsqlMigrability).length > 0
+                  "
+                >
+                  <tr
+                    v-for="(v, i) in metrics(pdb.pdbPgsqlMigrability)"
+                    :key="i"
+                  >
+                    <TdContent :value="v.metric" />
+                    <TdContent :value="v.Count" />
+                  </tr>
+                </template>
+                <template slot="tbodyContent" v-else>
+                  <tr>
+                    <td colspan="2"><NoContent style="min-height: 100px" /></td>
+                  </tr>
+                </template>
+              </SimpleTable>
+            </b-tab-item>
+
+            <template
+              v-if="Object.entries(other(pdb.pdbPgsqlMigrability)).length > 0"
+            >
+              <b-tab-item
+                v-for="(data, i) in Object.entries(
+                  other(pdb.pdbPgsqlMigrability)
+                )"
+                :label="data[0]"
+                :key="i"
+              >
+                <SimpleTable :theadData="['Object Type', 'Count']">
+                  <template slot="tbodyContent">
+                    <tr v-for="(val, index) in data[1]" :key="index">
+                      <TdContent :value="val.objectType" />
+                      <TdContent :value="val.Count" />
+                    </tr>
+                  </template>
+                </SimpleTable>
+              </b-tab-item>
+            </template>
+          </b-tabs>
+        </b-tab-item>
       </b-tabs>
     </CollapseSimple>
   </b-tab-item>
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapGetters, mapMutations } from 'vuex'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 
@@ -268,6 +321,7 @@ import RangeDates from '@/components/common/RangeDates.vue'
 import CollapseSimple from '@/components/common/CollapseSimple.vue'
 import DbGrowth from '@/components/common/DbGrowth.vue'
 import CapacityTab from '@/components/hosts/hostDetails/oracle/databases/dbPDBs/CapacityTab.vue'
+import SimpleTable from '@/components/common/Table/SimpleTable.vue'
 
 export default {
   name: 'hosts-details-oracle-databases-pdbs-component',
@@ -280,6 +334,7 @@ export default {
     CollapseSimple,
     DbGrowth,
     CapacityTab,
+    SimpleTable,
   },
   props: {
     pdbs: {
@@ -293,6 +348,13 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_RANGE_DATES_ALT']),
+    metrics(values) {
+      return _.take(values, 10)
+    },
+    other(values) {
+      const other = _.drop(values, 10)
+      return _.groupBy(other, 'schema')
+    },
   },
   computed: {
     ...mapGetters(['getOraclePdbsDbGrowth']),

@@ -139,10 +139,10 @@ const resolvePdbs = (pdbs) => {
         pdbCapacity: capacityPdb,
         pdbDailyCapacity: capacityDailyPdb,
         pdbServices: val.services,
+        pdbPgsqlMigrability: val.pgsqlMigrability,
       })
     }
   })
-
   return filteredPdbs
 }
 
