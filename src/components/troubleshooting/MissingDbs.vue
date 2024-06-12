@@ -1,10 +1,10 @@
 <template>
   <div style="min-height: 630px">
     <CollapseSimple
-      v-for="(item, k) in paginatedItems"
-      :key="k"
+      v-for="item in paginatedItems"
+      :key="item.hostname"
       :collapseTitle="item.hostname"
-      :collapseID="toString(k)"
+      :collapseID="toString(item.hostname)"
       :isOpen="false"
       callapsibleHeadColors="has-text-black-ter"
       hasTitleLink
