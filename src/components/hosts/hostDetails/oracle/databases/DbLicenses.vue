@@ -8,6 +8,7 @@
       hidePagination
       hideTopTable
       :isLoadingTable="false"
+      data-cy="db-licenses-table"
     >
       <template slot="headData">
         <v-th sortKey="ignored">Ignore License</v-th>
