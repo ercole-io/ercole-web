@@ -1,0 +1,30 @@
+[
+  {
+    "sort": "category",
+    "langKey": "common.collumns.category"
+  },
+  {
+    "sort": "objectType",
+    "langKey": "Object Type"
+  },
+  {
+    "sort": "suggestion",
+    "langKey": "Suggestion"
+  },
+  {
+    "sort": "projectName",
+    "langKey": "Project Name"
+  },
+  {
+    "sort": "projectID",
+    "langKey": "Project ID"
+  },
+  {
+    "sort": "profileID",
+    "langKey": "Profile ID"
+  },
+  {
+    "sort": "instanceID",
+    "langKey": "Instance ID"
+  }
+]

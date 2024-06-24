@@ -4,6 +4,7 @@ import { axiosRequest } from '@/services/services.js'
 const oracleUrl = 'oracle-cloud/configurations'
 const awsUrl = 'aws/configurations'
 const azureUrl = 'azure/configurations'
+const googleUrl = 'gcp/configurations'
 
 export const state = () => ({
   cloudProfiles: [],
@@ -50,6 +51,8 @@ export const actions = {
       url = awsUrl
     } else if (getters.returnCloudTechnology === 'Azure') {
       url = azureUrl
+    } else if (getters.returnCloudTechnology === 'Google') {
+      url = googleUrl
     }
 
     const config = {
@@ -65,6 +68,11 @@ export const actions = {
         commit('SET_CLOUD_ACTIVE_PROFILE', [getters.hasActiveProfiles, 'aws'])
       } else if (getters.returnCloudTechnology === 'Azure') {
         commit('SET_CLOUD_ACTIVE_PROFILE', [getters.hasActiveProfiles, 'azure'])
+      } else if (getters.returnCloudTechnology === 'Google') {
+        commit('SET_CLOUD_ACTIVE_PROFILE', [
+          getters.hasActiveProfiles,
+          'google',
+        ])
       }
       dispatch('offLoadingTable')
     })
@@ -73,22 +81,26 @@ export const actions = {
     dispatch('onLoadingTable')
 
     let url = null
+    let data = payload
     if (getters.returnCloudTechnology === 'Oracle') {
       url = oracleUrl
     } else if (getters.returnCloudTechnology === 'Aws') {
       url = awsUrl
     } else if (getters.returnCloudTechnology === 'Azure') {
       url = azureUrl
+    } else if (getters.returnCloudTechnology === 'Google') {
+      url = googleUrl
+      data = _.pick(data, ['clientemail', 'name', 'privatekey', 'selected'])
     }
 
     const config = {
       method: 'post',
       url: url,
-      data: payload,
+      data: data,
     }
 
-    await axiosRequest('thunderApi', config).then((res) => {
-      commit('CREATE_CLOUD_PROFILE', res.data)
+    await axiosRequest('thunderApi', config).then(() => {
+      commit('CREATE_CLOUD_PROFILE', payload)
       dispatch('offLoadingTable')
     })
   },
@@ -96,22 +108,26 @@ export const actions = {
     dispatch('onLoadingTable')
 
     let url = null
+    let data = payload
     if (getters.returnCloudTechnology === 'Oracle') {
       url = oracleUrl
     } else if (getters.returnCloudTechnology === 'Aws') {
       url = awsUrl
     } else if (getters.returnCloudTechnology === 'Azure') {
       url = azureUrl
+    } else if (getters.returnCloudTechnology === 'Google') {
+      url = googleUrl
+      data = _.pick(data, ['clientemail', 'name', 'privatekey', 'selected'])
     }
 
     const config = {
       method: 'put',
       url: `${url}/${payload.id}`,
-      data: payload,
+      data: data,
     }
 
-    await axiosRequest('thunderApi', config).then((res) => {
-      commit('UPDATE_CLOUD_PROFILE', res.data)
+    await axiosRequest('thunderApi', config).then(() => {
+      commit('UPDATE_CLOUD_PROFILE', payload)
       dispatch('offLoadingTable')
     })
   },
@@ -125,6 +141,8 @@ export const actions = {
       url = awsUrl
     } else if (getters.returnCloudTechnology === 'Azure') {
       url = azureUrl
+    } else if (getters.returnCloudTechnology === 'Google') {
+      url = googleUrl
     }
 
     const config = {
@@ -145,6 +163,8 @@ export const actions = {
       url = `aws/profile-selection/profileid/${payload.id}/selected/${payload.isActive}`
     } else if (getters.returnCloudTechnology === 'Azure') {
       url = `azure/profile-selection/profileid/${payload.id}/selected/${payload.isActive}`
+    } else if (getters.returnCloudTechnology === 'Google') {
+      url = `/gcp/configurations/${payload.id}/selected/${payload.isActive}`
     }
 
     const config = {

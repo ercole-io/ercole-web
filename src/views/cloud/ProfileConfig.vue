@@ -17,12 +17,17 @@
       <AzureProfileConfigFilters v-if="returnCloudTechnology === 'Azure'">
         <Loading :isLoading="loadingTableStatus" />
       </AzureProfileConfigFilters>
+
+      <GoogleProfileConfigFilters v-if="returnCloudTechnology === 'Google'">
+        <Loading :isLoading="loadingTableStatus" />
+      </GoogleProfileConfigFilters>
     </template>
 
     <template slot="center">
       <OracleProfileConfigList v-if="returnCloudTechnology === 'Oracle'" />
       <AwsProfileConfigList v-if="returnCloudTechnology === 'Aws'" />
       <AzureProfileConfigList v-if="returnCloudTechnology === 'Azure'" />
+      <GoogleProfileConfigList v-if="returnCloudTechnology === 'Google'" />
     </template>
 
     <template slot="right">
@@ -37,6 +42,10 @@
       <AzureProfileConfigForm v-if="returnCloudTechnology === 'Azure'">
         <Loading :isLoading="loadingTableStatus" />
       </AzureProfileConfigForm>
+
+      <GoogleProfileConfigForm v-if="returnCloudTechnology === 'Google'">
+        <Loading :isLoading="loadingTableStatus" />
+      </GoogleProfileConfigForm>
     </template>
   </ToggleColumns>
 </template>
@@ -59,6 +68,10 @@ import AzureProfileConfigList from '@/components/cloud/azure/profileConfig/Profi
 import AzureProfileConfigForm from '@/components/cloud/azure/profileConfig/ProfileForm.vue'
 import AzureProfileConfigFilters from '@/components/cloud/azure/profileConfig/ProfileFilters.vue'
 
+import GoogleProfileConfigList from '@/components/cloud/google/profileConfig/ProfileList.vue'
+import GoogleProfileConfigForm from '@/components/cloud/google/profileConfig/ProfileForm.vue'
+import GoogleProfileConfigFilters from '@/components/cloud/google/profileConfig/ProfileFilters.vue'
+
 export default {
   name: 'cloud-profile-page',
   components: {
@@ -73,6 +86,9 @@ export default {
     AzureProfileConfigList,
     AzureProfileConfigForm,
     AzureProfileConfigFilters,
+    GoogleProfileConfigList,
+    GoogleProfileConfigForm,
+    GoogleProfileConfigFilters,
   },
   data() {
     return {
@@ -86,6 +102,8 @@ export default {
       this.SET_CLOUD_TECHNOLOGY('Aws')
     } else if (this.$route.name === 'azure-profile-configurations') {
       this.SET_CLOUD_TECHNOLOGY('Azure')
+    } else if (this.$route.name === 'google-profile-configurations') {
+      this.SET_CLOUD_TECHNOLOGY('Google')
     }
 
     await this.getCloudProfiles().then(() => {
