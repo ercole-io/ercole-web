@@ -8,6 +8,10 @@
     "langKey": "common.collumns.uniqueName"
   },
   {
+    "sort": "dbID",
+    "langKey": "DB ID"
+  },
+  {
     "sort": "hostname",
     "langKey": "common.collumns.hostname"
   },
