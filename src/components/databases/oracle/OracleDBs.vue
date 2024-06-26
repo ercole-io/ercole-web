@@ -30,8 +30,11 @@
       <template slot="bodyData" slot-scope="rowData">
         <TdContent :value="rowData.scope.name" class="first-col" />
         <TdContent :value="rowData.scope.uniqueName" />
-        <TdContent :value="rowData.scope.dbID" />
         <HostLink :hostname="[rowData.scope.hostname, rowData.scope.name]" />
+        <TdContent
+          :value="rowData.scope.dbID"
+          :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"
+        />
         <TdIcon
           :value="rowData.scope.archivelog"
           :class="{ 'is-hidden': moreInfoToggle.hiddenReliabilityOracle }"

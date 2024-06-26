@@ -8,12 +8,14 @@
     "langKey": "common.collumns.uniqueName"
   },
   {
-    "sort": "dbID",
-    "langKey": "DB ID"
-  },
-  {
     "sort": "hostname",
     "langKey": "common.collumns.hostname"
+  },
+  {
+    "sort": "dbID",
+    "group": "ReliabilityOracle",
+    "class": "color-1",
+    "langKey": "DB ID"
   },
   {
     "sort": "archivelog",
