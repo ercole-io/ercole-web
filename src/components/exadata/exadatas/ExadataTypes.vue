@@ -169,6 +169,23 @@
           </b-table-column>
 
           <b-table-column
+            field="freeVCPU"
+            :label="`VCPU ${'\n'} Reserved`"
+            centered
+            sortable
+            header-class="break-line"
+            width="1%"
+            v-if="typeName === 'KVM' || typeName === 'DOM0'"
+          >
+            <template v-slot="props">
+              <p
+                v-tooltip="options(props.row.reservedCPU) || 0"
+                v-html="highlight(props.row.reservedCPU) || 0"
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column
             field="usageVCPU"
             :label="`VCPU ${'\n'} Usage`"
             cell-class="col-separate-right"
@@ -236,6 +253,23 @@
               <p
                 v-tooltip="options(`${props.row.freeRAM}`)"
                 v-html="highlight(`${props.row.freeRAM}`)"
+              />
+            </template>
+          </b-table-column>
+
+          <b-table-column
+            field="freeVCPU"
+            :label="`Ram ${'\n'} Reserved`"
+            centered
+            sortable
+            header-class="break-line"
+            width="1%"
+            v-if="typeName === 'KVM' || typeName === 'DOM0'"
+          >
+            <template v-slot="props">
+              <p
+                v-tooltip="options(props.row.reservedRAM) || 0"
+                v-html="highlight(props.row.reservedRAM) || 0"
               />
             </template>
           </b-table-column>
