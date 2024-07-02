@@ -9,6 +9,7 @@
       :isOpen="false"
       :collapseID="pdb.pdbName"
       :collapseTitle="pdb.pdbName"
+      @click.native="callSemaphorePdbColor(pdb.pdbName)"
     >
       <b-tabs
         size="is-small"
@@ -254,8 +255,10 @@
         </b-tab-item>
         <b-tab-item
           label="Migrable to Postgre"
+          :value="`migrable-to-postgre-${pdbSemaphoreColor}`"
           v-if="pdb.pdbPgsqlMigrability && pdb.pdbPgsqlMigrability.length > 0"
         >
+          <br />
           <b-tabs size="is-small" type="is-boxed" destroy-on-hide>
             <b-tab-item label="General">
               <SimpleTable :theadData="['Metric', 'Count']">
@@ -311,7 +314,7 @@
 
 <script>
 import _ from 'lodash'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 
 import FullTable from '@/components/common/Table/FullTable.vue'
@@ -346,7 +349,14 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      pdbName: '',
+      pdbSemaphoreColor: '',
+    }
+  },
   methods: {
+    ...mapActions(['getPdbsMigrablePostgreSemaphore']),
     ...mapMutations(['SET_RANGE_DATES_ALT']),
     metrics(values) {
       return _.take(values, 10)
@@ -355,6 +365,16 @@ export default {
       const other = _.drop(values, 10)
       return _.groupBy(other, 'schema')
     },
+    async callSemaphorePdbColor(pdbName) {
+      const data = {
+        hostname: this.$route.params.hostname,
+        dbname: this.dbname,
+        pdbname: pdbName,
+      }
+      await this.getPdbsMigrablePostgreSemaphore(data).then((res) => {
+        this.pdbSemaphoreColor = res.data
+      })
+    },
   },
   computed: {
     ...mapGetters(['getOraclePdbsDbGrowth']),
@@ -362,4 +382,16 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+[id='migrable-to-postgre-green-label'] {
+  background-color: green;
+  color: white !important;
+}
+[id='migrable-to-postgre-yellow-label'] {
+  background-color: yellow;
+}
+[id='migrable-to-postgre-red-label'] {
+  background-color: red;
+  color: white !important;
+}
+</style>

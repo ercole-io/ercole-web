@@ -152,19 +152,13 @@ export const actions = {
       commit('SET_DBGROWTH_PDBS', res.data)
     })
   },
-  // async getPdbsMigrablePostgreSemaphore(
-  //   { commit, getters, dispatch },
-  //   SET_PDBS_HOSTS_DATA
-  // ) {
-  //   const config = {
-  //     method: 'get',
-  //     url: `/hosts/${hostname}/technologies/oracle/databases/${dbname}/pdbs/${pdbname}/psql-migrabilities/semaphore`,
-  //   }
+  // eslint-disable-next-line no-empty-pattern
+  getPdbsMigrablePostgreSemaphore({}, data) {
+    const config = {
+      method: 'get',
+      url: `/hosts/${data.hostname}/technologies/oracle/databases/${data.dbname}/pdbs/${data.pdbname}/psql-migrabilities/semaphore`,
+    }
 
-  //   await axiosRequest('baseApi', config).then((res) => {
-  //     console.log(res)
-  //     dispatch('offLoading')
-  //     // commit('SET_DBGROWTH_PDBS', res.data)
-  //   })
-  // },
+    return axiosRequest('baseApi', config)
+  },
 }
