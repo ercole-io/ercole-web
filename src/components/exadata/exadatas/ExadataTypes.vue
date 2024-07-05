@@ -179,8 +179,8 @@
           >
             <template v-slot="props">
               <p
-                v-tooltip="options(props.row.reservedCPU) || 0"
-                v-html="highlight(props.row.reservedCPU) || 0"
+                v-tooltip="options(props.row.reservedCPU)"
+                v-html="highlight(props.row.reservedCPU)"
               />
             </template>
           </b-table-column>
@@ -268,8 +268,8 @@
           >
             <template v-slot="props">
               <p
-                v-tooltip="options(props.row.reservedRAM) || 0"
-                v-html="highlight(props.row.reservedRAM) || 0"
+                v-tooltip="options(props.row.reservedMemory)"
+                v-html="highlight(props.row.reservedMemory)"
               />
             </template>
           </b-table-column>
