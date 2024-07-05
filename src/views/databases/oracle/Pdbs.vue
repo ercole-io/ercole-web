@@ -42,6 +42,7 @@
         <v-th sortKey="dbgrowth">DB Growth</v-th>
         <v-th sortKey="dbgrowth">Services</v-th>
         <v-th sortKey="psqlMigrable">Migrable to Postgre</v-th>
+        <v-th sortKey="psqlMigrable">Policy Audit</v-th>
         <v-th sortKey="status">Status</v-th>
         <v-th sortKey="allocable">Allocable</v-th>
         <v-th sortKey="datafileSize">DatafileSize</v-th>
@@ -130,6 +131,21 @@
             class="is-clickable"
             @click="openModal(7, rowData.scope)"
             v-tooltip="options('Click to see Migrable to Postgre information')"
+            v-if="getColor(rowData.scope.semaphoreColor) !== ''"
+          >
+            Details
+          </b-button>
+          <span v-else>-</span>
+        </td>
+        <td class="is-clickable">
+          <b-button
+            icon-pack="fas"
+            :icon-left="getIcon(rowData.scope.semaphoreColor)"
+            :type="getColor(rowData.scope.semaphoreColor)"
+            size="is-small"
+            class="is-clickable"
+            @click="openModal(8, rowData.scope)"
+            v-tooltip="options('Click to see Policy Audit information')"
             v-if="getColor(rowData.scope.semaphoreColor) !== ''"
           >
             Details
