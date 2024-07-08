@@ -24,7 +24,7 @@ export const getters = {
       let pdbs = []
       _.map(val.pdbs, (pdb) => {
         if (pdb !== '') {
-          pdbs.push(pdb)
+          pdbs.push(pdb.name)
         }
       })
 
