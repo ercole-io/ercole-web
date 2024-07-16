@@ -30,7 +30,13 @@ export default {
       if (this.isEditing) {
         this.updateCloudProfile(this.profileForm).then(() => this.resetForm())
       } else {
-        this.createCloudProfile(this.profileForm).then(() => this.resetForm())
+        this.createCloudProfile(this.profileForm).then(() => {
+          if (this.$route.name === 'google-profile-configurations') {
+            this.$router.go()
+          } else {
+            this.resetForm()
+          }
+        })
       }
       this.isEditing = false
       this.editPrivateKey = false
