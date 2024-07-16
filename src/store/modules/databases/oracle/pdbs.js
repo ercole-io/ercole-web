@@ -161,4 +161,13 @@ export const actions = {
 
     return axiosRequest('baseApi', config)
   },
+  // eslint-disable-next-line no-empty-pattern
+  getPdbsPolicyAudit({}, data) {
+    const config = {
+      method: 'get',
+      url: `/hosts/${data.hostname}/technologies/oracle/databases/${data.dbname}/pdbs/${data.pdbname}/policies-audit`,
+    }
+
+    return axiosRequest('baseApi', config)
+  },
 }

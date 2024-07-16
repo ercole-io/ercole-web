@@ -9,7 +9,7 @@
       :isOpen="false"
       :collapseID="pdb.pdbName"
       :collapseTitle="pdb.pdbName"
-      @click.native="callSemaphorePdbColor(pdb.pdbName)"
+      @click.native="callPdbExtraInfo(pdb.pdbName)"
     >
       <b-tabs
         size="is-small"
@@ -307,6 +307,20 @@
             </template>
           </b-tabs>
         </b-tab-item>
+        <b-tab-item
+          label="Policy Audit"
+          :value="`policy-audit-${pdbPolicyAuditColor}`"
+          v-if="pdbPolicyAuditData && pdbPolicyAuditData.length > 0"
+        >
+          <br />
+          <SimpleTable :theadData="['Params']">
+            <template slot="tbodyContent">
+              <tr v-for="(p, i) in pdbPolicyAuditData" :key="i">
+                <TdContent :value="p" />
+              </tr>
+            </template>
+          </SimpleTable>
+        </b-tab-item>
       </b-tabs>
     </CollapseSimple>
   </b-tab-item>
@@ -353,10 +367,12 @@ export default {
     return {
       pdbName: '',
       pdbSemaphoreColor: '',
+      pdbPolicyAuditColor: '',
+      pdbPolicyAuditData: [],
     }
   },
   methods: {
-    ...mapActions(['getPdbsMigrablePostgreSemaphore']),
+    ...mapActions(['getPdbsMigrablePostgreSemaphore', 'getPdbsPolicyAudit']),
     ...mapMutations(['SET_RANGE_DATES_ALT']),
     metrics(values) {
       return _.take(values, 10)
@@ -365,7 +381,7 @@ export default {
       const other = _.drop(values, 10)
       return _.groupBy(other, 'schema')
     },
-    async callSemaphorePdbColor(pdbName) {
+    async callPdbExtraInfo(pdbName) {
       const data = {
         hostname: this.$route.params.hostname,
         dbname: this.dbname,
@@ -373,6 +389,15 @@ export default {
       }
       await this.getPdbsMigrablePostgreSemaphore(data).then((res) => {
         this.pdbSemaphoreColor = res.data
+      })
+      await this.getPdbsPolicyAudit(data).then((res) => {
+        if (_.has(res.data, 'GREEN')) {
+          this.pdbPolicyAuditColor = 'green'
+          this.pdbPolicyAuditData = res.data.GREEN
+        } else if (_.has(res.data, 'RED')) {
+          this.pdbPolicyAuditColor = 'red'
+          this.pdbPolicyAuditData = res.data.RED
+        }
       })
     },
   },
@@ -383,15 +408,18 @@ export default {
 </script>
 
 <style lang="scss">
-[id='migrable-to-postgre-green-label'] {
-  background-color: green;
+[id='migrable-to-postgre-green-label'],
+[id='policy-audit-green-label'] {
+  background-color: #2bad84;
   color: white !important;
 }
-[id='migrable-to-postgre-yellow-label'] {
-  background-color: yellow;
+[id='migrable-to-postgre-yellow-label'],
+[id='policy-audit-yellow-label'] {
+  background-color: #ffe08a;
 }
-[id='migrable-to-postgre-red-label'] {
-  background-color: red;
+[id='migrable-to-postgre-red-label'],
+[id='policy-audit-red-label'] {
+  background-color: #f14668;
   color: white !important;
 }
 </style>
