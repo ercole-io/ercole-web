@@ -34,6 +34,8 @@ export const state = () => ({
   semaphoreData: {},
   currentHostDetailsCapacityByOs: [],
   currentHostDetailsCapacityDailyByOs: [],
+  policyAuditColor: 'green',
+  policyAuditData: ['test', 'test'],
 })
 
 export const getters = {
@@ -223,6 +225,10 @@ export const mutations = {
   SET_CURRENT_HOST_DETAILS_CAPACITY_DAILY_BY_OS: (state, payload) => {
     state.currentHostDetailsCapacityDailyByOs = payload
   },
+  SET_DB_POLICY_AUDIT: (state, payload) => {
+    state.policyAuditColor = payload.color
+    state.policyAuditData = payload.data
+  },
 }
 
 export const actions = {
@@ -356,6 +362,30 @@ export const actions = {
       other = _.groupBy(other, 'schema')
 
       commit('SET_SEMAPHORE_DATA', { metrics, other })
+    })
+  },
+  async hostDatabasePolicyAuditData({ commit, getters }, dbname) {
+    const config = {
+      method: 'get',
+      url: `/hosts/${getters.currentHost}/technologies/oracle/databases/${dbname}/policies-audit`,
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      let color
+      let data
+
+      if (_.has(res.data, 'GREEN')) {
+        color = 'green'
+        data = res.data.GREEN
+      } else if (_.has(res.data, 'RED')) {
+        color = 'red'
+        data = res.data.RED
+      } else {
+        color = ''
+        data = []
+      }
+
+      commit('SET_DB_POLICY_AUDIT', { color, data })
     })
   },
 }

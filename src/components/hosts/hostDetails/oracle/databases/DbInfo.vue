@@ -242,6 +242,14 @@
                   :setColor="getSemaphore"
                 />
               </li>
+              <li>
+                <span>Policy Audit</span>
+                <Semaphore
+                  :setColor="getPolicyAuditColor"
+                  :policyAuditData="getPolicyAuditData"
+                  btType="policy"
+                />
+              </li>
             </ul>
           </div>
         </div>
@@ -251,7 +259,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
 import Semaphore from '@/components/common/Semaphore.vue'
 
@@ -261,66 +269,11 @@ export default {
   components: {
     Semaphore,
   },
-  data() {
-    return {
-      semaphoreData: [
-        {
-          metric: 'PLSQL LINES',
-          Count: 6212,
-        },
-        {
-          metric: 'PARTITIONED TABLES',
-          Count: 0,
-        },
-        {
-          metric: 'PARTITIONED INDEXES',
-          Count: 0,
-        },
-        {
-          metric: 'PROCEDURES',
-          Count: 1,
-        },
-        {
-          metric: 'SEQUENCES',
-          Count: 1,
-        },
-        {
-          metric: 'TRIGGERS',
-          Count: 0,
-        },
-        {
-          metric: 'FUNCTIONS',
-          Count: 0,
-        },
-        {
-          metric: 'HCC COMPRESSED TABLES',
-          Count: 0,
-        },
-        {
-          metric: 'MVIEWS REWRITE ENABLED',
-          Count: 0,
-        },
-        {
-          metric: 'VDP POLICIES',
-          Count: 0,
-        },
-        {
-          Count: 348,
-          schema: 'PERFSTAT',
-          objectType: 'PACKAGE',
-        },
-        {
-          Count: 5817,
-          schema: 'PERFSTAT',
-          objectType: 'PACKAGE BODY',
-        },
-        {
-          Count: 47,
-          schema: 'PERFSTAT',
-          objectType: 'PROCEDURE',
-        },
-      ],
-    }
+  beforeMount() {
+    this.hostDatabasePolicyAuditData(this.dbInfo.dbName)
+  },
+  methods: {
+    ...mapActions(['hostDatabasePolicyAuditData']),
   },
   computed: {
     ...mapState(['hostDetails']),
@@ -329,6 +282,12 @@ export default {
     },
     getSemaphore() {
       return this.hostDetails.semaphore
+    },
+    getPolicyAuditColor() {
+      return this.hostDetails.policyAuditColor
+    },
+    getPolicyAuditData() {
+      return this.hostDetails.policyAuditData
     },
   },
 }
