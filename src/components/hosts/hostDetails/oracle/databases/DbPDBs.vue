@@ -49,7 +49,7 @@
             Charset:
             <span
               class="has-text-weight-medium"
-              v-html="highlight(pdb.charset)"
+              v-html="highlight(pdb.pdbCharset)"
             />
           </p>
         </b-tab-item>
