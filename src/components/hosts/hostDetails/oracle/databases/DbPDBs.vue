@@ -9,6 +9,7 @@
       :isOpen="false"
       :collapseID="pdb.pdbName"
       :collapseTitle="pdb.pdbName"
+      @click.native="callPdbExtraInfo(pdb.pdbName)"
     >
       <b-tabs
         size="is-small"
@@ -49,7 +50,7 @@
             Charset:
             <span
               class="has-text-weight-medium"
-              v-html="highlight(pdb.charset)"
+              v-html="highlight(pdb.pdbCharset)"
             />
           </p>
         </b-tab-item>
@@ -254,8 +255,10 @@
         </b-tab-item>
         <b-tab-item
           label="Migrable to Postgre"
+          :value="`migrable-to-postgre-${pdbSemaphoreColor}`"
           v-if="pdb.pdbPgsqlMigrability && pdb.pdbPgsqlMigrability.length > 0"
         >
+          <br />
           <b-tabs size="is-small" type="is-boxed" destroy-on-hide>
             <b-tab-item label="General">
               <SimpleTable :theadData="['Metric', 'Count']">
@@ -304,6 +307,20 @@
             </template>
           </b-tabs>
         </b-tab-item>
+        <b-tab-item
+          label="Policy Audit"
+          :value="`policy-audit-${pdbPolicyAuditColor}`"
+          v-if="pdbPolicyAuditData && pdbPolicyAuditData.length > 0"
+        >
+          <br />
+          <SimpleTable :theadData="['Params']">
+            <template slot="tbodyContent">
+              <tr v-for="(p, i) in pdbPolicyAuditData" :key="i">
+                <TdContent :value="p" />
+              </tr>
+            </template>
+          </SimpleTable>
+        </b-tab-item>
       </b-tabs>
     </CollapseSimple>
   </b-tab-item>
@@ -311,7 +328,7 @@
 
 <script>
 import _ from 'lodash'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 
 import FullTable from '@/components/common/Table/FullTable.vue'
@@ -346,7 +363,16 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      pdbName: '',
+      pdbSemaphoreColor: '',
+      pdbPolicyAuditColor: '',
+      pdbPolicyAuditData: [],
+    }
+  },
   methods: {
+    ...mapActions(['getPdbsMigrablePostgreSemaphore', 'getPdbsPolicyAudit']),
     ...mapMutations(['SET_RANGE_DATES_ALT']),
     metrics(values) {
       return _.take(values, 10)
@@ -355,6 +381,25 @@ export default {
       const other = _.drop(values, 10)
       return _.groupBy(other, 'schema')
     },
+    async callPdbExtraInfo(pdbName) {
+      const data = {
+        hostname: this.$route.params.hostname,
+        dbname: this.dbname,
+        pdbname: pdbName,
+      }
+      await this.getPdbsMigrablePostgreSemaphore(data).then((res) => {
+        this.pdbSemaphoreColor = res.data
+      })
+      await this.getPdbsPolicyAudit(data).then((res) => {
+        if (_.has(res.data, 'GREEN')) {
+          this.pdbPolicyAuditColor = 'green'
+          this.pdbPolicyAuditData = res.data.GREEN
+        } else if (_.has(res.data, 'RED')) {
+          this.pdbPolicyAuditColor = 'red'
+          this.pdbPolicyAuditData = res.data.RED
+        }
+      })
+    },
   },
   computed: {
     ...mapGetters(['getOraclePdbsDbGrowth']),
@@ -362,4 +407,19 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+[id='migrable-to-postgre-green-label'],
+[id='policy-audit-green-label'] {
+  background-color: #2bad84;
+  color: white !important;
+}
+[id='migrable-to-postgre-yellow-label'],
+[id='policy-audit-yellow-label'] {
+  background-color: #ffe08a;
+}
+[id='migrable-to-postgre-red-label'],
+[id='policy-audit-red-label'] {
+  background-color: #f14668;
+  color: white !important;
+}
+</style>
