@@ -76,7 +76,11 @@ export default {
           component: PolicyAuditModal,
           hasModalCard: true,
           props: {
-            params: this.policyAuditData,
+            params: this.hostDetails.policyAuditData,
+            color:
+              this.hostDetails.policyAuditColor === 'red'
+                ? 'is-danger'
+                : 'is-primary',
           },
         })
       }

@@ -103,6 +103,19 @@
             :setColor="rowData.scope.pgsqlMigrabilitySemaphore"
           />
         </td> -->
+        <td class="is-clickable">
+          <b-button
+            icon-pack="fas"
+            icon-left="check"
+            type="is-info"
+            size="is-small"
+            class="is-clickable"
+            @click="openPolicyAuditModal(rowData.scope)"
+            v-tooltip="options('Click to see Policy Audit information')"
+          >
+            Details
+          </b-button>
+        </td>
       </template>
 
       <ExportButton
@@ -138,7 +151,8 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState, mapActions } from 'vuex'
+import TooltipMixin from '@/mixins/tooltipMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
@@ -162,10 +176,11 @@ import OracleMemory from '@/components/databases/oracle/OracleMemory.vue'
 import OracleStorage from '@/components/databases/oracle/OracleStorage.vue'
 // import Semaphore from '@/components/common/Semaphore.vue'
 import Loading from '@/components/common/Loading.vue'
+import PolicyAuditModal from '@/components/hosts/hostDetails/oracle/PolicyAuditModal.vue'
 
 export default {
   name: 'databases-oracle-dbs-component',
-  mixins: [hostnameLinkRow, getHeadKeys],
+  mixins: [hostnameLinkRow, getHeadKeys, TooltipMixin],
   components: {
     ToggleColumns,
     BaseLayoutColumns,
@@ -197,9 +212,30 @@ export default {
   mounted() {
     this.isMounted = true
   },
+  methods: {
+    ...mapActions(['hostDatabasePolicyAuditData']),
+    openPolicyAuditModal(data) {
+      this.hostDatabasePolicyAuditData({
+        hostname: data.hostname,
+        dbname: data.name,
+      }).then(() => {
+        this.$buefy.modal.open({
+          component: PolicyAuditModal,
+          hasModalCard: true,
+          props: {
+            params: this.hostDetails.policyAuditData,
+            color:
+              this.hostDetails.policyAuditColor === 'red'
+                ? 'is-danger'
+                : 'is-primary',
+          },
+        })
+      })
+    },
+  },
   computed: {
     ...mapGetters(['getAllOracleDBs', 'loadingTableStatus']),
-    ...mapState(['moreInfoToggle']),
+    ...mapState(['moreInfoToggle', 'hostDetails']),
   },
 }
 </script>

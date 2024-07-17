@@ -34,8 +34,8 @@ export const state = () => ({
   semaphoreData: {},
   currentHostDetailsCapacityByOs: [],
   currentHostDetailsCapacityDailyByOs: [],
-  policyAuditColor: 'green',
-  policyAuditData: ['test', 'test'],
+  policyAuditColor: '',
+  policyAuditData: [],
 })
 
 export const getters = {
@@ -364,10 +364,12 @@ export const actions = {
       commit('SET_SEMAPHORE_DATA', { metrics, other })
     })
   },
-  async hostDatabasePolicyAuditData({ commit, getters }, dbname) {
+  async hostDatabasePolicyAuditData({ commit, getters }, data) {
+    const host = data.hostname ? data.hostname : getters.currentHost
+
     const config = {
       method: 'get',
-      url: `/hosts/${getters.currentHost}/technologies/oracle/databases/${dbname}/policies-audit`,
+      url: `/hosts/${host}/technologies/oracle/databases/${data.dbname}/policies-audit`,
     }
 
     await axiosRequest('baseApi', config).then((res) => {

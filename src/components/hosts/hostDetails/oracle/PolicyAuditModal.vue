@@ -1,6 +1,14 @@
 <template>
   <div class="modal-card">
     <Card cardTitle="Policy Audit" contentSize="1" contentPadding="1rem">
+      <b-icon
+        class="policy-audit-icon"
+        pack="fas"
+        icon="circle"
+        size="is-small"
+        :type="color"
+      >
+      </b-icon>
       <SimpleTable :theadData="['Params']">
         <template slot="tbodyContent" v-if="params && params.length > 0">
           <tr v-for="(p, i) in params" :key="i">
@@ -24,7 +32,7 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import NoContent from '@/components/common/NoContent.vue'
 
 export default {
-  props: ['params'],
+  props: ['params', 'color'],
   components: {
     Card,
     SimpleTable,
@@ -34,4 +42,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.policy-audit-icon {
+  position: absolute;
+  top: 10px;
+  right: 18px;
+}
+</style>
