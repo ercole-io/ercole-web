@@ -171,6 +171,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapActions, mapGetters, mapState } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
@@ -216,19 +217,23 @@ export default {
       }
     },
     openPolicyAuditModal(data) {
-      // this.getPdbsPolicyAudit({
-      //   hostname: data.hostname,
-      //   dbname: '',
-      //   pdbname: data.name,
-      // }).then((res) => {
-      this.$buefy.modal.open({
-        component: PolicyAuditModal,
-        hasModalCard: true,
-        // props: {
-        //   params: res.data,
-        // },
+      this.getPdbsPolicyAudit({
+        hostname: data.hostname,
+        dbname: data.dbname,
+        pdbname: data.name,
+      }).then((res) => {
+        const data = res.data['GREEN'] || res.data['RED']
+        const color = _.has(res.data, 'RED') ? 'is-danger' : 'is-primary'
+
+        this.$buefy.modal.open({
+          component: PolicyAuditModal,
+          hasModalCard: true,
+          props: {
+            params: data,
+            color: color,
+          },
+        })
       })
-      // })
     },
     getColor(semaphoreColor) {
       let color
