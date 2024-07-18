@@ -270,7 +270,7 @@ export default {
     Semaphore,
   },
   beforeMount() {
-    this.hostDatabasePolicyAuditData(this.dbInfo.dbName)
+    this.hostDatabasePolicyAuditData({ dbname: this.dbInfo.dbName })
   },
   methods: {
     ...mapActions(['hostDatabasePolicyAuditData']),
