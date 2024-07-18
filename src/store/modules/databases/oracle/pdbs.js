@@ -93,7 +93,7 @@ export const actions = {
       commit('SET_PDBS_HOSTS_DATA', hosts)
 
       const pdbs = _.map(res.data, (val) => {
-        const { hostname, color } = val
+        const { hostname, color, dbname } = val
         const { allocable, charset, datafileSize, name, segmentsSize, status } =
           val.pdb
         return {
@@ -105,6 +105,7 @@ export const actions = {
           name: name,
           segmentsSize: segmentsSize,
           status: status,
+          dbname: dbname,
         }
       })
       commit('SET_PDBS_DATA', pdbs)
