@@ -206,6 +206,50 @@
         </div>
       </div>
     </div>
+
+    <hr class="my-3" />
+    <p class="is-size-6 has-text-weight-semibold">
+      Oracle Database Policies Audit
+    </p>
+
+    <div class="columns is-multiline">
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[18])"
+            class="label is-small"
+          />
+          <b-taginput
+            size="is-small"
+            v-model="APIService.OracleDatabasePoliciesAudit"
+            type="is-primary"
+            :on-paste-separators="[]"
+            :confirm-keys="['Tab', 'Enter']"
+            allow-new
+            ellipsis
+          >
+          </b-taginput>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-3" />
+    <p class="is-size-6 has-text-weight-semibold">Licenses</p>
+
+    <div class="columns is-multiline">
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[19])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="APIService.RoundLicenses"
+            :options="trueOrFalseOptions"
+          />
+        </div>
+      </div>
+    </div>
   </article>
 </template>
 

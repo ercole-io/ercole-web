@@ -46,6 +46,8 @@ export default {
         },
         OperatingSystemAggregationRules: null,
         DefaultDatabaseTags: null,
+        OracleDatabasePoliciesAudit: null,
+        RoundLicenses: null,
       },
       AlertService: {
         RemoteEndpoint: null,
@@ -153,6 +155,8 @@ export default {
         'LDAP Bind DN',
         'LDAP Bind Password',
         'LDAP User Filter',
+        'Policy Audit',
+        'Round Licenses',
       ],
       highlightApiService: false,
       AlertServiceLabels: [
@@ -300,7 +304,10 @@ export default {
         OperatingSystemAggregationRules:
           this.getAPIService.OperatingSystemAggregationRules,
         DefaultDatabaseTags: this.getAPIService.DefaultDatabaseTags,
+        OracleDatabasePoliciesAudit:
+          this.getAPIService.OracleDatabasePoliciesAudit,
         // never change
+        RoundLicenses: this.getAPIService.RoundLicenses,
       }
     },
     bindOriginalResourceFilePathData() {
