@@ -7,6 +7,7 @@
         icon="circle"
         size="is-small"
         :type="color"
+        v-if="params && params.length > 0"
       >
       </b-icon>
       <SimpleTable :theadData="['Params']">
@@ -17,7 +18,12 @@
         </template>
         <template slot="tbodyContent" v-else>
           <tr>
-            <td colspan="2"><NoContent style="min-height: 100px" /></td>
+            <td colspan="2">
+              <NoContent
+                noContentText="Policy Audit N/A"
+                style="min-height: 100px"
+              />
+            </td>
           </tr>
         </template>
       </SimpleTable>
