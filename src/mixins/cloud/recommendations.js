@@ -1,4 +1,5 @@
 import i18n from '@/i18n.js'
+import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
@@ -32,15 +33,33 @@ export default {
       'SET_CLOUD_ACTIVE_PROFILE_GENERAL_ERRORS',
     ]),
     handleClickedRow(value) {
-      if (value[0]) {
-        this.$buefy.modal.open({
-          component: DetailsModal,
-          hasModalCard: true,
-          props: {
-            modalTitle: value[0].name,
-            details: value[0].details,
-          },
-        })
+      if (value && value[0]) {
+        if (_.isArray(value[0].details)) {
+          this.$buefy.modal.open({
+            component: DetailsModal,
+            hasModalCard: true,
+            props: {
+              modalTitle: value[0].name,
+              details: value[0].details,
+            },
+          })
+        } else {
+          const mapValues = _.map(value[0].details, (k, v) => {
+            return {
+              name: k,
+              value: v,
+            }
+          })
+
+          this.$buefy.modal.open({
+            component: DetailsModal,
+            hasModalCard: true,
+            props: {
+              modalTitle: value[0].projectName,
+              details: mapValues,
+            },
+          })
+        }
       }
     },
     modalErrors() {
