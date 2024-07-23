@@ -74,15 +74,15 @@ export default {
       }
 
       _.map(list, (item) => {
-        if (this.selectedID === item.licenseTypeID) {
-          if (type === 'host') {
-            newList.push(item.hostname)
-          } else {
-            newList.push(item.name)
-          }
+        // if (this.selectedID === item.licenseTypeID) {
+        if (type === 'host') {
+          newList.push(item.hostname)
+        } else {
+          newList.push(item.name)
         }
+        // }
       })
-      return newList
+      return _.uniq(newList)
     },
     checkArray(array) {
       return array.every((i) => typeof i === 'string')
