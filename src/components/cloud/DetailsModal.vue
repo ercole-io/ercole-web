@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card" style="width: 500px">
+  <div class="modal-card" style="width: 900px">
     <header class="modal-card-head">
       <p class="modal-card-title">Details: {{ modalTitle }}</p>
     </header>

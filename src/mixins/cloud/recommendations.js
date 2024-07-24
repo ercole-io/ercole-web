@@ -44,7 +44,7 @@ export default {
             },
           })
         } else {
-          const mapValues = _.map(value[0].details, (k, v) => {
+          const mapValues = _.map(value[0].details, (v, k) => {
             return {
               name: k,
               value: v,
