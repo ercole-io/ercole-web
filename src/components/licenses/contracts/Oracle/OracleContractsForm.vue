@@ -265,7 +265,7 @@
         "
         custom-class="is-small"
         open-on-focus
-        :disabled="ula"
+        :disabled="ula || !restricted"
         data-cy="oracle-host-associated"
       >
         <template slot-scope="props">
@@ -536,6 +536,9 @@ export default {
     restricted(val) {
       if (val) {
         this.oracleForm.basket = false
+      }
+      if (!val) {
+        this.oracleForm.hostAssociated = []
       }
     },
   },
