@@ -93,7 +93,7 @@ export const actions = {
       commit('SET_PDBS_HOSTS_DATA', hosts)
 
       const pdbs = _.map(res.data, (val) => {
-        const { hostname, color } = val
+        const { hostname, color, dbname } = val
         const { allocable, charset, datafileSize, name, segmentsSize, status } =
           val.pdb
         return {
@@ -105,6 +105,7 @@ export const actions = {
           name: name,
           segmentsSize: segmentsSize,
           status: status,
+          dbname: dbname,
         }
       })
       commit('SET_PDBS_DATA', pdbs)
@@ -152,19 +153,22 @@ export const actions = {
       commit('SET_DBGROWTH_PDBS', res.data)
     })
   },
-  // async getPdbsMigrablePostgreSemaphore(
-  //   { commit, getters, dispatch },
-  //   SET_PDBS_HOSTS_DATA
-  // ) {
-  //   const config = {
-  //     method: 'get',
-  //     url: `/hosts/${hostname}/technologies/oracle/databases/${dbname}/pdbs/${pdbname}/psql-migrabilities/semaphore`,
-  //   }
+  // eslint-disable-next-line no-empty-pattern
+  getPdbsMigrablePostgreSemaphore({}, data) {
+    const config = {
+      method: 'get',
+      url: `/hosts/${data.hostname}/technologies/oracle/databases/${data.dbname}/pdbs/${data.pdbname}/psql-migrabilities/semaphore`,
+    }
 
-  //   await axiosRequest('baseApi', config).then((res) => {
-  //     console.log(res)
-  //     dispatch('offLoading')
-  //     // commit('SET_DBGROWTH_PDBS', res.data)
-  //   })
-  // },
+    return axiosRequest('baseApi', config)
+  },
+  // eslint-disable-next-line no-empty-pattern
+  getPdbsPolicyAudit({}, data) {
+    const config = {
+      method: 'get',
+      url: `/hosts/${data.hostname}/technologies/oracle/databases/${data.dbname}/pdbs/${data.pdbname}/policies-audit`,
+    }
+
+    return axiosRequest('baseApi', config)
+  },
 }

@@ -140,6 +140,7 @@ const resolvePdbs = (pdbs) => {
         pdbDailyCapacity: capacityDailyPdb,
         pdbServices: val.services,
         pdbPgsqlMigrability: val.pgsqlMigrability,
+        pdbCharset: val.charset,
       })
     }
   })

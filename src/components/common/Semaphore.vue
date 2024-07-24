@@ -5,8 +5,8 @@
     :type="getColor"
     :size="setSize"
     class="is-clickable"
-    @click="openMograbilityModal"
-    v-tooltip="options('Postgre Migrability')"
+    @click="openModal"
+    v-tooltip="options(getTooltip)"
     v-if="getColor !== ''"
   >
     Details
@@ -18,6 +18,7 @@
 import { mapState, mapActions } from 'vuex'
 import tooltipMixin from '@/mixins/tooltipMixin.js'
 import SemaphoreModal from '@/components/hosts/hostDetails/oracle/SemaphoreModal.vue'
+import PolicyAuditModal from '@/components/hosts/hostDetails/oracle/PolicyAuditModal.vue'
 
 export default {
   name: 'commom-semaphore-component',
@@ -39,6 +40,14 @@ export default {
       type: String,
       default: '',
     },
+    btType: {
+      type: String,
+      default: 'migrable',
+    },
+    policyAuditData: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     return {
@@ -47,20 +56,34 @@ export default {
   },
   methods: {
     ...mapActions(['hostDatabaseSemaphoreData']),
-    openMograbilityModal() {
-      this.hostDatabaseSemaphoreData({
-        hostname: this.hostname,
-        dbname: this.dbname,
-      }).then(() => {
+    openModal() {
+      if (this.btType === 'migrable') {
+        this.hostDatabaseSemaphoreData({
+          hostname: this.hostname,
+          dbname: this.dbname,
+        }).then(() => {
+          this.$buefy.modal.open({
+            component: SemaphoreModal,
+            hasModalCard: true,
+            props: {
+              metrics: this.hostDetails.semaphoreData.metrics,
+              other: this.hostDetails.semaphoreData.other,
+            },
+          })
+        })
+      } else {
         this.$buefy.modal.open({
-          component: SemaphoreModal,
+          component: PolicyAuditModal,
           hasModalCard: true,
           props: {
-            metrics: this.hostDetails.semaphoreData.metrics,
-            other: this.hostDetails.semaphoreData.other,
+            params: this.hostDetails.policyAuditData,
+            color:
+              this.hostDetails.policyAuditColor === 'red'
+                ? 'is-danger'
+                : 'is-primary',
           },
         })
-      })
+      }
     },
   },
   computed: {
@@ -90,6 +113,13 @@ export default {
         icon = 'check'
       }
       return icon
+    },
+    getTooltip() {
+      if (this.btType === 'migrable') {
+        return 'Postgre Migrability'
+      } else {
+        return 'Policy Audit'
+      }
     },
   },
 }
