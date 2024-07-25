@@ -7,6 +7,7 @@ import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import DynamicHeading from '@/components/common/Table/DynamicHeading.vue'
 import DetailsModal from '@/components/cloud/DetailsModal.vue'
+import DetailsModalGoogle from '@/components/cloud/google/recommendations/DetailsModal.vue'
 import ErrorsModal from '@/components/cloud/ErrorsModal.vue'
 import RefreshButton from '@/components/common/RefreshButton.vue'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
@@ -43,23 +44,61 @@ export default {
               details: value[0].details,
             },
           })
-        } else {
-          const mapValues = _.map(value[0].details, (v, k) => {
-            return {
-              name: k,
-              value: v,
+        }
+      }
+    },
+    handleClickedRowGoogle(value) {
+      let modalHeaderData = []
+      let detailsData = []
+
+      if (value && value[0]) {
+        if (value[0].objectType === 'Compute Instance') {
+          _.map(value[0].details, (v, k) => {
+            if (k !== 'Instance Name') {
+              detailsData.push({
+                name: k,
+                value: v,
+              })
+            }
+          })
+          modalHeaderData = {
+            projectName: value[0].projectName,
+            resourceType: value[0].objectType,
+            resourceName: value[0].resourceName,
+          }
+        }
+
+        if (value[0].objectType === 'Disk') {
+          _.map(value[0].details, (v, k) => {
+            if (
+              k !== 'storage type' &&
+              k !== 'Size GB' &&
+              k !== 'Block Storage Name'
+            ) {
+              detailsData.push({
+                name: k,
+                value: v,
+              })
             }
           })
 
-          this.$buefy.modal.open({
-            component: DetailsModal,
-            hasModalCard: true,
-            props: {
-              modalTitle: value[0].projectName,
-              details: mapValues,
-            },
-          })
+          modalHeaderData = {
+            projectName: value[0].projectName,
+            storageType: value[0].details['storage type'],
+            resourceType: value[0].objectType,
+            resourceName: value[0].resourceName,
+            sizeGB: value[0].details['Size GB'],
+          }
         }
+
+        this.$buefy.modal.open({
+          component: DetailsModalGoogle,
+          hasModalCard: true,
+          props: {
+            modalHeader: modalHeaderData,
+            details: detailsData,
+          },
+        })
       }
     },
     modalErrors() {

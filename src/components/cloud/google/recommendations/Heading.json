@@ -16,15 +16,17 @@
     "langKey": "Project Name"
   },
   {
-    "sort": "projectID",
-    "langKey": "Project ID"
-  },
-  {
     "sort": "profileID",
+    "group": "Profile",
+    "class": "color-1",
     "langKey": "Profile ID"
   },
   {
-    "sort": "instanceID",
-    "langKey": "Instance ID"
+    "sort": "resourceName",
+    "langKey": "Resource Name"
+  },
+  {
+    "sort": "resourceID",
+    "langKey": "Resource ID"
   }
 ]
