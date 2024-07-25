@@ -4,7 +4,7 @@
     :keys="getHeadKeys(GoogleHeading)"
     :tableData="returnCloudRecommendations"
     :isLoadingTable="loadingTableStatus"
-    @clickedRow="handleClickedRow"
+    @clickedRow="handleClickedRowGoogle"
     isClickable
   >
     <template slot="customTopHeader">
@@ -29,6 +29,8 @@
         >
           {{ showProfileErrors }}
         </b-notification>
+
+        <MoreInfoButtons :buttonItems="RecommendationsMoreInfo" />
 
         <b-button
           v-if="showGeneralErrors && !loadingTableStatus"
@@ -60,26 +62,40 @@
       <TdContent :value="rowData.scope.objectType" />
       <TdContent :value="rowData.scope.suggestion" />
       <TdContent :value="rowData.scope.projectName" />
-      <TdContent :value="rowData.scope.projectID" />
-      <TdContent :value="rowData.scope.profileID" />
-      <TdContent :value="rowData.scope.instanceID" />
+      <TdContent
+        :value="rowData.scope.profileID"
+        :class="{ 'is-hidden': moreInfoToggle.hiddenProfile }"
+      />
+      <TdContent :value="rowData.scope.resourceName" />
+      <TdContent :value="rowData.scope.resourceID" />
     </template>
   </FullTable>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import recommendationsMixin from '@/mixins/cloud/recommendations.js'
 import GoogleHeading from '@/components/cloud/google/recommendations/Heading.json'
+import RecommendationsMoreInfo from '@/components/cloud/google/recommendations/MoreInfo.json'
+import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
 
 export default {
   name: 'cloud-google-recommendations-list-component',
   mixins: [recommendationsMixin],
+  components: {
+    MoreInfoButtons,
+  },
   data() {
     return {
       GoogleHeading: GoogleHeading,
+      RecommendationsMoreInfo: RecommendationsMoreInfo,
     }
+  },
+  computed: {
+    ...mapState(['moreInfoToggle']),
   },
 }
 </script>
 
 <style lang="scss" scoped></style>
+import { mapState } from 'vuex'
