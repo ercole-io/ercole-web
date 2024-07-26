@@ -31,14 +31,6 @@
           />
         </CustomField>
 
-        <CustomField label="Project ID">
-          <CustomAutocomplete
-            v-model="filters.projectID"
-            :filterResult="filteredprojectID"
-            :filterMethod="setAutocompletes"
-          />
-        </CustomField>
-
         <CustomField label="Profile ID">
           <CustomAutocomplete
             v-model="filters.profileID"
@@ -47,10 +39,18 @@
           />
         </CustomField>
 
-        <CustomField label="Instance ID">
+        <CustomField label="Resource Name">
           <CustomAutocomplete
-            v-model="filters.instanceID"
-            :filterResult="filteredinstanceID"
+            v-model="filters.resourceName"
+            :filterResult="filteredresourceName"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
+
+        <CustomField label="Resource ID">
+          <CustomAutocomplete
+            v-model="filters.resourceID"
+            :filterResult="filteredresourceID"
             :filterMethod="setAutocompletes"
           />
         </CustomField>
@@ -74,7 +74,7 @@ export default {
   data() {
     return {
       collapses: ['General'],
-      autocompletes: ['projectID', 'projectName', 'profileID', 'instanceID'],
+      autocompletes: ['resourceName', 'projectName', 'profileID', 'resourceID'],
       selects: ['category', 'suggestion', 'objectType'],
     }
   },
