@@ -1,51 +1,71 @@
 <template>
   <div class="modal-card" style="width: 900px">
-    <header class="modal-card-head">
+    <header
+      class="modal-card-head is-flex is-flex-direction-column is-align-items-flex-start"
+    >
       <template v-if="modalHeader.resourceType === 'Compute Instance'">
-        <p class="modal-card-title">
-          Project:
-          <span class="has-text-weight-bold">
-            {{ modalHeader.projectName || '-' }}
-          </span>
-        </p>
-        <p class="is-size-6">
-          Resource Type:
-          <span class="has-text-weight-semibold">
-            {{ modalHeader.resourceType || '-' }}
-          </span>
-        </p>
-        <p class="is-size-6 ml-5">
-          Resource Name:
-          <span class="has-text-weight-semibold">
-            {{ modalHeader.resourceName || '-' }}
-          </span>
-        </p>
+        <div
+          class="is-flex is-flex-direction-row is-justify-content-space-between"
+        >
+          <p class="is-size-6">
+            Project:
+            <span class="has-text-weight-bold">
+              {{ modalHeader.projectName || '-' }}
+            </span>
+          </p>
+          <p class="is-size-6 ml-5">
+            Resource Type:
+            <span class="has-text-weight-semibold">
+              {{ modalHeader.resourceType || '-' }}
+            </span>
+          </p>
+          <p class="is-size-6 ml-5">
+            Resource Name:
+            <span class="has-text-weight-semibold">
+              {{ modalHeader.resourceName || '-' }}
+            </span>
+          </p>
+        </div>
       </template>
       <template v-if="modalHeader.resourceType === 'Disk'">
-        <p class="modal-card-title">
-          Project:
-          <span class="has-text-weight-bold">
-            {{ modalHeader.projectName || '-' }}
-          </span>
-        </p>
-        <p class="is-size-6">
-          Storage type:
-          <span class="has-text-weight-semibold">
-            {{ modalHeader.storageType || '-' }}
-          </span>
-        </p>
-        <p class="is-size-6 ml-5">
-          Resource Name:
-          <span class="has-text-weight-semibold">
-            {{ modalHeader.resourceName || '-' }}
-          </span>
-        </p>
-        <p class="is-size-6 ml-5">
-          Size CB:
-          <span class="has-text-weight-semibold">
-            {{ modalHeader.sizeGB || '-' }}
-          </span>
-        </p>
+        <div
+          class="is-flex is-flex-direction-row is-justify-content-space-between"
+        >
+          <p class="is-size-6">
+            Project:
+            <span class="has-text-weight-bold">
+              {{ modalHeader.projectName || '-' }}
+            </span>
+          </p>
+          <p class="is-size-6 ml-5">
+            Resource Type:
+            <span class="has-text-weight-semibold">
+              {{ modalHeader.resourceType || '-' }}
+            </span>
+          </p>
+          <p class="is-size-6 ml-5">
+            Storage type:
+            <span class="has-text-weight-semibold">
+              {{ modalHeader.storageType || '-' }}
+            </span>
+          </p>
+        </div>
+        <div
+          class="is-flex is-flex-direction-row is-justify-content-space-between"
+        >
+          <p class="is-size-6">
+            Resource Name:
+            <span class="has-text-weight-semibold">
+              {{ modalHeader.resourceName || '-' }}
+            </span>
+          </p>
+          <p class="is-size-6 ml-5">
+            Size GB:
+            <span class="has-text-weight-semibold">
+              {{ modalHeader.sizeGB || '-' }}
+            </span>
+          </p>
+        </div>
       </template>
     </header>
     <section class="modal-card-body">
