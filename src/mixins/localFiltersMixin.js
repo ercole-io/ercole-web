@@ -133,6 +133,7 @@ export default {
       filteredprojectName: [],
       filteredprojectID: [],
       filteredinstanceID: [],
+      filteredresourceName: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,
