@@ -7,7 +7,7 @@
         <span
           v-tooltip.right="options(item.value)"
           :class="`column is-${colSizes[1]}`"
-          v-if="!item.hasIcon && !item.hasLink"
+          v-if="!item.hasIcon && !item.hasLink && !item.type"
         >
           {{ item.value | toString }}
         </span>
@@ -35,6 +35,17 @@
           >
           </b-icon>
         </span>
+
+        <span v-if="item.type && item.type === 'button-modal'">
+          <Semaphore
+            :setColor="item.value"
+            btType="memory"
+            :memoryInfoData="{
+              params: item.data,
+              color: item.value,
+            }"
+          />
+        </span>
       </div>
     </li>
   </ul>
@@ -43,6 +54,7 @@
 <script>
 import { mapBooleanIcon } from '@/helpers/helpers.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
+import Semaphore from '@/components/common/Semaphore.vue'
 
 export default {
   name: 'commom-cardlist-component',
@@ -56,6 +68,9 @@ export default {
       type: Array,
       default: () => ['4', '8'],
     },
+  },
+  components: {
+    Semaphore,
   },
   methods: {
     bindIncon(value) {

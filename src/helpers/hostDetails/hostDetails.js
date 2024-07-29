@@ -92,6 +92,15 @@ const getHostInfo = (info, host) => {
         name: 'Swap',
         value: info.swapTotal,
       },
+      {
+        name: 'Memory Info',
+        value: host.memorySumFlag,
+        type: 'button-modal',
+        data: {
+          sum: host.memorySum,
+          perc: host.memorySumPercentage,
+        },
+      },
     ],
   }
   const virtual = {
