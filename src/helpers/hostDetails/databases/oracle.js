@@ -143,6 +143,8 @@ const resolvePdbs = (pdbs) => {
         pdbServices: val.services,
         pdbPgsqlMigrability: val.pgsqlMigrability,
         pdbCharset: val.charset,
+        pdbPgaTarget: _.round(val.pgaAggregateTarget, 3),
+        pdbSgaTarget: _.round(val.sgaTarget, 3),
       })
     }
   })
