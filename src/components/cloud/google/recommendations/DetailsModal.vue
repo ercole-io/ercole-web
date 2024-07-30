@@ -5,23 +5,23 @@
     >
       <template v-if="modalHeader.resourceType === 'Compute Instance'">
         <div
-          class="is-flex is-flex-direction-row is-justify-content-space-between"
+          class="custom-modal-card-title is-flex is-flex-direction-column is-justify-content-space-between"
         >
-          <p class="is-size-6">
+          <p class="has-text-weight-bold">
             Project:
-            <span class="has-text-weight-bold">
+            <span class="has-text-weight-light">
               {{ modalHeader.projectName || '-' }}
             </span>
           </p>
-          <p class="is-size-6 ml-5">
+          <p class="has-text-weight-bold">
             Resource Type:
-            <span class="has-text-weight-semibold">
+            <span class="has-text-weight-light">
               {{ modalHeader.resourceType || '-' }}
             </span>
           </p>
-          <p class="is-size-6 ml-5">
+          <p class="has-text-weight-bold">
             Resource Name:
-            <span class="has-text-weight-semibold">
+            <span class="has-text-weight-light">
               {{ modalHeader.resourceName || '-' }}
             </span>
           </p>
@@ -29,39 +29,35 @@
       </template>
       <template v-if="modalHeader.resourceType === 'Disk'">
         <div
-          class="is-flex is-flex-direction-row is-justify-content-space-between"
+          class="custom-modal-card-title is-flex is-flex-direction-column is-justify-content-space-between"
         >
-          <p class="is-size-6">
+          <p class="has-text-weight-bold">
             Project:
-            <span class="has-text-weight-bold">
+            <span class="has-text-weight-light">
               {{ modalHeader.projectName || '-' }}
             </span>
           </p>
-          <p class="is-size-6 ml-5">
+          <p class="has-text-weight-bold">
             Resource Type:
-            <span class="has-text-weight-semibold">
+            <span class="has-text-weight-light">
               {{ modalHeader.resourceType || '-' }}
             </span>
           </p>
-          <p class="is-size-6 ml-5">
+          <p class="has-text-weight-bold">
             Storage type:
-            <span class="has-text-weight-semibold">
+            <span class="has-text-weight-light">
               {{ modalHeader.storageType || '-' }}
             </span>
           </p>
-        </div>
-        <div
-          class="is-flex is-flex-direction-row is-justify-content-space-between"
-        >
-          <p class="is-size-6">
+          <p class="has-text-weight-bold">
             Resource Name:
-            <span class="has-text-weight-semibold">
+            <span class="has-text-weight-light">
               {{ modalHeader.resourceName || '-' }}
             </span>
           </p>
-          <p class="is-size-6 ml-5">
+          <p class="has-text-weight-bold">
             Size GB:
-            <span class="has-text-weight-semibold">
+            <span class="has-text-weight-light">
               {{ modalHeader.sizeGB || '-' }}
             </span>
           </p>
@@ -72,8 +68,14 @@
       <SimpleTable :theadData="['Name', 'Value']">
         <template slot="tbodyContent" v-if="returnDetails.length > 0">
           <tr v-for="(detail, index) in returnDetails" :key="index">
-            <TdContent :value="detail.name" />
-            <TdContent :value="detail.value" />
+            <template v-if="modalHeader.resourceType === 'Compute Instance'">
+              <TdContent :value="detail.name" width="20" />
+              <TdContent :value="detail.value" width="80" />
+            </template>
+            <template v-if="modalHeader.resourceType === 'Disk'">
+              <TdContent :value="detail.name" width="80" />
+              <TdContent :value="detail.value" width="20" />
+            </template>
           </tr>
         </template>
         <template slot="tbodyContent" v-else>
@@ -128,8 +130,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal-card-title {
-  font-size: 1.2rem;
+.custom-modal-card-title {
+  font-size: 0.9rem;
+  line-height: 22px;
 }
 
 .modal-card-body {
@@ -137,3 +140,5 @@ export default {
   cursor: default;
 }
 </style>
+, { template }, { template }import { template } from 'lodash' import { Template
+} from 'ejs'
