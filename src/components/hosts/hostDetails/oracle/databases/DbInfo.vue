@@ -90,7 +90,7 @@
                 />
               </li>
               <li v-if="dbInfo.pgaTarget">
-                <span>PGA Target (GB)</span>
+                <span>Pga Target (GB)</span>
                 <span
                   v-tooltip.right="options(dbInfo.pgaTarget)"
                   v-html="highlight(dbInfo.pgaTarget)"
@@ -103,15 +103,22 @@
                   v-html="highlight(dbInfo.pgaTargetAggregateLowerGb)"
                 />
               </li>
+              <li v-if="dbInfo.pgaSum !== ''">
+                <span>Pga Sum (GB)</span>
+                <span
+                  v-tooltip.right="options(dbInfo.pgaSum)"
+                  v-html="highlight(dbInfo.pgaSum)"
+                />
+              </li>
               <li v-if="dbInfo.sgaMaxSize">
-                <span>SGA MaxSize (GB)</span>
+                <span>Sga MaxSize (GB)</span>
                 <span
                   v-tooltip.right="options(dbInfo.sgaMaxSize)"
                   v-html="highlight(dbInfo.sgaMaxSize)"
                 />
               </li>
               <li v-if="dbInfo.sgaTarget">
-                <span>SGA Target (GB)</span>
+                <span>Sga Target (GB)</span>
                 <span
                   v-tooltip.right="options(dbInfo.sgaTarget)"
                   v-html="highlight(dbInfo.sgaTarget)"
@@ -122,6 +129,13 @@
                 <span
                   v-tooltip.right="options(dbInfo.sgaSizeLowerGb)"
                   v-html="highlight(dbInfo.sgaSizeLowerGb)"
+                />
+              </li>
+              <li v-if="dbInfo.sgaSum !== ''">
+                <span>Sga Sum (GB)</span>
+                <span
+                  v-tooltip.right="options(dbInfo.sgaSum)"
+                  v-html="highlight(dbInfo.sgaSum)"
                 />
               </li>
             </ul>
