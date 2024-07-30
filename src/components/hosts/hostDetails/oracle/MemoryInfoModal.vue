@@ -9,11 +9,16 @@
         :type="color"
       >
       </b-icon>
-      <SimpleTable :theadData="['Sum', 'Percentage']">
+      <SimpleTable
+        :theadData="[
+          'Sum of DB Instances Memory on Host',
+          'Percentage Against Host Memory',
+        ]"
+      >
         <template slot="tbodyContent">
           <tr>
             <TdContent :value="data.params.sum" />
-            <TdContent :value="data.params.perc" />
+            <TdContent :value="`${data.params.perc} %`" />
           </tr>
         </template>
       </SimpleTable>
