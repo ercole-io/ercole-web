@@ -96,9 +96,5 @@
   {
     "sort": "environment",
     "langKey": "common.collumns.environment"
-  },
-  {
-    "sort": "policy-audit",
-    "langKey": "Policy Audit"
   }
 ]

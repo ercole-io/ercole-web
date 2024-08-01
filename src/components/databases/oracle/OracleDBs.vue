@@ -103,7 +103,7 @@
             :setColor="rowData.scope.pgsqlMigrabilitySemaphore"
           />
         </td> -->
-        <td class="is-clickable">
+        <!-- <td class="is-clickable">
           <b-button
             icon-pack="fas"
             icon-left="check"
@@ -115,7 +115,7 @@
           >
             Details
           </b-button>
-        </td>
+        </td> -->
       </template>
 
       <ExportButton
@@ -151,7 +151,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState, mapActions } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import getHeadKeys from '@/mixins/dynamicHeadingMixin.js'
@@ -176,7 +176,7 @@ import OracleMemory from '@/components/databases/oracle/OracleMemory.vue'
 import OracleStorage from '@/components/databases/oracle/OracleStorage.vue'
 // import Semaphore from '@/components/common/Semaphore.vue'
 import Loading from '@/components/common/Loading.vue'
-import PolicyAuditModal from '@/components/hosts/hostDetails/oracle/PolicyAuditModal.vue'
+// import PolicyAuditModal from '@/components/hosts/hostDetails/oracle/PolicyAuditModal.vue'
 
 export default {
   name: 'databases-oracle-dbs-component',
@@ -213,25 +213,25 @@ export default {
     this.isMounted = true
   },
   methods: {
-    ...mapActions(['hostDatabasePolicyAuditData']),
-    openPolicyAuditModal(data) {
-      this.hostDatabasePolicyAuditData({
-        hostname: data.hostname,
-        dbname: data.name,
-      }).then(() => {
-        this.$buefy.modal.open({
-          component: PolicyAuditModal,
-          hasModalCard: true,
-          props: {
-            params: this.hostDetails.policyAuditData,
-            color:
-              this.hostDetails.policyAuditColor === 'red'
-                ? 'is-danger'
-                : 'is-primary',
-          },
-        })
-      })
-    },
+    // ...mapActions(['hostDatabasePolicyAuditData']),
+    // openPolicyAuditModal(data) {
+    //   this.hostDatabasePolicyAuditData({
+    //     hostname: data.hostname,
+    //     dbname: data.name,
+    //   }).then(() => {
+    //     this.$buefy.modal.open({
+    //       component: PolicyAuditModal,
+    //       hasModalCard: true,
+    //       props: {
+    //         params: this.hostDetails.policyAuditData,
+    //         color:
+    //           this.hostDetails.policyAuditColor === 'red'
+    //             ? 'is-danger'
+    //             : 'is-primary',
+    //       },
+    //     })
+    //   })
+    // },
   },
   computed: {
     ...mapGetters(['getAllOracleDBs', 'loadingTableStatus']),
