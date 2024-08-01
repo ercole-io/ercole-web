@@ -42,7 +42,7 @@
         <v-th sortKey="dbgrowth">DB Growth</v-th>
         <v-th sortKey="dbgrowth">Services</v-th>
         <v-th sortKey="psqlMigrable">Migrable to Postgre</v-th>
-        <v-th sortKey="psqlMigrable">Policy Audit</v-th>
+        <!-- <v-th sortKey="psqlMigrable">Policy Audit</v-th> -->
         <v-th sortKey="status">Status</v-th>
         <v-th sortKey="allocable">Allocable</v-th>
         <v-th sortKey="datafileSize">DatafileSize</v-th>
@@ -137,7 +137,7 @@
           </b-button>
           <span v-else>-</span>
         </td>
-        <td class="is-clickable">
+        <!-- <td class="is-clickable">
           <b-button
             icon-pack="fas"
             icon-left="check"
@@ -149,7 +149,7 @@
           >
             Details
           </b-button>
-        </td>
+        </td> -->
         <TdContent :value="rowData.scope.status" />
         <TdContent :value="rowData.scope.allocable" />
         <TdContent :value="rowData.scope.datafileSize" />
@@ -171,7 +171,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
+// import _ from 'lodash'
 import { mapActions, mapGetters, mapState } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
@@ -179,7 +179,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import PdbsModal from '@/views/databases/oracle/PdbsModal.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
-import PolicyAuditModal from '@/components/hosts/hostDetails/oracle/PolicyAuditModal.vue'
+// import PolicyAuditModal from '@/components/hosts/hostDetails/oracle/PolicyAuditModal.vue'
 
 export default {
   name: 'oracle-databases-pdbs-page',
@@ -205,7 +205,7 @@ export default {
     this.selectedHost = this.oraclePdbs.pdbsHosts[0]
   },
   methods: {
-    ...mapActions(['getPdbs', 'getPdbsPolicyAudit']),
+    ...mapActions(['getPdbs']),
     openModal(tab, data) {
       this.isModalActive = true
       this.modalData = {
@@ -216,25 +216,25 @@ export default {
         tabsData: this.getOraclePdbsModal(data.name)[0],
       }
     },
-    openPolicyAuditModal(data) {
-      this.getPdbsPolicyAudit({
-        hostname: data.hostname,
-        dbname: data.dbname,
-        pdbname: data.name,
-      }).then((res) => {
-        const data = res.data['GREEN'] || res.data['RED']
-        const color = _.has(res.data, 'RED') ? 'is-danger' : 'is-primary'
+    // openPolicyAuditModal(data) {
+    //   this.getPdbsPolicyAudit({
+    //     hostname: data.hostname,
+    //     dbname: data.dbname,
+    //     pdbname: data.name,
+    //   }).then((res) => {
+    //     const data = res.data['GREEN'] || res.data['RED']
+    //     const color = _.has(res.data, 'RED') ? 'is-danger' : 'is-primary'
 
-        this.$buefy.modal.open({
-          component: PolicyAuditModal,
-          hasModalCard: true,
-          props: {
-            params: data,
-            color: color,
-          },
-        })
-      })
-    },
+    //     this.$buefy.modal.open({
+    //       component: PolicyAuditModal,
+    //       hasModalCard: true,
+    //       props: {
+    //         params: data,
+    //         color: color,
+    //       },
+    //     })
+    //   })
+    // },
     getColor(semaphoreColor) {
       let color
       if (semaphoreColor === 'red') {
