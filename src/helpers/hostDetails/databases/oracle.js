@@ -39,8 +39,10 @@ const mapOracleDatabases = (data, extraData) => {
       memorySizeLowerGb: memorySizeLowerGb,
       pgaTarget: item.pgaTarget.toString(),
       pgaTargetAggregateLowerGb: pgaTargetAggregateLowerGb,
+      pgaSum: item.pgaSum.toString(),
       sgaMaxSize: item.sgaMaxSize.toString(),
       sgaTarget: item.sgaTarget.toString(),
+      sgaSum: item.sgaSum.toString(),
       sgaSizeLowerGb: sgaSizeLowerGb,
       dbTime: item.dbTime.toString(),
       elapsed: item.elapsed.toString(),
@@ -141,6 +143,8 @@ const resolvePdbs = (pdbs) => {
         pdbServices: val.services,
         pdbPgsqlMigrability: val.pgsqlMigrability,
         pdbCharset: val.charset,
+        pdbPgaTarget: _.round(val.pgaAggregateTarget, 3),
+        pdbSgaTarget: _.round(val.sgaTarget, 3),
       })
     }
   })

@@ -53,6 +53,20 @@
               v-html="highlight(pdb.pdbCharset)"
             />
           </p>
+          <p class="mb-0 is-size-7">
+            Pga Target (GB):
+            <span
+              class="has-text-weight-medium"
+              v-html="highlight(pdb.pdbPgaTarget)"
+            />
+          </p>
+          <p class="mb-0 is-size-7">
+            Sga Target (GB):
+            <span
+              class="has-text-weight-medium"
+              v-html="highlight(pdb.pdbSgaTarget)"
+            />
+          </p>
         </b-tab-item>
         <b-tab-item
           label="Schemas"
