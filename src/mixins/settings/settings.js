@@ -48,6 +48,7 @@ export default {
         DefaultDatabaseTags: null,
         OracleDatabasePoliciesAudit: null,
         RoundLicenses: null,
+        PGASGASumTargetPercentage: null,
       },
       AlertService: {
         RemoteEndpoint: null,
@@ -157,6 +158,7 @@ export default {
         'LDAP User Filter',
         'Policy Audit',
         'Round Licenses',
+        'Global Host Percentage of Memory Target',
       ],
       highlightApiService: false,
       AlertServiceLabels: [
@@ -308,6 +310,7 @@ export default {
           this.getAPIService.OracleDatabasePoliciesAudit,
         // never change
         RoundLicenses: this.getAPIService.RoundLicenses,
+        PGASGASumTargetPercentage: this.getAPIService.PGASGASumTargetPercentage,
       }
     },
     bindOriginalResourceFilePathData() {
