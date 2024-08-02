@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
@@ -17,7 +16,7 @@ export const mutations = {
     state.missingDbs = payload
   },
   SET_V_HOSTS_NO_CLUSTER: (state, payload) => {
-    state.vHostsNoCluster = _.take(payload, 10)
+    state.vHostsNoCluster = payload
   },
 }
 
