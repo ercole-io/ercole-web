@@ -23,7 +23,7 @@ export default {
     },
     progressType: {
       type: String,
-      default: 'is-warning',
+      default: null,
     },
     progressValue: {
       type: Number,
@@ -52,17 +52,21 @@ export default {
   },
   computed: {
     progressColor() {
-      const progress = this.progressValue
-      if (progress >= 0 && progress <= 70) {
-        return 'is-alt-success'
+      if (this.progressType) {
+        return this.progressType
+      } else {
+        const progress = this.progressValue
+        if (progress >= 0 && progress <= 70) {
+          return 'is-alt-success'
+        }
+        if (progress > 70 && progress <= 80) {
+          return 'is-alt-warning'
+        }
+        if (progress > 80 && progress <= 90) {
+          return 'is-alt-orange'
+        }
+        return 'is-alt-danger'
       }
-      if (progress > 70 && progress <= 80) {
-        return 'is-alt-warning'
-      }
-      if (progress > 80 && progress <= 90) {
-        return 'is-alt-orange'
-      }
-      return 'is-alt-danger'
     },
   },
 }

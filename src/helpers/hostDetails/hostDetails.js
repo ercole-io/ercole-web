@@ -93,12 +93,14 @@ const getHostInfo = (info, host) => {
         value: info.swapTotal,
       },
       {
-        name: 'Memory Info',
-        value: host.memorySumFlag,
-        type: 'button-modal',
+        name: 'Memory Usage',
+        type: 'progress',
         data: {
-          sum: host.memorySum,
-          perc: host.memorySumPercentage,
+          value: Number(host.memorySumPercentage),
+          color: host.memorySumFlag === 'green' ? 'is-primary' : 'is-danger',
+          tooltip: `Sum of DB Instances Memory on Host: ${Number(
+            host.memorySum
+          )}`,
         },
       },
     ],

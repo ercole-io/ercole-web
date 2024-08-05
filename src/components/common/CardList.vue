@@ -36,14 +36,14 @@
           </b-icon>
         </span>
 
-        <span v-if="item.type && item.type === 'button-modal'">
-          <Semaphore
-            :setColor="item.value"
-            btType="memory"
-            :memoryInfoData="{
-              params: item.data,
-              color: item.value,
-            }"
+        <span
+          :class="`column is-${colSizes[1]}`"
+          v-if="item.type && item.type === 'progress'"
+        >
+          <ProgressBar
+            :progressValue="item.data.value"
+            :progressTooltip="item.data.tooltip"
+            :progressType="item.data.color"
           />
         </span>
       </div>
@@ -54,7 +54,7 @@
 <script>
 import { mapBooleanIcon } from '@/helpers/helpers.js'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
-import Semaphore from '@/components/common/Semaphore.vue'
+import ProgressBar from '@/components/common/charts/ProgressBar.vue'
 
 export default {
   name: 'commom-cardlist-component',
@@ -70,7 +70,7 @@ export default {
     },
   },
   components: {
-    Semaphore,
+    ProgressBar,
   },
   methods: {
     bindIncon(value) {
@@ -86,7 +86,7 @@ export default {
     font-size: 0.7rem;
     padding: 0.2em 1em;
 
-    &:nth-child(odd) {
+    &:nth-child(even) {
       background: #f1f1f1;
     }
 
