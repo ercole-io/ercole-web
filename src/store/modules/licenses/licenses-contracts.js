@@ -6,11 +6,15 @@ export const state = () => ({
   oracleContracts: [],
   mysqlContracts: [],
   microsoftContracts: [],
+  hostsAssociated: [],
 })
 
 export const getters = {
   getContracts: (state) => (type) => {
     return state[`${type}Contracts`]
+  },
+  getHostsAssociated: (state) => {
+    return state.hostsAssociated
   },
 }
 
@@ -35,6 +39,9 @@ export const mutations = {
       (val) => val.id === payload.data.id
     )
     state[`${payload.type}Contracts`].splice(index, 1)
+  },
+  SET_HOSTS_ASSOCIATED: (state, payload) => {
+    state.hostsAssociated = payload
   },
 }
 
@@ -88,5 +95,15 @@ export const actions = {
       .then(() => {
         dispatch('offLoadingTable')
       })
+  },
+  async getHostsAssociatedList({ commit }) {
+    const config = {
+      method: 'get',
+      url: 'hosts?mode=hostnames',
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_HOSTS_ASSOCIATED', res.data)
+    })
   },
 }
