@@ -424,9 +424,11 @@ export default {
       bus.$emit('onToggleEdit', true)
       this.editContract(data)
     })
+
+    this.getHostsAssociatedList()
   },
   methods: {
-    ...mapActions(['oracleContractsActions']),
+    ...mapActions(['oracleContractsActions', 'getHostsAssociatedList']),
     createUpdateContract() {
       const action = this.oracleForm.licenseID ? 'put' : 'post'
       const toastMsg = this.oracleForm.licenseID ? 'modified' : 'created'

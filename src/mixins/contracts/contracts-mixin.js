@@ -57,18 +57,22 @@ export default {
       this[`filtered${toFilter}`] = newValues
     },
     getAssociatedList(e, type) {
-      if (e && e.id) {
-        this.selectedID = e.id
-        let list = this.filteredAssociatedListByLicenseId(type)
+      if (type === 'host') {
+        this[`filtered${type}Tags`] = this.getHostsAssociated
+      } else {
+        if (e && e.id) {
+          this.selectedID = e.id
+          let list = this.filteredAssociatedListByLicenseId(type)
 
-        this[`filtered${type}Tags`] = list
+          this[`filtered${type}Tags`] = list
+        }
       }
     },
     filteredAssociatedListByLicenseId(type) {
       let list = []
       const newList = []
       if (type === 'host') {
-        list = this.getUsedLicensesByHost
+        list = this.getHostsAssociated
       } else {
         list = this.getUsedLicensesByCluster
       }
@@ -114,6 +118,10 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByHost', 'getUsedLicensesByCluster']),
+    ...mapGetters([
+      'getUsedLicensesByHost',
+      'getUsedLicensesByCluster',
+      'getHostsAssociated',
+    ]),
   },
 }
