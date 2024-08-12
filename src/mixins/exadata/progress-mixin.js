@@ -5,11 +5,11 @@ export default {
     ProgressBar,
   },
   methods: {
-    setTooltip(total, used, free, format) {
+    setTooltip(total, used, free, format, reserved = null) {
+      if (reserved !== null) {
+        return `Total: ${total}${format}<br>Used: ${used}${format}<br>Free: ${free}${format}<br>Reserved: ${reserved}${format}`
+      }
       return `Total: ${total}${format}<br>Used: ${used}${format}<br>Free: ${free}${format}`
-    },
-    calculatePercentageOfUsage(freeSizePercentage) {
-      return 100 - freeSizePercentage
     },
   },
 }

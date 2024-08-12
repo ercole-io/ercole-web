@@ -202,7 +202,8 @@
                     props.row.totalCPU,
                     props.row.usedCPU,
                     props.row.freeCPU,
-                    ''
+                    '',
+                    props.row.reservedCPU
                   )
                 "
               />
@@ -291,7 +292,8 @@
                     props.row.memory,
                     props.row.usedRAM,
                     props.row.freeRAM,
-                    ''
+                    '',
+                    props.row.reservedMemory
                   )
                 "
               />
