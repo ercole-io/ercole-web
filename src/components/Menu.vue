@@ -226,6 +226,14 @@ export default {
                   attributes: { 'data-cy': 'mn-oracle-capacity' },
                   hidden: this.checkMenu('Capacity', 'Oracle'),
                 },
+                {
+                  href: { name: 'policyaudit' },
+                  title: 'Policy Audit',
+                  icon: 'fas fa-cog',
+                  class: 'menu-third-level',
+                  attributes: { 'data-cy': 'mn-oracle-policy-audit' },
+                  hidden: !this.checkMenu('Policy Audit', 'Oracle'),
+                },
               ],
             },
             {
