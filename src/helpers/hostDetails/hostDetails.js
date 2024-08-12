@@ -85,11 +85,11 @@ const getHostInfo = (info, host) => {
         value: `${info.kernel} - ${info.kernelVersion}`,
       },
       {
-        name: 'Memory',
+        name: 'Memory (GB)',
         value: info.memoryTotal,
       },
       {
-        name: 'Swap',
+        name: 'Swap (GB)',
         value: info.swapTotal,
       },
       {
@@ -98,7 +98,7 @@ const getHostInfo = (info, host) => {
         data: {
           value: Number(host.memorySumPercentage),
           color: host.memorySumFlag === 'green' ? 'is-primary' : 'is-danger',
-          tooltip: `Sum of DB Instances Memory on Host: ${Number(
+          tooltip: `Sum of DB Instances Memory on Host (GB): ${Number(
             host.memorySum
           )}`,
         },

@@ -134,6 +134,11 @@ export default {
       filteredprojectID: [],
       filteredinstanceID: [],
       filteredresourceName: [],
+      filteredpdbName: [],
+      filteredpoliciesAudit: [],
+      filteredpoliciesAuditConfigured: [],
+      filteredmatched: [],
+      filterednotmatched: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,

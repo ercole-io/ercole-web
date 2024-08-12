@@ -74,7 +74,7 @@
         <div class="columns">
           <div class="column is-12">
             <ul class="db-info">
-              <li>Memory</li>
+              <li>Memory (GB)</li>
               <li v-if="dbInfo.memoryTarget">
                 <span>Memory Target</span>
                 <span
@@ -83,56 +83,56 @@
                 />
               </li>
               <li v-if="dbInfo.memorySizeLowerGb !== ''">
-                <span>Memory Size Lower (GB)</span>
+                <span>Memory Size Lower</span>
                 <span
                   v-tooltip.right="options(dbInfo.memorySizeLowerGb)"
                   v-html="highlight(dbInfo.memorySizeLowerGb)"
                 />
               </li>
               <li v-if="dbInfo.pgaTarget">
-                <span>Pga Target (GB)</span>
+                <span>Pga Target</span>
                 <span
                   v-tooltip.right="options(dbInfo.pgaTarget)"
                   v-html="highlight(dbInfo.pgaTarget)"
                 />
               </li>
               <li v-if="dbInfo.pgaTargetAggregateLowerGb !== ''">
-                <span>Pga Target Aggregate Lower (GB)</span>
+                <span>Pga Target Lower</span>
                 <span
                   v-tooltip.right="options(dbInfo.pgaTargetAggregateLowerGb)"
                   v-html="highlight(dbInfo.pgaTargetAggregateLowerGb)"
                 />
               </li>
               <li v-if="dbInfo.pgaSum !== ''">
-                <span>Pga Sum (GB)</span>
+                <span>Sum PDBs Pga Target</span>
                 <span
                   v-tooltip.right="options(dbInfo.pgaSum)"
                   v-html="highlight(dbInfo.pgaSum)"
                 />
               </li>
               <li v-if="dbInfo.sgaMaxSize">
-                <span>Sga MaxSize (GB)</span>
+                <span>Sga MaxSize</span>
                 <span
                   v-tooltip.right="options(dbInfo.sgaMaxSize)"
                   v-html="highlight(dbInfo.sgaMaxSize)"
                 />
               </li>
               <li v-if="dbInfo.sgaTarget">
-                <span>Sga Target (GB)</span>
+                <span>Sga Target</span>
                 <span
                   v-tooltip.right="options(dbInfo.sgaTarget)"
                   v-html="highlight(dbInfo.sgaTarget)"
                 />
               </li>
               <li v-if="dbInfo.sgaSizeLowerGb !== ''">
-                <span>Sga Size Lower (GB)</span>
+                <span>Sga Size Lower</span>
                 <span
                   v-tooltip.right="options(dbInfo.sgaSizeLowerGb)"
                   v-html="highlight(dbInfo.sgaSizeLowerGb)"
                 />
               </li>
               <li v-if="dbInfo.sgaSum !== ''">
-                <span>Sga Sum (GB)</span>
+                <span>Sum PDBs Sga Target</span>
                 <span
                   v-tooltip.right="options(dbInfo.sgaSum)"
                   v-html="highlight(dbInfo.sgaSum)"

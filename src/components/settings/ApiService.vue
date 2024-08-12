@@ -213,8 +213,8 @@
     </p>
 
     <div class="columns is-multiline">
-      <div class="column is-one-quarter">
-        <div class="field">
+      <div class="column is-4">
+        <div class="field" style="width: 50%">
           <label
             v-html="highlight(APIServiceLabels[18])"
             class="label is-small"
@@ -234,28 +234,12 @@
     </div>
 
     <hr class="my-3" />
-    <p class="is-size-6 has-text-weight-semibold">Licenses</p>
+    <p class="is-size-6 has-text-weight-semibold">
+      Oracle Database Memory Usage
+    </p>
 
     <div class="columns is-multiline">
-      <div class="column is-one-quarter">
-        <div class="field">
-          <label
-            v-html="highlight(APIServiceLabels[19])"
-            class="label is-small"
-          />
-          <CustomRadio
-            v-model="APIService.RoundLicenses"
-            :options="trueOrFalseOptions"
-          />
-        </div>
-      </div>
-    </div>
-
-    <hr class="my-3" />
-    <p class="is-size-6 has-text-weight-semibold">Memory</p>
-
-    <div class="columns is-multiline">
-      <div class="column is-one-quarter">
+      <div class="column is-2">
         <div class="field">
           <label
             v-html="highlight(APIServiceLabels[20])"
@@ -264,6 +248,24 @@
           <CustomInput
             v-model="APIService.PGASGASumTargetPercentage"
             inputType="number"
+          />
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-3" />
+    <p class="is-size-6 has-text-weight-semibold">Licenses Calculation</p>
+
+    <div class="columns is-multiline">
+      <div class="column is-2">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[19])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="APIService.RoundLicenses"
+            :options="roundLicensesOptions"
           />
         </div>
       </div>
