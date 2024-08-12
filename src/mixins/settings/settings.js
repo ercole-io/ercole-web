@@ -156,9 +156,9 @@ export default {
         'LDAP Bind DN',
         'LDAP Bind Password',
         'LDAP User Filter',
-        'Policy Audit',
-        'Round Licenses',
-        'Global Host Percentage of Memory Target',
+        'Policy Audit Names to Verify on Databases',
+        'Round Decimal Licenses',
+        'Threshold Percentage of DB Memory vs Host Memory',
       ],
       highlightApiService: false,
       AlertServiceLabels: [
@@ -514,6 +514,18 @@ export default {
         },
         {
           text: this.$i18n.t('common.forms.no'),
+          val: false,
+        },
+      ]
+    },
+    roundLicensesOptions() {
+      return [
+        {
+          text: 'for each host',
+          val: true,
+        },
+        {
+          text: 'on total count',
           val: false,
         },
       ]

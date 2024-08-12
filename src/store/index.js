@@ -61,6 +61,7 @@ import * as oraclePdbs from '@/store/modules/databases/oracle/pdbs'
 import * as oracleCpuTime from '@/store/modules/databases/oracle/cpuTime'
 import * as oraclePartitionings from '@/store/modules/databases/oracle/partitionings'
 import * as oracleCapacity from '@/store/modules/databases/oracle/capacity'
+import * as oraclePolicyAudit from '@/store/modules/databases/oracle/policyAudit.js'
 import * as oracleAwsRds from '@/store/modules/databases/oracle/aws-rds'
 // Databases Mysql
 import * as mysql from '@/store/modules/databases/mysql/mysql'
@@ -131,6 +132,7 @@ export default new Vuex.Store({
     oracleCpuTime,
     oraclePartitionings,
     oracleCapacity,
+    oraclePolicyAudit,
     oracleAwsRds,
     mysql,
     microsoft,

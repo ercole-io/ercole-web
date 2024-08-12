@@ -113,7 +113,7 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
   overflow-wrap: anywhere;
-  max-width: 100px;
+  /* max-width: 100px; */
 }
 
 .hidden {

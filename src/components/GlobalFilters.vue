@@ -387,7 +387,8 @@ export default {
         this.$route.name !== 'troubleshooting' &&
         this.$route.name !== 'awsrds' &&
         this.$route.name !== 'google-profile-configurations' &&
-        this.$route.name !== 'google-recommendations'
+        this.$route.name !== 'google-recommendations' &&
+        this.$route.name !== 'policyaudit'
       )
     },
   },
