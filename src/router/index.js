@@ -399,10 +399,8 @@ const routes = [
                 name: 'policyaudit',
                 component: lazyRouteBuilder('databases/oracle/PolicyAudit.vue'),
                 meta: {
-                  label: `${i18n.t('menu.oracle')}: ${i18n.t('menu.capacity')}`,
-                  title: `${title}${i18n.t('menu.oracle')}: ${i18n.t(
-                    'menu.capacity'
-                  )}`,
+                  label: `${i18n.t('menu.oracle')}: Policy Audit`,
+                  title: `${title}${i18n.t('menu.oracle')}: Policy Audit`,
                   breadcrumb: [
                     { name: i18n.t('menu.databases'), link: '/databases' },
                     { name: i18n.t('menu.oracle'), link: '/oracle' },
