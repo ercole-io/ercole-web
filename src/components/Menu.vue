@@ -234,6 +234,14 @@ export default {
                   attributes: { 'data-cy': 'mn-oracle-policy-audit' },
                   hidden: !this.checkMenu('Policy Audit', 'Oracle'),
                 },
+                {
+                  href: { name: 'psqlmigrability' },
+                  title: 'PSQL Migrability',
+                  icon: 'fas fa-cog',
+                  class: 'menu-third-level',
+                  attributes: { 'data-cy': 'mn-oracle-psql-migrability' },
+                  hidden: !this.checkMenu('PSQL Migrability', 'Oracle'),
+                },
               ],
             },
             {

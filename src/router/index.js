@@ -410,6 +410,23 @@ const routes = [
                 beforeEnter: verifyAuth,
               },
               {
+                path: '/psql-migrability',
+                name: 'psqlmigrability',
+                component: lazyRouteBuilder(
+                  'databases/oracle/PsqlMigrability.vue'
+                ),
+                meta: {
+                  label: `${i18n.t('menu.oracle')}: PSQL Migrability`,
+                  title: `${title}${i18n.t('menu.oracle')}: PSQL Migrability`,
+                  breadcrumb: [
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: 'PSQL Migrability' },
+                  ],
+                },
+                beforeEnter: verifyAuth,
+              },
+              {
                 path: '/awsrds',
                 name: 'awsrds',
                 component: lazyRouteBuilder('databases/oracle/AWS-RDS.vue'),

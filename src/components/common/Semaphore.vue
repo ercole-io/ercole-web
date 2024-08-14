@@ -53,6 +53,10 @@ export default {
       type: Object,
       default: () => {},
     },
+    modaldata: {
+      type: Object,
+      default: () => {},
+    },
   },
   data() {
     return {
@@ -62,41 +66,52 @@ export default {
   methods: {
     ...mapActions(['hostDatabaseSemaphoreData']),
     openModal() {
-      if (this.btType === 'migrable') {
-        this.hostDatabaseSemaphoreData({
-          hostname: this.hostname,
-          dbname: this.dbname,
-        }).then(() => {
+      if (this.modaldata) {
+        this.$buefy.modal.open({
+          component: SemaphoreModal,
+          hasModalCard: true,
+          props: {
+            metrics: this.modaldata.metrics,
+            other: this.modaldata.other,
+          },
+        })
+      } else {
+        if (this.btType === 'migrable') {
+          this.hostDatabaseSemaphoreData({
+            hostname: this.hostname,
+            dbname: this.dbname,
+          }).then(() => {
+            this.$buefy.modal.open({
+              component: SemaphoreModal,
+              hasModalCard: true,
+              props: {
+                metrics: this.hostDetails.semaphoreData.metrics,
+                other: this.hostDetails.semaphoreData.other,
+              },
+            })
+          })
+        } else if (this.btType === 'policy') {
           this.$buefy.modal.open({
-            component: SemaphoreModal,
+            component: PolicyAuditModal,
             hasModalCard: true,
             props: {
-              metrics: this.hostDetails.semaphoreData.metrics,
-              other: this.hostDetails.semaphoreData.other,
+              params: this.hostDetails.policyAuditData,
+              color:
+                this.hostDetails.policyAuditColor === 'red'
+                  ? 'is-danger'
+                  : 'is-primary',
             },
           })
-        })
-      } else if (this.btType === 'policy') {
-        this.$buefy.modal.open({
-          component: PolicyAuditModal,
-          hasModalCard: true,
-          props: {
-            params: this.hostDetails.policyAuditData,
-            color:
-              this.hostDetails.policyAuditColor === 'red'
-                ? 'is-danger'
-                : 'is-primary',
-          },
-        })
-      } else if (this.btType === 'memory') {
-        this.$buefy.modal.open({
-          component: MemoryInfoModal,
-          hasModalCard: true,
-          props: {
-            data: this.memoryInfoData,
-            color: this.getColor(this.memoryInfoData.color),
-          },
-        })
+        } else if (this.btType === 'memory') {
+          this.$buefy.modal.open({
+            component: MemoryInfoModal,
+            hasModalCard: true,
+            props: {
+              data: this.memoryInfoData,
+              color: this.getColor(this.memoryInfoData.color),
+            },
+          })
+        }
       }
     },
     getColor(value) {
