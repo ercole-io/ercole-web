@@ -61,7 +61,8 @@ import * as oraclePdbs from '@/store/modules/databases/oracle/pdbs'
 import * as oracleCpuTime from '@/store/modules/databases/oracle/cpuTime'
 import * as oraclePartitionings from '@/store/modules/databases/oracle/partitionings'
 import * as oracleCapacity from '@/store/modules/databases/oracle/capacity'
-import * as oraclePolicyAudit from '@/store/modules/databases/oracle/policyAudit.js'
+import * as oraclePolicyAudit from '@/store/modules/databases/oracle/policyAudit'
+import * as oraclePsqlMigrabilkity from '@/store/modules/databases/oracle/psqlMigrability'
 import * as oracleAwsRds from '@/store/modules/databases/oracle/aws-rds'
 // Databases Mysql
 import * as mysql from '@/store/modules/databases/mysql/mysql'
@@ -88,7 +89,7 @@ import * as cloudActiveProfiles from '@/store/modules/cloud/activeProfiles'
 // Settings
 import * as settings from '@/store/modules/settings/settings'
 // Troubleshooting page
-import * as troubleshooting from '@/store/modules/troubleshooting/troubleshooting.js'
+import * as troubleshooting from '@/store/modules/troubleshooting/troubleshooting'
 // Profile Management
 import * as users from '@/store/modules/profile/users'
 import * as groups from '@/store/modules/profile/groups'
@@ -133,6 +134,7 @@ export default new Vuex.Store({
     oraclePartitionings,
     oracleCapacity,
     oraclePolicyAudit,
+    oraclePsqlMigrabilkity,
     oracleAwsRds,
     mysql,
     microsoft,

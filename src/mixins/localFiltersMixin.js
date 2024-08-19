@@ -139,6 +139,7 @@ export default {
       filteredpoliciesAuditConfigured: [],
       filteredmatched: [],
       filterednotmatched: [],
+      filteredpdbname: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,

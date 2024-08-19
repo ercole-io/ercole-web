@@ -21,6 +21,9 @@ const defaultState = () => ({
   'page-services': [false, true],
   'page-schemas': [false, true],
   'page-partitionings': [false, true],
+  'page-capacity': [false, true],
+  'page-policy-audit': [false, true],
+  'page-psql-migrability': [false, true],
 
   'page-alerts': [false, true],
 
