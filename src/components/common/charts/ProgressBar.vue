@@ -6,7 +6,7 @@
     :value="forceToNumber(progressValue)"
     :max="progressMaxValue ? forceToNumber(progressMaxValue) : 100"
     :show-value="progressShowValue"
-    v-tooltip="options(progressTooltip)"
+    v-tooltip.bottom="options(progressTooltip)"
   />
 </template>
 
