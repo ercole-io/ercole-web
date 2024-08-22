@@ -97,7 +97,14 @@
                 />
               </li>
               <li v-if="dbInfo.pgaTargetAggregateLowerGb !== ''">
-                <span>Pga Target Lower</span>
+                <span
+                  v-tooltip.bottom="
+                    options(
+                      'This value is suggested by the PGA Advisory in order to maintain the performance and reduce overallocated memory'
+                    )
+                  "
+                  >Pga Advisory Suggested Value</span
+                >
                 <span
                   v-tooltip.right="options(dbInfo.pgaTargetAggregateLowerGb)"
                   v-html="highlight(dbInfo.pgaTargetAggregateLowerGb)"
@@ -125,7 +132,14 @@
                 />
               </li>
               <li v-if="dbInfo.sgaSizeLowerGb !== ''">
-                <span>Sga Size Lower</span>
+                <span
+                  v-tooltip.bottom="
+                    options(
+                      'This value is suggested by the SGA Advisory in order to maintain the performance and reduce overallocated memory'
+                    )
+                  "
+                  >Sga Advisory Suggested Value</span
+                >
                 <span
                   v-tooltip.right="options(dbInfo.sgaSizeLowerGb)"
                   v-html="highlight(dbInfo.sgaSizeLowerGb)"

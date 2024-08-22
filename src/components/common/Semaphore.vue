@@ -142,9 +142,9 @@ export default {
     },
     getTooltip() {
       if (this.btType === 'migrable') {
-        return 'Postgre Migrability'
+        return 'These values allows you to assess the ease of migration of the schemas from Oracle to PostgreSQL'
       } else if (this.btType === 'policy') {
-        return 'Policy Audit'
+        return 'This advisory check if the database is compliant with the audit policy set on the configuration'
       } else if (this.btType === 'memory') {
         return 'Memory Info'
       }

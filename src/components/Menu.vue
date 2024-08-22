@@ -476,7 +476,7 @@ export default {
               title: 'Google',
               icon: 'fas fa-cloud',
               attributes: { 'data-cy': 'mn-cloud-google' },
-              hidden: this.checkMenu('gcp', 'Cloud Advisors'),
+              hidden: this.checkMenu('GCP', 'Cloud Advisors'),
               child: [
                 {
                   href: { name: 'google-profile-configurations' },
@@ -484,7 +484,7 @@ export default {
                   icon: 'fas fa-user-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-cloud-google-profile' },
-                  hidden: this.checkMenu('gcp', 'Cloud Advisors'),
+                  hidden: this.checkMenu('Profile Configurations', 'GCP'),
                 },
                 {
                   href: { name: 'google-recommendations' },
@@ -493,7 +493,7 @@ export default {
                   class: 'menu-third-level',
                   // disabled: !this.getCloudActiveProfiles('oci'),
                   attributes: { 'data-cy': 'mn-cloud-google-recommendations' },
-                  hidden: this.checkMenu('gcp', 'Cloud Advisors'),
+                  hidden: this.checkMenu('Recommendations', 'GCP'),
                 },
               ],
             },
