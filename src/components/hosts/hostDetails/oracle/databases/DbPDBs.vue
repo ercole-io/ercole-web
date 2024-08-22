@@ -14,10 +14,10 @@
       <b-tabs
         size="is-small"
         position="is-centered"
-        class="block mr-0 p-3"
+        class="pdbs-tabs block mr-0 p-3"
         destroy-on-hide
       >
-        <b-tab-item label="General">
+        <b-tab-item label="General" class="mt-5">
           <p class="mb-0 mt-2 is-size-7">
             Status:
             <span
@@ -70,6 +70,7 @@
         </b-tab-item>
         <b-tab-item
           label="Schemas"
+          class="mt-5"
           v-if="pdb.pdbSchemas && pdb.pdbSchemas.length > 0"
         >
           <FullTable
@@ -103,6 +104,7 @@
         </b-tab-item>
         <b-tab-item
           label="Tablespaces"
+          class="mt-5"
           v-if="pdb.pdbTablespaces && pdb.pdbTablespaces.length > 0"
         >
           <FullTable
@@ -135,6 +137,7 @@
         </b-tab-item>
         <b-tab-item
           label="Grant Role"
+          class="mt-5"
           v-if="pdb.pdbGrantDba && pdb.pdbGrantDba.length > 0"
         >
           <FullTable
@@ -161,6 +164,7 @@
         </b-tab-item>
         <b-tab-item
           label="Segment Advisors"
+          class="mt-5"
           v-if="pdb.segmentAdvisors && pdb.segmentAdvisors.length > 0"
         >
           <FullTable
@@ -197,6 +201,7 @@
         </b-tab-item>
         <b-tab-item
           label="Partitioning"
+          class="mt-5"
           v-if="pdb.partitionings && pdb.partitionings.length > 0"
         >
           <FullTable
@@ -245,6 +250,7 @@
         />
         <b-tab-item
           label="Services"
+          class="mt-5"
           v-if="pdb.pdbServices && pdb.pdbServices.length > 0"
         >
           <FullTable
@@ -344,6 +350,7 @@
 import _ from 'lodash'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+import TooltipMixin from '@/mixins/tooltipMixin.js'
 
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -356,7 +363,7 @@ import SimpleTable from '@/components/common/Table/SimpleTable.vue'
 
 export default {
   name: 'hosts-details-oracle-databases-pdbs-component',
-  mixins: [HighlightSearchMixin],
+  mixins: [HighlightSearchMixin, TooltipMixin],
   components: {
     FullTable,
     TdContent,
@@ -422,18 +429,30 @@ export default {
 </script>
 
 <style lang="scss">
-[id='migrable-to-postgre-green-label'],
-[id='policy-audit-green-label'] {
-  background-color: #2bad84;
-  color: white !important;
-}
-[id='migrable-to-postgre-yellow-label'],
-[id='policy-audit-yellow-label'] {
-  background-color: #ffe08a;
-}
-[id='migrable-to-postgre-red-label'],
-[id='policy-audit-red-label'] {
-  background-color: #f14668;
-  color: white !important;
+.pdbs-tabs {
+  ul {
+    li {
+      margin: 0 2px;
+
+      a {
+        border-radius: 5px 5px 0 0;
+      }
+
+      [id='migrable-to-postgre-green-label'],
+      [id='policy-audit-green-label'] {
+        background-color: #2bad84;
+        color: white !important;
+      }
+      [id='migrable-to-postgre-yellow-label'],
+      [id='policy-audit-yellow-label'] {
+        background-color: #ffe08a;
+      }
+      [id='migrable-to-postgre-red-label'],
+      [id='policy-audit-red-label'] {
+        background-color: #f14668;
+        color: white !important;
+      }
+    }
+  }
 }
 </style>
