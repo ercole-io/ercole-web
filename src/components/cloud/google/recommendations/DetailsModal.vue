@@ -74,7 +74,18 @@
             </template>
             <template v-if="modalHeader.resourceType === 'Disk'">
               <TdContent :value="detail.name" width="80" />
-              <TdContent :value="detail.value" width="20" />
+              <!-- <TdContent :value="detail.value" width="20" /> -->
+              <td width="20">
+                <ProgressBar
+                  progressFormat="raw"
+                  :progressValue="detail.val"
+                  :progressMaxValue="detail.max"
+                  progressType="is-primary"
+                  :progressTooltip="detail.value"
+                >
+                  {{ detail.value }}
+                </ProgressBar>
+              </td>
             </template>
           </tr>
         </template>
@@ -95,6 +106,7 @@ import TooltipMixin from '@/mixins/tooltipMixin.js'
 import SimpleTable from '@/components/common/Table/SimpleTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import NoContent from '@/components/common/NoContent.vue'
+import ProgressBar from '@/components/common/charts/ProgressBar.vue'
 
 export default {
   name: 'cloud-google-details-modal-component',
@@ -103,6 +115,7 @@ export default {
     SimpleTable,
     TdContent,
     NoContent,
+    ProgressBar,
   },
   props: {
     modalHeader: {
@@ -116,13 +129,25 @@ export default {
   },
   computed: {
     returnDetails() {
-      const details = []
+      let details = []
+
       _.map(this.details, (dt) => {
         details.push({
           name: dt.name,
           value: dt.value,
         })
       })
+
+      if (this.modalHeader.resourceType === 'Disk') {
+        details = _.map(details, (dt) => {
+          return {
+            ...dt,
+            val: Number(dt.value.split('/')[0]),
+            max: Number(dt.value.split('/')[1]),
+          }
+        })
+      }
+
       return details
     },
   },
