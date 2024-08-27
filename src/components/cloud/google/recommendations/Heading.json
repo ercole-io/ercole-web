@@ -12,6 +12,10 @@
     "langKey": "Suggestion"
   },
   {
+    "sort": "resolutionLevel",
+    "langKey": "Resolution Level"
+  },
+  {
     "sort": "projectName",
     "langKey": "Project Name"
   },

@@ -61,6 +61,7 @@
       <TdContent :value="rowData.scope.category" />
       <TdContent :value="rowData.scope.objectType" />
       <TdContent :value="rowData.scope.suggestion" />
+      <TdContent :value="rowData.scope.resolutionLevel" />
       <TdContent :value="rowData.scope.projectName" />
       <TdContent
         :value="rowData.scope.profileID"
