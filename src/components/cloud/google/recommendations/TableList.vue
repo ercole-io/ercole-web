@@ -70,6 +70,12 @@
       <TdContent :value="rowData.scope.resourceName" />
       <TdContent :value="rowData.scope.resourceID" />
     </template>
+
+    <ExportButton
+      slot="export"
+      url="thunder/gcp/recommendations"
+      expName="gcp-recommendations"
+    />
   </FullTable>
 </template>
 
@@ -79,12 +85,14 @@ import recommendationsMixin from '@/mixins/cloud/recommendations.js'
 import GoogleHeading from '@/components/cloud/google/recommendations/Heading.json'
 import RecommendationsMoreInfo from '@/components/cloud/google/recommendations/MoreInfo.json'
 import MoreInfoButtons from '@/components/common/MoreInfoButtons.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
   name: 'cloud-google-recommendations-list-component',
   mixins: [recommendationsMixin],
   components: {
     MoreInfoButtons,
+    ExportButton,
   },
   data() {
     return {
