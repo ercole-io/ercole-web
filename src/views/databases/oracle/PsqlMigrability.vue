@@ -48,11 +48,11 @@
         <TdContent v-else :value="rowData.scope.flagType" />
       </template>
 
-      <!-- <ExportButton
+      <ExportButton
         slot="export"
         url="hosts/technologies/oracle/databases/psql-migrabilities"
         expName="oraclePsqlMigrability"
-      /> -->
+      />
     </FullTable>
   </ToggleColumns>
 </template>
@@ -64,7 +64,7 @@ import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
-// import ExportButton from '@/components/common/ExportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
 import Semaphore from '@/components/common/Semaphore.vue'
@@ -78,7 +78,7 @@ export default {
     ToggleColumns,
     FullTable,
     HostLink,
-    // ExportButton,
+    ExportButton,
     TdContent,
     TdIcon,
     Semaphore,
