@@ -49,6 +49,9 @@ export default {
         OracleDatabasePoliciesAudit: null,
         RoundLicenses: null,
         PGASGASumTargetPercentage: null,
+        EnableAwsMenu: null,
+        EnableGcpMenu: null,
+        EnableOciMenu: null,
       },
       AlertService: {
         RemoteEndpoint: null,
@@ -159,6 +162,9 @@ export default {
         'Policy Audit Names to Verify on Databases',
         'Round Decimal Licenses',
         'Threshold Percentage of DB Memory vs Host Memory',
+        'Show OCI Cloud Advisors on menu?',
+        'Show AWS Cloud Advisors on menu?',
+        'Show GCP Cloud Advisors on menu?',
       ],
       highlightApiService: false,
       AlertServiceLabels: [
@@ -311,6 +317,9 @@ export default {
         // never change
         RoundLicenses: this.getAPIService.RoundLicenses,
         PGASGASumTargetPercentage: this.getAPIService.PGASGASumTargetPercentage,
+        EnableAwsMenu: this.getAPIService.EnableAwsMenu,
+        EnableGcpMenu: this.getAPIService.EnableGcpMenu,
+        EnableOciMenu: this.getAPIService.EnableOciMenu,
       }
     },
     bindOriginalResourceFilePathData() {
