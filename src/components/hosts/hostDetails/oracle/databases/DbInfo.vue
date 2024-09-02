@@ -83,7 +83,7 @@
                 />
               </li>
               <li v-if="dbInfo.memorySizeLowerGb !== ''">
-                <span>Memory Size Lower</span>
+                <span>Memory Advisory Suggested Value</span>
                 <span
                   v-tooltip.right="options(dbInfo.memorySizeLowerGb)"
                   v-html="highlight(dbInfo.memorySizeLowerGb)"
