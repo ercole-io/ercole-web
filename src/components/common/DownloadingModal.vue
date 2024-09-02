@@ -150,6 +150,10 @@ export default {
     exportUrl: {
       type: String,
     },
+    exportApi: {
+      type: String,
+      default: 'baseApi',
+    },
     exportName: {
       type: String,
     },
@@ -238,7 +242,7 @@ export default {
           this.onDownloadProgress(progressEvent)
         },
       }
-      axiosRequest('baseApi', config)
+      axiosRequest(this.exportApi, config)
         .then((res) => {
           const filename =
             this.exportType === 'csv'
