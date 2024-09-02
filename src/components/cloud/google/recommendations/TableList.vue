@@ -73,8 +73,9 @@
 
     <ExportButton
       slot="export"
-      url="thunder/gcp/recommendations"
+      url="gcp/recommendations"
       expName="gcp-recommendations"
+      api="thunderApi"
     />
   </FullTable>
 </template>
