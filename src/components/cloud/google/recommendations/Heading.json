@@ -12,8 +12,8 @@
     "langKey": "Suggestion"
   },
   {
-    "sort": "resolutionLevel",
-    "langKey": "Resolution Level"
+    "sort": "optimizationScore",
+    "langKey": "Optimization Score"
   },
   {
     "sort": "projectName",
