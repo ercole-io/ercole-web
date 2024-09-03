@@ -169,6 +169,155 @@
         </div>
       </div>
     </div>
+
+    <hr class="my-3" />
+    <p class="is-size-6 has-text-weight-semibold">Gcp Data Retrieve Job</p>
+
+    <div class="columns is-multiline">
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[10])"
+            class="label is-small"
+          />
+          <CustomInput v-model="ThunderService.GcpDataRetrieveJob.Crontab" />
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[12])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="ThunderService.GcpDataRetrieveJob.RunAtStartup"
+            :options="trueOrFalseOptions"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-multiline">
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[13])"
+            class="label is-small"
+          />
+          <CustomInput v-model="ThunderService.GcpDataRetrieveJob.ProjectID" />
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-multiline">
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[14])"
+            class="label is-small"
+          />
+          <CustomInput
+            v-model="ThunderService.GcpDataRetrieveJob.AvgCpuPercentage"
+            inputType="number"
+          />
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[15])"
+            class="label is-small"
+          />
+          <CustomInput
+            v-model="
+              ThunderService.GcpDataRetrieveJob.AvgCpuUtilizationThreshold
+            "
+            inputType="number"
+          />
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[16])"
+            class="label is-small"
+          />
+          <CustomInput
+            v-model="ThunderService.GcpDataRetrieveJob.MaxCpuPercentage"
+            inputType="number"
+          />
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[17])"
+            class="label is-small"
+          />
+          <CustomInput
+            v-model="
+              ThunderService.GcpDataRetrieveJob.MaxCpuUtilizationThreshold
+            "
+            inputType="number"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-multiline">
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[18])"
+            class="label is-small"
+          />
+          <CustomInput
+            v-model="ThunderService.GcpDataRetrieveJob.MaxMemPercentage"
+            inputType="number"
+          />
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[19])"
+            class="label is-small"
+          />
+          <CustomInput
+            v-model="
+              ThunderService.GcpDataRetrieveJob.MaxMemUtilizationThreshold
+            "
+            inputType="number"
+          />
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[20])"
+            class="label is-small"
+          />
+          <CustomInput
+            v-model="ThunderService.GcpDataRetrieveJob.IopsStoragePercentage"
+            inputType="number"
+          />
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[21])"
+            class="label is-small"
+          />
+          <CustomInput
+            v-model="
+              ThunderService.GcpDataRetrieveJob.ThroughputStoragePercentage
+            "
+            inputType="number"
+          />
+        </div>
+      </div>
+    </div>
   </article>
 </template>
 
