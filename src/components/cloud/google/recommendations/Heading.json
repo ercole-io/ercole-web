@@ -12,6 +12,10 @@
     "langKey": "Suggestion"
   },
   {
+    "sort": "optimizationScore",
+    "langKey": "Optimization Score"
+  },
+  {
     "sort": "projectName",
     "langKey": "Project Name"
   },

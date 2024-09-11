@@ -49,6 +49,9 @@ export default {
         OracleDatabasePoliciesAudit: null,
         RoundLicenses: null,
         PGASGASumTargetPercentage: null,
+        EnableAwsMenu: null,
+        EnableGcpMenu: null,
+        EnableOciMenu: null,
       },
       AlertService: {
         RemoteEndpoint: null,
@@ -136,6 +139,19 @@ export default {
           DaysThreshold: null,
           RunAtStartup: null,
         },
+        GcpDataRetrieveJob: {
+          AvgCpuPercentage: null,
+          AvgCpuUtilizationThreshold: null,
+          Crontab: null,
+          IopsStoragePercentage: null,
+          MaxCpuPercentage: null,
+          MaxCpuUtilizationThreshold: null,
+          MaxMemPercentage: null,
+          MaxMemUtilizationThreshold: null,
+          ProjectID: null,
+          RunAtStartup: null,
+          ThroughputStoragePercentage: null,
+        },
       },
       APIServiceLabels: [
         'Remote Endpoint',
@@ -159,6 +175,9 @@ export default {
         'Policy Audit Names to Verify on Databases',
         'Round Decimal Licenses',
         'Threshold Percentage of DB Memory vs Host Memory',
+        'Show OCI Cloud Advisors on menu?',
+        'Show AWS Cloud Advisors on menu?',
+        'Show GCP Cloud Advisors on menu?',
       ],
       highlightApiService: false,
       AlertServiceLabels: [
@@ -227,6 +246,15 @@ export default {
         'Crontab',
         'HourThreshold',
         'Run At Startup',
+        'Project ID',
+        'Average Cpu Percentage',
+        'Average Cpu Utilization Threshold',
+        'Max Cpu Percentage',
+        'Max Cpu Utilization Threshold',
+        'Max Memory Percentage',
+        'Max Memory Utilization Threshold',
+        'Iops Storage Percentage',
+        'Through Put Storage Percentage',
       ],
       highlightThunderService: false,
     }
@@ -311,6 +339,9 @@ export default {
         // never change
         RoundLicenses: this.getAPIService.RoundLicenses,
         PGASGASumTargetPercentage: this.getAPIService.PGASGASumTargetPercentage,
+        EnableAwsMenu: this.getAPIService.EnableAwsMenu,
+        EnableGcpMenu: this.getAPIService.EnableGcpMenu,
+        EnableOciMenu: this.getAPIService.EnableOciMenu,
       }
     },
     bindOriginalResourceFilePathData() {
@@ -434,6 +465,31 @@ export default {
           DaysThreshold:
             this.getThunderService.AwsDataRetrieveJob.DaysThreshold,
           RunAtStartup: this.getThunderService.AwsDataRetrieveJob.RunAtStartup,
+        },
+        GcpDataRetrieveJob: {
+          AvgCpuPercentage:
+            this.getThunderService.GcpDataRetrieveJob.AvgCpuPercentage,
+          AvgCpuUtilizationThreshold:
+            this.getThunderService.GcpDataRetrieveJob
+              .AvgCpuUtilizationThreshold,
+          Crontab: this.getThunderService.GcpDataRetrieveJob.Crontab,
+          IopsStoragePercentage:
+            this.getThunderService.GcpDataRetrieveJob.IopsStoragePercentage,
+          MaxCpuPercentage:
+            this.getThunderService.GcpDataRetrieveJob.MaxCpuPercentage,
+          MaxCpuUtilizationThreshold:
+            this.getThunderService.GcpDataRetrieveJob
+              .MaxCpuUtilizationThreshold,
+          MaxMemPercentage:
+            this.getThunderService.GcpDataRetrieveJob.MaxMemPercentage,
+          MaxMemUtilizationThreshold:
+            this.getThunderService.GcpDataRetrieveJob
+              .MaxMemUtilizationThreshold,
+          ProjectID: this.getThunderService.GcpDataRetrieveJob.ProjectID,
+          RunAtStartup: this.getThunderService.GcpDataRetrieveJob.RunAtStartup,
+          ThroughputStoragePercentage:
+            this.getThunderService.GcpDataRetrieveJob
+              .ThroughputStoragePercentage,
         },
       }
     },

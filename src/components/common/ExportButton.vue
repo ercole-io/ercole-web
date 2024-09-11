@@ -30,6 +30,10 @@ export default {
       type: String,
       required: true,
     },
+    api: {
+      type: String,
+      default: 'baseApi',
+    },
     expName: {
       type: String,
       required: true,
@@ -58,6 +62,7 @@ export default {
         props: {
           exportType: this.type,
           exportUrl: this.url,
+          exportApi: this.api,
           exportName: this.expName,
           exportTitle: checkType,
           glFiltersState: this.globalFilters,

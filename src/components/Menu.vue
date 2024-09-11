@@ -401,7 +401,7 @@ export default {
               title: this.$i18n.t('menu.oracle'),
               icon: 'fas fa-cloud',
               attributes: { 'data-cy': 'mn-cloud-oracle' },
-              hidden: this.checkMenu('Oracle', 'Cloud Advisors'),
+              hidden: this.checkMenu('OCI', 'Cloud Advisors'),
               child: [
                 {
                   href: { name: 'oracle-profile-configurations' },
@@ -409,7 +409,7 @@ export default {
                   icon: 'fas fa-user-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-cloud-oracle-profile' },
-                  hidden: this.checkMenu('Profile Configuration', 'Oracle'),
+                  hidden: this.checkMenu('Profile Configurations', 'OCI'),
                 },
                 {
                   href: { name: 'oracle-recommendations' },
@@ -418,7 +418,7 @@ export default {
                   class: 'menu-third-level',
                   disabled: !this.getCloudActiveProfiles('oci'),
                   attributes: { 'data-cy': 'mn-cloud-oracle-recommendations' },
-                  hidden: this.checkMenu('Recommendations', 'Oracle'),
+                  hidden: this.checkMenu('Recommendations', 'OCI'),
                 },
               ],
             },
@@ -434,7 +434,7 @@ export default {
                   icon: 'fas fa-user-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-cloud-aws-profile' },
-                  hidden: this.checkMenu('Profile Configuration', 'AWS'),
+                  hidden: this.checkMenu('Profile Configurations', 'AWS'),
                 },
                 {
                   href: { name: 'aws-recommendations' },

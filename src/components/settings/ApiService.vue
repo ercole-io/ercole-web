@@ -270,6 +270,50 @@
         </div>
       </div>
     </div>
+
+    <hr class="my-3" />
+    <p class="is-size-6 has-text-weight-semibold">Cloud Advisors</p>
+
+    <div class="columns is-multiline">
+      <div class="column is-2">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[21])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="APIService.EnableOciMenu"
+            :options="trueOrFalseOptions"
+          />
+        </div>
+      </div>
+
+      <div class="column is-2">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[22])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="APIService.EnableAwsMenu"
+            :options="trueOrFalseOptions"
+          />
+        </div>
+      </div>
+
+      <div class="column is-2">
+        <div class="field">
+          <label
+            v-html="highlight(APIServiceLabels[23])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="APIService.EnableGcpMenu"
+            :options="trueOrFalseOptions"
+          />
+        </div>
+      </div>
+    </div>
   </article>
 </template>
 

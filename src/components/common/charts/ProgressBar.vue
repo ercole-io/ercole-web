@@ -7,7 +7,9 @@
     :max="progressMaxValue ? forceToNumber(progressMaxValue) : 100"
     :show-value="progressShowValue"
     v-tooltip.bottom="options(progressTooltip)"
-  />
+  >
+    <slot />
+  </b-progress>
 </template>
 
 <script>
