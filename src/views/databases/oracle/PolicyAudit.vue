@@ -63,11 +63,11 @@
         <TdArrayMore v-else :value="'-'" />
       </template>
 
-      <!-- <ExportButton
+      <ExportButton
         slot="export"
-        url="hosts/technologies/oracle/databases/pdbs/policies-audit"
+        url="hosts/technologies/oracle/databases/policies-audit"
         expName="oraclePolicyAudit"
-      /> -->
+      />
     </FullTable>
   </ToggleColumns>
 </template>
@@ -79,7 +79,7 @@ import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
-// import ExportButton from '@/components/common/ExportButton.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdArrayMore from '@/components/common/Table/TdArrayMore.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
@@ -93,7 +93,7 @@ export default {
     ToggleColumns,
     FullTable,
     HostLink,
-    // ExportButton,
+    ExportButton,
     TdContent,
     TdArrayMore,
     TdIcon,
