@@ -3,7 +3,9 @@
     <CollapseSimple
       v-for="item in paginatedItems"
       :key="item._id"
-      :collapseTitle="`${item.hostname} - ${formatTimeAndDate(item.date)}`"
+      :collapseTitle="`${item.hostname} - ${
+        item.daysFromCreation
+      } day(s) - ${formatTimeAndDate(item.date)}`"
       :collapseID="toString(item._id)"
       :isOpen="false"
       callapsibleHeadColors="has-text-black-ter"
