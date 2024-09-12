@@ -62,17 +62,17 @@
             <template slot="headData">
               <v-th sortKey="name">Name</v-th>
               <v-th sortKey="status">Status</v-th>
-              <v-th sortKey="usedPerc">Used</v-th>
-              <v-th sortKey="used">Used GB</v-th>
-              <v-th sortKey="total">Total</v-th>
-              <v-th sortKey="maxSize">Max Size</v-th>
+              <v-th sortKey="usedPerc">Used MB</v-th>
+              <v-th sortKey="used">Used %</v-th>
+              <v-th sortKey="total">Total MB</v-th>
+              <v-th sortKey="maxSize">Max Size MB</v-th>
             </template>
 
             <template slot="bodyData" slot-scope="rowData">
               <TdContent :value="rowData.scope.name" />
               <TdContent :value="rowData.scope.status" />
-              <TdContent :value="rowData.scope.usedPerc" />
               <TdContent :value="rowData.scope.used" />
+              <TdContent :value="rowData.scope.usedPerc" />
               <TdContent :value="rowData.scope.total" />
               <TdContent :value="rowData.scope.maxSize" />
             </template>
