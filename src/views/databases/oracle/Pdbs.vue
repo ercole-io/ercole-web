@@ -50,8 +50,12 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.name" class="first-col" />
-        <TdContent :value="rowData.scope.hostname" />
+        <TdContent
+          @click.native="pdbHostDetailLink(rowData.scope.hostname)"
+          :value="rowData.scope.name"
+          class="first-col"
+        />
+        <HostLink :hostname="rowData.scope.hostname" />
         <td class="is-clickable">
           <b-icon
             v-tooltip="options('Click to see Schemas information')"
@@ -179,6 +183,7 @@ import BoxContent from '@/components/common/BoxContent.vue'
 import PdbsModal from '@/views/databases/oracle/PdbsModal.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+import HostLink from '@/components/common/Table/HostLink.vue'
 // import PolicyAuditModal from '@/components/hosts/hostDetails/oracle/PolicyAuditModal.vue'
 
 export default {
@@ -189,6 +194,7 @@ export default {
     FullTable,
     TdContent,
     PdbsModal,
+    HostLink,
   },
   data() {
     return {
@@ -215,6 +221,12 @@ export default {
         data: data,
         tabsData: this.getOraclePdbsModal(data.name)[0],
       }
+    },
+    pdbHostDetailLink(value) {
+      this.$router.push({
+        name: 'hosts-details',
+        params: { hostname: value },
+      })
     },
     // openPolicyAuditModal(data) {
     //   this.getPdbsPolicyAudit({
