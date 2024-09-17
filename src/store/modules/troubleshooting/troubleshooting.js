@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
@@ -10,7 +11,16 @@ export const getters = {}
 
 export const mutations = {
   SET_NO_DATA_AGENTS: (state, payload) => {
-    state.noDataAgents = payload
+    const getDays = _.map(payload, (val) => {
+      let days = _.split(val.description, ' ')
+
+      return {
+        ...val,
+        daysFromCreation: _.nth(days, -2),
+      }
+    })
+
+    state.noDataAgents = getDays
   },
   SET_MISSING_DBS: (state, payload) => {
     state.missingDbs = payload
