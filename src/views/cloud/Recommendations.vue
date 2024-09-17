@@ -2,7 +2,7 @@
   <ToggleColumns
     :getPage="returnPagename"
     :leftButton="$t('common.forms.advancedFilters')"
-    :centerCol="9"
+    :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
   >
     <template slot="left">
@@ -24,6 +24,10 @@
       <AwsTableList v-if="returnCloudTechnology === 'Aws'" />
       <GoogleTableList v-if="returnCloudTechnology === 'Google'" />
     </template>
+
+    <template slot="right" v-if="returnCloudTechnology === 'Aws'">
+      <RecommendationsCharts>teste</RecommendationsCharts>
+    </template>
   </ToggleColumns>
 </template>
 
@@ -42,6 +46,8 @@ import AwsTableList from '@/components/cloud/aws/recommendations/TableList.vue'
 import GoogleFilters from '@/components/cloud/google/recommendations/Filters.vue'
 import GoogleTableList from '@/components/cloud/google/recommendations/TableList.vue'
 
+import RecommendationsCharts from '@/components/cloud/RecommendationsCharts.vue'
+
 export default {
   name: 'recommendations-page',
   components: {
@@ -50,6 +56,7 @@ export default {
     OracleTableList,
     AwsFilters,
     AwsTableList,
+    RecommendationsCharts,
     GoogleFilters,
     GoogleTableList,
     Loading,
