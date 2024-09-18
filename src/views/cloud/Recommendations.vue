@@ -25,8 +25,10 @@
       <GoogleTableList v-if="returnCloudTechnology === 'Google'" />
     </template>
 
-    <template slot="right" v-if="returnCloudTechnology === 'Aws'">
-      <RecommendationsCharts>teste</RecommendationsCharts>
+    <template slot="right">
+      <RecommendationsCharts v-if="returnCloudTechnology === 'Oracle'" />
+      <RecommendationsCharts v-if="returnCloudTechnology === 'Aws'" />
+      <RecommendationsCharts v-if="returnCloudTechnology === 'Google'" />
     </template>
   </ToggleColumns>
 </template>

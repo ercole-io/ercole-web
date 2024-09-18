@@ -39,6 +39,15 @@ export const getters = {
     const updated = state.cloudRecommendationsLastUpdate
     return updated ? formatDateTime(state.cloudRecommendationsLastUpdate) : null
   },
+  returnCategoryChartData: (state) => {
+    return chartsCountData(state.cloudRecommendations, 'category')
+  },
+  returnObjectTypeChartData: (state) => {
+    return chartsCountData(state.cloudRecommendations, 'objectType')
+  },
+  returnSuggestionChartData: (state) => {
+    return chartsCountData(state.cloudRecommendations, 'suggestion')
+  },
 }
 
 export const mutations = {
@@ -71,10 +80,6 @@ export const actions = {
     await axiosRequest('thunderApi', config)
       .then((res) => {
         let data = res.data.recommendations || res.data
-
-        // if (getters.returnCloudTechnology === 'Aws') {
-        //   data = awsData.recommendations
-        // }
 
         if (data.length > 0) {
           const lastUpdate = data[0].createdAt
@@ -157,4 +162,19 @@ export const actions = {
         bus.$emit('finishRetrieveUpdates')
       })
   },
+}
+
+const chartsCountData = (data, type) => {
+  let totalData = []
+  totalData = _.map(data, (val) => {
+    return { type: val[type] }
+  })
+
+  totalData = _.groupBy(totalData, 'type')
+
+  totalData = _.map(totalData, (val) => {
+    return [val[0].type, val.length]
+  })
+
+  return totalData
 }
