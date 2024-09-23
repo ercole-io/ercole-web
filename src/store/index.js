@@ -86,6 +86,7 @@ import * as cloudTechnology from '@/store/modules/cloud/cloudTechnology'
 import * as cloudProfileConfig from '@/store/modules/cloud/profileConfig'
 import * as cloudRecommendations from '@/store/modules/cloud/recommendations'
 import * as cloudActiveProfiles from '@/store/modules/cloud/activeProfiles'
+import * as cloudAllRecommendations from '@/store/modules/cloud/allRecommendations'
 // Settings
 import * as settings from '@/store/modules/settings/settings'
 // Troubleshooting page
@@ -151,6 +152,7 @@ export default new Vuex.Store({
     cloudProfileConfig,
     cloudRecommendations,
     cloudActiveProfiles,
+    cloudAllRecommendations,
     repository,
     ignoreLicense,
     microsoftContracts,

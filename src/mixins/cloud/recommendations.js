@@ -101,6 +101,13 @@ export default {
         })
       }
     },
+    handleClickRowAllRecommendations(value) {
+      if (value && value[0] && value[0].cloud === 'Google') {
+        this.handleClickedRowGoogle(value)
+      } else {
+        this.handleClickedRow(value)
+      }
+    },
     modalErrors() {
       this.$buefy.modal.open({
         component: ErrorsModal,
@@ -140,6 +147,7 @@ export default {
       'getCloudActiveProfileGeneralErrors',
       'loadingTableStatus',
       'returnCloudRecommendationsLastUpdate',
+      'returnCloudAllRecommendations',
     ]),
     showProfileErrors() {
       const number = Number(this.getCloudActiveProfileErrors) > 1 ? 2 : 1

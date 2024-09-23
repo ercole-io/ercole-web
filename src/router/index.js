@@ -713,6 +713,20 @@ const routes = [
     component: EmptyRouterView,
     children: [
       {
+        path: 'all-recommendations',
+        name: 'allRecommendations',
+        component: lazyRouteBuilder('cloud/AllRecommendations.vue'),
+        meta: {
+          label: 'All Recommendations',
+          title: `${title}All Recommendations`,
+          breadcrumb: [
+            { name: i18n.t('menu.cloudAdvisor') },
+            { name: 'All Recommendations' },
+          ],
+        },
+        beforeEnter: verifyAuth,
+      },
+      {
         path: '/cloud-advisor/oracle',
         component: EmptyRouterView,
         children: [
