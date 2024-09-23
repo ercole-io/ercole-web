@@ -388,7 +388,8 @@ export default {
         this.$route.name !== 'awsrds' &&
         this.$route.name !== 'google-profile-configurations' &&
         this.$route.name !== 'google-recommendations' &&
-        this.$route.name !== 'policyaudit'
+        this.$route.name !== 'policyaudit' &&
+        this.$route.name !== 'allRecommendations'
       )
     },
   },

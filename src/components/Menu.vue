@@ -398,6 +398,13 @@ export default {
           hidden: this.checkMenu('Cloud Advisors', ''),
           child: [
             {
+              href: { name: 'allRecommendations' },
+              title: 'All Recommendations',
+              icon: 'fas fa-cloud',
+              attributes: { 'data-cy': 'mn-cloud-all-recommendations' },
+              hidden: this.checkMenu('Cloud Advisors', ''),
+            },
+            {
               title: this.$i18n.t('menu.oracle'),
               icon: 'fas fa-cloud',
               attributes: { 'data-cy': 'mn-cloud-oracle' },

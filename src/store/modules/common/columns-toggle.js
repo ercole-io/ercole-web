@@ -40,9 +40,12 @@ const defaultState = () => ({
 
   'page-profileConfigOracle': [false, true],
   'page-profileConfigAws': [false, true],
+  'page-profileConfigGoogle': [false, true],
   'page-profileConfigAzure': [false, true],
   'page-recommendationsOracle': [false, true],
   'page-recommendationsAws': [false, true],
+  'page-recommendationsGoogle': [false, true],
+  'page-allRecommendations': [false, true],
 
   'page-repository': [false, true],
 })
