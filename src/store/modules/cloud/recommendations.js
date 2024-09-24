@@ -40,13 +40,16 @@ export const getters = {
     return updated ? formatDateTime(state.cloudRecommendationsLastUpdate) : null
   },
   returnCategoryChartData: (state) => {
-    return chartsCountData(state.cloudRecommendations, 'category')
+    const total = state.cloudRecommendations.length
+    return chartsCountData(state.cloudRecommendations, 'category', total)
   },
   returnObjectTypeChartData: (state) => {
-    return chartsCountData(state.cloudRecommendations, 'objectType')
+    const total = state.cloudRecommendations.length
+    return chartsCountData(state.cloudRecommendations, 'objectType', total)
   },
   returnSuggestionChartData: (state) => {
-    return chartsCountData(state.cloudRecommendations, 'suggestion')
+    const total = state.cloudRecommendations.length
+    return chartsCountData(state.cloudRecommendations, 'suggestion', total)
   },
 }
 
@@ -164,8 +167,9 @@ export const actions = {
   },
 }
 
-const chartsCountData = (data, type) => {
+const chartsCountData = (data, type, total) => {
   let totalData = []
+
   totalData = _.map(data, (val) => {
     return { type: val[type] }
   })
@@ -173,8 +177,12 @@ const chartsCountData = (data, type) => {
   totalData = _.groupBy(totalData, 'type')
 
   totalData = _.map(totalData, (val) => {
-    return [val[0].type, val.length]
+    const perc = `${_.round((val.length / total) * 100, 2)}%`
+
+    return [`${val[0].type}: ${perc}`, val.length]
   })
+
+  // console.log(totalData)
 
   return totalData
 }
