@@ -2,7 +2,7 @@
   <ToggleColumns
     getPage="allRecommendations"
     :leftButton="$t('common.forms.advancedFilters')"
-    :centerCol="9"
+    :rightButton="$t('common.general.sideInfo')"
     v-if="isMounted"
   >
     <template slot="left">
@@ -14,6 +14,10 @@
     <template slot="center">
       <AllRecommendationsList />
     </template>
+
+    <template slot="right">
+      <AllRecommendationsCharts />
+    </template>
   </ToggleColumns>
 </template>
 
@@ -23,6 +27,7 @@ import { mapActions, mapGetters } from 'vuex'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import AllRecommendationsFilters from '@/components/cloud/allRecommendations/Filters.vue'
 import AllRecommendationsList from '@/components/cloud/allRecommendations/TableList.vue'
+import AllRecommendationsCharts from '@/components/cloud/allRecommendations/Charts.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
@@ -32,6 +37,7 @@ export default {
     Loading,
     AllRecommendationsFilters,
     AllRecommendationsList,
+    AllRecommendationsCharts,
   },
   data() {
     return {
