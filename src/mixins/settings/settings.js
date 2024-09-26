@@ -254,7 +254,7 @@ export default {
         'Max Memory Percentage',
         'Max Memory Utilization Threshold',
         'Iops Storage Percentage',
-        'Through Put Storage Percentage',
+        'Throughput Storage Percentage',
       ],
       highlightThunderService: false,
     }
