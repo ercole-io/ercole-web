@@ -1,38 +1,170 @@
 <template>
-  <div>
-    <BoxContent title="Category" border>
-      <GhostLoading :isLoading="loadingTableStatus" setHeight="300">
+  <section class="columns">
+    <BoxContent class="column" title="Category" border>
+      <GhostLoading :isLoading="loadingTableStatus" setHeight="350">
         <ChartBuilder
           chartType="pie"
-          chartID="al-recommendations-category"
-          :chartOptions="options"
-          :chartSeries="series"
+          chartID="category"
+          :chartOptions="options('category')"
+          :chartSeries="getSeries('category')"
+          chartHeight="350"
         />
+
+        <b-message
+          v-model="showExtraCategory"
+          size="is-small"
+          type="is-light"
+          class="mt-3 ml-3"
+          v-if="showExtraCategory"
+        >
+          <template #header>
+            <span
+              class="is-size-6"
+              :style="{ color: messageColor }"
+              style="line-height: 38px"
+            >
+              <b-icon
+                icon="circle"
+                size="is-small"
+                style="vertical-align: baseline"
+              />
+              {{ extraContent[0].category }}
+            </span>
+          </template>
+          <div class="is-flex is-justify-content-space-around">
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              Oracle:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].oracle }} - {{ extraContent[0].oraclePerc }}
+              </span>
+            </p>
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              AWS:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].aws }} - {{ extraContent[0].awsPerc }}
+              </span>
+            </p>
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              Google:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].google }} - {{ extraContent[0].googlePerc }}
+              </span>
+            </p>
+          </div>
+        </b-message>
       </GhostLoading>
     </BoxContent>
 
-    <BoxContent title="Object Type" border>
-      <GhostLoading :isLoading="loadingTableStatus" setHeight="300">
+    <BoxContent class="column" title="Object Type" border>
+      <GhostLoading :isLoading="loadingTableStatus" setHeight="350">
         <ChartBuilder
           chartType="pie"
-          chartID="al-recommendations-object-type"
-          :chartOptions="{}"
-          :chartSeries="[]"
+          chartID="objectType"
+          :chartOptions="options('objectType')"
+          :chartSeries="getSeries('objectType')"
+          chartHeight="350"
         />
+
+        <b-message
+          v-model="showExtraObjectType"
+          size="is-small"
+          type="is-light"
+          class="mt-3 ml-3"
+          v-if="showExtraObjectType"
+        >
+          <template #header>
+            <span
+              class="is-size-6"
+              :style="{ color: messageColor }"
+              style="line-height: 38px"
+            >
+              <b-icon
+                icon="circle"
+                size="is-small"
+                style="vertical-align: baseline"
+              />
+              {{ extraContent[0].objectType }}
+            </span>
+          </template>
+          <div class="is-flex is-justify-content-space-around">
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              Oracle:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].oracle }} - {{ extraContent[0].oraclePerc }}
+              </span>
+            </p>
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              AWS:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].aws }} - {{ extraContent[0].awsPerc }}
+              </span>
+            </p>
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              Google:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].google }} - {{ extraContent[0].googlePerc }}
+              </span>
+            </p>
+          </div>
+        </b-message>
       </GhostLoading>
     </BoxContent>
 
-    <BoxContent title="Suggestion" border>
-      <GhostLoading :isLoading="loadingTableStatus" setHeight="300">
+    <BoxContent class="column" title="Suggestion" border>
+      <GhostLoading :isLoading="loadingTableStatus" setHeight="350">
         <ChartBuilder
           chartType="pie"
-          chartID="al-recommendations-suggestion"
-          :chartOptions="{}"
-          :chartSeries="[]"
+          chartID="suggestion"
+          :chartOptions="options('suggestion')"
+          :chartSeries="getSeries('suggestion')"
+          chartHeight="350"
         />
+
+        <b-message
+          v-model="showExtraSuggestion"
+          size="is-small"
+          type="is-light"
+          class="mt-3 ml-3"
+          v-if="showExtraSuggestion"
+        >
+          <template #header>
+            <span
+              class="is-size-6"
+              :style="{ color: messageColor }"
+              style="line-height: 38px"
+            >
+              <b-icon
+                icon="circle"
+                size="is-small"
+                style="vertical-align: baseline"
+              />
+              {{ extraContent[0].suggestion }}
+            </span>
+          </template>
+          <div class="is-flex is-justify-content-space-around">
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              Oracle:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].oracle }} - {{ extraContent[0].oraclePerc }}
+              </span>
+            </p>
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              AWS:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].aws }} - {{ extraContent[0].awsPerc }}
+              </span>
+            </p>
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              Google:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].google }} - {{ extraContent[0].googlePerc }}
+              </span>
+            </p>
+          </div>
+        </b-message>
       </GhostLoading>
     </BoxContent>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -51,101 +183,110 @@ export default {
   },
   data() {
     return {
-      series: [4, 15, 37, 2, 8, 7, 1, 27, 24],
-      options: {
-        labels: [
-          'Unused Resource',
-          'Old Snapshot',
-          'Compute Instance Rightsizing',
-          'Unused Service Decommisioning',
-          'Block Storage Rightsizing',
-          'Unused Storage',
-          'Compute Instance Without Monitoring',
-          'Object Storage Optimization',
-          'Compute Instance Decommisioning',
-        ],
+      showExtraCategory: false,
+      showExtraObjectType: false,
+      showExtraSuggestion: false,
+      extraContent: null,
+      messageColor: '',
+    }
+  },
+  methods: {
+    getSeries(type) {
+      if (type === 'category') {
+        return this.returnAllCategoryChartData.series
+      } else if (type === 'objectType') {
+        return this.returnAllObjectTypeChartData.series
+      } else if (type === 'suggestion') {
+        return this.returnAllSuggestionChartData.series
+      }
+    },
+    getLabels(type) {
+      if (type === 'category') {
+        return this.returnAllCategoryChartData.labels
+      } else if (type === 'objectType') {
+        return this.returnAllObjectTypeChartData.labels
+      } else if (type === 'suggestion') {
+        return this.returnAllSuggestionChartData.labels
+      }
+    },
+    options(type) {
+      return {
+        chart: {
+          events: {
+            legendClick: (chartContext, seriesIndex) => {
+              if (type === 'category') {
+                this.showExtraCategory = true
+                this.showExtraObjectType = false
+                this.showExtraSuggestion = false
+              } else if (type === 'objectType') {
+                this.showExtraCategory = false
+                this.showExtraObjectType = true
+                this.showExtraSuggestion = false
+              } else if (type === 'suggestion') {
+                this.showExtraCategory = false
+                this.showExtraObjectType = false
+                this.showExtraSuggestion = true
+              }
+
+              this.extraContent = this.returnAllTypesChartDataByCloud(
+                chartContext.opts.labels[seriesIndex],
+                type
+              )
+              this.messageColor = chartContext.opts.colors[seriesIndex]
+            },
+          },
+        },
+        labels: this.getLabels(type),
         dataLabels: {
           enabled: true,
           formatter: (val) => _.round(val, 1) + '%',
           style: {
-            fontSize: '14px',
+            fontSize: '12px',
             colors: ['#000'],
+            fontWeight: 'bold',
           },
           background: {
-            enabled: true,
-            borderRadius: 5,
+            enabled: false,
+          },
+          dropShadow: {
+            enabled: false,
           },
         },
         legend: {
           show: true,
-          offsetX: 0,
-          offsetY: 10,
-          position: 'bottom',
+          position: 'left',
           fontSize: '14px',
-          fontWeight: 500,
           formatter: (label, series) => {
             return `${label}: <b>${
               series.w.config.series[series.seriesIndex]
-            }</b> - <b>${
-              series.w.globals.seriesPercent[series.seriesIndex]
-            }%</b>`
-          },
-          onItemHover: {
-            highlightDataSeries: false,
-          },
-        },
-        plotOptions: {
-          pie: {
-            customScale: 1.2,
-            offsetX: 0,
-            offsetY: 20,
-            donut: {
-              size: '50%',
-              background: 'transparent',
-              // labels: {
-              //   show: true,
-              //   name: {
-              //     show: true,
-              //     fontWeight: 'bold',
-              //     offsetY: -5,
-              //     formatter: (val) => {
-              //       return val
-              //     },
-              //   },
-              //   value: {
-              //     show: true,
-              //     fontWeight: 500,
-              //     offsetY: 10,
-              //     formatter: (val) => {
-              //       return val
-              //     },
-              //   },
-              //   total: {
-              //     show: true,
-              //     showAlways: true,
-              //     label: 'Total',
-              //     fontSize: '22px',
-              //     fontWeight: 'bold',
-              //     color: '#000',
-              //   },
-              // },
-            },
+            }</b> - <b>${_.round(
+              series.w.globals.seriesPercent[series.seriesIndex],
+              1
+            )}%</b>`
           },
         },
         tooltip: {
           enabled: true,
           fillSeriesColor: false,
           y: {
-            formatter: (value, series) =>
-              `${value} - ${
-                series.globals.seriesPercent[series.seriesIndex][0]
-              }%`,
+            formatter: (value, series) => {
+              return `${value} - ${_.round(
+                series.globals.seriesPercent[series.seriesIndex][0],
+                1
+              )}%`
+            },
           },
           style: {
             fontSize: '14px',
           },
           onDatasetHover: {
             highlightDataSeries: true,
+          },
+          fixed: {
+            enabled: true,
+            position: 'topRight',
+            offsetX: 0,
+            offsetY: 0,
           },
         },
         colors: [
@@ -167,11 +308,21 @@ export default {
           'rgb(67, 170, 139)', // dark green
           'rgb(87, 117, 144)', // dark blue
         ].reverse(),
-      },
-    }
+        stroke: {
+          show: true,
+          width: 0.3,
+        },
+      }
+    },
   },
   computed: {
-    ...mapGetters(['loadingTableStatus']),
+    ...mapGetters([
+      'loadingTableStatus',
+      'returnAllCategoryChartData',
+      'returnAllTypesChartDataByCloud',
+      'returnAllObjectTypeChartData',
+      'returnAllSuggestionChartData',
+    ]),
   },
 }
 </script>

@@ -2,7 +2,7 @@
   <ToggleColumns
     getPage="allRecommendations"
     :leftButton="$t('common.forms.advancedFilters')"
-    :rightButton="$t('common.general.sideInfo')"
+    :centerCol="9"
     v-if="isMounted"
   >
     <template slot="left">
@@ -15,7 +15,7 @@
       <AllRecommendationsList />
     </template>
 
-    <template slot="right">
+    <template slot="bottom">
       <AllRecommendationsCharts />
     </template>
   </ToggleColumns>

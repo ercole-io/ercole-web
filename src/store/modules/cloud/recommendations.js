@@ -182,7 +182,5 @@ const chartsCountData = (data, type, total) => {
     return [`${val[0].type}: ${perc}`, val.length]
   })
 
-  // console.log(totalData)
-
   return totalData
 }
