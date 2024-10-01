@@ -14,6 +14,10 @@
     <template slot="center">
       <AllRecommendationsList />
     </template>
+
+    <template slot="bottom">
+      <AllRecommendationsCharts />
+    </template>
   </ToggleColumns>
 </template>
 
@@ -23,6 +27,7 @@ import { mapActions, mapGetters } from 'vuex'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import AllRecommendationsFilters from '@/components/cloud/allRecommendations/Filters.vue'
 import AllRecommendationsList from '@/components/cloud/allRecommendations/TableList.vue'
+import AllRecommendationsCharts from '@/components/cloud/allRecommendations/Charts.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
@@ -32,6 +37,7 @@ export default {
     Loading,
     AllRecommendationsFilters,
     AllRecommendationsList,
+    AllRecommendationsCharts,
   },
   data() {
     return {
