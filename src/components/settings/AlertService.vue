@@ -347,6 +347,81 @@
         </div>
       </div>
     </div>
+
+    <hr class="my-3" />
+    <p class="is-size-6 has-text-weight-semibold">Alert Jobs</p>
+
+    <div class="columns is-multiline">
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[27])"
+            class="label is-small"
+          />
+          <CustomInput v-model="AlertService.AckAlertJob.Crontab" />
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[28])"
+            class="label is-small"
+          />
+          <CustomInput
+            v-model="AlertService.AckAlertJob.DueDays"
+            inputType="number"
+          />
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[29])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="AlertService.AckAlertJob.RunAtStartup"
+            :options="trueOrFalseOptions"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-multiline">
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[30])"
+            class="label is-small"
+          />
+          <CustomInput v-model="AlertService.RemoveAlertJob.Crontab" />
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[31])"
+            class="label is-small"
+          />
+          <CustomInput
+            v-model="AlertService.RemoveAlertJob.DueDays"
+            inputType="number"
+          />
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(AlertServiceLabels[32])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="AlertService.RemoveAlertJob.RunAtStartup"
+            :options="trueOrFalseOptions"
+          />
+        </div>
+      </div>
+    </div>
   </article>
 </template>
 
