@@ -85,6 +85,16 @@ export default {
             NoData: null,
           },
         },
+        AckAlertJob: {
+          Crontab: null,
+          DueDays: null,
+          RunAtStartup: null,
+        },
+        RemoveAlertJob: {
+          Crontab: null,
+          DueDays: null,
+          RunAtStartup: null,
+        },
       },
       ChartService: {
         RemoteEndpoint: null,
@@ -208,6 +218,12 @@ export default {
         'Missing Database',
         'Agent Error',
         'No Data',
+        'Acknowledge Alerts Crontab',
+        'Days Beyond Which to Automatically Acknowledge Alerts',
+        'Acknowledge Alerts Older Than',
+        'Delete Alerts Crontab',
+        'Days Beyond Which to Automatically Delete Alerts',
+        'Delete Alerts Older Than',
       ],
       highlightAlertService: false,
       ChartServiceLabels: [
@@ -390,6 +406,16 @@ export default {
               this.getAlertService.Emailer.AlertType.AgentError || false,
             NoData: this.getAlertService.Emailer.AlertType.NoData || false,
           },
+        },
+        AckAlertJob: {
+          Crontab: this.getAlertService.AckAlertJob.Crontab,
+          DueDays: this.getAlertService.AckAlertJob.DueDays,
+          RunAtStartup: this.getAlertService.AckAlertJob.RunAtStartup,
+        },
+        RemoveAlertJob: {
+          Crontab: this.getAlertService.RemoveAlertJob.Crontab,
+          DueDays: this.getAlertService.RemoveAlertJob.DueDays,
+          RunAtStartup: this.getAlertService.RemoveAlertJob.RunAtStartup,
         },
       }
     },
