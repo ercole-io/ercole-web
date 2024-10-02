@@ -6,9 +6,12 @@ const errorResponseHandler = (error) => {
     store.dispatch('offLoading')
     if (error.response.status === 401) {
       router.push('/401')
-    }
-    if (error.response.status === 500) {
+    } else if (error.response.status === 500) {
       router.push('/500')
+    } else if (error.response.status === 404) {
+      router.push('/404')
+    } else {
+      router.push('/error')
     }
   }
 
