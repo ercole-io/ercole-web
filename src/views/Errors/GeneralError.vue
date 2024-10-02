@@ -1,5 +1,5 @@
 <template>
-  <ErrorCode code=" " codeText="Error" codeDesc="Some error has occurred!">
+  <ErrorCode code="" codeText="Error" codeDesc="Some error has occurred!">
     <div class="buttons" slot="actions">
       <b-button type="is-ercole-blue" @click="$router.go(-1)">
         {{ $t('common.general.goBack') }}
