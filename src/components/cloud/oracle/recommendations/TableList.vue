@@ -62,16 +62,27 @@
       <TdContent :value="rowData.scope.compartmentName" />
       <TdContent :value="rowData.scope.name" />
     </template>
+
+    <ExportButton
+      slot="export"
+      url="oracle-cloud/oci-recommendations"
+      expName="oci-recommendations"
+      api="thunderApi"
+    />
   </FullTable>
 </template>
 
 <script>
 import recommendationsMixin from '@/mixins/cloud/recommendations.js'
 import OracleHeading from '@/components/cloud/oracle/recommendations/Heading.json'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
   name: 'cloud-oracle-recommendations-list-component',
   mixins: [recommendationsMixin],
+  components: {
+    ExportButton,
+  },
   data() {
     return {
       OracleHeading: OracleHeading,

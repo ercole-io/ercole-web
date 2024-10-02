@@ -61,16 +61,27 @@
       <TdContent :value="rowData.scope.suggestion" />
       <TdContent :value="rowData.scope.name" />
     </template>
+
+    <ExportButton
+      slot="export"
+      url="aws/aws-recommendations"
+      expName="aws-recommendations"
+      api="thunderApi"
+    />
   </FullTable>
 </template>
 
 <script>
 import recommendationsMixin from '@/mixins/cloud/recommendations.js'
 import AwsHeading from '@/components/cloud/aws/recommendations/Heading.json'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
   name: 'cloud-aws-recommendations-list-component',
   mixins: [recommendationsMixin],
+  components: {
+    ExportButton,
+  },
   data() {
     return {
       AwsHeading: AwsHeading,
