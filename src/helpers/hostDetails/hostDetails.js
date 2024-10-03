@@ -116,11 +116,11 @@ const getHostInfo = (info, host) => {
             : info.hardwareAbstractionTechnology,
       },
       {
-        name: 'Cluster',
+        name: 'Hyp. Cluster',
         value: host.cluster,
       },
       {
-        name: 'Node',
+        name: 'Hyp. Node',
         value: host.virtualizationNode,
       },
     ],
