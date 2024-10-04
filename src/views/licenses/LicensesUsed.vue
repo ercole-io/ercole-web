@@ -2,7 +2,6 @@
   <section>
     <b-tabs
       size="is-small"
-      type="is-boxed"
       class="block"
       v-model="activeTab"
       @input="onTabChange"
@@ -13,7 +12,10 @@
       <b-tab-item label="Hosts" :disabled="licensesUsed.hostsLoading">
         <UsedLicensesHost :partNumber="partNumber" />
       </b-tab-item>
-      <b-tab-item label="Clusters" :disabled="licensesUsed.clustersLoading">
+      <b-tab-item
+        label="Hypervisor Clusters"
+        :disabled="licensesUsed.clustersLoading"
+      >
         <UsedLicensesClusters :partNumber="partNumber" />
       </b-tab-item>
     </b-tabs>

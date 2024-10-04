@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="tabs is-small is-boxed">
+    <div class="tabs is-small">
       <ul>
         <router-link
           v-for="tab in tabs"
