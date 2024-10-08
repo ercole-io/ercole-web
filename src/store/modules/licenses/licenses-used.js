@@ -19,17 +19,7 @@ export const getters = {
     const cleanData = _.without(state.dbsLicensesUsed, undefined, null, '')
     const licensesByDatabases = []
 
-    // let ignoreComment = null
-
     _.map(cleanData, (val) => {
-      // if (val.dbName === 'DB01') {
-      //   ignoreComment = 'test 1'
-      // } else if (val.dbName === 'VDB01') {
-      //   ignoreComment = 'ignore comment'
-      // } else {
-      //   ignoreComment = 'bla bla bal'
-      // }
-
       licensesByDatabases.push({
         hostname: val.hostname,
         dbName: val.dbName,
@@ -40,7 +30,7 @@ export const getters = {
         clusterLicenses: val.clusterLicenses,
         fullPartNumber: val.fullPartNumber,
         ignored: val.ignored,
-        ignoredComment: val.ignoreComment,
+        ignoredComment: val.ignoredComment,
         olvmCapped: val.olvmCapped,
       })
     })
