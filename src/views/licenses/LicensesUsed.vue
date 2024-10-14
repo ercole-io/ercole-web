@@ -9,14 +9,23 @@
       <b-tab-item label="Databases">
         <UsedLicensesDbs :partNumber="partNumber" />
       </b-tab-item>
+
       <b-tab-item label="Hosts" :disabled="licensesUsed.hostsLoading">
         <UsedLicensesHost :partNumber="partNumber" />
       </b-tab-item>
+
       <b-tab-item
         label="Hypervisor Clusters"
         :disabled="licensesUsed.clustersLoading"
       >
         <UsedLicensesClusters :partNumber="partNumber" />
+      </b-tab-item>
+
+      <b-tab-item
+        label="Veritas Clusters"
+        :disabled="licensesUsed.veritasLoading"
+      >
+        <UsedLicensesVeritas :partNumber="partNumber" />
       </b-tab-item>
     </b-tabs>
   </section>
@@ -28,6 +37,7 @@ import { mapActions, mapState } from 'vuex'
 import UsedLicensesDbs from '@/components/licenses/used/databases/UsedLicensesDbs.vue'
 import UsedLicensesHost from '@/components/licenses/used/hosts/UsedLicensesHost.vue'
 import UsedLicensesClusters from '@/components/licenses/used/clusters/UsedLicensesClusters.vue'
+import UsedLicensesVeritas from '@/components/licenses/used/veritas/UsedLicensesVeritas.vue'
 
 export default {
   name: 'licensesused-page',
@@ -35,6 +45,7 @@ export default {
     UsedLicensesDbs,
     UsedLicensesHost,
     UsedLicensesClusters,
+    UsedLicensesVeritas,
   },
   props: {
     partNumber: {
@@ -47,10 +58,11 @@ export default {
       activeTab: 0,
     }
   },
-  async beforeMount() {
-    await this.getLicensesDatabases()
-    await this.getLicensesHosts()
-    await this.getLicensesClusters()
+  beforeMount() {
+    this.getLicensesDatabases()
+    this.getLicensesHosts()
+    this.getLicensesClusters()
+    this.getLicensesVeritas()
 
     this.onTabChange(this.activeTab)
   },
@@ -59,6 +71,7 @@ export default {
       'getLicensesDatabases',
       'getLicensesClusters',
       'getLicensesHosts',
+      'getLicensesVeritas',
     ]),
     onTabChange(value) {
       bus.$emit('onUsedTabChange', value)
