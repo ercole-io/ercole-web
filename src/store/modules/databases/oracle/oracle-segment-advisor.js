@@ -30,8 +30,6 @@ export const getters = {
       top10result.push([val.dbname, _.floor(val.reclaimable, 1)])
     })
 
-    console.log(top10result)
-
     return top10result
   },
 }

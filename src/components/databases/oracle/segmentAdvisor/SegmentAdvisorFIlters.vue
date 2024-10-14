@@ -10,7 +10,7 @@
           />
         </CustomField>
 
-        <CustomField :label="$t('common.collumns.totalGB')">
+        <CustomField label="DB Segments Size">
           <CustomSlider
             v-model="filters.segmentsSize"
             :ticks="[minsegmentsSize, maxsegmentsSize]"

@@ -20,7 +20,7 @@
     >
       <template slot="headData">
         <v-th sortKey="reclaimable">{{ $t('common.fields.reclaimable') }}</v-th>
-        <v-th sortKey="segmentsSize">{{ $t('common.fields.totalGB') }}</v-th>
+        <v-th sortKey="segmentsSize">DB Segments Size</v-th>
         <v-th sortKey="retrieve">{{ $t('common.fields.retrieve') }}</v-th>
         <v-th sortKey="hostname">{{ $t('common.fields.hostname') }}</v-th>
         <v-th sortKey="dbname">{{ $t('common.fields.name') }}</v-th>
