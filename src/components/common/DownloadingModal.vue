@@ -19,10 +19,28 @@
         aria-id="openExportLmsParams"
         animation="slide"
         v-model="isOpen"
-        v-if="isLms && !isLmsRequest"
       >
         <div style="height: 400px; align-items: flex-start; margin-top: 20px">
-          <CustomField label="Date">
+          <CustomField
+            label="Date Older Then"
+            v-if="exportType === 'ALL-HOSTS'"
+          >
+            <b-datepicker
+              v-model="lmsFilters['older-than']"
+              size="is-small"
+              placeholder="Older Then"
+              position="is-bottom-right"
+              icon="calendar-today"
+              :max-date="new Date()"
+              :date-formatter="formatDate"
+              class="mr-1"
+              trap-focus
+            />
+          </CustomField>
+          <CustomField
+            label="Date"
+            v-if="isLms && !isLmsRequest && exportType !== 'ALL-HOSTS'"
+          >
             <b-datepicker
               v-model="lmsFilters.from"
               size="is-small"
@@ -47,50 +65,56 @@
               trap-focus
             />
           </CustomField>
-          <CustomField label="Location">
-            <b-select v-model="lmsFilters.location" size="is-small" expanded>
-              <option :value="null" v-if="lmsFilters.location">
-                Reset Location
-              </option>
-              <option
-                v-for="(loc, index) in glFiltersState.locations"
-                :key="index"
+          <template
+            v-if="(isLms && !isLmsRequest) || exportType === 'ALL-HOSTS'"
+          >
+            <CustomField label="Location">
+              <b-select v-model="lmsFilters.location" size="is-small" expanded>
+                <option :value="null" v-if="lmsFilters.location">
+                  Reset Location
+                </option>
+                <option
+                  v-for="(loc, index) in glFiltersState.locations"
+                  :key="index"
+                >
+                  {{ loc }}
+                </option>
+              </b-select>
+            </CustomField>
+            <CustomField label="Environment">
+              <b-select
+                v-model="lmsFilters.environment"
+                size="is-small"
+                expanded
               >
-                {{ loc }}
-              </option>
-            </b-select>
-          </CustomField>
-          <CustomField label="Environment">
-            <b-select v-model="lmsFilters.environment" size="is-small" expanded>
-              <option :value="null" v-if="lmsFilters.environment">
-                Reset Environment
-              </option>
-              <option
-                v-for="(env, index) in glFiltersState.environments"
-                :key="index"
-              >
-                {{ env }}
-              </option>
-            </b-select>
-          </CustomField>
+                <option :value="null" v-if="lmsFilters.environment">
+                  Reset Environment
+                </option>
+                <option
+                  v-for="(env, index) in glFiltersState.environments"
+                  :key="index"
+                >
+                  {{ env }}
+                </option>
+              </b-select>
+            </CustomField>
+          </template>
         </div>
       </b-collapse>
 
       <div v-if="!isLms || isLmsRequest" style="align-items: flex-start">
         <p class="mb-2">{{ msgTxt }}</p>
-        <b-progress
-          type="is-primary"
-          v-if="exportType !== 'download'"
-        ></b-progress>
+        <b-progress type="is-primary" v-if="exportType !== 'download'" />
         <b-progress
           type="is-primary"
           :value="setDownloadPercent"
           format="percent"
           show-value
           v-else
-        ></b-progress>
+        />
       </div>
     </section>
+
     <footer class="modal-card-foot is-justify-content-flex-end">
       <b-button
         type="is-danger"
@@ -111,7 +135,14 @@
         size="is-small"
         label="Export LMS"
         @click="exportLms"
-        v-if="isLms && !isLmsRequest"
+        v-if="isLms && !isLmsRequest && exportType !== 'ALL-HOSTS'"
+      />
+      <b-button
+        type="is-primary"
+        size="is-small"
+        label="Export All Hosts"
+        @click="exportLms"
+        v-if="exportType === 'ALL-HOSTS'"
       />
     </footer>
   </div>
@@ -181,6 +212,7 @@ export default {
         environment: null,
         from: null,
         to: null,
+        'older-than': null,
       },
       isOpen: false,
     }
@@ -204,6 +236,8 @@ export default {
       if (this.isLms) {
         if (this.exportType === 'LMS') {
           headers = exportLms
+        } else if (this.exportType === 'ALL-HOSTS') {
+          headers = exportAll
         } else {
           headers = exportLmsMysql
         }
@@ -291,7 +325,11 @@ export default {
   },
   computed: {
     isLms() {
-      if (this.exportType === 'LMS' || this.exportType === 'LMS-MYSQL') {
+      if (
+        this.exportType === 'LMS' ||
+        this.exportType === 'LMS-MYSQL' ||
+        this.exportType === 'ALL-HOSTS'
+      ) {
         return true
       } else {
         return false
