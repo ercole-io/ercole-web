@@ -9,9 +9,11 @@ export const state = () => ({
   dbsLicensesUsed: [],
   hostsLicensesUsed: [],
   clustersLicensesUsed: [],
+  veritasLicensesUsed: [],
   databasesLoading: false,
   hostsLoading: false,
   clustersLoading: false,
+  veritasLoading: false,
 })
 
 export const getters = {
@@ -72,6 +74,9 @@ export const getters = {
 
     return getters.filteredOrNot(licensesByCluster)
   },
+  getUsedLicensesByVeritas: (state, getters) => {
+    return getters.filteredOrNot(state.veritasLicensesUsed)
+  },
 }
 
 export const mutations = {
@@ -91,6 +96,30 @@ export const mutations = {
 
     state.clustersLicensesUsed = setFullPartNumber(newPayload)
   },
+  SET_LICENSES_VERITAS: (state, payload) => {
+    let newPayload = _.map(payload, (val) => {
+      return {
+        ...val,
+        hostCount: val.hostnames.length,
+        cluster: val.id,
+        usedLicenses: val.count,
+      }
+    })
+
+    state.veritasLicensesUsed = setFullPartNumber(newPayload)
+  },
+  ON_LOADING_DATABASES: (state, payload) => {
+    state.databasesLoading = payload
+  },
+  ON_LOADING_HOSTS: (state, payload) => {
+    state.hostsLoading = payload
+  },
+  ON_LOADING_CLUSTERS: (state, payload) => {
+    state.clustersLoading = payload
+  },
+  ON_LOADING_VERITAS: (state, payload) => {
+    state.veritasLoading = payload
+  },
   SET_IGNORE_DB_LICENSE: (state, payload) => {
     _.map(state.dbsLicensesUsed, (val) => {
       if (
@@ -101,15 +130,6 @@ export const mutations = {
         val.ignored = !val.ignored
       }
     })
-  },
-  ON_LOADING_DATABASES: (state, payload) => {
-    state.databasesLoading = payload
-  },
-  ON_LOADING_HOSTS: (state, payload) => {
-    state.hostsLoading = payload
-  },
-  ON_LOADING_CLUSTERS: (state, payload) => {
-    state.clustersLoading = payload
   },
 }
 
@@ -166,6 +186,24 @@ export const actions = {
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_LICENSES_CLUSTER', res.data.usedLicensesPerCluster)
       commit('ON_LOADING_CLUSTERS', false)
+    })
+  },
+  async getLicensesVeritas({ commit, getters }) {
+    commit('ON_LOADING_VERITAS', true)
+
+    const config = {
+      method: 'get',
+      url: `${url}/licenses-used-cluster-veritas`,
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_LICENSES_VERITAS', res.data)
+      commit('ON_LOADING_VERITAS', false)
     })
   },
 }
