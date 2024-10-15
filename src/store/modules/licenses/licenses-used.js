@@ -75,18 +75,7 @@ export const getters = {
     return getters.filteredOrNot(licensesByCluster)
   },
   getUsedLicensesByVeritas: (state, getters) => {
-    const cleanData = _.without(state.veritasLicensesUsed, undefined, null, '')
-    const licensesByVeitas = []
-
-    _.map(cleanData, (val) => {
-      licensesByVeitas.push({
-        ...val,
-        metric: val.metric === 'HOST' ? 'Host' : val.metric,
-        description: removeDashFromMsDesc(val.description),
-      })
-    })
-
-    return getters.filteredOrNot(licensesByVeitas)
+    return getters.filteredOrNot(state.veritasLicensesUsed)
   },
 }
 
@@ -112,21 +101,12 @@ export const mutations = {
       return {
         ...val,
         hostCount: val.hostnames.length,
+        cluster: val.id,
+        usedLicenses: val.count,
       }
     })
 
-    state.clustersLicensesUsed = setFullPartNumber(newPayload)
-  },
-  SET_IGNORE_DB_LICENSE: (state, payload) => {
-    _.map(state.dbsLicensesUsed, (val) => {
-      if (
-        val.dbName === payload.database &&
-        val.licenseTypeID === payload.licenseID &&
-        val.hostname === payload.hostname
-      ) {
-        val.ignored = !val.ignored
-      }
-    })
+    state.veritasLicensesUsed = setFullPartNumber(newPayload)
   },
   ON_LOADING_DATABASES: (state, payload) => {
     state.databasesLoading = payload
@@ -139,6 +119,17 @@ export const mutations = {
   },
   ON_LOADING_VERITAS: (state, payload) => {
     state.veritasLoading = payload
+  },
+  SET_IGNORE_DB_LICENSE: (state, payload) => {
+    _.map(state.dbsLicensesUsed, (val) => {
+      if (
+        val.dbName === payload.database &&
+        val.licenseTypeID === payload.licenseID &&
+        val.hostname === payload.hostname
+      ) {
+        val.ignored = !val.ignored
+      }
+    })
   },
 }
 
@@ -211,7 +202,7 @@ export const actions = {
     }
 
     await axiosRequest('baseApi', config).then((res) => {
-      commit('SET_LICENSES_VERITAS', res.data.usedLicensesPerCluster)
+      commit('SET_LICENSES_VERITAS', res.data)
       commit('ON_LOADING_VERITAS', false)
     })
   },

@@ -58,11 +58,11 @@ export default {
       activeTab: 0,
     }
   },
-  beforeMount() {
-    this.getLicensesDatabases()
-    this.getLicensesHosts()
-    this.getLicensesClusters()
-    this.getLicensesVeritas()
+  async beforeMount() {
+    await this.getLicensesDatabases()
+    await this.getLicensesHosts()
+    await this.getLicensesClusters()
+    await this.getLicensesVeritas()
 
     this.onTabChange(this.activeTab)
   },

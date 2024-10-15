@@ -72,14 +72,14 @@ export default {
   },
   beforeMount() {
     bus.$on('onUsedTabChange', (value) => {
-      if (value === 2) {
+      if (value === 3) {
         this.reset(this.resetFilters)
-        bus.$emit('data', this.getUsedLicensesByCluster)
+        bus.$emit('data', this.getUsedLicensesByVeritas)
       }
     })
   },
   computed: {
-    ...mapGetters(['getUsedLicensesByCluster']),
+    ...mapGetters(['getUsedLicensesByVeritas']),
   },
 }
 </script>

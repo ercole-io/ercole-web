@@ -53,8 +53,8 @@
 
       <exportButton
         slot="export"
-        url="hosts/technologies/all/databases/licenses-used-per-cluster"
-        expName="licensesUsedPerCluster"
+        url="hosts/technologies/all/databases/licenses-used-cluster-veritas"
+        expName="licensesUsedVeritasClusters"
       />
     </FullTable>
   </ToggleColumns>
