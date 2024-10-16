@@ -10,7 +10,6 @@ import {
 import { removeDashFromMsDesc } from '@/helpers/licenses.js'
 
 export const state = () => ({
-  totalTarget: {},
   techDash: {},
   licenceHistory: {},
   coreHosts: {},
@@ -78,43 +77,52 @@ export const state = () => ({
   ],
 })
 
-export const getters = {
-  getTotalTarget: (state) => {
-    const ercoleAgent = {
-      id: 'ercoleAgent',
-      agents: state.totalTarget.hostsCount,
-      perc: Math.round(state.totalTarget.compliance * 100),
-      extra: {
-        color: '#101336',
-        name: 'Ercole',
-      },
-    }
+const ercoleTechInfo = {
+  color: '#101336',
+  logo: require('@/assets/images/Cerchio-blu-cane-blu.png'),
+  prettyName: 'Ercole',
+  product: 'Ercole',
+}
 
-    return ercoleAgent
-  },
+export const getters = {
   getTechnologies: (state, getters) => {
     const tech = state.techDash
+
     let techArray = []
     let order = 0
+    let product
 
-    _.map(tech, (value) => {
-      if (value.product === 'Oracle/Database') {
+    _.map(tech, (value, key) => {
+      if (key === 'ercole') {
+        order = 0
+        product = 'Ercole'
+      } else if (key === 'oracle') {
         order = 1
-      } else if (value.product === 'Microsoft/SQLServer') {
+        product = 'Oracle/Database'
+      } else if (key === 'sqlServer') {
         order = 2
-      } else if (value.product === 'Oracle/MySQL') {
+        product = 'Microsoft/SQLServer'
+      } else if (key === 'mySql') {
         order = 3
-      } else {
-        order += 1
+        product = 'Oracle/MySQL'
+      } else if (key === 'postgreSql') {
+        order = 4
+        product = 'PostgreSQL/PostgreSQL'
+      } else if (key === 'mongoDb') {
+        order = 5
+        product = 'MongoDB/MongoDB'
       }
 
       techArray.push({
         showOrder: order,
-        id: value.product,
-        agents: value.hostsCount,
-        perc: value.compliance * 100,
-        // money: value.unpaidDues,
-        extra: getExtraTechInfo(value.product, getters.getAllTechnologies),
+        id: key,
+        hosts: value.hostCount,
+        instances: value.count,
+        perc: _.split(value.compliancePercentageVal, '.')[0],
+        extra:
+          product === 'Ercole'
+            ? ercoleTechInfo
+            : getExtraTechInfo(product, getters.getAllTechnologies),
       })
     })
 
@@ -194,8 +202,8 @@ export const getters = {
 
 export const mutations = {
   SET_DASHBOARD_DATA: (state, payload) => {
-    state.totalTarget = payload.technologies.total
-    state.techDash = payload.technologies.technologies
+    // state.totalTarget = payload.technologies.total
+    state.techDash = payload
   },
   SET_LICENSE_HISTORY: (state, payload) => {
     state.licenceHistory = payload
@@ -273,16 +281,11 @@ export const actions = {
 }
 
 const getExtraTechInfo = (techName, techs) => {
-  const tech = _.find(techs, (t) => {
-    return t.product === techName
-  })
-  if (tech) {
-    return {
-      color: tech.color,
-      logo: tech.logo,
-      name: tech.prettyName,
+  return _.find(techs, (t) => {
+    if (t.product === techName) {
+      return t
     }
-  }
+  })
 }
 
 const calcCloudObjects = (data, objs, tech) => {
