@@ -67,8 +67,8 @@ export const actions = {
     dispatch('onLoadingTable')
 
     const endPoints = [
-      `oracle-cloud/oci-recommendation-errors/1`,
-      `aws/aws-recommendation-errors/9`,
+      `oracle-cloud/oci-recommendation-errors`,
+      `aws/aws-recommendation-errors`,
       `gcp/errors`,
     ]
 
