@@ -142,7 +142,12 @@
       </template>
 
       <template slot="export">
-        <ExportButton url="hosts" expName="hosts-data" />
+        <ExportButton
+          url="hosts"
+          expName="hosts-data"
+          text="Export All Hosts"
+          type="ALL-HOSTS"
+        />
         <ExportButton
           url="hosts"
           expName="hosts-lms-data"

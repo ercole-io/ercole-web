@@ -50,6 +50,10 @@ export default {
         checkType = `${this.$i18n.t(
           'common.general.exportLmsMysql'
         )} ${this.$i18n.t('common.general.inProgress')}`
+      } else if (this.type === 'ALL-HOSTS') {
+        checkType = `Export All Hosts ${this.$i18n.t(
+          'common.general.inProgress'
+        )}`
       } else {
         checkType = `${this.$i18n.t(
           'common.general.exportData'
