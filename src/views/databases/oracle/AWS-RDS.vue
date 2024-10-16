@@ -30,7 +30,7 @@
         <v-th sortKey="processorManufacturer">Processor Manu facturer</v-th>
         <v-th sortKey="defaultCore">Default Core</v-th>
         <v-th sortKey="defaultThreadsPerCore">Default Threads Per Core</v-th>
-        <v-th sortKey="defaultVCpus">Default VCpus</v-th>
+        <v-th sortKey="defaultVCpus">Default vCPUs</v-th>
         <v-th sortKey="memorySizeInMib">Memory Size In Mib</v-th>
       </template>
 
