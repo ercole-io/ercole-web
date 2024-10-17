@@ -67,7 +67,7 @@ export default {
               href: { name: 'capacityos' },
               icon: 'fas fa-car-battery',
               attributes: { 'data-cy': 'mn-capacity-os' },
-              hidden: this.checkMenu('Capacity-OS', 'Hosts'),
+              hidden: this.checkMenu('OS Capacity', 'Hosts'),
             },
           ],
         },
