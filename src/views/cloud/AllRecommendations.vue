@@ -15,7 +15,7 @@
       <AllRecommendationsList />
     </template>
 
-    <template slot="bottom">
+    <template slot="top">
       <AllRecommendationsCharts />
     </template>
   </ToggleColumns>
