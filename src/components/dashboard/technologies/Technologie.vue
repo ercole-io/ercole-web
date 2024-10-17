@@ -1,7 +1,7 @@
 <template>
   <HbuttonScroll scrollID="technologies" style="width: 90%; margin: 0 auto">
     <div class="technologies" id="technologies">
-      <div class="technologies-list" id="ercole">
+      <!-- <div class="technologies-list" id="ercole">
         <div class="image">
           <GhostLoading :isLoading="loading" setHeight="60">
             <img
@@ -47,33 +47,45 @@
             />
           </GhostLoading>
         </div>
-      </div>
+      </div> -->
 
-      <div
-        class="technologies-list"
-        v-for="(tech, i) in getTech"
-        :key="tech.id || i"
-      >
+      <div class="technologies-list" v-for="tech in getTech" :key="tech.id">
         <div class="image">
           <GhostLoading :isLoading="loading" setHeight="60">
             <img
-              v-bind:src="`data:image/jpeg;base64,${tech.extra.logo}`"
               v-if="!loading"
-              :data-cy="`${getTechnology(tech.extra.name)}-logo`"
-              :title="`${tech.extra.name}`"
-              @click="getUrl(tech.extra.name)"
+              :src="
+                tech.extra.prettyName !== 'Ercole'
+                  ? `data:image/jpeg;base64,${tech.extra.logo}`
+                  : tech.extra.logo
+              "
+              :data-cy="`${getTechnology(tech.extra.prettyName)}-logo`"
+              :title="`${tech.extra.prettyName}`"
+              @click="getUrl(tech.extra.prettyName)"
             />
           </GhostLoading>
         </div>
 
-        <div class="agents">
+        <div class="instances">
           <GhostLoading :isLoading="loading" setHeight="15" setWidth="15">
-            <span
+            <p
               v-if="!loading"
-              :data-cy="`${getTechnology(tech.extra.name)}-value`"
+              :data-cy="`${getTechnology(tech.extra.prettyName)}-instances`"
+              v-tooltip="options(`Instances: ${tech.instances}`)"
             >
-              {{ tech.agents }}
-            </span>
+              <b>{{ tech.instances }}</b>
+            </p>
+          </GhostLoading>
+        </div>
+        <div class="hosts">
+          <GhostLoading :isLoading="loading" setHeight="15" setWidth="15">
+            <p
+              v-if="!loading && tech.extra.prettyName !== 'Ercole'"
+              :data-cy="`${getTechnology(tech.extra.prettyName)}-hosts`"
+              v-tooltip="options(`Hosts: ${tech.hosts}`)"
+            >
+              <b>{{ tech.hosts }}</b>
+            </p>
           </GhostLoading>
         </div>
 
@@ -91,7 +103,8 @@
               :strokeWidth="7"
               :transitionDuration="2000"
               v-if="!loading"
-              :data-cy="`${getTechnology(tech.extra.name)}-perc`"
+              :data-cy="`${getTechnology(tech.extra.prettyName)}-perc`"
+              v-tooltip="options(`Compliance: ${tech.perc}%`)"
             />
           </GhostLoading>
         </div>
@@ -103,6 +116,7 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapGetters } from 'vuex'
+import tooltipMixin from '@/mixins/tooltipMixin.js'
 import Progress from 'easy-circular-progress'
 import HbuttonScroll from '@/components/HbuttonScroll.vue'
 import GhostLoading from '@/components/common/GhostLoading.vue'
@@ -110,6 +124,7 @@ import toLower from '@/filters/toLower.js'
 
 export default {
   name: 'daschboard-technologies-technologie-component',
+  mixins: [tooltipMixin],
   components: {
     Progress,
     HbuttonScroll,
@@ -142,7 +157,11 @@ export default {
       }
     },
     getUrl(value) {
-      if (value === 'Oracle Database') {
+      if (value === 'Ercole') {
+        return this.$router.push({
+          name: 'hosts',
+        })
+      } else if (value === 'Oracle Database') {
         return this.$router.push({
           name: 'oracle',
         })
@@ -185,7 +204,7 @@ export default {
 .technologies-list {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   padding: 0 3px;
   min-width: 130px;
@@ -201,13 +220,12 @@ export default {
     }
   }
 
-  .tech-name {
+  .instances {
     font-size: 0.85em;
     font-weight: 500;
-    padding: 10px 0;
   }
 
-  .agents {
+  .hosts {
     border-width: 0;
     padding-bottom: 4px;
     list-style: none;
