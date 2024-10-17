@@ -69,22 +69,22 @@
         <div class="instances">
           <GhostLoading :isLoading="loading" setHeight="15" setWidth="15">
             <p
-              v-if="!loading"
+              v-if="!loading && tech.extra.prettyName !== 'Ercole'"
               :data-cy="`${getTechnology(tech.extra.prettyName)}-instances`"
               v-tooltip="options(`Instances: ${tech.instances}`)"
             >
-              <b>{{ tech.instances }}</b>
+              Instances: <b>{{ tech.instances }}</b>
             </p>
           </GhostLoading>
         </div>
         <div class="hosts">
           <GhostLoading :isLoading="loading" setHeight="15" setWidth="15">
             <p
-              v-if="!loading && tech.extra.prettyName !== 'Ercole'"
+              v-if="!loading"
               :data-cy="`${getTechnology(tech.extra.prettyName)}-hosts`"
               v-tooltip="options(`Hosts: ${tech.hosts}`)"
             >
-              <b>{{ tech.hosts }}</b>
+              Hosts: <b>{{ tech.hosts }}</b>
             </p>
           </GhostLoading>
         </div>
@@ -229,7 +229,8 @@ export default {
     border-width: 0;
     padding-bottom: 4px;
     list-style: none;
-    font-size: 1em;
+    font-weight: 500;
+    font-size: 0.85em;
   }
 
   .progress {
