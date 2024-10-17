@@ -1,5 +1,6 @@
 <template>
   <div>
+    <slot name="top" />
     <div class="columns">
       <div class="column is-flex pt-1 pb-0" :class="dynamicFlexClass">
         <b-button
