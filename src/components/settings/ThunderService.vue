@@ -50,45 +50,6 @@
     </div>
 
     <hr class="my-3" />
-    <p class="is-size-6 has-text-weight-semibold">Oci Data Retrieve Job</p>
-
-    <div class="columns is-multiline">
-      <div class="column is-one-quarter">
-        <div class="field">
-          <label
-            v-html="highlight(ThunderServiceLabels[4])"
-            class="label is-small"
-          />
-          <CustomInput v-model="ThunderService.OciDataRetrieveJob.Crontab" />
-        </div>
-      </div>
-      <div class="column is-one-quarter">
-        <div class="field">
-          <label
-            v-html="highlight(ThunderServiceLabels[5])"
-            class="label is-small"
-          />
-          <CustomInput
-            v-model="ThunderService.OciDataRetrieveJob.DaysThreshold"
-            inputType="number"
-          />
-        </div>
-      </div>
-      <div class="column is-one-quarter">
-        <div class="field">
-          <label
-            v-html="highlight(ThunderServiceLabels[6])"
-            class="label is-small"
-          />
-          <CustomRadio
-            v-model="ThunderService.OciDataRetrieveJob.RunAtStartup"
-            :options="trueOrFalseOptions"
-          />
-        </div>
-      </div>
-    </div>
-
-    <hr class="my-3" />
     <p class="is-size-6 has-text-weight-semibold">Cloud Advisors</p>
 
     <div class="columns is-multiline">
@@ -126,6 +87,45 @@
           />
           <CustomRadio
             v-model="APIService.EnableGcpMenu"
+            :options="trueOrFalseOptions"
+          />
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-3" />
+    <p class="is-size-6 has-text-weight-semibold">Oci Data Retrieve Job</p>
+
+    <div class="columns is-multiline">
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[4])"
+            class="label is-small"
+          />
+          <CustomInput v-model="ThunderService.OciDataRetrieveJob.Crontab" />
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[5])"
+            class="label is-small"
+          />
+          <CustomInput
+            v-model="ThunderService.OciDataRetrieveJob.DaysThreshold"
+            inputType="number"
+          />
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label
+            v-html="highlight(ThunderServiceLabels[6])"
+            class="label is-small"
+          />
+          <CustomRadio
+            v-model="ThunderService.OciDataRetrieveJob.RunAtStartup"
             :options="trueOrFalseOptions"
           />
         </div>
