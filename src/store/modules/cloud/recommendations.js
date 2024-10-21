@@ -167,20 +167,27 @@ export const actions = {
   },
 }
 
-const chartsCountData = (data, type, total) => {
-  let totalData = []
+const chartsCountData = (data, type) => {
+  let totalData = {}
+  let labels = []
+  let series = []
 
   totalData = _.map(data, (val) => {
-    return { type: val[type] }
+    return {
+      type: val[type],
+      cloud: val.cloud,
+    }
   })
 
   totalData = _.groupBy(totalData, 'type')
 
-  totalData = _.map(totalData, (val) => {
-    const perc = `${_.round((val.length / total) * 100, 2)}%`
+  labels = _.map(totalData, (v, k) => k)
+  series = _.map(totalData, (v, k) => v.length)
 
-    return [`${val[0].type}: ${perc}`, val.length]
-  })
+  totalData = {
+    labels: labels,
+    series: series,
+  }
 
   return totalData
 }
