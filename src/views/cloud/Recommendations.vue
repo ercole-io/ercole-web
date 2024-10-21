@@ -2,9 +2,15 @@
   <ToggleColumns
     :getPage="returnPagename"
     :leftButton="$t('common.forms.advancedFilters')"
-    :rightButton="$t('common.general.sideInfo')"
+    :centerCol="9"
     v-if="isMounted"
   >
+    <template slot="top">
+      <RecommendationsCharts v-if="returnCloudTechnology === 'Oracle'" />
+      <RecommendationsCharts v-if="returnCloudTechnology === 'Aws'" />
+      <RecommendationsCharts v-if="returnCloudTechnology === 'Google'" />
+    </template>
+
     <template slot="left">
       <OracleFilters v-if="returnCloudTechnology === 'Oracle'">
         <Loading :isLoading="loadingTableStatus" />
@@ -23,12 +29,6 @@
       <OracleTableList v-if="returnCloudTechnology === 'Oracle'" />
       <AwsTableList v-if="returnCloudTechnology === 'Aws'" />
       <GoogleTableList v-if="returnCloudTechnology === 'Google'" />
-    </template>
-
-    <template slot="right">
-      <RecommendationsCharts v-if="returnCloudTechnology === 'Oracle'" />
-      <RecommendationsCharts v-if="returnCloudTechnology === 'Aws'" />
-      <RecommendationsCharts v-if="returnCloudTechnology === 'Google'" />
     </template>
   </ToggleColumns>
 </template>
