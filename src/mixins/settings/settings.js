@@ -1,24 +1,27 @@
 import _ from 'lodash'
 import { mapActions, mapGetters, mapState } from 'vuex'
 
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+
 import CustomField from '@/components/common/Form/CustomField.vue'
 import CustomInput from '@/components/common/Form/CustomInput.vue'
 import CustomRadio from '@/components/common/Form/CustomRadio.vue'
 
+import BoxContent from '@/components/common/BoxContent.vue'
+import Loading from '@/components/common/Loading.vue'
+
 import VueJsonPretty from 'vue-json-pretty'
 import 'vue-json-pretty/lib/styles.css'
 
-// masks: {
-//   ip: [],
-// },
-// :inputMask="'#?#?#.#?#?#.#?#?#.#?#?#'"
-
 export default {
+  mixins: [HighlightSearchMixin],
   components: {
     CustomField,
     CustomInput,
     CustomRadio,
     VueJsonPretty,
+    BoxContent,
+    Loading,
   },
   data() {
     return {
@@ -185,9 +188,6 @@ export default {
         'Policy Audit Names to Verify on Databases',
         'Round Decimal Licenses',
         'Threshold Percentage of DB Memory vs Host Memory',
-        'Show OCI Cloud Advisors on menu?',
-        'Show AWS Cloud Advisors on menu?',
-        'Show GCP Cloud Advisors on menu?',
       ],
       highlightApiService: false,
       AlertServiceLabels: [
@@ -271,6 +271,9 @@ export default {
         'Max Memory Utilization Threshold',
         'Iops Storage Percentage',
         'Throughput Storage Percentage',
+        'Show OCI Cloud Advisors on menu?',
+        'Show AWS Cloud Advisors on menu?',
+        'Show GCP Cloud Advisors on menu?',
       ],
       highlightThunderService: false,
     }

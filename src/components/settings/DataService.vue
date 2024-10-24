@@ -2,147 +2,155 @@
   <article>
     <Loading :isLoading="dataServiceLoading" />
 
-    <SettingsActions
-      :reset="resetApiServiceSettings"
-      :action="saveDataServiceSettings"
-    />
+    <BoxContent
+      title="Data Service"
+      class="is-size-4 has-text-weight-semibold"
+      customStyle="padding: 20px 40px"
+      border
+    >
+      <SettingsActions
+        :reset="resetApiServiceSettings"
+        :action="saveDataServiceSettings"
+        slot="customTitle"
+      />
 
-    <div class="columns is-multiline">
-      <div class="column is-one-quarter">
-        <div class="field">
-          <label
-            v-html="highlight(DataServiceLabels[0])"
-            class="label is-small"
-          />
-          <CustomInput v-model="DataService.RemoteEndpoint" />
-        </div>
-      </div>
-      <div class="column is-one-quarter">
-        <div class="field">
-          <label
-            v-html="highlight(DataServiceLabels[1])"
-            class="label is-small"
-          />
-          <CustomInput v-model="DataService.Port" inputType="number" />
-        </div>
-      </div>
-      <div class="column is-one-quarter">
-        <div class="field">
-          <label
-            v-html="highlight(DataServiceLabels[2])"
-            class="label is-small"
-          />
-          <CustomInput v-model="DataService.BindIP" />
-        </div>
-      </div>
-      <div class="column is-one-quarter">
-        <div class="field">
-          <label
-            v-html="highlight(DataServiceLabels[3])"
-            class="label is-small"
-          />
-          <CustomRadio
-            v-model="DataService.LogHTTPRequest"
-            :options="trueOrFalseOptions"
-          />
-        </div>
-      </div>
-      <div class="column is-one-quarter">
-        <div class="field">
-          <label
-            v-html="highlight(DataServiceLabels[4])"
-            class="label is-small"
-          />
-          <CustomRadio
-            v-model="DataService.LogInsertingHostdata"
-            :options="trueOrFalseOptions"
-          />
-        </div>
-      </div>
-      <div class="column is-one-quarter">
-        <div class="field">
-          <label
-            v-html="highlight(DataServiceLabels[5])"
-            class="label is-small"
-          />
-          <CustomInput v-model="DataService.AgentUsername" />
-        </div>
-      </div>
-      <div class="column is-one-quarter">
-        <div class="field">
-          <label
-            v-html="highlight(DataServiceLabels[6])"
-            class="label is-small"
-          />
-          <CustomInput v-model="DataService.AgentPassword" />
-        </div>
-      </div>
-    </div>
-
-    <hr class="my-3" />
-    <p class="is-size-6 has-text-weight-semibold">Agent Data Retention</p>
-
-    <div class="columns is-multiline">
-      <div class="column is-one-quarter">
-        <div class="field">
-          <label
-            v-html="highlight(DataServiceLabels[7])"
-            class="label is-small"
-          />
-          <CustomInput
-            v-model="DataService.CurrentHostCleaningJob.HourThreshold"
-            inputType="number"
-          />
-        </div>
-      </div>
-    </div>
-
-    <hr class="my-3" />
-
-    <div class="columns is-multiline">
-      <div class="column is-half">
-        <div class="field">
-          <label
-            v-html="highlight(DataServiceLabels[8])"
-            class="label is-small"
-          />
-          <DragAndDropList :list="DataService.LicenseTypeMetricsDefault" />
-        </div>
-      </div>
-      <div class="column is-half">
-        <div class="field">
-          <label
-            v-html="highlight(DataServiceLabels[9])"
-            class="label is-small"
-          />
-          <div class="is-relative">
-            <b-button
-              type="is-primary"
-              icon-right="plus"
-              size="is-small"
-              @click="addNewLTMBE"
-              class="addNew"
+      <div class="columns is-multiline">
+        <div class="column is-one-quarter">
+          <div class="field">
+            <label
+              v-html="highlight(DataServiceLabels[0])"
+              class="label is-small"
             />
-            <div
-              class="is-flex is-flex-direction-row"
-              v-for="value in Object.entries(LTMBEchanges)"
-              :key="value[0]"
-            >
-              <p class="is-flex is-flex-direction-column is-flex-grow-2">
-                <CustomInput v-model="value[1].name" />
-                <DragAndDropList :list="value[1].items" />
-              </p>
+            <CustomInput v-model="DataService.RemoteEndpoint" />
+          </div>
+        </div>
+        <div class="column is-one-quarter">
+          <div class="field">
+            <label
+              v-html="highlight(DataServiceLabels[1])"
+              class="label is-small"
+            />
+            <CustomInput v-model="DataService.Port" inputType="number" />
+          </div>
+        </div>
+        <div class="column is-one-quarter">
+          <div class="field">
+            <label
+              v-html="highlight(DataServiceLabels[2])"
+              class="label is-small"
+            />
+            <CustomInput v-model="DataService.BindIP" />
+          </div>
+        </div>
+        <div class="column is-one-quarter">
+          <div class="field">
+            <label
+              v-html="highlight(DataServiceLabels[3])"
+              class="label is-small"
+            />
+            <CustomRadio
+              v-model="DataService.LogHTTPRequest"
+              :options="trueOrFalseOptions"
+            />
+          </div>
+        </div>
+        <div class="column is-one-quarter">
+          <div class="field">
+            <label
+              v-html="highlight(DataServiceLabels[4])"
+              class="label is-small"
+            />
+            <CustomRadio
+              v-model="DataService.LogInsertingHostdata"
+              :options="trueOrFalseOptions"
+            />
+          </div>
+        </div>
+        <div class="column is-one-quarter">
+          <div class="field">
+            <label
+              v-html="highlight(DataServiceLabels[5])"
+              class="label is-small"
+            />
+            <CustomInput v-model="DataService.AgentUsername" />
+          </div>
+        </div>
+        <div class="column is-one-quarter">
+          <div class="field">
+            <label
+              v-html="highlight(DataServiceLabels[6])"
+              class="label is-small"
+            />
+            <CustomInput v-model="DataService.AgentPassword" />
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-3" />
+      <p class="is-size-6 has-text-weight-semibold">Agent Data Retention</p>
+
+      <div class="columns is-multiline">
+        <div class="column is-one-quarter">
+          <div class="field">
+            <label
+              v-html="highlight(DataServiceLabels[7])"
+              class="label is-small"
+            />
+            <CustomInput
+              v-model="DataService.CurrentHostCleaningJob.HourThreshold"
+              inputType="number"
+            />
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-3" />
+
+      <div class="columns is-multiline">
+        <div class="column is-half">
+          <div class="field">
+            <label
+              v-html="highlight(DataServiceLabels[8])"
+              class="label is-small"
+            />
+            <DragAndDropList :list="DataService.LicenseTypeMetricsDefault" />
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="field">
+            <label
+              v-html="highlight(DataServiceLabels[9])"
+              class="label is-small"
+            />
+            <div class="is-relative">
               <b-button
-                type="is-danger"
-                icon-right="delete"
+                type="is-primary"
+                icon-right="plus"
                 size="is-small"
-                @click="deleteLTMBE(value[0])"
+                @click="addNewLTMBE"
+                class="addNew"
               />
+              <div
+                class="is-flex is-flex-direction-row"
+                v-for="value in Object.entries(LTMBEchanges)"
+                :key="value[0]"
+              >
+                <p class="is-flex is-flex-direction-column is-flex-grow-2">
+                  <CustomInput v-model="value[1].name" />
+                  <DragAndDropList :list="value[1].items" />
+                </p>
+                <b-button
+                  type="is-danger"
+                  icon-right="delete"
+                  size="is-small"
+                  @click="deleteLTMBE(value[0])"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </BoxContent>
   </article>
 </template>
 
@@ -150,17 +158,13 @@
 import _ from 'lodash'
 import settings from '@/mixins/settings/settings.js'
 import SettingsActions from '@/components/settings/SettingsActions.vue'
-import Loading from '@/components/common/Loading.vue'
 import DragAndDropList from '@/components/common/DragAndDropList.vue'
-
-import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 
 export default {
   name: 'settings-dataservice-component',
-  mixins: [settings, HighlightSearchMixin],
+  mixins: [settings],
   components: {
     SettingsActions,
-    Loading,
     DragAndDropList,
   },
   data() {

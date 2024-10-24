@@ -13,197 +13,57 @@
         slot="customTitle"
       />
 
-      <b-collapse
+      <b-tabs
+        v-model="activeTab"
+        size="is-small"
+        type="is-boxed"
+        vertical
+        animated
+        expanded
+      >
+        <b-tab-item
+          v-for="item in settingsData"
+          :value="item.name"
+          :label="item.name"
+          :key="item.order"
+          :headerClass="['settings-menu-item', hightlightMenu(item.comp)]"
+        >
+          <component :is="item.comp" class="settings-component" />
+        </b-tab-item>
+      </b-tabs>
+
+      <!-- <b-collapse
+        v-for="item in settingsData"
+        :key="item.order"
         class="card collapse-card"
         animation="slide"
-        key="1"
-        :open="isOpen == 1"
-        @open="isOpen = 1"
-        :aria-id="'col-' + 1"
+        :open="isOpen == item.order"
+        @open="isOpen = item.order"
+        :aria-id="'col-' + item.order"
       >
         <template #trigger="props">
           <div
             class="card-header collapse-header"
             role="button"
-            :aria-controls="'col-' + 1"
+            :aria-controls="'col-' + item.order"
             :aria-expanded="props.open"
           >
             <p class="card-header-title collapse-title">
               <span :class="{ highlightText: highlightApiService }">
-                Api Service
+                {{ item.name }}
               </span>
             </p>
             <a class="card-header-icon collapse-icon">
-              <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"> </b-icon>
+              <b-icon :icon="props.open ? 'menu-up' : 'menu-down'" />
             </a>
           </div>
         </template>
         <div class="card-content">
           <div class="content collapse-content extra-padding">
-            <ApiService />
+            <component :is="item.comp" />
           </div>
         </div>
-      </b-collapse>
-
-      <b-collapse
-        class="card collapse-card"
-        animation="slide"
-        key="2"
-        :open="isOpen == 2"
-        @open="isOpen = 2"
-        :aria-id="'col-' + 2"
-      >
-        <template #trigger="props">
-          <div
-            class="card-header collapse-header"
-            role="button"
-            :aria-controls="'col-' + 2"
-            :aria-expanded="props.open"
-          >
-            <p class="card-header-title collapse-title">
-              <span :class="{ highlightText: highlightAlertService }">
-                Alert Service
-              </span>
-            </p>
-            <a class="card-header-icon collapse-icon">
-              <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"> </b-icon>
-            </a>
-          </div>
-        </template>
-        <div class="card-content">
-          <div class="content collapse-content extra-padding">
-            <AlertService />
-          </div>
-        </div>
-      </b-collapse>
-
-      <b-collapse
-        class="card collapse-card"
-        animation="slide"
-        key="3"
-        :open="isOpen == 3"
-        @open="isOpen = 3"
-        :aria-id="'col-' + 3"
-      >
-        <template #trigger="props">
-          <div
-            class="card-header collapse-header"
-            role="button"
-            :aria-controls="'col-' + 3"
-            :aria-expanded="props.open"
-          >
-            <p class="card-header-title collapse-title">
-              <span :class="{ highlightText: highlightChartService }">
-                Chart Service
-              </span>
-            </p>
-            <a class="card-header-icon collapse-icon">
-              <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"> </b-icon>
-            </a>
-          </div>
-        </template>
-        <div class="card-content">
-          <div class="content collapse-content extra-padding">
-            <ChartService />
-          </div>
-        </div>
-      </b-collapse>
-
-      <b-collapse
-        class="card collapse-card"
-        animation="slide"
-        key="4"
-        :open="isOpen == 4"
-        @open="isOpen = 4"
-        :aria-id="'col-' + 4"
-      >
-        <template #trigger="props">
-          <div
-            class="card-header collapse-header"
-            role="button"
-            :aria-controls="'col-' + 4"
-            :aria-expanded="props.open"
-          >
-            <p class="card-header-title collapse-title">
-              <span :class="{ highlightText: highlightDataService }">
-                Data Service
-              </span>
-            </p>
-            <a class="card-header-icon collapse-icon">
-              <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"> </b-icon>
-            </a>
-          </div>
-        </template>
-        <div class="card-content">
-          <div class="content collapse-content extra-padding">
-            <DataService />
-          </div>
-        </div>
-      </b-collapse>
-
-      <b-collapse
-        class="card collapse-card"
-        animation="slide"
-        key="5"
-        :open="isOpen == 5"
-        @open="isOpen = 5"
-        :aria-id="'col-' + 5"
-      >
-        <template #trigger="props">
-          <div
-            class="card-header collapse-header"
-            role="button"
-            :aria-controls="'col-' + 5"
-            :aria-expanded="props.open"
-          >
-            <p class="card-header-title collapse-title">
-              <span :class="{ highlightText: highlightResourceFilePath }">
-                Resource File Path
-              </span>
-            </p>
-            <a class="card-header-icon collapse-icon">
-              <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"> </b-icon>
-            </a>
-          </div>
-        </template>
-        <div class="card-content">
-          <div class="content collapse-content extra-padding">
-            <ResourceFilePath />
-          </div>
-        </div>
-      </b-collapse>
-
-      <b-collapse
-        class="card collapse-card"
-        animation="slide"
-        key="6"
-        :open="isOpen == 6"
-        @open="isOpen = 6"
-        :aria-id="'col-' + 6"
-      >
-        <template #trigger="props">
-          <div
-            class="card-header collapse-header"
-            role="button"
-            :aria-controls="'col-' + 6"
-            :aria-expanded="props.open"
-          >
-            <p class="card-header-title collapse-title">
-              <span :class="{ highlightText: highlightThunderService }">
-                Thunder Service
-              </span>
-            </p>
-            <a class="card-header-icon collapse-icon">
-              <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"> </b-icon>
-            </a>
-          </div>
-        </template>
-        <div class="card-content">
-          <div class="content collapse-content extra-padding">
-            <ThunderService />
-          </div>
-        </div>
-      </b-collapse>
+      </b-collapse> -->
     </BoxContent>
   </article>
 </template>
@@ -236,6 +96,39 @@ export default {
   data() {
     return {
       isOpen: 0,
+      activeTab: 0,
+      settingsData: [
+        {
+          order: 0,
+          name: 'Api Service',
+          comp: 'ApiService',
+        },
+        {
+          order: 1,
+          name: 'Alert Service',
+          comp: 'AlertService',
+        },
+        {
+          order: 2,
+          name: 'Chart Service',
+          comp: 'ChartService',
+        },
+        {
+          order: 3,
+          name: 'Data Service',
+          comp: 'DataService',
+        },
+        {
+          order: 4,
+          name: 'Resource File Path',
+          comp: 'ResourceFilePath',
+        },
+        {
+          order: 5,
+          name: 'Thunder Service',
+          comp: 'ThunderService',
+        },
+      ],
     }
   },
   async created() {
@@ -245,12 +138,30 @@ export default {
   },
   methods: {
     ...mapActions(['requestSettings']),
+    hightlightMenu(item) {
+      return this[`highlight${item}`] ? 'highlightText-settings' : null
+    },
   },
 }
 </script>
 
-<style lang="scss" scoped>
-.collapse-card {
+<style lang="scss">
+.settings-component {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.settings-menu-item {
+  max-width: 100% !important;
+
+  a {
+    justify-content: right !important;
+    font-weight: 500;
+    font-size: 0.8rem;
+  }
+}
+
+/* .collapse-card {
   box-shadow: none;
   margin-bottom: 15px;
 }
@@ -282,5 +193,5 @@ export default {
 }
 .extra-margin {
   margin-bottom: 10px;
-}
+} */
 </style>
