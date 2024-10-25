@@ -15,6 +15,7 @@
     <FullTable
       :tableData="getOraclePdbs(selectedHost)"
       :keys="[
+        'dbname',
         'hostname',
         'name',
         'status',
@@ -33,6 +34,7 @@
     >
       <template slot="headData">
         <v-th sortKey="name">PDB Name</v-th>
+        <v-th sortKey="dbname">DB Name</v-th>
         <v-th sortKey="hostname">Hostname</v-th>
         <v-th sortKey="schemas">Schemas</v-th>
         <v-th sortKey="tablespaces">Tablespaces</v-th>
@@ -54,6 +56,10 @@
           @click.native="pdbHostDetailLink(rowData.scope.hostname)"
           :value="rowData.scope.name"
           class="first-col"
+        />
+        <TdContent
+          @click.native="pdbHostDetailLink(rowData.scope.hostname)"
+          :value="rowData.scope.dbname"
         />
         <HostLink :hostname="rowData.scope.hostname" />
         <td class="is-clickable">
@@ -141,19 +147,6 @@
           </b-button>
           <span v-else>-</span>
         </td>
-        <!-- <td class="is-clickable">
-          <b-button
-            icon-pack="fas"
-            icon-left="check"
-            type="is-info"
-            size="is-small"
-            class="is-clickable"
-            @click="openPolicyAuditModal(rowData.scope)"
-            v-tooltip="options('Click to see Policy Audit information')"
-          >
-            Details
-          </b-button>
-        </td> -->
         <TdContent :value="rowData.scope.status" />
         <TdContent :value="rowData.scope.allocable" />
         <TdContent :value="rowData.scope.datafileSize" />
@@ -164,6 +157,7 @@
     <b-modal :active.sync="isModalActive" :width="1500" scroll="keep">
       <PdbsModal
         :pdbName="modalData.pdbName"
+        :dbName="modalData.dbName"
         :hostname="modalData.hostname"
         :tab="modalData.tab"
         :data="modalData.data"
@@ -175,7 +169,6 @@
 </template>
 
 <script>
-// import _ from 'lodash'
 import { mapActions, mapGetters, mapState } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
@@ -184,7 +177,6 @@ import PdbsModal from '@/views/databases/oracle/PdbsModal.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
-// import PolicyAuditModal from '@/components/hosts/hostDetails/oracle/PolicyAuditModal.vue'
 
 export default {
   name: 'oracle-databases-pdbs-page',
@@ -216,7 +208,8 @@ export default {
       this.isModalActive = true
       this.modalData = {
         pdbName: data.name,
-        hostname: this.selectedHost,
+        dbName: data.dbname,
+        hostname: data.hostname,
         tab: tab,
         data: data,
         tabsData: this.getOraclePdbsModal(data.name)[0],
@@ -228,25 +221,6 @@ export default {
         params: { hostname: value },
       })
     },
-    // openPolicyAuditModal(data) {
-    //   this.getPdbsPolicyAudit({
-    //     hostname: data.hostname,
-    //     dbname: data.dbname,
-    //     pdbname: data.name,
-    //   }).then((res) => {
-    //     const data = res.data['GREEN'] || res.data['RED']
-    //     const color = _.has(res.data, 'RED') ? 'is-danger' : 'is-primary'
-
-    //     this.$buefy.modal.open({
-    //       component: PolicyAuditModal,
-    //       hasModalCard: true,
-    //       props: {
-    //         params: data,
-    //         color: color,
-    //       },
-    //     })
-    //   })
-    // },
     getColor(semaphoreColor) {
       let color
       if (semaphoreColor === 'red') {
