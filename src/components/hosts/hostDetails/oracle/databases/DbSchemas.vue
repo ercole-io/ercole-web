@@ -1,14 +1,6 @@
 <template>
   <b-tab-item label="Schemas">
-    <FullTable
-      :tableData="schemas"
-      :keys="keys"
-      hideSearch
-      hidePerpage
-      hidePagination
-      hideTopTable
-      :isLoadingTable="false"
-    >
+    <FullTable :tableData="schemas" :keys="keys" :isLoadingTable="false">
       <template slot="headData">
         <v-th sortKey="user">User</v-th>
         <v-th sortKey="total">Total</v-th>
