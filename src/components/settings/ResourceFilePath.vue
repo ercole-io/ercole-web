@@ -14,17 +14,19 @@
         slot="customTitle"
       />
 
-      <div class="columns is-multiline">
-        <div class="column is-half">
-          <div class="field">
-            <label
-              v-html="highlight(ResourceFilePathLabels[0])"
-              class="label is-small"
-            />
-            <CustomInput v-model="ResourceFilePath" />
+      <BoxContent customStyle="padding: 20px 40px" border hasShadow>
+        <div class="columns is-multiline">
+          <div class="column is-half">
+            <div class="field">
+              <label
+                v-html="highlight(ResourceFilePathLabels[0])"
+                class="label is-small"
+              />
+              <CustomInput v-model="ResourceFilePath" />
+            </div>
           </div>
         </div>
-      </div>
+      </BoxContent>
     </BoxContent>
   </article>
 </template>

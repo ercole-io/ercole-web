@@ -147,7 +147,7 @@ export default {
 
 <style lang="scss">
 .settings-component {
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
 }
 

@@ -14,47 +14,49 @@
         slot="customTitle"
       />
 
-      <div class="columns is-multiline">
-        <div class="column is-one-quarter">
-          <div class="field">
-            <label
-              v-html="highlight(ChartServiceLabels[0])"
-              class="label is-small"
-            />
-            <CustomInput v-model="ChartService.RemoteEndpoint" />
+      <BoxContent customStyle="padding: 20px 40px" border hasShadow>
+        <div class="columns is-multiline">
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(ChartServiceLabels[0])"
+                class="label is-small"
+              />
+              <CustomInput v-model="ChartService.RemoteEndpoint" />
+            </div>
+          </div>
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(ChartServiceLabels[1])"
+                class="label is-small"
+              />
+              <CustomInput v-model="ChartService.Port" inputType="number" />
+            </div>
+          </div>
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(ChartServiceLabels[2])"
+                class="label is-small"
+              />
+              <CustomInput v-model="ChartService.BindIP" />
+            </div>
+          </div>
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(ChartServiceLabels[3])"
+                class="label is-small"
+              />
+              <CustomRadio
+                v-model="ChartService.LogHTTPRequest"
+                :options="trueOrFalseOptions"
+              />
+            </div>
           </div>
         </div>
-        <div class="column is-one-quarter">
-          <div class="field">
-            <label
-              v-html="highlight(ChartServiceLabels[1])"
-              class="label is-small"
-            />
-            <CustomInput v-model="ChartService.Port" inputType="number" />
-          </div>
-        </div>
-        <div class="column is-one-quarter">
-          <div class="field">
-            <label
-              v-html="highlight(ChartServiceLabels[2])"
-              class="label is-small"
-            />
-            <CustomInput v-model="ChartService.BindIP" />
-          </div>
-        </div>
-        <div class="column is-one-quarter">
-          <div class="field">
-            <label
-              v-html="highlight(ChartServiceLabels[3])"
-              class="label is-small"
-            />
-            <CustomRadio
-              v-model="ChartService.LogHTTPRequest"
-              :options="trueOrFalseOptions"
-            />
-          </div>
-        </div>
-      </div>
+      </BoxContent>
     </BoxContent>
   </article>
 </template>
