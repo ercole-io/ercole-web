@@ -152,6 +152,12 @@
         <TdContent :value="rowData.scope.datafileSize" />
         <TdContent :value="rowData.scope.segmentsSize" />
       </template>
+
+      <ExportButton
+        slot="export"
+        url="hosts/technologies/oracle/databases/pdbs"
+        expName="oraclePdbs"
+      />
     </FullTable>
 
     <b-modal :active.sync="isModalActive" :width="1500" scroll="keep">
@@ -177,6 +183,7 @@ import PdbsModal from '@/views/databases/oracle/PdbsModal.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
+import ExportButton from '@/components/common/ExportButton.vue'
 
 export default {
   name: 'oracle-databases-pdbs-page',
@@ -187,6 +194,7 @@ export default {
     TdContent,
     PdbsModal,
     HostLink,
+    ExportButton,
   },
   data() {
     return {
