@@ -6,9 +6,7 @@
     v-if="isMounted"
   >
     <template slot="top">
-      <RecommendationsCharts v-if="returnCloudTechnology === 'Oracle'" />
-      <RecommendationsCharts v-if="returnCloudTechnology === 'Aws'" />
-      <RecommendationsCharts v-if="returnCloudTechnology === 'Google'" />
+      <RecommendationsCharts />
     </template>
 
     <template slot="left">
@@ -23,12 +21,21 @@
       <GoogleFilters v-if="returnCloudTechnology === 'Google'">
         <Loading :isLoading="loadingTableStatus" />
       </GoogleFilters>
+
+      <AllRecommendationsFilters
+        v-if="returnCloudTechnology === 'allRecommendations'"
+      >
+        <Loading :isLoading="loadingTableStatus" />
+      </AllRecommendationsFilters>
     </template>
 
     <template slot="center">
       <OracleTableList v-if="returnCloudTechnology === 'Oracle'" />
       <AwsTableList v-if="returnCloudTechnology === 'Aws'" />
       <GoogleTableList v-if="returnCloudTechnology === 'Google'" />
+      <AllRecommendationsList
+        v-if="returnCloudTechnology === 'allRecommendations'"
+      />
     </template>
   </ToggleColumns>
 </template>
@@ -48,6 +55,9 @@ import AwsTableList from '@/components/cloud/aws/recommendations/TableList.vue'
 import GoogleFilters from '@/components/cloud/google/recommendations/Filters.vue'
 import GoogleTableList from '@/components/cloud/google/recommendations/TableList.vue'
 
+import AllRecommendationsFilters from '@/components/cloud/allRecommendations/Filters.vue'
+import AllRecommendationsList from '@/components/cloud/allRecommendations/TableList.vue'
+
 import RecommendationsCharts from '@/components/cloud/RecommendationsCharts.vue'
 
 export default {
@@ -61,6 +71,8 @@ export default {
     RecommendationsCharts,
     GoogleFilters,
     GoogleTableList,
+    AllRecommendationsFilters,
+    AllRecommendationsList,
     Loading,
   },
   data() {
@@ -69,29 +81,37 @@ export default {
     }
   },
   async beforeMount() {
-    if (this.$route.name === 'oracle-recommendations') {
-      this.SET_CLOUD_TECHNOLOGY('Oracle')
-    } else if (this.$route.name === 'aws-recommendations') {
-      this.SET_CLOUD_TECHNOLOGY('Aws')
-    } else if (this.$route.name === 'google-recommendations') {
-      this.SET_CLOUD_TECHNOLOGY('Google')
-    }
+    if (this.$route.name === 'allRecommendations') {
+      this.SET_CLOUD_TECHNOLOGY('allRecommendations')
+      await this.getCloudAllRecommendations().then(() => {
+        bus.$emit('data', this.returnCloudAllRecommendations)
+      })
+    } else {
+      if (this.$route.name === 'oracle-recommendations') {
+        this.SET_CLOUD_TECHNOLOGY('Oracle')
+      } else if (this.$route.name === 'aws-recommendations') {
+        this.SET_CLOUD_TECHNOLOGY('Aws')
+      } else if (this.$route.name === 'google-recommendations') {
+        this.SET_CLOUD_TECHNOLOGY('Google')
+      }
 
-    await this.getCloudRecommendations().then(() => {
-      bus.$emit('data', this.returnCloudRecommendations)
-    })
+      await this.getCloudRecommendations().then(() => {
+        bus.$emit('data', this.returnCloudRecommendations)
+      })
+    }
   },
   mounted() {
     this.isMounted = true
   },
   methods: {
-    ...mapActions(['getCloudRecommendations']),
+    ...mapActions(['getCloudRecommendations', 'getCloudAllRecommendations']),
     ...mapMutations(['SET_CLOUD_TECHNOLOGY']),
   },
   computed: {
     ...mapGetters([
       'returnCloudTechnology',
       'returnCloudRecommendations',
+      'returnCloudAllRecommendations',
       'loadingTableStatus',
     ]),
     returnPagename() {
