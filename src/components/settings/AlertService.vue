@@ -378,10 +378,21 @@
         <div class="columns is-multiline">
           <div class="column is-one-quarter">
             <div class="field">
-              <label
-                v-html="highlight(AlertServiceLabels[27])"
-                class="label is-small"
-              />
+              <div
+                class="is-flex is-flex-direction-row is-justify-content-space-between"
+              >
+                <label
+                  v-html="highlight(AlertServiceLabels[27])"
+                  class="label is-small"
+                />
+                <b-icon
+                  pack="fas"
+                  icon="circle-info"
+                  size="is-small"
+                  type="is-info"
+                  v-tooltip.top="options(crontabOptions)"
+                />
+              </div>
               <CustomInput v-model="AlertService.AckAlertJob.Crontab" />
             </div>
           </div>
@@ -414,10 +425,21 @@
         <div class="columns is-multiline">
           <div class="column is-one-quarter">
             <div class="field">
-              <label
-                v-html="highlight(AlertServiceLabels[30])"
-                class="label is-small"
-              />
+              <div
+                class="is-flex is-flex-direction-row is-justify-content-space-between"
+              >
+                <label
+                  v-html="highlight(AlertServiceLabels[30])"
+                  class="label is-small"
+                />
+                <b-icon
+                  pack="fas"
+                  icon="circle-info"
+                  size="is-small"
+                  type="is-info"
+                  v-tooltip.top="options(crontabOptions)"
+                />
+              </div>
               <CustomInput v-model="AlertService.RemoveAlertJob.Crontab" />
             </div>
           </div>

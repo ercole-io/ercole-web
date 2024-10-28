@@ -2,6 +2,7 @@ import _ from 'lodash'
 import { mapActions, mapGetters, mapState } from 'vuex'
 
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+import TooltipMixin from '@/mixins/tooltipMixin.js'
 
 import CustomField from '@/components/common/Form/CustomField.vue'
 import CustomInput from '@/components/common/Form/CustomInput.vue'
@@ -14,7 +15,7 @@ import VueJsonPretty from 'vue-json-pretty'
 import 'vue-json-pretty/lib/styles.css'
 
 export default {
-  mixins: [HighlightSearchMixin],
+  mixins: [HighlightSearchMixin, TooltipMixin],
   components: {
     CustomField,
     CustomInput,
@@ -614,6 +615,9 @@ export default {
           val: false,
         },
       ]
+    },
+    crontabOptions() {
+      return `Available options: </br> @daily </br> @Weekly </br> @monthly`
     },
   },
 }

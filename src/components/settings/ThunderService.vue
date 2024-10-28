@@ -107,44 +107,62 @@
         </div>
       </BoxContent>
 
-      <hr class="my-3" />
-      <p class="is-size-6 has-text-weight-semibold">Oci Data Retrieve Job</p>
-
-      <div class="columns is-multiline">
-        <div class="column is-one-quarter">
-          <div class="field">
-            <label
-              v-html="highlight(ThunderServiceLabels[4])"
-              class="label is-small"
-            />
-            <CustomInput v-model="ThunderService.OciDataRetrieveJob.Crontab" />
+      <BoxContent
+        title="Oci Data Retrieve Job"
+        class="is-size-5 has-text-weight-semibold"
+        customStyle="padding: 20px 40px"
+        border
+        hasShadow
+      >
+        <div class="columns is-multiline">
+          <div class="column is-one-quarter">
+            <div class="field">
+              <div
+                class="is-flex is-flex-direction-row is-justify-content-space-between"
+              >
+                <label
+                  v-html="highlight(ThunderServiceLabels[4])"
+                  class="label is-small"
+                />
+                <b-icon
+                  pack="fas"
+                  icon="circle-info"
+                  size="is-small"
+                  type="is-info"
+                  v-tooltip.top="options(crontabOptions)"
+                />
+              </div>
+              <CustomInput
+                v-model="ThunderService.OciDataRetrieveJob.Crontab"
+              />
+            </div>
+          </div>
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(ThunderServiceLabels[5])"
+                class="label is-small"
+              />
+              <CustomInput
+                v-model="ThunderService.OciDataRetrieveJob.DaysThreshold"
+                inputType="number"
+              />
+            </div>
+          </div>
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(ThunderServiceLabels[6])"
+                class="label is-small"
+              />
+              <CustomRadio
+                v-model="ThunderService.OciDataRetrieveJob.RunAtStartup"
+                :options="trueOrFalseOptions"
+              />
+            </div>
           </div>
         </div>
-        <div class="column is-one-quarter">
-          <div class="field">
-            <label
-              v-html="highlight(ThunderServiceLabels[5])"
-              class="label is-small"
-            />
-            <CustomInput
-              v-model="ThunderService.OciDataRetrieveJob.DaysThreshold"
-              inputType="number"
-            />
-          </div>
-        </div>
-        <div class="column is-one-quarter">
-          <div class="field">
-            <label
-              v-html="highlight(ThunderServiceLabels[6])"
-              class="label is-small"
-            />
-            <CustomRadio
-              v-model="ThunderService.OciDataRetrieveJob.RunAtStartup"
-              :options="trueOrFalseOptions"
-            />
-          </div>
-        </div>
-      </div>
+      </BoxContent>
 
       <BoxContent
         title="Oci Remove Old Data Objects Job"
@@ -156,10 +174,21 @@
         <div class="columns is-multiline">
           <div class="column is-one-quarter">
             <div class="field">
-              <label
-                v-html="highlight(ThunderServiceLabels[7])"
-                class="label is-small"
-              />
+              <div
+                class="is-flex is-flex-direction-row is-justify-content-space-between"
+              >
+                <label
+                  v-html="highlight(ThunderServiceLabels[7])"
+                  class="label is-small"
+                />
+                <b-icon
+                  pack="fas"
+                  icon="circle-info"
+                  size="is-small"
+                  type="is-info"
+                  v-tooltip.top="options(crontabOptions)"
+                />
+              </div>
               <CustomInput
                 v-model="ThunderService.OciRemoveOldDataObjectsJob.Crontab"
               />
@@ -204,10 +233,21 @@
         <div class="columns is-multiline">
           <div class="column is-one-quarter">
             <div class="field">
-              <label
-                v-html="highlight(ThunderServiceLabels[10])"
-                class="label is-small"
-              />
+              <div
+                class="is-flex is-flex-direction-row is-justify-content-space-between"
+              >
+                <label
+                  v-html="highlight(ThunderServiceLabels[10])"
+                  class="label is-small"
+                />
+                <b-icon
+                  pack="fas"
+                  icon="circle-info"
+                  size="is-small"
+                  type="is-info"
+                  v-tooltip.top="options(crontabOptions)"
+                />
+              </div>
               <CustomInput
                 v-model="ThunderService.AwsDataRetrieveJob.Crontab"
               />
@@ -250,10 +290,21 @@
         <div class="columns is-multiline">
           <div class="column is-one-quarter">
             <div class="field">
-              <label
-                v-html="highlight(ThunderServiceLabels[10])"
-                class="label is-small"
-              />
+              <div
+                class="is-flex is-flex-direction-row is-justify-content-space-between"
+              >
+                <label
+                  v-html="highlight(ThunderServiceLabels[10])"
+                  class="label is-small"
+                />
+                <b-icon
+                  pack="fas"
+                  icon="circle-info"
+                  size="is-small"
+                  type="is-info"
+                  v-tooltip.top="options(crontabOptions)"
+                />
+              </div>
               <CustomInput
                 v-model="ThunderService.GcpDataRetrieveJob.Crontab"
               />
