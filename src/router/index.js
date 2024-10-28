@@ -715,7 +715,7 @@ const routes = [
       {
         path: 'all-recommendations',
         name: 'allRecommendations',
-        component: lazyRouteBuilder('cloud/AllRecommendations.vue'),
+        component: lazyRouteBuilder('cloud/Recommendations.vue'),
         meta: {
           label: 'All Recommendations',
           title: `${title}All Recommendations`,

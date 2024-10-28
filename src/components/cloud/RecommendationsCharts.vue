@@ -9,6 +9,49 @@
           :chartSeries="getSeries('category')"
           chartHeight="350"
         />
+
+        <b-message
+          v-model="showExtraCategory"
+          size="is-small"
+          type="is-light"
+          class="mt-3 ml-3"
+          v-if="showExtraCategory"
+        >
+          <template #header>
+            <span
+              class="is-size-6"
+              :style="{ color: messageColor }"
+              style="line-height: 38px"
+            >
+              <b-icon
+                icon="circle"
+                size="is-small"
+                style="vertical-align: baseline"
+              />
+              {{ extraContent[0].category }}
+            </span>
+          </template>
+          <div class="is-flex is-justify-content-space-around">
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              Oracle:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].oracle }} - {{ extraContent[0].oraclePerc }}
+              </span>
+            </p>
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              AWS:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].aws }} - {{ extraContent[0].awsPerc }}
+              </span>
+            </p>
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              Google:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].google }} - {{ extraContent[0].googlePerc }}
+              </span>
+            </p>
+          </div>
+        </b-message>
       </GhostLoading>
     </BoxContent>
 
@@ -21,6 +64,49 @@
           :chartSeries="getSeries('objectType')"
           chartHeight="350"
         />
+
+        <b-message
+          v-model="showExtraObjectType"
+          size="is-small"
+          type="is-light"
+          class="mt-3 ml-3"
+          v-if="showExtraObjectType"
+        >
+          <template #header>
+            <span
+              class="is-size-6"
+              :style="{ color: messageColor }"
+              style="line-height: 38px"
+            >
+              <b-icon
+                icon="circle"
+                size="is-small"
+                style="vertical-align: baseline"
+              />
+              {{ extraContent[0].objectType }}
+            </span>
+          </template>
+          <div class="is-flex is-justify-content-space-around">
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              Oracle:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].oracle }} - {{ extraContent[0].oraclePerc }}
+              </span>
+            </p>
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              AWS:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].aws }} - {{ extraContent[0].awsPerc }}
+              </span>
+            </p>
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              Google:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].google }} - {{ extraContent[0].googlePerc }}
+              </span>
+            </p>
+          </div>
+        </b-message>
       </GhostLoading>
     </BoxContent>
 
@@ -33,6 +119,49 @@
           :chartSeries="getSeries('suggestion')"
           chartHeight="350"
         />
+
+        <b-message
+          v-model="showExtraSuggestion"
+          size="is-small"
+          type="is-light"
+          class="mt-3 ml-3"
+          v-if="showExtraSuggestion"
+        >
+          <template #header>
+            <span
+              class="is-size-6"
+              :style="{ color: messageColor }"
+              style="line-height: 38px"
+            >
+              <b-icon
+                icon="circle"
+                size="is-small"
+                style="vertical-align: baseline"
+              />
+              {{ extraContent[0].suggestion }}
+            </span>
+          </template>
+          <div class="is-flex is-justify-content-space-around">
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              Oracle:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].oracle }} - {{ extraContent[0].oraclePerc }}
+              </span>
+            </p>
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              AWS:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].aws }} - {{ extraContent[0].awsPerc }}
+              </span>
+            </p>
+            <p class="is-size-7 mb-0 has-text-weight-semibold">
+              Google:
+              <span class="is-size-6 has-text-weight-bold pl-1">
+                {{ extraContent[0].google }} - {{ extraContent[0].googlePerc }}
+              </span>
+            </p>
+          </div>
+        </b-message>
       </GhostLoading>
     </BoxContent>
   </section>
@@ -52,6 +181,15 @@ export default {
     GhostLoading,
     ChartBuilder,
   },
+  data() {
+    return {
+      showExtraCategory: false,
+      showExtraObjectType: false,
+      showExtraSuggestion: false,
+      extraContent: null,
+      messageColor: '',
+    }
+  },
   beforeMount() {
     this.returnCategoryChartData
     this.returnObjectTypeChartData
@@ -59,25 +197,72 @@ export default {
   },
   methods: {
     getSeries(type) {
-      if (type === 'category') {
-        return this.returnCategoryChartData.series
-      } else if (type === 'objectType') {
-        return this.returnObjectTypeChartData.series
-      } else if (type === 'suggestion') {
-        return this.returnSuggestionChartData.series
+      if (this.$route.name === 'allRecommendations') {
+        if (type === 'category') {
+          return this.returnAllCategoryChartData.series
+        } else if (type === 'objectType') {
+          return this.returnAllObjectTypeChartData.series
+        } else if (type === 'suggestion') {
+          return this.returnAllSuggestionChartData.series
+        }
+      } else {
+        if (type === 'category') {
+          return this.returnCategoryChartData.series
+        } else if (type === 'objectType') {
+          return this.returnObjectTypeChartData.series
+        } else if (type === 'suggestion') {
+          return this.returnSuggestionChartData.series
+        }
       }
     },
     getLabels(type) {
-      if (type === 'category') {
-        return this.returnCategoryChartData.labels
-      } else if (type === 'objectType') {
-        return this.returnObjectTypeChartData.labels
-      } else if (type === 'suggestion') {
-        return this.returnSuggestionChartData.labels
+      if (this.$route.name === 'allRecommendations') {
+        if (type === 'category') {
+          return this.returnAllCategoryChartData.labels
+        } else if (type === 'objectType') {
+          return this.returnAllObjectTypeChartData.labels
+        } else if (type === 'suggestion') {
+          return this.returnAllSuggestionChartData.labels
+        }
+      } else {
+        if (type === 'category') {
+          return this.returnCategoryChartData.labels
+        } else if (type === 'objectType') {
+          return this.returnObjectTypeChartData.labels
+        } else if (type === 'suggestion') {
+          return this.returnSuggestionChartData.labels
+        }
       }
     },
     options(type) {
       return {
+        chart: {
+          events: {
+            legendClick: (chartContext, seriesIndex) => {
+              if (this.$route.name === 'allRecommendations') {
+                if (type === 'category') {
+                  this.showExtraCategory = true
+                  this.showExtraObjectType = false
+                  this.showExtraSuggestion = false
+                } else if (type === 'objectType') {
+                  this.showExtraCategory = false
+                  this.showExtraObjectType = true
+                  this.showExtraSuggestion = false
+                } else if (type === 'suggestion') {
+                  this.showExtraCategory = false
+                  this.showExtraObjectType = false
+                  this.showExtraSuggestion = true
+                }
+
+                this.extraContent = this.returnAllTypesChartDataByCloud(
+                  chartContext.opts.labels[seriesIndex],
+                  type
+                )
+                this.messageColor = chartContext.opts.colors[seriesIndex]
+              }
+            },
+          },
+        },
         labels: this.getLabels(type),
         dataLabels: {
           enabled: true,
@@ -163,6 +348,10 @@ export default {
       'returnCategoryChartData',
       'returnObjectTypeChartData',
       'returnSuggestionChartData',
+      'returnAllCategoryChartData',
+      'returnAllTypesChartDataByCloud',
+      'returnAllObjectTypeChartData',
+      'returnAllSuggestionChartData',
     ]),
   },
 }

@@ -2,8 +2,10 @@
   <div class="modal-card" style="width: 100%" v-if="isMounted">
     <header class="modal-card-head">
       <p class="modal-card-title is-size-4 has-text-weight-semibold">
-        {{ pdbName }} -
-        <span class="is-size-5 has-text-weight-normal">{{ hostname }}</span>
+        {{ pdbName }}
+        <span class="is-size-5 has-text-weight-normal">
+          - {{ dbName }} - {{ hostname }}
+        </span>
       </p>
     </header>
     <section class="modal-card-body">
@@ -238,7 +240,7 @@ import NoContent from '@/components/common/NoContent.vue'
 
 export default {
   name: 'oracle-databases-pdbs-page-modal',
-  props: ['pdbName', 'hostname', 'tab', 'data', 'tabsData', 'dbname'],
+  props: ['pdbName', 'dbName', 'hostname', 'tab', 'data', 'tabsData'],
   components: {
     FullTable,
     TdContent,
@@ -258,10 +260,6 @@ export default {
     this.activeTab = this.tab
 
     this.getPdbsByHostDbGrothData(this.hostname)
-
-    // if (this.activeTab === 6) {
-    //   this.getPdbsMigrablePostgreSemaphore()
-    // }
   },
   mounted() {
     this.isMounted = true
