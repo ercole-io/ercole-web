@@ -1,11 +1,18 @@
 <template>
   <div class="modal-card" style="width: 100%" v-if="isMounted">
-    <header class="modal-card-head">
-      <p class="modal-card-title is-size-4 has-text-weight-semibold">
+    <header
+      class="modal-card-head is-flex is-flex-direction-column is-align-items-flex-start"
+    >
+      <p class="modal-card-title is-size-4 has-text-weight-bold mb-2">
         {{ pdbName }}
-        <span class="is-size-5 has-text-weight-normal">
-          - {{ dbName }} - {{ hostname }}
-        </span>
+      </p>
+      <p class="is-size-7 mb-0">
+        DB Name:
+        <span class="is-size-6 has-text-weight-semibold">{{ dbName }}</span>
+      </p>
+      <p class="is-size-7 mb-0">
+        Hostname:
+        <span class="is-size-6 has-text-weight-semibold">{{ hostname }}</span>
       </p>
     </header>
     <section class="modal-card-body">
