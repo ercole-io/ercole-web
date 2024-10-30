@@ -111,6 +111,9 @@ export const getters = {
       } else if (key === 'mongoDb') {
         order = 5
         product = 'MongoDB/MongoDB'
+      } else if (key === 'mariaDb') {
+        order = 6
+        product = 'MariaDBFoundation/MariaDB'
       }
 
       techArray.push({
