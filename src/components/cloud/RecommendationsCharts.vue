@@ -1,7 +1,7 @@
 <template>
   <section class="columns">
     <BoxContent class="column" title="Category" border>
-      <GhostLoading :isLoading="loadingTableStatus" setHeight="350">
+      <GhostLoading :isLoading="loadingTableStatus" setHeight="300">
         <ChartBuilder
           chartType="pie"
           chartID="category"
@@ -56,7 +56,7 @@
     </BoxContent>
 
     <BoxContent class="column" title="Object Type" border>
-      <GhostLoading :isLoading="loadingTableStatus" setHeight="350">
+      <GhostLoading :isLoading="loadingTableStatus" setHeight="300">
         <ChartBuilder
           chartType="pie"
           chartID="objectType"
@@ -111,7 +111,7 @@
     </BoxContent>
 
     <BoxContent class="column" title="Suggestion" border>
-      <GhostLoading :isLoading="loadingTableStatus" setHeight="350">
+      <GhostLoading :isLoading="loadingTableStatus" setHeight="300">
         <ChartBuilder
           chartType="pie"
           chartID="suggestion"
@@ -338,6 +338,18 @@ export default {
         stroke: {
           show: true,
           width: 0.3,
+        },
+        noData: {
+          text: 'Thare are no data!',
+          align: 'center',
+          verticalAlign: 'middle',
+          offsetX: 0,
+          offsetY: 0,
+          style: {
+            color: undefined,
+            fontSize: '14px',
+            fontFamily: undefined,
+          },
         },
       }
     },
