@@ -282,7 +282,8 @@ export default {
         legend: {
           show: true,
           position: 'left',
-          fontSize: '14px',
+          horizontalAlign: 'left',
+          fontSize: '13px',
           formatter: (label, series) => {
             return `${label}: <b>${
               series.w.config.series[series.seriesIndex]
@@ -369,4 +370,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.apexcharts-legend {
+  width: 350px !important;
+}
+.apexcharts-legend-text {
+  width: 100%; /* Garante que o texto ocupe toda a largura disponível */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>
