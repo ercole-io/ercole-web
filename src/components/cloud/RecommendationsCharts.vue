@@ -292,6 +292,10 @@ export default {
               1
             )}%</b>`
           },
+          markers: {
+            size: 5,
+            offsetX: -2,
+          },
         },
         tooltip: {
           enabled: true,
@@ -310,12 +314,12 @@ export default {
           onDatasetHover: {
             highlightDataSeries: true,
           },
-          fixed: {
-            enabled: true,
-            position: 'topRight',
-            offsetX: 0,
-            offsetY: 0,
-          },
+          // fixed: {
+          //   enabled: false,
+          //   position: 'topRight',
+          //   offsetX: 0,
+          //   offsetY: 0,
+          // },
         },
         colors: [
           'rgba(255, 99, 132)',
@@ -375,7 +379,7 @@ export default {
   width: 350px !important;
 }
 .apexcharts-legend-text {
-  width: 100%; /* Garante que o texto ocupe toda a largura disponível */
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
