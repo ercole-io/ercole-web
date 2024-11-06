@@ -2,7 +2,6 @@ import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { axiosRequest } from '@/services/services.js'
 import formatDateTime from '@/filters/formatDateTime.js'
-// import awsData from '@/store/modules/cloud/aws-recommendations.json'
 
 export const state = () => ({
   cloudRecommendations: [],

@@ -69,7 +69,7 @@
         <div class="instances">
           <GhostLoading :isLoading="loading" setHeight="15" setWidth="15">
             <p
-              v-if="!loading && tech.extra.prettyName !== 'Ercole'"
+              v-if="!loading"
               :data-cy="`${getTechnology(tech.extra.prettyName)}-instances`"
               v-tooltip="options(`Instances: ${tech.instances}`)"
             >

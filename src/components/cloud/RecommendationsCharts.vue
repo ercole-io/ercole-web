@@ -1,7 +1,7 @@
 <template>
   <section class="columns">
     <BoxContent class="column" title="Category" border>
-      <GhostLoading :isLoading="loadingTableStatus" setHeight="350">
+      <GhostLoading :isLoading="loadingTableStatus" setHeight="300">
         <ChartBuilder
           chartType="pie"
           chartID="category"
@@ -56,7 +56,7 @@
     </BoxContent>
 
     <BoxContent class="column" title="Object Type" border>
-      <GhostLoading :isLoading="loadingTableStatus" setHeight="350">
+      <GhostLoading :isLoading="loadingTableStatus" setHeight="300">
         <ChartBuilder
           chartType="pie"
           chartID="objectType"
@@ -111,7 +111,7 @@
     </BoxContent>
 
     <BoxContent class="column" title="Suggestion" border>
-      <GhostLoading :isLoading="loadingTableStatus" setHeight="350">
+      <GhostLoading :isLoading="loadingTableStatus" setHeight="300">
         <ChartBuilder
           chartType="pie"
           chartID="suggestion"
@@ -282,7 +282,8 @@ export default {
         legend: {
           show: true,
           position: 'left',
-          fontSize: '14px',
+          horizontalAlign: 'left',
+          fontSize: '13px',
           formatter: (label, series) => {
             return `${label}: <b>${
               series.w.config.series[series.seriesIndex]
@@ -290,6 +291,10 @@ export default {
               series.w.globals.seriesPercent[series.seriesIndex],
               1
             )}%</b>`
+          },
+          markers: {
+            size: 5,
+            offsetX: -2,
           },
         },
         tooltip: {
@@ -309,12 +314,12 @@ export default {
           onDatasetHover: {
             highlightDataSeries: true,
           },
-          fixed: {
-            enabled: true,
-            position: 'topRight',
-            offsetX: 0,
-            offsetY: 0,
-          },
+          // fixed: {
+          //   enabled: false,
+          //   position: 'topRight',
+          //   offsetX: 0,
+          //   offsetY: 0,
+          // },
         },
         colors: [
           'rgba(255, 99, 132)',
@@ -339,6 +344,18 @@ export default {
           show: true,
           width: 0.3,
         },
+        noData: {
+          text: 'Thare are no data!',
+          align: 'center',
+          verticalAlign: 'middle',
+          offsetX: 0,
+          offsetY: 0,
+          style: {
+            color: undefined,
+            fontSize: '14px',
+            fontFamily: undefined,
+          },
+        },
       }
     },
   },
@@ -357,4 +374,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.apexcharts-legend {
+  width: 350px !important;
+}
+.apexcharts-legend-text {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>
