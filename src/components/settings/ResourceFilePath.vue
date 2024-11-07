@@ -2,22 +2,32 @@
   <article>
     <Loading :isLoading="resourceFilePathLoading" />
 
-    <SettingsActions
-      :reset="resetResourceFilePath"
-      :action="saveResourceFilePath"
-    />
+    <BoxContent
+      title="Resource File Path"
+      class="is-size-4 has-text-weight-semibold"
+      customStyle="padding: 20px 40px"
+      border
+    >
+      <SettingsActions
+        :reset="resetResourceFilePath"
+        :action="saveResourceFilePath"
+        slot="customTitle"
+      />
 
-    <div class="columns is-multiline">
-      <div class="column is-half">
-        <div class="field">
-          <label
-            v-html="highlight(ResourceFilePathLabels[0])"
-            class="label is-small"
-          />
-          <CustomInput v-model="ResourceFilePath" />
+      <BoxContent customStyle="padding: 20px 40px" border hasShadow>
+        <div class="columns is-multiline">
+          <div class="column is-half">
+            <div class="field">
+              <label
+                v-html="highlight(ResourceFilePathLabels[0])"
+                class="label is-small"
+              />
+              <CustomInput v-model="ResourceFilePath" />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </BoxContent>
+    </BoxContent>
   </article>
 </template>
 
@@ -25,8 +35,8 @@
 import settings from '@/mixins/settings/settings.js'
 import SettingsActions from '@/components/settings/SettingsActions.vue'
 import Loading from '@/components/common/Loading.vue'
-
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+import BoxContent from '@/components/common/BoxContent.vue'
 
 export default {
   name: 'settings-resourcefile-component',
@@ -34,6 +44,7 @@ export default {
   components: {
     SettingsActions,
     Loading,
+    BoxContent,
   },
   data() {
     return {

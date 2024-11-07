@@ -1,24 +1,28 @@
 import _ from 'lodash'
 import { mapActions, mapGetters, mapState } from 'vuex'
 
+import HighlightSearchMixin from '@/mixins/highlightSearch.js'
+import TooltipMixin from '@/mixins/tooltipMixin.js'
+
 import CustomField from '@/components/common/Form/CustomField.vue'
 import CustomInput from '@/components/common/Form/CustomInput.vue'
 import CustomRadio from '@/components/common/Form/CustomRadio.vue'
 
+import BoxContent from '@/components/common/BoxContent.vue'
+import Loading from '@/components/common/Loading.vue'
+
 import VueJsonPretty from 'vue-json-pretty'
 import 'vue-json-pretty/lib/styles.css'
 
-// masks: {
-//   ip: [],
-// },
-// :inputMask="'#?#?#.#?#?#.#?#?#.#?#?#'"
-
 export default {
+  mixins: [HighlightSearchMixin, TooltipMixin],
   components: {
     CustomField,
     CustomInput,
     CustomRadio,
     VueJsonPretty,
+    BoxContent,
+    Loading,
   },
   data() {
     return {
@@ -73,16 +77,46 @@ export default {
           SMTPPassword: null,
           DisableSSLCertificateValidation: null,
           AlertType: {
-            NewHost: null,
-            NewDatabase: null,
-            NewLicense: null,
-            NewOption: null,
-            NewUnlistedRunningDatabase: null,
-            NewHostCpu: null,
-            MissingPrimaryDatabase: null,
-            MissingDatabase: null,
-            AgentError: null,
-            NoData: null,
+            NewHost: {
+              Enable: null,
+              To: [],
+            },
+            NewDatabase: {
+              Enable: null,
+              To: [],
+            },
+            NewLicense: {
+              Enable: null,
+              To: [],
+            },
+            NewOption: {
+              Enable: null,
+              To: [],
+            },
+            NewUnlistedRunningDatabase: {
+              Enable: null,
+              To: [],
+            },
+            NewHostCpu: {
+              Enable: null,
+              To: [],
+            },
+            MissingPrimaryDatabase: {
+              Enable: null,
+              To: [],
+            },
+            MissingDatabase: {
+              Enable: null,
+              To: [],
+            },
+            AgentError: {
+              Enable: null,
+              To: [],
+            },
+            NoData: {
+              Enable: null,
+              To: [],
+            },
           },
         },
         AckAlertJob: {
@@ -185,9 +219,6 @@ export default {
         'Policy Audit Names to Verify on Databases',
         'Round Decimal Licenses',
         'Threshold Percentage of DB Memory vs Host Memory',
-        'Show OCI Cloud Advisors on menu?',
-        'Show AWS Cloud Advisors on menu?',
-        'Show GCP Cloud Advisors on menu?',
       ],
       highlightApiService: false,
       AlertServiceLabels: [
@@ -208,16 +239,16 @@ export default {
         'SMTP Username',
         'SMTP Password',
         'Disable SSL Certificate Validation',
-        'New Host',
-        'New Database',
-        'New License',
-        'New Option',
-        'New Unlisted Running Database',
-        'New Host Cpu',
-        'Missing Primary Database',
-        'Missing Database',
-        'Agent Error',
-        'No Data',
+        'Enable New Host',
+        'Enable New Database',
+        'Enable New License',
+        'Enable New Option',
+        'Enable New Unlisted Running Database',
+        'Enable New Host Cpu',
+        'Enable Missing Primary Database',
+        'Enable Missing Database',
+        'Enable Agent Error',
+        'Enable No Data',
         'Acknowledge Alerts Crontab',
         'Days Beyond Which to Automatically Acknowledge Alerts',
         'Acknowledge Alerts Older Than',
@@ -271,6 +302,9 @@ export default {
         'Max Memory Utilization Threshold',
         'Iops Storage Percentage',
         'Throughput Storage Percentage',
+        'Show OCI Cloud Advisors on menu?',
+        'Show AWS Cloud Advisors on menu?',
+        'Show GCP Cloud Advisors on menu?',
       ],
       highlightThunderService: false,
     }
@@ -385,26 +419,53 @@ export default {
           DisableSSLCertificateValidation:
             this.getAlertService.Emailer.DisableSSLCertificateValidation,
           AlertType: {
-            NewHost: this.getAlertService.Emailer.AlertType.NewHost || false,
-            NewDatabase:
-              this.getAlertService.Emailer.AlertType.NewDatabase || false,
-            NewLicense:
-              this.getAlertService.Emailer.AlertType.NewLicense || false,
-            NewOption:
-              this.getAlertService.Emailer.AlertType.NewOption || false,
-            NewUnlistedRunningDatabase:
-              this.getAlertService.Emailer.AlertType
-                .NewUnlistedRunningDatabase || false,
-            NewHostCpu:
-              this.getAlertService.Emailer.AlertType.NewHostCpu || false,
-            MissingPrimaryDatabase:
-              this.getAlertService.Emailer.AlertType.MissingPrimaryDatabase ||
-              false,
-            MissingDatabase:
-              this.getAlertService.Emailer.AlertType.MissingDatabase || false,
-            AgentError:
-              this.getAlertService.Emailer.AlertType.AgentError || false,
-            NoData: this.getAlertService.Emailer.AlertType.NoData || false,
+            NewHost: {
+              Enable: this.getAlertService.Emailer.AlertType.NewHost.Enable,
+              To: this.getAlertService.Emailer.AlertType.NewHost.To,
+            },
+            NewDatabase: {
+              Enable: this.getAlertService.Emailer.AlertType.NewDatabase.Enable,
+              To: this.getAlertService.Emailer.AlertType.NewDatabase.To,
+            },
+            NewLicense: {
+              Enable: this.getAlertService.Emailer.AlertType.NewLicense.Enable,
+              To: this.getAlertService.Emailer.AlertType.NewLicense.To,
+            },
+            NewOption: {
+              Enable: this.getAlertService.Emailer.AlertType.NewOption.Enable,
+              To: this.getAlertService.Emailer.AlertType.NewOption.To,
+            },
+            NewUnlistedRunningDatabase: {
+              Enable:
+                this.getAlertService.Emailer.AlertType
+                  .NewUnlistedRunningDatabase.Enable,
+              To: this.getAlertService.Emailer.AlertType
+                .NewUnlistedRunningDatabase.To,
+            },
+            NewHostCpu: {
+              Enable: this.getAlertService.Emailer.AlertType.NewHostCpu.Enable,
+              To: this.getAlertService.Emailer.AlertType.NewHostCpu.To,
+            },
+            MissingPrimaryDatabase: {
+              Enable:
+                this.getAlertService.Emailer.AlertType.MissingPrimaryDatabase
+                  .Enable,
+              To: this.getAlertService.Emailer.AlertType.MissingPrimaryDatabase
+                .To,
+            },
+            MissingDatabase: {
+              Enable:
+                this.getAlertService.Emailer.AlertType.MissingDatabase.Enable,
+              To: this.getAlertService.Emailer.AlertType.MissingDatabase.To,
+            },
+            AgentError: {
+              Enable: this.getAlertService.Emailer.AlertType.AgentError.Enable,
+              To: this.getAlertService.Emailer.AlertType.AgentError.To,
+            },
+            NoData: {
+              Enable: this.getAlertService.Emailer.AlertType.NoData.Enable,
+              To: this.getAlertService.Emailer.AlertType.NoData.To,
+            },
           },
         },
         AckAlertJob: {
@@ -611,6 +672,9 @@ export default {
           val: false,
         },
       ]
+    },
+    crontabOptions() {
+      return `Available options: </br> @daily </br> @Weekly </br> @monthly`
     },
   },
 }
