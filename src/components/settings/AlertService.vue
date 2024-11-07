@@ -158,7 +158,6 @@
                 :before-adding="beforeAdding"
               >
               </b-taginput>
-              <!--   <CustomInput v-model="AlertService.Emailer.To" /> -->
             </div>
           </div>
           <div class="column is-one-quarter">
@@ -223,63 +222,151 @@
         hasShadow
       >
         <div class="columns is-multiline">
-          <div class="column is-2">
+          <div class="column is-one-quarter">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[17])"
                 class="label is-small"
               />
               <CustomRadio
-                v-model="AlertService.Emailer.AlertType.NewHost"
+                v-model="AlertService.Emailer.AlertType.NewHost.Enable"
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
               />
             </div>
           </div>
-          <div class="column is-2">
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[11])"
+                class="label is-small"
+              />
+              <b-taginput
+                size="is-small"
+                v-model="AlertService.Emailer.AlertType.NewHost.To"
+                type="is-primary"
+                :on-paste-separators="[]"
+                :confirm-keys="['Tab', 'Enter']"
+                allow-new
+                ellipsis
+                :before-adding="beforeAdding"
+              >
+              </b-taginput>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-multiline">
+          <div class="column is-one-quarter">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[18])"
                 class="label is-small"
               />
               <CustomRadio
-                v-model="AlertService.Emailer.AlertType.NewDatabase"
+                v-model="AlertService.Emailer.AlertType.NewDatabase.Enable"
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
               />
             </div>
           </div>
-          <div class="column is-2">
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[11])"
+                class="label is-small"
+              />
+              <b-taginput
+                size="is-small"
+                v-model="AlertService.Emailer.AlertType.NewDatabase.To"
+                type="is-primary"
+                :on-paste-separators="[]"
+                :confirm-keys="['Tab', 'Enter']"
+                allow-new
+                ellipsis
+                :before-adding="beforeAdding"
+              >
+              </b-taginput>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-multiline">
+          <div class="column is-one-quarter">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[19])"
                 class="label is-small"
               />
               <CustomRadio
-                v-model="AlertService.Emailer.AlertType.NewLicense"
+                v-model="AlertService.Emailer.AlertType.NewLicense.Enable"
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
               />
             </div>
           </div>
-          <div class="column is-2">
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[11])"
+                class="label is-small"
+              />
+              <b-taginput
+                size="is-small"
+                v-model="AlertService.Emailer.AlertType.NewLicense.To"
+                type="is-primary"
+                :on-paste-separators="[]"
+                :confirm-keys="['Tab', 'Enter']"
+                allow-new
+                ellipsis
+                :before-adding="beforeAdding"
+              >
+              </b-taginput>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-multiline">
+          <div class="column is-one-quarter">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[20])"
                 class="label is-small"
               />
               <CustomRadio
-                v-model="AlertService.Emailer.AlertType.NewOption"
+                v-model="AlertService.Emailer.AlertType.NewOption.Enable"
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
               />
             </div>
           </div>
-          <div class="column is-2">
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[11])"
+                class="label is-small"
+              />
+              <b-taginput
+                size="is-small"
+                v-model="AlertService.Emailer.AlertType.NewOption.To"
+                type="is-primary"
+                :on-paste-separators="[]"
+                :confirm-keys="['Tab', 'Enter']"
+                allow-new
+                ellipsis
+                :before-adding="beforeAdding"
+              >
+              </b-taginput>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-multiline">
+          <div class="column is-one-quarter">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[21])"
@@ -288,6 +375,7 @@
               <CustomRadio
                 v-model="
                   AlertService.Emailer.AlertType.NewUnlistedRunningDatabase
+                    .Enable
                 "
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
@@ -295,74 +383,209 @@
               />
             </div>
           </div>
-          <div class="column is-2">
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[11])"
+                class="label is-small"
+              />
+              <b-taginput
+                size="is-small"
+                v-model="
+                  AlertService.Emailer.AlertType.NewUnlistedRunningDatabase.To
+                "
+                type="is-primary"
+                :on-paste-separators="[]"
+                :confirm-keys="['Tab', 'Enter']"
+                allow-new
+                ellipsis
+                :before-adding="beforeAdding"
+              >
+              </b-taginput>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-multiline">
+          <div class="column is-one-quarter">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[22])"
                 class="label is-small"
               />
               <CustomRadio
-                v-model="AlertService.Emailer.AlertType.NewHostCpu"
+                v-model="AlertService.Emailer.AlertType.NewHostCpu.Enable"
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
               />
             </div>
           </div>
-          <div class="column is-2">
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[11])"
+                class="label is-small"
+              />
+              <b-taginput
+                size="is-small"
+                v-model="AlertService.Emailer.AlertType.NewHostCpu.To"
+                type="is-primary"
+                :on-paste-separators="[]"
+                :confirm-keys="['Tab', 'Enter']"
+                allow-new
+                ellipsis
+                :before-adding="beforeAdding"
+              >
+              </b-taginput>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-multiline">
+          <div class="column is-one-quarter">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[23])"
                 class="label is-small"
               />
               <CustomRadio
-                v-model="AlertService.Emailer.AlertType.MissingPrimaryDatabase"
+                v-model="
+                  AlertService.Emailer.AlertType.MissingPrimaryDatabase.Enable
+                "
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
               />
             </div>
           </div>
-          <div class="column is-2">
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[11])"
+                class="label is-small"
+              />
+              <b-taginput
+                size="is-small"
+                v-model="
+                  AlertService.Emailer.AlertType.MissingPrimaryDatabase.To
+                "
+                type="is-primary"
+                :on-paste-separators="[]"
+                :confirm-keys="['Tab', 'Enter']"
+                allow-new
+                ellipsis
+                :before-adding="beforeAdding"
+              >
+              </b-taginput>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-multiline">
+          <div class="column is-one-quarter">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[24])"
                 class="label is-small"
               />
               <CustomRadio
-                v-model="AlertService.Emailer.AlertType.MissingDatabase"
+                v-model="AlertService.Emailer.AlertType.MissingDatabase.Enable"
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
               />
             </div>
           </div>
-          <div class="column is-2">
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[11])"
+                class="label is-small"
+              />
+              <b-taginput
+                size="is-small"
+                v-model="AlertService.Emailer.AlertType.MissingDatabase.To"
+                type="is-primary"
+                :on-paste-separators="[]"
+                :confirm-keys="['Tab', 'Enter']"
+                allow-new
+                ellipsis
+                :before-adding="beforeAdding"
+              >
+              </b-taginput>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-multiline">
+          <div class="column is-one-quarter">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[25])"
                 class="label is-small"
               />
               <CustomRadio
-                v-model="AlertService.Emailer.AlertType.AgentError"
+                v-model="AlertService.Emailer.AlertType.AgentError.Enable"
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
               />
             </div>
           </div>
-          <div class="column is-2">
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[11])"
+                class="label is-small"
+              />
+              <b-taginput
+                size="is-small"
+                v-model="AlertService.Emailer.AlertType.AgentError.To"
+                type="is-primary"
+                :on-paste-separators="[]"
+                :confirm-keys="['Tab', 'Enter']"
+                allow-new
+                ellipsis
+                :before-adding="beforeAdding"
+              >
+              </b-taginput>
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-multiline">
+          <div class="column is-one-quarter">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[26])"
                 class="label is-small"
               />
               <CustomRadio
-                v-model="AlertService.Emailer.AlertType.NoData"
+                v-model="AlertService.Emailer.AlertType.NoData.Enable"
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
               />
+            </div>
+          </div>
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[11])"
+                class="label is-small"
+              />
+              <b-taginput
+                size="is-small"
+                v-model="AlertService.Emailer.AlertType.NoData.To"
+                type="is-primary"
+                :on-paste-separators="[]"
+                :confirm-keys="['Tab', 'Enter']"
+                allow-new
+                ellipsis
+                :before-adding="beforeAdding"
+              >
+              </b-taginput>
             </div>
           </div>
         </div>
