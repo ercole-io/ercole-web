@@ -12,6 +12,7 @@
         }"
       >
         <b-input
+          data-cy="old-pass"
           type="password"
           size="is-small"
           v-model="changePassForm.oldPassword"
@@ -39,6 +40,7 @@
         }"
       >
         <b-input
+          data-cy="new-pass"
           type="password"
           size="is-small"
           v-model="changePassForm.newPassword"
@@ -66,6 +68,7 @@
         }"
       >
         <b-input
+          data-cy="confirm-pass"
           type="password"
           size="is-small"
           v-model="changePassForm.confirmedPassword"
@@ -88,6 +91,7 @@
     <footer class="modal-card-foot is-justify-content-flex-end">
       <b-button label="Close" @click="$parent.close()" />
       <b-button
+        data-cy="confirm-change"
         label="Confirm"
         type="is-primary"
         @click="modifyPass"
