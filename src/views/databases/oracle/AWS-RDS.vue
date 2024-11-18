@@ -23,6 +23,8 @@
         <v-th sortKey="engineVersion">Engine Version</v-th>
         <v-th sortKey="dbInstanceStatus">DB Instance Status</v-th>
         <v-th sortKey="licenseModel">License Model</v-th>
+        <v-th sortKey="licenseModel">Standard licenses Used</v-th>
+        <v-th sortKey="licenseModel">Enterprise licenses Used</v-th>
         <v-th sortKey="storageType">Storage Type</v-th>
         <v-th sortKey="allocatedStorage">Allocated Storage</v-th>
         <v-th sortKey="maxAllocatedStorage">Max Allocated Storage</v-th>
@@ -41,6 +43,8 @@
         <tdContent :value="rowData.scope.engineVersion" />
         <tdContent :value="rowData.scope.dbInstanceStatus" />
         <tdContent :value="rowData.scope.licenseModel" />
+        <tdContent :value="rowData.scope.standardCount" />
+        <tdContent :value="rowData.scope.enterpriseCount" />
         <tdContent :value="rowData.scope.storageType" />
         <tdContent :value="rowData.scope.allocatedStorage" />
         <tdContent :value="rowData.scope.maxAllocatedStorage" />
