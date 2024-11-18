@@ -245,6 +245,10 @@ export default {
       maxmaxAllocatedStorage: null,
       minallocatedStorage: null,
       maxallocatedStorage: null,
+      minstandardCount: null,
+      maxstandardCount: null,
+      minenterpriseCount: null,
+      maxenterpriseCount: null,
     }
   },
   mounted() {

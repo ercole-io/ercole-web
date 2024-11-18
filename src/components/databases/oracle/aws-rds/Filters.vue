@@ -47,6 +47,22 @@
           />
         </CustomField>
 
+        <CustomField label="Standard licenses Used">
+          <CustomSlider
+            v-model="filters.standardCount"
+            :ticks="[minstandardCount, maxstandardCount]"
+            :steps="0"
+          />
+        </CustomField>
+
+        <CustomField label="Enterprise licenses Used">
+          <CustomSlider
+            v-model="filters.enterpriseCount"
+            :ticks="[minenterpriseCount, maxenterpriseCount]"
+            :steps="0"
+          />
+        </CustomField>
+
         <CustomField label="Storage Type">
           <CustomSelect
             v-model="filters.storageType"
@@ -150,6 +166,8 @@ export default {
         'defaultThreadsPerCore',
         'defaultVCpus',
         'memorySizeInMib',
+        'standardCount',
+        'enterpriseCount',
       ],
     }
   },

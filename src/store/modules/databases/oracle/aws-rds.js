@@ -10,8 +10,8 @@ export const getters = {
     const data = _.map(state.awsRdsDbs, (val) => {
       return {
         ...val,
-        standardCount: val.edition === 'standard' ? val.licensesCount : '-',
-        enterpriseCount: val.edition === 'enterprise' ? val.licensesCount : '-',
+        standardCount: val.edition === 'standard' ? val.licensesCount : 0,
+        enterpriseCount: val.edition === 'enterprise' ? val.licensesCount : 0,
       }
     })
 
