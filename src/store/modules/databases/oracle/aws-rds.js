@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
@@ -6,7 +7,15 @@ export const state = () => ({
 
 export const getters = {
   returnAwsRdsDbs: (state) => {
-    return state.awsRdsDbs
+    const data = _.map(state.awsRdsDbs, (val) => {
+      return {
+        ...val,
+        standardCount: val.edition === 'standard' ? val.licensesCount : '-',
+        enterpriseCount: val.edition === 'enterprise' ? val.licensesCount : '-',
+      }
+    })
+
+    return data
   },
 }
 
