@@ -96,7 +96,7 @@ export default {
   data() {
     return {
       isOpen: 0,
-      activeTab: 1,
+      activeTab: 0,
       settingsData: [
         {
           order: 0,
@@ -120,13 +120,13 @@ export default {
         },
         {
           order: 4,
-          name: 'Resource File Path',
-          comp: 'ResourceFilePath',
+          name: 'Thunder Service',
+          comp: 'ThunderService',
         },
         {
           order: 5,
-          name: 'Thunder Service',
-          comp: 'ThunderService',
+          name: 'Resource File Path',
+          comp: 'ResourceFilePath',
         },
       ],
     }
