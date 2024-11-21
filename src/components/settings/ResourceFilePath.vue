@@ -14,7 +14,13 @@
         slot="customTitle"
       />
 
-      <BoxContent customStyle="padding: 20px 40px" border hasShadow>
+      <BoxContent
+        title="Service Parameters"
+        class="is-size-5 has-text-weight-semibold"
+        customStyle="padding: 20px 40px"
+        border
+        hasShadow
+      >
         <div class="columns is-multiline">
           <div class="column is-half">
             <div class="field">
