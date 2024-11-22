@@ -38,6 +38,10 @@ export default {
       type: String,
       required: true,
     },
+    extension: {
+      type: String,
+      default: 'xlsx',
+    },
   },
   methods: {
     exportData() {
@@ -69,6 +73,7 @@ export default {
           exportApi: this.api,
           exportName: this.expName,
           exportTitle: checkType,
+          exportExtension: this.extension,
           glFiltersState: this.globalFilters,
           msgTxt: this.$i18n.t('common.general.wait'),
           btText: this.$i18n.t('common.general.cancelRequest'),

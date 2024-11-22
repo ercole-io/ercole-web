@@ -15,7 +15,7 @@
       />
 
       <BoxContent
-        title="Service Parameters"
+        title="Parameters"
         class="is-size-5 has-text-weight-semibold"
         customStyle="padding: 20px 40px"
         border

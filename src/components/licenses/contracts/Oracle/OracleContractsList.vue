@@ -137,6 +137,7 @@
         expName="oracleContractsSample"
         text="Download Sample"
         type="csv"
+        extension="csv"
       />
       <ImportCSV contractType="oracle" />
       <ExportButton url="contracts/oracle/database" expName="oracleContracts" />
