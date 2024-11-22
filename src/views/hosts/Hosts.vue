@@ -153,12 +153,14 @@
           expName="hosts-lms-data"
           :text="`${$t('common.general.exportLms')}`"
           type="LMS"
+          extension="xlsm"
         />
         <ExportButton
           url="hosts"
           expName="hosts-lms-mysql-data"
           :text="`${$t('common.general.exportLmsMysql')}`"
           type="LMS-MYSQL"
+          extension="xlsm"
         />
       </template>
     </FullTable>
