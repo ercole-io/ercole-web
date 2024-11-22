@@ -248,7 +248,9 @@ export default {
       const date = moment().format('YYYYMMDD')
 
       let extension = null
-      if (this.isLms) {
+      if (this.exportType === 'ALL-HOSTS') {
+        extension = 'xlsx'
+      } else if (this.isLms) {
         extension = 'xlsm'
       } else if (!this.isLms && this.exportType === 'csv') {
         extension = 'csv'
