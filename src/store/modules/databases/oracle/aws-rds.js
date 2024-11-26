@@ -8,10 +8,13 @@ export const state = () => ({
 export const getters = {
   returnAwsRdsDbs: (state) => {
     const data = _.map(state.awsRdsDbs, (val) => {
+      const standard = val.edition === 'standard' ? val.licensesCount : 0
+      const enterprise = val.edition === 'enterprise' ? val.licensesCount : 0
+
       return {
         ...val,
-        standardCount: val.edition === 'standard' ? val.licensesCount : 0,
-        enterpriseCount: val.edition === 'enterprise' ? val.licensesCount : 0,
+        standardCount: _.includes(val.engine, 'oracle') ? standard : null,
+        enterpriseCount: _.includes(val.engine, 'oracle') ? enterprise : null,
       }
     })
 

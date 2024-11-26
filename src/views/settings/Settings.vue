@@ -1,11 +1,6 @@
 <template>
-  <article>
-    <BoxContent
-      title="Ercole Settings"
-      border
-      :mbottom="false"
-      v-if="isMounted"
-    >
+  <article v-if="isMounted">
+    <BoxContent title="Ercole Settings" border :mbottom="false">
       <SearchInput
         searchPlaceholder="Search By Label Name"
         @input="searchByLabels($event)"
@@ -31,39 +26,6 @@
           <component :is="item.comp" class="settings-component" />
         </b-tab-item>
       </b-tabs>
-
-      <!-- <b-collapse
-        v-for="item in settingsData"
-        :key="item.order"
-        class="card collapse-card"
-        animation="slide"
-        :open="isOpen == item.order"
-        @open="isOpen = item.order"
-        :aria-id="'col-' + item.order"
-      >
-        <template #trigger="props">
-          <div
-            class="card-header collapse-header"
-            role="button"
-            :aria-controls="'col-' + item.order"
-            :aria-expanded="props.open"
-          >
-            <p class="card-header-title collapse-title">
-              <span :class="{ highlightText: highlightApiService }">
-                {{ item.name }}
-              </span>
-            </p>
-            <a class="card-header-icon collapse-icon">
-              <b-icon :icon="props.open ? 'menu-up' : 'menu-down'" />
-            </a>
-          </div>
-        </template>
-        <div class="card-content">
-          <div class="content collapse-content extra-padding">
-            <component :is="item.comp" />
-          </div>
-        </div>
-      </b-collapse> -->
     </BoxContent>
   </article>
 </template>
@@ -95,6 +57,7 @@ export default {
   },
   data() {
     return {
+      isMounted: false,
       isOpen: 0,
       activeTab: 0,
       settingsData: [
@@ -131,7 +94,7 @@ export default {
       ],
     }
   },
-  async created() {
+  async beforeMount() {
     await this.requestSettings().then(() => {
       this.isMounted = true
     })
