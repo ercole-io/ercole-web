@@ -7,6 +7,7 @@
       v-model="radioVal"
       :native-value="opt.val"
       :class="customRadioClass"
+      :disabled="customRadioDisable"
     >
       {{ opt.text }}
     </b-radio>
@@ -29,6 +30,10 @@ export default {
     customRadioClass: {
       type: String,
       default: '',
+    },
+    customRadioDisable: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
