@@ -118,6 +118,9 @@ export default {
               To: [],
             },
           },
+          AlertSeverity: {
+            Warning: null,
+          },
         },
         AckAlertJob: {
           Crontab: null,
@@ -255,6 +258,8 @@ export default {
         'Delete Alerts Crontab',
         'Days Beyond Which to Automatically Delete Alerts',
         'Delete Alerts Older Than',
+        'Enable All To',
+        'Alert Severity',
       ],
       highlightAlertService: false,
       ChartServiceLabels: [
@@ -317,7 +322,7 @@ export default {
       this.bindOriginalChartServiceData()
       this.bindOriginalDataServiceData()
       this.bindOriginalThunderServiceData()
-    }, 500)
+    }, 1500)
   },
   methods: {
     ...mapActions(['saveSettings']),
@@ -466,6 +471,9 @@ export default {
               Enable: this.getAlertService.Emailer.AlertType.NoData.Enable,
               To: this.getAlertService.Emailer.AlertType.NoData.To,
             },
+          },
+          AlertSeverity: {
+            Warning: this.getAlertService.Emailer.AlertSeverity.Warning,
           },
         },
         AckAlertJob: {
@@ -675,6 +683,18 @@ export default {
     },
     crontabOptions() {
       return `Available options: </br> @daily </br> @Weekly </br> @monthly`
+    },
+    warningAndCritical() {
+      return [
+        {
+          text: 'warning and critical',
+          val: true,
+        },
+        {
+          text: 'critical',
+          val: false,
+        },
+      ]
     },
   },
 }

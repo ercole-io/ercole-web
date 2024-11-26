@@ -138,6 +138,7 @@
               />
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -147,10 +148,90 @@
               <CustomInput v-model="AlertService.Emailer.From" />
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(AlertServiceLabels[11])"
+                v-html="highlight(AlertServiceLabels[12])"
+                class="label is-small"
+              />
+              <CustomInput v-model="AlertService.Emailer.SMTPServer" />
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[13])"
+                class="label is-small"
+              />
+              <CustomInput
+                v-model="AlertService.Emailer.SMTPPort"
+                inputType="number"
+              />
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[14])"
+                class="label is-small"
+              />
+              <CustomInput v-model="AlertService.Emailer.SMTPUsername" />
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[15])"
+                class="label is-small"
+              />
+              <CustomInput v-model="AlertService.Emailer.SMTPPassword" />
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[16])"
+                class="label is-small"
+              />
+              <CustomRadio
+                v-model="AlertService.Emailer.DisableSSLCertificateValidation"
+                :options="trueOrFalseOptions"
+              />
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[34])"
+                class="label is-small"
+              />
+              <CustomRadio
+                v-model="AlertService.Emailer.AlertSeverity.Warning"
+                :options="warningAndCritical"
+              />
+            </div>
+          </div>
+        </div>
+      </BoxContent>
+
+      <BoxContent
+        title="Emailer Alert Type"
+        class="is-size-5 has-text-weight-semibold"
+        customStyle="padding: 20px 40px"
+        border
+        hasShadow
+      >
+        <div class="columns is-multiline">
+          <div class="column is-half">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[33])"
                 class="label is-small"
               />
               <b-taginput
@@ -166,67 +247,8 @@
               </b-taginput>
             </div>
           </div>
-          <div class="column is-one-quarter">
-            <div class="field">
-              <label
-                v-html="highlight(AlertServiceLabels[12])"
-                class="label is-small"
-              />
-              <CustomInput v-model="AlertService.Emailer.SMTPServer" />
-            </div>
-          </div>
-          <div class="column is-one-quarter">
-            <div class="field">
-              <label
-                v-html="highlight(AlertServiceLabels[13])"
-                class="label is-small"
-              />
-              <CustomInput
-                v-model="AlertService.Emailer.SMTPPort"
-                inputType="number"
-              />
-            </div>
-          </div>
-          <div class="column is-one-quarter">
-            <div class="field">
-              <label
-                v-html="highlight(AlertServiceLabels[14])"
-                class="label is-small"
-              />
-              <CustomInput v-model="AlertService.Emailer.SMTPUsername" />
-            </div>
-          </div>
-          <div class="column is-one-quarter">
-            <div class="field">
-              <label
-                v-html="highlight(AlertServiceLabels[15])"
-                class="label is-small"
-              />
-              <CustomInput v-model="AlertService.Emailer.SMTPPassword" />
-            </div>
-          </div>
-          <div class="column is-one-quarter">
-            <div class="field">
-              <label
-                v-html="highlight(AlertServiceLabels[16])"
-                class="label is-small"
-              />
-              <CustomRadio
-                v-model="AlertService.Emailer.DisableSSLCertificateValidation"
-                :options="trueOrFalseOptions"
-              />
-            </div>
-          </div>
         </div>
-      </BoxContent>
 
-      <BoxContent
-        title="Emailer Alert Type"
-        class="is-size-5 has-text-weight-semibold"
-        customStyle="padding: 20px 40px"
-        border
-        hasShadow
-      >
         <div class="columns is-multiline">
           <div class="column is-one-quarter">
             <div class="field">
@@ -239,9 +261,11 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
+                :customRadioDisable="!AlertService.Emailer.Enabled"
               />
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -257,10 +281,12 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
+                :disabled="!AlertService.Emailer.Enabled"
               >
               </b-taginput>
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -272,9 +298,11 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
+                :customRadioDisable="!AlertService.Emailer.Enabled"
               />
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -290,6 +318,7 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
+                :disabled="!AlertService.Emailer.Enabled"
               >
               </b-taginput>
             </div>
@@ -308,9 +337,11 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
+                :customRadioDisable="!AlertService.Emailer.Enabled"
               />
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -326,10 +357,12 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
+                :disabled="!AlertService.Emailer.Enabled"
               >
               </b-taginput>
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -341,9 +374,11 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
+                :customRadioDisable="!AlertService.Emailer.Enabled"
               />
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -359,6 +394,7 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
+                :disabled="!AlertService.Emailer.Enabled"
               >
               </b-taginput>
             </div>
@@ -380,9 +416,11 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
+                :customRadioDisable="!AlertService.Emailer.Enabled"
               />
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -400,10 +438,12 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
+                :disabled="!AlertService.Emailer.Enabled"
               >
               </b-taginput>
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -415,9 +455,11 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
+                :customRadioDisable="!AlertService.Emailer.Enabled"
               />
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -433,6 +475,7 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
+                :disabled="!AlertService.Emailer.Enabled"
               >
               </b-taginput>
             </div>
@@ -453,9 +496,11 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
+                :customRadioDisable="!AlertService.Emailer.Enabled"
               />
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -473,10 +518,12 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
+                :disabled="!AlertService.Emailer.Enabled"
               >
               </b-taginput>
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -488,9 +535,11 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
+                :customRadioDisable="!AlertService.Emailer.Enabled"
               />
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -506,6 +555,7 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
+                :disabled="!AlertService.Emailer.Enabled"
               >
               </b-taginput>
             </div>
@@ -524,9 +574,11 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
+                :customRadioDisable="!AlertService.Emailer.Enabled"
               />
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -542,10 +594,12 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
+                :disabled="!AlertService.Emailer.Enabled"
               >
               </b-taginput>
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -557,9 +611,11 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
+                :customRadioDisable="!AlertService.Emailer.Enabled"
               />
             </div>
           </div>
+
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -575,6 +631,7 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
+                :disabled="!AlertService.Emailer.Enabled"
               >
               </b-taginput>
             </div>
@@ -734,6 +791,27 @@ export default {
     beforeAdding(tag) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       return emailRegex.test(tag)
+    },
+  },
+  computed: {
+    emailerEnabled() {
+      return this.AlertService.Emailer.Enabled
+    },
+  },
+  watch: {
+    emailerEnabled(value) {
+      if (!value) {
+        this.AlertService.Emailer.AlertType.NewHost.Enable = false
+        this.AlertService.Emailer.AlertType.NewDatabase.Enable = false
+        this.AlertService.Emailer.AlertType.NewLicense.Enable = false
+        this.AlertService.Emailer.AlertType.NewOption.Enable = false
+        this.AlertService.Emailer.AlertType.NewUnlistedRunningDatabase.Enable = false
+        this.AlertService.Emailer.AlertType.NewHostCpu.Enable = false
+        this.AlertService.Emailer.AlertType.MissingPrimaryDatabase.Enable = false
+        this.AlertService.Emailer.AlertType.MissingDatabase.Enable = false
+        this.AlertService.Emailer.AlertType.AgentError.Enable = false
+        this.AlertService.Emailer.AlertType.NoData.Enable = false
+      }
     },
   },
 }
