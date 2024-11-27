@@ -59,7 +59,7 @@ export default {
     return {
       isMounted: false,
       isOpen: 0,
-      activeTab: 0,
+      activeTab: 1,
       settingsData: [
         {
           order: 0,

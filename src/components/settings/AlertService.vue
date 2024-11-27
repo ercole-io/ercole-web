@@ -142,13 +142,28 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
+                v-html="highlight(AlertServiceLabels[34])"
+                class="label is-small"
+              />
+              <CustomRadio
+                v-model="AlertService.Emailer.AlertSeverity.Warning"
+                :options="warningAndCritical"
+              />
+            </div>
+          </div>
+
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
                 v-html="highlight(AlertServiceLabels[10])"
                 class="label is-small"
               />
               <CustomInput v-model="AlertService.Emailer.From" />
             </div>
           </div>
+        </div>
 
+        <div class="columns is-multiline">
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -191,7 +206,9 @@
               <CustomInput v-model="AlertService.Emailer.SMTPPassword" />
             </div>
           </div>
+        </div>
 
+        <div class="columns is-multiline">
           <div class="column is-one-quarter">
             <div class="field">
               <label
@@ -201,19 +218,6 @@
               <CustomRadio
                 v-model="AlertService.Emailer.DisableSSLCertificateValidation"
                 :options="trueOrFalseOptions"
-              />
-            </div>
-          </div>
-
-          <div class="column is-one-quarter">
-            <div class="field">
-              <label
-                v-html="highlight(AlertServiceLabels[34])"
-                class="label is-small"
-              />
-              <CustomRadio
-                v-model="AlertService.Emailer.AlertSeverity.Warning"
-                :options="warningAndCritical"
               />
             </div>
           </div>
@@ -250,7 +254,7 @@
         </div>
 
         <div class="columns is-multiline">
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[17])"
@@ -266,7 +270,7 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[11])"
@@ -287,7 +291,9 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths"></div>
+
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[18])"
@@ -303,7 +309,7 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[11])"
@@ -326,7 +332,7 @@
         </div>
 
         <div class="columns is-multiline">
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[19])"
@@ -342,7 +348,7 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[11])"
@@ -363,7 +369,9 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths"></div>
+
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[20])"
@@ -379,7 +387,7 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[11])"
@@ -402,7 +410,7 @@
         </div>
 
         <div class="columns is-multiline">
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[21])"
@@ -421,7 +429,7 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[11])"
@@ -444,7 +452,9 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths"></div>
+
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[22])"
@@ -460,7 +470,7 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[11])"
@@ -483,7 +493,7 @@
         </div>
 
         <div class="columns is-multiline">
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[23])"
@@ -501,7 +511,7 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[11])"
@@ -524,7 +534,9 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths"></div>
+
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[24])"
@@ -540,7 +552,7 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[11])"
@@ -563,7 +575,7 @@
         </div>
 
         <div class="columns is-multiline">
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[25])"
@@ -579,7 +591,7 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[11])"
@@ -600,7 +612,9 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths"></div>
+
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[26])"
@@ -616,7 +630,7 @@
             </div>
           </div>
 
-          <div class="column is-one-quarter">
+          <div class="column is-one-fifths">
             <div class="field">
               <label
                 v-html="highlight(AlertServiceLabels[11])"
