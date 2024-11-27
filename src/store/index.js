@@ -74,6 +74,7 @@ import * as postgresql from '@/store/modules/databases/postgresql/postgresql'
 import * as mongodb from '@/store/modules/databases/mongodb/mongodb'
 // Exadata
 import * as exadata from '@/store/modules/exadata/exadata'
+import * as exadataPA from '@/store/modules/exadata/patch-advisors'
 // Repository
 import * as repository from '@/store/modules/repository/repository'
 // LIcenses Contracts
@@ -144,6 +145,7 @@ export default new Vuex.Store({
     globalFilters,
     localFilters,
     exadata,
+    exadataPA,
     LicensesTypes,
     rangeDates,
     moreInfoToggle,

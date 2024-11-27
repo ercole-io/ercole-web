@@ -47,6 +47,8 @@ const defaultState = () => ({
   'page-recommendationsGoogle': [false, true],
   'page-allRecommendations': [false, true],
 
+  'page-exadataPatchAdvisor': [false, true],
+
   'page-repository': [false, true],
 })
 
