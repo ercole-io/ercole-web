@@ -14,8 +14,6 @@
       :placeholder="$t('menu.patAdvisor')"
       :keys="keys"
       :tableData="getExadataPA"
-      @clickedRow="handleClickedRow"
-      isClickable
       :isLoadingTable="loadingTableStatus"
     >
       <template slot="headData">
@@ -35,22 +33,13 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <HostLink :hostname="rowData.scope.hostname" class="first-col" />
+        <TdContent :value="rowData.scope.hostname" />
         <TdContent :value="rowData.scope.rackID" />
         <TdContent :value="rowData.scope.imageVersion" />
         <TdContent :value="rowData.scope.date" />
-        <TdIcon
-          :value="rowData.scope.fourMonths"
-          @click.native="handleClickedRow([rowData.scope])"
-        />
-        <TdIcon
-          :value="rowData.scope.sixMonths"
-          @click.native="handleClickedRow([rowData.scope])"
-        />
-        <TdIcon
-          :value="rowData.scope.twelveMonths"
-          @click.native="handleClickedRow([rowData.scope])"
-        />
+        <TdIcon :value="rowData.scope.fourMonths" />
+        <TdIcon :value="rowData.scope.sixMonths" />
+        <TdIcon :value="rowData.scope.twelveMonths" />
       </template>
 
       <ExportButton
@@ -65,26 +54,22 @@
 <script>
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
-import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ToggleColumns from '@/components/common/ToggleColumns.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import TdIcon from '@/components/common/Table/TDIcon.vue'
-import HostLink from '@/components/common/Table/HostLink.vue'
 import ExadataPaFilters from '@/components/exadata/exadatas/patchAdvisors/Filters.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
   name: 'exadata-patch-advisor-page',
-  mixins: [hostnameLinkRow],
   components: {
     ToggleColumns,
     FullTable,
     ExportButton,
     TdContent,
     TdIcon,
-    HostLink,
     ExadataPaFilters,
     Loading,
   },
