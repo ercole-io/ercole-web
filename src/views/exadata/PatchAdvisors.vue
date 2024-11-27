@@ -33,13 +33,13 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <TdContent :value="rowData.scope.hostname" />
-        <TdContent :value="rowData.scope.rackID" />
-        <TdContent :value="rowData.scope.imageVersion" />
-        <TdContent :value="rowData.scope.date" />
-        <TdIcon :value="rowData.scope.fourMonths" />
-        <TdIcon :value="rowData.scope.sixMonths" />
-        <TdIcon :value="rowData.scope.twelveMonths" />
+        <TdContent class="no-click" :value="rowData.scope.hostname" />
+        <TdContent class="no-click" :value="rowData.scope.rackID" />
+        <TdContent class="no-click" :value="rowData.scope.imageVersion" />
+        <TdContent class="no-click" :value="rowData.scope.date" />
+        <TdIcon class="no-click" :value="rowData.scope.fourMonths" />
+        <TdIcon class="no-click" :value="rowData.scope.sixMonths" />
+        <TdIcon class="no-click" :value="rowData.scope.twelveMonths" />
       </template>
 
       <ExportButton
@@ -104,4 +104,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.no-click {
+  cursor: default;
+}
+</style>
