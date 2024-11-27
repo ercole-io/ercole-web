@@ -148,6 +148,9 @@ export default {
       filteredgcpProfileID: [],
       filteredgcpResourceName: [],
       filteredgcpResourceID: [],
+      filteredrackID: [],
+      filteredimageVersion: [],
+      filtereddate: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,

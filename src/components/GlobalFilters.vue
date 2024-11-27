@@ -389,7 +389,8 @@ export default {
         this.$route.name !== 'google-profile-configurations' &&
         this.$route.name !== 'google-recommendations' &&
         this.$route.name !== 'policyaudit' &&
-        this.$route.name !== 'allRecommendations'
+        this.$route.name !== 'allRecommendations' &&
+        this.$route.name !== 'exadataPA'
       )
     },
   },

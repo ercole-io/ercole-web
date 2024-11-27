@@ -698,6 +698,20 @@ const routes = [
     beforeEnter: verifyAuth,
   },
   {
+    path: '/exadata/patch-advisors',
+    name: 'exadataPA',
+    component: lazyRouteBuilder('exadata/PatchAdvisors.vue'),
+    meta: {
+      label: `${i18n.t('menu.exadata')} Patch Advisors`,
+      title: `${title}${i18n.t('menu.exadata')} - Patch Advisors`,
+      breadcrumb: [
+        { name: i18n.t('menu.exadata') },
+        { name: 'Patch Advisors' },
+      ],
+    },
+    beforeEnter: verifyAuth,
+  },
+  {
     path: '/alerts',
     name: 'alerts',
     component: lazyRouteBuilder('alerts/Alerts.vue'),

@@ -318,11 +318,26 @@ export default {
           hidden: this.checkMenu('Hypervisors', ''),
         },
         {
-          href: { name: 'exadata' },
           title: this.$i18n.t('menu.exadata'),
           icon: 'far fa-calendar-times',
           attributes: { 'data-cy': 'mn-exadata' },
-          hidden: this.checkMenu('Engineered Systems', ''),
+          hidden: this.checkMenu('Exadata', ''),
+          child: [
+            {
+              title: 'Exadata List',
+              href: { name: 'exadata' },
+              icon: 'fas fa-server',
+              attributes: { 'data-cy': 'mn-exadata-list' },
+              hidden: this.checkMenu('Exadata List', 'Exadata'),
+            },
+            {
+              title: 'Patch Advisors',
+              href: { name: 'exadataPA' },
+              icon: 'fas fa-band-aid',
+              attributes: { 'data-cy': 'mn-exadata-patch-advisors' },
+              hidden: this.checkMenu('Patch Advisor', 'Exadata'),
+            },
+          ],
         },
         {
           href: { name: 'alerts' },
