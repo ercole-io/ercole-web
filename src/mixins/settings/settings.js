@@ -682,7 +682,7 @@ export default {
       ]
     },
     crontabOptions() {
-      return `Available options: </br> @daily </br> @Weekly </br> @monthly`
+      return `Available options: </br> @daily </br> @weekly </br> @monthly`
     },
     warningAndCritical() {
       return [
