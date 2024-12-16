@@ -134,7 +134,7 @@
               />
               <CustomRadio
                 v-model="AlertService.Emailer.Enabled"
-                :options="trueOrFalseOptions"
+                :options="enabledOptions"
               />
             </div>
           </div>
@@ -159,6 +159,45 @@
                 class="label is-small"
               />
               <CustomInput v-model="AlertService.Emailer.From" />
+            </div>
+          </div>
+        </div>
+
+        <div class="columns is-multiline">
+          <div class="column is-one-quarter">
+            <div class="field">
+              <div
+                class="is-flex is-flex-direction-row is-justify-content-space-between"
+              >
+                <label
+                  v-html="highlight(AlertServiceLabels[35])"
+                  class="label is-small"
+                />
+                <b-icon
+                  pack="fas"
+                  icon="circle-info"
+                  size="is-small"
+                  type="is-info"
+                  v-tooltip.top="options(crontabOptions)"
+                />
+              </div>
+              <CustomInput
+                v-model="AlertService.ReportAlertJob.Crontab"
+                :customInputDisable="AlertService.Emailer.Enabled !== null"
+              />
+            </div>
+          </div>
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(AlertServiceLabels[36])"
+                class="label is-small"
+              />
+              <CustomRadio
+                v-model="AlertService.ReportAlertJob.RunAtStartup"
+                :options="trueOrFalseOptions"
+                :customRadioDisable="AlertService.Emailer.Enabled !== null"
+              />
             </div>
           </div>
         </div>
@@ -696,7 +735,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(AlertServiceLabels[29])"
+                v-html="highlight(AlertServiceLabels[36])"
                 class="label is-small"
               />
               <CustomRadio
@@ -743,7 +782,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(AlertServiceLabels[32])"
+                v-html="highlight(AlertServiceLabels[36])"
                 class="label is-small"
               />
               <CustomRadio
@@ -814,17 +853,9 @@ export default {
   },
   watch: {
     emailerEnabled(value) {
-      if (!value) {
-        this.AlertService.Emailer.AlertType.NewHost.Enable = false
-        this.AlertService.Emailer.AlertType.NewDatabase.Enable = false
-        this.AlertService.Emailer.AlertType.NewLicense.Enable = false
-        this.AlertService.Emailer.AlertType.NewOption.Enable = false
-        this.AlertService.Emailer.AlertType.NewUnlistedRunningDatabase.Enable = false
-        this.AlertService.Emailer.AlertType.NewHostCpu.Enable = false
-        this.AlertService.Emailer.AlertType.MissingPrimaryDatabase.Enable = false
-        this.AlertService.Emailer.AlertType.MissingDatabase.Enable = false
-        this.AlertService.Emailer.AlertType.AgentError.Enable = false
-        this.AlertService.Emailer.AlertType.NoData.Enable = false
+      if (value !== null) {
+        this.AlertService.ReportAlertJob.Crontab = null
+        this.AlertService.ReportAlertJob.RunAtStartup = false
       }
     },
   },

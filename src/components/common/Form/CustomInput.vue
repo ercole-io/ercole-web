@@ -7,6 +7,7 @@
     icon-right-clickable
     @icon-right-click="clearField"
     v-mask="inputMask"
+    :disabled="customInputDisable"
   />
 </template>
 
@@ -22,6 +23,10 @@ export default {
     inputMask: {
       type: String,
       default: '',
+    },
+    customInputDisable: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {

@@ -132,6 +132,10 @@ export default {
           DueDays: null,
           RunAtStartup: null,
         },
+        ReportAlertJob: {
+          Crontab: null,
+          RunAtStartup: null,
+        },
       },
       ChartService: {
         RemoteEndpoint: null,
@@ -260,6 +264,8 @@ export default {
         'Delete Alerts Older Than',
         'Enable All To',
         'Alert Severity',
+        'Report Alert Crontab',
+        'Run At Startup',
       ],
       highlightAlertService: false,
       ChartServiceLabels: [
@@ -486,6 +492,10 @@ export default {
           DueDays: this.getAlertService.RemoveAlertJob.DueDays,
           RunAtStartup: this.getAlertService.RemoveAlertJob.RunAtStartup,
         },
+        ReportAlertJob: {
+          Crontab: this.getAlertService.ReportAlertJob.Crontab,
+          RunAtStartup: this.getAlertService.ReportAlertJob.RunAtStartup,
+        },
       }
     },
     bindOriginalChartServiceData() {
@@ -692,6 +702,22 @@ export default {
         },
         {
           text: 'critical',
+          val: false,
+        },
+      ]
+    },
+    enabledOptions() {
+      return [
+        {
+          text: this.$i18n.t('common.forms.yes'),
+          val: true,
+        },
+        {
+          text: 'Crontab',
+          val: null,
+        },
+        {
+          text: this.$i18n.t('common.forms.no'),
           val: false,
         },
       ]
