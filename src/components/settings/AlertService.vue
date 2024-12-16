@@ -304,7 +304,7 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
-                :customRadioDisable="!AlertService.Emailer.Enabled"
+                :customRadioDisable="AlertService.Emailer.Enabled === false"
               />
             </div>
           </div>
@@ -324,7 +324,7 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
-                :disabled="!AlertService.Emailer.Enabled"
+                :disabled="AlertService.Emailer.Enabled === false"
               >
               </b-taginput>
             </div>
@@ -343,7 +343,7 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
-                :customRadioDisable="!AlertService.Emailer.Enabled"
+                :customRadioDisable="AlertService.Emailer.Enabled === false"
               />
             </div>
           </div>
@@ -363,7 +363,7 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
-                :disabled="!AlertService.Emailer.Enabled"
+                :disabled="AlertService.Emailer.Enabled === false"
               >
               </b-taginput>
             </div>
@@ -382,7 +382,7 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
-                :customRadioDisable="!AlertService.Emailer.Enabled"
+                :customRadioDisable="AlertService.Emailer.Enabled === false"
               />
             </div>
           </div>
@@ -402,7 +402,7 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
-                :disabled="!AlertService.Emailer.Enabled"
+                :disabled="AlertService.Emailer.Enabled === false"
               >
               </b-taginput>
             </div>
@@ -421,7 +421,7 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
-                :customRadioDisable="!AlertService.Emailer.Enabled"
+                :customRadioDisable="AlertService.Emailer.Enabled === false"
               />
             </div>
           </div>
@@ -441,7 +441,7 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
-                :disabled="!AlertService.Emailer.Enabled"
+                :disabled="AlertService.Emailer.Enabled === false"
               >
               </b-taginput>
             </div>
@@ -463,7 +463,7 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
-                :customRadioDisable="!AlertService.Emailer.Enabled"
+                :customRadioDisable="AlertService.Emailer.Enabled === false"
               />
             </div>
           </div>
@@ -485,7 +485,7 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
-                :disabled="!AlertService.Emailer.Enabled"
+                :disabled="AlertService.Emailer.Enabled === false"
               >
               </b-taginput>
             </div>
@@ -504,7 +504,7 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
-                :customRadioDisable="!AlertService.Emailer.Enabled"
+                :customRadioDisable="AlertService.Emailer.Enabled === false"
               />
             </div>
           </div>
@@ -524,7 +524,7 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
-                :disabled="!AlertService.Emailer.Enabled"
+                :disabled="AlertService.Emailer.Enabled === false"
               >
               </b-taginput>
             </div>
@@ -545,7 +545,7 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
-                :customRadioDisable="!AlertService.Emailer.Enabled"
+                :customRadioDisable="AlertService.Emailer.Enabled === false"
               />
             </div>
           </div>
@@ -567,7 +567,7 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
-                :disabled="!AlertService.Emailer.Enabled"
+                :disabled="AlertService.Emailer.Enabled === false"
               >
               </b-taginput>
             </div>
@@ -586,7 +586,7 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
-                :customRadioDisable="!AlertService.Emailer.Enabled"
+                :customRadioDisable="AlertService.Emailer.Enabled === false"
               />
             </div>
           </div>
@@ -606,7 +606,7 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
-                :disabled="!AlertService.Emailer.Enabled"
+                :disabled="AlertService.Emailer.Enabled === false"
               >
               </b-taginput>
             </div>
@@ -625,7 +625,7 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
-                :customRadioDisable="!AlertService.Emailer.Enabled"
+                :customRadioDisable="AlertService.Emailer.Enabled === false"
               />
             </div>
           </div>
@@ -645,7 +645,7 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
-                :disabled="!AlertService.Emailer.Enabled"
+                :disabled="AlertService.Emailer.Enabled === false"
               >
               </b-taginput>
             </div>
@@ -664,7 +664,7 @@
                 :options="trueOrFalseOptions"
                 customClass="is-justify-content-flex-start"
                 customRadioClass="mr-5"
-                :customRadioDisable="!AlertService.Emailer.Enabled"
+                :customRadioDisable="AlertService.Emailer.Enabled === false"
               />
             </div>
           </div>
@@ -684,7 +684,7 @@
                 allow-new
                 ellipsis
                 :before-adding="beforeAdding"
-                :disabled="!AlertService.Emailer.Enabled"
+                :disabled="AlertService.Emailer.Enabled === false"
               >
               </b-taginput>
             </div>
@@ -850,12 +850,25 @@ export default {
     emailerEnabled() {
       return this.AlertService.Emailer.Enabled
     },
+    reportRunStartup() {
+      return this.AlertService.ReportAlertJob.RunAtStartup
+    },
   },
   watch: {
+    reportRunStartup(value) {
+      if (value) {
+        this.AlertService.Emailer.Enabled = null
+      }
+    },
     emailerEnabled(value) {
       if (value !== null) {
         this.AlertService.ReportAlertJob.Crontab = null
         this.AlertService.ReportAlertJob.RunAtStartup = false
+      }
+
+      if (value === null) {
+        this.AlertService.ReportAlertJob.Crontab = '@daily'
+        this.AlertService.ReportAlertJob.RunAtStartup = true
       }
     },
   },
