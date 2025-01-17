@@ -58,6 +58,7 @@ export default {
 
     this.getGlobalFiltersLocations()
     this.getGlobalFiltersEnvironments()
+    this.requestSettings()
   },
   methods: {
     ...mapActions([
@@ -68,6 +69,7 @@ export default {
       'getCloudObjects',
       'getDbConnection',
       'requestDynamicMenu',
+      'requestSettings',
     ]),
   },
 }

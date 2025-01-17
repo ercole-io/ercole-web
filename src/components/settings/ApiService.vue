@@ -87,6 +87,15 @@
               />
             </div>
           </div>
+          <div class="column is-one-quarter">
+            <div class="field">
+              <label
+                v-html="highlight(APIServiceLabels[6])"
+                class="label is-small"
+              />
+              <CustomInput v-model="APIService.LocationAlias" />
+            </div>
+          </div>
         </div>
       </BoxContent>
 
@@ -101,7 +110,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(APIServiceLabels[6])"
+                v-html="highlight(APIServiceLabels[7])"
                 class="label is-small"
               />
               <b-select
@@ -120,7 +129,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(APIServiceLabels[7])"
+                v-html="highlight(APIServiceLabels[8])"
                 class="label is-small"
               />
               <CustomInput
@@ -131,7 +140,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(APIServiceLabels[8])"
+                v-html="highlight(APIServiceLabels[9])"
                 class="label is-small"
               />
               <CustomInput
@@ -142,7 +151,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(APIServiceLabels[9])"
+                v-html="highlight(APIServiceLabels[10])"
                 class="label is-small"
               />
               <CustomInput
@@ -153,7 +162,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(APIServiceLabels[10])"
+                v-html="highlight(APIServiceLabels[11])"
                 class="label is-small"
               />
               <CustomInput
@@ -164,7 +173,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(APIServiceLabels[11])"
+                v-html="highlight(APIServiceLabels[12])"
                 class="label is-small"
               />
               <CustomInput
@@ -176,7 +185,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(APIServiceLabels[12])"
+                v-html="highlight(APIServiceLabels[13])"
                 class="label is-small"
               />
               <CustomInput v-model="APIService.AuthenticationProvider.Host" />
@@ -185,7 +194,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(APIServiceLabels[13])"
+                v-html="highlight(APIServiceLabels[14])"
                 class="label is-small"
               />
               <CustomInput
@@ -197,7 +206,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(APIServiceLabels[14])"
+                v-html="highlight(APIServiceLabels[15])"
                 class="label is-small"
               />
               <CustomInput
@@ -208,7 +217,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(APIServiceLabels[15])"
+                v-html="highlight(APIServiceLabels[16])"
                 class="label is-small"
               />
               <CustomInput
@@ -219,7 +228,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(APIServiceLabels[16])"
+                v-html="highlight(APIServiceLabels[17])"
                 class="label is-small"
               />
               <CustomInput
@@ -230,7 +239,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(APIServiceLabels[17])"
+                v-html="highlight(APIServiceLabels[18])"
                 class="label is-small"
               />
               <CustomInput
@@ -252,7 +261,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(APIServiceLabels[18])"
+                v-html="highlight(APIServiceLabels[19])"
                 class="label is-small"
               />
               <b-taginput
@@ -281,7 +290,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(APIServiceLabels[20])"
+                v-html="highlight(APIServiceLabels[21])"
                 class="label is-small"
               />
               <CustomInput
@@ -304,7 +313,7 @@
           <div class="column is-one-quarter">
             <div class="field">
               <label
-                v-html="highlight(APIServiceLabels[19])"
+                v-html="highlight(APIServiceLabels[20])"
                 class="label is-small"
               />
               <CustomRadio

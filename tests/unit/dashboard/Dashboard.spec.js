@@ -15,6 +15,10 @@ beforeEach(() => {
     getGlobalFiltersEnvironments: jest
       .fn()
       .mockName('getGlobalFiltersEnvironments'),
+    getCloudObjects: jest.fn().mockName('getCloudObjects'),
+    getDbConnection: jest.fn().mockName('getDbConnection'),
+    requestDynamicMenu: jest.fn().mockName('requestDynamicMenu'),
+    requestSettings: jest.fn().mockName('requestSettings'),
   }
 
   store = new Vuex.Store({
@@ -23,18 +27,20 @@ beforeEach(() => {
 })
 
 describe('Dashboard.vue', () => {
-  // it('is a Vue instance', () => {
-  //   const wrapper = shallowMount(Dashboard, { localVue, store })
-  //   expect(wrapper.isVueInstance()).toBe(true)
-  // })
-
   it('verify if component exists', () => {
     const wrapper = shallowMount(Dashboard, { localVue, store })
     expect(wrapper.exists()).toBe(true)
   })
 
-  it('will dispatch getTechnologiesData action when mounting component', () => {
+  it(`will dispatch actions when mounting component`, () => {
     shallowMount(Dashboard, { localVue, store })
+    expect(actions.getDashboardData).toHaveBeenCalled()
     expect(actions.getTechnologiesData).toHaveBeenCalled()
+    expect(actions.getGlobalFiltersLocations).toHaveBeenCalled()
+    expect(actions.getGlobalFiltersEnvironments).toHaveBeenCalled()
+    expect(actions.getCloudObjects).toHaveBeenCalled()
+    expect(actions.getDbConnection).toHaveBeenCalled()
+    expect(actions.requestDynamicMenu).toHaveBeenCalled()
+    expect(actions.requestSettings).toHaveBeenCalled()
   })
 })
