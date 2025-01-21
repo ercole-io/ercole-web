@@ -181,6 +181,7 @@ export default new Vuex.Store({
         'cloudActiveProfiles.ociActiveProfile',
         'cloudActiveProfiles.awsActiveProfile',
         'menu',
+        'settings',
       ],
     }),
   ],
