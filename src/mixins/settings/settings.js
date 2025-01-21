@@ -34,6 +34,7 @@ export default {
         LogHTTPRequest: null,
         ReadOnly: null,
         DebugOracleDatabaseContractsAssignmentAlgorithm: null,
+        LocationAlias: null,
         AuthenticationProvider: {
           Types: [],
           Username: null,
@@ -211,6 +212,7 @@ export default {
         'Log HTTP Request',
         'ReadOnly',
         'Debug Oracle Database Contracts Assignment Algorithm',
+        'Location Alias',
         'Types',
         'Username',
         'Password',
@@ -374,6 +376,7 @@ export default {
         ReadOnly: this.getAPIService.ReadOnly,
         DebugOracleDatabaseContractsAssignmentAlgorithm:
           this.getAPIService.DebugOracleDatabaseContractsAssignmentAlgorithm,
+        LocationAlias: this.getAPIService.LocationAlias,
         AuthenticationProvider: {
           Types: this.getAPIService.AuthenticationProvider.Types,
           Username: this.getAPIService.AuthenticationProvider.Username,
