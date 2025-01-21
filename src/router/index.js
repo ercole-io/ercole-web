@@ -945,6 +945,17 @@ const routes = [
     beforeEnter: verifyAuth,
   },
   {
+    path: '/nodes',
+    name: 'nodes',
+    component: lazyRouteBuilder('profile/Nodes.vue'),
+    meta: {
+      label: 'Nodes',
+      title: `${title}Nodes`,
+      breadcrumb: [{ name: 'Nodes' }],
+    },
+    beforeEnter: verifyAuth,
+  },
+  {
     path: '/500',
     name: '500',
     component: lazyRouteBuilder('Errors/InternalServer.vue'),
