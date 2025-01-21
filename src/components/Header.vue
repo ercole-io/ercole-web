@@ -83,6 +83,17 @@
               Roles
             </b-dropdown-item>
 
+            <b-dropdown-item
+              value="nodes"
+              aria-role="menuitem"
+              @click="openPage('nodes')"
+              data-groups-button
+              v-if="isAdmin"
+            >
+              <b-icon pack="fas" icon="scroll" />
+              Nodes
+            </b-dropdown-item>
+
             <hr class="dropdown-divider" />
 
             <b-dropdown-item @click="openInfoModal" data-info-button>

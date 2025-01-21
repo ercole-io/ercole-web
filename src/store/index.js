@@ -96,6 +96,7 @@ import * as troubleshooting from '@/store/modules/troubleshooting/troubleshootin
 import * as users from '@/store/modules/profile/users'
 import * as groups from '@/store/modules/profile/groups'
 import * as roles from '@/store/modules/profile/roles'
+import * as nodes from '@/store/modules/profile/nodes'
 
 Vue.use(Vuex)
 
@@ -166,6 +167,7 @@ export default new Vuex.Store({
     users,
     groups,
     roles,
+    nodes,
     settings,
     troubleshooting,
   },
@@ -180,7 +182,7 @@ export default new Vuex.Store({
         'columnToggle',
         'cloudActiveProfiles.ociActiveProfile',
         'cloudActiveProfiles.awsActiveProfile',
-        'menu',
+        'menu.dynamicMenu',
       ],
     }),
   ],
