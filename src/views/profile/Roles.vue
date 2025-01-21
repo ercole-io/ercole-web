@@ -53,7 +53,7 @@
             />
           </td>
           <TdContent :value="rowData.scope.name" />
-          <TdContent :value="rowData.scope.location" />
+          <TdContent :value="rowData.scope.locations" />
           <TdContent :value="rowData.scope.permission" />
           <TdContent :value="rowData.scope.description" />
         </template>
@@ -96,23 +96,18 @@
           </template>
         </b-field>
 
-        <b-field label="Location" custom-class="is-small">
-          <b-select
+        <b-field label="Locations" custom-class="is-small">
+          <b-taginput
+            v-model="roleForm.locations"
             size="is-small"
-            placeholder="Select"
-            v-model="roleForm.location"
-            expanded
-            data-cy="role-location"
+            type="is-primary"
+            :on-paste-separators="[]"
+            :confirm-keys="['Tab', 'Enter']"
+            allow-new
+            ellipsis
+            data-cy="role-locations"
           >
-            <option value="All">All</option>
-            <option
-              v-for="location in getLocations"
-              :key="location"
-              :value="location"
-            >
-              {{ location }}
-            </option>
-          </b-select>
+          </b-taginput>
         </b-field>
 
         <b-field
@@ -146,32 +141,6 @@
             </div>
           </template>
         </b-field>
-
-        <!-- <b-field
-          label="Permission"
-          custom-class="is-small"
-          :type="{
-            'is-danger': $v.roleForm.permission.$error,
-          }"
-        >
-          <b-input
-            type="text"
-            size="is-small"
-            v-model="roleForm.permission"
-            @blur="$v.roleForm.permission.$touch()"
-            @input="$v.roleForm.permission.$touch()"
-          />
-          <template #message>
-            <div
-              v-if="
-                !$v.roleForm.permission.required &&
-                $v.roleForm.permission.$error
-              "
-            >
-              {{ $i18n.t('common.validations.requiredAlt') }}
-            </div>
-          </template>
-        </b-field> -->
 
         <b-field
           label="Role Description"
@@ -215,6 +184,14 @@ import TdContent from '@/components/common/Table/TdContent.vue'
 import AdvancedFiltersBase from '@/components/common/AdvancedFiltersBase.vue'
 
 const noSpaces = helpers.regex('noSpaces', /^\S*$/)
+const containsOnlyAllOrArrayWithoutAll = (values) => {
+  const containsPermutation = values.find((value) =>
+    value === 'All' ? false : value.toLowerCase() === 'all'
+  )
+  if (containsPermutation) return false
+
+  return values.includes('All') ? values.length === 1 : values.length >= 1
+}
 
 export default {
   name: 'roles-page',
@@ -226,11 +203,11 @@ export default {
   },
   data() {
     return {
-      keys: ['name', 'description', 'location', 'permission'],
+      keys: ['name', 'description', 'locations', 'permission'],
       roleForm: {
         name: '',
         description: '',
-        location: 'All',
+        locations: ['All'],
         permission: '',
       },
       isUpdate: false,
@@ -242,23 +219,17 @@ export default {
         name: { required, noSpaces },
         description: { required },
         permission: { required },
+        locations: { containsOnlyAllOrArrayWithoutAll },
       },
     }
   },
   async beforeMount() {
     await this.getRoles()
-    await this.getGlobalFiltersLocations()
 
     bus.$on('onResetAction', () => this.resetForm())
   },
   methods: {
-    ...mapActions([
-      'getRoles',
-      'deleteRole',
-      'updateRole',
-      'createRole',
-      'getGlobalFiltersLocations',
-    ]),
+    ...mapActions(['getRoles', 'deleteRole', 'updateRole', 'createRole']),
     createUpdateRole() {
       if (this.isUpdate) {
         this.updateRole({
@@ -278,7 +249,7 @@ export default {
       this.roleForm = {
         name: data.name,
         description: data.description,
-        location: data.location,
+        locations: data.locations,
         permission: data.permission,
       }
     },
@@ -307,18 +278,13 @@ export default {
       this.roleForm = {
         name: '',
         description: '',
-        location: 'All',
+        locations: ['All'],
         permission: '',
       }
     },
   },
   computed: {
-    ...mapGetters([
-      'showRoles',
-      'loadingTableStatus',
-      'isAdmin',
-      'getLocations',
-    ]),
+    ...mapGetters(['showRoles', 'loadingTableStatus', 'isAdmin']),
   },
 }
 </script>
