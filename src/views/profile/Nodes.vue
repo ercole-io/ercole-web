@@ -218,6 +218,7 @@ export default {
   },
   methods: {
     ...mapActions([
+      'requestDynamicMenu',
       'getNode',
       'deleteNode',
       'updateNode',
@@ -229,13 +230,21 @@ export default {
         this.updateNode({
           data: this.nodeForm,
           nodename: this.nodeForm.name,
-        }).then(() => {
-          this.resetForm()
         })
+          .then(() => {
+            this.resetForm()
+          })
+          .then(() => {
+            this.requestDynamicMenu()
+          })
       } else {
-        this.createNode(this.nodeForm).then(() => {
-          this.resetForm()
-        })
+        this.createNode(this.nodeForm)
+          .then(() => {
+            this.resetForm()
+          })
+          .then(() => {
+            this.requestDynamicMenu()
+          })
       }
     },
     upNode(data) {
@@ -256,15 +265,19 @@ export default {
         type: 'is-danger',
         hasIcon: true,
         onConfirm: () => {
-          this.deleteNode(nodename).catch((err) => {
-            this.$buefy.dialog.alert({
-              title: 'Delete Node Warning',
-              message: err.error,
-              confirmText: 'OK',
-              type: 'is-warning',
-              hasIcon: true,
+          this.deleteNode(nodename)
+            .catch((err) => {
+              this.$buefy.dialog.alert({
+                title: 'Delete Node Warning',
+                message: err.error,
+                confirmText: 'OK',
+                type: 'is-warning',
+                hasIcon: true,
+              })
             })
-          })
+            .then(() => {
+              this.requestDynamicMenu()
+            })
         },
       })
     },
