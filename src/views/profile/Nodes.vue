@@ -106,7 +106,7 @@
             @blur="$v.nodeForm.parent.$touch()"
             @input="$v.nodeForm.parent.$touch()"
             :disabled="isUpdate"
-            data-cy="node-name"
+            data-cy="node-parent"
           />
           <template #message>
             <div
@@ -130,7 +130,7 @@
               @input="filteredRoles"
               v-model="searchRole"
               v-if="filteredRoles().length > 0 || searchRole !== ''"
-              data-cy="group-roles"
+              data-cy="node-roles"
             />
 
             <div
