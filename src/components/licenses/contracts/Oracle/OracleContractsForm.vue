@@ -343,6 +343,15 @@
       </div>
     </b-field>
 
+    <b-field label="Location" custom-class="is-small" expanded>
+      <b-input
+        size="is-small"
+        type="text"
+        v-model="oracleForm.location"
+        data-cy="oracle-location"
+      />
+    </b-field>
+
     <slot />
   </AdvancedFiltersBase>
 </template>
@@ -398,6 +407,7 @@ export default {
         supportExpiration: null,
         status: '',
         productOrderDate: null,
+        location: '',
       },
       filteredcontractID: [],
       filteredcsi: [],
@@ -446,6 +456,7 @@ export default {
         supportExpiration: this.oracleForm.supportExpiration,
         status: this.oracleForm.status,
         productOrderDate: this.oracleForm.productOrderDate,
+        location: this.oracleForm.location,
       }
 
       if (action === 'put') {
@@ -475,6 +486,7 @@ export default {
         supportExpiration: null,
         status: '',
         productOrderDate: null,
+        location: '',
       }
     },
     editContract(data) {
@@ -506,6 +518,7 @@ export default {
           : null,
         status: data.status,
         productOrderDate: new Date(data.productOrderDate),
+        location: data.location,
       }
     },
   },

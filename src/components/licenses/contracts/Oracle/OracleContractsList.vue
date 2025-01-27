@@ -52,6 +52,7 @@
       <v-th sortKey="restricted">
         {{ $t('common.collumns.restricted') }}
       </v-th>
+      <v-th sortKey="location"> Location </v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
@@ -129,6 +130,7 @@
       <TdContent :value="rowData.scope.availableLicensesPerUser" />
       <TdIcon :value="rowData.scope.basket" />
       <TdIcon :value="rowData.scope.restricted" />
+      <TdContent :value="rowData.scope.location" />
     </template>
 
     <div class="is-flex" slot="export">
@@ -183,6 +185,7 @@ export default {
         'availableLicensesPerUser',
         'basket',
         'restricted',
+        'location',
       ],
     }
   },

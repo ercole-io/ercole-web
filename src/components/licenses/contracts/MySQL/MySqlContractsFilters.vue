@@ -29,6 +29,14 @@
             :filterMethod="setAutocompletes"
           />
         </CustomField>
+
+        <CustomField label="Location">
+          <CustomAutocomplete
+            v-model="filters.location"
+            :filterResult="filteredlocation"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
       </template>
     </Collapse>
 
@@ -50,7 +58,7 @@ export default {
   data() {
     return {
       collapses: ['General'],
-      autocompletes: ['contractID', 'csi', 'numberOfLicenses'],
+      autocompletes: ['contractID', 'csi', 'numberOfLicenses', 'location'],
       selects: ['type'],
     }
   },

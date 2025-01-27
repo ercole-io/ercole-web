@@ -283,6 +283,15 @@
       </b-taginput>
     </b-field>
 
+    <b-field label="Location" custom-class="is-small" expanded>
+      <b-input
+        size="is-small"
+        type="text"
+        v-model="mysqlForm.location"
+        data-cy="mysql-location"
+      />
+    </b-field>
+
     <slot />
   </AdvancedFiltersBase>
 </template>
@@ -378,6 +387,7 @@ export default {
           : null,
         hosts: this.mapAssociated(data.hosts, 'host'),
         clusters: this.mapAssociated(data.clusters, 'cluster'),
+        location: data.location,
       }
     },
   },
