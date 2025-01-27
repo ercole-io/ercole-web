@@ -25,6 +25,7 @@
       </v-th>
       <v-th sortKey="clusters">Clusters</v-th>
       <v-th sortKey="hosts">Hosts</v-th>
+      <v-th sortKey="location">Location</v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
@@ -93,6 +94,7 @@
         />
         <span v-else>-</span>
       </td>
+      <TdContent :value="rowData.scope.location" />
     </template>
 
     <div class="is-flex" slot="export">
@@ -137,6 +139,7 @@ export default {
         'hosts',
         'csi',
         'contractID',
+        'Location',
       ],
     }
   },

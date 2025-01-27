@@ -91,6 +91,14 @@
         <CustomField :label="$t('common.fields.restricted')">
           <CustomRadio v-model="filters.restricted" />
         </CustomField>
+
+        <CustomField label="Location">
+          <CustomAutocomplete
+            v-model="filters.location"
+            :filterResult="filteredlocation"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
       </template>
     </Collapse>
 
@@ -121,6 +129,7 @@ export default {
         'referenceNumber',
         'fullPartNumber',
         'metric',
+        'location',
       ],
       selects: ['referenceNumber'],
       sliders: [
