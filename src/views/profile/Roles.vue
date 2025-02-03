@@ -106,6 +106,8 @@
             allow-new
             ellipsis
             data-cy="role-locations"
+            :readonly="locationFieldDisable"
+            :class="{ 'location-field-disable': locationFieldDisable }"
           >
           </b-taginput>
         </b-field>
@@ -285,8 +287,28 @@ export default {
   },
   computed: {
     ...mapGetters(['showRoles', 'loadingTableStatus', 'isAdmin']),
+    locationFieldDisable() {
+      return this.roleForm.permission === 'admin'
+    },
+  },
+  watch: {
+    locationFieldDisable(val) {
+      if (val) {
+        this.roleForm.locations = ['All']
+      }
+    },
   },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.location-field-disable {
+  .taginput-container {
+    background-color: whitesmoke !important;
+
+    .autocomplete input {
+      background-color: whitesmoke !important;
+    }
+  }
+}
+</style>
