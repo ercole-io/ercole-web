@@ -224,6 +224,9 @@ export default {
       'getPdbs',
       'getOracleHosts',
       'getPartitionings',
+      'oracleContractsActions',
+      'mysqlContractsActions',
+      'microsoftContractsActions',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS', 'SET_ACTIVE_FILTERS']),
     expandFilters() {
@@ -357,6 +360,21 @@ export default {
         case 'partitionings':
           this.getPartitionings().then(() => this.offLoadingTable())
           break
+        case 'licenses-contracts-oracle':
+          this.oracleContractsActions({ action: 'get', body: null }).then(() =>
+            this.offLoadingTable()
+          )
+          break
+        case 'licenses-contracts-mysql':
+          this.mysqlContractsActions({ action: 'get', body: null }).then(() =>
+            this.offLoadingTable()
+          )
+          break
+        case 'licenses-contracts-sqlserver':
+          this.microsoftContractsActions({ action: 'get', body: null }).then(
+            () => this.offLoadingTable()
+          )
+          break
         default:
           return
       }
@@ -371,12 +389,6 @@ export default {
     notShowing() {
       return (
         this.$route.name !== 'dashboard' &&
-        this.$route.name !== 'licenses-contract' &&
-        this.$route.name !== 'licenses-contracts-oracle' &&
-        this.$route.name !== 'licenses-contracts-mysql' &&
-        this.$route.name !== 'licenses-contracts-sqlserver' &&
-        this.$route.name !== 'licenses-contracts-postgresql' &&
-        this.$route.name !== 'licenses-contracts-mongodb' &&
         this.$route.name !== 'repository' &&
         this.$route.name !== 'oracle-profile-configurations' &&
         this.$route.name !== 'oracle-recommendations' &&

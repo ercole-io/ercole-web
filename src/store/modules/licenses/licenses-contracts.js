@@ -48,11 +48,13 @@ export const mutations = {
 export const actions = {
   async resolveContractsRequest({ commit, dispatch }, data) {
     dispatch('onLoadingTable')
+
     const type = data.type
     const url = `contracts/${type}/database`
     const config = {
       method: data.payload.action,
       url: url,
+      params: data.params,
     }
 
     if (data.payload.action !== 'get' && data.payload.action !== 'delete') {

@@ -47,10 +47,17 @@ export const mutations = {
 }
 
 export const actions = {
-  async mysqlContractsActions({ dispatch }, payload) {
+  async mysqlContractsActions({ getters, dispatch }, payload) {
+    const params = {
+      'older-than': getters.getActiveFilters.date,
+      environment: getters.getActiveFilters.environment,
+      location: getters.getActiveFilters.location,
+    }
+
     await dispatch('resolveContractsRequest', {
       type: 'mysql',
       payload: payload,
+      params: params,
     })
   },
   async mysqlLicensesTypes({ commit }) {

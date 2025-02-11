@@ -56,10 +56,17 @@ export const mutations = {
 }
 
 export const actions = {
-  async oracleContractsActions({ dispatch }, payload) {
+  async oracleContractsActions({ getters, dispatch }, payload) {
+    const params = {
+      'older-than': getters.getActiveFilters.date,
+      environment: getters.getActiveFilters.environment,
+      location: getters.getActiveFilters.location,
+    }
+
     await dispatch('resolveContractsRequest', {
       type: 'oracle',
       payload: payload,
+      params: params,
     })
   },
   async oracleLicensesTypes({ commit }) {

@@ -52,10 +52,17 @@ export const mutations = {
 }
 
 export const actions = {
-  async microsoftContractsActions({ dispatch }, payload) {
+  async microsoftContractsActions({ getters, dispatch }, payload) {
+    const params = {
+      'older-than': getters.getActiveFilters.date,
+      environment: getters.getActiveFilters.environment,
+      location: getters.getActiveFilters.location,
+    }
+
     await dispatch('resolveContractsRequest', {
       type: 'microsoft',
       payload: payload,
+      params: params,
     })
   },
   async microsoftLicensesTypes({ commit }) {
