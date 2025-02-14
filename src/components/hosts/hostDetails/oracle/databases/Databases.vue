@@ -78,12 +78,18 @@
           :capacityDaily="dbs.capacityDaily"
           v-if="dbs.capacity && dbs.capacity.length > 0"
         />
+        <DbDiskGroups
+          :diskGroups="dbs.diskGroups"
+          v-if="dbs.diskGroups && dbs.diskGroups.length > 0"
+        />
       </b-tabs>
     </b-tab-item>
   </b-tabs>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 import databaseTabsMixin from '@/mixins/hostDetails/databaseTabs.js'
 import infoMixin from '@/mixins/hostDetails/databaseInfo.js'
 
@@ -103,7 +109,7 @@ import DbPDBs from '@/components/hosts/hostDetails/oracle/databases/DbPDBs.vue'
 import DbGrants from '@/components/hosts/hostDetails/oracle/databases/DbGrants.vue'
 import DbPartitionings from '@/components/hosts/hostDetails/oracle/databases/DbPartitionings.vue'
 import DbCapacity from '@/components/hosts/hostDetails/oracle/databases/DbCapacity.vue'
-import { mapActions, mapGetters } from 'vuex'
+import DbDiskGroups from '@/components/hosts/hostDetails/oracle/databases/DbDiskGroups.vue'
 
 export default {
   name: 'hosts-details-oracle-databases-dbs-component',
@@ -125,6 +131,7 @@ export default {
     DbGrants,
     DbPartitionings,
     DbCapacity,
+    DbDiskGroups,
   },
   methods: {
     ...mapActions(['hostDatabaseCanBeMigrate', 'hostDatabaseSemaphore']),

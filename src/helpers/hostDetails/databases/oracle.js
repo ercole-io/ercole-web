@@ -75,6 +75,7 @@ const mapOracleDatabases = (data, extraData) => {
       capacityDaily: item.cpuDiskConsumptions
         ? resolveCapacityDaily([...item.cpuDiskConsumptions])
         : [],
+      diskGroups: item.diskGroups,
     })
   })
 
