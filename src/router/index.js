@@ -441,6 +441,21 @@ const routes = [
                 },
                 beforeEnter: verifyAuth,
               },
+              {
+                path: '/diskgroups',
+                name: 'diskgroups',
+                component: lazyRouteBuilder('databases/oracle/Disk-Groups.vue'),
+                meta: {
+                  label: `${i18n.t('menu.oracle')}:  Disk Groups}`,
+                  title: `${title}${i18n.t('menu.oracle')}: Disk Groups}`,
+                  breadcrumb: [
+                    { name: i18n.t('menu.databases'), link: '/databases' },
+                    { name: i18n.t('menu.oracle'), link: '/oracle' },
+                    { name: 'Disk Groups' },
+                  ],
+                },
+                beforeEnter: verifyAuth,
+              },
             ],
           },
         ],

@@ -242,6 +242,14 @@ export default {
                   attributes: { 'data-cy': 'mn-oracle-psql-migrability' },
                   hidden: this.checkMenu('PSQL Migrability', 'Oracle'),
                 },
+                {
+                  href: { name: 'diskgroups' },
+                  title: 'Disk Groups',
+                  icon: 'fas fa-cog',
+                  class: 'menu-third-level',
+                  attributes: { 'data-cy': 'mn-oracle-disk-groups' },
+                  hidden: !this.checkMenu('Disk Groups', 'Oracle'),
+                },
               ],
             },
             {

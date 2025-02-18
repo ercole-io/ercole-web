@@ -24,6 +24,7 @@ const defaultState = () => ({
   'page-capacity': [false, true],
   'page-policy-audit': [false, true],
   'page-psql-migrability': [false, true],
+  'page-diskgroups': [false, true],
 
   'page-alerts': [false, true],
 

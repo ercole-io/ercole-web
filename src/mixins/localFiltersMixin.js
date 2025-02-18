@@ -151,6 +151,7 @@ export default {
       filteredrackID: [],
       filteredimageVersion: [],
       filtereddate: [],
+      filtereddiskGroupName: [],
 
       minmemorytotal: null,
       maxmemorytotal: null,
@@ -252,6 +253,12 @@ export default {
       maxstandardCount: null,
       minenterpriseCount: null,
       maxenterpriseCount: null,
+      mintotalSpace: null,
+      maxtotalSpace: null,
+      minusedSpace: null,
+      maxusedSpace: null,
+      minfreeSpace: null,
+      maxfreeSpace: null,
     }
   },
   mounted() {
