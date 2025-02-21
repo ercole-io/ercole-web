@@ -248,7 +248,7 @@ export default {
                   icon: 'fas fa-cog',
                   class: 'menu-third-level',
                   attributes: { 'data-cy': 'mn-oracle-disk-groups' },
-                  hidden: !this.checkMenu('Disk Groups', 'Oracle'),
+                  hidden: this.checkMenu('Disk Groups', 'Oracle'),
                 },
               ],
             },
