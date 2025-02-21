@@ -64,6 +64,7 @@ import * as oracleCapacity from '@/store/modules/databases/oracle/capacity'
 import * as oraclePolicyAudit from '@/store/modules/databases/oracle/policyAudit'
 import * as oraclePsqlMigrabilkity from '@/store/modules/databases/oracle/psqlMigrability'
 import * as oracleAwsRds from '@/store/modules/databases/oracle/aws-rds'
+import * as oracleDiskGroups from '@/store/modules/databases/oracle/disk-groups'
 // Databases Mysql
 import * as mysql from '@/store/modules/databases/mysql/mysql'
 // Databases Microsoft
@@ -139,6 +140,7 @@ export default new Vuex.Store({
     oraclePolicyAudit,
     oraclePsqlMigrabilkity,
     oracleAwsRds,
+    oracleDiskGroups,
     mysql,
     microsoft,
     postgresql,

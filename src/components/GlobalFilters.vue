@@ -224,6 +224,7 @@ export default {
       'getPdbs',
       'getOracleHosts',
       'getPartitionings',
+      'requestDiskGoups',
       'oracleContractsActions',
       'mysqlContractsActions',
       'microsoftContractsActions',
@@ -359,6 +360,9 @@ export default {
           break
         case 'partitionings':
           this.getPartitionings().then(() => this.offLoadingTable())
+          break
+        case 'diskgroups':
+          this.requestDiskGoups().then(() => this.offLoadingTable())
           break
         case 'licenses-contracts-oracle':
           this.oracleContractsActions({ action: 'get', body: null }).then(() =>
