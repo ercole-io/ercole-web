@@ -22,9 +22,11 @@
         <v-th sortKey="hostname">Hostname</v-th>
         <v-th sortKey="databases">Databases</v-th>
         <v-th sortKey="diskGroupName">Disk Group Name</v-th>
-        <v-th sortKey="totalSpace">Total Space</v-th>
-        <v-th sortKey="usedSpace">Uused Space</v-th>
-        <v-th sortKey="freeSpace">Free Space</v-th>
+        <v-th sortKey="totalSpace">Total Space (GB)</v-th>
+        <v-th sortKey="usedSpace">Used Space (GB)</v-th>
+        <v-th sortKey="percentageUsedSpace">Used Percentage (%)</v-th>
+        <v-th sortKey="freeSpace">Free Space (GB)</v-th>
+        <v-th sortKey="percentageFreeSpace">Free Percentage (%)</v-th>
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
@@ -33,7 +35,9 @@
         <TdContent :value="rowData.scope.diskGroupName" />
         <TdContent :value="rowData.scope.totalSpace" />
         <TdContent :value="rowData.scope.usedSpace" />
+        <TdContent :value="rowData.scope.percentageUsedSpace" />
         <TdContent :value="rowData.scope.freeSpace" />
+        <TdContent :value="rowData.scope.percentageFreeSpace" />
       </template>
 
       <ExportButton

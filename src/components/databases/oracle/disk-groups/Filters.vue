@@ -26,24 +26,38 @@
           />
         </CustomField>
 
-        <CustomField label="Total Space">
+        <CustomField label="Total Space (GB)">
           <CustomSlider
             v-model="filters.totalSpace"
             :ticks="[mintotalSpace, maxtotalSpace]"
           />
         </CustomField>
 
-        <CustomField label="Used Space">
+        <CustomField label="Used Space (GB)">
           <CustomSlider
             v-model="filters.usedSpace"
             :ticks="[minusedSpace, maxusedSpace]"
           />
         </CustomField>
 
-        <CustomField label="Free Space">
+        <CustomField label="Used Percentage (%)">
+          <CustomSlider
+            v-model="filters.percentageUsedSpace"
+            :ticks="[minpercentageUsedSpace, maxpercentageUsedSpace]"
+          />
+        </CustomField>
+
+        <CustomField label="Free Space (GB)">
           <CustomSlider
             v-model="filters.freeSpace"
             :ticks="[minfreeSpace, maxfreeSpace]"
+          />
+        </CustomField>
+
+        <CustomField label="Free Percentage (%)">
+          <CustomSlider
+            v-model="filters.percentageFreeSpace"
+            :ticks="[minpercentageFreeSpace, maxpercentageFreeSpace]"
           />
         </CustomField>
       </template>
@@ -67,7 +81,13 @@ export default {
     return {
       collapses: ['General'],
       autocompletes: ['hostname', 'databases', 'diskGroupName'],
-      sliders: ['totalSpace', 'usedSpace', 'freeSpace'],
+      sliders: [
+        'totalSpace',
+        'usedSpace',
+        'freeSpace',
+        'percentageFreeSpace',
+        'percentageUsedSpace',
+      ],
     }
   },
 }

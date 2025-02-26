@@ -259,6 +259,10 @@ export default {
       maxusedSpace: null,
       minfreeSpace: null,
       maxfreeSpace: null,
+      minpercentageUsedSpace: null,
+      maxpercentageUsedSpace: null,
+      minpercentageFreeSpace: null,
+      maxpercentageFreeSpace: null,
     }
   },
   mounted() {
