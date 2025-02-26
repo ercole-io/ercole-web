@@ -29,6 +29,10 @@ export default {
       this.$emit('collapsedSidebar', collapsed)
     },
     checkMenu(name, parent) {
+      parent !== 'Cloud Advisors '
+        ? localStorage.setItem('hideRecommendationsErrors', false)
+        : localStorage.setItem('hideRecommendationsErrors', true)
+
       if (
         _.filter(this.getDynamicMenu, _.matches({ name: name, parent: parent }))
           .length > 0

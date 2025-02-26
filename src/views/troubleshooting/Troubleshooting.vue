@@ -65,6 +65,7 @@
           border
           hasShadow
           style="min-height: 640px"
+          v-if="hideRecommendationsErrors"
         >
           <p slot="customTitle">
             (<span class="collapsible-recerrors-header has-text-weight-bold">
@@ -141,6 +142,9 @@ export default {
     },
     recommendationErrors() {
       return this.troubleshooting.recommendationErrors
+    },
+    hideRecommendationsErrors() {
+      return localStorage.getItem('hideRecommendationsErrors')
     },
   },
 }
