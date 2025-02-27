@@ -2,6 +2,14 @@
   <AdvancedFiltersBase :submitAction="apply">
     <Collapse :collapses="collapses">
       <template slot="General">
+        <CustomField label="Location">
+          <CustomAutocomplete
+            v-model="filters.location"
+            :filterResult="filteredlocation"
+            :filterMethod="setAutocompletes"
+          />
+        </CustomField>
+
         <CustomField label="Type">
           <CustomSelect v-model="filters.type" :options="filteredtype" />
         </CustomField>
@@ -27,14 +35,6 @@
           <CustomAutocomplete
             v-model="filters.licensesNumber"
             :filterResult="filteredlicensesNumber"
-            :filterMethod="setAutocompletes"
-          />
-        </CustomField>
-
-        <CustomField label="Location">
-          <CustomAutocomplete
-            v-model="filters.location"
-            :filterResult="filteredlocation"
             :filterMethod="setAutocompletes"
           />
         </CustomField>

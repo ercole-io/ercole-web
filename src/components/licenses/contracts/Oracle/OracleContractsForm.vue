@@ -343,13 +343,18 @@
       </div>
     </b-field>
 
-    <b-field label="Location" custom-class="is-small" expanded>
-      <b-input
+    <b-field label="Location" custom-class="is-small">
+      <b-select
         size="is-small"
-        type="text"
+        placeholder="Select"
         v-model="oracleForm.location"
+        expanded
         data-cy="oracle-location"
-      />
+      >
+        <option v-for="(loc, index) in locationList" :key="index">
+          {{ loc }}
+        </option>
+      </b-select>
     </b-field>
 
     <slot />
@@ -407,8 +412,9 @@ export default {
         supportExpiration: null,
         status: '',
         productOrderDate: null,
-        location: '',
+        location: 'All',
       },
+      locationList: [],
       filteredcontractID: [],
       filteredcsi: [],
       filteredreferenceNumber: [],
@@ -436,12 +442,19 @@ export default {
     })
 
     this.getHostsAssociatedList()
+
+    this.locationList = JSON.parse(
+      localStorage.getItem('persisted-data')
+    ).globalFilters.locations
+    this.locationList.unshift('All')
   },
   methods: {
     ...mapActions(['oracleContractsActions', 'getHostsAssociatedList']),
     createUpdateContract() {
       const action = this.oracleForm.licenseID ? 'put' : 'post'
       const toastMsg = this.oracleForm.licenseID ? 'modified' : 'created'
+      const location =
+        this.oracleForm.location !== 'All' ? this.oracleForm.location : ''
 
       let oracleAgreementData = {
         contractID: this.oracleForm.contractID,
@@ -456,7 +469,7 @@ export default {
         supportExpiration: this.oracleForm.supportExpiration,
         status: this.oracleForm.status,
         productOrderDate: this.oracleForm.productOrderDate,
-        location: this.oracleForm.location,
+        location: location,
       }
 
       if (action === 'put') {
@@ -486,7 +499,7 @@ export default {
         supportExpiration: null,
         status: '',
         productOrderDate: null,
-        location: '',
+        location: 'All',
       }
     },
     editContract(data) {
@@ -518,7 +531,7 @@ export default {
           : null,
         status: data.status,
         productOrderDate: new Date(data.productOrderDate),
-        location: data.location,
+        location: data.location === '' ? 'All' : data.location,
       }
     },
   },
