@@ -134,10 +134,17 @@ export default {
     DbDiskGroups,
   },
   methods: {
-    ...mapActions(['hostDatabaseCanBeMigrate', 'hostDatabaseSemaphore']),
+    ...mapActions([
+      'hostDatabaseCanBeMigrate',
+      'hostDatabaseSemaphore',
+      'hostDatabaseDiskGroupsData',
+    ]),
     dbMigrationInfo(index) {
-      this.hostDatabaseCanBeMigrate(this.currentHostFiltered[index].name)
-      this.hostDatabaseSemaphore(this.currentHostFiltered[index].name)
+      const dbname = this.currentHostFiltered[index].name
+
+      this.hostDatabaseDiskGroupsData(dbname)
+      this.hostDatabaseCanBeMigrate(dbname)
+      this.hostDatabaseSemaphore(dbname)
     },
   },
   computed: {

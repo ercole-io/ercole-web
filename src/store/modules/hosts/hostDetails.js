@@ -36,6 +36,7 @@ export const state = () => ({
   currentHostDetailsCapacityDailyByOs: [],
   policyAuditColor: '',
   policyAuditData: [],
+  diskGroupsData: [],
 })
 
 export const getters = {
@@ -180,6 +181,9 @@ export const getters = {
   hostDetailsCapacityDailyByOs: (state) => {
     return state.currentHostDetailsCapacityDailyByOs
   },
+  getDatabaseDiskGroups: (state) => {
+    return state.diskGroupsData
+  },
 }
 
 export const mutations = {
@@ -228,6 +232,9 @@ export const mutations = {
   SET_DB_POLICY_AUDIT: (state, payload) => {
     state.policyAuditColor = payload.color
     state.policyAuditData = payload.data
+  },
+  SET_DB_DISK_GROUPS: (state, payload) => {
+    state.diskGroupsData = payload
   },
 }
 
@@ -388,6 +395,19 @@ export const actions = {
       }
 
       commit('SET_DB_POLICY_AUDIT', { color, data })
+    })
+  },
+  async hostDatabaseDiskGroupsData({ commit, getters }, data) {
+    const host = data.hostname ? data.hostname : getters.currentHost
+    const dbname = data.dbname ? data.dbname : data
+
+    const config = {
+      method: 'get',
+      url: `/hosts/${host}/technologies/oracle/databases/${dbname}/diskgroups`,
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_DB_DISK_GROUPS', res.data)
     })
   },
 }
