@@ -6,6 +6,20 @@
     :applyText="msSqlServer.id ? 'Update Contract' : 'Add Contract'"
     cancelText="Cancel"
   >
+    <b-field label="Location" custom-class="is-small">
+      <b-select
+        size="is-small"
+        placeholder="Select"
+        v-model="msSqlServer.location"
+        expanded
+        data-cy="sqlserver-location"
+      >
+        <option v-for="(loc, index) in locationList" :key="index">
+          {{ loc }}
+        </option>
+      </b-select>
+    </b-field>
+
     <b-field
       label="Type *"
       custom-class="is-small"
@@ -259,15 +273,6 @@
       />
     </b-field>
 
-    <b-field label="Location" custom-class="is-small" expanded>
-      <b-input
-        size="is-small"
-        type="text"
-        v-model="msSqlServer.location"
-        data-cy="sqlserver-location"
-      />
-    </b-field>
-
     <slot />
   </AdvancedFiltersBase>
 </template>
@@ -300,7 +305,9 @@ export default {
       msSqlServer: {
         hosts: [],
         clusters: [],
+        location: 'All',
       },
+      locationList: [],
       host: 'host',
       cluster: 'cluster',
       filteredlicenseTypeID: [],
@@ -309,11 +316,16 @@ export default {
   beforeMount() {
     this.filteredlicenseTypeID = this.getMicrosoftLicensesTypes
 
-    bus.$on('onResetAction', () => (this.msSqlServer = {}))
+    bus.$on('onResetAction', () => (this.msSqlServer = { location: 'All' }))
     bus.$on('updateMicrosoftContract', (data) => {
       bus.$emit('onToggleEdit', true)
       this.editContract(data)
     })
+
+    this.locationList = JSON.parse(
+      localStorage.getItem('persisted-data')
+    ).globalFilters.locations
+    this.locationList.unshift('All')
   },
   methods: {
     ...mapActions(['microsoftContractsActions']),
@@ -332,6 +344,8 @@ export default {
         this.msSqlServer.type === 'HOST' ? this.msSqlServer.hosts : []
       this.msSqlServer.clusters =
         this.msSqlServer.type === 'CLUSTER' ? this.msSqlServer.clusters : []
+      this.msSqlServer.location =
+        this.msSqlServer.location !== 'All' ? this.msSqlServer.location : ''
 
       this.microsoftContractsActions({
         action: action,
@@ -362,7 +376,7 @@ export default {
           : null,
         hosts: this.mapAssociated(data.hosts, 'host'),
         clusters: this.mapAssociated(data.clusters, 'cluster'),
-        location: data.location,
+        location: data.location === '' ? 'All' : data.location,
       }
     },
   },

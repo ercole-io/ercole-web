@@ -10,6 +10,7 @@
       <th colspan="2" style="text-align: center !important">
         {{ $t('common.collumns.actions') }}
       </th>
+      <v-th sortKey="location">Location</v-th>
       <v-th sortKey="type"> Type </v-th>
       <v-th sortKey="contractID"> Contract ID </v-th>
       <v-th sortKey="licenseTypeID"> License Type </v-th>
@@ -21,7 +22,6 @@
       </v-th>
       <v-th sortKey="clusters">Clusters</v-th>
       <v-th sortKey="hosts">Hosts</v-th>
-      <v-th sortKey="location">Location</v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
@@ -47,6 +47,7 @@
           "
         />
       </td>
+      <TdContent :value="rowData.scope.location" />
       <TdContent :value="rowData.scope.type" />
       <TdContent :value="rowData.scope.contractID" />
       <TdContent :value="rowData.scope.licenseTypeID" />
@@ -90,7 +91,6 @@
         />
         <span v-else>-</span>
       </td>
-      <TdContent :value="rowData.scope.location" />
     </template>
 
     <div class="is-flex" slot="export">

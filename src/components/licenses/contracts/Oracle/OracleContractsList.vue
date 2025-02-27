@@ -10,6 +10,7 @@
       <th colspan="4" style="text-align: center !important">
         {{ $t('common.collumns.actions') }}
       </th>
+      <v-th sortKey="location"> Location </v-th>
       <v-th sortKey="contractID">
         {{ $t('common.collumns.agreeNumber') }}
       </v-th>
@@ -52,7 +53,6 @@
       <v-th sortKey="restricted">
         {{ $t('common.collumns.restricted') }}
       </v-th>
-      <v-th sortKey="location"> Location </v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
@@ -100,6 +100,7 @@
           @click.native="cloneOracleContract(rowData.scope)"
         />
       </td>
+      <TdContent :value="rowData.scope.location" />
       <TdContent :value="rowData.scope.contractID" />
       <TdContent :value="rowData.scope.licenseTypeID" />
       <TdContent
@@ -130,7 +131,6 @@
       <TdContent :value="rowData.scope.availableLicensesPerUser" />
       <TdIcon :value="rowData.scope.basket" />
       <TdIcon :value="rowData.scope.restricted" />
-      <TdContent :value="rowData.scope.location" />
     </template>
 
     <div class="is-flex" slot="export">
