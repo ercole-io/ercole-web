@@ -6,6 +6,20 @@
     :applyText="mysqlForm.id ? 'Update Contract' : 'Add Contract'"
     cancelText="Cancel"
   >
+    <b-field label="Location" custom-class="is-small">
+      <b-select
+        size="is-small"
+        placeholder="Select"
+        v-model="mysqlForm.location"
+        expanded
+        data-cy="mysql-location"
+      >
+        <option v-for="(loc, index) in locationList" :key="index">
+          {{ loc }}
+        </option>
+      </b-select>
+    </b-field>
+
     <b-field
       label="Type *"
       custom-class="is-small"
@@ -283,15 +297,6 @@
       </b-taginput>
     </b-field>
 
-    <b-field label="Location" custom-class="is-small" expanded>
-      <b-input
-        size="is-small"
-        type="text"
-        v-model="mysqlForm.location"
-        data-cy="mysql-location"
-      />
-    </b-field>
-
     <slot />
   </AdvancedFiltersBase>
 </template>
@@ -325,7 +330,9 @@ export default {
       mysqlForm: {
         hosts: [],
         clusters: [],
+        location: 'All',
       },
+      locationList: [],
       host: 'host',
       cluster: 'cluster',
       filteredlicenseTypeID: [],
@@ -334,11 +341,16 @@ export default {
   async beforeMount() {
     this.filteredlicenseTypeID = this.getMysqlLicensesTypes
 
-    bus.$on('onResetAction', () => (this.mysqlForm = {}))
+    bus.$on('onResetAction', () => (this.mysqlForm = { location: 'All' }))
     bus.$on('updateMysqlContract', (data) => {
       bus.$emit('onToggleEdit', true)
       this.editContract(data)
     })
+
+    this.locationList = JSON.parse(
+      localStorage.getItem('persisted-data')
+    ).globalFilters.locations
+    this.locationList.unshift('All')
   },
   methods: {
     ...mapActions(['mysqlContractsActions']),
@@ -357,6 +369,9 @@ export default {
         this.mysqlForm.type === 'HOST' ? this.mysqlForm.hosts : []
       this.mysqlForm.clusters =
         this.mysqlForm.type === 'CLUSTER' ? this.mysqlForm.clusters : []
+      this.mysqlForm.type === 'CLUSTER' ? this.mysqlForm.clusters : []
+      this.mysqlForm.location =
+        this.mysqlForm.location !== 'All' ? this.mysqlForm.location : ''
 
       this.mysqlContractsActions({
         action: action,
@@ -375,6 +390,7 @@ export default {
         },
         data.type
       )
+
       this.mysqlForm = {
         id: data.id,
         type: data.type,
@@ -387,7 +403,7 @@ export default {
           : null,
         hosts: this.mapAssociated(data.hosts, 'host'),
         clusters: this.mapAssociated(data.clusters, 'cluster'),
-        location: data.location,
+        location: data.location === '' ? 'All' : data.location,
       }
     },
   },
