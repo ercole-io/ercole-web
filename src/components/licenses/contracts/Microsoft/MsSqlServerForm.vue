@@ -6,20 +6,6 @@
     :applyText="msSqlServer.id ? 'Update Contract' : 'Add Contract'"
     cancelText="Cancel"
   >
-    <b-field label="Location" custom-class="is-small">
-      <b-select
-        size="is-small"
-        placeholder="Select"
-        v-model="msSqlServer.location"
-        expanded
-        data-cy="sqlserver-location"
-      >
-        <option v-for="(loc, index) in locationList" :key="index">
-          {{ loc }}
-        </option>
-      </b-select>
-    </b-field>
-
     <b-field
       label="Type *"
       custom-class="is-small"
@@ -271,6 +257,20 @@
         icon="calendar-today"
         data-cy="sqlserver-expiration"
       />
+    </b-field>
+
+    <b-field label="Location" custom-class="is-small">
+      <b-select
+        size="is-small"
+        placeholder="Select"
+        v-model="msSqlServer.location"
+        expanded
+        data-cy="sqlserver-location"
+      >
+        <option v-for="(loc, index) in locationList" :key="index">
+          {{ loc }}
+        </option>
+      </b-select>
     </b-field>
 
     <slot />

@@ -6,20 +6,6 @@
     :applyText="mysqlForm.id ? 'Update Contract' : 'Add Contract'"
     cancelText="Cancel"
   >
-    <b-field label="Location" custom-class="is-small">
-      <b-select
-        size="is-small"
-        placeholder="Select"
-        v-model="mysqlForm.location"
-        expanded
-        data-cy="mysql-location"
-      >
-        <option v-for="(loc, index) in locationList" :key="index">
-          {{ loc }}
-        </option>
-      </b-select>
-    </b-field>
-
     <b-field
       label="Type *"
       custom-class="is-small"
@@ -295,6 +281,20 @@
 
         <template slot="empty"> There are no clusternames </template>
       </b-taginput>
+    </b-field>
+
+    <b-field label="Location" custom-class="is-small">
+      <b-select
+        size="is-small"
+        placeholder="Select"
+        v-model="mysqlForm.location"
+        expanded
+        data-cy="mysql-location"
+      >
+        <option v-for="(loc, index) in locationList" :key="index">
+          {{ loc }}
+        </option>
+      </b-select>
     </b-field>
 
     <slot />

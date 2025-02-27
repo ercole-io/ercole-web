@@ -8,20 +8,6 @@
     "
     :cancelText="$t('common.forms.cancel')"
   >
-    <b-field label="Location" custom-class="is-small">
-      <b-select
-        size="is-small"
-        placeholder="Select"
-        v-model="oracleForm.location"
-        expanded
-        data-cy="oracle-location"
-      >
-        <option v-for="(loc, index) in locationList" :key="index">
-          {{ loc }}
-        </option>
-      </b-select>
-    </b-field>
-
     <b-field
       :label="`${$t('common.fields.agreeNumber')} *`"
       custom-class="is-small"
@@ -355,6 +341,20 @@
           No
         </b-radio>
       </div>
+    </b-field>
+
+    <b-field label="Location" custom-class="is-small">
+      <b-select
+        size="is-small"
+        placeholder="Select"
+        v-model="oracleForm.location"
+        expanded
+        data-cy="oracle-location"
+      >
+        <option v-for="(loc, index) in locationList" :key="index">
+          {{ loc }}
+        </option>
+      </b-select>
     </b-field>
 
     <slot />
