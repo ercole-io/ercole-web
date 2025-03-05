@@ -3,7 +3,7 @@
     <p class="subHeader">RDMA over Converged Ethernet (RoCE)</p>
     <div class="table-container">
       <b-table :data="[rdmaData]">
-        <b-table-column width="40px" label="Switch Name" centered>
+        <b-table-column width="20%" label="Switch Name" centered>
           <template v-slot="props">
             <template v-if="context != 'EDIT' && props.row">
               <p
@@ -24,7 +24,7 @@
             </template>
           </template>
         </b-table-column>
-        <b-table-column width="40px" label="Model" centered>
+        <b-table-column width="20%" label="Model" centered>
           <template v-slot="props">
             <template v-if="context != 'EDIT' && props.row">
               <p
@@ -44,7 +44,7 @@
               </b-field>
             </template> </template
         ></b-table-column>
-        <b-table-column width="40px" label="Version" centered>
+        <b-table-column width="20%" label="Version" centered>
           <template v-slot="props">
             <template v-if="context != 'EDIT' && props.row">
               <p
