@@ -40,7 +40,7 @@
         <v-th sortKey="covered">
           {{ $t('common.collumns.covered') }}
         </v-th>
-        <v-th sortKey="compliance">
+        <v-th sortKey="compliance" defaultSort="asc">
           {{ $t('common.collumns.compliance') }}
         </v-th>
         <v-th sortKey="unlimited">
