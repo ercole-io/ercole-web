@@ -78,10 +78,7 @@
               {{ $t('common.forms.reset') }}
               {{ $t('common.globalFilters.location') }}
             </option>
-            <option
-              v-for="(loc, index) in globalFilters.locations"
-              :key="index"
-            >
+            <option v-for="(loc, index) in setLocations" :key="index">
               {{ loc }}
             </option>
           </b-select>
@@ -163,6 +160,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { formatDatepickerDate } from '@/helpers/helpers.js'
 import formatDate from '@/filters/formatDate.js'
@@ -415,6 +413,13 @@ export default {
         this.$route.name !== 'exadataPA' &&
         this.$route.name !== 'nodes'
       )
+    },
+    setLocations() {
+      if (_.includes(this.$route.path, 'licenses')) {
+        return this.globalFilters.locationsLicenses
+      } else {
+        return this.globalFilters.locations
+      }
     },
   },
 }
