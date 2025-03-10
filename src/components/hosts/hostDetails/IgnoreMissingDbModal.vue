@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card" style="width: auto">
+  <div class="modal-card" style="width: 400px">
     <!-- <b-loading
       :is-full-page="false"
       v-model="isLoading"
@@ -12,8 +12,7 @@
       </p>
     </header>
     <section class="modal-card-body">
-      {{ data }}
-      <!-- <FullTable
+      <FullTable
         placeholder="Search"
         :keys="[]"
         :tableData="data"
@@ -21,67 +20,26 @@
         :isLoadingTable="false"
       >
         <template slot="headData">
-          <v-th sortKey="hostname">{{ headData[0] }}</v-th>
-          <v-th sortKey="consumedLicensesCount">{{ headData[1] }}</v-th>
+          <v-th sortKey="">Database Name</v-th>
+          <v-th sortKey="">Actions</v-th>
         </template>
 
         <template slot="bodyData" slot-scope="rowData">
-          <HostLink
-            :hostname="rowData.scope.hostname"
-            :class="{
-              'has-background-danger-light':
-                rowData.scope.totalCoveredLicensesCount <
-                rowData.scope.consumedLicensesCount,
-            }"
-          />
-          <TdContent
-            :value="rowData.scope.consumedLicensesCount"
-            :class="{
-              'has-background-danger-light':
-                rowData.scope.totalCoveredLicensesCount <
-                rowData.scope.consumedLicensesCount,
-            }"
-          />
-          <TdContent
-            :value="rowData.scope.coveredLicensesCount"
-            :class="{
-              'has-background-danger-light':
-                rowData.scope.totalCoveredLicensesCount <
-                rowData.scope.consumedLicensesCount,
-            }"
-          />
-          <TdContent
-            :value="rowData.scope.totalCoveredLicensesCount"
-            :class="{
-              'has-background-danger-light':
-                rowData.scope.totalCoveredLicensesCount <
-                rowData.scope.consumedLicensesCount,
-            }"
-          />
-          <td
-            :class="{
-              'has-background-danger-light':
-                rowData.scope.totalCoveredLicensesCount <
-                rowData.scope.consumedLicensesCount,
-            }"
-          >
-            <b-icon
-              v-tooltip="options(delButton)"
-              type="is-danger"
-              class="delete-icon"
-              pack="fas"
-              icon="trash-alt"
-              @click.native="deleteHostAssociated(rowData.scope.hostname)"
-            />
+          <TdContent :value="rowData.scope" />
+          <td>
+            <b-icon type="is-info" class="delete-icon" pack="fas" icon="eye" />
           </td>
         </template>
-      </FullTable> -->
+      </FullTable>
     </section>
     <footer class="modal-card-foot"></footer>
   </div>
 </template>
 
 <script>
+import FullTable from '@/components/common/Table/FullTable.vue'
+import TdContent from '@/components/common/Table/TdContent.vue'
+
 export default {
   name: 'host-details-oracle-ignoe-missing-dbs-modal',
   props: {
@@ -89,6 +47,10 @@ export default {
       type: Array,
       default: [],
     },
+  },
+  components: {
+    FullTable,
+    TdContent,
   },
 }
 </script>

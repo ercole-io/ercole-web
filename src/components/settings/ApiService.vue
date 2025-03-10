@@ -324,6 +324,35 @@
           </div>
         </div>
       </BoxContent>
+
+      <BoxContent
+        title="Licenses Locations"
+        class="is-size-5 has-text-weight-semibold"
+        customStyle="padding: 20px 40px"
+        border
+        hasShadow
+      >
+        <div class="column is-one-quarter">
+          <div class="field">
+            <div
+              class="is-flex is-flex-direction-row is-justify-content-space-between"
+            >
+              <label
+                v-html="highlight(APIServiceLabels[22])"
+                class="label is-small"
+              />
+              <b-icon
+                pack="fas"
+                icon="circle-info"
+                size="is-small"
+                type="is-info"
+                v-tooltip.top="options(licensesLocationsOptions)"
+              />
+            </div>
+            <CustomInput v-model="APIService.ScopeAsLocation" />
+          </div>
+        </div>
+      </BoxContent>
     </BoxContent>
   </article>
 </template>
