@@ -1,8 +1,9 @@
 import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
-  locations: {},
-  environments: {},
+  locations: [],
+  locationsLicenses: [],
+  environments: [],
   activeFilters: {
     location: null,
     environment: null,
@@ -25,6 +26,9 @@ export const mutations = {
   SET_LOCATIONS: (state, payload) => {
     state.locations = payload
   },
+  SET_LOCATIONS_LICENSES: (state, payload) => {
+    state.locationsLicenses = payload
+  },
   SET_ENVIRONMENTS: (state, payload) => {
     state.environments = payload
   },
@@ -45,6 +49,15 @@ export const actions = {
     }
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_LOCATIONS', res.data)
+    })
+  },
+  async getGlobalFiltersLicensesLocations({ commit }) {
+    const config = {
+      method: 'get',
+      url: 'hosts/technologies/all/databases/licenses/locations',
+    }
+    await axiosRequest('baseApi', config).then((res) => {
+      commit('SET_LOCATIONS_LICENSES', res.data)
     })
   },
   async getGlobalFiltersEnvironments({ commit }) {
