@@ -30,7 +30,7 @@
     "numeral": "^2.0.6",
     "v-mask": "^2.3.0",
     "v-tooltip": "^2.1.3",
-    "vue": "^2.6.14",
+    "vue": "^3.0.0",
     "vue-apexcharts": "^1.6.2",
     "vue-async-manager": "^0.2.1",
     "vue-chartkick": "^0.6.1",
