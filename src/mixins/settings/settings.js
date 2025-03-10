@@ -57,6 +57,7 @@ export default {
         EnableAwsMenu: null,
         EnableGcpMenu: null,
         EnableOciMenu: null,
+        ScopeAsLocation: null,
       },
       AlertService: {
         RemoteEndpoint: null,
@@ -228,6 +229,7 @@ export default {
         'Policy Audit Names to Verify on Databases',
         'Round Decimal Licenses',
         'Threshold Percentage of DB Memory vs Host Memory',
+        'Set Licenses Location Scope',
       ],
       highlightApiService: false,
       AlertServiceLabels: [
@@ -406,6 +408,7 @@ export default {
         EnableAwsMenu: this.getAPIService.EnableAwsMenu,
         EnableGcpMenu: this.getAPIService.EnableGcpMenu,
         EnableOciMenu: this.getAPIService.EnableOciMenu,
+        ScopeAsLocation: this.getAPIService.ScopeAsLocation,
       }
     },
     bindOriginalResourceFilePathData() {
@@ -696,6 +699,9 @@ export default {
     },
     crontabOptions() {
       return `Available options: </br> @daily </br> @weekly </br> @monthly`
+    },
+    licensesLocationsOptions() {
+      return `To set licenses locations scope </br> use ´comma ( , )´ as separator: </br> loc1, loc2, loc3`
     },
     warningAndCritical() {
       return [

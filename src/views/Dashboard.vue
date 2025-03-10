@@ -57,6 +57,7 @@ export default {
     this.getCloudObjects()
 
     this.getGlobalFiltersLocations()
+    this.getGlobalFiltersLicensesLocations()
     this.getGlobalFiltersEnvironments()
     this.requestSettings()
   },
@@ -65,6 +66,7 @@ export default {
       'getDashboardData',
       'getTechnologiesData',
       'getGlobalFiltersLocations',
+      'getGlobalFiltersLicensesLocations',
       'getGlobalFiltersEnvironments',
       'getCloudObjects',
       'getDbConnection',
