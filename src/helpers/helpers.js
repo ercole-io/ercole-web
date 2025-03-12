@@ -260,8 +260,8 @@ export const setFullPartNumber = (data) => {
   _.map(data, (val) => {
     let full = ''
     let id = val.licenseTypeID
-    let description = val.description || val.itemDescription
-    let metric = val.metric
+    let description = val.description || val.itemDescription || '-'
+    let metric = val.metric || '-'
 
     if (id && description) {
       full = `${id} - ${description}`
