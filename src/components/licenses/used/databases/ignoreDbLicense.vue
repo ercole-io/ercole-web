@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapActions } from 'vuex'
 
 export default {
@@ -73,7 +74,7 @@ export default {
         licenseID: this.licenseID,
         status: this.status,
         page: this.page,
-        type: this.type,
+        type: _.includes(this.licenseID, 'ERC') ? 'oracle' : this.type,
         comment: this.status ? message : '',
       }
 
