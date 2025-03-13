@@ -48,7 +48,7 @@ export const actions = {
   async getMissingDbs({ commit }) {
     const config = {
       method: 'get',
-      url: '/hosts/missing-dbs',
+      url: '/hosts/technologies/oracle/missing-dbs',
     }
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_MISSING_DBS', res.data)

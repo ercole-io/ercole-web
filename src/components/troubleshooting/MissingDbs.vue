@@ -11,7 +11,25 @@
       :titleLink="hostRedirect"
     >
       <div class="p-2">
-        <span v-for="msdb in item.missingdbs" :key="msdb">{{ msdb }}, </span>
+        <p
+          v-for="msdb in item.missingDatabases"
+          :key="msdb.name"
+          class="is-size-6"
+        >
+          <span class="has-text-weight-medium p-1" style="line-height: 0px">
+            <b-icon
+              pack="mdi"
+              icon="minus-circle"
+              type="is-danger"
+              v-tooltip="options(`Is Ignored: ${msdb.ignored}`)"
+            />
+            {{ msdb.name }}
+            <span class="is-size-7" v-if="msdb.ignoredComment">
+              - Ignore Comment:
+              <span class="is-size-6">{{ msdb.ignoredComment }}</span>
+            </span>
+          </span>
+        </p>
       </div>
     </CollapseSimple>
 
@@ -42,10 +60,12 @@
 
 <script>
 import _ from 'lodash'
+import TooltipMixin from '@/mixins/tooltipMixin.js'
 import CollapseSimple from '@/components/common/CollapseSimple.vue'
 import NoContent from '@/components/common/NoContent.vue'
 
 export default {
+  mixins: [TooltipMixin],
   props: {
     data: {
       type: Array,
