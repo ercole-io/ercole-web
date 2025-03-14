@@ -19,34 +19,8 @@
 
     <div slot="customSubTitle" v-if="showMissingDbWarning" class="is-flex mb-3">
       <div class="is-flex is-flex-direction-column is-align-items-flex-start">
-        <b-tag type="is-danger" class="custom-tag mb-1 py-2 px-2">
-          This host has
-          <span class="has-text-weight-bold">
-            {{ hostDetails.isMissingDB.length }}
-          </span>
-          missing Databases:
-          <span
-            v-for="(db, i) in hostDetails.isMissingDB"
-            :key="db"
-            class="has-text-weight-bold"
-          >
-            {{ db
-            }}<span v-if="i !== hostDetails.isMissingDB.length - 1">,</span>
-          </span>
-        </b-tag>
-
-        <b-tag type="is-warning" class="custom-tag py-1 px-2">
-          This host has <span class="has-text-weight-bold">0</span> ignored
-          missing Databases
-
-          <b-icon
-            class="is-clickable has-text-white has-background-info"
-            icon="plus"
-            style="vertical-align: middle"
-            @click.native="openIgnoreDbsModal(hostDetails.isMissingDB)"
-            v-tooltip="options('Ignore Missing Databases')"
-          />
-        </b-tag>
+        <IsMissingDbs />
+        <IgnoredMissingDbs />
       </div>
     </div>
 
@@ -74,7 +48,6 @@ import { mapGetters, mapState } from 'vuex'
 
 import databaseTypesMixin from '@/mixins/hostDetails/databaseTypes.js'
 import databaseFiltersMixin from '@/mixins/hostDetails/databaseFilters.js'
-import TooltipMixin from '@/mixins/tooltipMixin.js'
 
 import BoxContent from '@/components/common/BoxContent.vue'
 import SearchInput from '@/components/common/SearchInput.vue'
@@ -88,11 +61,12 @@ import Mysql from '@/components/hosts/hostDetails/mysql/databases/Databases.vue'
 import Postgre from '@/components/hosts/hostDetails/postgresql/databases/Databases.vue'
 import Mongodb from '@/components/hosts/hostDetails/mongodb/databases/Databases.vue'
 
-import IgnoreMissingDbModal from '@/components/hosts/hostDetails/IgnoreMissingDbModal.vue'
+import IsMissingDbs from '@/components/hosts/hostDetails/IsMissingDbs.vue'
+import IgnoredMissingDbs from '@/components/hosts/hostDetails/IgnoredMissingDbs.vue'
 
 export default {
   name: 'hosts-details-databases-data-component',
-  mixins: [databaseFiltersMixin, databaseTypesMixin, TooltipMixin],
+  mixins: [databaseFiltersMixin, databaseTypesMixin],
   components: {
     BoxContent,
     SearchInput,
@@ -104,6 +78,8 @@ export default {
     Mysql,
     Postgre,
     Mongodb,
+    IsMissingDbs,
+    IgnoredMissingDbs,
   },
   data() {
     return {
@@ -114,17 +90,6 @@ export default {
     bus.$on('isDbFiltersOpen', (val) => {
       this.hideMainSearch = val
     })
-  },
-  methods: {
-    openIgnoreDbsModal(data) {
-      this.$buefy.modal.open({
-        component: IgnoreMissingDbModal,
-        hasModalCard: true,
-        props: {
-          data: data,
-        },
-      })
-    },
   },
   computed: {
     ...mapGetters(['currentHostFiltered']),
@@ -137,12 +102,11 @@ export default {
     },
     showMissingDbWarning() {
       return (
-        this.hostDetails.isMissingDB &&
-        this.hostDetails.isMissingDB.length > 0 &&
-        this.hostDetails.hostType !== 'mysql' &&
-        this.hostDetails.hostType !== 'microsoft' &&
-        this.hostDetails.hostType !== 'postgresql' &&
-        this.hostDetails.hostType !== 'mongodb'
+        (this.hostDetails.isMissingDBs &&
+          this.hostDetails.isMissingDBs.length > 0 &&
+          this.hostDetails.hostType === 'oracle') ||
+        (this.hostDetails.ignoredMissingDBs &&
+          this.hostDetails.ignoredMissingDBs.length > 0)
       )
     },
   },
