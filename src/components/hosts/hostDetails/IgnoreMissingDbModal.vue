@@ -6,7 +6,7 @@
     <section class="modal-card-body">
       <SimpleTable
         :theadData="['Database Name', 'Ignore Comment', 'Ignore Database']"
-        v-if="!isLoading"
+        v-if="!loading"
       >
         <template slot="tbodyContent">
           <tr v-for="(db, i) in getAllData" :key="i">
@@ -33,9 +33,9 @@
       </SimpleTable>
       <b-loading
         :is-full-page="false"
-        v-model="isLoading"
+        v-model="loading"
         :can-cancel="false"
-        v-if="isLoading"
+        v-if="loading"
       ></b-loading>
     </section>
     <footer class="modal-card-foot"></footer>
@@ -57,7 +57,7 @@ export default {
   data() {
     return {
       keys: ['dbname', 'ignored', 'ignoredComment'],
-      isLoading: false,
+      loading: false,
     }
   },
   methods: {
@@ -90,7 +90,7 @@ export default {
       })
     },
     ignoreMissingDatabase(value, dbname, ignore) {
-      this.isLoading = true
+      this.loading = true
       store
         .dispatch('ignoreMissingDatabase', {
           value,
@@ -98,7 +98,7 @@ export default {
           ignore,
         })
         .then(() => {
-          this.isLoading = false
+          this.loading = false
         })
     },
   },
