@@ -94,6 +94,14 @@ export const actions = {
         dispatch('getClusters')
       })
       .then(() => {
+        dispatch('requestDynamicMenu')
+        dispatch('getDbConnection')
+        dispatch('getGlobalFiltersLocations')
+        dispatch('getGlobalFiltersLicensesLocations')
+        dispatch('getGlobalFiltersEnvironments')
+        dispatch('requestSettings')
+      })
+      .then(() => {
         const historyPage = localStorage.getItem('historyPage')
         if (!historyPage) {
           router.replace('/dashboard')
