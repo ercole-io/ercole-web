@@ -17,7 +17,9 @@ export const getters = {
       const seconds = 86400 //24h in seconds
 
       const isMissingDbs = _.map(host.missingDatabases, (val) => {
-        return val.name
+        if (!val.ignored) {
+          return val.name
+        }
       })
 
       allHosts.push({
