@@ -19,8 +19,8 @@
           <span class="has-text-weight-medium p-1" style="line-height: 0px">
             <b-icon
               pack="mdi"
-              icon="minus-circle"
-              type="is-danger"
+              :icon="msdb.ignored ? 'check-circle' : 'minus-circle'"
+              :type="msdb.ignored ? 'is-warning' : 'is-danger'"
               v-tooltip="options(`Is Ignored: ${msdb.ignored}`)"
             />
             {{ msdb.name }}
