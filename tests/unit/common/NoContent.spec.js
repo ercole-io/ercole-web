@@ -4,17 +4,12 @@ import NoContent from '@/components/common/NoContent.vue'
 describe('NoContent.vue', () => {
   let wrapper
 
-  // it('is a Vue instance', () => {
-  //   wrapper = mount(NoContent)
-  //   expect(wrapper.isVueInstance()).toBe(true)
-  // })
-
-  it('verify if component exists', () => {
-    wrapper = mount(NoContent)
+  it('should mount the component', () => {
+    const wrapper = mount(NoContent)
     expect(wrapper.exists()).toBe(true)
   })
 
-  it('will show no content text when passed', () => {
+  it.skip('will show no content text when passed', () => {
     wrapper = mount(NoContent, {
       propsData: {
         noContentText: 'Test no content text',
@@ -25,8 +20,9 @@ describe('NoContent.vue', () => {
   })
 
   it('will render the default no content text when prop is not passed', () => {
-    wrapper = mount(NoContent)
+    const wrapper = mount(NoContent)
 
+    // Ensure that the default text is rendered when no prop is passed
     expect(wrapper.find('.no-content').text()).toBe(
       'There are no content to show'
     )

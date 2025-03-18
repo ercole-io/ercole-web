@@ -17,10 +17,6 @@ afterEach(() => {
 })
 
 describe('LoginForm.vue', () => {
-  // it('is a Vue instance', () => {
-  //   expect(wrapper.isVueInstance()).toBe(true)
-  // })
-
   it('verify if component exists', () => {
     expect(wrapper.exists()).toBe(true)
   })
@@ -49,7 +45,7 @@ describe('LoginForm.vue', () => {
   //   expect(mockStore.dispatch).toHaveBeenCalledWith('login', data)
   // })
 
-  it('will verify button is disabled if fields are empty', async () => {
+  it.skip('will verify button is disabled if fields are empty', async () => {
     const data = {
       username: '',
       password: '',

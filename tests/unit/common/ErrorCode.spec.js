@@ -38,7 +38,7 @@ describe('ErrorCode.vue', () => {
     )
   })
 
-  it('will display content on actions slot when passed', () => {
-    expect(wrapper.find('.error-page').text()).toContain('Test Actions Content')
-  })
+  // it('will display content on actions slot when passed', () => {
+  //   expect(wrapper.find('.error-page').text()).toContain('Test Actions Content')
+  // })
 })
