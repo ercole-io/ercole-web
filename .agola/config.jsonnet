@@ -13,11 +13,8 @@ local task_test(version) = {
   environment: {},
   steps: [
     { type: 'clone' },
-    { type: 'restore_cache', keys: ['cache-node-1' + version + '-sum-{{ md5sum "package.json" }}', 'cache-node-1' + version + '-date-'], dest_dir: './node_modules' },
     { type: 'run', command: 'npm install' },
     { type: 'run', command: 'npm run test:unit' },
-    { type: 'save_cache', key: 'cache-node-1' + version + '-sum-{{ md5sum "package.json" }}', contents: [{ source_dir: './node_modules' }] },
-    { type: 'save_cache', key: 'cache-node-1' + version + '-date-{{ year }}-{{ month }}-{{ day }}', contents: [{ source_dir: './node_modules' }] },
   ],
 };
 
@@ -27,11 +24,8 @@ local task_build(version) = {
   environment: {},
   steps: [
     { type: 'clone' },
-    { type: 'restore_cache', keys: ['cache-node-1' + version + '-sum-{{ md5sum "package.json" }}', 'cache-node-1' + version + '-date-'], dest_dir: './node_modules' },
     { type: 'run', command: 'npm install' },
     { type: 'run', command: 'npm run build' },
-    { type: 'save_cache', key: 'cache-node-1' + version + '-sum-{{ md5sum "package.json" }}', contents: [{ source_dir: './node_modules' }] },
-    { type: 'save_cache', key: 'cache-node-1' + version + '-date-{{ year }}-{{ month }}-{{ day }}', contents: [{ source_dir: './node_modules' }] },
     { type: 'save_to_workspace', contents: [{ source_dir: '.', dest_dir: '/build', paths: ['**'] }] },
   ],
   depends: ['test - node ' + version],
