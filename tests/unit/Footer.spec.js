@@ -1,22 +1,25 @@
 import { mount } from '@vue/test-utils'
+import { nextTick } from 'vue'
 import Footer from '@/components/Footer.vue'
 
 describe('Footer.vue', () => {
-  // it('is a Vue instance', () => {
-  //   const wrapper = mount(Footer)
-  //   expect(wrapper.isVueInstance()).toBe(true)
-  // })
-
-  it('verify if component exists', () => {
+  it('renders the Footer component', () => {
     const wrapper = mount(Footer)
     expect(wrapper.exists()).toBe(true)
   })
 
-  it('will show plataform version text correctly', () => {
+  it('verifies if the component exists', () => {
+    const wrapper = mount(Footer)
+    expect(wrapper.exists()).toBe(true)
+  })
+
+  it('will show platform version text correctly', async () => {
     const text = `Ercole 2.0 © ${new Date().getFullYear()} Sorint.lab S.p.A.`
 
     const wrapper = mount(Footer)
+    await nextTick() // Ensures DOM updates if needed
 
+    expect(wrapper.find('[data-footer]').exists()).toBe(true)
     expect(wrapper.find('[data-footer]').text()).toBe(text)
   })
 })
