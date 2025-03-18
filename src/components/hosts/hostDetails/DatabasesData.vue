@@ -17,21 +17,12 @@
 
     <AdvancedFiltersButton slot="customTitle" />
 
-    <b-tag
-      type="is-danger"
-      class="mb-4 custom-tag"
-      v-if="showMissingDbWarning"
-      slot="customSubTitle"
-    >
-      This host has {{ hostDetails.isMissingDB.length }} missing Databases:
-      <span
-        v-for="(db, i) in hostDetails.isMissingDB"
-        :key="db"
-        class="has-text-weight-bold"
-      >
-        {{ db }}<span v-if="i !== hostDetails.isMissingDB.length - 1">,</span>
-      </span>
-    </b-tag>
+    <div slot="customSubTitle" v-if="showMissingDbWarning" class="is-flex mb-3">
+      <div class="is-flex is-flex-direction-column is-align-items-flex-start">
+        <IsMissingDbs />
+        <IgnoredMissingDbs />
+      </div>
+    </div>
 
     <HbuttonScroll height="30" elemScroll="tabs" />
 
@@ -70,6 +61,9 @@ import Mysql from '@/components/hosts/hostDetails/mysql/databases/Databases.vue'
 import Postgre from '@/components/hosts/hostDetails/postgresql/databases/Databases.vue'
 import Mongodb from '@/components/hosts/hostDetails/mongodb/databases/Databases.vue'
 
+import IsMissingDbs from '@/components/hosts/hostDetails/IsMissingDbs.vue'
+import IgnoredMissingDbs from '@/components/hosts/hostDetails/IgnoredMissingDbs.vue'
+
 export default {
   name: 'hosts-details-databases-data-component',
   mixins: [databaseFiltersMixin, databaseTypesMixin],
@@ -84,6 +78,8 @@ export default {
     Mysql,
     Postgre,
     Mongodb,
+    IsMissingDbs,
+    IgnoredMissingDbs,
   },
   data() {
     return {
@@ -106,12 +102,11 @@ export default {
     },
     showMissingDbWarning() {
       return (
-        this.hostDetails.isMissingDB &&
-        this.hostDetails.isMissingDB.length > 0 &&
-        this.hostDetails.hostType !== 'mysql' &&
-        this.hostDetails.hostType !== 'microsoft' &&
-        this.hostDetails.hostType !== 'postgresql' &&
-        this.hostDetails.hostType !== 'mongodb'
+        (this.hostDetails.isMissingDBs &&
+          this.hostDetails.isMissingDBs.length > 0 &&
+          this.hostDetails.hostType === 'oracle') ||
+        (this.hostDetails.ignoredMissingDBs &&
+          this.hostDetails.ignoredMissingDBs.length > 0)
       )
     },
   },

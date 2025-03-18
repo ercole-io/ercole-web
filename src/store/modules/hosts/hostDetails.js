@@ -28,7 +28,9 @@ export const state = () => ({
   currentHostDbGrants: [],
   selectedKeys: ['name'],
   searchTermDB: '',
-  isMissingDB: false,
+  allMissingDBs: [],
+  isMissingDBs: [],
+  ignoredMissingDBs: [],
   canBeMigrate: false,
   semaphore: '',
   semaphoreData: {},
@@ -184,6 +186,9 @@ export const getters = {
   getDatabaseDiskGroups: (state) => {
     return state.diskGroupsData
   },
+  getAllMissingDBs: (state) => {
+    return state.allMissingDBs
+  },
 }
 
 export const mutations = {
@@ -211,8 +216,10 @@ export const mutations = {
   SET_SEARCH_TERM_DB: (state, payload) => {
     state.searchTermDB = payload
   },
-  SET_IS_MISSING_DBS: (state, payload) => {
-    state.isMissingDB = payload
+  SET_ALL_MISSING_DBS: (state, payload) => {
+    state.allMissingDBs = payload.allMissingDBs
+    state.isMissingDBs = payload.isMissingDBs
+    state.ignoredMissingDBs = payload.ignoredMissingDBs
   },
   SET_CAN_BE_MIGRATE: (state, payload) => {
     state.canBeMigrate = payload
@@ -326,12 +333,52 @@ export const actions = {
   async hostMissingDatabases({ commit }, hostname) {
     const config = {
       method: 'get',
-      url: `/hosts/${hostname}/is-missing-db`,
+      url: `/hosts/${hostname}/technologies/oracle/missing-dbs`,
     }
 
     await axiosRequest('baseApi', config).then((res) => {
-      commit('SET_IS_MISSING_DBS', res.data.IsMissingDB)
+      let isMissingDBs = []
+      let ignoredMissingDBs = []
+
+      let allMissingDBs = res.data
+
+      _.map(allMissingDBs, (val) => {
+        if (val.ignored) {
+          ignoredMissingDBs.push(val.name)
+        } else {
+          isMissingDBs.push(val.name)
+        }
+      })
+
+      const data = {
+        isMissingDBs,
+        ignoredMissingDBs,
+        allMissingDBs,
+      }
+
+      commit('SET_ALL_MISSING_DBS', data)
     })
+  },
+  async ignoreMissingDatabase({ getters, dispatch }, data) {
+    dispatch('onLoadingTable')
+
+    const config = {
+      method: 'put',
+      url: `/hosts/${getters.currentHost}/technologies/oracle/missing-dbs/${data.dbname}/ignored/${data.ignore}`,
+      data: {
+        ignoredComment: data.value,
+      },
+    }
+
+    await axiosRequest('baseApi', config)
+      .then((res) => {
+        if (res.status === 204) {
+          dispatch('hostMissingDatabases', getters.currentHost)
+        }
+      })
+      .then(() => {
+        dispatch('offLoadingTable')
+      })
   },
   async hostDatabaseCanBeMigrate({ commit, getters }, dbname) {
     const config = {
