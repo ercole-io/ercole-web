@@ -16,6 +16,12 @@ export const getters = {
       let fromNow = moment(time).fromNow()
       const seconds = 86400 //24h in seconds
 
+      const missingDbs = _.map(host.missingDatabases, (val) => {
+        if (!val.ignored) {
+          return val.name
+        }
+      })
+
       allHosts.push({
         _id: host._id,
         hostname: host.hostname,
@@ -38,7 +44,7 @@ export const getters = {
         updated: host.createdAt,
         obsolete: compareTime > seconds ? true : false,
         obsoleteDiff: `Obsolete from ${fromNow}`,
-        isMissingDB: host.isMissingDB,
+        isMissingDB: missingDbs,
         clusterwareVersion: host.info.clusterwareVersion,
       })
     })
