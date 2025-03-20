@@ -420,6 +420,10 @@ export default {
         return this.globalFilters.locations
       }
     },
+    locationAlias() {
+      return JSON.parse(localStorage.getItem('persisted-data')).settings
+        .allSettings.APIService.LocationAlias
+    },
   },
 }
 </script>
