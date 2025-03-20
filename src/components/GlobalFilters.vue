@@ -54,9 +54,7 @@
     <b-collapse animation="slide" :open.sync="isFiltersOpened">
       <div class="filters-form">
         <b-field
-          :label="
-            locationAlias ? locationAlias : $t('common.globalFilters.location')
-          "
+          :label="locationAlias"
           class="filters-field"
           custom-class="is-size-7"
           horizontal
@@ -67,11 +65,7 @@
           <b-select
             v-model="glFilters.location"
             size="is-small"
-            :placeholder="`${$t('common.forms.select')} ${
-              locationAlias
-                ? locationAlias
-                : $t('common.globalFilters.locationPH')
-            }`"
+            :placeholder="`${$t('common.forms.select')} ${locationAlias}`"
             expanded
           >
             <option :value="null" v-if="glFilters.location">
@@ -174,8 +168,7 @@ export default {
       isFiltersOpened: false,
       filterIcon: 'chevron-down',
       glFilters: {},
-      locationAlias: JSON.parse(localStorage.getItem('persisted-data')).settings
-        .allSettings.APIService.LocationAlias,
+      locationAlias: '',
     }
   },
   beforeMount() {
@@ -187,6 +180,12 @@ export default {
         : null,
     }
     this.isFiltersOpened = this.globalFilters.isFilterOpened
+  },
+  beforeUpdate() {
+    const alias = JSON.parse(localStorage.getItem('persisted-data')).settings
+      .allSettings.APIService.LocationAlias
+    this.locationAlias =
+      alias !== '' ? alias : this.$t('common.globalFilters.location')
   },
   methods: {
     ...mapActions([

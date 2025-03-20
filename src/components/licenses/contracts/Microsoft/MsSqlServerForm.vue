@@ -324,7 +324,7 @@ export default {
 
     this.locationList = JSON.parse(
       localStorage.getItem('persisted-data')
-    ).globalFilters.locationsLicenses
+    ).globalFilters.locations
     this.locationList.unshift('All')
   },
   methods: {
