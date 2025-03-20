@@ -174,8 +174,6 @@ export default {
       isFiltersOpened: false,
       filterIcon: 'chevron-down',
       glFilters: {},
-      locationAlias: JSON.parse(localStorage.getItem('persisted-data')).settings
-        .allSettings.APIService.LocationAlias,
     }
   },
   beforeMount() {
@@ -420,6 +418,10 @@ export default {
       } else {
         return this.globalFilters.locations
       }
+    },
+    locationAlias() {
+      return JSON.parse(localStorage.getItem('persisted-data')).settings
+        .allSettings.APIService.LocationAlias
     },
   },
 }
