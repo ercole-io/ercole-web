@@ -44,8 +44,6 @@ export default {
     Alerts,
   },
   beforeMount() {
-    this.requestDynamicMenu()
-    this.getDbConnection()
     this.getDashboardData()
       .then(() => {
         bus.$emit('loadDashboardComplete')
@@ -55,23 +53,12 @@ export default {
       })
     this.getTechnologiesData()
     this.getCloudObjects()
-
-    this.getGlobalFiltersLocations()
-    this.getGlobalFiltersLicensesLocations()
-    this.getGlobalFiltersEnvironments()
-    this.requestSettings()
   },
   methods: {
     ...mapActions([
       'getDashboardData',
       'getTechnologiesData',
-      'getGlobalFiltersLocations',
-      'getGlobalFiltersLicensesLocations',
-      'getGlobalFiltersEnvironments',
       'getCloudObjects',
-      'getDbConnection',
-      'requestDynamicMenu',
-      'requestSettings',
     ]),
   },
 }
