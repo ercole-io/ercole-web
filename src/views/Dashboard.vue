@@ -6,9 +6,6 @@
           <div class="column is-12">
             <Technologies />
           </div>
-          <!-- <div class="column is-6">
-            <CloudObjects />
-          </div> -->
         </div>
         <div class="columns">
           <div class="column is-12">
@@ -31,7 +28,6 @@
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions } from 'vuex'
 import Technologies from '@/components/dashboard/technologies/Technologies.vue'
-// import CloudObjects from '@/components/dashboard/cloud/CloudObjects.vue'
 import DashboardTabs from '@/components/dashboard/DashboardTabs.vue'
 import Alerts from '@/components/dashboard/alerts/Alerts.vue'
 
@@ -39,7 +35,6 @@ export default {
   name: 'dashboard-page',
   components: {
     Technologies,
-    // CloudObjects,
     DashboardTabs,
     Alerts,
   },
@@ -53,26 +48,12 @@ export default {
       })
     this.getTechnologiesData()
     this.getCloudObjects()
-
-    // this.requestDynamicMenu()
-    // this.getDbConnection()
-    // this.getGlobalFiltersLocations()
-    // this.getGlobalFiltersLicensesLocations()
-    // this.getGlobalFiltersEnvironments()
-    // this.requestSettings()
   },
   methods: {
     ...mapActions([
       'getDashboardData',
       'getTechnologiesData',
       'getCloudObjects',
-
-      // 'getGlobalFiltersLocations',
-      // 'getGlobalFiltersLicensesLocations',
-      // 'getGlobalFiltersEnvironments',
-      // 'getDbConnection',
-      // 'requestDynamicMenu',
-      // 'requestSettings',
     ]),
   },
 }
