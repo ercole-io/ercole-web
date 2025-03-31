@@ -29,7 +29,7 @@ export default {
       this.$emit('collapsedSidebar', collapsed)
     },
     checkMenu(name, parent) {
-      parent !== 'Cloud Advisors '
+      parent !== 'Cloud Advisors'
         ? localStorage.setItem('hideRecommendationsErrors', false)
         : localStorage.setItem('hideRecommendationsErrors', true)
 
