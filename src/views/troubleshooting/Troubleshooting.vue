@@ -65,7 +65,7 @@
           border
           hasShadow
           style="min-height: 640px"
-          v-if="hideRecommendationsErrors"
+          v-if="showRecommendationsErrors"
         >
           <p slot="customTitle">
             (<span class="collapsible-recerrors-header has-text-weight-bold">
@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapActions, mapState } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import AgentsNoData from '@/components/troubleshooting/AgentsNoData.vue'
@@ -105,6 +106,7 @@ export default {
       missingDbsLoading: true,
       noCLusterLoading: true,
       recErrorsLoading: true,
+      showRecommendationsErrors: null,
     }
   },
   beforeMount() {
@@ -119,6 +121,14 @@ export default {
     })
     this.getRecommendationErrors().then(() => {
       this.recErrorsLoading = false
+    })
+
+    _.map(this.getDynamicMenu, (val) => {
+      if (val.name === '' && val.parent === 'Cloud Advisor') {
+        this.showRecommendationsErrors = true
+      } else {
+        this.showRecommendationsErrors = false
+      }
     })
   },
   methods: {
@@ -142,9 +152,6 @@ export default {
     },
     recommendationErrors() {
       return this.troubleshooting.recommendationErrors
-    },
-    hideRecommendationsErrors() {
-      return localStorage.getItem('hideRecommendationsErrors')
     },
   },
 }
