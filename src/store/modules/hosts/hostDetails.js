@@ -39,6 +39,7 @@ export const state = () => ({
   policyAuditColor: '',
   policyAuditData: [],
   diskGroupsData: [],
+  hostDR: false,
 })
 
 export const getters = {
@@ -242,6 +243,9 @@ export const mutations = {
   },
   SET_DB_DISK_GROUPS: (state, payload) => {
     state.diskGroupsData = payload
+  },
+  SET_HOST_DR: (state, payload) => {
+    state.hostDR = payload
   },
 }
 
@@ -455,6 +459,20 @@ export const actions = {
 
     await axiosRequest('baseApi', config).then((res) => {
       commit('SET_DB_DISK_GROUPS', res.data)
+    })
+  },
+  async hostCreateDrData({ commit, getters }) {
+    const host = getters.currentHost
+
+    const config = {
+      method: 'put',
+      url: `/hosts/${host}/create-dr`,
+    }
+
+    await axiosRequest('baseApi', config).then((res) => {
+      console.log(res.data)
+
+      commit('SET_HOST_DR', res.data)
     })
   },
 }
