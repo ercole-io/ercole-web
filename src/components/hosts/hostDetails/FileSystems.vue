@@ -7,6 +7,7 @@
       icon-pack="fas"
       icon-left="receipt"
       size="is-small"
+      class="mr-2"
     />
 
     <b-modal :active.sync="isModalActive" :width="750" scroll="keep">

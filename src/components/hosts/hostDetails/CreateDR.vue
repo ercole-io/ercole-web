@@ -1,29 +1,30 @@
 <template>
-  <GhostLoading :isLoading="loadingTableStatus" setHeight="30" setWidth="107">
+  <GhostLoading
+    :isLoading="loadingTableStatus"
+    setHeight="30"
+    setWidth="107"
+    v-if="!notCloned"
+  >
     <b-button
-      :label="$t('views.hostDetails.fileSystems')"
-      @click="isModalActive = true"
-      type="is-ercole-blue"
+      label="Clone Host"
+      @click="cloneHost"
+      type="is-info"
       icon-pack="fas"
-      icon-left="receipt"
+      icon-left="clone"
       size="is-small"
+      class="mr-2"
     />
-
-    <b-modal :active.sync="isModalActive" :width="750" scroll="keep">
-      <FileSystemsContent :fileSysData="hostFileSystems" />
-    </b-modal>
   </GhostLoading>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import FileSystemsContent from '@/components/hosts/hostDetails/FileSystemsContent.vue'
+import _ from 'lodash'
+import { mapActions, mapGetters } from 'vuex'
 import GhostLoading from '@/components/common/GhostLoading.vue'
 
 export default {
-  name: 'hosts-details-filesystems-main-component',
+  name: 'hosts-details-create-dr-component',
   components: {
-    FileSystemsContent,
     GhostLoading,
   },
   data() {
@@ -31,8 +32,40 @@ export default {
       isModalActive: false,
     }
   },
+  methods: {
+    ...mapActions(['hostCreateDrData']),
+    async cloneHost() {
+      try {
+        await this.hostCreateDrData()
+      } catch (error) {
+        if (error.response && error.response.status === 403) {
+          this.$buefy.dialog.alert({
+            title: 'Clone Host',
+            message: `<p class="has-text-weight-medium">This Host <span class="has-text-weight-bold">${this.currentHost}</span> was already cloned.</p>
+                      <p class="has-text-weight-medium">If you want to clone this host again, go to <span class="has-text-weight-bold">${this.currentHost}-DR</span> and dismiss it.`,
+            confirmText: `Go to ${this.currentHost}-DR`,
+            onConfirm: this.linkToCLonedHost,
+            canCancel: true,
+            cancelText: 'Close',
+            type: 'is-success',
+          })
+        }
+      }
+    },
+    linkToCLonedHost() {
+      this.$router.push({
+        name: 'hosts-details',
+        params: {
+          hostname: `${this.currentHost}-DR`,
+        },
+      })
+    },
+  },
   computed: {
-    ...mapGetters(['hostFileSystems', 'loadingTableStatus']),
+    ...mapGetters(['currentHost', 'loadingTableStatus']),
+    notCloned() {
+      return _.includes(this.currentHost, '-DR')
+    },
   },
 }
 </script>

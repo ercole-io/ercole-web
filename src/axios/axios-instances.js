@@ -47,8 +47,13 @@ export default (name, auth, config) => {
   if (name !== 'login') {
     instance.interceptors.response.use(
       (response) => response,
-      (error) => {
-        return Promise.reject(errorResponseHandler(error))
+      async (error) => {
+        try {
+          await errorResponseHandler(error)
+        } catch (handledError) {
+          return Promise.reject(handledError)
+        }
+        return Promise.reject(error)
       }
     )
   }

@@ -1,10 +1,5 @@
 <template>
-  <GhostLoading
-    :isLoading="loadingTableStatus"
-    setHeight="30"
-    setWidth="109"
-    class="ml-2"
-  >
+  <GhostLoading :isLoading="loadingTableStatus" setHeight="30" setWidth="109">
     <b-button
       type="is-danger is-small"
       @click="deleteHost(currentHost)"
