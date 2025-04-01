@@ -457,4 +457,14 @@ export const actions = {
       commit('SET_DB_DISK_GROUPS', res.data)
     })
   },
+  async hostCreateDrData({ getters }) {
+    const host = getters.currentHost
+
+    const config = {
+      method: 'put',
+      url: `/hosts/${host}/create-dr`,
+    }
+
+    await axiosRequest('baseApi', config)
+  },
 }

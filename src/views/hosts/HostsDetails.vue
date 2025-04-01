@@ -7,6 +7,7 @@
 
       <div class="column is-4">
         <div class="buttons is-justify-content-flex-end">
+          <CreateDR />
           <FileSystems />
           <DismissHost />
         </div>
@@ -38,6 +39,7 @@ import { mapActions, mapMutations, mapGetters } from 'vuex'
 import Notifications from '@/components/hosts/hostDetails/Notifications.vue'
 import FileSystems from '@/components/hosts/hostDetails/FileSystems.vue'
 import DismissHost from '@/components/hosts/hostDetails/DismissHost.vue'
+import CreateDR from '@/components/hosts/hostDetails/CreateDR.vue'
 import DetailsInfo from '@/components/hosts/hostDetails/DetailsInfo.vue'
 import DatabasesMain from '@/components/hosts/hostDetails/DatabasesMain.vue'
 import CollapseSimple from '@/components/common/CollapseSimple.vue'
@@ -50,6 +52,7 @@ export default {
     Notifications,
     FileSystems,
     DismissHost,
+    CreateDR,
     DetailsInfo,
     DatabasesMain,
     CollapseSimple,
