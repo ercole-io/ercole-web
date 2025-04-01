@@ -82,7 +82,7 @@
 
 <script>
 import _ from 'lodash'
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import AgentsNoData from '@/components/troubleshooting/AgentsNoData.vue'
 import MissingDbs from '@/components/troubleshooting/MissingDbs.vue'
@@ -141,6 +141,7 @@ export default {
   },
   computed: {
     ...mapState(['troubleshooting']),
+    ...mapGetters(['getDynamicMenu']),
     agentsNoData() {
       return this.troubleshooting.noDataAgents
     },
