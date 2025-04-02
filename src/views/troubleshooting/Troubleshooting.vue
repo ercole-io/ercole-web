@@ -53,8 +53,8 @@
               {{ vHostsNoCluster.length }} </span
             >)
           </p>
-          <VHostNoCluster :data="vHostsNoCluster" v-if="!noCLusterLoading" />
-          <Loading :isLoading="noCLusterLoading" style="min-height: 640px" />
+          <VHostNoCluster :data="vHostsNoCluster" v-if="!noClusterLoading" />
+          <Loading :isLoading="noClusterLoading" style="min-height: 640px" />
         </BoxContent>
       </div>
       <div class="column">
@@ -81,7 +81,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import { mapActions, mapGetters, mapState } from 'vuex'
 import BoxContent from '@/components/common/BoxContent.vue'
 import AgentsNoData from '@/components/troubleshooting/AgentsNoData.vue'
@@ -104,40 +103,31 @@ export default {
     return {
       agentsLoading: true,
       missingDbsLoading: true,
-      noCLusterLoading: true,
+      noClusterLoading: true,
       recErrorsLoading: true,
-      showRecommendationsErrors: null,
+      showRecommendationsErrors: false,
     }
   },
-  beforeMount() {
-    this.getNoDataAgents().then(() => {
-      this.agentsLoading = false
-    })
-    this.getMissingDbs().then(() => {
-      this.missingDbsLoading = false
-    })
-    this.getvHostsNoCluster().then(() => {
-      this.noCLusterLoading = false
-    })
-    this.getRecommendationErrors().then(() => {
-      this.recErrorsLoading = false
-    })
+  async beforeMount() {
+    this.showRecommendationsErrors = this.getDynamicMenu.some(
+      (val) => val.name === 'Cloud Advisors' && val.parent === ''
+    )
 
-    _.map(this.getDynamicMenu, (val) => {
-      if (val.name === '' && val.parent === 'Cloud Advisor') {
-        this.showRecommendationsErrors = true
-      } else {
-        this.showRecommendationsErrors = false
-      }
-    })
-  },
-  methods: {
-    ...mapActions([
-      'getNoDataAgents',
-      'getMissingDbs',
-      'getvHostsNoCluster',
-      'getRecommendationErrors',
-    ]),
+    try {
+      await Promise.all([
+        this.getNoDataAgents(),
+        this.getMissingDbs(),
+        this.getvHostsNoCluster(),
+        this.getRecommendationErrors(),
+      ])
+    } catch (error) {
+      console.error('Erro ao carregar troubleshooting:', error)
+    } finally {
+      this.agentsLoading = false
+      this.missingDbsLoading = false
+      this.noClusterLoading = false
+      this.recErrorsLoading = false
+    }
   },
   computed: {
     ...mapState(['troubleshooting']),
@@ -155,7 +145,13 @@ export default {
       return this.troubleshooting.recommendationErrors
     },
   },
+  methods: {
+    ...mapActions([
+      'getNoDataAgents',
+      'getMissingDbs',
+      'getvHostsNoCluster',
+      'getRecommendationErrors',
+    ]),
+  },
 }
 </script>
-
-<style lang="scss" scoped></style>
