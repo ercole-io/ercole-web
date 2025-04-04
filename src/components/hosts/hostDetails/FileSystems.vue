@@ -1,5 +1,10 @@
 <template>
-  <GhostLoading :isLoading="loadingTableStatus" setHeight="30" setWidth="107">
+  <GhostLoading
+    :isLoading="loadingTableStatus"
+    setHeight="30"
+    setWidth="107"
+    class="mr-2"
+  >
     <b-button
       :label="$t('views.hostDetails.fileSystems')"
       @click="isModalActive = true"
@@ -7,7 +12,6 @@
       icon-pack="fas"
       icon-left="receipt"
       size="is-small"
-      class="mr-2"
     />
 
     <b-modal :active.sync="isModalActive" :width="750" scroll="keep">
