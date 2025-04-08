@@ -249,7 +249,8 @@ export default {
 }
 
 .highlightText {
-  background: yellow;
+  background: #e8dd09;
+  color: black;
 }
 
 input[type='search'] {
