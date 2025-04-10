@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card" style="width: 250px">
+  <div class="modal-card" style="width: 300px; height: 300px">
     <header class="modal-card-head">
       <p class="modal-card-title">Veritas Cluster Nodes</p>
     </header>

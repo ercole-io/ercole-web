@@ -39,6 +39,8 @@ export const state = () => ({
   policyAuditColor: '',
   policyAuditData: [],
   diskGroupsData: [],
+  clusterVeritasNodes: [],
+  selectedClusterVeritasNodes: [],
 })
 
 export const getters = {
@@ -194,6 +196,10 @@ export const getters = {
 export const mutations = {
   SET_CURRENT_HOST: (state, payload) => {
     state.currentHost = payload
+    state.clusterVeritasNodes = _.filter(
+      payload.clusterMembershipStatus.veritasClusterHostnames,
+      (item) => !item.includes('-DR')
+    )
   },
   SET_CURRENT_HOST_TYPE: (state, payload) => {
     state.hostType = payload
@@ -242,6 +248,9 @@ export const mutations = {
   },
   SET_DB_DISK_GROUPS: (state, payload) => {
     state.diskGroupsData = payload
+  },
+  SET_SELECTED_VERITAS_CLUSTERS: (state, payload) => {
+    state.selectedClusterVeritasNodes = payload
   },
 }
 
@@ -457,12 +466,15 @@ export const actions = {
       commit('SET_DB_DISK_GROUPS', res.data)
     })
   },
-  async hostCreateDrData({ getters }) {
+  async hostCreateDrData({ getters }, data) {
     const host = getters.currentHost
 
     const config = {
-      method: 'put',
+      method: 'post',
       url: `/hosts/${host}/create-dr`,
+      data: {
+        clusterVeritasHostnames: data,
+      },
     }
 
     await axiosRequest('baseApi', config)
