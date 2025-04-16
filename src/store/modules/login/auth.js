@@ -160,6 +160,14 @@ export const actions = {
         dispatch('getUsersInfo')
       })
       .then(() => {
+        dispatch('requestDynamicMenu')
+        dispatch('getDbConnection')
+        dispatch('getGlobalFiltersLocations')
+        dispatch('getGlobalFiltersLicensesLocations')
+        dispatch('getGlobalFiltersEnvironments')
+        dispatch('requestSettings')
+      })
+      .then(() => {
         router.push('/dashboard')
       })
       .catch((err) => {
