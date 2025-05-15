@@ -5,13 +5,13 @@
       size="is-small"
       class="bt-ignore"
       expanded
-      @click="ignoreLicense"
+      @click="handleIgnoreClick"
     >
       <b-icon
-        :icon="!status ? 'eye-slash' : 'eye'"
+        :icon="status ? 'eye' : 'eye-slash'"
         size="is-small"
         pack="fas"
-        :type="!status ? 'is-dark' : 'is-info'"
+        :type="status ? 'is-info' : 'is-dark'"
       />
     </b-button>
   </td>
@@ -22,52 +22,66 @@ import _ from 'lodash'
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'licenses-used-databases-ignore-component',
-  props: [
-    'db',
-    'host',
-    'licenseID',
-    'description',
-    'metric',
-    'status',
-    'page',
-    'type',
-    'ignoreComment',
-  ],
+  name: 'LicensesUsedDatabasesIgnoreComponent',
+  props: {
+    db: String,
+    host: String,
+    licenseID: String,
+    description: String,
+    metric: String,
+    status: Boolean,
+    page: String,
+    type: String,
+    ignoreComment: String,
+  },
   methods: {
     ...mapActions([
       'ignoreDatabaseLicense',
       'getHostByName',
       'getLicensesDatabases',
     ]),
-    ignoreLicense() {
-      if (this.status) {
-        this.ignoreLicenseDialog('ignoreDbLicense')
-      } else {
-        this.ignoreLicenseDialog('reactivateDbLicense')
-      }
+
+    handleIgnoreClick() {
+      const dialogType = this.status ? 'prompt' : 'confirm'
+      const messageKey = this.status ? 'ignoreDbLicense' : 'reactivateDbLicense'
+      this.showIgnoreDialog(dialogType, messageKey)
     },
-    ignoreLicenseDialog(message) {
-      this.$buefy.dialog.prompt({
+
+    showIgnoreDialog(type, messageKey) {
+      const message = this.$i18n.t(`views.licenses.${messageKey}`, {
+        license: `${this.licenseID} - ${this.description} - ${this.metric}`,
+        database: this.db,
+        hostname: this.host,
+      })
+
+      const dialogOptions = {
         title: this.$i18n.t('views.licenses.ignoreLicense'),
-        message: this.$i18n.t(`views.licenses.${message}`, {
-          license: `${this.licenseID} - ${this.description} - ${this.metric}`,
-          database: this.db,
-          hostname: this.host,
-        }),
-        inputAttrs: {
-          placeholder: 'Leave an ignore comment!',
-          value: this.ignoreComment,
-          disabled: !this.status ? true : false,
-        },
+        message,
         type: 'is-danger',
         hasIcon: true,
-        onConfirm: (value) => this.ignoreLicenseAction(value),
         confirmText: this.$i18n.t('common.general.yes'),
         cancelText: this.$i18n.t('common.general.no'),
-      })
+        focusOn: 'confirm',
+        trapFocus: false,
+        closeOnConfirm: true,
+        onConfirm: (value) => this.confirmIgnoreAction(value),
+      }
+
+      if (type === 'prompt') {
+        this.$buefy.dialog.prompt({
+          ...dialogOptions,
+          inputAttrs: {
+            placeholder: 'Leave an ignore comment!',
+            value: this.ignoreComment,
+            disabled: !this.status,
+          },
+        })
+      } else {
+        this.$buefy.dialog.confirm(dialogOptions)
+      }
     },
-    ignoreLicenseAction(message) {
+
+    confirmIgnoreAction(comment) {
       const data = {
         database: this.db,
         hostname: this.host,
@@ -75,7 +89,7 @@ export default {
         status: this.status,
         page: this.page,
         type: _.includes(this.licenseID, 'ERC') ? 'oracle' : this.type,
-        comment: this.status ? message : '',
+        comment: this.status ? comment : '',
       }
 
       this.ignoreDatabaseLicense(data).then(() => {
