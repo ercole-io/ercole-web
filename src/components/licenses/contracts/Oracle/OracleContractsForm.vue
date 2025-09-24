@@ -177,19 +177,29 @@
     </b-field>
 
     <b-field label="Status" custom-class="is-small" expanded>
-      <b-input
+      <b-autocomplete
+        v-model="oracleForm.status"
         size="is-small"
         type="text"
-        v-model="oracleForm.status"
+        icon="magnify"
+        :data="filteredstatus"
+        @typing="getAutocompleteData($event, 'status', getOracleStatus)"
+        @focus="() => (filteredstatus = getOracleStatus)"
+        clearable
         data-cy="oracle-status"
-      />
+        open-on-focus
+      >
+        <template slot="empty">
+          {{ $i18n.t('common.validations.noResults') }}
+        </template>
+      </b-autocomplete>
     </b-field>
 
     <b-field label="Product Order Date" custom-class="is-small" expanded>
-      <!-- <b-datepicker></b-datepicker> -->
       <CustomDatepicker
         v-model="oracleForm.productOrderDate"
         data-cy="oracle-product-order"
+        :maxDate="false"
       />
     </b-field>
 
@@ -419,12 +429,14 @@ export default {
       filteredcsi: [],
       filteredreferenceNumber: [],
       filteredpartNumber: [],
+      filteredstatus: [],
     }
   },
   beforeMount() {
     this.filteredcontractID = this.getOracleContractsIDs
     this.filteredcsi = this.getOracleCsiNumbers
     this.filteredreferenceNumber = this.getOracleReferenceNumbers
+    this.filteredstatus = this.getOracleStatus
     setTimeout(() => {
       this.filteredpartNumber = this.getOracleLicensesTypes
     }, 1000)
@@ -512,6 +524,7 @@ export default {
         },
         'host'
       )
+
       this.oracleForm = {
         licenseID: data.id,
         contractID: data.contractID,
@@ -530,7 +543,9 @@ export default {
           ? new Date(data.supportExpiration)
           : null,
         status: data.status,
-        productOrderDate: new Date(data.productOrderDate),
+        productOrderDate: data.productOrderDate
+          ? new Date(data.productOrderDate)
+          : null,
         location: data.location === '' ? 'All' : data.location,
       }
     },
@@ -541,6 +556,7 @@ export default {
       'getOracleCsiNumbers',
       'getOracleReferenceNumbers',
       'getOracleLicensesTypes',
+      'getOracleStatus',
     ]),
     ula() {
       return this.oracleForm.ula

@@ -11,7 +11,21 @@ export const state = () => ({
 
 export const getters = {
   getContracts: (state) => (type) => {
-    return state[`${type}Contracts`]
+    const contracts = _.map(state[`${type}Contracts`], (val) => {
+      return {
+        ...val,
+        supportExpiration:
+          val.supportExpiration === '1970-01-01T00:00:00Z'
+            ? null
+            : val.supportExpiration,
+        productOrderDate:
+          val.productOrderDate === '1970-01-01T00:00:00Z'
+            ? null
+            : val.productOrderDate,
+      }
+    })
+
+    return contracts
   },
   getHostsAssociated: (state) => {
     return state.hostsAssociated

@@ -47,6 +47,14 @@ export const getters = {
 
     return licensesTypes
   },
+  getOracleStatus: (state, getters) => {
+    const status = []
+
+    _.map(getters.getContracts('oracle'), (val) => {
+      status.push(val.status)
+    })
+    return _.uniq(status)
+  },
 }
 
 export const mutations = {

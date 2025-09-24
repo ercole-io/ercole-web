@@ -7,12 +7,15 @@
     icon="calendar-today"
     :max-date="setMaxDate"
     :date-formatter="formatDate"
+    :date-parser="parseDate"
     class="mr-1"
     append-to-body
+    :editable="true"
   />
 </template>
 
 <script>
+import moment from 'moment'
 import formatDate from '@/filters/formatDate.js'
 
 export default {
@@ -32,6 +35,10 @@ export default {
     formatDate(date) {
       return formatDate(date)
     },
+    parseDate(dateString) {
+      const m = moment(dateString, 'DD/MM/YYYY', true)
+      return m.isValid() ? m.toDate() : null
+    },
   },
   computed: {
     dateVal: {
@@ -39,7 +46,14 @@ export default {
         return this.value
       },
       set(val) {
-        this.$emit('input', val)
+        let date
+        if (val instanceof Date) {
+          date = val
+        } else {
+          const m = moment(val, 'DD/MM/YYYY', true)
+          date = m.isValid() ? m.toDate() : moment(val).toDate()
+        }
+        this.$emit('input', isNaN(date.getTime()) ? null : date)
       },
     },
     dateMsg() {
