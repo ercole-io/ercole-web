@@ -11,6 +11,7 @@
     class="mr-1"
     append-to-body
     :editable="true"
+    v-mask="'##/##/####'"
   />
 </template>
 
