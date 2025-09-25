@@ -141,7 +141,7 @@ local task_build_push_image(push) =
             type: 'pod',
             arch: 'amd64',
             containers: [
-              { image: 'ruby:3-buster' },
+              { image: 'ruby:3-bullseye' },
             ],
           },
           steps: [
