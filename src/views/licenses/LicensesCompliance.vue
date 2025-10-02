@@ -58,11 +58,18 @@
         <TdContent :value="rowData.scope.covered" />
         <TdContent :value="roundPerc(rowData.scope.compliance)" isSlot>
           <a @click="handleClickedRow([rowData.scope])">
+            <span
+              v-if="rowData.scope.compliance === 0"
+              class="zero-progress-danger"
+            >
+              {{ rowData.scope.compliance }}%
+            </span>
             <b-progress
-              format="percent"
-              :type="rowData.scope.complianceStroke"
               :value="rowData.scope.compliance"
+              :type="rowData.scope.complianceStroke"
               show-value
+              format="percent"
+              v-else
             />
           </a>
         </TdContent>
@@ -161,4 +168,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.zero-progress-danger {
+  width: 100%;
+  height: 16px;
+  background-color: #f14668;
+  opacity: 1;
+  border-radius: 10px;
+  display: block;
+  color: white;
+}
+</style>
