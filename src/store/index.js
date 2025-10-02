@@ -98,6 +98,8 @@ import * as users from '@/store/modules/profile/users'
 import * as groups from '@/store/modules/profile/groups'
 import * as roles from '@/store/modules/profile/roles'
 import * as nodes from '@/store/modules/profile/nodes'
+// Scenarios
+import * as scenarios from '@/store/modules/scenarios/scenarios'
 
 Vue.use(Vuex)
 
@@ -172,6 +174,7 @@ export default new Vuex.Store({
     nodes,
     settings,
     troubleshooting,
+    scenarios,
   },
   plugins: [
     createPersistedState({

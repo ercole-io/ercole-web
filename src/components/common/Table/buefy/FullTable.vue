@@ -23,25 +23,9 @@
           {{ $t('common.table.allData') }} - {{ getTotalData }}
         </option>
       </b-select>
+
       <template v-if="hasCheckbox">
-        <b-button
-          :label="`Clear All selected (${checkedRows.length})`"
-          size="is-small"
-          type="is-dark"
-          icon-left="close"
-          @click="checkedRows = []"
-          v-if="checkedRows && checkedRows.length > 0"
-        />
-        <b-button
-          :label="$t('views.alerts.markRead')"
-          type="is-primary"
-          size="is-small"
-          icon-pack="fas"
-          icon-left="check-circle"
-          class="has-text-weight-semibold mr-2 ml-2"
-          @click="markAsRead"
-          v-if="checkedRows && checkedRows.length > 0"
-        />
+        <slot name="checkboxActions" />
       </template>
 
       <div style="width: 100%" class="is-flex is-justify-content-flex-end">
@@ -178,12 +162,14 @@ export default {
   data() {
     return {
       isEmpty: false,
-      checkedRows: [],
       search: '',
+      checkedRows: [],
     }
   },
   beforeMount() {
-    bus.$on('resetRowSelected', () => (this.checkedRows = []))
+    bus.$on('tableCheckedRows', (data) => {
+      this.checkedRows = data
+    })
   },
   methods: {
     ...mapMutations([
@@ -193,9 +179,6 @@ export default {
       'SET_SORT_ORDER',
       'SET_SEARCH_THERM',
     ]),
-    markAsRead() {
-      bus.$emit('getRowSelected', this.checkedRows)
-    },
     onSearch() {
       this.SET_SEARCH_THERM(this.search)
       this.onPageChange(1)
@@ -209,7 +192,6 @@ export default {
       this.fnCallback().then(() => {
         bus.$emit('highlightSearch', this.search)
       })
-      this.checkedRows = []
     },
     onPageSort(field, order) {
       this.SET_SORT_ITEM(field)
@@ -241,6 +223,9 @@ export default {
     loadingTableStatus() {
       const table = this.$el.querySelector('.table-wrapper')
       table.scrollTop = 0
+    },
+    checkedRows() {
+      bus.$emit('tableCheckedRows', this.checkedRows)
     },
   },
 }

@@ -410,7 +410,9 @@ export default {
         this.$route.name !== 'policyaudit' &&
         this.$route.name !== 'allRecommendations' &&
         this.$route.name !== 'exadataPA' &&
-        this.$route.name !== 'nodes'
+        this.$route.name !== 'create-scenarios' &&
+        this.$route.name !== 'list-scenarios' &&
+        this.$route.name !== 'details-scenarios'
       )
     },
     setLocations() {

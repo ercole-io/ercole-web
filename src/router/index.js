@@ -927,6 +927,39 @@ const routes = [
     beforeEnter: verifyAuth,
   },
   {
+    path: '/scenarios/create',
+    name: 'create-scenarios',
+    component: lazyRouteBuilder('scenarios/Create.vue'),
+    meta: {
+      label: 'Create Scenarios',
+      title: `${title}Create Scenarios`,
+      breadcrumb: [{ name: 'Scenarios' }, { name: 'Create' }],
+    },
+    beforeEnter: verifyAuth,
+  },
+  {
+    path: '/scenarios/list',
+    name: 'list-scenarios',
+    component: lazyRouteBuilder('scenarios/List.vue'),
+    meta: {
+      label: 'List Scenarios',
+      title: `${title}List Scenarios`,
+      breadcrumb: [{ name: 'Scenarios' }, { name: 'List' }],
+    },
+    beforeEnter: verifyAuth,
+  },
+  {
+    path: '/scenarios/details',
+    name: 'details-scenarios',
+    component: lazyRouteBuilder('scenarios/Details.vue'),
+    meta: {
+      label: 'Details Scenarios',
+      title: `${title}Details Scenarios`,
+      breadcrumb: [{ name: 'Scenarios' }, { name: 'Details' }],
+    },
+    beforeEnter: verifyAuth,
+  },
+  {
     path: '/users',
     name: 'users',
     component: lazyRouteBuilder('profile/Users.vue'),

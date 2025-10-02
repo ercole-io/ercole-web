@@ -6,7 +6,6 @@
     icon-right="close-circle"
     icon-right-clickable
     @icon-right-click="clearField"
-    v-mask="inputMask"
     :disabled="customInputDisable"
   />
 </template>
@@ -19,10 +18,6 @@ export default {
     inputType: {
       type: String,
       default: 'text',
-    },
-    inputMask: {
-      type: String,
-      default: '',
     },
     customInputDisable: {
       type: Boolean,

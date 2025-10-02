@@ -15,6 +15,28 @@
     hasRefreshButton
     :refreshButtonAction="updateAlerts"
   >
+    <template
+      slot="checkboxActions"
+      v-if="selectedRows && selectedRows.length > 0"
+    >
+      <b-button
+        :label="`Clear All selected (${selectedRows.length})`"
+        size="is-small"
+        type="is-dark"
+        icon-left="close"
+        @click="handleSelectClear"
+      />
+      <b-button
+        :label="$t('views.alerts.markRead')"
+        type="is-primary"
+        size="is-small"
+        icon-pack="fas"
+        icon-left="check-circle"
+        class="has-text-weight-semibold mr-2 ml-2"
+        @click="handleMarkAsRead"
+      />
+    </template>
+
     <template slot="cols">
       <b-table-column
         field="alertCategory"
@@ -122,62 +144,29 @@ export default {
   },
   data() {
     return {
-      columns: [
-        {
-          field: 'alertCategory',
-          label: 'Type',
-          centered: true,
-          sortable: true,
-        },
-        {
-          field: 'date',
-          label: 'Date',
-          centered: true,
-          sortable: true,
-        },
-        {
-          field: 'alertSeverity',
-          label: 'Severity',
-          centered: true,
-          sortable: true,
-        },
-        {
-          field: 'hostname',
-          label: 'Hostname',
-          centered: true,
-          sortable: true,
-        },
-        {
-          field: 'alertCode',
-          label: 'Code',
-          centered: true,
-          sortable: true,
-        },
-        {
-          field: 'description',
-          label: 'Description',
-          centered: true,
-          sortable: true,
-          width: '40%',
-        },
-      ],
+      selectedRows: [],
     }
   },
   beforeMount() {
-    bus.$on('getRowSelected', (data) => {
-      const alertIDs = []
-      _.map(data, (val) => {
-        alertIDs.push(val._id)
-      })
-      this.markAsReadAlertsPage(alertIDs).then(() => {
-        bus.$emit('resetRowSelected')
-        this.getAlertsData()
-      })
+    bus.$on('tableCheckedRows', (data) => {
+      this.selectedRows = data
     })
   },
   methods: {
     ...mapActions(['getAlertsData', 'markAsReadAlertsPage']),
     ...mapMutations(['SET_PAGE_NUM']),
+    handleMarkAsRead() {
+      const alertIDs = _.map(this.selectedRows, (val) => val._id)
+
+      this.markAsReadAlertsPage(alertIDs).then(() => {
+        bus.$emit('resetRowSelected')
+        this.getAlertsData()
+      })
+    },
+    handleSelectClear() {
+      this.selectedRows = []
+      bus.$emit('tableCheckedRows', this.selectedRows)
+    },
     resolveIcon(value) {
       return resolveSeverityIcon(value)
     },
