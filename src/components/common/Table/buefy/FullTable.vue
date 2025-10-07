@@ -28,6 +28,8 @@
         <slot name="checkboxActions" />
       </template>
 
+      <slot name="noCheckboxActions" />
+
       <div style="width: 100%" class="is-flex is-justify-content-flex-end">
         <RefreshButton
           v-if="hasRefreshButton"

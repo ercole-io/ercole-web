@@ -1,14 +1,86 @@
 import _ from 'lodash'
 import { axiosRequest } from '@/services/services.js'
 
+const scenarios = [
+  {
+    name: 'Scenario 1',
+    data: [
+      {
+        cores: 8,
+        hostname: 'CLUAP01',
+        id: '67af443d00c7f994447d43c4',
+        newCore: 10,
+      },
+      {
+        cores: 8,
+        hostname: 'CLUAP02',
+        id: '66f3da1b5cc4e511cca37eae',
+        newCore: 20,
+      },
+      {
+        cores: 12,
+        hostname: 'CLVERI01',
+        id: '66f3da1b5cc4e511cca37e9a',
+        newCore: 30,
+      },
+    ],
+  },
+  {
+    name: 'Scenario 2',
+    data: [
+      {
+        cores: 8,
+        hostname: 'CLUAP01',
+        id: '67af443d00c7f994447d43c4',
+        newCore: 2,
+      },
+      {
+        cores: 8,
+        hostname: 'CLUAP02',
+        id: '66f3da1b5cc4e511cca37eae',
+        newCore: 10,
+      },
+      {
+        cores: 12,
+        hostname: 'CLVERI01',
+        id: '66f3da1b5cc4e511cca37e9a',
+        newCore: 10,
+      },
+    ],
+  },
+  {
+    name: 'Scenario 3',
+    data: [
+      {
+        cores: 8,
+        hostname: 'CLUAP01',
+        id: '67af443d00c7f994447d43c4',
+        newCore: 30,
+      },
+      {
+        cores: 8,
+        hostname: 'CLUAP02',
+        id: '66f3da1b5cc4e511cca37eae',
+        newCore: 10,
+      },
+      {
+        cores: 12,
+        hostname: 'CLVERI01',
+        id: '66f3da1b5cc4e511cca37e9a',
+        newCore: 20,
+      },
+    ],
+  },
+]
+
 export const state = () => ({
-  data: [],
-  selectedData: [],
+  hostsData: [],
+  scenariosData: [],
 })
 
 export const getters = {
-  getAllHostsScenarios: (state) => {
-    return _.map(state.data, (val) => {
+  getHostsData: (state) => {
+    return _.map(state.hostsData, (val) => {
       return {
         id: val.id,
         hostname: val.hostname,
@@ -19,16 +91,22 @@ export const getters = {
       }
     })
   },
+  getCreatedScenarios: (state) => {
+    return state.scenariosData
+  },
 }
 
 export const mutations = {
-  SET_HOSTS_SCENARIOS: (state, payload) => {
-    state.data = payload
+  SET_HOSTS_DATA: (state, payload) => {
+    state.hostsData = payload
+  },
+  SET_CREATED_SCENARIOS: (state, payload) => {
+    state.scenariosData = payload
   },
 }
 
 export const actions = {
-  async getHostsScenarios({ commit, getters, dispatch }, olderThan = null) {
+  async fetchHostsData({ commit, getters, dispatch }, olderThan = null) {
     dispatch('onLoadingTable')
 
     const params = {
@@ -52,11 +130,18 @@ export const actions = {
     await axiosRequest('baseApi', config).then((res) => {
       const data = res.data.hosts
 
-      commit('SET_HOSTS_SCENARIOS', data)
+      commit('SET_HOSTS_DATA', data)
       commit('SET_TOTAL_DATA', data.length)
       commit('SET_PAGE_LENGTH', data.length)
 
       dispatch('offLoadingTable')
     })
+  },
+  async fetchCreatedScenarios({ commit, dispatch }) {
+    dispatch('onLoadingTable')
+
+    commit('SET_CREATED_SCENARIOS', scenarios)
+
+    dispatch('offLoadingTable')
   },
 }
