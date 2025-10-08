@@ -2,27 +2,31 @@
   <FullTable
     :keys="['actions', 'name', 'createdAt', 'hostname', 'core']"
     :tableData="getListScenarios"
-    @clickedRow="handleClickedRow"
-    isClickable
     :isLoadingTable="loadingTableStatus"
   >
     <template slot="headData">
-      <v-th sortKey="actions">Actions</v-th>
+      <v-th
+        sortKey="actions"
+        style="width: 100px; text-align: center !important"
+      >
+        Actions
+      </v-th>
       <v-th sortKey="name">Scenarios</v-th>
       <v-th sortKey="createdAt">Created Date</v-th>
       <v-th sortKey="hostname">Hostname</v-th>
-      <v-th sortKey="core">Core</v-th>
+      <v-th sortKey="originalCore">Original Core</v-th>
+      <v-th sortKey="simulatedCore">Simulated Core</v-th>
     </template>
 
     <template slot="bodyData" slot-scope="rowData">
-      <TdContent isSlot>
+      <TdContent isSlot style="text-align: center !important">
         <b-icon
           v-tooltip="`Delete ${rowData.scope.name}`"
           type="is-danger"
           pack="fas"
           icon="trash-alt"
           size="is-small"
-          @click.native="deleteScenario(rowData.scope)"
+          @click.native="handleDeleteScenario(rowData.scope)"
           class="is-clickable"
         />
       </TdContent>
@@ -38,8 +42,8 @@
       <TdContent :value="getDateTime(rowData.scope.createdAt)" />
       <td>
         <p
-          v-for="item in rowData.scope.data"
-          :key="item.name"
+          v-for="item in rowData.scope.hosts"
+          :key="item.id"
           v-tooltip="options(item.hostname)"
         >
           {{ item.hostname }}
@@ -47,11 +51,20 @@
       </td>
       <td>
         <p
-          v-for="item in rowData.scope.data"
-          :key="item.name"
-          v-tooltip="options(item.core)"
+          v-for="item in rowData.scope.hosts"
+          :key="item.id"
+          v-tooltip="options(item.originalCore)"
         >
-          {{ item.core }}
+          {{ item.originalCore }}
+        </p>
+      </td>
+      <td>
+        <p
+          v-for="item in rowData.scope.hosts"
+          :key="item.id"
+          v-tooltip="options(item.simulatedCore)"
+        >
+          {{ item.simulatedCore }}
         </p>
       </td>
     </template>
@@ -83,17 +96,52 @@ export default {
     await this.fetchListScenarios()
   },
   methods: {
-    ...mapActions(['fetchListScenarios']),
-    deleteScenario(data) {
-      console.log(data)
+    ...mapActions([
+      'fetchListScenarios',
+      'deleteListScenario',
+      'offLoadingTable',
+    ]),
+    handleDeleteScenario(data) {
+      this.$buefy.dialog.confirm({
+        title: `Delete Scenario`,
+        message: `Are you sure you want to <b>delete</b> the scenario <b>${data.name}</b>? This action cannot be undone.`,
+        confirmText: 'Confirm',
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: () => {
+          this.deleteScenario(data.id, data.name)
+        },
+      })
+    },
+    async deleteScenario(id, name) {
+      await this.deleteListScenario(id).then((res) => {
+        if (res.status === 204) {
+          this.$buefy.toast.open({
+            message: `The scenario ${name} was deleted!`,
+            type: 'is-success',
+            duration: 5000,
+            position: 'is-bottom',
+          })
+          this.fetchListScenarios()
+        } else {
+          this.$buefy.toast.open({
+            message: `Something went wrong with this scenario. Please try again!`,
+            type: 'is-danger',
+            duration: 5000,
+            position: 'is-bottom',
+          })
+        }
+      })
     },
     detailScenario(data) {
-      console.log(data)
+      this.$router.push({
+        name: 'details-scenarios',
+        params: { scenario: data.name, id: data.id },
+      })
     },
     getDateTime(date) {
       return formatDateTime(date)
     },
-    handleClickedRow() {},
   },
   computed: {
     ...mapGetters(['getListScenarios', 'loadingTableStatus']),
