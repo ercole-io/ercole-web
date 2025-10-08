@@ -33,46 +33,12 @@
         label="Hostname"
         left
         sortable
-        width="300"
+        width="250"
         v-slot="props"
       >
         <span
           v-tooltip="options(props.row.hostname)"
           v-html="highlight(props.row.hostname)"
-        />
-      </b-table-column>
-
-      <b-table-column
-        field="newCore"
-        label="New Cores"
-        centered
-        sortable
-        width="100"
-        v-slot="props"
-      >
-        <b-field
-          :type="
-            props.row.newCore !== props.row.cores ? 'is-custom-warning' : ''
-          "
-        >
-          <CustomInput
-            v-model="props.row.newCore"
-            inputType="number"
-            @input="getCoreValue(props.row)"
-          />
-        </b-field>
-      </b-table-column>
-
-      <b-table-column
-        field="cores"
-        label="Cores"
-        centered
-        sortable
-        v-slot="props"
-      >
-        <span
-          v-tooltip="options(props.row.cores)"
-          v-html="highlight(props.row.cores)"
         />
       </b-table-column>
 
@@ -101,13 +67,47 @@
           v-html="highlight(props.row.socket)"
         />
       </b-table-column>
+
+      <b-table-column
+        field="cores"
+        label="Cores"
+        centered
+        sortable
+        v-slot="props"
+      >
+        <span
+          v-tooltip="options(props.row.cores)"
+          v-html="highlight(props.row.cores)"
+        />
+      </b-table-column>
+
+      <b-table-column
+        field="newCore"
+        label="New Cores"
+        centered
+        sortable
+        width="100"
+        v-slot="props"
+      >
+        <b-field
+          :type="
+            props.row.newCore !== props.row.cores ? 'is-custom-warning' : ''
+          "
+        >
+          <CustomInput
+            v-model="props.row.newCore"
+            inputType="number"
+            @input="getCoreValue(props.row)"
+          />
+        </b-field>
+      </b-table-column>
     </template>
   </FullTable>
 </template>
 
 <script>
 import _ from 'lodash'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import FullTable from '@/components/common/Table/buefy/FullTable.vue'
@@ -131,7 +131,8 @@ export default {
     this.originalHosts = _.cloneDeep(this.getHostsData)
   },
   methods: {
-    ...mapActions(['fetchHostsData', 'createScenario']),
+    ...mapActions(['fetchHostsData', 'createScenario', 'offLoadingTable']),
+    ...mapMutations(['SET_PAGE_NUM']),
     handleSaveScenarios() {
       this.$buefy.dialog.prompt({
         title: 'Set Scenario Name',
@@ -158,27 +159,29 @@ export default {
         hosts: hosts,
       }
 
-      console.log(saveScenarios)
-      this.handleClearHosts()
-
-      // this.createScenario(saveScenarios).then((res) => {
-      //   if (res.status === 200) {
-      //     this.$buefy.toast.open({
-      //       message: `The scenario ${name} was created!`,
-      //       type: 'is-success',
-      //       duration: 5000,
-      //       position: 'is-bottom',
-      //     })
-      //     this.handleClearHosts()
-      //   } else {
-      //     this.$buefy.toast.open({
-      //       message: `Something went wrong with this scenario. Please try again!`,
-      //       type: 'is-danger',
-      //       duration: 5000,
-      //       position: 'is-bottom',
-      //     })
-      //   }
-      // })
+      await this.createScenario(saveScenarios)
+        .then((res) => {
+          if (res.status === 200) {
+            this.$buefy.toast.open({
+              message: `The scenario ${name} was created!`,
+              type: 'is-success',
+              duration: 5000,
+              position: 'is-bottom',
+            })
+            this.handleClearHosts()
+          } else {
+            this.$buefy.toast.open({
+              message: `Something went wrong with this scenario. Please try again!`,
+              type: 'is-danger',
+              duration: 5000,
+              position: 'is-bottom',
+            })
+          }
+        })
+        .then(() => {
+          this.SET_PAGE_NUM(1)
+          this.offLoadingTable()
+        })
     },
     handleClearHosts() {
       this.getHostsData.forEach((host) => {

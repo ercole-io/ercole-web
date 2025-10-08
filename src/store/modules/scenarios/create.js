@@ -58,7 +58,7 @@ export const actions = {
       dispatch('offLoadingTable')
     })
   },
-  async createScenario({ commit, dispatch }, data) {
+  createScenario({ dispatch }, data) {
     dispatch('onLoadingTable')
 
     const config = {
@@ -67,9 +67,6 @@ export const actions = {
       data: data,
     }
 
-    await axiosRequest('baseApi', config).then(() => {
-      commit('SET_PAGE_NUM', 1)
-      dispatch('offLoadingTable')
-    })
+    return axiosRequest('baseApi', config)
   },
 }
