@@ -949,13 +949,16 @@ const routes = [
     beforeEnter: verifyAuth,
   },
   {
-    path: '/scenarios/details',
+    path: '/scenarios/details/:scenario/:id',
     name: 'details-scenarios',
     component: lazyRouteBuilder('scenarios/Details.vue'),
     meta: {
       label: 'Details Scenarios',
       title: `${title}Details Scenarios`,
-      breadcrumb: [{ name: 'Scenarios' }, { name: 'Details' }],
+      breadcrumb: [
+        { name: 'Scenarios', link: '/scenarios/list' },
+        { name: '' },
+      ],
     },
     beforeEnter: verifyAuth,
   },

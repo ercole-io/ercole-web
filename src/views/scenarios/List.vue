@@ -54,6 +54,7 @@
           v-for="item in rowData.scope.hosts"
           :key="item.id"
           v-tooltip="options(item.originalCore)"
+          class="original-core"
         >
           {{ item.originalCore }}
         </p>
@@ -63,6 +64,7 @@
           v-for="item in rowData.scope.hosts"
           :key="item.id"
           v-tooltip="options(item.simulatedCore)"
+          class="simulated-core"
         >
           {{ item.simulatedCore }}
         </p>
@@ -72,13 +74,10 @@
 </template>
 
 <script>
-// import _ from 'lodash'
-// import { bus } from '@/helpers/eventBus.js'
 import formatDateTime from '@/filters/formatDateTime.js'
 import { mapActions, mapGetters } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
-// import FullTable from '@/components/common/Table/buefy/FullTable.vue'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 
@@ -149,4 +148,13 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+.original-core {
+  color: #0c8c29;
+  font-weight: bold;
+}
+.simulated-core {
+  color: #b58003;
+  font-weight: bold;
+}
+</style>

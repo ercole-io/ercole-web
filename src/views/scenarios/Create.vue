@@ -33,7 +33,7 @@
         label="Hostname"
         left
         sortable
-        width="250"
+        width="400"
         v-slot="props"
       >
         <span
@@ -70,7 +70,7 @@
 
       <b-table-column
         field="cores"
-        label="Cores"
+        label="Original Core"
         centered
         sortable
         v-slot="props"
@@ -78,15 +78,16 @@
         <span
           v-tooltip="options(props.row.cores)"
           v-html="highlight(props.row.cores)"
+          class="original-text"
         />
       </b-table-column>
 
       <b-table-column
         field="newCore"
-        label="New Cores"
+        label="Simulated Core"
         centered
         sortable
-        width="100"
+        width="150"
         v-slot="props"
       >
         <b-field
@@ -215,6 +216,10 @@ export default {
 </script>
 
 <style lang="scss">
+.original-text {
+  color: #0c8c29;
+  font-weight: bold;
+}
 .is-custom-warning {
   border-color: #b58003;
   background-color: #f3ca6a;

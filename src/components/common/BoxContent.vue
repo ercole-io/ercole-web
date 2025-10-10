@@ -43,7 +43,6 @@ export default {
       type: String,
       default: '#ffffff',
     },
-
     hasShadow: {
       type: Boolean,
       default: false,
