@@ -1,7 +1,7 @@
 <template>
   <FullTable
     :keys="keys"
-    :tableData="getLicensesScenario('USED_CLUSTERS_VERITAS')"
+    :tableData="getLicensesScenario(licenceType)"
     :isLoadingTable="loadingTableStatus"
   >
     <template slot="headData">
@@ -27,16 +27,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import FullTable from '@/components/common/Table/FullTable.vue'
-import TdContent from '@/components/common/Table/TdContent.vue'
+import ScenariosDetailsMixin from '@/mixins/scenarios/detailsMixin.js'
 
 export default {
   name: 'ScenariosDetailsLicensesUsedClusztersVeritas',
-  components: {
-    FullTable,
-    TdContent,
-  },
+  mixins: [ScenariosDetailsMixin],
   data() {
     return {
       keys: [
@@ -48,19 +43,8 @@ export default {
         'usedLicenses',
         'usedLicensesSim',
       ],
+      licenceType: 'USED_CLUSTERS_VERITAS',
     }
-  },
-  async beforeMount() {
-    await this.fetchScenarioLicenses({
-      id: this.$route.params.id,
-      type: 'USED_CLUSTERS_VERITAS',
-    })
-  },
-  methods: {
-    ...mapActions(['fetchScenarioLicenses']),
-  },
-  computed: {
-    ...mapGetters(['getLicensesScenario', 'loadingTableStatus']),
   },
 }
 </script>

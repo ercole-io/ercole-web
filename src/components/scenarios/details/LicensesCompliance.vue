@@ -1,7 +1,7 @@
 <template>
   <FullTable
     :keys="keys"
-    :tableData="getLicensesScenario('COMPLIANCE')"
+    :tableData="getLicensesScenario(licenceType)"
     :isLoadingTable="loadingTableStatus"
   >
     <template slot="headData">
@@ -71,19 +71,11 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import { mapActions, mapGetters } from 'vuex'
-import FullTable from '@/components/common/Table/FullTable.vue'
-import TdContent from '@/components/common/Table/TdContent.vue'
-import TDIcon from '@/components/common/Table/TDIcon.vue'
+import ScenariosDetailsMixin from '@/mixins/scenarios/detailsMixin.js'
 
 export default {
   name: 'ScenariosDetailsLicensesCompliance',
-  components: {
-    FullTable,
-    TdContent,
-    TDIcon,
-  },
+  mixins: [ScenariosDetailsMixin],
   data() {
     return {
       keys: [
@@ -103,22 +95,8 @@ export default {
         'unlimited',
         'unlimitedSim',
       ],
+      licenceType: 'COMPLIANCE',
     }
-  },
-  async beforeMount() {
-    await this.fetchScenarioLicenses({
-      id: this.$route.params.id,
-      type: 'COMPLIANCE',
-    })
-  },
-  methods: {
-    ...mapActions(['fetchScenarioLicenses']),
-    roundPerc(value) {
-      return `${_.round(value, 2)}%`
-    },
-  },
-  computed: {
-    ...mapGetters(['getLicensesScenario', 'loadingTableStatus']),
   },
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <FullTable
     :keys="keys"
-    :tableData="getLicensesScenario('USED_HOSTS')"
+    :tableData="getLicensesScenario(licenceType)"
     :isLoadingTable="loadingTableStatus"
   >
     <template slot="headData">
@@ -35,16 +35,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import FullTable from '@/components/common/Table/FullTable.vue'
-import TdContent from '@/components/common/Table/TdContent.vue'
+import ScenariosDetailsMixin from '@/mixins/scenarios/detailsMixin.js'
 
 export default {
   name: 'ScenariosDetailsLicensesUsedHosts',
-  components: {
-    FullTable,
-    TdContent,
-  },
+  mixins: [ScenariosDetailsMixin],
   data() {
     return {
       keys: [
@@ -58,19 +53,8 @@ export default {
         'clusterLicenses',
         'clusterLicensesSim',
       ],
+      licenceType: 'USED_HOSTS',
     }
-  },
-  async beforeMount() {
-    await this.fetchScenarioLicenses({
-      id: this.$route.params.id,
-      type: 'USED_HOSTS',
-    })
-  },
-  methods: {
-    ...mapActions(['fetchScenarioLicenses']),
-  },
-  computed: {
-    ...mapGetters(['getLicensesScenario', 'loadingTableStatus']),
   },
 }
 </script>
