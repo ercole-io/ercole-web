@@ -1,7 +1,7 @@
 <template>
   <b-tab-item label="Licenses" v-if="licenses && licenses.length > 0">
     <FullTable
-      :tableData="licenses"
+      :tableData="getLicenses"
       :keys="keys"
       hideSearch
       hidePerpage
@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import _ from 'lodash'
+import { bus } from '@/helpers/eventBus.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import ignoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
@@ -74,7 +76,25 @@ export default {
         'clusterLicenses',
         'ignoredComment',
       ],
+      getLicenses: [],
     }
+  },
+  beforeMount() {
+    this.getLicenses = _.cloneDeep(this.licenses)
+
+    bus.$on('host-details-ignore-license', (data) => {
+      this.getLicenses = _.map(this.getLicenses, (val) => {
+        if (
+          val.hostname === data.hostname &&
+          val.dbName === data.database &&
+          val.licenseTypeID === data.licenseID
+        ) {
+          val.ignored = data.status
+          val.ignoredComment = data.comment
+        }
+        return val
+      })
+    })
   },
 }
 </script>

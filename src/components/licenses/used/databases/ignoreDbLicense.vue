@@ -19,7 +19,8 @@
 
 <script>
 import _ from 'lodash'
-import { mapActions } from 'vuex'
+import { bus } from '@/helpers/eventBus.js'
+import { mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'LicensesUsedDatabasesIgnoreComponent',
@@ -40,20 +41,18 @@ export default {
       'getHostByName',
       'getLicensesDatabases',
     ]),
-
+    ...mapMutations(['SET_LICENSE_DATABASES_IGNORE_COMMENT']),
     handleIgnoreClick() {
       const dialogType = this.status ? 'prompt' : 'confirm'
       const messageKey = this.status ? 'ignoreDbLicense' : 'reactivateDbLicense'
       this.showIgnoreDialog(dialogType, messageKey)
     },
-
     showIgnoreDialog(type, messageKey) {
       const message = this.$i18n.t(`views.licenses.${messageKey}`, {
         license: `${this.licenseID} - ${this.description} - ${this.metric}`,
         database: this.db,
         hostname: this.host,
       })
-
       const dialogOptions = {
         title: this.$i18n.t('views.licenses.ignoreLicense'),
         message,
@@ -94,9 +93,11 @@ export default {
 
       this.ignoreDatabaseLicense(data).then(() => {
         if (this.page === 'host-details') {
-          this.getHostByName({ hostname: this.host, loading: false })
+          bus.$emit('host-details-ignore-license', data)
+          // this.getHostByName({ hostname: this.host, loading: false })
         } else {
-          this.getLicensesDatabases()
+          this.SET_LICENSE_DATABASES_IGNORE_COMMENT(data)
+          // this.getLicensesDatabases()
         }
       })
     },
