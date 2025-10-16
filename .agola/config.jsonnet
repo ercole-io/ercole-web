@@ -12,12 +12,9 @@ local task_test(version) = {
   runtime: node_runtime(version),
   environment: {},
   steps: [
-    { type: 'clone'
-    },
-    { type: 'run', command: 'npm install'
-    },
-    { type: 'run', command: 'npm run test:unit'
-    },
+    { type: 'clone' },
+    { type: 'run', command: 'npm install' },
+    { type: 'run', command: 'npm run test:unit' },
   ],
 };
 
@@ -26,21 +23,12 @@ local task_build(version) = {
   runtime: node_runtime(version),
   environment: {},
   steps: [
-    { type: 'clone'
-    },
-    { type: 'run', command: 'npm install'
-    },
-    { type: 'run', command: 'npm run build'
-    },
-    { type: 'save_to_workspace', contents: [
-        { source_dir: '.', dest_dir: '/build', paths: ['**'
-          ]
-        }
-      ]
-    },
+    { type: 'clone' },
+    { type: 'run', command: 'npm install' },
+    { type: 'run', command: 'npm run build' },
+    { type: 'save_to_workspace', contents: [{ source_dir: '.', dest_dir: '/build', paths: ['**'] }] },
   ],
-  depends: ['test - node ' + version
-  ],
+  depends: ['test - node ' + version],
 };
 
 local task_deploy_repository() = {
@@ -49,23 +37,17 @@ local task_deploy_repository() = {
     type: 'pod',
     arch: 'amd64',
     containers: [
-      { image: 'curlimages/curl'
-      },
+      { image: 'curlimages/curl' },
     ],
   },
   environment: {
-    REPO_USER: { from_variable: 'repo-user'
-    },
-    REPO_TOKEN: { from_variable: 'repo-token'
-    },
-    REPO_UPLOAD_URL: { from_variable: 'repo-upload-url'
-    },
-    REPO_INSTALL_URL: { from_variable: 'repo-install-url'
-    },
+    REPO_USER: { from_variable: 'repo-user' },
+    REPO_TOKEN: { from_variable: 'repo-token' },
+    REPO_UPLOAD_URL: { from_variable: 'repo-upload-url' },
+    REPO_INSTALL_URL: { from_variable: 'repo-install-url' },
   },
   steps: [
-    { type: 'restore_workspace', dest_dir: '.'
-    },
+    { type: 'restore_workspace', dest_dir: '.' },
     {
       type: 'run',
       name: 'curl',
@@ -73,20 +55,17 @@ local task_deploy_repository() = {
         cd pkg
         for f in *; do
         	URL=$(curl --user "${REPO_USER}" \
-            --upload-file $f ${REPO_UPLOAD_URL
-      } --insecure)
+            --upload-file $f ${REPO_UPLOAD_URL} --insecure)
         	echo $URL
           md5sum $f
           curl -H "X-API-Token: ${REPO_TOKEN}" \
           -H "Content-Type: application/json" --request POST --data "{ \"filename\": \"$f\", \"url\": \"$URL\" }" \
-          ${REPO_INSTALL_URL
-      } --insecure
+          ${REPO_INSTALL_URL} --insecure
         done
       |||,
     },
   ],
-  depends: ['pkg build'
-  ],
+  depends: ['pkg build'],
   when: {
     branch: 'master',
     tag: '#.*#',
@@ -106,61 +85,54 @@ local task_build_push_image(push) =
     runtime: {
       arch: 'amd64',
       containers: [
-      {
+        {
           image: 'gcr.io/kaniko-project/executor:debug-v1.0.0',
-      },
-    ],
-  },
-    environment: {
-      DOCKERAUTH: { from_variable: 'dockerauth'
+        },
+      ],
     },
-  },
+    environment: {
+      DOCKERAUTH: { from_variable: 'dockerauth' },
+    },
     shell: '/busybox/sh',
     working_dir: '/kaniko',
     steps: [
-    { type: 'restore_workspace', dest_dir: '/kaniko/ercole-web'
-    },
-  ] + std.prune([
+      { type: 'restore_workspace', dest_dir: '/kaniko/ercole-web' },
+    ] + std.prune([
       if push then {
         type: 'run',
         name: 'generate docker auth',
         command: |||
           cat << EOF > /kaniko/.docker/config.json
           {
-        "auths": {
-          "https://index.docker.io/v1/": {
-            "auth": "$DOCKERAUTH"
+            "auths": {
+              "https://index.docker.io/v1/": { "auth" : "$DOCKERAUTH" }
+            }
           }
-        }
-      }
           EOF
         |||,
-    },
-  ]) + [
-    { type: 'run', command: '/kaniko/executor --context=dir: ///kaniko/ercole-web --dockerfile Dockerfile %s' % [options] },
+      },
+    ]) + [
+      { type: 'run', command: '/kaniko/executor --context=dir:///kaniko/ercole-web --dockerfile Dockerfile %s' % [options] },
     ],
-    depends: ['checkout code'
-    ],
+    depends: ['checkout code'],
   };
 
 {
   runs: [
-      {
+    {
       name: 'ercole-web',
       tasks: std.flattenArrays([
-          [
+               [
                  task_test(version),
-          ]
-               for version in ['16'
-          ]
-        ]) +
+               ]
+               for version in ['16']
+             ]) +
              std.flattenArrays([
-          [
+               [
                  task_build(version),
-          ]
-               for version in ['16'
-          ]
-        ]) + [
+               ]
+               for version in ['16']
+             ]) + [
 
         local version = '16';
         {
@@ -169,31 +141,18 @@ local task_build_push_image(push) =
             type: 'pod',
             arch: 'amd64',
             containers: [
-                { image: 'ruby: 3-bullseye'
-                },
-              ],
-            },
+              { image: 'ruby:3-bullseye' },
+            ],
+          },
           steps: [
-              { type: 'restore_workspace', dest_dir: '.'
-              },
-              { type: 'run', command: 'mv ./build/dist .'
-              },
-              {
+            { type: 'restore_workspace', dest_dir: '.' },
+            { type: 'run', command: 'mv ./build/dist .' },
+            {
               type: 'run',
               name: 'version',
               command: |||
-                if [ -z ${AGOLA_GIT_TAG
-                  }
-                ] || [
-                  [ ${AGOLA_GIT_TAG
-                    } == *-*
-                  ]
-                ]; then
-                  if [
-                  [ ${AGOLA_GIT_TAG
-                    } == *-rc.*
-                  ]
-                ]; then
+                if [ -z ${AGOLA_GIT_TAG} ] || [[ ${AGOLA_GIT_TAG} == *-* ]]; then
+                  if [[ ${AGOLA_GIT_TAG} == *-rc.* ]]; then
                     export VERSION=$(echo $AGOLA_GIT_TAG | sed 's/-/_/g')
                   else
                     export VERSION=latest
@@ -201,128 +160,94 @@ local task_build_push_image(push) =
                 else
                   export VERSION=$(echo $AGOLA_GIT_TAG | sed 's/-/_/g')
                 fi
-                echo VERSION: ${VERSION
-                }
+                echo VERSION: ${VERSION}
                 echo "export VERSION=${VERSION}" > /tmp/variables
               |||,
-              },
-              //TODO { type: 'restore_cache', keys: ['cache-apt-date-'], dest_dir: '/var/cache/apt/archives/' },
-              //TODO { type: 'save_cache', key: 'cache-apt-date-{{ year }}-{{ month }}-{{ day }}', contents: [{ source_dir: '/var/cache/apt/archives/' }] },
-              { type: 'run', command: 'apt update'
-              },
-              { type: 'run', command: 'apt install rpm --yes'
-              },
-              { type: 'run', command: 'mkdir -p /tmp/dist'
-              },
-              { type: 'run', command: 'gem install --no-document fpm'
-              },
-              { type: 'run', command: '. /tmp/variables && tar -C dist -czf /tmp/dist/ercole-web-${VERSION
-                }.tar.gz .'
-              },
-              {
+            },
+            //TODO { type: 'restore_cache', keys: ['cache-apt-date-'], dest_dir: '/var/cache/apt/archives/' },
+            //TODO { type: 'save_cache', key: 'cache-apt-date-{{ year }}-{{ month }}-{{ day }}', contents: [{ source_dir: '/var/cache/apt/archives/' }] },
+            { type: 'run', command: 'apt update' },
+            { type: 'run', command: 'apt install rpm --yes' },
+            { type: 'run', command: 'mkdir -p /tmp/dist' },
+            { type: 'run', command: 'gem install --no-document fpm' },
+            { type: 'run', command: '. /tmp/variables && tar -C dist -czf /tmp/dist/ercole-web-${VERSION}.tar.gz .' },
+            {
               type: 'run',
               name: 'fpm',
               command: |||
                 . /tmp/variables && \
-                fpm -n ercole-web -s dir -t rpm -a all --rpm-os linux --version ${VERSION
-                } --name ercole-web \
+                fpm -n ercole-web -s dir -t rpm -a all --rpm-os linux --version ${VERSION} --name ercole-web \
                 --after-install after-install -s dir dist/=/usr/share/ercole/web \
                 ercoleweb-setup=/usr/bin/ercoleweb-setup \
                 nginx-serve-ercoleweb-https.conf=/usr/share/ercole/examples/nginx-serve-ercoleweb-https.conf
               |||,
-              },
-              { type: 'run', command: '. /tmp/variables && mv ercole-web-${VERSION
-                }-1.noarch.rpm /tmp/dist/ercole-web-${VERSION
-                }-1.el8.noarch.rpm'
-              },
-              { type: 'run', command: '. /tmp/variables && cp /tmp/dist/ercole-web-${VERSION
-                }-1.el8.noarch.rpm /tmp/dist/ercole-web-${VERSION
-                }-1.el7.noarch.rpm'
-              },
-              { type: 'save_to_workspace', contents: [
-                  { source_dir: '/tmp/dist', dest_dir: '/pkg/', paths: ['**'
-                    ]
-                  }
-                ]
-              },
-            ],
-          depends: ['checkout code'
-            ],
-          },
-        ] + [
+            },
+            { type: 'run', command: '. /tmp/variables && mv ercole-web-${VERSION}-1.noarch.rpm /tmp/dist/ercole-web-${VERSION}-1.el8.noarch.rpm' },
+            { type: 'run', command: '. /tmp/variables && cp /tmp/dist/ercole-web-${VERSION}-1.el8.noarch.rpm /tmp/dist/ercole-web-${VERSION}-1.el7.noarch.rpm' },
+            { type: 'save_to_workspace', contents: [{ source_dir: '/tmp/dist', dest_dir: '/pkg/', paths: ['**'] }] },
+          ],
+          depends: ['checkout code'],
+        },
+      ] + [
         task_deploy_repository(),
-        ] + [
-          {
+      ] + [
+        {
           name: 'checkout code',
           runtime: {
             arch: 'amd64',
             containers: [
-                {
+              {
                 image: 'alpine/git',
-                },
-              ],
-            },
-          steps: [
-              { type: 'clone'
               },
-              { type: 'save_to_workspace', contents: [
-                  { source_dir: '.', dest_dir: '.', paths: ['**'
-                    ]
-                  }
-                ]
-              },
-            ],
-          depends: ['build - node 16'
             ],
           },
-        ] + [
+          steps: [
+            { type: 'clone' },
+            { type: 'save_to_workspace', contents: [{ source_dir: '.', dest_dir: '.', paths: ['**'] }] },
+          ],
+          depends: ['build - node 16'],
+        },
+      ] + [
         task_build_push_image(false) + {
           when: {
             branch: '^(?!master$).*$',
             ref: '#refs/pull/\\d+/head#',
-            },
           },
+        },
         task_build_push_image(true) + {
           when: {
             branch: 'master',
             tag: '#.*#',
-            },
           },
-        ] + [
-          {
+        },
+      ] + [
+        {
           name: 'redeploy dev.ercole.io',
           runtime: {
             type: 'pod',
             arch: 'amd64',
             containers: [
-                { image: 'curlimages/curl'
-                },
-              ],
-            },
+              { image: 'curlimages/curl' },
+            ],
+          },
           environment: {
-            REDEPLOY_URL: { from_variable: 'redeploy-url'
-              },
-            },
+            REDEPLOY_URL: { from_variable: 'redeploy-url' },
+          },
           steps: [
-              {
+            {
               type: 'run',
               name: 'curl request',
               command: |||
-                curl --location --request POST ${REDEPLOY_URL
-                } \
+                curl --location --request POST ${REDEPLOY_URL} \
                   --header 'Content-Type: application/json' \
-                  --data-raw '{
-                  "namespace": "default",
-                  "podname": "ercole-web"
-                }' \
+                  --data-raw '{ "namespace": "default", "podname" : "ercole-web" }' \
                   --insecure
               |||,
-              },
-            ],
-          depends: ['build image and push'
-            ],
-          },
-        ],
-      },
-    ],
-  }
+            },
+          ],
+          depends: ['build image and push'],
+        },
+      ],
+    },
+  ],
+}
