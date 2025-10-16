@@ -83,19 +83,6 @@ export const mutations = {
   SET_LICENSE_DATABASES: (state, payload) => {
     state.dbsLicensesUsed = setFullPartNumber(payload)
   },
-  SET_LICENSE_DATABASES_IGNORE_COMMENT: (state, payload) => {
-    const cleanData = _.without(state.dbsLicensesUsed, undefined, null, '')
-
-    _.map(cleanData, (val) => {
-      if (
-        val.hostname === payload.hostname &&
-        val.dbName === payload.database &&
-        val.licenseTypeID === payload.licenseID
-      ) {
-        val.ignoredComment = payload.comment
-      }
-    })
-  },
   SET_LICENSES_HOST: (state, payload) => {
     state.hostsLicensesUsed = setFullPartNumber(payload)
   },
@@ -141,6 +128,7 @@ export const mutations = {
         val.hostname === payload.hostname
       ) {
         val.ignored = !val.ignored
+        val.ignoredComment = payload.comment
       }
     })
   },

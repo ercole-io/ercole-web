@@ -7,7 +7,7 @@ export const getters = {}
 export const mutations = {}
 
 export const actions = {
-  async ignoreDatabaseLicense({ commit }, data) {
+  ignoreDatabaseLicense(_, data) {
     const oracleUrl = `hosts/${data.hostname}/technologies/${data.type}/databases/${data.database}/licenses/${data.licenseID}/ignored/${data.status}`
     const microsoftUrl = `hosts/${data.hostname}/technologies/${data.type}/databases/${data.database}/ignored/${data.status}`
     const mysqlUrl = `hosts/${data.hostname}/technologies/${data.type}/databases/${data.database}/ignored/${data.status}`
@@ -27,12 +27,6 @@ export const actions = {
       config.url = mysqlUrl
     }
 
-    await axiosRequest('baseApi', config).then((res) => {
-      if (res.status === 200) {
-        if (data.page === 'licenses-used') {
-          commit('SET_IGNORE_DB_LICENSE', data)
-        }
-      }
-    })
+    return axiosRequest('baseApi', config)
   },
 }

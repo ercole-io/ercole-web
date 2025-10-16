@@ -41,7 +41,10 @@ export default {
       'getHostByName',
       'getLicensesDatabases',
     ]),
-    ...mapMutations(['SET_LICENSE_DATABASES_IGNORE_COMMENT']),
+    ...mapMutations([
+      'SET_LICENSE_DATABASES_IGNORE_COMMENT',
+      'SET_IGNORE_DB_LICENSE',
+    ]),
     handleIgnoreClick() {
       const dialogType = this.status ? 'prompt' : 'confirm'
       const messageKey = this.status ? 'ignoreDbLicense' : 'reactivateDbLicense'
@@ -80,7 +83,7 @@ export default {
       }
     },
 
-    confirmIgnoreAction(comment) {
+    async confirmIgnoreAction(comment) {
       const data = {
         database: this.db,
         hostname: this.host,
@@ -91,13 +94,31 @@ export default {
         comment: this.status ? comment : '',
       }
 
-      this.ignoreDatabaseLicense(data).then(() => {
-        if (this.page === 'host-details') {
-          bus.$emit('host-details-ignore-license', data)
-          // this.getHostByName({ hostname: this.host, loading: false })
+      await this.ignoreDatabaseLicense(data).then((res) => {
+        if (res.status === 200) {
+          if (this.page === 'host-details') {
+            bus.$emit('host-details-ignore-license', data)
+            // this.getHostByName({ hostname: this.host, loading: false })
+          }
+
+          if (data.page === 'licenses-used') {
+            this.SET_IGNORE_DB_LICENSE(data)
+            // this.getLicensesDatabases()
+          }
+
+          this.$buefy.toast.open({
+            message: `Successfully Updated Ignore Comment for ${data.hostname} - ${data.database} - ${data.licenseID}`,
+            type: 'is-success',
+            duration: 5000,
+            position: 'is-bottom',
+          })
         } else {
-          this.SET_LICENSE_DATABASES_IGNORE_COMMENT(data)
-          // this.getLicensesDatabases()
+          this.$buefy.toast.open({
+            message: `Something Went Wrong Updating Ignore Comment for ${data.hostname} - ${data.database} - ${data.licenseID}`,
+            type: 'is-danger',
+            duration: 5000,
+            position: 'is-bottom',
+          })
         }
       })
     },
