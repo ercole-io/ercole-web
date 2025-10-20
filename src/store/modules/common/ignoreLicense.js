@@ -29,4 +29,13 @@ export const actions = {
 
     return axiosRequest('baseApi', config)
   },
+  ignoreDatabaseLicensesByGroup(_, data) {
+    const config = {
+      method: 'post',
+      url: '/licenses/ignore',
+      data: data,
+    }
+
+    return axiosRequest('baseApi', config)
+  },
 }

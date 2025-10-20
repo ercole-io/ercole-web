@@ -121,16 +121,40 @@ export const mutations = {
     state.veritasLoading = payload
   },
   SET_IGNORE_DB_LICENSE: (state, payload) => {
-    _.map(state.dbsLicensesUsed, (val) => {
-      if (
-        val.dbName === payload.database &&
-        val.licenseTypeID === payload.licenseID &&
-        val.hostname === payload.hostname
-      ) {
-        val.ignored = !val.ignored
-        val.ignoredComment = payload.comment
+    const toggleLicense = (item) => {
+      const license = _.find(
+        state.dbsLicensesUsed,
+        (val) =>
+          val.dbName === item.database &&
+          val.licenseTypeID === item.licenseID &&
+          val.hostname === item.hostname
+      )
+
+      if (license) {
+        license.ignored = !license.ignored
+        license.ignoredComment = item.comment
       }
-    })
+    }
+
+    toggleLicense(payload)
+  },
+  SET_IGNORE_DB_LICENSE_BY_GROUP: (state, payload) => {
+    const toggleLicense = (item) => {
+      const license = _.find(
+        state.dbsLicensesUsed,
+        (val) =>
+          val.dbName === item.databaseName &&
+          val.licenseTypeID === item.licenseTypeID &&
+          val.hostname === item.hostname
+      )
+
+      if (license) {
+        license.ignored = item.ignored
+        license.ignoredComment = item.ignoredComment
+      }
+    }
+
+    _.forEach(payload, toggleLicense)
   },
 }
 
