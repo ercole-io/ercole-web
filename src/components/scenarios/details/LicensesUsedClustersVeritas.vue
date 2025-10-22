@@ -5,7 +5,7 @@
     :isLoadingTable="loadingTableStatus"
   >
     <template slot="headData">
-      <v-th sortKey="cluster">Hostname</v-th>
+      <v-th sortKey="cluster">Cluster</v-th>
       <v-th sortKey="hosts">Databases</v-th>
       <v-th sortKey="partNumber">Part Number</v-th>
       <v-th sortKey="description">Description</v-th>

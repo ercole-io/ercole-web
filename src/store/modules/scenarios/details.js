@@ -19,10 +19,9 @@ export const getters = {
   getCurrentScenario: (state) => state.currentScenario,
   getLicensesScenario: (state) => (type) => {
     const data = state.scenarioLicenses[type]
-    const original = data.actual
-    const simulated = data.got
-    const simulatedMap = _.keyBy(simulated, 'LicenseTypeID')
-    return configData[type](original, simulatedMap)
+    const original = _.orderBy(data.actual, 'LicenseTypeID')
+    const simulated = _.orderBy(data.got, 'LicenseTypeID')
+    return configData[type](original, simulated)
   },
 }
 
@@ -60,15 +59,18 @@ export const actions = {
 }
 
 const configData = {
-  COMPLIANCE: (original, simulatedMap) =>
+  COMPLIANCE: (original, simulated) =>
     _.map(original, (ori) => {
-      const sim = simulatedMap[ori.LicenseTypeID]
+      const sim = _.find(
+        simulated,
+        (sim) => sim.LicenseTypeID === ori.LicenseTypeID
+      )
       return {
         partNumber: ori.LicenseTypeID,
         description: ori.ItemDescription,
         metric: ori.Metric,
         available: ori.Available,
-        availableSim: sim?.Available,
+        availableSim: sim ? sim.Available : undefined,
         compliance: ori.Compliance * 100,
         complianceStroke: showStrokeColor(ori.Compliance * 100),
         complianceSim: sim ? sim.Compliance * 100 : 0,
@@ -76,18 +78,24 @@ const configData = {
           ? showStrokeColor(sim.Compliance * 100)
           : 'is-danger',
         consumed: ori.Consumed,
-        consumedSim: sim?.Consumed,
+        consumedSim: sim ? sim.Consumed : undefined,
         covered: ori.Covered,
-        coveredSim: sim?.Covered,
+        coveredSim: sim ? sim.Covered : undefined,
         purchased: ori.Purchased,
-        purchasedSim: sim?.Purchased,
+        purchasedSim: sim ? sim.Purchased : undefined,
         unlimited: ori.Unlimited,
-        unlimitedSim: sim?.Unlimited,
+        unlimitedSim: sim ? sim.Unlimited : undefined,
       }
     }),
-  USED_DATABASES: (original, simulatedMap) =>
+  USED_DATABASES: (original, simulated) =>
     _.map(original, (ori) => {
-      const sim = simulatedMap[ori.LicenseTypeID]
+      const sim = _.find(
+        simulated,
+        (sim) =>
+          sim.LicenseTypeID === ori.LicenseTypeID &&
+          sim.DbName === ori.DbName &&
+          sim.Hostname === ori.Hostname
+      )
       return {
         partNumber: ori.LicenseTypeID,
         description: ori.Description,
@@ -95,14 +103,19 @@ const configData = {
         hostname: ori.Hostname,
         dbName: ori.DbName,
         usedLicenses: ori.UsedLicenses,
-        usedLicensesSim: sim?.UsedLicenses,
+        usedLicensesSim: sim ? sim.UsedLicenses : undefined,
         clusterLicenses: ori.ClusterLicenses,
-        clusterLicensesSim: sim?.ClusterLicenses,
+        clusterLicensesSim: sim ? sim.ClusterLicenses : undefined,
       }
     }),
-  USED_HOSTS: (original, simulatedMap) =>
+  USED_HOSTS: (original, simulated) =>
     _.map(original, (ori) => {
-      const sim = simulatedMap[ori.LicenseTypeID]
+      const sim = _.find(
+        simulated,
+        (sim) =>
+          sim.LicenseTypeID === ori.LicenseTypeID &&
+          sim.Hostname === ori.Hostname
+      )
       return {
         partNumber: ori.LicenseTypeID,
         description: ori.Description,
@@ -110,14 +123,19 @@ const configData = {
         hostname: ori.Hostname,
         databases: ori.DatabaseNames.length,
         usedLicenses: ori.UsedLicenses,
-        usedLicensesSim: sim?.UsedLicenses,
+        usedLicensesSim: sim ? sim.UsedLicenses : undefined,
         clusterLicenses: ori.ClusterLicenses,
-        clusterLicensesSim: sim?.ClusterLicenses,
+        clusterLicensesSim: sim ? sim.ClusterLicenses : undefined,
       }
     }),
-  USED_CLUSTERS: (original, simulatedMap) =>
+  USED_CLUSTERS: (original, simulated) =>
     _.map(original, (ori) => {
-      const sim = simulatedMap[ori.LicenseTypeID]
+      const sim = _.find(
+        simulated,
+        (sim) =>
+          sim.LicenseTypeID === ori.LicenseTypeID &&
+          sim.Hostname === ori.Hostname
+      )
       return {
         partNumber: ori.LicenseTypeID,
         description: ori.Description,
@@ -125,12 +143,15 @@ const configData = {
         hosts: ori.Hostnames.length,
         cluster: ori.Cluster,
         usedLicenses: ori.UsedLicenses,
-        usedLicensesSim: sim?.UsedLicenses,
+        usedLicensesSim: sim ? sim.UsedLicenses : undefined,
       }
     }),
-  USED_CLUSTERS_VERITAS: (original, simulatedMap) =>
+  USED_CLUSTERS_VERITAS: (original, simulated) =>
     _.map(original, (ori) => {
-      const sim = simulatedMap[ori.LicenseTypeID]
+      const sim = _.find(
+        simulated,
+        (sim) => sim.LicenseTypeID === ori.LicenseTypeID && sim.ID === ori.ID
+      )
       return {
         partNumber: ori.LicenseTypeID,
         description: ori.Description,
@@ -138,7 +159,7 @@ const configData = {
         hosts: ori.Hostnames.length,
         cluster: ori.ID,
         usedLicenses: ori.Count,
-        usedLicensesSim: sim?.Count,
+        usedLicensesSim: sim ? sim.Count : undefined,
       }
     }),
 }
