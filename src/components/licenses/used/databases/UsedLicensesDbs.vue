@@ -83,7 +83,7 @@
           />
         </TdContent>
         <TdContent isSlot class="has-text-centered p-0" v-else>
-          <ignoreDbLicense
+          <IgnoreDbLicense
             :db="rowData.scope.dbName"
             :host="rowData.scope.hostname"
             :licenseID="rowData.scope.licenseTypeID"
@@ -126,9 +126,7 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import { mapGetters, mapState } from 'vuex'
-import { findLicenseType } from '@/helpers/licenses.js'
 import paginationMixin from '@/mixins/paginationMixin.js'
 import hostnameLinkRow from '@/mixins/hostnameLinkRow.js'
 import ignoreLicensesMixin from '@/mixins/licenses/ignoreLicensesMixin.js'
@@ -138,7 +136,7 @@ import ExportButton from '@/components/common/ExportButton.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
 import HostLink from '@/components/common/Table/HostLink.vue'
 import UsedLicensesDbsFilters from '@/components/licenses/used/databases/UsedLicensesDbsFilters.vue'
-import ignoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
+import IgnoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
 import Loading from '@/components/common/Loading.vue'
 
 export default {
@@ -157,7 +155,7 @@ export default {
     TdContent,
     HostLink,
     UsedLicensesDbsFilters,
-    ignoreDbLicense,
+    IgnoreDbLicense,
     Loading,
   },
   data() {
@@ -173,80 +171,11 @@ export default {
         'ignored',
         'ignoredComment',
       ],
-      isIgnoreLicenses: false,
-      isReactivateLicenses: false,
-      selectedLicenses: [],
     }
-  },
-  methods: {
-    findLicenseType(desc) {
-      return findLicenseType(desc)
-    },
-    showCheckboxes(status) {
-      return (
-        (this.isIgnoreLicenses && !status) ||
-        (this.isReactivateLicenses && status)
-      )
-    },
-    handleSelectedLicenses(data) {
-      const index = _.findIndex(
-        this.selectedLicenses,
-        (license) =>
-          license.hostname === data.hostname &&
-          license.dbName === data.dbName &&
-          license.licenseTypeID === data.licenseTypeID
-      )
-
-      if (index > -1) {
-        this.selectedLicenses.splice(index, 1)
-      } else {
-        this.selectedLicenses = [...this.selectedLicenses, data]
-      }
-    },
-    prepareSelectedLicensesToSave() {
-      this.selectedLicenses = _.map(this.selectedLicenses, (val) => {
-        return {
-          database: val.dbName,
-          hostname: val.hostname,
-          licenseID: val.licenseTypeID,
-          status: !val.ignored,
-          page: 'licenses-used',
-          type: findLicenseType(val.description),
-          comment: val.ignoredComment,
-        }
-      })
-
-      this.handleIgnoreClick()
-    },
   },
   computed: {
     ...mapState(['licensesUsed']),
     ...mapGetters(['getUsedLicensesByDbs']),
-    showSaveButton() {
-      return (
-        (this.selectedLicenses.length > 0 && this.isIgnoreLicenses) ||
-        (this.selectedLicenses.length > 0 && this.isReactivateLicenses)
-      )
-    },
-    showSaveLabel() {
-      return this.isIgnoreLicenses
-        ? 'Save Ignore Licenses'
-        : 'Save Reactivate Licenses'
-    },
-  },
-  watch: {
-    isIgnoreLicenses(val) {
-      if (val) {
-        this.isReactivateLicenses = false
-        this.selectedLicenses = []
-      }
-    },
-    isReactivateLicenses(val) {
-      if (val) {
-        this.isIgnoreLicenses = false
-        this.selectedLicenses = []
-      }
-    },
   },
 }
 </script>

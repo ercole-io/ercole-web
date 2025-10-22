@@ -1,8 +1,16 @@
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapMutations } from 'vuex'
+import { findLicenseType } from '@/helpers/licenses.js'
 
 export default {
+  data() {
+    return {
+      isIgnoreLicenses: false,
+      isReactivateLicenses: false,
+      selectedLicenses: [],
+    }
+  },
   methods: {
     ...mapActions([
       'ignoreDatabaseLicense',
@@ -15,6 +23,37 @@ export default {
       'SET_IGNORE_DB_LICENSE',
       'SET_IGNORE_DB_LICENSE_BY_GROUP',
     ]),
+
+    handleSelectedLicenses(data) {
+      const index = _.findIndex(
+        this.selectedLicenses,
+        (license) =>
+          license.hostname === data.hostname &&
+          license.dbName === data.dbName &&
+          license.licenseTypeID === data.licenseTypeID
+      )
+
+      if (index > -1) {
+        this.selectedLicenses.splice(index, 1)
+      } else {
+        this.selectedLicenses = [...this.selectedLicenses, data]
+      }
+    },
+    prepareSelectedLicensesToSave() {
+      this.selectedLicenses = _.map(this.selectedLicenses, (val) => {
+        return {
+          database: val.dbName,
+          hostname: val.hostname,
+          licenseID: val.licenseTypeID,
+          status: !val.ignored,
+          page: this.$route.name,
+          type: findLicenseType(val.description),
+          comment: val.ignoredComment,
+        }
+      })
+
+      this.handleIgnoreClick()
+    },
     handleIgnoreClick() {
       const hasSelectedLicenses =
         this.selectedLicenses && this.selectedLicenses.length > 0
@@ -134,43 +173,37 @@ export default {
 
         await this.ignoreDatabaseLicensesByGroup(organizeData).then((res) => {
           if (res.status === 200) {
-            if (data[0].page === 'host-details') {
-              // handle host details ignore licensces group
+            if (res.data.updated) {
+              if (data[0].page === 'hosts-details') {
+                bus.$emit(
+                  'host-details-ignore-license-by-group',
+                  res.data.updated
+                )
+              }
+
+              if (data[0].page === 'licenses-used') {
+                this.SET_IGNORE_DB_LICENSE_BY_GROUP(res.data.updated)
+              }
+
+              this.$buefy.toast.open({
+                message: `Successfully Ignored/Reativated Licenses by Group`,
+                type: 'is-success',
+                duration: 5000,
+                position: 'is-bottom',
+              })
+
+              this.isIgnoreLicenses = false
+              this.isReactivateLicenses = false
+              this.selectedLicenses = []
             }
 
-            if (data[0].page === 'licenses-used') {
-              let isIgnoring
-              let msgType
-
-              if (res.data.updated) {
-                this.SET_IGNORE_DB_LICENSE_BY_GROUP(res.data.updated)
-
-                isIgnoring = res.data.updated[0].ignored
-                msgType = isIgnoring ? 'Ignored' : 'Reativated'
-
-                this.$buefy.toast.open({
-                  message: `Successfully ${msgType} Licenses by Group`,
-                  type: 'is-success',
-                  duration: 5000,
-                  position: 'is-bottom',
-                })
-
-                this.isIgnoreLicenses = false
-                this.isReactivateLicenses = false
-                this.selectedLicenses = []
-              }
-
-              if (res.data.error) {
-                isIgnoring = res.data.error[0].ignored
-                msgType = isIgnoring ? 'Ignored' : 'Reativated'
-
-                this.$buefy.toast.open({
-                  message: `Some Licenses could not be ${msgType}!`,
-                  type: 'is-danger',
-                  duration: 5000,
-                  position: 'is-top',
-                })
-              }
+            if (res.data.error) {
+              this.$buefy.toast.open({
+                message: `Some Licenses could not be Ignored/Reativated`,
+                type: 'is-danger',
+                duration: 5000,
+                position: 'is-top',
+              })
             }
           } else {
             this.$buefy.toast.open({
@@ -186,12 +219,10 @@ export default {
           if (res.status === 200) {
             if (this.page === 'host-details') {
               bus.$emit('host-details-ignore-license', data)
-              // this.getHostByName({ hostname: this.host, loading: false })
             }
 
             if (data.page === 'licenses-used') {
               this.SET_IGNORE_DB_LICENSE(data)
-              // this.getLicensesDatabases()
             }
 
             this.$buefy.toast.open({
@@ -211,10 +242,82 @@ export default {
         })
       }
     },
+    hostDetailsIgnoreLicense(data) {
+      const toggleLicense = (item) => {
+        const license = _.find(
+          this.getLicenses,
+          (val) =>
+            val.dbName === item.database &&
+            val.licenseTypeID === item.licenseID &&
+            val.hostname === item.hostname
+        )
+
+        if (license) {
+          license.ignored = !license.ignored
+          license.ignoredComment = item.comment
+        }
+      }
+
+      toggleLicense(data)
+    },
+    hostDetailsIgnoreLicenseByGroup(data) {
+      const toggleLicense = (item) => {
+        const license = _.find(
+          this.getLicenses,
+          (val) =>
+            val.dbName === item.databaseName &&
+            val.licenseTypeID === item.licenseTypeID &&
+            val.hostname === item.hostname
+        )
+
+        if (license) {
+          license.ignored = item.ignored
+          license.ignoredComment = item.ignoredComment
+        }
+      }
+
+      _.forEach(data, toggleLicense)
+    },
+    findLicenseType(desc) {
+      return findLicenseType(desc)
+    },
+    showCheckboxes(status) {
+      return (
+        (this.isIgnoreLicenses && !status) ||
+        (this.isReactivateLicenses && status)
+      )
+    },
     checkTechnology(val) {
       if (val === 'oracle') return 'Oracle/Database'
       if (val === 'mysql') return 'Oracle/MySQL'
       if (val === 'microsoft') return 'Microsoft/SQLServer'
+    },
+  },
+  computed: {
+    showSaveButton() {
+      return (
+        (this.selectedLicenses.length > 0 && this.isIgnoreLicenses) ||
+        (this.selectedLicenses.length > 0 && this.isReactivateLicenses)
+      )
+    },
+    showSaveLabel() {
+      return this.isIgnoreLicenses
+        ? 'Save Ignore Licenses'
+        : 'Save Reactivate Licenses'
+    },
+  },
+  watch: {
+    isIgnoreLicenses(val) {
+      if (val) {
+        this.isReactivateLicenses = false
+        this.selectedLicenses = []
+      }
+    },
+    isReactivateLicenses(val) {
+      if (val) {
+        this.isIgnoreLicenses = false
+        this.selectedLicenses = []
+      }
     },
   },
 }

@@ -6,10 +6,39 @@
       hideSearch
       hidePerpage
       hidePagination
-      hideTopTable
       :isLoadingTable="false"
       data-cy="db-licenses-table"
     >
+      <template slot="customTopHeader">
+        <b-button
+          :label="showSaveLabel"
+          type="is-primary"
+          size="is-small"
+          icon-pack="fas"
+          icon-left="eye"
+          class="has-text-weight-semibold ml-2 mr-2"
+          @click="prepareSelectedLicensesToSave"
+          v-if="showSaveButton"
+        />
+
+        <div class="is-flex is-flex-direction-column mr-5">
+          <b-checkbox size="is-small" v-model="isIgnoreLicenses">
+            <span class="has-text-weight-semibold">
+              Ignore Licenses By Group
+            </span>
+          </b-checkbox>
+          <b-checkbox
+            size="is-small"
+            v-model="isReactivateLicenses"
+            class="mt-1"
+          >
+            <span class="has-text-weight-semibold">
+              Reactivate Licenses By Group
+            </span>
+          </b-checkbox>
+        </div>
+      </template>
+
       <template slot="headData">
         <v-th sortKey="ignored">Ignore License</v-th>
         <v-th sortKey="ignoredComment">Ignore Comment</v-th>
@@ -21,17 +50,31 @@
       </template>
 
       <template slot="bodyData" slot-scope="rowData">
-        <ignoreDbLicense
-          :db="rowData.scope.dbName"
-          :host="$route.params.hostname"
-          :licenseID="rowData.scope.licenseTypeID"
-          :description="rowData.scope.description"
-          :metric="rowData.scope.metric"
-          :status="!rowData.scope.ignored"
-          :ignoreComment="rowData.scope.ignoredComment"
-          type="oracle"
-          page="host-details"
-        />
+        <TdContent
+          isSlot
+          class="has-text-centered p-0"
+          v-if="showCheckboxes(rowData.scope.ignored)"
+        >
+          <b-checkbox
+            size="is-small"
+            style="min-height: 30px"
+            class="ml-2"
+            @input="handleSelectedLicenses(rowData.scope)"
+          />
+        </TdContent>
+        <TdContent isSlot class="has-text-centered p-0" v-else>
+          <IgnoreDbLicense
+            :db="rowData.scope.dbName"
+            :host="$route.params.hostname"
+            :licenseID="rowData.scope.licenseTypeID"
+            :description="rowData.scope.description"
+            :metric="rowData.scope.metric"
+            :status="!rowData.scope.ignored"
+            :ignoreComment="rowData.scope.ignoredComment"
+            type="oracle"
+            page="host-details"
+          />
+        </TdContent>
         <TdContent :value="rowData.scope.ignoredComment" />
         <TdContent :value="rowData.scope.licenseTypeID" />
         <TdContent :value="rowData.scope.description" />
@@ -56,12 +99,14 @@
 <script>
 import _ from 'lodash'
 import { bus } from '@/helpers/eventBus.js'
+import ignoreLicensesMixin from '@/mixins/licenses/ignoreLicensesMixin.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
-import ignoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
+import IgnoreDbLicense from '@/components/licenses/used/databases/ignoreDbLicense.vue'
 
 export default {
   name: 'hosts-details-oracle-databases-licenses-component',
+  mixins: [ignoreLicensesMixin],
   props: {
     licenses: {
       type: Array,
@@ -71,7 +116,7 @@ export default {
   components: {
     FullTable,
     TdContent,
-    ignoreDbLicense,
+    IgnoreDbLicense,
   },
   data() {
     return {
@@ -91,17 +136,11 @@ export default {
     this.getLicenses = _.cloneDeep(this.licenses)
 
     bus.$on('host-details-ignore-license', (data) => {
-      this.getLicenses = _.map(this.getLicenses, (val) => {
-        if (
-          val.hostname === data.hostname &&
-          val.dbName === data.database &&
-          val.licenseTypeID === data.licenseID
-        ) {
-          val.ignored = data.status
-          val.ignoredComment = data.comment
-        }
-        return val
-      })
+      this.hostDetailsIgnoreLicense(data)
+    })
+
+    bus.$on('host-details-ignore-license-by-group', (data) => {
+      this.hostDetailsIgnoreLicenseByGroup(data)
     })
   },
 }
