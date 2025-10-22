@@ -47,12 +47,7 @@
             <span style="display: none">
               {{ getDataLength(displayData) }}
             </span>
-            <v-tr
-              v-for="(row, index) in displayData"
-              :key="index"
-              :row="row"
-              :class="{ 'table-info': row.isChecked }"
-            >
+            <v-tr v-for="(row, index) in displayData" :key="index" :row="row">
               <slot name="bodyData" :scope="row" />
             </v-tr>
           </template>

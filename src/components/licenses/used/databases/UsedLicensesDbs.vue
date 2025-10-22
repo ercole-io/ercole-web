@@ -14,10 +14,7 @@
       :urlSearchParam="partNumber"
       :keys="keys"
       :tableData="getUsedLicensesByDbs"
-      @clickedRow="handleClickedRow"
-      isClickable
       :isLoadingTable="licensesUsed.databasesLoading"
-      class="is-danger"
     >
       <template slot="customTopHeader">
         <b-button
@@ -79,6 +76,7 @@
             size="is-small"
             style="min-height: 30px"
             class="ml-2"
+            v-model="rowData.scope.isChecked"
             @input="handleSelectedLicenses(rowData.scope)"
           />
         </TdContent>

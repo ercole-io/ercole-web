@@ -23,7 +23,6 @@ export default {
       'SET_IGNORE_DB_LICENSE',
       'SET_IGNORE_DB_LICENSE_BY_GROUP',
     ]),
-
     handleSelectedLicenses(data) {
       const index = _.findIndex(
         this.selectedLicenses,
