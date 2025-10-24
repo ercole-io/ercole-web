@@ -1,8 +1,13 @@
 <template>
   <section class="p-3">
     <p class="has-text-weight-medium">Created Scenario Licenses Details</p>
-    <b-tabs type="is-toggle" size="is-small" expanded>
-      <b-tab-item v-for="tab in detailsTabs" :key="tab.id" :label="tab.label">
+    <b-tabs @input="handleOnTabClick" type="is-toggle" size="is-small" expanded>
+      <b-tab-item
+        v-for="tab in detailsTabs"
+        :key="tab.id"
+        :label="tab.label"
+        :value="tab.id"
+      >
         <component :is="tab.component" />
       </b-tab-item>
     </b-tabs>
@@ -10,6 +15,7 @@
 </template>
 
 <script>
+import DetailsMixin from '@/mixins/scenarios/detailsMixin.js'
 import LicensesCompliance from '@/components/scenarios/details/LicensesCompliance.vue'
 import LicensesUsedDatabases from '@/components/scenarios/details/LicensesUsedDatabases.vue'
 import LicensesUsedHosts from '@/components/scenarios/details/LicensesUsedHosts.vue'
@@ -18,43 +24,13 @@ import LicensesUsedClustersVeritas from '@/components/scenarios/details/Licenses
 
 export default {
   name: 'ScenariosDetailsLicenses',
+  mixins: [DetailsMixin],
   components: {
     LicensesCompliance,
     LicensesUsedDatabases,
     LicensesUsedHosts,
     LicensesUsedClusters,
     LicensesUsedClustersVeritas,
-  },
-  data() {
-    return {
-      detailsTabs: [
-        {
-          id: 'compliance',
-          component: 'LicensesCompliance',
-          label: 'Licenses Compliance',
-        },
-        {
-          id: 'databases',
-          component: 'LicensesUsedDatabases',
-          label: 'Licenses Used - Databases',
-        },
-        {
-          id: 'hosts',
-          component: 'LicensesUsedHosts',
-          label: 'Licenses Used - Hosts',
-        },
-        {
-          id: 'clusters',
-          component: 'LicensesUsedClusters',
-          label: 'Licenses Used - Clusters',
-        },
-        {
-          id: 'veritas',
-          component: 'LicensesUsedClustersVeritas',
-          label: 'Licenses Used - Clusters Veritas',
-        },
-      ],
-    }
   },
 }
 </script>

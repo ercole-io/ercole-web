@@ -98,6 +98,9 @@ export default {
       licenceType: 'COMPLIANCE',
     }
   },
+  async beforeMount() {
+    await this.handleOnTabClick(this.licenceType)
+  },
 }
 </script>
 
