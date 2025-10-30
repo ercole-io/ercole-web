@@ -40,7 +40,7 @@ export const actions = {
     commit('SET_SCENARIO_CURRENT', res.data)
     dispatch('offLoadingTable')
   },
-  async fetchScenarioLicenses({ commit, dispatch }, { type, id }) {
+  async fetchScenarioLicenses({ commit, getters, dispatch }, { type, id }) {
     const urls = {
       COMPLIANCE: `scenarios/${id}/license-compliance`,
       USED_DATABASES: `scenarios/${id}/license-used-database`,
@@ -48,8 +48,19 @@ export const actions = {
       USED_CLUSTERS: `scenarios/${id}/license-used-cluster`,
       USED_CLUSTERS_VERITAS: `scenarios/${id}/license-used-cluster-veritas`,
     }
+
     dispatch('onLoadingTable')
-    const config = { method: 'get', url: urls[type] }
+
+    const config = {
+      method: 'get',
+      url: urls[type],
+      params: {
+        'older-than': getters.getActiveFilters.date,
+        environment: getters.getActiveFilters.environment,
+        location: getters.getActiveFilters.location,
+      },
+    }
+
     const res = await axiosRequest('baseApi', config)
     commit('SET_SCENARIO_LICENSES', { type, payload: res.data.licenses })
     dispatch('offLoadingTable')
