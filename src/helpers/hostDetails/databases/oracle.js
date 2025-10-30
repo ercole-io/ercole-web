@@ -44,7 +44,7 @@ const mapOracleDatabases = (data, extraData) => {
       sgaTarget: item.sgaTarget.toString(),
       sgaSum: item.sgaSum.toString(),
       sgaSizeLowerGb: sgaSizeLowerGb,
-      dbTime: item.dbTime.toString(),
+      dbTime: item.dbTime ? item.dbTime : '',
       elapsed: item.elapsed ? item.elapsed.toString() : null,
       work: item.work ? item.work.toString() : '0',
       cpuCount: item.cpuCount.toString(),
