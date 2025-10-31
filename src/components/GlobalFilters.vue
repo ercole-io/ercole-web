@@ -386,7 +386,7 @@ export default {
         case 'details-scenarios':
           this.fetchScenarioLicenses({
             type: this.scenarioType,
-            id: this.$route.params.id,
+            id: params.id,
           }).then(() => this.offLoadingTable())
           break
         default:
@@ -427,8 +427,14 @@ export default {
         this.$route.name !== 'list-scenarios'
       )
     },
+    getLicensesPages() {
+      return (
+        _.includes(this.$route.path, 'licenses') ||
+        _.includes(this.$route.path, 'scenarios')
+      )
+    },
     setLocations() {
-      if (_.includes(this.$route.path, 'licenses')) {
+      if (this.getLicensesPages) {
         return this.globalFilters.locationsLicenses
       } else {
         return this.globalFilters.locations
