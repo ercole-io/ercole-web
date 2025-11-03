@@ -1,6 +1,6 @@
 <template>
   <FullTable
-    :keys="['actions', 'name', 'createdAt', 'hostname', 'core']"
+    :keys="['actions', 'name', 'createdAt', 'hostname', 'core', 'location']"
     :tableData="getListScenarios"
     :isLoadingTable="loadingTableStatus"
   >
@@ -12,6 +12,7 @@
         Actions
       </v-th>
       <v-th sortKey="name">Scenarios</v-th>
+      <v-th sortKey="location">Location</v-th>
       <v-th sortKey="createdAt">Created Date</v-th>
       <v-th sortKey="hostname">Hostname</v-th>
       <v-th sortKey="originalCore">Original Core</v-th>
@@ -39,6 +40,7 @@
           v-html="highlight(rowData.scope.name)"
         />
       </TdContent>
+      <TdContent :value="rowData.scope.location" />
       <TdContent :value="getDateTime(rowData.scope.createdAt)" />
       <td>
         <p

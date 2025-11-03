@@ -1,5 +1,9 @@
 <template>
-  <b-field :label="label" custom-class="is-small">
+  <b-field
+    :label="label"
+    :label-position="labelPosition"
+    custom-class="is-small"
+  >
     <slot />
   </b-field>
 </template>
@@ -11,6 +15,10 @@ export default {
     label: {
       type: String,
       default: '',
+    },
+    labelPosition: {
+      type: String,
+      default: 'inside',
     },
   },
 }

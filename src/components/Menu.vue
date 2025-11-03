@@ -550,28 +550,28 @@ export default {
           attributes: { 'data-cy': 'mn-troubleshooting' },
           hidden: this.checkMenu('Troubleshooting', ''),
         },
-        // {
-        //   title: 'Scenarios',
-        //   icon: 'fa-solid fa-code-compare',
-        //   attributes: { 'data-cy': 'mn-scenarios' },
-        //   hidden: this.checkMenu('Scenarios', ''),
-        //   child: [
-        //     {
-        //       href: { name: 'create-scenarios' },
-        //       title: 'Create Scenarios',
-        //       icon: 'fas fa-plus',
-        //       attributes: { 'data-cy': 'mn-create-scenarios' },
-        //       hidden: this.checkMenu('Create scenario', 'Scenarios'),
-        //     },
-        //     {
-        //       href: { name: 'list-scenarios' },
-        //       title: 'List Scenarios',
-        //       icon: 'fas fa-list',
-        //       attributes: { 'data-cy': 'mn-list-scenarios' },
-        //       hidden: this.checkMenu('Create scenario', 'Scenarios'),
-        //     },
-        //   ],
-        // },
+        {
+          title: 'Scenarios',
+          icon: 'fa-solid fa-code-compare',
+          attributes: { 'data-cy': 'mn-scenarios' },
+          hidden: this.checkMenu('Scenarios', ''),
+          child: [
+            {
+              href: { name: 'create-scenarios' },
+              title: 'Create Scenarios',
+              icon: 'fas fa-plus',
+              attributes: { 'data-cy': 'mn-create-scenarios' },
+              hidden: this.checkMenu('Create scenario', 'Scenarios'),
+            },
+            {
+              href: { name: 'list-scenarios' },
+              title: 'List Scenarios',
+              icon: 'fas fa-list',
+              attributes: { 'data-cy': 'mn-list-scenarios' },
+              hidden: this.checkMenu('Create scenario', 'Scenarios'),
+            },
+          ],
+        },
       ]
     },
   },

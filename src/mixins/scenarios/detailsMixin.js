@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import { bus } from '@/helpers/eventBus.js'
 import { mapActions, mapGetters } from 'vuex'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
@@ -40,31 +39,18 @@ export default {
           label: 'Licenses Used - Clusters Veritas',
         },
       ],
-      wasFiltered: false,
     }
   },
   methods: {
     ...mapActions(['fetchScenarioLicenses']),
-    async scenarioLicenses(type, id) {
-      await this.fetchScenarioLicenses({ id, type })
-    },
     async handleOnTabClick(tabID) {
-      bus.$emit('scenarioType', tabID)
-
-      if (this.hasGlobalFilters) {
-        await this.scenarioLicenses(tabID, this.$route.params.id)
-        this.wasFiltered = true
+      if (this.getLicensesScenario(tabID).length > 0) {
         return
-      }
-
-      if (this.wasFiltered) {
-        await this.scenarioLicenses(tabID, this.$route.params.id)
-        this.wasFiltered = false
-        return
-      }
-
-      if (this.getLicensesScenario(tabID).length === 0) {
-        await this.scenarioLicenses(tabID, this.$route.params.id)
+      } else {
+        await this.fetchScenarioLicenses({
+          id: this.$route.params.id,
+          type: tabID,
+        })
       }
     },
     roundPerc(value) {
@@ -72,14 +58,6 @@ export default {
     },
   },
   computed: {
-    ...mapGetters([
-      'getLicensesScenario',
-      'loadingTableStatus',
-      'getActiveFilters',
-    ]),
-    hasGlobalFilters() {
-      const { date, environment, location } = this.getActiveFilters
-      return date || environment || location
-    },
+    ...mapGetters(['getLicensesScenario', 'loadingTableStatus']),
   },
 }

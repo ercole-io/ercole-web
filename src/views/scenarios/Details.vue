@@ -2,7 +2,7 @@
   <BoxContent
     :title="`${getCurrentScenario.name} - ${getDateTime(
       getCurrentScenario.createdAt
-    )}`"
+    )} - ${getCurrentScenario.location}`"
     customStyleTitle="font-size: 18px; margin-bottom: 0"
     border
     hasShadow

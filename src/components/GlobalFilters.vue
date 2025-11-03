@@ -155,7 +155,6 @@
 
 <script>
 import _ from 'lodash'
-import { bus } from '@/helpers/eventBus.js'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { formatDatepickerDate } from '@/helpers/helpers.js'
 import formatDate from '@/filters/formatDate.js'
@@ -170,7 +169,6 @@ export default {
       filterIcon: 'chevron-down',
       glFilters: {},
       locationAlias: '',
-      scenarioType: null,
     }
   },
   beforeMount() {
@@ -182,10 +180,6 @@ export default {
         : null,
     }
     this.isFiltersOpened = this.globalFilters.isFilterOpened
-
-    bus.$on('scenarioType', (val) => {
-      this.scenarioType = val
-    })
   },
   beforeUpdate() {
     const alias = JSON.parse(localStorage.getItem('persisted-data')).settings
@@ -231,7 +225,6 @@ export default {
       'oracleContractsActions',
       'mysqlContractsActions',
       'microsoftContractsActions',
-      'fetchScenarioLicenses',
     ]),
     ...mapMutations(['SET_OPEN_FILTERS', 'SET_ACTIVE_FILTERS']),
     expandFilters() {
@@ -383,12 +376,6 @@ export default {
             () => this.offLoadingTable()
           )
           break
-        case 'details-scenarios':
-          this.fetchScenarioLicenses({
-            type: this.scenarioType,
-            id: params.id,
-          }).then(() => this.offLoadingTable())
-          break
         default:
           return
       }
@@ -424,17 +411,12 @@ export default {
         this.$route.name !== 'allRecommendations' &&
         this.$route.name !== 'exadataPA' &&
         this.$route.name !== 'create-scenarios' &&
-        this.$route.name !== 'list-scenarios'
-      )
-    },
-    getLicensesPages() {
-      return (
-        _.includes(this.$route.path, 'licenses') ||
-        _.includes(this.$route.path, 'scenarios')
+        this.$route.name !== 'list-scenarios' &&
+        this.$route.name !== 'details-scenarios'
       )
     },
     setLocations() {
-      if (this.getLicensesPages) {
+      if (_.includes(this.$route.path, 'licenses')) {
         return this.globalFilters.locationsLicenses
       } else {
         return this.globalFilters.locations

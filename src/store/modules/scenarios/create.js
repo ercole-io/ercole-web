@@ -7,7 +7,7 @@ export const state = () => ({
 
 export const getters = {
   getHostsData: (state) => {
-    return _.map(state.hostsData, (val) => {
+    const hosts = _.map(state.hostsData, (val) => {
       return {
         id: val.id,
         hostname: val.hostname,
@@ -15,8 +15,10 @@ export const getters = {
         cores: val.info.cpuCores,
         socket: val.info.cpuSockets,
         newCore: val.info.cpuCores,
+        location: val.location,
       }
     })
+    return hosts
   },
 }
 
@@ -27,7 +29,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchHostsData({ commit, getters, dispatch }, olderThan = null) {
+  async fetchHostsData({ commit, getters, dispatch }, location = null) {
     dispatch('onLoadingTable')
 
     const params = {
@@ -36,9 +38,7 @@ export const actions = {
       page: getters.getPageNum,
       size: getters.getPerPage,
       search: getters.getSearchTherm,
-      'older-than': getters.getActiveFilters.date || olderThan,
-      environment: getters.getActiveFilters.environment,
-      location: getters.getActiveFilters.location,
+      location: location,
       mode: 'summary',
     }
 

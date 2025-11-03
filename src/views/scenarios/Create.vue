@@ -4,27 +4,36 @@
     sortField="hostname"
     :fnCallback="() => fetchHostsData()"
   >
-    <template
-      slot="noCheckboxActions"
-      v-if="selectedHosts && selectedHosts.length > 0"
-    >
-      <b-button
-        :label="`Clear All selected (${selectedHosts.length})`"
-        size="is-small"
-        type="is-dark"
-        icon-left="close"
-        @click="handleClearHosts"
-      />
+    <template slot="noCheckboxActions">
+      <CustomField label="Location" labelPosition="on-border">
+        <CustomSelect
+          v-model="locationSelected"
+          :options="locationOptions"
+          :hasReset="false"
+          style="min-width: 100px"
+        />
+      </CustomField>
 
-      <b-button
-        label="Save Scenarios"
-        type="is-primary"
-        size="is-small"
-        icon-pack="fas"
-        icon-left="check-circle"
-        class="has-text-weight-semibold ml-2"
-        @click="handleSaveScenarios"
-      />
+      <template v-if="selectedHosts && selectedHosts.length > 0">
+        <b-button
+          :label="`Clear All selected (${selectedHosts.length})`"
+          size="is-small"
+          type="is-dark"
+          icon-left="close"
+          class="has-text-weight-semibold ml-2"
+          @click="handleClearHosts"
+        />
+
+        <b-button
+          label="Save Scenarios"
+          type="is-primary"
+          size="is-small"
+          icon-pack="fas"
+          icon-left="check-circle"
+          class="has-text-weight-semibold ml-2"
+          @click="handleSaveScenarios"
+        />
+      </template>
     </template>
 
     <template slot="cols">
@@ -108,11 +117,13 @@
 
 <script>
 import _ from 'lodash'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import FullTable from '@/components/common/Table/buefy/FullTable.vue'
 import CustomInput from '@/components/common/Form/CustomInput.vue'
+import CustomSelect from '@/components/common/Form/CustomSelect.vue'
+import CustomField from '@/components/common/Form/CustomField.vue'
 
 export default {
   name: 'CreateScenarios',
@@ -120,16 +131,22 @@ export default {
   components: {
     FullTable,
     CustomInput,
+    CustomSelect,
+    CustomField,
   },
   data() {
     return {
       selectedHosts: [],
       originalHosts: [],
+      locationSelected: 'All',
+      locationOptions: [],
     }
   },
   async beforeMount() {
-    await this.fetchHostsData()
+    await this.fetchHostsData(this.locationSelected)
     this.originalHosts = _.cloneDeep(this.getHostsData)
+    this.locationOptions = _.cloneDeep(this.globalFilters.locationsLicenses)
+    this.locationOptions.unshift('All')
   },
   methods: {
     ...mapActions(['fetchHostsData', 'createScenario', 'offLoadingTable']),
@@ -157,6 +174,7 @@ export default {
 
       const saveScenarios = {
         name: name,
+        location: this.locationSelected,
         hosts: hosts,
       }
 
@@ -210,7 +228,15 @@ export default {
     },
   },
   computed: {
+    ...mapState(['globalFilters']),
     ...mapGetters(['getHostsData']),
+  },
+  watch: {
+    locationSelected(value) {
+      if (value) {
+        this.fetchHostsData(this.locationSelected)
+      }
+    },
   },
 }
 </script>
