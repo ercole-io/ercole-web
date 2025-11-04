@@ -143,14 +143,23 @@ export default {
     }
   },
   async beforeMount() {
-    await this.fetchHostsData(this.locationSelected)
-    this.originalHosts = _.cloneDeep(this.getHostsData)
     this.locationOptions = _.cloneDeep(this.globalFilters.locationsLicenses)
     this.locationOptions.unshift('All')
+
+    if (this.getCloneLocation) {
+      this.locationSelected = this.getCloneLocation
+    }
+
+    if (this.getCloneHosts.length > 0) {
+      this.selectedHosts = this.getCloneHosts
+    }
+
+    await this.fetchHostsData(this.locationSelected)
+    this.originalHosts = _.cloneDeep(this.getHostsData)
   },
   methods: {
     ...mapActions(['fetchHostsData', 'createScenario', 'offLoadingTable']),
-    ...mapMutations(['SET_PAGE_NUM']),
+    ...mapMutations(['SET_PAGE_NUM', 'SET_CLONE_HOSTS']),
     handleSaveScenarios() {
       this.$buefy.dialog.prompt({
         title: 'Set Scenario Name',
@@ -204,20 +213,25 @@ export default {
     },
     handleClearHosts() {
       this.getHostsData.forEach((host) => {
-        const originalHost = this.originalHosts.find((o) => o.id === host.id)
+        const originalHost = this.originalHosts.find(
+          (o) => o.hostname === host.hostname
+        )
         if (originalHost) {
-          host.newCore = originalHost.newCore
+          host.newCore = originalHost.cores
         }
       })
       this.selectedHosts = []
+      this.SET_CLONE_HOSTS([])
     },
     getCoreValue(data) {
-      const exists = this.selectedHosts.find((host) => host.id === data.id)
+      const exists = this.selectedHosts.find(
+        (host) => host.hostname === data.hostname
+      )
 
       if (exists) {
         if (data.newCore === data.cores) {
           this.selectedHosts = this.selectedHosts.filter(
-            (host) => host.id !== data.id
+            (host) => host.hostname !== data.hostname
           )
         }
       } else {
@@ -229,14 +243,17 @@ export default {
   },
   computed: {
     ...mapState(['globalFilters']),
-    ...mapGetters(['getHostsData']),
+    ...mapGetters(['getHostsData', 'getCloneLocation', 'getCloneHosts']),
   },
   watch: {
-    locationSelected(value) {
-      if (value) {
-        this.fetchHostsData(this.locationSelected)
+    locationSelected(newValue, oldValue) {
+      if (newValue !== oldValue && newValue !== this.getCloneLocation) {
+        this.fetchHostsData(newValue)
       }
     },
+  },
+  beforeDestroy() {
+    this.handleClearHosts()
   },
 }
 </script>

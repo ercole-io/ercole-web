@@ -28,7 +28,16 @@
           icon="trash-alt"
           size="is-small"
           @click.native="handleDeleteScenario(rowData.scope)"
-          class="is-clickable"
+          class="is-clickable mx-2"
+        />
+        <b-icon
+          v-tooltip="`Clone ${rowData.scope.name}`"
+          type="is-warning"
+          pack="fas"
+          icon="clone"
+          size="is-small"
+          @click.native="handleCloneScenario(rowData.scope)"
+          class="is-clickable mx-2"
         />
       </TdContent>
       <TdContent isSlot>
@@ -77,11 +86,12 @@
 
 <script>
 import formatDateTime from '@/filters/formatDateTime.js'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import TooltipMixin from '@/mixins/tooltipMixin.js'
 import HighlightSearchMixin from '@/mixins/highlightSearch.js'
 import FullTable from '@/components/common/Table/FullTable.vue'
 import TdContent from '@/components/common/Table/TdContent.vue'
+// import CloneModal from '@/views/scenarios/CloneModal.vue'
 
 export default {
   name: 'CreateScenarios',
@@ -102,6 +112,7 @@ export default {
       'deleteListScenario',
       'offLoadingTable',
     ]),
+    ...mapMutations(['SET_CLONE_HOSTS']),
     handleDeleteScenario(data) {
       this.$buefy.dialog.confirm({
         title: `Delete Scenario`,
@@ -133,6 +144,21 @@ export default {
           })
         }
       })
+    },
+    handleCloneScenario(data) {
+      this.SET_CLONE_HOSTS(data)
+
+      this.$router.push({
+        name: 'create-scenarios',
+      })
+
+      // this.$buefy.modal.open({
+      //   component: CloneModal,
+      //   hasModalCard: true,
+      //   props: {
+      //     data: data,
+      //   },
+      // })
     },
     detailScenario(data) {
       this.$router.push({

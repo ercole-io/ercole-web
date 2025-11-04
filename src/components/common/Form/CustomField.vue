@@ -2,6 +2,7 @@
   <b-field
     :label="label"
     :label-position="labelPosition"
+    :type="labelType"
     custom-class="is-small"
   >
     <slot />
@@ -18,7 +19,11 @@ export default {
     },
     labelPosition: {
       type: String,
-      default: 'inside',
+      default: '',
+    },
+    labelType: {
+      type: String,
+      default: '',
     },
   },
 }

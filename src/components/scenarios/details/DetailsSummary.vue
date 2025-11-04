@@ -1,5 +1,5 @@
 <template>
-  <section class="p-3">
+  <section class="pl-3 pr-3 pt-0 pb-5">
     <p class="has-text-weight-medium">Created Scenario Summary</p>
     <div v-if="isLoading">
       <GhostLoading :isLoading="isLoading" setHeight="166" />

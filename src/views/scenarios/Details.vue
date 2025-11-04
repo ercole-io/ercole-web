@@ -1,13 +1,34 @@
 <template>
   <BoxContent
-    :title="`${getCurrentScenario.name} - ${getDateTime(
-      getCurrentScenario.createdAt
-    )} - ${getCurrentScenario.location}`"
+    :title="`Scenario: ${getCurrentScenario.name}`"
     customStyleTitle="font-size: 18px; margin-bottom: 0"
     border
     hasShadow
   >
+    <template slot="customSubTitle">
+      <p class="is-size-7 ml-1 has-text-weight-medium mt-1">
+        Location:
+        <span class="has-text-weight-bold">
+          {{ getCurrentScenario.location }}
+        </span>
+        <br />
+        Created At:
+        <span class="has-text-weight-bold">
+          {{ getDateTime(getCurrentScenario.createdAt) }}
+        </span>
+      </p>
+    </template>
+
     <div slot="customTitle">
+      <b-button
+        type="is-warning is-small"
+        @click="handleCloneScenario"
+        label="Clone Scenario"
+        icon-pack="fas"
+        icon-left="clone"
+        class="mr-2"
+      />
+
       <b-button
         type="is-danger is-small"
         @click="handleDeleteScenario"
@@ -27,7 +48,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { bus } from '@/helpers/eventBus.js'
 import formatDateTime from '@/filters/formatDateTime'
 import BoxContent from '@/components/common/BoxContent.vue'
@@ -47,6 +68,7 @@ export default {
   },
   methods: {
     ...mapActions(['fetchCurrentScenario', 'deleteListScenario']),
+    ...mapMutations(['SET_CLONE_HOSTS']),
     getDateTime(date) {
       return formatDateTime(date)
     },
@@ -88,6 +110,15 @@ export default {
     listScenario() {
       this.$router.push({
         name: 'list-scenarios',
+      })
+    },
+    handleCloneScenario() {
+      const data = this.getCurrentScenario
+
+      this.SET_CLONE_HOSTS(data)
+
+      this.$router.push({
+        name: 'create-scenarios',
       })
     },
   },

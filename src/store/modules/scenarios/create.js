@@ -3,22 +3,38 @@ import { axiosRequest } from '@/services/services.js'
 
 export const state = () => ({
   hostsData: [],
+  cloneHosts: [],
 })
 
 export const getters = {
   getHostsData: (state) => {
-    const hosts = _.map(state.hostsData, (val) => {
+    const cloneHosts = state.cloneHosts.hosts || []
+    return _.map(state.hostsData, (host) => {
+      const simCoreObj = cloneHosts.find((cl) => cl.hostname === host.hostname)
+      const newCore = simCoreObj ? simCoreObj.simulatedCore : host.info.cpuCores
+
       return {
-        id: val.id,
-        hostname: val.hostname,
-        threads: val.info.cpuThreads,
-        cores: val.info.cpuCores,
-        socket: val.info.cpuSockets,
-        newCore: val.info.cpuCores,
-        location: val.location,
+        id: host.id,
+        hostname: host.hostname,
+        threads: host.info.cpuThreads,
+        cores: host.info.cpuCores,
+        socket: host.info.cpuSockets,
+        newCore,
+        location: host.location,
       }
     })
-    return hosts
+  },
+  getCloneLocation: (state) => {
+    return state.cloneHosts.location
+  },
+  getCloneHosts: (state) => {
+    return _.map(state.cloneHosts.hosts, (cl) => {
+      return {
+        hostname: cl.hostname,
+        newCore: cl.simulatedCore,
+        cores: cl.originalCore,
+      }
+    })
   },
 }
 
@@ -26,10 +42,13 @@ export const mutations = {
   SET_HOSTS_DATA: (state, payload) => {
     state.hostsData = payload
   },
+  SET_CLONE_HOSTS: (state, payload) => {
+    state.cloneHosts = payload
+  },
 }
 
 export const actions = {
-  async fetchHostsData({ commit, getters, dispatch }, location = null) {
+  async fetchHostsData({ commit, getters, dispatch }, location) {
     dispatch('onLoadingTable')
 
     const params = {

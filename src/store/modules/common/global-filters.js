@@ -57,8 +57,6 @@ export const actions = {
       url: 'hosts/technologies/all/databases/licenses/locations',
     }
     await axiosRequest('baseApi', config).then((res) => {
-      console.log(res.data)
-
       commit('SET_LOCATIONS_LICENSES', res.data)
     })
   },
