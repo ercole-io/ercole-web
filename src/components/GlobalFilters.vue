@@ -53,30 +53,33 @@
 
     <b-collapse animation="slide" :open.sync="isFiltersOpened">
       <div class="filters-form">
-        <b-field
-          :label="locationAlias"
-          class="filters-field"
-          custom-class="is-size-7"
-          horizontal
-          v-show="
-            $route.name !== 'hosts-details' && $route.name !== 'cluster-details'
-          "
-        >
-          <b-select
-            v-model="glFilters.location"
-            size="is-small"
-            :placeholder="`${$t('common.forms.select')} ${locationAlias}`"
-            expanded
+        <template v-if="isAdmin">
+          <b-field
+            :label="locationAlias"
+            class="filters-field"
+            custom-class="is-size-7"
+            horizontal
+            v-show="
+              $route.name !== 'hosts-details' &&
+              $route.name !== 'cluster-details'
+            "
           >
-            <option :value="null" v-if="glFilters.location">
-              {{ $t('common.forms.reset') }}
-              {{ $t('common.globalFilters.location') }}
-            </option>
-            <option v-for="(loc, index) in setLocations" :key="index">
-              {{ loc }}
-            </option>
-          </b-select>
-        </b-field>
+            <b-select
+              v-model="glFilters.location"
+              size="is-small"
+              :placeholder="`${$t('common.forms.select')} ${locationAlias}`"
+              expanded
+            >
+              <option :value="null" v-if="glFilters.location">
+                {{ $t('common.forms.reset') }}
+                {{ $t('common.globalFilters.location') }}
+              </option>
+              <option v-for="(loc, index) in setLocations" :key="index">
+                {{ loc }}
+              </option>
+            </b-select>
+          </b-field>
+        </template>
 
         <b-field
           :label="$t('common.globalFilters.environment')"
@@ -386,7 +389,7 @@ export default {
   },
   computed: {
     ...mapState(['globalFilters']),
-    ...mapGetters(['getActiveFilters']),
+    ...mapGetters(['getActiveFilters', 'isAdmin']),
     notShowing() {
       return (
         this.$route.name !== 'dashboard' &&
