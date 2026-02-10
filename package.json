@@ -14,7 +14,7 @@
     "@vue/vue2-jest": "^27.0.0-alpha.4",
     "animate.css": "^4.1.1",
     "apexcharts": "^4.0.0",
-    "axios": "^0.24.0",
+    "axios": "^1.13.5",
     "babel-plugin-transform-require-context": "^0.1.1",
     "buefy": "^0.9.21",
     "chart.js": "^2.9.4",
