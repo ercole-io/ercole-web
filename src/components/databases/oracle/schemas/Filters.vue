@@ -12,8 +12,8 @@
 
         <CustomField :label="$t('common.fields.name')">
           <CustomAutocomplete
-            v-model="filters.dbName"
-            :filterResult="filtereddbName"
+            v-model="filters.databaseName"
+            :filterResult="filtereddatabaseName"
             :filterMethod="setAutocompletes"
           />
         </CustomField>
@@ -84,7 +84,7 @@ export default {
   data() {
     return {
       collapses: ['General'],
-      autocompletes: ['hostname', 'dbName'],
+      autocompletes: ['hostname', 'databaseName'],
       selects: ['user', 'pdb', 'accountStatus'],
       sliders: ['total', 'tables', 'indexes', 'lob'],
     }
