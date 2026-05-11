@@ -1,5 +1,5 @@
-import { mount } from '@vue/test-utils'
 import BoxContent from '@/components/common/BoxContent.vue'
+import { mount } from '@vue/test-utils'
 
 describe('BoxContent.vue', () => {
   let wrapper
@@ -18,10 +18,6 @@ describe('BoxContent.vue', () => {
   afterEach(() => {
     wrapper.destroy()
   })
-
-  // it('is a Vue instance', () => {
-  //   expect(wrapper.isVueInstance()).toBe(true)
-  // })
 
   it('verify if component exists', () => {
     expect(wrapper.exists()).toBe(true)

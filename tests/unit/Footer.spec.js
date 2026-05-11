@@ -1,14 +1,9 @@
+import Footer from '@/components/Footer.vue'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
-import Footer from '@/components/Footer.vue'
 
 describe('Footer.vue', () => {
   it('renders the Footer component', () => {
-    const wrapper = mount(Footer)
-    expect(wrapper.exists()).toBe(true)
-  })
-
-  it('verifies if the component exists', () => {
     const wrapper = mount(Footer)
     expect(wrapper.exists()).toBe(true)
   })

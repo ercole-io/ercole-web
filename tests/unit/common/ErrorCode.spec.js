@@ -1,5 +1,5 @@
-import { mount } from '@vue/test-utils'
 import ErrorCode from '@/components/common/ErrorCode.vue'
+import { mount } from '@vue/test-utils'
 
 describe('ErrorCode.vue', () => {
   let wrapper
@@ -15,10 +15,6 @@ describe('ErrorCode.vue', () => {
       },
     })
   })
-
-  // it('is a Vue instance', () => {
-  //   expect(wrapper.isVueInstance()).toBe(true)
-  // })
 
   it('verify if component exists', () => {
     expect(wrapper.exists()).toBe(true)
@@ -37,8 +33,4 @@ describe('ErrorCode.vue', () => {
       'Test Code Descroption'
     )
   })
-
-  // it('will display content on actions slot when passed', () => {
-  //   expect(wrapper.find('.error-page').text()).toContain('Test Actions Content')
-  // })
 })

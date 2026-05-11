@@ -10,11 +10,7 @@ afterEach(() => {
   wrapper.destroy()
 })
 
-describe('Layout - Error.vue', () => {
-  // it('is a Vue instance', () => {
-  //   expect(wrapper.isVueInstance()).toBe(true)
-  // })
-
+describe('Layout - Default.vue', () => {
   it('verify if component exists', () => {
     expect(wrapper.exists()).toBe(true)
   })

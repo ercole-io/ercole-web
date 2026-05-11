@@ -1,6 +1,6 @@
-import Vue from 'vue'
-import { mount } from '@vue/test-utils'
 import ExportButton from '@/components/common/ExportButton.vue'
+import { mount } from '@vue/test-utils'
+import Vue from 'vue'
 
 Vue.config.ignoredElements = ['b-button']
 
@@ -16,10 +16,6 @@ describe('ExportButton.vue', () => {
     })
   })
 
-  // it('is a Vue instance', () => {
-  //   expect(wrapper.isVueInstance()).toBe(true)
-  // })
-
   it('verify if component exists', () => {
     expect(wrapper.exists()).toBe(true)
   })
@@ -29,11 +25,4 @@ describe('ExportButton.vue', () => {
       'Export Button Text'
     )
   })
-
-  // it('will call export method when button clicked', async () => {
-  //   wrapper.setMethods({ exportData: jest.fn() })
-  //   wrapper.find('[data-export-button]').trigger('click')
-
-  //   expect(wrapper.vm.exportData).toHaveBeenCalled()
-  // })
 })

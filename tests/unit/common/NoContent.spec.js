@@ -1,5 +1,5 @@
-import { mount } from '@vue/test-utils'
 import NoContent from '@/components/common/NoContent.vue'
+import { mount } from '@vue/test-utils'
 
 describe('NoContent.vue', () => {
   let wrapper
@@ -9,8 +9,8 @@ describe('NoContent.vue', () => {
     expect(wrapper.exists()).toBe(true)
   })
 
-  it.skip('will show no content text when passed', () => {
-    wrapper = mount(NoContent, {
+  it('will show no content text when passed', () => {
+    const wrapper = mount(NoContent, {
       propsData: {
         noContentText: 'Test no content text',
       },
