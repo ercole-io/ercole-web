@@ -1,23 +1,22 @@
-import _ from 'lodash'
-import axios from 'axios'
-import { axiosRequest } from '@/services/services.js'
+import setCapacityByOsData from '@/helpers/hostDetails/capacity/capacityByOs.js'
+import { resolveCapacityDaily } from '@/helpers/hostDetails/databases/oracle.js'
 import {
-  getNotificationsByType,
   getHostInfo,
   getHostType,
-  mountCpuUsageChart,
+  getNotificationsByType,
   mapHostDatabases,
+  mountCpuUsageChart,
 } from '@/helpers/hostDetails/hostDetails.js'
 import { removeDashFromMsDesc } from '@/helpers/licenses.js'
-import { resolveCapacityDaily } from '@/helpers/hostDetails/databases/oracle.js'
-import setCapacityByOsData from '@/helpers/hostDetails/capacity/capacityByOs.js'
+import { axiosRequest } from '@/services/services.js'
+import _ from 'lodash'
 
 // filter options
-import { filterOptionsOracle } from '@/helpers/hostDetails/filterOptions/oracle.js'
-import { filterOptionsMysql } from '@/helpers/hostDetails/filterOptions/mysql.js'
 import { filterOptionsMicrosft } from '@/helpers/hostDetails/filterOptions/microsoft.js'
-import { filterOptionsPostgreSql } from '@/helpers/hostDetails/filterOptions/postgresql.js'
 import { filterOptionsMongoDb } from '@/helpers/hostDetails/filterOptions/mongodb.js'
+import { filterOptionsMysql } from '@/helpers/hostDetails/filterOptions/mysql.js'
+import { filterOptionsOracle } from '@/helpers/hostDetails/filterOptions/oracle.js'
+import { filterOptionsPostgreSql } from '@/helpers/hostDetails/filterOptions/postgresql.js'
 
 export const state = () => ({
   currentHost: {},
@@ -254,81 +253,97 @@ export const actions = {
     const url = `hosts/${payload.hostname}`
     const endPoints = [url, `${url}/technologies/all/databases/licenses-used`]
 
-    await Promise.all(
-      endPoints.map((endpoint) =>
-        axiosRequest('baseApi', {
-          method: 'get',
-          url: endpoint,
-          params: {
-            'older-than': getters.getActiveFilters.date,
-          },
-        })
+    try {
+      const allData = await Promise.all(
+        endPoints.map((endpoint) =>
+          axiosRequest('baseApi', {
+            method: 'get',
+            url: endpoint,
+            params: {
+              'older-than': getters.getActiveFilters.date,
+            },
+          })
+        )
       )
-    )
-      .then(
-        axios.spread((...allData) => {
-          const hostType = allData[0].data.technology
-          const hostDatabases = allData[0].data.features
 
-          const { cpuConsumptions, diskConsumptions } = allData[0].data
-          const capacityOsData = _.concat(cpuConsumptions, diskConsumptions)
+      const hostData = allData[0].data
+      const hostType = hostData.technology
+      const hostDatabases = hostData.features
 
-          const capacityOS = setCapacityByOsData(capacityOsData)
-          const capacityDailyOS = resolveCapacityDaily(capacityOsData)
+      const { cpuConsumptions, diskConsumptions } = hostData
+      const capacityOsData = _.concat(cpuConsumptions, diskConsumptions)
 
-          commit('SET_CURRENT_HOST', allData[0].data)
-          commit('SET_CURRENT_HOST_TYPE', getHostType(hostType))
-          commit('SET_HOST_DB_LICENSES', allData[1].data.usedLicenses)
+      const capacityOS = setCapacityByOsData(capacityOsData)
+      const capacityDailyOS = resolveCapacityDaily(capacityOsData)
 
-          commit('SET_CURRENT_HOST_DETAILS_CAPACITY_BY_OS', capacityOS)
-          commit(
-            'SET_CURRENT_HOST_DETAILS_CAPACITY_DAILY_BY_OS',
-            capacityDailyOS
+      commit('SET_CURRENT_HOST', hostData)
+      commit('SET_CURRENT_HOST_TYPE', getHostType(hostType))
+      commit('SET_HOST_DB_LICENSES', allData[1].data.usedLicenses)
+
+      commit('SET_CURRENT_HOST_DETAILS_CAPACITY_BY_OS', capacityOS)
+      commit('SET_CURRENT_HOST_DETAILS_CAPACITY_DAILY_BY_OS', capacityDailyOS)
+
+      const extraData = {
+        licenses: (dbName) => getters.getCurrentHostDbLicenses(dbName),
+      }
+
+      const type = getters.currentHostType
+      let getDatabases = []
+
+      dispatch('hostMissingDatabases', payload.hostname)
+
+      if (hostDatabases) {
+        if (type === 'oracle') {
+          const oracle = _.get(hostDatabases, 'oracle.database.databases', [])
+          getDatabases = oracle.length
+            ? mapHostDatabases(oracle, extraData, type)
+            : []
+        } else if (type === 'mysql') {
+          const mysql = _.get(hostDatabases, 'mysql.instances', [])
+          getDatabases = mysql.length
+            ? mapHostDatabases(mysql, extraData, type)
+            : []
+        } else if (type === 'microsoft') {
+          const microsoft = _.get(
+            hostDatabases,
+            'microsoft.sqlServer.instances',
+            []
           )
-
-          return hostDatabases
-        })
-      )
-      .then((databases) => {
-        if (databases) {
-          const extraData = {
-            licenses: (dbName) => getters.getCurrentHostDbLicenses(dbName),
-          }
-
-          const type = getters.currentHostType
-          let getDatabases = []
-
-          dispatch('hostMissingDatabases', payload.hostname)
-
-          if (type === 'oracle') {
-            const oracle = databases.oracle.database.databases
-            getDatabases = mapHostDatabases(oracle, extraData, type)
-          } else if (type === 'mysql') {
-            const mysql = databases.mysql.instances
-            getDatabases = mapHostDatabases(mysql, extraData, type)
-          } else if (type === 'microsoft') {
-            const microsoft = databases.microsoft.sqlServer.instances
-            extraData.patches = databases.microsoft.sqlServer.patches
-            extraData.features = databases.microsoft.sqlServer.features
-            getDatabases = mapHostDatabases(microsoft, extraData, type)
-          } else if (type === 'postgresql') {
-            const postgresql = databases.postgresql.instances
-            getDatabases = mapHostDatabases(postgresql, extraData, type)
-          } else if (type === 'mongodb') {
-            const mongodb = databases.mongodb.instances
-            getDatabases = mapHostDatabases(mongodb, extraData, type)
-          }
-          commit('SET_CURRENT_HOST_DATABASES', getDatabases)
-        } else {
-          commit('SET_CURRENT_HOST_DATABASES', [])
+          extraData.patches = _.get(
+            hostDatabases,
+            'microsoft.sqlServer.patches'
+          )
+          extraData.features = _.get(
+            hostDatabases,
+            'microsoft.sqlServer.features'
+          )
+          getDatabases = microsoft.length
+            ? mapHostDatabases(microsoft, extraData, type)
+            : []
+        } else if (type === 'postgresql') {
+          const postgresql = _.get(hostDatabases, 'postgresql.instances', [])
+          getDatabases = postgresql.length
+            ? mapHostDatabases(postgresql, extraData, type)
+            : []
+        } else if (type === 'mongodb') {
+          const mongodb = _.get(hostDatabases, 'mongodb.instances', [])
+          getDatabases = mongodb.length
+            ? mapHostDatabases(mongodb, extraData, type)
+            : []
         }
-      })
-      .then(() => {
-        if (getters.currentHostType === 'oracle') {
-          dispatch('getPdbsByHostDbGrothData', payload.hostname)
-        }
-      })
-      .then(() => dispatch('offLoadingTable'))
+      }
+
+      commit('SET_CURRENT_HOST_DATABASES', getDatabases)
+
+      if (getters.currentHostType === 'oracle') {
+        dispatch('getPdbsByHostDbGrothData', payload.hostname)
+      }
+    } catch (error) {
+      commit('SET_CURRENT_HOST_DATABASES', [])
+      throw error
+    } finally {
+      dispatch('offLoadingTable')
+    }
   },
   async hostMissingDatabases({ commit }, hostname) {
     const config = {
