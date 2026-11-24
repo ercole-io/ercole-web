@@ -184,6 +184,7 @@ local task_build_push_image(push) =
             },
             { type: 'run', command: '. /tmp/variables && mv ercole-web-${VERSION}-1.noarch.rpm /tmp/dist/ercole-web-${VERSION}-1.el8.noarch.rpm' },
             { type: 'run', command: '. /tmp/variables && cp /tmp/dist/ercole-web-${VERSION}-1.el8.noarch.rpm /tmp/dist/ercole-web-${VERSION}-1.el7.noarch.rpm' },
+            { type: 'run', command: '. /tmp/variables && cp /tmp/dist/ercole-web-${VERSION}-1.el8.noarch.rpm /tmp/dist/ercole-web-${VERSION}-1.el9.noarch.rpm' },
             { type: 'save_to_workspace', contents: [{ source_dir: '/tmp/dist', dest_dir: '/pkg/', paths: ['**'] }] },
           ],
           depends: ['checkout code'],
