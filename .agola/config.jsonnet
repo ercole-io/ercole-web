@@ -166,7 +166,7 @@ local task_build_push_image(push) =
             },
             //TODO { type: 'restore_cache', keys: ['cache-apt-date-'], dest_dir: '/var/cache/apt/archives/' },
             //TODO { type: 'save_cache', key: 'cache-apt-date-{{ year }}-{{ month }}-{{ day }}', contents: [{ source_dir: '/var/cache/apt/archives/' }] },
-            { type: 'run', command: 'sed -i "s|deb.debian.org/debian-security|archive.debian.org/debian-security|g" /etc/apt/sources.list' },
+            { type: 'run', command: 'sed -i "s|deb.debian.org/debian-security|archive.debian.org/debian-security|g; s|security.debian.org/debian-security|archive.debian.org/debian-security|g" /etc/apt/sources.list /etc/apt/sources.list.d/*.list 2>/dev/null || true' },
             { type: 'run', command: 'apt update' },
             { type: 'run', command: 'apt install rpm --yes' },
             { type: 'run', command: 'mkdir -p /tmp/dist' },
